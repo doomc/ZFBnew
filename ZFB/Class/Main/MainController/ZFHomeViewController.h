@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface ZFHomeViewController : BaseViewController
+@interface ZFHomeViewController : UIViewController
 
 @end

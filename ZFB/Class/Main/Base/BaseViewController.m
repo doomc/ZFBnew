@@ -25,6 +25,8 @@
     
     if (isIOS7) {
         self.automaticallyAdjustsScrollViewInsets = NO;
+        self.navigationController.navigationBar.translucent = NO;
+        self.navigationController.navigationBar.barTintColor = [UIColor redColor];
     }
     self.view.backgroundColor = [UIColor  whiteColor];
     //导航栏返回 按钮 打开注释掉的代码正常使用

@@ -18,6 +18,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor =  randomColor;
+    
+    
+    UIButton * login =[UIButton buttonWithType:UIButtonTypeSystem];
+    [login  setTitle:@"马上去登录" forState:UIControlStateNormal];
+    [self.view addSubview:login];
+    
+    [login addTarget:self action:@selector(login_action) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+-(void)login_action
+{
+    
 }
 
 - (void)didReceiveMemoryWarning {

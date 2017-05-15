@@ -7,7 +7,7 @@
 //
 
 #import "ForgetPSViewController.h"
-
+#import "ZYFVerificationCodeViewController.h"
 @interface ForgetPSViewController ()
 
 @end
@@ -17,6 +17,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+/**
+  点击下一步验证
+ @param sender <#sender description#>
+ */
+- (IBAction)goto_NextPage:(id)sender {
+    
+    ZYFVerificationCodeViewController * verificationVC = [[ZYFVerificationCodeViewController alloc]init];
+    [self.navigationController pushViewController:verificationVC animated:YES];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
