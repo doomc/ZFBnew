@@ -84,6 +84,16 @@
     
 }
 
+-(void)popToViewControllerWithName:(NSString *)name {
+    
+    for (UIViewController *vc in self.navigationController.viewControllers) {
+        NSString *vcString = NSStringFromClass([vc class]);
+        if ([vcString isEqualToString:name]) {
+          
+            [self.navigationController popToViewController:vc animated:YES];
+        }
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

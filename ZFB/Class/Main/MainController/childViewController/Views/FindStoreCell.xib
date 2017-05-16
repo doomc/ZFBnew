@@ -79,7 +79,7 @@
                 <outlet property="store_listTitle" destination="8yY-5g-5MR" id="cKO-gh-Mlp"/>
                 <outlet property="store_listView" destination="4O3-QZ-Rbs" id="ROF-pf-10F"/>
             </connections>
-            <point key="canvasLocation" x="-328" y="115"/>
+            <point key="canvasLocation" x="-428" y="43"/>
         </view>
     </objects>
     <resources>

@@ -86,8 +86,6 @@
 		49ABA4251ECAC5CC00E7EB20 /* 42.png in Resources */ = {isa = PBXBuildFile; fileRef = 49ABA4241ECAC5CC00E7EB20 /* 42.png */; };
 		49ABA4291ECAE97F00E7EB20 /* ResetPassWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABA4271ECAE97F00E7EB20 /* ResetPassWViewController.m */; };
 		49ABA42A1ECAE97F00E7EB20 /* ResetPassWViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49ABA4281ECAE97F00E7EB20 /* ResetPassWViewController.xib */; };
-		49ABA42F1ECAFFC100E7EB20 /* ZFMyHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABA42D1ECAFFC100E7EB20 /* ZFMyHeaderCell.m */; };
-		49ABA4301ECAFFC100E7EB20 /* ZFMyHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49ABA42E1ECAFFC100E7EB20 /* ZFMyHeaderCell.xib */; };
 		49ABA4341ECB000100E7EB20 /* ZFMyCashBagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABA4321ECB000100E7EB20 /* ZFMyCashBagCell.m */; };
 		49ABA4351ECB000100E7EB20 /* ZFMyCashBagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49ABA4331ECB000100E7EB20 /* ZFMyCashBagCell.xib */; };
 		49ABA4391ECB001900E7EB20 /* ZFMyProgressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABA4371ECB001900E7EB20 /* ZFMyProgressCell.m */; };
@@ -107,6 +105,8 @@
 		49E757891EC96E9100220B28 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E757801EC96E9100220B28 /* SDCollectionViewCell.m */; };
 		49E7578A1EC96E9100220B28 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E757821EC96E9100220B28 /* SDCycleScrollView.m */; };
 		49E7578B1EC96E9100220B28 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E757841EC96E9100220B28 /* UIView+SDExtension.m */; };
+		50DAA9471ECB4C0400844575 /* ZFHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DAA9461ECB4C0400844575 /* ZFHeaderView.m */; };
+		50DAA9491ECB4C1900844575 /* ZFHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50DAA9481ECB4C1900844575 /* ZFHeaderView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -279,9 +279,6 @@
 		49ABA4261ECAE97F00E7EB20 /* ResetPassWViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPassWViewController.h; sourceTree = "<group>"; };
 		49ABA4271ECAE97F00E7EB20 /* ResetPassWViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPassWViewController.m; sourceTree = "<group>"; };
 		49ABA4281ECAE97F00E7EB20 /* ResetPassWViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPassWViewController.xib; sourceTree = "<group>"; };
-		49ABA42C1ECAFFC100E7EB20 /* ZFMyHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFMyHeaderCell.h; sourceTree = "<group>"; };
-		49ABA42D1ECAFFC100E7EB20 /* ZFMyHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFMyHeaderCell.m; sourceTree = "<group>"; };
-		49ABA42E1ECAFFC100E7EB20 /* ZFMyHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFMyHeaderCell.xib; sourceTree = "<group>"; };
 		49ABA4311ECB000100E7EB20 /* ZFMyCashBagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFMyCashBagCell.h; sourceTree = "<group>"; };
 		49ABA4321ECB000100E7EB20 /* ZFMyCashBagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFMyCashBagCell.m; sourceTree = "<group>"; };
 		49ABA4331ECB000100E7EB20 /* ZFMyCashBagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFMyCashBagCell.xib; sourceTree = "<group>"; };
@@ -319,6 +316,9 @@
 		49E757841EC96E9100220B28 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		49E7578C1EC96EF600220B28 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		49E7578E1EC971B800220B28 /* ZFB_Urls.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZFB_Urls.h; sourceTree = "<group>"; };
+		50DAA9451ECB4C0400844575 /* ZFHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFHeaderView.h; sourceTree = "<group>"; };
+		50DAA9461ECB4C0400844575 /* ZFHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFHeaderView.m; sourceTree = "<group>"; };
+		50DAA9481ECB4C1900844575 /* ZFHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFHeaderView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -809,9 +809,6 @@
 		49ABA42B1ECAFF2300E7EB20 /* childViews */ = {
 			isa = PBXGroup;
 			children = (
-				49ABA42C1ECAFFC100E7EB20 /* ZFMyHeaderCell.h */,
-				49ABA42D1ECAFFC100E7EB20 /* ZFMyHeaderCell.m */,
-				49ABA42E1ECAFFC100E7EB20 /* ZFMyHeaderCell.xib */,
 				49ABA4311ECB000100E7EB20 /* ZFMyCashBagCell.h */,
 				49ABA4321ECB000100E7EB20 /* ZFMyCashBagCell.m */,
 				49ABA4331ECB000100E7EB20 /* ZFMyCashBagCell.xib */,
@@ -825,6 +822,9 @@
 				49ABA4411ECB015000E7EB20 /* ZFMySendServiceCell.m */,
 				49ABA4431ECB019700E7EB20 /* ZFMyOpinionCell.h */,
 				49ABA4441ECB019700E7EB20 /* ZFMyOpinionCell.m */,
+				50DAA9451ECB4C0400844575 /* ZFHeaderView.h */,
+				50DAA9461ECB4C0400844575 /* ZFHeaderView.m */,
+				50DAA9481ECB4C1900844575 /* ZFHeaderView.xib */,
 			);
 			path = childViews;
 			sourceTree = "<group>";
@@ -991,9 +991,9 @@
 				492752221EC44DFC003C22D0 /* Main.storyboard in Resources */,
 				49ABA43F1ECB00CD00E7EB20 /* ZFMyOderCell.xib in Resources */,
 				49ABA4251ECAC5CC00E7EB20 /* 42.png in Resources */,
+				50DAA9491ECB4C1900844575 /* ZFHeaderView.xib in Resources */,
 				49ABA42A1ECAE97F00E7EB20 /* ResetPassWViewController.xib in Resources */,
 				49ABA43A1ECB001900E7EB20 /* ZFMyProgressCell.xib in Resources */,
-				49ABA4301ECAFFC100E7EB20 /* ZFMyHeaderCell.xib in Resources */,
 				492757521EC4679E003C22D0 /* MJRefresh.bundle in Resources */,
 				492756B31EC4679E003C22D0 /* addressData.plist in Resources */,
 				49ABA4351ECB000100E7EB20 /* ZFMyCashBagCell.xib in Resources */,
@@ -1052,6 +1052,7 @@
 				49ABA4291ECAE97F00E7EB20 /* ResetPassWViewController.m in Sources */,
 				49E757711EC9468500220B28 /* FinGoodsViewController.m in Sources */,
 				492757391EC4679E003C22D0 /* BaseTabbarController.m in Sources */,
+				50DAA9471ECB4C0400844575 /* ZFHeaderView.m in Sources */,
 				4927574C1EC4679E003C22D0 /* MJRefreshBackGifFooter.m in Sources */,
 				49E7578A1EC96E9100220B28 /* SDCycleScrollView.m in Sources */,
 				49E757881EC96E9100220B28 /* TAPageControl.m in Sources */,
@@ -1084,7 +1085,6 @@
 				49A941F31EC988F700153B47 /* UIView+WebCacheOperation.m in Sources */,
 				492756B41EC4679E003C22D0 /* AddressPickerView.m in Sources */,
 				4927574F1EC4679E003C22D0 /* MJRefreshGifHeader.m in Sources */,
-				49ABA42F1ECAFFC100E7EB20 /* ZFMyHeaderCell.m in Sources */,
 				4927574E1EC4679E003C22D0 /* MJRefreshBackStateFooter.m in Sources */,
 				49E7576E1EC9466B00220B28 /* FindStoreViewController.m in Sources */,
 				49ABA4451ECB019700E7EB20 /* ZFMyOpinionCell.m in Sources */,
@@ -1250,7 +1250,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zfb.ZFB;
@@ -1263,7 +1263,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zfb.ZFB;

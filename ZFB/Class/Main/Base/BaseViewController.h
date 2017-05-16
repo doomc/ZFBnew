@@ -14,4 +14,6 @@
 
 -(void)setCustomerTitle:(NSString *)title;
 
+-(void)popToViewControllerWithName:(NSString *)name ;
+
 @end
