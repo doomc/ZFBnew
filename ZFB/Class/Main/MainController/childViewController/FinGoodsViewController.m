@@ -11,11 +11,14 @@
 #import "ZFMainListCell.h"
 #import "HotTableViewCell.h"
 #import "HotCollectionViewCell.h"
+#import "GuessCell.h"
 
 typedef NS_ENUM(NSUInteger, CellType) {
-    CellTypeWithFindStoreCell, //cell Type
+    
+    CellTypeWithMainListCell,//功能cell 0
     CellTypeWithHotTableViewCell,
-    CellTypeWithMainListCell
+    CellTypeWithGuessCell,
+    
 };
 @interface FinGoodsViewController ()
 <
@@ -40,44 +43,13 @@ UITableViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-   
+    
     [self initWithFindGoods_TableView];
-
+    
     [self CDsyceleSettingRunningPaint];
     
     
-    
 }
--(void)CreatCollectionViewFlowLayout
-{
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
-    //确定item的大小
-    layout.itemSize = CGSizeMake(89, 95);
-    
-    //确定横向间距
-    layout.minimumLineSpacing = 10;
-    
-    //确定纵向间距
-    layout.minimumInteritemSpacing = 10;
-    
-    //确定距离上左下右的距离
-    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    
-    //头尾部高度
-    layout.headerReferenceSize = CGSizeMake(10, 10);
-    layout.footerReferenceSize = CGSizeMake(10, 10);
-    
-    //确定滚动方向
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    
-    //设置集合视图代理
-    self.collectView.delegate = self;
-    self.collectView.dataSource = self;
-    
-   // [self addSubview:self.collectView];
-}
-
 
 /**
  初始化home_tableView
@@ -90,10 +62,11 @@ UITableViewDelegate
     self.findGoods_TableView.dataSource = self;
     [self.view addSubview:_findGoods_TableView];
     
-    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"FindStoreCell" bundle:nil] forCellReuseIdentifier:@"FindStoreCell"];
+    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil] forCellReuseIdentifier:@"GuessCell"];
     [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"ZFMainListCell" bundle:nil] forCellReuseIdentifier:@"ZFMainListCell"];
+    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"HotTableViewCell" bundle:nil] forCellReuseIdentifier:@"HotTableViewCell"];
     
-
+    
 }
 
 /**
@@ -109,7 +82,7 @@ UITableViewDelegate
  */
 -(void)CDsyceleSettingRunningPaint
 {
-  
+    
     self.title = @"轮播Demo";
     // 情景二：采用网络图片实现
     NSArray *imagesURLStrings = @[
@@ -117,18 +90,13 @@ UITableViewDelegate
                                   @"https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a41eb338dd33c895a62bcb3bb72e47c2/5fdf8db1cb134954a2192ccb524e9258d1094a1e.jpg",
                                   @"http://c.hiphotos.baidu.com/image/w%3D400/sign=c2318ff84334970a4773112fa5c8d1c0/b7fd5266d0160924c1fae5ccd60735fae7cd340d.jpg"
                                   ];
-    // 图片配文字
-    NSArray *titles = @[@"感谢您的支持，如果下载的",
-                        @"如果代码在使用过程中出现问题",
-                        @"您可以发邮件到gsdios@126.com",
-                        @"感谢您的支持"
-                        ];
+\
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 150) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
     _cycleScrollView.delegate = self;
-   
+    
     //自定义dot 大小和图案
     //_cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControlCurrentDot"];
     //_cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
@@ -136,18 +104,18 @@ UITableViewDelegate
     
     _cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
     _cycleScrollView.placeholderImage = [UIImage imageNamed:@"placeholder"];
-     self.findGoods_TableView.tableHeaderView = _cycleScrollView;
-
+    self.findGoods_TableView.tableHeaderView = _cycleScrollView;
+    
 }
+
+
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     NSLog(@"---点击了第%ld张图片", (long)index);
     
-  //  [self.navigationController pushViewController:[NSClassFromString(@"DemoVCWithXib") new] animated:YES];
+    //  [self.navigationController pushViewController:[NSClassFromString(@"DemoVCWithXib") new] animated:YES];
 }
-
-
 
 
 
@@ -167,7 +135,7 @@ UITableViewDelegate
 {
     if (section == 0) {
         return 0;
-
+        
     }
     return 35;
 }
@@ -191,9 +159,9 @@ UITableViewDelegate
         [headView addSubview:logo];
         
         return headView;
-
+        
     }
-   else  if (section== 2) {
+    else  if (section== 2) {
         headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
         [headView setBackgroundColor:randomColor];
         
@@ -209,7 +177,7 @@ UITableViewDelegate
         [headView addSubview:logo2];
         return headView;
         
-  
+        
     }
     
     return headView;
@@ -217,49 +185,42 @@ UITableViewDelegate
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 ) {
-        return 145;
-
+        return 165;
     }
-    return 276/2;
+        if (indexPath.section == 1 ) {
+            return 125;
+        }
+    return  138;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cell_findStoreID = @"FindStoreCell";
+    static NSString * cell_guessID = @"GuessCell";
     static NSString * cell_listID = @"ZFMainListCell";
     static NSString * cell_hotID = @"HotTableViewCell";
     
-    FindStoreCell *storeCell = [self.findGoods_TableView  dequeueReusableCellWithIdentifier:cell_findStoreID];
-    ZFMainListCell * listCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_listID];
-    HotTableViewCell * hotCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_hotID];
+    if (indexPath.section == CellTypeWithMainListCell ) {
+        
+        ZFMainListCell * listCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_listID forIndexPath:indexPath];
+        
+        return listCell;
+        
+    }else if(indexPath.section == CellTypeWithHotTableViewCell )
+    {
+        
+        HotTableViewCell * hotCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_hotID forIndexPath:indexPath];
+      
+        //刷新cell
+       // [hotCell.HcollectionView reloadData];
     
-    
-    switch (indexPath.section) {
-        case CellTypeWithMainListCell:
-            if (!listCell) {
-                listCell  =[[ ZFMainListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cell_listID];
-            }
-            return listCell;
-            break;
-        case CellTypeWithHotTableViewCell:
-            if (!hotCell) {
-                hotCell  =[[ HotTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cell_hotID];
-            }
-            return listCell;
-            break;
-         case CellTypeWithFindStoreCell:
-            
-            if (!storeCell) {
-                
-                storeCell= [[FindStoreCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cell_findStoreID];
-                
-            }
-            
-            return storeCell;
-        default:
-            break;
+        
+        return hotCell;
+    }else{
+        
+        GuessCell *guessCell = [self.findGoods_TableView  dequeueReusableCellWithIdentifier:cell_guessID forIndexPath:indexPath];
+        
+        
+        return guessCell;
     }
-    
-    return storeCell;
     
 }
 

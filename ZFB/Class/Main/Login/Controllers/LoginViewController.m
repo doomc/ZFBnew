@@ -9,8 +9,17 @@
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
 #import "ForgetPSViewController.h"
+#import "ZFPersonalViewController.h"
 
-@interface LoginViewController ()
+
+@interface LoginViewController ()<UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UISegmentedControl * loginSegment;
+//手机号
+@property (weak, nonatomic) IBOutlet UITextField * tf_loginphone;
+//验证码 或者 密码
+@property (weak, nonatomic) IBOutlet UITextField *tf_verificationCodeOrPassWord;
+@property (weak, nonatomic) IBOutlet UIImageView *img_iconOfVerificationOrPs;
+
 
 @end
 
@@ -19,34 +28,74 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self initSegmentInterfaceAndTextfiled];
+
 }
 
+/**
+   初始化segement
+ */
+-(void)initSegmentInterfaceAndTextfiled
+{
+    self.navigationItem.title = @"登录展富宝";
+    [self.loginSegment addTarget:self action:@selector(LoginSegmentchange:) forControlEvents:UIControlEventValueChanged];
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:HEXCOLOR(0x363636),NSForegroundColorAttributeName,[UIFont fontWithName:@"AppleGothic"size:15],NSFontAttributeName ,nil];
 
+    _loginSegment.layer.masksToBounds = YES;
+    _loginSegment.layer.borderWidth =1.0;
+    _loginSegment.layer.borderColor = [UIColor whiteColor].CGColor;
+    [_loginSegment setTitleTextAttributes:dic forState:UIControlStateNormal];
 
+    //  self.LoginSegment.tintColor = HEXCOLOR(0x363636);
+
+    
+    _tf_loginphone.delegate= self;
+    _tf_verificationCodeOrPassWord.delegate = self;
+    
+}
 /**
  快速登录
-
- @param sender sender
+ 
+ @param segment  分段控制器
  */
-- (IBAction)quicl_Login:(id)sender {
+-(void)LoginSegmentchange:(UISegmentedControl *)segment
+{
+   
+    if (segment.selectedSegmentIndex == 0) {
+  
+        NSLog(@"快捷登录");
+        _tf_verificationCodeOrPassWord.placeholder = @"请输入短信验证码";
+        _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@""];
+        
+        
+    }
+    else{
+        NSLog(@"密码登录");
+        _tf_verificationCodeOrPassWord.placeholder = @"请输入登录密码";
+        _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@""];
+        
+    }
 }
 
 
-/**
- 密码登录
 
- @param sender <#sender description#>
- */
-- (IBAction)passWord_Login:(id)sender {
-}
 
 
 /**
- 登录成功
+    登录
 
- @param sender 成功指令
+ @param sender 点击登录
  */
-- (IBAction)login_Success:(id)sender {
+- (IBAction)login_Success:(UIButton *)sender {
+    
+//    ZFPersonalViewController * personVC = [[ZFPersonalViewController alloc]init];
+//    [self presentViewController:personVC animated:YES completion:^{
+//       //跳转完成后的操作
+//    }];
+//    
+    NSLog(@"登录成功");
+    
 }
 
 
@@ -54,7 +103,7 @@
 /**
  忘记密码
 
- @param sender <#sender description#>
+ @param sender push到忘记密码页面
  */
 - (IBAction)forgot_PassWord:(id)sender {
     
@@ -67,7 +116,7 @@
 /**
  去注册
 
- @param sender <#sender description#>
+ @param sender push到注册页面
  */
 - (IBAction)goto_Regist:(id)sender {
     

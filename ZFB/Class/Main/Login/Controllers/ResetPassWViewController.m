@@ -1,37 +1,27 @@
 //
-//  RegisterViewController.m
+//  ResetPassWViewController.m
 //  ZFB
 //
-//  Created by  展富宝  on 2017/5/12.
+//  Created by  展富宝  on 2017/5/16.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
-#import "RegisterViewController.h"
-#import "ZYFVerificationCodeViewController.h"
+#import "ResetPassWViewController.h"
 
-@interface RegisterViewController ()
+@interface ResetPassWViewController ()
 
 @end
 
-@implementation RegisterViewController
+@implementation ResetPassWViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
-
-
-/**
-   注册 下一步
- @param sender 立即去注册
- */
-- (IBAction)goToRegisterAcount:(id)sender {
-    
-    ZYFVerificationCodeViewController * verificationVC = [[ZYFVerificationCodeViewController alloc]init];
-    [self.navigationController pushViewController:verificationVC animated:YES];
-    
-    
+//确认重置密码
+- (IBAction)sureReset_btn:(id)sender {
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

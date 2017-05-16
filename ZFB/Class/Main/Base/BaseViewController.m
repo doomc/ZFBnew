@@ -26,7 +26,12 @@
     if (isIOS7) {
         self.automaticallyAdjustsScrollViewInsets = NO;
         self.navigationController.navigationBar.translucent = NO;
-        self.navigationController.navigationBar.barTintColor = [UIColor redColor];
+        self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xfe6d6a);
+ 
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+
+
+
     }
     self.view.backgroundColor = [UIColor  whiteColor];
     //导航栏返回 按钮 打开注释掉的代码正常使用
@@ -58,15 +63,15 @@
 
 - (void)backSweepGesture:(UISwipeGestureRecognizer*)gesture{
     
-    [self dismissViewControllerAnimated:YES completion:nil];
-    //    [self.navigationController popViewControllerAnimated:YES];
+   // [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark Action
 - (void)backAction{
     
     
-    [self dismissViewControllerAnimated:YES completion:nil];
-    //    [self.navigationController popViewControllerAnimated:YES];
+   // [self dismissViewControllerAnimated:YES completion:nil];
+      [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)setCustomerTitle:(NSString *)title{

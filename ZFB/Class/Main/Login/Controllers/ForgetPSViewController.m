@@ -7,7 +7,8 @@
 //
 
 #import "ForgetPSViewController.h"
-#import "ZYFVerificationCodeViewController.h"
+#import "ResetPassWViewController.h"
+
 @interface ForgetPSViewController ()
 
 @end
@@ -20,16 +21,16 @@
 }
 
 /**
-  点击下一步验证
- @param sender <#sender description#>
+   下一步
+
+ @param sender 重置密码下一步
  */
-- (IBAction)goto_NextPage:(id)sender {
-    
-    ZYFVerificationCodeViewController * verificationVC = [[ZYFVerificationCodeViewController alloc]init];
-    [self.navigationController pushViewController:verificationVC animated:YES];
-    
+- (IBAction)goToResetPageView:(id)sender {
+    ResetPassWViewController * resetVc= [[ResetPassWViewController alloc]init];
+    [self.navigationController pushViewController:resetVc animated:YES];
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -8,7 +8,9 @@
 
 #import "ZFPersonalViewController.h"
 
-@interface ZFPersonalViewController ()
+@interface ZFPersonalViewController ()<UITableViewDelegate,UITableViewDataSource>
+@property(nonatomic,strong)UITableView * myTableView;
+@property(nonatomic,strong)UIView * myHeaderView;
 
 @end
 
@@ -18,7 +20,24 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor =  randomColor;
+    
+    
 }
+
+-(void)initmyTableViewInterface
+{
+    self.myTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH) style:UITableViewStylePlain];
+    self.myTableView.delegate = self;
+    self.myTableView.dataSource = self;
+    [self.view addSubview:_myTableView];
+    
+    
+    
+  
+    
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

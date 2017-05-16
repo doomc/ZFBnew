@@ -8,6 +8,7 @@
 
 
 #import "ZFShoppingCarViewController.h"
+#import "LoginViewController.h"
 
 @interface ZFShoppingCarViewController ()
 
@@ -23,6 +24,7 @@
     
     UIButton * login =[UIButton buttonWithType:UIButtonTypeSystem];
     [login  setTitle:@"马上去登录" forState:UIControlStateNormal];
+    login.frame =CGRectMake(100, 100, 100, 100);
     [self.view addSubview:login];
     
     [login addTarget:self action:@selector(login_action) forControlEvents:UIControlEventTouchUpInside];
@@ -30,8 +32,11 @@
 }
 -(void)login_action
 {
+    LoginViewController * logvc = [[LoginViewController alloc]init];
+    [self.navigationController pushViewController:logvc animated:YES];
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
