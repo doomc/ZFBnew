@@ -17,6 +17,7 @@
 
     self.HcollectionView.dataSource =self;
     self.HcollectionView.delegate = self;
+    
     [self.HcollectionView registerNib:[UINib nibWithNibName:@"HotCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"HotCollectionViewCellid"];
 }
 
@@ -50,7 +51,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    return CGSizeMake(89,95);
+    return CGSizeMake((KScreenW - 50)*0.3333,95);
 }
 // 设置整个组的缩进量是多少
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

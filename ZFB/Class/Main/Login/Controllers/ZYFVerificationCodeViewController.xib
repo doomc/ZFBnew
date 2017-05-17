@@ -20,13 +20,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="短信验证码已发送到手机号为136 5521 3333" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gus-9x-q1c">
-                    <rect key="frame" x="55.5" y="30" width="264" height="16"/>
+                    <rect key="frame" x="55.5" y="94" width="264" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ut-g7-AVh">
-                    <rect key="frame" x="30" y="66" width="315" height="40"/>
+                    <rect key="frame" x="30" y="130" width="315" height="40"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GT4-oB-0Dy">
                             <rect key="frame" x="5" y="5" width="21" height="28"/>
@@ -75,7 +75,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hpM-CT-on3">
-                    <rect key="frame" x="30" y="126" width="315" height="40"/>
+                    <rect key="frame" x="30" y="190" width="315" height="40"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0UA-kr-FGq">
                             <rect key="frame" x="5" y="5" width="21" height="28"/>
@@ -115,7 +115,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3a-fl-DXJ">
-                    <rect key="frame" x="30" y="212" width="315" height="40"/>
+                    <rect key="frame" x="30" y="276" width="315" height="40"/>
                     <color key="backgroundColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="40O-fd-mby"/>
@@ -130,7 +130,7 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8-16位字母、数字或组合，区分大小写" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5v-j3-FT7">
-                    <rect key="frame" x="74" y="176" width="228" height="16"/>
+                    <rect key="frame" x="74" y="240" width="228" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -139,7 +139,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="g3a-fl-DXJ" secondAttribute="trailing" constant="30" id="4vM-3j-2EB"/>
-                <constraint firstItem="gus-9x-q1c" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="5KF-yq-wMV"/>
+                <constraint firstItem="gus-9x-q1c" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="94" id="5KF-yq-wMV"/>
                 <constraint firstItem="hpM-CT-on3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="Dhe-cS-v6E"/>
                 <constraint firstItem="g3a-fl-DXJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="H1F-f4-UAD"/>
                 <constraint firstItem="d5v-j3-FT7" firstAttribute="top" secondItem="hpM-CT-on3" secondAttribute="bottom" constant="10" id="NTZ-nX-FSA"/>

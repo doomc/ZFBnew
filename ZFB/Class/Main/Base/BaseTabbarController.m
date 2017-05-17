@@ -80,17 +80,16 @@
     
     
 }
-//- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-//    
-//    NSLog(@"item name = %@", item.title);
-//    
-//    
-//    
-//    if([item.title isEqualToString:@"发现"])
-//    {
-//        // 也可以判断标题,然后做自己想做的事
-//    }
-//}
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
+    
+    NSLog(@"item name = %@", item.title);
+
+    if([item.title isEqualToString:@"我的"])
+    {
+        // 也可以判断标题,然后做自己想做的事
+    }
+}
+
 
 
 - (void)didReceiveMemoryWarning {

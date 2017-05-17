@@ -68,6 +68,9 @@
                     <constraint firstItem="oKm-bh-kSm" firstAttribute="top" secondItem="Phn-X2-hWH" secondAttribute="bottom" constant="10" id="ziw-NO-pUp"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="guess_listView" destination="emD-mM-3dI" id="NLg-99-t9X"/>
+            </connections>
             <point key="canvasLocation" x="-44.5" y="95"/>
         </tableViewCell>
     </objects>

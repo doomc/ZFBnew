@@ -91,10 +91,10 @@
 #warning -----  不走 poptoView 方法为什么？
 
     //方法一
-    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:0] animated:YES];
+  //  [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:0] animated:YES];
     //方法2：
-//    [self  popToViewControllerWithName:@"ZFPersonalViewController"];
-//    
+    [self  popToViewControllerWithName:@"ZFPersonalViewController"];
+    
 //    for (UIViewController *controller in self.navigationController.viewControllers) {
 //        
 //        if ([controller isKindOfClass:[ZFPersonalViewController class]]) {

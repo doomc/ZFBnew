@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface HotCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *img_listImgView;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
 
 @end

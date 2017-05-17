@@ -10,6 +10,8 @@
 #import "DetailStoreViewController.h"
 #import "SDCycleScrollView.h"
 #import "ZFDetailStoreCell.h"
+#import "ControlFactory.h"
+
 @interface DetailStoreViewController ()<SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property(nonatomic,strong)SDCycleScrollView * sd_HeadScrollView;
 @property(nonatomic,strong)UICollectionReusableView * tempView;
@@ -27,9 +29,16 @@
     
     [self CreatCollctionViewInterface];
     [self CDsyceleSettingRunningPaint];
+    UIBarButtonItem * rightBar = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"share_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(pushNext)];
+    self.navigationItem.rightBarButtonItem = rightBar;
     
- }
-
+    
+ 
+}
+-(void)pushNext
+{
+    
+}
 /**
  初始化轮播
  */
@@ -44,14 +53,14 @@
                                   ];
     \
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
-    _sd_HeadScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 310/2) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    _sd_HeadScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 310*0.5) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     _sd_HeadScrollView.imageURLStringsGroup = imagesURLStrings;
     _sd_HeadScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
     _sd_HeadScrollView.delegate = self;
     
     //自定义dot 大小和图案
-    //_cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControlCurrentDot"];
-    //_cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
+    _sd_HeadScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
+    _sd_HeadScrollView.pageDotImage = [UIImage imageNamed:@"dot_selected"];
     //_cycleScrollView.titlesGroup = titles;
     
     _sd_HeadScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
@@ -121,27 +130,28 @@
 //设置每个item的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake( 115, 150);
+    return CGSizeMake( (KScreenW -50-20-20)*0.5 , 150);
 }
 
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(15,  30 , 10, 30);
+    return UIEdgeInsetsMake(15,  20 , 10, 20);
+    
 }
 
-////设置每个item水平间距
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-//{
-//    return 30;
-//}
-//
-//
-////设置每个item垂直间距
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-//{
-//    return 20;
-//}
+//设置每个item水平间距
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 20;
+}
+
+
+//设置每个item垂直间距
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 20;
+}
 
 
 //通过设置SupplementaryViewOfKind 来设置头部或者底部的view，其中 ReuseIdentifier 的值必须和 注册是填写的一致，本例都为 “reusableView”
@@ -151,9 +161,7 @@
     CGFloat  _headViewHeignt = 155.f;
     if (kind == UICollectionElementKindSectionHeader){
         
-        _tempView  = [_main_ColletionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
-        _tempView.backgroundColor =[ UIColor orangeColor];
-        
+        _tempView  = [_main_ColletionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];        
         //轮播
         UIView * headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, _headViewHeignt)];
 //        _sd_HeadScrollView = [[SDCycleScrollView alloc]initWithFrame:headView.bounds];
@@ -167,7 +175,7 @@
         UIView * titleView =[[ UIView alloc]initWithFrame:CGRectMake(0, _headViewHeignt, KScreenW, 40)];
         [_tempView addSubview:titleView];
 
-        UILabel * titleText_lb = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW/2, 39)];
+        UILabel * titleText_lb = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW*0.5, 39)];
         titleText_lb.text = @"KOTTE化妆品专卖店";
         titleText_lb.textColor = HEXCOLOR(0xfe6d6a);
         titleText_lb.font =[UIFont systemFontOfSize:12];
@@ -190,20 +198,20 @@
         //位置定位
         UIView * locationView= [[ UIView alloc]initWithFrame:CGRectMake(0, 40+_headViewHeignt, KScreenW, 40)];
         [_tempView addSubview:locationView];
-        locationView.backgroundColor =[ UIColor greenColor];
-        
+
         //定位logo
-        UIImageView * icon_location = [[ UIImageView alloc]initWithFrame:CGRectMake(15, 5, 20, 25)];
-        icon_location.backgroundColor =[ UIColor whiteColor];
+        UIImageView * icon_location = [[ UIImageView alloc]initWithFrame:CGRectMake(10, 5, 25, 25)];
+        icon_location.image =[ UIImage imageNamed:@"location_icon2"];
         [locationView addSubview:icon_location];
         
         //电话logo
         UIImageView * icon_phone = [[ UIImageView alloc]initWithFrame:CGRectMake(KScreenW-15-20, 5, 20, 25)];
-        icon_phone.backgroundColor =[ UIColor whiteColor];
+        icon_phone.image =[ UIImage imageNamed:@"calling_icon"];
         [locationView addSubview:icon_phone];
 
-        UILabel * locatext = [[UILabel alloc]initWithFrame:CGRectMake( 45, 0, KScreenW -100, 39)];
+        UILabel * locatext = [[UILabel alloc]initWithFrame:CGRectMake( 35, 0, KScreenW -100, 39)];
         locatext.text = @"渝北区新牌坊清风南路-龙湖-水晶郦城西门-组团";
+        locatext.textAlignment = NSTextAlignmentLeft;
         locatext.font =[ UIFont systemFontOfSize:12.0];
         locatext.textColor = HEXCOLOR(0x363636);
        
@@ -212,16 +220,16 @@
         
         //全部商品section
         UIView *sectionView =[[ UIView alloc]initWithFrame:CGRectMake(0, 80+_headViewHeignt, KScreenW, 40)];
-        sectionView.backgroundColor = [UIColor redColor];
         [_tempView addSubview:sectionView];
         
-        UIImageView * icon_sec = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 20, 20)];
-        icon_sec.backgroundColor =[UIColor whiteColor];
+        UIImageView * icon_sec = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 25, 25)];
+        icon_sec.image =[ UIImage imageNamed:@"more_icon"];
         [sectionView addSubview:icon_sec];
         
         UILabel * sectionTitle= [[ UILabel alloc]initWithFrame:CGRectMake(10+20+15, 0, 100, 40)];
         sectionTitle.text =@"全部商品";
         sectionTitle.font =[UIFont systemFontOfSize:13];
+        sectionTitle.textAlignment = NSTextAlignmentLeft;
         sectionTitle.textColor = HEXCOLOR(0x363636);
         [sectionView addSubview:sectionTitle];
        

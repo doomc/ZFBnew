@@ -14,7 +14,7 @@
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     leftButton.frame = CGRectMake(0, 0, 25, 25);
     leftButton.titleLabel.font = Nav_Back_Font_M;
-    [leftButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [leftButton setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     leftButton.adjustsImageWhenHighlighted = NO;
     
     [leftButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
@@ -32,7 +32,7 @@
     [leftButton setTitle:@"返回" forState:UIControlStateNormal];
     leftButton.adjustsImageWhenHighlighted = NO;
     
-    [leftButton setImage:[UIImage imageNamed:@"back_btn.png"] forState:UIControlStateNormal];
+    [leftButton setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     [leftButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     
     [leftButton setImageEdgeInsets:UIEdgeInsetsMake(0, -2, 0, leftButton.titleLabel.bounds.size.width)];

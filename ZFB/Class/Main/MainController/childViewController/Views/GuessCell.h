@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface GuessCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *guess_listView;
 
 @end

@@ -82,7 +82,6 @@ UITableViewDelegate
  */
 -(void)CDsyceleSettingRunningPaint
 {
-    
     self.title = @"轮播Demo";
     // 情景二：采用网络图片实现
     NSArray *imagesURLStrings = @[
@@ -90,17 +89,17 @@ UITableViewDelegate
                                   @"https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a41eb338dd33c895a62bcb3bb72e47c2/5fdf8db1cb134954a2192ccb524e9258d1094a1e.jpg",
                                   @"http://c.hiphotos.baidu.com/image/w%3D400/sign=c2318ff84334970a4773112fa5c8d1c0/b7fd5266d0160924c1fae5ccd60735fae7cd340d.jpg"
                                   ];
-\
+
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 150) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
     _cycleScrollView.delegate = self;
     
-    //自定义dot 大小和图案
-    //_cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"pageControlCurrentDot"];
-    //_cycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
-    //_cycleScrollView.titlesGroup = titles;
+    //自定义dot 大小和图案pageControlCurrentDot
+    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
+    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"dot_selected"];
+//    _cycleScrollView.titlesGroup = titles;
     
     _cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
     _cycleScrollView.placeholderImage = [UIImage imageNamed:@"placeholder"];
@@ -146,16 +145,15 @@ UITableViewDelegate
         headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
         [headView setBackgroundColor:randomColor];
         
-        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 5.0f, 200.0f, 30.0f)];
-        [labelTitle setBackgroundColor:HEXCOLOR(0x363636)];
+        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 3, 200.0f, 30.0f)];
+        labelTitle.textColor =HEXCOLOR(0x363636);
         labelTitle.textAlignment = NSTextAlignmentLeft;
-        labelTitle.text = @"🔥热卖推荐";
+        labelTitle.text = @"热卖推荐";
         [headView addSubview:labelTitle];
         
         
-        UIImageView * logo = [[UIImageView alloc]init ];//定位icon
-        logo.frame =CGRectMake(5, 5, 20, 30);
-        logo.backgroundColor = [UIColor redColor];
+        UIImageView * logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fire"] ];//定位icon
+        logo.frame =CGRectMake(5, 5, 25, 25);
         [headView addSubview:logo];
         
         return headView;
@@ -165,15 +163,14 @@ UITableViewDelegate
         headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
         [headView setBackgroundColor:randomColor];
         
-        UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 5.0f, 200.0f, 30.0f)];
-        [title setBackgroundColor:HEXCOLOR(0x363636)];
+        UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 3.0f, 200.0f, 30.0f)];
+        title.textColor =HEXCOLOR(0x363636);
         title.textAlignment = NSTextAlignmentLeft;
-        title.text = @"❤️猜你喜欢";
+        title.text = @"猜你喜欢";
         [headView addSubview:title];
         
-        UIImageView * logo2 = [[UIImageView alloc]init ];//定位icon
-        logo2.frame =CGRectMake(5, 5, 20, 30);
-        logo2.backgroundColor = [UIColor redColor];
+        UIImageView * logo2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"love"] ];//定位icon
+        logo2.frame =CGRectMake(5, 6, 25, 25);
         [headView addSubview:logo2];
         return headView;
         

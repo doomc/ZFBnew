@@ -7,12 +7,17 @@
 //
 
 #import "GuessCell.h"
-
+#import "UIImageView+ZFCornerRadius.h"
 @implementation GuessCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+ 
+    
+    [_guess_listView CreateImageViewWithFrame:self.frame andBackground:[UIColor redColor].CGColor andRadius:10];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

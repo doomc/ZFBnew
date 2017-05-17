@@ -27,33 +27,43 @@
     
     [self initWithHome_Tableview];
  
-        [self initInTerfaceView];
+    [self initInTerfaceView];
     
-   
     [self initWithLocation];
     
 }
 
 -(void)initInTerfaceView{
     UIView * loc_view =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 39)];//背景图
-    UIImageView * icon_locationView = [[UIImageView alloc]init ];//定位icon
-    icon_locationView.frame =CGRectMake(5, 5, 20, 30);
-    UIButton * location_btn  =[ UIButton buttonWithType:UIButtonTypeCustom];//定位按钮
-    location_btn.frame = CGRectMake(30, 0, KScreenW-30, 39);
+    UIView * bg_view =[[UIView alloc]initWithFrame:CGRectMake(5, 5, KScreenW-10, 30)];
+    [loc_view addSubview:bg_view];
+   
+    bg_view.layer.borderWidth = 1.0;
+    bg_view.layer.cornerRadius = 4.0;
+    bg_view.layer.borderColor = HEXCOLOR(0xfa6d6a).CGColor;
+    
+    //定位icon
+    UIImageView * icon_locationView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 18, 20) ];    icon_locationView.image =  [UIImage imageNamed:@"location_find2"];
+    UIButton * location_btn  = [UIButton buttonWithType:UIButtonTypeCustom];//定位按钮
+    location_btn.frame = CGRectMake(25, 0, 100, 30);
     [location_btn addTarget:self action:@selector(pushToLocationView:) forControlEvents:UIControlEventTouchUpInside];
     
-    [location_btn setTitle:@"龙湖水晶国际" forState:UIControlStateNormal];
-    location_btn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [location_btn setTitle:@"龙湖水晶国际 >" forState:UIControlStateNormal];
+    [location_btn setTitleColor: HEXCOLOR(0xfa6d6a) forState:UIControlStateNormal];
+    location_btn.titleLabel.font = [UIFont systemFontOfSize:12];
     location_btn.titleLabel.textAlignment = NSTextAlignmentLeft;
-    loc_view.backgroundColor = randomColor;
-    icon_locationView.backgroundColor = [UIColor greenColor];
     
-    [loc_view addSubview:location_btn];
-    [loc_view addSubview: icon_locationView ];
     
+    [bg_view addSubview:location_btn];
+    [bg_view addSubview: icon_locationView ];
     self.home_tableView.tableHeaderView = loc_view;
 }
 
+/**
+ 定位
+
+ @param sender sender
+ */
 -(void)pushToLocationView:(UIButton *)sender
 {
     
@@ -92,23 +102,18 @@
 {
     UIView *view = nil;
     if (section == 0) {
-        view = [[UIView alloc] initWithFrame:CGRectMake(30, 0, self.view.frame.size.width, 35)];
-        [view setBackgroundColor:[UIColor orangeColor]];
-
-        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 35)];
-//        [labelTitle setBackgroundColor:[UIColor clearColor]];
+        view = [[UIView alloc] initWithFrame:CGRectMake(30, 0,KScreenW, 35)];
+        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(35, 0, 100, 35)];
+        view.backgroundColor = HEXCOLOR(0xffffff);
         labelTitle.textAlignment = NSTextAlignmentLeft;
         labelTitle.text = @"附近门店";
         labelTitle.textColor = HEXCOLOR(0x363636);
-        
         labelTitle.font =[ UIFont systemFontOfSize:12];
-        
         [view addSubview:labelTitle];
 
-
         UIImageView * icon_locationView = [[UIImageView alloc]init ];//定位icon
-        icon_locationView.frame =CGRectMake(5, 5, 20, 25);
-        icon_locationView.backgroundColor = [UIColor greenColor];
+        icon_locationView.frame =CGRectMake(5, 0, 30, 35);
+        icon_locationView.image = [UIImage imageNamed:@"location_find"];
 
         [view addSubview:icon_locationView];
     }
