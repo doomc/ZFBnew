@@ -10,8 +10,8 @@
 
 #import "FindStoreViewController.h"
 #import "FindStoreCell.h"
-
-
+#import "HP_LocationViewController.h"
+#import "DetailStoreViewController.h"
 @interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property(strong,nonatomic )UITableView * home_tableView;
 
@@ -25,9 +25,13 @@
     // Do any additional setup after loading the view.
     
     
-        [self initWithHome_Tableview];
+    [self initWithHome_Tableview];
  
         [self initInTerfaceView];
+    
+   
+    [self initWithLocation];
+    
 }
 
 -(void)initInTerfaceView{
@@ -35,12 +39,14 @@
     UIImageView * icon_locationView = [[UIImageView alloc]init ];//定位icon
     icon_locationView.frame =CGRectMake(5, 5, 20, 30);
     UIButton * location_btn  =[ UIButton buttonWithType:UIButtonTypeCustom];//定位按钮
-    [location_btn setTitle:@"龙湖水晶国际" forState:UIControlStateNormal];
-    location_btn.frame = CGRectMake(30, 10, KScreenW, 30);
+    location_btn.frame = CGRectMake(30, 0, KScreenW-30, 39);
+    [location_btn addTarget:self action:@selector(pushToLocationView:) forControlEvents:UIControlEventTouchUpInside];
     
+    [location_btn setTitle:@"龙湖水晶国际" forState:UIControlStateNormal];
+    location_btn.titleLabel.font = [UIFont systemFontOfSize:15];
+    location_btn.titleLabel.textAlignment = NSTextAlignmentLeft;
     loc_view.backgroundColor = randomColor;
     icon_locationView.backgroundColor = [UIColor greenColor];
-    location_btn.backgroundColor = randomColor;
     
     [loc_view addSubview:location_btn];
     [loc_view addSubview: icon_locationView ];
@@ -48,7 +54,10 @@
     self.home_tableView.tableHeaderView = loc_view;
 }
 
-
+-(void)pushToLocationView:(UIButton *)sender
+{
+    
+}
 /**
  初始化home_tableView
  */
@@ -86,15 +95,19 @@
         view = [[UIView alloc] initWithFrame:CGRectMake(30, 0, self.view.frame.size.width, 35)];
         [view setBackgroundColor:[UIColor orangeColor]];
 
-        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(50.0f, 10.0f, 200.0f, 30.0f)];
-        [labelTitle setBackgroundColor:[UIColor clearColor]];
-        labelTitle.textAlignment = NSTextAlignmentCenter;
+        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 35)];
+//        [labelTitle setBackgroundColor:[UIColor clearColor]];
+        labelTitle.textAlignment = NSTextAlignmentLeft;
         labelTitle.text = @"附近门店";
+        labelTitle.textColor = HEXCOLOR(0x363636);
+        
+        labelTitle.font =[ UIFont systemFontOfSize:12];
+        
         [view addSubview:labelTitle];
 
 
         UIImageView * icon_locationView = [[UIImageView alloc]init ];//定位icon
-        icon_locationView.frame =CGRectMake(5, 5, 20, 30);
+        icon_locationView.frame =CGRectMake(5, 5, 20, 25);
         icon_locationView.backgroundColor = [UIColor greenColor];
 
         [view addSubview:icon_locationView];
@@ -114,7 +127,24 @@
     return storeCell;
 
 }
+#pragma tableViewDataSource
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DetailStoreViewController * vc = [[DetailStoreViewController alloc]init];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
+
+/**
+  定位
+ */
+-(void)initWithLocation
+{
+    HP_LocationViewController * locationVC =[[ HP_LocationViewController alloc]init];
+    [self.navigationController pushViewController: locationVC animated:YES];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

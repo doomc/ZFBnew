@@ -7,13 +7,13 @@
 //
 
 #import "BaseViewController.h"
-
+ 
 @interface BaseViewController ()
 
-@property (nonatomic, retain) UIView* overlayView;
-@property (nonatomic, retain) UIView* bgview;
-@property (nonatomic, retain) UIActivityIndicatorView *loadingIndicator;
-@property (nonatomic, retain) UIImageView *loadingImageView;
+@property (nonatomic, strong) UIView* overlayView;
+@property (nonatomic, strong) UIView* bgview;
+@property (nonatomic, strong) UIActivityIndicatorView *loadingIndicator;
+@property (nonatomic, strong) UIImageView *loadingImageView;
 
 @end
 
@@ -23,20 +23,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    if (isIOS7) {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-        self.navigationController.navigationBar.translucent = NO;
+     if (isIOS7) {
+       
+         self.automaticallyAdjustsScrollViewInsets = NO;
+//        self.navigationController.navigationBar.translucent = NO;
         self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xfe6d6a);
  
         [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
 
-
-
     }
     self.view.backgroundColor = [UIColor  whiteColor];
-    //导航栏返回 按钮 打开注释掉的代码正常使用
-    //    NSArray *viewControllers = self.navigationController.viewControllers;
-    //    if (viewControllers.count > 1){
+   // 导航栏返回 按钮 打开注释掉的代码正常使用
+    
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    
+    if (viewControllers.count > 1){
     
     [self.navigationItem setHidesBackButton:NO animated:NO];
     UIBarButtonItem *leftBarButtonItem = [ControlFactory createBackBarButtonItemWithTarget:self action:@selector(backAction)];
@@ -44,20 +45,26 @@
         
         UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         negativeSpacer.width = -15;
+        
         self.navigationItem.leftBarButtonItems = @[negativeSpacer, leftBarButtonItem];
         
+    
     }else{
+        
         self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+  
+    
     }
-    UISwipeGestureRecognizer *gesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backSweepGesture:)];
+   
+        UISwipeGestureRecognizer *gesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backSweepGesture:)];
+        gesture.direction = UISwipeGestureRecognizerDirectionRight;
+        [self.view addGestureRecognizer:gesture];
+       
+        }else{
     
-    gesture.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:gesture];
-    //    }else{
+            [self.navigationItem setHidesBackButton:YES animated:NO];
     
-    //        [self.navigationItem setHidesBackButton:YES animated:NO];
-    
-    //    }
+        }
 
 }
 
@@ -85,7 +92,7 @@
 }
 
 -(void)popToViewControllerWithName:(NSString *)name {
-    
+ 
     for (UIViewController *vc in self.navigationController.viewControllers) {
         NSString *vcString = NSStringFromClass([vc class]);
         if ([vcString isEqualToString:name]) {

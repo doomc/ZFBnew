@@ -88,12 +88,23 @@
  @param sender 点击登录
  */
 - (IBAction)login_Success:(UIButton *)sender {
-    
-//    ZFPersonalViewController * personVC = [[ZFPersonalViewController alloc]init];
-//    [self presentViewController:personVC animated:YES completion:^{
-//       //跳转完成后的操作
-//    }];
+#warning -----  不走 poptoView 方法为什么？
+
+    //方法一
+    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:0] animated:YES];
+    //方法2：
+//    [self  popToViewControllerWithName:@"ZFPersonalViewController"];
 //    
+//    for (UIViewController *controller in self.navigationController.viewControllers) {
+//        
+//        if ([controller isKindOfClass:[ZFPersonalViewController class]]) {
+//            
+//            [self.navigationController popToViewController:controller animated:YES];
+//            
+//        }
+//        
+//    }
+ 
     NSLog(@"登录成功");
     
 }
