@@ -29,10 +29,12 @@
     
     [self CreatCollctionViewInterface];
     [self CDsyceleSettingRunningPaint];
-    UIBarButtonItem * rightBar = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"share_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(pushNext)];
-    self.navigationItem.rightBarButtonItem = rightBar;
     
     
+//    UIBarButtonItem * rightBar = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"share_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(pushNext)];
+//    self.navigationItem.rightBarButtonItem = rightBar;
+// 
+//    
  
 }
 -(void)pushNext
@@ -161,7 +163,7 @@
     CGFloat  _headViewHeignt = 155.f;
     if (kind == UICollectionElementKindSectionHeader){
         
-        _tempView  = [_main_ColletionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];        
+        _tempView  = [_main_ColletionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
         //轮播
         UIView * headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, _headViewHeignt)];
 //        _sd_HeadScrollView = [[SDCycleScrollView alloc]initWithFrame:headView.bounds];
@@ -200,16 +202,16 @@
         [_tempView addSubview:locationView];
 
         //定位logo
-        UIImageView * icon_location = [[ UIImageView alloc]initWithFrame:CGRectMake(10, 5, 25, 25)];
+        UIImageView * icon_location = [[ UIImageView alloc]initWithFrame:CGRectMake(10, 5, 30, 30)];
         icon_location.image =[ UIImage imageNamed:@"location_icon2"];
         [locationView addSubview:icon_location];
         
         //电话logo
-        UIImageView * icon_phone = [[ UIImageView alloc]initWithFrame:CGRectMake(KScreenW-15-20, 5, 20, 25)];
+        UIImageView * icon_phone = [[ UIImageView alloc]initWithFrame:CGRectMake(KScreenW-15-20, 5, 30, 30)];
         icon_phone.image =[ UIImage imageNamed:@"calling_icon"];
         [locationView addSubview:icon_phone];
 
-        UILabel * locatext = [[UILabel alloc]initWithFrame:CGRectMake( 35, 0, KScreenW -100, 39)];
+        UILabel * locatext = [[UILabel alloc]initWithFrame:CGRectMake( 40, 0, KScreenW -80, 39)];
         locatext.text = @"渝北区新牌坊清风南路-龙湖-水晶郦城西门-组团";
         locatext.textAlignment = NSTextAlignmentLeft;
         locatext.font =[ UIFont systemFontOfSize:12.0];
@@ -220,13 +222,14 @@
         
         //全部商品section
         UIView *sectionView =[[ UIView alloc]initWithFrame:CGRectMake(0, 80+_headViewHeignt, KScreenW, 40)];
+        sectionView.backgroundColor = HEXCOLOR(0xffcccc);
         [_tempView addSubview:sectionView];
         
-        UIImageView * icon_sec = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 25, 25)];
+        UIImageView * icon_sec = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 30, 30)];
         icon_sec.image =[ UIImage imageNamed:@"more_icon"];
         [sectionView addSubview:icon_sec];
         
-        UILabel * sectionTitle= [[ UILabel alloc]initWithFrame:CGRectMake(10+20+15, 0, 100, 40)];
+        UILabel * sectionTitle= [[ UILabel alloc]initWithFrame:CGRectMake(40, 0, 100, 40)];
         sectionTitle.text =@"全部商品";
         sectionTitle.font =[UIFont systemFontOfSize:13];
         sectionTitle.textAlignment = NSTextAlignmentLeft;
