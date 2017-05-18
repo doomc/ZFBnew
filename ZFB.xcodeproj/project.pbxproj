@@ -248,6 +248,10 @@
 		5019FFB71ECCAEF800325342 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5019FFA51ECCAEF800325342 /* UIImageView+HighlightedWebCache.m */; };
 		5019FFB81ECCAEF800325342 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5019FFA71ECCAEF800325342 /* UIImageView+WebCache.m */; };
 		5019FFB91ECCAEF800325342 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5019FFA91ECCAEF800325342 /* UIView+WebCacheOperation.m */; };
+		509D1F711ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F701ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m */; };
+		509D1F771ECDD9AC00D70444 /* ZFCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F761ECDD9AC00D70444 /* ZFCoverView.m */; };
+		509D1F7A1ECDDCDA00D70444 /* ZFSearchBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F791ECDDCDA00D70444 /* ZFSearchBarViewController.m */; };
+		509D1F7D1ECDE68C00D70444 /* ZFSearchDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F7C1ECDE68C00D70444 /* ZFSearchDetailViewController.m */; };
 		50DAA9471ECB4C0400844575 /* ZFHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DAA9461ECB4C0400844575 /* ZFHeaderView.m */; };
 		50DAA9491ECB4C1900844575 /* ZFHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50DAA9481ECB4C1900844575 /* ZFHeaderView.xib */; };
 /* End PBXBuildFile section */
@@ -615,6 +619,14 @@
 		5019FFA71ECCAEF800325342 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		5019FFA81ECCAEF800325342 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		5019FFA91ECCAEF800325342 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		509D1F6F1ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFHeadViewCollectionReusableView.h; sourceTree = "<group>"; };
+		509D1F701ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFHeadViewCollectionReusableView.m; sourceTree = "<group>"; };
+		509D1F751ECDD9AC00D70444 /* ZFCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCoverView.h; sourceTree = "<group>"; };
+		509D1F761ECDD9AC00D70444 /* ZFCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCoverView.m; sourceTree = "<group>"; };
+		509D1F781ECDDCDA00D70444 /* ZFSearchBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFSearchBarViewController.h; sourceTree = "<group>"; };
+		509D1F791ECDDCDA00D70444 /* ZFSearchBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFSearchBarViewController.m; sourceTree = "<group>"; };
+		509D1F7B1ECDE68C00D70444 /* ZFSearchDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFSearchDetailViewController.h; sourceTree = "<group>"; };
+		509D1F7C1ECDE68C00D70444 /* ZFSearchDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFSearchDetailViewController.m; sourceTree = "<group>"; };
 		50DAA9451ECB4C0400844575 /* ZFHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFHeaderView.h; sourceTree = "<group>"; };
 		50DAA9461ECB4C0400844575 /* ZFHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFHeaderView.m; sourceTree = "<group>"; };
 		50DAA9481ECB4C1900844575 /* ZFHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFHeaderView.xib; sourceTree = "<group>"; };
@@ -743,6 +755,8 @@
 				492754EF1EC4679E003C22D0 /* UIImage+Extension.m */,
 				492754F01EC4679E003C22D0 /* UIView+MJ.h */,
 				492754F11EC4679E003C22D0 /* UIView+MJ.m */,
+				509D1F751ECDD9AC00D70444 /* ZFCoverView.h */,
+				509D1F761ECDD9AC00D70444 /* ZFCoverView.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1109,6 +1123,10 @@
 				49E757731EC9469200220B28 /* FindCircleViewController.m */,
 				49F112D51ECC17E4000F3BF7 /* HP_LocationViewController.h */,
 				49F112D61ECC17E4000F3BF7 /* HP_LocationViewController.m */,
+				509D1F781ECDDCDA00D70444 /* ZFSearchBarViewController.h */,
+				509D1F791ECDDCDA00D70444 /* ZFSearchBarViewController.m */,
+				509D1F7B1ECDE68C00D70444 /* ZFSearchDetailViewController.h */,
+				509D1F7C1ECDE68C00D70444 /* ZFSearchDetailViewController.m */,
 			);
 			path = childViewController;
 			sourceTree = "<group>";
@@ -1178,6 +1196,8 @@
 				49FB3C511ECD72640090075D /* ZFGoodsFooterView.h */,
 				49FB3C521ECD72640090075D /* ZFGoodsFooterView.m */,
 				49FB3C561ECD72720090075D /* ZFGoodsFooterView.xib */,
+				509D1F6F1ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.h */,
+				509D1F701ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m */,
 			);
 			path = DetailViews;
 			sourceTree = "<group>";
@@ -1742,6 +1762,7 @@
 				492757551EC4679E003C22D0 /* UIScrollView+MJRefresh.m in Sources */,
 				49F112D71ECC17E4000F3BF7 /* HP_LocationViewController.m in Sources */,
 				49F112DC1ECC1A81000F3BF7 /* DetailStoreViewController.m in Sources */,
+				509D1F7A1ECDDCDA00D70444 /* ZFSearchBarViewController.m in Sources */,
 				5019FFB01ECCAEF800325342 /* SDWebImageDownloaderOperation.m in Sources */,
 				498137C31EC5ABEE00DC2806 /* ForgetPSViewController.m in Sources */,
 				492757381EC4679E003C22D0 /* BaseNavigationController.m in Sources */,
@@ -1751,6 +1772,7 @@
 				49E757861EC96E9100220B28 /* TAAnimatedDotView.m in Sources */,
 				49ABA4391ECB001900E7EB20 /* ZFMyProgressCell.m in Sources */,
 				5019FF871ECCAEA900325342 /* UIImageView+ZFCornerRadius.m in Sources */,
+				509D1F7D1ECDE68C00D70444 /* ZFSearchDetailViewController.m in Sources */,
 				49E757871EC96E9100220B28 /* TADotView.m in Sources */,
 				5019FFB31ECCAEF800325342 /* UIButton+WebCache.m in Sources */,
 				492757561EC4679E003C22D0 /* UIView+MJExtension.m in Sources */,
@@ -1758,6 +1780,7 @@
 				492757541EC4679E003C22D0 /* UIScrollView+MJExtension.m in Sources */,
 				5019FFAB1ECCAEF800325342 /* NSData+ImageContentType.m in Sources */,
 				49ABA4091ECA90CD00E7EB20 /* GuessCell.m in Sources */,
+				509D1F711ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m in Sources */,
 				492757491EC4679E003C22D0 /* MJRefreshAutoGifFooter.m in Sources */,
 				492756B21EC4679E003C22D0 /* UIView+MJ.m in Sources */,
 				49ABA4291ECAE97F00E7EB20 /* ResetPassWViewController.m in Sources */,
@@ -1802,6 +1825,7 @@
 				4927574F1EC4679E003C22D0 /* MJRefreshGifHeader.m in Sources */,
 				4927574E1EC4679E003C22D0 /* MJRefreshBackStateFooter.m in Sources */,
 				5019FFAE1ECCAEF800325342 /* SDWebImageDecoder.m in Sources */,
+				509D1F771ECDD9AC00D70444 /* ZFCoverView.m in Sources */,
 				49E7576E1EC9466B00220B28 /* FindStoreViewController.m in Sources */,
 				49ABA4451ECB019700E7EB20 /* ZFMyOpinionCell.m in Sources */,
 				49E7576A1EC944BE00220B28 /* DCNavTabBarController.m in Sources */,
@@ -1976,7 +2000,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zfb.ZFB;
@@ -1989,7 +2013,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zfb.ZFB;
@@ -2001,6 +2025,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFBTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zfb.ZFBTests;
@@ -2013,6 +2038,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFBTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zfb.ZFBTests;

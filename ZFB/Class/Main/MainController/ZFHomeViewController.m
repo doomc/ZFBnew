@@ -12,6 +12,9 @@
 #import "FindCircleViewController.h"
 #import "DCNavTabBarController.h"
 
+#import "ZFCoverView.h"
+#import "ZFSearchBarViewController.h"
+#import "BaseNavigationController.h"
 @interface ZFHomeViewController ()
 
 @property(nonatomic,strong)UIButton * customLeft_btn;//扫一扫
@@ -111,7 +114,12 @@
 }
 -(void)DidClickSearchBarAction:(UIButton*)sender
 {
-    
+ 
+    ZFSearchBarViewController *vc = [[ZFSearchBarViewController alloc]init];
+    BaseNavigationController * nav= [[BaseNavigationController alloc]initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
+    NSLog(@"clickAction");
+
 }
 /**
  扫一扫事件 、  摇一摇  、
