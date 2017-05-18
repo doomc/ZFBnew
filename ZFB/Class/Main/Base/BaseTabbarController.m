@@ -53,15 +53,15 @@
     
     NSArray *titles = @[@"零售商",@"人际圈",@"购物车",@"我的"];
     
-    NSArray *normalImages = @[@"tabbar_home_normal",
-                              @"tabbar_find_normal",
-                              @"tabbar_voucher_normal",
-                              @"tabbar_my_normal"];
+    NSArray *normalImages = @[@"shopkeeper",
+                              @"circle",
+                              @"shoppingCar",
+                              @"mine"];
     
-    NSArray *selectImages = @[@"tabbar_home_select",
-                              @"tabbar_find_select",
-                              @"tabbar_voucher_select",
-                              @"tabbar_my_select"];
+    NSArray *selectImages = @[@"shopkeeper_selected",
+                              @"circle_selected",
+                              @"shoppingCar_selected",
+                              @"mine_selected"];
     
     for (int i = 0; i < titles.count; i++) {
        

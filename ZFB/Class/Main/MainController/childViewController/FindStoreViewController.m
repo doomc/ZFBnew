@@ -34,6 +34,7 @@
 }
 
 -(void)initInTerfaceView{
+   
     UIView * loc_view =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 39)];//背景图
     UIView * bg_view =[[UIView alloc]initWithFrame:CGRectMake(5, 5, KScreenW-10, 30)];
     [loc_view addSubview:bg_view];
@@ -62,11 +63,13 @@
 /**
  定位
 
- @param sender sender
+ @param sender 跳转到定位
  */
 -(void)pushToLocationView:(UIButton *)sender
 {
-    
+    HP_LocationViewController * locationVC =[[ HP_LocationViewController alloc]init];
+    [self.navigationController pushViewController: locationVC animated:YES];
+
 }
 /**
  初始化home_tableView
@@ -146,8 +149,6 @@
  */
 -(void)initWithLocation
 {
-    HP_LocationViewController * locationVC =[[ HP_LocationViewController alloc]init];
-    [self.navigationController pushViewController: locationVC animated:YES];
     
 }
 - (void)didReceiveMemoryWarning {

@@ -11,7 +11,7 @@
 #import "SDCycleScrollView.h"
 #import "ZFDetailStoreCell.h"
 #import "ControlFactory.h"
-
+#import "DetailShareViewController.h"
 @interface DetailStoreViewController ()<SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property(nonatomic,strong)SDCycleScrollView * sd_HeadScrollView;
 @property(nonatomic,strong)UICollectionReusableView * tempView;
@@ -30,22 +30,27 @@
     [self CreatCollctionViewInterface];
     [self CDsyceleSettingRunningPaint];
     
-    
-//    UIBarButtonItem * rightBar = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"share_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(pushNext)];
-//    self.navigationItem.rightBarButtonItem = rightBar;
-// 
-//    
- 
+   
+
 }
--(void)pushNext
+
+/**
+ 分享
+
+ @param sender 转发
+ */
+-(void)shareToFrinds:(UIButton * )sender
 {
-    
+    DetailShareViewController * shareVC= [[ DetailShareViewController alloc]init];
+    [self.navigationController pushViewController:shareVC animated:YES];
+    NSLog(@"push share");
 }
 /**
  初始化轮播
  */
 -(void)CDsyceleSettingRunningPaint
 {
+    
     
     // 情景二：采用网络图片实现
     NSArray *imagesURLStrings = @[
@@ -83,11 +88,17 @@
 -(void)CreatCollctionViewInterface
 {
     self.title = @"门店详情";
-
+    //自定义导航按钮
+    UIButton  * right_btn  =[ UIButton buttonWithType:UIButtonTypeCustom];
+    right_btn.frame = CGRectMake(0, 0, 30, 30);
+    [right_btn setBackgroundImage:[UIImage imageNamed:@"share_icon"] forState:UIControlStateNormal];
+    [right_btn addTarget:self action:@selector(shareToFrinds:) forControlEvents:UIControlEventTouchUpInside];
+    //自定义button必须执行
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:right_btn];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    
     UICollectionViewFlowLayout * layout  = [[UICollectionViewFlowLayout alloc]init];
     [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
-//    layout.minimumInteritemSpacing = 30;
-//    layout.minimumLineSpacing = 20;
     self.main_ColletionView =[[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -64) collectionViewLayout:layout];
     
     self.main_ColletionView.backgroundColor = [UIColor whiteColor];
@@ -120,12 +131,7 @@
 {
  
      ZFDetailStoreCell  *cell = (ZFDetailStoreCell *)[_main_ColletionView dequeueReusableCellWithReuseIdentifier:@"ZFDetailStoreCellid" forIndexPath:indexPath];
-//    
-//    cell.botlabel.text = [NSString stringWithFormat:@"{%ld,%ld}",(long)indexPath.section,(long)indexPath.row];
-//    
-//    cell.backgroundColor = [UIColor yellowColor];、
-//    cell.backgroundColor =[ UIColor redColor];
-    
+ 
     return cell;
 }
 
@@ -166,9 +172,7 @@
         _tempView  = [_main_ColletionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
         //轮播
         UIView * headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, _headViewHeignt)];
-//        _sd_HeadScrollView = [[SDCycleScrollView alloc]initWithFrame:headView.bounds];
         headView = _sd_HeadScrollView;
-        
         [_tempView addSubview:headView];
         
     
@@ -242,8 +246,9 @@
  
     return reusableview;
 
- 
 }
+
+
 //执行的 headerView 代理  返回 headerView 的高度
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {

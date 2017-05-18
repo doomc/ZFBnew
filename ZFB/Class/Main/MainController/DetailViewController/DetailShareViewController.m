@@ -1,22 +1,23 @@
 //
-//  ChooseAddressViewController.m
+//  DetailShareViewController.m
 //  ZFB
 //
-//  Created by  展富宝  on 2017/5/17.
+//  Created by  展富宝  on 2017/5/18.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
-#import "ChooseAddressViewController.h"
+#import "DetailShareViewController.h"
 
-@interface ChooseAddressViewController ()
+@interface DetailShareViewController ()
 
 @end
 
-@implementation ChooseAddressViewController
+@implementation DetailShareViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"邀请好友使用展富宝";
 }
 
 - (void)didReceiveMemoryWarning {

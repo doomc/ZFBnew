@@ -62,7 +62,7 @@
     [self.customLeft_btn setImage :[UIImage imageNamed:@"saoyisao"]  forState:UIControlStateNormal];
     [self.customLeft_btn setTitle:@"扫一扫" forState:UIControlStateNormal];
     self.customLeft_btn.titleLabel.font = [UIFont systemFontOfSize:12];//title字体大小
-    [self.customLeft_btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.customLeft_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
     
     //设置文字图片的位置
     self.customLeft_btn.titleEdgeInsets = UIEdgeInsetsMake(0, -self.customLeft_btn.imageView.frame.size.width, -self.customLeft_btn.imageView.frame.size.height, 0);
@@ -79,7 +79,7 @@
     [self.shakehanderRight_btn setImage :[UIImage imageNamed:@"shakehand"]  forState:UIControlStateNormal];
     [self.shakehanderRight_btn setTitle:@"摇一摇" forState:UIControlStateNormal];
     self.shakehanderRight_btn.titleLabel.font = [UIFont systemFontOfSize:12];//title字体大小
-    [self.shakehanderRight_btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.shakehanderRight_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
     
     //设置文字图片的位置
     self.shakehanderRight_btn.titleEdgeInsets = UIEdgeInsetsMake(0, -self.shakehanderRight_btn.imageView.frame.size.width, -self.shakehanderRight_btn.imageView.frame.size.height, 0);
@@ -94,17 +94,25 @@
     
     
     self.navSearch_btn  =[UIButton buttonWithType:UIButtonTypeCustom];
-    [self.navSearch_btn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-    self.navSearch_btn.backgroundColor = [UIColor redColor];
-    self.navSearch_btn.frame = CGRectMake(0, 0, KScreenW*0.5 - 10, 30);
+    [self.navSearch_btn setBackgroundImage:[UIImage imageNamed:@"searchBar"] forState:UIControlStateNormal];
+    [self.navSearch_btn addTarget:self action:@selector(DidClickSearchBarAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navSearch_btn.frame = CGRectMake(0, 0, KScreenW - 60, 30);
     self.navigationItem.titleView = self.navSearch_btn;
-    
     //navBar 的背景颜色
     self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
+
     
+    
+/**
+  跳转搜索
+
+ @return 搜索
+ */
+}
+-(void)DidClickSearchBarAction:(UIButton*)sender
+{
     
 }
-
 /**
  扫一扫事件 、  摇一摇  、
  */

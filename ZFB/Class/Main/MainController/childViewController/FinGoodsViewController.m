@@ -12,7 +12,7 @@
 #import "HotTableViewCell.h"
 #import "HotCollectionViewCell.h"
 #import "GuessCell.h"
-
+#import "DetailFindGoodsViewController.h"
 typedef NS_ENUM(NSUInteger, CellType) {
     
     CellTypeWithMainListCell,//功能cell 0
@@ -43,7 +43,7 @@ UITableViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+ 
     [self initWithFindGoods_TableView];
     
     [self CDsyceleSettingRunningPaint];
@@ -221,7 +221,14 @@ UITableViewDelegate
     
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);
 
+    DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
+    [self.navigationController pushViewController:findVCgoods animated:YES];
+    
+}
 
 
 - (void)didReceiveMemoryWarning {

@@ -10,4 +10,7 @@
 
 @interface ZFHeaderView : UIView
 
+@property (weak, nonatomic) IBOutlet UIView *Change_loginSuccessView;
+
+
 @end

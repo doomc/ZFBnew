@@ -37,7 +37,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 
 -(void)initmyTableViewInterface
 {
-    self.myTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH) style:UITableViewStylePlain];
+    self.title = @"我的";
+    self.myTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH) style:UITableViewStylePlain];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
     self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -54,36 +55,65 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
   
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyOderCell" bundle:nil] forCellReuseIdentifier:@"ZFMyOderCell"];
   
+    
+    //自定义导航按钮
+    UIButton  * right_btn  =[ UIButton buttonWithType:UIButtonTypeCustom];
+    right_btn.frame = CGRectMake(0, 0, 30, 30);
+    [right_btn setBackgroundImage:[UIImage imageNamed:@"im_massage"] forState:UIControlStateNormal];
+    [right_btn addTarget:self action:@selector(im_messageTag:) forControlEvents:UIControlEventTouchUpInside];
+    //自定义button必须执行
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:right_btn];
+    self.navigationItem.rightBarButtonItem = rightItem;
+
+    UIButton  * left_btn  =[ UIButton buttonWithType:UIButtonTypeCustom];
+    left_btn.frame = CGRectMake(0, 0, 30, 30);
+    [left_btn setBackgroundImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
+    [left_btn addTarget:self action:@selector(im_SettingTag:) forControlEvents:UIControlEventTouchUpInside];
+    //自定义button必须执行
+    UIBarButtonItem *left_item = [[UIBarButtonItem alloc] initWithCustomView:left_btn];
+    self.navigationItem.leftBarButtonItem = left_item;
 }
 
+/**
+ 消息列表
+
+ @param sender 消息列表
+ */
+-(void)im_messageTag:(UIButton*)sender
+{
+    NSLog(@"消息列表");
+}
+
+/**
+ 设置
+
+ @param sender  设置列表
+ */
+-(void)im_SettingTag:(UIButton *)sender{
+    NSLog(@"设置");
+
+}
 
 #pragma mark - tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 1;
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  
-
-    if( section == 1 ){
-        return 3;
-    }
-    
-    return  1;
-    
+    return 5;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 && indexPath.row ==0) {
+    if ( indexPath.row ==0) {
         
         return 120;
         
     }
-    else if (indexPath.section == 1 && indexPath.row ==0 ) {
+    else if ( indexPath.row == 1 ) {
         
-        return 120;
+        return 100;
         
     }else{
       
@@ -93,29 +123,52 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    
-    if (indexPath.section == 0 && indexPath.row == 0) {
+    if (indexPath.row == 0 ) {
         ZFMyCashBagCell  * cashCell = [ self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyCashBagCell" forIndexPath:indexPath];
 
             return cashCell;
 
         }
     
-    else if (indexPath.section == 1 && indexPath.row == 0) {
+    else if (indexPath.row == 1) {
         ZFMyProgressCell * pressCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyProgressCell" forIndexPath:indexPath];
 
             return pressCell;
             
         }
    
-    else {
-        ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
+    else if (indexPath.row == 2) {
        
+        ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
+        
+        orderCell.order_imgicon.image =[UIImage imageNamed:@"order_icon"];
+        
         return orderCell;
     }
-   
+    else if (indexPath.row ==3) {
+        ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
+        
+        orderCell.order_imgicon.image =[UIImage imageNamed:@"switchover_icon"];
+        orderCell.order_title.text = @"切换到配送端";
+        orderCell.order_hiddenTitle.hidden = YES;
+        return orderCell;
+    }
+    else{
+        ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
+        
+        orderCell.order_imgicon.image =[UIImage imageNamed:@"write"];
+        orderCell.order_title.text = @"意见反馈";
+        orderCell.order_hiddenTitle.hidden = YES;
+        return orderCell;
+
+    }
+  
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"section = %ld , row = %ld",indexPath.section,indexPath.row);
+}
 
 
 - (void)didReceiveMemoryWarning {
