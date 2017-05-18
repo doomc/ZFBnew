@@ -138,7 +138,7 @@
 //设置每个item的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake( (KScreenW -50-20-20)*0.5 , 150);
+    return CGSizeMake( (KScreenW -30-20-20)*0.5 , 150);
 }
 
 //设置每个item的UIEdgeInsets
@@ -167,82 +167,84 @@
 {
     UICollectionReusableView *reusableview = nil;
     CGFloat  _headViewHeignt = 155.f;
-    if (kind == UICollectionElementKindSectionHeader){
-        
-        _tempView  = [_main_ColletionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
-        //轮播
-        UIView * headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, _headViewHeignt)];
-        headView = _sd_HeadScrollView;
-        [_tempView addSubview:headView];
-        
     
-
-        //设置title
-        UIView * titleView =[[ UIView alloc]initWithFrame:CGRectMake(0, _headViewHeignt, KScreenW, 40)];
-        [_tempView addSubview:titleView];
-
-        UILabel * titleText_lb = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW*0.5, 39)];
-        titleText_lb.text = @"KOTTE化妆品专卖店";
-        titleText_lb.textColor = HEXCOLOR(0xfe6d6a);
-        titleText_lb.font =[UIFont systemFontOfSize:12];
-        titleView.backgroundColor = [UIColor yellowColor];
-        [titleView addSubview:titleText_lb];
-
-        //到店付
-        UIButton * gotoStore_btn =[UIButton buttonWithType:UIButtonTypeCustom];
-        [gotoStore_btn addTarget:self action:@selector(didClickgotoStore_btn:) forControlEvents:UIControlEventTouchUpInside];
-        gotoStore_btn.frame  = CGRectMake(KScreenW -100-15, 16, 100, 20);
-        [gotoStore_btn setTitle:@"到店付" forState:UIControlStateNormal];
-        gotoStore_btn.backgroundColor = HEXCOLOR(0xffffff);
-        [titleView addSubview:gotoStore_btn];
-        
-        //下划线
-        UILabel* line = [[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
-        line.backgroundColor = HEXCOLOR(0xdedede);
-        [titleView addSubview:line];
-        
-        //位置定位
-        UIView * locationView= [[ UIView alloc]initWithFrame:CGRectMake(0, 40+_headViewHeignt, KScreenW, 40)];
-        [_tempView addSubview:locationView];
-
-        //定位logo
-        UIImageView * icon_location = [[ UIImageView alloc]initWithFrame:CGRectMake(10, 5, 30, 30)];
-        icon_location.image =[ UIImage imageNamed:@"location_icon2"];
-        [locationView addSubview:icon_location];
-        
-        //电话logo
-        UIImageView * icon_phone = [[ UIImageView alloc]initWithFrame:CGRectMake(KScreenW-15-20, 5, 30, 30)];
-        icon_phone.image =[ UIImage imageNamed:@"calling_icon"];
-        [locationView addSubview:icon_phone];
-
-        UILabel * locatext = [[UILabel alloc]initWithFrame:CGRectMake( 40, 0, KScreenW -80, 39)];
-        locatext.text = @"渝北区新牌坊清风南路-龙湖-水晶郦城西门-组团";
-        locatext.textAlignment = NSTextAlignmentLeft;
-        locatext.font =[ UIFont systemFontOfSize:12.0];
-        locatext.textColor = HEXCOLOR(0x363636);
+         if (kind == UICollectionElementKindSectionHeader){
+            _tempView  = [_main_ColletionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
        
-        
-        [locationView addSubview:locatext];
-        
-        //全部商品section
-        UIView *sectionView =[[ UIView alloc]initWithFrame:CGRectMake(0, 80+_headViewHeignt, KScreenW, 40)];
-        sectionView.backgroundColor = HEXCOLOR(0xffcccc);
-        [_tempView addSubview:sectionView];
-        
-        UIImageView * icon_sec = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 30, 30)];
-        icon_sec.image =[ UIImage imageNamed:@"more_icon"];
-        [sectionView addSubview:icon_sec];
-        
-        UILabel * sectionTitle= [[ UILabel alloc]initWithFrame:CGRectMake(40, 0, 100, 40)];
-        sectionTitle.text =@"全部商品";
-        sectionTitle.font =[UIFont systemFontOfSize:13];
-        sectionTitle.textAlignment = NSTextAlignmentLeft;
-        sectionTitle.textColor = HEXCOLOR(0x363636);
-        [sectionView addSubview:sectionTitle];
-       
-         reusableview = _tempView;
-        
-    }
+            //轮播
+            UIView * headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, _headViewHeignt)];
+            headView = _sd_HeadScrollView;
+            [_tempView addSubview:headView];
+            
+            
+            //设置title
+            UIView * titleView =[[ UIView alloc]initWithFrame:CGRectMake(0, _headViewHeignt, KScreenW, 40)];
+            [_tempView addSubview:titleView];
+            
+            UILabel * titleText_lb = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW*0.5, 39)];
+            titleText_lb.text = @"KOTTE化妆品专卖店";
+            titleText_lb.textColor = HEXCOLOR(0xfe6d6a);
+            titleText_lb.font =[UIFont systemFontOfSize:12];
+            titleView.backgroundColor = [UIColor yellowColor];
+            [titleView addSubview:titleText_lb];
+            
+            //到店付
+            UIButton * gotoStore_btn =[UIButton buttonWithType:UIButtonTypeCustom];
+            [gotoStore_btn addTarget:self action:@selector(didClickgotoStore_btn:) forControlEvents:UIControlEventTouchUpInside];
+            gotoStore_btn.frame  = CGRectMake(KScreenW -100-15, 16, 100, 20);
+            [gotoStore_btn setTitle:@"到店付" forState:UIControlStateNormal];
+            gotoStore_btn.backgroundColor = HEXCOLOR(0xffffff);
+            [titleView addSubview:gotoStore_btn];
+            
+            //下划线
+            UILabel* line = [[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
+            line.backgroundColor = HEXCOLOR(0xdedede);
+            [titleView addSubview:line];
+            
+            //位置定位
+            UIView * locationView= [[ UIView alloc]initWithFrame:CGRectMake(0, 40+_headViewHeignt, KScreenW, 40)];
+            [_tempView addSubview:locationView];
+            
+            //定位logo
+            UIImageView * icon_location = [[ UIImageView alloc]initWithFrame:CGRectMake(10, 5, 30, 30)];
+            icon_location.image =[ UIImage imageNamed:@"location_icon2"];
+            [locationView addSubview:icon_location];
+            
+            //电话logo
+            UIImageView * icon_phone = [[ UIImageView alloc]initWithFrame:CGRectMake(KScreenW-15-20, 5, 30, 30)];
+            icon_phone.image =[ UIImage imageNamed:@"calling_icon"];
+            [locationView addSubview:icon_phone];
+            
+            UILabel * locatext = [[UILabel alloc]initWithFrame:CGRectMake( 40, 0, KScreenW -80, 39)];
+            locatext.text = @"渝北区新牌坊清风南路-龙湖-水晶郦城西门-组团";
+            locatext.textAlignment = NSTextAlignmentLeft;
+            locatext.font =[ UIFont systemFontOfSize:12.0];
+            locatext.textColor = HEXCOLOR(0x363636);
+            
+            
+            [locationView addSubview:locatext];
+            
+            //全部商品section
+            UIView *sectionView =[[ UIView alloc]initWithFrame:CGRectMake(0, 80+_headViewHeignt, KScreenW, 40)];
+            sectionView.backgroundColor = HEXCOLOR(0xffcccc);
+            [_tempView addSubview:sectionView];
+            
+            UIImageView * icon_sec = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 30, 30)];
+            icon_sec.image =[ UIImage imageNamed:@"more_icon"];
+            [sectionView addSubview:icon_sec];
+            
+            UILabel * sectionTitle= [[ UILabel alloc]initWithFrame:CGRectMake(40, 0, 100, 40)];
+            sectionTitle.text =@"全部商品";
+            sectionTitle.font =[UIFont systemFontOfSize:13];
+            sectionTitle.textAlignment = NSTextAlignmentLeft;
+            sectionTitle.textColor = HEXCOLOR(0x363636);
+            [sectionView addSubview:sectionTitle];
+            
+             
+             reusableview = _tempView;
+         
+
+        }
  
     return reusableview;
 
