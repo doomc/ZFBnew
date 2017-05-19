@@ -12,14 +12,17 @@
 #import "FindCircleViewController.h"
 #import "DCNavTabBarController.h"
 
-#import "ZFCoverView.h"
 #import "ZFSearchBarViewController.h"
 #import "BaseNavigationController.h"
-@interface ZFHomeViewController ()
+#import "PYSearch.h"
+
+@interface ZFHomeViewController ()<UISearchBarDelegate,PYSearchViewControllerDelegate>
 
 @property(nonatomic,strong)UIButton * customLeft_btn;//扫一扫
 @property(nonatomic,strong)UIButton * navSearch_btn;//搜索
 @property(nonatomic,strong)UIButton * shakehanderRight_btn;//摇一摇
+@property(nonatomic,strong)UISearchBar* searchBar;
+
 
 @end
 
@@ -33,6 +36,8 @@
     [self initMainController];
     
     [self customButtonOfNav];
+    
+ //   [self settingCustomSearchBar];
 }
 
 
@@ -101,6 +106,8 @@
     [self.navSearch_btn addTarget:self action:@selector(DidClickSearchBarAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navSearch_btn.frame = CGRectMake(0, 0, KScreenW - 60, 30);
     self.navigationItem.titleView = self.navSearch_btn;
+    
+    
     //navBar 的背景颜色
     self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
 
@@ -114,10 +121,22 @@
 }
 -(void)DidClickSearchBarAction:(UIButton*)sender
 {
+
+    // 1.创建热门搜索
+    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
+    // 2. 创建控制器
+    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"搜索编程语言" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+        // 开始搜索执行以下代码
+        // 如：跳转到指定控制器
+        [searchViewController.navigationController pushViewController:[[ZFSearchBarViewController alloc] init] animated:YES];
+    }];
+    // 4. 设置代理
+    searchViewController.delegate = self;
+    // 5. 跳转到搜索控制器
+    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:searchViewController];
+    [self presentViewController:nav  animated:NO completion:nil];
+    
  
-    ZFSearchBarViewController *vc = [[ZFSearchBarViewController alloc]init];
-    BaseNavigationController * nav= [[BaseNavigationController alloc]initWithRootViewController:vc];
-    [self presentViewController:nav animated:YES completion:nil];
     NSLog(@"clickAction");
 
 }
@@ -130,20 +149,33 @@
 }
 
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+///** 自定义搜索框和放大镜 */
+//-(void)settingCustomSearchBar
+//{
+//    _searchBar= [[ UISearchBar alloc]initWithFrame:CGRectMake(30, 0, KScreenW-60, 35)];
+//    _searchBar.delegate = self;
+//    _searchBar.clipsToBounds = YES;
+//    _searchBar.placeholder = @"请搜索商品或者店铺";
+//    //    [self.searchBar setImage:[UIImage imageNamed:@"search"]
+//    //            forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+//    [self.searchBar becomeFirstResponder];
+//    _searchBar.tintColor =  HEXCOLOR(0xfe6d6a);
+//    self.navigationItem.titleView = _searchBar;
+//    
+//}
+//#pragma mark  ----  searchBar delegate
+////   searchBar开始编辑响应
+//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+//    //因为闲置时赋了空格，防止不必要的bug，在启用的时候先清空内容
+//    self.searchBar.text = @"";
+//}
+//
+////取消键盘 搜索框闲置的时候赋给其一个空格，保证放大镜居左
+//- (void)registerFR{
+//    if ([self.searchBar isFirstResponder]) {
+//        self.searchBar.text = @" ";
+//        [self.searchBar resignFirstResponder];
+//    }
+//}
 
 @end

@@ -13,6 +13,8 @@
 #import "ZFLocationGoToStoreCell.h"
 #import "ZFGoodsFooterView.h"
 
+#import "ZFEvaluateViewController.h"
+
 typedef NS_ENUM(NSUInteger, typeCell) {
     typeCellrowOftitleCell, //0 第一行cell
     typeCellrowOfbabyCell,
@@ -208,6 +210,13 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section = %ld,row == %ld",indexPath.section ,indexPath.row);
+    
+    if (indexPath.row == 1) {
+        
+        ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
+        [self.navigationController pushViewController:evc animated:YES];
+        
+    }
     
 }
 

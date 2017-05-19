@@ -13,6 +13,8 @@
 #import "HotCollectionViewCell.h"
 #import "GuessCell.h"
 #import "DetailFindGoodsViewController.h"
+
+
 typedef NS_ENUM(NSUInteger, CellType) {
     
     CellTypeWithMainListCell,//功能cell 0
@@ -77,9 +79,7 @@ UITableViewDelegate
     
 }
 
-/**
- 初始化轮播
- */
+/**初始化轮播 */
 -(void)CDsyceleSettingRunningPaint
 {
     self.title = @"轮播Demo";
@@ -205,9 +205,7 @@ UITableViewDelegate
     {
         
         HotTableViewCell * hotCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_hotID forIndexPath:indexPath];
-      
-        //刷新cell
-       // [hotCell.HcollectionView reloadData];
+
     
         
         return hotCell;

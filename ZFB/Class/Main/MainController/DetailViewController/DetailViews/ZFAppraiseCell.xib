@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="115" id="KGk-i7-Jjw" customClass="ZFAppraiseCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tGg-4u-6BX">
+                        <rect key="frame" x="10" y="15" width="50" height="50"/>
+                        <color key="backgroundColor" red="0.99976259469999995" green="0.37686329140000002" blue="0.32606267059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="S4H-8n-1Ma"/>
+                            <constraint firstAttribute="width" constant="50" id="WoP-Ex-bu7"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="西天的风" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaa-ET-CTA">
+                        <rect key="frame" x="70" y="15" width="61.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="32分钟之前，来自iPhone6s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Gz-HD-83x">
+                        <rect key="frame" x="70" y="38" width="153.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IYV-xa-USv">
+                        <rect key="frame" x="220" y="15" width="90" height="20"/>
+                        <color key="backgroundColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="3KX-dq-dlu"/>
+                            <constraint firstAttribute="width" constant="90" id="yZO-7P-znH"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="32分钟之前，来自iPhone6s32分钟之前，来自iPhone6s32分 32分钟之前，来自iPhone6s326s32分 " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="av9-Co-Vk9">
+                        <rect key="frame" x="70" y="62.5" width="220" height="43"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="eaa-ET-CTA" firstAttribute="top" secondItem="tGg-4u-6BX" secondAttribute="top" id="1gY-Q4-uNL"/>
+                    <constraint firstItem="eaa-ET-CTA" firstAttribute="leading" secondItem="tGg-4u-6BX" secondAttribute="trailing" constant="10" id="2Mp-7c-URq"/>
+                    <constraint firstItem="av9-Co-Vk9" firstAttribute="top" secondItem="4Gz-HD-83x" secondAttribute="bottom" constant="10" id="7fo-vD-kgA"/>
+                    <constraint firstItem="4Gz-HD-83x" firstAttribute="leading" secondItem="eaa-ET-CTA" secondAttribute="leading" id="Bb3-8X-5eg"/>
+                    <constraint firstItem="av9-Co-Vk9" firstAttribute="leading" secondItem="4Gz-HD-83x" secondAttribute="leading" id="IKQ-QV-gxi"/>
+                    <constraint firstAttribute="trailing" secondItem="av9-Co-Vk9" secondAttribute="trailing" constant="30" id="Suk-v2-NEl"/>
+                    <constraint firstItem="IYV-xa-USv" firstAttribute="top" secondItem="eaa-ET-CTA" secondAttribute="top" id="T2G-aL-Aeu"/>
+                    <constraint firstAttribute="trailing" secondItem="IYV-xa-USv" secondAttribute="trailing" constant="10" id="dwl-8K-wiK"/>
+                    <constraint firstItem="4Gz-HD-83x" firstAttribute="top" secondItem="eaa-ET-CTA" secondAttribute="bottom" constant="5" id="nO0-Cm-bK0"/>
+                    <constraint firstItem="tGg-4u-6BX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="pD4-pl-feR"/>
+                    <constraint firstItem="tGg-4u-6BX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="v7F-Bm-IJc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="36" y="88.5"/>
+        </tableViewCell>
+    </objects>
+</document>

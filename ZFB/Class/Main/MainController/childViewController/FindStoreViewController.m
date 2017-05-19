@@ -12,6 +12,7 @@
 #import "FindStoreCell.h"
 #import "HP_LocationViewController.h"
 #import "DetailStoreViewController.h"
+#import "ZFAllStoreViewController.h"
 @interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property(strong,nonatomic )UITableView * home_tableView;
 
@@ -114,6 +115,14 @@
         labelTitle.font =[ UIFont systemFontOfSize:12];
         [view addSubview:labelTitle];
 
+        UIButton * more_btn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [more_btn addTarget:self action:@selector(more_btnAction:) forControlEvents:UIControlEventTouchUpInside];
+        more_btn.frame =CGRectMake( KScreenW - 65 , 0, 50, 35);
+        [more_btn setTitle:@"更多" forState:UIControlStateNormal];
+        more_btn.titleLabel.font = [UIFont systemFontOfSize:12];
+        [more_btn setTitleColor: HEXCOLOR(0xfa6d6a) forState:UIControlStateNormal];
+        [view addSubview:more_btn];
+        
         UIImageView * icon_locationView = [[UIImageView alloc]init ];//定位icon
         icon_locationView.frame =CGRectMake(5, 0, 30, 35);
         icon_locationView.image = [UIImage imageNamed:@"location_find"];
@@ -143,10 +152,19 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-
 /**
-  定位
+  更多门店
+
+ @param sender  跳转到更多门店
  */
+-(void)more_btnAction:(UIButton*)sender
+{
+    NSLog(@"更多门店");
+    
+    ZFAllStoreViewController * allVC =[[ ZFAllStoreViewController alloc]init];
+    [self.navigationController pushViewController:allVC animated:YES];
+}
+/**定位 */
 -(void)initWithLocation
 {
     

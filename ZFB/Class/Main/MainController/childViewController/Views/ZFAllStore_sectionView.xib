@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="HC1-04-NVF" customClass="ZFAllStore_sectionView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8V-dN-hwy">
+                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="89"/>
+                    <color key="backgroundColor" red="0.99883085490000001" green="0.71001201869999997" blue="0.015884760769999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="距离最近" image="arrows_down_white.png">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uhW-Ky-VML">
+                    <rect key="frame" x="187.5" y="0.0" width="187.5" height="89"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="全部">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="uhW-Ky-VML" firstAttribute="leading" secondItem="k8V-dN-hwy" secondAttribute="trailing" id="5Oj-2x-69R"/>
+                <constraint firstItem="uhW-Ky-VML" firstAttribute="top" secondItem="HC1-04-NVF" secondAttribute="top" id="5b0-ze-j3J"/>
+                <constraint firstAttribute="bottom" secondItem="uhW-Ky-VML" secondAttribute="bottom" id="Bkz-3v-N8N"/>
+                <constraint firstAttribute="bottom" secondItem="k8V-dN-hwy" secondAttribute="bottom" id="Jjo-Jg-1GP"/>
+                <constraint firstItem="k8V-dN-hwy" firstAttribute="leading" secondItem="HC1-04-NVF" secondAttribute="leading" id="JtU-T7-0br"/>
+                <constraint firstAttribute="trailing" secondItem="uhW-Ky-VML" secondAttribute="trailing" id="Y4l-p8-oaf"/>
+                <constraint firstItem="k8V-dN-hwy" firstAttribute="top" secondItem="HC1-04-NVF" secondAttribute="top" id="g8R-R8-K6J"/>
+                <constraint firstItem="uhW-Ky-VML" firstAttribute="height" secondItem="k8V-dN-hwy" secondAttribute="height" id="l6S-b9-va7"/>
+                <constraint firstItem="uhW-Ky-VML" firstAttribute="width" secondItem="k8V-dN-hwy" secondAttribute="width" id="pT2-Ll-3JB"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-10.5" y="-412.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrows_down_white.png" width="16" height="16"/>
+    </resources>
+</document>
