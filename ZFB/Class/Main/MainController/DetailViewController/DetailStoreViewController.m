@@ -149,29 +149,18 @@
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
+    if (section == 0) {
+        
+        return UIEdgeInsetsZero;
+    }
     return UIEdgeInsetsMake(15,  20 , 10, 20);
     
 }
 
-//设置每个item水平间距
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 20;
-}
-
-
-//设置每个item垂直间距
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 20;
-}
-
-
 
 -(void)creatHeadViewinterface
 {
-   CGFloat  ViewHeignt = 0;
-    
+    CGFloat  ViewHeignt = 0;
     self.sectionView = [[UIView alloc]initWithFrame:self.view.bounds];
     
     //设置title
@@ -281,7 +270,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return CGSizeMake(KScreenW , 275 -120);
+        return CGSizeMake(KScreenW , 155);
    
     }
     return CGSizeMake(KScreenW ,120);

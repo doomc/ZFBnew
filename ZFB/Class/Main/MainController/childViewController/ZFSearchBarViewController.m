@@ -27,6 +27,24 @@
     [self settingSearchBarTableView];
     [self settingCustomSearchBar];
     [self settingNavBarLeftItem];
+    
+    
+    
+//    // 1.创建热门搜索
+//        NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
+//        // 2. 创建控制器
+//        PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"搜索编程语言" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+//            // 开始搜索执行以下代码
+//            // 如：跳转到指定控制器
+//            [searchViewController.navigationController pushViewController:[[ZFSearchDetailViewController alloc] init] animated:YES];
+//        }];
+//        // 4. 设置代理
+//       searchViewController.delegate = self;
+//        searchViewController.searchResultShowMode = PYSearchResultShowModeEmbed;
+//        searchViewController.hotSearchStyle = PYHotSearchStyleColorfulTag;
+//    
+//    
+    
  
 }
 
@@ -90,11 +108,11 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section ? 5 : 6;
+    return 2;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    PYSearchHistoryStyleCell *cell = [[UITableViewCell alloc] init];
 
     
     return cell;
@@ -106,10 +124,6 @@
 
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return section ? @"选择搜索历史风格（热门搜索为默认风格）" : @"选择热门搜索风格（搜索历史为默认风格）";
-}
 
 #pragma mark - PYSearchViewControllerDelegate
 - (void)searchViewController:(PYSearchViewController *)searchViewController searchTextDidChange:(UISearchBar *)seachBar searchText:(NSString *)searchText
@@ -144,10 +158,6 @@
         
     }];
 }
-
-
-
-
 
 
 

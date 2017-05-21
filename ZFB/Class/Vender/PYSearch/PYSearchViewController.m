@@ -206,7 +206,7 @@
     return _colorPol;
 }
 
-#pragma mark  包装cancelButton
+#pragma mark  包装
 - (UIBarButtonItem *)cancelButton
 {
     return self.navigationItem.rightBarButtonItem;

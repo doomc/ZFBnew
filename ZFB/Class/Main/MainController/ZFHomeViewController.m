@@ -122,18 +122,10 @@
 -(void)DidClickSearchBarAction:(UIButton*)sender
 {
 
-    // 1.创建热门搜索
-    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
-    // 2. 创建控制器
-    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"搜索编程语言" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
-        // 开始搜索执行以下代码
-        // 如：跳转到指定控制器
-        [searchViewController.navigationController pushViewController:[[ZFSearchBarViewController alloc] init] animated:YES];
-    }];
-    // 4. 设置代理
-    searchViewController.delegate = self;
+ 
+    ZFSearchBarViewController * searchVC = [[ZFSearchBarViewController alloc]init];
     // 5. 跳转到搜索控制器
-    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:searchViewController];
+    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:searchVC];
     [self presentViewController:nav  animated:NO completion:nil];
     
  
