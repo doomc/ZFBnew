@@ -13,6 +13,7 @@
 #import "DCNavTabBarController.h"
 
 #import "ZFSearchBarViewController.h"
+#import "ZFSearchDetailViewController.h"
 #import "BaseNavigationController.h"
 #import "PYSearch.h"
 
@@ -122,14 +123,29 @@
 -(void)DidClickSearchBarAction:(UIButton*)sender
 {
 
- 
-    ZFSearchBarViewController * searchVC = [[ZFSearchBarViewController alloc]init];
+    
+    // 1.创建热门搜索
+    
+    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
+    
+    // 2. 创建控制器
+    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"搜索编程语言" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+                // 开始搜索执行以下代码
+                // 如：跳转到指定控制器
+                [searchViewController.navigationController pushViewController:[[ZFSearchDetailViewController alloc] init] animated:YES];
+            }];
+
+        
+    // 4. 设置代理
+    searchViewController.delegate = self;
+    searchViewController.searchResultShowMode = PYSearchResultShowModeCustom;
+    searchViewController.hotSearchStyle = PYHotSearchStyleBorderTag;
     // 5. 跳转到搜索控制器
-    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:searchVC];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
     [self presentViewController:nav  animated:NO completion:nil];
     
  
-    NSLog(@"clickAction");
+    NSLog(@"clickAction2");
 
 }
 /**
@@ -139,7 +155,6 @@
 {
     NSLog(@"clickAction");
 }
-
 
 ///** 自定义搜索框和放大镜 */
 //-(void)settingCustomSearchBar

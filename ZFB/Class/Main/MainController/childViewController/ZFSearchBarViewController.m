@@ -112,7 +112,7 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PYSearchHistoryStyleCell *cell = [[UITableViewCell alloc] init];
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
 
     
     return cell;

@@ -243,7 +243,19 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.baseSearchTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(cancelDidClick)];
+   
+    
+    //自定义返回
+    UIButton* left_btn   =[UIButton buttonWithType:UIButtonTypeCustom];
+    [left_btn setBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [left_btn addTarget:self action:@selector(cancelDidClick) forControlEvents:UIControlEventTouchUpInside];
+    left_btn.frame = CGRectMake(0, 5, 20, 25);
+    UIBarButtonItem * leftItem = [[UIBarButtonItem alloc]initWithCustomView:left_btn];
+    self.navigationItem.leftBarButtonItem =leftItem;
+    self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
+
+    
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(cancelDidClick)];
     
     /**
      * 设置一些默认设置

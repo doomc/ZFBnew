@@ -12,6 +12,8 @@
 #import "ZFMyProgressCell.h"
 #import "ZFMyOderCell.h"
 #import "ZFHeaderView.h"
+#import "ZFMainSendViewController.h"
+
 typedef NS_ENUM(NSUInteger, TypeCell) {
     TypeCellOfMyCashBagCell,
     TypeCellOfMyProgressCell,
@@ -168,6 +170,13 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section = %ld , row = %ld",indexPath.section,indexPath.row);
+    
+    if (indexPath.row == 3) {
+        
+        ZFMainSendViewController * MainVC  = [[ZFMainSendViewController alloc]init];
+        [self.navigationController pushViewController:MainVC animated:YES];
+        
+    }
 }
 
 
