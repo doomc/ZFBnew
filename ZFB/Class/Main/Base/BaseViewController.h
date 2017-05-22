@@ -17,4 +17,14 @@
 -(void)popToViewControllerWithName:(NSString *)name ;
 
 
+
+/**
+ 自定义导航
+
+ @param Navtitle  title名
+ @param didClickDownBtn 点击箭头触发的事件
+ @param btnisHidden  是否隐藏这个按钮
+ */
+-(void)addNavWithTitle:(NSString *)Navtitle didClickArrowsDown:(SEL)didClickDownBtn ishidden:(BOOL)btnisHidden;
+
 @end

@@ -102,7 +102,45 @@
     }
 }
 
- 
+
+
+-(void)addNavWithTitle:(NSString *)Navtitle didClickArrowsDown:(SEL)didClickDownBtn ishidden:(BOOL)btnisHidden;
+{
+    self.navigationController.navigationBar.hidden = YES;
+    
+    UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 64)];
+    [self.view addSubview:bgView];
+    bgView.backgroundColor = HEXCOLOR(0xffcccc);
+    
+    UIButton * left_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    left_btn.frame =CGRectMake(10, bgView.centerY, 24, 24);
+    [left_btn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [bgView addSubview:left_btn];
+    
+    
+    UILabel * lb_title = [[UILabel alloc]initWithFrame:CGRectMake(bgView.centerX-20,bgView.centerY, 60, 24)];
+    lb_title.text = Navtitle;
+    lb_title.adjustsFontSizeToFitWidth = YES;
+    lb_title.textAlignment = NSTextAlignmentCenter;
+    lb_title.font = [UIFont systemFontOfSize:15];
+    lb_title.textColor = HEXCOLOR(0xfe6d6a);
+    [bgView addSubview:lb_title];
+  //  CGSize titleSize = [lb_title.text sizeWithFont:lb_title.font constrainedToSize:CGSizeMake(MAXFLOAT, 30)];
+    
+
+
+    UIButton * btn_Action = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn_Action.frame =CGRectMake(bgView.centerX+40 , bgView.centerY, 24, 24);
+    [btn_Action setImage:[UIImage imageNamed:@"Order_down"] forState:UIControlStateNormal];
+    [btn_Action addTarget:self action:didClickDownBtn forControlEvents:UIControlEventTouchUpInside];
+    btn_Action.hidden =btnisHidden;
+    [bgView addSubview:btn_Action];
+    
+
+}
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

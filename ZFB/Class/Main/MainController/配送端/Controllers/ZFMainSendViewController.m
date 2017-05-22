@@ -37,8 +37,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title  = @"用户端";
+    self.isChange = YES;
 
- 
     self.send_tableView.hidden = YES;//默认隐藏
     self.isChange = YES;//默认已切换
  
@@ -140,6 +140,7 @@
 {
     if (!_send_tableView) {
         _send_tableView =[[ UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH - 44-64) style:UITableViewStylePlain];
+        _send_tableView.separatorStyle =UITableViewCellSeparatorStyleNone;
         _send_tableView.delegate= self;
         _send_tableView.dataSource = self;
         [self.view addSubview:_send_tableView];
@@ -227,46 +228,63 @@
 {
     if (!_popView) {
         
-        _popView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 100)];
+        _popView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 100)];
         _popView.backgroundColor = [UIColor whiteColor];
         
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < self.titlesArr.count; i++) {
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.tag = i+1000;
-            button = [[UIButton alloc] initWithFrame:CGRectMake(i * (KScreenW*0.3333), 20, KScreenW*0.3333 - 30, 25)];
+            button = [[UIButton alloc] initWithFrame:CGRectMake(i%3 * (KScreenW*0.3333)+15,20+i/3*(25+20), KScreenW*0.3333 - 30, 25)];
             button.backgroundColor = HEXCOLOR(0xfe6d6a);
-            [button addTarget:self action:@selector(changeColor) forControlEvents:UIControlEventTouchUpInside];
-            [button setTitle:@"代配送" forState:UIControlStateNormal];
+            [button setTitle:self.titlesArr[i] forState:UIControlStateNormal];
+            button.titleLabel.font = [UIFont systemFontOfSize:12];
+            [button addTarget:self action:@selector(didclickSendPopViewAction:) forControlEvents:UIControlEventTouchUpInside];
             [_popView addSubview:button];
+            button.tag = i+1000;
+            NSLog(@"%ld \n",button.tag);
         }
-        
 
     }
     return _popView;
 }
+
+/**
+ @return  背景蒙板
+ */
 -(UIView *)bgview
 {
     if (!_bgview) {
         _bgview =[[ UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH)];
-        self.bgview.backgroundColor =[UIColor blackColor];
-        self.bgview.alpha = 0.2;
+        _bgview.backgroundColor = RGBA(0, 0, 0, 0.2) ;
         [self.view addSubview:_bgview];
+        [_bgview addSubview:self.popView];
 
-        UIView * Nview = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 100)];
-        [self.view addSubview:Nview];
-        
+
     }
     return _bgview;
 }
--(void)changeColor
+
+-(void)didclickSendPopViewAction:(UIButton *)sender
 {
+    NSInteger tagNum ;
+    tagNum = sender.tag ;
+  
+    NSString* idstr =  [_titlesArr objectAtIndex:tagNum-1000];
+    [self  getdataWithId:idstr];
     
+    NSLog(@"%ld" ,tagNum);
+}
+
+-(void)getdataWithId:(NSString *)idstr{
+
+
 }
 #pragma mark  -  点击事件处理
 /**点击首页  @param sender 切换页面*/
 - (IBAction)didClickHomePage:(UIButton*)sender {
    
-    _isChange = YES;
+    self.isChange = YES;
+    
+    [self addNavWithTitle:@"待配送" didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
     self.title  = @"用户端";
     self.HomePageView.hidden = NO;
     self.send_tableView.hidden = YES;
@@ -281,8 +299,8 @@
 /**点击订单  @param sender 切换页面 */
 - (IBAction)didClickOrderPage:(id)sender {
     
-    _isChange = NO;
-
+    self.isChange = NO;
+    [self addNavWithTitle:@"待配送" didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
     
    // self.title = @"代配送";
     self.send_tableView.hidden = NO;
@@ -297,7 +315,7 @@
  
     UIButton * navBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     navBtn.frame =CGRectMake(KScreenW - 100, 5, 80, 25);
-    [navBtn setTitle:@"代配送" forState:UIControlStateNormal];
+    [navBtn setTitle:@"待配送" forState:UIControlStateNormal];
     navBtn.backgroundColor = HEXCOLOR(0xfe6d6a);
     [navBtn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = navBtn;
@@ -310,13 +328,14 @@
     btn.selected = !btn.selected;
     if (btn.selected) {
         self.bgview.hidden = NO;
-     
+        self.popView.hidden = NO;
         
 
     }else{
- 
         btn.selected=NO;
         self.bgview.hidden = YES;
+        self.popView.hidden = YES;
+
     }
     
 }

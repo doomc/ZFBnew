@@ -42,7 +42,7 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Main/MainController/childViewController/ZFSearchBarViewController.m"
-                  timestampString = "517028396.168954"
+                  timestampString = "517161270.77696"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "133"
@@ -57,7 +57,7 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Main/MainController/childViewController/ZFSearchBarViewController.m"
-                  timestampString = "517028396.171418"
+                  timestampString = "517161270.779485"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "135"
@@ -96,6 +96,22 @@
             startingLineNumber = "212"
             endingLineNumber = "212"
             landmarkName = "-cancelButton"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/MainController/&#x914d;&#x9001;&#x7aef;/Controllers/ZFMainSendViewController.m"
+            timestampString = "517161249.318171"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "-didClickHomePage:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
