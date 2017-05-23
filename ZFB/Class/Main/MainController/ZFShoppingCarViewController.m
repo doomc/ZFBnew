@@ -15,8 +15,7 @@
 @interface ZFShoppingCarViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) UITableView * shopCar_tableview;
-@property (nonatomic,strong) UIView * sectionHeadView;
-@property (nonatomic,strong) UIView * sectionFooterView;
+
 
 
 @end
@@ -29,8 +28,9 @@
     // Do any additional setup after loading the view.
     
     [self.shopCar_tableview registerNib:[UINib nibWithNibName:@"ZFShopCarCell" bundle:nil] forCellReuseIdentifier:@"ShopCarCellid"];
-//    self.sectionHeadView = [self AddwithAHeadViewOfLb_title:@"大王帅进口食品" Andstatus:@"编辑"];
-//    self.sectionFooterView = [self creatWithAFooterViewOfCaseOrder:@"总计:" AndPrice:@"¥ 199.00" AndSetButtonTitle:@"结算"];
+    
+    
+    
 }
 -(void)didclickEdit:(UIButton *)edit
 {
@@ -40,7 +40,7 @@
 {
     if (!_shopCar_tableview) {
         self.title = @"购物车";
-        _shopCar_tableview =[[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-44) style:UITableViewStyleGrouped];
+        _shopCar_tableview =[[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-64) style:UITableViewStyleGrouped];
         _shopCar_tableview.delegate = self;
         _shopCar_tableview.dataSource = self;
         _shopCar_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -48,65 +48,91 @@
     }
     return _shopCar_tableview;
 }
--(UIView *)sectionHeadView
+-(UIView *)CreatSectionHeadView
 {
-    if (!_sectionHeadView) {
-        _sectionHeadView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, KScreenW, 40)];
-        
-        UILabel * time = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, 200, 30)];
-        time.text = @"2017-06-20";
-        time.font = [UIFont systemFontOfSize:12.0];
-        time.textColor = HEXCOLOR(0x363636);
-        
-        UILabel * status = [[UILabel alloc]initWithFrame:CGRectMake(KScreenW - 80, 5, 80, 30)];
-        status.text = @"配送中";
-        status.font = [UIFont systemFontOfSize:12.0];
-        status.textColor = HEXCOLOR(0x363636);
-        status.textAlignment = NSTextAlignmentCenter;
-        
-        UILabel *line = [[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
-        line.backgroundColor =HEXCOLOR(0xdedede);
-        
-        [_sectionHeadView addSubview:line];
-        [_sectionHeadView addSubview:time];
-        [_sectionHeadView addSubview:status];
-        
-    }
-    return _sectionHeadView;
+    NSString *statusStr = @"编辑";
+    NSString *titletext = @"王大帅进口食品厂";
+    UIFont * font  =[UIFont systemFontOfSize:12];
+
+    UIView *  headerView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, KScreenW, 40)];
+    UILabel * title = [[UILabel alloc]init];
+    title.text = titletext;
+    title.font = font;
+    CGSize size = [title.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
+    CGFloat titleW = size.width;
+ 
+    title.frame = CGRectMake(15, 5, titleW, 30);
+    title.textColor = HEXCOLOR(0x363636);
+
+    
+    UIButton * status = [[UIButton alloc]init ];
+    [status setTitle:statusStr forState:UIControlStateNormal];
+    status.titleLabel.font = font;
+    [status setTitleColor: HEXCOLOR(0x7a7a7a) forState:UIControlStateNormal];
+    CGSize statusSize = [statusStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
+    CGFloat statusW = statusSize.width;
+    
+    status.frame = CGRectMake(KScreenW - statusW - 15, 5, statusW, 30);
+    [status addTarget:self action:@selector(didclickEdit:) forControlEvents:UIControlEventTouchUpInside];
+   
+    UILabel *line =[[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
+    line.backgroundColor = HEXCOLOR(0xffcccc);
+    
+    [headerView addSubview:line];
+    [headerView addSubview:status];
+    [headerView addSubview:title];
+
+     return headerView;
+    
 }
 
--(UIView *)sectionFooterView
+-(UIView *)CreatSectionFooterView
 {
-    if (!_sectionFooterView) {
-        _sectionFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 50)];
-        _sectionFooterView.backgroundColor =[UIColor whiteColor];
-        UILabel * lb_order = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, 100, 30)];
-        lb_order.text= @"订单金额:";
-        lb_order.font = [UIFont systemFontOfSize:12.0];
-        lb_order.textColor = HEXCOLOR(0x363636);
-        
-        UILabel * price = [[UILabel alloc]initWithFrame:CGRectMake(120, 5, 100, 30)];
-        price.text = @"¥208.00";
-        price.textAlignment = NSTextAlignmentLeft;
-        price.font = [UIFont systemFontOfSize:12.0];
-        price.textColor = HEXCOLOR(0xfe6d6a);
-        
-        UIButton * complete_Btn  = [UIButton buttonWithType:UIButtonTypeCustom];
-        complete_Btn.frame =CGRectMake(KScreenW - 100, 5, 80, 25);
-        [complete_Btn setTitle:@"配送完成" forState:UIControlStateNormal];
-        complete_Btn.titleLabel.font =[UIFont systemFontOfSize:12.0];
-        complete_Btn.backgroundColor = HEXCOLOR(0xfe6d6a);
-        
-        UILabel *line = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, KScreenW, 10)];
-        line.backgroundColor =HEXCOLOR(0xdedede);
-        
-        [_sectionFooterView addSubview:line];
-        [_sectionFooterView addSubview: price];
-        [_sectionFooterView addSubview:lb_order];
-        [_sectionFooterView addSubview:complete_Btn];
-        
-    }
-    return _sectionFooterView;
+    NSString *buttonTitle = @"配送完成";
+    NSString *price = @"¥208.00";
+    NSString *caseOrder =  @"订单金额";
+    
+    UIFont * font  =[UIFont systemFontOfSize:12];
+    UIView* footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 50)];
+    footerView.backgroundColor =[UIColor whiteColor];
+    
+    //结算按钮
+    UIButton * complete_Btn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    [complete_Btn setTitle:buttonTitle forState:UIControlStateNormal];
+    complete_Btn.titleLabel.font =font;
+    complete_Btn.layer.cornerRadius = 2;
+    complete_Btn.backgroundColor =HEXCOLOR(0xfe6d6a);
+    CGSize complete_BtnSize = [buttonTitle sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
+    CGFloat complete_BtnW = complete_BtnSize.width;
+    complete_Btn.frame =CGRectMake(KScreenW - complete_BtnW - 25, 5, complete_BtnW +10, 25);
+    
+    
+    //价格
+    UILabel * lb_price = [[UILabel alloc]init];
+    lb_price.text = price;
+    lb_price.textAlignment = NSTextAlignmentLeft;
+    lb_price.font = font;
+    lb_price.textColor = HEXCOLOR(0xfe6d6a);
+    CGSize lb_priceSize = [price sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
+    CGFloat lb_priceW = lb_priceSize.width;
+    lb_price.frame = CGRectMake(KScreenW - lb_priceW -35-complete_BtnW, 5, lb_priceW, 30);
+    
+    //固定金额位置
+    UILabel * lb_order = [[UILabel alloc]init];
+    lb_order.text= caseOrder;
+    lb_order.font = font;
+    lb_order.textColor = HEXCOLOR(0x363636);
+    CGSize lb_orderSiez = [caseOrder sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
+    CGFloat lb_orderW = lb_orderSiez.width;
+    lb_order.frame =  CGRectMake(KScreenW - lb_priceW -35-complete_BtnW-15-lb_orderW, 5, lb_orderW, 30);
+    
+  
+    [footerView addSubview: lb_price];
+    [footerView addSubview:lb_order];
+    [footerView addSubview:complete_Btn];
+    
+    return footerView;
+    
 }
 #pragma mark - tableView delegare
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -116,23 +142,33 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 2;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 165;
+    return 100;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return [self CreatSectionHeadView];
+    
+}
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [self CreatSectionFooterView];
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 0.001;
-    }
-    return 5 ;
-
+    //    if (section == 0) {
+    //        return 0.001;
+    //    }
+    return 40.001 ;
+    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 5;
+    return 40.001;
 }
 
 
@@ -140,6 +176,7 @@
 {
     ZFShopCarCell * shopCell = [self.shopCar_tableview dequeueReusableCellWithIdentifier:@"ShopCarCellid" forIndexPath:indexPath];
     shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+    
     return shopCell;
     
 }
@@ -149,6 +186,7 @@
     NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
     
     ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
+    
     [self.navigationController pushViewController:payVC animated:YES];
 }
 
@@ -163,13 +201,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

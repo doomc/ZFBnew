@@ -193,7 +193,7 @@
     CGSize complete_BtnSize = [buttonTitle sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
     CGFloat complete_BtnW = complete_BtnSize.width;
     complete_Btn.frame =CGRectMake(KScreenW - complete_BtnW - 15, 5, complete_BtnW, 25);
-    [complete_Btn setBackgroundColor: HEXCOLOR(0xffffff)];
+    [complete_Btn setBackgroundColor: HEXCOLOR(0xfe6d6a)];
 
 
     //价格
@@ -217,10 +217,8 @@
 
     UILabel *line = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, KScreenW, 10)];
     line.backgroundColor =HEXCOLOR(0xdedede);
-    NSLog(@"complete_BtnW = %f",complete_BtnW);
-    NSLog(@"lb_orderW= %f",lb_orderW);
-    NSLog(@"lb_priceW= %f",lb_priceW);
     
+ 
     [_footerView addSubview:line];
     [_footerView addSubview: lb_price];
     [_footerView addSubview:lb_order];

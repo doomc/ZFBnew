@@ -46,8 +46,9 @@
     self.send_tableView.hidden = YES;//默认隐藏
     self.isChange = YES;//默认已切换
     [self bgViewInit];
+    
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendingCell" bundle:nil] forCellReuseIdentifier:@"sendCellid"];
- 
+    
     [self addNavWithTitle:@"配送端"  didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
 
 }
@@ -149,6 +150,7 @@
         _send_tableView.delegate= self;
         _send_tableView.dataSource = self;
         [self.view addSubview:_send_tableView];
+        
         self.send_tableView.tableHeaderView = _headerView;
         self.send_tableView.tableFooterView = _footerView;
     }
@@ -203,7 +205,7 @@
         [complete_Btn setTitle:@"配送完成" forState:UIControlStateNormal];
         complete_Btn.titleLabel.font =[UIFont systemFontOfSize:12.0];
         complete_Btn.backgroundColor = HEXCOLOR(0xfe6d6a);
-        
+        complete_Btn.layer.cornerRadius = 2;
         UILabel *line = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, KScreenW, 10)];
         line.backgroundColor =HEXCOLOR(0xdedede);
         
@@ -268,9 +270,27 @@
     return _bgview;
 
 }
+-(UIButton *)Leftitem
+{
+    if (!_Leftitem) {
+        _Leftitem = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_Leftitem setTitle:@"切换用户端" forState:UIControlStateNormal];
+        [_Leftitem addTarget:self action:@selector(returnTohome) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _Leftitem;
+}
+
+-(UIButton *)backToHomeitem
+{
+    if (!_backToHomeitem) {
+        _backToHomeitem = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_backToHomeitem setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+        [_backToHomeitem addTarget:self action:@selector(backToHomepage) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _backToHomeitem;
+}
 /**
-  箭头
-  @sender sender
+  @sender popView 按钮tag时间
   */
 -(void)didclickSendPopViewAction:(UIButton *)sender
 {
@@ -288,43 +308,26 @@
 
 }
 
--(UIButton *)Leftitem
-{
-    if (!_Leftitem) {
-        _Leftitem = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_Leftitem setTitle:@"切换用户端" forState:UIControlStateNormal];
-        [_Leftitem addTarget:self action:@selector(returnTohome:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _Leftitem;
-}
 
--(UIButton *)backToHomeitem
-{
-    if (!_backToHomeitem) {
-       _backToHomeitem = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_backToHomeitem setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
-        [_backToHomeitem addTarget:self action:@selector(backToHomepage:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _backToHomeitem;
-}
 #pragma mark  -  点击事件处理
 /**返回个人中心 */
--(void)returnTohome:(UIButton *)sender
+-(void)returnTohom
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 /**返回用户端首页 */
--(void)backToHomepage:(UIButton *)sender
+-(void)backToHomepage
 {
-   [self didClickHomePage:sender];
+    self.HomePageView.hidden = NO;
+    self.send_tableView.hidden = YES;
+    self.img_sendHome.image = [UIImage imageNamed:@"home_red"];
+    self.lb_sendHomeTitle.textColor = HEXCOLOR(0xfe6d6a);
+    self.lb_sendOrderTitle.textColor=[UIColor whiteColor];
+    self.img_sendOrder.image = [UIImage imageNamed:@"Order_normal"];
 }
 /**点击首页  @param sender 切换页面*/
 - (IBAction)didClickHomePage:(UIButton*)sender {
    
-    self.isChange = YES;
- 
-    
-//    self.title  = @"用户端";
     self.HomePageView.hidden = NO;
     self.send_tableView.hidden = YES;
     self.img_sendHome.image = [UIImage imageNamed:@"home_red"];
@@ -338,8 +341,7 @@
 /**点击订单  @param sender 切换页面 */
 - (IBAction)didClickOrderPage:(id)sender {
     
-    self.isChange = NO;
-  //  [self addNavWithTitle:@"待配送"  didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
+    [self addNavWithTitle:@"待配送"  didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
     self.send_tableView.hidden = NO;
     self.HomePageView.hidden = YES;
     self.img_sendHome.image = [UIImage imageNamed:@"home_normal"];
