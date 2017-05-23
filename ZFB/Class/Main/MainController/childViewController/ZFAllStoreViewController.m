@@ -9,7 +9,7 @@
 #import "ZFAllStoreViewController.h"
 #import "AllStoreCell.h"
 #import "SDCycleScrollView.h"
-#import "ZFAllStore_sectionView.h"
+
 #import "DetailStoreViewController.h"
 
 @interface ZFAllStoreViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
@@ -17,7 +17,10 @@
 @property(nonatomic,strong) UITableView * all_tableview;
 @property(nonatomic,strong) UIView * sectionView;
 
+@property(nonatomic,strong) UIButton * farway_btn;
+@property(nonatomic,strong) UIButton * all_btn;
 
+@property (nonatomic,weak)UIButton *selectedBtn;
 @end
 
 @implementation ZFAllStoreViewController
@@ -25,32 +28,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    
+    self.farway_btn.selected = YES;
+    self.selectedBtn = _farway_btn;
     
     [self initAll_tableviewInterface];
     [self CDsyceleSettingRunningPaint];
-    
+    [self creatButtonWithDouble];
 }
 
 -(void)initAll_tableviewInterface
 {
+    
     self.title =@"全部门店";
-
     self.all_tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH - 64) style:UITableViewStylePlain];
     [self.view addSubview:self.all_tableview];
-    
     self.all_tableview.delegate = self;
     self.all_tableview.dataSource= self;
     
     [self.all_tableview registerNib:[UINib nibWithNibName:@"AllStoreCell" bundle:nil] forCellReuseIdentifier:@"AllStoreCell"];
-    self.sectionView = [[NSBundle mainBundle]loadNibNamed:@"ZFAllStore_sectionView" owner:self options:nil].lastObject;
     
-
+    
+    
+    
 }
 /**初始化轮播 */
 -(void)CDsyceleSettingRunningPaint
 {
-    self.title = @"轮播Demo";
     // 情景二：采用网络图片实现
     NSArray *imagesURLStrings = @[
                                   @"https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a4b3d7085dee3d6d2293d48b252b5910/0e2442a7d933c89524cd5cd4d51373f0830200ea.jpg",
@@ -104,7 +108,7 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return _sectionView;
+    return self.sectionView;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,4 +126,71 @@
     DetailStoreViewController * detailStroeVC =[[ DetailStoreViewController alloc]init];
     [self.navigationController pushViewController:detailStroeVC animated:YES];
 }
+
+-(void)creatButtonWithDouble
+{
+    self.sectionView =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
+    
+    self.farway_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.farway_btn.frame =CGRectMake( 0, 0, KScreenW*0.5, 40);
+    [self.farway_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 20)];
+    [self.farway_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 120, 0, 0)];
+    [self.farway_btn setTitle:@"距离最近" forState:UIControlStateNormal];
+    
+    self.farway_btn.backgroundColor = HEXCOLOR(0xffcccc);
+    [ self.farway_btn setImage:[UIImage imageNamed:@"arrows_down_white"] forState:UIControlStateNormal];
+    self.farway_btn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [ self.farway_btn addTarget:self action:@selector(buttonBtnClick2:) forControlEvents:UIControlEventTouchUpInside];
+    [self.sectionView  addSubview: _farway_btn];
+    
+    
+    _all_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _all_btn.frame =CGRectMake(KScreenW *0.5 , 0, KScreenW*0.5, 40);
+    _all_btn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_all_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 20)];
+    [_all_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 120, 0, 0)];
+    [_all_btn setTitle:@"全部" forState:UIControlStateNormal];
+    [_all_btn addTarget:self action:@selector(buttonBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    _all_btn.backgroundColor = [UIColor whiteColor];
+    
+    [_all_btn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+    [_all_btn setImage:[UIImage imageNamed:@"arrows_down_black"] forState:UIControlStateNormal];
+    [self.sectionView  addSubview:_all_btn];
+    
+    
+    
+}
+
+-(void)buttonBtnClick2:(UIButton *)button
+{
+    self.selectedBtn.selected = YES;
+    [self.farway_btn setImage:[UIImage imageNamed:@"arrows_down_white"] forState:UIControlStateNormal];
+    [self.farway_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.farway_btn.backgroundColor = HEXCOLOR(0xffcccc);
+    
+    [self.all_btn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+    [self.all_btn setImage:[UIImage imageNamed:@"arrows_down_black"] forState:UIControlStateNormal];
+    self.all_btn.backgroundColor =  [UIColor whiteColor];
+    
+    
+}
+-(void)buttonBtnClick:(UIButton *)button
+{
+    
+    self.selectedBtn.selected = NO;
+    [self.farway_btn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+    [self.farway_btn setImage:[UIImage imageNamed:@"arrows_down_black"] forState:UIControlStateNormal];
+    self.farway_btn.backgroundColor =[UIColor whiteColor];
+    
+    
+    [self.all_btn setImage:[UIImage imageNamed:@"arrows_down_white"] forState:UIControlStateNormal];
+    [self.all_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.all_btn.backgroundColor =  HEXCOLOR(0xffcccc);
+    
+    
+    
+    
+    
+}
+
 @end

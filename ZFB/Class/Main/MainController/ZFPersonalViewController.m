@@ -13,6 +13,7 @@
 #import "ZFMyOderCell.h"
 #import "ZFHeaderView.h"
 #import "ZFMainSendViewController.h"
+#import "LoginViewController.h"
 
 typedef NS_ENUM(NSUInteger, TypeCell) {
     TypeCellOfMyCashBagCell,
@@ -48,13 +49,10 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
    
     UIView * headerView =  [[NSBundle mainBundle]loadNibNamed:@"ZFHeaderView" owner:self options:nil].lastObject;
-
     self.myTableView.tableHeaderView =headerView;
     
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyCashBagCell" bundle:nil] forCellReuseIdentifier:@"ZFMyCashBagCell"];
-    
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyProgressCell" bundle:nil] forCellReuseIdentifier:@"ZFMyProgressCell"];
-  
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyOderCell" bundle:nil] forCellReuseIdentifier:@"ZFMyOderCell"];
   
     
@@ -74,7 +72,12 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     //自定义button必须执行
     UIBarButtonItem *left_item = [[UIBarButtonItem alloc] initWithCustomView:left_btn];
     self.navigationItem.leftBarButtonItem = left_item;
+    
+ 
+    
+ 
 }
+
 
 /**
  消息列表
@@ -171,6 +174,13 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     NSLog(@"section = %ld , row = %ld",indexPath.section,indexPath.row);
     
+    if (indexPath.row == 1) {
+        
+        LoginViewController * logvc = [[LoginViewController alloc]init];
+        
+        [self.navigationController pushViewController:logvc animated:YES];
+        
+    }
     if (indexPath.row == 3) {
         
         ZFMainSendViewController * MainVC  = [[ZFMainSendViewController alloc]init];
@@ -179,7 +189,11 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBar.hidden  = NO;
 
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

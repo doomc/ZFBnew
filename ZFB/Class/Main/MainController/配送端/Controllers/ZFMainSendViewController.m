@@ -23,6 +23,10 @@
 @property(nonatomic ,strong)UIView * bgview;//蒙板
 @property(nonatomic ,strong)UIView * popView;//弹框视图
 
+@property(nonatomic ,strong)UIButton * Leftitem;//自定义左边按钮
+@property(nonatomic ,strong)UIButton * backToHomeitem;//自定义左边按钮
+
+
 @property(nonatomic ,strong)NSMutableArray * titlesArr;
 @property(nonatomic ,strong)NSMutableArray * nickArr;
 
@@ -41,10 +45,11 @@
 
     self.send_tableView.hidden = YES;//默认隐藏
     self.isChange = YES;//默认已切换
- 
     [self bgViewInit];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendingCell" bundle:nil] forCellReuseIdentifier:@"sendCellid"];
-    
+ 
+    [self addNavWithTitle:@"配送端"  didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
+
 }
 
 -(NSMutableArray *)titlesArr
@@ -181,7 +186,7 @@
 {
     if (!_footerView) {
         _footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 50)];
-        
+        _footerView.backgroundColor =[UIColor whiteColor];
         UILabel * lb_order = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, 100, 30)];
         lb_order.text= @"订单金额:";
         lb_order.font = [UIFont systemFontOfSize:12.0];
@@ -261,8 +266,12 @@
 
     }
     return _bgview;
-}
 
+}
+/**
+  箭头
+  @sender sender
+  */
 -(void)didclickSendPopViewAction:(UIButton *)sender
 {
     NSInteger tagNum ;
@@ -278,14 +287,44 @@
 
 
 }
+
+-(UIButton *)Leftitem
+{
+    if (!_Leftitem) {
+        _Leftitem = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_Leftitem setTitle:@"切换用户端" forState:UIControlStateNormal];
+        [_Leftitem addTarget:self action:@selector(returnTohome:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _Leftitem;
+}
+
+-(UIButton *)backToHomeitem
+{
+    if (!_backToHomeitem) {
+       _backToHomeitem = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_backToHomeitem setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+        [_backToHomeitem addTarget:self action:@selector(backToHomepage:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _backToHomeitem;
+}
 #pragma mark  -  点击事件处理
+/**返回个人中心 */
+-(void)returnTohome:(UIButton *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+/**返回用户端首页 */
+-(void)backToHomepage:(UIButton *)sender
+{
+   [self didClickHomePage:sender];
+}
 /**点击首页  @param sender 切换页面*/
 - (IBAction)didClickHomePage:(UIButton*)sender {
    
     self.isChange = YES;
+ 
     
-    [self addNavWithTitle:@"待配送" didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
-    self.title  = @"用户端";
+//    self.title  = @"用户端";
     self.HomePageView.hidden = NO;
     self.send_tableView.hidden = YES;
     self.img_sendHome.image = [UIImage imageNamed:@"home_red"];
@@ -300,9 +339,7 @@
 - (IBAction)didClickOrderPage:(id)sender {
     
     self.isChange = NO;
-    [self addNavWithTitle:@"待配送" didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
-    
-   // self.title = @"代配送";
+  //  [self addNavWithTitle:@"待配送"  didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
     self.send_tableView.hidden = NO;
     self.HomePageView.hidden = YES;
     self.img_sendHome.image = [UIImage imageNamed:@"home_normal"];
@@ -312,16 +349,13 @@
     self.img_sendOrder.image = [UIImage imageNamed:@"send_red"];
     
 //    [self.send_tableView reloadData];
- 
-    UIButton * navBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    navBtn.frame =CGRectMake(KScreenW - 100, 5, 80, 25);
-    [navBtn setTitle:@"待配送" forState:UIControlStateNormal];
-    navBtn.backgroundColor = HEXCOLOR(0xfe6d6a);
-    [navBtn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.titleView = navBtn;
-    
+  
 }
 
+/**
+ 正选反选
+ @param btn 切换
+ */
 -(void)navigationBarSelectedOther:(UIButton *)btn;
 {
 
@@ -341,7 +375,7 @@
 }
 
 
-
+ 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

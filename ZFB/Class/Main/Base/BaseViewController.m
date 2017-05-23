@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
- 
+
 @interface BaseViewController ()
 
 @property (nonatomic, strong) UIView* overlayView;
@@ -23,62 +23,62 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-     if (isIOS7) {
-       
-         self.automaticallyAdjustsScrollViewInsets = NO;
-//        self.navigationController.navigationBar.translucent = NO;
+    if (isIOS7) {
+        
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        //        self.navigationController.navigationBar.translucent = NO;
         self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
- 
+        
         [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xfe6d6a),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-
+        
     }
     self.view.backgroundColor = [UIColor  whiteColor];
-   // 导航栏返回 按钮 打开注释掉的代码正常使用
+    // 导航栏返回 按钮 打开注释掉的代码正常使用
     
     NSArray *viewControllers = self.navigationController.viewControllers;
     
     if (viewControllers.count > 1){
-    
-    [self.navigationItem setHidesBackButton:NO animated:NO];
-    UIBarButtonItem *leftBarButtonItem = [ControlFactory createBackBarButtonItemWithTarget:self action:@selector(backAction)];
-    if (isIOS7) {
         
-        UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        negativeSpacer.width = -15;
+        [self.navigationItem setHidesBackButton:NO animated:NO];
+        UIBarButtonItem *leftBarButtonItem = [ControlFactory createBackBarButtonItemWithTarget:self action:@selector(backAction)];
+        if (isIOS7) {
+            
+            UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+            negativeSpacer.width = -15;
+            
+            self.navigationItem.leftBarButtonItems = @[negativeSpacer, leftBarButtonItem];
+            
+            
+        }else{
+            
+            self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+            
+            
+        }
         
-        self.navigationItem.leftBarButtonItems = @[negativeSpacer, leftBarButtonItem];
-        
-    
-    }else{
-        
-        self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-  
-    
-    }
-   
         UISwipeGestureRecognizer *gesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backSweepGesture:)];
         gesture.direction = UISwipeGestureRecognizerDirectionRight;
         [self.view addGestureRecognizer:gesture];
-       
-        }else{
+        
+    }else{
+        
+        [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+    }
     
-            [self.navigationItem setHidesBackButton:YES animated:NO];
-    
-        }
-
 }
 
 - (void)backSweepGesture:(UISwipeGestureRecognizer*)gesture{
     
-   // [self dismissViewControllerAnimated:YES completion:nil];
-        [self.navigationController popViewControllerAnimated:YES];
+    // [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark Action
 - (void)backAction{
     
     
-   // [self dismissViewControllerAnimated:YES completion:nil];
-      [self.navigationController popViewControllerAnimated:YES];
+    // [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)setCustomerTitle:(NSString *)title{
@@ -92,11 +92,11 @@
 }
 
 -(void)popToViewControllerWithName:(NSString *)name {
- 
+    
     for (UIViewController *vc in self.navigationController.viewControllers) {
         NSString *vcString = NSStringFromClass([vc class]);
         if ([vcString isEqualToString:name]) {
-          
+            
             [self.navigationController popToViewController:vc animated:YES];
         }
     }
@@ -115,6 +115,7 @@
     UIButton * left_btn = [UIButton buttonWithType:UIButtonTypeCustom];
     left_btn.frame =CGRectMake(10, bgView.centerY, 24, 24);
     [left_btn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    //    [left_btn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:left_btn];
     
     
@@ -125,10 +126,10 @@
     lb_title.font = [UIFont systemFontOfSize:15];
     lb_title.textColor = HEXCOLOR(0xfe6d6a);
     [bgView addSubview:lb_title];
-  //  CGSize titleSize = [lb_title.text sizeWithFont:lb_title.font constrainedToSize:CGSizeMake(MAXFLOAT, 30)];
+    //  CGSize titleSize = [lb_title.text sizeWithFont:lb_title.font constrainedToSize:CGSizeMake(MAXFLOAT, 30)];
     
-
-
+    
+    
     UIButton * btn_Action = [UIButton buttonWithType:UIButtonTypeCustom];
     btn_Action.frame =CGRectMake(bgView.centerX+40 , bgView.centerY, 24, 24);
     [btn_Action setImage:[UIImage imageNamed:@"Order_down"] forState:UIControlStateNormal];
@@ -136,25 +137,106 @@
     btn_Action.hidden =btnisHidden;
     [bgView addSubview:btn_Action];
     
-
+    
 }
 
 
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(UIView *)AddwithAHeadViewOfLb_title:(NSString*)headTitle  Andstatus :(NSString *)statusStr {
+  
+    UIView *  _headerView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, KScreenW, 40)];
+    UILabel * title = [[UILabel alloc]init];
+    UIFont * font  =[UIFont systemFontOfSize:12];
+    CGSize size = [title.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
+    CGFloat titleW = size.width;
+    title.text = headTitle;
+    title.font = font;
+    title.textColor = HEXCOLOR(0x363636);
+    title.frame = CGRectMake(15, 5, titleW, 30);
+    
+    
+    UIButton * status = [[UIButton alloc]init ];
+    [status setTitle:statusStr forState:UIControlStateNormal];
+    status.titleLabel.font = font;
+    [status setTitleColor: HEXCOLOR(0x7a7a7a) forState:UIControlStateNormal];
+    CGSize statusSize = [statusStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
+    CGFloat statusW = statusSize.width;
+    NSLog(@"statusW= %f",statusW);
+    NSLog(@" titleW %f",titleW);
+
+    status.frame = CGRectMake(KScreenW - statusW - 15, 5, statusW, 30);
+    [status addTarget:self action:@selector(didclickEdit:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    UILabel *line = [[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
+    line.backgroundColor =HEXCOLOR(0xdedede);
+    
+    [_headerView addSubview:line];
+    [_headerView addSubview:title];
+    [_headerView addSubview:status];
+    
+    return _headerView;
+ 
 }
 
-/*
-#pragma mark - Navigation
+-(UIView *)creatWithAFooterViewOfCaseOrder :(NSString *)caseOrder AndPrice:(NSString *)price AndSetButtonTitle :(NSString*)buttonTitle
+{
+    UIFont * font  =[UIFont systemFontOfSize:12];
+    UIView* _footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 50)];
+    _footerView.backgroundColor =[UIColor whiteColor];
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    //结算按钮
+    UIButton * complete_Btn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    [complete_Btn setTitle:buttonTitle forState:UIControlStateNormal];
+    complete_Btn.titleLabel.font =font;
+    CGSize complete_BtnSize = [buttonTitle sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
+    CGFloat complete_BtnW = complete_BtnSize.width;
+    complete_Btn.frame =CGRectMake(KScreenW - complete_BtnW - 15, 5, complete_BtnW, 25);
+    [complete_Btn setBackgroundColor: HEXCOLOR(0xffffff)];
+
+
+    //价格
+    UILabel * lb_price = [[UILabel alloc]init];
+    lb_price.text = price;
+    CGSize lb_priceSize = [price sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
+    CGFloat lb_priceW = lb_priceSize.width;
+    lb_price.frame = CGRectMake(KScreenW - lb_priceW -25-complete_BtnW, 5, lb_priceW, 30);
+    lb_price.textAlignment = NSTextAlignmentLeft;
+    lb_price.font = font;
+    lb_price.textColor = HEXCOLOR(0xfe6d6a);
+    
+    //固定金额位置
+    UILabel * lb_order = [[UILabel alloc]init];
+    lb_order.text= caseOrder;
+    lb_order.font = font;
+    lb_order.textColor = HEXCOLOR(0x363636);
+    CGSize lb_orderSiez = [caseOrder sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
+    CGFloat lb_orderW = lb_orderSiez.width;
+    lb_order.frame =  CGRectMake(KScreenW - lb_priceW -25-complete_BtnW-15-lb_orderW, 5, lb_orderW, 30);
+
+    UILabel *line = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, KScreenW, 10)];
+    line.backgroundColor =HEXCOLOR(0xdedede);
+    NSLog(@"complete_BtnW = %f",complete_BtnW);
+    NSLog(@"lb_orderW= %f",lb_orderW);
+    NSLog(@"lb_priceW= %f",lb_priceW);
+    
+    [_footerView addSubview:line];
+    [_footerView addSubview: lb_price];
+    [_footerView addSubview:lb_order];
+    [_footerView addSubview:complete_Btn];
+    
+    return _footerView;
 }
-*/
+
+
+
+-(void)didclickEdit:(UIButton *)edit
+{
+    
+}
+
+
+
 
 @end
