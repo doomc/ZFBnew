@@ -10,6 +10,7 @@
 #import "ZYFVerificationCodeViewController.h"
 
 @interface RegisterViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *nextTarget_btn;
 
 @end
 
@@ -18,6 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self.nextTarget_btn addTarget:self action:@selector(goToRegisterAcount:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -25,13 +28,46 @@
    注册 下一步
  @param sender 立即去注册
  */
-- (IBAction)goToRegisterAcount:(id)sender {
+- (void)goToRegisterAcount:(UIButton *)sender {
     
     ZYFVerificationCodeViewController * verificationVC = [[ZYFVerificationCodeViewController alloc]init];
     [self.navigationController pushViewController:verificationVC animated:YES];
     
     
 }
+
+/**
+ 服务协议
+
+ @param sender push到协议
+ */
+- (IBAction)serviceProtocol_btn:(id)sender {
+    
+}
+
+
+
+/**
+ 同意协议
+
+ @param sender 不同意 button状态改变灰色
+ */
+- (IBAction)didSelectedProtocol:(UIButton *)sender {
+  
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        
+        
+    }else{
+        sender.selected=NO;
+        
+    }
+    
+ 
+    
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

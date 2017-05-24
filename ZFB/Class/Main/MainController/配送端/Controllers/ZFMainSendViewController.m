@@ -49,14 +49,13 @@
     
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendingCell" bundle:nil] forCellReuseIdentifier:@"sendCellid"];
     
-    [self addNavWithTitle:@"配送端"  didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
 
 }
 
 -(NSMutableArray *)titlesArr
 {
     if (!_titlesArr) {
-        _titlesArr = [NSMutableArray arrayWithObjects:@"收货人:",@"收货人电话:",@"收货地址:",@"取货地址:",@"配送费:", nil];
+        _titlesArr = [NSMutableArray arrayWithObjects:@"待配送",@"已配送",@"配送中",@"地上门取件", nil];
     }
     return _titlesArr;
 }
@@ -136,9 +135,14 @@
     _infoCell.textLabel.textColor = HEXCOLOR(0x363636);
     _infoCell.detailTextLabel.font = [UIFont systemFontOfSize:12];
     _infoCell.selectionStyle =  UITableViewCellSelectionStyleNone;
-
     return _infoCell;
+}
 
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"section  =%ld , row = %ld",indexPath.section ,indexPath.row);
+    
 }
 
 #pragma mark  -  初始化控件
@@ -241,7 +245,9 @@
         for (int i = 0; i < self.titlesArr.count; i++) {
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             button = [[UIButton alloc] initWithFrame:CGRectMake(i%3 * (KScreenW*0.3333)+15,20+i/3*(25+20), KScreenW*0.3333 - 30, 25)];
-            button.backgroundColor = HEXCOLOR(0xfe6d6a);
+            button.layer.cornerRadius = 2;
+            button.layer.borderWidth = 1;
+            button.layer.borderColor = HEXCOLOR(0x7a7a7a).CGColor;
             [button setTitle:self.titlesArr[i] forState:UIControlStateNormal];
             button.titleLabel.font = [UIFont systemFontOfSize:12];
             [button addTarget:self action:@selector(didclickSendPopViewAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -311,7 +317,7 @@
 
 #pragma mark  -  点击事件处理
 /**返回个人中心 */
--(void)returnTohom
+-(void)returnTohome
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -328,6 +334,9 @@
 /**点击首页  @param sender 切换页面*/
 - (IBAction)didClickHomePage:(UIButton*)sender {
    
+    [self addNavWithTitle:@"待配送"  didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
+
+    
     self.HomePageView.hidden = NO;
     self.send_tableView.hidden = YES;
     self.img_sendHome.image = [UIImage imageNamed:@"home_red"];
@@ -342,6 +351,7 @@
 - (IBAction)didClickOrderPage:(id)sender {
     
     [self addNavWithTitle:@"待配送"  didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
+    
     self.send_tableView.hidden = NO;
     self.HomePageView.hidden = YES;
     self.img_sendHome.image = [UIImage imageNamed:@"home_normal"];

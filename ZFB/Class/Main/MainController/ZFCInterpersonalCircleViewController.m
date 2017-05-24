@@ -7,7 +7,7 @@
 //  ****人际圈
 
 #import "ZFCInterpersonalCircleViewController.h"
-
+#import "CustomHeaderView.h"
 @interface ZFCInterpersonalCircleViewController ()
 
 @end
@@ -18,6 +18,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor =  randomColor;
+    
+    
+    CustomHeaderView * headView = [[CustomHeaderView alloc]initWithFrame:CGRectMake(0, 100, KScreenW, 100)];
+    
+    [self.view addSubview:headView];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -7,6 +7,7 @@
 //  支付页面
 
 #import "ZFMainPayforViewController.h"
+#import "DetailPayCashViewController.h"
 #import "PayforCell.h"
 @interface ZFMainPayforViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -27,6 +28,9 @@
     self.dataArr = @[@"选择支付方式",@"余额   350.00元",@"快捷支付",@"微信",@"支付宝",@"实付金额"];
     [self.pay_tableView registerNib:[UINib nibWithNibName:@"PayforCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:self.pay_tableView];
+    
+
+    
 
 }
 -(UITableView *)pay_tableView
@@ -57,7 +61,10 @@
 
 -(void)didClickPayFor:(UIButton *)sender
 {
-    NSLog(@"确认支付");
+ 
+    DetailPayCashViewController  *deatilPayVC =[[DetailPayCashViewController alloc]init];
+    [self.navigationController pushViewController:deatilPayVC animated:YES];
+    
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -84,12 +91,11 @@
 {
     return 100;
 }
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    PayforCell * cell = [self.pay_tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-
-    cell.lb_title.text = _dataArr[indexPath.row];
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    PayforCell * cell = [self.pay_tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    
+    cell.lb_title.text = _dataArr[indexPath.row];
     if (indexPath.row ==5) {
         cell.btn_selected.hidden = YES;
         cell.lb_Price.hidden = NO;
@@ -97,6 +103,7 @@
     }
     return cell;
 }
+
 
 
 

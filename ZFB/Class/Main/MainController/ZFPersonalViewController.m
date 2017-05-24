@@ -174,17 +174,17 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     NSLog(@"section = %ld , row = %ld",indexPath.section,indexPath.row);
     
-    if (indexPath.row == 1) {
-        
-        LoginViewController * logvc = [[LoginViewController alloc]init];
-        
-        [self.navigationController pushViewController:logvc animated:YES];
-        
-    }
+  
     if (indexPath.row == 3) {
         
         ZFMainSendViewController * MainVC  = [[ZFMainSendViewController alloc]init];
         [self.navigationController pushViewController:MainVC animated:YES];
+        
+    }  if (indexPath.row == 4) {
+        
+        LoginViewController * logvc = [[LoginViewController alloc]init];
+        
+        [self.navigationController pushViewController:logvc animated:YES];
         
     }
 }

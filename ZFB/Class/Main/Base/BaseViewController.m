@@ -104,7 +104,7 @@
 
 
 
--(void)addNavWithTitle:(NSString *)Navtitle didClickArrowsDown:(SEL)didClickDownBtn ishidden:(BOOL)btnisHidden;
+-(UIView *)addNavWithTitle:(NSString *)Navtitle didClickArrowsDown:(SEL)didClickDownBtn ishidden:(BOOL)btnisHidden;
 {
     self.navigationController.navigationBar.hidden = YES;
     
@@ -126,7 +126,6 @@
     lb_title.font = [UIFont systemFontOfSize:15];
     lb_title.textColor = HEXCOLOR(0xfe6d6a);
     [bgView addSubview:lb_title];
-    //  CGSize titleSize = [lb_title.text sizeWithFont:lb_title.font constrainedToSize:CGSizeMake(MAXFLOAT, 30)];
     
     
     
@@ -137,48 +136,62 @@
     btn_Action.hidden =btnisHidden;
     [bgView addSubview:btn_Action];
     
-    
+    return bgView;
 }
 
 
 
 
--(UIView *)AddwithAHeadViewOfLb_title:(NSString*)headTitle  Andstatus :(NSString *)statusStr {
-  
-    UIView *  _headerView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, KScreenW, 40)];
-    UILabel * title = [[UILabel alloc]init];
+-(void)creatHeadViewWithleftTitle :(NSString *)leftTitle AndRightTitle :(NSString *)rigntTitle
+{
+    
     UIFont * font  =[UIFont systemFontOfSize:12];
+    
+    UIView *  headerView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, KScreenW, 40)];
+    headerView.backgroundColor =[ UIColor whiteColor];
+    
+    UILabel * title = [[UILabel alloc]init];
+    title.text = leftTitle;
+    title.font = font;
     CGSize size = [title.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
     CGFloat titleW = size.width;
-    title.text = headTitle;
-    title.font = font;
-    title.textColor = HEXCOLOR(0x363636);
     title.frame = CGRectMake(15, 5, titleW, 30);
+    title.textColor = HEXCOLOR(0x363636);
     
     
     UIButton * status = [[UIButton alloc]init ];
-    [status setTitle:statusStr forState:UIControlStateNormal];
+    [status setTitle:rigntTitle forState:UIControlStateNormal];
     status.titleLabel.font = font;
-    [status setTitleColor: HEXCOLOR(0x7a7a7a) forState:UIControlStateNormal];
-    CGSize statusSize = [statusStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
+    [status setTitleColor: HEXCOLOR(0x363636) forState:UIControlStateNormal];
+    CGSize statusSize = [rigntTitle sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
     CGFloat statusW = statusSize.width;
-    NSLog(@"statusW= %f",statusW);
-    NSLog(@" titleW %f",titleW);
-
+    
     status.frame = CGRectMake(KScreenW - statusW - 15, 5, statusW, 30);
     [status addTarget:self action:@selector(didclickEdit:) forControlEvents:UIControlEventTouchUpInside];
     
+    UILabel *lineDown =[[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
+    lineDown.backgroundColor = HEXCOLOR(0xffcccc);
+    UILabel *lineUP =[[UILabel alloc]initWithFrame:CGRectMake(0,0, KScreenW, 10)];
+    lineUP.backgroundColor = HEXCOLOR(0xdedede);
     
-    UILabel *line = [[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
-    line.backgroundColor =HEXCOLOR(0xdedede);
+    //        [headerView addSubview:lineDown];
+    //        [headerView addSubview:lineUP];
+    [headerView addSubview:status];
+    [headerView addSubview:title];
     
-    [_headerView addSubview:line];
-    [_headerView addSubview:title];
-    [_headerView addSubview:status];
     
-    return _headerView;
- 
 }
+
+/**
+ didclickEdit
+
+ @param edit headview上的事件
+ */
+-(void)didclickEdit:(UIButton*)edit
+{
+    
+}
+
 
 -(UIView *)creatWithAFooterViewOfCaseOrder :(NSString *)caseOrder AndPrice:(NSString *)price AndSetButtonTitle :(NSString*)buttonTitle
 {
@@ -229,12 +242,32 @@
 
 
 
--(void)didclickEdit:(UIButton *)edit
+
+/**
+ 弹框选择器
+ */
+-(void)popaView {
+    UIView * popView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 100)];
+    popView.backgroundColor = [UIColor whiteColor];
+    
+    NSArray * titlesArr ;
+    for (int i = 0; i <     titlesArr.count; i++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button = [[UIButton alloc] initWithFrame:CGRectMake(i%3 * (KScreenW*0.3333)+15,20+i/3*(25+20), KScreenW*0.3333 - 30, 25)];
+        button.layer.cornerRadius = 2;
+        button.layer.borderWidth = 1;
+        button.layer.borderColor = HEXCOLOR(0x7a7a7a).CGColor;
+        [button setTitle:  titlesArr[i] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:12];
+        [button addTarget:self action:@selector(didclickSendPopViewAction:) forControlEvents:UIControlEventTouchUpInside];
+        [popView addSubview:button];
+        button.tag = i+1000;
+        NSLog(@"%ld \n",button.tag);
+    }
+}
+-(void)didclickSendPopViewAction:(UIButton*)tag
 {
     
 }
-
-
-
 
 @end

@@ -25,19 +25,11 @@
  @param didClickDownBtn 点击箭头触发的事件
  @param btnisHidden  是否隐藏这个按钮
  */
--(void)addNavWithTitle:(NSString *)Navtitle  didClickArrowsDown:(SEL)didClickDownBtn ishidden:(BOOL)btnisHidden;
+-(UIView*)addNavWithTitle:(NSString *)Navtitle  didClickArrowsDown:(SEL)didClickDownBtn ishidden:(BOOL)btnisHidden;
 
 
 
 
-
-/**
- 设置headView
-
- @param headTitle 名称
- @param statusStr 状态（编辑）
- */
--(UIView *)AddwithAHeadViewOfLb_title:(NSString*)headTitle  Andstatus :(NSString *)statusStr ;
 
 
 

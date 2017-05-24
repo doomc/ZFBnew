@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *img_SenlistView;
 @property (weak, nonatomic) IBOutlet UILabel *lb_Price;
 @property (weak, nonatomic) IBOutlet UILabel *lb_num;
+@property (weak, nonatomic) IBOutlet UILabel *lb_detailTime;
 
 @end

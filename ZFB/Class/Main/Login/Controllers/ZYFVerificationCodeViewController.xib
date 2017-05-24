@@ -28,11 +28,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ut-g7-AVh">
                     <rect key="frame" x="30" y="130" width="315" height="40"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GT4-oB-0Dy">
-                            <rect key="frame" x="5" y="5" width="21" height="28"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="21" id="55Q-bJ-3yw"/>
-                            </constraints>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message.png" translatesAutoresizingMaskIntoConstraints="NO" id="GT4-oB-0Dy">
+                            <rect key="frame" x="5" y="5" width="29" height="28"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7j-1S-Wmn">
                             <rect key="frame" x="0.0" y="38" width="315" height="1"/>
@@ -45,7 +42,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入短信验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4q1-xg-jkP">
-                            <rect key="frame" x="36" y="4" width="118.5" height="30"/>
+                            <rect key="frame" x="44" y="4" width="118.5" height="30"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -67,6 +64,7 @@
                         <constraint firstItem="4q1-xg-jkP" firstAttribute="leading" secondItem="GT4-oB-0Dy" secondAttribute="trailing" constant="10" id="7Nl-DX-ZlH"/>
                         <constraint firstAttribute="height" constant="40" id="Azb-bY-boA"/>
                         <constraint firstItem="Pfu-h4-Add" firstAttribute="top" secondItem="6ut-g7-AVh" secondAttribute="top" constant="5" id="JAV-hc-pKh"/>
+                        <constraint firstItem="Pfu-h4-Add" firstAttribute="centerY" secondItem="4q1-xg-jkP" secondAttribute="centerY" id="OXb-bX-war"/>
                         <constraint firstAttribute="trailing" secondItem="h7j-1S-Wmn" secondAttribute="trailing" id="Z1s-OD-0Ca"/>
                         <constraint firstItem="GT4-oB-0Dy" firstAttribute="top" secondItem="6ut-g7-AVh" secondAttribute="top" constant="5" id="ZHK-4g-8fe"/>
                         <constraint firstAttribute="bottom" secondItem="h7j-1S-Wmn" secondAttribute="bottom" constant="1" id="h6g-HD-TTc"/>
@@ -77,11 +75,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hpM-CT-on3">
                     <rect key="frame" x="30" y="190" width="315" height="40"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0UA-kr-FGq">
-                            <rect key="frame" x="5" y="5" width="21" height="28"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="21" id="aSK-3a-a5T"/>
-                            </constraints>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="passWord.png" translatesAutoresizingMaskIntoConstraints="NO" id="0UA-kr-FGq">
+                            <rect key="frame" x="5" y="5" width="29" height="28"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RkN-mS-eay">
                             <rect key="frame" x="0.0" y="38" width="315" height="1"/>
@@ -94,7 +89,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请设置登录密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zu4-fd-Tnf">
-                            <rect key="frame" x="36" y="4" width="269" height="30"/>
+                            <rect key="frame" x="44" y="4" width="261" height="30"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -155,4 +150,8 @@
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="message.png" width="29" height="29"/>
+        <image name="passWord.png" width="29" height="29"/>
+    </resources>
 </document>

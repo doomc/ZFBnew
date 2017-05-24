@@ -44,6 +44,7 @@
         _shopCar_tableview.delegate = self;
         _shopCar_tableview.dataSource = self;
         _shopCar_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _shopCar_tableview.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:_shopCar_tableview];
     }
     return _shopCar_tableview;
@@ -61,7 +62,7 @@
     CGSize size = [title.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
     CGFloat titleW = size.width;
  
-    title.frame = CGRectMake(15, 5, titleW, 30);
+    title.frame = CGRectMake(15, 15, titleW, 25);
     title.textColor = HEXCOLOR(0x363636);
 
     
@@ -72,13 +73,16 @@
     CGSize statusSize = [statusStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
     CGFloat statusW = statusSize.width;
     
-    status.frame = CGRectMake(KScreenW - statusW - 15, 5, statusW, 30);
+    status.frame = CGRectMake(KScreenW - statusW - 15, 15, statusW, 25);
     [status addTarget:self action:@selector(didclickEdit:) forControlEvents:UIControlEventTouchUpInside];
    
-    UILabel *line =[[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
-    line.backgroundColor = HEXCOLOR(0xffcccc);
+    UILabel *lineDown =[[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
+    lineDown.backgroundColor = HEXCOLOR(0xffcccc);
+    UILabel *lineUP =[[UILabel alloc]initWithFrame:CGRectMake(0,0, KScreenW, 10)];
+    lineUP.backgroundColor = HEXCOLOR(0xdedede);
     
-    [headerView addSubview:line];
+    [headerView addSubview:lineDown];
+    [headerView addSubview:lineUP];
     [headerView addSubview:status];
     [headerView addSubview:title];
 

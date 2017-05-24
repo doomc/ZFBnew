@@ -66,14 +66,14 @@
   
         NSLog(@"快捷登录");
         _tf_verificationCodeOrPassWord.placeholder = @"请输入短信验证码";
-        _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@""];
+        _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@"message"];
         
         
     }
     else{
         NSLog(@"密码登录");
         _tf_verificationCodeOrPassWord.placeholder = @"请输入登录密码";
-        _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@""];
+        _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@"passWord"];
         
     }
 }
