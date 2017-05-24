@@ -332,6 +332,12 @@
 		5019FFB71ECCAEF800325342 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5019FFA51ECCAEF800325342 /* UIImageView+HighlightedWebCache.m */; };
 		5019FFB81ECCAEF800325342 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5019FFA71ECCAEF800325342 /* UIImageView+WebCache.m */; };
 		5019FFB91ECCAEF800325342 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5019FFA91ECCAEF800325342 /* UIView+WebCacheOperation.m */; };
+		503BEBDB1ED5CEB0004FC36C /* ZFAddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEBDA1ED5CEB0004FC36C /* ZFAddressListViewController.m */; };
+		503BEBDF1ED5D3D4004FC36C /* ZFAddOfListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEBDD1ED5D3D4004FC36C /* ZFAddOfListCell.m */; };
+		503BEBE01ED5D3D4004FC36C /* ZFAddOfListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 503BEBDE1ED5D3D4004FC36C /* ZFAddOfListCell.xib */; };
+		503BEBE31ED5DE1E004FC36C /* ZFShopListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEBE21ED5DE1E004FC36C /* ZFShopListViewController.m */; };
+		503BEBE71ED5DF24004FC36C /* ZFShopListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEBE51ED5DF24004FC36C /* ZFShopListCell.m */; };
+		503BEBE81ED5DF24004FC36C /* ZFShopListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 503BEBE61ED5DF24004FC36C /* ZFShopListCell.xib */; };
 		509D1F711ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F701ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m */; };
 		509D1F771ECDD9AC00D70444 /* ZFCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F761ECDD9AC00D70444 /* ZFCoverView.m */; };
 		509D1F7A1ECDDCDA00D70444 /* ZFSearchBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F791ECDDCDA00D70444 /* ZFSearchBarViewController.m */; };
@@ -816,6 +822,16 @@
 		5019FFA71ECCAEF800325342 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		5019FFA81ECCAEF800325342 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		5019FFA91ECCAEF800325342 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		503BEBD91ED5CEB0004FC36C /* ZFAddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAddressListViewController.h; sourceTree = "<group>"; };
+		503BEBDA1ED5CEB0004FC36C /* ZFAddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAddressListViewController.m; sourceTree = "<group>"; };
+		503BEBDC1ED5D3D4004FC36C /* ZFAddOfListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAddOfListCell.h; sourceTree = "<group>"; };
+		503BEBDD1ED5D3D4004FC36C /* ZFAddOfListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAddOfListCell.m; sourceTree = "<group>"; };
+		503BEBDE1ED5D3D4004FC36C /* ZFAddOfListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFAddOfListCell.xib; sourceTree = "<group>"; };
+		503BEBE11ED5DE1E004FC36C /* ZFShopListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFShopListViewController.h; sourceTree = "<group>"; };
+		503BEBE21ED5DE1E004FC36C /* ZFShopListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFShopListViewController.m; sourceTree = "<group>"; };
+		503BEBE41ED5DF24004FC36C /* ZFShopListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFShopListCell.h; sourceTree = "<group>"; };
+		503BEBE51ED5DF24004FC36C /* ZFShopListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFShopListCell.m; sourceTree = "<group>"; };
+		503BEBE61ED5DF24004FC36C /* ZFShopListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFShopListCell.xib; sourceTree = "<group>"; };
 		509D1F6F1ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFHeadViewCollectionReusableView.h; sourceTree = "<group>"; };
 		509D1F701ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFHeadViewCollectionReusableView.m; sourceTree = "<group>"; };
 		509D1F751ECDD9AC00D70444 /* ZFCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCoverView.h; sourceTree = "<group>"; };
@@ -1275,8 +1291,12 @@
 				493ADAF81ED57A2300CB2866 /* Views */,
 				493ADAF91ED57A5700CB2866 /* ZFSureOrderViewController.h */,
 				493ADAFA1ED57A5700CB2866 /* ZFSureOrderViewController.m */,
+				503BEBD91ED5CEB0004FC36C /* ZFAddressListViewController.h */,
+				503BEBDA1ED5CEB0004FC36C /* ZFAddressListViewController.m */,
 				49A9D83F1ED58E74006C423A /* ZFEditAddressViewController.h */,
 				49A9D8401ED58E74006C423A /* ZFEditAddressViewController.m */,
+				503BEBE11ED5DE1E004FC36C /* ZFShopListViewController.h */,
+				503BEBE21ED5DE1E004FC36C /* ZFShopListViewController.m */,
 			);
 			path = "确认订单";
 			sourceTree = "<group>";
@@ -1309,6 +1329,12 @@
 				49A9D8471ED58FD0006C423A /* ZFDefaultAddressCell.h */,
 				49A9D8481ED58FD0006C423A /* ZFDefaultAddressCell.m */,
 				49A9D8491ED58FD0006C423A /* ZFDefaultAddressCell.xib */,
+				503BEBDC1ED5D3D4004FC36C /* ZFAddOfListCell.h */,
+				503BEBDD1ED5D3D4004FC36C /* ZFAddOfListCell.m */,
+				503BEBDE1ED5D3D4004FC36C /* ZFAddOfListCell.xib */,
+				503BEBE41ED5DF24004FC36C /* ZFShopListCell.h */,
+				503BEBE51ED5DF24004FC36C /* ZFShopListCell.m */,
+				503BEBE61ED5DF24004FC36C /* ZFShopListCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2115,6 +2141,7 @@
 				49C95F0A1ED295AF004EA811 /* home_red@3x.png in Resources */,
 				49C95F091ED295AF004EA811 /* home_red@2x.png in Resources */,
 				49F1139D1ECC5547000F3BF7 /* dot_normal@2x.png in Resources */,
+				503BEBE01ED5D3D4004FC36C /* ZFAddOfListCell.xib in Resources */,
 				49C95F0C1ED295AF004EA811 /* Order_down@3x.png in Resources */,
 				493ADB0A1ED57F7400CB2866 /* GoodsitemCell.xib in Resources */,
 				494F07011ED42DED007EC66A /* reduce@3x.png in Resources */,
@@ -2154,6 +2181,7 @@
 				49ABA42A1ECAE97F00E7EB20 /* ResetPassWViewController.xib in Resources */,
 				49F113991ECC5547000F3BF7 /* calling_icon@2x.png in Resources */,
 				49F113791ECC5547000F3BF7 /* location_icon@2x.png in Resources */,
+				503BEBE81ED5DF24004FC36C /* ZFShopListCell.xib in Resources */,
 				49ABA43A1ECB001900E7EB20 /* ZFMyProgressCell.xib in Resources */,
 				492757521EC4679E003C22D0 /* MJRefresh.bundle in Resources */,
 				49F1137D1ECC5547000F3BF7 /* evaluate_waitting@2x.png in Resources */,
@@ -2210,6 +2238,7 @@
 				4927574D1EC4679E003C22D0 /* MJRefreshBackNormalFooter.m in Sources */,
 				493ADAF41ED5636C00CB2866 /* ZFContactCell.m in Sources */,
 				492757551EC4679E003C22D0 /* UIScrollView+MJRefresh.m in Sources */,
+				503BEBDF1ED5D3D4004FC36C /* ZFAddOfListCell.m in Sources */,
 				494F07041ED43046007EC66A /* ZFMainPayforViewController.m in Sources */,
 				49F112D71ECC17E4000F3BF7 /* HP_LocationViewController.m in Sources */,
 				49F112DC1ECC1A81000F3BF7 /* DetailStoreViewController.m in Sources */,
@@ -2273,6 +2302,7 @@
 				5019FFB11ECCAEF800325342 /* SDWebImageManager.m in Sources */,
 				49A9D8451ED58E97006C423A /* ZFAddressCell.m in Sources */,
 				4927573E1EC4679E003C22D0 /* ZFShoppingCarViewController.m in Sources */,
+				503BEBDB1ED5CEB0004FC36C /* ZFAddressListViewController.m in Sources */,
 				492752191EC44DFC003C22D0 /* main.m in Sources */,
 				49801C991ECECF7300EDAA53 /* AllStoreCell.m in Sources */,
 				492756B81EC4679E003C22D0 /* ControlFactory.m in Sources */,
@@ -2297,6 +2327,8 @@
 				49ABA4451ECB019700E7EB20 /* ZFMyOpinionCell.m in Sources */,
 				49E7576A1EC944BE00220B28 /* DCNavTabBarController.m in Sources */,
 				492757511EC4679E003C22D0 /* MJRefreshStateHeader.m in Sources */,
+				503BEBE71ED5DF24004FC36C /* ZFShopListCell.m in Sources */,
+				503BEBE31ED5DE1E004FC36C /* ZFShopListViewController.m in Sources */,
 				5019FF841ECCAE6500325342 /* UIView+ZFCornerRadius.m in Sources */,
 				49A9D84A1ED58FD0006C423A /* ZFDefaultAddressCell.m in Sources */,
 				49FB3C401ECD4E880090075D /* ZFbabyEvaluateCell.m in Sources */,
@@ -2478,7 +2510,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zfb.ZFB;
@@ -2492,7 +2524,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zfb.ZFB;

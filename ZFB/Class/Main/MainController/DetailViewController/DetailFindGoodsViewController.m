@@ -78,7 +78,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     self.title = @"商品详情";
     
-    self.list_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-50) style:UITableViewStylePlain];
+    self.list_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-49) style:UITableViewStylePlain];
     self.list_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.view addSubview:self.list_tableView];
@@ -101,7 +101,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     self.list_tableView.tableHeaderView = _cycleScrollView;
     UIView * tempView = [[NSBundle mainBundle]loadNibNamed:@"ZFGoodsFooterView" owner:self options:nil].lastObject;
-    self.footerView = [[UIView alloc]initWithFrame:CGRectMake(0, KScreenH-50, KScreenW, 50)];
+    self.footerView = [[UIView alloc]initWithFrame:CGRectMake(0, KScreenH-49, KScreenW, 49)];
     [self.footerView addSubview: tempView];
     [self.view addSubview:self.footerView];
     

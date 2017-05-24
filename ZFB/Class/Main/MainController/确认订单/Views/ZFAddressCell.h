@@ -10,4 +10,8 @@
 
 @interface ZFAddressCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_titles;
+
+@property (weak, nonatomic) IBOutlet UITextField *tf_address;
+
 @end

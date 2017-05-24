@@ -10,6 +10,8 @@
 #import "ZFOrderListCell.h"
 #import "OrderWithAddressCell.h"
 #import "OrderPriceCell.h"
+#import "ZFAddressListViewController.h"
+#import "ZFShopListViewController.h"
 @interface ZFSureOrderViewController ()<UITableViewDelegate ,UITableViewDataSource>
 @property(nonatomic,strong)UITableView * mtableView;
 
@@ -133,8 +135,14 @@
     NSLog(@"section = %ld ,row =%ld ",indexPath.section ,indexPath.row);
     
     if (indexPath.row == 0) {
-        
+        ZFAddressListViewController * listVC =[[ ZFAddressListViewController alloc]init];
+        [self.navigationController pushViewController:listVC animated:YES];
         NSLog(@"编辑地址");
+    }
+    if (indexPath.row == 1) {
+        
+        ZFShopListViewController * shoplistVc =[[ZFShopListViewController alloc]init];
+        [self.navigationController pushViewController:shoplistVc animated:YES];
     }
 }
 
