@@ -11,7 +11,7 @@
 #import "LoginViewController.h"
 #import "ZFShopCarCell.h"
 #import "ZFMainPayforViewController.h"
-
+#import "DetailFindGoodsViewController.h"
 @interface ZFShoppingCarViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) UITableView * shopCar_tableview;
@@ -92,7 +92,7 @@
 
 -(UIView *)CreatSectionFooterView
 {
-    NSString *buttonTitle = @"配送完成";
+    NSString *buttonTitle = @"结算";
     NSString *price = @"¥208.00";
     NSString *caseOrder =  @"订单金额";
     
@@ -109,6 +109,7 @@
     CGSize complete_BtnSize = [buttonTitle sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
     CGFloat complete_BtnW = complete_BtnSize.width;
     complete_Btn.frame =CGRectMake(KScreenW - complete_BtnW - 25, 5, complete_BtnW +10, 25);
+    [complete_Btn addTarget:self action:@selector(didClickClearing:) forControlEvents:UIControlEventTouchUpInside];
     
     
     //价格
@@ -188,14 +189,19 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
-    
-    ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
-    
-    [self.navigationController pushViewController:payVC animated:YES];
+    DetailFindGoodsViewController *deatilGoods =[[DetailFindGoodsViewController alloc]init];
+    [self.navigationController pushViewController:deatilGoods animated:YES];
+ 
 }
 
 
+-(void )didClickClearing :(UIButton *)sender
+{
+    ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
+    
+    [self.navigationController pushViewController:payVC animated:YES];
 
+}
 
 
 

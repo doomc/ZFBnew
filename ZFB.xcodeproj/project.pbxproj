@@ -150,6 +150,7 @@
 		49C95F161ED295AF004EA811 /* sendComplete_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49C95F061ED295AF004EA811 /* sendComplete_normal@3x.png */; };
 		49C95F1A1ED2BA0D004EA811 /* ZFSendingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C95F181ED2BA0D004EA811 /* ZFSendingCell.m */; };
 		49C95F1B1ED2BA0D004EA811 /* ZFSendingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49C95F191ED2BA0D004EA811 /* ZFSendingCell.xib */; };
+		49CA89251ED6772D00FC19D9 /* ZFAllOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CA89241ED6772D00FC19D9 /* ZFAllOrderViewController.m */; };
 		49E0A0911ED520EA00AEE354 /* DetailPayCashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E0A08F1ED520EA00AEE354 /* DetailPayCashViewController.m */; };
 		49E0A0921ED520EA00AEE354 /* DetailPayCashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E0A0901ED520EA00AEE354 /* DetailPayCashViewController.xib */; };
 		49E0A0951ED52C6200AEE354 /* CustomHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E0A0941ED52C6200AEE354 /* CustomHeaderView.m */; };
@@ -594,6 +595,8 @@
 		49C95F171ED2BA0D004EA811 /* ZFSendingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFSendingCell.h; sourceTree = "<group>"; };
 		49C95F181ED2BA0D004EA811 /* ZFSendingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFSendingCell.m; sourceTree = "<group>"; };
 		49C95F191ED2BA0D004EA811 /* ZFSendingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFSendingCell.xib; sourceTree = "<group>"; };
+		49CA89231ED6772D00FC19D9 /* ZFAllOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAllOrderViewController.h; sourceTree = "<group>"; };
+		49CA89241ED6772D00FC19D9 /* ZFAllOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAllOrderViewController.m; sourceTree = "<group>"; };
 		49E0A08E1ED520EA00AEE354 /* DetailPayCashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailPayCashViewController.h; sourceTree = "<group>"; };
 		49E0A08F1ED520EA00AEE354 /* DetailPayCashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailPayCashViewController.m; sourceTree = "<group>"; };
 		49E0A0901ED520EA00AEE354 /* DetailPayCashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailPayCashViewController.xib; sourceTree = "<group>"; };
@@ -1541,6 +1544,8 @@
 				49801C941ECECE4C00EDAA53 /* ZFAllStoreViewController.m */,
 				494F07021ED43045007EC66A /* ZFMainPayforViewController.h */,
 				494F07031ED43046007EC66A /* ZFMainPayforViewController.m */,
+				49CA89231ED6772D00FC19D9 /* ZFAllOrderViewController.h */,
+				49CA89241ED6772D00FC19D9 /* ZFAllOrderViewController.m */,
 			);
 			path = childViewController;
 			sourceTree = "<group>";
@@ -2281,6 +2286,7 @@
 				49ABA43E1ECB00CD00E7EB20 /* ZFMyOderCell.m in Sources */,
 				49E757891EC96E9100220B28 /* SDCollectionViewCell.m in Sources */,
 				49801C8E1ECE870100EDAA53 /* PYSearchConst.m in Sources */,
+				49CA89251ED6772D00FC19D9 /* ZFAllOrderViewController.m in Sources */,
 				4927573B1EC4679E003C22D0 /* ZFCInterpersonalCircleViewController.m in Sources */,
 				5019FFB51ECCAEF800325342 /* UIImage+MultiFormat.m in Sources */,
 				4927573A1EC4679E003C22D0 /* BaseViewController.m in Sources */,
@@ -2510,7 +2516,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zfb.ZFB;
@@ -2524,7 +2530,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zfb.ZFB;

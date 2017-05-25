@@ -14,7 +14,7 @@
 #import "ZFHeaderView.h"
 #import "ZFMainSendViewController.h"
 #import "LoginViewController.h"
-
+#import "ZFAllOrderViewController.h"
 typedef NS_ENUM(NSUInteger, TypeCell) {
     TypeCellOfMyCashBagCell,
     TypeCellOfMyProgressCell,
@@ -174,13 +174,18 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     NSLog(@"section = %ld , row = %ld",indexPath.section,indexPath.row);
     
-  
-    if (indexPath.row == 3) {
+    if (indexPath.row == 2) {//全部订单
+        
+        ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
+        [self.navigationController pushViewController:orderVC animated:YES];
+
+    }
+    if (indexPath.row == 3) {//切换到配送端
         
         ZFMainSendViewController * MainVC  = [[ZFMainSendViewController alloc]init];
         [self.navigationController pushViewController:MainVC animated:YES];
         
-    }  if (indexPath.row == 4) {
+    }  if (indexPath.row == 4) {//意见反馈
         
         LoginViewController * logvc = [[LoginViewController alloc]init];
         

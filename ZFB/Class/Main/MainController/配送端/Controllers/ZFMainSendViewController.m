@@ -334,7 +334,7 @@
 /**点击首页  @param sender 切换页面*/
 - (IBAction)didClickHomePage:(UIButton*)sender {
    
-    [self addNavWithTitle:@"待配送"  didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
+//    [self addNavWithTitle:@"待配送"  didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
 
     
     self.HomePageView.hidden = NO;
@@ -350,7 +350,7 @@
 /**点击订单  @param sender 切换页面 */
 - (IBAction)didClickOrderPage:(id)sender {
     
-    [self addNavWithTitle:@"待配送"  didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
+//    [self addNavWithTitle:@"待配送"  didClickArrowsDown:@selector(navigationBarSelectedOther:) ishidden:self.isChange];
     
     self.send_tableView.hidden = NO;
     self.HomePageView.hidden = YES;

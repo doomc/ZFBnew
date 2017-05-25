@@ -29,19 +29,19 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="周瑜  18820092888" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l0E-00-KcE">
-                        <rect key="frame" x="40" y="15" width="137.5" height="18"/>
+                        <rect key="frame" x="50" y="15" width="137.5" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="重庆市南岸区白金和阿斯达多爱思爱思" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEm-n7-KNx">
-                        <rect key="frame" x="40" y="43" width="208.5" height="15"/>
+                        <rect key="frame" x="50" y="43" width="208.5" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xuf-EH-19f">
-                        <rect key="frame" x="197.5" y="16.5" width="30" height="15"/>
+                        <rect key="frame" x="207.5" y="16.5" width="30" height="15"/>
                         <color key="backgroundColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="WxV-I9-B4o"/>
@@ -55,7 +55,7 @@
                         <state key="normal" image="send_red.png"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JTK-OJ-MR0">
-                        <rect key="frame" x="5" y="26" width="20" height="20"/>
+                        <rect key="frame" x="15" y="26" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="0tY-Rg-Rm4"/>
                             <constraint firstAttribute="height" constant="20" id="k3o-Lb-GtV"/>
@@ -69,7 +69,7 @@
                     <constraint firstAttribute="trailing" secondItem="4BY-IC-DRc" secondAttribute="trailing" constant="15" id="227-Cj-HsR"/>
                     <constraint firstItem="lEm-n7-KNx" firstAttribute="leading" secondItem="l0E-00-KcE" secondAttribute="leading" id="4s1-Qz-4E3"/>
                     <constraint firstItem="1Dv-QH-3jR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6Vx-78-xP9"/>
-                    <constraint firstItem="JTK-OJ-MR0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="DFS-yU-nem"/>
+                    <constraint firstItem="JTK-OJ-MR0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="DFS-yU-nem"/>
                     <constraint firstItem="l0E-00-KcE" firstAttribute="leading" secondItem="JTK-OJ-MR0" secondAttribute="trailing" constant="15" id="FJe-cc-aAh"/>
                     <constraint firstAttribute="trailing" secondItem="1Dv-QH-3jR" secondAttribute="trailing" id="Frt-6c-fRh"/>
                     <constraint firstItem="Xuf-EH-19f" firstAttribute="centerY" secondItem="l0E-00-KcE" secondAttribute="centerY" id="NUc-72-bUn"/>

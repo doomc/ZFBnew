@@ -243,31 +243,6 @@
 
 
 
-/**
- 弹框选择器
- */
--(void)popaView {
-    UIView * popView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 100)];
-    popView.backgroundColor = [UIColor whiteColor];
-    
-    NSArray * titlesArr ;
-    for (int i = 0; i <     titlesArr.count; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button = [[UIButton alloc] initWithFrame:CGRectMake(i%3 * (KScreenW*0.3333)+15,20+i/3*(25+20), KScreenW*0.3333 - 30, 25)];
-        button.layer.cornerRadius = 2;
-        button.layer.borderWidth = 1;
-        button.layer.borderColor = HEXCOLOR(0x7a7a7a).CGColor;
-        [button setTitle:  titlesArr[i] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:12];
-        [button addTarget:self action:@selector(didclickSendPopViewAction:) forControlEvents:UIControlEventTouchUpInside];
-        [popView addSubview:button];
-        button.tag = i+1000;
-        NSLog(@"%ld \n",button.tag);
-    }
-}
--(void)didclickSendPopViewAction:(UIButton*)tag
-{
-    
-}
+
 
 @end
