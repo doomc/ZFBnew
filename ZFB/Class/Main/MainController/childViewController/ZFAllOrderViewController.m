@@ -11,25 +11,12 @@
 
 #import "ZFAllOrderViewController.h"
 #import "ZFSendingCell.h"
-#import "PayforCell.h"
-#import "AllStoreCell.h"
+#import "ZFFooterCell.h"
+#import "ZFTitleCell.h"
 
-typedef NS_ENUM(NSUInteger, CellType) {
-    allOrderWithCellType =0,
-    waitPayWithCellType,
-    sendingWithCellType,
-};
-typedef NS_ENUM(NSUInteger,  sectionType) {
-    allOrderWithsectionType =0,
-    waitPayWithsectionType,
-    sendingWithsectionType,
-};
-typedef NS_ENUM(NSUInteger,  headerType) {
-    allOrderWithHeaderType =0,
-    waitPayWithHeaderType,
-    sendingWithHeaderType,
-};
-@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "ZFpopView.h"
+
+@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate>
 {
     NSString *titletext ;//head时间
     NSString *statusStr;//配送状态
@@ -41,18 +28,13 @@ typedef NS_ENUM(NSUInteger,  headerType) {
 @property(nonatomic ,strong) UIView * titleView ;
 @property(nonatomic ,strong) UIButton *navbar_btn;//导航按钮
 @property(nonatomic ,strong) UIView * bgview;//蒙板
-@property(nonatomic ,strong) UIView * popaView;//白板
+//@property(nonatomic ,strong) UIView * popaView;//白板
 @property(nonatomic ,strong) NSArray * titles;//选择页面
-@property(nonatomic ,assign) BOOL isChoose;
 
 @property(nonatomic ,strong) UITableView * allOrder_tableView;//全部订单
-@property(nonatomic ,strong) UITableView * waitPay_tableView;//待付款
-@property(nonatomic ,strong) UITableView * waitSend_tableView;//待配送
-@property(nonatomic ,strong) UITableView * sending_tableView;//配送中
-@property(nonatomic ,strong) UITableView * sended_tableView;//配送完成
-@property(nonatomic ,strong) UITableView * dealSuccess_tableView;//交易完成
-@property(nonatomic ,strong) UITableView * cancelSuccess_tableView;//交易取消
-@property(nonatomic ,strong) UITableView * afterSale_tableView;//申请售后
+@property(nonatomic ,strong) ZFpopView * popView;
+@property(nonatomic, assign) OrderType orderType;
+
 
 @end
 
@@ -66,17 +48,26 @@ typedef NS_ENUM(NSUInteger,  headerType) {
     self.titles =@[@"全部订单",@"待付款",@"待配送",@"配送中",@"已配送",@"交易完成",@"交易取消",@"售后申请",];
     [self.navbar_btn setTitle:@"全部订单" forState:UIControlStateNormal];
     [self.allOrder_tableView registerNib:[UINib nibWithNibName:@"ZFSendingCell" bundle:nil] forCellReuseIdentifier:@"ZFSendingCellid"];
-    [self.allOrder_tableView registerNib:[UINib nibWithNibName:@"PayforCell" bundle:nil] forCellReuseIdentifier:@"PayforCellid"];
-    [self.allOrder_tableView registerNib:[UINib nibWithNibName:@"AllStoreCell" bundle:nil] forCellReuseIdentifier:@"AllStoreCellid"];
+    [self.allOrder_tableView registerNib:[UINib nibWithNibName:@"ZFTitleCell" bundle:nil] forCellReuseIdentifier:@"ZFTitleCellid"];
+    [self.allOrder_tableView registerNib:[UINib nibWithNibName:@"ZFFooterCell" bundle:nil] forCellReuseIdentifier:@"ZFFooterCellid"];
 
- 
- 
+    
+
+  
 }
-
+-(ZFpopView *)popView
+{
+    if (!_popView) {
+        _popView =[[ZFpopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 155) titleArray:_titles];
+        _popView.delegate = self;
+    
+    }
+    return _popView;
+}
 -(UITableView *)allOrder_tableView
 {
     if (!_allOrder_tableView) {
-        _allOrder_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64) style:UITableViewStylePlain];
+        _allOrder_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64) style:UITableViewStyleGrouped];
         _allOrder_tableView.delegate = self;
         _allOrder_tableView.dataSource = self;
         _allOrder_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -91,8 +82,7 @@ typedef NS_ENUM(NSUInteger,  headerType) {
         _navbar_btn = [UIButton buttonWithType:UIButtonTypeCustom];
         _navbar_btn.frame =CGRectMake(_titleView.centerX+40 , _titleView.centerY, 120, 24);
         [_navbar_btn setImage:[UIImage imageNamed:@"Order_down"] forState:UIControlStateNormal];
-        [_navbar_btn setTitle:statusStr forState:UIControlStateNormal];
-        _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
+         _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_navbar_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
         [_navbar_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 80, 0, 0)];
         [_navbar_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0,40)];
@@ -218,46 +208,676 @@ typedef NS_ENUM(NSUInteger,  headerType) {
 #pragma mark - tableView delegare
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    NSInteger num = 2;
+    switch (_orderType) {
+        case OrderTypeAllOrder:
+ 
+            break;
+        case OrderTypeWaitPay:
+            
+            break;
+        case OrderTypeWaitSend:
+            
+            break;
+        case OrderTypeSending:
+            
+            break;
+        case OrderTypeSended:
+            
+            break;
+        case OrderTypeDealSuccess:
+            
+            break;
+        case OrderTypeCancelSuccess:
+            
+            break;
+        case OrderTypeAfterSale:
+            
+            break;
+    }
+    return num;
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 85;
+    NSInteger sectionNum = 4;
+    switch (_orderType) {
+        case OrderTypeAllOrder:
+            
+            break;
+        case OrderTypeWaitPay:
+            
+            break;
+        case OrderTypeWaitSend:
+            
+            break;
+        case OrderTypeSending:
+            
+            break;
+        case OrderTypeSended:
+            
+            break;
+        case OrderTypeDealSuccess:
+            
+            break;
+        case OrderTypeCancelSuccess:
+            
+            break;
+        case OrderTypeAfterSale:
+            
+            break;
+    }
+    return sectionNum;
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    return [self CreatSectionHeadView];
-    
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+   
+    CGFloat height = 0;
+    if (section == 0) {
+        height = 0.001;
+    }else {
+        height = 10;
+    }
+    return height;
 }
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self CreatSectionFooterView];
-}
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+    CGFloat height =0;
+   
+    if (indexPath.row == 0) {
+        
+        height  = [tableView fd_heightForCellWithIdentifier:@"ZFTitleCellid" configuration:^(id cell) {
+            
+        }];
+    }
+    else if (indexPath.row == 1){
+        
+        height  = [tableView fd_heightForCellWithIdentifier:@"ZFTitleCellid" configuration:^(id cell) {
+            
+        }];
+        
+    }
+    else if(indexPath.row <3){
+        
+        height  = [tableView fd_heightForCellWithIdentifier:@"ZFSendingCellid" configuration:^(id cell) {
+            
+        }];
+        
+    }else{
+        height  = [tableView fd_heightForCellWithIdentifier:@"ZFFooterCellid" configuration:^(id cell) {
+            
+        }];
+    }
+
+    switch (_orderType) {
+        case OrderTypeAllOrder:
     
-    return 80.0 ;
-    
+//            if (indexPath.section == 0){
+//
+//                if (indexPath.row == 0) {
+//
+//                    height  = [tableView fd_heightForCellWithIdentifier:@"ZFTitleCellid" configuration:^(id cell) {
+//                        
+//                    }];
+//                }
+//                else if (indexPath.row == 1){
+//                    
+//                    height  = [tableView fd_heightForCellWithIdentifier:@"ZFTitleCellid" configuration:^(id cell) {
+//                        
+//                    }];
+//                    
+//                }
+//                else if(indexPath.row <3){
+//                    
+//                    height  = [tableView fd_heightForCellWithIdentifier:@"ZFSendingCellid" configuration:^(id cell) {
+//                        
+//                    }];
+//            
+//                }else{
+//                    height  = [tableView fd_heightForCellWithIdentifier:@"ZFFooterCellid" configuration:^(id cell) {
+//                        
+//                    }];
+//                }
+//                
+//            }
+            break;
+        case OrderTypeWaitPay:
+            
+            break;
+        case OrderTypeWaitSend:
+            
+            break;
+        case OrderTypeSending:
+            
+            break;
+        case OrderTypeSended:
+            
+            break;
+        case OrderTypeDealSuccess:
+            
+            break;
+        case OrderTypeCancelSuccess:
+            
+            break;
+        case OrderTypeAfterSale:
+            
+            break;
+    }
+
+ 
+    return height;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 40.0;
+    return 0.001;
 }
-
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell * cell ;
     
-    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+    switch (_orderType) {
+        case OrderTypeAllOrder: //全部订单
+           
+            if (indexPath.section == 0){
+                
+                if (indexPath.row == 0) {
+                   
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+               
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                   
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+
+                }
+        
+            }
+            if (indexPath.section == 1) {
+               
+                if (indexPath.row == 0) {
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                    
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                    
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+                    
+                }
+                
+            }
+            
+            break;
+        case OrderTypeWaitPay:  //待付款
+
+                if (indexPath.section == 0){
+                    
+                    if (indexPath.row == 0) {
+                        
+                        ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                        
+                        cell = titleCell;
+                    }
+                    else if (indexPath.row == 1){
+                        
+                        ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                        
+                        cell = titleCell;
+                        
+                    }
+                    else if(indexPath.row <3){
+                        ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                        shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                        
+                        cell =shopCell;
+                    }else{
+                        
+                        ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                        
+                        cell = footCell;
+                        
+                    }
+                    
+                }
+                if (indexPath.section == 1) {
+                    
+                    if (indexPath.row == 0) {
+                        
+                        ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                        
+                        cell = titleCell;
+                    }
+                    else if (indexPath.row == 1){
+                        
+                        ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                        
+                        cell = titleCell;
+                        
+                    }
+                    else if(indexPath.row <3){
+                        ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                        shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                        
+                        cell =shopCell;
+                    }else{
+                        
+                        ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                        
+                        cell = footCell;
+                        
+                    }
+                    
+                }
+            
+            break;
+        case OrderTypeWaitSend: //待配送
+            
+            if (indexPath.section == 0){
+                
+                if (indexPath.row == 0) {
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                    
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                    
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+                    
+                }
+                
+            }
+            if (indexPath.section == 1) {
+                
+                if (indexPath.row == 0) {
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                    
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                    
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+                    
+                }
+                
+            }
+            break;
+        case OrderTypeSending://配送中
+            
+            
+            if (indexPath.section == 0){
+                
+                if (indexPath.row == 0) {
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                    
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                    
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+                    
+                }
+                
+            }
+            if (indexPath.section == 1) {
+                
+                if (indexPath.row == 0) {
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                    
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                    
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+                    
+                }
+                
+            }
+            break;
+        case OrderTypeSended://已经配送
+            
+            if (indexPath.section == 0){
+                
+                if (indexPath.row == 0) {
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                    
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                    
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+                    
+                }
+                
+            }
+            if (indexPath.section == 1) {
+                
+                if (indexPath.row == 0) {
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                    
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                    
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+                    
+                }
+                
+            }
+            
+            break;
+        case OrderTypeDealSuccess://交易成功
+            
+            if (indexPath.section == 0){
+                
+                if (indexPath.row == 0) {
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                    
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                    
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+                    
+                }
+                
+            }
+            if (indexPath.section == 1) {
+                
+                if (indexPath.row == 0) {
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                    
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                    
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+                    
+                }
+                
+            }
+            
+            break;
+        case OrderTypeCancelSuccess://交易取消
+            
+            if (indexPath.section == 0){
+                
+                if (indexPath.row == 0) {
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                    
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                    
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+                    
+                }
+                
+            }
+            if (indexPath.section == 1) {
+                
+                if (indexPath.row == 0) {
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                    
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                    
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+                    
+                }
+                
+            }
+            break;
+        case OrderTypeAfterSale://售后服务
+            
+            if (indexPath.section == 0){
+                
+                if (indexPath.row == 0) {
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                    
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                    
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+                    
+                }
+                
+            }
+            if (indexPath.section == 1) {
+                
+                if (indexPath.row == 0) {
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                }
+                else if (indexPath.row == 1){
+                    
+                    ZFTitleCell *titleCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFTitleCellid" forIndexPath:indexPath];
+                    
+                    cell = titleCell;
+                    
+                }
+                else if(indexPath.row <3){
+                    ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+                    
+                    cell =shopCell;
+                }else{
+                    
+                    ZFFooterCell* footCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFFooterCellid" forIndexPath:indexPath];
+                    
+                    cell = footCell;
+                    
+                }
+                
+            }
+            
+            break;
+    }
+
     
-    return shopCell;
+    return cell;
+    
+
     
 }
 #pragma mark - tableView datasource
@@ -276,39 +896,10 @@ typedef NS_ENUM(NSUInteger,  headerType) {
     if (!_bgview) {
         _bgview =[[ UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH)];
         _bgview.backgroundColor = RGBA(0, 0, 0, 0.2) ;
-        [self.view addSubview:_bgview];
-        [_bgview addSubview:self.popaView];
+        [_bgview addSubview:self.popView];
     }
     return _bgview;
     
-}
-/**
- 弹框选择器
- */
--(UIView *)popaView
-{
-    if (!_popaView) {
-        _popaView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 155)];
-        _popaView.backgroundColor = [UIColor whiteColor];
-        
-        for (int i = 0; i <  self.titles.count; i++) {
-            
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button = [[UIButton alloc] initWithFrame:CGRectMake(i%3 * (KScreenW*0.3333)+20,20+i/3*(25+20), KScreenW*0.3333 - 40, 25)];
-            button.layer.cornerRadius = 2;
-            button.layer.borderWidth = 1;
-            button.layer.borderColor = HEXCOLOR(0xdedede).CGColor;
-            [button setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
-            [button setTitle:  _titles[i] forState:UIControlStateNormal];
-            button.titleLabel.font = [UIFont systemFontOfSize:12];
-            [button addTarget:self action:@selector(didclickSendPopViewAction:) forControlEvents:UIControlEventTouchUpInside];
-            [_popaView addSubview:button];
-            button.tag = i+2000;
-            NSLog(@"%ld \n",button.tag);
-            
-        }
-    }
-    return _popaView;
 }
 
 /**
@@ -317,46 +908,22 @@ typedef NS_ENUM(NSUInteger,  headerType) {
  */
 -(void)navigationBarSelectedOther:(UIButton *)btn;
 {
+    [self.view addSubview:self.bgview];
+//    [self.bgview addSubview:self.popView];
     
-    btn.selected = !btn.selected;
-    if (btn.selected) {
-        self.bgview.hidden = NO;
-        self.popaView.hidden = NO;
-        
-    }else{
-        btn.selected=NO;
-        self.bgview.hidden = YES;
-        self.popaView.hidden = YES;
-    }
-}
-//选择进入那个页面？
--(void)didclickSendPopViewAction:(UIButton*)sender
-{
- 
-    [self.navbar_btn setTitle:sender.titleLabel.text forState:UIControlStateNormal];
-//    
-//    sender.selected= !sender.selected;
-//    [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
-//    sender.layer.borderColor =HEXCOLOR(0xfe6d6a).CGColor;
-//
-//    self.bgview.hidden = YES;
-//    self.popaView.hidden = YES;
-//    
-//    [self.allOrder_tableView reloadData];
-    
-    NSInteger tagNum ;
-    tagNum = sender.tag ;
-    NSString* idstr =  [_titles objectAtIndex:tagNum-2000];
-    NSLog(@"%ld ,%@" ,tagNum,idstr);
-  
-    NSDictionary * dic ;
-    [dic objectForKey:idstr];
-    [dic setValue:idstr forKey:@"keyid"];
-    NSLog(@"dic = %@",dic);
-    
-    //[self  getdataWithId:idstr];
+//    btn.selected = !btn.selected;
+//    if (btn.selected) {
+//        self.bgview.hidden = NO;
+//        self.popaView.hidden = NO;
+//        
+//    }else{
+//        btn.selected=NO;
+//        self.bgview.hidden = YES;
+//        self.popaView.hidden = YES;
+//    }
     
 }
+
 
 /**
  确认付款
@@ -364,6 +931,24 @@ typedef NS_ENUM(NSUInteger,  headerType) {
  */
 -(void)didClickClearing:(UIButton *)clearbtn
 {
-    NSLog(@"确认付款");
+    
 }
+
+#pragma mark - ZFpopViewDelegate
+-(void)sendTitle:(NSString *)title orderType:(OrderType)type
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        if (self.bgview.superview) {
+            [self.bgview removeFromSuperview];
+        }
+
+    }];
+    
+    _orderType = type;
+    
+    [self.navbar_btn setTitle:title forState:UIControlStateNormal];
+
+    [self.allOrder_tableView reloadData];
+}
+
 @end

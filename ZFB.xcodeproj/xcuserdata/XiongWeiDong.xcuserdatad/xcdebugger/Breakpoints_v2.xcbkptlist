@@ -42,7 +42,7 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Main/MainController/childViewController/ZFSearchBarViewController.m"
-                  timestampString = "517333974.2163"
+                  timestampString = "517419645.985095"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "133"
@@ -57,7 +57,7 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Main/MainController/childViewController/ZFSearchBarViewController.m"
-                  timestampString = "517333974.219359"
+                  timestampString = "517419645.988181"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "135"
@@ -111,7 +111,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "288"
             endingLineNumber = "288"
-            landmarkName = "-getdataWithId:"
+            landmarkName = "-backToHomeitem"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

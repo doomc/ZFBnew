@@ -18,4 +18,7 @@
 #import "UIView+MJ.h"
 #import "Header.h"
 #import "ZFB_Urls.h"
+#import "ZFEnum.h"
+#import "UITableView+FDTemplateLayoutCell.h"
+
 #endif /* PrefixHeader_pch */
