@@ -10,66 +10,69 @@
 
 @interface ZFSaleAfterTopView  ()
 
+@property (nonatomic, strong) UIButton *selectBtn;
 
 
 @end
 @implementation ZFSaleAfterTopView
 
 
--(instancetype)initWithFrame:(CGRect)frame
+-(instancetype)initWithFrame:(CGRect)frame titleArr:(NSArray *)arr
 {
     self = [super initWithFrame:frame];
     
     if (self) {
        
-        [self creatTopView];
+        for (int i = 0 ; i < arr.count; i++) {
+            
+            UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.frame = CGRectMake(i*(KScreenW*0.5), 0, (KScreenW*0.5), 40);
+            [button setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+            [button setTitle:arr[i] forState:UIControlStateNormal];
+            button.titleLabel.font = [UIFont systemFontOfSize:14];
+            
+            [button addTarget:self action:@selector(didclickWithAction:) forControlEvents:UIControlEventTouchUpInside];
+            button.tag = i+1000;
+            [self addSubview:button];
+            NSLog(@"%ld \n",button.tag);
+            
+            if (i == 0) {
+                [self didclickWithAction:button];
+            }
+            self.backgroundColor= [UIColor whiteColor];
+            
+            
+        }
+
         
     }
     return self;
 }
--(void)creatTopView
-{
-    UIFont *font = [UIFont systemFontOfSize:15];
-    
-    UIButton * applyFor_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    applyFor_btn.frame = CGRectMake(0 , 0, KScreenW*0.5, 39);
-    [applyFor_btn  setTitle:@"售后申请" forState:UIControlStateNormal];
-    [applyFor_btn setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
-    applyFor_btn.titleLabel.font = font;
-    [applyFor_btn setBackgroundColor:HEXCOLOR(0xfe6d6a)];
-    [applyFor_btn addTarget:self action:@selector(applyFor_btndidClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self addSubview:applyFor_btn];
-  
-    UIButton * progress_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    progress_btn.frame = CGRectMake(KScreenW*0.5, 0, KScreenW*0.5, 39);
-    [progress_btn  setTitle:@"进度查询" forState:UIControlStateNormal];
-    [progress_btn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
-    progress_btn.titleLabel.font = font;
-//    [progress_btn setBackgroundColor:[UIColor whiteColor]];
-    [progress_btn addTarget:self action:@selector(progress_btndidClick) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:progress_btn];
+ 
 
-    UILabel * line =[[ UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
-    line.backgroundColor = HEXCOLOR( 0xdedede);
-   
-    
-//    [self addSubview:line];
-    self.backgroundColor = [UIColor whiteColor];
-    
-}
--(void)applyFor_btndidClick
+-(void)didclickWithAction:(UIButton*)sender
 {
-    NSLog(@"售后申请");
     
+    [_selectBtn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+    _selectBtn.backgroundColor =[UIColor whiteColor];
     
+    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    sender.backgroundColor =HEXCOLOR(0xfe6d6a);
     
-}
--(void)progress_btndidClick
-{
-    NSLog(@"进度查询");
+    NSInteger selectTag = sender.tag;
+    _selectBtn = sender;
+    
 
+    if ([_delegate respondsToSelector:@selector(sendAtagNum:)]) {
+     
+        [_delegate sendAtagNum:selectTag -1000];
+
+    }
+    
+    NSLog(@"%ld",selectTag);
 }
+
+
 
 
 @end

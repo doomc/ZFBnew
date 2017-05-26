@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol ZFSaleAfterTopViewDelegate <NSObject>
+
+-(void)sendAtagNum :(NSInteger)tagNum;
+
+
+@end
 
 @interface ZFSaleAfterTopView : UIView
+
+@property(nonatomic,assign)id <ZFSaleAfterTopViewDelegate> delegate;
+
+-(instancetype)initWithFrame:(CGRect)frame titleArr:(NSArray *)arr;
 
 @end

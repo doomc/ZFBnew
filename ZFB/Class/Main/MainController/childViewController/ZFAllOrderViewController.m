@@ -18,6 +18,7 @@
 #import "ZFSaleAfterHeadCell.h"
 #import "ZFSaleAfterContentCell.h"
 #import "ZFSaleAfterSearchCell.h"
+#import "ZFCheckTheProgressCell.h"
 static  NSString * headerCellid =@"ZFTitleCellid";//头id
 static  NSString * contentCellid =@"ZFSendingCellid";//内容id
 static  NSString * footerCellid =@"ZFFooterCellid";//尾部id
@@ -25,9 +26,11 @@ static  NSString * footerCellid =@"ZFFooterCellid";//尾部id
 static  NSString * saleAfterHeadCellid =@"ZFSaleAfterHeadCellid";//头id
 static  NSString * saleAfterContentCellid =@"saleAfterContentCellid";//内容id
 static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cell
+static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度查询
 
 
-@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate>
+
+@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate>
 
 
 @property(nonatomic ,strong) UIView * titleView ;
@@ -35,9 +38,14 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
 @property(nonatomic ,strong) UIView * bgview;//蒙板
 @property(nonatomic ,strong) NSArray * titles;//选择页面
 
+@property(nonatomic ,strong) NSArray * saleTitles;//售后选择
+@property(nonatomic ,assign) NSInteger tagNum;//售后选择
+
+
 @property(nonatomic ,strong) UITableView * allOrder_tableView;//全部订单
 @property(nonatomic ,strong) ZFpopView * popView;
 @property(nonatomic ,assign) OrderType orderType;
+@property(nonatomic ,assign) BOOL isChange;
 
 //售后搜索
 @property(nonatomic ,strong)UISearchBar * searchBar;
@@ -49,8 +57,10 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.isChange = NO;
 
+    
+    self.saleTitles = @[@"申请售后",@"进度查询"];
     self.titles =@[@"全部订单",@"待付款",@"待配送",@"配送中",@"已配送",@"交易完成",@"交易取消",@"售后申请",];
     [self.navbar_btn setTitle:@"全部订单" forState:UIControlStateNormal];
     [self.view addSubview:self.allOrder_tableView];
@@ -61,13 +71,17 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
    
     [self.allOrder_tableView registerNib:[UINib nibWithNibName:@"ZFSaleAfterHeadCell" bundle:nil] forCellReuseIdentifier:saleAfterHeadCellid];
     [self.allOrder_tableView registerNib:[UINib nibWithNibName:@"ZFSaleAfterContentCell" bundle:nil] forCellReuseIdentifier:saleAfterContentCellid];
-     [self.allOrder_tableView registerNib:[UINib nibWithNibName:@"ZFSaleAfterSearchCell" bundle:nil] forCellReuseIdentifier:saleAfterSearchCellid];
+    [self.allOrder_tableView registerNib:[UINib nibWithNibName:@"ZFSaleAfterSearchCell" bundle:nil] forCellReuseIdentifier:saleAfterSearchCellid];
+    [self.allOrder_tableView registerNib:[UINib nibWithNibName:@"ZFCheckTheProgressCell" bundle:nil] forCellReuseIdentifier:saleAfterProgressCellid];
+    
+    
     
     
 }
 -(ZFSaleAfterTopView *)topView{
     if (!_topView) {
-        _topView  =[[ ZFSaleAfterTopView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 40)];
+        _topView  =[[ ZFSaleAfterTopView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 40) titleArr:self.saleTitles];
+        _topView.delegate = self;
     }
     return _topView;
 }
@@ -85,10 +99,10 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
 -(UITableView *)allOrder_tableView
 {
     if (!_allOrder_tableView) {
-        _allOrder_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64) style:UITableViewStyleGrouped];
+        _allOrder_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64) style:UITableViewStylePlain];
         _allOrder_tableView.delegate = self;
         _allOrder_tableView.dataSource = self;
-//        _allOrder_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _allOrder_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _allOrder_tableView;
 }
@@ -168,10 +182,19 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
             
             break;
         case OrderTypeAfterSale:
-            if (section == 0) {
-                return 3;
-            }else{
-                return 3;
+            if (self.tagNum == 0) {
+                
+                if (section == 0) {
+                    return 3;
+                }else{
+                    return 3;
+                }
+ 
+            }else if (self.tagNum ==1)
+            {
+                if (section==0) {
+                    return 1;
+                }
             }
             
             break;
@@ -463,39 +486,47 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
             
             break;
         case OrderTypeAfterSale:
-            if (indexPath.section == 0) {
-                if (indexPath.row == 0) {
+            if (self.tagNum == 0) {
                 
-                    height = [tableView fd_heightForCellWithIdentifier:saleAfterSearchCellid configuration:^(id cell) {
+                if (indexPath.section == 0) {
+                    if (indexPath.row == 0) {
                         
-                    }];
+                        height = [tableView fd_heightForCellWithIdentifier:saleAfterSearchCellid configuration:^(id cell) {
+                            
+                        }];
+                        
+                    }else if (indexPath.row ==1)
+                    {
+                        height = [tableView fd_heightForCellWithIdentifier:saleAfterHeadCellid configuration:^(id cell) {
+                            
+                        }];
+                    }else{
+                        
+                        height = [tableView fd_heightForCellWithIdentifier:saleAfterContentCellid configuration:^(id cell) {
+                            
+                        }];
+                        
+                    }
                     
-                }else if (indexPath.row ==1)
-                {
-                    height = [tableView fd_heightForCellWithIdentifier:saleAfterHeadCellid configuration:^(id cell) {
-                        
-                    }];
-                }else{
-                    
-                    height = [tableView fd_heightForCellWithIdentifier:saleAfterContentCellid configuration:^(id cell) {
-                        
-                    }];
+                }
+                if (indexPath.section == 1) {
+                    if (indexPath.row == 0) {
+                        height = [tableView fd_heightForCellWithIdentifier:saleAfterHeadCellid configuration:^(id cell) {
+                            
+                        }];
+                    }else{
+                        height = [tableView fd_heightForCellWithIdentifier:saleAfterContentCellid configuration:^(id cell) {
+                            
+                        }];
+                    }
+                }
 
-                }
+            }else{
+                height = [tableView fd_heightForCellWithIdentifier:saleAfterProgressCellid configuration:^(id cell) {
+                    
+                }];
+            }
             
-            }
-            if (indexPath.section == 1) {
-                if (indexPath.row == 0) {
-                    height = [tableView fd_heightForCellWithIdentifier:saleAfterHeadCellid configuration:^(id cell) {
-                        
-                    }];
-                }else{
-                    height = [tableView fd_heightForCellWithIdentifier:saleAfterContentCellid configuration:^(id cell) {
-                        
-                    }];
-                }
-            }
-           
           
             break;
     }
@@ -532,7 +563,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                 }
                 else if(indexPath.row <3){
                     ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                     
                     cell =shopCell;
                 }else{
@@ -561,7 +591,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                 }
                 else if(indexPath.row <3){
                     ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                     
                     cell =shopCell;
                 }else{
@@ -594,7 +623,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                     }
                     else if(indexPath.row <3){
                         ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                        shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                         
                         cell =shopCell;
                     }else{
@@ -623,7 +651,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                     }
                     else if(indexPath.row <3){
                         ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                        shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                         
                         cell =shopCell;
                     }else{
@@ -656,7 +683,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                 }
                 else if(indexPath.row <3){
                     ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                     
                     cell =shopCell;
                 }else{
@@ -685,7 +711,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                 }
                 else if(indexPath.row <3){
                     ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                     
                     cell =shopCell;
                 }else{
@@ -718,7 +743,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                 }
                 else if(indexPath.row <3){
                     ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                     
                     cell =shopCell;
                 }else{
@@ -747,7 +771,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                 }
                 else if(indexPath.row <3){
                     ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                     
                     cell =shopCell;
                 }else{
@@ -779,7 +802,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                 }
                 else if(indexPath.row <3){
                     ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                     
                     cell =shopCell;
                 }else{
@@ -808,7 +830,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                 }
                 else if(indexPath.row <3){
                     ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                     
                     cell =shopCell;
                 }else{
@@ -841,7 +862,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                 }
                 else if(indexPath.row <3){
                     ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                     
                     cell =shopCell;
                 }else{
@@ -870,7 +890,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                 }
                 else if(indexPath.row <3){
                     ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                     
                     cell =shopCell;
                 }else{
@@ -903,7 +922,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                 }
                 else if(indexPath.row <3){
                     ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                     
                     cell =shopCell;
                 }else{
@@ -932,7 +950,6 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
                 }
                 else if(indexPath.row <3){
                     ZFSendingCell * shopCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
-                    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
                     
                     cell =shopCell;
                 }else{
@@ -947,37 +964,45 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
             break;
         case OrderTypeAfterSale://售后服务
             
-            if (indexPath.section == 0){
-                if (indexPath.row ==0) {
-                 
-                    ZFSaleAfterSearchCell* searchCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterSearchCellid forIndexPath:indexPath];
+            if (self.tagNum == 0) {
+                if (indexPath.section == 0){
+                    if (indexPath.row ==0) {
+                        
+                        ZFSaleAfterSearchCell* searchCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterSearchCellid forIndexPath:indexPath];
+                        
+                        cell = searchCell;
+                    }else if (indexPath.row ==1 )
+                    {
+                        ZFSaleAfterHeadCell* HeadCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterHeadCellid forIndexPath:indexPath];
+                        cell = HeadCell;
+                        
+                    }else{
+                        ZFSaleAfterContentCell* contentell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterContentCellid forIndexPath:indexPath];
+                        
+                        cell = contentell;
+                    }
                     
-                    cell = searchCell;
-                }else if (indexPath.row ==1 )
-                {
-                    ZFSaleAfterHeadCell* HeadCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterHeadCellid forIndexPath:indexPath];
-                    cell = HeadCell;
-                    
-                }else{
-                    ZFSaleAfterContentCell* contentell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterContentCellid forIndexPath:indexPath];
-                    
-                    cell = contentell;
                 }
-    
-            }
-            if (indexPath.section == 1) {
-                if (indexPath.row ==0) {
+                if (indexPath.section == 1) {
+                    if (indexPath.row ==0) {
+                        
+                        ZFSaleAfterHeadCell* HeadCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterHeadCellid forIndexPath:indexPath];
+                        
+                        cell = HeadCell;
+                    }else{
+                        
+                        ZFSaleAfterContentCell* contentell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterContentCellid forIndexPath:indexPath];
+                        
+                        cell = contentell;
+                    }
                     
-                    ZFSaleAfterHeadCell* HeadCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterHeadCellid forIndexPath:indexPath];
-                 
-                    cell = HeadCell;
-                }else{
-                    
-                    ZFSaleAfterContentCell* contentell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterContentCellid forIndexPath:indexPath];
-                    
-                    cell = contentell;
                 }
-            
+
+            }else{
+                ZFCheckTheProgressCell *checkCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterProgressCellid forIndexPath:indexPath];
+                
+                cell = checkCell;
+
             }
             
             break;
@@ -1017,15 +1042,23 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
  */
 -(void)navigationBarSelectedOther:(UIButton *)btn;
 {
-    [self.view addSubview:self.bgview];
-    
-//    btn.selected = !btn.selected;
-//    if (btn.selected) {
-//        self.bgview.hidden = NO;
-//        
+  
+
+    [self.view addSubview:self.bgview];;
+
+////    btn.selected = !btn.selected;
+//    self.isChange = YES;
+//
+//    if (self.isChange == YES) {
+//       
+//        self.isChange = NO;
+//
 //    }else{
-//        btn.selected=NO;
-//        self.bgview.hidden = YES;
+//        
+//        if (self.bgview.superview) {
+//            [self.bgview removeFromSuperview];
+//        }
+//       
 //    }
     
 }
@@ -1043,28 +1076,42 @@ static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cel
 #pragma mark - ZFpopViewDelegate
 -(void)sendTitle:(NSString *)title orderType:(OrderType)type
 {
+ 
     [UIView animateWithDuration:0.3 animations:^{
         if (self.bgview.superview) {
             [self.bgview removeFromSuperview];
 
         }
-
     }];
     
     _orderType = type;
- 
+    
     [self.navbar_btn setTitle:title forState:UIControlStateNormal];
-    
-    
-    if (_orderType == OrderTypeAfterSale) {
-        
-        
-    }else{
-         NSLog(@"%f",self.allOrder_tableView.tableHeaderView.height);
-    }
-    
+//    if (_orderType ==OrderTypeAfterSale ) {
+//        
+//        
+//     }
     [self.allOrder_tableView reloadData];
 
+}
+
+#pragma mark - ZFSaleAfterTopViewDelegate
+-(void)sendAtagNum:(NSInteger)tagNum
+{
+    self.tagNum = tagNum;
+    if (tagNum == 0) {
+        
+        NSLog(@"申请售后,刷新列表tagnum = %ld",tagNum);
+        [self.allOrder_tableView reloadData];
+        
+    
+    }else{
+        NSLog(@"进度查询,刷新列表tagnum = %ld",tagNum);
+       
+        [self.allOrder_tableView reloadData];
+
+
+    }
 }
 
 @end
