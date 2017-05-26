@@ -10,7 +10,6 @@
 #import "FinGoodsViewController.h"
 #import "FindStoreViewController.h"
 #import "FindCircleViewController.h"
-#import "DCNavTabBarController.h"
 
 #import "ZFSearchBarViewController.h"
 #import "ZFSearchDetailViewController.h"

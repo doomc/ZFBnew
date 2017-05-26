@@ -1,25 +1,29 @@
 //
-//  ZFpopView.m
+//  ZFSendPopView.m
 //  ZFB
 //
-//  Created by 熊维东 on 2017/5/25.
+//  Created by  展富宝  on 2017/5/26.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
-#import "ZFpopView.h"
+#import "ZFSendPopView.h"
 
-@interface ZFpopView ()
+@interface ZFSendPopView ()
 
-@property (nonatomic, assign) OrderType selctedType;
-@property (nonatomic, strong) UIButton *selectBtn;
+@property(nonatomic,strong)NSArray *titleArray;
+
+@property(nonatomic,assign)SendServicType selectType;
+
+@property(nonatomic,strong)UIButton * selectedBtn;
 @end
-@implementation ZFpopView
 
+@implementation ZFSendPopView
 
 -(instancetype)initWithFrame:(CGRect)frame titleArray:(NSArray *)titleArray
 {
-    self = [super initWithFrame:frame];
+    self= [super initWithFrame:frame];
     if (self) {
+        
         _titleArray = titleArray;
         for (int i = 0; i < titleArray.count; i++) {
             
@@ -33,7 +37,7 @@
             button.titleLabel.font = [UIFont systemFontOfSize:12];
             [button addTarget:self action:@selector(didclickSendPopViewAction:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:button];
-            button.tag = i+2000;
+            button.tag = i+1000;
             NSLog(@"%ld \n",button.tag);
             if (i == 0) {
                 [self didclickSendPopViewAction:button];
@@ -41,59 +45,47 @@
             
         }
         self.backgroundColor = [UIColor whiteColor];
+
     }
     return self;
 }
 
--(void)didclickSendPopViewAction:(UIButton *)sender {
-    [_selectBtn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
-    _selectBtn.layer.borderColor =HEXCOLOR(0xdedede).CGColor;
+-(void)didclickSendPopViewAction:(UIButton*)sender
+{
+    [_selectedBtn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+    _selectedBtn.layer.borderColor =HEXCOLOR(0xdedede).CGColor;
     
     [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
     sender.layer.borderColor =HEXCOLOR(0xfe6d6a).CGColor;
     
+    _selectedBtn = sender;
+    
     NSInteger selectTag = sender.tag;
-
-    _selectBtn = sender;
- 
+    
     switch (selectTag) {
-        case 2000:
-            _selctedType = OrderTypeAllOrder;//全部订单
+        case 1000:
+            _selectType = SendServicTypeWaitSend;//待配送
             break;
-        case 2001:
-            _selctedType = OrderTypeWaitPay;//待付款
-
+        case 1001:
+            _selectType = SendServicTypeSending;//配送中
+            
             break;
-        case 2002:
-            _selctedType = OrderTypeWaitSend;//待配送
-
+        case 1002:
+            _selectType = SendServicTypeSended;//已配送
+            
             break;
-        case 2003:
-            _selctedType = OrderTypeSending;//配送中
-
+        case 1003:
+            _selectType = SendServicTypeUpdoor;//上门取件
+            
+            
             break;
-        case 2004:
-            _selctedType = OrderTypeSended;//配送完成
-
-            break;
-        case 2005:
-            _selctedType = OrderTypeDealSuccess;//交易完成
-
-            break;
-        case 2006:
-            _selctedType = OrderTypeCancelSuccess;//交易取消
-
-            break;
-        case 2007:
-            _selctedType = OrderTypeAfterSale;//申请售后
-
-            break;
-    }
-    if ([_delegate respondsToSelector:@selector(sendTitle:orderType:)]) {
-        
-        [_delegate sendTitle:_titleArray[selectTag-2000] orderType:_selctedType];
-        
     }
     
+    if ([self.delegate respondsToSelector:@selector(sendTitle:SendServiceType:)]) {
+        
+        [_delegate sendTitle:_titleArray[selectTag - 1000] SendServiceType:_selectType];
+        
+    }
+
 }
 @end

@@ -11,8 +11,9 @@
 #import "ZFMyCashBagCell.h"
 #import "ZFMyProgressCell.h"
 #import "ZFMyOderCell.h"
-#import "ZFHeaderView.h"
-#import "ZFMainSendViewController.h"
+
+
+#import "ZFSendSerViceViewController.h"
 #import "LoginViewController.h"
 #import "ZFAllOrderViewController.h"
 typedef NS_ENUM(NSUInteger, TypeCell) {
@@ -182,8 +183,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
     if (indexPath.row == 3) {//切换到配送端
         
-        ZFMainSendViewController * MainVC  = [[ZFMainSendViewController alloc]init];
-        [self.navigationController pushViewController:MainVC animated:YES];
+        ZFSendSerViceViewController * sendVC  = [[ZFSendSerViceViewController alloc]init];
+        [self.navigationController pushViewController:sendVC animated:YES];
         
     }  if (indexPath.row == 4) {//意见反馈
         

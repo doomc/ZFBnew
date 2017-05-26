@@ -9,22 +9,43 @@
 #import "ZFSendSerViceViewController.h"
 #import "ZFSendingCell.h"
 #import "ZFContactCell.h"
+#import "ZFFooterCell.h"
+#import "ZFTitleCell.h"
+#import "ZFSendPopView.h"
 
-typedef NS_ENUM(NSUInteger, TypeCell) {
-    TypeCell_SendingCell = 0,
-    TypeCell_ContactCell,
- 
-};
-@interface ZFSendSerViceViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "ZFSendHomeCell.h"
+#import "ZFSendHomeListCell.h"
+//订单待配送cell  section0
+static  NSString * headerCellid =@"ZFTitleCellid";
+static  NSString * contentCellid =@"ZFSendingCellid";
+static  NSString * footerCellid =@"ZFFooterCellid";
+//订单待配送cell  section1
+static  NSString * contactCellid =@"ZFContactCellid";
 
-@property (weak, nonatomic) IBOutlet UITableView *send_tableView;
-@property (weak, nonatomic) IBOutlet UIButton *Home_btn;
-@property (weak, nonatomic) IBOutlet UIButton *Order_btn;
+//首页 section0
+static  NSString * homeCellid =@"ZFSendHomeCellid";
+//首页 section1
+static  NSString * homeListCellid =@"ZFSendHomeListCellid";
+
+
+@interface ZFSendSerViceViewController ()<UITableViewDelegate,UITableViewDataSource,ZFSendPopViewDelegate>
+
+@property (strong, nonatomic)  UITableView *send_tableView;
+@property (weak, nonatomic) IBOutlet UIButton *Home_btn;//首页安妞
+@property (weak, nonatomic) IBOutlet UIButton *Order_btn;//订单按钮
+
+@property (nonatomic,strong) UIButton *navbar_btn;//导航页
+@property (nonatomic,strong) UIView * titleView ;
+@property (nonatomic,strong) UIView * bgview;
+@property (nonatomic,strong) ZFSendPopView * popView;
+@property (nonatomic,assign) SendServicType  servicType;//传一个type
+
+@property (nonatomic,assign) BOOL  isSelectPage;//默认选择一个首页面
 
 @property (strong,nonatomic) NSArray *titles;
 @property (strong,nonatomic) NSArray *detailTitles;
 
-@end
+ @end
 
 @implementation ZFSendSerViceViewController
 
@@ -32,16 +53,23 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
   
+    _isSelectPage = YES;
+    self.title = @"配送端";
+
+    [self.view addSubview:self.send_tableView];
+
     self.send_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendingCell" bundle:nil] forCellReuseIdentifier:@"ZFSendingCellid"];
-    [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFContactCell" bundle:nil] forCellReuseIdentifier:@"ZFContactCellid"];
-    
-    _titles = @[@"待配送",@"已配送",@"配送中",@"地上门取件"];
+    [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFTitleCell" bundle:nil] forCellReuseIdentifier:headerCellid];
+    [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendingCell" bundle:nil] forCellReuseIdentifier:contentCellid];
+    [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFFooterCell" bundle:nil] forCellReuseIdentifier:footerCellid];
+    [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFContactCell" bundle:nil] forCellReuseIdentifier:contactCellid];
+    [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendHomeCell" bundle:nil] forCellReuseIdentifier:homeCellid];
+    [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendHomeListCell" bundle:nil] forCellReuseIdentifier:homeListCellid];
+
+    _titles = @[@"待配送",@"配送中",@"已配送",@"上门取件"];
     _detailTitles =@[@"张三",@"182139823",@"收货地址收货地址收货地址",@"取货地址取货地址取货地址取货地址:",@"¥19.00"];
 
-    [self customFooterView];
-    [self customHeaderView];
-    
+    [self initButtonWithInterface];
 }
 
 #pragma mark - 创建视图
@@ -52,194 +80,425 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [self.Order_btn  addTarget:self action:@selector(Order_btnaTargetAction) forControlEvents:UIControlEventTouchUpInside];
 
 }
--(UIView*)customHeaderView
+//自定义导航按钮选择定订单
+-(UIButton *)navbar_btn
 {
-    
-    NSString *leftTitle = @"2017-08-23";
-    NSString *rigntTitle = @"配送中";
-    
-    
-    UIView *  headerView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, KScreenW, 40)];
-    headerView.backgroundColor =[ UIColor whiteColor];
-    UIFont * font  =[UIFont systemFontOfSize:12];
-    
-    UILabel * title = [[UILabel alloc]init];
-    title.text = leftTitle;
-    title.font = font;
-    CGSize size = [title.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
-    CGFloat titleW = size.width;
-    title.frame = CGRectMake(15, 5, titleW, 30);
-    title.textColor = HEXCOLOR(0x363636);
-    
-    
-    UIButton * status = [[UIButton alloc]init ];
-    [status setTitle:rigntTitle forState:UIControlStateNormal];
-    status.titleLabel.font = font;
-    [status setTitleColor: HEXCOLOR(0x363636) forState:UIControlStateNormal];
-    CGSize statusSize = [rigntTitle sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
-    CGFloat statusW = statusSize.width;
-    
-    status.frame = CGRectMake(KScreenW - statusW - 15, 5, statusW, 30);
-    [status addTarget:self action:@selector(didclickSend:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UILabel *lineDown =[[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
-    lineDown.backgroundColor = HEXCOLOR(0xdedede);
-    UILabel *lineUP =[[UILabel alloc]initWithFrame:CGRectMake(0,0, KScreenW, 10)];
-    lineUP.backgroundColor = HEXCOLOR(0xdedede);
-    
-    [headerView addSubview:lineDown];
-    //        [headerView addSubview:lineUP];
-    [headerView addSubview:status];
-    [headerView addSubview:title];
-    
-    return headerView;
+    if (!_navbar_btn) {
+        _navbar_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _navbar_btn.frame =CGRectMake(_titleView.centerX+40 , _titleView.centerY, 120, 24);
+        [_navbar_btn setImage:[UIImage imageNamed:@"Order_down"] forState:UIControlStateNormal];
+        _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_navbar_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
+        [_navbar_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 80, 0, 0)];
+        [_navbar_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0,30)];
+        [_navbar_btn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.titleView = _navbar_btn;
+    }
+    return _navbar_btn;
 }
--(UIView*)customFooterView
+-(UITableView *)send_tableView
 {
-    NSString *buttonTitle = @"配送完成";
-    NSString *price = @"¥208.00";
-    NSString *caseOrder =  @"订单金额";
-    
-    UIFont * font  =[UIFont systemFontOfSize:12];
-    UIView* footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 50)];
-    footerView.backgroundColor =[UIColor whiteColor];
-    
-    //结算按钮
-    UIButton * complete_Btn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    [complete_Btn setTitle:buttonTitle forState:UIControlStateNormal];
-    complete_Btn.titleLabel.font =font;
-    complete_Btn.layer.cornerRadius = 2;
-    complete_Btn.backgroundColor =HEXCOLOR(0xfe6d6a);
-    CGSize complete_BtnSize = [buttonTitle sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
-    CGFloat complete_BtnW = complete_BtnSize.width;
-    complete_Btn.frame =CGRectMake(KScreenW - complete_BtnW - 25, 5, complete_BtnW +20, 30);
-    [complete_Btn addTarget:self action:@selector(didCleckClearing:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    //固定金额位置
-    UILabel * lb_order = [[UILabel alloc]init];
-    lb_order.text= caseOrder;
-    lb_order.font = font;
-    lb_order.textColor = HEXCOLOR(0x363636);
-    CGSize lb_orderSiez = [caseOrder sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
-    CGFloat lb_orderW = lb_orderSiez.width;
-    lb_order.frame =  CGRectMake(15, 5, lb_orderW, 30);
-    
-    //价格
-    UILabel * lb_price = [[UILabel alloc]init];
-    lb_price.text = price;
-    lb_price.textAlignment = NSTextAlignmentLeft;
-    lb_price.font = font;
-    lb_price.textColor = HEXCOLOR(0xfe6d6a);
-    CGSize lb_priceSize = [price sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
-    CGFloat lb_priceW = lb_priceSize.width;
-    lb_price.frame = CGRectMake(15+lb_orderW+10, 5, lb_priceW, 30);
-    
-    
-    [footerView addSubview: lb_price];
-    [footerView addSubview:lb_order];
-    [footerView addSubview:complete_Btn];
-    return footerView;
+    if (!_send_tableView) {
+        _send_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-49) style:UITableViewStyleGrouped];
+        _send_tableView.delegate = self;
+        _send_tableView.dataSource= self;
+    }
+    return _send_tableView;
 }
-
-//-(void)setCustomerNavgationBarWithNavTitle:(NSString *)Navtitle  btnisHidden :(BOOL)isHidden
-//{
-//    self.navigationController.navigationBar.hidden = YES;
-//    
-//    UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 64)];
-//    [self.view addSubview:bgView];
-//    bgView.backgroundColor = HEXCOLOR(0xffcccc);
-//    
-//    UIButton * left_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    left_btn.frame =CGRectMake(10, bgView.centerY, 24, 24);
-//    [left_btn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
-//    //    [left_btn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-//    [bgView addSubview:left_btn];
-//    
-//    
-//    UILabel * lb_title = [[UILabel alloc]initWithFrame:CGRectMake(bgView.centerX-20,bgView.centerY, 60, 24)];
-//    lb_title.text = Navtitle;
-//    lb_title.adjustsFontSizeToFitWidth = YES;
-//    lb_title.textAlignment = NSTextAlignmentCenter;
-//    lb_title.font = [UIFont systemFontOfSize:15];
-//    lb_title.textColor = HEXCOLOR(0xfe6d6a);
-//    [bgView addSubview:lb_title];
-//    //  CGSize titleSize = [lb_title.text sizeWithFont:lb_title.font constrainedToSize:CGSizeMake(MAXFLOAT, 30)];
-//    
-//    
-//    
-//    UIButton * btn_Action = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btn_Action.frame =CGRectMake(bgView.centerX+40 , bgView.centerY, 24, 24);
-//    [btn_Action setImage:[UIImage imageNamed:@"Order_down"] forState:UIControlStateNormal];
-//    [btn_Action addTarget:self action:@selector(didclickSendPopViewAction) forControlEvents:UIControlEventTouchUpInside];
-//    btn_Action.hidden = isHidden;
-//    [bgView addSubview:btn_Action];
-//}
-
+-(ZFSendPopView *)popView
+{
+    if (!_popView) {
+        
+        _popView = [[ZFSendPopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 110) titleArray:self.titles];
+        _popView.delegate = self;
+    }
+    return _popView;
+}
+/**
+ @return  背景蒙板
+ */
+-(UIView *)bgview
+{
+    if (!_bgview) {
+        _bgview =[[ UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH)];
+        _bgview.backgroundColor = RGBA(0, 0, 0, 0.2) ;
+        [_bgview addSubview:self.popView];
+    }
+    return _bgview;
+    
+}
 
 #pragma mark  -tableView delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    NSInteger sectionNum = 2;
+    switch (_servicType) {
+        
+        case SendServicTypeWaitSend:
+            
+            break;
+        case SendServicTypeSending:
+            
+            break;
+        case SendServicTypeSended:
+            
+            break;
+        case SendServicTypeUpdoor:
+            
+            break;
+ 
+    }
+    return sectionNum;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
+    NSInteger sectionRow = 0;
+    
+    if (_isSelectPage == YES ) {
         
+        if (section == 0) {
+        
+            return 2;
+            
+        }
         return 2;
+
     }else{
-        return _titles.count;
+       
+        switch (_servicType) {
+                
+            case SendServicTypeWaitSend:
+                if (section == 0) {
+                    return 4;
+                }
+                return 1;
+                break;
+            case SendServicTypeSending:
+                if (section == 0) {
+                    return 4;
+                }
+                return 4;
+                break;
+            case SendServicTypeSended:
+                if (section == 0) {
+                    return 5;
+                }
+                return 0;
+                break;
+            case SendServicTypeUpdoor:
+                if (section == 0) {
+                    return 4;
+                }
+                return 0;
+                break;
+                
+        }
+ 
     }
+       return sectionRow;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section== 0) {
-        return 85;
+    CGFloat height = 0;
+    
+    if (_isSelectPage == YES) {
+        if (indexPath.section == 0) {
+
+            if (indexPath.row == 0) {
+                height  = [tableView fd_heightForCellWithIdentifier:headerCellid configuration:^(id cell) {
+                }];
+            }
+            else {
+                height  = [tableView fd_heightForCellWithIdentifier:homeCellid configuration:^(id cell) {
+                }];
+            }
+        }
+        if (indexPath.section== 1) {
+            if (indexPath.row == 0) {
+                height  = [tableView fd_heightForCellWithIdentifier:headerCellid configuration:^(id cell) {
+                }];
+            }
+            else{
+                height  = [tableView fd_heightForCellWithIdentifier:homeListCellid configuration:^(id cell) {
+                }];
+            }
+
+        }
+        
     }
-    return 40;
+    else{
+#pragma mark - 根据不同吃cellType 加载
+        switch (_servicType) {
+                
+            case SendServicTypeWaitSend://待配送
+                if (indexPath.section == 0) {
+                    
+                    if (indexPath.row == 0) {
+                        height  = [tableView fd_heightForCellWithIdentifier:headerCellid configuration:^(id cell) {
+                        }];
+                    }
+                    else if(indexPath.row < 3){
+                        height  = [tableView fd_heightForCellWithIdentifier:contentCellid configuration:^(id cell) {
+                        }];
+                    }
+                    else{
+                        height  = [tableView fd_heightForCellWithIdentifier:footerCellid configuration:^(id cell) {
+                        }];
+                    }
+                }
+                if (indexPath.section== 1) {
+                  
+                    height  = [tableView fd_heightForCellWithIdentifier:homeCellid configuration:^(id cell) {
+                    }];
+                    
+                }
+
+                
+                break;
+            case SendServicTypeSending:
+                if (indexPath.section == 0) {
+                    
+                    if (indexPath.row == 0) {
+                        height  = [tableView fd_heightForCellWithIdentifier:headerCellid configuration:^(id cell) {
+                        }];
+                    }
+                    else if(indexPath.row < 3){
+                        height  = [tableView fd_heightForCellWithIdentifier:contentCellid configuration:^(id cell) {
+                        }];
+                    }
+                    else{
+                        height  = [tableView fd_heightForCellWithIdentifier:footerCellid configuration:^(id cell) {
+                        }];
+                    }
+                }
+                if (indexPath.section== 1) {
+                    
+                    height  = [tableView fd_heightForCellWithIdentifier:homeCellid configuration:^(id cell) {
+                    }];
+                    
+                }
+
+                
+                break;
+            case SendServicTypeSended:
+                if (indexPath.section == 0) {
+                    
+                    if (indexPath.row == 0) {
+                        height  = [tableView fd_heightForCellWithIdentifier:headerCellid configuration:^(id cell) {
+                        }];
+                    }
+                    else if(indexPath.row < 3){
+                        height  = [tableView fd_heightForCellWithIdentifier:contentCellid configuration:^(id cell) {
+                        }];
+                    }
+                    else if(indexPath.row ==3){
+                        height  = [tableView fd_heightForCellWithIdentifier:footerCellid configuration:^(id cell) {
+                        }];
+                    }else{
+                       
+                        height  = [tableView fd_heightForCellWithIdentifier:footerCellid configuration:^(id cell) {
+                        }];
+                        
+                    }
+                }
+
+
+                
+                break;
+            case SendServicTypeUpdoor:
+                if (indexPath.section == 0) {
+                    
+                    if (indexPath.row == 0) {
+                        height  = [tableView fd_heightForCellWithIdentifier:headerCellid configuration:^(id cell) {
+                        }];
+                    }
+                    else if(indexPath.row < 3){
+                        height  = [tableView fd_heightForCellWithIdentifier:contentCellid configuration:^(id cell) {
+                        }];
+                    }
+                    else{
+                        height  = [tableView fd_heightForCellWithIdentifier:footerCellid configuration:^(id cell) {
+                        }];
+                    }
+                }
+                if (indexPath.section== 1) {
+                    
+                    height  = [tableView fd_heightForCellWithIdentifier:homeCellid configuration:^(id cell) {
+                    }];
+                    
+                }
+                
+                break;
+                
+        }
+    }
+
+    return height;
 }
 //设置headView视图
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
         
-        return 40;
+        return 0.001;
     }
-    return 40;
+    return 10;
 }
 //设置footerView视图
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 0) {
-        
-        return 50;
-    }
-    return 0;
+
+    return 0.001;
     
-}
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    return  [self customHeaderView];
-}
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    return [self customFooterView];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        ZFSendingCell *sendCell = [self.send_tableView dequeueReusableCellWithIdentifier:@"sendCellid" forIndexPath:indexPath];
-        sendCell.selectionStyle =  UITableViewCellSelectionStyleNone;
-        return sendCell;
-    }
+    UITableViewCell *cell = nil;
     
-    ZFContactCell * contactCell = [self.send_tableView dequeueReusableCellWithIdentifier:@"ZFContactCellid" forIndexPath:indexPath];
-    contactCell.lb_title.text = self.titles[indexPath.row];
-    contactCell.lb_detailTitle.text =self.detailTitles[indexPath.row];
-    contactCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+    if (self.isSelectPage == YES) {
+        
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) {
+               
+                ZFTitleCell *headCell = [self.send_tableView dequeueReusableCellWithIdentifier:headerCellid forIndexPath:indexPath];
+                headCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                return headCell;
+
+            }else{
+                ZFSendHomeCell * contactCell = [self.send_tableView dequeueReusableCellWithIdentifier:homeCellid forIndexPath:indexPath];
+                contactCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                return contactCell;
+            }
+      
+        }else if (indexPath.section == 1){
+                if (indexPath.row == 0) {
+                ZFTitleCell *headCell = [self.send_tableView dequeueReusableCellWithIdentifier:headerCellid forIndexPath:indexPath];
+                headCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                return headCell;
+                
+            }
+            ZFSendHomeListCell *listCell = [self.send_tableView dequeueReusableCellWithIdentifier:homeListCellid forIndexPath:indexPath];
+            listCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+            return listCell;
+        }
+    }
+    else{
+   //     NSLog(@"切换到我的订单 列表")
+        
+        switch (_servicType) {
+            case SendServicTypeWaitSend:
+                if (indexPath.section == 0) {
+                    if (indexPath.row == 0) {
+                        ZFTitleCell *headCell = [self.send_tableView dequeueReusableCellWithIdentifier:headerCellid forIndexPath:indexPath];
+                        headCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return headCell;
+                    }else if (indexPath.row < 3){
+                        ZFSendingCell *contentCell = [self.send_tableView dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
+                        contentCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return contentCell;
+                    }else{
+                        ZFFooterCell *footCell = [self.send_tableView dequeueReusableCellWithIdentifier:footerCellid forIndexPath:indexPath];
+                        footCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return footCell;
+                    }
+                    
+                }else if(indexPath.section == 1){
+                    //可切换2种cell   ZFSendHomeCell ZFContactCell
+                    ZFSendHomeCell *homeCell = [self.send_tableView dequeueReusableCellWithIdentifier:homeCellid   forIndexPath:indexPath];
+                    homeCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                    return homeCell;
+                }
+                
+                
+                break;
+            case SendServicTypeSending:
+                if (indexPath.section == 0) {
+                    if (indexPath.row == 0) {
+                        ZFTitleCell *headCell = [self.send_tableView dequeueReusableCellWithIdentifier:headerCellid forIndexPath:indexPath];
+                        headCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return headCell;
+                    }else if (indexPath.row < 3){
+                        ZFSendingCell *contentCell = [self.send_tableView dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
+                        contentCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return contentCell;
+                    }else{
+                        ZFFooterCell *footCell = [self.send_tableView dequeueReusableCellWithIdentifier:footerCellid forIndexPath:indexPath];
+                        footCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return footCell;
+                    }
+                    
+                }else if(indexPath.section == 1){
+                    if (indexPath.row == 0) {
+                        ZFTitleCell *headCell = [self.send_tableView dequeueReusableCellWithIdentifier:headerCellid forIndexPath:indexPath];
+                        headCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return headCell;
+                    }else if (indexPath.row < 3){
+                        ZFSendingCell *contentCell = [self.send_tableView dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
+                        contentCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return contentCell;
+                    }else{
+                        ZFFooterCell *footCell = [self.send_tableView dequeueReusableCellWithIdentifier:footerCellid forIndexPath:indexPath];
+                        footCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return footCell;
+                    }
+                    
+                }
+                
+                
+                break;
+            case SendServicTypeSended:
+                if (indexPath.section == 0) {
+                    if (indexPath.row == 0) {
+                        ZFTitleCell *headCell = [self.send_tableView dequeueReusableCellWithIdentifier:headerCellid forIndexPath:indexPath];
+                        headCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return headCell;
+                    }else if (indexPath.row < 3){
+                        ZFSendingCell *contentCell = [self.send_tableView dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
+                        contentCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return contentCell;
+                    }else if (indexPath.row == 3){
+                        ZFFooterCell *footCell = [self.send_tableView dequeueReusableCellWithIdentifier:footerCellid forIndexPath:indexPath];
+                        footCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return footCell;
+                    }else{
+                        ZFTitleCell *headCell = [self.send_tableView dequeueReusableCellWithIdentifier:headerCellid forIndexPath:indexPath];
+                        headCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return headCell;
  
-    return contactCell;
+                    }
+                    
+                }
+                
+                break;
+            case SendServicTypeUpdoor:
+                
+                if (indexPath.section == 0) {
+                    if (indexPath.row == 0) {
+                        ZFTitleCell *headCell = [self.send_tableView dequeueReusableCellWithIdentifier:headerCellid forIndexPath:indexPath];
+                        headCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return headCell;
+                    }else if (indexPath.row < 3){
+                        ZFSendingCell *contentCell = [self.send_tableView dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
+                        contentCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return contentCell;
+                    }else{
+                        ZFFooterCell *footCell = [self.send_tableView dequeueReusableCellWithIdentifier:footerCellid forIndexPath:indexPath];
+                        footCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                        return footCell;
+                    }
+                    
+                }else if(indexPath.section == 1){
+                    ZFSendingCell *contentCell = [self.send_tableView dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
+                    contentCell.selectionStyle =  UITableViewCellSelectionStyleNone;
+                    return contentCell;
+                }
+                
+                break;
+        }
+ 
+    }
+    return cell;
 }
 
 #pragma mark - didSelectRowAtIndexPath
@@ -263,22 +522,82 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)Home_btnaTargetAction
 {
     NSLog(@"首页");
-    self.title = @"配送端";
+   
+    self.navbar_btn.hidden =YES;
+    self.isSelectPage = YES;
+ 
     self.img_sendHome.image = [UIImage imageNamed:@"home_red"];
     self.lb_sendHomeTitle.textColor = HEXCOLOR(0xfe6d6a);
     
     self.lb_sendOrderTitle.textColor=[UIColor whiteColor];
     self.img_sendOrder.image = [UIImage imageNamed:@"Order_normal"];
     
+    
+    UILabel * atitle= [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)] ;
+    atitle.text = @"配送端";
+    atitle.font =[UIFont systemFontOfSize:14];
+    atitle.textAlignment = NSTextAlignmentCenter;
+    atitle.textColor = HEXCOLOR(0xfe6d6a);
+    self.navigationItem.titleView  = atitle;
+    
+    [self.send_tableView reloadData];
+    
+
+   
 }
 -(void)Order_btnaTargetAction
 {
-    self.title = @"已配送";
     NSLog(@"订单");
+    self.isSelectPage =  NO;
+    self.navbar_btn.hidden =NO;
+    [self.navbar_btn setTitle:@"待配送" forState:UIControlStateNormal];
+
     self.img_sendHome.image = [UIImage imageNamed:@"home_normal"];
     self.lb_sendHomeTitle.textColor = [UIColor whiteColor];
     
     self.lb_sendOrderTitle.textColor= HEXCOLOR(0xfe6d6a);
     self.img_sendOrder.image = [UIImage imageNamed:@"send_red"];
+   
+    self.navigationItem.titleView  =self.navbar_btn;
+   [self.send_tableView reloadData];
+
 }
+
+/**
+ 正选反选
+ @param btn 切换
+ */
+-(void)navigationBarSelectedOther:(UIButton *)btn;
+{
+    [self.view addSubview:self.bgview];
+    
+//    btn.selected = !btn.selected;
+//    if (btn.selected) {
+//        self.bgview.hidden = NO;
+//        
+//    }else{
+//        btn.selected=NO;
+//        self.bgview.hidden = YES;
+//    }
+    
+}
+#pragma mark - ZFSendPopViewDelegate
+-(void)sendTitle:(NSString *)title SendServiceType:(SendServicType)type
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        if (self.bgview.superview) {
+            [self.bgview removeFromSuperview];
+        }
+    }];
+    
+    _servicType = type;
+
+    [self.navbar_btn setTitle:title forState:UIControlStateNormal];
+    
+    [self.send_tableView reloadData];
+
+    
+}
+
+
 @end

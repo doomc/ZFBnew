@@ -32,8 +32,8 @@
                         </constraints>
                         <state key="normal" backgroundImage="select_normal.png"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="aaa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oUH-au-mel">
-                        <rect key="frame" x="198" y="5" width="24.5" height="24"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="aaa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oUH-au-mel">
+                        <rect key="frame" x="270.5" y="10" width="24.5" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="fIo-67-GN5"/>
                         </constraints>

@@ -15,6 +15,7 @@
 -(void)sendTitle:(NSString *)title orderType:(OrderType)type;
 
 @end
+
 @interface ZFpopView : UIView
 
 -(instancetype)initWithFrame:(CGRect)frame titleArray:(NSArray *)titleArray;

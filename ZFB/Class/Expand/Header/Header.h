@@ -21,6 +21,7 @@
 #import "SDCycleScrollView.h"
 #import "WJYAlertView.h"
 #import "ControlFactory.h"//创建导航按钮
+#import "DCNavTabBarController.h"
 
 
 
