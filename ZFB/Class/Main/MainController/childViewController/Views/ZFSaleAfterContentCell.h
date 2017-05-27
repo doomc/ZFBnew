@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol ZFSaleAfterContentCellDelegate <NSObject>
 
+-(void)salesAfterDetailPage;
+
+
+@end
 @interface ZFSaleAfterContentCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UIButton *saleAfter_btn;
+
+@property(nonatomic,assign)id<ZFSaleAfterContentCellDelegate>delegate;
+
 
 @end

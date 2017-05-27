@@ -19,15 +19,15 @@
                     <rect key="frame" x="0.0" y="0.0" width="94" height="83"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8J4-80-hfP">
-                            <rect key="frame" x="22" y="8" width="50.5" height="50.5"/>
-                            <color key="backgroundColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="22" y="8" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="6vh-l9-WbU"/>
                                 <constraint firstAttribute="width" constant="50" id="FrI-HV-bSD"/>
                             </constraints>
+                            <state key="normal" image="womanClothes.png"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="女装" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PgI-a9-cav">
-                            <rect key="frame" x="35" y="60.5" width="25" height="14.5"/>
+                            <rect key="frame" x="34" y="60.5" width="25" height="14.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="0.99607843137254903" green="0.42745098039215684" blue="0.41568627450980389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -46,11 +46,11 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJl-au-lF7">
                             <rect key="frame" x="22" y="8" width="50" height="50"/>
-                            <color key="backgroundColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="RBD-kt-kpm"/>
                                 <constraint firstAttribute="height" constant="50" id="gWj-v0-GkA"/>
                             </constraints>
+                            <state key="normal" image="manClothes.png"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="男装" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSn-75-qq9">
                             <rect key="frame" x="35" y="60" width="25" height="15"/>
@@ -77,12 +77,12 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O6s-Zl-cDD">
-                            <rect key="frame" x="22" y="8" width="50" height="50.5"/>
-                            <color key="backgroundColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="22.5" y="8" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="as5-9a-BJw"/>
                                 <constraint firstAttribute="height" constant="50" id="z9i-W8-8Os"/>
                             </constraints>
+                            <state key="normal" image="cases.png"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.97281831502914429" green="0.97030884027481079" blue="0.87018454074859619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -97,12 +97,12 @@
                     <rect key="frame" x="281.5" y="0.0" width="93.5" height="83"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q6b-TU-5ue">
-                            <rect key="frame" x="21.5" y="8" width="50.5" height="50.5"/>
-                            <color key="backgroundColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="22" y="8" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="5OL-4s-aBE"/>
                                 <constraint firstAttribute="height" constant="50" id="AOa-mO-H3n"/>
                             </constraints>
+                            <state key="normal" image="accessory.png"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="配饰" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZ3-j6-eVN">
                             <rect key="frame" x="34" y="60.5" width="25" height="15"/>
@@ -123,12 +123,12 @@
                     <rect key="frame" x="0.0" y="83" width="94" height="83"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ny-n6-MFJ">
-                            <rect key="frame" x="22" y="8" width="50.5" height="50.5"/>
-                            <color key="backgroundColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="22" y="8" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="IJ8-70-8aN"/>
                                 <constraint firstAttribute="height" constant="50" id="XdE-Gs-aJ4"/>
                             </constraints>
+                            <state key="normal" image="TV.png"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电视" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBb-vD-R3K">
                             <rect key="frame" x="35" y="60.5" width="25" height="15"/>
@@ -149,12 +149,12 @@
                     <rect key="frame" x="94" y="83" width="93.5" height="83"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y8r-f1-5bD">
-                            <rect key="frame" x="21" y="8" width="50.5" height="50.5"/>
-                            <color key="backgroundColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="22" y="8" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="n9T-6W-1s6"/>
                                 <constraint firstAttribute="width" constant="50" id="wc2-56-FeI"/>
                             </constraints>
+                            <state key="normal" image="icebox.png"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="冰箱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsY-fU-Y0j">
                             <rect key="frame" x="34" y="60" width="25" height="15"/>
@@ -175,12 +175,12 @@
                     <rect key="frame" x="187.5" y="83" width="94" height="83"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MLT-tm-cZ7">
-                            <rect key="frame" x="22" y="8" width="50.5" height="50.5"/>
-                            <color key="backgroundColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="22.5" y="8" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="82N-zC-irM"/>
                                 <constraint firstAttribute="height" constant="50" id="Frm-IY-fPS"/>
                             </constraints>
+                            <state key="normal" image="washer.png"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="洗衣机" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fp8-7I-bcR">
                             <rect key="frame" x="28.5" y="60.5" width="37" height="15"/>
@@ -201,12 +201,12 @@
                     <rect key="frame" x="281" y="83" width="93.5" height="83"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqR-sk-Uuf">
-                            <rect key="frame" x="22" y="8" width="50" height="50.5"/>
-                            <color key="backgroundColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="22.5" y="8" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="ItN-0Q-bf7"/>
                                 <constraint firstAttribute="height" constant="50" id="q1v-pr-snw"/>
                             </constraints>
+                            <state key="normal" image="classes.png"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全部分类" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ch-ZT-zMC">
                             <rect key="frame" x="22" y="60.5" width="50" height="15"/>
@@ -268,4 +268,14 @@
             <point key="canvasLocation" x="-151" y="-190"/>
         </view>
     </objects>
+    <resources>
+        <image name="TV.png" width="48" height="48"/>
+        <image name="accessory.png" width="47" height="48"/>
+        <image name="cases.png" width="47" height="48"/>
+        <image name="classes.png" width="47" height="48"/>
+        <image name="icebox.png" width="48" height="48"/>
+        <image name="manClothes.png" width="48" height="49"/>
+        <image name="washer.png" width="47" height="48"/>
+        <image name="womanClothes.png" width="48" height="49"/>
+    </resources>
 </document>

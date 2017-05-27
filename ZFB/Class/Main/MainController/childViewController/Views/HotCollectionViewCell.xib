@@ -19,33 +19,30 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e3T-HV-qeN">
-                        <rect key="frame" x="0.0" y="0.0" width="112" height="125"/>
+                        <rect key="frame" x="5" y="0.0" width="102" height="105"/>
                         <color key="backgroundColor" red="1" green="1" blue="0.74712456599999999" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fire.png" translatesAutoresizingMaskIntoConstraints="NO" id="t2R-3W-gAM">
-                        <rect key="frame" x="0.0" y="0.0" width="25" height="30"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥199.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rBH-UB-b4g">
+                        <rect key="frame" x="33" y="105" width="46.5" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="EcX-Ig-fZd"/>
-                            <constraint firstAttribute="width" constant="25" id="t5U-WP-FzE"/>
+                            <constraint firstAttribute="height" constant="20" id="ovQ-1v-teI"/>
                         </constraints>
-                    </imageView>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="e3T-HV-qeN" secondAttribute="bottom" id="1aM-tg-zgC"/>
-                <constraint firstItem="e3T-HV-qeN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="2mW-Sm-9j8"/>
-                <constraint firstItem="e3T-HV-qeN" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Mrf-T2-oUn"/>
-                <constraint firstItem="e3T-HV-qeN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Sud-o0-905"/>
-                <constraint firstItem="t2R-3W-gAM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="TI9-pe-vmB"/>
-                <constraint firstAttribute="trailing" secondItem="e3T-HV-qeN" secondAttribute="trailing" id="UMI-eV-yNk"/>
-                <constraint firstItem="t2R-3W-gAM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="UdM-Pk-4Zk"/>
-                <constraint firstItem="e3T-HV-qeN" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="sOB-eE-Uvp"/>
+                <constraint firstItem="rBH-UB-b4g" firstAttribute="centerX" secondItem="e3T-HV-qeN" secondAttribute="centerX" id="FPz-yJ-l3T"/>
+                <constraint firstItem="e3T-HV-qeN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="MKL-eP-455"/>
+                <constraint firstAttribute="bottom" secondItem="rBH-UB-b4g" secondAttribute="bottom" id="bEX-V9-eiB"/>
+                <constraint firstAttribute="trailing" secondItem="e3T-HV-qeN" secondAttribute="trailing" constant="5" id="dcN-ea-jDE"/>
+                <constraint firstItem="e3T-HV-qeN" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jJr-j1-oqy"/>
+                <constraint firstItem="rBH-UB-b4g" firstAttribute="top" secondItem="e3T-HV-qeN" secondAttribute="bottom" id="zLC-VB-2iF"/>
             </constraints>
             <size key="customSize" width="112" height="125"/>
             <point key="canvasLocation" x="-160" y="15.5"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="fire.png" width="29" height="29"/>
-    </resources>
 </document>

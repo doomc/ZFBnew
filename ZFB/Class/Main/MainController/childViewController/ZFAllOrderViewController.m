@@ -19,6 +19,8 @@
 #import "ZFSaleAfterContentCell.h"
 #import "ZFSaleAfterSearchCell.h"
 #import "ZFCheckTheProgressCell.h"
+#import "ZFPregressCheckViewController.h"
+
 static  NSString * headerCellid =@"ZFTitleCellid";//头id
 static  NSString * contentCellid =@"ZFSendingCellid";//内容id
 static  NSString * footerCellid =@"ZFFooterCellid";//尾部id
@@ -30,7 +32,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 
 
 
-@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate>
+@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate>
 
 
 @property(nonatomic ,strong) UIView * titleView ;
@@ -992,7 +994,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                     }else{
                         
                         ZFSaleAfterContentCell* contentell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterContentCellid forIndexPath:indexPath];
-                        
+                        contentell.delegate =self;
                         cell = contentell;
                     }
                     
@@ -1000,7 +1002,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 
             }else{
                 ZFCheckTheProgressCell *checkCell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterProgressCellid forIndexPath:indexPath];
-                
+                checkCell.deldegate =self;
                 cell = checkCell;
 
             }
@@ -1046,21 +1048,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 
     [self.view addSubview:self.bgview];;
 
-////    btn.selected = !btn.selected;
-//    self.isChange = YES;
-//
-//    if (self.isChange == YES) {
-//       
-//        self.isChange = NO;
-//
-//    }else{
-//        
-//        if (self.bgview.superview) {
-//            [self.bgview removeFromSuperview];
-//        }
-//       
-//    }
-    
+  
 }
 
 
@@ -1095,7 +1083,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 
 }
 
-#pragma mark - ZFSaleAfterTopViewDelegate
+#pragma mark - ZFSaleAfterTopViewDelegate   售后申请的2种状态
 -(void)sendAtagNum:(NSInteger)tagNum
 {
     self.tagNum = tagNum;
@@ -1114,4 +1102,14 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     }
 }
 
+#pragma mark - ZFCheckTheProgressCellDelegate 查询进度
+-(void)progressWithCheckout
+{
+    ZFPregressCheckViewController * checkVC = [[ZFPregressCheckViewController alloc]init];
+    [self.navigationController pushViewController:checkVC animated:YES];
+}
+#pragma mark - ZFSaleAfterContentCellDelegate 申请售后
+-(void)salesAfterDetailPage{
+    
+}
 @end

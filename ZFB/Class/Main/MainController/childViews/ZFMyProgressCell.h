@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ZFMyProgressCellDelegate <NSObject>
+
+-(void)pushToSaleAfterview;
+
+@end
 @interface ZFMyProgressCell : UITableViewCell
+
+
+/**
+ 退出
+ */
+@property (weak, nonatomic) IBOutlet UIButton *bacKgoods_btn;
+
+@property (nonatomic,assign)id<ZFMyProgressCellDelegate>delegate;
+
 
 @end

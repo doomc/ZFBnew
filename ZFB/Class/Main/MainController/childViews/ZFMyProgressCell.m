@@ -13,8 +13,17 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    [self.bacKgoods_btn addTarget:self action:@selector(bacKgoods_btnAction:)  forControlEvents:UIControlEventTouchUpInside];
 }
 
+-(void)bacKgoods_btnAction:(UIButton*)sender
+{
+    if ([self.delegate respondsToSelector:@selector(pushToSaleAfterview)]) {
+        
+        [self.delegate pushToSaleAfterview];
+    }
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

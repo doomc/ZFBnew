@@ -15,8 +15,15 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    [self.saleAfter_btn addTarget:self action:@selector(saleAfter_btnAction:) forControlEvents:UIControlEventTouchUpInside];
 }
-
+-(void)saleAfter_btnAction:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(salesAfterDetailPage)]) {
+        [self.delegate salesAfterDetailPage];
+    }
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

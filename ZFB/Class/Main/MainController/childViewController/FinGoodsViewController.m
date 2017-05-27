@@ -13,6 +13,9 @@
 #import "HotCollectionViewCell.h"
 #import "GuessCell.h"
 #import "DetailFindGoodsViewController.h"
+static NSString * cell_guessID = @"GuessCell";
+static NSString * cell_listID = @"ZFMainListCell";
+static NSString * cell_hotID = @"HotTableViewCell";
 
 
 typedef NS_ENUM(NSUInteger, CellType) {
@@ -22,15 +25,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
     CellTypeWithGuessCell,
     
 };
-@interface FinGoodsViewController ()
-<
-SDCycleScrollViewDelegate,
-UITableViewDataSource,
-UITableViewDelegate
-//UICollectionViewDataSource,
-//UICollectionViewDelegate,
-//UICollectionViewDelegateFlowLayout
->
+@interface FinGoodsViewController ()<SDCycleScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property(strong,nonatomic)UIView * CircleHeadView;
 @property(strong,nonatomic)UITableView * findGoods_TableView;
@@ -141,14 +136,16 @@ UITableViewDelegate
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView = nil;
+    UIFont *font = [UIFont systemFontOfSize:14];
     if (section == 1) {
         headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
-        [headView setBackgroundColor:randomColor];
+        [headView setBackgroundColor:HEXCOLOR(0xffcccc)];
         
         UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 3, 200.0f, 30.0f)];
         labelTitle.textColor =HEXCOLOR(0x363636);
         labelTitle.textAlignment = NSTextAlignmentLeft;
         labelTitle.text = @"热卖推荐";
+        labelTitle.font = font;
         [headView addSubview:labelTitle];
         
         
@@ -161,16 +158,17 @@ UITableViewDelegate
     }
     else  if (section== 2) {
         headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
-        [headView setBackgroundColor:randomColor];
+        [headView setBackgroundColor:HEXCOLOR(0xffcccc)];
         
         UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 3.0f, 200.0f, 30.0f)];
         title.textColor =HEXCOLOR(0x363636);
         title.textAlignment = NSTextAlignmentLeft;
         title.text = @"猜你喜欢";
+        title.font = font;
         [headView addSubview:title];
         
         UIImageView * logo2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"love"] ];//定位icon
-        logo2.frame =CGRectMake(5, 6, 25, 25);
+        logo2.frame =CGRectMake(5, 5, 25, 25);
         [headView addSubview:logo2];
         return headView;
         
@@ -191,9 +189,6 @@ UITableViewDelegate
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cell_guessID = @"GuessCell";
-    static NSString * cell_listID = @"ZFMainListCell";
-    static NSString * cell_hotID = @"HotTableViewCell";
     
     if (indexPath.section == CellTypeWithMainListCell ) {
         

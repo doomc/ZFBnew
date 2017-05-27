@@ -39,17 +39,17 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WS2-e2-Z9s">
                     <rect key="frame" x="15" y="10" width="65" height="81.5"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qu2-ac-n1Y">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qu2-ac-n1Y">
                             <rect key="frame" x="9" y="10" width="46" height="46"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="46" id="LXX-zb-yT5"/>
                                 <constraint firstAttribute="width" constant="46" id="Ug5-Js-GcT"/>
                             </constraints>
-                            <state key="normal" backgroundImage="wait_payfor.png"/>
+                            <state key="normal" image="wait_payfor.png"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="待付款" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKH-qZ-0Db">
-                            <rect key="frame" x="9" y="59" width="46" height="18"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <rect key="frame" x="13.5" y="59" width="37" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -64,17 +64,17 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n55-2R-t1b">
                     <rect key="frame" x="90.5" y="10" width="65" height="81.5"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8v-cj-5vd">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8v-cj-5vd">
                             <rect key="frame" x="9.5" y="10" width="46" height="46"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="46" id="YrT-yr-mBL"/>
                                 <constraint firstAttribute="width" constant="46" id="tet-qe-apF"/>
                             </constraints>
-                            <state key="normal" backgroundImage="sending_icon.png"/>
+                            <state key="normal" image="sending_icon.png"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已配送" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKb-or-YwG">
-                            <rect key="frame" x="9.5" y="59" width="46" height="18"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <rect key="frame" x="14" y="59" width="37" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -89,17 +89,17 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DDf-31-QRS">
                     <rect key="frame" x="165" y="10" width="64.5" height="81.5"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8R-Pt-dc1">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8R-Pt-dc1">
                             <rect key="frame" x="9.5" y="10" width="46" height="46"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="46" id="Cdm-kK-fcS"/>
                                 <constraint firstAttribute="width" constant="46" id="qsW-xg-YUw"/>
                             </constraints>
-                            <state key="normal" backgroundImage="evaluate_waitting.png"/>
+                            <state key="normal" image="evaluate_waitting.png"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="待评价" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e14-hw-jxH">
-                            <rect key="frame" x="9.5" y="59" width="46" height="18"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <rect key="frame" x="14" y="59" width="37" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -114,17 +114,17 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4S-j5-Ws1">
                     <rect key="frame" x="240" y="10" width="65" height="81.5"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6BR-7J-ErB">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6BR-7J-ErB">
                             <rect key="frame" x="9.5" y="10" width="46" height="46"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="46" id="NVv-NS-e2D"/>
                                 <constraint firstAttribute="height" constant="46" id="cXN-kb-BXZ"/>
                             </constraints>
-                            <state key="normal" backgroundImage="return_icon.png"/>
+                            <state key="normal" image="return_icon.png"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退货" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7l-Vs-7bZ">
-                            <rect key="frame" x="17.5" y="59" width="31" height="18"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <rect key="frame" x="20.5" y="59" width="25" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="0.9938139319" green="0.4271496534" blue="0.4187007546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -167,6 +167,9 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="bacKgoods_btn" destination="6BR-7J-ErB" id="7Gw-3b-AcP"/>
+            </connections>
             <point key="canvasLocation" x="-17" y="-83"/>
         </view>
     </objects>

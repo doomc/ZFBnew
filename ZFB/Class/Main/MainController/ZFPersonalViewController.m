@@ -12,7 +12,7 @@
 #import "ZFMyProgressCell.h"
 #import "ZFMyOderCell.h"
 
-
+#import "ZFAppySalesReturnViewController.h"
 #import "ZFSendSerViceViewController.h"
 #import "LoginViewController.h"
 #import "ZFAllOrderViewController.h"
@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 
     
 };
-@interface ZFPersonalViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ZFPersonalViewController ()<UITableViewDelegate,UITableViewDataSource,ZFMyProgressCellDelegate>
 @property(nonatomic,strong)UITableView * myTableView;
 @property(nonatomic,strong)UIView * myHeaderView;
 
@@ -45,6 +45,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     self.myTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH) style:UITableViewStylePlain];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
+  
     self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_myTableView];
     
@@ -114,7 +115,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     if ( indexPath.row ==0) {
         
-        return 120;
+        return 111;
         
     }
     else if ( indexPath.row == 1 ) {
@@ -139,6 +140,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     else if (indexPath.row == 1) {
         ZFMyProgressCell * pressCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyProgressCell" forIndexPath:indexPath];
 
+        pressCell.delegate = self;
             return pressCell;
             
         }
@@ -195,6 +197,17 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
 }
 
+/**
+ push 退货 页面
+ */
+-(void)pushToSaleAfterview
+{
+    NSLog(@" push 退货 页面");
+    
+    ZFAppySalesReturnViewController * saleVC = [[ZFAppySalesReturnViewController alloc]init];
+    [self.navigationController pushViewController:saleVC animated:YES];
+    
+}
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBar.hidden  = NO;

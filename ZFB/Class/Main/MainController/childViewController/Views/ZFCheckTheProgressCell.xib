@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="153"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="152.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="153"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务单号：124124125125" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="390-gK-n6D">
@@ -117,7 +117,10 @@
                     <constraint firstItem="caJ-4H-0R3" firstAttribute="top" secondItem="Kzf-OP-sdb" secondAttribute="bottom" constant="8" id="vXL-hd-YYD"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="34" y="108.5"/>
+            <connections>
+                <outlet property="checkProgress_btn" destination="4Qg-jK-udE" id="ZS2-Eb-hI6"/>
+            </connections>
+            <point key="canvasLocation" x="-278" y="91"/>
         </tableViewCell>
     </objects>
 </document>

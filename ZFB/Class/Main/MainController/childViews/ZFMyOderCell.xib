@@ -48,7 +48,7 @@
                         <rect key="frame" x="20" y="58" width="280" height="1"/>
                         <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="qY4-M3-4uy"/>
+                            <constraint firstAttribute="height" constant="0.5" id="qY4-M3-4uy"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>

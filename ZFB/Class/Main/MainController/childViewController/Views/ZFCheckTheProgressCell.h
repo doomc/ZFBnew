@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol ZFCheckTheProgressCellDelegate <NSObject>
 
+-(void)progressWithCheckout;
+
+@end
 @interface ZFCheckTheProgressCell : UITableViewCell
+@property(assign ,nonatomic)id <ZFCheckTheProgressCellDelegate> deldegate;
+
+@property (weak, nonatomic) IBOutlet UIButton *checkProgress_btn;
 
 @end
