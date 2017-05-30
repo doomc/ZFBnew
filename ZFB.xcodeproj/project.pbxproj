@@ -393,6 +393,12 @@
 		503BEC101ED72324004FC36C /* UITableView+FDKeyedHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEC0A1ED72324004FC36C /* UITableView+FDKeyedHeightCache.m */; };
 		503BEC111ED72324004FC36C /* UITableView+FDTemplateLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEC0C1ED72324004FC36C /* UITableView+FDTemplateLayoutCell.m */; };
 		503BEC121ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEC0E1ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.m */; };
+		505163A21EDA72CD006884FA /* ZFOrderDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 505163A01EDA72CD006884FA /* ZFOrderDetailCell.m */; };
+		505163A31EDA72CD006884FA /* ZFOrderDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 505163A11EDA72CD006884FA /* ZFOrderDetailCell.xib */; };
+		505163B21EDA75E6006884FA /* ZFOrderDetailSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 505163B01EDA75E6006884FA /* ZFOrderDetailSectionCell.m */; };
+		505163B31EDA75E6006884FA /* ZFOrderDetailSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 505163B11EDA75E6006884FA /* ZFOrderDetailSectionCell.xib */; };
+		505163B71EDA774B006884FA /* ZFOrderDetailGoosContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 505163B51EDA774B006884FA /* ZFOrderDetailGoosContentCell.m */; };
+		505163B81EDA774B006884FA /* ZFOrderDetailGoosContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 505163B61EDA774B006884FA /* ZFOrderDetailGoosContentCell.xib */; };
 		509D1F711ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F701ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m */; };
 		509D1F771ECDD9AC00D70444 /* ZFCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F761ECDD9AC00D70444 /* ZFCoverView.m */; };
 		509D1F7A1ECDDCDA00D70444 /* ZFSearchBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F791ECDDCDA00D70444 /* ZFSearchBarViewController.m */; };
@@ -971,6 +977,15 @@
 		503BEC0C1ED72324004FC36C /* UITableView+FDTemplateLayoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCell.m"; sourceTree = "<group>"; };
 		503BEC0D1ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDTemplateLayoutCellDebug.h"; sourceTree = "<group>"; };
 		503BEC0E1ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCellDebug.m"; sourceTree = "<group>"; };
+		5051639F1EDA72CD006884FA /* ZFOrderDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFOrderDetailCell.h; sourceTree = "<group>"; };
+		505163A01EDA72CD006884FA /* ZFOrderDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFOrderDetailCell.m; sourceTree = "<group>"; };
+		505163A11EDA72CD006884FA /* ZFOrderDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFOrderDetailCell.xib; sourceTree = "<group>"; };
+		505163AF1EDA75E6006884FA /* ZFOrderDetailSectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFOrderDetailSectionCell.h; sourceTree = "<group>"; };
+		505163B01EDA75E6006884FA /* ZFOrderDetailSectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFOrderDetailSectionCell.m; sourceTree = "<group>"; };
+		505163B11EDA75E6006884FA /* ZFOrderDetailSectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFOrderDetailSectionCell.xib; sourceTree = "<group>"; };
+		505163B41EDA774B006884FA /* ZFOrderDetailGoosContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFOrderDetailGoosContentCell.h; sourceTree = "<group>"; };
+		505163B51EDA774B006884FA /* ZFOrderDetailGoosContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFOrderDetailGoosContentCell.m; sourceTree = "<group>"; };
+		505163B61EDA774B006884FA /* ZFOrderDetailGoosContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFOrderDetailGoosContentCell.xib; sourceTree = "<group>"; };
 		509D1F6F1ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFHeadViewCollectionReusableView.h; sourceTree = "<group>"; };
 		509D1F701ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFHeadViewCollectionReusableView.m; sourceTree = "<group>"; };
 		509D1F751ECDD9AC00D70444 /* ZFCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCoverView.h; sourceTree = "<group>"; };
@@ -1700,6 +1715,15 @@
 				49D6E6CE1ED9297B000A837E /* ApplySalesAfterCommonCell.h */,
 				49D6E6CF1ED9297B000A837E /* ApplySalesAfterCommonCell.m */,
 				49D6E6D01ED9297B000A837E /* ApplySalesAfterCommonCell.xib */,
+				5051639F1EDA72CD006884FA /* ZFOrderDetailCell.h */,
+				505163A01EDA72CD006884FA /* ZFOrderDetailCell.m */,
+				505163A11EDA72CD006884FA /* ZFOrderDetailCell.xib */,
+				505163AF1EDA75E6006884FA /* ZFOrderDetailSectionCell.h */,
+				505163B01EDA75E6006884FA /* ZFOrderDetailSectionCell.m */,
+				505163B11EDA75E6006884FA /* ZFOrderDetailSectionCell.xib */,
+				505163B41EDA774B006884FA /* ZFOrderDetailGoosContentCell.h */,
+				505163B51EDA774B006884FA /* ZFOrderDetailGoosContentCell.m */,
+				505163B61EDA774B006884FA /* ZFOrderDetailGoosContentCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2307,6 +2331,7 @@
 				49C95F101ED295AF004EA811 /* send_normal@3x.png in Resources */,
 				49D6E70D1ED96DE4000A837E /* accessory@2x.png in Resources */,
 				49F1138F1ECC5547000F3BF7 /* placeholder@2x.png in Resources */,
+				505163B81EDA774B006884FA /* ZFOrderDetailGoosContentCell.xib in Resources */,
 				49F113A61ECC5547000F3BF7 /* share_icon@3x.png in Resources */,
 				492752241EC44DFD003C22D0 /* Assets.xcassets in Resources */,
 				49FB3C7B1ECD943C0090075D /* shopkeeper@3x.png in Resources */,
@@ -2406,6 +2431,7 @@
 				49C95F091ED295AF004EA811 /* home_red@2x.png in Resources */,
 				49F1139D1ECC5547000F3BF7 /* dot_normal@2x.png in Resources */,
 				503BEBE01ED5D3D4004FC36C /* ZFAddOfListCell.xib in Resources */,
+				505163A31EDA72CD006884FA /* ZFOrderDetailCell.xib in Resources */,
 				49C95F0C1ED295AF004EA811 /* Order_down@3x.png in Resources */,
 				49D6E6D21ED9297B000A837E /* ApplySalesAfterCommonCell.xib in Resources */,
 				493ADB0A1ED57F7400CB2866 /* GoodsitemCell.xib in Resources */,
@@ -2466,6 +2492,7 @@
 				49E0A0AD1ED5390200AEE354 /* 共享梦想@3x.png in Resources */,
 				49FB3C931ECD9F3F0090075D /* nav_right@3x.png in Resources */,
 				49D6E7101ED96DE4000A837E /* cases@3x.png in Resources */,
+				505163B31EDA75E6006884FA /* ZFOrderDetailSectionCell.xib in Resources */,
 				49FB3C731ECD943C0090075D /* circle@3x.png in Resources */,
 				49F1136A1ECC5547000F3BF7 /* bag_selected@3x.png in Resources */,
 				49F113AB1ECC5547000F3BF7 /* location_find@2x.png in Resources */,
@@ -2552,6 +2579,7 @@
 				49E757711EC9468500220B28 /* FinGoodsViewController.m in Sources */,
 				492757391EC4679E003C22D0 /* BaseTabbarController.m in Sources */,
 				50DAA9471ECB4C0400844575 /* ZFHeaderView.m in Sources */,
+				505163B71EDA774B006884FA /* ZFOrderDetailGoosContentCell.m in Sources */,
 				4955D24F1ED7D425009C00F1 /* ZFSendHomeListCell.m in Sources */,
 				49801CB21ECEDC7B00EDAA53 /* ZFAppraiseSectionView.m in Sources */,
 				4927574C1EC4679E003C22D0 /* MJRefreshBackGifFooter.m in Sources */,
@@ -2567,6 +2595,7 @@
 				49D6E7321ED97DB4000A837E /* ZFDetailOrderViewController.m in Sources */,
 				5019FFB51ECCAEF800325342 /* UIImage+MultiFormat.m in Sources */,
 				4927573A1EC4679E003C22D0 /* BaseViewController.m in Sources */,
+				505163A21EDA72CD006884FA /* ZFOrderDetailCell.m in Sources */,
 				49A9420C1EC9B0B200153B47 /* HotCollectionViewCell.m in Sources */,
 				503BEC0F1ED72324004FC36C /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				492756B01EC4679E003C22D0 /* UIButton+EdgeInsets.m in Sources */,
@@ -2592,6 +2621,7 @@
 				492752191EC44DFC003C22D0 /* main.m in Sources */,
 				49801C991ECECF7300EDAA53 /* AllStoreCell.m in Sources */,
 				492756B81EC4679E003C22D0 /* ControlFactory.m in Sources */,
+				505163B21EDA75E6006884FA /* ZFOrderDetailSectionCell.m in Sources */,
 				49801C901ECE870100EDAA53 /* PYSearchViewController.m in Sources */,
 				492757471EC4679E003C22D0 /* MJRefreshFooter.m in Sources */,
 				49D6E6EA1ED956F7000A837E /* ApplySalesUploadCell.m in Sources */,

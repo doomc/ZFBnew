@@ -20,6 +20,8 @@
 #import "ZFSaleAfterSearchCell.h"
 #import "ZFCheckTheProgressCell.h"
 #import "ZFPregressCheckViewController.h"
+#import "ZFDetailOrderViewController.h"
+
 
 static  NSString * headerCellid =@"ZFTitleCellid";//头id
 static  NSString * contentCellid =@"ZFSendingCellid";//内容id
@@ -1020,7 +1022,9 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
-    
+ 
+    ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+    [self.navigationController pushViewController:detailVc animated:YES];
 }
 
 
