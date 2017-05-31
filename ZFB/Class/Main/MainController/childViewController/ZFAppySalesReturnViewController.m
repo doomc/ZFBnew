@@ -54,6 +54,7 @@ static NSString * identiferUploadCell = @"ApplySalesUploadCellid";
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64) style:UITableViewStyleGrouped];
         _tableView.delegate =self ;
         _tableView.dataSource = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
 }

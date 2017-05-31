@@ -95,7 +95,8 @@
 
 - (void)didClickgotoStore_btn
 {
-    [self.gotoStore_btn respondsToSelector:@selector(didClickgotoStore_btn:)];
+    NSLog(@"到店付");
+//    [self.gotoStore_btn respondsToSelector:@selector(didClickgotoStore_btn:)];
    
 }
 

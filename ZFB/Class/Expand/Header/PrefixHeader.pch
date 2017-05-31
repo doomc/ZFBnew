@@ -20,5 +20,6 @@
 #import "ZFB_Urls.h"
 #import "ZFEnum.h"
 #import "UITableView+FDTemplateLayoutCell.h"
+#import "Toast+UIView.h"
 
 #endif /* PrefixHeader_pch */

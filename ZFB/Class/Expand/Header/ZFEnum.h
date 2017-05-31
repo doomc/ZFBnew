@@ -8,7 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-//用户端
+
+/**
+ 用户端
+
+ - OrderTypeAllOrder: 默认全部配送
+ */
 typedef NS_ENUM(NSUInteger, OrderType) {
     OrderTypeAllOrder,//全部订单
     OrderTypeWaitPay,//待付款
@@ -20,7 +25,31 @@ typedef NS_ENUM(NSUInteger, OrderType) {
     OrderTypeAfterSale,//售后
     
 };
-//配送端
+
+
+/**
+ 订单详情cell
+
+ - OrderDetailTypeOrderDetailCell: 订单详情cell类型
+ */
+typedef NS_ENUM(NSUInteger, OrderDetailType) {
+    OrderDetailTypeOrderDetailCell = 0,//公共cell 例如 订单号
+    OrderDetailTypeOrderWithAddressCell,//地址信息
+    OrderDetailTypeOrderDetailSectionCell,//店铺名称
+    OrderDetailTypeOrderDetailGoosContentCell,//商品简要
+    OrderDetailTypeOrderDetailCountCell,//商品金额+配送费
+    OrderDetailTypeOrderDetailPaycashCell,//付款
+
+};
+
+
+
+
+/**
+  配送端
+
+ - SendServicTypeWaitSend: 默认待配送
+ */
 typedef NS_ENUM(NSUInteger, SendServicType) {
     SendServicTypeWaitSend,//待配送
     SendServicTypeSending,//配送中

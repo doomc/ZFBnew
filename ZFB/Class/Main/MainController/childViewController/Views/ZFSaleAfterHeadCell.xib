@@ -37,8 +37,8 @@
                         <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="售后申请完成" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1D-lN-TtK">
-                        <rect key="frame" x="241" y="5" width="74" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="完成" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1D-lN-TtK">
+                        <rect key="frame" x="290" y="5" width="25" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.99607843137254903" green="0.42745098039215684" blue="0.41568627450980389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -46,9 +46,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottomMargin" secondItem="6wi-ht-dp0" secondAttribute="bottom" constant="1" id="LRh-yy-PUb"/>
-                    <constraint firstItem="E1D-lN-TtK" firstAttribute="top" secondItem="KXq-ch-5Gy" secondAttribute="top" id="YBP-LZ-g3L"/>
                     <constraint firstAttribute="trailing" secondItem="E1D-lN-TtK" secondAttribute="trailing" constant="5" id="bim-gJ-TZv"/>
                     <constraint firstItem="6wi-ht-dp0" firstAttribute="leading" secondItem="KXq-ch-5Gy" secondAttribute="leading" id="egr-Xs-a9v"/>
+                    <constraint firstItem="E1D-lN-TtK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="kSn-mg-vRx"/>
                     <constraint firstItem="KXq-ch-5Gy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-3" id="ls0-yi-DT3"/>
                     <constraint firstItem="KXq-ch-5Gy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="mvY-8t-duO"/>
                     <constraint firstItem="6wi-ht-dp0" firstAttribute="top" secondItem="KXq-ch-5Gy" secondAttribute="bottom" constant="5" id="og4-jL-uhB"/>

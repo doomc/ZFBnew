@@ -9,9 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZFHeaderView"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="oTb-Ag-Yy9" customClass="ZFHeaderView">
+        <view contentMode="scaleToFill" id="oTb-Ag-Yy9" customClass="ZFPersonalHeaderView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -47,7 +47,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fzD-gE-ju7">
                     <rect key="frame" x="0.0" y="130" width="375" height="40"/>
                     <subviews>
-                        <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UI0-sU-0UQ">
+                        <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UI0-sU-0UQ" userLabel="collecView">
                             <rect key="frame" x="1" y="0.0" width="186" height="40"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWU-8F-THZ">
@@ -56,7 +56,7 @@
                                         <constraint firstAttribute="height" constant="12" id="VRf-Ue-ZWC"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <nil key="textColor"/>
+                                    <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品收藏" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5S-s3-dIr">
@@ -74,7 +74,7 @@
                                 <constraint firstItem="iWU-8F-THZ" firstAttribute="top" secondItem="UI0-sU-0UQ" secondAttribute="top" constant="5" id="up8-F7-swu"/>
                             </constraints>
                         </view>
-                        <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wi5-6C-sqQ">
+                        <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wi5-6C-sqQ" userLabel="historyView">
                             <rect key="frame" x="188" y="0.0" width="186" height="40"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeV-Ou-zr6">
@@ -83,11 +83,11 @@
                                         <constraint firstAttribute="height" constant="12" id="mkK-B4-UAb"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <nil key="textColor"/>
+                                    <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品收藏" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPo-gs-Xap">
-                                    <rect key="frame" x="68" y="19" width="49.5" height="14.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浏览足记" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPo-gs-Xap">
+                                    <rect key="frame" x="68" y="19" width="50" height="15"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -130,7 +130,16 @@
                 <constraint firstAttribute="bottom" secondItem="WF6-zv-21a" secondAttribute="bottom" id="s0W-f6-bAw"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-95.5" y="-653"/>
+            <connections>
+                <outlet property="collectTagView" destination="UI0-sU-0UQ" id="w3a-5K-Ux6"/>
+                <outlet property="historyTagView" destination="Wi5-6C-sqQ" id="hTk-41-vnP"/>
+                <outlet property="img_bgView" destination="WF6-zv-21a" id="Uhk-0S-IBd"/>
+                <outlet property="img_headview" destination="bUL-OX-vfr" id="5ZF-Dw-hOh"/>
+                <outlet property="lb_collectCount" destination="iWU-8F-THZ" id="llg-TD-ZHL"/>
+                <outlet property="lb_historyCount" destination="AeV-Ou-zr6" id="EO8-jW-gOk"/>
+                <outlet property="lb_userNickname" destination="UYD-WK-Wrb" id="OmE-4D-vcd"/>
+            </connections>
+            <point key="canvasLocation" x="-1566" y="-657"/>
         </view>
     </objects>
     <resources>

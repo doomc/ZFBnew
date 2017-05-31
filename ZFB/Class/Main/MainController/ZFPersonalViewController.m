@@ -4,7 +4,7 @@
 //
 //  Created by  展富宝  on 2017/5/11.
 //  Copyright © 2017年 com.zfb. All rights reserved.
-//   **** 我的 
+//   **** 我的
 
 #import "ZFPersonalViewController.h"
 
@@ -16,16 +16,25 @@
 #import "ZFSendSerViceViewController.h"
 #import "LoginViewController.h"
 #import "ZFAllOrderViewController.h"
+
+#import "ZFHistoryViewController.h"
+#import "ZFCollectViewController.h"
+#import "ZFSettingViewController.h"
+#import "ZFSettingHeadViewController.h"
+#import "ZFPersonalHeaderView.h"
+
 typedef NS_ENUM(NSUInteger, TypeCell) {
     TypeCellOfMyCashBagCell,
     TypeCellOfMyProgressCell,
     TypeCellOfMyOderCell,
-
+    
     
 };
-@interface ZFPersonalViewController ()<UITableViewDelegate,UITableViewDataSource,ZFMyProgressCellDelegate>
+@interface ZFPersonalViewController ()<UITableViewDelegate,UITableViewDataSource,ZFMyProgressCellDelegate,PersonalHeaderViewDelegate>
+
 @property(nonatomic,strong)UITableView * myTableView;
 @property(nonatomic,strong)UIView * myHeaderView;
+@property(nonatomic,strong)ZFPersonalHeaderView * headview;
 
 @end
 
@@ -45,18 +54,18 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     self.myTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH) style:UITableViewStylePlain];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
-  
     self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_myTableView];
     
-   
-    UIView * headerView =  [[NSBundle mainBundle]loadNibNamed:@"ZFHeaderView" owner:self options:nil].lastObject;
-    self.myTableView.tableHeaderView =headerView;
+    
+    self.headview =  [[NSBundle mainBundle]loadNibNamed:@"ZFPersonalHeaderView" owner:self options:nil].lastObject;
+    self.headview.delegate = self;
+    self.myTableView.tableHeaderView =self.headview;
     
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyCashBagCell" bundle:nil] forCellReuseIdentifier:@"ZFMyCashBagCell"];
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyProgressCell" bundle:nil] forCellReuseIdentifier:@"ZFMyProgressCell"];
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyOderCell" bundle:nil] forCellReuseIdentifier:@"ZFMyOderCell"];
-  
+    
     
     //自定义导航按钮
     UIButton  * right_btn  =[ UIButton buttonWithType:UIButtonTypeCustom];
@@ -66,7 +75,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     //自定义button必须执行
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:right_btn];
     self.navigationItem.rightBarButtonItem = rightItem;
-
+    
     UIButton  * left_btn  =[ UIButton buttonWithType:UIButtonTypeCustom];
     left_btn.frame = CGRectMake(0, 0, 30, 30);
     [left_btn setBackgroundImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
@@ -75,15 +84,15 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     UIBarButtonItem *left_item = [[UIBarButtonItem alloc] initWithCustomView:left_btn];
     self.navigationItem.leftBarButtonItem = left_item;
     
- 
     
- 
+    
+    
 }
 
 
 /**
  消息列表
-
+ 
  @param sender 消息列表
  */
 -(void)im_messageTag:(UIButton*)sender
@@ -93,12 +102,16 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 
 /**
  设置
-
+ 
  @param sender  设置列表
  */
 -(void)im_SettingTag:(UIButton *)sender{
     NSLog(@"设置");
-
+    
+    ZFSettingViewController * settingVC = [[ZFSettingViewController alloc]init];
+    [self.navigationController pushViewController:settingVC animated:YES];
+    
+    
 }
 
 #pragma mark - tableview delegate
@@ -123,7 +136,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         return 100;
         
     }else{
-      
+        
         return 50;
     }
 }
@@ -132,30 +145,35 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
     if (indexPath.row == 0 ) {
         ZFMyCashBagCell  * cashCell = [ self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyCashBagCell" forIndexPath:indexPath];
-
-            return cashCell;
-
-        }
+        cashCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cashCell;
+        
+    }
     
     else if (indexPath.row == 1) {
         ZFMyProgressCell * pressCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyProgressCell" forIndexPath:indexPath];
-
+        
         pressCell.delegate = self;
-            return pressCell;
-            
-        }
-   
+        pressCell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        return pressCell;
+        
+    }
+    
     else if (indexPath.row == 2) {
-       
+        
         ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
         
         orderCell.order_imgicon.image =[UIImage imageNamed:@"order_icon"];
-        
+        orderCell.selectionStyle = UITableViewCellSelectionStyleNone;
+
         return orderCell;
     }
     else if (indexPath.row ==3) {
+      
         ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
-        
+        orderCell.selectionStyle = UITableViewCellSelectionStyleNone;
         orderCell.order_imgicon.image =[UIImage imageNamed:@"switchover_icon"];
         orderCell.order_title.text = @"切换到配送端";
         orderCell.order_hiddenTitle.hidden = YES;
@@ -164,13 +182,14 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     else{
         ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
         
+        orderCell.selectionStyle = UITableViewCellSelectionStyleNone;
         orderCell.order_imgicon.image =[UIImage imageNamed:@"write"];
         orderCell.order_title.text = @"意见反馈";
         orderCell.order_hiddenTitle.hidden = YES;
         return orderCell;
-
+        
     }
-  
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -181,7 +200,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
         ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
         [self.navigationController pushViewController:orderVC animated:YES];
-
+        
     }
     if (indexPath.row == 3) {//切换到配送端
         
@@ -206,12 +225,35 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
     ZFAppySalesReturnViewController * saleVC = [[ZFAppySalesReturnViewController alloc]init];
     [self.navigationController pushViewController:saleVC animated:YES];
+}
+
+//商品收藏的点击事件  需要参数的时候再修改
+-(void)didClickCollectAction
+{
+    NSLog(@"收藏");
+    ZFCollectViewController *collecVC=  [[ZFCollectViewController alloc]init];
     
+    [self.navigationController pushViewController:collecVC animated:YES];
+}
+
+//浏览足记的点击事件
+-(void)didClickHistorytAction
+{
+    NSLog(@"历史");
+    ZFHistoryViewController *hisVC=  [[ZFHistoryViewController alloc]init];
+    [self.navigationController pushViewController:hisVC animated:YES];
+}
+
+-(void)didClickHeadImageViewAction
+{
+    ZFSettingHeadViewController *headVC =  [[ZFSettingHeadViewController alloc]init];
+    [self.navigationController pushViewController:headVC animated:YES];
+ 
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBar.hidden  = NO;
-
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -219,13 +261,13 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
