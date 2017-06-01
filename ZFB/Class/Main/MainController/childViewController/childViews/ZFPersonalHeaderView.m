@@ -18,56 +18,52 @@
 {
     [super awakeFromNib];
     
+    self.img_headview.clipsToBounds = YES;
     self.img_headview.layer.cornerRadius = 40;
 
+ 
+    [self.img_headview setImage:[UIImage  circleImage:@"11.png"]];
+    
+    
+    [self.img_headview.image circleImage];
+    
     //点击头像
-    UITapGestureRecognizer * img_headviewtap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didClickimg_headviewGestureRecognizer:)];
+    UITapGestureRecognizer * img_headviewtap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didClickimgheadviewGestureRecognizer:)];
     img_headviewtap.delegate = self;
     img_headviewtap.numberOfTapsRequired = 1;
     img_headviewtap.numberOfTouchesRequired =1;
-    [self.collectTagView addGestureRecognizer:img_headviewtap];
+    [self.img_headview addGestureRecognizer:img_headviewtap];
+    self.img_headview.userInteractionEnabled =YES;
+    
+
+
+}
+
+-(void)didClickimgheadviewGestureRecognizer:(UITapGestureRecognizer *)tap{
+    //点击头像
+    if ([self.delegate respondsToSelector:@selector(didClickHeadImageViewAction:)]) {
+        [self.delegate didClickHeadImageViewAction:tap];
+    }
+}
+
+
+- (IBAction)didClickCollectAction:(id)sender {
     
     //收藏手势
-    UITapGestureRecognizer * tapSingle1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didClickCollectActionGestureRecognizer:)];
-    tapSingle1.delegate = self;
-    tapSingle1.numberOfTapsRequired = 1;
-    tapSingle1.numberOfTouchesRequired =1;
+    if ([self.delegate respondsToSelector:@selector(didClickCollectAction:)]) {
+        [self.delegate didClickCollectAction:sender];
+    }
     
-    [self.collectTagView addGestureRecognizer:tapSingle1];
+
+}
+- (IBAction)didClickHistorytAction:(id)sender {
     
     //浏览足记
-    UITapGestureRecognizer * tapSingle2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didClickHistorytActionGestureRecognizer:)];
-    tapSingle2.delegate = self;
-    tapSingle2.numberOfTouchesRequired =1;
-    tapSingle2.numberOfTapsRequired = 1;
-    [self.collectTagView addGestureRecognizer:tapSingle2];
-    
-
-}
-
--(void)didClickimg_headviewGestureRecognizer:(UITapGestureRecognizer*)tap{
-    
-    if ([self.delegate respondsToSelector:@selector(didClickHeadImageViewAction)]) {
-        [self.delegate didClickHeadImageViewAction];
-    }
-}
-
--(void)didClickCollectActionGestureRecognizer:(UITapGestureRecognizer *)tap
-{
-    //收藏手势
-    if ([self.delegate respondsToSelector:@selector(didClickCollectAction)]) {
-        [self.delegate didClickCollectAction];
-    }
-   
-}
-
--(void)didClickHistorytActionGestureRecognizer:(UITapGestureRecognizer *)tap
-{
-    //浏览足记
-    if ([self.delegate respondsToSelector:@selector(didClickHistorytAction)]) {
-        [self.delegate didClickHistorytAction];
+    if ([self.delegate respondsToSelector:@selector(didClickHistorytAction:)]) {
+        [self.delegate didClickHistorytAction:sender];
     }
     
+
 }
 
 

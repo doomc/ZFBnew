@@ -65,6 +65,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
     }
+    [self rightButton];
     
 }
 
@@ -86,7 +87,7 @@
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 44)];
     titleLabel.text = title;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = [UIFont systemFontOfSize:18];
+    titleLabel.font = [UIFont systemFontOfSize:15];
     self.navigationItem.titleView = titleLabel;
     
 }
@@ -241,8 +242,30 @@
 }
 
 
+#pragma mark -- right_button
+-(BOOL)rightButton
+{
+    BOOL isright = [self respondsToSelector:@selector(set_rightButton)];
+    if (isright) {
+        UIButton *right_button = [self set_rightButton];
+        [right_button addTarget:self action:@selector(right_click:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:right_button];
+        self.navigationItem.rightBarButtonItem = item;
+    }
+    return isright;
+}
 
-
+-(void)right_click:(id)sender
+{
+    if ([self respondsToSelector:@selector(right_button_event:)]) {
+        [self right_button_event:sender];
+    }
+}
+//设置右边事件
+-(void)right_button_event:(UIButton*)sender
+{
+    
+}
 
 
 @end

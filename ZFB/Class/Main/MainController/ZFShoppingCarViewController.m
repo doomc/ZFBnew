@@ -62,7 +62,7 @@
     CGSize size = [title.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
     CGFloat titleW = size.width;
  
-    title.frame = CGRectMake(15, 15, titleW, 25);
+    title.frame = CGRectMake(15, 12, titleW, 25);
     title.textColor = HEXCOLOR(0x363636);
 
     
@@ -79,7 +79,7 @@
     UILabel *lineDown =[[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
     lineDown.backgroundColor = HEXCOLOR(0xffcccc);
     UILabel *lineUP =[[UILabel alloc]initWithFrame:CGRectMake(0,0, KScreenW, 10)];
-    lineUP.backgroundColor = HEXCOLOR(0xdedede);
+    lineUP.backgroundColor = RGB(247, 247, 247);//#F7F7F7 16进制
     
     [headerView addSubview:lineDown];
     [headerView addSubview:lineUP];

@@ -10,9 +10,12 @@
 
 @interface BaseViewController : UIViewController
 
-- (void)backAction;
+-(UIButton*)set_rightButton;
+-(void)right_button_event:(UIButton*)sender;
 
--(void)setCustomerTitle:(NSString *)title;
+
+
+- (void)backAction;
 
 -(void)popToViewControllerWithName:(NSString *)name ;
 
@@ -49,6 +52,10 @@
  @param buttonTitle 结算
  */
 -(UIView *)creatWithAFooterViewOfCaseOrder :(NSString *)caseOrder AndPrice:(NSString *)price AndSetButtonTitle :(NSString*)buttonTitle;
+
+
+
+
 
 
 @end

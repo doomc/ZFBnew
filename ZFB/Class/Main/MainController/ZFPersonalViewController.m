@@ -44,8 +44,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor =  randomColor;
-    
+
     [self initmyTableViewInterface];
+
 }
 
 -(void)initmyTableViewInterface
@@ -59,9 +60,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
     
     self.headview =  [[NSBundle mainBundle]loadNibNamed:@"ZFPersonalHeaderView" owner:self options:nil].lastObject;
-    self.headview.delegate = self;
     self.myTableView.tableHeaderView =self.headview;
-    
+    self.headview.delegate = self;
+
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyCashBagCell" bundle:nil] forCellReuseIdentifier:@"ZFMyCashBagCell"];
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyProgressCell" bundle:nil] forCellReuseIdentifier:@"ZFMyProgressCell"];
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyOderCell" bundle:nil] forCellReuseIdentifier:@"ZFMyOderCell"];
@@ -228,7 +229,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 }
 
 //商品收藏的点击事件  需要参数的时候再修改
--(void)didClickCollectAction
+-(void)didClickCollectAction :(UIButton *)sender
 {
     NSLog(@"收藏");
     ZFCollectViewController *collecVC=  [[ZFCollectViewController alloc]init];
@@ -237,15 +238,20 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 }
 
 //浏览足记的点击事件
--(void)didClickHistorytAction
+-(void)didClickHistorytAction:(UIButton *)sender
 {
+ 
     NSLog(@"历史");
     ZFHistoryViewController *hisVC=  [[ZFHistoryViewController alloc]init];
     [self.navigationController pushViewController:hisVC animated:YES];
 }
 
--(void)didClickHeadImageViewAction
+//点击头像
+
+-(void)didClickHeadImageViewAction:(UITapGestureRecognizer *)sender
 {
+ 
+    NSLog(@"%@ 头像",sender);
     ZFSettingHeadViewController *headVC =  [[ZFSettingHeadViewController alloc]init];
     [self.navigationController pushViewController:headVC animated:YES];
  

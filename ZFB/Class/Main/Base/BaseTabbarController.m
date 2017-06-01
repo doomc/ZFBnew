@@ -68,7 +68,6 @@
         UIViewController *vc = self.viewControllers[i];
         
         UIImage *normalImage = [UIImage imageWithOriginalImageName:normalImages[i]];
-       
         UIImage *selectImage = [UIImage imageWithOriginalImageName:selectImages[i]];
        
         vc.tabBarItem = [[UITabBarItem alloc] initWithTitle:titles[i] image:normalImage selectedImage:selectImage];

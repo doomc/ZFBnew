@@ -21,7 +21,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QMg-76-i0J">
                     <rect key="frame" x="100" y="0.0" width="175" height="128"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="11.png" translatesAutoresizingMaskIntoConstraints="NO" id="bUL-OX-vfr">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bUL-OX-vfr">
                             <rect key="frame" x="47" y="10" width="80" height="80"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -65,12 +65,22 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VpE-a6-uMa">
+                                    <rect key="frame" x="0.0" y="0.0" width="186" height="40"/>
+                                    <connections>
+                                        <action selector="didClickCollectAction:" destination="oTb-Ag-Yy9" eventType="touchUpInside" id="tmY-nM-m6o"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstAttribute="bottom" secondItem="VpE-a6-uMa" secondAttribute="bottom" id="D7F-4s-Dr4"/>
+                                <constraint firstItem="VpE-a6-uMa" firstAttribute="leading" secondItem="UI0-sU-0UQ" secondAttribute="leading" id="GnQ-Oo-YKY"/>
                                 <constraint firstItem="n5S-s3-dIr" firstAttribute="top" secondItem="iWU-8F-THZ" secondAttribute="bottom" constant="2" id="NGv-Lh-8a6"/>
                                 <constraint firstItem="n5S-s3-dIr" firstAttribute="centerX" secondItem="iWU-8F-THZ" secondAttribute="centerX" id="Pt4-l5-Qyy"/>
+                                <constraint firstAttribute="trailing" secondItem="VpE-a6-uMa" secondAttribute="trailing" id="V6D-qW-abv"/>
                                 <constraint firstItem="n5S-s3-dIr" firstAttribute="centerX" secondItem="UI0-sU-0UQ" secondAttribute="centerX" id="dDQ-RL-0C4"/>
+                                <constraint firstItem="VpE-a6-uMa" firstAttribute="top" secondItem="UI0-sU-0UQ" secondAttribute="top" id="puv-IR-wch"/>
                                 <constraint firstItem="iWU-8F-THZ" firstAttribute="top" secondItem="UI0-sU-0UQ" secondAttribute="top" constant="5" id="up8-F7-swu"/>
                             </constraints>
                         </view>
@@ -92,12 +102,22 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Nj-Po-XgM">
+                                    <rect key="frame" x="0.0" y="0.0" width="186" height="40"/>
+                                    <connections>
+                                        <action selector="didClickHistorytAction:" destination="oTb-Ag-Yy9" eventType="touchUpInside" id="0KH-Fn-8Df"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstAttribute="bottom" secondItem="3Nj-Po-XgM" secondAttribute="bottom" id="NkL-jR-eYX"/>
                                 <constraint firstItem="CPo-gs-Xap" firstAttribute="centerX" secondItem="AeV-Ou-zr6" secondAttribute="centerX" id="UNM-Lu-SXb"/>
+                                <constraint firstItem="3Nj-Po-XgM" firstAttribute="top" secondItem="Wi5-6C-sqQ" secondAttribute="top" id="ZQc-7h-ZP3"/>
+                                <constraint firstItem="3Nj-Po-XgM" firstAttribute="leading" secondItem="Wi5-6C-sqQ" secondAttribute="leading" id="ciK-Pm-kdN"/>
                                 <constraint firstItem="CPo-gs-Xap" firstAttribute="top" secondItem="AeV-Ou-zr6" secondAttribute="bottom" constant="2" id="nKV-Iv-5X9"/>
                                 <constraint firstItem="AeV-Ou-zr6" firstAttribute="centerX" secondItem="Wi5-6C-sqQ" secondAttribute="centerX" id="nn1-0N-cCj"/>
+                                <constraint firstAttribute="trailing" secondItem="3Nj-Po-XgM" secondAttribute="trailing" id="pvF-KD-S1U"/>
                                 <constraint firstItem="AeV-Ou-zr6" firstAttribute="top" secondItem="Wi5-6C-sqQ" secondAttribute="top" constant="5" id="wdV-gM-2OD"/>
                             </constraints>
                         </view>
@@ -139,11 +159,10 @@
                 <outlet property="lb_historyCount" destination="AeV-Ou-zr6" id="EO8-jW-gOk"/>
                 <outlet property="lb_userNickname" destination="UYD-WK-Wrb" id="OmE-4D-vcd"/>
             </connections>
-            <point key="canvasLocation" x="-1566" y="-657"/>
+            <point key="canvasLocation" x="-1566.5" y="-657"/>
         </view>
     </objects>
     <resources>
         <image name="11.jpg" width="1920" height="1080"/>
-        <image name="11.png" width="805" height="506"/>
     </resources>
 </document>

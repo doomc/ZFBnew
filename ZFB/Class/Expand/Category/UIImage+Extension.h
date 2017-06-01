@@ -13,4 +13,15 @@
 //设置图片按照原图渲染
 +(instancetype)imageWithOriginalImageName:(NSString *)imageName;
 
+/**
+ *  返回原型图片
+ */
+- (instancetype)circleImage;
+
+/**
+ *  返回原型图片
+ */
++ (instancetype)circleImage:(NSString *)image;
+
+
 @end

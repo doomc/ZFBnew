@@ -10,13 +10,13 @@
 
 @protocol PersonalHeaderViewDelegate  <NSObject>
 //更换头像
--(void)didClickHeadImageViewAction;
+-(void)didClickHeadImageViewAction:(UITapGestureRecognizer *)sender;
 
 //商品收藏的点击事件
--(void)didClickCollectAction;
+-(void)didClickCollectAction:(UIButton *)sender;
 
 //浏览足记的点击事件
--(void)didClickHistorytAction;
+-(void)didClickHistorytAction:(UIButton *)sender;
 
 @end
 @interface ZFPersonalHeaderView : UIView

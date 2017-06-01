@@ -10,4 +10,27 @@
 
 @interface ZFSettingCell : UITableViewCell
 
+
+/**
+ 头icon
+ */
+@property (weak, nonatomic) IBOutlet UIImageView *img_iconView;
+
+/**
+ 尾icon
+ */
+@property (weak, nonatomic) IBOutlet UIImageView *img_detailIcon;
+
+
+/**
+ 前缀
+ */
+@property (weak, nonatomic) IBOutlet UILabel *lb_title;
+
+/**
+ 后缀详情
+ */
+@property (weak, nonatomic) IBOutlet UILabel *lb_detailTitle;
+
+
 @end
