@@ -10,4 +10,16 @@
 
 @interface ZFShopListCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *img_shopView;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_title;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_detailTitle;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_price;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_count;
+@property (weak, nonatomic) IBOutlet UITextField *tf_message;
+
+
 @end

@@ -13,6 +13,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.img_allStoreView.clipsToBounds = YES;
+    self.img_allStoreView.layer.borderWidth = 0.5;
+    self.img_allStoreView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

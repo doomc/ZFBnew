@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="4IW-td-iWI" customClass="ZFCollectBarView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8oI-dL-rCA">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                    <color key="backgroundColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="s8j-Ya-pWx"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZe-Aj-QAy">
+                    <rect key="frame" x="0.0" y="0.5" width="125" height="48.5"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                    <state key="normal" title="全选" image="select_normal.png">
+                        <color key="titleColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XQ9-Jt-kzb">
+                    <rect key="frame" x="125" y="0.5" width="125" height="48.5"/>
+                    <color key="backgroundColor" red="0.99291080236434937" green="0.82506024837493896" blue="0.17741984128952026" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="取消收藏"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dVk-0R-P9g">
+                    <rect key="frame" x="250" y="0.5" width="125" height="48.5"/>
+                    <color key="backgroundColor" red="0.99607843137254903" green="0.42745098039215684" blue="0.41568627450980389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="加入购物车"/>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="uZe-Aj-QAy" firstAttribute="top" secondItem="8oI-dL-rCA" secondAttribute="bottom" id="1DJ-9N-ucU"/>
+                <constraint firstItem="8oI-dL-rCA" firstAttribute="top" secondItem="4IW-td-iWI" secondAttribute="top" id="1ks-f2-87J"/>
+                <constraint firstItem="dVk-0R-P9g" firstAttribute="height" secondItem="uZe-Aj-QAy" secondAttribute="height" id="584-xB-UlH"/>
+                <constraint firstAttribute="bottom" secondItem="XQ9-Jt-kzb" secondAttribute="bottom" id="5pf-vB-7AA"/>
+                <constraint firstItem="XQ9-Jt-kzb" firstAttribute="top" secondItem="8oI-dL-rCA" secondAttribute="bottom" id="7J2-sz-GeR"/>
+                <constraint firstItem="dVk-0R-P9g" firstAttribute="leading" secondItem="XQ9-Jt-kzb" secondAttribute="trailing" id="8bg-yf-DXo"/>
+                <constraint firstAttribute="bottom" secondItem="dVk-0R-P9g" secondAttribute="bottom" id="JbH-nm-WJl"/>
+                <constraint firstItem="XQ9-Jt-kzb" firstAttribute="width" secondItem="uZe-Aj-QAy" secondAttribute="width" id="VOE-LN-kSA"/>
+                <constraint firstItem="8oI-dL-rCA" firstAttribute="leading" secondItem="4IW-td-iWI" secondAttribute="leading" id="bfr-1j-9JN"/>
+                <constraint firstAttribute="trailing" secondItem="dVk-0R-P9g" secondAttribute="trailing" id="dT4-Ip-Ew0"/>
+                <constraint firstItem="XQ9-Jt-kzb" firstAttribute="height" secondItem="uZe-Aj-QAy" secondAttribute="height" id="eZG-UF-uFz"/>
+                <constraint firstItem="dVk-0R-P9g" firstAttribute="width" secondItem="uZe-Aj-QAy" secondAttribute="width" id="hO7-tY-8h2"/>
+                <constraint firstItem="dVk-0R-P9g" firstAttribute="top" secondItem="8oI-dL-rCA" secondAttribute="bottom" id="hS2-Dz-YyI"/>
+                <constraint firstAttribute="bottom" secondItem="uZe-Aj-QAy" secondAttribute="bottom" id="mOY-uv-YHc"/>
+                <constraint firstItem="uZe-Aj-QAy" firstAttribute="leading" secondItem="4IW-td-iWI" secondAttribute="leading" id="qET-6b-Mbf"/>
+                <constraint firstItem="XQ9-Jt-kzb" firstAttribute="leading" secondItem="uZe-Aj-QAy" secondAttribute="trailing" id="tNa-da-3kP"/>
+                <constraint firstAttribute="trailing" secondItem="8oI-dL-rCA" secondAttribute="trailing" id="y0H-Ca-J4G"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="addShopCar_btn" destination="dVk-0R-P9g" id="6tY-Z5-0m6"/>
+                <outlet property="allChoose_btn" destination="uZe-Aj-QAy" id="rI3-Hj-miC"/>
+                <outlet property="cancelCollect_btn" destination="XQ9-Jt-kzb" id="lNO-W7-efQ"/>
+            </connections>
+            <point key="canvasLocation" x="-414.5" y="-14.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="select_normal.png" width="16" height="16"/>
+    </resources>
+</document>

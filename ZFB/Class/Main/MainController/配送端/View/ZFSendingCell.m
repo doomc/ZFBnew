@@ -13,6 +13,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    self.img_SenlistView.clipsToBounds = YES;
+    self.img_SenlistView.layer.borderWidth = 0.5;
+    self.img_SenlistView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
 
 }
 

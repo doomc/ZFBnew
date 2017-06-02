@@ -10,4 +10,6 @@
 
 @interface RegisterViewController : BaseViewController
 
+@property (weak, nonatomic) IBOutlet UITextField *tf_phoneNum;
+
 @end

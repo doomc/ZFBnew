@@ -9,5 +9,18 @@
 #import <UIKit/UIKit.h>
 
 @interface ZFShopCarCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *img_shopCar;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_title;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_price;
+
+@property (weak, nonatomic) IBOutlet UIButton *add_btn;
+@property (weak, nonatomic) IBOutlet UIButton *reduce_btn;
+
+//加减出的结果
+@property (weak, nonatomic) IBOutlet UILabel *lb_result;
+
+@property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
 
 @end

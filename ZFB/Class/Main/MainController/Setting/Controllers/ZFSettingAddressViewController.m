@@ -27,6 +27,7 @@
  
    
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.address_btn];
     [self.tableView setBackgroundView:self.bgview];
     
 
@@ -66,11 +67,11 @@
         
         UIImageView * placeholder_img = [[UIImageView alloc]init];
         [placeholder_img setCenter:self.view.center];
-        placeholder_img.frame = CGRectMake(KScreenW*0.5 - 100, 100, 100, 100);
+        placeholder_img.frame = CGRectMake(KScreenW*0.5 - 50,200, 100, 100);
         placeholder_img.image = [UIImage imageNamed:@"NOAddress"];
         [_bgview addSubview:placeholder_img];
         
-        UILabel * lb_tag = [[UILabel alloc]initWithFrame:CGRectMake(KScreenW*0.5 -100, 200, 100, 22)];
+        UILabel * lb_tag = [[UILabel alloc]initWithFrame:CGRectMake(KScreenW*0.5 -50,300, 100, 22)];
         lb_tag.textColor = HEXCOLOR(0x7a7a7a);
         lb_tag.text =@"暂时没有地址~";
         lb_tag.font = SYSTEMFONT(14);
@@ -127,7 +128,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"sectin = %ld,row = %ld",indexPath.section ,indexPath.row);
-    
+ 
 }
 
 -(void)addANewAddressTarget:(UIButton *)sender

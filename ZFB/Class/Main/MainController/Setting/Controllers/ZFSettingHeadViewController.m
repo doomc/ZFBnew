@@ -10,9 +10,10 @@
 #import "ZFSettingHeaderCell.h"
 #import "ZFSettingRowCell.h"
 #import "ZFSettingAddressViewController.h"
+
+
 static NSString * settingheadid = @"ZFSettingHeaderCellid";
 static NSString * settingRowid = @"ZFSettingRowCellid";
-
 @interface ZFSettingHeadViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray * _titleArr;
@@ -114,8 +115,8 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 {
     NSLog(@"sectin = %ld,row = %ld",indexPath.section ,indexPath.row);
     
-    if (indexPath.section == 0){
-        if (indexPath.row == 0)
+    if (indexPath.section == 1){
+        if (indexPath.row == 3)
         {
             ZFSettingAddressViewController *addVC = [[ZFSettingAddressViewController alloc]init];
             [self.navigationController pushViewController:addVC animated:YES];

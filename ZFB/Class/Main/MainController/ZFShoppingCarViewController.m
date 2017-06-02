@@ -76,7 +76,7 @@
     status.frame = CGRectMake(KScreenW - statusW - 15, 15, statusW, 25);
     [status addTarget:self action:@selector(didclickEdit:) forControlEvents:UIControlEventTouchUpInside];
    
-    UILabel *lineDown =[[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
+    UILabel *lineDown =[[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 0.5)];
     lineDown.backgroundColor = HEXCOLOR(0xffcccc);
     UILabel *lineUP =[[UILabel alloc]initWithFrame:CGRectMake(0,0, KScreenW, 10)];
     lineUP.backgroundColor = RGB(247, 247, 247);//#F7F7F7 16进制
@@ -151,7 +151,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 92;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

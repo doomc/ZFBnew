@@ -13,17 +13,13 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-}
-
--(instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        
-    }
-    return self;
+    
+    self.img_shopCar.clipsToBounds = YES;
+    self.img_shopCar.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
+    self.img_shopCar.layer.borderWidth = 0.5;
     
 }
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

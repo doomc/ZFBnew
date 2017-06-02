@@ -10,4 +10,13 @@
 
 @interface ZFAppySalesReturnCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *img_saleAfterListView;
+@property (weak, nonatomic) IBOutlet UILabel *lb_title;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_price;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_count;
+
+
+
 @end

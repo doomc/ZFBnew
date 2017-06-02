@@ -24,6 +24,9 @@
 #import "UIImage+Extension.h"
 #import "UIImageView+Extentsion.h"
 #import "WJYAlertView.h"
+#import "NSString+UUID.h"
+#import "NSString+Base64.h"
+#import "NSString+RegexCategory.h"
 
 
 

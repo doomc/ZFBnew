@@ -13,6 +13,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    self.img_appraiseView.clipsToBounds = YES;
+    self.img_appraiseView.layer.borderWidth = 0.5;
+    self.img_appraiseView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

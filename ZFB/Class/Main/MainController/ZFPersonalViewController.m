@@ -234,7 +234,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     NSLog(@"收藏");
     ZFCollectViewController *collecVC=  [[ZFCollectViewController alloc]init];
     
-    [self.navigationController pushViewController:collecVC animated:YES];
+    [self.navigationController pushViewController:collecVC animated:NO];
 }
 
 //浏览足记的点击事件
@@ -243,7 +243,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
  
     NSLog(@"历史");
     ZFHistoryViewController *hisVC=  [[ZFHistoryViewController alloc]init];
-    [self.navigationController pushViewController:hisVC animated:YES];
+    [self.navigationController pushViewController:hisVC animated:NO];
 }
 
 //点击头像
@@ -253,7 +253,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
  
     NSLog(@"%@ 头像",sender);
     ZFSettingHeadViewController *headVC =  [[ZFSettingHeadViewController alloc]init];
-    [self.navigationController pushViewController:headVC animated:YES];
+    [self.navigationController pushViewController:headVC animated:NO];
  
 }
 -(void)viewWillAppear:(BOOL)animated

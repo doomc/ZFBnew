@@ -15,9 +15,10 @@
     [super awakeFromNib];
     // Initialization code
     
+    self.img_listImgView.clipsToBounds = YES;
     [self.img_listImgView CreateImageViewWithFrame:CGRectMake(0, 0,( KScreenW-50) *0.3333, 95) andBackground:HEXCOLOR(0xffcccc).CGColor andRadius:2];
-    self.img_listImgView.layer.borderWidth = 1;
-    self.img_listImgView.layer.borderColor = [UIColor redColor].CGColor;
+    self.img_listImgView.layer.borderWidth = 0.5;
+    self.img_listImgView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
 }
 
 @end

@@ -16,4 +16,5 @@
 - (void)setHeaderUrl:(NSString *)url withplaceholderImageName:(NSString *)placeholderImageName;
 
 
+
 @end

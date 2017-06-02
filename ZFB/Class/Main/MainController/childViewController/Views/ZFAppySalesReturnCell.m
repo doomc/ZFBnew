@@ -13,6 +13,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+ 
+    self.img_saleAfterListView.clipsToBounds = YES;
+    self.img_saleAfterListView.layer.borderWidth = 0.5;
+    self.img_saleAfterListView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

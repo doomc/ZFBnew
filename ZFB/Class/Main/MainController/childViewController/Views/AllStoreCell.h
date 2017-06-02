@@ -10,4 +10,5 @@
 
 @interface AllStoreCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *img_allStoreView;
 @end

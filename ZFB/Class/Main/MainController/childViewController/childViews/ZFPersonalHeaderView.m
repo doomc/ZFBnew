@@ -20,7 +20,9 @@
     
     self.img_headview.clipsToBounds = YES;
     self.img_headview.layer.cornerRadius = 40;
-
+ 
+    self.img_headview.layer.borderWidth = 0.5;
+    self.img_headview.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
  
     [self.img_headview setImage:[UIImage  circleImage:@"11.png"]];
     

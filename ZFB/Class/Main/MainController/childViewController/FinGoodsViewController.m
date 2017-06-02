@@ -185,7 +185,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
         if (indexPath.section == 1 ) {
             return 125;
         }
-    return  138;
+    return  106;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
