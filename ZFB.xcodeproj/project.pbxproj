@@ -258,17 +258,6 @@
 		49E98A3C1EDE57C300B04DEF /* ZFOrderDetailPaycashCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E98A3A1EDE57C300B04DEF /* ZFOrderDetailPaycashCell.xib */; };
 		49E98A3F1EDE60FE00B04DEF /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A3E1EDE60FE00B04DEF /* Toast+UIView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		49E98A421EDE62EC00B04DEF /* TDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A411EDE62EC00B04DEF /* TDView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		49E98A5A1EDE9A4000B04DEF /* QBAssetsCollectionCheckmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A451EDE9A4000B04DEF /* QBAssetsCollectionCheckmarkView.m */; };
-		49E98A5B1EDE9A4000B04DEF /* QBAssetsCollectionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A471EDE9A4000B04DEF /* QBAssetsCollectionFooterView.m */; };
-		49E98A5C1EDE9A4000B04DEF /* QBAssetsCollectionOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A491EDE9A4000B04DEF /* QBAssetsCollectionOverlayView.m */; };
-		49E98A5D1EDE9A4000B04DEF /* QBAssetsCollectionVideoIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A4B1EDE9A4000B04DEF /* QBAssetsCollectionVideoIndicatorView.m */; };
-		49E98A5E1EDE9A4000B04DEF /* QBAssetsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A4D1EDE9A4000B04DEF /* QBAssetsCollectionViewCell.m */; };
-		49E98A5F1EDE9A4000B04DEF /* QBAssetsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A4F1EDE9A4000B04DEF /* QBAssetsCollectionViewController.m */; };
-		49E98A601EDE9A4000B04DEF /* QBAssetsCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A511EDE9A4000B04DEF /* QBAssetsCollectionViewLayout.m */; };
-		49E98A611EDE9A4000B04DEF /* QBImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A531EDE9A4000B04DEF /* QBImagePickerController.m */; };
-		49E98A621EDE9A4000B04DEF /* QBImagePickerController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49E98A541EDE9A4000B04DEF /* QBImagePickerController.strings */; };
-		49E98A631EDE9A4000B04DEF /* QBImagePickerGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A561EDE9A4000B04DEF /* QBImagePickerGroupCell.m */; };
-		49E98A641EDE9A4000B04DEF /* QBImagePickerThumbnailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A581EDE9A4000B04DEF /* QBImagePickerThumbnailView.m */; };
 		49E98AD41EDEA64300B04DEF /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98AD31EDEA64300B04DEF /* MBProgressHUD.m */; };
 		49E98AD71EDEA6AD00B04DEF /* MBProgressHUD+MP.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98AD61EDEA6AD00B04DEF /* MBProgressHUD+MP.m */; };
 		49E98AF31EDEAFF000B04DEF /* ZFPersonalHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E98AE11EDEAFF000B04DEF /* ZFPersonalHeaderView.xib */; };
@@ -867,27 +856,6 @@
 		49E98A3E1EDE60FE00B04DEF /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		49E98A401EDE62EC00B04DEF /* TDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDView.h; sourceTree = "<group>"; };
 		49E98A411EDE62EC00B04DEF /* TDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDView.m; sourceTree = "<group>"; };
-		49E98A441EDE9A4000B04DEF /* QBAssetsCollectionCheckmarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBAssetsCollectionCheckmarkView.h; sourceTree = "<group>"; };
-		49E98A451EDE9A4000B04DEF /* QBAssetsCollectionCheckmarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBAssetsCollectionCheckmarkView.m; sourceTree = "<group>"; };
-		49E98A461EDE9A4000B04DEF /* QBAssetsCollectionFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBAssetsCollectionFooterView.h; sourceTree = "<group>"; };
-		49E98A471EDE9A4000B04DEF /* QBAssetsCollectionFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBAssetsCollectionFooterView.m; sourceTree = "<group>"; };
-		49E98A481EDE9A4000B04DEF /* QBAssetsCollectionOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBAssetsCollectionOverlayView.h; sourceTree = "<group>"; };
-		49E98A491EDE9A4000B04DEF /* QBAssetsCollectionOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBAssetsCollectionOverlayView.m; sourceTree = "<group>"; };
-		49E98A4A1EDE9A4000B04DEF /* QBAssetsCollectionVideoIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBAssetsCollectionVideoIndicatorView.h; sourceTree = "<group>"; };
-		49E98A4B1EDE9A4000B04DEF /* QBAssetsCollectionVideoIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBAssetsCollectionVideoIndicatorView.m; sourceTree = "<group>"; };
-		49E98A4C1EDE9A4000B04DEF /* QBAssetsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBAssetsCollectionViewCell.h; sourceTree = "<group>"; };
-		49E98A4D1EDE9A4000B04DEF /* QBAssetsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBAssetsCollectionViewCell.m; sourceTree = "<group>"; };
-		49E98A4E1EDE9A4000B04DEF /* QBAssetsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBAssetsCollectionViewController.h; sourceTree = "<group>"; };
-		49E98A4F1EDE9A4000B04DEF /* QBAssetsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBAssetsCollectionViewController.m; sourceTree = "<group>"; };
-		49E98A501EDE9A4000B04DEF /* QBAssetsCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBAssetsCollectionViewLayout.h; sourceTree = "<group>"; };
-		49E98A511EDE9A4000B04DEF /* QBAssetsCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBAssetsCollectionViewLayout.m; sourceTree = "<group>"; };
-		49E98A521EDE9A4000B04DEF /* QBImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBImagePickerController.h; sourceTree = "<group>"; };
-		49E98A531EDE9A4000B04DEF /* QBImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBImagePickerController.m; sourceTree = "<group>"; };
-		49E98A541EDE9A4000B04DEF /* QBImagePickerController.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = QBImagePickerController.strings; sourceTree = "<group>"; };
-		49E98A551EDE9A4000B04DEF /* QBImagePickerGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBImagePickerGroupCell.h; sourceTree = "<group>"; };
-		49E98A561EDE9A4000B04DEF /* QBImagePickerGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBImagePickerGroupCell.m; sourceTree = "<group>"; };
-		49E98A571EDE9A4000B04DEF /* QBImagePickerThumbnailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBImagePickerThumbnailView.h; sourceTree = "<group>"; };
-		49E98A581EDE9A4000B04DEF /* QBImagePickerThumbnailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBImagePickerThumbnailView.m; sourceTree = "<group>"; };
 		49E98AD21EDEA64300B04DEF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		49E98AD31EDEA64300B04DEF /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		49E98AD51EDEA6AD00B04DEF /* MBProgressHUD+MP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MP.h"; sourceTree = "<group>"; };
@@ -1502,7 +1470,6 @@
 			isa = PBXGroup;
 			children = (
 				49E98AD11EDEA64300B04DEF /* MBProgressHUD */,
-				49E98A591EDE9A4000B04DEF /* QBImagePickerController */,
 				503BEC061ED72324004FC36C /* UITableView-FDTemplateLayoutCell */,
 				49801C801ECE870100EDAA53 /* PYSearch */,
 				5019FF881ECCAEF800325342 /* SDWebImage */,
@@ -1992,35 +1959,6 @@
 				49E7577E1EC96E9100220B28 /* TAPageControl.m */,
 			);
 			path = PageControl;
-			sourceTree = "<group>";
-		};
-		49E98A591EDE9A4000B04DEF /* QBImagePickerController */ = {
-			isa = PBXGroup;
-			children = (
-				49E98A441EDE9A4000B04DEF /* QBAssetsCollectionCheckmarkView.h */,
-				49E98A451EDE9A4000B04DEF /* QBAssetsCollectionCheckmarkView.m */,
-				49E98A461EDE9A4000B04DEF /* QBAssetsCollectionFooterView.h */,
-				49E98A471EDE9A4000B04DEF /* QBAssetsCollectionFooterView.m */,
-				49E98A481EDE9A4000B04DEF /* QBAssetsCollectionOverlayView.h */,
-				49E98A491EDE9A4000B04DEF /* QBAssetsCollectionOverlayView.m */,
-				49E98A4A1EDE9A4000B04DEF /* QBAssetsCollectionVideoIndicatorView.h */,
-				49E98A4B1EDE9A4000B04DEF /* QBAssetsCollectionVideoIndicatorView.m */,
-				49E98A4C1EDE9A4000B04DEF /* QBAssetsCollectionViewCell.h */,
-				49E98A4D1EDE9A4000B04DEF /* QBAssetsCollectionViewCell.m */,
-				49E98A4E1EDE9A4000B04DEF /* QBAssetsCollectionViewController.h */,
-				49E98A4F1EDE9A4000B04DEF /* QBAssetsCollectionViewController.m */,
-				49E98A501EDE9A4000B04DEF /* QBAssetsCollectionViewLayout.h */,
-				49E98A511EDE9A4000B04DEF /* QBAssetsCollectionViewLayout.m */,
-				49E98A521EDE9A4000B04DEF /* QBImagePickerController.h */,
-				49E98A531EDE9A4000B04DEF /* QBImagePickerController.m */,
-				49E98A541EDE9A4000B04DEF /* QBImagePickerController.strings */,
-				49E98A551EDE9A4000B04DEF /* QBImagePickerGroupCell.h */,
-				49E98A561EDE9A4000B04DEF /* QBImagePickerGroupCell.m */,
-				49E98A571EDE9A4000B04DEF /* QBImagePickerThumbnailView.h */,
-				49E98A581EDE9A4000B04DEF /* QBImagePickerThumbnailView.m */,
-			);
-			name = QBImagePickerController;
-			path = "../../../../MobileProject-master/MobileProject/Vender/QBImagePickerController";
 			sourceTree = "<group>";
 		};
 		49E98AD11EDEA64300B04DEF /* MBProgressHUD */ = {
@@ -2614,7 +2552,6 @@
 				49FB3C861ECD95C50090075D /* circle_selected@2x.png in Resources */,
 				49FB3C871ECD95C50090075D /* circle_selected@3x.png in Resources */,
 				49F113711ECC5547000F3BF7 /* people_icon@2x.png in Resources */,
-				49E98A621EDE9A4000B04DEF /* QBImagePickerController.strings in Resources */,
 				49D6E7171ED96DE4000A837E /* TV@2x.png in Resources */,
 				49FB3C7A1ECD943C0090075D /* shopkeeper@2x.png in Resources */,
 				49E0A0921ED520EA00AEE354 /* DetailPayCashViewController.xib in Resources */,
@@ -2923,7 +2860,6 @@
 				509D1F7D1ECDE68C00D70444 /* ZFSearchDetailViewController.m in Sources */,
 				49E98AFC1EDEAFF000B04DEF /* ZFShopCarCell.m in Sources */,
 				49E757871EC96E9100220B28 /* TADotView.m in Sources */,
-				49E98A641EDE9A4000B04DEF /* QBImagePickerThumbnailView.m in Sources */,
 				49E98AF41EDEAFF000B04DEF /* ZFMyCashBagCell.m in Sources */,
 				5019FFB31ECCAEF800325342 /* UIButton+WebCache.m in Sources */,
 				492757561EC4679E003C22D0 /* UIView+MJExtension.m in Sources */,
@@ -2939,7 +2875,6 @@
 				49AAD8651EE0F77F00AFE61D /* ZFCollectEditCell.m in Sources */,
 				49C6CFFB1EE003BB00652CDB /* ZFSettingAddressViewController.m in Sources */,
 				492756B21EC4679E003C22D0 /* UIView+MJ.m in Sources */,
-				49E98A631EDE9A4000B04DEF /* QBImagePickerGroupCell.m in Sources */,
 				49ABA4291ECAE97F00E7EB20 /* ResetPassWViewController.m in Sources */,
 				49E0A0981ED52C6F00AEE354 /* CustomFooterView.m in Sources */,
 				498B31021ED8010D0021D691 /* ZFSaleAfterHeadCell.m in Sources */,
@@ -2975,7 +2910,6 @@
 				492757461EC4679E003C22D0 /* MJRefreshComponent.m in Sources */,
 				492757531EC4679E003C22D0 /* MJRefreshConst.m in Sources */,
 				4927521F1EC44DFC003C22D0 /* ViewController.m in Sources */,
-				49E98A5F1EDE9A4000B04DEF /* QBAssetsCollectionViewController.m in Sources */,
 				4927521C1EC44DFC003C22D0 /* AppDelegate.m in Sources */,
 				5019FFAD1ECCAEF800325342 /* SDWebImageCompat.m in Sources */,
 				49801C8F1ECE870100EDAA53 /* PYSearchSuggestionViewController.m in Sources */,
@@ -2993,7 +2927,6 @@
 				49D6E6D11ED9297B000A837E /* ApplySalesAfterCommonCell.m in Sources */,
 				492752191EC44DFC003C22D0 /* main.m in Sources */,
 				49801C991ECECF7300EDAA53 /* AllStoreCell.m in Sources */,
-				49E98A5C1EDE9A4000B04DEF /* QBAssetsCollectionOverlayView.m in Sources */,
 				49E98B061EDEB07200B04DEF /* ZFHistoryViewController.m in Sources */,
 				492756B81EC4679E003C22D0 /* ControlFactory.m in Sources */,
 				505163B21EDA75E6006884FA /* ZFOrderDetailSectionCell.m in Sources */,
@@ -3010,7 +2943,6 @@
 				49E757851EC96E9100220B28 /* TAAbstractDotView.m in Sources */,
 				4927573D1EC4679E003C22D0 /* ZFPersonalViewController.m in Sources */,
 				5019FFAF1ECCAEF800325342 /* SDWebImageDownloader.m in Sources */,
-				49E98A5B1EDE9A4000B04DEF /* QBAssetsCollectionFooterView.m in Sources */,
 				49D6E6F31ED95EA3000A837E /* ZFPregressCheckViewController.m in Sources */,
 				492757501EC4679E003C22D0 /* MJRefreshNormalHeader.m in Sources */,
 				49FB3C4F1ECD53EF0090075D /* ZFTitleAndChooseListCell.m in Sources */,
@@ -3025,7 +2957,6 @@
 				503BEC111ED72324004FC36C /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				492757511EC4679E003C22D0 /* MJRefreshStateHeader.m in Sources */,
 				503BEBE71ED5DF24004FC36C /* ZFShopListCell.m in Sources */,
-				49E98A5E1EDE9A4000B04DEF /* QBAssetsCollectionViewCell.m in Sources */,
 				49E98B121EDEC34500B04DEF /* ZFSettingCell.m in Sources */,
 				503BEBE31ED5DE1E004FC36C /* ZFShopListViewController.m in Sources */,
 				49D6E6EF1ED9584F000A837E /* ZFBackWaysViewController.m in Sources */,
@@ -3044,22 +2975,18 @@
 				49D6E6FC1ED96765000A837E /* ZFPregressCheckCell2.m in Sources */,
 				493ADAFB1ED57A5700CB2866 /* ZFSureOrderViewController.m in Sources */,
 				49A941F81EC998DA00153B47 /* ZFMainListCell.m in Sources */,
-				49E98A5A1EDE9A4000B04DEF /* QBAssetsCollectionCheckmarkView.m in Sources */,
 				4955D24A1ED7D400009C00F1 /* ZFSendHomeCell.m in Sources */,
 				503BEC101ED72324004FC36C /* UITableView+FDKeyedHeightCache.m in Sources */,
 				493ADAEF1ED55BDC00CB2866 /* ZFSendSerViceViewController.m in Sources */,
 				5019FFB81ECCAEF800325342 /* UIImageView+WebCache.m in Sources */,
 				503BEC041ED71EBD004FC36C /* ZFTitleCell.m in Sources */,
-				49E98A611EDE9A4000B04DEF /* QBImagePickerController.m in Sources */,
 				4927573C1EC4679E003C22D0 /* ZFHomeViewController.m in Sources */,
 				503BEC021ED71EBD004FC36C /* ZFFooterCell.m in Sources */,
 				5019FFB71ECCAEF800325342 /* UIImageView+HighlightedWebCache.m in Sources */,
 				49AAD8781EE1382D00AFE61D /* NSString+Base64.m in Sources */,
-				49E98A5D1EDE9A4000B04DEF /* QBAssetsCollectionVideoIndicatorView.m in Sources */,
 				4927574A1EC4679E003C22D0 /* MJRefreshAutoNormalFooter.m in Sources */,
 				49A941FD1EC9A33A00153B47 /* FindStoreCell.m in Sources */,
 				49E98AD41EDEA64300B04DEF /* MBProgressHUD.m in Sources */,
-				49E98A601EDE9A4000B04DEF /* QBAssetsCollectionViewLayout.m in Sources */,
 				498137BB1EC5ABC900DC2806 /* LoginViewController.m in Sources */,
 				49E98B0E1EDEB81300B04DEF /* ZFPersonalHeaderView.m in Sources */,
 				5019FFAA1ECCAEF800325342 /* MKAnnotationView+WebCache.m in Sources */,
@@ -3224,7 +3151,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3239,7 +3166,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

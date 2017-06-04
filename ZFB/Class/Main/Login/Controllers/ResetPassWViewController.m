@@ -43,6 +43,9 @@
     
     if (textfiled == _tf_newPS) {
         
+        if (_tf_newPS.text.length > 20) {
+            _tf_newPS.enabled = NO;
+        }
         
         NSLog(@"_tf_newPS==%@",_tf_newPS.text);
     }
@@ -51,13 +54,17 @@
         
         //当账号与密码同时有值,登录按钮才能够点击
         if ([_tf_surePS.text isEqualToString:_tf_newPS.text] && (_tf_newPS.text.length >= 8 && _tf_newPS.text.length <=20) ) {
+          
             self.complete_btn.enabled = YES;
             self.complete_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
             
-        }else{
+        }else if(![_tf_newPS.text isEqualToString:_tf_surePS.text]){
+            [self.view makeToast:@"2次输入的密码不匹配" duration:2 position:@"center"];
+          
+        }
+        else{
             self.complete_btn.enabled = NO;
             self.complete_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
-            
         }
     }
     

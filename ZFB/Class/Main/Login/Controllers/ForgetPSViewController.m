@@ -47,8 +47,7 @@
     textfiled.clearButtonMode = UITextFieldViewModeWhileEditing;
     
     if (textfiled == _tf_phoneNum) {
-        
-        
+    
         NSLog(@"_tf_phoneNum==%@",_tf_phoneNum.text);
     }
     if (textfiled == _tf_codeVerification) {
@@ -56,18 +55,18 @@
         
         //当账号与密码同时有值,登录按钮才能够点击
         
-        self.nextStep_btn.enabled = _tf_phoneNum.text.length && _tf_codeVerification.text.length;
-        
-        if ( self.nextStep_btn.enabled == YES) {
+        if (_tf_phoneNum.text.length == 11 && _tf_codeVerification.text.length == 6 ) {
+           
             self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+            self.nextStep_btn.enabled = YES;
 
         }else{
+            self.nextStep_btn.enabled = NO;
             self.nextStep_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
 
         }
     
     }
-    
     
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField
@@ -81,18 +80,15 @@
         }else{
             
             [self.view makeToast:@"手机格式错误" duration:2.0 position:@"center"];
-            
         }
-        
     }
     if (_tf_codeVerification == textField) {
         
         NSLog(@"验证码 ----- 不匹配");
-        
     }
     
 }
-//回收键盘
+//收键盘
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [_tf_codeVerification resignFirstResponder];
@@ -113,6 +109,7 @@
  @param sender 重置密码下一步
  */
 - (void)goToResetPageView:(id)sender {
+
     ResetPassWViewController * resetVc= [[ResetPassWViewController alloc]init];
     [self.navigationController pushViewController:resetVc animated:YES];
     

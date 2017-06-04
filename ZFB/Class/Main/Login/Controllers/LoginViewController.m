@@ -11,11 +11,15 @@
 #import "ForgetPSViewController.h"
 #import "ZFPersonalViewController.h"
 
-
+typedef NS_ENUM(NSUInteger, indexType) {
+    quickLoginIndexType = 0,//快捷登录
+    passwordLoginIndexType,//密码登录
+    
+};
 @interface LoginViewController ()<UITextFieldDelegate>
 {
     
-    BOOL _isQuickLogin;
+//    BOOL _isQuickLogin;
 }
 @property (weak, nonatomic) IBOutlet UISegmentedControl * loginSegment;
 //手机号
@@ -23,9 +27,9 @@
 //验证码 或者 密码
 @property (weak, nonatomic) IBOutlet UITextField *tf_verificationCodeOrPassWord;
 @property (weak, nonatomic) IBOutlet UIImageView *img_iconOfVerificationOrPs;
-
 @property (weak, nonatomic) IBOutlet UIButton *login_btn;
 
+@property (assign,nonatomic) indexType  indexType;
 @end
 
 @implementation LoginViewController
@@ -48,8 +52,8 @@
 -(void)initSegmentInterfaceAndTextfiled
 {
     
-    _isQuickLogin = YES;//默认为快捷登录
     self.navigationItem.title = @"登录展富宝";
+    self.loginSegment.selectedSegmentIndex = 0;
     [self.loginSegment addTarget:self action:@selector(LoginSegmentchange:) forControlEvents:UIControlEventValueChanged];
     
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:HEXCOLOR(0x363636),NSForegroundColorAttributeName,[UIFont fontWithName:@"AppleGothic"size:15],NSFontAttributeName ,nil];
@@ -80,53 +84,97 @@
 - (void)textChange :(UITextField *)textfiled
 {
     textfiled.clearButtonMode = UITextFieldViewModeWhileEditing;
-
-    if (textfiled == _tf_loginphone) {
-      
-
-         NSLog(@"_tf_loginphone==%@",_tf_loginphone.text);
-    }
-    if (textfiled == _tf_verificationCodeOrPassWord) {
-        NSLog(@"tf_verificationCodeOrPassWord==%@",_tf_verificationCodeOrPassWord.text);
-        
-        //当账号与密码同时有值,登录按钮才能够点击
-        self.login_btn.enabled = _tf_loginphone.text.length && _tf_verificationCodeOrPassWord.text.length;
-        if (self.login_btn.enabled == YES) {
-            self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
  
-        }else{
-            self.login_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
 
+    if (_loginSegment.selectedSegmentIndex == 0) {
+        
+        if (textfiled == _tf_verificationCodeOrPassWord) {
+ 
+            //当账号与密码同时有值,登录按钮才能够点击
+            if ( _tf_loginphone.text.length == 11 && _tf_verificationCodeOrPassWord.text.length == 6) {
+                self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+                
+            }else{
+                self.login_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
+                
+            }
         }
+        NSLog(@"快捷登录--验证码 %@ ",_tf_verificationCodeOrPassWord.text );
+ 
+
     }
-    
+    if (_loginSegment.selectedSegmentIndex == 1) {
+        _tf_verificationCodeOrPassWord.secureTextEntry = YES;
+
+         if (_tf_verificationCodeOrPassWord == textfiled) {
+             
+            //当账号与密码同时有值,登录按钮才能够点击
+            if ( _tf_loginphone.text.length == 11 && _tf_verificationCodeOrPassWord.text.length >7) {
+                self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+                
+            }else{
+                self.login_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
+                
+            }
+         
+            NSLog(@"登录--账号+密码 = %@",_tf_verificationCodeOrPassWord.text);
+        }
+
+    }
+  
 }
+
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if (_tf_loginphone == textField) {
-        //判断是不是手机号
-        if ( [_tf_loginphone.text isMobileNumber]) {
-      
-            NSLog(@"请求发送验证码");
-
-        }else{
-            NSLog(@"弹框操作");
-            [self.view makeToast:@"你输入的手机格式错误" duration:2.0 position:@"center"];
+ 
+    if (_loginSegment.selectedSegmentIndex == 1  ) {
+        
+        if (_tf_loginphone == textField) {
+            //判断是不是手机号
+            if ( [_tf_loginphone.text isMobileNumber]) {
+                
+                NSLog(@"自动请求发送验证码");
+                
+            }else{
+                [self.view makeToast:@"你输入的手机格式错误" duration:2.0 position:@"center"];
+                
+            }
+        }
+        if (_tf_verificationCodeOrPassWord == textField) {
+          
+  
+            NSLog(@"快捷登录--验证码2  = %@",_tf_verificationCodeOrPassWord.text);
 
         }
-  
-        NSLog(@"第1行end");
-    }
-    if (_tf_verificationCodeOrPassWord == textField) {
-        if (_isQuickLogin == YES) {
-            NSLog(@"验证 验证码");
-        }else{
-            
-          //  [_tf_verificationCodeOrPassWord.text  isEqualToString:@""];
-            NSLog(@"验证 密码");
+    
+    }else if (_loginSegment.selectedSegmentIndex == 0){
+
+        
+        if (_tf_loginphone == textField) {
+            //判断是不是手机号
+            if ( [_tf_loginphone.text isMobileNumber]) {
+                
+                NSLog(@"自动请求发送验证码");
+                
+            }else{
+                [self.view makeToast:@"你输入的手机格式错误" duration:2.0 position:@"center"];
+                
+            }
+        }
+        if (_tf_verificationCodeOrPassWord == textField) {
+
+            NSLog(@"登录--账号+密码2 %@",textField );
  
         }
     }
+
+}
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    
+    //返回一个BOOL值指明是否允许根据用户请求清除内容
+    //可以设置在特定条件下才允许清除内容
+ 
+    return YES;
 }
 //回收键盘
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -151,9 +199,7 @@
 {
     if (segment.selectedSegmentIndex == 0) {
         
-        NSLog(@"快捷登录");
-        _isQuickLogin = YES;
-        
+        NSLog(@"快捷登录");        
         _tf_verificationCodeOrPassWord.placeholder = @"请输入短信验证码";
         _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@"message"];
         
@@ -161,8 +207,6 @@
     }
     else{
         NSLog(@"密码登录");
-        _isQuickLogin = NO;
-        
         _tf_verificationCodeOrPassWord.placeholder = @"请输入登录密码";
         _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@"passWord"];
         
