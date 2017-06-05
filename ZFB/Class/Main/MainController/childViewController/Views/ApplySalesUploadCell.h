@@ -10,6 +10,9 @@
 
 @interface ApplySalesUploadCell : UITableViewCell
 
+
+-(void)enterNextPage;
+
 @property (weak, nonatomic) IBOutlet UIButton *enter_btn;
 
 @end

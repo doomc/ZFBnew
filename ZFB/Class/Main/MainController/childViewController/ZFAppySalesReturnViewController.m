@@ -15,6 +15,7 @@
 #import "ApplySalesQuestionCell.h"//描述问题
 #import "ZFApplyReasonCell.h"//申请 原因
 #import "ApplySalesUploadCell.h"//上传
+
 static NSString * identiferSalesReturnCell = @"ZFAppySalesReturnCellid";
 static NSString * identiferNumCell = @"ApplySalesNumCellid";
 static NSString * identiferCommonCell = @"ApplySalesAfterCommonCellid";
@@ -73,6 +74,7 @@ static NSString * identiferUploadCell = @"ApplySalesUploadCellid";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    CGFloat height = 0;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             return 80;
@@ -87,7 +89,14 @@ static NSString * identiferUploadCell = @"ApplySalesUploadCellid";
         
         return 70;
     }
-    return 120;
+    
+   // height =200;
+    height =  [tableView fd_heightForCellWithIdentifier:identiferUploadCell configuration:^(id cell) {
+        
+    }];
+    return height;
+    
+  
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -145,12 +154,13 @@ static NSString * identiferUploadCell = @"ApplySalesUploadCellid";
     NSLog(@"%ld == section ，%ld == row",indexPath.section,indexPath.row);
     
     if (indexPath.section== 4) {
-        
+ 
+
         ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
         [self.navigationController pushViewController: bcVC animated:YES];
     }
 }
--(void)sureReturanWays:(UIButton *)sender
+-(void)enterNextPage
 {
     NSLog(@"i下一步");
     

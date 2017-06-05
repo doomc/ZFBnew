@@ -18,13 +18,19 @@
 #endif
 
 //第三方工具类
-#import "SDCycleScrollView.h"
-#import "ControlFactory.h"//创建导航按钮
-#import "DCNavTabBarController.h"
-#import "MBProgressHUD.h"
-#import "MBProgressHUD+MP.h"
-#import "UIImageView+WebCache.h"
+    #import "SDCycleScrollView.h"
+    #import "ControlFactory.h"//创建导航按钮
+    #import "DCNavTabBarController.h"
+    #import "MBProgressHUD.h"
+    #import "MBProgressHUD+MP.h"
+    #import "UIImageView+WebCache.h"
+    #import "JXTAlertController.h"
 
+
+
+    #import "QBImagePickerController.h"
+    #import "cameraHelper.h"
+    #import "ZYQAssetPickerController.h"
 
 
 #endif /* Header_h */
