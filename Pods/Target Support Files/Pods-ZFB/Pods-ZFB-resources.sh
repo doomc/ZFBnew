@@ -77,15 +77,11 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_resource "AMap3DMap/MAMapKit.framework/AMap.bundle"
-  install_resource "AMapNavi/AMapNaviKit.framework/AMapNavi.bundle"
   install_resource "$PODS_CONFIGURATION_BUILD_DIR/QBImagePickerController/QBImagePicker.bundle"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
   install_resource "ZYQAssetPickerController/ZYQAssetPickerController/ZYQAssetPicker.Bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_resource "AMap3DMap/MAMapKit.framework/AMap.bundle"
-  install_resource "AMapNavi/AMapNaviKit.framework/AMapNavi.bundle"
   install_resource "$PODS_CONFIGURATION_BUILD_DIR/QBImagePickerController/QBImagePicker.bundle"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
   install_resource "ZYQAssetPickerController/ZYQAssetPickerController/ZYQAssetPicker.Bundle"

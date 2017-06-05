@@ -7,88 +7,88 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04098200C800D96C67BBC410B6BF7882 /* SVRadialGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C04A5BF2CA40A89E165B20E0A3F55914 /* SVRadialGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		042333560F529CB0A5D8C0E26D92CCDC /* QBAlbumCell.h in Headers */ = {isa = PBXBuildFile; fileRef = CD7D2FE52DB44DA5A02A136F7A2F7BAA /* QBAlbumCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		046B2121B80D2AD2C4BDAE7F901852E3 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7EF32C0F5AA578B272F736F808EF363 /* SVIndefiniteAnimatedView.m */; };
-		0F0DBD5304322C99E847F5683844B009 /* QBCheckmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E9F55DB0FE7269DA57E9B2D5AED60E /* QBCheckmarkView.m */; };
-		0F77480092E3BA48ACBB1C5F4CB4AD4C /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C1B104E4E558C160BC2DD469FE9028DD /* es.lproj */; };
-		1341A7AC2439CB63D459D32EF985A414 /* UIImage+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = ACD551E793A08D03A421D69F5B900E49 /* UIImage+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		154247D352D180AAD9963D00311E8597 /* QBCheckmarkView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6178C92EE50DC25880CFBF268BE050 /* QBCheckmarkView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1FA798359C9FB0DE96001F99CB3A5A4C /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D589B19F3DE605A0341C2E7F4357912 /* SVRadialGradientLayer.m */; };
-		2339D633C3D4378D4B00D432AEF5B8F6 /* SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4B84FBAFCBD8C512445CB4EDA38BE7 /* SVProgressHUD-dummy.m */; };
-		2579663181BFA8F7DA4B5D7CF8537FC0 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA1DF34440AE8E00F72475AEDBE34EE /* UIActivityIndicatorView+AFNetworking.m */; };
-		27110C880DF021082C421FBD50B7379E /* QBImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = F003938FC539093C658790281A1B2562 /* QBImagePickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04098200C800D96C67BBC410B6BF7882 /* SVRadialGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 44A64B4DBE03FB8E0F30BE1C1BC73450 /* SVRadialGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		042333560F529CB0A5D8C0E26D92CCDC /* QBAlbumCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8766F7FBF5AF02EAA4C1EDFACE211A /* QBAlbumCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		046B2121B80D2AD2C4BDAE7F901852E3 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C84703A6E2BBCE815F928D6190EED72 /* SVIndefiniteAnimatedView.m */; };
+		0F0DBD5304322C99E847F5683844B009 /* QBCheckmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4E222FBF46CAF856320BF3311D846D /* QBCheckmarkView.m */; };
+		0F77480092E3BA48ACBB1C5F4CB4AD4C /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = EC9B1E91BC0CD761EDA142FA643E63AE /* es.lproj */; };
+		1341A7AC2439CB63D459D32EF985A414 /* UIImage+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = DB0E425EEB8A1CAEE77BD062A6C9980C /* UIImage+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		154247D352D180AAD9963D00311E8597 /* QBCheckmarkView.h in Headers */ = {isa = PBXBuildFile; fileRef = 558ACDB9376E3CA60DEC2FB89ACEFE19 /* QBCheckmarkView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1FA798359C9FB0DE96001F99CB3A5A4C /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB17819113E17053CCCA333884C80D6 /* SVRadialGradientLayer.m */; };
+		2339D633C3D4378D4B00D432AEF5B8F6 /* SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F6BF3A8F8A6B1C2DB9E74D58654455 /* SVProgressHUD-dummy.m */; };
+		2579663181BFA8F7DA4B5D7CF8537FC0 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A827B2E0FDF56FDB057F0D77B5CD15 /* UIActivityIndicatorView+AFNetworking.m */; };
+		27110C880DF021082C421FBD50B7379E /* QBImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = B413ADC6F4B126F9EA30391D63A7E7E7 /* QBImagePickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2843898C40D365BC1361BF1CD832E9B2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D0DAD1FDAC15566990A689329CB879 /* CoreGraphics.framework */; };
-		2EBAA518CB8B2DAF89A63637091D4615 /* UIButton+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = AA702B62DE1FE4A6EEB22CA3E59600E9 /* UIButton+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		31ED9BD97AF9E62874AF3CDF2F8090CF /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2173EB4906346C14B93CDCDC006A2400 /* AFNetworkActivityIndicatorManager.m */; };
-		32C9C01F11F6AE5FF1C726B148EA7691 /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = B2CFBA47F1411DC0BB6586648AAE359B /* SVIndefiniteAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34B8AC05E67149A20297F258ECD2CD70 /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = CE385907A1922068FF3E30A0CE619223 /* SVProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		381C76085D4F09A44F626FE71549DC3E /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 964D13778544E1F3450CAB1BF7ABE7F7 /* zh-Hans.lproj */; };
-		39A3A80C79524514488191AE8CFCC997 /* ZYQAssetPickerController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F11E46A4168DF0E56919AEA9983F188C /* ZYQAssetPickerController-dummy.m */; };
+		2EBAA518CB8B2DAF89A63637091D4615 /* UIButton+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 4861F79B839E539B1C5476A9E4ADE5C4 /* UIButton+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		31ED9BD97AF9E62874AF3CDF2F8090CF /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F455B08B807B4AE1BBEAB4F3B76D0FBF /* AFNetworkActivityIndicatorManager.m */; };
+		32C9C01F11F6AE5FF1C726B148EA7691 /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 55DB13A9B1BE6737FA9497EBEA2733F6 /* SVIndefiniteAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B8AC05E67149A20297F258ECD2CD70 /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 35379835BDD1E0B96E6F066F84122640 /* SVProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		381C76085D4F09A44F626FE71549DC3E /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A6C2A44CBDBF52C3BDD0A1744FF35A58 /* zh-Hans.lproj */; };
+		39A3A80C79524514488191AE8CFCC997 /* ZYQAssetPickerController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C8B13D21D5011BF6CCA5BE2CA5BE6C /* ZYQAssetPickerController-dummy.m */; };
 		3D80C615D2C61A11F4E4798456DDDAB2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF3409AE0710D70B766A5319BA84CD05 /* Foundation.framework */; };
-		3D9677831A2561A028571447641CE0B0 /* QBAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB30533FF1B48CF7E6EEDC9B743AE91 /* QBAssetsViewController.m */; };
-		46401F3C7FF0B0CFE2E9B14914780835 /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 11B830320B3074F4C71F7924E2563798 /* AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4A31A0AD5C4DB8E752688C143AFFC24D /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A707ADE6611A3D071EBF092C5CC2BC8 /* SVProgressAnimatedView.m */; };
-		4CF4EF17274330A4D3D43E2A41F792DE /* ZYQAssetPickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 733B750448991190390BDFCC4F23B399 /* ZYQAssetPickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		557C774B4DF37CD9B1721CA3D71527BD /* QBAlbumsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90E46F45DCBB3A0A18C2CE1F82FC6C /* QBAlbumsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5719F06B809080CDEF7E6BC75DEA1A3C /* UIKit+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = CF0889AF39C1EE064496B03BDA2EC4E0 /* UIKit+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5945033488F9995134DBB7014DE2412F /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 143BD226A1797F75AD5E131C58FA5BA0 /* AFURLRequestSerialization.m */; };
-		5C0696B2AD1DC23F6473F5A19FAB6296 /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFD2F95A549570D9886AFAB50620D35 /* AFImageDownloader.m */; };
-		5DE6F96E12B197B5F4C15EC59E6423F5 /* QBAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C66A1A89B545EA8EB3690F8B93F1B97 /* QBAlbumCell.m */; };
-		641954F150459C3018BA5C834B615BD7 /* QBAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4938CF8DE2615951F7B4C22DB7BB1C /* QBAssetCell.m */; };
-		66635EAAE52FF5571DBCDC626FB8CA86 /* AFURLResponseSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 117C48E725CA92A300794A74A8256267 /* AFURLResponseSerialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66E1040543AF7BA3DC3731FE17C85F5B /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE1F206260EF5ADABDAABF5F0F4D389 /* AFSecurityPolicy.m */; };
-		682B0E603612B6ADBCCF30580F9A4B09 /* UIActivityIndicatorView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 281457EEF49E23B0A8233402834797E5 /* UIActivityIndicatorView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6A928BA4D6610C663E1D4CA5169F15D1 /* QBVideoIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 38BBBCC1208A17539AEACDD27BBC7778 /* QBVideoIndicatorView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6B71CE5BA32574F407349C1DA20605B4 /* AFHTTPSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A84E46AA3425A24597B6E9FF08169D1 /* AFHTTPSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D9677831A2561A028571447641CE0B0 /* QBAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6B15312DD3426D0F9F38DCF6DB9A48 /* QBAssetsViewController.m */; };
+		46401F3C7FF0B0CFE2E9B14914780835 /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BD103CD6313B380DE5BC6D80F96380 /* AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4A31A0AD5C4DB8E752688C143AFFC24D /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D3BADAFDF5C5F5B3BD8B2A89AEB39 /* SVProgressAnimatedView.m */; };
+		4CF4EF17274330A4D3D43E2A41F792DE /* ZYQAssetPickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2209ECD1B16F695E97D9B52C2F3F2D32 /* ZYQAssetPickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		557C774B4DF37CD9B1721CA3D71527BD /* QBAlbumsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F3D9F2E465293B6167319C8BDEB43C1 /* QBAlbumsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5719F06B809080CDEF7E6BC75DEA1A3C /* UIKit+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = A16ED2764C15D421D00BF377F5CFF9CB /* UIKit+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5945033488F9995134DBB7014DE2412F /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0DE7467F1A261635E6DDCC014A8D70 /* AFURLRequestSerialization.m */; };
+		5C0696B2AD1DC23F6473F5A19FAB6296 /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DA9D167180B941B28C80E50DE2D02A /* AFImageDownloader.m */; };
+		5DE6F96E12B197B5F4C15EC59E6423F5 /* QBAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0388D077B351C41831E9D2454282086 /* QBAlbumCell.m */; };
+		641954F150459C3018BA5C834B615BD7 /* QBAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0B2D783F47EE82DF93276E5897659D /* QBAssetCell.m */; };
+		66635EAAE52FF5571DBCDC626FB8CA86 /* AFURLResponseSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 99724337F173EC61947315ACABA45E6B /* AFURLResponseSerialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66E1040543AF7BA3DC3731FE17C85F5B /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FF6E24554D2A687CD900103A4F6527 /* AFSecurityPolicy.m */; };
+		682B0E603612B6ADBCCF30580F9A4B09 /* UIActivityIndicatorView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 761CEA95411B1509080B04174B4D5377 /* UIActivityIndicatorView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6A928BA4D6610C663E1D4CA5169F15D1 /* QBVideoIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 095FC8E4587E093BF0C4691B1F9F2309 /* QBVideoIndicatorView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6B71CE5BA32574F407349C1DA20605B4 /* AFHTTPSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8C7AC57E2A031FFEC950BCCBDA42D2 /* AFHTTPSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DD1F47143504CB27426DD2C27137CAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF3409AE0710D70B766A5319BA84CD05 /* Foundation.framework */; };
-		707E818332E5033501DF2D7826C639DF /* AFImageDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E2FA092256E05B622D3D6DF7D6126DD /* AFImageDownloader.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		73811DA312BCB537D44D62EC6AD15766 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E37D782BA69F56DA6F24E02416D96F7 /* AFHTTPSessionManager.m */; };
-		76DF3BDFB832EE8456F98F15C0014156 /* QBAssetsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CC142F63B3682468859CE5DB0C9065B /* QBAssetsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		775CE7A8107457BDE59F113D40020839 /* AFAutoPurgingImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = FB481E0C891138F3EE4B12D970AFCD7E /* AFAutoPurgingImageCache.m */; };
-		78AF4C23F9170852CBE79425677787DA /* SVProgressAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A7431A13C34FB61B51CCC95B0574CA1 /* SVProgressAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7F90F9269BEBFFF2BBCE5D09FA85CBAC /* QBAssetCell.h in Headers */ = {isa = PBXBuildFile; fileRef = CC8149BF41FD1E4D83380E2DE18E3381 /* QBAssetCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		805A18BA057DC03B629B0E8A2986F50E /* QBVideoIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB342D2ED952AB345E1646290EF90CB /* QBVideoIconView.m */; };
-		85D30678FF4F0AB306399A368EAA46B2 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 236E17B1CF8C513E5584F7CCDB51C549 /* AFURLResponseSerialization.m */; };
+		707E818332E5033501DF2D7826C639DF /* AFImageDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AC4BF10AEB2138666FA260989E30DA4 /* AFImageDownloader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		73811DA312BCB537D44D62EC6AD15766 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 483774E6C5F8C330963F9002BA44626B /* AFHTTPSessionManager.m */; };
+		76DF3BDFB832EE8456F98F15C0014156 /* QBAssetsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69AA6713A79CEF85C461FB2E8C88AE4B /* QBAssetsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		775CE7A8107457BDE59F113D40020839 /* AFAutoPurgingImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DE3CAC4DD09FEE0B9CF13833F768C526 /* AFAutoPurgingImageCache.m */; };
+		78AF4C23F9170852CBE79425677787DA /* SVProgressAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = C3FD787FDB96F0D28F1CFF2BAC80C8F4 /* SVProgressAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F90F9269BEBFFF2BBCE5D09FA85CBAC /* QBAssetCell.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7359B82681D88791686353848C4AB5 /* QBAssetCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		805A18BA057DC03B629B0E8A2986F50E /* QBVideoIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A758B1EA79A2D6ACC687D3481374FC /* QBVideoIconView.m */; };
+		85D30678FF4F0AB306399A368EAA46B2 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DF50ECBDC3D86B0E12E4E1C8CFE81 /* AFURLResponseSerialization.m */; };
 		863B38793699C0C50B70B944777EA6EC /* Pods-ZFB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B0279AF609AE1ACC8E241AF8EB7B9F83 /* Pods-ZFB-dummy.m */; };
 		8649B2A808BB303649A116808870BEA6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9F95797B7892F2DB94A2AAB9DA0714F /* AssetsLibrary.framework */; };
-		866172CCFD3455AD2D804BCCD27B6FAB /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 979B68B32491DCC01F17E86962192E50 /* SVProgressHUD.m */; };
-		8958F2453EEBAF71BFEBD78FB48986EC /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A22BC60FF4064D6DCA1E433320895E /* UIWebView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		866172CCFD3455AD2D804BCCD27B6FAB /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 149D6555AC6D914DF6AF758CA6E754FC /* SVProgressHUD.m */; };
+		8958F2453EEBAF71BFEBD78FB48986EC /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = B4ED913A6ECE2426BE3C42BACD7A33EA /* UIWebView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8B1E1A45E0B423395CE2A513BB1B1010 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8E597145F008AAAD4F54A8CD613C8E1 /* MobileCoreServices.framework */; };
-		97A86FAAD4B1AD9B3292FF6AF1D8F82B /* AFNetworking-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEF057C492C90941300F3B66895936F /* AFNetworking-dummy.m */; };
-		9F5BB6B4995BA4A3B2C6AEBA6C31A6DB /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D6C55195FA712B9D038D2E80FC4E7C7 /* AFURLSessionManager.m */; };
-		9FC443CA25794E385081F77D22F9AF9E /* QBImagePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BEF5331BC8548B5DE63754DA2BC9B01 /* QBImagePicker.storyboard */; };
-		A277AD9070E44BED5A7DE0B1D64D6F15 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EF53AC9F5116E16857F5270E14E43470 /* UIImageView+AFNetworking.m */; };
+		97A86FAAD4B1AD9B3292FF6AF1D8F82B /* AFNetworking-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FF1159D9FC6A1E55069EAFA0EF9C90 /* AFNetworking-dummy.m */; };
+		9F5BB6B4995BA4A3B2C6AEBA6C31A6DB /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD77B6428ADC423CAB2F8FF417A2DA6 /* AFURLSessionManager.m */; };
+		9FC443CA25794E385081F77D22F9AF9E /* QBImagePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F8C853E7FEC441544903F0993FF12A1 /* QBImagePicker.storyboard */; };
+		A277AD9070E44BED5A7DE0B1D64D6F15 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 36749D4A173336C6CC454C9953940906 /* UIImageView+AFNetworking.m */; };
 		A39A72DB93CA11EEAB5037388DE05617 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF3409AE0710D70B766A5319BA84CD05 /* Foundation.framework */; };
 		A50A05922A644FCF1187011B038A50FC /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9F95797B7892F2DB94A2AAB9DA0714F /* AssetsLibrary.framework */; };
-		A7F7FDCD36E2DD8D8E346DB19452CC03 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F889B2FAC7951A65C21F9450080637 /* UIWebView+AFNetworking.m */; };
-		AAF4C68C1C99BB1EC203162B78CDEBD6 /* ZYQAssetPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A66AD7A310C3516B4AA7C4C1D208E45 /* ZYQAssetPickerController.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		A7F7FDCD36E2DD8D8E346DB19452CC03 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BE62A465136F75C1DF20D956DA942740 /* UIWebView+AFNetworking.m */; };
+		AAF4C68C1C99BB1EC203162B78CDEBD6 /* ZYQAssetPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB60B3FC94DBAD1147A39CB5B25B929 /* ZYQAssetPickerController.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		AFD0634B4D580C7C585C242BE0008A0E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF3409AE0710D70B766A5319BA84CD05 /* Foundation.framework */; };
-		B40756412613B53C80EE77C4C223990F /* UIProgressView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A652FB0BBEDCD139CF042BB30F02B9 /* UIProgressView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B84CD33084C9867E67BD56E47B7BFC04 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 04123B2F5D9B178A82BEA2A2524234C7 /* UIRefreshControl+AFNetworking.m */; };
-		C1C0D7C93BF3DE14A26757273598D0FA /* AFURLRequestSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 19E0659F887B579FF95BC0D219CE9F9B /* AFURLRequestSerialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C3B819509F9151E391339E9B0AE2876F /* QBImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C33520AC9E320D9792B3FD067D83A34 /* QBImagePickerController.m */; };
-		C3BBAA09EE801B5CA9AC29E77D3378C5 /* QBVideoIconView.h in Headers */ = {isa = PBXBuildFile; fileRef = DC03F43BAD032088552303851A5B63EC /* QBVideoIconView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D10CC46035F7A0C868C0955664A34609 /* UIButton+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 917011BC37354717D227C6A8B88A4992 /* UIButton+AFNetworking.m */; };
-		D4AA4704CA7863CC86E22AAF88635836 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F822F30DD817FE16DFCE573B56A5FA /* UIProgressView+AFNetworking.m */; };
-		D59FC98A74E440C4725B6FDC28F5951E /* AFSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 07DCB91B5DC817BD4DC31E4EA333A805 /* AFSecurityPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D5CB999FB5FC80FC126A38AB4DF12227 /* UIImageView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 698150AAEB149FE2081819EF6F69459C /* UIImageView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B40756412613B53C80EE77C4C223990F /* UIProgressView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 71D9C16F8649287261BFD5A9A4815C7C /* UIProgressView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B84CD33084C9867E67BD56E47B7BFC04 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD32F9D024AC26C11E8C5F294DF5588 /* UIRefreshControl+AFNetworking.m */; };
+		C1C0D7C93BF3DE14A26757273598D0FA /* AFURLRequestSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 29ED57E24B4A67A5DA89401ECD8108E0 /* AFURLRequestSerialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3B819509F9151E391339E9B0AE2876F /* QBImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F251A10DFD3A408CB9E4405097A71B /* QBImagePickerController.m */; };
+		C3BBAA09EE801B5CA9AC29E77D3378C5 /* QBVideoIconView.h in Headers */ = {isa = PBXBuildFile; fileRef = E4E745239064B71800CDD60FAAB1ABEC /* QBVideoIconView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D10CC46035F7A0C868C0955664A34609 /* UIButton+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EE6773256B3359DB49EF2323D9712C /* UIButton+AFNetworking.m */; };
+		D4AA4704CA7863CC86E22AAF88635836 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = B9555091A21D34C65BEDF108A7327536 /* UIProgressView+AFNetworking.m */; };
+		D59FC98A74E440C4725B6FDC28F5951E /* AFSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = C2FA8B2D0DBB1B2AFB3BF5FB70CE0BD9 /* AFSecurityPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5CB999FB5FC80FC126A38AB4DF12227 /* UIImageView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 860D6A2DE38FA32BF2B0D2A686022C03 /* UIImageView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D6661D944DA4B5402DA6B57914542DF9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D89E285F577D9FCFE56B28B272E7FB7 /* Security.framework */; };
 		DBC1BC8A3D056F455A32F5F00E027E39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF3409AE0710D70B766A5319BA84CD05 /* Foundation.framework */; };
-		DE31BBF6A7963C5871A19655EF5532BE /* AFNetworkReachabilityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B69372656203A5A5E8890C09D551909 /* AFNetworkReachabilityManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE5CED180B6B66755D1742400E8A1795 /* QBImagePickerController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F1DC64F2265A2E7E25152796716796 /* QBImagePickerController-dummy.m */; };
-		E0EF330DB2D3521ED26E67B2E8687A2E /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E32D18214AE82D11A44FC06C820B7AF /* AFNetworkReachabilityManager.m */; };
-		E202B7131923A33A554CFA1427C9BEAC /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = CCD1F0045524F848E886AB842B404113 /* en.lproj */; };
-		E445619859BCCF3EDE6A3D53441CCADC /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 29367E03BCB673601BF8EA033E4E9E18 /* ja.lproj */; };
+		DE31BBF6A7963C5871A19655EF5532BE /* AFNetworkReachabilityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B6C6355285C746D6B314833D3C68B14 /* AFNetworkReachabilityManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE5CED180B6B66755D1742400E8A1795 /* QBImagePickerController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 891E23CF7F74E4431F8111A1F84ADE51 /* QBImagePickerController-dummy.m */; };
+		E0EF330DB2D3521ED26E67B2E8687A2E /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B41784FEAC1EAF2E546035CD8D1B22 /* AFNetworkReachabilityManager.m */; };
+		E202B7131923A33A554CFA1427C9BEAC /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 778E98C52547B3AF208ED3F793EFD432 /* en.lproj */; };
+		E445619859BCCF3EDE6A3D53441CCADC /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = BE0FE49C618392F6C7C662D92AA8BBC2 /* ja.lproj */; };
 		E738C16AF8020F2D6948D867AA7109EF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 973991C34A9352A1E96AF839BD3B338B /* SystemConfiguration.framework */; };
-		E7B0270BEDCBE116DDD853F76E27B0BA /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EA21225F1B658BE211C78223038D8140 /* AFNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E7B0270BEDCBE116DDD853F76E27B0BA /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B445F31F2D3E962F79008E5EF69D2B /* AFNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAEEEC1407A67B1953AF4D14F9A7EE2B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2465114B5622BFE3705A93422151CC /* QuartzCore.framework */; };
-		EB3A3E4C5BB0D6C0601733D123BC40D2 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 45FBDF9C19434E20D020AF126B0DDC76 /* de.lproj */; };
-		EF9A7F1D12E9179812641E755F5F72FE /* QBVideoIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41141F6C3622FA7357DCB1A615441A28 /* QBVideoIndicatorView.m */; };
-		F099E5987DD80E8D78E909AF81D3C587 /* UIRefreshControl+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = EBE02834A5C74C7F2CE8B0EED79D424B /* UIRefreshControl+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F1F93EE1AA5E870F2CE81325CE9EB643 /* AFAutoPurgingImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = FE1D5A652F42B9B8D45B6D5F4D78AD43 /* AFAutoPurgingImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5CC06F3E0C232483A72DCCFAF393BE0 /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E24838644EEA3DB1B7AD224D5AA75AC /* AFURLSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FC249297138A5F99AE01BD5868B0504D /* QBAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D548A65F5C22E54E0DAED718A3A9ACCE /* QBAlbumsViewController.m */; };
+		EB3A3E4C5BB0D6C0601733D123BC40D2 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = DCC5567250B449B28717C3E766231DD0 /* de.lproj */; };
+		EF9A7F1D12E9179812641E755F5F72FE /* QBVideoIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20FB2D8AB8C5064FF11CC67C36C185A6 /* QBVideoIndicatorView.m */; };
+		F099E5987DD80E8D78E909AF81D3C587 /* UIRefreshControl+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 56EF229ADDE687D5475572566250B101 /* UIRefreshControl+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F1F93EE1AA5E870F2CE81325CE9EB643 /* AFAutoPurgingImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 64F4DE73F87A68872A57EF70C399DEFE /* AFAutoPurgingImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5CC06F3E0C232483A72DCCFAF393BE0 /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7168CE05FE3D5ED31D460D4B4341B943 /* AFURLSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FC249297138A5F99AE01BD5868B0504D /* QBAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE291C8354AB320B47827C0C28F6C7A6 /* QBAlbumsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,204 +130,107 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01E996ABC4CF5B7D24F02711FE88CAC7 /* AMapLocationKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapLocationKit.h; path = AMapLocationKit.framework/Headers/AMapLocationKit.h; sourceTree = "<group>"; };
-		04123B2F5D9B178A82BEA2A2524234C7 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIRefreshControl+AFNetworking.m"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
-		055B64DEDDE4B3F3B202F4C7AA4B6EFF /* MAPolylineRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAPolylineRenderer.h; path = MAMapKit.framework/Headers/MAPolylineRenderer.h; sourceTree = "<group>"; };
-		06420D4A19504115C88248F5073CBCA5 /* MAShape.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAShape.h; path = MAMapKit.framework/Headers/MAShape.h; sourceTree = "<group>"; };
-		07415FDCA3F83D0F1B5C10AFD8D4C31A /* MAOfflineCity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAOfflineCity.h; path = MAMapKit.framework/Headers/MAOfflineCity.h; sourceTree = "<group>"; };
-		07A652FB0BBEDCD139CF042BB30F02B9 /* UIProgressView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIProgressView+AFNetworking.h"; path = "UIKit+AFNetworking/UIProgressView+AFNetworking.h"; sourceTree = "<group>"; };
-		07DCB91B5DC817BD4DC31E4EA333A805 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFSecurityPolicy.h; path = AFNetworking/AFSecurityPolicy.h; sourceTree = "<group>"; };
-		0AC05A53E991D0D4337BE459A99A411C /* MAMapVersion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAMapVersion.h; path = MAMapKit.framework/Headers/MAMapVersion.h; sourceTree = "<group>"; };
-		0BEF5331BC8548B5DE63754DA2BC9B01 /* QBImagePicker.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; name = QBImagePicker.storyboard; path = QBImagePicker/QBImagePicker.storyboard; sourceTree = "<group>"; };
-		0CC142F63B3682468859CE5DB0C9065B /* QBAssetsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBAssetsViewController.h; path = QBImagePicker/QBAssetsViewController.h; sourceTree = "<group>"; };
-		117C48E725CA92A300794A74A8256267 /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLResponseSerialization.h; path = AFNetworking/AFURLResponseSerialization.h; sourceTree = "<group>"; };
-		11B830320B3074F4C71F7924E2563798 /* AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworking.h; path = AFNetworking/AFNetworking.h; sourceTree = "<group>"; };
-		137B14E08B770E9B5454A1BFEC9A70D8 /* MATouchPoi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MATouchPoi.h; path = MAMapKit.framework/Headers/MATouchPoi.h; sourceTree = "<group>"; };
-		143BD226A1797F75AD5E131C58FA5BA0 /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLRequestSerialization.m; path = AFNetworking/AFURLRequestSerialization.m; sourceTree = "<group>"; };
+		019F61A824A8E6F25B9E8C5E2C7215DE /* ZYQAssetPickerController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZYQAssetPickerController-prefix.pch"; sourceTree = "<group>"; };
+		095FC8E4587E093BF0C4691B1F9F2309 /* QBVideoIndicatorView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBVideoIndicatorView.h; path = QBImagePicker/QBVideoIndicatorView.h; sourceTree = "<group>"; };
+		0AC4BF10AEB2138666FA260989E30DA4 /* AFImageDownloader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFImageDownloader.h; path = "UIKit+AFNetworking/AFImageDownloader.h"; sourceTree = "<group>"; };
+		0B601D8A35F80A3FD8CE7406EE658E2D /* QBImagePickerController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QBImagePickerController.xcconfig; sourceTree = "<group>"; };
+		12EE6773256B3359DB49EF2323D9712C /* UIButton+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIButton+AFNetworking.m"; path = "UIKit+AFNetworking/UIButton+AFNetworking.m"; sourceTree = "<group>"; };
+		149D6555AC6D914DF6AF758CA6E754FC /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
 		1784E2B85E5CDF45075F26A96B1FB72E /* QBImagePicker.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = QBImagePicker.bundle; path = QBImagePicker.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		18299125B5EDDE23B6B8A018FE6C733D /* MAGeodesicPolyline.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAGeodesicPolyline.h; path = MAMapKit.framework/Headers/MAGeodesicPolyline.h; sourceTree = "<group>"; };
-		18301736ADC230731B00A45302275462 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
-		19E0659F887B579FF95BC0D219CE9F9B /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLRequestSerialization.h; path = AFNetworking/AFURLRequestSerialization.h; sourceTree = "<group>"; };
-		1A84E46AA3425A24597B6E9FF08169D1 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFHTTPSessionManager.h; path = AFNetworking/AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		1B2465114B5622BFE3705A93422151CC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		1B6DDCA8A506741CEFE450234A2B37E3 /* AMapNaviVersion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviVersion.h; path = AMapNaviKit.framework/Headers/AMapNaviVersion.h; sourceTree = "<group>"; };
-		1CBB8006E15CC73BD3E607E174EA8D50 /* MAPinAnnotationView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAPinAnnotationView.h; path = MAMapKit.framework/Headers/MAPinAnnotationView.h; sourceTree = "<group>"; };
-		1D589B19F3DE605A0341C2E7F4357912 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVRadialGradientLayer.m; path = SVProgressHUD/SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		1C4E222FBF46CAF856320BF3311D846D /* QBCheckmarkView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBCheckmarkView.m; path = QBImagePicker/QBCheckmarkView.m; sourceTree = "<group>"; };
 		1D89E285F577D9FCFE56B28B272E7FB7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		1D9D112F0C3E27F67DEA806A6F6890A9 /* AMapNearbyUploadInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNearbyUploadInfo.h; path = AMapSearchKit.framework/Headers/AMapNearbyUploadInfo.h; sourceTree = "<group>"; };
-		1E24838644EEA3DB1B7AD224D5AA75AC /* AFURLSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLSessionManager.h; path = AFNetworking/AFURLSessionManager.h; sourceTree = "<group>"; };
-		2173EB4906346C14B93CDCDC006A2400 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkActivityIndicatorManager.m; path = "UIKit+AFNetworking/AFNetworkActivityIndicatorManager.m"; sourceTree = "<group>"; };
-		21AA758F3B64E96F68B39F83B075D6E9 /* AMapSearchVersion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapSearchVersion.h; path = AMapSearchKit.framework/Headers/AMapSearchVersion.h; sourceTree = "<group>"; };
-		236E17B1CF8C513E5584F7CCDB51C549 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLResponseSerialization.m; path = AFNetworking/AFURLResponseSerialization.m; sourceTree = "<group>"; };
-		25C12AAC1CED8C5FB8095FD88C083C27 /* MAMultiColoredPolylineRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAMultiColoredPolylineRenderer.h; path = MAMapKit.framework/Headers/MAMultiColoredPolylineRenderer.h; sourceTree = "<group>"; };
-		28082C36CF882EE5CD88186A3BFF6BBF /* SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
-		281457EEF49E23B0A8233402834797E5 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActivityIndicatorView+AFNetworking.h"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
-		29367E03BCB673601BF8EA033E4E9E18 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ja.lproj; path = QBImagePicker/ja.lproj; sourceTree = "<group>"; };
-		29F889B2FAC7951A65C21F9450080637 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+AFNetworking.m"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
-		2C90E46F45DCBB3A0A18C2CE1F82FC6C /* QBAlbumsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBAlbumsViewController.h; path = QBImagePicker/QBAlbumsViewController.h; sourceTree = "<group>"; };
-		2CA1DF34440AE8E00F72475AEDBE34EE /* UIActivityIndicatorView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIActivityIndicatorView+AFNetworking.m"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.m"; sourceTree = "<group>"; };
+		1DD7511959859AB0A3B59E7D5B6B7900 /* SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
+		20FB2D8AB8C5064FF11CC67C36C185A6 /* QBVideoIndicatorView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBVideoIndicatorView.m; path = QBImagePicker/QBVideoIndicatorView.m; sourceTree = "<group>"; };
+		2209ECD1B16F695E97D9B52C2F3F2D32 /* ZYQAssetPickerController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZYQAssetPickerController.h; path = ZYQAssetPickerController/ZYQAssetPickerController.h; sourceTree = "<group>"; };
+		23F251A10DFD3A408CB9E4405097A71B /* QBImagePickerController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBImagePickerController.m; path = QBImagePicker/QBImagePickerController.m; sourceTree = "<group>"; };
+		28C8B13D21D5011BF6CCA5BE2CA5BE6C /* ZYQAssetPickerController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZYQAssetPickerController-dummy.m"; sourceTree = "<group>"; };
+		29ED57E24B4A67A5DA89401ECD8108E0 /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLRequestSerialization.h; path = AFNetworking/AFURLRequestSerialization.h; sourceTree = "<group>"; };
 		2E0A200EB23D8B98D40565ED78BD27CB /* Pods-ZFB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZFB.release.xcconfig"; sourceTree = "<group>"; };
-		2E2FA092256E05B622D3D6DF7D6126DD /* AFImageDownloader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFImageDownloader.h; path = "UIKit+AFNetworking/AFImageDownloader.h"; sourceTree = "<group>"; };
-		2F02EA7D9C4BB45AA058E6E6D44DAFE9 /* MAGeometry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAGeometry.h; path = MAMapKit.framework/Headers/MAGeometry.h; sourceTree = "<group>"; };
-		32782FAD0B91C7C63DF2A58ACB33BBCF /* AMapNaviRideManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviRideManager.h; path = AMapNaviKit.framework/Headers/AMapNaviRideManager.h; sourceTree = "<group>"; };
-		38BBBCC1208A17539AEACDD27BBC7778 /* QBVideoIndicatorView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBVideoIndicatorView.h; path = QBImagePicker/QBVideoIndicatorView.h; sourceTree = "<group>"; };
-		3B3014DF5B939A7835506DF884D5FF66 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
-		3C66A1A89B545EA8EB3690F8B93F1B97 /* QBAlbumCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBAlbumCell.m; path = QBImagePicker/QBAlbumCell.m; sourceTree = "<group>"; };
-		3E3B469F65DFFEBE9A91CF9DF1A777DC /* MAMapKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAMapKit.h; path = MAMapKit.framework/Headers/MAMapKit.h; sourceTree = "<group>"; };
-		3F23247DA8EAF363158DE6C4EFF957ED /* ZYQAssetPickerController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZYQAssetPickerController-prefix.pch"; sourceTree = "<group>"; };
-		3F7B761CD9D15C7EA5DFDA1F1628E120 /* MAOfflineProvince.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAOfflineProvince.h; path = MAMapKit.framework/Headers/MAOfflineProvince.h; sourceTree = "<group>"; };
-		41141F6C3622FA7357DCB1A615441A28 /* QBVideoIndicatorView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBVideoIndicatorView.m; path = QBImagePicker/QBVideoIndicatorView.m; sourceTree = "<group>"; };
-		41E9F55DB0FE7269DA57E9B2D5AED60E /* QBCheckmarkView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBCheckmarkView.m; path = QBImagePicker/QBCheckmarkView.m; sourceTree = "<group>"; };
-		43A22BC60FF4064D6DCA1E433320895E /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIWebView+AFNetworking.h"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
-		44D8D4BF043621A4974941776CF278E4 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
-		45FBDF9C19434E20D020AF126B0DDC76 /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = de.lproj; path = QBImagePicker/de.lproj; sourceTree = "<group>"; };
-		475129F0C997D8B84F5134C6A4A1FBED /* MATraceManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MATraceManager.h; path = MAMapKit.framework/Headers/MATraceManager.h; sourceTree = "<group>"; };
-		48820F610FC771A6B703CC50D709F692 /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
-		494AC64D4F521586B6918AFFCF931D94 /* AMapCommonObj.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapCommonObj.h; path = AMapSearchKit.framework/Headers/AMapCommonObj.h; sourceTree = "<group>"; };
-		4A0CD8005997F2406810AB2C02D4F5A5 /* MAOfflineMap.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAOfflineMap.h; path = MAMapKit.framework/Headers/MAOfflineMap.h; sourceTree = "<group>"; };
-		4B1A3B4112D3086D3588A028759898C7 /* AMapServices.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapServices.h; path = AMapFoundationKit.framework/Headers/AMapServices.h; sourceTree = "<group>"; };
-		4CA64C3B5FC0813EFFF6318ABAD837F6 /* MAUserLocationRepresentation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAUserLocationRepresentation.h; path = MAMapKit.framework/Headers/MAUserLocationRepresentation.h; sourceTree = "<group>"; };
-		4D6178C92EE50DC25880CFBF268BE050 /* QBCheckmarkView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBCheckmarkView.h; path = QBImagePicker/QBCheckmarkView.h; sourceTree = "<group>"; };
-		4F6461281515D0C1FB07B5F14FDF8DDF /* AMapNaviKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviKit.h; path = AMapNaviKit.framework/Headers/AMapNaviKit.h; sourceTree = "<group>"; };
-		52D1635BD3DB4CCD8C6578630C86ED84 /* AMapLocationCommonObj.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapLocationCommonObj.h; path = AMapLocationKit.framework/Headers/AMapLocationCommonObj.h; sourceTree = "<group>"; };
-		54AE12D8F9FD62E6E3575D5FF0910E8A /* AMapGeoFenceError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapGeoFenceError.h; path = AMapLocationKit.framework/Headers/AMapGeoFenceError.h; sourceTree = "<group>"; };
-		561368041DBAAD17D59B7C15C8DA5C38 /* MAOfflineItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAOfflineItem.h; path = MAMapKit.framework/Headers/MAOfflineItem.h; sourceTree = "<group>"; };
-		56CC846CC2DC4AD5791E0514C0105519 /* MATileOverlayRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MATileOverlayRenderer.h; path = MAMapKit.framework/Headers/MATileOverlayRenderer.h; sourceTree = "<group>"; };
-		590F809E244F7C07DB486748A4043CEE /* MACircle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MACircle.h; path = MAMapKit.framework/Headers/MACircle.h; sourceTree = "<group>"; };
-		5A4938CF8DE2615951F7B4C22DB7BB1C /* QBAssetCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBAssetCell.m; path = QBImagePicker/QBAssetCell.m; sourceTree = "<group>"; };
-		5E4B84FBAFCBD8C512445CB4EDA38BE7 /* SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
-		635FFBF27BE2FD70F6787528F9669739 /* MAPointAnnotation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAPointAnnotation.h; path = MAMapKit.framework/Headers/MAPointAnnotation.h; sourceTree = "<group>"; };
-		63F9261CD9204E18615DE2C2E9819866 /* AMapNaviStatisticsInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviStatisticsInfo.h; path = AMapNaviKit.framework/Headers/AMapNaviStatisticsInfo.h; sourceTree = "<group>"; };
-		6581973AD871D0D0D3D3B813D945B4E2 /* MACustomCalloutView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MACustomCalloutView.h; path = MAMapKit.framework/Headers/MACustomCalloutView.h; sourceTree = "<group>"; };
-		67B338F92E67EE218A37F1C2AAD105B2 /* MAMultiPoint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAMultiPoint.h; path = MAMapKit.framework/Headers/MAMultiPoint.h; sourceTree = "<group>"; };
-		6914C015A8048763ED146E6E5D3A79B0 /* AMapNaviWalkDataRepresentable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviWalkDataRepresentable.h; path = AMapNaviKit.framework/Headers/AMapNaviWalkDataRepresentable.h; sourceTree = "<group>"; };
-		698150AAEB149FE2081819EF6F69459C /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+AFNetworking.h"; path = "UIKit+AFNetworking/UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
-		6A7431A13C34FB61B51CCC95B0574CA1 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressAnimatedView.h; path = SVProgressHUD/SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		2E0B2D783F47EE82DF93276E5897659D /* QBAssetCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBAssetCell.m; path = QBImagePicker/QBAssetCell.m; sourceTree = "<group>"; };
+		2E5D3BADAFDF5C5F5B3BD8B2A89AEB39 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressAnimatedView.m; path = SVProgressHUD/SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		35379835BDD1E0B96E6F066F84122640 /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
+		36749D4A173336C6CC454C9953940906 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+AFNetworking.m"; path = "UIKit+AFNetworking/UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		3F3D9F2E465293B6167319C8BDEB43C1 /* QBAlbumsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBAlbumsViewController.h; path = QBImagePicker/QBAlbumsViewController.h; sourceTree = "<group>"; };
+		44A64B4DBE03FB8E0F30BE1C1BC73450 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVRadialGradientLayer.h; path = SVProgressHUD/SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		483774E6C5F8C330963F9002BA44626B /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFHTTPSessionManager.m; path = AFNetworking/AFHTTPSessionManager.m; sourceTree = "<group>"; };
+		4861F79B839E539B1C5476A9E4ADE5C4 /* UIButton+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIButton+AFNetworking.h"; path = "UIKit+AFNetworking/UIButton+AFNetworking.h"; sourceTree = "<group>"; };
+		4979D4833C51FE9506FE19A07DD5A508 /* ZYQAssetPicker.Bundle */ = {isa = PBXFileReference; includeInIndex = 1; name = ZYQAssetPicker.Bundle; path = ZYQAssetPickerController/ZYQAssetPicker.Bundle; sourceTree = "<group>"; };
+		49A827B2E0FDF56FDB057F0D77B5CD15 /* UIActivityIndicatorView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIActivityIndicatorView+AFNetworking.m"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.m"; sourceTree = "<group>"; };
+		4B6C6355285C746D6B314833D3C68B14 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworkReachabilityManager.h; path = AFNetworking/AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		4C8766F7FBF5AF02EAA4C1EDFACE211A /* QBAlbumCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBAlbumCell.h; path = QBImagePicker/QBAlbumCell.h; sourceTree = "<group>"; };
+		5131D5728C96D47ACA41EEDF713A5021 /* AFNetworking-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AFNetworking-prefix.pch"; sourceTree = "<group>"; };
+		51B9CC43AE651D42A0F6ED5BEBFCDE6D /* AFNetworking.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AFNetworking.xcconfig; sourceTree = "<group>"; };
+		558ACDB9376E3CA60DEC2FB89ACEFE19 /* QBCheckmarkView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBCheckmarkView.h; path = QBImagePicker/QBCheckmarkView.h; sourceTree = "<group>"; };
+		55DB13A9B1BE6737FA9497EBEA2733F6 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		56EF229ADDE687D5475572566250B101 /* UIRefreshControl+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIRefreshControl+AFNetworking.h"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.h"; sourceTree = "<group>"; };
+		5C0DF50ECBDC3D86B0E12E4E1C8CFE81 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLResponseSerialization.m; path = AFNetworking/AFURLResponseSerialization.m; sourceTree = "<group>"; };
+		5E0DE7467F1A261635E6DDCC014A8D70 /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLRequestSerialization.m; path = AFNetworking/AFURLRequestSerialization.m; sourceTree = "<group>"; };
+		5F2312781AE07ABF25AED54703927CCB /* SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SVProgressHUD.xcconfig; sourceTree = "<group>"; };
+		64F4DE73F87A68872A57EF70C399DEFE /* AFAutoPurgingImageCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFAutoPurgingImageCache.h; path = "UIKit+AFNetworking/AFAutoPurgingImageCache.h"; sourceTree = "<group>"; };
+		69AA6713A79CEF85C461FB2E8C88AE4B /* QBAssetsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBAssetsViewController.h; path = QBImagePicker/QBAssetsViewController.h; sourceTree = "<group>"; };
 		6B15270539BE770E7FE52A882864D914 /* Pods-ZFB-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZFB-resources.sh"; sourceTree = "<group>"; };
-		6C33520AC9E320D9792B3FD067D83A34 /* QBImagePickerController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBImagePickerController.m; path = QBImagePicker/QBImagePickerController.m; sourceTree = "<group>"; };
-		6CD63A6AF80ABCBECF926CF5A0A50C23 /* AMapNaviWalkView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviWalkView.h; path = AMapNaviKit.framework/Headers/AMapNaviWalkView.h; sourceTree = "<group>"; };
-		6E32D18214AE82D11A44FC06C820B7AF /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkReachabilityManager.m; path = AFNetworking/AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
-		6F3D8BB2E8EA6FE2BF298A83DB2DCEE7 /* ZYQAssetPicker.Bundle */ = {isa = PBXFileReference; includeInIndex = 1; name = ZYQAssetPicker.Bundle; path = ZYQAssetPickerController/ZYQAssetPicker.Bundle; sourceTree = "<group>"; };
-		6FC9019AAFAA5E559D9C80E869F494E8 /* MAOverlayRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAOverlayRenderer.h; path = MAMapKit.framework/Headers/MAOverlayRenderer.h; sourceTree = "<group>"; };
-		705120FDAE944A31FE9D26D011927048 /* QBImagePickerController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "QBImagePickerController-prefix.pch"; sourceTree = "<group>"; };
+		6C84703A6E2BBCE815F928D6190EED72 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		6FE4E64E9BC6DC4C5D96667C0CD16137 /* QBImagePickerController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "QBImagePickerController-prefix.pch"; sourceTree = "<group>"; };
 		715A3FA64238335DEEEAFA563CB498CA /* libSVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSVProgressHUD.a; path = libSVProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		718F2356CC7C4532DE033FDBAB3AB5B1 /* MAPolyline.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAPolyline.h; path = MAMapKit.framework/Headers/MAPolyline.h; sourceTree = "<group>"; };
-		71F1DC64F2265A2E7E25152796716796 /* QBImagePickerController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "QBImagePickerController-dummy.m"; sourceTree = "<group>"; };
-		7224DC50235263FBA6A15EEA0396ADCF /* MAConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAConfig.h; path = MAMapKit.framework/Headers/MAConfig.h; sourceTree = "<group>"; };
-		7294A0257AA2D08AF436B084EA04A772 /* AMapURLSearchType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapURLSearchType.h; path = AMapFoundationKit.framework/Headers/AMapURLSearchType.h; sourceTree = "<group>"; };
-		733B750448991190390BDFCC4F23B399 /* ZYQAssetPickerController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZYQAssetPickerController.h; path = ZYQAssetPickerController/ZYQAssetPickerController.h; sourceTree = "<group>"; };
-		7470F187E13763002ABD12865EB7AFBB /* AMapURLSearchConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapURLSearchConfig.h; path = AMapFoundationKit.framework/Headers/AMapURLSearchConfig.h; sourceTree = "<group>"; };
-		747D84472C55F01F3820DE9C475F3425 /* AMapSearchKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapSearchKit.h; path = AMapSearchKit.framework/Headers/AMapSearchKit.h; sourceTree = "<group>"; };
-		75D3E47778DAD18A9478C4A9773CB891 /* MAOverlayPathRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAOverlayPathRenderer.h; path = MAMapKit.framework/Headers/MAOverlayPathRenderer.h; sourceTree = "<group>"; };
-		75F822F30DD817FE16DFCE573B56A5FA /* UIProgressView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIProgressView+AFNetworking.m"; path = "UIKit+AFNetworking/UIProgressView+AFNetworking.m"; sourceTree = "<group>"; };
+		7168CE05FE3D5ED31D460D4B4341B943 /* AFURLSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLSessionManager.h; path = AFNetworking/AFURLSessionManager.h; sourceTree = "<group>"; };
+		71D9C16F8649287261BFD5A9A4815C7C /* UIProgressView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIProgressView+AFNetworking.h"; path = "UIKit+AFNetworking/UIProgressView+AFNetworking.h"; sourceTree = "<group>"; };
+		722BFC9F6661B2D957154B663EAF3E02 /* ZYQAssetPickerController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZYQAssetPickerController.xcconfig; sourceTree = "<group>"; };
+		761CEA95411B1509080B04174B4D5377 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActivityIndicatorView+AFNetworking.h"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
 		76227F9B10E62761A0FE22E74452315C /* Pods-ZFB-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZFB-acknowledgements.plist"; sourceTree = "<group>"; };
-		7938445C781DF9BEA34F76BAC6888CEC /* SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SVProgressHUD.xcconfig; sourceTree = "<group>"; };
-		7A707ADE6611A3D071EBF092C5CC2BC8 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressAnimatedView.m; path = SVProgressHUD/SVProgressAnimatedView.m; sourceTree = "<group>"; };
-		7C0AA1EFBBEDE738C7FC5EA24240CE2E /* AMapGeoFenceManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapGeoFenceManager.h; path = AMapLocationKit.framework/Headers/AMapGeoFenceManager.h; sourceTree = "<group>"; };
-		7C54042413E91F68C4E7D750E893E8A4 /* AMapNaviDriveView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviDriveView.h; path = AMapNaviKit.framework/Headers/AMapNaviDriveView.h; sourceTree = "<group>"; };
-		7C930E82F72D412794224AE505AA97E8 /* AMapSearchError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapSearchError.h; path = AMapSearchKit.framework/Headers/AMapSearchError.h; sourceTree = "<group>"; };
-		853EB4F552D2351D07A075B33F9D8EBD /* MAMultiPolyline.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAMultiPolyline.h; path = MAMapKit.framework/Headers/MAMultiPolyline.h; sourceTree = "<group>"; };
-		855CB3083CEDAADEDAE779B7D2716B5E /* MAMapView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAMapView.h; path = MAMapKit.framework/Headers/MAMapView.h; sourceTree = "<group>"; };
-		863F2709F2819D5CCD957D7C886C1BB3 /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
+		778E98C52547B3AF208ED3F793EFD432 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = QBImagePicker/en.lproj; sourceTree = "<group>"; };
+		78FF1159D9FC6A1E55069EAFA0EF9C90 /* AFNetworking-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AFNetworking-dummy.m"; sourceTree = "<group>"; };
+		7F8C853E7FEC441544903F0993FF12A1 /* QBImagePicker.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; name = QBImagePicker.storyboard; path = QBImagePicker/QBImagePicker.storyboard; sourceTree = "<group>"; };
+		80DA9D167180B941B28C80E50DE2D02A /* AFImageDownloader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFImageDownloader.m; path = "UIKit+AFNetworking/AFImageDownloader.m"; sourceTree = "<group>"; };
+		81FF6E24554D2A687CD900103A4F6527 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFSecurityPolicy.m; path = AFNetworking/AFSecurityPolicy.m; sourceTree = "<group>"; };
+		860D6A2DE38FA32BF2B0D2A686022C03 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+AFNetworking.h"; path = "UIKit+AFNetworking/UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
+		891E23CF7F74E4431F8111A1F84ADE51 /* QBImagePickerController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "QBImagePickerController-dummy.m"; sourceTree = "<group>"; };
 		8A0D1F0329502FC6CF326361594C735A /* Pods-ZFB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZFB.debug.xcconfig"; sourceTree = "<group>"; };
-		8B69372656203A5A5E8890C09D551909 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworkReachabilityManager.h; path = AFNetworking/AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
-		8D6C55195FA712B9D038D2E80FC4E7C7 /* AFURLSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLSessionManager.m; path = AFNetworking/AFURLSessionManager.m; sourceTree = "<group>"; };
-		8E37D782BA69F56DA6F24E02416D96F7 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFHTTPSessionManager.m; path = AFNetworking/AFHTTPSessionManager.m; sourceTree = "<group>"; };
-		8E87CD6958B6AFE19284A67814D56AF5 /* AMapFoundationVersion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapFoundationVersion.h; path = AMapFoundationKit.framework/Headers/AMapFoundationVersion.h; sourceTree = "<group>"; };
-		8F2B38D2DE5B5BA132AB6F67E9F35B28 /* AFNetworking-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AFNetworking-prefix.pch"; sourceTree = "<group>"; };
-		8FF8268402B3C28FFB558CDE660A0311 /* ZYQAssetPickerController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZYQAssetPickerController.xcconfig; sourceTree = "<group>"; };
-		917011BC37354717D227C6A8B88A4992 /* UIButton+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIButton+AFNetworking.m"; path = "UIKit+AFNetworking/UIButton+AFNetworking.m"; sourceTree = "<group>"; };
+		90B445F31F2D3E962F79008E5EF69D2B /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworkActivityIndicatorManager.h; path = "UIKit+AFNetworking/AFNetworkActivityIndicatorManager.h"; sourceTree = "<group>"; };
 		92B10A5610CA73BBD20851A51C82B247 /* Pods-ZFB-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZFB-frameworks.sh"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		964D13778544E1F3450CAB1BF7ABE7F7 /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hans.lproj"; path = "QBImagePicker/zh-Hans.lproj"; sourceTree = "<group>"; };
 		973991C34A9352A1E96AF839BD3B338B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
-		978FF965823B67E5AEF61D2019C0A197 /* MACircleRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MACircleRenderer.h; path = MAMapKit.framework/Headers/MACircleRenderer.h; sourceTree = "<group>"; };
-		979B68B32491DCC01F17E86962192E50 /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
-		9A3D0A3590EABAA2BEFC1F04DEF01DEB /* AMapNaviDriveDataRepresentable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviDriveDataRepresentable.h; path = AMapNaviKit.framework/Headers/AMapNaviDriveDataRepresentable.h; sourceTree = "<group>"; };
-		9A66AD7A310C3516B4AA7C4C1D208E45 /* ZYQAssetPickerController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZYQAssetPickerController.m; path = ZYQAssetPickerController/ZYQAssetPickerController.m; sourceTree = "<group>"; };
-		9BE1F206260EF5ADABDAABF5F0F4D389 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFSecurityPolicy.m; path = AFNetworking/AFSecurityPolicy.m; sourceTree = "<group>"; };
-		9BF64EDF4CA0199D4EDC62611402E6BF /* MAMapStatus.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAMapStatus.h; path = MAMapKit.framework/Headers/MAMapStatus.h; sourceTree = "<group>"; };
-		9CC5559FD72B4FA7AFAEF4A0EF94975D /* AMapSearchAPI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapSearchAPI.h; path = AMapSearchKit.framework/Headers/AMapSearchAPI.h; sourceTree = "<group>"; };
-		9E34C659AF8EFD3BFBE81576FA622C01 /* MAUserLocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAUserLocation.h; path = MAMapKit.framework/Headers/MAUserLocation.h; sourceTree = "<group>"; };
-		9EBFE092E1A87361A3C4FD4F6953442D /* AMapNaviRideDataRepresentable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviRideDataRepresentable.h; path = AMapNaviKit.framework/Headers/AMapNaviRideDataRepresentable.h; sourceTree = "<group>"; };
-		A153437A85226198AE32490A5371DB84 /* AFNetworking.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AFNetworking.xcconfig; sourceTree = "<group>"; };
-		A2D2B4164E44634EB262FB1369FBC9D5 /* AMapNaviTrafficBarView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviTrafficBarView.h; path = AMapNaviKit.framework/Headers/AMapNaviTrafficBarView.h; sourceTree = "<group>"; };
-		A3EACFAC900668B34A134FEB0FD8BA6C /* QBImagePickerController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QBImagePickerController.xcconfig; sourceTree = "<group>"; };
-		A5603DAE4C65C4E63ECC3E86D7A3BE30 /* AMapNavi.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = AMapNavi.bundle; path = AMapNaviKit.framework/AMapNavi.bundle; sourceTree = "<group>"; };
-		A58E071DC085381E0B637C2F13EB068D /* MAHeatMapTileOverlay.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAHeatMapTileOverlay.h; path = MAMapKit.framework/Headers/MAHeatMapTileOverlay.h; sourceTree = "<group>"; };
-		A5DE70C5554B18D2B130DBF9142CDD56 /* AMapNaviDriveManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviDriveManager.h; path = AMapNaviKit.framework/Headers/AMapNaviDriveManager.h; sourceTree = "<group>"; };
-		A7A12AF00BBB21FF0B21F184B1DF6068 /* MATileOverlay.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MATileOverlay.h; path = MAMapKit.framework/Headers/MATileOverlay.h; sourceTree = "<group>"; };
-		A7B043335CCE0A8724F0E5104CD38894 /* AMapNaviInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviInfo.h; path = AMapNaviKit.framework/Headers/AMapNaviInfo.h; sourceTree = "<group>"; };
-		A99A91FDD10AB38C5CECAB291ECDE423 /* AMapGeoFenceRegionObj.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapGeoFenceRegionObj.h; path = AMapLocationKit.framework/Headers/AMapGeoFenceRegionObj.h; sourceTree = "<group>"; };
-		AA702B62DE1FE4A6EEB22CA3E59600E9 /* UIButton+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIButton+AFNetworking.h"; path = "UIKit+AFNetworking/UIButton+AFNetworking.h"; sourceTree = "<group>"; };
-		ACD551E793A08D03A421D69F5B900E49 /* UIImage+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+AFNetworking.h"; path = "UIKit+AFNetworking/UIImage+AFNetworking.h"; sourceTree = "<group>"; };
+		99724337F173EC61947315ACABA45E6B /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLResponseSerialization.h; path = AFNetworking/AFURLResponseSerialization.h; sourceTree = "<group>"; };
+		9D8C7AC57E2A031FFEC950BCCBDA42D2 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFHTTPSessionManager.h; path = AFNetworking/AFHTTPSessionManager.h; sourceTree = "<group>"; };
+		A16ED2764C15D421D00BF377F5CFF9CB /* UIKit+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIKit+AFNetworking.h"; path = "UIKit+AFNetworking/UIKit+AFNetworking.h"; sourceTree = "<group>"; };
+		A6C2A44CBDBF52C3BDD0A1744FF35A58 /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hans.lproj"; path = "QBImagePicker/zh-Hans.lproj"; sourceTree = "<group>"; };
 		B0279AF609AE1ACC8E241AF8EB7B9F83 /* Pods-ZFB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZFB-dummy.m"; sourceTree = "<group>"; };
-		B27DD9844BB7BEB769C46E77E5E8461F /* AMapURLSearch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapURLSearch.h; path = AMapFoundationKit.framework/Headers/AMapURLSearch.h; sourceTree = "<group>"; };
-		B28ABE07E420CA1F10DA2D8FEB9757D1 /* MAAnnotationView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAAnnotationView.h; path = MAMapKit.framework/Headers/MAAnnotationView.h; sourceTree = "<group>"; };
-		B2CFBA47F1411DC0BB6586648AAE359B /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
-		B4382037CD2141DECB3196ECFA810B44 /* AMapNaviBaseManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviBaseManager.h; path = AMapNaviKit.framework/Headers/AMapNaviBaseManager.h; sourceTree = "<group>"; };
-		B8A667FB5CB8C46B24B3B524C6B895D3 /* MAIndoorInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAIndoorInfo.h; path = MAMapKit.framework/Headers/MAIndoorInfo.h; sourceTree = "<group>"; };
-		BA930BCAEE125255A7B715FD25E531D5 /* AMapNaviCommonObj.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviCommonObj.h; path = AMapNaviKit.framework/Headers/AMapNaviCommonObj.h; sourceTree = "<group>"; };
-		BBB30533FF1B48CF7E6EEDC9B743AE91 /* QBAssetsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBAssetsViewController.m; path = QBImagePicker/QBAssetsViewController.m; sourceTree = "<group>"; };
+		B0388D077B351C41831E9D2454282086 /* QBAlbumCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBAlbumCell.m; path = QBImagePicker/QBAlbumCell.m; sourceTree = "<group>"; };
+		B413ADC6F4B126F9EA30391D63A7E7E7 /* QBImagePickerController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBImagePickerController.h; path = QBImagePicker/QBImagePickerController.h; sourceTree = "<group>"; };
+		B4ED913A6ECE2426BE3C42BACD7A33EA /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIWebView+AFNetworking.h"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
+		B9555091A21D34C65BEDF108A7327536 /* UIProgressView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIProgressView+AFNetworking.m"; path = "UIKit+AFNetworking/UIProgressView+AFNetworking.m"; sourceTree = "<group>"; };
 		BC22DD7BC2DEA485A856DB274FCC6057 /* libAFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libAFNetworking.a; path = libAFNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C04A5BF2CA40A89E165B20E0A3F55914 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVRadialGradientLayer.h; path = SVProgressHUD/SVRadialGradientLayer.h; sourceTree = "<group>"; };
-		C1B104E4E558C160BC2DD469FE9028DD /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = es.lproj; path = QBImagePicker/es.lproj; sourceTree = "<group>"; };
+		BE0FE49C618392F6C7C662D92AA8BBC2 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ja.lproj; path = QBImagePicker/ja.lproj; sourceTree = "<group>"; };
+		BE62A465136F75C1DF20D956DA942740 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+AFNetworking.m"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		BFD32F9D024AC26C11E8C5F294DF5588 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIRefreshControl+AFNetworking.m"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
+		C2FA8B2D0DBB1B2AFB3BF5FB70CE0BD9 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFSecurityPolicy.h; path = AFNetworking/AFSecurityPolicy.h; sourceTree = "<group>"; };
+		C3F6BF3A8F8A6B1C2DB9E74D58654455 /* SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
+		C3FD787FDB96F0D28F1CFF2BAC80C8F4 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressAnimatedView.h; path = SVProgressHUD/SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		C4B41784FEAC1EAF2E546035CD8D1B22 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkReachabilityManager.m; path = AFNetworking/AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		C4D0DAD1FDAC15566990A689329CB879 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
-		C4D3711956A4A84BDD69914FB5DD8EDA /* AMapLocationManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapLocationManager.h; path = AMapLocationKit.framework/Headers/AMapLocationManager.h; sourceTree = "<group>"; };
-		C6383F4BF3BCA032E9B0605EDF86F1A4 /* MAOfflineItemMunicipality.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAOfflineItemMunicipality.h; path = MAMapKit.framework/Headers/MAOfflineItemMunicipality.h; sourceTree = "<group>"; };
-		C7B3E1153167DCC547FB331253F8F9D9 /* MAOfflineItemCommonCity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAOfflineItemCommonCity.h; path = MAMapKit.framework/Headers/MAOfflineItemCommonCity.h; sourceTree = "<group>"; };
+		C61204A397DC15E392E868C888F446D8 /* ResourceBundle-QBImagePicker-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-QBImagePicker-Info.plist"; sourceTree = "<group>"; };
 		C8E597145F008AAAD4F54A8CD613C8E1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
-		CC8149BF41FD1E4D83380E2DE18E3381 /* QBAssetCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBAssetCell.h; path = QBImagePicker/QBAssetCell.h; sourceTree = "<group>"; };
-		CCD1F0045524F848E886AB842B404113 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = QBImagePicker/en.lproj; sourceTree = "<group>"; };
-		CD0834FFBE5153F16028A358AB680731 /* AMapSearchObj.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapSearchObj.h; path = AMapSearchKit.framework/Headers/AMapSearchObj.h; sourceTree = "<group>"; };
-		CD7D2FE52DB44DA5A02A136F7A2F7BAA /* QBAlbumCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBAlbumCell.h; path = QBImagePicker/QBAlbumCell.h; sourceTree = "<group>"; };
-		CE385907A1922068FF3E30A0CE619223 /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
-		CF0889AF39C1EE064496B03BDA2EC4E0 /* UIKit+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIKit+AFNetworking.h"; path = "UIKit+AFNetworking/UIKit+AFNetworking.h"; sourceTree = "<group>"; };
-		CFC05DE073E1AB65173AC11DA7A8D251 /* AMap.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = AMap.bundle; path = MAMapKit.framework/AMap.bundle; sourceTree = "<group>"; };
-		D03E03EC4283E3B652BE990E41AC8A22 /* MAGroundOverlayRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAGroundOverlayRenderer.h; path = MAMapKit.framework/Headers/MAGroundOverlayRenderer.h; sourceTree = "<group>"; };
+		CE291C8354AB320B47827C0C28F6C7A6 /* QBAlbumsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBAlbumsViewController.m; path = QBImagePicker/QBAlbumsViewController.m; sourceTree = "<group>"; };
 		D3A162B91FB5FB664527BD0C4D01B986 /* libQBImagePickerController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libQBImagePickerController.a; path = libQBImagePickerController.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3E10AF88D080F0DF5A27E1F57A8AEE4 /* MAMultiTexturePolylineRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAMultiTexturePolylineRenderer.h; path = MAMapKit.framework/Headers/MAMultiTexturePolylineRenderer.h; sourceTree = "<group>"; };
-		D548A65F5C22E54E0DAED718A3A9ACCE /* QBAlbumsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBAlbumsViewController.m; path = QBImagePicker/QBAlbumsViewController.m; sourceTree = "<group>"; };
 		D9F95797B7892F2DB94A2AAB9DA0714F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/AssetsLibrary.framework; sourceTree = DEVELOPER_DIR; };
-		DBB99593B66653A9199F96C35C06C24F /* AMapNaviKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapNaviKit.framework; sourceTree = "<group>"; };
-		DC03F43BAD032088552303851A5B63EC /* QBVideoIconView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBVideoIconView.h; path = QBImagePicker/QBVideoIconView.h; sourceTree = "<group>"; };
-		DD37893C169FB04018E3B81631EFDB7A /* MAOfflineItemNationWide.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAOfflineItemNationWide.h; path = MAMapKit.framework/Headers/MAOfflineItemNationWide.h; sourceTree = "<group>"; };
-		DDEF057C492C90941300F3B66895936F /* AFNetworking-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AFNetworking-dummy.m"; sourceTree = "<group>"; };
-		DE9AD1D2F1B6511178A9FBEE4971B6F8 /* MATraceLocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MATraceLocation.h; path = MAMapKit.framework/Headers/MATraceLocation.h; sourceTree = "<group>"; };
-		DEC40037C486EE71AD4A7F4BC3405D33 /* MAOverlay.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAOverlay.h; path = MAMapKit.framework/Headers/MAOverlay.h; sourceTree = "<group>"; };
-		DF1A28855B101B9B0C42C5E2B41A5BCE /* AMapNaviHUDView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviHUDView.h; path = AMapNaviKit.framework/Headers/AMapNaviHUDView.h; sourceTree = "<group>"; };
-		E062D16F83460185B430270B0A3ABF10 /* MAPolygonRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAPolygonRenderer.h; path = MAMapKit.framework/Headers/MAPolygonRenderer.h; sourceTree = "<group>"; };
-		E17E174E5B269FEB14A411116B31283C /* AMapNaviWalkManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviWalkManager.h; path = AMapNaviKit.framework/Headers/AMapNaviWalkManager.h; sourceTree = "<group>"; };
-		E3921BA165FCC125D38C65B83795CE17 /* AMapUtility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapUtility.h; path = AMapFoundationKit.framework/Headers/AMapUtility.h; sourceTree = "<group>"; };
-		E39A05B34C18ABF0AEB406BC5B0D6806 /* AMapNearbySearchManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNearbySearchManager.h; path = AMapSearchKit.framework/Headers/AMapNearbySearchManager.h; sourceTree = "<group>"; };
-		E3B12D1351DAA4329B614E0E8788F555 /* MAGroundOverlay.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAGroundOverlay.h; path = MAMapKit.framework/Headers/MAGroundOverlay.h; sourceTree = "<group>"; };
-		E624616C7C58FD252BDE7EFAC785CA0D /* AMapLocationRegionObj.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapLocationRegionObj.h; path = AMapLocationKit.framework/Headers/AMapLocationRegionObj.h; sourceTree = "<group>"; };
-		E64E451D87822B8473B3F72E8BEDEAC2 /* MAPolygon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAPolygon.h; path = MAMapKit.framework/Headers/MAPolygon.h; sourceTree = "<group>"; };
-		E76E77AB1DE0964421E15A06C3040C14 /* ResourceBundle-QBImagePicker-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-QBImagePicker-Info.plist"; sourceTree = "<group>"; };
-		E7EF32C0F5AA578B272F736F808EF363 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
-		EA21225F1B658BE211C78223038D8140 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworkActivityIndicatorManager.h; path = "UIKit+AFNetworking/AFNetworkActivityIndicatorManager.h"; sourceTree = "<group>"; };
-		EBE02834A5C74C7F2CE8B0EED79D424B /* UIRefreshControl+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIRefreshControl+AFNetworking.h"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.h"; sourceTree = "<group>"; };
-		EC8CC1BD404676B896251ED2B60783AE /* AMapNaviLocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviLocation.h; path = AMapNaviKit.framework/Headers/AMapNaviLocation.h; sourceTree = "<group>"; };
-		ED509C02FD18B8A0E90F6FC9015165A8 /* MAAnnotation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAAnnotation.h; path = MAMapKit.framework/Headers/MAAnnotation.h; sourceTree = "<group>"; };
-		EE4789051CCDDEA4F3F438813CD93EDC /* AMapNaviRoute.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviRoute.h; path = AMapNaviKit.framework/Headers/AMapNaviRoute.h; sourceTree = "<group>"; };
+		DB0E425EEB8A1CAEE77BD062A6C9980C /* UIImage+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+AFNetworking.h"; path = "UIKit+AFNetworking/UIImage+AFNetworking.h"; sourceTree = "<group>"; };
+		DCC5567250B449B28717C3E766231DD0 /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = de.lproj; path = QBImagePicker/de.lproj; sourceTree = "<group>"; };
+		DD2203AFA3CC4E3300064D511D5AA44A /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
+		DE3CAC4DD09FEE0B9CF13833F768C526 /* AFAutoPurgingImageCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFAutoPurgingImageCache.m; path = "UIKit+AFNetworking/AFAutoPurgingImageCache.m"; sourceTree = "<group>"; };
+		E2BD103CD6313B380DE5BC6D80F96380 /* AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworking.h; path = AFNetworking/AFNetworking.h; sourceTree = "<group>"; };
+		E4E745239064B71800CDD60FAAB1ABEC /* QBVideoIconView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBVideoIconView.h; path = QBImagePicker/QBVideoIconView.h; sourceTree = "<group>"; };
+		E9A758B1EA79A2D6ACC687D3481374FC /* QBVideoIconView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBVideoIconView.m; path = QBImagePicker/QBVideoIconView.m; sourceTree = "<group>"; };
+		EC9B1E91BC0CD761EDA142FA643E63AE /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = es.lproj; path = QBImagePicker/es.lproj; sourceTree = "<group>"; };
+		ED6B15312DD3426D0F9F38DCF6DB9A48 /* QBAssetsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBAssetsViewController.m; path = QBImagePicker/QBAssetsViewController.m; sourceTree = "<group>"; };
+		EDB60B3FC94DBAD1147A39CB5B25B929 /* ZYQAssetPickerController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZYQAssetPickerController.m; path = ZYQAssetPickerController/ZYQAssetPickerController.m; sourceTree = "<group>"; };
 		EF3409AE0710D70B766A5319BA84CD05 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		EF3AE0650AAC7C0C1A36A8AA74124B11 /* libPods-ZFB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-ZFB.a"; path = "libPods-ZFB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EF53AC9F5116E16857F5270E14E43470 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+AFNetworking.m"; path = "UIKit+AFNetworking/UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
-		F003938FC539093C658790281A1B2562 /* QBImagePickerController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBImagePickerController.h; path = QBImagePicker/QBImagePickerController.h; sourceTree = "<group>"; };
-		F11E46A4168DF0E56919AEA9983F188C /* ZYQAssetPickerController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZYQAssetPickerController-dummy.m"; sourceTree = "<group>"; };
 		F19D0FB6EDE6D4CD8FDEE12A0876D225 /* libZYQAssetPickerController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libZYQAssetPickerController.a; path = libZYQAssetPickerController.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		F4A680876ACCE498D718E1D727FE142B /* AMapNaviRideView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviRideView.h; path = AMapNaviKit.framework/Headers/AMapNaviRideView.h; sourceTree = "<group>"; };
-		F4BC8A8AB861399011AFEF6FB5AE272F /* MAAnnotationMoveAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAAnnotationMoveAnimation.h; path = MAMapKit.framework/Headers/MAAnnotationMoveAnimation.h; sourceTree = "<group>"; };
-		F5BDF9A56DA861B0CF5C73B229E43FE2 /* AMapFoundationKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapFoundationKit.h; path = AMapFoundationKit.framework/Headers/AMapFoundationKit.h; sourceTree = "<group>"; };
-		F63A373D938EABAA8AE09EC9F04CB2F5 /* AMapLocationVersion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapLocationVersion.h; path = AMapLocationKit.framework/Headers/AMapLocationVersion.h; sourceTree = "<group>"; };
-		F8146CA61EDED6EC6B95F645F39DDECD /* MAAnimatedAnnotation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAAnimatedAnnotation.h; path = MAMapKit.framework/Headers/MAAnimatedAnnotation.h; sourceTree = "<group>"; };
+		F455B08B807B4AE1BBEAB4F3B76D0FBF /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkActivityIndicatorManager.m; path = "UIKit+AFNetworking/AFNetworkActivityIndicatorManager.m"; sourceTree = "<group>"; };
 		F96288A562D66D4DD901E99A7C9EE73C /* Pods-ZFB-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZFB-acknowledgements.markdown"; sourceTree = "<group>"; };
-		FB481E0C891138F3EE4B12D970AFCD7E /* AFAutoPurgingImageCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFAutoPurgingImageCache.m; path = "UIKit+AFNetworking/AFAutoPurgingImageCache.m"; sourceTree = "<group>"; };
-		FCFD2F95A549570D9886AFAB50620D35 /* AFImageDownloader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFImageDownloader.m; path = "UIKit+AFNetworking/AFImageDownloader.m"; sourceTree = "<group>"; };
-		FD81862B24465F0127DD9243E01E6DAE /* AMapNaviRoutePolylineOption.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AMapNaviRoutePolylineOption.h; path = AMapNaviKit.framework/Headers/AMapNaviRoutePolylineOption.h; sourceTree = "<group>"; };
-		FE1D5A652F42B9B8D45B6D5F4D78AD43 /* AFAutoPurgingImageCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFAutoPurgingImageCache.h; path = "UIKit+AFNetworking/AFAutoPurgingImageCache.h"; sourceTree = "<group>"; };
-		FE75EDCE86933E82478331C3547EB2FF /* MALineDrawType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MALineDrawType.h; path = MAMapKit.framework/Headers/MALineDrawType.h; sourceTree = "<group>"; };
-		FEB342D2ED952AB345E1646290EF90CB /* QBVideoIconView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QBVideoIconView.m; path = QBImagePicker/QBVideoIconView.m; sourceTree = "<group>"; };
+		FA7359B82681D88791686353848C4AB5 /* QBAssetCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QBAssetCell.h; path = QBImagePicker/QBAssetCell.h; sourceTree = "<group>"; };
+		FDB17819113E17053CCCA333884C80D6 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVRadialGradientLayer.m; path = SVProgressHUD/SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		FDD77B6428ADC423CAB2F8FF417A2DA6 /* AFURLSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLSessionManager.m; path = AFNetworking/AFURLSessionManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -388,197 +291,102 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13C071590F33FA15E4A578B617CF1F58 /* Frameworks */ = {
+		00963658A7B372889E7713936BA717BE /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				18301736ADC230731B00A45302275462 /* MAMapKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		1CE549B3068979F1AB363B7444BF6FB4 /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-				FE1D5A652F42B9B8D45B6D5F4D78AD43 /* AFAutoPurgingImageCache.h */,
-				FB481E0C891138F3EE4B12D970AFCD7E /* AFAutoPurgingImageCache.m */,
-				2E2FA092256E05B622D3D6DF7D6126DD /* AFImageDownloader.h */,
-				FCFD2F95A549570D9886AFAB50620D35 /* AFImageDownloader.m */,
-				EA21225F1B658BE211C78223038D8140 /* AFNetworkActivityIndicatorManager.h */,
-				2173EB4906346C14B93CDCDC006A2400 /* AFNetworkActivityIndicatorManager.m */,
-				281457EEF49E23B0A8233402834797E5 /* UIActivityIndicatorView+AFNetworking.h */,
-				2CA1DF34440AE8E00F72475AEDBE34EE /* UIActivityIndicatorView+AFNetworking.m */,
-				AA702B62DE1FE4A6EEB22CA3E59600E9 /* UIButton+AFNetworking.h */,
-				917011BC37354717D227C6A8B88A4992 /* UIButton+AFNetworking.m */,
-				ACD551E793A08D03A421D69F5B900E49 /* UIImage+AFNetworking.h */,
-				698150AAEB149FE2081819EF6F69459C /* UIImageView+AFNetworking.h */,
-				EF53AC9F5116E16857F5270E14E43470 /* UIImageView+AFNetworking.m */,
-				CF0889AF39C1EE064496B03BDA2EC4E0 /* UIKit+AFNetworking.h */,
-				07A652FB0BBEDCD139CF042BB30F02B9 /* UIProgressView+AFNetworking.h */,
-				75F822F30DD817FE16DFCE573B56A5FA /* UIProgressView+AFNetworking.m */,
-				EBE02834A5C74C7F2CE8B0EED79D424B /* UIRefreshControl+AFNetworking.h */,
-				04123B2F5D9B178A82BEA2A2524234C7 /* UIRefreshControl+AFNetworking.m */,
-				43A22BC60FF4064D6DCA1E433320895E /* UIWebView+AFNetworking.h */,
-				29F889B2FAC7951A65C21F9450080637 /* UIWebView+AFNetworking.m */,
-			);
-			name = UIKit;
-			sourceTree = "<group>";
-		};
-		210D45284C9070EB83AECCC881D6DA13 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				A3EACFAC900668B34A134FEB0FD8BA6C /* QBImagePickerController.xcconfig */,
-				71F1DC64F2265A2E7E25152796716796 /* QBImagePickerController-dummy.m */,
-				705120FDAE944A31FE9D26D011927048 /* QBImagePickerController-prefix.pch */,
-				E76E77AB1DE0964421E15A06C3040C14 /* ResourceBundle-QBImagePicker-Info.plist */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/QBImagePickerController";
-			sourceTree = "<group>";
-		};
-		21ABDBFC46DC41E4DC5C11C2242B79D9 /* NSURLSession */ = {
-			isa = PBXGroup;
-			children = (
-				1A84E46AA3425A24597B6E9FF08169D1 /* AFHTTPSessionManager.h */,
-				8E37D782BA69F56DA6F24E02416D96F7 /* AFHTTPSessionManager.m */,
-				1E24838644EEA3DB1B7AD224D5AA75AC /* AFURLSessionManager.h */,
-				8D6C55195FA712B9D038D2E80FC4E7C7 /* AFURLSessionManager.m */,
-			);
-			name = NSURLSession;
-			sourceTree = "<group>";
-		};
-		22AED653A037D5152BAC2B44FB6D9A8F /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A5603DAE4C65C4E63ECC3E86D7A3BE30 /* AMapNavi.bundle */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		2C1BAED12C11A3AA5D31D5B0E9010B7F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DBB99593B66653A9199F96C35C06C24F /* AMapNaviKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3042CC0C6ADD4EF7FDB7B6565EA0F9B7 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				6F3D8BB2E8EA6FE2BF298A83DB2DCEE7 /* ZYQAssetPicker.Bundle */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		32C37C5EF3B90A8CE0A0C159E9274D6D /* Security */ = {
-			isa = PBXGroup;
-			children = (
-				07DCB91B5DC817BD4DC31E4EA333A805 /* AFSecurityPolicy.h */,
-				9BE1F206260EF5ADABDAABF5F0F4D389 /* AFSecurityPolicy.m */,
-			);
-			name = Security;
-			sourceTree = "<group>";
-		};
-		3E000DF4F0E64BF05E76A816C3BEFB40 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				45FBDF9C19434E20D020AF126B0DDC76 /* de.lproj */,
-				CCD1F0045524F848E886AB842B404113 /* en.lproj */,
-				C1B104E4E558C160BC2DD469FE9028DD /* es.lproj */,
-				29367E03BCB673601BF8EA033E4E9E18 /* ja.lproj */,
-				0BEF5331BC8548B5DE63754DA2BC9B01 /* QBImagePicker.storyboard */,
-				964D13778544E1F3450CAB1BF7ABE7F7 /* zh-Hans.lproj */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		498D711BB543ACDDA8C2B954F58A53CB /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				CFC05DE073E1AB65173AC11DA7A8D251 /* AMap.bundle */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		5060ED67B7792B9CBD245A2C8194B86B /* ZYQAssetPickerController */ = {
-			isa = PBXGroup;
-			children = (
-				733B750448991190390BDFCC4F23B399 /* ZYQAssetPickerController.h */,
-				9A66AD7A310C3516B4AA7C4C1D208E45 /* ZYQAssetPickerController.m */,
-				3042CC0C6ADD4EF7FDB7B6565EA0F9B7 /* Resources */,
-				F076C7CDB460D4386588C61CAAD5A771 /* Support Files */,
-			);
-			name = ZYQAssetPickerController;
-			path = ZYQAssetPickerController;
-			sourceTree = "<group>";
-		};
-		53EF030AF70523941E9A0C18EDF9027F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				863F2709F2819D5CCD957D7C886C1BB3 /* AMapFoundationKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		5A9412AD5B06E3BDB28682163E525D14 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				A153437A85226198AE32490A5371DB84 /* AFNetworking.xcconfig */,
-				DDEF057C492C90941300F3B66895936F /* AFNetworking-dummy.m */,
-				8F2B38D2DE5B5BA132AB6F67E9F35B28 /* AFNetworking-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/AFNetworking";
-			sourceTree = "<group>";
-		};
-		633999B7D8B5A332F4DC607F8C807E4A /* AFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				11B830320B3074F4C71F7924E2563798 /* AFNetworking.h */,
-				21ABDBFC46DC41E4DC5C11C2242B79D9 /* NSURLSession */,
-				A6D0D86D217AA5298A943830710E8B20 /* Reachability */,
-				32C37C5EF3B90A8CE0A0C159E9274D6D /* Security */,
-				B97213F2AD1F1E5CFF29F95373647FCB /* Serialization */,
-				5A9412AD5B06E3BDB28682163E525D14 /* Support Files */,
-				1CE549B3068979F1AB363B7444BF6FB4 /* UIKit */,
-			);
-			name = AFNetworking;
-			path = AFNetworking;
-			sourceTree = "<group>";
-		};
-		643A27A77C186F5059F387E5EE61DF5E /* AMapFoundation */ = {
-			isa = PBXGroup;
-			children = (
-				F5BDF9A56DA861B0CF5C73B229E43FE2 /* AMapFoundationKit.h */,
-				8E87CD6958B6AFE19284A67814D56AF5 /* AMapFoundationVersion.h */,
-				4B1A3B4112D3086D3588A028759898C7 /* AMapServices.h */,
-				B27DD9844BB7BEB769C46E77E5E8461F /* AMapURLSearch.h */,
-				7470F187E13763002ABD12865EB7AFBB /* AMapURLSearchConfig.h */,
-				7294A0257AA2D08AF436B084EA04A772 /* AMapURLSearchType.h */,
-				E3921BA165FCC125D38C65B83795CE17 /* AMapUtility.h */,
-				53EF030AF70523941E9A0C18EDF9027F /* Frameworks */,
-			);
-			name = AMapFoundation;
-			path = AMapFoundation;
-			sourceTree = "<group>";
-		};
-		653AB690424DBEC16F4E123C5D21C233 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				7938445C781DF9BEA34F76BAC6888CEC /* SVProgressHUD.xcconfig */,
-				5E4B84FBAFCBD8C512445CB4EDA38BE7 /* SVProgressHUD-dummy.m */,
-				28082C36CF882EE5CD88186A3BFF6BBF /* SVProgressHUD-prefix.pch */,
+				5F2312781AE07ABF25AED54703927CCB /* SVProgressHUD.xcconfig */,
+				C3F6BF3A8F8A6B1C2DB9E74D58654455 /* SVProgressHUD-dummy.m */,
+				1DD7511959859AB0A3B59E7D5B6B7900 /* SVProgressHUD-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/SVProgressHUD";
 			sourceTree = "<group>";
 		};
-		6C488678E0DE40B80C6485322C49BE7F /* Frameworks */ = {
+		0112E415E86C415E07B5BF1D849DF3C0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				48820F610FC771A6B703CC50D709F692 /* AMapLocationKit.framework */,
+				DD2203AFA3CC4E3300064D511D5AA44A /* SVProgressHUD.bundle */,
 			);
-			name = Frameworks;
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		200714FC4E5A1110E93EC746C7057F11 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				C2FA8B2D0DBB1B2AFB3BF5FB70CE0BD9 /* AFSecurityPolicy.h */,
+				81FF6E24554D2A687CD900103A4F6527 /* AFSecurityPolicy.m */,
+			);
+			name = Security;
+			sourceTree = "<group>";
+		};
+		3A9AD2B3B5B56DF68C29CA58F8349769 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				4B6C6355285C746D6B314833D3C68B14 /* AFNetworkReachabilityManager.h */,
+				C4B41784FEAC1EAF2E546035CD8D1B22 /* AFNetworkReachabilityManager.m */,
+			);
+			name = Reachability;
+			sourceTree = "<group>";
+		};
+		3D716916FEDA94E45FADAE944D35C63E /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				722BFC9F6661B2D957154B663EAF3E02 /* ZYQAssetPickerController.xcconfig */,
+				28C8B13D21D5011BF6CCA5BE2CA5BE6C /* ZYQAssetPickerController-dummy.m */,
+				019F61A824A8E6F25B9E8C5E2C7215DE /* ZYQAssetPickerController-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/ZYQAssetPickerController";
+			sourceTree = "<group>";
+		};
+		6206869833C0759000655C384D942635 /* Serialization */ = {
+			isa = PBXGroup;
+			children = (
+				29ED57E24B4A67A5DA89401ECD8108E0 /* AFURLRequestSerialization.h */,
+				5E0DE7467F1A261635E6DDCC014A8D70 /* AFURLRequestSerialization.m */,
+				99724337F173EC61947315ACABA45E6B /* AFURLResponseSerialization.h */,
+				5C0DF50ECBDC3D86B0E12E4E1C8CFE81 /* AFURLResponseSerialization.m */,
+			);
+			name = Serialization;
+			sourceTree = "<group>";
+		};
+		62CA70EC479B939239B5A806031840AB /* NSURLSession */ = {
+			isa = PBXGroup;
+			children = (
+				9D8C7AC57E2A031FFEC950BCCBDA42D2 /* AFHTTPSessionManager.h */,
+				483774E6C5F8C330963F9002BA44626B /* AFHTTPSessionManager.m */,
+				7168CE05FE3D5ED31D460D4B4341B943 /* AFURLSessionManager.h */,
+				FDD77B6428ADC423CAB2F8FF417A2DA6 /* AFURLSessionManager.m */,
+			);
+			name = NSURLSession;
+			sourceTree = "<group>";
+		};
+		706F320EB17DF6DB43CABBB53981BF1C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DCC5567250B449B28717C3E766231DD0 /* de.lproj */,
+				778E98C52547B3AF208ED3F793EFD432 /* en.lproj */,
+				EC9B1E91BC0CD761EDA142FA643E63AE /* es.lproj */,
+				BE0FE49C618392F6C7C662D92AA8BBC2 /* ja.lproj */,
+				7F8C853E7FEC441544903F0993FF12A1 /* QBImagePicker.storyboard */,
+				A6C2A44CBDBF52C3BDD0A1744FF35A58 /* zh-Hans.lproj */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		72D56AE2CF0706FF7D5DBD9A7A0065E5 /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				E2BD103CD6313B380DE5BC6D80F96380 /* AFNetworking.h */,
+				62CA70EC479B939239B5A806031840AB /* NSURLSession */,
+				3A9AD2B3B5B56DF68C29CA58F8349769 /* Reachability */,
+				200714FC4E5A1110E93EC746C7057F11 /* Security */,
+				6206869833C0759000655C384D942635 /* Serialization */,
+				E4525B5CD60AA4C680F168F21C7F0B3E /* Support Files */,
+				D75D172E0943C61CD3FC7246883B2272 /* UIKit */,
+			);
+			name = AFNetworking;
+			path = AFNetworking;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -586,90 +394,18 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				F4CDA5FA9197A41E0081E84F932906EB /* Frameworks */,
-				8FCAD1706B3F20E3232F2E1C285B9EB6 /* Pods */,
+				E307CE21A63FD25479089762A60BB9E8 /* Pods */,
 				9923BCE374BECDBA6C603CEB8D666EE1 /* Products */,
 				AF0F0AA37F52791CC341EF1AF30A122B /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		82842E9C9C304F12DC81FE7CF9D76CAF /* AMapNavi */ = {
+		81CF0FACCF3CC787698EC01874212C6B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B4382037CD2141DECB3196ECFA810B44 /* AMapNaviBaseManager.h */,
-				BA930BCAEE125255A7B715FD25E531D5 /* AMapNaviCommonObj.h */,
-				9A3D0A3590EABAA2BEFC1F04DEF01DEB /* AMapNaviDriveDataRepresentable.h */,
-				A5DE70C5554B18D2B130DBF9142CDD56 /* AMapNaviDriveManager.h */,
-				7C54042413E91F68C4E7D750E893E8A4 /* AMapNaviDriveView.h */,
-				DF1A28855B101B9B0C42C5E2B41A5BCE /* AMapNaviHUDView.h */,
-				A7B043335CCE0A8724F0E5104CD38894 /* AMapNaviInfo.h */,
-				4F6461281515D0C1FB07B5F14FDF8DDF /* AMapNaviKit.h */,
-				EC8CC1BD404676B896251ED2B60783AE /* AMapNaviLocation.h */,
-				9EBFE092E1A87361A3C4FD4F6953442D /* AMapNaviRideDataRepresentable.h */,
-				32782FAD0B91C7C63DF2A58ACB33BBCF /* AMapNaviRideManager.h */,
-				F4A680876ACCE498D718E1D727FE142B /* AMapNaviRideView.h */,
-				EE4789051CCDDEA4F3F438813CD93EDC /* AMapNaviRoute.h */,
-				FD81862B24465F0127DD9243E01E6DAE /* AMapNaviRoutePolylineOption.h */,
-				63F9261CD9204E18615DE2C2E9819866 /* AMapNaviStatisticsInfo.h */,
-				A2D2B4164E44634EB262FB1369FBC9D5 /* AMapNaviTrafficBarView.h */,
-				1B6DDCA8A506741CEFE450234A2B37E3 /* AMapNaviVersion.h */,
-				6914C015A8048763ED146E6E5D3A79B0 /* AMapNaviWalkDataRepresentable.h */,
-				E17E174E5B269FEB14A411116B31283C /* AMapNaviWalkManager.h */,
-				6CD63A6AF80ABCBECF926CF5A0A50C23 /* AMapNaviWalkView.h */,
-				2C1BAED12C11A3AA5D31D5B0E9010B7F /* Frameworks */,
-				22AED653A037D5152BAC2B44FB6D9A8F /* Resources */,
+				4979D4833C51FE9506FE19A07DD5A508 /* ZYQAssetPicker.Bundle */,
 			);
-			name = AMapNavi;
-			path = AMapNavi;
-			sourceTree = "<group>";
-		};
-		842A7942DB5991BB89B98A258343C33D /* AMapSearch */ = {
-			isa = PBXGroup;
-			children = (
-				494AC64D4F521586B6918AFFCF931D94 /* AMapCommonObj.h */,
-				E39A05B34C18ABF0AEB406BC5B0D6806 /* AMapNearbySearchManager.h */,
-				1D9D112F0C3E27F67DEA806A6F6890A9 /* AMapNearbyUploadInfo.h */,
-				9CC5559FD72B4FA7AFAEF4A0EF94975D /* AMapSearchAPI.h */,
-				7C930E82F72D412794224AE505AA97E8 /* AMapSearchError.h */,
-				747D84472C55F01F3820DE9C475F3425 /* AMapSearchKit.h */,
-				CD0834FFBE5153F16028A358AB680731 /* AMapSearchObj.h */,
-				21AA758F3B64E96F68B39F83B075D6E9 /* AMapSearchVersion.h */,
-				A38BA8BDEA154B6A5F7354E29E6076F1 /* Frameworks */,
-			);
-			name = AMapSearch;
-			path = AMapSearch;
-			sourceTree = "<group>";
-		};
-		86C3F9BF62B71DE1EE123D4AEA02782A /* AMapLocation */ = {
-			isa = PBXGroup;
-			children = (
-				54AE12D8F9FD62E6E3575D5FF0910E8A /* AMapGeoFenceError.h */,
-				7C0AA1EFBBEDE738C7FC5EA24240CE2E /* AMapGeoFenceManager.h */,
-				A99A91FDD10AB38C5CECAB291ECDE423 /* AMapGeoFenceRegionObj.h */,
-				52D1635BD3DB4CCD8C6578630C86ED84 /* AMapLocationCommonObj.h */,
-				01E996ABC4CF5B7D24F02711FE88CAC7 /* AMapLocationKit.h */,
-				C4D3711956A4A84BDD69914FB5DD8EDA /* AMapLocationManager.h */,
-				E624616C7C58FD252BDE7EFAC785CA0D /* AMapLocationRegionObj.h */,
-				F63A373D938EABAA8AE09EC9F04CB2F5 /* AMapLocationVersion.h */,
-				6C488678E0DE40B80C6485322C49BE7F /* Frameworks */,
-			);
-			name = AMapLocation;
-			path = AMapLocation;
-			sourceTree = "<group>";
-		};
-		8FCAD1706B3F20E3232F2E1C285B9EB6 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				633999B7D8B5A332F4DC607F8C807E4A /* AFNetworking */,
-				D42AC4E1F2AEE5FB11C8CDEB799B6326 /* AMap3DMap */,
-				643A27A77C186F5059F387E5EE61DF5E /* AMapFoundation */,
-				86C3F9BF62B71DE1EE123D4AEA02782A /* AMapLocation */,
-				82842E9C9C304F12DC81FE7CF9D76CAF /* AMapNavi */,
-				842A7942DB5991BB89B98A258343C33D /* AMapSearch */,
-				A97A40EC60D8E0CFDE35BCF4C869DE80 /* QBImagePickerController */,
-				9F55BB15F158B3B6D77306F09D4F7FE2 /* SVProgressHUD */,
-				5060ED67B7792B9CBD245A2C8194B86B /* ZYQAssetPickerController */,
-			);
-			name = Pods;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		9923BCE374BECDBA6C603CEB8D666EE1 /* Products */ = {
@@ -683,75 +419,6 @@
 				1784E2B85E5CDF45075F26A96B1FB72E /* QBImagePicker.bundle */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		9E076332FC91DC843593763CA5721D19 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				44D8D4BF043621A4974941776CF278E4 /* SVProgressHUD.bundle */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		9F55BB15F158B3B6D77306F09D4F7FE2 /* SVProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				B2CFBA47F1411DC0BB6586648AAE359B /* SVIndefiniteAnimatedView.h */,
-				E7EF32C0F5AA578B272F736F808EF363 /* SVIndefiniteAnimatedView.m */,
-				6A7431A13C34FB61B51CCC95B0574CA1 /* SVProgressAnimatedView.h */,
-				7A707ADE6611A3D071EBF092C5CC2BC8 /* SVProgressAnimatedView.m */,
-				CE385907A1922068FF3E30A0CE619223 /* SVProgressHUD.h */,
-				979B68B32491DCC01F17E86962192E50 /* SVProgressHUD.m */,
-				C04A5BF2CA40A89E165B20E0A3F55914 /* SVRadialGradientLayer.h */,
-				1D589B19F3DE605A0341C2E7F4357912 /* SVRadialGradientLayer.m */,
-				9E076332FC91DC843593763CA5721D19 /* Resources */,
-				653AB690424DBEC16F4E123C5D21C233 /* Support Files */,
-			);
-			name = SVProgressHUD;
-			path = SVProgressHUD;
-			sourceTree = "<group>";
-		};
-		A38BA8BDEA154B6A5F7354E29E6076F1 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3B3014DF5B939A7835506DF884D5FF66 /* AMapSearchKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A6D0D86D217AA5298A943830710E8B20 /* Reachability */ = {
-			isa = PBXGroup;
-			children = (
-				8B69372656203A5A5E8890C09D551909 /* AFNetworkReachabilityManager.h */,
-				6E32D18214AE82D11A44FC06C820B7AF /* AFNetworkReachabilityManager.m */,
-			);
-			name = Reachability;
-			sourceTree = "<group>";
-		};
-		A97A40EC60D8E0CFDE35BCF4C869DE80 /* QBImagePickerController */ = {
-			isa = PBXGroup;
-			children = (
-				CD7D2FE52DB44DA5A02A136F7A2F7BAA /* QBAlbumCell.h */,
-				3C66A1A89B545EA8EB3690F8B93F1B97 /* QBAlbumCell.m */,
-				2C90E46F45DCBB3A0A18C2CE1F82FC6C /* QBAlbumsViewController.h */,
-				D548A65F5C22E54E0DAED718A3A9ACCE /* QBAlbumsViewController.m */,
-				CC8149BF41FD1E4D83380E2DE18E3381 /* QBAssetCell.h */,
-				5A4938CF8DE2615951F7B4C22DB7BB1C /* QBAssetCell.m */,
-				0CC142F63B3682468859CE5DB0C9065B /* QBAssetsViewController.h */,
-				BBB30533FF1B48CF7E6EEDC9B743AE91 /* QBAssetsViewController.m */,
-				4D6178C92EE50DC25880CFBF268BE050 /* QBCheckmarkView.h */,
-				41E9F55DB0FE7269DA57E9B2D5AED60E /* QBCheckmarkView.m */,
-				F003938FC539093C658790281A1B2562 /* QBImagePickerController.h */,
-				6C33520AC9E320D9792B3FD067D83A34 /* QBImagePickerController.m */,
-				DC03F43BAD032088552303851A5B63EC /* QBVideoIconView.h */,
-				FEB342D2ED952AB345E1646290EF90CB /* QBVideoIconView.m */,
-				38BBBCC1208A17539AEACDD27BBC7778 /* QBVideoIndicatorView.h */,
-				41141F6C3622FA7357DCB1A615441A28 /* QBVideoIndicatorView.m */,
-				3E000DF4F0E64BF05E76A816C3BEFB40 /* Resources */,
-				210D45284C9070EB83AECCC881D6DA13 /* Support Files */,
-			);
-			name = QBImagePickerController;
-			path = QBImagePickerController;
 			sourceTree = "<group>";
 		};
 		AF0F0AA37F52791CC341EF1AF30A122B /* Targets Support Files */ = {
@@ -777,83 +444,97 @@
 			path = "Target Support Files/Pods-ZFB";
 			sourceTree = "<group>";
 		};
-		B97213F2AD1F1E5CFF29F95373647FCB /* Serialization */ = {
+		C6C83204B375623947A87D0DFBB0DE75 /* QBImagePickerController */ = {
 			isa = PBXGroup;
 			children = (
-				19E0659F887B579FF95BC0D219CE9F9B /* AFURLRequestSerialization.h */,
-				143BD226A1797F75AD5E131C58FA5BA0 /* AFURLRequestSerialization.m */,
-				117C48E725CA92A300794A74A8256267 /* AFURLResponseSerialization.h */,
-				236E17B1CF8C513E5584F7CCDB51C549 /* AFURLResponseSerialization.m */,
+				4C8766F7FBF5AF02EAA4C1EDFACE211A /* QBAlbumCell.h */,
+				B0388D077B351C41831E9D2454282086 /* QBAlbumCell.m */,
+				3F3D9F2E465293B6167319C8BDEB43C1 /* QBAlbumsViewController.h */,
+				CE291C8354AB320B47827C0C28F6C7A6 /* QBAlbumsViewController.m */,
+				FA7359B82681D88791686353848C4AB5 /* QBAssetCell.h */,
+				2E0B2D783F47EE82DF93276E5897659D /* QBAssetCell.m */,
+				69AA6713A79CEF85C461FB2E8C88AE4B /* QBAssetsViewController.h */,
+				ED6B15312DD3426D0F9F38DCF6DB9A48 /* QBAssetsViewController.m */,
+				558ACDB9376E3CA60DEC2FB89ACEFE19 /* QBCheckmarkView.h */,
+				1C4E222FBF46CAF856320BF3311D846D /* QBCheckmarkView.m */,
+				B413ADC6F4B126F9EA30391D63A7E7E7 /* QBImagePickerController.h */,
+				23F251A10DFD3A408CB9E4405097A71B /* QBImagePickerController.m */,
+				E4E745239064B71800CDD60FAAB1ABEC /* QBVideoIconView.h */,
+				E9A758B1EA79A2D6ACC687D3481374FC /* QBVideoIconView.m */,
+				095FC8E4587E093BF0C4691B1F9F2309 /* QBVideoIndicatorView.h */,
+				20FB2D8AB8C5064FF11CC67C36C185A6 /* QBVideoIndicatorView.m */,
+				706F320EB17DF6DB43CABBB53981BF1C /* Resources */,
+				FF8BFB132124BC2FE68E647C17937031 /* Support Files */,
 			);
-			name = Serialization;
+			name = QBImagePickerController;
+			path = QBImagePickerController;
 			sourceTree = "<group>";
 		};
-		D42AC4E1F2AEE5FB11C8CDEB799B6326 /* AMap3DMap */ = {
+		D75D172E0943C61CD3FC7246883B2272 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				F8146CA61EDED6EC6B95F645F39DDECD /* MAAnimatedAnnotation.h */,
-				ED509C02FD18B8A0E90F6FC9015165A8 /* MAAnnotation.h */,
-				F4BC8A8AB861399011AFEF6FB5AE272F /* MAAnnotationMoveAnimation.h */,
-				B28ABE07E420CA1F10DA2D8FEB9757D1 /* MAAnnotationView.h */,
-				590F809E244F7C07DB486748A4043CEE /* MACircle.h */,
-				978FF965823B67E5AEF61D2019C0A197 /* MACircleRenderer.h */,
-				7224DC50235263FBA6A15EEA0396ADCF /* MAConfig.h */,
-				6581973AD871D0D0D3D3B813D945B4E2 /* MACustomCalloutView.h */,
-				18299125B5EDDE23B6B8A018FE6C733D /* MAGeodesicPolyline.h */,
-				2F02EA7D9C4BB45AA058E6E6D44DAFE9 /* MAGeometry.h */,
-				E3B12D1351DAA4329B614E0E8788F555 /* MAGroundOverlay.h */,
-				D03E03EC4283E3B652BE990E41AC8A22 /* MAGroundOverlayRenderer.h */,
-				A58E071DC085381E0B637C2F13EB068D /* MAHeatMapTileOverlay.h */,
-				B8A667FB5CB8C46B24B3B524C6B895D3 /* MAIndoorInfo.h */,
-				FE75EDCE86933E82478331C3547EB2FF /* MALineDrawType.h */,
-				3E3B469F65DFFEBE9A91CF9DF1A777DC /* MAMapKit.h */,
-				9BF64EDF4CA0199D4EDC62611402E6BF /* MAMapStatus.h */,
-				0AC05A53E991D0D4337BE459A99A411C /* MAMapVersion.h */,
-				855CB3083CEDAADEDAE779B7D2716B5E /* MAMapView.h */,
-				25C12AAC1CED8C5FB8095FD88C083C27 /* MAMultiColoredPolylineRenderer.h */,
-				67B338F92E67EE218A37F1C2AAD105B2 /* MAMultiPoint.h */,
-				853EB4F552D2351D07A075B33F9D8EBD /* MAMultiPolyline.h */,
-				D3E10AF88D080F0DF5A27E1F57A8AEE4 /* MAMultiTexturePolylineRenderer.h */,
-				07415FDCA3F83D0F1B5C10AFD8D4C31A /* MAOfflineCity.h */,
-				561368041DBAAD17D59B7C15C8DA5C38 /* MAOfflineItem.h */,
-				C7B3E1153167DCC547FB331253F8F9D9 /* MAOfflineItemCommonCity.h */,
-				C6383F4BF3BCA032E9B0605EDF86F1A4 /* MAOfflineItemMunicipality.h */,
-				DD37893C169FB04018E3B81631EFDB7A /* MAOfflineItemNationWide.h */,
-				4A0CD8005997F2406810AB2C02D4F5A5 /* MAOfflineMap.h */,
-				3F7B761CD9D15C7EA5DFDA1F1628E120 /* MAOfflineProvince.h */,
-				DEC40037C486EE71AD4A7F4BC3405D33 /* MAOverlay.h */,
-				75D3E47778DAD18A9478C4A9773CB891 /* MAOverlayPathRenderer.h */,
-				6FC9019AAFAA5E559D9C80E869F494E8 /* MAOverlayRenderer.h */,
-				1CBB8006E15CC73BD3E607E174EA8D50 /* MAPinAnnotationView.h */,
-				635FFBF27BE2FD70F6787528F9669739 /* MAPointAnnotation.h */,
-				E64E451D87822B8473B3F72E8BEDEAC2 /* MAPolygon.h */,
-				E062D16F83460185B430270B0A3ABF10 /* MAPolygonRenderer.h */,
-				718F2356CC7C4532DE033FDBAB3AB5B1 /* MAPolyline.h */,
-				055B64DEDDE4B3F3B202F4C7AA4B6EFF /* MAPolylineRenderer.h */,
-				06420D4A19504115C88248F5073CBCA5 /* MAShape.h */,
-				A7A12AF00BBB21FF0B21F184B1DF6068 /* MATileOverlay.h */,
-				56CC846CC2DC4AD5791E0514C0105519 /* MATileOverlayRenderer.h */,
-				137B14E08B770E9B5454A1BFEC9A70D8 /* MATouchPoi.h */,
-				DE9AD1D2F1B6511178A9FBEE4971B6F8 /* MATraceLocation.h */,
-				475129F0C997D8B84F5134C6A4A1FBED /* MATraceManager.h */,
-				9E34C659AF8EFD3BFBE81576FA622C01 /* MAUserLocation.h */,
-				4CA64C3B5FC0813EFFF6318ABAD837F6 /* MAUserLocationRepresentation.h */,
-				13C071590F33FA15E4A578B617CF1F58 /* Frameworks */,
-				498D711BB543ACDDA8C2B954F58A53CB /* Resources */,
+				64F4DE73F87A68872A57EF70C399DEFE /* AFAutoPurgingImageCache.h */,
+				DE3CAC4DD09FEE0B9CF13833F768C526 /* AFAutoPurgingImageCache.m */,
+				0AC4BF10AEB2138666FA260989E30DA4 /* AFImageDownloader.h */,
+				80DA9D167180B941B28C80E50DE2D02A /* AFImageDownloader.m */,
+				90B445F31F2D3E962F79008E5EF69D2B /* AFNetworkActivityIndicatorManager.h */,
+				F455B08B807B4AE1BBEAB4F3B76D0FBF /* AFNetworkActivityIndicatorManager.m */,
+				761CEA95411B1509080B04174B4D5377 /* UIActivityIndicatorView+AFNetworking.h */,
+				49A827B2E0FDF56FDB057F0D77B5CD15 /* UIActivityIndicatorView+AFNetworking.m */,
+				4861F79B839E539B1C5476A9E4ADE5C4 /* UIButton+AFNetworking.h */,
+				12EE6773256B3359DB49EF2323D9712C /* UIButton+AFNetworking.m */,
+				DB0E425EEB8A1CAEE77BD062A6C9980C /* UIImage+AFNetworking.h */,
+				860D6A2DE38FA32BF2B0D2A686022C03 /* UIImageView+AFNetworking.h */,
+				36749D4A173336C6CC454C9953940906 /* UIImageView+AFNetworking.m */,
+				A16ED2764C15D421D00BF377F5CFF9CB /* UIKit+AFNetworking.h */,
+				71D9C16F8649287261BFD5A9A4815C7C /* UIProgressView+AFNetworking.h */,
+				B9555091A21D34C65BEDF108A7327536 /* UIProgressView+AFNetworking.m */,
+				56EF229ADDE687D5475572566250B101 /* UIRefreshControl+AFNetworking.h */,
+				BFD32F9D024AC26C11E8C5F294DF5588 /* UIRefreshControl+AFNetworking.m */,
+				B4ED913A6ECE2426BE3C42BACD7A33EA /* UIWebView+AFNetworking.h */,
+				BE62A465136F75C1DF20D956DA942740 /* UIWebView+AFNetworking.m */,
 			);
-			name = AMap3DMap;
-			path = AMap3DMap;
+			name = UIKit;
 			sourceTree = "<group>";
 		};
-		F076C7CDB460D4386588C61CAAD5A771 /* Support Files */ = {
+		DCAAD1F54006C9760F3411A8643C8B97 /* SVProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
-				8FF8268402B3C28FFB558CDE660A0311 /* ZYQAssetPickerController.xcconfig */,
-				F11E46A4168DF0E56919AEA9983F188C /* ZYQAssetPickerController-dummy.m */,
-				3F23247DA8EAF363158DE6C4EFF957ED /* ZYQAssetPickerController-prefix.pch */,
+				55DB13A9B1BE6737FA9497EBEA2733F6 /* SVIndefiniteAnimatedView.h */,
+				6C84703A6E2BBCE815F928D6190EED72 /* SVIndefiniteAnimatedView.m */,
+				C3FD787FDB96F0D28F1CFF2BAC80C8F4 /* SVProgressAnimatedView.h */,
+				2E5D3BADAFDF5C5F5B3BD8B2A89AEB39 /* SVProgressAnimatedView.m */,
+				35379835BDD1E0B96E6F066F84122640 /* SVProgressHUD.h */,
+				149D6555AC6D914DF6AF758CA6E754FC /* SVProgressHUD.m */,
+				44A64B4DBE03FB8E0F30BE1C1BC73450 /* SVRadialGradientLayer.h */,
+				FDB17819113E17053CCCA333884C80D6 /* SVRadialGradientLayer.m */,
+				0112E415E86C415E07B5BF1D849DF3C0 /* Resources */,
+				00963658A7B372889E7713936BA717BE /* Support Files */,
+			);
+			name = SVProgressHUD;
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		E307CE21A63FD25479089762A60BB9E8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				72D56AE2CF0706FF7D5DBD9A7A0065E5 /* AFNetworking */,
+				C6C83204B375623947A87D0DFBB0DE75 /* QBImagePickerController */,
+				DCAAD1F54006C9760F3411A8643C8B97 /* SVProgressHUD */,
+				F4E9DA96DCD20F0B3D2C67DF31F44902 /* ZYQAssetPickerController */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E4525B5CD60AA4C680F168F21C7F0B3E /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				51B9CC43AE651D42A0F6ED5BEBFCDE6D /* AFNetworking.xcconfig */,
+				78FF1159D9FC6A1E55069EAFA0EF9C90 /* AFNetworking-dummy.m */,
+				5131D5728C96D47ACA41EEDF713A5021 /* AFNetworking-prefix.pch */,
 			);
 			name = "Support Files";
-			path = "../Target Support Files/ZYQAssetPickerController";
+			path = "../Target Support Files/AFNetworking";
 			sourceTree = "<group>";
 		};
 		F4CDA5FA9197A41E0081E84F932906EB /* Frameworks */ = {
@@ -862,6 +543,18 @@
 				F558F58108BBB578A349069376B71C35 /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F4E9DA96DCD20F0B3D2C67DF31F44902 /* ZYQAssetPickerController */ = {
+			isa = PBXGroup;
+			children = (
+				2209ECD1B16F695E97D9B52C2F3F2D32 /* ZYQAssetPickerController.h */,
+				EDB60B3FC94DBAD1147A39CB5B25B929 /* ZYQAssetPickerController.m */,
+				81CF0FACCF3CC787698EC01874212C6B /* Resources */,
+				3D716916FEDA94E45FADAE944D35C63E /* Support Files */,
+			);
+			name = ZYQAssetPickerController;
+			path = ZYQAssetPickerController;
 			sourceTree = "<group>";
 		};
 		F558F58108BBB578A349069376B71C35 /* iOS */ = {
@@ -876,6 +569,18 @@
 				973991C34A9352A1E96AF839BD3B338B /* SystemConfiguration.framework */,
 			);
 			name = iOS;
+			sourceTree = "<group>";
+		};
+		FF8BFB132124BC2FE68E647C17937031 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0B601D8A35F80A3FD8CE7406EE658E2D /* QBImagePickerController.xcconfig */,
+				891E23CF7F74E4431F8111A1F84ADE51 /* QBImagePickerController-dummy.m */,
+				6FE4E64E9BC6DC4C5D96667C0CD16137 /* QBImagePickerController-prefix.pch */,
+				C61204A397DC15E392E868C888F446D8 /* ResourceBundle-QBImagePicker-Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/QBImagePickerController";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1210,7 +915,7 @@
 /* Begin XCBuildConfiguration section */
 		2C06BD385BCD5C0C28C40C94B06BF82A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3EACFAC900668B34A134FEB0FD8BA6C /* QBImagePickerController.xcconfig */;
+			baseConfigurationReference = 0B601D8A35F80A3FD8CE7406EE658E2D /* QBImagePickerController.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1256,7 +961,7 @@
 		};
 		3E5BBA87B3351AAED5088050DF127179 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3EACFAC900668B34A134FEB0FD8BA6C /* QBImagePickerController.xcconfig */;
+			baseConfigurationReference = 0B601D8A35F80A3FD8CE7406EE658E2D /* QBImagePickerController.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/QBImagePickerController";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1273,7 +978,7 @@
 		};
 		58D0C48635F7FAE48CC955DFECC147B4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3EACFAC900668B34A134FEB0FD8BA6C /* QBImagePickerController.xcconfig */;
+			baseConfigurationReference = 0B601D8A35F80A3FD8CE7406EE658E2D /* QBImagePickerController.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/QBImagePickerController";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1290,7 +995,7 @@
 		};
 		72D1B831316303C2E356BBAC53FEF78A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A153437A85226198AE32490A5371DB84 /* AFNetworking.xcconfig */;
+			baseConfigurationReference = 51B9CC43AE651D42A0F6ED5BEBFCDE6D /* AFNetworking.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1313,7 +1018,7 @@
 		};
 		76FE6894E439F5E33383A2A30C2DDDC3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3EACFAC900668B34A134FEB0FD8BA6C /* QBImagePickerController.xcconfig */;
+			baseConfigurationReference = 0B601D8A35F80A3FD8CE7406EE658E2D /* QBImagePickerController.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1376,7 +1081,7 @@
 		};
 		B2935FC70F14283B0BC476C51BAF529C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7938445C781DF9BEA34F76BAC6888CEC /* SVProgressHUD.xcconfig */;
+			baseConfigurationReference = 5F2312781AE07ABF25AED54703927CCB /* SVProgressHUD.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1466,7 +1171,7 @@
 		};
 		D0703A539A7F90DE708446AD92DF5256 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8FF8268402B3C28FFB558CDE660A0311 /* ZYQAssetPickerController.xcconfig */;
+			baseConfigurationReference = 722BFC9F6661B2D957154B663EAF3E02 /* ZYQAssetPickerController.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1489,7 +1194,7 @@
 		};
 		DE5B12B51B94899463B738A4A4E4B832 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7938445C781DF9BEA34F76BAC6888CEC /* SVProgressHUD.xcconfig */;
+			baseConfigurationReference = 5F2312781AE07ABF25AED54703927CCB /* SVProgressHUD.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1512,7 +1217,7 @@
 		};
 		F574CFCC4E74036D0F5B7AE64180CFD7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8FF8268402B3C28FFB558CDE660A0311 /* ZYQAssetPickerController.xcconfig */;
+			baseConfigurationReference = 722BFC9F6661B2D957154B663EAF3E02 /* ZYQAssetPickerController.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1535,7 +1240,7 @@
 		};
 		FF778088B62C05BE1205DAE628D151DF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A153437A85226198AE32490A5371DB84 /* AFNetworking.xcconfig */;
+			baseConfigurationReference = 51B9CC43AE651D42A0F6ED5BEBFCDE6D /* AFNetworking.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
