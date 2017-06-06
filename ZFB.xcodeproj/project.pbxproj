@@ -484,6 +484,7 @@
 		505163B31EDA75E6006884FA /* ZFOrderDetailSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 505163B11EDA75E6006884FA /* ZFOrderDetailSectionCell.xib */; };
 		505163B71EDA774B006884FA /* ZFOrderDetailGoosContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 505163B51EDA774B006884FA /* ZFOrderDetailGoosContentCell.m */; };
 		505163B81EDA774B006884FA /* ZFOrderDetailGoosContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 505163B61EDA774B006884FA /* ZFOrderDetailGoosContentCell.xib */; };
+		509A13451EE6EB000093978F /* NSString+ZFSortAppdending.m in Sources */ = {isa = PBXBuildFile; fileRef = 509A13441EE6EB000093978F /* NSString+ZFSortAppdending.m */; };
 		509D1F711ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F701ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m */; };
 		509D1F771ECDD9AC00D70444 /* ZFCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F761ECDD9AC00D70444 /* ZFCoverView.m */; };
 		509D1F7A1ECDDCDA00D70444 /* ZFSearchBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F791ECDDCDA00D70444 /* ZFSearchBarViewController.m */; };
@@ -1210,6 +1211,8 @@
 		505163B41EDA774B006884FA /* ZFOrderDetailGoosContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFOrderDetailGoosContentCell.h; sourceTree = "<group>"; };
 		505163B51EDA774B006884FA /* ZFOrderDetailGoosContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFOrderDetailGoosContentCell.m; sourceTree = "<group>"; };
 		505163B61EDA774B006884FA /* ZFOrderDetailGoosContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFOrderDetailGoosContentCell.xib; sourceTree = "<group>"; };
+		509A13431EE6EB000093978F /* NSString+ZFSortAppdending.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZFSortAppdending.h"; sourceTree = "<group>"; };
+		509A13441EE6EB000093978F /* NSString+ZFSortAppdending.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZFSortAppdending.m"; sourceTree = "<group>"; };
 		509D1F6F1ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFHeadViewCollectionReusableView.h; sourceTree = "<group>"; };
 		509D1F701ECDC6C100D70444 /* ZFHeadViewCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFHeadViewCollectionReusableView.m; sourceTree = "<group>"; };
 		509D1F751ECDD9AC00D70444 /* ZFCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCoverView.h; sourceTree = "<group>"; };
@@ -1361,6 +1364,8 @@
 				492754F11EC4679E003C22D0 /* UIView+MJ.m */,
 				509D1F751ECDD9AC00D70444 /* ZFCoverView.h */,
 				509D1F761ECDD9AC00D70444 /* ZFCoverView.m */,
+				509A13431EE6EB000093978F /* NSString+ZFSortAppdending.h */,
+				509A13441EE6EB000093978F /* NSString+ZFSortAppdending.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3242,6 +3247,7 @@
 				4927521F1EC44DFC003C22D0 /* ViewController.m in Sources */,
 				4927521C1EC44DFC003C22D0 /* AppDelegate.m in Sources */,
 				5019FFAD1ECCAEF800325342 /* SDWebImageCompat.m in Sources */,
+				509A13451EE6EB000093978F /* NSString+ZFSortAppdending.m in Sources */,
 				49801C8F1ECE870100EDAA53 /* PYSearchSuggestionViewController.m in Sources */,
 				49FB3C4A1ECD52340090075D /* ZFLoctionNavCell.m in Sources */,
 				49D6E6F71ED95F04000A837E /* ZFPregressCheckCell.m in Sources */,
@@ -3493,7 +3499,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3513,7 +3519,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

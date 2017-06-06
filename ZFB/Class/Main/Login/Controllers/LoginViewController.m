@@ -10,6 +10,7 @@
 #import "RegisterViewController.h"
 #import "ForgetPSViewController.h"
 #import "ZFPersonalViewController.h"
+#import "NSString+ZFSortAppdending.h"
 
 typedef NS_ENUM(NSUInteger, indexType) {
     quickLoginIndexType = 0,//快捷登录
@@ -133,7 +134,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             //判断是不是手机号
             if ( [_tf_loginphone.text isMobileNumber]) {
             
-                [self requset];
+                [self requsetWithValidateCode];
                 
                 NSLog(@"自动请求发送验证码");
                 
@@ -272,31 +273,28 @@ typedef NS_ENUM(NSUInteger, indexType) {
 }
 
 
--(void)requset
+/**
+  验证码网络请求
+ */
+-(void)requsetWithValidateCode
 {
-    //验证签名
-    NSString * sign = [MD5Tool MD5ForLower32Bate:_tf_loginphone.text];
-    NSString * base64Str = [_tf_loginphone.text base64EncodedString];
-    NSString * phoneNumber = _tf_loginphone.text;
-    
 
-    NSString *newStr =@"13628311317";
-    NSString *temp = nil;
-    NSMutableArray * arr = [NSMutableArray new];
-    NSMutableArray * dataArr = [NSMutableArray new];
-    
-    for(int i =0; i < [newStr length]; i++)
-    {
-        temp = [newStr substringWithRange:NSMakeRange(i, 1)];
-        NSLog(@"第%d个字是:%@",i,temp);
-    }
-    
+    NSString * phoneNumber = _tf_loginphone.text;
+
+    //遍历排序，小到大
+    phoneNumber = [NSString stringSortNumberStringAscendingWithString:phoneNumber];
+    //验证签名
+    NSString * sign = [MD5Tool MD5ForLower32Bate:phoneNumber];
+    NSLog(@"sign  = %@",sign);
+    NSString * base64Str = [_tf_loginphone.text base64EncodedString];
+    NSLog(@" base64======== = %@", base64Str);
+
     NSDictionary * param = @{
                              @"userId":@"",
                              @"signType":@"MD5",
                              @"svcName":@"SendMessages",
-                             @"data":@"",//base64
-                             @"sign":@"",//签名
+                             @"data":base64Str,//base64
+                             @"sign":sign,//签名
                              
                              @"mobilePhone":_tf_loginphone.text,
                              @"SmsLogo":@"1",
