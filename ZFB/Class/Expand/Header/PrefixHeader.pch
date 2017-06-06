@@ -31,7 +31,6 @@
 
 
 #import "Macros.h"
-#import "ControlFactory.h"//导航栏策略返回
 #import "UIButton+EdgeInsets.h"
 #import "UIView+MJ.h"
 #import "ZFB_Urls.h"
@@ -47,6 +46,7 @@
 #import "imageCompressHelper.h"
 
 
+#import "MD5Tool.h"
 
 
 

@@ -141,31 +141,9 @@
             </constraints>
             <point key="canvasLocation" x="26" y="-314"/>
         </view>
-        <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vWF-qN-FUx">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-            <constraints>
-                <constraint firstAttribute="height" constant="64" id="jRd-9F-49y"/>
-            </constraints>
-            <color key="barTintColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <textAttributes key="titleTextAttributes">
-                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-            </textAttributes>
-            <items>
-                <navigationItem title="忘记密码" id="8Ca-xJ-Ecw">
-                    <barButtonItem key="leftBarButtonItem" image="nav_back.png" style="plain" id="g0O-em-G1I">
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <action selector="backAction:" destination="-1" id="cHj-l3-U8Q"/>
-                        </connections>
-                    </barButtonItem>
-                </navigationItem>
-            </items>
-            <point key="canvasLocation" x="-22" y="-815"/>
-        </navigationBar>
     </objects>
     <resources>
         <image name="ipone.png" width="29" height="29"/>
         <image name="message.png" width="29" height="29"/>
-        <image name="nav_back.png" width="29" height="29"/>
     </resources>
 </document>

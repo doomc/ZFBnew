@@ -127,11 +127,13 @@ typedef NS_ENUM(NSUInteger, indexType) {
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
  
-    if (_loginSegment.selectedSegmentIndex == 1  ) {
+    if (_loginSegment.selectedSegmentIndex == 0  ) {
         
         if (_tf_loginphone == textField) {
             //判断是不是手机号
             if ( [_tf_loginphone.text isMobileNumber]) {
+            
+                [self requset];
                 
                 NSLog(@"自动请求发送验证码");
                 
@@ -147,7 +149,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
         }
     
-    }else if (_loginSegment.selectedSegmentIndex == 0){
+    }else if (_loginSegment.selectedSegmentIndex == 1){
 
         
         if (_tf_loginphone == textField) {
@@ -270,6 +272,49 @@ typedef NS_ENUM(NSUInteger, indexType) {
 }
 
 
+-(void)requset
+{
+    //验证签名
+    NSString * sign = [MD5Tool MD5ForLower32Bate:_tf_loginphone.text];
+    NSString * base64Str = [_tf_loginphone.text base64EncodedString];
+    NSString * phoneNumber = _tf_loginphone.text;
+    
+
+    NSString *newStr =@"13628311317";
+    NSString *temp = nil;
+    NSMutableArray * arr = [NSMutableArray new];
+    NSMutableArray * dataArr = [NSMutableArray new];
+    
+    for(int i =0; i < [newStr length]; i++)
+    {
+        temp = [newStr substringWithRange:NSMakeRange(i, 1)];
+        NSLog(@"第%d个字是:%@",i,temp);
+    }
+    
+    NSDictionary * param = @{
+                             @"userId":@"",
+                             @"signType":@"MD5",
+                             @"svcName":@"SendMessages",
+                             @"data":@"",//base64
+                             @"sign":@"",//签名
+                             
+                             @"mobilePhone":_tf_loginphone.text,
+                             @"SmsLogo":@"1",
+                             };
+    
+    //  b511f0d423d90fed69a13a02611fa85f
+    // 无缓存
+    [PPNetworkHelper POST:ZFB_SendMessageUrl parameters:param success:^(id responseObject) {
+        NSLog(@"%@= = responseObject " ,responseObject);
+
+    } failure:^(NSError *error) {
+        NSLog(@"%@= = error " ,error);
+
+        
+    }];
+    
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -147,29 +147,5 @@
             </constraints>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
-        <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGc-SJ-Fep">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-            <constraints>
-                <constraint firstAttribute="height" constant="64" id="k2S-9G-bRI"/>
-            </constraints>
-            <color key="barTintColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <textAttributes key="titleTextAttributes">
-                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-            </textAttributes>
-            <items>
-                <navigationItem title="重置密码" id="gst-zD-EqV">
-                    <barButtonItem key="leftBarButtonItem" image="nav_back.png" style="plain" id="0Tn-z0-nul">
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <action selector="backAction:" destination="-1" id="oDY-pc-Th1"/>
-                        </connections>
-                    </barButtonItem>
-                </navigationItem>
-            </items>
-            <point key="canvasLocation" x="-45" y="-413"/>
-        </navigationBar>
     </objects>
-    <resources>
-        <image name="nav_back.png" width="29" height="29"/>
-    </resources>
 </document>

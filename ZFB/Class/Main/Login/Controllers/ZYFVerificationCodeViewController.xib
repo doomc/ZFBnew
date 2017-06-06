@@ -145,37 +145,9 @@
             </constraints>
             <point key="canvasLocation" x="95" y="-496"/>
         </view>
-        <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9b-0z-y7v">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-            <constraints>
-                <constraint firstAttribute="height" constant="64" id="dpF-Id-mAv"/>
-            </constraints>
-            <color key="barTintColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <textAttributes key="titleTextAttributes">
-                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-            </textAttributes>
-            <items>
-                <navigationItem title="注册密码" id="KTL-pV-y3c">
-                    <barButtonItem key="leftBarButtonItem" image="nav_back.png" style="plain" id="LLU-Wi-S9I">
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <action selector="backAction:" destination="-1" id="i69-uh-16Q"/>
-                        </connections>
-                    </barButtonItem>
-                    <barButtonItem key="rightBarButtonItem" title="登录" id="PAP-XH-Lz5">
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <action selector="rightbutton_event:" destination="-1" id="uRM-L0-4AN"/>
-                        </connections>
-                    </barButtonItem>
-                </navigationItem>
-            </items>
-            <point key="canvasLocation" x="106" y="-914"/>
-        </navigationBar>
     </objects>
     <resources>
         <image name="message.png" width="29" height="29"/>
-        <image name="nav_back.png" width="29" height="29"/>
         <image name="passWord.png" width="29" height="29"/>
     </resources>
 </document>

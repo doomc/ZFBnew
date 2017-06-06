@@ -142,15 +142,15 @@
 //    
 //    return right_button;
 //}
+
+
 //设置右边事件
--(IBAction)rightbutton_event:(id)sender {
+-(void)right_button_event:(id)sender {
     NSLog(@"去登录");
     LoginViewController  * logVC =[LoginViewController new];
     
     [self.navigationController popToViewController:logVC animated:YES];
 }
-- (IBAction)backAction:(id)sender {
-        [self.navigationController popViewControllerAnimated:YES];
-}
+
 
 @end

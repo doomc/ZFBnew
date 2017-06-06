@@ -116,6 +116,11 @@
 		498AE4A81EE6A5E100EE3FA8 /* YYDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4A21EE6A5E100EE3FA8 /* YYDiskCache.m */; };
 		498AE4A91EE6A5E100EE3FA8 /* YYKVStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4A41EE6A5E100EE3FA8 /* YYKVStorage.m */; };
 		498AE4AA1EE6A5E100EE3FA8 /* YYMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4A61EE6A5E100EE3FA8 /* YYMemoryCache.m */; };
+		498AE4AD1EE6A92200EE3FA8 /* MD5Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4AC1EE6A92200EE3FA8 /* MD5Tool.m */; };
+		498AE4BD1EE6AADF00EE3FA8 /* NSData+APNSToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4B01EE6AADF00EE3FA8 /* NSData+APNSToken.m */; };
+		498AE4BE1EE6AADF00EE3FA8 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4B21EE6AADF00EE3FA8 /* NSData+Base64.m */; };
+		498AE4BF1EE6AADF00EE3FA8 /* NSData+Encrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4B41EE6AADF00EE3FA8 /* NSData+Encrypt.m */; };
+		498AE4C11EE6AADF00EE3FA8 /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4B81EE6AADF00EE3FA8 /* NSData+Hash.m */; };
 		498B30FD1ED800E00021D691 /* ZFSaleAfterContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 498B30FB1ED800E00021D691 /* ZFSaleAfterContentCell.m */; };
 		498B30FE1ED800E00021D691 /* ZFSaleAfterContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 498B30FC1ED800E00021D691 /* ZFSaleAfterContentCell.xib */; };
 		498B31021ED8010D0021D691 /* ZFSaleAfterHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 498B31001ED8010D0021D691 /* ZFSaleAfterHeadCell.m */; };
@@ -695,6 +700,16 @@
 		498AE4A41EE6A5E100EE3FA8 /* YYKVStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYKVStorage.m; sourceTree = "<group>"; };
 		498AE4A51EE6A5E100EE3FA8 /* YYMemoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMemoryCache.h; sourceTree = "<group>"; };
 		498AE4A61EE6A5E100EE3FA8 /* YYMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMemoryCache.m; sourceTree = "<group>"; };
+		498AE4AB1EE6A92200EE3FA8 /* MD5Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5Tool.h; sourceTree = "<group>"; };
+		498AE4AC1EE6A92200EE3FA8 /* MD5Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD5Tool.m; sourceTree = "<group>"; };
+		498AE4AF1EE6AADF00EE3FA8 /* NSData+APNSToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+APNSToken.h"; sourceTree = "<group>"; };
+		498AE4B01EE6AADF00EE3FA8 /* NSData+APNSToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+APNSToken.m"; sourceTree = "<group>"; };
+		498AE4B11EE6AADF00EE3FA8 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		498AE4B21EE6AADF00EE3FA8 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		498AE4B31EE6AADF00EE3FA8 /* NSData+Encrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Encrypt.h"; sourceTree = "<group>"; };
+		498AE4B41EE6AADF00EE3FA8 /* NSData+Encrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Encrypt.m"; sourceTree = "<group>"; };
+		498AE4B71EE6AADF00EE3FA8 /* NSData+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Hash.h"; sourceTree = "<group>"; };
+		498AE4B81EE6AADF00EE3FA8 /* NSData+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hash.m"; sourceTree = "<group>"; };
 		498B30FA1ED800E00021D691 /* ZFSaleAfterContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFSaleAfterContentCell.h; sourceTree = "<group>"; };
 		498B30FB1ED800E00021D691 /* ZFSaleAfterContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFSaleAfterContentCell.m; sourceTree = "<group>"; };
 		498B30FC1ED800E00021D691 /* ZFSaleAfterContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFSaleAfterContentCell.xib; sourceTree = "<group>"; };
@@ -1331,6 +1346,7 @@
 		492754EB1EC4679E003C22D0 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				498AE4AE1EE6AADF00EE3FA8 /* NSData */,
 				498DE1271EE68A4D00F64A61 /* UIView+ViewController.h */,
 				498DE1281EE68A4D00F64A61 /* UIView+ViewController.m */,
 				498DE1241EE68A1E00F64A61 /* UIView+Extension.h */,
@@ -1425,6 +1441,8 @@
 				49E0A0941ED52C6200AEE354 /* CustomHeaderView.m */,
 				49E0A0961ED52C6F00AEE354 /* CustomFooterView.h */,
 				49E0A0971ED52C6F00AEE354 /* CustomFooterView.m */,
+				498AE4AB1EE6A92200EE3FA8 /* MD5Tool.h */,
+				498AE4AC1EE6A92200EE3FA8 /* MD5Tool.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1814,6 +1832,21 @@
 				498AE4A61EE6A5E100EE3FA8 /* YYMemoryCache.m */,
 			);
 			path = YYCache;
+			sourceTree = "<group>";
+		};
+		498AE4AE1EE6AADF00EE3FA8 /* NSData */ = {
+			isa = PBXGroup;
+			children = (
+				498AE4AF1EE6AADF00EE3FA8 /* NSData+APNSToken.h */,
+				498AE4B01EE6AADF00EE3FA8 /* NSData+APNSToken.m */,
+				498AE4B11EE6AADF00EE3FA8 /* NSData+Base64.h */,
+				498AE4B21EE6AADF00EE3FA8 /* NSData+Base64.m */,
+				498AE4B31EE6AADF00EE3FA8 /* NSData+Encrypt.h */,
+				498AE4B41EE6AADF00EE3FA8 /* NSData+Encrypt.m */,
+				498AE4B71EE6AADF00EE3FA8 /* NSData+Hash.h */,
+				498AE4B81EE6AADF00EE3FA8 /* NSData+Hash.m */,
+			);
+			path = NSData;
 			sourceTree = "<group>";
 		};
 		498DE0DD1EE6801600F64A61 /* GVUserDefaults */ = {
@@ -3096,6 +3129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49E98AF91EDEAFF000B04DEF /* ZFMyProgressCell.m in Sources */,
+				498AE4C11EE6AADF00EE3FA8 /* NSData+Hash.m in Sources */,
 				503BEBF11ED71877004FC36C /* ZFEnum.m in Sources */,
 				5019FFB41ECCAEF800325342 /* UIImage+GIF.m in Sources */,
 				4990A3431EE501E1004CB908 /* dateTimeHelper.m in Sources */,
@@ -3112,6 +3146,7 @@
 				49C6CFF61EDFFFD400652CDB /* ZFSettingRowCell.m in Sources */,
 				494F07041ED43046007EC66A /* ZFMainPayforViewController.m in Sources */,
 				49F112D71ECC17E4000F3BF7 /* HP_LocationViewController.m in Sources */,
+				498AE4BE1EE6AADF00EE3FA8 /* NSData+Base64.m in Sources */,
 				49F112DC1ECC1A81000F3BF7 /* DetailStoreViewController.m in Sources */,
 				509D1F7A1ECDDCDA00D70444 /* ZFSearchBarViewController.m in Sources */,
 				49E98A3B1EDE57C300B04DEF /* ZFOrderDetailPaycashCell.m in Sources */,
@@ -3169,6 +3204,7 @@
 				492757391EC4679E003C22D0 /* BaseTabbarController.m in Sources */,
 				49E98B001EDEB02300B04DEF /* ZFSettingViewController.m in Sources */,
 				505163B71EDA774B006884FA /* ZFOrderDetailGoosContentCell.m in Sources */,
+				498AE4BF1EE6AADF00EE3FA8 /* NSData+Encrypt.m in Sources */,
 				4955D24F1ED7D425009C00F1 /* ZFSendHomeListCell.m in Sources */,
 				49801CB21ECEDC7B00EDAA53 /* ZFAppraiseSectionView.m in Sources */,
 				49E98AFB1EDEAFF000B04DEF /* ZFMySendServiceCell.m in Sources */,
@@ -3220,6 +3256,7 @@
 				4927573E1EC4679E003C22D0 /* ZFShoppingCarViewController.m in Sources */,
 				503BEBDB1ED5CEB0004FC36C /* ZFAddressListViewController.m in Sources */,
 				498AE4AA1EE6A5E100EE3FA8 /* YYMemoryCache.m in Sources */,
+				498AE4BD1EE6AADF00EE3FA8 /* NSData+APNSToken.m in Sources */,
 				49D6E6D11ED9297B000A837E /* ApplySalesAfterCommonCell.m in Sources */,
 				498DE0E31EE6802500F64A61 /* GVUserDefaults+BBProperties.m in Sources */,
 				492752191EC44DFC003C22D0 /* main.m in Sources */,
@@ -3279,6 +3316,7 @@
 				503BEC101ED72324004FC36C /* UITableView+FDKeyedHeightCache.m in Sources */,
 				493ADAEF1ED55BDC00CB2866 /* ZFSendSerViceViewController.m in Sources */,
 				5019FFB81ECCAEF800325342 /* UIImageView+WebCache.m in Sources */,
+				498AE4AD1EE6A92200EE3FA8 /* MD5Tool.m in Sources */,
 				503BEC041ED71EBD004FC36C /* ZFTitleCell.m in Sources */,
 				4927573C1EC4679E003C22D0 /* ZFHomeViewController.m in Sources */,
 				503BEC021ED71EBD004FC36C /* ZFFooterCell.m in Sources */,
