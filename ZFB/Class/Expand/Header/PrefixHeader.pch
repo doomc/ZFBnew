@@ -11,12 +11,29 @@
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#ifdef DEBUG
+#define NSLog(FORMAT, ...) fprintf(stderr,"%s\n",[[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#define NSLog(...)
+#endif
+
+//第三方工具类
+#import "SDCycleScrollView.h"
+#import "ControlFactory.h"//创建导航按钮
+#import "DCNavTabBarController.h"
+#import "MBProgressHUD.h"
+#import "MBProgressHUD+MP.h"
+#import "UIImageView+WebCache.h"
+#import "JXTAlertController.h"
+#import "PPNetworkHelper.h"
+#import "PPHTTPRequest.h"
+#import "cameraHelper.h"
+
 
 #import "Macros.h"
 #import "ControlFactory.h"//导航栏策略返回
 #import "UIButton+EdgeInsets.h"
 #import "UIView+MJ.h"
-#import "Header.h"
 #import "ZFB_Urls.h"
 #import "ZFEnum.h"
 #import "UITableView+FDTemplateLayoutCell.h"
@@ -27,6 +44,8 @@
 #import "NSString+UUID.h"
 #import "NSString+Base64.h"
 #import "NSString+RegexCategory.h"
+#import "imageCompressHelper.h"
+
 
 
 

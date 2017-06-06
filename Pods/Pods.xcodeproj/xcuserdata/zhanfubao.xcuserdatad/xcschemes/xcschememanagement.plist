@@ -9,10 +9,40 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>DACircularProgress.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
+		<key>MWPhotoBrowser-MWPhotoBrowser.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
+		</dict>
+		<key>MWPhotoBrowser.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
+		<key>PPNetworkHelper.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>Pods-ZFB.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+		<key>QBImagePickerController-QBImagePicker copy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
 		</dict>
 		<key>QBImagePickerController-QBImagePicker.xcscheme</key>
 		<dict>
@@ -24,10 +54,20 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
 		<key>SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>6</integer>
+		</dict>
+		<key>YYCache.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
 		</dict>
 		<key>ZYQAssetPickerController.xcscheme</key>
 		<dict>
@@ -37,7 +77,42 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>010336AC9E4E73B1605E5AA9B8976F3E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>040118B95AE915986B57CF790C909FD9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>0F7314661C76092654E632F48598236B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>175B076ED45EB1A3E40F58BA14036467</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>17B69F10325EFA1A83DC69E80AFE7A40</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1964CFC8332D5B5CB18A2C77396F8451</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1B9891708D9F9B504F2482EDDB834F6C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2596169E954907C07413FA0DF674480A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,12 +127,47 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3BF8D312BAD05EAFD697C1D29522BD02</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3F85C8851FF3C228A8B8F22E79A2A5CF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>40C14716A9FA1F2F484D0A8293644E37</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4414FFBD80F471F2AC819401DB992F5E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4685B6B955A43F74698EC1270F9CAD11</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>499745021EE6952F00DA273B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>67D829A41A4D5C5EB4E891AD317D10C4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>69327DF3A603A38FBCB0D701C35956E5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7131B22F50560129770F31552E6943B0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -68,6 +178,11 @@
 			<true/>
 		</dict>
 		<key>8709CF43DB8355F5D684B8EBF99E7D69</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>94FED880B1E70B484D2D3ED6273D95E7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,12 +207,42 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>BA1D550E82CE5623F58FBB83AE4FF0C4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C44CCF0F2E8EC207CFE3113B0347C2E6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>C791F0A928C1A8FE97074DFC9ACF4E75</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CD6240E052CBD98D1542B37D686D4D22</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>D29DD4975E23B6A31B38C1AF7A8D14AB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D31F2E1140FD881D5FEB76F35D954576</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D96696C98C75FD48AC659F36BB9FC41A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E432AEDAB1BA6480F5B6ABFC66B89F17</key>
 		<dict>
 			<key>primary</key>
 			<true/>

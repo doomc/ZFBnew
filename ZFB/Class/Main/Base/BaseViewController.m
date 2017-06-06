@@ -242,7 +242,7 @@
 }
 
 
-#pragma mark -- right_button
+#pragma mark -- rightButton
 -(BOOL)rightButton
 {
     BOOL isright = [self respondsToSelector:@selector(set_rightButton)];

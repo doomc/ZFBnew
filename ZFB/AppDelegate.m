@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "BaseNavigationController.h"
 #import "BaseTabbarController.h"
+#import "ZFbaseTabbarViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,10 +23,11 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    BaseTabbarController *tabbarVC = [[BaseTabbarController alloc] init];
+    ZFbaseTabbarViewController *tabbarVC = [[ZFbaseTabbarViewController alloc] init];
     self.window.rootViewController = tabbarVC;
     [self.window makeKeyAndVisible];
-    
+    //设置状态栏
+    //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     return YES;
 }

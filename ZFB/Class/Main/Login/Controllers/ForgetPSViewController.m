@@ -29,6 +29,11 @@
     
     
 }
+- (IBAction)backAction:(id)sender {
+
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 
 #pragma mark - UITextFieldDelegate  设置代理
 -(void)textFieldSettingDelegate

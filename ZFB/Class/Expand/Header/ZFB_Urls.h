@@ -12,6 +12,7 @@
 #import "MENetWorkManager.h"//网络请求
 
 
+
 #define  upload_Url @"http://192.168.1.106:8086/cmfile/upload"
 
 

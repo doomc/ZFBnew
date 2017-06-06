@@ -166,11 +166,31 @@
                 <constraint firstItem="HGu-vZ-swG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="lrq-ZY-j80"/>
                 <constraint firstItem="Hxy-lA-7vQ" firstAttribute="top" secondItem="0qD-yw-QPc" secondAttribute="bottom" constant="20" id="myg-eX-Z7v"/>
             </constraints>
-            <point key="canvasLocation" x="33.5" y="53.5"/>
+            <point key="canvasLocation" x="94" y="-163"/>
         </view>
+        <navigationBar contentMode="scaleToFill" id="EXJ-5l-hCj">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <color key="barTintColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <textAttributes key="titleTextAttributes">
+                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            </textAttributes>
+            <items>
+                <navigationItem title="登录展富宝" id="Mri-h0-yDH">
+                    <barButtonItem key="leftBarButtonItem" image="nav_back.png" style="plain" id="TbN-DT-fLo">
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <action selector="backAction:" destination="-1" id="eQU-LE-xzz"/>
+                        </connections>
+                    </barButtonItem>
+                </navigationItem>
+            </items>
+            <point key="canvasLocation" x="33" y="-637"/>
+        </navigationBar>
     </objects>
     <resources>
         <image name="ipone.png" width="29" height="29"/>
         <image name="message.png" width="29" height="29"/>
+        <image name="nav_back.png" width="29" height="29"/>
     </resources>
 </document>

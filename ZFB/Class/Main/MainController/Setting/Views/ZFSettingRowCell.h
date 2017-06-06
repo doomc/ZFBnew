@@ -14,4 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *tf_contentTextfiled;
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_detailTitle;
+
 @end

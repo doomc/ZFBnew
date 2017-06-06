@@ -10,17 +10,16 @@
 
 @interface BaseViewController : UIViewController
 
--(UIButton*)set_rightButton;
--(void)right_button_event:(UIButton*)sender;
 
 
-
-- (void)backAction;
+-(void)backAction;
 
 -(void)popToViewControllerWithName:(NSString *)name ;
 
+-(UIButton*)set_rightButton;
 
-
+-(void)right_button_event:(UIButton*)sender;
+ 
 /**
  配送端自定义导航
 
@@ -29,10 +28,6 @@
  @param btnisHidden  是否隐藏这个按钮
  */
 -(UIView*)addNavWithTitle:(NSString *)Navtitle  didClickArrowsDown:(SEL)didClickDownBtn ishidden:(BOOL)btnisHidden;
-
-
-
-
 
 
 

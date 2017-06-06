@@ -14,22 +14,16 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - QBImagePickerController (2.6.0)
   - SVProgressHUD (2.1.2)
-  - ZYQAssetPickerController (1.0.0)
 
 DEPENDENCIES:
   - AFNetworking
-  - QBImagePickerController
   - SVProgressHUD
-  - ZYQAssetPickerController
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  QBImagePickerController: 095c2b2973de4da267334d2cfcac989c2eb5cdc2
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
-  ZYQAssetPickerController: e5cf51ee6c05fa06746830026c247cb9f6699e84
 
-PODFILE CHECKSUM: bed933f14f01b7fc9abefaa8533fa0a92424c99f
+PODFILE CHECKSUM: bcc4a88c0e0818dcab898806e915d4e2ec578216
 
 COCOAPODS: 1.2.0

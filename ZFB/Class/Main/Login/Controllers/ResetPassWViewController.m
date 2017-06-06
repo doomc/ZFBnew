@@ -7,7 +7,7 @@
 //
 
 #import "ResetPassWViewController.h"
-
+#import "LoginViewController.h"
 @interface ResetPassWViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *tf_newPS;
 @property (weak, nonatomic) IBOutlet UITextField *tf_surePS;
@@ -40,7 +40,7 @@
 - (void)textChange :(UITextField *)textfiled
 {
     textfiled.clearButtonMode = UITextFieldViewModeWhileEditing;
-    
+    textfiled.secureTextEntry = YES;
     if (textfiled == _tf_newPS) {
         
         if (_tf_newPS.text.length > 20) {
@@ -58,9 +58,6 @@
             self.complete_btn.enabled = YES;
             self.complete_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
             
-        }else if(![_tf_newPS.text isEqualToString:_tf_surePS.text]){
-            [self.view makeToast:@"2次输入的密码不匹配" duration:2 position:@"center"];
-          
         }
         else{
             self.complete_btn.enabled = NO;
@@ -95,9 +92,15 @@
 
     }else{
         NSLog(@"重置成功了");
-        [self popToViewControllerWithName:@""];
+        LoginViewController  * logVC =[LoginViewController new];
+        
+        [self.navigationController popToViewController:logVC animated:YES];
     }
 
+}
+- (IBAction)backAction:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

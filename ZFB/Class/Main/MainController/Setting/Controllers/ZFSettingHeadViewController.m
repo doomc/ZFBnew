@@ -10,20 +10,19 @@
 #import "ZFSettingHeaderCell.h"
 #import "ZFSettingRowCell.h"
 #import "ZFSettingAddressViewController.h"
+#import "ZZYPhotoHelper.h"
 
 
 static NSString * settingheadid = @"ZFSettingHeaderCellid";
 static NSString * settingRowid = @"ZFSettingRowCellid";
 
-@interface ZFSettingHeadViewController ()<UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate,QBImagePickerControllerDelegate>
+@interface ZFSettingHeadViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray * _titleArr;
     NSMutableArray * imageMutableArray;
 
 }
 @property (nonatomic,strong) UITableView * tableView;
-@property (nonatomic,strong) QBImagePickerController * qbPickerController;
-@property (nonatomic,retain) UIImagePickerController * imagePickerController;
 
 
 @end
@@ -44,29 +43,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     [self.view addSubview:self.tableView];
     
 }
--(QBImagePickerController *)qbPickerController
-{
-    if (!_qbPickerController) {
-        _qbPickerController = [QBImagePickerController new];
-        _qbPickerController.maximumNumberOfSelection = 5;
-        _qbPickerController.allowsMultipleSelection = YES;
-        _qbPickerController.showsNumberOfSelectedAssets = YES;
-        _qbPickerController.delegate = self;
-        _qbPickerController.automaticallyAdjustsScrollViewInsets = NO;
-        [self presentViewController:_qbPickerController animated:YES completion:nil];
 
-    }
-    return _qbPickerController;
-}
-
-- (UIImagePickerController*)imagePickerController{
-    if (!_imagePickerController) {
-        _imagePickerController  = [[UIImagePickerController alloc] init];
-        _imagePickerController.delegate = self;
-        _imagePickerController.allowsEditing = NO;//设置可编辑
-    }
-    return _imagePickerController;
-}
 -(UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH - 64) style:UITableViewStylePlain];
@@ -125,9 +102,26 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         cell =  headCell;
 
     }if (indexPath.section == 1 ) {
+     
         ZFSettingRowCell * rowCell = [self.tableView dequeueReusableCellWithIdentifier:settingRowid forIndexPath:indexPath];
+
+        if (indexPath.row == 0) {
+            rowCell.lb_detailTitle.hidden = YES;
+        }
+        else if (indexPath.row == 1) {
+            rowCell.tf_contentTextfiled.hidden = YES;
+
+        }
+        else if (indexPath.row == 2) {
+            rowCell.tf_contentTextfiled.hidden = YES;
+
+        }
+        else if (indexPath.row == 3){
+            rowCell.tf_contentTextfiled.hidden = YES;
+            rowCell.lb_detailTitle.hidden = YES;
+
+        }
         rowCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
         rowCell.lb_title.text = _titleArr[indexPath.row];
         cell = rowCell;
         
@@ -136,53 +130,29 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
  
 }
 
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"sectin = %ld,row = %ld",indexPath.section ,indexPath.row);
     if (indexPath.section == 0) {
+        ZFSettingHeaderCell *cell = (ZFSettingHeaderCell *)[tableView cellForRowAtIndexPath:indexPath];
+        [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data) {
+ 
+            cell.img_headView.image = (UIImage *)data;
+        }];
         
-        [self showActionForPhoto];
-        
-//        [self jxt_showActionSheetWithTitle:nil message:@"选择你喜欢的头像" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
-//            alertMaker.
-//            addActionCancelTitle(@"取消").
-//            addActionDestructiveTitle(@"拍照").
-//            addActionDefaultTitle(@"从相册中选择");
-// 
-//        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
-//            
-//            if ([action.title isEqualToString:@"取消"]) {
-//                NSLog(@"cancel");
-//  
-//            }
-//            else if ([action.title isEqualToString:@"拍照"]) {
-//                NSLog(@"拍照");
-//                
-//                //拍照
-//                if (![cameraHelper checkCameraAuthorizationStatus]) {
-//                    return;
-//                }
-//                UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-//                picker.delegate = self;
-//                picker.allowsEditing = NO;//设置可编辑
-//                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-//                [self presentViewController:picker animated:YES completion:nil];//进入照相界面
-//            }
-//            else if ([action.title isEqualToString:@"从相册中选择"]) {
-//                NSLog(@"从相册中选择");
-//                
-//                //相册
-//                if (![cameraHelper checkPhotoLibraryAuthorizationStatus]) {
-//                    return;
-//                }
-//             }
-//          
-//        }];
-
     }
     if (indexPath.section == 1){
-        if (indexPath.row == 3)
+        
+        if (indexPath.row == 0) {
+            
+        }
+        else if (indexPath.row == 1) {
+            
+        }
+        else if (indexPath.row == 2) {
+           
+        }
+        else if (indexPath.row == 3)
         {
             ZFSettingAddressViewController *addVC = [[ZFSettingAddressViewController alloc]init];
             [self.navigationController pushViewController:addVC animated:YES];
@@ -191,62 +161,11 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
    
 }
 #pragma mark - UIAlertController
-- (void)showActionForPhoto{
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请选择照片路径" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            NSLog(@"该设备不支持相机");
-        }else{
-            self.imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-            [self.navigationController presentViewController:self.imagePickerController
-                                                    animated:YES
-                                                  completion:nil];
-        }
-    }];
-    
-    
-    UIAlertAction *cameroAction = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-            
-            NSLog(@"该设备不支持从相册选取文件");
-        }else{
-            
-            [self presentViewController:self.qbPickerController animated:YES completion:nil];
-        }
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
-    [alertController addAction:cancelAction];
-    [alertController addAction:photoAction];
-    [alertController addAction:cameroAction];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-    
+-(void)AsheetController
+{
+ 
 }
 
 
-#pragma mark - QBImagePickerControllerDelegate
-- (void)qb_imagePickerController:(QBImagePickerController *)imagePickerController didSelectAssets:(NSArray *)assets{
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    NSMutableArray *imageMutableArray = [[NSMutableArray alloc] init];
-    [imageMutableArray removeAllObjects];
-    NSInteger n = 0;
-    for (ALAsset * asset in assets) {
-        CGImageRef ref = [asset thumbnail];    //获取缩略图
-        UIImage *thumbnailImg = [[UIImage alloc]initWithCGImage:ref];
-        [imageMutableArray addObject:thumbnailImg];
-        n++;
-    }
-    
-}
-
-- (void)qb_imagePickerControllerDidCancel:(QBImagePickerController *)imagePickerController{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 @end

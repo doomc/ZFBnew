@@ -7,7 +7,7 @@
 //
 
 #import "ZYFVerificationCodeViewController.h"
-
+#import "LoginViewController.h"
 @interface ZYFVerificationCodeViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *tf_verificationCode;
@@ -112,30 +112,45 @@
  */
 -(void)regist_btnSuccess:(UIButton*)sender
 {
-   
+    if ([_tf_verificationCode.text isEqualToString:@""]) {
+        [self.view makeToast:@"验证码为空或者验证码错误" duration:2 position:@"center"];
+ 
+    }if (_tf_loginPassword.text.length <8 &&_tf_loginPassword.text.length>20) {
+        
+        [self.view makeToast:@"密码格式不正确" duration:2 position:@"center"];
+  
+    }else{
+        [self.view makeToast:@"右上角去登录" duration:2 position:@"center"];
+
+    }
+    
     NSLog(@"注册成功调用注册接口");
 }
 
-//设置右边按键（如果没有右边 可以不重写）
--(UIButton*)set_rightButton
-{
-    NSString * saveStr = @"登录";
-    UIButton *right_button = [[UIButton alloc]init];
-    [right_button setTitle:saveStr forState:UIControlStateNormal];
-    right_button.titleLabel.font=SYSTEMFONT(14);
-    [right_button setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
-    right_button.titleLabel.textAlignment = NSTextAlignmentRight;
-    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
-    CGFloat width = size.width ;
-    right_button.frame =CGRectMake(0, 0, width+10, 22);
-    
-    return right_button;
-}
+////设置右边按键（如果没有右边 可以不重写）
+//-(UIButton*)set_rightButton
+//{
+//    NSString * saveStr = @"登录";
+//    UIButton *right_button = [[UIButton alloc]init];
+//    [right_button setTitle:saveStr forState:UIControlStateNormal];
+//    right_button.titleLabel.font=SYSTEMFONT(14);
+//    [right_button setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
+//    right_button.titleLabel.textAlignment = NSTextAlignmentRight;
+//    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
+//    CGFloat width = size.width ;
+//    right_button.frame =CGRectMake(0, 0, width+10, 22);
+//    
+//    return right_button;
+//}
 //设置右边事件
--(void)right_button_event:(UIButton*)sender{
+-(IBAction)rightbutton_event:(id)sender {
     NSLog(@"去登录");
+    LoginViewController  * logVC =[LoginViewController new];
     
-    
+    [self.navigationController popToViewController:logVC animated:YES];
+}
+- (IBAction)backAction:(id)sender {
+        [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

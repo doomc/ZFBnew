@@ -25,8 +25,6 @@
     self.img_headview.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
  
     [self.img_headview setImage:[UIImage  circleImage:@"11.png"]];
-    
-    
     [self.img_headview.image circleImage];
     
     //点击头像

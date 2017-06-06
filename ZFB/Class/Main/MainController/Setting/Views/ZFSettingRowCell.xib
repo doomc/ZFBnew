@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -38,7 +38,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="您还没填写昵称" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tgg-58-nI8">
-                        <rect key="frame" x="102.5" y="16.5" width="180.5" height="17"/>
+                        <rect key="frame" x="103" y="17" width="180" height="17"/>
                         <color key="textColor" red="0.47843137254901957" green="0.47843137254901957" blue="0.47843137254901957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
@@ -46,8 +46,18 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows_Right_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="Eet-NK-gki">
                         <rect key="frame" x="293" y="19" width="12" height="12"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t92-aN-7RH">
+                        <rect key="frame" x="245.5" y="14" width="37.5" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Bmc-NE-c7h"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Eet-NK-gki" firstAttribute="leading" secondItem="t92-aN-7RH" secondAttribute="trailing" constant="10" id="06b-3A-1Bd"/>
                     <constraint firstAttribute="trailing" secondItem="uzd-32-ZXQ" secondAttribute="trailing" constant="15" id="1r5-GZ-cuV"/>
                     <constraint firstAttribute="trailing" secondItem="Eet-NK-gki" secondAttribute="trailing" constant="15" id="3Gm-hD-Hln"/>
                     <constraint firstAttribute="bottom" secondItem="uzd-32-ZXQ" secondAttribute="bottom" id="9pG-Sh-Tdu"/>
@@ -58,9 +68,11 @@
                     <constraint firstItem="Eet-NK-gki" firstAttribute="centerY" secondItem="3Yp-ad-aav" secondAttribute="centerY" id="bO9-8f-FQI"/>
                     <constraint firstItem="3Yp-ad-aav" firstAttribute="leading" secondItem="MaL-ZM-2XJ" secondAttribute="leading" constant="15" id="kb4-kj-TLB"/>
                     <constraint firstItem="tgg-58-nI8" firstAttribute="leading" secondItem="3Yp-ad-aav" secondAttribute="trailing" constant="50" id="rLy-3Y-PpE"/>
+                    <constraint firstItem="t92-aN-7RH" firstAttribute="centerY" secondItem="3Yp-ad-aav" secondAttribute="centerY" id="xTI-gr-3dR"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="lb_detailTitle" destination="t92-aN-7RH" id="zdA-EL-uXn"/>
                 <outlet property="lb_title" destination="3Yp-ad-aav" id="kq0-ZC-MA3"/>
                 <outlet property="tf_contentTextfiled" destination="tgg-58-nI8" id="0q4-2p-rfl"/>
             </connections>

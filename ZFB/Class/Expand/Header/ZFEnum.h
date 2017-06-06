@@ -17,7 +17,7 @@
 typedef NS_ENUM(NSUInteger, OrderType) {
     OrderTypeAllOrder,//全部订单
     OrderTypeWaitPay,//待付款
-    OrderTypeWaitSend,//待发货
+    OrderTypeWaitSend,//待发货`
     OrderTypeSending,//配送中
     OrderTypeSended,//已配送
     OrderTypeDealSuccess,//交易完成

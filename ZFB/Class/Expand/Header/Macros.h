@@ -20,6 +20,11 @@
 #define kWeakSelf(type)__weak typeof(type)weak##type = type;
 #define kStrongSelf(type)__strong typeof(type)type = weak##type;
 
+#ifdef DEBUG
+#define PPLog(...) printf("[%s] %s [第%d行]: %s\n", __TIME__ ,__PRETTY_FUNCTION__ ,__LINE__, [[NSString stringWithFormat:__VA_ARGS__] UTF8String])
+#else
+#define PPLog(...)
+#endif
 
 
 //色值
