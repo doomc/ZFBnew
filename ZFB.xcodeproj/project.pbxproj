@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		287E1D51FE976BE2DCE0A71B /* libPods-ZFB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2E471759A11D3682520CF1E /* libPods-ZFB.a */; };
+		4926AAC01EE7916500178491 /* NSString+JsonChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 4926AABF1EE7916500178491 /* NSString+JsonChange.m */; };
+		4926AAC61EE7A3E700178491 /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4926AAC31EE7A3E700178491 /* NSTimer+Addition.m */; };
+		4926AAC71EE7A3E700178491 /* NSTimer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4926AAC51EE7A3E700178491 /* NSTimer+Blocks.m */; };
 		492752191EC44DFC003C22D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 492752181EC44DFC003C22D0 /* main.m */; };
 		4927521C1EC44DFC003C22D0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4927521B1EC44DFC003C22D0 /* AppDelegate.m */; };
 		4927521F1EC44DFC003C22D0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4927521E1EC44DFC003C22D0 /* ViewController.m */; };
@@ -512,6 +515,12 @@
 
 /* Begin PBXFileReference section */
 		3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.debug.xcconfig"; sourceTree = "<group>"; };
+		4926AABE1EE7916500178491 /* NSString+JsonChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JsonChange.h"; sourceTree = "<group>"; };
+		4926AABF1EE7916500178491 /* NSString+JsonChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JsonChange.m"; sourceTree = "<group>"; };
+		4926AAC21EE7A3E700178491 /* NSTimer+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addition.h"; sourceTree = "<group>"; };
+		4926AAC31EE7A3E700178491 /* NSTimer+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addition.m"; sourceTree = "<group>"; };
+		4926AAC41EE7A3E700178491 /* NSTimer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Blocks.h"; sourceTree = "<group>"; };
+		4926AAC51EE7A3E700178491 /* NSTimer+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Blocks.m"; sourceTree = "<group>"; };
 		492752141EC44DFC003C22D0 /* ZFB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZFB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		492752181EC44DFC003C22D0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4927521A1EC44DFC003C22D0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1255,6 +1264,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4926AAC11EE7A3E700178491 /* NSTimer */ = {
+			isa = PBXGroup;
+			children = (
+				4926AAC21EE7A3E700178491 /* NSTimer+Addition.h */,
+				4926AAC31EE7A3E700178491 /* NSTimer+Addition.m */,
+				4926AAC41EE7A3E700178491 /* NSTimer+Blocks.h */,
+				4926AAC51EE7A3E700178491 /* NSTimer+Blocks.m */,
+			);
+			path = NSTimer;
+			sourceTree = "<group>";
+		};
 		4927520B1EC44DFC003C22D0 = {
 			isa = PBXGroup;
 			children = (
@@ -1349,6 +1369,7 @@
 		492754EB1EC4679E003C22D0 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				4926AAC11EE7A3E700178491 /* NSTimer */,
 				498AE4AE1EE6AADF00EE3FA8 /* NSData */,
 				498DE1271EE68A4D00F64A61 /* UIView+ViewController.h */,
 				498DE1281EE68A4D00F64A61 /* UIView+ViewController.m */,
@@ -1366,6 +1387,8 @@
 				509D1F761ECDD9AC00D70444 /* ZFCoverView.m */,
 				509A13431EE6EB000093978F /* NSString+ZFSortAppdending.h */,
 				509A13441EE6EB000093978F /* NSString+ZFSortAppdending.m */,
+				4926AABE1EE7916500178491 /* NSString+JsonChange.h */,
+				4926AABF1EE7916500178491 /* NSString+JsonChange.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3216,6 +3239,7 @@
 				4927574C1EC4679E003C22D0 /* MJRefreshBackGifFooter.m in Sources */,
 				498AE4A81EE6A5E100EE3FA8 /* YYDiskCache.m in Sources */,
 				49E98A421EDE62EC00B04DEF /* TDView.m in Sources */,
+				4926AAC61EE7A3E700178491 /* NSTimer+Addition.m in Sources */,
 				49E7578A1EC96E9100220B28 /* SDCycleScrollView.m in Sources */,
 				49E98B161EDEC81700B04DEF /* ZFSettingHeadViewController.m in Sources */,
 				49E757881EC96E9100220B28 /* TAPageControl.m in Sources */,
@@ -3234,6 +3258,7 @@
 				5019FFB51ECCAEF800325342 /* UIImage+MultiFormat.m in Sources */,
 				4927573A1EC4679E003C22D0 /* BaseViewController.m in Sources */,
 				49E98AF81EDEAFF000B04DEF /* ZFMyOpinionCell.m in Sources */,
+				4926AAC71EE7A3E700178491 /* NSTimer+Blocks.m in Sources */,
 				505163A21EDA72CD006884FA /* ZFOrderDetailCell.m in Sources */,
 				49E98AF61EDEAFF000B04DEF /* ZFMyOderCell.m in Sources */,
 				49A9420C1EC9B0B200153B47 /* HotCollectionViewCell.m in Sources */,
@@ -3262,6 +3287,7 @@
 				4927573E1EC4679E003C22D0 /* ZFShoppingCarViewController.m in Sources */,
 				503BEBDB1ED5CEB0004FC36C /* ZFAddressListViewController.m in Sources */,
 				498AE4AA1EE6A5E100EE3FA8 /* YYMemoryCache.m in Sources */,
+				4926AAC01EE7916500178491 /* NSString+JsonChange.m in Sources */,
 				498AE4BD1EE6AADF00EE3FA8 /* NSData+APNSToken.m in Sources */,
 				49D6E6D11ED9297B000A837E /* ApplySalesAfterCommonCell.m in Sources */,
 				498DE0E31EE6802500F64A61 /* GVUserDefaults+BBProperties.m in Sources */,
@@ -3499,7 +3525,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3519,7 +3545,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

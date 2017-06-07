@@ -16,7 +16,9 @@
         return @"";
     }
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+   
+    [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
+    //[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *fixString = [dateFormatter stringFromDate:curDate];
     return fixString;
 }

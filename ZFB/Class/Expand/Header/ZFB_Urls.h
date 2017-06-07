@@ -10,12 +10,19 @@
 #define ZFB_Urls_h
 
 #import "MENetWorkManager.h"//网络请求
+#import "WBRequest.h"
+
+#import "MD5Tool.h"
+#import "dateTimeHelper.h"
+#import "NSString+Base64.h"
+
 
 //图片服务器
 #define  uploadImgae_Url @"http://192.168.1.106:8086/cmfile/upload"
 
 //数据服务器
-#define  ZFB_SendMessageUrl @"http://192.168.1.107:8086/zfb/InterfaceServlet"
+#define  ZFB_22SendMessageUrl @"http://192.168.1.106:8086/zfb/InterfaceServlet"
+#define  ZFB_11SendMessageUrl @"http://192.168.1.107:8086/zfb/InterfaceServlet"
 
 
 

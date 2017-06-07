@@ -47,4 +47,8 @@
 
 
 
++(NSString *)md5:(NSString *)str ;
+
+
+
 @end
