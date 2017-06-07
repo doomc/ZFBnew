@@ -12,8 +12,8 @@
 #import "ZFPersonalViewController.h"
 #import "NSString+ZFSortAppdending.h"
 #import "NSString+JsonChange.h"
+#import "ZFEncryptionKey.h"
 
-const NSString * MD5_key = @"1233@sdf%22dscE3";//全局
 
 typedef NS_ENUM(NSUInteger, indexType) {
     quickLoginIndexType = 0,//快捷登录
@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 @interface LoginViewController ()<UITextFieldDelegate>
 {
     
-    //    BOOL _isQuickLogin;
+    BOOL _isQuickLogin;
 }
 @property (weak, nonatomic) IBOutlet UISegmentedControl * loginSegment;
 //手机号
@@ -33,6 +33,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
 @property (weak, nonatomic) IBOutlet UIImageView *img_iconOfVerificationOrPs;
 @property (weak, nonatomic) IBOutlet UIButton *login_btn;
 
+
+
 @property (assign,nonatomic) indexType  indexType;
 @end
 
@@ -41,9 +43,10 @@ typedef NS_ENUM(NSUInteger, indexType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
+    _isQuickLogin = YES;
+
     [self initSegmentInterfaceAndTextfiled];
+   
     [self textFieldSettingDelegate];
     
     
@@ -77,9 +80,11 @@ typedef NS_ENUM(NSUInteger, indexType) {
 -(void)textFieldSettingDelegate
 {
     self.tf_loginphone.delegate  = self;
+    
     self.tf_verificationCodeOrPassWord.delegate = self;
     
     [self.tf_loginphone addTarget:self action:@selector(textChange :) forControlEvents:UIControlEventEditingChanged];
+    
     [self.tf_verificationCodeOrPassWord addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     
 }
@@ -89,8 +94,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 {
     textfiled.clearButtonMode = UITextFieldViewModeWhileEditing;
     
-    
-    if (_loginSegment.selectedSegmentIndex == 0) {
+    if (_isQuickLogin == YES) {
         
         if (textfiled == _tf_verificationCodeOrPassWord) {
             
@@ -107,7 +111,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
         
         
     }
-    if (_loginSegment.selectedSegmentIndex == 1) {
+    if (_isQuickLogin == NO) {
+       
         _tf_verificationCodeOrPassWord.secureTextEntry = YES;
         
         if (_tf_verificationCodeOrPassWord == textfiled) {
@@ -131,7 +136,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     
-    if (_loginSegment.selectedSegmentIndex == 0  ) {
+    if (_isQuickLogin == YES ) {
         
         if (_tf_loginphone == textField) {
             //判断是不是手机号
@@ -153,8 +158,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             
         }
         
-    }else if (_loginSegment.selectedSegmentIndex == 1){
-        
+    }else if (_isQuickLogin == NO){
         
         if (_tf_loginphone == textField) {
             //判断是不是手机号
@@ -203,8 +207,11 @@ typedef NS_ENUM(NSUInteger, indexType) {
  */
 -(void)LoginSegmentchange:(UISegmentedControl *)segment
 {
+    _tf_verificationCodeOrPassWord.text = nil;
+
     if (segment.selectedSegmentIndex == 0) {
-        
+        _isQuickLogin = YES;
+
         NSLog(@"快捷登录");
         _tf_verificationCodeOrPassWord.placeholder = @"请输入短信验证码";
         _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@"message"];
@@ -212,10 +219,12 @@ typedef NS_ENUM(NSUInteger, indexType) {
         
     }
     else{
+        _isQuickLogin = NO;
+
         NSLog(@"密码登录");
         _tf_verificationCodeOrPassWord.placeholder = @"请输入登录密码";
         _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@"passWord"];
-        
+
     }
 }
 
@@ -284,16 +293,11 @@ typedef NS_ENUM(NSUInteger, indexType) {
     
     NSString * phoneNumber = _tf_loginphone.text;
     NSString * SmsLogo = @"1";
-   
 
     NSDate *date = [NSDate date];
     NSString *DateTime =  [dateTimeHelper htcTimeToLocationStr: date];
     
     //通用MD5_KEY
- 
-  
- 
-
     NSString * transactionTime = DateTime;//当前时间
     NSString * transactionId = DateTime; //每个用户唯一
     NSLog(@"%@",DateTime);
@@ -316,26 +320,11 @@ typedef NS_ENUM(NSUInteger, indexType) {
                 @"svcName":@"SendMessages",
                 @"data":data,
                };
+    
 
+    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
+    NSString * sign = [keydic signStringWithParam:params2];
     
-    NSArray *keyArray = [params2 allKeys];
-    NSArray *sortArray = [keyArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-         return [obj1 compare:obj2 options:NSNumericSearch];
-     }];
-    NSMutableArray *valueArray = [NSMutableArray array];
-    for (NSString *sortString in sortArray) {
-        [valueArray addObject:[params2 objectForKey:sortString]];
-    }
-    NSMutableArray *signArray = [NSMutableArray array];
-    for (int i = 0; i < sortArray.count; i++) {
-        NSString *keyValueStr = [NSString stringWithFormat:@"%@=%@",sortArray[i],valueArray[i]];
-        [signArray addObject:keyValueStr];
-    }
-    NSString * signStr =[NSString stringWithFormat:@"%@|%@",[signArray componentsJoinedByString:@"|"],MD5_key];
-    NSLog(@"signStr = %@",signStr);
- 
-    
-    NSString * sign =  [MD5Tool MD5ForLower32Bate:signStr];
     NSDictionary * param   = [NSDictionary dictionary];
                 param = @{
                

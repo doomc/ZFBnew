@@ -494,6 +494,7 @@
 		509D1F7D1ECDE68C00D70444 /* ZFSearchDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F7C1ECDE68C00D70444 /* ZFSearchDetailViewController.m */; };
 		50AC31F51ED86FB9004287E2 /* ZFCheckTheProgressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AC31F31ED86FB9004287E2 /* ZFCheckTheProgressCell.m */; };
 		50AC31F61ED86FB9004287E2 /* ZFCheckTheProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50AC31F41ED86FB9004287E2 /* ZFCheckTheProgressCell.xib */; };
+		50C672CD1EE83F5E005A1E7C /* ZFEncryptionKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C672CC1EE83F5E005A1E7C /* ZFEncryptionKey.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1233,6 +1234,8 @@
 		50AC31F21ED86FB9004287E2 /* ZFCheckTheProgressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCheckTheProgressCell.h; sourceTree = "<group>"; };
 		50AC31F31ED86FB9004287E2 /* ZFCheckTheProgressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCheckTheProgressCell.m; sourceTree = "<group>"; };
 		50AC31F41ED86FB9004287E2 /* ZFCheckTheProgressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFCheckTheProgressCell.xib; sourceTree = "<group>"; };
+		50C672CB1EE83F5E005A1E7C /* ZFEncryptionKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFEncryptionKey.h; sourceTree = "<group>"; };
+		50C672CC1EE83F5E005A1E7C /* ZFEncryptionKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFEncryptionKey.m; sourceTree = "<group>"; };
 		B2E471759A11D3682520CF1E /* libPods-ZFB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZFB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D23F8EC706787ADDD1999100 /* Pods-ZFB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1434,6 +1437,8 @@
 				4990A3711EE557A3004CB908 /* WBRequest.m */,
 				4990A3301EE4EEFC004CB908 /* MENetWorkManager.h */,
 				4990A3311EE4EEFC004CB908 /* MENetWorkManager.m */,
+				50C672CB1EE83F5E005A1E7C /* ZFEncryptionKey.h */,
+				50C672CC1EE83F5E005A1E7C /* ZFEncryptionKey.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -3211,6 +3216,7 @@
 				49E98AF41EDEAFF000B04DEF /* ZFMyCashBagCell.m in Sources */,
 				5019FFB31ECCAEF800325342 /* UIButton+WebCache.m in Sources */,
 				492757561EC4679E003C22D0 /* UIView+MJExtension.m in Sources */,
+				50C672CD1EE83F5E005A1E7C /* ZFEncryptionKey.m in Sources */,
 				493ADB091ED57F7400CB2866 /* GoodsitemCell.m in Sources */,
 				492756B11EC4679E003C22D0 /* UIImage+Extension.m in Sources */,
 				492757541EC4679E003C22D0 /* UIScrollView+MJExtension.m in Sources */,
@@ -3525,7 +3531,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3545,7 +3551,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
