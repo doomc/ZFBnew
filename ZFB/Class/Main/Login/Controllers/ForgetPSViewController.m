@@ -145,59 +145,59 @@
 #pragma marl - VerificationCodePostRequest验证码网络请求
 -(void)VerificationCodePostRequest
 {
-    NSString * SmsLogo = @"1";
-    NSDate *date = [NSDate date];
-    NSString *DateTime =  [dateTimeHelper htcTimeToLocationStr: date];
-    
-    //通用MD5_KEY
-    NSString * transactionTime = DateTime;//当前时间
-    NSString * transactionId = DateTime; //每个用户唯一
-    NSLog(@"%@",DateTime);
-    NSString * tempStr =  @"";
-    NSString * jsonStr = [tempStr convertToJsonData:@{
-                                                           @"mobilePhone":_tf_phoneNum.text,
-                                                           @"SmsLogo":SmsLogo,
-                                                           }];
-    NSString * data = [NSString base64:jsonStr];
-    NSDictionary * params2 = @{
-                               //@"userId":@"",
-                               @"signType":@"MD5",
-                               @"transactionTime":transactionTime,
-                               @"transactionId":transactionId,
-                               @"svcName":@"forgetPassword",
-                               @"data":data,
-                               };
-    
-    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
-    NSString * sign = [keydic signStringWithParam:params2];
-    
-    NSDictionary * param =  @{
-                              
-                              @"data":data,//base64
-                              @"sign":sign,//签名
-                              @"transactionTime":transactionTime,
-                              @"transactionId":transactionId,
-                              @"signType":@"MD5",
-                              @"svcName":@"forgetPassword",
-                              };
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:param responseCache:^(id responseCache) {
-        
-    } success:^(id responseObject) {
-        NSLog(@"拿到验证码code%@",responseObject);
-        NSString  * data = [ responseObject[@"data"] base64DecodedString];
-        
-        NSDictionary * dataDic= [NSString dictionaryWithJsonString:data];
-        
-        _smsCode = dataDic[@"smsCode"];
-        
-        NSLog(@"%@" , _smsCode);
-        
-    } failure:^(NSError *error) {
-        
-        NSLog(@"%@  = error " ,error);
-        
-    }];
-    
+//    NSString * SmsLogo = @"1";
+//    NSDate *date = [NSDate date];
+//    NSString *DateTime =  [dateTimeHelper htcTimeToLocationStr: date];
+//    
+//    //通用MD5_KEY
+//    NSString * transactionTime = DateTime;//当前时间
+//    NSString * transactionId = DateTime; //每个用户唯一
+//    NSLog(@"%@",DateTime);
+//    NSString * tempStr =  @"";
+//    NSString * jsonStr = [tempStr convertToJsonData:@{
+//                                                           @"mobilePhone":_tf_phoneNum.text,
+//                                                           @"SmsLogo":SmsLogo,
+//                                                           }];
+//    NSString * data = [NSString base64:jsonStr];
+//    NSDictionary * params2 = @{
+//                               //@"userId":@"",
+//                               @"signType":@"MD5",
+//                               @"transactionTime":transactionTime,
+//                               @"transactionId":transactionId,
+//                               @"svcName":@"forgetPassword",
+//                               @"data":data,
+//                               };
+//    
+//    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
+//    NSString * sign = [keydic signStringWithParam:params2];
+//    
+//    NSDictionary * param =  @{
+//                              
+//                              @"data":data,//base64
+//                              @"sign":sign,//签名
+//                              @"transactionTime":transactionTime,
+//                              @"transactionId":transactionId,
+//                              @"signType":@"MD5",
+//                              @"svcName":@"forgetPassword",
+//                              };
+//    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:param responseCache:^(id responseCache) {
+//        
+//    } success:^(id responseObject) {
+//        NSLog(@"拿到验证码code%@",responseObject);
+//        NSString  * data = [ responseObject[@"data"] base64DecodedString];
+//        
+//        NSDictionary * dataDic= [NSString dictionaryWithJsonString:data];
+//        
+//        _smsCode = dataDic[@"smsCode"];
+//        
+//        NSLog(@"%@" , _smsCode);
+//        
+//    } failure:^(NSError *error) {
+//        
+//        NSLog(@"%@  = error " ,error);
+//        
+//    }];
+//    
 }
 
 

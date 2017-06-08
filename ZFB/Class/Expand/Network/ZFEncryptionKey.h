@@ -7,10 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+
+typedef void(^Block) (NSDictionary * signParam, NSDictionary * param);
+
 //加密规则
 @interface ZFEncryptionKey : NSObject
 
+@property(nonatomic,copy)Block block;
 
--(NSString *)signStringWithParam:(NSDictionary *)param;
+-(NSDictionary *)signStringWithParam:(NSDictionary *)param;
 
 @end

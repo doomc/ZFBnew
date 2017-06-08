@@ -150,10 +150,15 @@ static AFHTTPSessionManager *_sessionManager;
              responseCache:(PPHttpRequestCache)responseCache
                    success:(PPHttpRequestSuccess)success
                    failure:(PPHttpRequestFailed)failure {
+    
+    //参数加密规则
+    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
+    NSDictionary * parma = [keydic signStringWithParam:parameters];
+    
     //读取缓存
     responseCache!=nil ? responseCache([PPNetworkCache httpCacheForURL:URL parameters:parameters]) : nil;
     
-    NSURLSessionTask *sessionTask = [_sessionManager POST:URL parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+    NSURLSessionTask *sessionTask = [_sessionManager POST:URL parameters:parma progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         

@@ -179,7 +179,7 @@
     NSString * transactionTime = DateTime;//当前时间
     NSString * transactionId = DateTime; //每个用户唯一
     NSLog(@"%@",DateTime);
-    NSString * jsonStr = [_phoneNumStr convertToJsonData:@{
+    NSString * jsonStr = [NSString convertToJsonData:@{
                                                           @"mobilePhone":_phoneNumStr,
                                                           @"SmsLogo":SmsLogo,
                                                           }];
@@ -231,7 +231,7 @@
     NSString * transactionTime = DateTime;//当前时间
     NSString * transactionId = DateTime; //每个用户唯一
     NSLog(@"%@",DateTime);
-    NSString * jsonStr = [_phoneNumStr convertToJsonData:@{
+    NSString * jsonStr = [NSString convertToJsonData:@{
                                                            @"mobilePhone":_phoneNumStr,
                                                            @"loginPwd":_tf_loginPassword.text,
                                                            @"smsCheckCode":_smsCode,

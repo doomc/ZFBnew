@@ -13,7 +13,7 @@
 @implementation NSString (JsonChange)
 
 // 字典转json字符串方法
--(NSString *)convertToJsonData:(NSDictionary *)dict
++(NSString *)convertToJsonData:(NSDictionary *)dict
 
 {
     
@@ -45,7 +45,7 @@
     
     //去掉字符串中的换行符
     
-//    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     
     return mutStr;
     

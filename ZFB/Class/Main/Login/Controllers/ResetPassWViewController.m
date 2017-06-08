@@ -118,7 +118,7 @@
     NSLog(@"%@",DateTime);
     NSString * tempStr;
 
-    NSString * jsonStr = [tempStr convertToJsonData:@{
+    NSString * jsonStr = [NSString convertToJsonData:@{
                                                            @"mobilePhone":_phoneNum,
                                                            @"newPassword":_tf_surePS.text,
                                                            @"smsCheckCode":_Vercode,

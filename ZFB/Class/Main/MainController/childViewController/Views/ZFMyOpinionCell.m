@@ -13,14 +13,16 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
-    if ([self.lb_status.text isEqualToString:@"未查看"]) {
-        self.lb_status.textColor = HEXCOLOR(0xfe6d6a);
-    }
-    else{
-        self.lb_status.textColor = HEXCOLOR(0x363636);
-  
-    }
+    //多行必须写
+    [self.lb_title setPreferredMaxLayoutWidth:(KScreenW - 40)];
+//    
+//    if ([self.lb_status.text isEqualToString:@"未查看"]) {
+//        self.lb_status.textColor = HEXCOLOR(0xfe6d6a);
+//    }
+//    else{
+//        self.lb_status.textColor = HEXCOLOR(0x363636);
+//  
+//    }
     
 }
 

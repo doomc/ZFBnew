@@ -51,6 +51,23 @@
  
     height = [self.tableView fd_heightForCellWithIdentifier:@"ZFMyOpinionCellid" cacheByIndexPath:indexPath configuration:^(id cell) {
         
+        ZFMyOpinionCell * opinionCell = (ZFMyOpinionCell*)cell;
+   
+        
+        if (indexPath.section == 0) {
+            opinionCell.lb_title.text = @"车市数据ntents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks/AssetsLibraryServices.framework/AssetsLibraryServices (0x11689fcc0) and /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks/PhotoLibraryServices.framework/PhotoLibraryServices (0x1166156f0). One of the two will be used. Which one is undefined.";
+            opinionCell.lb_status.text =@"已阅读";
+        }
+        if (indexPath.section == 1) {
+            opinionCell.lb_title.text = @"车市数据";
+            opinionCell.lb_status.text =@"已阅读";
+            
+        }
+        if (indexPath.section == 2) {
+            opinionCell.lb_title.text = @"<UITableView: 0x7f854a97d000; frame = (0 0; 375 667); clipsToBounds = YES; gestureRecognizers = <NSArray: 0x608000253cb0>; layer = <CALayer: 0x6080004322c0>; contentOffset: {0, 0}; contentSize: {0, 0}>";
+            opinionCell.lb_status.text =@"已阅读";
+            
+        }
     }];
     return height;
 }
@@ -60,24 +77,24 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ZFMyOpinionCell *cell = [self.tableView  dequeueReusableCellWithIdentifier:@"ZFMyOpinionCellid" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-   
+    ZFMyOpinionCell *opinionCell = [self.tableView  dequeueReusableCellWithIdentifier:@"ZFMyOpinionCellid" forIndexPath:indexPath];
+    opinionCell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
-        cell.lb_title.text = @"车市数据ntents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks/AssetsLibraryServices.framework/AssetsLibraryServices (0x11689fcc0) and /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks/PhotoLibraryServices.framework/PhotoLibraryServices (0x1166156f0). One of the two will be used. Which one is undefined.";
-         cell.lb_status.text =@"已阅读";
+        opinionCell.lb_title.text = @"车市数据ntents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks/AssetsLibraryServices.framework/AssetsLibraryServices (0x11689fcc0) and /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks/PhotoLibraryServices.framework/PhotoLibraryServices (0x1166156f0). One of the two will be used. Which one is undefined.";
+        opinionCell.lb_status.text =@"已阅读";
     }
     if (indexPath.section == 1) {
-        cell.lb_title.text = @"车市数据";
-        cell.lb_status.text =@"已阅读";
-
+        opinionCell.lb_title.text = @"车市数据";
+        opinionCell.lb_status.text =@"已阅读";
+        
     }
     if (indexPath.section == 2) {
-        cell.lb_title.text = @"<UITableView: 0x7f854a97d000; frame = (0 0; 375 667); clipsToBounds = YES; gestureRecognizers = <NSArray: 0x608000253cb0>; layer = <CALayer: 0x6080004322c0>; contentOffset: {0, 0}; contentSize: {0, 0}>";
-        cell.lb_status.text =@"已阅读";
-
+        opinionCell.lb_title.text = @"<UITableView: 0x7f854a97d000; frame = (0 0; 375 667); clipsToBounds = YES; gestureRecognizers = <NSArray: 0x608000253cb0>; layer = <CALayer: 0x6080004322c0>; contentOffset: {0, 0}; contentSize: {0, 0}>";
+        opinionCell.lb_status.text =@"已阅读";
+        
     }
-    return cell;
+  
+    return opinionCell;
     
 }
 #pragma tableViewDataSource

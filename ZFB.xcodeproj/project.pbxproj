@@ -499,6 +499,7 @@
 		50AC31F51ED86FB9004287E2 /* ZFCheckTheProgressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AC31F31ED86FB9004287E2 /* ZFCheckTheProgressCell.m */; };
 		50AC31F61ED86FB9004287E2 /* ZFCheckTheProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50AC31F41ED86FB9004287E2 /* ZFCheckTheProgressCell.xib */; };
 		50C672CD1EE83F5E005A1E7C /* ZFEncryptionKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C672CC1EE83F5E005A1E7C /* ZFEncryptionKey.m */; };
+		50C672D01EE98575005A1E7C /* TDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C672CF1EE98575005A1E7C /* TDView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1247,6 +1248,8 @@
 		50AC31F41ED86FB9004287E2 /* ZFCheckTheProgressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFCheckTheProgressCell.xib; sourceTree = "<group>"; };
 		50C672CB1EE83F5E005A1E7C /* ZFEncryptionKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFEncryptionKey.h; sourceTree = "<group>"; };
 		50C672CC1EE83F5E005A1E7C /* ZFEncryptionKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFEncryptionKey.m; sourceTree = "<group>"; };
+		50C672CE1EE98575005A1E7C /* TDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDView.h; sourceTree = "<group>"; };
+		50C672CF1EE98575005A1E7C /* TDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDView.m; sourceTree = "<group>"; };
 		B2E471759A11D3682520CF1E /* libPods-ZFB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZFB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D23F8EC706787ADDD1999100 /* Pods-ZFB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1487,6 +1490,8 @@
 				49E0A0971ED52C6F00AEE354 /* CustomFooterView.m */,
 				498AE4AB1EE6A92200EE3FA8 /* MD5Tool.h */,
 				498AE4AC1EE6A92200EE3FA8 /* MD5Tool.m */,
+				50C672CE1EE98575005A1E7C /* TDView.h */,
+				50C672CF1EE98575005A1E7C /* TDView.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -3258,6 +3263,7 @@
 				498AE4A91EE6A5E100EE3FA8 /* YYKVStorage.m in Sources */,
 				498AE4A71EE6A5E100EE3FA8 /* YYCache.m in Sources */,
 				49AAD8651EE0F77F00AFE61D /* ZFCollectEditCell.m in Sources */,
+				50C672D01EE98575005A1E7C /* TDView.m in Sources */,
 				49C6CFFB1EE003BB00652CDB /* ZFSettingAddressViewController.m in Sources */,
 				492756B21EC4679E003C22D0 /* UIView+MJ.m in Sources */,
 				49ABA4291ECAE97F00E7EB20 /* ResetPassWViewController.m in Sources */,
@@ -3562,7 +3568,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3583,7 +3589,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
