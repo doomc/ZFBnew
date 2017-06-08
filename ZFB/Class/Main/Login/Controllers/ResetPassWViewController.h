@@ -10,4 +10,8 @@
 
 @interface ResetPassWViewController : BaseViewController
 
+@property(nonatomic,copy)NSString * phoneNum;
+@property(nonatomic,copy)NSString * Vercode;
+
+
 @end

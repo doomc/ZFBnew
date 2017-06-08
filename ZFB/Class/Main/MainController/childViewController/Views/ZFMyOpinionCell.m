@@ -2,7 +2,7 @@
 //  ZFMyOpinionCell.m
 //  ZFB
 //
-//  Created by  展富宝  on 2017/5/16.
+//  Created by  展富宝  on 2017/6/8.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
@@ -13,6 +13,15 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    if ([self.lb_status.text isEqualToString:@"未查看"]) {
+        self.lb_status.textColor = HEXCOLOR(0xfe6d6a);
+    }
+    else{
+        self.lb_status.textColor = HEXCOLOR(0x363636);
+  
+    }
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

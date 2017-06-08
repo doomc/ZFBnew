@@ -13,11 +13,16 @@
 @interface GVUserDefaults (BBProperties)
 
 #pragma mark -- personinfo
-@property (nonatomic,weak) NSString *userName;
-@property (nonatomic,weak) NSString *name;
-@property (nonatomic,weak) NSString *role;
+@property (nonatomic,weak) NSString *userPhoneNumber;//第一次注册的手机号
+@property (nonatomic,weak) NSString *userPhonePassword;//第一次注册的密码
+@property (nonatomic,weak) NSString *smsCode;//有效时间30分钟
+@property (nonatomic,weak) NSString *newPassWord;//修改的新密码保存
 
-@property(nonatomic,weak)NSDate *MBJsPatchTime;
+@property (nonatomic,weak) NSString *userId;
+   
+@property (nonatomic) BOOL boolValue;
+@property (nonatomic) float floatValue;
+
 
 #pragma mark --是否是第一次启动APP程序
 @property (nonatomic,assign) BOOL isNoFirstLaunch;

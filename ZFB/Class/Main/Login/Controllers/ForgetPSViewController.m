@@ -10,6 +10,9 @@
 #import "ResetPassWViewController.h"
 
 @interface ForgetPSViewController ()<UITextFieldDelegate>
+{
+    NSString * _smsCode ;
+}
 @property (weak, nonatomic) IBOutlet UITextField *tf_phoneNum;
 @property (weak, nonatomic) IBOutlet UITextField *tf_codeVerification;
 @property (weak, nonatomic) IBOutlet UIButton *getCodeVerification_btn;
@@ -24,17 +27,31 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title =@"找回密码";
+    self.nextStep_btn.enabled = NO;
     [self.nextStep_btn addTarget:self action:@selector(goToResetPageView:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.getCodeVerification_btn addTarget:self action:@selector(getVerificationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
+    
     [self textFieldSettingDelegate];
     
     
 }
-- (IBAction)backAction:(id)sender {
-
-    [self.navigationController popViewControllerAnimated:YES];
-    
+#pragma mark - 获取验证码
+-(void)getVerificationCodeAction:(UIButton *)sender{
+    // 网络请求
+    [self VerificationCodePostRequest];
+    [dateTimeHelper verificationCode:^{
+        //倒计时完毕
+        sender.enabled = YES;
+        [sender setTitle:@"重新发送" forState:UIControlStateNormal];
+        [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
+        
+    } blockNo:^(id time) {
+        sender.enabled = NO;
+        [sender setTitle:time forState:UIControlStateNormal];
+        [sender setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal] ;
+    }];
 }
-
 #pragma mark - UITextFieldDelegate  设置代理
 -(void)textFieldSettingDelegate
 {
@@ -116,11 +133,72 @@
 - (void)goToResetPageView:(id)sender {
 
     ResetPassWViewController * resetVc= [[ResetPassWViewController alloc]init];
+    resetVc.phoneNum = _tf_phoneNum.text;
+    resetVc.Vercode = _tf_codeVerification.text;
     [self.navigationController pushViewController:resetVc animated:YES];
     
 }
 
 
+
+
+#pragma marl - VerificationCodePostRequest验证码网络请求
+-(void)VerificationCodePostRequest
+{
+    NSString * SmsLogo = @"1";
+    NSDate *date = [NSDate date];
+    NSString *DateTime =  [dateTimeHelper htcTimeToLocationStr: date];
+    
+    //通用MD5_KEY
+    NSString * transactionTime = DateTime;//当前时间
+    NSString * transactionId = DateTime; //每个用户唯一
+    NSLog(@"%@",DateTime);
+    NSString * tempStr =  @"";
+    NSString * jsonStr = [tempStr convertToJsonData:@{
+                                                           @"mobilePhone":_tf_phoneNum.text,
+                                                           @"SmsLogo":SmsLogo,
+                                                           }];
+    NSString * data = [NSString base64:jsonStr];
+    NSDictionary * params2 = @{
+                               //@"userId":@"",
+                               @"signType":@"MD5",
+                               @"transactionTime":transactionTime,
+                               @"transactionId":transactionId,
+                               @"svcName":@"forgetPassword",
+                               @"data":data,
+                               };
+    
+    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
+    NSString * sign = [keydic signStringWithParam:params2];
+    
+    NSDictionary * param =  @{
+                              
+                              @"data":data,//base64
+                              @"sign":sign,//签名
+                              @"transactionTime":transactionTime,
+                              @"transactionId":transactionId,
+                              @"signType":@"MD5",
+                              @"svcName":@"forgetPassword",
+                              };
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:param responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        NSLog(@"拿到验证码code%@",responseObject);
+        NSString  * data = [ responseObject[@"data"] base64DecodedString];
+        
+        NSDictionary * dataDic= [NSString dictionaryWithJsonString:data];
+        
+        _smsCode = dataDic[@"smsCode"];
+        
+        NSLog(@"%@" , _smsCode);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"%@  = error " ,error);
+        
+    }];
+    
+}
 
 
 - (void)didReceiveMemoryWarning {

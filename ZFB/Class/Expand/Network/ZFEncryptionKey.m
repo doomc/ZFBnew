@@ -27,10 +27,9 @@ static const NSString  * MD5_key = @"1233@sdf%22dscE3";//全局
     for (int i = 0; i < sortArray.count; i++) {
         NSString *keyValueStr = [NSString stringWithFormat:@"%@=%@",sortArray[i],valueArray[i]];
         NSString * valueStr = [NSString stringWithFormat:@"%@",valueArray[i]];
-       
-        if (!kStringIsEmpty(valueStr)) {//安全操作 判断是不是value有空值
+        if ( !kStringIsEmpty(valueStr)) {
             
-            [signArray addObject:keyValueStr];
+               [signArray addObject:keyValueStr];
         }
     }
   

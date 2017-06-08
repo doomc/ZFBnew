@@ -22,6 +22,9 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title =@"重置密码";
+    self.complete_btn.enabled = NO;
+ 
+
     [self textFieldSettingDelegate];
 }
 
@@ -43,11 +46,10 @@
     textfiled.secureTextEntry = YES;
     if (textfiled == _tf_newPS) {
         
-        if (_tf_newPS.text.length > 20) {
-            _tf_newPS.enabled = NO;
+        if (_tf_newPS.text.length < 20 && _tf_newPS.text.length > 8 ) {
+            NSLog(@"_tf_newPS==%@",_tf_newPS.text);
         }
-        
-        NSLog(@"_tf_newPS==%@",_tf_newPS.text);
+        [self.view makeToast:@"输入密码格式不正确" duration:2.0 position:@"center"];
     }
     if (textfiled == _tf_surePS) {
         NSLog(@"_tf_surePS==%@",_tf_surePS.text);
@@ -64,10 +66,15 @@
             self.complete_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
         }
     }
-    
-    
 }
-
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField == _tf_surePS) {
+      
+        BBUserDefault.newPassWord = _tf_surePS.text;
+        
+    }
+}
 //回收键盘
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -92,15 +99,76 @@
 
     }else{
         NSLog(@"重置成功了");
-        LoginViewController  * logVC =[LoginViewController new];
-        
-        [self.navigationController popToViewController:logVC animated:YES];
-    }
+        [self RetetPasswordPostRequest];
+     }
 
 }
 
 
+#pragma mark - PPNetworkHelper注册网络请求
+-(void)RetetPasswordPostRequest
+{
+    
+    NSDate *date = [NSDate date];
+    NSString *DateTime =  [dateTimeHelper htcTimeToLocationStr: date];
+    
+    //通用MD5_KEY
+    NSString * transactionTime = DateTime;//当前时间
+    NSString * transactionId = DateTime; //每个用户唯一
+    NSLog(@"%@",DateTime);
+    NSString * tempStr;
 
+    NSString * jsonStr = [tempStr convertToJsonData:@{
+                                                           @"mobilePhone":_phoneNum,
+                                                           @"newPassword":_tf_surePS.text,
+                                                           @"smsCheckCode":_Vercode,
+                                                           }];
+    NSString * data = [NSString base64:jsonStr];
+    NSDictionary * params2 = @{
+                               //@"userId":@"",
+                               @"signType":@"MD5",
+                               @"transactionTime":transactionTime,
+                               @"transactionId":transactionId,
+                               @"svcName":@"forgetPassword",
+                               @"data":data,
+                               };
+    
+    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
+    NSString * sign = [keydic signStringWithParam:params2];
+    
+    NSDictionary * parma = @{
+                             @"data":data,//base64
+                             @"sign":sign,//签名
+                             @"transactionTime":transactionTime,
+                             @"transactionId":transactionId,
+                             @"signType":@"MD5",
+                             @"svcName":@"forgetPassword",
+                             @"mobilePhone":_phoneNum,
+                             @"newPassword":_tf_surePS.text,
+                             @"smsCheckCode":_Vercode,
+                             
+                             };
+    
+    [SVProgressHUD  showSuccessWithStatus:@"修改成功"];
+
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        if ([responseObject[@"responseObject"] isEqualToString:@"0" ]) {
+            
+            [SVProgressHUD  showInfoWithStatus:@"修改成功~"];
+            [SVProgressHUD dismissWithCompletion:^{
+                
+                [self.navigationController popToRootViewControllerAnimated:NO];
+                
+            }];
+        }
+        [self.navigationController popToRootViewControllerAnimated:YES];
+
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
 
 
 @end

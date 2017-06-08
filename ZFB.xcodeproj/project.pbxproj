@@ -74,6 +74,14 @@
 		493ADB0A1ED57F7400CB2866 /* GoodsitemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493ADB081ED57F7400CB2866 /* GoodsitemCell.xib */; };
 		493ADB0E1ED5841C00CB2866 /* OrderPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493ADB0C1ED5841C00CB2866 /* OrderPriceCell.m */; };
 		493ADB0F1ED5841C00CB2866 /* OrderPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493ADB0D1ED5841C00CB2866 /* OrderPriceCell.xib */; };
+		494A6C021EE8ED8A0034F7F5 /* VerificationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494A6C001EE8ED8A0034F7F5 /* VerificationCodeViewController.m */; };
+		494A6C031EE8ED8A0034F7F5 /* VerificationCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 494A6C011EE8ED8A0034F7F5 /* VerificationCodeViewController.xib */; };
+		494A6C061EE93CA40034F7F5 /* ZFFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494A6C051EE93CA40034F7F5 /* ZFFeedbackViewController.m */; };
+		494A6C091EE93D500034F7F5 /* ZFCommitOpinionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494A6C081EE93D500034F7F5 /* ZFCommitOpinionViewController.m */; };
+		494A6C0C1EE93D6B0034F7F5 /* ZFMyOpinionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494A6C0B1EE93D6B0034F7F5 /* ZFMyOpinionViewController.m */; };
+		494A6C101EE946F50034F7F5 /* ZFMyOpinionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 494A6C0E1EE946F50034F7F5 /* ZFMyOpinionCell.m */; };
+		494A6C111EE946F50034F7F5 /* ZFMyOpinionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 494A6C0F1EE946F50034F7F5 /* ZFMyOpinionCell.xib */; };
+		494A6C151EE94C830034F7F5 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 494A6C141EE94C830034F7F5 /* UIPlaceHolderTextView.m */; };
 		494F06F21ED42907007EC66A /* select_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06EC1ED42907007EC66A /* select_normal@2x.png */; };
 		494F06F31ED42907007EC66A /* select_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06ED1ED42907007EC66A /* select_normal@3x.png */; };
 		494F06F41ED42907007EC66A /* select_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06EE1ED42907007EC66A /* select_selected@2x.png */; };
@@ -110,8 +118,6 @@
 		498137C41EC5ABEE00DC2806 /* ForgetPSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 498137C21EC5ABEE00DC2806 /* ForgetPSViewController.xib */; };
 		498137C81EC5ABFD00DC2806 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 498137C61EC5ABFD00DC2806 /* RegisterViewController.m */; };
 		498137C91EC5ABFD00DC2806 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 498137C71EC5ABFD00DC2806 /* RegisterViewController.xib */; };
-		498137CD1EC5B9A500DC2806 /* ZYFVerificationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 498137CB1EC5B9A500DC2806 /* ZYFVerificationCodeViewController.m */; };
-		498137CE1EC5B9A500DC2806 /* ZYFVerificationCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 498137CC1EC5B9A500DC2806 /* ZYFVerificationCodeViewController.xib */; };
 		498AE4961EE6A4C000EE3FA8 /* PPHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4941EE6A4C000EE3FA8 /* PPHTTPRequest.m */; };
 		498AE49C1EE6A5B300EE3FA8 /* PPNetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4991EE6A5B300EE3FA8 /* PPNetworkCache.m */; };
 		498AE49D1EE6A5B300EE3FA8 /* PPNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE49B1EE6A5B300EE3FA8 /* PPNetworkHelper.m */; };
@@ -295,7 +301,6 @@
 		49E98A3B1EDE57C300B04DEF /* ZFOrderDetailPaycashCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A391EDE57C300B04DEF /* ZFOrderDetailPaycashCell.m */; };
 		49E98A3C1EDE57C300B04DEF /* ZFOrderDetailPaycashCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E98A3A1EDE57C300B04DEF /* ZFOrderDetailPaycashCell.xib */; };
 		49E98A3F1EDE60FE00B04DEF /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A3E1EDE60FE00B04DEF /* Toast+UIView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		49E98A421EDE62EC00B04DEF /* TDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98A411EDE62EC00B04DEF /* TDView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		49E98AD41EDEA64300B04DEF /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98AD31EDEA64300B04DEF /* MBProgressHUD.m */; };
 		49E98AD71EDEA6AD00B04DEF /* MBProgressHUD+MP.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98AD61EDEA6AD00B04DEF /* MBProgressHUD+MP.m */; };
 		49E98AF31EDEAFF000B04DEF /* ZFPersonalHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E98AE11EDEAFF000B04DEF /* ZFPersonalHeaderView.xib */; };
@@ -303,7 +308,6 @@
 		49E98AF51EDEAFF000B04DEF /* ZFMyCashBagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E98AE41EDEAFF000B04DEF /* ZFMyCashBagCell.xib */; };
 		49E98AF61EDEAFF000B04DEF /* ZFMyOderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98AE61EDEAFF000B04DEF /* ZFMyOderCell.m */; };
 		49E98AF71EDEAFF000B04DEF /* ZFMyOderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E98AE71EDEAFF000B04DEF /* ZFMyOderCell.xib */; };
-		49E98AF81EDEAFF000B04DEF /* ZFMyOpinionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98AE91EDEAFF000B04DEF /* ZFMyOpinionCell.m */; };
 		49E98AF91EDEAFF000B04DEF /* ZFMyProgressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98AEB1EDEAFF000B04DEF /* ZFMyProgressCell.m */; };
 		49E98AFA1EDEAFF000B04DEF /* ZFMyProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E98AEC1EDEAFF000B04DEF /* ZFMyProgressCell.xib */; };
 		49E98AFB1EDEAFF000B04DEF /* ZFMySendServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E98AEE1EDEAFF000B04DEF /* ZFMySendServiceCell.m */; };
@@ -637,6 +641,20 @@
 		493ADB0B1ED5841C00CB2866 /* OrderPriceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPriceCell.h; sourceTree = "<group>"; };
 		493ADB0C1ED5841C00CB2866 /* OrderPriceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPriceCell.m; sourceTree = "<group>"; };
 		493ADB0D1ED5841C00CB2866 /* OrderPriceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPriceCell.xib; sourceTree = "<group>"; };
+		494A6BFF1EE8ED8A0034F7F5 /* VerificationCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationCodeViewController.h; sourceTree = "<group>"; };
+		494A6C001EE8ED8A0034F7F5 /* VerificationCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationCodeViewController.m; sourceTree = "<group>"; };
+		494A6C011EE8ED8A0034F7F5 /* VerificationCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerificationCodeViewController.xib; sourceTree = "<group>"; };
+		494A6C041EE93CA40034F7F5 /* ZFFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFFeedbackViewController.h; sourceTree = "<group>"; };
+		494A6C051EE93CA40034F7F5 /* ZFFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFFeedbackViewController.m; sourceTree = "<group>"; };
+		494A6C071EE93D500034F7F5 /* ZFCommitOpinionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCommitOpinionViewController.h; sourceTree = "<group>"; };
+		494A6C081EE93D500034F7F5 /* ZFCommitOpinionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCommitOpinionViewController.m; sourceTree = "<group>"; };
+		494A6C0A1EE93D6B0034F7F5 /* ZFMyOpinionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFMyOpinionViewController.h; sourceTree = "<group>"; };
+		494A6C0B1EE93D6B0034F7F5 /* ZFMyOpinionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFMyOpinionViewController.m; sourceTree = "<group>"; };
+		494A6C0D1EE946F50034F7F5 /* ZFMyOpinionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFMyOpinionCell.h; sourceTree = "<group>"; };
+		494A6C0E1EE946F50034F7F5 /* ZFMyOpinionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFMyOpinionCell.m; sourceTree = "<group>"; };
+		494A6C0F1EE946F50034F7F5 /* ZFMyOpinionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFMyOpinionCell.xib; sourceTree = "<group>"; };
+		494A6C131EE94C830034F7F5 /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
+		494A6C141EE94C830034F7F5 /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
 		494F06EC1ED42907007EC66A /* select_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "select_normal@2x.png"; sourceTree = "<group>"; };
 		494F06ED1ED42907007EC66A /* select_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "select_normal@3x.png"; sourceTree = "<group>"; };
 		494F06EE1ED42907007EC66A /* select_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "select_selected@2x.png"; sourceTree = "<group>"; };
@@ -692,9 +710,6 @@
 		498137C51EC5ABFD00DC2806 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		498137C61EC5ABFD00DC2806 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		498137C71EC5ABFD00DC2806 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
-		498137CA1EC5B9A500DC2806 /* ZYFVerificationCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYFVerificationCodeViewController.h; sourceTree = "<group>"; };
-		498137CB1EC5B9A500DC2806 /* ZYFVerificationCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFVerificationCodeViewController.m; sourceTree = "<group>"; };
-		498137CC1EC5B9A500DC2806 /* ZYFVerificationCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZYFVerificationCodeViewController.xib; sourceTree = "<group>"; };
 		4983C5641EC5814A00F1B890 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		498AE4931EE6A4C000EE3FA8 /* PPHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPHTTPRequest.h; sourceTree = "<group>"; };
 		498AE4941EE6A4C000EE3FA8 /* PPHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPHTTPRequest.m; sourceTree = "<group>"; };
@@ -968,8 +983,6 @@
 		49E98A3A1EDE57C300B04DEF /* ZFOrderDetailPaycashCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFOrderDetailPaycashCell.xib; sourceTree = "<group>"; };
 		49E98A3D1EDE60FE00B04DEF /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
 		49E98A3E1EDE60FE00B04DEF /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
-		49E98A401EDE62EC00B04DEF /* TDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDView.h; sourceTree = "<group>"; };
-		49E98A411EDE62EC00B04DEF /* TDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDView.m; sourceTree = "<group>"; };
 		49E98AD21EDEA64300B04DEF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		49E98AD31EDEA64300B04DEF /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		49E98AD51EDEA6AD00B04DEF /* MBProgressHUD+MP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MP.h"; sourceTree = "<group>"; };
@@ -981,8 +994,6 @@
 		49E98AE51EDEAFF000B04DEF /* ZFMyOderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFMyOderCell.h; sourceTree = "<group>"; };
 		49E98AE61EDEAFF000B04DEF /* ZFMyOderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFMyOderCell.m; sourceTree = "<group>"; };
 		49E98AE71EDEAFF000B04DEF /* ZFMyOderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFMyOderCell.xib; sourceTree = "<group>"; };
-		49E98AE81EDEAFF000B04DEF /* ZFMyOpinionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFMyOpinionCell.h; sourceTree = "<group>"; };
-		49E98AE91EDEAFF000B04DEF /* ZFMyOpinionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFMyOpinionCell.m; sourceTree = "<group>"; };
 		49E98AEA1EDEAFF000B04DEF /* ZFMyProgressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFMyProgressCell.h; sourceTree = "<group>"; };
 		49E98AEB1EDEAFF000B04DEF /* ZFMyProgressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFMyProgressCell.m; sourceTree = "<group>"; };
 		49E98AEC1EDEAFF000B04DEF /* ZFMyProgressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFMyProgressCell.xib; sourceTree = "<group>"; };
@@ -1495,8 +1506,6 @@
 			children = (
 				49E98A3D1EDE60FE00B04DEF /* Toast+UIView.h */,
 				49E98A3E1EDE60FE00B04DEF /* Toast+UIView.m */,
-				49E98A401EDE62EC00B04DEF /* TDView.h */,
-				49E98A411EDE62EC00B04DEF /* TDView.m */,
 				4927550B1EC4679E003C22D0 /* WJYAlertView.h */,
 				4927550C1EC4679E003C22D0 /* WJYAlertView.m */,
 			);
@@ -1572,9 +1581,9 @@
 				498137C51EC5ABFD00DC2806 /* RegisterViewController.h */,
 				498137C61EC5ABFD00DC2806 /* RegisterViewController.m */,
 				498137C71EC5ABFD00DC2806 /* RegisterViewController.xib */,
-				498137CA1EC5B9A500DC2806 /* ZYFVerificationCodeViewController.h */,
-				498137CB1EC5B9A500DC2806 /* ZYFVerificationCodeViewController.m */,
-				498137CC1EC5B9A500DC2806 /* ZYFVerificationCodeViewController.xib */,
+				494A6BFF1EE8ED8A0034F7F5 /* VerificationCodeViewController.h */,
+				494A6C001EE8ED8A0034F7F5 /* VerificationCodeViewController.m */,
+				494A6C011EE8ED8A0034F7F5 /* VerificationCodeViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1643,6 +1652,7 @@
 		492756481EC4679E003C22D0 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				494A6C121EE94C830034F7F5 /* UIPlaceHolderTextView */,
 				498AE49E1EE6A5E100EE3FA8 /* YYCache */,
 				498DE0DD1EE6801600F64A61 /* GVUserDefaults */,
 				49E98AD11EDEA64300B04DEF /* MBProgressHUD */,
@@ -1801,6 +1811,15 @@
 				503BEBE61ED5DF24004FC36C /* ZFShopListCell.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		494A6C121EE94C830034F7F5 /* UIPlaceHolderTextView */ = {
+			isa = PBXGroup;
+			children = (
+				494A6C131EE94C830034F7F5 /* UIPlaceHolderTextView.h */,
+				494A6C141EE94C830034F7F5 /* UIPlaceHolderTextView.m */,
+			);
+			path = UIPlaceHolderTextView;
 			sourceTree = "<group>";
 		};
 		494F06E91ED42907007EC66A /* 购物车 */ = {
@@ -2005,6 +2024,9 @@
 				49D6E6F91ED96765000A837E /* ZFPregressCheckCell2.h */,
 				49D6E6FA1ED96765000A837E /* ZFPregressCheckCell2.m */,
 				49D6E6FB1ED96765000A837E /* ZFPregressCheckCell2.xib */,
+				494A6C0D1EE946F50034F7F5 /* ZFMyOpinionCell.h */,
+				494A6C0E1EE946F50034F7F5 /* ZFMyOpinionCell.m */,
+				494A6C0F1EE946F50034F7F5 /* ZFMyOpinionCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2200,6 +2222,12 @@
 				49D6E6F21ED95EA3000A837E /* ZFPregressCheckViewController.m */,
 				49D6E7301ED97DB4000A837E /* ZFDetailOrderViewController.h */,
 				49D6E7311ED97DB4000A837E /* ZFDetailOrderViewController.m */,
+				494A6C041EE93CA40034F7F5 /* ZFFeedbackViewController.h */,
+				494A6C051EE93CA40034F7F5 /* ZFFeedbackViewController.m */,
+				494A6C071EE93D500034F7F5 /* ZFCommitOpinionViewController.h */,
+				494A6C081EE93D500034F7F5 /* ZFCommitOpinionViewController.m */,
+				494A6C0A1EE93D6B0034F7F5 /* ZFMyOpinionViewController.h */,
+				494A6C0B1EE93D6B0034F7F5 /* ZFMyOpinionViewController.m */,
 			);
 			path = childViewController;
 			sourceTree = "<group>";
@@ -2329,8 +2357,6 @@
 				49E98AE51EDEAFF000B04DEF /* ZFMyOderCell.h */,
 				49E98AE61EDEAFF000B04DEF /* ZFMyOderCell.m */,
 				49E98AE71EDEAFF000B04DEF /* ZFMyOderCell.xib */,
-				49E98AE81EDEAFF000B04DEF /* ZFMyOpinionCell.h */,
-				49E98AE91EDEAFF000B04DEF /* ZFMyOpinionCell.m */,
 				49E98AEA1EDEAFF000B04DEF /* ZFMyProgressCell.h */,
 				49E98AEB1EDEAFF000B04DEF /* ZFMyProgressCell.m */,
 				49E98AEC1EDEAFF000B04DEF /* ZFMyProgressCell.xib */,
@@ -2946,13 +2972,14 @@
 				49E98A371EDE568200B04DEF /* ZFOrderDetailCountCell.xib in Resources */,
 				49F113811ECC5547000F3BF7 /* order_icon@2x.png in Resources */,
 				49C95F0D1ED295AF004EA811 /* Order_normal@2x.png in Resources */,
+				494A6C031EE8ED8A0034F7F5 /* VerificationCodeViewController.xib in Resources */,
 				49D6E7291ED9789A000A837E /* fire@3x.png in Resources */,
+				494A6C111EE946F50034F7F5 /* ZFMyOpinionCell.xib in Resources */,
 				493ADAE91ED554E500CB2866 /* s_normal@3x.png in Resources */,
 				49F1137A1ECC5547000F3BF7 /* location_icon@3x.png in Resources */,
 				49C95F151ED295AF004EA811 /* sendComplete_normal@2x.png in Resources */,
 				49B9A1C11EE0089400B98DA5 /* NOAddress@3x.png in Resources */,
 				49F113AC1ECC5547000F3BF7 /* location_find@3x.png in Resources */,
-				498137CE1EC5B9A500DC2806 /* ZYFVerificationCodeViewController.xib in Resources */,
 				49FB3C2D1ECD48A30090075D /* qq@3x.png in Resources */,
 				492752221EC44DFC003C22D0 /* Main.storyboard in Resources */,
 				49FB3C921ECD9F3F0090075D /* nav_right@2x.png in Resources */,
@@ -3189,6 +3216,7 @@
 				498137C31EC5ABEE00DC2806 /* ForgetPSViewController.m in Sources */,
 				49E98B0A1EDEB14C00B04DEF /* ZFHistoryCell.m in Sources */,
 				49E0A0911ED520EA00AEE354 /* DetailPayCashViewController.m in Sources */,
+				494A6C021EE8ED8A0034F7F5 /* VerificationCodeViewController.m in Sources */,
 				492757381EC4679E003C22D0 /* BaseNavigationController.m in Sources */,
 				498B31061ED80BA40021D691 /* ZFSaleAfterTopView.m in Sources */,
 				49E757741EC9469200220B28 /* FindCircleViewController.m in Sources */,
@@ -3221,6 +3249,7 @@
 				492756B11EC4679E003C22D0 /* UIImage+Extension.m in Sources */,
 				492757541EC4679E003C22D0 /* UIScrollView+MJExtension.m in Sources */,
 				49D6E6D61ED940CB000A837E /* ZFApplyReasonCell.m in Sources */,
+				494A6C091EE93D500034F7F5 /* ZFCommitOpinionViewController.m in Sources */,
 				5019FFAB1ECCAEF800325342 /* NSData+ImageContentType.m in Sources */,
 				49AAD8791EE1382D00AFE61D /* NSString+UUID.m in Sources */,
 				49ABA4091ECA90CD00E7EB20 /* GuessCell.m in Sources */,
@@ -3244,7 +3273,6 @@
 				49E98AFB1EDEAFF000B04DEF /* ZFMySendServiceCell.m in Sources */,
 				4927574C1EC4679E003C22D0 /* MJRefreshBackGifFooter.m in Sources */,
 				498AE4A81EE6A5E100EE3FA8 /* YYDiskCache.m in Sources */,
-				49E98A421EDE62EC00B04DEF /* TDView.m in Sources */,
 				4926AAC61EE7A3E700178491 /* NSTimer+Addition.m in Sources */,
 				49E7578A1EC96E9100220B28 /* SDCycleScrollView.m in Sources */,
 				49E98B161EDEC81700B04DEF /* ZFSettingHeadViewController.m in Sources */,
@@ -3263,7 +3291,6 @@
 				4990A3721EE557A3004CB908 /* WBRequest.m in Sources */,
 				5019FFB51ECCAEF800325342 /* UIImage+MultiFormat.m in Sources */,
 				4927573A1EC4679E003C22D0 /* BaseViewController.m in Sources */,
-				49E98AF81EDEAFF000B04DEF /* ZFMyOpinionCell.m in Sources */,
 				4926AAC71EE7A3E700178491 /* NSTimer+Blocks.m in Sources */,
 				505163A21EDA72CD006884FA /* ZFOrderDetailCell.m in Sources */,
 				49E98AF61EDEAFF000B04DEF /* ZFMyOderCell.m in Sources */,
@@ -3271,7 +3298,6 @@
 				503BEC0F1ED72324004FC36C /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				492756B01EC4679E003C22D0 /* UIButton+EdgeInsets.m in Sources */,
 				498DE1261EE68A2100F64A61 /* UIView+Extension.m in Sources */,
-				498137CD1EC5B9A500DC2806 /* ZYFVerificationCodeViewController.m in Sources */,
 				492757461EC4679E003C22D0 /* MJRefreshComponent.m in Sources */,
 				492757531EC4679E003C22D0 /* MJRefreshConst.m in Sources */,
 				498DE0E01EE6801600F64A61 /* GVUserDefaults.m in Sources */,
@@ -3283,6 +3309,7 @@
 				49FB3C4A1ECD52340090075D /* ZFLoctionNavCell.m in Sources */,
 				49D6E6F71ED95F04000A837E /* ZFPregressCheckCell.m in Sources */,
 				49E0A0951ED52C6200AEE354 /* CustomHeaderView.m in Sources */,
+				494A6C0C1EE93D6B0034F7F5 /* ZFMyOpinionViewController.m in Sources */,
 				492756B71EC4679E003C22D0 /* WJYAlertView.m in Sources */,
 				5019FFB21ECCAEF800325342 /* SDWebImagePrefetcher.m in Sources */,
 				498137C81EC5ABFD00DC2806 /* RegisterViewController.m in Sources */,
@@ -3309,6 +3336,7 @@
 				49D6E6E01ED94AC0000A837E /* ApplySalesQuestionCell.m in Sources */,
 				4955D2461ED7C19B009C00F1 /* ZFSendPopView.m in Sources */,
 				49FB3C531ECD72640090075D /* ZFGoodsFooterView.m in Sources */,
+				494A6C151EE94C830034F7F5 /* UIPlaceHolderTextView.m in Sources */,
 				49FB3C451ECD50480090075D /* ZFLocationGoToStoreCell.m in Sources */,
 				49A942071EC9AD7100153B47 /* HotTableViewCell.m in Sources */,
 				498DE1361EE68F4B00F64A61 /* UIImage+RoundedCorner.m in Sources */,
@@ -3320,6 +3348,7 @@
 				5019FFAF1ECCAEF800325342 /* SDWebImageDownloader.m in Sources */,
 				49D6E6F31ED95EA3000A837E /* ZFPregressCheckViewController.m in Sources */,
 				492757501EC4679E003C22D0 /* MJRefreshNormalHeader.m in Sources */,
+				494A6C061EE93CA40034F7F5 /* ZFFeedbackViewController.m in Sources */,
 				49FB3C4F1ECD53EF0090075D /* ZFTitleAndChooseListCell.m in Sources */,
 				49E98B031EDEB06700B04DEF /* ZFCollectViewController.m in Sources */,
 				492756B41EC4679E003C22D0 /* AddressPickerView.m in Sources */,
@@ -3333,6 +3362,7 @@
 				492757511EC4679E003C22D0 /* MJRefreshStateHeader.m in Sources */,
 				503BEBE71ED5DF24004FC36C /* ZFShopListCell.m in Sources */,
 				49E98B121EDEC34500B04DEF /* ZFSettingCell.m in Sources */,
+				494A6C101EE946F50034F7F5 /* ZFMyOpinionCell.m in Sources */,
 				503BEBE31ED5DE1E004FC36C /* ZFShopListViewController.m in Sources */,
 				49D6E6EF1ED9584F000A837E /* ZFBackWaysViewController.m in Sources */,
 				5019FF841ECCAE6500325342 /* UIView+ZFCornerRadius.m in Sources */,
@@ -3530,8 +3560,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3550,8 +3581,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R58AL3WKFR;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

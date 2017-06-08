@@ -10,7 +10,7 @@
 
 @interface NSString (JsonChange)
 //1.字典转Json字符串
--(NSString *)convertToJsonData:(NSDictionary *)dict;
+- (NSString *)convertToJsonData:(NSDictionary *)dict;
 
 
 //2. JSON字符串转化为字典

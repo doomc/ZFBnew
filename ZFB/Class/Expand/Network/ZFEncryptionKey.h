@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+//加密规则
 @interface ZFEncryptionKey : NSObject
 
 

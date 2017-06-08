@@ -111,15 +111,14 @@
     
     //navBar 的背景颜色
     self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
-
-    
-    
-/**
-  跳转搜索
-
- @return 搜索
- */
+ 
 }
+
+/**
+ 跳转搜索
+
+ @param sender sender点击放大镜
+ */
 -(void)DidClickSearchBarAction:(UIButton*)sender
 {
 

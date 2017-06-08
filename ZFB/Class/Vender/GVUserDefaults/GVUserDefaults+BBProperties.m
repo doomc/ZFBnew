@@ -10,9 +10,13 @@
 
 @implementation GVUserDefaults (BBProperties)
 
-@dynamic userName;
-@dynamic name;
-@dynamic role;
-
+@dynamic userPhoneNumber;
+@dynamic userPhonePassword;
+@dynamic smsCode;
+@dynamic newPassWord;
+@dynamic userId;
+@dynamic boolValue;
+@dynamic floatValue;
+@dynamic isNoFirstLaunch;
 
 @end

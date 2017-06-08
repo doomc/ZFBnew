@@ -37,7 +37,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DME-Nk-Uji">
-                            <rect key="frame" x="49" y="4" width="256" height="32"/>
+                            <rect key="frame" x="49" y="4" width="256" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="LHV-nI-Ods"/>
+                            </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -52,7 +55,6 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="DME-Nk-Uji" firstAttribute="top" secondItem="p1r-ry-BUq" secondAttribute="top" constant="4" id="3vx-Vb-qvl"/>
-                        <constraint firstItem="DME-Nk-Uji" firstAttribute="centerY" secondItem="hZO-Pn-d0c" secondAttribute="centerY" id="40E-3R-E59"/>
                         <constraint firstItem="3QV-Jf-ylB" firstAttribute="leading" secondItem="p1r-ry-BUq" secondAttribute="leading" id="CpN-qB-TSu"/>
                         <constraint firstItem="hZO-Pn-d0c" firstAttribute="centerY" secondItem="p1r-ry-BUq" secondAttribute="centerY" id="LdA-3g-HEu"/>
                         <constraint firstItem="DME-Nk-Uji" firstAttribute="leading" secondItem="hZO-Pn-d0c" secondAttribute="trailing" constant="10" id="ZoM-lb-9cB"/>
@@ -77,17 +79,25 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入短信验证码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="w1O-ax-Mbj">
-                            <rect key="frame" x="50" y="4" width="118.5" height="32"/>
+                            <rect key="frame" x="50" y="4" width="118.5" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="Rfi-fu-PAE"/>
+                            </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cCE-Y9-cj8">
-                            <rect key="frame" x="251" y="6" width="62" height="27"/>
+                            <rect key="frame" x="251" y="6.5" width="62" height="27"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="获取验证码">
                                 <color key="titleColor" red="0.99976259469999995" green="0.37686329140000002" blue="0.32606267059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="4"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message.png" translatesAutoresizingMaskIntoConstraints="NO" id="4ZY-Yv-NVn">
                             <rect key="frame" x="10" y="5" width="30" height="30"/>
@@ -98,14 +108,13 @@
                         </imageView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="cCE-Y9-cj8" firstAttribute="centerY" secondItem="w1O-ax-Mbj" secondAttribute="centerY" id="8kE-zU-MB5"/>
                         <constraint firstItem="4ZY-Yv-NVn" firstAttribute="centerY" secondItem="IXu-aL-R18" secondAttribute="centerY" id="94g-4Q-PgS"/>
                         <constraint firstItem="w1O-ax-Mbj" firstAttribute="top" secondItem="IXu-aL-R18" secondAttribute="top" constant="4" id="DLp-mb-3hL"/>
                         <constraint firstItem="4ZY-Yv-NVn" firstAttribute="leading" secondItem="IXu-aL-R18" secondAttribute="leading" constant="10" id="OLG-4e-kST"/>
+                        <constraint firstItem="cCE-Y9-cj8" firstAttribute="centerY" secondItem="4ZY-Yv-NVn" secondAttribute="centerY" id="PM2-bj-fmA"/>
                         <constraint firstAttribute="trailing" secondItem="cCE-Y9-cj8" secondAttribute="trailing" constant="2" id="RDh-yB-rLn"/>
                         <constraint firstItem="w1O-ax-Mbj" firstAttribute="leading" secondItem="4ZY-Yv-NVn" secondAttribute="trailing" constant="10" id="Yq9-DC-t13"/>
                         <constraint firstAttribute="trailing" secondItem="uym-sa-G56" secondAttribute="trailing" id="Ysy-uq-duo"/>
-                        <constraint firstItem="w1O-ax-Mbj" firstAttribute="centerY" secondItem="4ZY-Yv-NVn" secondAttribute="centerY" id="aQp-OS-bFS"/>
                         <constraint firstAttribute="height" constant="40" id="bcn-CS-B8S"/>
                         <constraint firstItem="uym-sa-G56" firstAttribute="leading" secondItem="IXu-aL-R18" secondAttribute="leading" id="czh-EQ-gPw"/>
                         <constraint firstAttribute="bottom" secondItem="uym-sa-G56" secondAttribute="bottom" constant="1" id="hVi-Iw-Dbp"/>

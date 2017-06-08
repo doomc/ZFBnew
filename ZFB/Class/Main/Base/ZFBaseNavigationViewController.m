@@ -40,7 +40,7 @@
     // 设置导航栏title属性
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
     // 设置导航栏颜色
-    [navBar setBarTintColor:[UIColor cyanColor]];
+    [navBar setBarTintColor:HEXCOLOR(0xffcccc)];
     
     UIImage *image = [UIImage imageNamed:@"nav_64"];
     

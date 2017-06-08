@@ -22,6 +22,7 @@
 #import "ZFSettingViewController.h"
 #import "ZFSettingHeadViewController.h"
 #import "ZFPersonalHeaderView.h"
+#import "ZFFeedbackViewController.h"
 
 typedef NS_ENUM(NSUInteger, TypeCell) {
     TypeCellOfMyCashBagCell,
@@ -84,10 +85,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     //自定义button必须执行
     UIBarButtonItem *left_item = [[UIBarButtonItem alloc] initWithCustomView:left_btn];
     self.navigationItem.leftBarButtonItem = left_item;
-    
-    
-    
-    
+       
 }
 
 
@@ -204,16 +202,19 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
     }
     if (indexPath.row == 3) {//切换到配送端
-        
-        ZFSendSerViceViewController * sendVC  = [[ZFSendSerViceViewController alloc]init];
-        [self.navigationController pushViewController:sendVC animated:YES];
-        
+       
+        LoginViewController * logvc = [[LoginViewController alloc]init];
+        [self.navigationController pushViewController:logvc animated:YES];
+
+
+        //        ZFSendSerViceViewController * sendVC  = [[ZFSendSerViceViewController alloc]init];
+        //        [self.navigationController pushViewController:sendVC animated:YES];
+       
     }  if (indexPath.row == 4) {//意见反馈
         
-        
-        LoginViewController * logvc = [[LoginViewController alloc]init];
-        
-        [self.navigationController pushViewController:logvc animated:YES];
+       
+        ZFFeedbackViewController * feedVC = [[ZFFeedbackViewController alloc]init];
+        [self.navigationController pushViewController:feedVC animated:YES];
         
     }
 }

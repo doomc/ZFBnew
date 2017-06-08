@@ -60,7 +60,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="TUb-VG-leN">
-                            <rect key="frame" x="82" y="4" width="223" height="33"/>
+                            <rect key="frame" x="82" y="4" width="223" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="gL2-TN-jwZ"/>
+                            </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -77,7 +80,6 @@
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="TUb-VG-leN" secondAttribute="trailing" constant="10" id="0dF-Yu-8WP"/>
-                        <constraint firstItem="TUb-VG-leN" firstAttribute="centerY" secondItem="avq-n5-mFi" secondAttribute="centerY" id="5cl-7c-tQu"/>
                         <constraint firstAttribute="height" constant="40" id="E5X-yi-aYT"/>
                         <constraint firstAttribute="trailing" secondItem="zd8-JU-Agv" secondAttribute="trailing" id="Fva-Uj-2Qs"/>
                         <constraint firstItem="TUb-VG-leN" firstAttribute="leading" secondItem="avq-n5-mFi" secondAttribute="trailing" constant="10" id="MAj-Wg-vqN"/>
@@ -102,13 +104,16 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="SEU-sj-Tek">
-                            <rect key="frame" x="82" y="4" width="223" height="33"/>
+                            <rect key="frame" x="82" y="4" width="223" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="LnZ-a5-LNe"/>
+                            </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="再次输入" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ifK-vc-UAJ">
-                            <rect key="frame" x="10" y="10" width="62" height="21"/>
+                            <rect key="frame" x="10" y="10.5" width="62" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="Qq9-kR-28Y"/>
                             </constraints>
@@ -119,7 +124,6 @@
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="SEU-sj-Tek" secondAttribute="trailing" constant="10" id="6KL-BL-mKa"/>
-                        <constraint firstItem="SEU-sj-Tek" firstAttribute="centerY" secondItem="ifK-vc-UAJ" secondAttribute="centerY" id="Gqj-YF-OY7"/>
                         <constraint firstAttribute="height" constant="40" id="O6H-Xx-1Jg"/>
                         <constraint firstItem="SEU-sj-Tek" firstAttribute="leading" secondItem="ifK-vc-UAJ" secondAttribute="trailing" constant="10" id="SiB-yD-3mR"/>
                         <constraint firstItem="SEU-sj-Tek" firstAttribute="top" secondItem="GRS-6C-SM7" secondAttribute="top" constant="4" id="T1a-Ch-Fpc"/>

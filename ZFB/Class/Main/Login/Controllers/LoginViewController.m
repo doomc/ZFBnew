@@ -10,11 +10,7 @@
 #import "RegisterViewController.h"
 #import "ForgetPSViewController.h"
 #import "ZFPersonalViewController.h"
-#import "NSString+ZFSortAppdending.h"
-#import "NSString+JsonChange.h"
-#import "ZFEncryptionKey.h"
-
-
+ 
 typedef NS_ENUM(NSUInteger, indexType) {
     quickLoginIndexType = 0,//快捷登录
     passwordLoginIndexType,//密码登录
@@ -22,8 +18,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
 };
 @interface LoginViewController ()<UITextFieldDelegate>
 {
-    
     BOOL _isQuickLogin;
+    NSString * _smsCode;
 }
 @property (weak, nonatomic) IBOutlet UISegmentedControl * loginSegment;
 //手机号
@@ -142,8 +138,9 @@ typedef NS_ENUM(NSUInteger, indexType) {
             //判断是不是手机号
             if ( [_tf_loginphone.text isMobileNumber]) {
                 
-                [self requsetWithValidateCode];
-                
+                [self ValidateCodePostRequset];
+                BBUserDefault.userPhoneNumber = _tf_loginphone.text;
+            
                 NSLog(@"自动请求发送验证码");
                 
             }else{
@@ -252,7 +249,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
     //        }
     //
     //    }
-    
+    [self QuickLoginPostRequest];
     NSLog(@"登录成功");
     
 }
@@ -285,15 +282,14 @@ typedef NS_ENUM(NSUInteger, indexType) {
 }
 
 
-/**
- 验证码网络请求
- */
--(void)requsetWithValidateCode
+
+#pragma mark - 验证码网络请求
+-(void)ValidateCodePostRequset
 {
-    
+    [SVProgressHUD showInfoWithStatus:@"hold on ~~"];
+
     NSString * phoneNumber = _tf_loginphone.text;
     NSString * SmsLogo = @"1";
-
     NSDate *date = [NSDate date];
     NSString *DateTime =  [dateTimeHelper htcTimeToLocationStr: date];
     
@@ -305,66 +301,105 @@ typedef NS_ENUM(NSUInteger, indexType) {
                                                           @"mobilePhone":phoneNumber,
                                                           @"SmsLogo":SmsLogo,
                                                           }];
-    
     NSString * data = [NSString base64:jsonStr];
+    NSDictionary * params2 = @{
+                               //@"userId":@"",
+                               @"signType":@"MD5",
+                               @"transactionTime":transactionTime,
+                               @"transactionId":transactionId,
+                               @"svcName":@"SendMessages",
+                               @"data":data,
+                               };
     
-    NSLog(@" base64 = %@ ",data);
-    
-    NSDictionary * params2 = [NSDictionary dictionary];
- 
-    params2 = @{
-//                @"userId":@"",
-                @"signType":@"MD5",
-                @"transactionTime":transactionTime,
-                @"transactionId":transactionId,
-                @"svcName":@"SendMessages",
-                @"data":data,
-               };
-    
-
     ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
     NSString * sign = [keydic signStringWithParam:params2];
     
-    NSDictionary * param   = [NSDictionary dictionary];
-                param = @{
+    NSDictionary * param =  @{
                
-                            @"data":data,//base64
-                            @"sign":sign,//签名
-                            @"transactionTime":transactionTime,
-                            @"transactionId":transactionId,
-                            @"signType":@"MD5",
-                            @"svcName":@"SendMessages",
+                              @"data":data,//base64
+                              @"sign":sign,//签名
+                              @"transactionTime":transactionTime,
+                              @"transactionId":transactionId,
+                              @"signType":@"MD5",
+                              @"svcName":@"SendMessages",
                              };
-
-    
-    [PPNetworkHelper POST:ZFB_22SendMessageUrl parameters:param responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:param responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
-        NSLog(@"%@  = responseObject  \n  %@ = param " ,responseObject,param);
+
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+            NSString  * data = [ responseObject[@"data"] base64DecodedString];
+            NSDictionary * dataDic= [NSString dictionaryWithJsonString:data];
+            _smsCode = dataDic[@"smsCode"];
+            BBUserDefault.smsCode = _smsCode;
+            NSLog(@"%@" , _smsCode);
+            
+    
+            NSLog(@"登录成功  %@  = responseObject  " ,responseObject);
+        }
+
 
     } failure:^(NSError *error) {
         NSLog(@"%@  = error " ,error);
 
     }];
- 
- 
-  
-    
-    
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+#pragma mark -  QuickLoginPostRequest 快速登录
+-(void)QuickLoginPostRequest
+{
+    
+    NSDate *date = [NSDate date];
+    NSString *DateTime =  [dateTimeHelper htcTimeToLocationStr: date];
+    
+    //通用MD5_KEY
+    NSString * transactionTime = DateTime;//当前时间
+    NSString * transactionId = DateTime; //每个用户唯一
+    NSLog(@"%@",DateTime);
+    NSString * jsonStr = [_tf_loginphone.text convertToJsonData:@{
+                                                           @"mobilePhone":_tf_loginphone.text,
+                                                           @"smsCheckCode":_smsCode,
+                                                           }];
+    NSString * data = [NSString base64:jsonStr];
+    NSDictionary * params2 = @{
+                               //@"userId":@"",
+                               @"signType":@"MD5",
+                               @"transactionTime":transactionTime,
+                               @"transactionId":transactionId,
+                               @"svcName":@"quickLogin",
+                               @"data":data,
+                               };
+    
+    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
+    NSString * sign = [keydic signStringWithParam:params2];
+    
+    NSDictionary * parma = @{
+                             @"data":data,//base64
+                             @"sign":sign,//签名
+                             @"transactionTime":transactionTime,
+                             @"transactionId":transactionId,
+                             @"signType":@"MD5",
+                             @"svcName":@"quickLogin",
+                             @"mobilePhone":_tf_loginphone.text,
+                             @"smsCheckCode":_smsCode,
+                             };
+    
+    //395825
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma success:^(id responseObject) {
+        
+        [SVProgressHUD showSuccessWithStatus:@"登录成功"];
+        NSLog(@"%@",responseObject);
+        [SVProgressHUD dismissWithCompletion:^{
+            
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            
+        }];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    [SVProgressHUD dismissWithCompletion:nil];
 
+}
 @end

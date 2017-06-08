@@ -7,14 +7,11 @@
 //
 
 #import "RegisterViewController.h"
-#import "ZYFVerificationCodeViewController.h"
+#import "VerificationCodeViewController.h"
 
 @interface RegisterViewController ()<UITextFieldDelegate>
 
-{
-    
-}
-
+@property (weak, nonatomic) IBOutlet UITextField *tf_phoneNum;
 @property (weak, nonatomic) IBOutlet UIButton *nextTarget_btn;
 @property (weak, nonatomic) IBOutlet UIButton *choose_btn;//s_Selected  s_normal
 @end
@@ -31,7 +28,7 @@
     
     [self.nextTarget_btn addTarget:self action:@selector(goToRegisterAcount:) forControlEvents:UIControlEventTouchUpInside];
     [self.tf_phoneNum addTarget:self action:@selector(textChange :) forControlEvents:UIControlEventEditingChanged];
-    
+
     [self didSelectedProtocol:self.choose_btn];
     
 }
@@ -42,19 +39,29 @@
 {
     _tf_phoneNum.text = textfiled.text;
 
+    if ([_tf_phoneNum.text isMobileNumber]) {
+        
+        _nextTarget_btn.enabled = YES;
+       
+        _nextTarget_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+
+    }else{
+        _nextTarget_btn.enabled = NO;
+        _nextTarget_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
+
+    }
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     //判断是不是手机号
-    if ( [_tf_phoneNum.text isMobileNumber]) {
+    if ( [_tf_phoneNum.text isMobileNumber] && _choose_btn.selected == YES) {
         
-        NSLog(@"格式正确");
         _nextTarget_btn.enabled = YES;
         _nextTarget_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
         
     }else{
-        
+        _nextTarget_btn.enabled = NO;
         [self.view makeToast:@"你输入的手机格式错误" duration:2.0 position:@"center"];
         
     }
@@ -81,9 +88,10 @@
  */
 - (void)goToRegisterAcount:(UIButton *)sender {
     
-    if (_tf_phoneNum.text.length == 11 )
+    if ([_tf_phoneNum.text isMobileNumber])
     {
-        ZYFVerificationCodeViewController * verificationVC = [[ZYFVerificationCodeViewController alloc]init];
+        VerificationCodeViewController * verificationVC = [[VerificationCodeViewController alloc]init];
+        verificationVC.phoneNumStr = _tf_phoneNum.text;
         [self.navigationController pushViewController:verificationVC animated:YES];
         
     }else{
@@ -100,13 +108,15 @@
 - (IBAction)didSelectedProtocol:(UIButton *)sender {
     
     sender.selected = !sender.selected;
-    
-    if (sender.selected == YES && [_tf_phoneNum.text isMobileNumber]) {
-        _nextTarget_btn.enabled = YES;
-        _nextTarget_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+    if (sender.selected == YES) {
+       
+        if ([_tf_phoneNum.text isMobileNumber]) {
+            _nextTarget_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+            _nextTarget_btn.enabled = YES;
+        }
         
     }else{
-        
+        _choose_btn.selected = NO;
         self.nextTarget_btn.enabled = NO;
         _nextTarget_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
         
@@ -120,6 +130,7 @@
  */
 - (IBAction)serviceProtocol_btn:(id)sender {
     
+    NSLog(@"服务协议");
     
 }
 

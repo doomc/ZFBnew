@@ -41,7 +41,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="uKB-jd-Agk">
-                            <rect key="frame" x="44" y="4" width="261" height="30"/>
+                            <rect key="frame" x="44" y="4" width="261" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="u7z-vb-FVO"/>
+                            </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -57,7 +60,6 @@
                         <constraint firstItem="uKB-jd-Agk" firstAttribute="leading" secondItem="6WW-ZZ-squ" secondAttribute="trailing" constant="10" id="hfY-bq-Tfj"/>
                         <constraint firstItem="6WW-ZZ-squ" firstAttribute="top" secondItem="Si3-ah-Lyc" secondAttribute="top" constant="5" id="lcb-q5-SYE"/>
                         <constraint firstItem="C8P-kr-qp7" firstAttribute="top" secondItem="6WW-ZZ-squ" secondAttribute="bottom" constant="5" id="oXu-W1-JQ1"/>
-                        <constraint firstItem="uKB-jd-Agk" firstAttribute="centerY" secondItem="6WW-ZZ-squ" secondAttribute="centerY" id="tm2-7L-3qa"/>
                         <constraint firstAttribute="trailing" secondItem="uKB-jd-Agk" secondAttribute="trailing" constant="10" id="xMt-lA-3gP"/>
                     </constraints>
                 </view>
@@ -76,7 +78,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入短信验证码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="MZY-bq-4Zx">
-                            <rect key="frame" x="44" y="4" width="261" height="32"/>
+                            <rect key="frame" x="44" y="4" width="261" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="HYj-TB-6gp"/>
+                            </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -95,7 +100,6 @@
                         <constraint firstAttribute="bottom" secondItem="XEv-a6-uvX" secondAttribute="bottom" constant="1" id="BXO-uf-JZW"/>
                         <constraint firstItem="MZY-bq-4Zx" firstAttribute="leading" secondItem="XEG-2L-ah0" secondAttribute="trailing" constant="10" id="DCF-kE-kqi"/>
                         <constraint firstAttribute="trailing" secondItem="XEv-a6-uvX" secondAttribute="trailing" id="Kba-RE-RgX"/>
-                        <constraint firstItem="XEG-2L-ah0" firstAttribute="centerY" secondItem="MZY-bq-4Zx" secondAttribute="centerY" id="OuB-I2-kbI"/>
                         <constraint firstItem="MZY-bq-4Zx" firstAttribute="top" secondItem="TDd-hw-j7v" secondAttribute="top" constant="4" id="RVx-7C-Qvg"/>
                         <constraint firstItem="XEv-a6-uvX" firstAttribute="leading" secondItem="TDd-hw-j7v" secondAttribute="leading" id="Zbf-0N-e7t"/>
                         <constraint firstItem="XEG-2L-ah0" firstAttribute="top" secondItem="TDd-hw-j7v" secondAttribute="top" constant="5" id="bjf-gV-bjl"/>
