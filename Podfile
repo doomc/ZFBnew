@@ -10,6 +10,7 @@ target 'ZFB' do
   # 网络工具
   pod 'AFNetworking'
   pod 'SVProgressHUD'
+  pod 'Masonry'
 
   # 第三方库
  # pod 'AMapLocation'

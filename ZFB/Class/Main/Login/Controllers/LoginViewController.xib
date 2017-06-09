@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
             <connections>
+                <outlet property="getCodeVerification_btn" destination="9gx-Ag-6SQ" id="uoT-8o-E9k"/>
                 <outlet property="img_iconOfVerificationOrPs" destination="XEG-2L-ah0" id="2tj-dZ-m9E"/>
                 <outlet property="loginSegment" destination="HGu-vZ-swG" id="kx9-Da-lgx"/>
                 <outlet property="login_btn" destination="0qD-yw-QPc" id="edR-Cy-V9t"/>
@@ -78,7 +79,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入短信验证码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="MZY-bq-4Zx">
-                            <rect key="frame" x="44" y="4" width="261" height="34"/>
+                            <rect key="frame" x="44" y="4" width="118.5" height="34"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="34" id="HYj-TB-6gp"/>
                             </constraints>
@@ -92,6 +93,18 @@
                                 <constraint firstAttribute="height" constant="30" id="IlN-b7-AHd"/>
                             </constraints>
                         </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9gx-Ag-6SQ">
+                            <rect key="frame" x="243" y="7" width="62" height="27"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="获取验证码">
+                                <color key="titleColor" red="0.99976259469999995" green="0.37686329140000002" blue="0.32606267059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="4"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="XEv-a6-uvX" secondAttribute="bottom" constant="1" id="1u7-mN-cha"/>
@@ -105,7 +118,8 @@
                         <constraint firstItem="XEG-2L-ah0" firstAttribute="top" secondItem="TDd-hw-j7v" secondAttribute="top" constant="5" id="bjf-gV-bjl"/>
                         <constraint firstItem="XEv-a6-uvX" firstAttribute="leading" secondItem="TDd-hw-j7v" secondAttribute="leading" id="c44-Cu-LwG"/>
                         <constraint firstItem="XEG-2L-ah0" firstAttribute="leading" secondItem="TDd-hw-j7v" secondAttribute="leading" constant="5" id="haK-98-ygq"/>
-                        <constraint firstAttribute="trailing" secondItem="MZY-bq-4Zx" secondAttribute="trailing" constant="10" id="jh5-2N-h0C"/>
+                        <constraint firstAttribute="trailing" secondItem="9gx-Ag-6SQ" secondAttribute="trailing" constant="10" id="mDD-VU-ZsG"/>
+                        <constraint firstItem="9gx-Ag-6SQ" firstAttribute="centerY" secondItem="XEG-2L-ah0" secondAttribute="centerY" id="noK-XJ-fnm"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qD-yw-QPc">

@@ -32,7 +32,7 @@
     [leftButton setTitle:@"返回" forState:UIControlStateNormal];
     leftButton.adjustsImageWhenHighlighted = NO;
     
-    [leftButton setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [leftButton setImage:[UIImage imageNamed:@"navback_white"] forState:UIControlStateNormal];
     [leftButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     
     [leftButton setImageEdgeInsets:UIEdgeInsetsMake(0, -2, 0, leftButton.titleLabel.bounds.size.width)];

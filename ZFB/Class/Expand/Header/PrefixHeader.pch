@@ -18,6 +18,7 @@
 #endif
 
 //第三方工具类
+#import "Masonry.h"
 #import "SDCycleScrollView.h"
 #import "ControlFactory.h"//创建导航按钮
 #import "DCNavTabBarController.h"
@@ -26,12 +27,11 @@
 #import "UIImageView+WebCache.h"
 #import "JXTAlertController.h"
 #import "PPNetworkHelper.h"
-#import "PPHTTPRequest.h"
 #import "cameraHelper.h"
 #import "GVUserDefaults.h"
 #import "GVUserDefaults+BBProperties.h"
 #import "SVProgressHUD.h"
-
+#import "NSDictionary+TJSafe.h"
 
 
 #import "Macros.h"
@@ -48,13 +48,6 @@
 #import "NSString+Base64.h"
 #import "NSString+RegexCategory.h"
 #import "imageCompressHelper.h"
-
-
-
-
-
-
-
 
 
 

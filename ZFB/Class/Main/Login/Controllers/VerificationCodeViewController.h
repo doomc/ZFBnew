@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 
-@interface VerificationCodeViewController : BaseViewController
+@interface VerificationCodeViewController : UIViewController
 
 @property(nonatomic,strong)NSString *  phoneNumStr;
 

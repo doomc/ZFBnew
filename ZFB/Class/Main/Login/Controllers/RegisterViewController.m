@@ -23,7 +23,8 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title =@"注册";
-    self.choose_btn.selected = YES;
+    [self set_leftButton];
+    self.choose_btn.selected = NO;
     self.tf_phoneNum.delegate = self;
     
     [self.nextTarget_btn addTarget:self action:@selector(goToRegisterAcount:) forControlEvents:UIControlEventTouchUpInside];
@@ -134,7 +135,23 @@
     
 }
 
+-(UIButton*)set_leftButton
+{
+    
+    UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
+    left_button.frame =CGRectMake(0, 0,22,22);
+    [left_button setBackgroundImage:[UIImage imageNamed:@"navback_white"] forState:UIControlStateNormal];
+    [left_button addTarget:self action:@selector(left_button_event:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:left_button];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    return left_button;
+}
 
+//设置右边事件
+-(void)left_button_event:(UIButton *)sender{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 - (void)didReceiveMemoryWarning {

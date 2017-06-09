@@ -28,6 +28,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [self set_leftButton];
+    [self set_rightButton];
     self.title =@"注册";
     self.regist_btn.enabled = NO;
     [self.regist_btn addTarget:self action:@selector(regist_btnSuccess:) forControlEvents:UIControlEventTouchUpInside];
@@ -38,19 +40,26 @@
  
 #pragma mark - 获取验证码
 -(void)getVerificationCodeAction:(UIButton *)sender{
-    // 网络请求
-    [self VerificationCodePostRequest];
-    [dateTimeHelper verificationCode:^{
-        //倒计时完毕
-        sender.enabled = YES;
-        [sender setTitle:@"重新发送" forState:UIControlStateNormal];
-        [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
-        
-    } blockNo:^(id time) {
-        sender.enabled = NO;
-        [sender setTitle:time forState:UIControlStateNormal];
-        [sender setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal] ;
-    }];
+    if ([_phoneNumStr isMobileNumber]) {
+        // 网络请求
+        [self ValidateCodePostRequset];
+        [dateTimeHelper verificationCode:^{
+            //倒计时完毕
+            sender.enabled = YES;
+            [sender setTitle:@"重新发送" forState:UIControlStateNormal];
+            [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
+            
+        } blockNo:^(id time) {
+            sender.enabled = NO;
+            [sender setTitle:time forState:UIControlStateNormal];
+            [sender setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal] ;
+        }];
+
+    }else{
+        [self.view makeToast:@"手机号不正确" duration:2 position:@"center"];
+
+    }
+  
 }
 #pragma mark - UITextFieldDelegate  设置代理
 -(void)textFieldSettingDelegate
@@ -143,7 +152,23 @@
     
     NSLog(@"注册成功调用注册接口");
 }
+-(UIButton*)set_leftButton
+{
+    
+    UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
+    left_button.frame =CGRectMake(0, 0,22,22);
+    [left_button setBackgroundImage:[UIImage imageNamed:@"navback_white"] forState:UIControlStateNormal];
+    [left_button addTarget:self action:@selector(left_button_event:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:left_button];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    return left_button;
+}
 
+//设置右边事件
+-(void)left_button_event:(UIButton *)sender{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 //设置右边按键（如果没有右边 可以不重写）
 -(UIButton*)set_rightButton
 {
@@ -167,112 +192,75 @@
     [self.navigationController popToViewController:logVC animated:YES];
 }
 
-#pragma marl - VerificationCodePostRequest验证码网络请求
--(void)VerificationCodePostRequest
-{
 
-    NSString * SmsLogo = @"1";
-    NSDate *date = [NSDate date];
-    NSString *DateTime =  [dateTimeHelper htcTimeToLocationStr: date];
+#pragma mark - ValidateCodePostRequset验证码网络请求
+-(void)ValidateCodePostRequset
+{
+    [SVProgressHUD showInfoWithStatus:@"hold on ~~"];
+    NSDictionary * parma = @{
+                             @"SmsLogo":@"1",
+                             @"svcName":@"SendMessages",
+                             @"mobilePhone":_tf_loginPassword.text,
+                             };
     
-    //通用MD5_KEY
-    NSString * transactionTime = DateTime;//当前时间
-    NSString * transactionId = DateTime; //每个用户唯一
-    NSLog(@"%@",DateTime);
-    NSString * jsonStr = [NSString convertToJsonData:@{
-                                                          @"mobilePhone":_phoneNumStr,
-                                                          @"SmsLogo":SmsLogo,
-                                                          }];
-    NSString * data = [NSString base64:jsonStr];
-    NSDictionary * params2 = @{
-                               //@"userId":@"",
-                               @"signType":@"MD5",
-                               @"transactionTime":transactionTime,
-                               @"transactionId":transactionId,
-                               @"svcName":@"SendMessages",
-                               @"data":data,
-                               };
     
-    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
-    NSString * sign = [keydic signStringWithParam:params2];
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    NSDictionary * param =  @{
-                              
-                              @"data":data,//base64
-                              @"sign":sign,//签名
-                              @"transactionTime":transactionTime,
-                              @"transactionId":transactionId,
-                              @"signType":@"MD5",
-                              @"svcName":@"SendMessages",
-                              };
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:param responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
-        NSLog(@"拿到验证码code%@",responseObject);
-        NSString  * data = [ responseObject[@"data"] base64DecodedString];
-        NSDictionary * dataDic= [NSString dictionaryWithJsonString:data];
-        _smsCode = dataDic[@"smsCode"];
-        BBUserDefault.smsCode = _smsCode;
-        NSLog(@"%@" , _smsCode);
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+            NSString  * data = [ responseObject[@"data"] base64DecodedString];
+            NSDictionary * dataDic= [NSString dictionaryWithJsonString:data];
+            _smsCode = dataDic[@"smsCode"];
+            _tf_verificationCode.text = _smsCode;
+   
+        }
     } failure:^(NSError *error) {
+        
         NSLog(@"%@  = error " ,error);
         
     }];
-
 }
-#pragma mark - PPNetworkHelper注册网络请求
+
+#pragma mark - RetetPasswordPostRequest注册网络请求
 -(void)RegisterPostRequest
 {
- 
-    NSDate *date = [NSDate date];
-    NSString *DateTime =  [dateTimeHelper htcTimeToLocationStr: date];
-    
-    //通用MD5_KEY
-    NSString * transactionTime = DateTime;//当前时间
-    NSString * transactionId = DateTime; //每个用户唯一
-    NSLog(@"%@",DateTime);
-    NSString * jsonStr = [NSString convertToJsonData:@{
-                                                           @"mobilePhone":_phoneNumStr,
-                                                           @"loginPwd":_tf_loginPassword.text,
-                                                           @"smsCheckCode":_smsCode,
-                                                           }];
-    NSString * data = [NSString base64:jsonStr];
-    NSDictionary * params2 = @{
-                               //@"userId":@"",
-                               @"signType":@"MD5",
-                               @"transactionTime":transactionTime,
-                               @"transactionId":transactionId,
-                               @"svcName":@"userRegistered",
-                               @"data":data,
-                               };
-    
-    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
-    NSString * sign = [keydic signStringWithParam:params2];
+    [SVProgressHUD showProgress:2 status:@"hold on ~~"];
     
     NSDictionary * parma = @{
-                             @"data":data,//base64
-                             @"sign":sign,//签名
-                             @"transactionTime":transactionTime,
-                             @"transactionId":transactionId,
-                             @"signType":@"MD5",
                              @"svcName":@"userRegistered",
                              @"mobilePhone":_phoneNumStr,
                              @"loginPwd":_tf_loginPassword.text,
                              @"smsCheckCode":_smsCode,
-                            
+                             
                              };
     
-    //395825
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma success:^(id responseObject) {
-       
+    
+    [SVProgressHUD  showProgress:2];
+    
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        if ([responseObject[@"responseObject"] isEqualToString:@"0" ]) {
+            
+            [self.view makeToast:@"注册成功！✔️" duration:2 position:@"center"];
+        }
         if ([responseObject[@"resultCode"] isEqualToString:@"103"]) {
+            
             NSString * message = responseObject[@"resultMessage"];
-        [WJYAlertView showOneButtonWithTitle:@"提示" Message:message ButtonType:WJYAlertViewButtonTypeDefault ButtonTitle:@"确认" Click:^{
-            }];}
-        NSLog(@"%@",responseObject);
-
+  
+            [self.view makeToast:message duration:2 position:@"center"];
+        }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
+        
     }];
+    
+    [SVProgressHUD dismiss];
+    
 }
+
 @end

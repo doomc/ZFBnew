@@ -10,4 +10,10 @@
 
 @interface BaseNavigationController : UINavigationController
 
+//-(UIButton*)set_rightButton;
+//-(UIButton*)set_leftButton;
+//
+//-(void)right_button_event:(UIButton*)sender;
+//-(void)left_button_event:(UIButton*)sender;
+
 @end

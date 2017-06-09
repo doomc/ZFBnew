@@ -18,5 +18,5 @@
 @dynamic boolValue;
 @dynamic floatValue;
 @dynamic isNoFirstLaunch;
-
+@dynamic isLogin;
 @end

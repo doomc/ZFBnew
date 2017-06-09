@@ -24,7 +24,7 @@
     self.title =@"重置密码";
     self.complete_btn.enabled = NO;
  
-
+    [self set_leftButton];
     [self textFieldSettingDelegate];
 }
 
@@ -89,14 +89,31 @@
     return YES;
     
 }
+-(UIButton*)set_leftButton
+{
+    
+    UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
+    left_button.frame =CGRectMake(0, 0,22,22);
+    [left_button setBackgroundImage:[UIImage imageNamed:@"navback_white"] forState:UIControlStateNormal];
+    [left_button addTarget:self action:@selector(left_button_event:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:left_button];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    return left_button;
+}
 
+//设置右边事件
+-(void)left_button_event:(UIButton *)sender{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 //确认重置密码
 - (IBAction)sureReset_btn:(id)sender {
 
     if (! [_tf_newPS.text isEqualToString:_tf_surePS.text ]) {
        
         [self.view makeToast:@"2次输入的密码不匹配" duration:2 position:@"center"];
-
+        
+       
     }else{
         NSLog(@"重置成功了");
         [self RetetPasswordPostRequest];
@@ -105,43 +122,12 @@
 }
 
 
-#pragma mark - PPNetworkHelper注册网络请求
+#pragma mark - RetetPasswordPostRequest注册网络请求
 -(void)RetetPasswordPostRequest
 {
-    
-    NSDate *date = [NSDate date];
-    NSString *DateTime =  [dateTimeHelper htcTimeToLocationStr: date];
-    
-    //通用MD5_KEY
-    NSString * transactionTime = DateTime;//当前时间
-    NSString * transactionId = DateTime; //每个用户唯一
-    NSLog(@"%@",DateTime);
-    NSString * tempStr;
+    [SVProgressHUD showProgress:2 status:@"hold on ~~"];
 
-    NSString * jsonStr = [NSString convertToJsonData:@{
-                                                           @"mobilePhone":_phoneNum,
-                                                           @"newPassword":_tf_surePS.text,
-                                                           @"smsCheckCode":_Vercode,
-                                                           }];
-    NSString * data = [NSString base64:jsonStr];
-    NSDictionary * params2 = @{
-                               //@"userId":@"",
-                               @"signType":@"MD5",
-                               @"transactionTime":transactionTime,
-                               @"transactionId":transactionId,
-                               @"svcName":@"forgetPassword",
-                               @"data":data,
-                               };
-    
-    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
-    NSString * sign = [keydic signStringWithParam:params2];
-    
     NSDictionary * parma = @{
-                             @"data":data,//base64
-                             @"sign":sign,//签名
-                             @"transactionTime":transactionTime,
-                             @"transactionId":transactionId,
-                             @"signType":@"MD5",
                              @"svcName":@"forgetPassword",
                              @"mobilePhone":_phoneNum,
                              @"newPassword":_tf_surePS.text,
@@ -149,26 +135,27 @@
                              
                              };
     
-    [SVProgressHUD  showSuccessWithStatus:@"修改成功"];
+    
+    [SVProgressHUD  showProgress:2];
 
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma success:^(id responseObject) {
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma responseCache:^(id responseCache) {
         
-        NSLog(@"%@",responseObject);
-        if ([responseObject[@"responseObject"] isEqualToString:@"0" ]) {
-            
-            [SVProgressHUD  showInfoWithStatus:@"修改成功~"];
-            [SVProgressHUD dismissWithCompletion:^{
-                
-                [self.navigationController popToRootViewControllerAnimated:NO];
-                
-            }];
-        }
-        [self.navigationController popToRootViewControllerAnimated:YES];
-
+    } success:^(id responseObject) {
+         if ([responseObject[@"responseObject"] isEqualToString:@"0" ]) {
+             
+             [SVProgressHUD  dismissWithCompletion:^{
+                 
+                 [self.navigationController popToRootViewControllerAnimated:NO];
+             }];
+         }
+        
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
-    }];
-}
 
+    }];
+    
+    [SVProgressHUD dismiss];
+    
+}
 
 @end

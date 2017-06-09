@@ -26,4 +26,7 @@
 
 #pragma mark --是否是第一次启动APP程序
 @property (nonatomic,assign) BOOL isNoFirstLaunch;
+
+#pragma mark --是否已经登录
+@property (nonatomic,assign) BOOL isLogin;
 @end

@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 
-@interface ResetPassWViewController : BaseViewController
+@interface ResetPassWViewController : UIViewController
 
 @property(nonatomic,copy)NSString * phoneNum;
 @property(nonatomic,copy)NSString * Vercode;

@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 @interface LoginViewController ()<UITextFieldDelegate>
 {
     BOOL _isQuickLogin;
+    BOOL _isLogin;
     NSString * _smsCode;
 }
 @property (weak, nonatomic) IBOutlet UISegmentedControl * loginSegment;
@@ -28,30 +29,79 @@ typedef NS_ENUM(NSUInteger, indexType) {
 @property (weak, nonatomic) IBOutlet UITextField *tf_verificationCodeOrPassWord;
 @property (weak, nonatomic) IBOutlet UIImageView *img_iconOfVerificationOrPs;
 @property (weak, nonatomic) IBOutlet UIButton *login_btn;
-
-
+@property (weak, nonatomic) IBOutlet UIButton *getCodeVerification_btn;
 
 @property (assign,nonatomic) indexType  indexType;
+
 @end
 
 @implementation LoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     _isQuickLogin = YES;
 
+    self.login_btn.enabled = NO;
+    
     [self initSegmentInterfaceAndTextfiled];
    
     [self textFieldSettingDelegate];
     
+    [self.getCodeVerification_btn addTarget:self action:@selector(getVerificationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
+
+    [self set_leftButton];
     
 }
 
+-(UIButton*)set_leftButton
+{
+    
+    UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
+    left_button.frame =CGRectMake(0, 0,22,22);
+    [left_button setBackgroundImage:[UIImage imageNamed:@"navback_white"] forState:UIControlStateNormal];
+    [left_button addTarget:self action:@selector(left_button_event:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:left_button];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    return left_button;
+}
 
-/**
- 初始化segement
- */
+//设置右边事件
+-(void)left_button_event:(UIButton *)sender{
+    
+    [self dismissViewControllerAnimated:NO completion:^{
+        
+    }];
+}
+
+#pragma mark - getVerificationCodeAction获取验证码
+-(void)getVerificationCodeAction:(UIButton *)sender{
+    if ([_tf_loginphone.text isMobileNumber]) {
+        // 网络请求
+        [self ValidateCodePostRequset];
+        [dateTimeHelper verificationCode:^{
+            //倒计时完毕
+            sender.enabled = YES;
+            [sender setTitle:@"重新发送" forState:UIControlStateNormal];
+            [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
+            
+        } blockNo:^(id time) {
+            sender.enabled = NO;
+            [sender setTitle:time forState:UIControlStateNormal];
+            [sender setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal] ;
+        }];
+ 
+    }else{
+        [WJYAlertView showOneButtonWithTitle:@"提示信息" Message:@"请输入手机号" ButtonType:WJYAlertViewButtonTypeNone ButtonTitle:@"知道了" Click:^{
+            
+        }];
+    }
+
+ 
+}
+
+
+#pragma mark -initSegmentInterfaceAndTextfiled 初始化segement
 -(void)initSegmentInterfaceAndTextfiled
 {
     
@@ -76,11 +126,9 @@ typedef NS_ENUM(NSUInteger, indexType) {
 -(void)textFieldSettingDelegate
 {
     self.tf_loginphone.delegate  = self;
-    
     self.tf_verificationCodeOrPassWord.delegate = self;
     
     [self.tf_loginphone addTarget:self action:@selector(textChange :) forControlEvents:UIControlEventEditingChanged];
-    
     [self.tf_verificationCodeOrPassWord addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     
 }
@@ -95,17 +143,17 @@ typedef NS_ENUM(NSUInteger, indexType) {
         if (textfiled == _tf_verificationCodeOrPassWord) {
             
             //当账号与密码同时有值,登录按钮才能够点击
-            if ( _tf_loginphone.text.length == 11 && _tf_verificationCodeOrPassWord.text.length == 6) {
+            if ( [_tf_loginphone.text isMobileNumber] && _tf_verificationCodeOrPassWord.text.length == 6) {
+                self.login_btn.enabled = YES;
                 self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
                 
             }else{
+                self.login_btn.enabled = NO;
                 self.login_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
                 
             }
         }
         NSLog(@"%@ ",_tf_loginphone.text );
-        
-        
     }
     if (_isQuickLogin == NO) {
        
@@ -114,10 +162,12 @@ typedef NS_ENUM(NSUInteger, indexType) {
         if (_tf_verificationCodeOrPassWord == textfiled) {
             
             //当账号与密码同时有值,登录按钮才能够点击
-            if ( _tf_loginphone.text.length == 11 && _tf_verificationCodeOrPassWord.text.length >7) {
+            if ( [_tf_loginphone.text isMobileNumber] && _tf_verificationCodeOrPassWord.text.length >7) {
+                self.login_btn.enabled = YES;
                 self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
                 
             }else{
+                self.login_btn.enabled = NO;
                 self.login_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
                 
             }
@@ -133,25 +183,31 @@ typedef NS_ENUM(NSUInteger, indexType) {
 {
     
     if (_isQuickLogin == YES ) {
-        
         if (_tf_loginphone == textField) {
             //判断是不是手机号
             if ( [_tf_loginphone.text isMobileNumber]) {
-                
-                [self ValidateCodePostRequset];
+
                 BBUserDefault.userPhoneNumber = _tf_loginphone.text;
-            
-                NSLog(@"自动请求发送验证码");
                 
             }else{
+               
                 [self.view makeToast:@"你输入的手机格式错误" duration:2.0 position:@"center"];
-                
+
             }
         }
         if (_tf_verificationCodeOrPassWord == textField) {
             
+            if ( [_tf_loginphone.text isMobileNumber] && _tf_verificationCodeOrPassWord.text.length == 6) {
+                self.login_btn.enabled = YES;
+                self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+                
+            }else{
+                self.login_btn.enabled = NO;
+                self.login_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
+                
+            }
             
-            NSLog(@"快捷登录--验证码2  = %@",_tf_verificationCodeOrPassWord.text);
+            NSLog(@"快捷登录--验证码 匹配正确  = %@",_smsCode);
             
         }
         
@@ -169,7 +225,15 @@ typedef NS_ENUM(NSUInteger, indexType) {
             }
         }
         if (_tf_verificationCodeOrPassWord == textField) {
-            
+            if ( [_tf_loginphone.text isMobileNumber] && _tf_verificationCodeOrPassWord.text.length > 7) {
+                self.login_btn.enabled = YES;
+                self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+                
+            }else{
+                self.login_btn.enabled = NO;
+                self.login_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
+                
+            }
             NSLog(@"登录--账号+密码2 %@",textField );
             
         }
@@ -197,28 +261,25 @@ typedef NS_ENUM(NSUInteger, indexType) {
     return YES;
     
 }
-/**
- 快速登录
- 
- @param segment  分段控制器
- */
+
+#pragma  mark  - 分段控制器
 -(void)LoginSegmentchange:(UISegmentedControl *)segment
 {
     _tf_verificationCodeOrPassWord.text = nil;
 
     if (segment.selectedSegmentIndex == 0) {
-        _isQuickLogin = YES;
-
         NSLog(@"快捷登录");
+        _isQuickLogin = YES;
         _tf_verificationCodeOrPassWord.placeholder = @"请输入短信验证码";
         _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@"message"];
-        
+        _getCodeVerification_btn.hidden = NO;
+
         
     }
     else{
-        _isQuickLogin = NO;
-
         NSLog(@"密码登录");
+        _isQuickLogin = NO;
+        _getCodeVerification_btn.hidden = YES;
         _tf_verificationCodeOrPassWord.placeholder = @"请输入登录密码";
         _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@"passWord"];
 
@@ -226,31 +287,36 @@ typedef NS_ENUM(NSUInteger, indexType) {
 }
 
 
-
-/**
- 登录
- 
- @param sender 点击登录
- */
+#pragma mark - login_Success 点击登录
 - (void)login_Success:(UIButton *)sender {
-#warning -----  不走 poptoView 方法为什么？
     
-    //方法一
-    //  [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:0] animated:YES];
-    //方法2：
-    // [self  popToViewControllerWithName:@"ZFPersonalViewController"];
-    
-    //    for (UIViewController *controller in self.navigationController.viewControllers) {
-    //
-    //        if ([controller isKindOfClass:[ZFPersonalViewController class]]) {
-    //
-    //            [self.navigationController popToViewController:controller animated:YES];
-    //
-    //        }
-    //
-    //    }
-    [self QuickLoginPostRequest];
-    NSLog(@"登录成功");
+    switch (_indexType) {
+        case quickLoginIndexType://快捷登录
+  
+            
+            [self QuickLoginPostRequest];
+            NSLog(@"快速-登录成功");
+            
+            break;
+        case passwordLoginIndexType://密码登录
+     
+            [self PasswordLoginPostRequest];
+            NSLog(@"密码-登录成功");
+
+            break;
+ 
+    }
+//    if (_isQuickLogin == YES) {
+//       
+//        [self QuickLoginPostRequest];
+//        NSLog(@"快速-登录成功");
+//    }
+//    else{
+//        
+//        NSLog(@"密码-登录成功");
+//        [self PasswordLoginPostRequest];
+//
+//    }
     
 }
 
@@ -281,9 +347,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
     
 }
 
-
-
-#pragma mark - 验证码网络请求
+#pragma mark - ValidateCodePostRequset验证码网络请求
 -(void)ValidateCodePostRequset
 {
     [SVProgressHUD showInfoWithStatus:@"hold on ~~"];
@@ -306,15 +370,12 @@ typedef NS_ENUM(NSUInteger, indexType) {
             NSString  * data = [ responseObject[@"data"] base64DecodedString];
             NSDictionary * dataDic= [NSString dictionaryWithJsonString:data];
             _smsCode = dataDic[@"smsCode"];
-            BBUserDefault.smsCode = _smsCode;
-            NSLog(@"%@" , _smsCode);
-            
-    
-            NSLog(@"登录成功  %@  = responseObject  " ,responseObject);
+            _tf_verificationCodeOrPassWord.text = _smsCode;
+            self.login_btn.enabled = YES;
+            self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
         }
-
-
     } failure:^(NSError *error) {
+        
         NSLog(@"%@  = error " ,error);
 
     }];
@@ -324,12 +385,14 @@ typedef NS_ENUM(NSUInteger, indexType) {
 -(void)QuickLoginPostRequest
 {
     
-    [SVProgressHUD showInfoWithStatus:@"hold on ~~"];
+    [SVProgressHUD showProgress:2.0 status:@"hold on ~~"];
 
     NSDictionary * parma = @{
+                             
                             @"svcName":@"quickLogin",
                             @"mobilePhone":_tf_loginphone.text,
-                            @"smsCheckCode":@"123123",
+                            @"smsCheckCode":_smsCode,
+                            
                             };
    
  
@@ -338,18 +401,19 @@ typedef NS_ENUM(NSUInteger, indexType) {
     [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
-        
+        NSLog(@"  %@  = responseObject  " ,responseObject);
+
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
         
-            [SVProgressHUD showSuccessWithStatus:@"登录成功"];
-
+            _isLogin = YES;
+            BBUserDefault.isLogin = _isLogin;
+            
             [SVProgressHUD dismissWithCompletion:^{
 
                 [self.navigationController popToRootViewControllerAnimated:NO];
                 
             }];
 
-            NSLog(@"登录成功  %@  = responseObject  " ,responseObject);
         }
         
         
@@ -358,24 +422,50 @@ typedef NS_ENUM(NSUInteger, indexType) {
         
     }];
 
-    [SVProgressHUD dismissWithCompletion:nil];
+    [SVProgressHUD dismiss];
 
+}
+
+#pragma mark -  PasswordLoginPostRequest 密码登录
+-(void)PasswordLoginPostRequest{
     
-    //395825
-//    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic success:^(id responseObject) {
-//        
-//        [SVProgressHUD showSuccessWithStatus:@"登录成功"];
-//        NSLog(@"%@",responseObject);
-//        [SVProgressHUD dismissWithCompletion:^{
-//            
-//            [self.navigationController popToRootViewControllerAnimated:NO];
-//            
-//        }];
-//        
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
-//    }];
-//    [SVProgressHUD dismissWithCompletion:nil];
+    [SVProgressHUD showProgress:2 status:@"hold on ~~"];
+    
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"quickLogin",
+                             @"mobilePhone":_tf_loginphone.text,
+                             @"loginPwd":_tf_verificationCodeOrPassWord.text,
+
+                             };
+    
+    
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        NSLog(@"  %@  = responseObject  " ,responseObject);
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+            _isLogin = YES;
+            BBUserDefault.isLogin = _isLogin;
+            [SVProgressHUD dismissWithCompletion:^{
+                
+                [self.navigationController popToRootViewControllerAnimated:NO];
+                
+            }];
+            
+        }
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@  = error " ,error);
+        
+    }];
+    
+    [SVProgressHUD dismiss];
 
 }
 @end

@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface ForgetPSViewController : BaseViewController
+@interface ForgetPSViewController : UIViewController
 
 @end

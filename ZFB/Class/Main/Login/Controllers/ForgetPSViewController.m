@@ -33,24 +33,49 @@
     [self.getCodeVerification_btn addTarget:self action:@selector(getVerificationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
     
     [self textFieldSettingDelegate];
+  
+    [self set_leftButton];
+}
+-(UIButton*)set_leftButton
+{
     
+    UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
+    left_button.frame =CGRectMake(0, 0,22,22);
+    [left_button setBackgroundImage:[UIImage imageNamed:@"navback_white"] forState:UIControlStateNormal];
+    [left_button addTarget:self action:@selector(left_button_event:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:left_button];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    return left_button;
+}
+
+//设置右边事件
+-(void)left_button_event:(UIButton *)sender{
     
+    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - 获取验证码
 -(void)getVerificationCodeAction:(UIButton *)sender{
-    // 网络请求
-    [self VerificationCodePostRequest];
-    [dateTimeHelper verificationCode:^{
-        //倒计时完毕
-        sender.enabled = YES;
-        [sender setTitle:@"重新发送" forState:UIControlStateNormal];
-        [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
-        
-    } blockNo:^(id time) {
-        sender.enabled = NO;
-        [sender setTitle:time forState:UIControlStateNormal];
-        [sender setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal] ;
-    }];
+    if ([_tf_phoneNum.text isMobileNumber]) {
+        // 网络请求
+        [self ValidateCodePostRequset];
+        [dateTimeHelper verificationCode:^{
+            //倒计时完毕
+            sender.enabled = YES;
+            [sender setTitle:@"重新发送" forState:UIControlStateNormal];
+            [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
+            
+        } blockNo:^(id time) {
+            sender.enabled = NO;
+            [sender setTitle:time forState:UIControlStateNormal];
+            [sender setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal] ;
+        }];
+ 
+    }
+    else{
+        [self.view makeToast:@"请输入手机号" duration:2.0 position:@"center"];
+
+    }
+
 }
 #pragma mark - UITextFieldDelegate  设置代理
 -(void)textFieldSettingDelegate
@@ -77,7 +102,7 @@
         
         //当账号与密码同时有值,登录按钮才能够点击
         
-        if (_tf_phoneNum.text.length == 11 && _tf_codeVerification.text.length == 6 ) {
+        if ([_tf_phoneNum.text  isMobileNumber] && _tf_codeVerification.text.length == 6 ) {
            
             self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
             self.nextStep_btn.enabled = YES;
@@ -105,7 +130,16 @@
         }
     }
     if (_tf_codeVerification == textField) {
-        
+        if ([_tf_phoneNum.text  isMobileNumber] && _tf_codeVerification.text.length == 6 ) {
+            
+            self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+            self.nextStep_btn.enabled = YES;
+            
+        }else{
+            self.nextStep_btn.enabled = NO;
+            self.nextStep_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
+            
+        }
         NSLog(@"验证码 ----- 不匹配");
     }
     
@@ -125,82 +159,59 @@
     
 }
 
-/**
-   下一步
 
- @param sender 重置密码下一步
- */
+#pragma mark - goToResetPageView 重置密码下一步
 - (void)goToResetPageView:(id)sender {
 
-    ResetPassWViewController * resetVc= [[ResetPassWViewController alloc]init];
-    resetVc.phoneNum = _tf_phoneNum.text;
-    resetVc.Vercode = _tf_codeVerification.text;
-    [self.navigationController pushViewController:resetVc animated:YES];
-    
+    if (![self.tf_codeVerification.text isEqualToString:_smsCode]) {
+        
+      [WJYAlertView showOneButtonWithTitle:@"提示信息" Message:@"验证码输入错误" ButtonType:WJYAlertViewButtonTypeHeight ButtonTitle:@"知道了" Click:^{
+      }];
+    }else{
+        ResetPassWViewController * resetVc= [[ResetPassWViewController alloc]init];
+        resetVc.phoneNum = _tf_phoneNum.text;
+        resetVc.Vercode = _smsCode;
+        [self.navigationController pushViewController:resetVc animated:YES];
+    }
+
 }
 
 
 
 
-#pragma marl - VerificationCodePostRequest验证码网络请求
--(void)VerificationCodePostRequest
+#pragma mark - ValidateCodePostRequset验证码网络请求
+-(void)ValidateCodePostRequset
 {
-//    NSString * SmsLogo = @"1";
-//    NSDate *date = [NSDate date];
-//    NSString *DateTime =  [dateTimeHelper htcTimeToLocationStr: date];
-//    
-//    //通用MD5_KEY
-//    NSString * transactionTime = DateTime;//当前时间
-//    NSString * transactionId = DateTime; //每个用户唯一
-//    NSLog(@"%@",DateTime);
-//    NSString * tempStr =  @"";
-//    NSString * jsonStr = [tempStr convertToJsonData:@{
-//                                                           @"mobilePhone":_tf_phoneNum.text,
-//                                                           @"SmsLogo":SmsLogo,
-//                                                           }];
-//    NSString * data = [NSString base64:jsonStr];
-//    NSDictionary * params2 = @{
-//                               //@"userId":@"",
-//                               @"signType":@"MD5",
-//                               @"transactionTime":transactionTime,
-//                               @"transactionId":transactionId,
-//                               @"svcName":@"forgetPassword",
-//                               @"data":data,
-//                               };
-//    
-//    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
-//    NSString * sign = [keydic signStringWithParam:params2];
-//    
-//    NSDictionary * param =  @{
-//                              
-//                              @"data":data,//base64
-//                              @"sign":sign,//签名
-//                              @"transactionTime":transactionTime,
-//                              @"transactionId":transactionId,
-//                              @"signType":@"MD5",
-//                              @"svcName":@"forgetPassword",
-//                              };
-//    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:param responseCache:^(id responseCache) {
-//        
-//    } success:^(id responseObject) {
-//        NSLog(@"拿到验证码code%@",responseObject);
-//        NSString  * data = [ responseObject[@"data"] base64DecodedString];
-//        
-//        NSDictionary * dataDic= [NSString dictionaryWithJsonString:data];
-//        
-//        _smsCode = dataDic[@"smsCode"];
-//        
-//        NSLog(@"%@" , _smsCode);
-//        
-//    } failure:^(NSError *error) {
-//        
-//        NSLog(@"%@  = error " ,error);
-//        
-//    }];
-//    
+    [SVProgressHUD showInfoWithStatus:@"hold on ~~"];
+    
+    NSDictionary * parma = @{
+                             @"SmsLogo":@"1",
+                             @"svcName":@"SendMessages",
+                             @"mobilePhone":_tf_phoneNum.text,
+                             };
+    
+    
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+            NSString  * data = [ responseObject[@"data"] base64DecodedString];
+            NSDictionary * dataDic= [NSString dictionaryWithJsonString:data];
+            _smsCode = dataDic[@"smsCode"];
+            _tf_codeVerification.text = _smsCode;
+            self.nextStep_btn.enabled = YES;
+            self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+        }
+    } failure:^(NSError *error) {
+        
+        NSLog(@"%@  = error " ,error);
+        
+    }];
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
