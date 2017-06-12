@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,43 +35,17 @@
                         <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dED-DQ-NIQ">
-                        <rect key="frame" x="240" y="50" width="91" height="31"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sue-Ey-a9M">
-                                <rect key="frame" x="35" y="8.5" width="20.5" height="14.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biF-YL-qru">
-                                <rect key="frame" x="7" y="6" width="20" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="95u-65-reU"/>
-                                    <constraint firstAttribute="width" constant="20" id="cWH-wd-kI7"/>
-                                </constraints>
-                                <state key="normal" backgroundImage="add.png"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u0n-xy-nyM">
-                                <rect key="frame" x="64" y="6" width="20" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="4sG-dV-VTN"/>
-                                    <constraint firstAttribute="width" constant="20" id="mQx-zX-Yhm"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <state key="normal" backgroundImage="reduce.png"/>
-                            </button>
-                        </subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dED-DQ-NIQ" customClass="PPNumberButton">
+                        <rect key="frame" x="231" y="50" width="100" height="31"/>
                         <constraints>
-                            <constraint firstItem="u0n-xy-nyM" firstAttribute="leading" secondItem="Sue-Ey-a9M" secondAttribute="trailing" constant="8" id="aQj-ER-WKE"/>
-                            <constraint firstAttribute="width" constant="91" id="f6x-Co-1qP"/>
-                            <constraint firstItem="biF-YL-qru" firstAttribute="centerY" secondItem="Sue-Ey-a9M" secondAttribute="centerY" id="jLA-VK-4Mr"/>
-                            <constraint firstItem="Sue-Ey-a9M" firstAttribute="centerY" secondItem="dED-DQ-NIQ" secondAttribute="centerY" id="mbx-Ig-EAq"/>
-                            <constraint firstItem="Sue-Ey-a9M" firstAttribute="leading" secondItem="biF-YL-qru" secondAttribute="trailing" constant="8" id="miz-5U-bUb"/>
+                            <constraint firstAttribute="width" constant="100" id="f6x-Co-1qP"/>
                             <constraint firstAttribute="height" constant="31" id="nQU-KA-7q9"/>
-                            <constraint firstItem="u0n-xy-nyM" firstAttribute="centerY" secondItem="Sue-Ey-a9M" secondAttribute="centerY" id="ndd-JZ-6m1"/>
-                            <constraint firstItem="Sue-Ey-a9M" firstAttribute="centerX" secondItem="dED-DQ-NIQ" secondAttribute="centerX" id="qvC-M1-Zlt"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="inputFieldFont">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1DU-qC-ImR">
                         <rect key="frame" x="15" y="33.5" width="24" height="24"/>
@@ -133,20 +107,16 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="add_btn" destination="biF-YL-qru" id="FNl-Lp-Pte"/>
                 <outlet property="chooseBtn" destination="1DU-qC-ImR" id="4BL-1l-rwo"/>
                 <outlet property="img_shopCar" destination="80B-wr-2zz" id="XYV-Or-RgE"/>
                 <outlet property="lb_price" destination="Gzh-hh-xPE" id="vB6-pD-LlO"/>
-                <outlet property="lb_result" destination="Sue-Ey-a9M" id="IIe-JR-NcI"/>
                 <outlet property="lb_title" destination="nBP-mu-lIW" id="3an-0r-1fp"/>
-                <outlet property="reduce_btn" destination="u0n-xy-nyM" id="xMt-py-JtZ"/>
+                <outlet property="ppNumberView" destination="dED-DQ-NIQ" id="ITq-wt-Nrg"/>
             </connections>
             <point key="canvasLocation" x="-408.5" y="278"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="add.png" width="20" height="20"/>
-        <image name="reduce.png" width="20" height="20"/>
         <image name="select_normal.png" width="16" height="16"/>
     </resources>
 </document>

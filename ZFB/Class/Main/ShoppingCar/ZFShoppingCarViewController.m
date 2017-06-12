@@ -187,6 +187,10 @@
     return shopCell;
     
 }
+-(void)selectResult:(NSInteger)result
+{
+    
+}
 #pragma mark - tableView datasource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

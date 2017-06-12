@@ -509,6 +509,8 @@
 		5019FFB71ECCAEF800325342 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5019FFA51ECCAEF800325342 /* UIImageView+HighlightedWebCache.m */; };
 		5019FFB81ECCAEF800325342 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5019FFA71ECCAEF800325342 /* UIImageView+WebCache.m */; };
 		5019FFB91ECCAEF800325342 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5019FFA91ECCAEF800325342 /* UIView+WebCacheOperation.m */; };
+		5026A4471EEEE39B00AAC84D /* UIImage+ADCircleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5026A4461EEEE39B00AAC84D /* UIImage+ADCircleImage.m */; };
+		5026A44B1EEEE6F500AAC84D /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5026A44A1EEEE6F500AAC84D /* PPNumberButton.m */; };
 		503BEBF11ED71877004FC36C /* ZFEnum.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEBF01ED71877004FC36C /* ZFEnum.m */; };
 		503BEC0F1ED72324004FC36C /* UITableView+FDIndexPathHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEC081ED72324004FC36C /* UITableView+FDIndexPathHeightCache.m */; };
 		503BEC101ED72324004FC36C /* UITableView+FDKeyedHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEC0A1ED72324004FC36C /* UITableView+FDKeyedHeightCache.m */; };
@@ -1277,6 +1279,10 @@
 		5019FFA71ECCAEF800325342 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		5019FFA81ECCAEF800325342 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		5019FFA91ECCAEF800325342 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		5026A4451EEEE39B00AAC84D /* UIImage+ADCircleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ADCircleImage.h"; sourceTree = "<group>"; };
+		5026A4461EEEE39B00AAC84D /* UIImage+ADCircleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ADCircleImage.m"; sourceTree = "<group>"; };
+		5026A4491EEEE6F500AAC84D /* PPNumberButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNumberButton.h; sourceTree = "<group>"; };
+		5026A44A1EEEE6F500AAC84D /* PPNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNumberButton.m; sourceTree = "<group>"; };
 		503BEBEF1ED71877004FC36C /* ZFEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFEnum.h; sourceTree = "<group>"; };
 		503BEBF01ED71877004FC36C /* ZFEnum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFEnum.m; sourceTree = "<group>"; };
 		503BEC071ED72324004FC36C /* UITableView+FDIndexPathHeightCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDIndexPathHeightCache.h"; sourceTree = "<group>"; };
@@ -1439,6 +1445,8 @@
 				492754ED1EC4679E003C22D0 /* UIButton+EdgeInsets.m */,
 				492754EE1EC4679E003C22D0 /* UIImage+Extension.h */,
 				492754EF1EC4679E003C22D0 /* UIImage+Extension.m */,
+				5026A4451EEEE39B00AAC84D /* UIImage+ADCircleImage.h */,
+				5026A4461EEEE39B00AAC84D /* UIImage+ADCircleImage.m */,
 				49C6CFCA1EDFBA8C00652CDB /* UIImageView+Extentsion.h */,
 				49C6CFCB1EDFBA8C00652CDB /* UIImageView+Extentsion.m */,
 				492754F01EC4679E003C22D0 /* UIView+MJ.h */,
@@ -1506,6 +1514,7 @@
 		492755001EC4679E003C22D0 /* Tool(工具) */ = {
 			isa = PBXGroup;
 			children = (
+				5026A4481EEEE6F500AAC84D /* PPNumberButton(加减按钮) */,
 				49D75C831EEE38DD00FACCD8 /* PTXDatePickerView(时间选择器) */,
 				49D75C511EEE2EF900FACCD8 /* ACAlertController(底部弹框) */,
 				49D75C4D1EEE24F700FACCD8 /* GGActionSheet(底部弹框) */,
@@ -2983,6 +2992,16 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		5026A4481EEEE6F500AAC84D /* PPNumberButton(加减按钮) */ = {
+			isa = PBXGroup;
+			children = (
+				5026A4491EEEE6F500AAC84D /* PPNumberButton.h */,
+				5026A44A1EEEE6F500AAC84D /* PPNumberButton.m */,
+			);
+			name = "PPNumberButton(加减按钮)";
+			path = PPNumberButton;
+			sourceTree = "<group>";
+		};
 		503BEC061ED72324004FC36C /* UITableView-FDTemplateLayoutCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -3602,6 +3621,7 @@
 				49801C8F1ECE870100EDAA53 /* PYSearchSuggestionViewController.m in Sources */,
 				49DF71781EEAA9B20021EE92 /* ZFMyOpinionCell.m in Sources */,
 				49DF714F1EEAA9B20021EE92 /* DetailFindGoodsViewController.m in Sources */,
+				5026A44B1EEEE6F500AAC84D /* PPNumberButton.m in Sources */,
 				49DF71EE1EEAA9B20021EE92 /* ZFSearchBarViewController.m in Sources */,
 				5019FFB21ECCAEF800325342 /* SDWebImagePrefetcher.m in Sources */,
 				49DF71CC1EEAA9B20021EE92 /* ZFSettingViewController.m in Sources */,
@@ -3626,6 +3646,7 @@
 				49DF714E1EEAA9B20021EE92 /* ZFCInterpersonalCircleViewController.m in Sources */,
 				49DF6FF11EEA94CC0021EE92 /* AdvertiseView.m in Sources */,
 				49DF717A1EEAA9B20021EE92 /* ZFHomeViewController.m in Sources */,
+				5026A4471EEEE39B00AAC84D /* UIImage+ADCircleImage.m in Sources */,
 				49DF717F1EEAA9B20021EE92 /* ZFCollectEditCell.m in Sources */,
 				49DF71F01EEAA9B20021EE92 /* PayforCell.m in Sources */,
 				49DF6FD91EEA927C0021EE92 /* ZZYPhotoHelper.m in Sources */,
@@ -3859,7 +3880,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3880,7 +3901,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

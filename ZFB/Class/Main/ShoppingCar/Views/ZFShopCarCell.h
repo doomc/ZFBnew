@@ -7,15 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPNumberButton.h"
 
 @interface ZFShopCarCell : UITableViewCell
+
+-(void)selectResult:(NSInteger)result;
+
 @property (weak, nonatomic) IBOutlet UIImageView *img_shopCar;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 
+@property (weak, nonatomic) IBOutlet PPNumberButton *ppNumberView;
+
 @property (weak, nonatomic) IBOutlet UIButton *add_btn;
+
 @property (weak, nonatomic) IBOutlet UIButton *reduce_btn;
 
 //加减出的结果
