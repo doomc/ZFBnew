@@ -5,34 +5,33 @@
 //  Created by  展富宝  on 2017/5/17.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //  首页定位
+#define SelectLocation_Not_Show @"不显示位置"
+const static NSString *ApiKey = @"fc306f20d58121a5168f017bc6bf39e4";
 
 #import "HP_LocationViewController.h"
 #import "SearchCell.h"
-#import <CoreLocation/CoreLocation.h>
-
+#import "MJRefresh.h"
 //高德api
-#import <MAMapKit/MAMapKit.h>
-#import <AMapSearchKit/AMapSearchKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
-@interface HP_LocationViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,AMapGeoFenceManagerDelegate,AMapLocationManagerDelegate,CLLocationManagerDelegate,MAMapViewDelegate,AMapSearchDelegate>
-{
-//    CLLocationManager *locationManager;
-    NSString * currentCity;
-    NSString * Srrlatitude;
-    NSString * Srrlongitdude;
-    
-}
-@property(nonatomic,strong)UITableView * location_TableView;
-@property(nonatomic,strong)UITextField * tf_search;
-@property(nonatomic,strong)UIView * bgView;
+@interface HP_LocationViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,AMapLocationManagerDelegate,MAMapViewDelegate,AMapSearchDelegate>
+
+//poi
+@property (nonatomic,strong) AMapSearchAPI *  searchAPI;
+@property (nonatomic,strong) NSMutableArray *  addressList;
+
+@property (nonatomic,assign) BOOL           needInsertOldAddress;
+@property (nonatomic,assign) BOOL           isSelectCity;
+
+@property (nonatomic,assign) NSInteger      pageIndex;
+@property (nonatomic,assign) NSInteger      pageCount;
+//end
+@property (nonatomic,strong) UITableView * location_TableView;
+@property (nonatomic,strong) UITextField * tf_search;
+@property (nonatomic,strong) UIView * bgView;
 
 //高德api
-@property (nonatomic, strong) AMapPOI     *poi;
-@property(nonatomic,strong)AMapLocationManager * locationManager;
-@property(nonatomic,strong)MAMapView *  mapView;
-@property(nonatomic,strong)AMapSearchAPI *  searchAPI;
-@property(nonatomic,strong)CLLocation *  currentLocation;
-@property(nonatomic,strong)NSMutableArray *  addressList;
+@property (nonatomic,strong) AMapLocationManager * locationManager;
+@property (nonatomic,strong) CLLocation *  currentLocation;
 /**
  *  持续定位是否返回逆地理信息，默认NO。
  */
@@ -50,10 +49,88 @@
     [self creatTableViewInterface];
     
     [self locationinit];
-
+    
     [self searchApISetting];
     
+    [self settingPOI];
 }
+#warning ============= poi ===============
+-(void)settingPOI{
+    AMapPOI *first  = [[AMapPOI alloc] init];
+    first.name      = SelectLocation_Not_Show;
+    [self.addressList addObject:first];
+    
+    if (self.oldPoi) {
+        AMapPOI *poi                = self.oldPoi;
+        self.needInsertOldAddress   = poi.address.length > 0;
+        self.isSelectCity           = poi.address.length == 0;
+    }
+    
+    [self.view addSubview:self.location_TableView];
+    [AMapServices sharedServices].apiKey = (NSString *)ApiKey;
+    
+    [self headRefreshing];
+}
+#pragma mark - getData
+- (void)headRefreshing{
+    self.pageIndex = 0;
+    self.pageCount = 10;
+    [self footRefreshing];
+}
+
+- (void)footRefreshing{
+    self.pageIndex += 1;
+    [self searchApISetting];
+}
+#pragma mark  - 高德POI设置
+-(void)searchApISetting
+{
+    
+    AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
+    
+    self.searchAPI = [[AMapSearchAPI alloc] init];
+    self.searchAPI.delegate = self;
+    
+    request.location                    = [AMapGeoPoint locationWithLatitude:23.107307 longitude:113.384098];
+    //request.location = [AMapGeoPoint locationWithLatitude:self.currentLocation.coordinate.latitude longitude:self.currentLocation.coordinate.longitude];
+    request.keywords                    = @"";
+    request.sortrule                    = 0;
+    request.requireExtension            = YES;
+    request.radius                      = 1000;
+    //    request.page                        = self.pageIndex;
+    //    request.offset                      = self.pageCount;
+    request.types                       = @"050000|060000|070000|080000|090000|100000|110000|120000|130000|140000|150000|160000|170000";
+    
+    [self.searchAPI AMapPOIAroundSearch:request];
+    
+}
+#pragma mark - AMapSearchDelegate
+/* POI 搜索回调. */
+- (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response{
+    if (response.pois.count == 0){
+        return;
+    }
+    
+    if (self.addressList.count == 1) {
+        AMapPOI *poi = [[AMapPOI alloc] init];
+        poi.city     = ((AMapPOI *)response.pois.firstObject).city;
+        [self.addressList addObject:poi];
+    }
+    
+    [self.addressList addObjectsFromArray:response.pois];
+    
+    [self.location_TableView reloadData];
+    
+    self.location_TableView.mj_footer.hidden = response.pois.count != self.pageCount;
+    
+    [self.location_TableView.mj_header endRefreshing];
+    [self.location_TableView.mj_footer endRefreshing];
+    
+    
+    
+}
+
+#warning ============= poi ===============
 -(void)locationinit{
     self.locationManager = [[AMapLocationManager alloc] init];
     
@@ -72,40 +149,6 @@
     [self.locationManager setLocatingWithReGeocode:YES];
     
     [self.locationManager startUpdatingLocation];
-}
-#pragma mark  - 高德POI设置
--(void)searchApISetting
-{
-    
-    AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
-
-    self.searchAPI = [[AMapSearchAPI alloc] init];
-    self.searchAPI.delegate = self;
-    
-    request.location = [AMapGeoPoint locationWithLatitude:self.currentLocation.coordinate.latitude longitude:self.currentLocation.coordinate.longitude];
-    request.keywords                    = @"";
-    request.sortrule                    = 0;
-    request.requireExtension            = YES;
-    request.radius                      = 1000;
-//    request.page                        = self.pageIndex;
-//    request.offset                      = self.pageCount;
-    request.types                       = @"050000|060000|070000|080000|090000|100000|110000|120000|130000|140000|150000|160000|170000";
-    
-    [self.searchAPI AMapPOIAroundSearch:request];
-    
-}
-#pragma mark - AMapSearchDelegate
-/* POI 搜索回调. */
-- (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response{
-    if (response.pois.count == 0){
-        return;
-    }
-    for(AMapPOI *poi in response.pois){
-        NSLog(@"%@",poi.name);
-    }
-    self.addressList  = [NSMutableArray arrayWithArray:response.pois];
-    [self.location_TableView reloadData];
-
 }
 
 #pragma mark  -高德api 定位
@@ -136,7 +179,7 @@
 -(void)creatTableViewInterface
 {
     self.title = @"选择地址";
-
+    
     //创建bgView
     self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW,50 )];
     [self.view addSubview:_bgView];
@@ -152,16 +195,25 @@
     
     self.tf_search.placeholder = @"请输入要搜索的地址";
     self.tf_search.delegate = self;
-
+    
     
     //tableView的创建
-    self.location_TableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 114, KScreenW, KScreenH-64) style:UITableViewStyleGrouped];
+    self.location_TableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 114, KScreenW, KScreenH - 114) style:UITableViewStyleGrouped];
     [self.view addSubview:self.location_TableView];
-
+    
     self.location_TableView.dataSource = self;
     self.location_TableView.delegate = self;
-
+    
     [self.location_TableView registerNib:[UINib nibWithNibName:@"SearchCell" bundle:nil] forCellReuseIdentifier:@"SearchCell"];
+    
+    self.location_TableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //        __strong __typeof(weakSelf) strongSelf = weakSelf;
+        [self headRefreshing];
+    }];
+    self.location_TableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        //        __strong __typeof(weakSelf) strongSelf = weakSelf;
+        [self footRefreshing];
+    }];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -210,25 +262,40 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell * customCell = [self.location_TableView dequeueReusableCellWithIdentifier:@"cell"];
- 
+    UITableViewCell * cell = [self.location_TableView dequeueReusableCellWithIdentifier:@"cell"];
+    
     if (indexPath.section == 0) {
         
         SearchCell * searchCell = [self.location_TableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
         return searchCell;
     }
     if (indexPath.section == 1 ) {
-      
-        if (!customCell) {
-            customCell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
         }
-        customCell.textLabel.font =[ UIFont systemFontOfSize:12];
-        customCell.textLabel.textColor = HEXCOLOR(0x363636);
-        customCell.textLabel.text = self.addressList[indexPath.row];
-        customCell.detailTextLabel.text = self.addressList[indexPath.row];
-
-        return customCell;
-
+        cell.textLabel.font =[ UIFont systemFontOfSize:12];
+        cell.textLabel.textColor = HEXCOLOR(0x363636);
+        AMapPOI *info               = self.addressList[indexPath.row];
+        cell.textLabel.text         = info.name.length > 0 ? info.name : info.city;
+        cell.detailTextLabel.text   = info.address;
+        
+        cell.accessoryType  = UITableViewCellAccessoryNone;
+        
+        if (self.oldPoi && indexPath.row == 2) {
+            if (self.isSelectCity) {
+                cell.accessoryType  = UITableViewCellAccessoryNone;
+            }else{
+                cell.accessoryType  = UITableViewCellAccessoryCheckmark;
+            }
+        }else if (!self.oldPoi        && indexPath.row == 0) {
+            cell.accessoryType      = UITableViewCellAccessoryCheckmark;
+        }else if (self.isSelectCity   && indexPath.row == 1){
+            cell.accessoryType      = UITableViewCellAccessoryCheckmark;
+        }
+        
+        return cell;
+        
     }
     return nil;
     
@@ -236,76 +303,27 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (indexPath.section == 1) {
+        AMapPOI *info = self.addressList[indexPath.row];
+        if (self.successBlock) {
+            self.successBlock([info.name isEqualToString:SelectLocation_Not_Show] ? nil : info);
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+ 
+    }
+   
 }
 
-
-//-(void)lcattemap{
-//    if ([CLLocationManager locationServicesEnabled]) {
-//        locationManager = [[CLLocationManager alloc]init];
-//        locationManager.delegate = self;
-//        currentCity= [[NSString alloc]init];
-//        [locationManager requestWhenInUseAuthorization];
-//        
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//        locationManager.distanceFilter = 5.0;
-//        [locationManager startUpdatingLocation];
-//        
-//      }
-//}
-//-(void)locationManager:(CLLocationManager *)manager didFailWithError:(nonnull NSError *)error {
-//    
-//    NSLog(@"定位失败 %@",error);
-//    [SVProgressHUD dismiss];
-//
-//    
-//}
-//-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
-//{
-//    
-//    [SVProgressHUD showWithStatus:@"正在定位"];
-//    [locationManager stopUpdatingLocation];
-//    CLLocation * currentLoction  = [locations lastObject];
-//    CLGeocoder * geoCoder =[[CLGeocoder alloc]init];
-//    NSLog(@"%f,%f",currentLoction.coordinate.latitude,currentLoction.coordinate.longitude);
-//    
-//    
-//    [geoCoder reverseGeocodeLocation:currentLoction completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-//        if (placemarks.count >0) {
-//            
-//            CLPlacemark *palceMark = placemarks[0];
-//            currentCity =palceMark.locality;
-//            if (!currentCity) {
-//                currentCity = @"我发定位当前城市";
-//            }
-//            NSLog(@"%@",palceMark.country);//当前国家
-//            NSLog(@"%@",currentCity);//当前城市
-//            NSLog(@"%@",palceMark.subLocality);//当前位置
-//            NSLog(@"%@",palceMark.thoroughfare);//当前街道
-//            NSLog(@"%@",palceMark.name);//具体地址
-//            
-//        }
-//        
-//    else if (error == nil && placemarks.count == 0)
-//    {
-//        NSLog(@" 灭有定位到");
-//    }
-//    else if (error){
-//        
-//        NSLog(@"%@",error);
-//    }
-//        
-//    }];
-//
-//    [SVProgressHUD dismiss];
-//
-//}
-
+- (void)setSuccessBlock:(SelectLocationSuccessBlock)successBlock{
+    
+    _successBlock = successBlock;
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
- 
+
 @end

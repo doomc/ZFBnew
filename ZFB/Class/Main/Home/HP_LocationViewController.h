@@ -7,7 +7,14 @@
 //
 
 #import "BaseViewController.h"
+#import <MAMapKit/MAMapKit.h>
+#import <AMapSearchKit/AMapSearchKit.h>
+
+typedef void(^SelectLocationSuccessBlock)(AMapPOI *poi);
 
 @interface HP_LocationViewController : BaseViewController
+
+@property (nonatomic,strong)   AMapPOI                      *oldPoi;
+@property (nonatomic,copy  )   SelectLocationSuccessBlock   successBlock;
 
 @end
