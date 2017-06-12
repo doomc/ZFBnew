@@ -37,6 +37,10 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>一直访问用户位置</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>在应用使用期间访问用户位置</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

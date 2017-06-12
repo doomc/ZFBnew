@@ -14,19 +14,37 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - AMap3DMap (5.0.0):
+    - AMapFoundation (~> 1.3)
+  - AMapFoundation (1.4.0)
+  - AMapLocation (2.4.0):
+    - AMapFoundation (~> 1.4)
+  - AMapNavi (5.0.0):
+    - AMap3DMap (~> 5.0)
+    - AMapFoundation (~> 1.3)
+  - AMapSearch (5.0.0):
+    - AMapFoundation (~> 1.2)
   - Masonry (1.0.2)
   - SVProgressHUD (2.1.2)
 
 DEPENDENCIES:
   - AFNetworking
+  - AMapLocation
+  - AMapNavi
+  - AMapSearch
   - Masonry
   - SVProgressHUD
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AMap3DMap: 4d0a53d0e57c7c758560225dfdaf593b306bd468
+  AMapFoundation: 458974f46a39df8407fd818ab83d2630d494c726
+  AMapLocation: 47b62b5381a66e4d0c2931b70ffde72682427896
+  AMapNavi: dec01f6752e8b665467f4c097db1512ff7510ca0
+  AMapSearch: cf7fd100d533995822d92c22586abfaf7cdf6eef
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
 
-PODFILE CHECKSUM: a00d62170c736cd47e1532e9add12832264c567a
+PODFILE CHECKSUM: 51d07a1da48cd149a10deaa3c59577795a5dd778
 
 COCOAPODS: 1.2.0

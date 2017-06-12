@@ -13,9 +13,9 @@ target 'ZFB' do
   pod 'Masonry'
 
   # 第三方库
- # pod 'AMapLocation'
- # pod 'AMapSearch'
- # pod 'AMapNavi'
+  pod 'AMapLocation'
+  pod 'AMapSearch'
+  pod 'AMapNavi'
   
   #其他
   # pod 'QBImagePickerController'

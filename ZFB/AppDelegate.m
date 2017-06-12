@@ -11,8 +11,13 @@
 #import "BaseTabbarController.h"
 #import "ZFbaseTabbarViewController.h"
 
-@interface AppDelegate ()
 
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+#import "AppDelegate+Location.h"
+@interface AppDelegate ()
+@property(nonatomic,strong)CLLocation *  currentLocation;
+@property(nonatomic,copy)CLLocation *  currentCity;
 @end
 
 @implementation AppDelegate
@@ -26,9 +31,25 @@
     ZFbaseTabbarViewController *tabbarVC = [[ZFbaseTabbarViewController alloc] init];
     self.window.rootViewController = tabbarVC;
     [self.window makeKeyAndVisible];
-    //设置状态栏
-    //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+  
     
+    //获取当前城市和经纬度
+    [self receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {
+        if(isLocationSuccess)
+        {
+            [SVProgressHUD showWithStatus:@"定位成功"];
+            if(regeocode.city){
+                //为接收
+                NSLog(@"当前城市 ：%@" , [regeocode.city substringToIndex:2]);//显示当前城市
+            }
+        }else{
+            [SVProgressHUD showWithStatus:@"定位失败"];
+        }
+        self.currentLocation = currentLocation;
+        self.currentCity = [regeocode.city copy];
+    }];
+    
+ 
     return YES;
 }
 

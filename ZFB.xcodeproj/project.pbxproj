@@ -139,6 +139,10 @@
 		49D6E72B1ED9789A000A837E /* love@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D6E7271ED9789A000A837E /* love@3x.png */; };
 		49D6E72E1ED97AAB000A837E /* write@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D6E72C1ED97AAB000A837E /* write@2x.png */; };
 		49D6E72F1ED97AAB000A837E /* write@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D6E72D1ED97AAB000A837E /* write@3x.png */; };
+		49D75C501EEE24F700FACCD8 /* GGActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D75C4F1EEE24F700FACCD8 /* GGActionSheet.m */; };
+		49D75C541EEE2EF900FACCD8 /* ACAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D75C531EEE2EF900FACCD8 /* ACAlertController.m */; };
+		49D75C861EEE38DD00FACCD8 /* PTXDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D75C851EEE38DD00FACCD8 /* PTXDatePickerView.m */; };
+		49D75C8D1EEE8AF300FACCD8 /* AppDelegate+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D75C8C1EEE8AF300FACCD8 /* AppDelegate+Location.m */; };
 		49DF6FCE1EEA927C0021EE92 /* addressData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49DF6F881EEA927C0021EE92 /* addressData.plist */; };
 		49DF6FCF1EEA927C0021EE92 /* AddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF6F8A1EEA927C0021EE92 /* AddressPickerView.m */; };
 		49DF6FD01EEA927C0021EE92 /* JXTAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF6F8D1EEA927C0021EE92 /* JXTAlertController.m */; };
@@ -727,6 +731,14 @@
 		49D6E7271ED9789A000A837E /* love@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "love@3x.png"; sourceTree = "<group>"; };
 		49D6E72C1ED97AAB000A837E /* write@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "write@2x.png"; sourceTree = "<group>"; };
 		49D6E72D1ED97AAB000A837E /* write@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "write@3x.png"; sourceTree = "<group>"; };
+		49D75C4E1EEE24F700FACCD8 /* GGActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGActionSheet.h; sourceTree = "<group>"; };
+		49D75C4F1EEE24F700FACCD8 /* GGActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGActionSheet.m; sourceTree = "<group>"; };
+		49D75C521EEE2EF900FACCD8 /* ACAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACAlertController.h; sourceTree = "<group>"; };
+		49D75C531EEE2EF900FACCD8 /* ACAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACAlertController.m; sourceTree = "<group>"; };
+		49D75C841EEE38DD00FACCD8 /* PTXDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTXDatePickerView.h; sourceTree = "<group>"; };
+		49D75C851EEE38DD00FACCD8 /* PTXDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTXDatePickerView.m; sourceTree = "<group>"; };
+		49D75C8B1EEE8AF300FACCD8 /* AppDelegate+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Location.h"; sourceTree = "<group>"; };
+		49D75C8C1EEE8AF300FACCD8 /* AppDelegate+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Location.m"; sourceTree = "<group>"; };
 		49DF6F881EEA927C0021EE92 /* addressData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressData.plist; sourceTree = "<group>"; };
 		49DF6F891EEA927C0021EE92 /* AddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressPickerView.h; sourceTree = "<group>"; };
 		49DF6F8A1EEA927C0021EE92 /* AddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressPickerView.m; sourceTree = "<group>"; };
@@ -1351,6 +1363,8 @@
 				492754E91EC4679E003C22D0 /* Class */,
 				4927521A1EC44DFC003C22D0 /* AppDelegate.h */,
 				4927521B1EC44DFC003C22D0 /* AppDelegate.m */,
+				49D75C8B1EEE8AF300FACCD8 /* AppDelegate+Location.h */,
+				49D75C8C1EEE8AF300FACCD8 /* AppDelegate+Location.m */,
 				492752201EC44DFC003C22D0 /* Main.storyboard */,
 				492752231EC44DFD003C22D0 /* Assets.xcassets */,
 				492752251EC44DFD003C22D0 /* LaunchScreen.storyboard */,
@@ -1492,6 +1506,9 @@
 		492755001EC4679E003C22D0 /* Tool(工具) */ = {
 			isa = PBXGroup;
 			children = (
+				49D75C831EEE38DD00FACCD8 /* PTXDatePickerView(时间选择器) */,
+				49D75C511EEE2EF900FACCD8 /* ACAlertController(底部弹框) */,
+				49D75C4D1EEE24F700FACCD8 /* GGActionSheet(底部弹框) */,
 				49DF70031EEA96340021EE92 /* IntroductoryPages(引导页) */,
 				49DF6FF21EEA94D80021EE92 /* EaseBlankPage(空白页) */,
 				49DF6FEB1EEA94CC0021EE92 /* AdvertiseHelper(广告页) */,
@@ -1796,6 +1813,36 @@
 				49C95F061ED295AF004EA811 /* sendComplete_normal@3x.png */,
 			);
 			path = "配送";
+			sourceTree = "<group>";
+		};
+		49D75C4D1EEE24F700FACCD8 /* GGActionSheet(底部弹框) */ = {
+			isa = PBXGroup;
+			children = (
+				49D75C4E1EEE24F700FACCD8 /* GGActionSheet.h */,
+				49D75C4F1EEE24F700FACCD8 /* GGActionSheet.m */,
+			);
+			name = "GGActionSheet(底部弹框)";
+			path = GGActionSheet;
+			sourceTree = "<group>";
+		};
+		49D75C511EEE2EF900FACCD8 /* ACAlertController(底部弹框) */ = {
+			isa = PBXGroup;
+			children = (
+				49D75C521EEE2EF900FACCD8 /* ACAlertController.h */,
+				49D75C531EEE2EF900FACCD8 /* ACAlertController.m */,
+			);
+			name = "ACAlertController(底部弹框)";
+			path = ACAlertController;
+			sourceTree = "<group>";
+		};
+		49D75C831EEE38DD00FACCD8 /* PTXDatePickerView(时间选择器) */ = {
+			isa = PBXGroup;
+			children = (
+				49D75C841EEE38DD00FACCD8 /* PTXDatePickerView.h */,
+				49D75C851EEE38DD00FACCD8 /* PTXDatePickerView.m */,
+			);
+			name = "PTXDatePickerView(时间选择器)";
+			path = PTXDatePickerView;
 			sourceTree = "<group>";
 		};
 		49DF6F871EEA927C0021EE92 /* AddressManager(地址管理) */ = {
@@ -3538,6 +3585,7 @@
 				49DF71E21EEAA9B20021EE92 /* CollectionViewCell.m in Sources */,
 				492757461EC4679E003C22D0 /* MJRefreshComponent.m in Sources */,
 				49DF6FD61EEA927C0021EE92 /* NSString+Base64.m in Sources */,
+				49D75C501EEE24F700FACCD8 /* GGActionSheet.m in Sources */,
 				49DF6FDD1EEA927C0021EE92 /* UITapImageView.m in Sources */,
 				492757531EC4679E003C22D0 /* MJRefreshConst.m in Sources */,
 				49DF6FDE1EEA927C0021EE92 /* NSDictionary+TJSafe.m in Sources */,
@@ -3641,6 +3689,7 @@
 				5019FFAA1ECCAEF800325342 /* MKAnnotationView+WebCache.m in Sources */,
 				49DF71891EEAA9B20021EE92 /* ZFMySendServiceCell.m in Sources */,
 				49DF6FE21EEA927C0021EE92 /* UIImage+Alpha.m in Sources */,
+				49D75C861EEE38DD00FACCD8 /* PTXDatePickerView.m in Sources */,
 				49DF71CB1EEAA9B20021EE92 /* ZFSettingHeadViewController.m in Sources */,
 				503BEC121ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				49DF71B11EEAA9B20021EE92 /* ApplySalesQuestionCell.m in Sources */,
@@ -3649,8 +3698,10 @@
 				49E7578B1EC96E9100220B28 /* UIView+SDExtension.m in Sources */,
 				49DF71521EEAA9B20021EE92 /* DetailStoreViewController.m in Sources */,
 				49801C921ECE870100EDAA53 /* UIView+PYExtension.m in Sources */,
+				49D75C541EEE2EF900FACCD8 /* ACAlertController.m in Sources */,
 				49DF72021EEAAA5B0021EE92 /* BaseViewController.m in Sources */,
 				49DF71B31EEAA9B20021EE92 /* ApplySalesUploadCell.m in Sources */,
+				49D75C8D1EEE8AF300FACCD8 /* AppDelegate+Location.m in Sources */,
 				5019FFAC1ECCAEF800325342 /* SDImageCache.m in Sources */,
 				49DF71E01EEAA9B20021EE92 /* ApplySalesAfterCommonCell.m in Sources */,
 				49DF71E51EEAA9B20021EE92 /* ZFOrderDetailCountCell.m in Sources */,

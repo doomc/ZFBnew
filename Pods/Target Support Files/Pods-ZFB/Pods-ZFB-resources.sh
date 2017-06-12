@@ -77,9 +77,13 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "AMap3DMap/MAMapKit.framework/AMap.bundle"
+  install_resource "AMapNavi/AMapNaviKit.framework/AMapNavi.bundle"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "AMap3DMap/MAMapKit.framework/AMap.bundle"
+  install_resource "AMapNavi/AMapNaviKit.framework/AMapNavi.bundle"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
 fi
 
