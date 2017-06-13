@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    //多行必须写
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

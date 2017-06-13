@@ -117,6 +117,8 @@
     }else{
         NSLog(@"重置成功了");
         [self RetetPasswordPostRequest];
+        [self.navigationController popToRootViewControllerAnimated:NO];
+
      }
 
 }
@@ -143,15 +145,15 @@
     } success:^(id responseObject) {
          if ([responseObject[@"responseObject"] isEqualToString:@"0" ]) {
              
-             [SVProgressHUD  dismissWithCompletion:^{
-                 
-                 [self.navigationController popToRootViewControllerAnimated:NO];
-             }];
+             [SVProgressHUD showProgress:2 status:@"重置成功"];
+
+            
          }
         
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
-
+        NSString * errorS = [NSString stringWithFormat:@"%@",error];
+        [self.view makeToast:errorS duration:2 position:@"center"];
     }];
     
     [SVProgressHUD dismiss];

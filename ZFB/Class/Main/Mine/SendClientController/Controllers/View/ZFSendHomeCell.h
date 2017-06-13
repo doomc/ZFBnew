@@ -10,4 +10,10 @@
 
 @interface ZFSendHomeCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_name;
+@property (weak, nonatomic) IBOutlet UILabel *lb_phone;
+@property (weak, nonatomic) IBOutlet UILabel *lb_getAddress;
+@property (weak, nonatomic) IBOutlet UILabel *lb_address;
+
+
 @end

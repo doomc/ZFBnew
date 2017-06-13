@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lAv-UG-Kjv" id="MaL-ZM-2XJ">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Yp-ad-aav">
@@ -38,9 +38,12 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="您还没填写昵称" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tgg-58-nI8">
-                        <rect key="frame" x="103" y="17" width="180" height="17"/>
+                        <rect key="frame" x="103" y="10.5" width="180" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="tdR-Zw-fyK"/>
+                        </constraints>
                         <color key="textColor" red="0.47843137254901957" green="0.47843137254901957" blue="0.47843137254901957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows_Right_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="Eet-NK-gki">

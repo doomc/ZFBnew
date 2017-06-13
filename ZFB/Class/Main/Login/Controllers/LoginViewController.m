@@ -295,12 +295,21 @@ typedef NS_ENUM(NSUInteger, indexType) {
   
             
             [self QuickLoginPostRequest];
+            if ( BBUserDefault.isLogin == YES) {
+                
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
             NSLog(@"快速-登录成功");
             
             break;
         case passwordLoginIndexType://密码登录
      
             [self PasswordLoginPostRequest];
+            
+            if ( BBUserDefault.isLogin == YES) {
+                
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
             NSLog(@"密码-登录成功");
 
             break;
@@ -386,7 +395,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
 {
     
     [SVProgressHUD showProgress:2.0 status:@"hold on ~~"];
-
     NSDictionary * parma = @{
                              
                             @"svcName":@"quickLogin",
@@ -407,18 +415,17 @@ typedef NS_ENUM(NSUInteger, indexType) {
         
             _isLogin = YES;
             BBUserDefault.isLogin = _isLogin;
-            
-            [SVProgressHUD dismissWithCompletion:^{
-
-                [self.navigationController popToRootViewControllerAnimated:NO];
-                
-            }];
-
+           
+            [SVProgressHUD showSuccessWithStatus:@"登陆成功！"];
+ 
         }
         
         
     } failure:^(NSError *error) {
         NSLog(@"%@  = error " ,error);
+        NSString * errorS = [NSString stringWithFormat:@"%@",error];
+        [self.view makeToast:errorS duration:2 position:@"center"];
+        
         
     }];
 
@@ -451,18 +458,14 @@ typedef NS_ENUM(NSUInteger, indexType) {
             
             _isLogin = YES;
             BBUserDefault.isLogin = _isLogin;
-            [SVProgressHUD dismissWithCompletion:^{
-                
-                [self.navigationController popToRootViewControllerAnimated:NO];
-                
-            }];
-            
+          
+            [SVProgressHUD showSuccessWithStatus:@"登陆成功！"];
         }
         
         
     } failure:^(NSError *error) {
-        NSLog(@"%@  = error " ,error);
-        
+        NSString * errorS = [NSString stringWithFormat:@"%@",error];
+        [self.view makeToast:errorS duration:2 position:@"center"];
     }];
     
     [SVProgressHUD dismiss];

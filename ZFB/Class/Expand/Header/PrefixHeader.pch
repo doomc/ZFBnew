@@ -32,7 +32,7 @@
 #import "GVUserDefaults+BBProperties.h"
 #import "SVProgressHUD.h"
 #import "NSDictionary+TJSafe.h"
-
+#import "HDAlertView.h"//底框
 
 
 #import "Macros.h"
@@ -49,8 +49,7 @@
 #import "NSString+Base64.h"
 #import "NSString+RegexCategory.h"
 #import "imageCompressHelper.h"
-#import "GGActionSheet.h"
-
+ 
 
 
 

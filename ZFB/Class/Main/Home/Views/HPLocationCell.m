@@ -1,25 +1,18 @@
 //
-//  SearchCell.m
+//  HPLocationCell.m
 //  ZFB
 //
-//  Created by  展富宝  on 2017/5/18.
+//  Created by  展富宝  on 2017/6/13.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
-#import "SearchCell.h"
+#import "HPLocationCell.h"
 
-@implementation SearchCell
+@implementation HPLocationCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-
-    [self.didClickLocation addTarget:self action:@selector(didClickLocation:) forControlEvents:UIControlEventTouchUpInside];
-    
-}
--(void)didClickLocation:(UIButton * )sender
-{
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -153,6 +153,22 @@
 -(void)clickAction
 {
     NSLog(@"clickAction");
+ 
+    JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示信息" message:@"登陆成功！" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction * left = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [jxt addAction:left];
+    [jxt addAction:right];
+    [self presentViewController:jxt animated:YES completion:^{  }];
+    
+ 
+
+    
 }
 
 ///** 自定义搜索框和放大镜 */

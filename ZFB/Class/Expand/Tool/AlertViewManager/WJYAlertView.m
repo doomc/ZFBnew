@@ -668,9 +668,9 @@ buttonType ButtonTitle:(NSString *)buttonTitle Click:(clickHandle)click ButtonTy
     //可以不断的扩展Button样式
     switch (buttonType) {
         case WJYAlertViewButtonTypeDefault:
-            normalImage = [self imageFromColorWithColor:[UIColor blueColor]];
-            highImage = [self imageFromColorWithColor:[UIColor blueColor]];
-            textColor = WJYColor(255, 255, 255);
+            normalImage = [self imageFromColorWithColor:[UIColor whiteColor]];
+            highImage = [self imageFromColorWithColor:[UIColor whiteColor]];
+            textColor = WJYColor(54, 54, 54);
             [btn setBackgroundImage:[self resizeImage:normalImage] forState:UIControlStateNormal];
             [btn setBackgroundImage:[self resizeImage:highImage] forState:UIControlStateHighlighted];
             [btn setTitleColor:textColor forState:UIControlStateNormal];

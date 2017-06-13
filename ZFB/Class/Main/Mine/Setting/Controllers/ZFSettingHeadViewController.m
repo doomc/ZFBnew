@@ -13,7 +13,6 @@
 
 #import "ZZYPhotoHelper.h"
 #import "PTXDatePickerView.h"
-#import "ACAlertController.h"
 
 typedef NS_ENUM(NSUInteger, IndexType) {
     IndexTypeMan,
@@ -24,17 +23,14 @@ static NSString * settingheadid = @"ZFSettingHeaderCellid";
 static NSString * settingRowid = @"ZFSettingRowCellid";
 
 
-@interface ZFSettingHeadViewController ()<UITableViewDelegate,UITableViewDataSource,GGActionSheetDelegate,PTXDatePickerViewDelegate>
+@interface ZFSettingHeadViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,PTXDatePickerViewDelegate>
 {
     NSArray * _titleArr;
-    NSMutableArray * _imageMutableArray;
     NSString * _seletDate;//选择时间
-    NSInteger _IndexType;
     BOOL _isSelectCount;
     
 }
 @property (nonatomic,strong) UITableView * tableView;
-@property (nonatomic,strong) GGActionSheet *actionSheetTitle;
 @property (nonatomic,strong) NSArray *sexTitleArr;
 //@property (nonatomic,assign) IndexType indexType;
 @property (nonatomic,strong) PTXDatePickerView *datePickerView;
@@ -61,7 +57,10 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     _datePickerView.datePickerViewShowModel = PTXDatePickerViewShowModelYearMonthDay;
 
 }
-
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    
+}
 -(UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH - 64) style:UITableViewStylePlain];
@@ -163,14 +162,13 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     NSLog(@"sectin = %ld,row = %ld",indexPath.section ,indexPath.row);
     ZFSettingRowCell *rowCell =(ZFSettingRowCell *)[tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.section == 0) {
-        [self.actionSheetTitle showGGActionSheet];
-   
+    
 //        ZFSettingHeaderCell *cell = (ZFSettingHeaderCell *)[tableView cellForRowAtIndexPath:indexPath];
 //        [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data) {
 // 
 //            cell.img_headView.image = (UIImage *)data;
 //        }];
-//        
+ 
     }
     if (indexPath.section == 1){
         
@@ -179,25 +177,30 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         }
         else if (indexPath.row == 1) {
             
-            [self createACAlertController];
-            
-            if (_IndexType == 0) {
+            HDAlertView *alertView = [HDAlertView showActionSheetWithTitle:@"选择你的性别"];
+            [alertView addButtonWithTitle:@"男" type:HDAlertViewButtonTypeCancel handler:^(HDAlertView *alertView) {
                 rowCell.lb_detailTitle.text = @"男";
-            }
-            if (_IndexType == 1) {
+            }];
+            
+            [alertView addButtonWithTitle:@"女" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
+                
                 rowCell.lb_detailTitle.text = @"女";
-            }
-            else{
+            }];
+            
+            [alertView addButtonWithTitle:@"保密" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
+                
                 rowCell.lb_detailTitle.text = @"保密";
+            }];
+            
+            [alertView show];
 
-            }
-        }
-        else if (indexPath.row == 2) {
+      
+        } else if (indexPath.row == 2) {
             if (_isSelectCount == NO) {
                 
                 [self.datePickerView  showViewWithDate:_selectedDate animation:YES];
                 rowCell.lb_detailTitle.text = _seletDate;
-                //_isSelectCount = YES;
+                //_isSelectCount = YES;  //Yes 默认为只能执行一次
 
             }else{
                 
@@ -214,38 +217,9 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
    
 }
 #pragma mark - UIAlertController
-- (void)createACAlertController {
-    //1、初始化
-    ACAlertController *action2 = [[ACAlertController alloc] initWithActionSheetTitles:_sexTitleArr cancelTitle:@"保密"];
-    
-    //2、获取点击事件
-    [action2 clickActionButton:^(NSInteger index) {
-        NSLog(@"选中的item = %ld", (long)index);
-        _IndexType = index;
-   
-    }];
-    
-    //3、显示
-    [action2 show];
-}
-#pragma mark - GGActionSheet代理方法
--(void)GGActionSheetClickWithActionSheet:(GGActionSheet *)actionSheet Index:(int)index{
-    if (actionSheet == self.actionSheetTitle) {
-        
-        NSLog(@"--------->点击了第%d个按钮<----------",index);
-    }
-}
--(GGActionSheet *)actionSheetTitle{
-    if (!_actionSheetTitle) {
-        _actionSheetTitle = [GGActionSheet ActionSheetWithTitleArray:@[@"拍照",@"从相册中选择"] andTitleColorArray:@[[UIColor orangeColor]] delegate:self];
-        //取消按钮颜色设置
-        _actionSheetTitle.cancelDefaultColor = HEXCOLOR(0x363636);
-        _actionSheetTitle.optionDefaultColor = HEXCOLOR(0x363636);
-    }
-    return _actionSheetTitle;
-}
 
-#pragma mark - PTXDatePickerViewDelegate
+
+#pragma mark - PTXDatePickerViewDelegate 日期选择器
 - (void)datePickerView:(PTXDatePickerView *)datePickerView didSelectDate:(NSDate *)date {
 
     self.selectedDate = date;

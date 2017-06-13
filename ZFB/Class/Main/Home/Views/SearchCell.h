@@ -10,4 +10,5 @@
 
 @interface SearchCell : UITableViewCell
  
+@property (weak, nonatomic) IBOutlet UIButton *didClickLocation;
 @end

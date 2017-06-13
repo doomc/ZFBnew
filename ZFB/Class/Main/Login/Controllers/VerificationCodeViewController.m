@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *tf_verificationCode;
 @property (weak, nonatomic) IBOutlet UITextField *tf_loginPassword;
 @property (weak, nonatomic) IBOutlet UILabel *lb_VerificationNum;//验证号码  短信验证码已发送到手机号为136 5521 3333
-
 @property (weak, nonatomic) IBOutlet UIButton *regist_btn;
 @property (weak, nonatomic) IBOutlet UIButton *getVerificationCode_btn;//重新发送验证码
 
@@ -57,7 +56,6 @@
 
     }else{
         [self.view makeToast:@"手机号不正确" duration:2 position:@"center"];
-
     }
   
 }
@@ -150,7 +148,7 @@
     }
    
     
-    NSLog(@"注册成功调用注册接口");
+    
 }
 -(UIButton*)set_leftButton
 {
@@ -200,7 +198,7 @@
     NSDictionary * parma = @{
                              @"SmsLogo":@"1",
                              @"svcName":@"SendMessages",
-                             @"mobilePhone":_tf_loginPassword.text,
+                             @"mobilePhone":_phoneNumStr,
                              };
     
     
@@ -211,18 +209,23 @@
     } success:^(id responseObject) {
         
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
+ 
             NSString  * data = [ responseObject[@"data"] base64DecodedString];
             NSDictionary * dataDic= [NSString dictionaryWithJsonString:data];
             _smsCode = dataDic[@"smsCode"];
             _tf_verificationCode.text = _smsCode;
-   
+           
         }
+        
+        [SVProgressHUD dismiss];
+        
     } failure:^(NSError *error) {
         
         NSLog(@"%@  = error " ,error);
         
+            [SVProgressHUD dismiss];
     }];
+
 }
 
 #pragma mark - RetetPasswordPostRequest注册网络请求
@@ -238,15 +241,13 @@
                              
                              };
     
-    
-    [SVProgressHUD  showProgress:2];
-    
     [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         if ([responseObject[@"responseObject"] isEqualToString:@"0" ]) {
             
-            [self.view makeToast:@"注册成功！✔️" duration:2 position:@"center"];
+            [SVProgressHUD showWithStatus:@"注册成功！✔️"];
+            [self.navigationController popToRootViewControllerAnimated:NO];
         }
         if ([responseObject[@"resultCode"] isEqualToString:@"103"]) {
             
@@ -255,8 +256,8 @@
             [self.view makeToast:message duration:2 position:@"center"];
         }
     } failure:^(NSError *error) {
+       
         NSLog(@"%@",error);
-        
     }];
     
     [SVProgressHUD dismiss];
