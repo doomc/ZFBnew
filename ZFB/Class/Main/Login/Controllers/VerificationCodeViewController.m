@@ -12,6 +12,7 @@
 @interface VerificationCodeViewController ()<UITextFieldDelegate>
 {
     NSString * _smsCode ;
+    BOOL _isRegiste;
 }
 @property (weak, nonatomic) IBOutlet UITextField *tf_verificationCode;
 @property (weak, nonatomic) IBOutlet UITextField *tf_loginPassword;
@@ -28,36 +29,36 @@
     // Do any additional setup after loading the view from its nib.
     
     [self set_leftButton];
-    [self set_rightButton];
     self.title =@"注册";
+    _isRegiste = NO;
     self.regist_btn.enabled = NO;
     [self.regist_btn addTarget:self action:@selector(regist_btnSuccess:) forControlEvents:UIControlEventTouchUpInside];
     [self.getVerificationCode_btn addTarget:self action:@selector(getVerificationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
 
+
+    // 验证码请求
+    if ([_phoneNumStr isMobileNumber]) {
+       
+        self.lb_VerificationNum.text = [NSString stringWithFormat:@" 短信验证码已发送到手机号为 %@",_phoneNumStr];
+        [self ValidateCodePostRequset];
+    }
+    
     [self textFieldSettingDelegate];
 }
  
 #pragma mark - 获取验证码
 -(void)getVerificationCodeAction:(UIButton *)sender{
-    if ([_phoneNumStr isMobileNumber]) {
-        // 网络请求
-        [self ValidateCodePostRequset];
-        [dateTimeHelper verificationCode:^{
-            //倒计时完毕
-            sender.enabled = YES;
-            [sender setTitle:@"重新发送" forState:UIControlStateNormal];
-            [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
-            
-        } blockNo:^(id time) {
-            sender.enabled = NO;
-            [sender setTitle:time forState:UIControlStateNormal];
-            [sender setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal] ;
-        }];
+   
+    if (_tf_verificationCode.text.length > 0) {
+       
+        [self.view makeToast:@"已经发送过验证码了" duration:2.0 position:@"center"];
+        [self.getVerificationCode_btn setEnabled:NO];
 
     }else{
-        [self.view makeToast:@"手机号不正确" duration:2 position:@"center"];
+        
+        [self.getVerificationCode_btn setEnabled:YES];
+        [self timeCountdown];
     }
-  
 }
 #pragma mark - UITextFieldDelegate  设置代理
 -(void)textFieldSettingDelegate
@@ -112,7 +113,6 @@
         
         BBUserDefault.userPhoneNumber = _tf_loginPassword.text;
         
-        NSLog(@" 设置密码 ");
     }
     
 }
@@ -138,21 +138,22 @@
  */
 -(void)regist_btnSuccess:(UIButton*)sender
 {
-    if (_tf_verificationCode.text.length == 6 && _tf_loginPassword.text.length >7 &&_tf_loginPassword.text.length < 21 ) {
-        
-         [self RegisterPostRequest];
-        
-    }else{
-       
-        [self.view makeToast:@"验证码错误密码格式不正确" duration:2 position:@"center"];
-    }
    
+    if ([_tf_verificationCode.text isEqualToString:_smsCode] && _tf_loginPassword.text.length >7 &&_tf_loginPassword.text.length < 21 ) {
+
+        [self RegisterPostRequest];
+       
+    }else{
+        
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+ 
+    }
+
     
     
 }
 -(UIButton*)set_leftButton
 {
-    
     UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
     left_button.frame =CGRectMake(0, 0,22,22);
     [left_button setBackgroundImage:[UIImage imageNamed:@"navback_white"] forState:UIControlStateNormal];
@@ -162,39 +163,36 @@
     return left_button;
 }
 
-//设置右边事件
+//设置左边事件
 -(void)left_button_event:(UIButton *)sender{
     
     [self.navigationController popViewControllerAnimated:YES];
 }
-//设置右边按键（如果没有右边 可以不重写）
--(UIButton*)set_rightButton
-{
-    NSString * saveStr = @"登录";
-    UIButton *right_button = [[UIButton alloc]init];
-    [right_button setTitle:saveStr forState:UIControlStateNormal];
-    right_button.titleLabel.font=SYSTEMFONT(14);
-    [right_button setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
-    right_button.titleLabel.textAlignment = NSTextAlignmentRight;
-    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
-    CGFloat width = size.width ;
-    right_button.frame =CGRectMake(0, 0, width+10, 22);
 
-    return right_button;
+#pragma mark - 倒计时
+-(void)timeCountdown{
+   
+    [dateTimeHelper verificationCode:^{
+        //倒计时完毕
+        _getVerificationCode_btn.enabled = YES;
+        [_getVerificationCode_btn setTitle:@"重新发送" forState:UIControlStateNormal];
+        [_getVerificationCode_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
+        
+    } blockNo:^(id time) {
+        _getVerificationCode_btn.enabled = NO;
+        [_getVerificationCode_btn setTitle:time forState:UIControlStateNormal];
+        [_getVerificationCode_btn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal] ;
+    }];
+
 }
-
-//设置右边事件
--(void)right_button_event:(id)sender {
-    NSLog(@"去登录");
-    LoginViewController  * logVC =[LoginViewController new];
-    [self.navigationController popToViewController:logVC animated:YES];
-}
-
 
 #pragma mark - ValidateCodePostRequset验证码网络请求
 -(void)ValidateCodePostRequset
 {
-    [SVProgressHUD showInfoWithStatus:@"hold on ~~"];
+    [self timeCountdown]; //开始倒计时
+
+    [SVProgressHUD showWithStatus:@"正在发送验证码"];
+
     NSDictionary * parma = @{
                              @"SmsLogo":@"1",
                              @"svcName":@"SendMessages",
@@ -205,25 +203,30 @@
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
     [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
-        
+
     } success:^(id responseObject) {
         
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
  
             NSString  * data = [ responseObject[@"data"] base64DecodedString];
+            
             NSDictionary * dataDic= [NSString dictionaryWithJsonString:data];
+            
             _smsCode = dataDic[@"smsCode"];
+       
             _tf_verificationCode.text = _smsCode;
-           
+
+            [self.view makeToast:@"验证码发送成功" duration:2 position:@"center"];
+
         }
-        
         [SVProgressHUD dismiss];
-        
     } failure:^(NSError *error) {
         
         NSLog(@"%@  = error " ,error);
         
-            [SVProgressHUD dismiss];
+        [self.view makeToast:@"验证码中心很忙,稍后重试" duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+
     }];
 
 }
@@ -231,7 +234,7 @@
 #pragma mark - RetetPasswordPostRequest注册网络请求
 -(void)RegisterPostRequest
 {
-    [SVProgressHUD showProgress:2 status:@"hold on ~~"];
+    [SVProgressHUD showWithStatus:@"请稍后..."];
     
     NSDictionary * parma = @{
                              @"svcName":@"userRegistered",
@@ -244,23 +247,47 @@
     [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
-        if ([responseObject[@"responseObject"] isEqualToString:@"0" ]) {
-            
-            [SVProgressHUD showWithStatus:@"注册成功！✔️"];
-            [self.navigationController popToRootViewControllerAnimated:NO];
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0" ]) {
+       
+            BBUserDefault.userPhonePassword = _tf_loginPassword.text;//保存密码
+            NSLog(@"%@", BBUserDefault.userPhonePassword );
+            _isRegiste = YES;
+  
         }
         if ([responseObject[@"resultCode"] isEqualToString:@"103"]) {
             
             NSString * message = responseObject[@"resultMessage"];
-  
-            [self.view makeToast:message duration:2 position:@"center"];
+            
+            [self.view makeToast:[NSString stringWithFormat:@"%@",message] duration:2 position:@"center"];
+
         }
+        if (_isRegiste== YES) {
+            
+            JXTAlertController *AlertVC =[JXTAlertController alertControllerWithTitle:@"提示信息" message:@"已经注册成功了是否马上去登陆" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            UIAlertAction * login = [UIAlertAction actionWithTitle:@"去登陆" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self.navigationController popToRootViewControllerAnimated:NO];
+                
+            }];
+            [AlertVC addAction:cancle];
+            [AlertVC addAction:login];
+            [self presentViewController:AlertVC animated:YES completion:nil];
+            
+        }
+
+        [SVProgressHUD dismiss];
+
     } failure:^(NSError *error) {
        
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+
         NSLog(@"%@",error);
+        [SVProgressHUD dismiss];
+
     }];
-    
-    [SVProgressHUD dismiss];
     
 }
 

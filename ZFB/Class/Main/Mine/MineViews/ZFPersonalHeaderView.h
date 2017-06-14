@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @protocol PersonalHeaderViewDelegate  <NSObject>
+//登录
+-(void)didClickLoginAction:(UIButton*)sender;
+//注册
+-(void)didClickRegisterAction:(UIButton*)sender;
+
 //更换头像
 -(void)didClickHeadImageViewAction:(UITapGestureRecognizer *)sender;
-
 //商品收藏的点击事件
 -(void)didClickCollectAction:(UIButton *)sender;
 
@@ -42,5 +46,11 @@
 //足记数量
 @property (weak, nonatomic) IBOutlet UILabel *lb_historyCount;
 
+//未登录的视图
+@property (weak, nonatomic) IBOutlet UIView *unloginView;
+@property (weak, nonatomic) IBOutlet UIButton *btn_login;
+@property (weak, nonatomic) IBOutlet UIButton *btn_regist;
+
+@property (weak, nonatomic) IBOutlet UIView *loginView;
 
 @end

@@ -27,7 +27,9 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title =@"找回密码";
+    
     self.nextStep_btn.enabled = NO;
+   
     [self.nextStep_btn addTarget:self action:@selector(goToResetPageView:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.getCodeVerification_btn addTarget:self action:@selector(getVerificationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -55,6 +57,7 @@
 }
 #pragma mark - 获取验证码
 -(void)getVerificationCodeAction:(UIButton *)sender{
+   
     if ([_tf_phoneNum.text isMobileNumber]) {
         // 网络请求
         [self ValidateCodePostRequset];
@@ -72,7 +75,7 @@
  
     }
     else{
-        [self.view makeToast:@"请输入手机号" duration:2.0 position:@"center"];
+        [self.view makeToast:@"请输入手机号格式不正确" duration:2.0 position:@"center"];
 
     }
 
@@ -182,7 +185,7 @@
 #pragma mark - ValidateCodePostRequset验证码网络请求
 -(void)ValidateCodePostRequset
 {
-    [SVProgressHUD showInfoWithStatus:@"hold on ~~"];
+    [SVProgressHUD showWithStatus:@""];
     
     NSDictionary * parma = @{
                              @"SmsLogo":@"1",
@@ -205,11 +208,16 @@
             _tf_codeVerification.text = _smsCode;
             self.nextStep_btn.enabled = YES;
             self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+            
         }
+        
+        [SVProgressHUD dismiss];
+
     } failure:^(NSError *error) {
         
         NSLog(@"%@  = error " ,error);
-        
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
     }];
 }
 - (void)didReceiveMemoryWarning {

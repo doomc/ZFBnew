@@ -62,10 +62,7 @@
 }
 -(void)customButtonOfNav
 {
-    //    self.automaticallyAdjustsScrollViewInsets = NO;//(0,0)
-    //    self.navigationController.navigationBar.translucent = NO;
-    
-    
+
     self.customLeft_btn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.customLeft_btn.frame = CGRectMake(20, 0, 40, 40);
     [self.customLeft_btn setImage :[UIImage imageNamed:@"saoyisao"]  forState:UIControlStateNormal];
@@ -125,10 +122,10 @@
     
     // 1.创建热门搜索
     
-    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
+    NSArray *hotSeaches = @[@"服装", @"热搜", @"iphone8", @"手机", @"电脑", @"展富宝", @"AAABBB"];
     
     // 2. 创建控制器
-    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"搜索编程语言" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"搜索商品、门店" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
                 // 开始搜索执行以下代码
                 // 如：跳转到指定控制器
                 [searchViewController.navigationController pushViewController:[[ZFSearchDetailViewController alloc] init] animated:YES];
@@ -165,39 +162,9 @@
     [jxt addAction:left];
     [jxt addAction:right];
     [self presentViewController:jxt animated:YES completion:^{  }];
-    
- 
 
     
 }
 
-///** 自定义搜索框和放大镜 */
-//-(void)settingCustomSearchBar
-//{
-//    _searchBar= [[ UISearchBar alloc]initWithFrame:CGRectMake(30, 0, KScreenW-60, 35)];
-//    _searchBar.delegate = self;
-//    _searchBar.clipsToBounds = YES;
-//    _searchBar.placeholder = @"请搜索商品或者店铺";
-//    //    [self.searchBar setImage:[UIImage imageNamed:@"search"]
-//    //            forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-//    [self.searchBar becomeFirstResponder];
-//    _searchBar.tintColor =  HEXCOLOR(0xfe6d6a);
-//    self.navigationItem.titleView = _searchBar;
-//    
-//}
-//#pragma mark  ----  searchBar delegate
-////   searchBar开始编辑响应
-//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-//    //因为闲置时赋了空格，防止不必要的bug，在启用的时候先清空内容
-//    self.searchBar.text = @"";
-//}
-//
-////取消键盘 搜索框闲置的时候赋给其一个空格，保证放大镜居左
-//- (void)registerFR{
-//    if ([self.searchBar isFirstResponder]) {
-//        self.searchBar.text = @" ";
-//        [self.searchBar resignFirstResponder];
-//    }
-//}
 
 @end

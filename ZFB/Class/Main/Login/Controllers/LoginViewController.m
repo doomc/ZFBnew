@@ -12,6 +12,7 @@
 #import "ZFPersonalViewController.h"
  
 typedef NS_ENUM(NSUInteger, indexType) {
+   
     quickLoginIndexType = 0,//快捷登录
     passwordLoginIndexType,//密码登录
     
@@ -28,6 +29,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 //验证码 或者 密码
 @property (weak, nonatomic) IBOutlet UITextField *tf_verificationCodeOrPassWord;
 @property (weak, nonatomic) IBOutlet UIImageView *img_iconOfVerificationOrPs;
+
 @property (weak, nonatomic) IBOutlet UIButton *login_btn;
 @property (weak, nonatomic) IBOutlet UIButton *getCodeVerification_btn;
 
@@ -40,20 +42,18 @@ typedef NS_ENUM(NSUInteger, indexType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _isQuickLogin = YES;
-
-    self.login_btn.enabled = NO;
-    
-    [self initSegmentInterfaceAndTextfiled];
-   
-    [self textFieldSettingDelegate];
+    _isQuickLogin = YES;//默认为快速登录
+    _indexType = quickLoginIndexType; //默认为快速登录
+    self.login_btn.enabled = NO; //默认关闭用户登录
+    [self initSegmentInterfaceAndTextfiled];//设置segement
+    [self textFieldSettingDelegate];//代理
     
     [self.getCodeVerification_btn addTarget:self action:@selector(getVerificationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
 
     [self set_leftButton];
     
 }
-
+#pragma mark - setter方法
 -(UIButton*)set_leftButton
 {
     
@@ -140,6 +140,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
     
     if (_isQuickLogin == YES) {
         
+        _tf_verificationCodeOrPassWord.secureTextEntry = NO;
         if (textfiled == _tf_verificationCodeOrPassWord) {
             
             //当账号与密码同时有值,登录按钮才能够点击
@@ -290,43 +291,37 @@ typedef NS_ENUM(NSUInteger, indexType) {
 #pragma mark - login_Success 点击登录
 - (void)login_Success:(UIButton *)sender {
     
-    switch (_indexType) {
-        case quickLoginIndexType://快捷登录
-  
+    if (_isQuickLogin == YES) {//快捷登录
+        
+        [self QuickLoginPostRequest];
+       
+        if ( BBUserDefault.isLogin == YES) {
             
-            [self QuickLoginPostRequest];
-            if ( BBUserDefault.isLogin == YES) {
-                
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }
-            NSLog(@"快速-登录成功");
-            
-            break;
-        case passwordLoginIndexType://密码登录
-     
-            [self PasswordLoginPostRequest];
-            
-            if ( BBUserDefault.isLogin == YES) {
-                
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }
-            NSLog(@"密码-登录成功");
+            [self.view makeToast:@"快速登录成功" duration:2 position:@"center" ];
+            NSLog(@"跳转到指定页面");
+            // [self left_button_event:sender];
+        }
+        NSLog(@"快速-登录成功");
+        
 
-            break;
- 
+    }else{
+        
+        [self PasswordLoginPostRequest];
+        
+        if ( BBUserDefault.isLogin == YES) {//密码登录
+            
+            NSLog(@"%@",BBUserDefault.userPhonePassword);
+            if ([_tf_verificationCodeOrPassWord.text isEqualToString: BBUserDefault.userPhonePassword]) {
+                
+               // [self left_button_event:sender];
+                NSLog(@"跳转到指定页面");
+
+            }else{
+            
+                [self.view makeToast:@"密码输入错误" duration:2 position:@"center" ];
+            }
+        }
     }
-//    if (_isQuickLogin == YES) {
-//       
-//        [self QuickLoginPostRequest];
-//        NSLog(@"快速-登录成功");
-//    }
-//    else{
-//        
-//        NSLog(@"密码-登录成功");
-//        [self PasswordLoginPostRequest];
-//
-//    }
-    
 }
 
 
@@ -394,7 +389,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 -(void)QuickLoginPostRequest
 {
     
-    [SVProgressHUD showProgress:2.0 status:@"hold on ~~"];
+    [SVProgressHUD showWithStatus:@"登录中"];
     NSDictionary * parma = @{
                              
                             @"svcName":@"quickLogin",
@@ -409,38 +404,38 @@ typedef NS_ENUM(NSUInteger, indexType) {
     [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
+        
         NSLog(@"  %@  = responseObject  " ,responseObject);
-
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
         
             _isLogin = YES;
             BBUserDefault.isLogin = _isLogin;
-           
-            [SVProgressHUD showSuccessWithStatus:@"登陆成功！"];
+            BBUserDefault.userPhoneNumber =_tf_loginphone.text;
+            [self.view makeToast:@"登录成功" duration:2 position:@"center" ];
  
         }
         
+        [SVProgressHUD dismiss];
         
     } failure:^(NSError *error) {
         NSLog(@"%@  = error " ,error);
-        NSString * errorS = [NSString stringWithFormat:@"%@",error];
-        [self.view makeToast:errorS duration:2 position:@"center"];
-        
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+
         
     }];
 
-    [SVProgressHUD dismiss];
 
 }
 
 #pragma mark -  PasswordLoginPostRequest 密码登录
 -(void)PasswordLoginPostRequest{
     
-    [SVProgressHUD showProgress:2 status:@"hold on ~~"];
+    [SVProgressHUD showWithStatus:@"登陆中"];
     
     NSDictionary * parma = @{
                              
-                             @"svcName":@"quickLogin",
+                             @"svcName":@"login",
                              @"mobilePhone":_tf_loginphone.text,
                              @"loginPwd":_tf_verificationCodeOrPassWord.text,
 
@@ -452,23 +447,45 @@ typedef NS_ENUM(NSUInteger, indexType) {
     [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
-        NSLog(@"  %@  = responseObject  " ,responseObject);
         
+        NSLog(@"  %@  = responseObject  " ,responseObject);
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
             
             _isLogin = YES;
+            [self.view makeToast:@"登录成功" duration:2 position:@"center" ];
+
+            
+            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+            NSDictionary * dic = [NSString dictionaryWithJsonString:dataStr];
             BBUserDefault.isLogin = _isLogin;
-          
-            [SVProgressHUD showSuccessWithStatus:@"登陆成功！"];
+            BBUserDefault.userPhoneNumber = _tf_loginphone.text;
+            BBUserDefault.cmUserId = dic[@"userInfo"][@"cmUserId"];
+            BBUserDefault.nickName = dic[@"userInfo"][@"nickName"];
+            BBUserDefault.userKeyMd5 = dic[@"userInfo"][@"userKeyMd5"];
+            BBUserDefault.userStatus = dic[@"userInfo"][@"userStatus"];
+            
+            NSLog(@"dic= %@ ",dic[@"userInfo"][@"cmUserId"]);
+            
         }
-        
-        
+        if ([responseObject[@"resultCode"] isEqualToString:@"109"]) {
+            
+            [self.view makeToast:responseObject[@"resultMessage"] duration:2 position:@"center"];
+            
+        }
+        if ([responseObject[@"resultCode"] isEqualToString:@"104"]) {
+            
+            [self.view makeToast:responseObject[@"resultMessage"] duration:2 position:@"center"];
+            
+        }
+        [SVProgressHUD dismiss];
+
     } failure:^(NSError *error) {
-        NSString * errorS = [NSString stringWithFormat:@"%@",error];
-        [self.view makeToast:errorS duration:2 position:@"center"];
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+
     }];
     
-    [SVProgressHUD dismiss];
 
 }
 @end

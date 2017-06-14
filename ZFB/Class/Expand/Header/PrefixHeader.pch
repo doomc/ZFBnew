@@ -33,6 +33,8 @@
 #import "SVProgressHUD.h"
 #import "NSDictionary+TJSafe.h"
 #import "HDAlertView.h"//底框
+#import "NSObject+Property.h"//collctionViewController
+
 
 
 #import "Macros.h"

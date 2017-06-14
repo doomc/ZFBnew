@@ -53,6 +53,18 @@
 		493ADAE91ED554E500CB2866 /* s_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 493ADAE51ED554E500CB2866 /* s_normal@3x.png */; };
 		493ADAEA1ED554E500CB2866 /* s_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 493ADAE61ED554E500CB2866 /* s_Selected@2x.png */; };
 		493ADAEB1ED554E500CB2866 /* s_Selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 493ADAE71ED554E500CB2866 /* s_Selected@3x.png */; };
+		4943AED01EF0D3D600803973 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AECB1EF0D3D600803973 /* YBPopupMenu.m */; };
+		4943AED11EF0D3D600803973 /* YBPopupMenuPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AECD1EF0D3D600803973 /* YBPopupMenuPath.m */; };
+		4943AED21EF0D3D600803973 /* YBRectConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AECF1EF0D3D600803973 /* YBRectConst.m */; };
+		4943AEE31EF0D98400803973 /* CollectionCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AEDC1EF0D98400803973 /* CollectionCategoryModel.m */; };
+		4943AEE41EF0D98400803973 /* ZFCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AEDE1EF0D98400803973 /* ZFCollectionViewCell.m */; };
+		4943AEE61EF0D98400803973 /* CollectionViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AEE21EF0D98400803973 /* CollectionViewHeaderView.m */; };
+		4943AEEF1EF0D9B200803973 /* NSObject+Property.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AEEB1EF0D9B200803973 /* NSObject+Property.m */; };
+		4943AEF01EF0D9B200803973 /* UIViewController+Dealloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AEED1EF0D9B200803973 /* UIViewController+Dealloc.m */; };
+		4943AEF31EF0DA8200803973 /* LeftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AEF21EF0DA8200803973 /* LeftTableViewCell.m */; };
+		4943AEF61EF0DF2800803973 /* liwushuo.json in Resources */ = {isa = PBXBuildFile; fileRef = 4943AEF51EF0DF2800803973 /* liwushuo.json */; };
+		4943AEFC1EF0E06400803973 /* ZFCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AEFB1EF0E06400803973 /* ZFCollectionViewFlowLayout.m */; };
+		4943AEFF1EF0E0B100803973 /* ZFClassifyCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AEFD1EF0E0B100803973 /* ZFClassifyCollectionViewController.m */; };
 		494A6C151EE94C830034F7F5 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 494A6C141EE94C830034F7F5 /* UIPlaceHolderTextView.m */; };
 		494F06F21ED42907007EC66A /* select_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06EC1ED42907007EC66A /* select_normal@2x.png */; };
 		494F06F31ED42907007EC66A /* select_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06ED1ED42907007EC66A /* select_normal@3x.png */; };
@@ -75,7 +87,6 @@
 		498AE4A91EE6A5E100EE3FA8 /* YYKVStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4A41EE6A5E100EE3FA8 /* YYKVStorage.m */; };
 		498AE4AA1EE6A5E100EE3FA8 /* YYMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4A61EE6A5E100EE3FA8 /* YYMemoryCache.m */; };
 		498AE4BD1EE6AADF00EE3FA8 /* NSData+APNSToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4B01EE6AADF00EE3FA8 /* NSData+APNSToken.m */; };
-		498AE4BE1EE6AADF00EE3FA8 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4B21EE6AADF00EE3FA8 /* NSData+Base64.m */; };
 		498AE4BF1EE6AADF00EE3FA8 /* NSData+Encrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4B41EE6AADF00EE3FA8 /* NSData+Encrypt.m */; };
 		498AE4C11EE6AADF00EE3FA8 /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 498AE4B81EE6AADF00EE3FA8 /* NSData+Hash.m */; };
 		498B31121ED820F90021D691 /* searchaa@2xpng.png in Resources */ = {isa = PBXBuildFile; fileRef = 498B31101ED820F90021D691 /* searchaa@2xpng.png */; };
@@ -546,7 +557,6 @@
 		3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.debug.xcconfig"; sourceTree = "<group>"; };
 		49156C4C1EEFECB900E5C13E /* HDAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDAlertView.h; sourceTree = "<group>"; };
 		49156C4D1EEFECB900E5C13E /* HDAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDAlertView.m; sourceTree = "<group>"; };
-		49156C4E1EEFECB900E5C13E /* HDMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDMacro.h; sourceTree = "<group>"; };
 		49156C4F1EEFECB900E5C13E /* NSString+HDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HDExtension.h"; sourceTree = "<group>"; };
 		49156C501EEFECB900E5C13E /* NSString+HDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HDExtension.m"; sourceTree = "<group>"; };
 		49156C511EEFECB900E5C13E /* UIImage+HDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+HDExtension.h"; sourceTree = "<group>"; };
@@ -631,6 +641,30 @@
 		493ADAE51ED554E500CB2866 /* s_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "s_normal@3x.png"; sourceTree = "<group>"; };
 		493ADAE61ED554E500CB2866 /* s_Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "s_Selected@2x.png"; sourceTree = "<group>"; };
 		493ADAE71ED554E500CB2866 /* s_Selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "s_Selected@3x.png"; sourceTree = "<group>"; };
+		4943AECA1EF0D3D600803973 /* YBPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenu.h; sourceTree = "<group>"; };
+		4943AECB1EF0D3D600803973 /* YBPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenu.m; sourceTree = "<group>"; };
+		4943AECC1EF0D3D600803973 /* YBPopupMenuPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenuPath.h; sourceTree = "<group>"; };
+		4943AECD1EF0D3D600803973 /* YBPopupMenuPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenuPath.m; sourceTree = "<group>"; };
+		4943AECE1EF0D3D600803973 /* YBRectConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBRectConst.h; sourceTree = "<group>"; };
+		4943AECF1EF0D3D600803973 /* YBRectConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBRectConst.m; sourceTree = "<group>"; };
+		4943AEDB1EF0D98400803973 /* CollectionCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionCategoryModel.h; sourceTree = "<group>"; };
+		4943AEDC1EF0D98400803973 /* CollectionCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionCategoryModel.m; sourceTree = "<group>"; };
+		4943AEDD1EF0D98400803973 /* ZFCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCollectionViewCell.h; sourceTree = "<group>"; };
+		4943AEDE1EF0D98400803973 /* ZFCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCollectionViewCell.m; sourceTree = "<group>"; };
+		4943AEE11EF0D98400803973 /* CollectionViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewHeaderView.h; sourceTree = "<group>"; };
+		4943AEE21EF0D98400803973 /* CollectionViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewHeaderView.m; sourceTree = "<group>"; };
+		4943AEEA1EF0D9B200803973 /* NSObject+Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Property.h"; sourceTree = "<group>"; };
+		4943AEEB1EF0D9B200803973 /* NSObject+Property.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Property.m"; sourceTree = "<group>"; };
+		4943AEEC1EF0D9B200803973 /* UIViewController+Dealloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Dealloc.h"; sourceTree = "<group>"; };
+		4943AEED1EF0D9B200803973 /* UIViewController+Dealloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Dealloc.m"; sourceTree = "<group>"; };
+		4943AEF11EF0DA8200803973 /* LeftTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftTableViewCell.h; sourceTree = "<group>"; };
+		4943AEF21EF0DA8200803973 /* LeftTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftTableViewCell.m; sourceTree = "<group>"; };
+		4943AEF41EF0DC9200803973 /* HDMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDMacro.h; sourceTree = "<group>"; };
+		4943AEF51EF0DF2800803973 /* liwushuo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = liwushuo.json; sourceTree = "<group>"; };
+		4943AEFA1EF0E06400803973 /* ZFCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		4943AEFB1EF0E06400803973 /* ZFCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		4943AEFD1EF0E0B100803973 /* ZFClassifyCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFClassifyCollectionViewController.m; sourceTree = "<group>"; };
+		4943AEFE1EF0E0B100803973 /* ZFClassifyCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFClassifyCollectionViewController.h; sourceTree = "<group>"; };
 		494A6C131EE94C830034F7F5 /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
 		494A6C141EE94C830034F7F5 /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
 		494F06EC1ED42907007EC66A /* select_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "select_normal@2x.png"; sourceTree = "<group>"; };
@@ -668,8 +702,6 @@
 		498AE4A61EE6A5E100EE3FA8 /* YYMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMemoryCache.m; sourceTree = "<group>"; };
 		498AE4AF1EE6AADF00EE3FA8 /* NSData+APNSToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+APNSToken.h"; sourceTree = "<group>"; };
 		498AE4B01EE6AADF00EE3FA8 /* NSData+APNSToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+APNSToken.m"; sourceTree = "<group>"; };
-		498AE4B11EE6AADF00EE3FA8 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		498AE4B21EE6AADF00EE3FA8 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		498AE4B31EE6AADF00EE3FA8 /* NSData+Encrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Encrypt.h"; sourceTree = "<group>"; };
 		498AE4B41EE6AADF00EE3FA8 /* NSData+Encrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Encrypt.m"; sourceTree = "<group>"; };
 		498AE4B71EE6AADF00EE3FA8 /* NSData+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Hash.h"; sourceTree = "<group>"; };
@@ -1345,9 +1377,9 @@
 		49156C4B1EEFECB900E5C13E /* HDAlertView */ = {
 			isa = PBXGroup;
 			children = (
+				4943AEF41EF0DC9200803973 /* HDMacro.h */,
 				49156C4C1EEFECB900E5C13E /* HDAlertView.h */,
 				49156C4D1EEFECB900E5C13E /* HDAlertView.m */,
-				49156C4E1EEFECB900E5C13E /* HDMacro.h */,
 				49156C4F1EEFECB900E5C13E /* NSString+HDExtension.h */,
 				49156C501EEFECB900E5C13E /* NSString+HDExtension.m */,
 				49156C511EEFECB900E5C13E /* UIImage+HDExtension.h */,
@@ -1542,6 +1574,7 @@
 		492755001EC4679E003C22D0 /* Tool(工具) */ = {
 			isa = PBXGroup;
 			children = (
+				4943AEC91EF0D3D600803973 /* YBPopupMenu(pop菜单) */,
 				5026A4481EEEE6F500AAC84D /* PPNumberButton(加减按钮) */,
 				49D75C831EEE38DD00FACCD8 /* PTXDatePickerView(时间选择器) */,
 				49DF70031EEA96340021EE92 /* IntroductoryPages(引导页) */,
@@ -1701,6 +1734,61 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		4943AEC91EF0D3D600803973 /* YBPopupMenu(pop菜单) */ = {
+			isa = PBXGroup;
+			children = (
+				4943AECA1EF0D3D600803973 /* YBPopupMenu.h */,
+				4943AECB1EF0D3D600803973 /* YBPopupMenu.m */,
+				4943AECC1EF0D3D600803973 /* YBPopupMenuPath.h */,
+				4943AECD1EF0D3D600803973 /* YBPopupMenuPath.m */,
+				4943AECE1EF0D3D600803973 /* YBRectConst.h */,
+				4943AECF1EF0D3D600803973 /* YBRectConst.m */,
+			);
+			name = "YBPopupMenu(pop菜单)";
+			path = YBPopupMenu;
+			sourceTree = "<group>";
+		};
+		4943AED61EF0D95A00803973 /* Classify(分类列表) */ = {
+			isa = PBXGroup;
+			children = (
+				4943AEE71EF0D9B200803973 /* Tools */,
+				4943AEDA1EF0D98400803973 /* CollectionView */,
+			);
+			name = "Classify(分类列表)";
+			path = Classify;
+			sourceTree = "<group>";
+		};
+		4943AEDA1EF0D98400803973 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				4943AEF51EF0DF2800803973 /* liwushuo.json */,
+				4943AEF11EF0DA8200803973 /* LeftTableViewCell.h */,
+				4943AEF21EF0DA8200803973 /* LeftTableViewCell.m */,
+				4943AEDB1EF0D98400803973 /* CollectionCategoryModel.h */,
+				4943AEDC1EF0D98400803973 /* CollectionCategoryModel.m */,
+				4943AEDD1EF0D98400803973 /* ZFCollectionViewCell.h */,
+				4943AEDE1EF0D98400803973 /* ZFCollectionViewCell.m */,
+				4943AEE11EF0D98400803973 /* CollectionViewHeaderView.h */,
+				4943AEE21EF0D98400803973 /* CollectionViewHeaderView.m */,
+				4943AEFD1EF0E0B100803973 /* ZFClassifyCollectionViewController.m */,
+				4943AEFE1EF0E0B100803973 /* ZFClassifyCollectionViewController.h */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		4943AEE71EF0D9B200803973 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				4943AEEA1EF0D9B200803973 /* NSObject+Property.h */,
+				4943AEEB1EF0D9B200803973 /* NSObject+Property.m */,
+				4943AEEC1EF0D9B200803973 /* UIViewController+Dealloc.h */,
+				4943AEED1EF0D9B200803973 /* UIViewController+Dealloc.m */,
+				4943AEFA1EF0E06400803973 /* ZFCollectionViewFlowLayout.h */,
+				4943AEFB1EF0E06400803973 /* ZFCollectionViewFlowLayout.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		494A6C121EE94C830034F7F5 /* UIPlaceHolderTextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1779,8 +1867,6 @@
 			children = (
 				498AE4AF1EE6AADF00EE3FA8 /* NSData+APNSToken.h */,
 				498AE4B01EE6AADF00EE3FA8 /* NSData+APNSToken.m */,
-				498AE4B11EE6AADF00EE3FA8 /* NSData+Base64.h */,
-				498AE4B21EE6AADF00EE3FA8 /* NSData+Base64.m */,
 				498AE4B31EE6AADF00EE3FA8 /* NSData+Encrypt.h */,
 				498AE4B41EE6AADF00EE3FA8 /* NSData+Encrypt.m */,
 				498AE4B71EE6AADF00EE3FA8 /* NSData+Hash.h */,
@@ -2113,6 +2199,7 @@
 		49DF70271EEAA9B10021EE92 /* Home(首页) */ = {
 			isa = PBXGroup;
 			children = (
+				4943AED61EF0D95A00803973 /* Classify(分类列表) */,
 				49DF70281EEAA9B10021EE92 /* Controllers */,
 				49DF704F1EEAA9B10021EE92 /* FindCircleViewController.h */,
 				49DF70501EEAA9B10021EE92 /* FindCircleViewController.m */,
@@ -2219,6 +2306,8 @@
 		49DF70721EEAA9B10021EE92 /* Mine(我的) */ = {
 			isa = PBXGroup;
 			children = (
+				49DF711D1EEAA9B10021EE92 /* ZFPersonalViewController.h */,
+				49DF711E1EEAA9B10021EE92 /* ZFPersonalViewController.m */,
 				49DF70731EEAA9B10021EE92 /* CollectOrHistory(收藏历史) */,
 				49DF70831EEAA9B10021EE92 /* MerchantClientController(商户端) */,
 				49DF70851EEAA9B10021EE92 /* MineViews */,
@@ -2240,8 +2329,6 @@
 				49DF711A1EEAA9B10021EE92 /* ZFFeedbackViewController.m */,
 				49DF711B1EEAA9B10021EE92 /* ZFMyOpinionViewController.h */,
 				49DF711C1EEAA9B10021EE92 /* ZFMyOpinionViewController.m */,
-				49DF711D1EEAA9B10021EE92 /* ZFPersonalViewController.h */,
-				49DF711E1EEAA9B10021EE92 /* ZFPersonalViewController.m */,
 				49DF711F1EEAA9B10021EE92 /* ZFPregressCheckViewController.h */,
 				49DF71201EEAA9B10021EE92 /* ZFPregressCheckViewController.m */,
 			);
@@ -3354,6 +3441,7 @@
 				49C95F0A1ED295AF004EA811 /* home_red@3x.png in Resources */,
 				49DF71C41EEAA9B20021EE92 /* ZFSaleAfterHeadCell.xib in Resources */,
 				49C6CFE01EDFDB2B00652CDB /* setting_cache@2x.png in Resources */,
+				4943AEF61EF0DF2800803973 /* liwushuo.json in Resources */,
 				49C95F091ED295AF004EA811 /* home_red@2x.png in Resources */,
 				49F1139D1ECC5547000F3BF7 /* dot_normal@2x.png in Resources */,
 				49C95F0C1ED295AF004EA811 /* Order_down@3x.png in Resources */,
@@ -3521,6 +3609,7 @@
 				5019FFB41ECCAEF800325342 /* UIImage+GIF.m in Sources */,
 				49DF717D1EEAA9B20021EE92 /* ZFCollectBarView.m in Sources */,
 				49C6CFCC1EDFBA8C00652CDB /* UIImageView+Extentsion.m in Sources */,
+				4943AEE31EF0D98400803973 /* CollectionCategoryModel.m in Sources */,
 				4927574D1EC4679E003C22D0 /* MJRefreshBackNormalFooter.m in Sources */,
 				49DF6FE81EEA927C0021EE92 /* CustomHeaderView.m in Sources */,
 				49DF71A31EEAA9B20021EE92 /* ZFSureOrderViewController.m in Sources */,
@@ -3529,7 +3618,6 @@
 				49DF6FD11EEA927C0021EE92 /* Toast+UIView.m in Sources */,
 				49DF70081EEA96340021EE92 /* introductoryPagesHelper.m in Sources */,
 				49DF6FEA1EEA927C0021EE92 /* UIView+ZFCornerRadius.m in Sources */,
-				498AE4BE1EE6AADF00EE3FA8 /* NSData+Base64.m in Sources */,
 				49DF71C71EEAA9B20021EE92 /* ZFSaleAfterTopView.m in Sources */,
 				49DF71901EEAA9B20021EE92 /* OrderWithAddressCell.m in Sources */,
 				49DF70011EEA94D80021EE92 /* EaseBlankPageView.m in Sources */,
@@ -3611,6 +3699,7 @@
 				49DF71571EEAA9B20021EE92 /* ZFbabyEvaluateCell.m in Sources */,
 				49DF71721EEAA9B20021EE92 /* HotTableViewCell.m in Sources */,
 				49DF71D11EEAA9B20021EE92 /* ZFSettingRowCell.m in Sources */,
+				4943AED21EF0D3D600803973 /* YBRectConst.m in Sources */,
 				49DF72201EEAAA780021EE92 /* VerificationCodeViewController.m in Sources */,
 				49DF71D51EEAA9B20021EE92 /* ZFBackWaysViewController.m in Sources */,
 				4926AAC71EE7A3E700178491 /* NSTimer+Blocks.m in Sources */,
@@ -3637,6 +3726,7 @@
 				49DF716C1EEAA9B20021EE92 /* FindStoreCell.m in Sources */,
 				5019FFAD1ECCAEF800325342 /* SDWebImageCompat.m in Sources */,
 				509A13451EE6EB000093978F /* NSString+ZFSortAppdending.m in Sources */,
+				4943AED01EF0D3D600803973 /* YBPopupMenu.m in Sources */,
 				49DF71C31EEAA9B20021EE92 /* ZFSaleAfterHeadCell.m in Sources */,
 				49801C8F1ECE870100EDAA53 /* PYSearchSuggestionViewController.m in Sources */,
 				49DF71781EEAA9B20021EE92 /* ZFMyOpinionCell.m in Sources */,
@@ -3654,11 +3744,13 @@
 				49DF71D31EEAA9B20021EE92 /* ZFAllOrderViewController.m in Sources */,
 				4926AAC01EE7916500178491 /* NSString+JsonChange.m in Sources */,
 				49DF71621EEAA9B20021EE92 /* ZFTitleAndChooseListCell.m in Sources */,
+				4943AED11EF0D3D600803973 /* YBPopupMenuPath.m in Sources */,
 				49DF71591EEAA9B20021EE92 /* ZFDetailStoreCell.m in Sources */,
 				49DF71C11EEAA9B20021EE92 /* ZFSaleAfterContentCell.m in Sources */,
 				498AE4BD1EE6AADF00EE3FA8 /* NSData+APNSToken.m in Sources */,
 				49DF72031EEAAA5B0021EE92 /* ZFBaseNavigationViewController.m in Sources */,
 				49DF715D1EEAA9B20021EE92 /* ZFHeadViewCollectionReusableView.m in Sources */,
+				4943AEF01EF0D9B200803973 /* UIViewController+Dealloc.m in Sources */,
 				498DE0E31EE6802500F64A61 /* GVUserDefaults+BBProperties.m in Sources */,
 				49DF71921EEAA9B20021EE92 /* ZFAddOfListCell.m in Sources */,
 				492752191EC44DFC003C22D0 /* main.m in Sources */,
@@ -3671,7 +3763,9 @@
 				49DF717F1EEAA9B20021EE92 /* ZFCollectEditCell.m in Sources */,
 				49DF71F01EEAA9B20021EE92 /* PayforCell.m in Sources */,
 				49156C581EEFECB900E5C13E /* UIView+HDExtension.m in Sources */,
+				4943AEEF1EF0D9B200803973 /* NSObject+Property.m in Sources */,
 				49DF6FD91EEA927C0021EE92 /* ZZYPhotoHelper.m in Sources */,
+				4943AEF31EF0DA8200803973 /* LeftTableViewCell.m in Sources */,
 				49DF71D91EEAA9B20021EE92 /* ZFFeedbackViewController.m in Sources */,
 				49156C561EEFECB900E5C13E /* NSString+HDExtension.m in Sources */,
 				49801C901ECE870100EDAA53 /* PYSearchViewController.m in Sources */,
@@ -3683,6 +3777,7 @@
 				494A6C151EE94C830034F7F5 /* UIPlaceHolderTextView.m in Sources */,
 				49DF71981EEAA9B20021EE92 /* ZFFooterCell.m in Sources */,
 				4990A3321EE4EEFC004CB908 /* MENetWorkManager.m in Sources */,
+				4943AEE41EF0D98400803973 /* ZFCollectionViewCell.m in Sources */,
 				49DF71941EEAA9B20021EE92 /* ZFAddressCell.m in Sources */,
 				49DF71F21EEAA9B20021EE92 /* ZFShopCarCell.m in Sources */,
 				49DF717C1EEAA9B20021EE92 /* ZFHistoryViewController.m in Sources */,
@@ -3692,6 +3787,7 @@
 				4927574F1EC4679E003C22D0 /* MJRefreshGifHeader.m in Sources */,
 				4927574E1EC4679E003C22D0 /* MJRefreshBackStateFooter.m in Sources */,
 				49DF721E1EEAAA780021EE92 /* ResetPassWViewController.m in Sources */,
+				4943AEFC1EF0E06400803973 /* ZFCollectionViewFlowLayout.m in Sources */,
 				5019FFAE1ECCAEF800325342 /* SDWebImageDecoder.m in Sources */,
 				49DF72181EEAAA780021EE92 /* ForgetPSViewController.m in Sources */,
 				49DF6FE61EEA927C0021EE92 /* UIImageView+ZFCornerRadius.m in Sources */,
@@ -3712,6 +3808,7 @@
 				49DF6FE11EEA927C0021EE92 /* DCNavTabBarController.m in Sources */,
 				49DF71701EEAA9B20021EE92 /* HotCollectionViewCell.m in Sources */,
 				49DF6FE01EEA927C0021EE92 /* ControlFactory.m in Sources */,
+				4943AEFF1EF0E0B100803973 /* ZFClassifyCollectionViewController.m in Sources */,
 				5019FFB91ECCAEF800325342 /* UIView+WebCacheOperation.m in Sources */,
 				492757441EC4679E003C22D0 /* MJRefreshAutoFooter.m in Sources */,
 				49DF71741EEAA9B20021EE92 /* SearchCell.m in Sources */,
@@ -3731,6 +3828,7 @@
 				49DF6FD31EEA927C0021EE92 /* MPFileManager.m in Sources */,
 				49E98AD41EDEA64300B04DEF /* MBProgressHUD.m in Sources */,
 				49DF71DD1EEAA9B20021EE92 /* DetailPayCashViewController.m in Sources */,
+				4943AEE61EF0D98400803973 /* CollectionViewHeaderView.m in Sources */,
 				5019FFAA1ECCAEF800325342 /* MKAnnotationView+WebCache.m in Sources */,
 				49156C551EEFECB900E5C13E /* HDAlertView.m in Sources */,
 				49DF71891EEAA9B20021EE92 /* ZFMySendServiceCell.m in Sources */,

@@ -13,13 +13,16 @@
 @interface GVUserDefaults (BBProperties)
 
 #pragma mark -- personinfo
-@property (nonatomic,weak) NSString *userPhoneNumber;//第一次注册的手机号
-@property (nonatomic,weak) NSString *userPhonePassword;//第一次注册的密码
-@property (nonatomic,weak) NSString *smsCode;//有效时间30分钟
-@property (nonatomic,weak) NSString *newPassWord;//修改的新密码保存
+@property (nonatomic,copy) NSString *userPhoneNumber;//第一次注册的手机号
+@property (nonatomic,copy) NSString *userPhonePassword;//第一次注册的密码
+@property (nonatomic,copy) NSString *smsCode;//有效时间30分钟
+@property (nonatomic,copy) NSString *newPassWord;//修改的新密码保存
 
-@property (nonatomic,weak) NSString *userId;
-   
+@property (nonatomic,copy) NSString *cmUserId;
+@property (nonatomic,copy) NSString *nickName;//默认用户昵称
+@property (nonatomic,copy) NSString *userKeyMd5;//默认用户昵称
+@property (nonatomic,copy) NSString *userStatus;//登录状态 1已在线  0下线
+
 @property (nonatomic) BOOL boolValue;
 @property (nonatomic) float floatValue;
 

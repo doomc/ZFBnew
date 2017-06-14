@@ -49,7 +49,6 @@
         if (_tf_newPS.text.length < 20 && _tf_newPS.text.length > 8 ) {
             NSLog(@"_tf_newPS==%@",_tf_newPS.text);
         }
-        [self.view makeToast:@"输入密码格式不正确" duration:2.0 position:@"center"];
     }
     if (textfiled == _tf_surePS) {
         NSLog(@"_tf_surePS==%@",_tf_surePS.text);
@@ -101,7 +100,7 @@
     return left_button;
 }
 
-//设置右边事件
+//设置z边事件
 -(void)left_button_event:(UIButton *)sender{
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -117,7 +116,6 @@
     }else{
         NSLog(@"重置成功了");
         [self RetetPasswordPostRequest];
-        [self.navigationController popToRootViewControllerAnimated:NO];
 
      }
 
@@ -127,7 +125,7 @@
 #pragma mark - RetetPasswordPostRequest注册网络请求
 -(void)RetetPasswordPostRequest
 {
-    [SVProgressHUD showProgress:2 status:@"hold on ~~"];
+    [SVProgressHUD showWithStatus:@"请稍后"];
 
     NSDictionary * parma = @{
                              @"svcName":@"forgetPassword",
@@ -143,17 +141,18 @@
     [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
-         if ([responseObject[@"responseObject"] isEqualToString:@"0" ]) {
-             
-             [SVProgressHUD showProgress:2 status:@"重置成功"];
-
-            
-         }
         
+        if ([responseObject[@"responseObject"] isEqualToString:@"0" ]) {
+             
+            [self.view makeToast:@"重置成功" duration:2 position:@"center"];
+            [self.navigationController popToRootViewControllerAnimated:NO];
+
+        }
+        [SVProgressHUD dismiss];
+
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
-        NSString * errorS = [NSString stringWithFormat:@"%@",error];
-        [self.view makeToast:errorS duration:2 position:@"center"];
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
     [SVProgressHUD dismiss];

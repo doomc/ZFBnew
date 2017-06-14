@@ -47,9 +47,32 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     self.view.backgroundColor =  randomColor;
 
     [self initmyTableViewInterface];
-
+ 
+//    UIView * unlogView = [self.headview viewWithTag:911];
+//    [unlogView removeFromSuperview];
+//    UIView * logView = [self.headview viewWithTag:912];
+//    [logView removeFromSuperview];
+//    //判断是否已经登录
+//    if ( [BBUserDefault.userStatus isEqualToString:@"1" ]) {
+//        
+//        UIView * view = [self.headview viewWithTag:911];
+//        [view removeFromSuperview];
+//        //移除登录视图
+//    }
+   
 }
 
+#pragma mark - 注册
+-(void)didClickRegisterAction:(UIButton *)sender
+{
+    NSLog(@"注册了");
+
+}
+#pragma mark - 登录
+-(void)didClickLoginAction:(UIButton *)sender
+{
+    NSLog(@"登录了");
+}
 -(void)initmyTableViewInterface
 {
     self.title = @"我的";
@@ -63,6 +86,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     self.headview =  [[NSBundle mainBundle]loadNibNamed:@"ZFPersonalHeaderView" owner:self options:nil].lastObject;
     self.myTableView.tableHeaderView =self.headview;
     self.headview.delegate = self;
+
 
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyCashBagCell" bundle:nil] forCellReuseIdentifier:@"ZFMyCashBagCell"];
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyProgressCell" bundle:nil] forCellReuseIdentifier:@"ZFMyProgressCell"];
@@ -232,8 +256,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     NSLog(@"收藏");
     ZFCollectViewController *collecVC=  [[ZFCollectViewController alloc]init];
-    
-    [self.navigationController pushViewController:collecVC animated:NO];
+    [self minePagePOSTRequste];//页面网络请求
+
+//    [self.navigationController pushViewController:collecVC animated:NO];
 }
 
 //浏览足记的点击事件
@@ -263,6 +288,48 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark  - 网络请求 minePagePOSTRequste
+-(void)minePagePOSTRequste
+{
+    NSDictionary * param = @{
+                             @"cmUserId":@"85",
+                             @"svcName":@"getUserInfo",
+                             };
+ 
+     [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:param responseCache:^(id responseCache) {
+         
+     } success:^(id responseObject) {
+          ;
+         NSLog(@"%@", responseObject);
+         NSLog(@"%@", BBUserDefault.cmUserId);
+
+    
+         NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+         NSDictionary * dic = [NSString dictionaryWithJsonString:dataStr];
+
+//         BBUserDefault.userId = dic[@"userInfo"][@"cmUserId"];
+//         BBUserDefault.nickName = dic[@"userInfo"][@"nickName"];
+//         BBUserDefault.userKeyMd5 = dic[@"userInfo"][@"userKeyMd5"];
+//         BBUserDefault.userStatus = dic[@"userInfo"][@"userStatus"];
+//         if ([dataDic[@"resultCode" ] isEqualToString:@"0"]) {
+//             [self.view makeToast:@"访问成功" duration:2 position:@"center"];
+//
+//         }
+//         if ([dataDic[@"resultCode" ] isEqualToString:@"1"]) {
+//             [self.view makeToast:@"访问失败" duration:2 position:@"center"];
+//
+//         }
+         NSLog(@"%@", dataStr);
+
+
+   
+     } failure:^(NSError *error) {
+         NSLog(@"%@",error);
+         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+     }];
 }
 
 /*

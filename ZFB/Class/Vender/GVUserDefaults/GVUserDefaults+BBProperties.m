@@ -14,9 +14,13 @@
 @dynamic userPhonePassword;
 @dynamic smsCode;
 @dynamic newPassWord;
-@dynamic userId;
+@dynamic cmUserId;
+@dynamic userKeyMd5;
+@dynamic nickName;
 @dynamic boolValue;
 @dynamic floatValue;
 @dynamic isNoFirstLaunch;
 @dynamic isLogin;
+
+
 @end

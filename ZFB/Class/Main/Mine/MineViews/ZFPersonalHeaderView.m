@@ -36,9 +36,26 @@
     self.img_headview.userInteractionEnabled =YES;
     
 
+    [self.btn_login addTarget:self action:@selector(btn_loginAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.btn_regist addTarget:self action:@selector(btn_registAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+-(void)btn_loginAction:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(didClickLoginAction:)]) {
+    
+        [self.delegate didClickLoginAction:sender];
+    }
 
 }
-
+-(void)btn_registAction:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(didClickRegisterAction:)]) {
+        
+        [self.delegate didClickRegisterAction:sender];
+    }
+}
 -(void)didClickimgheadviewGestureRecognizer:(UITapGestureRecognizer *)tap{
     //点击头像
     if ([self.delegate respondsToSelector:@selector(didClickHeadImageViewAction:)]) {

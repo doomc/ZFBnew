@@ -10,6 +10,6 @@
 
 @interface VerificationCodeViewController : UIViewController
 
-@property(nonatomic,strong)NSString *  phoneNumStr;
+@property(nonatomic,copy)NSString *  phoneNumStr;
 
 @end
