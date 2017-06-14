@@ -90,11 +90,11 @@ UICollectionViewDataSource>
 {
     if (!_tableView)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 80, KScreenH)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 80, KScreenH-64)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [UIView new];
-        _tableView.rowHeight = 55;
+        _tableView.rowHeight = 50;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.separatorColor = [UIColor clearColor];
         [_tableView registerClass:[LeftTableViewCell class] forCellReuseIdentifier:kCellIdentifier_Left];

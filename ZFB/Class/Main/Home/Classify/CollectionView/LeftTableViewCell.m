@@ -24,14 +24,14 @@
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        self.name = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 40)];
+        self.name = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 80, 40)];
         self.name.numberOfLines = 0;
-        self.name.font = [UIFont systemFontOfSize:15];
+        self.name.font = [UIFont systemFontOfSize:14];
         self.name.textColor = RGBA(130, 130, 130, 1);
         self.name.highlightedTextColor = defaultColor;
         [self.contentView addSubview:self.name];
 
-        self.yellowView = [[UIView alloc] initWithFrame:CGRectMake(0, 5, 5, 45)];
+        self.yellowView = [[UIView alloc] initWithFrame:CGRectMake(0, 5, 5, 50)];
         self.yellowView.backgroundColor = defaultColor;
         [self.contentView addSubview:self.yellowView];
     }

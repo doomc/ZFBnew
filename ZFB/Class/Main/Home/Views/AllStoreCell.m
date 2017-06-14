@@ -7,7 +7,9 @@
 //
 
 #import "AllStoreCell.h"
+@interface AllStoreCell ()<DidChangedStarDelegate>
 
+@end
 @implementation AllStoreCell
 
 - (void)awakeFromNib {
@@ -16,8 +18,17 @@
     self.img_allStoreView.clipsToBounds = YES;
     self.img_allStoreView.layer.borderWidth = 0.5;
     self.img_allStoreView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
-}
+    
 
+    [self.starView initWithFrame:CGRectMake(0, 0, 125, 30) numberOfStars:5 isVariable:YES];
+    self.starView.actualScore = 3;
+    self.starView.fullScore = 5;
+    self.starView.delegate = self;
+    
+}
+- (void)didChangeStar {
+    NSLog(@"这次星级为 %f",_starView.actualScore);
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

@@ -533,6 +533,9 @@
 		503BEC121ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEC0E1ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.m */; };
 		509A13451EE6EB000093978F /* NSString+ZFSortAppdending.m in Sources */ = {isa = PBXBuildFile; fileRef = 509A13441EE6EB000093978F /* NSString+ZFSortAppdending.m */; };
 		509D1F771ECDD9AC00D70444 /* ZFCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F761ECDD9AC00D70444 /* ZFCoverView.m */; };
+		50B97BCF1EF19A28002C195A /* HYBStarEvaluationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B97BCC1EF19A28002C195A /* HYBStarEvaluationView.m */; };
+		50B97BD01EF19A28002C195A /* star_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B97BCD1EF19A28002C195A /* star_gray.png */; };
+		50B97BD11EF19A28002C195A /* star_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B97BCE1EF19A28002C195A /* star_yellow.png */; };
 		50C672CD1EE83F5E005A1E7C /* ZFEncryptionKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C672CC1EE83F5E005A1E7C /* ZFEncryptionKey.m */; };
 /* End PBXBuildFile section */
 
@@ -1341,6 +1344,10 @@
 		509A13441EE6EB000093978F /* NSString+ZFSortAppdending.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZFSortAppdending.m"; sourceTree = "<group>"; };
 		509D1F751ECDD9AC00D70444 /* ZFCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCoverView.h; sourceTree = "<group>"; };
 		509D1F761ECDD9AC00D70444 /* ZFCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCoverView.m; sourceTree = "<group>"; };
+		50B97BCB1EF19A28002C195A /* HYBStarEvaluationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYBStarEvaluationView.h; sourceTree = "<group>"; };
+		50B97BCC1EF19A28002C195A /* HYBStarEvaluationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYBStarEvaluationView.m; sourceTree = "<group>"; };
+		50B97BCD1EF19A28002C195A /* star_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_gray.png; sourceTree = "<group>"; };
+		50B97BCE1EF19A28002C195A /* star_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_yellow.png; sourceTree = "<group>"; };
 		50C672CB1EE83F5E005A1E7C /* ZFEncryptionKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFEncryptionKey.h; sourceTree = "<group>"; };
 		50C672CC1EE83F5E005A1E7C /* ZFEncryptionKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFEncryptionKey.m; sourceTree = "<group>"; };
 		B2E471759A11D3682520CF1E /* libPods-ZFB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZFB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1574,6 +1581,7 @@
 		492755001EC4679E003C22D0 /* Tool(工具) */ = {
 			isa = PBXGroup;
 			children = (
+				50B97BCA1EF19A28002C195A /* HYBStarEvaluationView(评价星星) */,
 				4943AEC91EF0D3D600803973 /* YBPopupMenu(pop菜单) */,
 				5026A4481EEEE6F500AAC84D /* PPNumberButton(加减按钮) */,
 				49D75C831EEE38DD00FACCD8 /* PTXDatePickerView(时间选择器) */,
@@ -3119,6 +3127,18 @@
 			path = "UITableView-FDTemplateLayoutCell";
 			sourceTree = "<group>";
 		};
+		50B97BCA1EF19A28002C195A /* HYBStarEvaluationView(评价星星) */ = {
+			isa = PBXGroup;
+			children = (
+				50B97BCB1EF19A28002C195A /* HYBStarEvaluationView.h */,
+				50B97BCC1EF19A28002C195A /* HYBStarEvaluationView.m */,
+				50B97BCD1EF19A28002C195A /* star_gray.png */,
+				50B97BCE1EF19A28002C195A /* star_yellow.png */,
+			);
+			name = "HYBStarEvaluationView(评价星星)";
+			path = HYBStarEvaluationView;
+			sourceTree = "<group>";
+		};
 		7CCC003E8E554BB3C17D907B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3347,6 +3367,7 @@
 				49C6CFE61EDFDB2B00652CDB /* setting_message@2x.png in Resources */,
 				49DF718D1EEAA9B20021EE92 /* GoodsitemCell.xib in Resources */,
 				49C6CFE11EDFDB2B00652CDB /* setting_cache@3x.png in Resources */,
+				50B97BD01EF19A28002C195A /* star_gray.png in Resources */,
 				49F113A31ECC5547000F3BF7 /* more_icon@2x.png in Resources */,
 				49FB3C7C1ECD943C0090075D /* shopkeeper_selected@2x.png in Resources */,
 				49F113A81ECC5547000F3BF7 /* loca_small@3x.png in Resources */,
@@ -3429,6 +3450,7 @@
 				49F113A71ECC5547000F3BF7 /* loca_small@2x.png in Resources */,
 				49F113961ECC5547000F3BF7 /* star_normal@3x.png in Resources */,
 				49C6CFE51EDFDB2B00652CDB /* setting_headView@3x.png in Resources */,
+				50B97BD11EF19A28002C195A /* star_yellow.png in Resources */,
 				49D6E7121ED96DE4000A837E /* classes@3x.png in Resources */,
 				49DF721D1EEAAA780021EE92 /* RegisterViewController.xib in Resources */,
 				49DF72211EEAAA780021EE92 /* VerificationCodeViewController.xib in Resources */,
@@ -3781,6 +3803,7 @@
 				49DF71941EEAA9B20021EE92 /* ZFAddressCell.m in Sources */,
 				49DF71F21EEAA9B20021EE92 /* ZFShopCarCell.m in Sources */,
 				49DF717C1EEAA9B20021EE92 /* ZFHistoryViewController.m in Sources */,
+				50B97BCF1EF19A28002C195A /* HYBStarEvaluationView.m in Sources */,
 				49E757851EC96E9100220B28 /* TAAbstractDotView.m in Sources */,
 				5019FFAF1ECCAEF800325342 /* SDWebImageDownloader.m in Sources */,
 				492757501EC4679E003C22D0 /* MJRefreshNormalHeader.m in Sources */,
@@ -4002,7 +4025,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4023,7 +4046,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

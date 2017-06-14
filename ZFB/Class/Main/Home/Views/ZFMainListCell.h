@@ -7,7 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol ZFMainListCellDelegate <NSObject>
 
+//全部分类
+-(void
+  )didClickAllClassAction:(UIButton *)sender;
+
+@end
 @interface ZFMainListCell : UITableViewCell
 
+
+@property(nonatomic,assign)id <ZFMainListCellDelegate>delegate;
+
+
+//全部分类
+@property (weak, nonatomic) IBOutlet UIButton *Classify_btn;
 @end

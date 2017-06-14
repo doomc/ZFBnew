@@ -256,6 +256,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     NSLog(@"收藏");
     ZFCollectViewController *collecVC=  [[ZFCollectViewController alloc]init];
+    
+    NSLog(@"%@", BBUserDefault.cmUserId);
+    
     [self minePagePOSTRequste];//页面网络请求
 
 //    [self.navigationController pushViewController:collecVC animated:NO];

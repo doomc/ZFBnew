@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -79,7 +79,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入短信验证码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="MZY-bq-4Zx">
-                            <rect key="frame" x="44" y="4" width="118.5" height="34"/>
+                            <rect key="frame" x="44" y="4" width="179" height="34"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="34" id="HYj-TB-6gp"/>
                             </constraints>
@@ -95,6 +95,10 @@
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9gx-Ag-6SQ">
                             <rect key="frame" x="243" y="7" width="62" height="27"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="27" id="0yZ-JZ-7As"/>
+                                <constraint firstAttribute="width" constant="62" id="1D6-x8-r3Q"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="获取验证码">
                                 <color key="titleColor" red="0.99976259469999995" green="0.37686329140000002" blue="0.32606267059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -120,6 +124,7 @@
                         <constraint firstItem="XEG-2L-ah0" firstAttribute="leading" secondItem="TDd-hw-j7v" secondAttribute="leading" constant="5" id="haK-98-ygq"/>
                         <constraint firstAttribute="trailing" secondItem="9gx-Ag-6SQ" secondAttribute="trailing" constant="10" id="mDD-VU-ZsG"/>
                         <constraint firstItem="9gx-Ag-6SQ" firstAttribute="centerY" secondItem="XEG-2L-ah0" secondAttribute="centerY" id="noK-XJ-fnm"/>
+                        <constraint firstItem="9gx-Ag-6SQ" firstAttribute="leading" secondItem="MZY-bq-4Zx" secondAttribute="trailing" constant="20" id="zvv-ep-OhA"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qD-yw-QPc">

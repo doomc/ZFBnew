@@ -52,6 +52,9 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
     [self set_leftButton];
     
+    BBUserDefault.cmUserId = @"23232323232323";
+
+    
 }
 #pragma mark - setter方法
 -(UIButton*)set_leftButton
@@ -291,6 +294,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
 #pragma mark - login_Success 点击登录
 - (void)login_Success:(UIButton *)sender {
     
+    NSLog(@"%@",BBUserDefault.cmUserId);
+
     if (_isQuickLogin == YES) {//快捷登录
         
         [self QuickLoginPostRequest];
@@ -310,10 +315,9 @@ typedef NS_ENUM(NSUInteger, indexType) {
         
         if ( BBUserDefault.isLogin == YES) {//密码登录
             
-            NSLog(@"%@",BBUserDefault.userPhonePassword);
             if ([_tf_verificationCodeOrPassWord.text isEqualToString: BBUserDefault.userPhonePassword]) {
                 
-               // [self left_button_event:sender];
+//            [self left_button_event:sender];
                 NSLog(@"跳转到指定页面");
 
             }else{
@@ -431,6 +435,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
 #pragma mark -  PasswordLoginPostRequest 密码登录
 -(void)PasswordLoginPostRequest{
     
+    //测试
+
     [SVProgressHUD showWithStatus:@"登陆中"];
     
     NSDictionary * parma = @{

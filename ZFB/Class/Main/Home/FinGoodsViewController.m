@@ -13,6 +13,7 @@
 #import "HotCollectionViewCell.h"
 #import "GuessCell.h"
 #import "DetailFindGoodsViewController.h"
+#import "ZFClassifyCollectionViewController.h"
 static NSString * cell_guessID = @"GuessCell";
 static NSString * cell_listID = @"ZFMainListCell";
 static NSString * cell_hotID = @"HotTableViewCell";
@@ -25,7 +26,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
     CellTypeWithGuessCell,
     
 };
-@interface FinGoodsViewController ()<SDCycleScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface FinGoodsViewController ()<SDCycleScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,
+    ZFMainListCellDelegate
+>
 
 @property(strong,nonatomic)UIView * CircleHeadView;
 @property(strong,nonatomic)UITableView * findGoods_TableView;
@@ -48,6 +51,14 @@ typedef NS_ENUM(NSUInteger, CellType) {
     
 }
 
+///全部分类
+-(void)didClickAllClassAction:(UIButton *)sender
+{
+    
+    NSLog(@"进来?");
+    ZFClassifyCollectionViewController * classifyVC = [[ZFClassifyCollectionViewController alloc]init];
+    [self.navigationController pushViewController:classifyVC animated:NO];
+}
 /**
  初始化home_tableView
  */
@@ -193,6 +204,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
     if (indexPath.section == CellTypeWithMainListCell ) {
         
         ZFMainListCell * listCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_listID forIndexPath:indexPath];
+        listCell.delegate = self;
         
         return listCell;
         

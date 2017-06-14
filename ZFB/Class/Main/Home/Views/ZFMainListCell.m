@@ -13,6 +13,15 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    [self.Classify_btn addTarget:self action:@selector(Classify_btnActionTarget:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+-(void)Classify_btnActionTarget:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(didClickAllClassAction:)]) {
+        [self.delegate didClickAllClassAction:sender];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
