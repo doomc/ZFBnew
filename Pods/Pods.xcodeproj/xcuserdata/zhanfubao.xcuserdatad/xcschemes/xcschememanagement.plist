@@ -74,6 +74,11 @@
 			<key>orderHint</key>
 			<integer>8</integer>
 		</dict>
+		<key>YYModel.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
 		<key>ZYQAssetPickerController.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -108,6 +113,11 @@
 			<true/>
 		</dict>
 		<key>1964CFC8332D5B5CB18A2C77396F8451</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1A7C1C680E4F202C06F4F788AE13ABB4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -183,6 +193,16 @@
 			<true/>
 		</dict>
 		<key>761A3A7F88AD327911E3059048C49ADB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>77DBF2C50CE89935FC9C1DDB75C75C42</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>80ADE564D444DF905E0F3720B4C4AAC3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

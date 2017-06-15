@@ -86,6 +86,8 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="lb_collectNum" destination="sMJ-kx-CgD" id="KaC-YO-yZI"/>
+                <outlet property="lb_distence" destination="7tf-fA-jbn" id="wsq-d0-5l1"/>
                 <outlet property="store_listTitle" destination="8yY-5g-5MR" id="cKO-gh-Mlp"/>
                 <outlet property="store_listView" destination="4O3-QZ-Rbs" id="ROF-pf-10F"/>
             </connections>

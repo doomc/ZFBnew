@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
     [self set_leftButton];
     
-    BBUserDefault.cmUserId = @"23232323232323";
+ 
 
     
 }
@@ -317,7 +317,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             
             if ([_tf_verificationCodeOrPassWord.text isEqualToString: BBUserDefault.userPhonePassword]) {
                 
-//            [self left_button_event:sender];
+            [self left_button_event:sender];
                 NSLog(@"跳转到指定页面");
 
             }else{
@@ -460,14 +460,13 @@ typedef NS_ENUM(NSUInteger, indexType) {
             _isLogin = YES;
             [self.view makeToast:@"登录成功" duration:2 position:@"center" ];
 
-            
             NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
             NSDictionary * dic = [NSString dictionaryWithJsonString:dataStr];
             BBUserDefault.isLogin = _isLogin;
             BBUserDefault.userPhoneNumber = _tf_loginphone.text;
             BBUserDefault.cmUserId = dic[@"userInfo"][@"cmUserId"];
             BBUserDefault.nickName = dic[@"userInfo"][@"nickName"];
-            BBUserDefault.userKeyMd5 = dic[@"userInfo"][@"userKeyMd5"];
+            BBUserDefault.userKeyMd5 = dic[@"userInfo"][@"userKeyMd5"];//QSXQBXDIJIKNGOO6
             BBUserDefault.userStatus = dic[@"userInfo"][@"userStatus"];
             
             NSLog(@"dic= %@ ",dic[@"userInfo"][@"cmUserId"]);

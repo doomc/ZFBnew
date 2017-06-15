@@ -32,7 +32,10 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
 };
 @interface ZFPersonalViewController ()<UITableViewDelegate,UITableViewDataSource,ZFMyProgressCellDelegate,PersonalHeaderViewDelegate>
-
+{
+    NSString * _foolnum ;//足记数量
+    NSString * _collectNum ;//收藏数量
+}
 @property(nonatomic,strong)UITableView * myTableView;
 @property(nonatomic,strong)UIView * myHeaderView;
 @property(nonatomic,strong)ZFPersonalHeaderView * headview;
@@ -48,17 +51,20 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 
     [self initmyTableViewInterface];
  
-//    UIView * unlogView = [self.headview viewWithTag:911];
-//    [unlogView removeFromSuperview];
-//    UIView * logView = [self.headview viewWithTag:912];
-//    [logView removeFromSuperview];
-//    //判断是否已经登录
-//    if ( [BBUserDefault.userStatus isEqualToString:@"1" ]) {
-//        
-//        UIView * view = [self.headview viewWithTag:911];
-//        [view removeFromSuperview];
-//        //移除登录视图
-//    }
+ 
+
+    //判断是否已经登录
+    if ( [BBUserDefault.userStatus isEqualToString:@"1" ]) {
+        UIView * logView = [self.headview viewWithTag:912];//登录后的图
+        [logView removeFromSuperview];
+   
+    }
+    else if ( [BBUserDefault.userStatus isEqualToString:@"0" ]) {
+         //移除登录视图
+        UIView * unlogView = [self.headview viewWithTag:911];//没登录之前的图
+        [unlogView removeFromSuperview];
+       
+    }
    
 }
 
@@ -298,7 +304,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)minePagePOSTRequste
 {
     NSDictionary * param = @{
-                             @"cmUserId":@"85",
+                             @"cmUserId":BBUserDefault.cmUserId,
                              @"svcName":@"getUserInfo",
                              };
  
@@ -309,23 +315,21 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
          NSLog(@"%@", responseObject);
          NSLog(@"%@", BBUserDefault.cmUserId);
 
-    
-         NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-         NSDictionary * dic = [NSString dictionaryWithJsonString:dataStr];
+         if ([responseObject [@"resultCode"] isEqualToString:@"0"]) {
+             
+             NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+             NSDictionary * data = [NSString dictionaryWithJsonString:dataStr];
+       
+             BBUserDefault.nickName = data[@"userInfo"][@"nickName"];
+             BBUserDefault.userKeyMd5 = data[@"userInfo"][@"userKeyMd5"];
+             BBUserDefault.userStatus = data[@"userInfo"][@"userStatus"];
+             _foolnum = data[@"foolNum"];
+             _collectNum = data[@"collectNum"];
 
-//         BBUserDefault.userId = dic[@"userInfo"][@"cmUserId"];
-//         BBUserDefault.nickName = dic[@"userInfo"][@"nickName"];
-//         BBUserDefault.userKeyMd5 = dic[@"userInfo"][@"userKeyMd5"];
-//         BBUserDefault.userStatus = dic[@"userInfo"][@"userStatus"];
-//         if ([dataDic[@"resultCode" ] isEqualToString:@"0"]) {
-//             [self.view makeToast:@"访问成功" duration:2 position:@"center"];
-//
-//         }
-//         if ([dataDic[@"resultCode" ] isEqualToString:@"1"]) {
-//             [self.view makeToast:@"访问失败" duration:2 position:@"center"];
-//
-//         }
-         NSLog(@"%@", dataStr);
+             NSLog(@"data = %@", data);
+         }
+         
+ 
 
 
    

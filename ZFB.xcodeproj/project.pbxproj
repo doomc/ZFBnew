@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		287E1D51FE976BE2DCE0A71B /* libPods-ZFB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2E471759A11D3682520CF1E /* libPods-ZFB.a */; };
+		4914FB0D1EF2826400B968E8 /* StoreListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914FB0C1EF2826400B968E8 /* StoreListModel.m */; };
 		49156C551EEFECB900E5C13E /* HDAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49156C4D1EEFECB900E5C13E /* HDAlertView.m */; };
 		49156C561EEFECB900E5C13E /* NSString+HDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 49156C501EEFECB900E5C13E /* NSString+HDExtension.m */; };
 		49156C571EEFECB900E5C13E /* UIImage+HDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 49156C521EEFECB900E5C13E /* UIImage+HDExtension.m */; };
@@ -558,6 +559,8 @@
 
 /* Begin PBXFileReference section */
 		3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.debug.xcconfig"; sourceTree = "<group>"; };
+		4914FB0B1EF2826400B968E8 /* StoreListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreListModel.h; sourceTree = "<group>"; };
+		4914FB0C1EF2826400B968E8 /* StoreListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreListModel.m; sourceTree = "<group>"; };
 		49156C4C1EEFECB900E5C13E /* HDAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDAlertView.h; sourceTree = "<group>"; };
 		49156C4D1EEFECB900E5C13E /* HDAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDAlertView.m; sourceTree = "<group>"; };
 		49156C4F1EEFECB900E5C13E /* NSString+HDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HDExtension.h"; sourceTree = "<group>"; };
@@ -1381,6 +1384,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4914FB0A1EF2824C00B968E8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4914FB0B1EF2826400B968E8 /* StoreListModel.h */,
+				4914FB0C1EF2826400B968E8 /* StoreListModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		49156C4B1EEFECB900E5C13E /* HDAlertView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2207,6 +2219,8 @@
 		49DF70271EEAA9B10021EE92 /* Home(首页) */ = {
 			isa = PBXGroup;
 			children = (
+				49DF70571EEAA9B10021EE92 /* Views */,
+				4914FB0A1EF2824C00B968E8 /* Model */,
 				4943AED61EF0D95A00803973 /* Classify(分类列表) */,
 				49DF70281EEAA9B10021EE92 /* Controllers */,
 				49DF704F1EEAA9B10021EE92 /* FindCircleViewController.h */,
@@ -2217,7 +2231,6 @@
 				49DF70541EEAA9B10021EE92 /* FinGoodsViewController.m */,
 				49DF70551EEAA9B10021EE92 /* HP_LocationViewController.h */,
 				49DF70561EEAA9B10021EE92 /* HP_LocationViewController.m */,
-				49DF70571EEAA9B10021EE92 /* Views */,
 				49DF70701EEAA9B10021EE92 /* ZFHomeViewController.h */,
 				49DF70711EEAA9B10021EE92 /* ZFHomeViewController.m */,
 			);
@@ -3709,6 +3722,7 @@
 				49DF718C1EEAA9B20021EE92 /* GoodsitemCell.m in Sources */,
 				49DF6FE71EEA927C0021EE92 /* CustomFooterView.m in Sources */,
 				49DF71AA1EEAA9B20021EE92 /* ZFSendingCell.m in Sources */,
+				4914FB0D1EF2826400B968E8 /* StoreListModel.m in Sources */,
 				49801C8E1ECE870100EDAA53 /* PYSearchConst.m in Sources */,
 				49DF719A1EEAA9B20021EE92 /* ZFOrderListCell.m in Sources */,
 				49DF71CF1EEAA9B20021EE92 /* ZFSettingHeaderCell.m in Sources */,
@@ -4025,7 +4039,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4046,7 +4060,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

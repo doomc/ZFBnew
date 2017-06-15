@@ -13,32 +13,54 @@
 #import "HP_LocationViewController.h"
 #import "DetailStoreViewController.h"
 #import "ZFAllStoreViewController.h"
+#import "StoreListModel.h"
+#import <AMapLocationKit/AMapLocationKit.h>
 
 static NSString *CellIdentifier = @"FindStoreCellid";
 
-@interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,AMapLocationManagerDelegate>
+{
+    NSInteger _pageSize;//每页显示条数
+    NSInteger _pageIndex;//当前页码;
 
-@property(strong,nonatomic )UITableView * home_tableView;
-@property(strong,nonatomic )UIView * sectionView;
+}
+@property (strong,nonatomic) UITableView * home_tableView;
+@property (strong,nonatomic) UIView * sectionView;
+@property (nonatomic,strong) NSMutableArray * storeListArr;//数据源
 
+//高德api
+@property (nonatomic,strong) AMapLocationManager * locationManager;
+@property (nonatomic,strong) AMapLocationReGeocode * reGeocode;//地理编码
+@property (nonatomic,strong) CLLocation *  currentLocation;
+/**
+ *  持续定位是否返回逆地理信息，默认NO。
+ */
+@property (nonatomic, assign) BOOL locatingWithReGeocode;
 
 @end
-
 @implementation FindStoreViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    
     [self initWithHome_Tableview];
  
     [self initInTerfaceView];
     
-    [self initWithLocation];
+    //默认一个页码 和 页数
+    _pageSize = 10;
+    _pageIndex = 1;
+    
+    [self LocationMapManagerInit];
     
 }
-
+-(NSMutableArray *)storeListArr
+{
+    if (!_storeListArr) {
+        _storeListArr = [NSMutableArray array];
+    }
+    return _storeListArr;
+}
 -(void)initInTerfaceView{
    
     UIView * loc_view =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];//背景图
@@ -118,7 +140,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return 5;
+    return self.storeListArr.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -163,9 +185,10 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)more_btnAction:(UIButton*)sender
 {
     NSLog(@"更多门店");
+    [self PostRequst];
     
-    ZFAllStoreViewController * allVC =[[ ZFAllStoreViewController alloc]init];
-    [self.navigationController pushViewController:allVC animated:YES];
+//    ZFAllStoreViewController * allVC =[[ ZFAllStoreViewController alloc]init];
+//    [self.navigationController pushViewController:allVC animated:YES];
 }
 /**
  定位
@@ -177,16 +200,152 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     [self.navigationController pushViewController: locationVC animated:YES];
     
 }
+#pragma mark  - 高德定位
 /**定位当前 */
--(void)initWithLocation
+-(void)LocationMapManagerInit
 {
+    self.locationManager = [[AMapLocationManager alloc] init];
+    
+    self.locationManager.delegate = self;
+    
+    // 带逆地理信息的一次定位（返回坐标和地址信息）
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    self.locationManager.distanceFilter = 200;
+    
+    //   定位超时时间，最低2s，此处设置为2s
+    self.locationManager.locationTimeout =10;
+    
+    //   逆地理请求超时时间，最低2s，此处设置为2s
+    self.locationManager.reGeocodeTimeout = 10;
+    
+    //开始定位
+    [self.locationManager setLocatingWithReGeocode:YES];
+    [self.locationManager startUpdatingLocation];
+
+}
+
+
+
+#pragma mark - 首页网络请求
+-(void)PostRequst
+{
+    
+    NSLog(@" 212312312312   lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
+    
+    NSString * longitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.longitude];
+    NSString * latitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.latitude];
+    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageSize];
+    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
+    
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getCmStoreInfo",
+                             @"longitude":longitude,//经度
+                             @"latitude":latitude ,//纬度
+                             @"pageSize":pageSize,//每页显示条数
+                             @"pageIndex":pageIndex,//当前页码
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             
+                             };
+    
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        NSLog(@"  %@  = responseObject  " ,responseObject);
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+            [self.view makeToast:@"请求成功" duration:2 position:@"center" ];
+            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+            NSLog(@" data  =%@ ",jsondic );
+
+                //定义数组，接受key为list的数组
+            NSMutableArray * tempArr = jsondic[@"cmStoreList"];
+            for (NSDictionary * dic in tempArr) {
+                StoreListModel * storeListModel = [StoreListModel new];
+                [dic objectForKey:storeListModel];
+                
+                [self.storeListArr addObject:dic];
+            }
+    
+            NSLog(@"%@",self.storeListArr);
+           
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
+
+
+#pragma mark  -AMapLocationManagerDelegate
+- (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode
+{
+    NSLog(@"location:{  lat:%f; lon:%f; accuracy:%f  }", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
+    if (reGeocode)
+    {
+        NSLog(@"reGeocode:%@", reGeocode);
+        self.reGeocode = reGeocode;
+    }
+    NSLog(@"reGeocode:%@", reGeocode.POIName);
+    
+    // 赋值给全局变量
+    _currentLocation = location;
+    
+    NSLog(@" lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
+    
+    
+    // 停止定位
+    [self.locationManager stopUpdatingLocation];
+    
     
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+/*{
+"cmStoreList": [
+                {
+                    "storeId": "1",
+                    "storeName": "以纯专卖店",
+                    "likeNum": "2022",
+                    "urls": "http://http://192.168.1.107:8086/upload/20170615110845_",
+                    "thumbnailUrls": "http://http://192.168.1.107:8086/upload/20170615110845_",
+                    "juli": "2000"
+                },
+                {
+                    "storeId": "2",
+                    "storeName": "西西服装店",
+                    "likeNum": "6022",
+                    "urls": "http://http://192.168.1.107:8086/upload/20170615110845_",
+                    "thumbnailUrls": "http://http://192.168.1.107:8086/upload/20170615110845_",
+                    "juli": "1500"
+                },
+                {
+                    "storeId": "3",
+                    "storeName": "西西专卖店",
+                    "likeNum": "3022",
+                    "urls": "http://http://192.168.1.107:8086/upload/20170615110845_",
+                    "thumbnailUrls": "http://http://192.168.1.107:8086/upload/20170615110845_",
+                    "juli": "1500"
+                },
+                {
+                    "storeId": "4",
+                    "storeName": "森马专卖店",
+                    "likeNum": "6022",
+                    "urls": "http://http://192.168.1.107:8086/upload/20170615110845_",
+                    "thumbnailUrls": "http://http://192.168.1.107:8086/upload/20170615110845_",
+                    "juli": "1500"
+                }
+                ],
+"resultCode": 0
+}*/
 /*
 #pragma mark - Navigation
 

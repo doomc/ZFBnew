@@ -16,13 +16,28 @@
 #import "BaseNavigationController.h"
 #import "PYSearch.h"
 
-@interface ZFHomeViewController ()<UISearchBarDelegate,PYSearchViewControllerDelegate>
+#import <AMapLocationKit/AMapLocationKit.h>
+
+@interface ZFHomeViewController ()<UISearchBarDelegate,PYSearchViewControllerDelegate,AMapLocationManagerDelegate>
+{
+    NSInteger _pageSize;//每页显示条数
+    NSInteger _pageIndex;//当前页码;
+    
+}
 
 @property(nonatomic,strong)UIButton * customLeft_btn;//扫一扫
 @property(nonatomic,strong)UIButton * navSearch_btn;//搜索
 @property(nonatomic,strong)UIButton * shakehanderRight_btn;//摇一摇
 @property(nonatomic,strong)UISearchBar* searchBar;
 
+//高德api
+@property (nonatomic,strong) AMapLocationManager * locationManager;
+@property (nonatomic,strong) AMapLocationReGeocode * reGeocode;//地理编码
+@property (nonatomic,strong) CLLocation *  currentLocation;
+/**
+ *  持续定位是否返回逆地理信息，默认NO。
+ */
+@property (nonatomic, assign) BOOL locatingWithReGeocode;
 
 @end
 
@@ -38,6 +53,7 @@
     [self customButtonOfNav];
     
  //   [self settingCustomSearchBar];
+
     
 }
 
@@ -151,20 +167,19 @@
 {
     NSLog(@"clickAction");
  
-    JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示信息" message:@"登陆成功！" preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction * left = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    [jxt addAction:left];
-    [jxt addAction:right];
-    [self presentViewController:jxt animated:YES completion:^{  }];
+//    JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示信息" message:@"登陆成功！" preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    UIAlertAction * left = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        
+//    }];
+//    UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        
+//    }];
+//    [jxt addAction:left];
+//    [jxt addAction:right];
+//    [self presentViewController:jxt animated:YES completion:^{  }];
+ }
 
-    
-}
 
 
 @end

@@ -16,7 +16,7 @@ const static NSString *ApiKey = @"7573ff935a812f01523174f1356b89f5";
 #import "MJRefresh.h"
 //高德api
 #import <AMapLocationKit/AMapLocationKit.h>
-@interface HP_LocationViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,AMapLocationManagerDelegate,MAMapViewDelegate,AMapSearchDelegate>
+@interface HP_LocationViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,AMapLocationManagerDelegate,AMapSearchDelegate>
 
 //poi
 @property (nonatomic,strong) AMapSearchAPI *  searchAPI;
@@ -35,8 +35,8 @@ const static NSString *ApiKey = @"7573ff935a812f01523174f1356b89f5";
 //高德api
 @property (nonatomic,strong) AMapLocationManager * locationManager;
 @property (nonatomic,strong) AMapLocationReGeocode * reGeocode;//地理编码
-
 @property (nonatomic,strong) CLLocation *  currentLocation;
+
 /**
  *  持续定位是否返回逆地理信息，默认NO。
  */
@@ -53,7 +53,7 @@ const static NSString *ApiKey = @"7573ff935a812f01523174f1356b89f5";
     
     [self creatTableViewInterface];
    
-    [self locationinit];
+    [self LocationMapManagerInit];
     
     [AMapServices sharedServices].apiKey = (NSString *)ApiKey;
 
@@ -135,9 +135,8 @@ const static NSString *ApiKey = @"7573ff935a812f01523174f1356b89f5";
     
     
 }
-#warning ============= poi  end ===============
 #pragma mark  - 高德定位
--(void)locationinit{
+-(void)LocationMapManagerInit{
     
     self.locationManager = [[AMapLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -321,6 +320,7 @@ const static NSString *ApiKey = @"7573ff935a812f01523174f1356b89f5";
     _successBlock = successBlock;
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
