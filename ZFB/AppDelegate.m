@@ -15,6 +15,9 @@
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
 #import "AppDelegate+Location.h"
+
+const static NSString *ApiKey = @"7573ff935a812f01523174f1356b89f5";
+
 @interface AppDelegate ()
 @property(nonatomic,strong)CLLocation *  currentLocation;
 @property(nonatomic,copy)CLLocation *  currentCity;
@@ -31,7 +34,8 @@
     ZFbaseTabbarViewController *tabbarVC = [[ZFbaseTabbarViewController alloc] init];
     self.window.rootViewController = tabbarVC;
     [self.window makeKeyAndVisible];
-  
+    
+    [AMapServices sharedServices].apiKey = (NSString *)ApiKey;
     
     //获取当前城市和经纬度
     [self receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {

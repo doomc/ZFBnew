@@ -6,7 +6,6 @@
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //  首页定位
 
-const static NSString *ApiKey = @"7573ff935a812f01523174f1356b89f5";
 
 #import "HP_LocationViewController.h"
 
@@ -54,8 +53,7 @@ const static NSString *ApiKey = @"7573ff935a812f01523174f1356b89f5";
     [self creatTableViewInterface];
    
     [self LocationMapManagerInit];
-    
-    [AMapServices sharedServices].apiKey = (NSString *)ApiKey;
+
 
 }
 

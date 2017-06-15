@@ -13,7 +13,6 @@
 
 @property (nonatomic, copy) NSString * resultCode;
 
-
 /** storeId*/
 @property (nonatomic, copy) NSString * storeId;
 /** 店铺名字storeName */

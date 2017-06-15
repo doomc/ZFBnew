@@ -12,6 +12,7 @@
 @interface FindStoreCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *store_listView;
+
 @property (weak, nonatomic) IBOutlet UILabel *store_listTitle;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_distence;

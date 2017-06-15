@@ -164,8 +164,15 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    StoreListModel * listModel =self.storeListArr[indexPath.row];
     FindStoreCell *storeCell = [self.home_tableView  dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     storeCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    storeCell.lb_distence.text = listModel.juli;
+    storeCell.lb_collectNum.text = listModel.likeNum;
+    storeCell.store_listTitle.text = listModel.storeName;
+    [storeCell.store_listView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
+    
+    
     return storeCell;
 
 }
