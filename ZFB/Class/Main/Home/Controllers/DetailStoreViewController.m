@@ -13,16 +13,29 @@
 #import "ControlFactory.h"
 #import "DetailShareViewController.h"
 
+#import "DetailStoreModel.h"
 @interface DetailStoreViewController ()<SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
-@property(nonatomic,strong)SDCycleScrollView * sd_HeadScrollView;
-@property(nonatomic,strong)UICollectionView * main_ColletionView;
-@property(nonatomic,strong)UIView * sectionView;
+{
+    NSInteger _pageSize;//每页显示条数
+    NSInteger _pageIndex;//当前页码;
+ 
+    
+}
+@property(nonatomic,strong) SDCycleScrollView * sd_HeadScrollView;
+@property(nonatomic,strong) UICollectionView * main_ColletionView;
+@property(nonatomic,strong) UIView * sectionView;
+@property(nonatomic,strong) NSMutableArray * storeListArray;
 
 
 @end
 
 @implementation DetailStoreViewController
-
+-(NSMutableArray *)storeListArray{
+    if (!_storeListArray) {
+        _storeListArray =[NSMutableArray array];
+    }
+    return _storeListArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -32,8 +45,13 @@
     [self CreatCollctionViewInterface];
     [self CDsyceleSettingRunningPaint];
     [self creatHeadViewinterface];
-   
-
+  
+    _pageIndex = 1;
+    _pageSize = 5;
+    
+    //////////当前页数据不全////////
+    [self detailStorePostRequst];
+    
 }
 
 /**
@@ -295,6 +313,62 @@
 }
 
 
+
+#pragma mark - 门店详情网络请求
+-(void)detailStorePostRequst
+{
+    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageSize];
+    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
+    
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getCmStoreDetailsInfo",
+                             @"pageSize":pageSize,//每页显示条数
+                             @"pageIndex":pageIndex,//当前页码
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             
+                             };
+    
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        NSLog(@"  %@  = responseObject  " ,responseObject);
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+            if (self.storeListArray.count >0) {
+                
+                [self.storeListArray  removeAllObjects];
+                
+            }else{
+                
+                [self.view makeToast:@"请求成功" duration:2 position:@"center" ];
+                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+                NSArray * dictArray = jsondic [@"cmStoreDetailsList"];
+                
+                //mjextention 数组转模型
+                NSArray *storArray = [DetailStoreModel mj_objectArrayWithKeyValuesArray:dictArray];
+                
+                for (DetailStoreModel *list in storArray) {
+                    
+                    [self.storeListArray addObject:list];
+                }
+                NSLog(@"storeListArr = %@",  self.storeListArray);
+                
+                [self.main_ColletionView reloadData];
+            }
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
 
 
 

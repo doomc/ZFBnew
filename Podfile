@@ -11,7 +11,8 @@ target 'ZFB' do
   pod 'AFNetworking'
   pod 'SVProgressHUD'
   pod 'Masonry'
-  pod 'YYModel'
+  pod 'YYModel' 
+  pod 'MJExtension'
 
   # 第三方库
   pod 'AMapLocation'

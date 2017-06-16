@@ -11,8 +11,10 @@
 @interface AllStoreCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_allStoreView;
+
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lb_distance;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_distance;
 
 @property (weak, nonatomic) IBOutlet HYBStarEvaluationView *starView;
 

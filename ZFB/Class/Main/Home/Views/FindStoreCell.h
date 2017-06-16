@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StoreListModel.h"
 
 @interface FindStoreCell : UITableViewCell
 
@@ -19,6 +18,5 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_collectNum;
 
-@property (nonatomic , strong) StoreListModel * storeList;
 
 @end

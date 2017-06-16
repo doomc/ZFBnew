@@ -8,17 +8,36 @@
 
 #import "HotTableViewCell.h"
 #import "HotCollectionViewCell.h"
-
+#import "HomeHotModel.h"
+@interface HotTableViewCell ()
+{
+    NSInteger _pageSize;//每页显示条数
+    NSInteger _pageIndex;//当前页码;
+    
+}
+@end
 @implementation HotTableViewCell
 
+-(NSMutableArray *)hotArray
+{
+    if (!_hotArray) {
+        _hotArray =[NSMutableArray array];
+    }
+    return _hotArray;
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 
-    self.HcollectionView.dataSource =self;
-    self.HcollectionView.delegate = self;
+    self.HotcollectionView.dataSource =self;
+    self.HotcollectionView.delegate = self;
+     
+    [self.HotcollectionView registerNib:[UINib nibWithNibName:@"HotCollectionViewCell" bundle:nil]
+             forCellWithReuseIdentifier:@"HotCollectionViewCellid"];
+    _pageSize = 5;
+    _pageIndex = 0;
     
-    [self.HcollectionView registerNib:[UINib nibWithNibName:@"HotCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"HotCollectionViewCellid"];
+    [self HotsalesPostRequst];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -27,15 +46,25 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 6;
+    return self.hotArray.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    HomeHotModel * hot=  [HomeHotModel new];
+    if (indexPath.row < [self.hotArray count]) {
+        
+    }
+    hot  = [self.hotArray objectAtIndex:indexPath.row];
+
+    HotCollectionViewCell * cell = [self.HotcollectionView dequeueReusableCellWithReuseIdentifier:@"HotCollectionViewCellid" forIndexPath:indexPath];
+    NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",hot.coverImgUrl]];
+    [cell.img_hotImgView sd_setImageWithURL:img_url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+    }];
     
-    HotCollectionViewCell * cell = [self.HcollectionView dequeueReusableCellWithReuseIdentifier:@"HotCollectionViewCellid" forIndexPath:indexPath];
     
-    
+    cell.lb_price.text = hot.storePrice;//netPurchasePrice 网购价格2选1
     return cell;
 }
 
@@ -51,7 +80,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    return CGSizeMake((KScreenW - 50)*0.3333,95);
+    return CGSizeMake((KScreenW - 50)*0.3333,(KScreenW - 50)*0.3333);
 }
 // 设置整个组的缩进量是多少
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -68,17 +97,59 @@
     return 10;
 }
 
-//// 设置section头视图的参考大小，与tableheaderview类似
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-//    return CGSizeMake(self.frame.size.width, 40);
-//}
-//
-//// 设置section尾视图的参考大小，与tablefooterview类似
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-//    return CGSizeMake(self.frame.size.width, 40);
-//}
-//
 
+#pragma mark - 热卖-getBestSellInfo网络请求
+-(void)HotsalesPostRequst
+{
+    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageSize];
+    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getBestSellInfo",
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"pageSize":pageSize,//每页显示条数
+                             @"pageIndex":pageIndex,//当前页码
+
+                             };
+    
+    
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+            if (self.hotArray.count >0) {
+                
+                [self.hotArray removeAllObjects];
+                
+            }else{
+                
+                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+                NSArray * dictArray = jsondic [@"bestGoodsList"];
+                NSLog(@"bestGoodsList = %@",  self.hotArray);
+
+                //mjextention 数组转模型
+                NSArray *storArray = [HomeHotModel mj_objectArrayWithKeyValuesArray:dictArray];
+                for (HomeHotModel *hotlist in storArray) {
+                    
+                    [self.hotArray addObject:hotlist];
+                }
+                NSLog(@"hotArray = %@",  self.hotArray);
+                
+                [self.HotcollectionView reloadData];
+            }
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
 
 
 

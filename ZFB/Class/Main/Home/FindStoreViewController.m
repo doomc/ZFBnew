@@ -13,7 +13,7 @@
 #import "HP_LocationViewController.h"
 #import "DetailStoreViewController.h"
 #import "ZFAllStoreViewController.h"
-#import "StoreListModel.h"
+#import "HomeStoreListModel.h"
 #import <AMapLocationKit/AMapLocationKit.h>
 
 static NSString *CellIdentifier = @"FindStoreCellid";
@@ -52,6 +52,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     _pageIndex = 1;
     
     [self LocationMapManagerInit];
+
     
 }
 -(NSMutableArray *)storeListArr
@@ -139,8 +140,11 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
-    return self.storeListArr.count;
+    if (self.storeListArr.count > 0) {
+       
+        return self.storeListArr.count;
+    }
+    return 3;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -164,10 +168,17 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    StoreListModel * listModel =self.storeListArr[indexPath.row];
+    HomeStoreListModel * listModel =  [HomeStoreListModel new];
+    
+    if (indexPath.row < [self.storeListArr count]) {
+        
+        listModel  = [self.storeListArr objectAtIndex:indexPath.row];
+    }
+ 
     FindStoreCell *storeCell = [self.home_tableView  dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     storeCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    storeCell.lb_distence.text = listModel.juli;
+    CGFloat juli = [listModel.juli floatValue]*0.001;
+    storeCell.lb_distence.text = [NSString stringWithFormat:@"%.2f公里",juli];
     storeCell.lb_collectNum.text = listModel.likeNum;
     storeCell.store_listTitle.text = listModel.storeName;
     [storeCell.store_listView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
@@ -192,10 +203,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)more_btnAction:(UIButton*)sender
 {
     NSLog(@"更多门店");
-    [self PostRequst];
     
-//    ZFAllStoreViewController * allVC =[[ ZFAllStoreViewController alloc]init];
-//    [self.navigationController pushViewController:allVC animated:YES];
+    ZFAllStoreViewController * allVC =[[ ZFAllStoreViewController alloc]init];
+    [self.navigationController pushViewController:allVC animated:YES];
 }
 /**
  定位
@@ -237,7 +247,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)PostRequst
 {
     
-    NSLog(@" 212312312312   lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
+    NSLog(@"    lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
     
     NSString * longitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.longitude];
     NSString * latitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.latitude];
@@ -265,22 +275,29 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
             
-            [self.view makeToast:@"请求成功" duration:2 position:@"center" ];
-            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-            NSLog(@" data  =%@ ",jsondic );
+            if (self.storeListArr.count >0) {
+            
+                [self.storeListArr  removeAllObjects];
 
-                //定义数组，接受key为list的数组
-            NSMutableArray * tempArr = jsondic[@"cmStoreList"];
-            for (NSDictionary * dic in tempArr) {
-                StoreListModel * storeListModel = [StoreListModel new];
-                [dic objectForKey:storeListModel];
+            }else{
+               
+                [self.view makeToast:@"请求成功" duration:2 position:@"center" ];
+                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+                NSArray * dictArray = jsondic [@"cmStoreList"];
                 
-                [self.storeListArr addObject:dic];
+                //mjextention 数组转模型
+                NSArray *storArray = [HomeStoreListModel mj_objectArrayWithKeyValuesArray:dictArray];
+                
+                for (HomeStoreListModel *list in storArray) {
+                    
+                    [self.storeListArr addObject:list];
+                }
+                NSLog(@"storeListArr = %@",   self.storeListArr);
+
+                [self.home_tableView reloadData];
             }
-    
-            NSLog(@"%@",self.storeListArr);
-           
+            
         }
         
     } failure:^(NSError *error) {
@@ -306,53 +323,24 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     NSLog(@" lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
     
-    
     // 停止定位
     [self.locationManager stopUpdatingLocation];
     
     
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self PostRequst];
+
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-/*{
-"cmStoreList": [
-                {
-                    "storeId": "1",
-                    "storeName": "以纯专卖店",
-                    "likeNum": "2022",
-                    "urls": "http://http://192.168.1.107:8086/upload/20170615110845_",
-                    "thumbnailUrls": "http://http://192.168.1.107:8086/upload/20170615110845_",
-                    "juli": "2000"
-                },
-                {
-                    "storeId": "2",
-                    "storeName": "西西服装店",
-                    "likeNum": "6022",
-                    "urls": "http://http://192.168.1.107:8086/upload/20170615110845_",
-                    "thumbnailUrls": "http://http://192.168.1.107:8086/upload/20170615110845_",
-                    "juli": "1500"
-                },
-                {
-                    "storeId": "3",
-                    "storeName": "西西专卖店",
-                    "likeNum": "3022",
-                    "urls": "http://http://192.168.1.107:8086/upload/20170615110845_",
-                    "thumbnailUrls": "http://http://192.168.1.107:8086/upload/20170615110845_",
-                    "juli": "1500"
-                },
-                {
-                    "storeId": "4",
-                    "storeName": "森马专卖店",
-                    "likeNum": "6022",
-                    "urls": "http://http://192.168.1.107:8086/upload/20170615110845_",
-                    "thumbnailUrls": "http://http://192.168.1.107:8086/upload/20170615110845_",
-                    "juli": "1500"
-                }
-                ],
-"resultCode": 0
-}*/
+
 /*
 #pragma mark - Navigation
 

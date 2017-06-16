@@ -8,24 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
-@interface StoreListModel : NSObject
+@interface HomeStoreListModel : NSObject
 
-
-@property (nonatomic, copy) NSString * resultCode;
-
-/** storeId*/
+/** 门店id*/
 @property (nonatomic, copy) NSString * storeId;
 /** 店铺名字storeName */
 @property (nonatomic, copy) NSString * storeName;
 /** 喜欢个数 */
 @property (nonatomic, copy) NSString * likeNum;
-/** 图片url*/
+/** 图片原图url*/
 @property (nonatomic, copy) NSString * urls;
-/** 链接2*/
+/** 图片缩略图2*/
 @property (nonatomic, copy) NSString * thumbnailUrls;
 /** 距离 */
 @property (nonatomic, copy) NSString * juli;
+/** 返回 0 成功、1失败 */
+@property (nonatomic, copy) NSString * resultCode;
 
+@property (nonatomic, copy) NSString * starLevel;//starLevel
+
+@property (nonatomic, strong) HomeStoreListModel * cmStoreList;/* 自我模型类型 */
 
 
 @end
+

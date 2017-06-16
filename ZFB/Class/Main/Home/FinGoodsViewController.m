@@ -7,16 +7,23 @@
 //
 
 #import "FinGoodsViewController.h"
+#import "DetailFindGoodsViewController.h"
+#import "ZFClassifyCollectionViewController.h"
+
 #import "FindStoreCell.h"
-#import "ZFMainListCell.h"
+#import "FuncListTableViewCell.h"
 #import "HotTableViewCell.h"
 #import "HotCollectionViewCell.h"
 #import "GuessCell.h"
-#import "DetailFindGoodsViewController.h"
-#import "ZFClassifyCollectionViewController.h"
-static NSString * cell_guessID = @"GuessCell";
-static NSString * cell_listID = @"ZFMainListCell";
-static NSString * cell_hotID = @"HotTableViewCell";
+
+#import "HomeADModel.h"
+#import "HomeGuessModel.h"
+
+
+
+static NSString * cell_guessID = @"GuessCellid";
+static NSString * cell_listID = @"FuncListTableViewCellid";
+static NSString * cell_hotID = @"HotTableViewCellid";
 
 
 typedef NS_ENUM(NSUInteger, CellType) {
@@ -26,29 +33,50 @@ typedef NS_ENUM(NSUInteger, CellType) {
     CellTypeWithGuessCell,
     
 };
-@interface FinGoodsViewController ()<SDCycleScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,
-    ZFMainListCellDelegate
->
-
+@interface FinGoodsViewController ()<SDCycleScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
+{
+    NSInteger _pageSize;//每页显示条数
+    NSInteger _pageIndex;//当前页码;
+    
+}
 @property(strong,nonatomic)UIView * CircleHeadView;
 @property(strong,nonatomic)UITableView * findGoods_TableView;
 @property(strong,nonatomic)SDCycleScrollView *cycleScrollView ;
 @property(strong,nonatomic)UICollectionView *collectView ;
 
+@property(strong,nonatomic)NSMutableArray * adArray;//广告轮播
+@property(strong,nonatomic)NSMutableArray * likeListArray;//喜欢列表
+
 
 @end
 
 @implementation FinGoodsViewController
+-(NSMutableArray *)adArray{
+    if (!_adArray) {
+        _adArray =[ NSMutableArray array];
+    }
+    return _adArray;
+}
+
+-(NSMutableArray *)likeListArray{
+    if (!_likeListArray) {
+        _likeListArray =[ NSMutableArray array];
+    }
+    return _likeListArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
- 
-    [self initWithFindGoods_TableView];
+
+    [self initWithFindGoodsTableView];
     
-    [self CDsyceleSettingRunningPaint];
+    _pageSize = 10;
+    _pageIndex = 1;
     
-    
+    [self ADpagePostRequst];
+    [self guessYouLikePostRequst];
+
 }
 
 ///全部分类
@@ -56,25 +84,32 @@ typedef NS_ENUM(NSUInteger, CellType) {
 {
     
     NSLog(@"进来?");
-    ZFClassifyCollectionViewController * classifyVC = [[ZFClassifyCollectionViewController alloc]init];
-    [self.navigationController pushViewController:classifyVC animated:NO];
+
+//        [self FuncListPostRequst];
+    //    [self HotsalesPostRequst];
+
+    
+    //    ZFClassifyCollectionViewController * classifyVC = [[ZFClassifyCollectionViewController alloc]init];
+    //    [self.navigationController pushViewController:classifyVC animated:NO];
 }
 /**
  初始化home_tableView
  */
--(void)initWithFindGoods_TableView
+-(void)initWithFindGoodsTableView
 {
     
-    self.findGoods_TableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -48-64-44) style:UITableViewStylePlain];
+    self.findGoods_TableView = [[UITableView alloc]initWithFrame:
+                                CGRectMake(0, 0, KScreenW, KScreenH -48-64-44) style:UITableViewStylePlain];
     self.findGoods_TableView.delegate = self;
     self.findGoods_TableView.dataSource = self;
+    
     [self.view addSubview:_findGoods_TableView];
-    
-    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil] forCellReuseIdentifier:@"GuessCell"];
-    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"ZFMainListCell" bundle:nil] forCellReuseIdentifier:@"ZFMainListCell"];
-    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"HotTableViewCell" bundle:nil] forCellReuseIdentifier:@"HotTableViewCell"];
-    
-    
+    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil]
+                   forCellReuseIdentifier:cell_guessID];
+    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"FuncListTableViewCell" bundle:nil]
+                   forCellReuseIdentifier:cell_listID];
+    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"HotTableViewCell" bundle:nil]
+                   forCellReuseIdentifier:cell_hotID];
 }
 
 /**
@@ -89,23 +124,18 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(void)CDsyceleSettingRunningPaint
 {
     self.title = @"轮播Demo";
-    // 情景二：采用网络图片实现
-    NSArray *imagesURLStrings = @[
-                                  @"https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a4b3d7085dee3d6d2293d48b252b5910/0e2442a7d933c89524cd5cd4d51373f0830200ea.jpg",
-                                  @"https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a41eb338dd33c895a62bcb3bb72e47c2/5fdf8db1cb134954a2192ccb524e9258d1094a1e.jpg",
-                                  @"http://c.hiphotos.baidu.com/image/w%3D400/sign=c2318ff84334970a4773112fa5c8d1c0/b7fd5266d0160924c1fae5ccd60735fae7cd340d.jpg"
-                                  ];
-
+    
+    
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 150) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
+    _cycleScrollView.imageURLStringsGroup = self.adArray;
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
     _cycleScrollView.delegate = self;
     
     //自定义dot 大小和图案pageControlCurrentDot
     _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
     _cycleScrollView.pageDotImage = [UIImage imageNamed:@"dot_selected"];
-//    _cycleScrollView.titlesGroup = titles;
+    //    _cycleScrollView.titlesGroup = titles;
     
     _cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
     _cycleScrollView.placeholderImage = [UIImage imageNamed:@"placeholder"];
@@ -183,7 +213,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
         [headView addSubview:logo2];
         return headView;
         
-        
     }
     
     return headView;
@@ -191,35 +220,45 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 ) {
-        return 165;
+        return 170;
     }
-        if (indexPath.section == 1 ) {
-            return 125;
-        }
-    return  106;
+    if (indexPath.section == 1 ) {
+        return 135;
+    }
+    return  100;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    HomeGuessModel *guesslist  =[HomeGuessModel new];
+    if (indexPath.row < self.likeListArray.count) {
+        
+        guesslist = self.likeListArray[indexPath.row];
+    }
     
     if (indexPath.section == CellTypeWithMainListCell ) {
         
-        ZFMainListCell * listCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_listID forIndexPath:indexPath];
-        listCell.delegate = self;
+        FuncListTableViewCell * listCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_listID forIndexPath:indexPath];
         
         return listCell;
         
     }else if(indexPath.section == CellTypeWithHotTableViewCell )
     {
-        
         HotTableViewCell * hotCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_hotID forIndexPath:indexPath];
-
-    
         
         return hotCell;
     }else{
         
         GuessCell *guessCell = [self.findGoods_TableView  dequeueReusableCellWithIdentifier:cell_guessID forIndexPath:indexPath];
         
+        NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",guesslist.coverImgUrl]];
+        [guessCell.guess_listView sd_setImageWithURL:img_url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+        }];
+        guessCell.lb_goodsName.text = guesslist.goodsName;
+        guessCell.lb_price.text = [NSString stringWithFormat:@"促销价：¥%@",guesslist.netPurchasePrice];
+        guessCell.lb_storeName.text = guesslist.storeName;
+        guessCell.lb_collectNum.text = @"120";
+        guessCell.lb_distence.text = @"1.5km";
         
         return guessCell;
     }
@@ -229,10 +268,108 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);
-
+    
     DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
     [self.navigationController pushViewController:findVCgoods animated:YES];
     
+}
+
+#pragma mark - 广告轮播-getAdImageInfo网络请求
+-(void)ADpagePostRequst
+{
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getAdImageInfo",
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             
+                             };
+    
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            if (self.adArray.count >0) {
+                
+                [self.adArray  removeAllObjects];
+                
+            }else{
+                
+                [self.view makeToast:@"请求成功" duration:2 position:@"center" ];
+                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+                NSArray * dictArray = jsondic [@"cmAdvertImgList"];
+                
+                //mjextention 数组转模型
+                NSArray *storArray = [HomeADModel mj_objectArrayWithKeyValuesArray:dictArray];
+                for (HomeADModel *adlist in storArray) {
+                    
+                    [self.adArray addObject:adlist.imgUrl];
+                }
+                NSLog(@"广告页 =adArray = %@",  self.adArray);
+                [self.findGoods_TableView reloadData];
+                
+            }
+            [self CDsyceleSettingRunningPaint];
+
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
+
+#pragma mark - 猜你喜欢- getYouWillLike网络请求
+-(void)guessYouLikePostRequst
+{
+    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageSize];
+    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
+    
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getYouWillLike",
+                             @"pageSize":pageSize,//每页显示条数
+                             @"pageIndex":pageIndex,//当前页码
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             
+                             };
+    
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            if (self.likeListArray.count >0) {
+                
+                [self.likeListArray  removeAllObjects];
+                
+            }else{
+                [self.view makeToast:@"请求成功" duration:2 position:@"center" ];
+                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+                NSArray * dictArray = jsondic [@"cmGoodsBrowseList"];
+                
+                //mjextention 数组转模型
+                NSArray *storArray = [HomeGuessModel mj_objectArrayWithKeyValuesArray:dictArray];
+                for (HomeGuessModel *guesslist in storArray) {
+                    
+                    [self.likeListArray addObject:guesslist];
+                }
+                NSLog(@"likeListArray = %@",  self.likeListArray);
+                [self.findGoods_TableView reloadData];
+                
+            }
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
 }
 
 

@@ -35,8 +35,8 @@
 #import "HDAlertView.h"//底框
 #import "NSObject+Property.h"//collctionViewController
 #import "HYBStarEvaluationView.h"//评价星星
-#import <YYModel/YYModel.h>
-
+//#import <YYModel/YYModel.h>
+#import "MJExtension.h"
 
 
 #import "Macros.h"

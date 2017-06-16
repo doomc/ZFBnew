@@ -9,6 +9,23 @@
 #import <UIKit/UIKit.h>
 
 @interface GuessCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *guess_listView;
+/** 视图URL */
+@property (weak, nonatomic) IBOutlet UIImageView *guess_listView
+;
+/** 商品名字 */
+@property (weak, nonatomic) IBOutlet UILabel *lb_goodsName;
+
+/** 价格 */
+@property (weak, nonatomic) IBOutlet UILabel *lb_price;
+
+/** 网购价格 */
+@property (weak, nonatomic) IBOutlet UILabel *lb_netPurchasePrice;
+
+/** 门店名称 */
+@property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_distence;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_collectNum;
 
 @end

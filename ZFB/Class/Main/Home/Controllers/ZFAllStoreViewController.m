@@ -11,20 +11,30 @@
 #import "SDCycleScrollView.h"
 
 #import "DetailStoreViewController.h"
+#import "AllStoreModel.h"
 
 @interface ZFAllStoreViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
+{
+    NSInteger _pageSize;//每页显示条数
+    NSInteger _pageIndex;//当前页码;
+    NSInteger _starNum;//星星个数;
 
+}
+@property(nonatomic,strong) NSMutableArray * allStoreArray;//数据源
 @property(nonatomic,strong) UITableView * all_tableview;
 @property(nonatomic,strong) UIView * sectionView;
-
 @property(nonatomic,strong) UIButton * farway_btn;
 @property(nonatomic,strong) UIButton * all_btn;
-
-@property (nonatomic,weak)UIButton *selectedBtn;
+@property(nonatomic,weak) UIButton *selectedBtn;
 @end
 
 @implementation ZFAllStoreViewController
-
+-(NSMutableArray *)allStoreArray{
+    if (!_allStoreArray) {
+        _allStoreArray =[NSMutableArray array];
+    }
+    return _allStoreArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -35,6 +45,12 @@
     [self initAll_tableviewInterface];
     [self CDsyceleSettingRunningPaint];
     [self creatButtonWithDouble];
+    
+    //默认一个页码 和 页数
+    _pageSize = 10;
+    _pageIndex = 1;
+    [self allStorePostRequst];
+    
 }
 
 -(void)initAll_tableviewInterface
@@ -114,8 +130,20 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 
 {
+    AllStoreModel * listModel =  [AllStoreModel new];
+    if (indexPath.row < [self.allStoreArray count]) {
+        
+        listModel  = [self.allStoreArray objectAtIndex:indexPath.row];
+    }
     AllStoreCell *all_cell = [self.all_tableview dequeueReusableCellWithIdentifier:@"AllStoreCell" forIndexPath:indexPath];
+  
+    all_cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    CGFloat juli = [listModel.juli floatValue]*0.001;
+    all_cell.lb_distance.text = [NSString stringWithFormat:@"%.2f公里",juli];
+    [all_cell.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
+    
     return all_cell;
+
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -187,10 +215,66 @@
     [self.all_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.all_btn.backgroundColor =  HEXCOLOR(0xffcccc);
     
+}
+#pragma mark - 全部门店网络请求
+-(void)allStorePostRequst
+{
     
+    //    NSString * longitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.longitude];
+    //    NSString * latitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.latitude];
+    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageSize];
+    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
     
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getCmStoreInfo",
+                             @"longitude":@"",//经度
+                             @"latitude":@"" ,//纬度
+                             @"pageSize":pageSize,//每页显示条数
+                             @"pageIndex":pageIndex,//当前页码
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             
+                             };
     
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        NSLog(@"  %@  = responseObject  " ,responseObject);
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+            if (self.allStoreArray.count >0) {
+                
+                [self.allStoreArray  removeAllObjects];
+                
+            }else{
+                
+                [self.view makeToast:@"请求成功" duration:2 position:@"center" ];
+                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+                NSArray * dictArray = jsondic [@"cmStoreList"];
+                
+                //mjextention 数组转模型
+                NSArray *storArray = [AllStoreModel mj_objectArrayWithKeyValuesArray:dictArray];
+                
+                for (AllStoreModel *list in storArray) {
+                    
+                    [self.allStoreArray addObject:list];
+                }
+                NSLog(@"storeListArr = %@",   self.allStoreArray);
+                
+                [self.all_tableview reloadData];
+            }
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
 }
 
 @end

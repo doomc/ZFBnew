@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface HotCollectionViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *img_listImgView;
+
+@property (weak, nonatomic) IBOutlet UIImageView *img_hotImgView;
+
+/** 价格 */
+@property (weak, nonatomic) IBOutlet UILabel *lb_price;
+
+
+
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 
 @end

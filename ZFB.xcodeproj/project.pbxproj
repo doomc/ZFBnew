@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		287E1D51FE976BE2DCE0A71B /* libPods-ZFB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2E471759A11D3682520CF1E /* libPods-ZFB.a */; };
-		4914FB0D1EF2826400B968E8 /* StoreListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914FB0C1EF2826400B968E8 /* StoreListModel.m */; };
+		4914FB0D1EF2826400B968E8 /* HomeStoreListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914FB0C1EF2826400B968E8 /* HomeStoreListModel.m */; };
 		49156C551EEFECB900E5C13E /* HDAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49156C4D1EEFECB900E5C13E /* HDAlertView.m */; };
 		49156C561EEFECB900E5C13E /* NSString+HDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 49156C501EEFECB900E5C13E /* NSString+HDExtension.m */; };
 		49156C571EEFECB900E5C13E /* UIImage+HDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 49156C521EEFECB900E5C13E /* UIImage+HDExtension.m */; };
@@ -54,6 +54,20 @@
 		493ADAE91ED554E500CB2866 /* s_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 493ADAE51ED554E500CB2866 /* s_normal@3x.png */; };
 		493ADAEA1ED554E500CB2866 /* s_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 493ADAE61ED554E500CB2866 /* s_Selected@2x.png */; };
 		493ADAEB1ED554E500CB2866 /* s_Selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 493ADAE71ED554E500CB2866 /* s_Selected@3x.png */; };
+		493D83691EF3A3DA005983AA /* HomeADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 493D83681EF3A3DA005983AA /* HomeADModel.m */; };
+		493D836C1EF3A3F0005983AA /* HomeFuncModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 493D836B1EF3A3F0005983AA /* HomeFuncModel.m */; };
+		493D836F1EF3A407005983AA /* HomeHotModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 493D836E1EF3A407005983AA /* HomeHotModel.m */; };
+		493D83721EF3A419005983AA /* HomeGuessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 493D83711EF3A419005983AA /* HomeGuessModel.m */; };
+		493D83761EF3BD1A005983AA /* FuncListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493D83741EF3BD1A005983AA /* FuncListTableViewCell.m */; };
+		493D83771EF3BD1A005983AA /* FuncListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493D83751EF3BD1A005983AA /* FuncListTableViewCell.xib */; };
+		493D83801EF3BD76005983AA /* FuncListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493D837E1EF3BD76005983AA /* FuncListCollectionViewCell.m */; };
+		493D83811EF3BD76005983AA /* FuncListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493D837F1EF3BD76005983AA /* FuncListCollectionViewCell.xib */; };
+		493D83861EF3DD35005983AA /* 点赞@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 493D83821EF3DD35005983AA /* 点赞@2x.png */; };
+		493D83871EF3DD35005983AA /* 点赞@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 493D83831EF3DD35005983AA /* 点赞@3x.png */; };
+		493D83881EF3DD35005983AA /* 距离@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 493D83841EF3DD35005983AA /* 距离@2x.png */; };
+		493D83891EF3DD35005983AA /* 距离@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 493D83851EF3DD35005983AA /* 距离@3x.png */; };
+		493D838C1EF3E351005983AA /* AllStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 493D838B1EF3E351005983AA /* AllStoreModel.m */; };
+		493D838F1EF3E793005983AA /* DetailStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 493D838E1EF3E793005983AA /* DetailStoreModel.m */; };
 		4943AED01EF0D3D600803973 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AECB1EF0D3D600803973 /* YBPopupMenu.m */; };
 		4943AED11EF0D3D600803973 /* YBPopupMenuPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AECD1EF0D3D600803973 /* YBPopupMenuPath.m */; };
 		4943AED21EF0D3D600803973 /* YBRectConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AECF1EF0D3D600803973 /* YBRectConst.m */; };
@@ -239,8 +253,6 @@
 		49DF71731EEAA9B20021EE92 /* HotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DF70661EEAA9B10021EE92 /* HotTableViewCell.xib */; };
 		49DF71741EEAA9B20021EE92 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70681EEAA9B10021EE92 /* SearchCell.m */; };
 		49DF71751EEAA9B20021EE92 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DF70691EEAA9B10021EE92 /* SearchCell.xib */; };
-		49DF71761EEAA9B20021EE92 /* ZFMainListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF706B1EEAA9B10021EE92 /* ZFMainListCell.m */; };
-		49DF71771EEAA9B20021EE92 /* ZFMainListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DF706C1EEAA9B10021EE92 /* ZFMainListCell.xib */; };
 		49DF71781EEAA9B20021EE92 /* ZFMyOpinionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF706E1EEAA9B10021EE92 /* ZFMyOpinionCell.m */; };
 		49DF71791EEAA9B20021EE92 /* ZFMyOpinionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DF706F1EEAA9B10021EE92 /* ZFMyOpinionCell.xib */; };
 		49DF717A1EEAA9B20021EE92 /* ZFHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70711EEAA9B10021EE92 /* ZFHomeViewController.m */; };
@@ -559,8 +571,8 @@
 
 /* Begin PBXFileReference section */
 		3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.debug.xcconfig"; sourceTree = "<group>"; };
-		4914FB0B1EF2826400B968E8 /* StoreListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreListModel.h; sourceTree = "<group>"; };
-		4914FB0C1EF2826400B968E8 /* StoreListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreListModel.m; sourceTree = "<group>"; };
+		4914FB0B1EF2826400B968E8 /* HomeStoreListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeStoreListModel.h; sourceTree = "<group>"; };
+		4914FB0C1EF2826400B968E8 /* HomeStoreListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeStoreListModel.m; sourceTree = "<group>"; };
 		49156C4C1EEFECB900E5C13E /* HDAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDAlertView.h; sourceTree = "<group>"; };
 		49156C4D1EEFECB900E5C13E /* HDAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDAlertView.m; sourceTree = "<group>"; };
 		49156C4F1EEFECB900E5C13E /* NSString+HDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HDExtension.h"; sourceTree = "<group>"; };
@@ -647,6 +659,28 @@
 		493ADAE51ED554E500CB2866 /* s_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "s_normal@3x.png"; sourceTree = "<group>"; };
 		493ADAE61ED554E500CB2866 /* s_Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "s_Selected@2x.png"; sourceTree = "<group>"; };
 		493ADAE71ED554E500CB2866 /* s_Selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "s_Selected@3x.png"; sourceTree = "<group>"; };
+		493D83671EF3A3DA005983AA /* HomeADModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeADModel.h; sourceTree = "<group>"; };
+		493D83681EF3A3DA005983AA /* HomeADModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeADModel.m; sourceTree = "<group>"; };
+		493D836A1EF3A3F0005983AA /* HomeFuncModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFuncModel.h; sourceTree = "<group>"; };
+		493D836B1EF3A3F0005983AA /* HomeFuncModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeFuncModel.m; sourceTree = "<group>"; };
+		493D836D1EF3A407005983AA /* HomeHotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeHotModel.h; sourceTree = "<group>"; };
+		493D836E1EF3A407005983AA /* HomeHotModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeHotModel.m; sourceTree = "<group>"; };
+		493D83701EF3A419005983AA /* HomeGuessModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeGuessModel.h; sourceTree = "<group>"; };
+		493D83711EF3A419005983AA /* HomeGuessModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeGuessModel.m; sourceTree = "<group>"; };
+		493D83731EF3BD1A005983AA /* FuncListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FuncListTableViewCell.h; sourceTree = "<group>"; };
+		493D83741EF3BD1A005983AA /* FuncListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FuncListTableViewCell.m; sourceTree = "<group>"; };
+		493D83751EF3BD1A005983AA /* FuncListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FuncListTableViewCell.xib; sourceTree = "<group>"; };
+		493D837D1EF3BD76005983AA /* FuncListCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FuncListCollectionViewCell.h; sourceTree = "<group>"; };
+		493D837E1EF3BD76005983AA /* FuncListCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FuncListCollectionViewCell.m; sourceTree = "<group>"; };
+		493D837F1EF3BD76005983AA /* FuncListCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FuncListCollectionViewCell.xib; sourceTree = "<group>"; };
+		493D83821EF3DD35005983AA /* 点赞@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "点赞@2x.png"; sourceTree = "<group>"; };
+		493D83831EF3DD35005983AA /* 点赞@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "点赞@3x.png"; sourceTree = "<group>"; };
+		493D83841EF3DD35005983AA /* 距离@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "距离@2x.png"; sourceTree = "<group>"; };
+		493D83851EF3DD35005983AA /* 距离@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "距离@3x.png"; sourceTree = "<group>"; };
+		493D838A1EF3E351005983AA /* AllStoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllStoreModel.h; sourceTree = "<group>"; };
+		493D838B1EF3E351005983AA /* AllStoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllStoreModel.m; sourceTree = "<group>"; };
+		493D838D1EF3E793005983AA /* DetailStoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailStoreModel.h; sourceTree = "<group>"; };
+		493D838E1EF3E793005983AA /* DetailStoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailStoreModel.m; sourceTree = "<group>"; };
 		4943AECA1EF0D3D600803973 /* YBPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenu.h; sourceTree = "<group>"; };
 		4943AECB1EF0D3D600803973 /* YBPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenu.m; sourceTree = "<group>"; };
 		4943AECC1EF0D3D600803973 /* YBPopupMenuPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenuPath.h; sourceTree = "<group>"; };
@@ -930,9 +964,6 @@
 		49DF70671EEAA9B10021EE92 /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
 		49DF70681EEAA9B10021EE92 /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
 		49DF70691EEAA9B10021EE92 /* SearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
-		49DF706A1EEAA9B10021EE92 /* ZFMainListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFMainListCell.h; sourceTree = "<group>"; };
-		49DF706B1EEAA9B10021EE92 /* ZFMainListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFMainListCell.m; sourceTree = "<group>"; };
-		49DF706C1EEAA9B10021EE92 /* ZFMainListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFMainListCell.xib; sourceTree = "<group>"; };
 		49DF706D1EEAA9B10021EE92 /* ZFMyOpinionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFMyOpinionCell.h; sourceTree = "<group>"; };
 		49DF706E1EEAA9B10021EE92 /* ZFMyOpinionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFMyOpinionCell.m; sourceTree = "<group>"; };
 		49DF706F1EEAA9B10021EE92 /* ZFMyOpinionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFMyOpinionCell.xib; sourceTree = "<group>"; };
@@ -1387,8 +1418,20 @@
 		4914FB0A1EF2824C00B968E8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4914FB0B1EF2826400B968E8 /* StoreListModel.h */,
-				4914FB0C1EF2826400B968E8 /* StoreListModel.m */,
+				4914FB0B1EF2826400B968E8 /* HomeStoreListModel.h */,
+				4914FB0C1EF2826400B968E8 /* HomeStoreListModel.m */,
+				493D83671EF3A3DA005983AA /* HomeADModel.h */,
+				493D83681EF3A3DA005983AA /* HomeADModel.m */,
+				493D836A1EF3A3F0005983AA /* HomeFuncModel.h */,
+				493D836B1EF3A3F0005983AA /* HomeFuncModel.m */,
+				493D836D1EF3A407005983AA /* HomeHotModel.h */,
+				493D836E1EF3A407005983AA /* HomeHotModel.m */,
+				493D83701EF3A419005983AA /* HomeGuessModel.h */,
+				493D83711EF3A419005983AA /* HomeGuessModel.m */,
+				493D838A1EF3E351005983AA /* AllStoreModel.h */,
+				493D838B1EF3E351005983AA /* AllStoreModel.m */,
+				493D838D1EF3E793005983AA /* DetailStoreModel.h */,
+				493D838E1EF3E793005983AA /* DetailStoreModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2308,12 +2351,15 @@
 				49DF70641EEAA9B10021EE92 /* HotTableViewCell.h */,
 				49DF70651EEAA9B10021EE92 /* HotTableViewCell.m */,
 				49DF70661EEAA9B10021EE92 /* HotTableViewCell.xib */,
+				493D83731EF3BD1A005983AA /* FuncListTableViewCell.h */,
+				493D83741EF3BD1A005983AA /* FuncListTableViewCell.m */,
+				493D83751EF3BD1A005983AA /* FuncListTableViewCell.xib */,
+				493D837D1EF3BD76005983AA /* FuncListCollectionViewCell.h */,
+				493D837E1EF3BD76005983AA /* FuncListCollectionViewCell.m */,
+				493D837F1EF3BD76005983AA /* FuncListCollectionViewCell.xib */,
 				49DF70671EEAA9B10021EE92 /* SearchCell.h */,
 				49DF70681EEAA9B10021EE92 /* SearchCell.m */,
 				49DF70691EEAA9B10021EE92 /* SearchCell.xib */,
-				49DF706A1EEAA9B10021EE92 /* ZFMainListCell.h */,
-				49DF706B1EEAA9B10021EE92 /* ZFMainListCell.m */,
-				49DF706C1EEAA9B10021EE92 /* ZFMainListCell.xib */,
 				49DF706D1EEAA9B10021EE92 /* ZFMyOpinionCell.h */,
 				49DF706E1EEAA9B10021EE92 /* ZFMyOpinionCell.m */,
 				49DF706F1EEAA9B10021EE92 /* ZFMyOpinionCell.xib */,
@@ -3014,6 +3060,10 @@
 		49F113521ECC5547000F3BF7 /* 首页2 */ = {
 			isa = PBXGroup;
 			children = (
+				493D83821EF3DD35005983AA /* 点赞@2x.png */,
+				493D83831EF3DD35005983AA /* 点赞@3x.png */,
+				493D83841EF3DD35005983AA /* 距离@2x.png */,
+				493D83851EF3DD35005983AA /* 距离@3x.png */,
 				49D6E7241ED9789A000A837E /* fire@2x.png */,
 				49D6E7251ED9789A000A837E /* fire@3x.png */,
 				49D6E7261ED9789A000A837E /* love@2x.png */,
@@ -3326,6 +3376,7 @@
 				49F272621EEA69D7005D49AD /* navback_white@2x.png in Resources */,
 				49FB3C7F1ECD943C0090075D /* shoppingCar@3x.png in Resources */,
 				494F07001ED42DED007EC66A /* reduce@2x.png in Resources */,
+				493D83861EF3DD35005983AA /* 点赞@2x.png in Resources */,
 				49C95F161ED295AF004EA811 /* sendComplete_normal@3x.png in Resources */,
 				49F113A41ECC5547000F3BF7 /* more_icon@3x.png in Resources */,
 				49F1135B1ECC5547000F3BF7 /* arrows_down_white@2x.png in Resources */,
@@ -3333,6 +3384,7 @@
 				49F113691ECC5547000F3BF7 /* bag_selected@2x.png in Resources */,
 				49F1138B1ECC5547000F3BF7 /* wait_payfor@2x.png in Resources */,
 				49F1138D1ECC5547000F3BF7 /* diamond@2x.png in Resources */,
+				493D83881EF3DD35005983AA /* 距离@2x.png in Resources */,
 				49F113921ECC5547000F3BF7 /* arrows_down_gray@3x.png in Resources */,
 				49FB3C361ECD48CB0090075D /* searchBar@2x.png in Resources */,
 				49DF716B1EEAA9B20021EE92 /* AllStoreCell.xib in Resources */,
@@ -3367,6 +3419,7 @@
 				49FB3C891ECD95C50090075D /* mine_selected@3x.png in Resources */,
 				49C95F0B1ED295AF004EA811 /* Order_down@2x.png in Resources */,
 				49F1137C1ECC5547000F3BF7 /* nav_back@3x.png in Resources */,
+				493D83891EF3DD35005983AA /* 距离@3x.png in Resources */,
 				49F113851ECC5547000F3BF7 /* sending_icon@2x.png in Resources */,
 				49DF717E1EEAA9B20021EE92 /* ZFCollectBarView.xib in Resources */,
 				494F06F21ED42907007EC66A /* select_normal@2x.png in Resources */,
@@ -3415,8 +3468,8 @@
 				49F113811ECC5547000F3BF7 /* order_icon@2x.png in Resources */,
 				49C95F0D1ED295AF004EA811 /* Order_normal@2x.png in Resources */,
 				49DF6FFD1EEA94D80021EE92 /* blankpage_image_loadFail@2x.png in Resources */,
+				493D83871EF3DD35005983AA /* 点赞@3x.png in Resources */,
 				49D6E7291ED9789A000A837E /* fire@3x.png in Resources */,
-				49DF71771EEAA9B20021EE92 /* ZFMainListCell.xib in Resources */,
 				49DF71AE1EEAA9B20021EE92 /* ZFSendSerViceViewController.xib in Resources */,
 				49DF6FCE1EEA927C0021EE92 /* addressData.plist in Resources */,
 				493ADAE91ED554E500CB2866 /* s_normal@3x.png in Resources */,
@@ -3451,6 +3504,7 @@
 				49D6E72B1ED9789A000A837E /* love@3x.png in Resources */,
 				49DF71971EEAA9B20021EE92 /* ZFDefaultAddressCell.xib in Resources */,
 				49E0A0A01ED5344C00AEE354 /* ipone@2x.png in Resources */,
+				493D83771EF3BD1A005983AA /* FuncListTableViewCell.xib in Resources */,
 				49F113881ECC5547000F3BF7 /* setting@3x.png in Resources */,
 				49DF71A91EEAA9B20021EE92 /* ZFSendHomeListCell.xib in Resources */,
 				49E0A0A31ED5344C00AEE354 /* message@3x.png in Resources */,
@@ -3550,6 +3604,7 @@
 				49C6CFEA1EDFDB2B00652CDB /* setting_ps@2x.png in Resources */,
 				49DF71AB1EEAA9B20021EE92 /* ZFSendingCell.xib in Resources */,
 				49DF71A71EEAA9B20021EE92 /* ZFSendHomeCell.xib in Resources */,
+				493D83811EF3BD76005983AA /* FuncListCollectionViewCell.xib in Resources */,
 				49FB3C931ECD9F3F0090075D /* nav_right@3x.png in Resources */,
 				49D6E7101ED96DE4000A837E /* cases@3x.png in Resources */,
 				49FB3C731ECD943C0090075D /* circle@3x.png in Resources */,
@@ -3650,6 +3705,7 @@
 				49DF71A31EEAA9B20021EE92 /* ZFSureOrderViewController.m in Sources */,
 				492757551EC4679E003C22D0 /* UIScrollView+MJRefresh.m in Sources */,
 				49DF71AD1EEAA9B20021EE92 /* ZFSendSerViceViewController.m in Sources */,
+				493D838C1EF3E351005983AA /* AllStoreModel.m in Sources */,
 				49DF6FD11EEA927C0021EE92 /* Toast+UIView.m in Sources */,
 				49DF70081EEA96340021EE92 /* introductoryPagesHelper.m in Sources */,
 				49DF6FEA1EEA927C0021EE92 /* UIView+ZFCornerRadius.m in Sources */,
@@ -3670,6 +3726,7 @@
 				49DF715B1EEAA9B20021EE92 /* ZFGoodsFooterView.m in Sources */,
 				492757451EC4679E003C22D0 /* MJRefreshBackFooter.m in Sources */,
 				49DF71661EEAA9B20021EE92 /* FindCircleViewController.m in Sources */,
+				493D83721EF3A419005983AA /* HomeGuessModel.m in Sources */,
 				49801C911ECE870100EDAA53 /* UIColor+PYExtension.m in Sources */,
 				49DF71651EEAA9B20021EE92 /* ZFEvaluateViewController.m in Sources */,
 				49DF715E1EEAA9B20021EE92 /* ZFLocationGoToStoreCell.m in Sources */,
@@ -3691,6 +3748,7 @@
 				49DF719E1EEAA9B20021EE92 /* ZFTitleCell.m in Sources */,
 				49DF71D41EEAA9B20021EE92 /* ZFAppySalesReturnViewController.m in Sources */,
 				49DF6FD41EEA927C0021EE92 /* MD5Tool.m in Sources */,
+				493D836F1EF3A407005983AA /* HomeHotModel.m in Sources */,
 				49DF71AF1EEAA9B20021EE92 /* ApplySalesNumCell.m in Sources */,
 				49DF6FD71EEA927C0021EE92 /* NSString+RegexCategory.m in Sources */,
 				49DF719C1EEAA9B20021EE92 /* ZFShopListCell.m in Sources */,
@@ -3722,7 +3780,7 @@
 				49DF718C1EEAA9B20021EE92 /* GoodsitemCell.m in Sources */,
 				49DF6FE71EEA927C0021EE92 /* CustomFooterView.m in Sources */,
 				49DF71AA1EEAA9B20021EE92 /* ZFSendingCell.m in Sources */,
-				4914FB0D1EF2826400B968E8 /* StoreListModel.m in Sources */,
+				4914FB0D1EF2826400B968E8 /* HomeStoreListModel.m in Sources */,
 				49801C8E1ECE870100EDAA53 /* PYSearchConst.m in Sources */,
 				49DF719A1EEAA9B20021EE92 /* ZFOrderListCell.m in Sources */,
 				49DF71CF1EEAA9B20021EE92 /* ZFSettingHeaderCell.m in Sources */,
@@ -3753,6 +3811,7 @@
 				49DF6FDD1EEA927C0021EE92 /* UITapImageView.m in Sources */,
 				492757531EC4679E003C22D0 /* MJRefreshConst.m in Sources */,
 				49DF6FDE1EEA927C0021EE92 /* NSDictionary+TJSafe.m in Sources */,
+				493D83801EF3BD76005983AA /* FuncListCollectionViewCell.m in Sources */,
 				498DE0E01EE6801600F64A61 /* GVUserDefaults.m in Sources */,
 				49DF70091EEA96340021EE92 /* introductoryPagesView.m in Sources */,
 				4927521C1EC44DFC003C22D0 /* AppDelegate.m in Sources */,
@@ -3803,10 +3862,11 @@
 				49DF6FD91EEA927C0021EE92 /* ZZYPhotoHelper.m in Sources */,
 				4943AEF31EF0DA8200803973 /* LeftTableViewCell.m in Sources */,
 				49DF71D91EEAA9B20021EE92 /* ZFFeedbackViewController.m in Sources */,
+				493D83761EF3BD1A005983AA /* FuncListTableViewCell.m in Sources */,
 				49156C561EEFECB900E5C13E /* NSString+HDExtension.m in Sources */,
 				49801C901ECE870100EDAA53 /* PYSearchViewController.m in Sources */,
 				49DF71DF1EEAA9B20021EE92 /* ZFMainPayforViewController.m in Sources */,
-				49DF71761EEAA9B20021EE92 /* ZFMainListCell.m in Sources */,
+				493D838F1EF3E793005983AA /* DetailStoreModel.m in Sources */,
 				49DF72041EEAAA5B0021EE92 /* ZFbaseTabbarViewController.m in Sources */,
 				492757471EC4679E003C22D0 /* MJRefreshFooter.m in Sources */,
 				49DF71D81EEAA9B20021EE92 /* ZFDetailOrderViewController.m in Sources */,
@@ -3831,6 +3891,7 @@
 				49DF71E31EEAA9B20021EE92 /* ZFOrderDetailCell.m in Sources */,
 				49DF71871EEAA9B20021EE92 /* ZFMyProgressCell.m in Sources */,
 				509D1F771ECDD9AC00D70444 /* ZFCoverView.m in Sources */,
+				493D83691EF3A3DA005983AA /* HomeADModel.m in Sources */,
 				4993CD241EEFAB5B00CDE5FA /* HPLocationCell.m in Sources */,
 				503BEC111ED72324004FC36C /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				49DF71641EEAA9B20021EE92 /* ZFAllStoreViewController.m in Sources */,
@@ -3845,6 +3906,7 @@
 				49DF6FE11EEA927C0021EE92 /* DCNavTabBarController.m in Sources */,
 				49DF71701EEAA9B20021EE92 /* HotCollectionViewCell.m in Sources */,
 				49DF6FE01EEA927C0021EE92 /* ControlFactory.m in Sources */,
+				493D836C1EF3A3F0005983AA /* HomeFuncModel.m in Sources */,
 				4943AEFF1EF0E0B100803973 /* ZFClassifyCollectionViewController.m in Sources */,
 				5019FFB91ECCAEF800325342 /* UIView+WebCacheOperation.m in Sources */,
 				492757441EC4679E003C22D0 /* MJRefreshAutoFooter.m in Sources */,
@@ -4039,7 +4101,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4060,7 +4122,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

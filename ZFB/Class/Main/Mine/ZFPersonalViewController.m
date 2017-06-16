@@ -24,6 +24,7 @@
 #import "ZFPersonalHeaderView.h"
 #import "ZFFeedbackViewController.h"
 
+#import "ZFPersonalHeaderView.h"
 typedef NS_ENUM(NSUInteger, TypeCell) {
     TypeCellOfMyCashBagCell,
     TypeCellOfMyProgressCell,
@@ -51,20 +52,19 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 
     [self initmyTableViewInterface];
  
- 
 
     //判断是否已经登录
-    if ( [BBUserDefault.userStatus isEqualToString:@"1" ]) {
-        UIView * logView = [self.headview viewWithTag:912];//登录后的图
-        [logView removeFromSuperview];
-   
-    }
-    else if ( [BBUserDefault.userStatus isEqualToString:@"0" ]) {
-         //移除登录视图
-        UIView * unlogView = [self.headview viewWithTag:911];//没登录之前的图
-        [unlogView removeFromSuperview];
-       
-    }
+//    if ( [BBUserDefault.userStatus isEqualToString:@"1" ]) {
+//        [logView setHidden:YES];
+//        [unlogView setHidden:NO];
+//   
+//    }
+//    else if ( [BBUserDefault.userStatus isEqualToString:@"0" ]) {
+//         //移除登录视图
+//        [unlogView setHidden:YES];
+//        [logView setHidden:NO];
+//
+//    }
    
 }
 
@@ -88,11 +88,17 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_myTableView];
     
-    
+ 
+
     self.headview =  [[NSBundle mainBundle]loadNibNamed:@"ZFPersonalHeaderView" owner:self options:nil].lastObject;
     self.myTableView.tableHeaderView =self.headview;
     self.headview.delegate = self;
-
+    self.headview.unloginView = [self.headview viewWithTag:911];//没登录之前的图
+    self.headview.loginView = [self.headview viewWithTag:912];//登录后的图
+    self.headview.lb_collectCount.text = _collectNum;
+    self.headview.lb_historyCount.text = _foolnum;
+//    self.headview.lb_userNickname.text = _foolnum;
+    
 
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyCashBagCell" bundle:nil] forCellReuseIdentifier:@"ZFMyCashBagCell"];
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyProgressCell" bundle:nil] forCellReuseIdentifier:@"ZFMyProgressCell"];
@@ -265,9 +271,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
     NSLog(@"%@", BBUserDefault.cmUserId);
     
-    [self minePagePOSTRequste];//页面网络请求
 
-//    [self.navigationController pushViewController:collecVC animated:NO];
+    [self.navigationController pushViewController:collecVC animated:NO];
 }
 
 //浏览足记的点击事件
@@ -289,11 +294,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [self.navigationController pushViewController:headVC animated:NO];
  
 }
--(void)viewWillAppear:(BOOL)animated
-{
-    self.navigationController.navigationBar.hidden  = NO;
-    
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -339,6 +340,11 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
      }];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self minePagePOSTRequste];//页面网络请求
+
+}
 /*
  #pragma mark - Navigation
  
