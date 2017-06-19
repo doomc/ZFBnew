@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="351" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="351" height="89"/>
+                <rect key="frame" x="0.0" y="0.0" width="351" height="89.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="80B-wr-2zz">
@@ -36,15 +36,29 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dED-DQ-NIQ" customClass="PPNumberButton">
-                        <rect key="frame" x="231" y="49" width="100" height="31"/>
+                        <rect key="frame" x="231" y="55" width="100" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="f6x-Co-1qP"/>
-                            <constraint firstAttribute="height" constant="31" id="nQU-KA-7q9"/>
+                            <constraint firstAttribute="height" constant="25" id="nQU-KA-7q9"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="inputFieldFont">
-                                <real key="value" value="0.0"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="increaseImage" value="add.png"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="decreaseImage" value="reduce.png"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="minValue">
+                                <integer key="value" value="1"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="editing" value="YES"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="inputFieldFont">
+                                <real key="value" value="14"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="buttonTitleFont">
+                                <real key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="decreaseHide" value="NO"/>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="shakeAnimation" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1DU-qC-ImR">
@@ -117,6 +131,8 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="add.png" width="20" height="20"/>
+        <image name="reduce.png" width="20" height="20"/>
         <image name="select_normal.png" width="16" height="16"/>
     </resources>
 </document>

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PPNumberButton.h"
+#import "ShoppingCarModel.h"
 
 @interface ZFShopCarCell : UITableViewCell
 
@@ -29,5 +30,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_result;
 
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
+
+@property (strong ,nonatomic) ShoppingCarModel * shopModel;
 
 @end

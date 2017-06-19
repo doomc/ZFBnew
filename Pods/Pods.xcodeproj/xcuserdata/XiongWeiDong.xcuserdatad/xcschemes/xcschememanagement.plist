@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>MJExtension.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>Masonry.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -32,6 +37,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>173EF7AD4087C895C090B5BA9D41813C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1A7C1C680E4F202C06F4F788AE13ABB4</key>
 		<dict>
 			<key>primary</key>
@@ -43,6 +53,16 @@
 			<true/>
 		</dict>
 		<key>56F93C9F16DFAEED49FECBABB2387385</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5A5B82DA19ABF337EFA1A4D428531217</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5E75A934BE708BF20B9CBF5E32608C5F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -63,6 +83,11 @@
 			<true/>
 		</dict>
 		<key>9E033EDB5EC0819481B0546434FA577B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A316B54C67E947D23CECD230FA5BFAEF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -9,28 +9,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/ShoppingCar/Views/ZFShopCarCell.m"
-            timestampString = "518975894.029148"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "-awakeFromNib"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/ShoppingCar/ZFShoppingCarViewController.m"
-            timestampString = "518976119.790279"
+            timestampString = "519583663.506416"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
             landmarkName = "-selectResult:"
             landmarkType = "7">
          </BreakpointContent>
