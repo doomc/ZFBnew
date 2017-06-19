@@ -25,7 +25,7 @@
 @property (nonatomic, copy) NSString * resultCode;
 
 /** 门店星际 */
-@property (nonatomic, copy) NSString * starLevel;//starLevel
+@property (nonatomic, assign) NSInteger  starLevel;//starLevel
 
 @property (nonatomic, strong) AllStoreModel * cmStoreList;/* 自我模型类型 */
 

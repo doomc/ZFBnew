@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "XHStarRateView.h"
 @interface AllStoreCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_allStoreView;
@@ -16,6 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_distance;
 
-@property (weak, nonatomic) IBOutlet HYBStarEvaluationView *starView;
+@property (strong, nonatomic) IBOutlet XHStarRateView *starView;
+
+
 
 @end

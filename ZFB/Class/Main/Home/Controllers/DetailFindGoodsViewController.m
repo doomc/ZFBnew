@@ -15,6 +15,8 @@
 
 #import "ZFEvaluateViewController.h"
 #import "ZFSureOrderViewController.h"
+
+#import "DetailGoodsModel.h"
 typedef NS_ENUM(NSUInteger, typeCell) {
     typeCellrowOftitleCell, //0 第一行cell
     typeCellrowOfbabyCell,
@@ -22,7 +24,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     typeCellrowOflocaCell,
 };
 @interface DetailFindGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
-
+{
+    NSString * _commentNum;
+}
 @property(nonatomic,strong)UITableView * list_tableView;
 @property(nonatomic,strong)UIView * headerView;
 @property(nonatomic,strong)UIView * footerView;
@@ -32,19 +36,27 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 @property(nonatomic,strong)UIButton * addShopCar;//加入购物车
 @property(nonatomic,strong)UIButton * rightNowGo;//立即购买
 
-
-
 @property(nonatomic,strong)SDCycleScrollView* cycleScrollView;
+@property(nonatomic,strong)NSMutableArray * goodsListArray;//数据源
+
+
 @end
 
 @implementation DetailFindGoodsViewController
-
+-(NSMutableArray *)goodsListArray
+{
+    if (!_goodsListArray) {
+        _goodsListArray = [NSMutableArray array];
+    }
+    return _goodsListArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self circleViewInterface];
     [self creatInterfaceDetailTableView];
     [self settingHeaderViewAndFooterView];
+    [self goodsDetailListPostRequset];
 }
 
 -(void)circleViewInterface
@@ -190,7 +202,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     }else if (indexPath.row == typeCellrowOfbabyCell)
     {
         ZFbabyEvaluateCell  *  babyCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
-        
+        babyCell.lb_commonCount.text = [NSString stringWithFormat:@"(%@)",_commentNum];
         return babyCell;
         
     }else if (indexPath.row == typeCellrowOfGoToStoreCell)
@@ -209,9 +221,11 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         
     }   else if (indexPath.row == 4)
     {
-        ZFbabyEvaluateCell  *  babyCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
-        
-        return babyCell;
+        ZFbabyEvaluateCell  *  goodsDetailCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
+        goodsDetailCell.lb_title.text = @"宝贝详情";
+        [goodsDetailCell.lb_commonCount removeFromSuperview];
+        [goodsDetailCell.img_arrowRight removeFromSuperview];
+        return goodsDetailCell;
         
     }
     UITableViewCell  * custopmCell = [self.list_tableView dequeueReusableCellWithIdentifier:custopmCellID];
@@ -236,7 +250,66 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 }
 
 
+#pragma mark  - 商品详情 网络请求
+-(void)goodsDetailListPostRequset{
+    
+    [SVProgressHUD show];
 
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getGoodsDetailsInfo",
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"storeId":_goodsId,//商品id
+                             
+                             };
+    
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        NSLog(@"  %@  = responseObject  " ,responseObject);
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+            if (self.goodsListArray.count >0) {
+                
+                [self.goodsListArray  removeAllObjects];
+                
+            }else{
+                
+                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+                NSArray * dictArray = jsondic [@"cmGoodsDetailsList"];
+                _commentNum = jsondic[@"commentNum"];
+    
+                //mjextention 转模型数组
+                NSArray *storArray = [DetailGoodsModel mj_objectArrayWithKeyValuesArray:dictArray];
+                DetailGoodsModel *list = [DetailGoodsModel new];
+          
+//                for (DetailGoodsModel *list in storArray) {
+//  
+//                    NSDictionary * dic= list.productSku.mj_keyValues;
+//                    NSLog(@"color  ====== =%@",dic[@"reluJson"] );
+//                    [self.goodsListArray addObject:list];
+//
+//                }
+                NSLog(@"      list.address  ==== %@",        list.address );
+                
+                [self.list_tableView reloadData];
+            }
+            [SVProgressHUD dismiss];
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+        
+    }];
+   
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

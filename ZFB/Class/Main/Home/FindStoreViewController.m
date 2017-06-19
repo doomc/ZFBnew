@@ -52,6 +52,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     _pageIndex = 1;
     
     [self LocationMapManagerInit];
+    [self PostRequst];
 
     
 }
@@ -191,7 +192,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DetailStoreViewController * vc = [[DetailStoreViewController alloc]init];
-    
+    HomeStoreListModel * listModel = self.storeListArr[indexPath.row];
+    vc.storeId =listModel.storeId;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -332,8 +334,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self PostRequst];
 
+    
+ 
 
 }
 - (void)didReceiveMemoryWarning {

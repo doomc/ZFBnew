@@ -10,4 +10,8 @@
 
 @interface ZFbabyEvaluateCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_title;
+@property (weak, nonatomic) IBOutlet UILabel *lb_commonCount;
+@property (weak, nonatomic) IBOutlet UIImageView *img_arrowRight;
+
 @end

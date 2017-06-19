@@ -10,4 +10,5 @@
 
 @interface DetailFindGoodsViewController : BaseViewController
 
+@property (nonatomic , copy) NSString *goodsId;
 @end

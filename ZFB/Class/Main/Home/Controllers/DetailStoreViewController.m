@@ -13,12 +13,18 @@
 #import "ControlFactory.h"
 #import "DetailShareViewController.h"
 
+
 #import "DetailStoreModel.h"
 @interface DetailStoreViewController ()<SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     NSInteger _pageSize;//每页显示条数
     NSInteger _pageIndex;//当前页码;
- 
+    
+    NSString * _storeName;
+    NSString * _address;
+    NSString * _stroreUrl;//轮播
+    NSString * _contactPhone;
+    NSString * _payType;//到店付 1.支持 0.不支持
     
 }
 @property(nonatomic,strong) SDCycleScrollView * sd_HeadScrollView;
@@ -39,19 +45,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor =randomColor;
     
+    _pageIndex = 1;
+    _pageSize = 5;
+  
+    //////////当前页数据不全////////
+    [self detailListStorePostRequst];
     
     [self CreatCollctionViewInterface];
     [self CDsyceleSettingRunningPaint];
     [self creatHeadViewinterface];
-  
-    _pageIndex = 1;
-    _pageSize = 5;
-    
-    //////////当前页数据不全////////
-    [self detailStorePostRequst];
-    
+
 }
 
 /**
@@ -137,7 +141,7 @@
 //返回section个数
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 2;
+    return self.storeListArray.count;
 }
 
 //每个section的item个数
@@ -152,9 +156,14 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    DetailStoreModel * model = self.storeListArray[indexPath.item];
+    ZFDetailStoreCell  *cell = (ZFDetailStoreCell *)[_main_ColletionView dequeueReusableCellWithReuseIdentifier:@"ZFDetailStoreCellid" forIndexPath:indexPath];
  
-     ZFDetailStoreCell  *cell = (ZFDetailStoreCell *)[_main_ColletionView dequeueReusableCellWithReuseIdentifier:@"ZFDetailStoreCellid" forIndexPath:indexPath];
- 
+    cell.lb_Storetitle.text = model.goodsName;
+    [cell.img_storeImageView sd_setImageWithURL: [NSURL URLWithString:[NSString stringWithFormat:@"%@",model.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+    }];
+
     return cell;
 }
 
@@ -186,7 +195,7 @@
     [_sectionView addSubview:titleView];
     
     UILabel * titleText_lb = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW*0.5, 39)];
-    titleText_lb.text = @"KOTTE化妆品专卖店";
+    titleText_lb.text = _storeName;
     titleText_lb.textColor = HEXCOLOR(0xfe6d6a);
     titleText_lb.font =[UIFont systemFontOfSize:12];
     titleView.backgroundColor = [UIColor yellowColor];
@@ -197,7 +206,7 @@
     [gotoStore_btn addTarget:self action:@selector(didClickgotoStore_btn:) forControlEvents:UIControlEventTouchUpInside];
     gotoStore_btn.frame  = CGRectMake(KScreenW -100-15, 16, 100, 20);
     [gotoStore_btn setTitle:@"到店付" forState:UIControlStateNormal];
-    gotoStore_btn.backgroundColor = HEXCOLOR(0xffffff);
+//    gotoStore_btn.backgroundColor = HEXCOLOR(0xffffff);
     [titleView addSubview:gotoStore_btn];
     
     //下划线
@@ -220,7 +229,7 @@
     [locationView addSubview:icon_phone];
     
     UILabel * locatext = [[UILabel alloc]initWithFrame:CGRectMake( 40, 0, KScreenW -80, 39)];
-    locatext.text = @"渝北区新牌坊清风南路-龙湖-水晶郦城西门-组团";
+    locatext.text = _address;
     locatext.textAlignment = NSTextAlignmentLeft;
     locatext.font =[ UIFont systemFontOfSize:12.0];
     locatext.textColor = HEXCOLOR(0x363636);
@@ -313,19 +322,21 @@
 }
 
 
-
-#pragma mark - 门店详情网络请求
--(void)detailStorePostRequst
+#pragma mark - 门店详情网络商品列表 getGoodsDetailsInfo用于门店详情的接口
+-(void)detailListStorePostRequst
 {
+    
+    [SVProgressHUD show];
+    
     NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageSize];
     NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
-    
     NSDictionary * parma = @{
                              
-                             @"svcName":@"getCmStoreDetailsInfo",
+                             @"svcName":@"getGoodsDetailsInfo",
                              @"pageSize":pageSize,//每页显示条数
                              @"pageIndex":pageIndex,//当前页码
                              @"cmUserId":BBUserDefault.cmUserId,
+                             @"storeId":_storeId,//门店id
                              
                              };
     
@@ -345,10 +356,15 @@
                 
             }else{
                 
-                [self.view makeToast:@"请求成功" duration:2 position:@"center" ];
                 NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
                 NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-                NSArray * dictArray = jsondic [@"cmStoreDetailsList"];
+                NSArray * dictArray = jsondic [@"cmGoodsList"];
+                
+                _storeName = jsondic [@"cmStoreDetailsList"][@"storeName"];
+                _address = jsondic [@"cmStoreDetailsList"][@"address"];
+                _contactPhone = jsondic [@"cmStoreDetailsList"][@"contactPhone"];
+                _payType = jsondic [@"cmStoreDetailsList"][@"payType"];
+                _stroreUrl = jsondic [@"cmStoreDetailsList"][@"stroreUrl"];
                 
                 //mjextention 数组转模型
                 NSArray *storArray = [DetailStoreModel mj_objectArrayWithKeyValuesArray:dictArray];
@@ -361,16 +377,16 @@
                 
                 [self.main_ColletionView reloadData];
             }
-            
+            [SVProgressHUD dismiss];
         }
         
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+
     }];
 }
-
-
 
 
 - (void)didReceiveMemoryWarning {

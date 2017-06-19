@@ -9,6 +9,7 @@
 #import "FuncListTableViewCell.h"
 #import "FuncListCollectionViewCell.h"
 #import "HomeFuncModel.h"
+
 @interface FuncListTableViewCell ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 
@@ -63,8 +64,6 @@
     [cell.img_listView sd_setImageWithURL:img_url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
  
     }];
-    
-    
     return cell;
 }
 
@@ -128,8 +127,7 @@
                 //mjextention 数组转模型
                 NSArray *storArray = [HomeFuncModel mj_objectArrayWithKeyValuesArray:dictArray];
                 for (HomeFuncModel *funclist in storArray) {
-                    
-
+ 
                     [self.dataArray addObject:funclist];
                 }
                 NSLog(@"dataArray = %@",  self.dataArray);

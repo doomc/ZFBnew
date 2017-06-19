@@ -10,4 +10,8 @@
 
 @interface DetailStoreViewController : BaseViewController
 
+
+/** 门店id */
+@property(nonatomic,copy)NSString *storeId;
+
 @end
