@@ -295,7 +295,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
                 
             }else{
                 
-                [self.view makeToast:@"请求成功" duration:2 position:@"center" ];
                 NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
                 NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
                 NSArray * dictArray = jsondic [@"cmAdvertImgList"];
@@ -348,7 +347,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
                 [self.likeListArray  removeAllObjects];
                 
             }else{
-                [self.view makeToast:@"请求成功" duration:2 position:@"center" ];
                 NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
                 NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
                 NSArray * dictArray = jsondic [@"cmGoodsBrowseList"];

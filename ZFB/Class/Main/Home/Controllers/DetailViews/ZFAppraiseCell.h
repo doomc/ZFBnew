@@ -8,7 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+
+@protocol ZFAppraiseCellDelegate <NSObject>
+
+@optional
+
+- (void)shouldReloadData;
+
+@end
 @interface ZFAppraiseCell : UITableViewCell
+
+
+@property (nonatomic,assign) id<ZFAppraiseCellDelegate> Adelegate;
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_appraiseView;
 
@@ -19,4 +30,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_message;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *appriseCollectionView;
+
+
 @end

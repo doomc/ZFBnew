@@ -11,7 +11,7 @@
 #import "ZFAppraiseCell.h"
 #import "ZFAppraiseSectionView.h"
 #import "AppraiseModel.h"
-@interface ZFEvaluateViewController ()<UITableViewDelegate,UITableViewDataSource,AppraiseSectionViewDelegate>
+@interface ZFEvaluateViewController ()<UITableViewDelegate,UITableViewDataSource,AppraiseSectionViewDelegate,ZFAppraiseCellDelegate>
 {
     NSInteger _pageSize;//每页显示条数
     NSInteger _pageIndex;//当前页码;
@@ -19,6 +19,11 @@
     NSString * _goodCommentNum;
     NSString * _lackCommentNum;
     NSString * _imgCommentNum;
+    
+        NSArray * arr;
+ 
+    
+  
 }
 @property (nonatomic ,strong) UITableView* evaluate_tableView;
 @property (nonatomic ,strong) ZFAppraiseSectionView * sectionView;
@@ -36,7 +41,8 @@
     _pageIndex = 1;
     [self initWithEvaluate_tableView];
     
-    [self appriaseToPostRequest];
+   // [self appriaseToPostRequest];
+ 
     
 }
 -(NSMutableArray *)appraiseListArray{
@@ -56,17 +62,27 @@
     self.evaluate_tableView.delegate = self;
     self.evaluate_tableView.dataSource = self;
     
+    self.evaluate_tableView.estimatedRowHeight = 300.f;
+    self.evaluate_tableView.rowHeight = UITableViewAutomaticDimension;
+
     [self.evaluate_tableView registerNib:[UINib nibWithNibName:@"ZFAppraiseCell" bundle:nil] forCellReuseIdentifier:@"ZFAppraiseCell"];
     _sectionView = [[NSBundle mainBundle]loadNibNamed:@"ZFAppraiseSectionView" owner:self options:nil].lastObject;
 //    _sectionView =[[ZFAppraiseSectionView alloc]initWithFrame:CGRectMake(0, 64, KScreenW , 40)];
     _sectionView.delegate = self;
     
 }
+
+
+- (void)shouldReload{
+    
+    [self.evaluate_tableView reloadData];
+}
+
 #pragma mark - AppraiseSectionViewDelegate 选择评论
 -(void)whichOneDidClickAppraise:(UIButton *)sender
 {
     NSLog(@"网络请求++");
-    [self appriaseToPostRequest];
+   // [self appriaseToPostRequest];
     
 }
 #pragma mark - datasoruce  代理实现
@@ -77,7 +93,8 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return self.appraiseListArray.count;
+//    return self.appraiseListArray.count;
+    return 3;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -87,24 +104,19 @@
 {
     return self.sectionView;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CGFloat height = 0;
-    height  = [tableView fd_heightForCellWithIdentifier:@"ZFAppraiseCell" configuration:^(id cell) {
-        
-    }];
-    return  height;
-}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZFAppraiseCell *appraiseCell = [self.evaluate_tableView  dequeueReusableCellWithIdentifier:@"ZFAppraiseCell" forIndexPath:indexPath];
-    AppraiseModel * model =self.appraiseListArray[indexPath.row];
-    appraiseCell.lb_nickName.text = model.userName;
-    appraiseCell.lb_message.text = model.reviewsText;
-    appraiseCell.lb_detailtext.text = [NSString stringWithFormat:@"%@之前,来自%@",model.befor,model.equip];
-    [appraiseCell.img_appraiseView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.userAvatarImg]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
-    }];
+   
+    appraiseCell.Adelegate = self;
+
+//    appraiseCell.lb_nickName.text = model.userName;
+//    appraiseCell.lb_message.text = model.reviewsText;
+//    appraiseCell.lb_detailtext.text = [NSString stringWithFormat:@"%@之前,来自%@",model.befor,model.equip];
+//    [appraiseCell.img_appraiseView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.userAvatarImg]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        
+//   }];
     appraiseCell.selectionStyle = UITableViewCellSelectionStyleNone;
     return appraiseCell;
     

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,15 +21,17 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lAA-M3-ajR">
                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="lAA-M3-ajR" secondAttribute="height" multiplier="1:1" id="RMD-t5-gin"/>
+                        </constraints>
                     </imageView>
                 </subviews>
             </view>
             <color key="backgroundColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="lAA-M3-ajR" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="17B-Pt-RMu"/>
-                <constraint firstAttribute="bottom" secondItem="lAA-M3-ajR" secondAttribute="bottom" id="EDY-td-8Th"/>
-                <constraint firstAttribute="trailing" secondItem="lAA-M3-ajR" secondAttribute="trailing" id="F53-HP-uqB"/>
-                <constraint firstItem="lAA-M3-ajR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Ngc-mg-0kT"/>
+                <constraint firstAttribute="bottom" secondItem="lAA-M3-ajR" secondAttribute="bottom" id="9x4-N4-GnS"/>
+                <constraint firstItem="lAA-M3-ajR" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ZAw-xf-pON"/>
+                <constraint firstItem="lAA-M3-ajR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="uc8-0a-koP"/>
             </constraints>
             <size key="customSize" width="68" height="71"/>
             <connections>

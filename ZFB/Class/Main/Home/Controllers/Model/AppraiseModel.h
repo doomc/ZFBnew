@@ -27,5 +27,8 @@
 ///评论图片的url
 @property (copy ,nonatomic)NSString *reviewsImgUrl;
 
+@property (copy,nonatomic) NSString * imgUrl;
+
+@property (nonatomic,strong) UIImage *image;
 
 @end

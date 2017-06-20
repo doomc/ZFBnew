@@ -15,4 +15,10 @@
     // Initialization code
 }
 
+-(void)setAppModel:(AppraiseModel *)appModel
+{
+    //  解析需要的数据
+    self.img_CollectionView.image = appModel.image;
+    
+}
 @end

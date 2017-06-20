@@ -8,9 +8,15 @@
 
 #import "ZFAppraiseCell.h"
 #import "ApprariseCollectionViewCell.h"
-@interface ZFAppraiseCell ()<UICollectionViewDataSource,UICollectionViewDelegate>
+#import "AppraiseModel.h"
+@interface ZFAppraiseCell ()<UICollectionViewDataSource,UICollectionViewDelegate,ApprariseCollectionViewCellDelegate,ZFAppraiseCellDelegate>
 
-
+{
+    NSArray * imgArr;
+}
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionLayoutHeight;
+@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *collectionViewFlowLayout;
+@property (nonatomic ,strong) NSMutableArray <AppraiseModel *> *itemArray;
 @end
 @implementation ZFAppraiseCell
 
@@ -23,24 +29,32 @@
     self.img_appraiseView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
     
     
+
+    [self setup];
+    
+}
+-(void)setup{
+    
+    AppraiseModel * model = [AppraiseModel new];
+//    self.itemArray = [NSMutableArray arrayWithObject:model];
+   
+    self.itemArray = [NSMutableArray arrayWithObjects:model,model,model,model, nil];
     [self.appriseCollectionView registerNib:[UINib nibWithNibName:@"ApprariseCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"ApprariseCollectionViewCellid"];
     self.appriseCollectionView.delegate = self;
     self.appriseCollectionView.dataSource = self;
-    
-}
-#pragma mark  - 计算高度
--(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (collectionView == _appriseCollectionView) {
-        CGFloat height  = self.appriseCollectionView.collectionViewLayout.collectionViewContentSize.height;
-        
-        _appriseCollectionView.height = height;
-//        _appriseCollectionView.contentSize = CGSizeMake(self.appriseCollectionView.width, height);
-        NSLog(@"%f",height);
-    }
-//    self.appriseCollectionView.collectionViewLayout.collectionViewContentSize.heigh ;
+
+    [self reloadCell];
 
 }
+- (void)reloadCell{
+    
+    [self.appriseCollectionView reloadData];
+    self.collectionLayoutHeight.constant = self.collectionViewFlowLayout.collectionViewContentSize.height;
+    [self updateConstraintsIfNeeded];
+    [self.Adelegate shouldReloadData];
+}
+
+
 #pragma  mark - UICollectionViewDelegate
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -48,13 +62,22 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 3;
+    return self.itemArray.count;
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
    
     ApprariseCollectionViewCell *cell = [self.appriseCollectionView dequeueReusableCellWithReuseIdentifier:@"ApprariseCollectionViewCellid" forIndexPath:indexPath];
-  
+    //  解析需要的数据
+
+    cell.appModel = self.itemArray[indexPath.row];
+ //    for (NSString * urlStr in imgArr) {
+//       
+//        [cell.img_CollectionView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",urlStr]] placeholderImage:nil];
+//    
+//    }
+    
+    
     return cell;
     
 }
@@ -64,10 +87,10 @@
 //每个cell的大小，因为有indexPath，所以可以判断哪一组，或者哪一个item，可一个给特定的大小，等同于layout的itemSize属性
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return  CGSizeMake((KScreenW -100-15)/ 3, (KScreenW -100-15)/3);
+    return  CGSizeMake((self.bounds.size.width - 120)* 0.3333, (self.bounds.size.width -125)*0.3333);
     
 }
-// 设置整个组的缩进量是多少
+ //设置整个组的缩进量是多少
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(5, 5, 5, 5);
 }
@@ -79,7 +102,7 @@
 
 // 设置最小列间距，也就是左行与右一行的中间最小间隔
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 5;
+    return 10;
 }
 
 

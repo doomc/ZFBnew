@@ -301,8 +301,10 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                 
                 [self.list_tableView reloadData];
             }
-            [SVProgressHUD dismiss];
+            
         }
+        [SVProgressHUD dismiss];
+
         
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
