@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ZFAppraiseCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UIImageView *img_appraiseView;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_nickName;
@@ -16,4 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_detailtext;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_message;
+
+@property (weak, nonatomic) IBOutlet UICollectionView *appriseCollectionView;
 @end

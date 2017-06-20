@@ -243,6 +243,8 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     if (indexPath.row == 1) {
         
         ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
+//        DetailGoodsModel * model = self.goodsListArray[indexPath.row];
+//        evc.goodsId = model.goodsId;
         [self.navigationController pushViewController:evc animated:YES];
         
     }

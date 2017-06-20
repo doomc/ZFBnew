@@ -13,7 +13,7 @@
 #import "ControlFactory.h"
 #import "DetailShareViewController.h"
 
-
+#import "ZFHeadViewCollectionReusableView.h"
 #import "DetailStoreModel.h"
 @interface DetailStoreViewController ()<SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
@@ -32,7 +32,6 @@
 @property(nonatomic,strong) UIView * sectionView;
 @property(nonatomic,strong) NSMutableArray * storeListArray;
 
-
 @end
 
 @implementation DetailStoreViewController
@@ -47,14 +46,14 @@
     // Do any additional setup after loading the view from its nib.
     
     _pageIndex = 1;
-    _pageSize = 5;
+    _pageSize = 1;
   
     //////////当前页数据不全////////
     [self detailListStorePostRequst];
     
     [self CreatCollctionViewInterface];
     [self CDsyceleSettingRunningPaint];
-    [self creatHeadViewinterface];
+//    [self creatHeadViewinterface];
 
 }
 
@@ -133,15 +132,88 @@
     //注意，此处的ReuseIdentifier 必须和 cellForItemAtIndexPath 方法中 一致 均为 cellId
     [_main_ColletionView registerClass:[ZFDetailStoreCell class] forCellWithReuseIdentifier:@"ZFDetailStoreCellid"];
     
-    //注册headerView  此处的ReuseIdentifier 必须和 cellForItemAtIndexPath 方法中 一致  均为reusableView
-    [_main_ColletionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
-    
+    //注册headerView  此处的ReuseIdentifier 必须和 cellForItemAtIndexPath 方法中 一致
+    [_main_ColletionView registerClass:[ZFHeadViewCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ZFHeadViewCollectionReusableView"];
+  
+ 
 }
+
+//-(void)creatHeadViewinterface
+//{
+//    CGFloat  ViewHeignt = 0;
+//    self.sectionView = [[UIView alloc]initWithFrame:self.view.bounds];
+//    
+//    //设置title
+//    UIView * titleView =[[ UIView alloc]initWithFrame:CGRectMake(0, ViewHeignt, KScreenW, 40)];
+//    [self.sectionView addSubview:titleView];
+//    
+//    UILabel * titleText_lb = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW*0.5, 39)];
+//    titleText_lb.text = _storeName;
+//    titleText_lb.textColor = HEXCOLOR(0xfe6d6a);
+//    titleText_lb.font =[UIFont systemFontOfSize:12];
+//    titleView.backgroundColor = [UIColor yellowColor];
+//    [titleView addSubview:titleText_lb];
+//    
+//    //到店付
+//    UIButton * gotoStore_btn =[UIButton buttonWithType:UIButtonTypeCustom];
+//    [gotoStore_btn addTarget:self action:@selector(didClickgotoStore_btn:) forControlEvents:UIControlEventTouchUpInside];
+//    gotoStore_btn.frame  = CGRectMake(KScreenW -100-15, 16, 100, 20);
+//    [gotoStore_btn setTitle:@"到店付" forState:UIControlStateNormal];
+//    //    gotoStore_btn.backgroundColor = HEXCOLOR(0xffffff);
+//    [titleView addSubview:gotoStore_btn];
+//    
+//    //下划线
+//    UILabel* line = [[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
+//    line.backgroundColor = HEXCOLOR(0xdedede);
+//    [titleView addSubview:line];
+//    
+//    //位置定位
+//    UIView * locationView= [[ UIView alloc]initWithFrame:CGRectMake(0, 40+ViewHeignt, KScreenW, 40)];
+//    [_sectionView addSubview:locationView];
+//    
+//    //定位logo
+//    UIImageView * icon_location = [[ UIImageView alloc]initWithFrame:CGRectMake(10, 5, 30, 30)];
+//    icon_location.image =[ UIImage imageNamed:@"location_icon2"];
+//    [locationView addSubview:icon_location];
+//    
+//    //电话logo
+//    UIImageView * icon_phone = [[ UIImageView alloc]initWithFrame:CGRectMake(KScreenW-15-20, 5, 30, 30)];
+//    icon_phone.image =[ UIImage imageNamed:@"calling_icon"];
+//    [locationView addSubview:icon_phone];
+//    
+//    UILabel * locatext = [[UILabel alloc]initWithFrame:CGRectMake( 40, 0, KScreenW -80, 39)];
+//    locatext.text = _address;
+//    locatext.textAlignment = NSTextAlignmentLeft;
+//    locatext.font =[ UIFont systemFontOfSize:12.0];
+//    locatext.textColor = HEXCOLOR(0x363636);
+//    
+//    
+//    [locationView addSubview:locatext];
+//    
+//    //全部商品section
+//    UIView *sectionView =[[ UIView alloc]initWithFrame:CGRectMake(0, 80+ViewHeignt, KScreenW, 40)];
+//    sectionView.backgroundColor = HEXCOLOR(0xffcccc);
+//    [_sectionView addSubview:sectionView];
+//    
+//    UIImageView * icon_sec = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 30, 30)];
+//    icon_sec.image =[ UIImage imageNamed:@"more_icon"];
+//    [sectionView addSubview:icon_sec];
+//    
+//    UILabel * sectionTitle= [[ UILabel alloc]initWithFrame:CGRectMake(40, 0, 100, 40)];
+//    sectionTitle.text =@"全部商品";
+//    sectionTitle.font =[UIFont systemFontOfSize:13];
+//    sectionTitle.textAlignment = NSTextAlignmentLeft;
+//    sectionTitle.textColor = HEXCOLOR(0x363636);
+//    [sectionView addSubview:sectionTitle];
+//    
+//}
+
+
 #pragma mark collectionView代理方法
 //返回section个数
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return self.storeListArray.count;
+    return 2;
 }
 
 //每个section的item个数
@@ -151,7 +223,7 @@
         
         return 0;
     }
-    return 9;
+    return self.storeListArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -185,109 +257,17 @@
 }
 
 
--(void)creatHeadViewinterface
-{
-    CGFloat  ViewHeignt = 0;
-    self.sectionView = [[UIView alloc]initWithFrame:self.view.bounds];
-    
-    //设置title
-    UIView * titleView =[[ UIView alloc]initWithFrame:CGRectMake(0, ViewHeignt, KScreenW, 40)];
-    [_sectionView addSubview:titleView];
-    
-    UILabel * titleText_lb = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW*0.5, 39)];
-    titleText_lb.text = _storeName;
-    titleText_lb.textColor = HEXCOLOR(0xfe6d6a);
-    titleText_lb.font =[UIFont systemFontOfSize:12];
-    titleView.backgroundColor = [UIColor yellowColor];
-    [titleView addSubview:titleText_lb];
-    
-    //到店付
-    UIButton * gotoStore_btn =[UIButton buttonWithType:UIButtonTypeCustom];
-    [gotoStore_btn addTarget:self action:@selector(didClickgotoStore_btn:) forControlEvents:UIControlEventTouchUpInside];
-    gotoStore_btn.frame  = CGRectMake(KScreenW -100-15, 16, 100, 20);
-    [gotoStore_btn setTitle:@"到店付" forState:UIControlStateNormal];
-//    gotoStore_btn.backgroundColor = HEXCOLOR(0xffffff);
-    [titleView addSubview:gotoStore_btn];
-    
-    //下划线
-    UILabel* line = [[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
-    line.backgroundColor = HEXCOLOR(0xdedede);
-    [titleView addSubview:line];
-    
-    //位置定位
-    UIView * locationView= [[ UIView alloc]initWithFrame:CGRectMake(0, 40+ViewHeignt, KScreenW, 40)];
-    [_sectionView addSubview:locationView];
-    
-    //定位logo
-    UIImageView * icon_location = [[ UIImageView alloc]initWithFrame:CGRectMake(10, 5, 30, 30)];
-    icon_location.image =[ UIImage imageNamed:@"location_icon2"];
-    [locationView addSubview:icon_location];
-    
-    //电话logo
-    UIImageView * icon_phone = [[ UIImageView alloc]initWithFrame:CGRectMake(KScreenW-15-20, 5, 30, 30)];
-    icon_phone.image =[ UIImage imageNamed:@"calling_icon"];
-    [locationView addSubview:icon_phone];
-    
-    UILabel * locatext = [[UILabel alloc]initWithFrame:CGRectMake( 40, 0, KScreenW -80, 39)];
-    locatext.text = _address;
-    locatext.textAlignment = NSTextAlignmentLeft;
-    locatext.font =[ UIFont systemFontOfSize:12.0];
-    locatext.textColor = HEXCOLOR(0x363636);
-    
-    
-    [locationView addSubview:locatext];
-    
-    //全部商品section
-    UIView *sectionView =[[ UIView alloc]initWithFrame:CGRectMake(0, 80+ViewHeignt, KScreenW, 40)];
-    sectionView.backgroundColor = HEXCOLOR(0xffcccc);
-    [_sectionView addSubview:sectionView];
-    
-    UIImageView * icon_sec = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 30, 30)];
-    icon_sec.image =[ UIImage imageNamed:@"more_icon"];
-    [sectionView addSubview:icon_sec];
-    
-    UILabel * sectionTitle= [[ UILabel alloc]initWithFrame:CGRectMake(40, 0, 100, 40)];
-    sectionTitle.text =@"全部商品";
-    sectionTitle.font =[UIFont systemFontOfSize:13];
-    sectionTitle.textAlignment = NSTextAlignmentLeft;
-    sectionTitle.textColor = HEXCOLOR(0x363636);
-    [sectionView addSubview:sectionTitle];
-
-}
-
 //通过设置SupplementaryViewOfKind 来设置头部或者底部的view，其中 ReuseIdentifier 的值必须和 注册是填写的一致，本例都为 “reusableView”
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionReusableView *reusableview = nil;
-    CGFloat  _headViewHeignt = 155.f;
-    if (indexPath.section == 0) {
-        
-        if (kind == UICollectionElementKindSectionHeader){
-            UICollectionReusableView * _reusableView  = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
-            
-            //轮播
-             UIView * headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, _headViewHeignt)];
-            headView = _sd_HeadScrollView;
-            [_reusableView addSubview: headView];
-            reusableview = _reusableView;
-            
-            
-        }
-    }
-    if (indexPath.section == 1) {
-        
-        if (kind == UICollectionElementKindSectionHeader){
-            UICollectionReusableView * _reusableView  = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
-            
-            //轮播
-            [_reusableView addSubview:_sectionView];
-            reusableview = _reusableView;
-            
-            
-        }
-    }
-
     
+    if (kind == UICollectionElementKindSectionHeader) {
+        ZFHeadViewCollectionReusableView * headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ZFHeadViewCollectionReusableView" forIndexPath:indexPath];
+        [headerView addSubview: _sd_HeadScrollView];
+        reusableview = headerView;
+    }
+ 
     return reusableview;
 
 }
@@ -297,11 +277,10 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return CGSizeMake(KScreenW , 155);
-   
+        return CGSizeMake(KScreenW , 155+120);
     }
-    return CGSizeMake(KScreenW ,120);
-
+    return CGSizeZero;
+ 
 }
 /**
   到店付
@@ -332,7 +311,7 @@
     NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
     NSDictionary * parma = @{
                              
-                             @"svcName":@"getGoodsDetailsInfo",
+                             @"svcName":@"getCmStoreDetailsInfo",
                              @"pageSize":pageSize,//每页显示条数
                              @"pageIndex":pageIndex,//当前页码
                              @"cmUserId":BBUserDefault.cmUserId,

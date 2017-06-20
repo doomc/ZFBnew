@@ -177,23 +177,23 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         }
         else if (indexPath.row == 1) {
             
-            HDAlertView *alertView = [HDAlertView showActionSheetWithTitle:@"选择你的性别"];
-            [alertView addButtonWithTitle:@"男" type:HDAlertViewButtonTypeCancel handler:^(HDAlertView *alertView) {
+            JXTAlertController * alertSheet  =[[ JXTAlertController alloc]init];
+            UIAlertAction  * alertSeet1 = [UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 rowCell.lb_detailTitle.text = @"男";
-            }];
-            
-            [alertView addButtonWithTitle:@"女" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
-                
-                rowCell.lb_detailTitle.text = @"女";
-            }];
-            
-            [alertView addButtonWithTitle:@"保密" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
-                
-                rowCell.lb_detailTitle.text = @"保密";
-            }];
-            
-            [alertView show];
 
+            }];
+            UIAlertAction  * alertSeet2 = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                rowCell.lb_detailTitle.text = @"女";
+
+            }];   UIAlertAction  * alertSeet3 = [UIAlertAction actionWithTitle:@"保密" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                rowCell.lb_detailTitle.text = @"保密";
+
+            }];
+
+            [alertSheet addAction:alertSeet1];
+            [alertSheet addAction:alertSeet2];
+            [alertSheet addAction:alertSeet3];
+            [self presentViewController:alertSheet animated:YES completion:nil];
       
         } else if (indexPath.row == 2) {
             if (_isSelectCount == NO) {

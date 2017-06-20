@@ -191,10 +191,15 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 #pragma tableViewDataSource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DetailStoreViewController * vc = [[DetailStoreViewController alloc]init];
-    HomeStoreListModel * listModel = self.storeListArr[indexPath.row];
-    vc.storeId =listModel.storeId;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (self.storeListArr.count > 0) {
+        
+        DetailStoreViewController * vc = [[DetailStoreViewController alloc]init];
+        HomeStoreListModel * listModel = self.storeListArr[indexPath.row];
+        vc.storeId =listModel.storeId;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+
+
 }
 
 /**

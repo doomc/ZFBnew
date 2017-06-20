@@ -147,7 +147,10 @@
     }
 }
 
-
+-(void)didCleckClearing:(UIButton *)sender
+{
+    NSLog(@" 确认订单 ");
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

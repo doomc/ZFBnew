@@ -19,6 +19,11 @@
 			<key>orderHint</key>
 			<integer>10</integer>
 		</dict>
+		<key>MGSwipeTableCell.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>18</integer>
+		</dict>
 		<key>MJExtension.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -97,6 +102,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>01EAAE2488894AB1180568F773862A43</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>040118B95AE915986B57CF790C909FD9</key>
 		<dict>
 			<key>primary</key>
@@ -167,6 +177,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>43AFBF4F2CD231A7499E3B7813A16837</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4414FFBD80F471F2AC819401DB992F5E</key>
 		<dict>
 			<key>primary</key>
@@ -222,6 +237,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>80776FFF6B1B90E59677BFA452C52150</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>80ADE564D444DF905E0F3720B4C4AAC3</key>
 		<dict>
 			<key>primary</key>
@@ -273,6 +293,11 @@
 			<true/>
 		</dict>
 		<key>BA1D550E82CE5623F58FBB83AE4FF0C4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C092A7EEFD66C00FD4956EC1D2D17939</key>
 		<dict>
 			<key>primary</key>
 			<true/>

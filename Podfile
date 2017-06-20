@@ -13,6 +13,7 @@ target 'ZFB' do
   pod 'Masonry'
   pod 'YYModel' 
   pod 'MJExtension'
+  pod 'MGSwipeTableCell'
 
   # 第三方库
   pod 'AMapLocation'

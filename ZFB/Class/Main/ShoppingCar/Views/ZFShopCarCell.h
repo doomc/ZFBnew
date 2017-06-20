@@ -9,10 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "PPNumberButton.h"
 #import "ShoppingCarModel.h"
+#import <MGSwipeTableCell/MGSwipeTableCell.h>
+@protocol ShoppingSelectedDelegate <NSObject>
 
-@interface ZFShopCarCell : UITableViewCell
+-(void)ChangeGoodsNumberCell:(UITableViewCell *)cell Number:(NSInteger)num;
 
--(void)selectResult:(NSInteger)result;
+
+@end
+@interface ZFShopCarCell : MGSwipeTableCell
+
+
+@property (assign, nonatomic) id <ShoppingSelectedDelegate> selectDelegate;
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_shopCar;
 
@@ -20,7 +27,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 
-@property (weak, nonatomic) IBOutlet PPNumberButton *ppNumberView;
+@property (strong, nonatomic) IBOutlet PPNumberButton *ppNumberView;
 
 @property (weak, nonatomic) IBOutlet UIButton *add_btn;
 

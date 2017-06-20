@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *order_collectionCell;
 @property (weak, nonatomic) IBOutlet UILabel *lb_totalNum;
 
+@property (weak, nonatomic) IBOutlet UIImageView *img_shenglve;
 
 @end

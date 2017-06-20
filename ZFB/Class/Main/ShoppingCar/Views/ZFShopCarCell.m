@@ -28,18 +28,20 @@
 
     
     //设置边框颜色
+    self.ppNumberView =  [[PPNumberButton alloc]init];
+    
 //    self.ppNumberView.clipsToBounds = YES;
 //    self.ppNumberView.borderColor = [UIColor grayColor];
 //    // 初始化时隐藏减按钮
     self.ppNumberView.shakeAnimation = YES;
     self.ppNumberView.delegate = self;
-//    // 设置最小值
-//    self.ppNumberView.minValue = 2;
-//    // 设置最大值
-//    self.ppNumberView.maxValue = 10;
+
     self.ppNumberView.increaseImage = [UIImage imageNamed:@"add"];
     self.ppNumberView.decreaseImage = [UIImage imageNamed:@"reduce"];
-
+    _ppNumberView.resultBlock = ^(NSInteger num ,BOOL increaseStatus){
+        __weak typeof(self)weakself = self;
+        [weakself.selectDelegate ChangeGoodsNumberCell:self Number:num];
+    };
  }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

@@ -163,9 +163,7 @@
             
         }
         CGFloat juli = [listModel.juli floatValue]*0.001;
-
         all_cell.lb_distance.text = [NSString stringWithFormat:@"%.2fkm",juli];
-   
         [all_cell.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
         
         return all_cell;
@@ -206,7 +204,6 @@
 -(void)creatButtonWithDouble
 {
     self.sectionView =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
-    
     self.farway_btn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.farway_btn.frame =CGRectMake( 0, 0, KScreenW*0.5, 40);
     [self.farway_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 20)];
@@ -347,7 +344,7 @@
                 [self.allStoreArray  removeAllObjects];
                 
             }else{
-                
+               
                 NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
                 NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
                 NSArray * dictArray = jsondic [@"cmStoreList"];
@@ -363,8 +360,7 @@
                 
                 [self.all_tableview reloadData];
             }
-        
-            [SVProgressHUD dismiss];
+             [SVProgressHUD dismiss];
  
         }
 
@@ -385,8 +381,8 @@
     
     NSString * longitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.longitude];
     NSString * latitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.latitude];
-    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageSize];
-    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
+    NSString * pageSize = [NSString stringWithFormat:@"%ld",_pageSize];
+    NSString * pageIndex = [NSString stringWithFormat:@"%ld",_pageIndex];
     
     NSDictionary * parma = @{
                              
@@ -428,8 +424,7 @@
                 
                 [self.all_tableview reloadData];
             }
-           
-            [SVProgressHUD dismiss];
+             [SVProgressHUD dismiss];
 
         }
         

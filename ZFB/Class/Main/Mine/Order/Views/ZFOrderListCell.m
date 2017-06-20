@@ -26,7 +26,7 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 4;
+    return 3;
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -34,8 +34,6 @@
     GoodsitemCell * cell = [self.order_collectionCell dequeueReusableCellWithReuseIdentifier:@"GoodsitemCellid" forIndexPath:indexPath];
     return cell;
 }
-
-
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {

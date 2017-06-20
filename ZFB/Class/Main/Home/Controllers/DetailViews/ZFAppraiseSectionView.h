@@ -8,6 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol  AppraiseSectionViewDelegate <NSObject>
+
+@optional
+
+-(void)whichOneDidClickAppraise:(UIButton *)sender;
+
+@end
 @interface ZFAppraiseSectionView : UIView
+
+@property (assign, nonatomic) id <AppraiseSectionViewDelegate> delegate ;
+
+@property (weak, nonatomic) IBOutlet UIButton *all_btn;
+
+@property (weak, nonatomic) IBOutlet UIButton *goodAppraise_btn;
+
+@property (weak, nonatomic) IBOutlet UIButton *bad_btn;
+
+@property (weak, nonatomic) IBOutlet UIButton *haveImage_btn;
 
 @end
