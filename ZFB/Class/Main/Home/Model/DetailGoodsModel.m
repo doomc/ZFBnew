@@ -10,4 +10,32 @@
 
 @implementation DetailGoodsModel
 
++ (NSDictionary *)objectClassInArray{
+    return @{@"cmGoodsDetailsList" : [Cmgoodsdetailslist class]};
+}
+
 @end
+
+
+@implementation Cmgoodsdetailslist
+
+@end
+
+
+@implementation Productsku
+
++ (NSDictionary *)objectClassInArray{
+
+    return @{@"reluJson" : [Relujson class]};
+
+}
+
+@end
+
+
+@implementation Relujson
+
+@end
+
+
+

@@ -8,8 +8,11 @@
 
 #import "BaseViewController.h"
 
+
 @interface ZFEvaluateViewController : BaseViewController
 
 @property (nonatomic , copy) NSString *goodsId;
+
+
 
 @end

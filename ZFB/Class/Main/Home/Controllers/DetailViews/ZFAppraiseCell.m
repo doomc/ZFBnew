@@ -8,15 +8,12 @@
 
 #import "ZFAppraiseCell.h"
 #import "ApprariseCollectionViewCell.h"
-#import "AppraiseModel.h"
-@interface ZFAppraiseCell ()<UICollectionViewDataSource,UICollectionViewDelegate,ApprariseCollectionViewCellDelegate,ZFAppraiseCellDelegate>
 
-{
-    NSArray * imgArr;
-}
+@interface ZFAppraiseCell ()<UICollectionViewDataSource,UICollectionViewDelegate,ZFAppraiseCellDelegate>
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionLayoutHeight;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *collectionViewFlowLayout;
-@property (nonatomic ,strong) NSMutableArray <AppraiseModel *> *itemArray;
+@property (nonatomic ,strong) NSMutableArray  <Cmgoodscommentinfo *> * itemArray;///
 @end
 @implementation ZFAppraiseCell
 
@@ -27,18 +24,34 @@
     self.img_appraiseView.clipsToBounds = YES;
     self.img_appraiseView.layer.borderWidth = 0.5;
     self.img_appraiseView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
-    
-    
-
+  
     [self setup];
+   
+}
+
+#pragma mark - setter
+-(void)setImgurl:(NSString *)imgurl
+{
+    _imgurl = imgurl;
+    // http://192.168.1.107:8086/upload/20170615110845_,http://192.168.1.107:8086/upload/20170615110845_,http://192.168.1.107:8086/upload/20170615110845_
     
+//    NSArray * imgArr = [_imgurl componentsSeparatedByString:@","];
+//
+//    for (Cmgoodscommentinfo * model in imgArr) {
+//        
+//        [self.itemArray addObject:model];
+//    }
+////    self.itemArray = [NSMutableArray arrayWithArray:imgArr];
+//
+//     NSLog(@" +++++++++itemArray %@+++++++++++", _itemArray);
+
 }
 -(void)setup{
-    
-    AppraiseModel * model = [AppraiseModel new];
-//    self.itemArray = [NSMutableArray arrayWithObject:model];
+ 
+ 
+  //    self.itemArray = [NSMutableArray arrayWithObject:model];
    
-    self.itemArray = [NSMutableArray arrayWithObjects:model,model,model,model, nil];
+   // self.itemArray = [NSMutableArray arrayWithObjects:model,model,model,model, nil];
     [self.appriseCollectionView registerNib:[UINib nibWithNibName:@"ApprariseCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"ApprariseCollectionViewCellid"];
     self.appriseCollectionView.delegate = self;
     self.appriseCollectionView.dataSource = self;
@@ -62,21 +75,23 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.itemArray.count;
+    return 3;
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
    
     ApprariseCollectionViewCell *cell = [self.appriseCollectionView dequeueReusableCellWithReuseIdentifier:@"ApprariseCollectionViewCellid" forIndexPath:indexPath];
-    //  解析需要的数据
-
-    cell.appModel = self.itemArray[indexPath.row];
- //    for (NSString * urlStr in imgArr) {
-//       
-//        [cell.img_CollectionView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",urlStr]] placeholderImage:nil];
-//    
-//    }
+     //  解析需要的数据
+    Cmgoodscommentinfo * info = _itemArray[indexPath.row];
+    NSLog(@"%@",info.reviewsImgUrl);
     
+     for (NSString * urlStr in self.itemArray) {
+         
+         NSLog(@"-----aaaaaaaaa-------%@",urlStr);
+         [cell.img_CollectionView  sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", info.reviewsImgUrl]] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+             
+         }];
+    }
     
     return cell;
     
@@ -106,12 +121,10 @@
 }
 
 
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
    
     NSLog(@"------%ld-------",indexPath.item);
 }
-
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

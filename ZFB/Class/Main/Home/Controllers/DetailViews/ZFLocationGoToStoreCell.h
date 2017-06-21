@@ -10,4 +10,8 @@
 
 @interface ZFLocationGoToStoreCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_address;
+
 @end

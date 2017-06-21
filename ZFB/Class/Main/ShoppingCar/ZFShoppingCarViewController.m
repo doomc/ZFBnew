@@ -15,29 +15,38 @@
 
 #import "ShopCarHeadView.h"
 #import "ShopCarFootView.h"
+#import "AddGoodsToShopCar.h"
 @interface ZFShoppingCarViewController ()<UITableViewDelegate,UITableViewDataSource,ShopCarFootViewDelegate>
 
 @property (nonatomic,strong) UITableView * shopCar_tableview;
 
 @property (nonatomic,strong) ShopCarFootView * footView;
 @property (nonatomic,strong) ShopCarHeadView * sectionHeadView;
+@property (nonatomic,strong) NSMutableArray * carListArray;
+
 
 
 @end
 
 @implementation ZFShoppingCarViewController
 
-
+-(NSMutableArray *)carListArray
+{
+    if (!_carListArray) {
+        _carListArray = [NSMutableArray array];
+        
+    }
+    return _carListArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [self.shopCar_tableview registerNib:[UINib nibWithNibName:@"ZFShopCarCell" bundle:nil] forCellReuseIdentifier:@"ShopCarCellid"];
-    
-    
+ 
     [self.view addSubview:self.footView];
     
-    
+    [self shoppingCarPostRequst];
 }
 
 -(UITableView *)shopCar_tableview
@@ -124,6 +133,17 @@
 {
     ZFShopCarCell * shopCell = [self.shopCar_tableview dequeueReusableCellWithIdentifier:@"ShopCarCellid" forIndexPath:indexPath];
     shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+    Shoppcartlist * shopList = self.carListArray[indexPath.row];
+    
+    shopCell.lb_title.text = shopList.goodsName;
+    shopCell.lb_price.text = shopList.storePrice;
+//    shopCell.lb_result.text = shopList.goodsCount;
+    
+    [shopCell.img_shopCar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",shopList.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+    }];
+    
+    
     return shopCell;
     
 }
@@ -131,6 +151,7 @@
 {
     
 }
+
 #pragma mark - tableView datasource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -141,6 +162,58 @@
 }
 
 
+
+#pragma mark - 首页网络请求
+-(void)shoppingCarPostRequst
+{
+ 
+ 
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getShoppingCartList",
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             
+                             };
+    
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        NSLog(@"  %@  = responseObject  " ,responseObject);
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+            if (self.carListArray.count >0) {
+                
+                [self.carListArray  removeAllObjects];
+                
+            }else{
+                
+                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+                NSArray * dictArray = jsondic [@"shoppCartList"];
+                
+                //mjextention 数组转模型
+                NSArray *storArray = [Shoppcartlist mj_objectArrayWithKeyValuesArray:dictArray];
+                
+                for (Shoppcartlist *list in storArray) {
+                    
+                    [self.carListArray addObject:list];
+                }
+                NSLog(@"carListArray = %@",   self.carListArray);
+                
+                [self.shopCar_tableview reloadData];
+            }
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
 
 
 

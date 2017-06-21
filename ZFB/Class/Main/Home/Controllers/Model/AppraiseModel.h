@@ -8,27 +8,41 @@
 
 #import <Foundation/Foundation.h>
 
+@class Cmgoodscommentinfo;
+
 @interface AppraiseModel : NSObject
 
-///评论id
-@property (copy ,nonatomic)NSString *reciewsId;
-///用户头像
-@property (copy ,nonatomic)NSString *userAvatarImg;
-///用户名字
-@property (copy ,nonatomic)NSString *userName;
-///多少时间之前
-@property (copy ,nonatomic)NSString *befor;
-///评论来源那个设备
-@property (copy ,nonatomic)NSString *equip;
-///评论等级
-@property (copy ,nonatomic)NSString *goodsComment;
-///评论内容
-@property (copy ,nonatomic)NSString *reviewsText;
-///评论图片的url
-@property (copy ,nonatomic)NSString *reviewsImgUrl;
+@property (nonatomic, copy) NSString *lackCommentNum;
 
-@property (copy,nonatomic) NSString * imgUrl;
+@property (nonatomic, copy) NSString *goodCommentNum;
 
-@property (nonatomic,strong) UIImage *image;
+@property (nonatomic, copy) NSString *imgCommentNum;
+
+@property (nonatomic, copy) NSString *commentNum;
+
+@property (nonatomic, assign) NSInteger resultCode;
+
+@property (nonatomic, strong) NSArray<Cmgoodscommentinfo *> *cmGoodsCommentInfo;
 
 @end
+
+@interface Cmgoodscommentinfo : NSObject
+
+@property (nonatomic, copy) NSString *reciewsId;
+
+@property (nonatomic, copy) NSString *userName;
+
+@property (nonatomic, copy) NSString *reviewsText;
+
+@property (nonatomic, copy) NSString *goodsComment;
+
+@property (nonatomic, copy) NSString *equip;
+
+@property (nonatomic, copy) NSString *reviewsImgUrl;
+
+@property (nonatomic, copy) NSString *userAvatarImg;
+
+@property (nonatomic, copy) NSString *befor;
+
+@end
+

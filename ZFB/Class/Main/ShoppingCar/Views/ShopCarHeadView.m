@@ -8,20 +8,14 @@
 
 #import "ShopCarHeadView.h"
 @interface ShopCarHeadView ()
-{
-    UIView *_sectionHeadView;
-}
 
 @end
 @implementation ShopCarHeadView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+-(void)setSectionBlock:(SctiontitleBlock)sectionBlock
+{
+    _sectionBlock = sectionBlock;
 }
-*/
 -(id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -67,7 +61,9 @@
 
 -(void)didclickEdit:(UIButton *)edit
 {
-    
+    if ([self.shopCarDelegate respondsToSelector:@selector(editAction:)]) {
+        [self.shopCarDelegate editAction:edit];
+    }
 }
 
 @end

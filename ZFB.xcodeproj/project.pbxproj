@@ -89,6 +89,7 @@
 		494F06FF1ED42DED007EC66A /* add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06FB1ED42DED007EC66A /* add@3x.png */; };
 		494F07001ED42DED007EC66A /* reduce@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06FC1ED42DED007EC66A /* reduce@2x.png */; };
 		494F07011ED42DED007EC66A /* reduce@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06FD1ED42DED007EC66A /* reduce@3x.png */; };
+		496498081EFA8AE8005F65E1 /* AddGoodsToShopCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 496498071EFA8AE8005F65E1 /* AddGoodsToShopCar.m */; };
 		49801C8D1ECE870100EDAA53 /* PYSearch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49801C811ECE870100EDAA53 /* PYSearch.bundle */; };
 		49801C8E1ECE870100EDAA53 /* PYSearchConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 49801C841ECE870100EDAA53 /* PYSearchConst.m */; };
 		49801C8F1ECE870100EDAA53 /* PYSearchSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49801C861ECE870100EDAA53 /* PYSearchSuggestionViewController.m */; };
@@ -730,6 +731,8 @@
 		494F06FB1ED42DED007EC66A /* add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@3x.png"; sourceTree = "<group>"; };
 		494F06FC1ED42DED007EC66A /* reduce@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce@2x.png"; sourceTree = "<group>"; };
 		494F06FD1ED42DED007EC66A /* reduce@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce@3x.png"; sourceTree = "<group>"; };
+		496498061EFA8AE8005F65E1 /* AddGoodsToShopCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddGoodsToShopCar.h; sourceTree = "<group>"; };
+		496498071EFA8AE8005F65E1 /* AddGoodsToShopCar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddGoodsToShopCar.m; sourceTree = "<group>"; };
 		49801C811ECE870100EDAA53 /* PYSearch.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PYSearch.bundle; sourceTree = "<group>"; };
 		49801C821ECE870100EDAA53 /* PYSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearch.h; sourceTree = "<group>"; };
 		49801C831ECE870100EDAA53 /* PYSearchConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearchConst.h; sourceTree = "<group>"; };
@@ -2334,6 +2337,7 @@
 		49DF70281EEAA9B10021EE92 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				49DF70301EEAA9B10021EE92 /* DetailViews */,
 				49BEB9B51EF92F8300779588 /* Model */,
 				49DF70291EEAA9B10021EE92 /* DetailFindGoodsViewController.h */,
 				49DF702A1EEAA9B10021EE92 /* DetailFindGoodsViewController.m */,
@@ -2342,7 +2346,6 @@
 				49DF702D1EEAA9B10021EE92 /* DetailShareViewController.xib */,
 				49DF702E1EEAA9B10021EE92 /* DetailStoreViewController.h */,
 				49DF702F1EEAA9B10021EE92 /* DetailStoreViewController.m */,
-				49DF70301EEAA9B10021EE92 /* DetailViews */,
 				49DF704B1EEAA9B10021EE92 /* ZFAllStoreViewController.h */,
 				49DF704C1EEAA9B10021EE92 /* ZFAllStoreViewController.m */,
 				49DF704D1EEAA9B10021EE92 /* ZFEvaluateViewController.h */,
@@ -3279,6 +3282,8 @@
 		509CC4B11EF829AC0035B1D8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				496498061EFA8AE8005F65E1 /* AddGoodsToShopCar.h */,
+				496498071EFA8AE8005F65E1 /* AddGoodsToShopCar.m */,
 				509CC4B21EF82A1B0035B1D8 /* ShoppingCarModel.h */,
 				509CC4B31EF82A1B0035B1D8 /* ShoppingCarModel.m */,
 			);
@@ -3829,6 +3834,7 @@
 				49DF71C51EEAA9B20021EE92 /* ZFSaleAfterSearchCell.m in Sources */,
 				49DF71DC1EEAA9B20021EE92 /* ZFPregressCheckViewController.m in Sources */,
 				5019FFB31ECCAEF800325342 /* UIButton+WebCache.m in Sources */,
+				496498081EFA8AE8005F65E1 /* AddGoodsToShopCar.m in Sources */,
 				492757561EC4679E003C22D0 /* UIView+MJExtension.m in Sources */,
 				50C672CD1EE83F5E005A1E7C /* ZFEncryptionKey.m in Sources */,
 				492756B11EC4679E003C22D0 /* UIImage+Extension.m in Sources */,
@@ -4199,7 +4205,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4220,7 +4226,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
