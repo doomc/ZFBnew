@@ -74,8 +74,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
     _pageSize = 10;
     _pageIndex = 1;
     
-    [self ADpagePostRequst];
-    [self guessYouLikePostRequst];
 
 }
 
@@ -370,6 +368,11 @@ typedef NS_ENUM(NSUInteger, CellType) {
     }];
 }
 
+-(void)reloadDataWithVC
+{
+    [self ADpagePostRequst];
+    [self guessYouLikePostRequst];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

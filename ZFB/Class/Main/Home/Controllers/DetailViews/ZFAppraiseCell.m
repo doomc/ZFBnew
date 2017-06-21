@@ -13,7 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionLayoutHeight;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *collectionViewFlowLayout;
-@property (nonatomic ,strong) NSMutableArray  <Cmgoodscommentinfo *> * itemArray;///
+@property (nonatomic ,strong) NSMutableArray * itemArray;
 @end
 @implementation ZFAppraiseCell
 
@@ -33,18 +33,19 @@
 -(void)setImgurl:(NSString *)imgurl
 {
     _imgurl = imgurl;
-    // http://192.168.1.107:8086/upload/20170615110845_,http://192.168.1.107:8086/upload/20170615110845_,http://192.168.1.107:8086/upload/20170615110845_
-    
-//    NSArray * imgArr = [_imgurl componentsSeparatedByString:@","];
-//
-//    for (Cmgoodscommentinfo * model in imgArr) {
-//        
-//        [self.itemArray addObject:model];
-//    }
-////    self.itemArray = [NSMutableArray arrayWithArray:imgArr];
-//
-//     NSLog(@" +++++++++itemArray %@+++++++++++", _itemArray);
 
+    self.itemArray = [NSMutableArray array];
+    
+    NSArray * imgArr = [_imgurl componentsSeparatedByString:@","];
+
+    for (NSString * urlstr  in imgArr) {
+        
+        [self.itemArray addObject:urlstr];
+    }
+    //    self.itemArray = [NSMutableArray arrayWithArray:imgArr];
+
+     NSLog(@" +++++++++itemArray %@+++++++++++", _itemArray);
+    
 }
 -(void)setup{
  
@@ -82,13 +83,13 @@
    
     ApprariseCollectionViewCell *cell = [self.appriseCollectionView dequeueReusableCellWithReuseIdentifier:@"ApprariseCollectionViewCellid" forIndexPath:indexPath];
      //  解析需要的数据
-    Cmgoodscommentinfo * info = _itemArray[indexPath.row];
-    NSLog(@"%@",info.reviewsImgUrl);
-    
+//    Cmgoodscommentinfo * info = _itemArray[indexPath.row];
+//    NSLog(@"%@",info.reviewsImgUrl);
+//    
      for (NSString * urlStr in self.itemArray) {
          
          NSLog(@"-----aaaaaaaaa-------%@",urlStr);
-         [cell.img_CollectionView  sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", info.reviewsImgUrl]] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+         [cell.img_CollectionView  sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",urlStr]] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
              
          }];
     }

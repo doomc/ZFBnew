@@ -19,21 +19,7 @@
     // Initialization code
     
     
-    self.ppNumberView =  [[PPNumberButton alloc]init];
-    
-    //    self.ppNumberView.clipsToBounds = YES;
-    //    self.ppNumberView.borderColor = [UIColor grayColor];
-    //    // 初始化时隐藏减按钮
-    self.ppNumberView.shakeAnimation = YES;
-    self.ppNumberView.delegate = self;
-    
-    self.ppNumberView.increaseImage = [UIImage imageNamed:@"add"];
-    self.ppNumberView.decreaseImage = [UIImage imageNamed:@"reduce"];
-    _ppNumberView.resultBlock = ^(NSInteger num ,BOOL increaseStatus){
-        __weak typeof(self)weakself = self;
-        [weakself.shopEditDelegate ChangeGoodsNumberShopCarEditCell:self Number:num];
-    };
-    
+ 
 }
 /**
  *  选中该商品

@@ -155,12 +155,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 #pragma mark - 加入购物车
 -(void)addShopCar:(UIButton * )sender
 {
-    self.popView = [[UIView alloc]initWithFrame:CGRectMake(0, KScreenH/2 -150, KScreenW, KScreenH/2)];
-    self.popView.center =  self.view.center;
-    self.popView.backgroundColor = [UIColor redColor];
-    [self.view addSubview:self.popView];
-    [self.list_tableView bringSubviewToFront:self.popView];
-
+    [self popAcenterView];
 }
 
 /**
@@ -177,10 +172,18 @@ typedef NS_ENUM(NSUInteger, typeCell) {
  */
 -(void)popAcenterView
 {
-    self.popView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 320)];
+
+    self.popView = [[UIView alloc]initWithFrame:CGRectMake(0, KScreenH/2 -150, KScreenW, KScreenH/2)];
+    self.popView.center =  self.view.center;
+    self.popView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:self.popView];
+    [self.list_tableView bringSubviewToFront:self.popView];
+
     
-    self.popView.backgroundColor =[ UIColor whiteColor];
-    
+    UILabel * lb_title = [UILabel new];
+    lb_title.text = @"请选择商品规格";
+    lb_title.numberOfLines = 0;
+    [self.popView addSubview:lb_title];
     
 }
 #pragma mark  -tableView  delegate

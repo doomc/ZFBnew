@@ -27,27 +27,10 @@
     [self.chooseBtn addTarget:self action:@selector(chooseBtnAction:) forControlEvents:UIControlEventTouchUpInside];
 
     
-    //设置边框颜色
-    self.ppNumberView =  [[PPNumberButton alloc]init];
-    
-//    self.ppNumberView.clipsToBounds = YES;
-//    self.ppNumberView.borderColor = [UIColor grayColor];
-//    // 初始化时隐藏减按钮
-    self.ppNumberView.shakeAnimation = YES;
-    self.ppNumberView.delegate = self;
-
-    self.ppNumberView.increaseImage = [UIImage imageNamed:@"add"];
-    self.ppNumberView.decreaseImage = [UIImage imageNamed:@"reduce"];
-    _ppNumberView.resultBlock = ^(NSInteger num ,BOOL increaseStatus){
-        __weak typeof(self)weakself = self;
-        [weakself.selectDelegate ChangeGoodsNumberCell:self Number:num];
-    };
- }
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self.contentView endEditing:YES];
+  
 }
+
+
 
 -(void)chooseBtnAction:(UIButton * )sender
 {

@@ -46,7 +46,7 @@
  
     [self.view addSubview:self.footView];
     
-    [self shoppingCarPostRequst];
+   // [self shoppingCarPostRequst];
 }
 
 -(UITableView *)shopCar_tableview
@@ -133,15 +133,15 @@
 {
     ZFShopCarCell * shopCell = [self.shopCar_tableview dequeueReusableCellWithIdentifier:@"ShopCarCellid" forIndexPath:indexPath];
     shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
-    Shoppcartlist * shopList = self.carListArray[indexPath.row];
-    
-    shopCell.lb_title.text = shopList.goodsName;
-    shopCell.lb_price.text = shopList.storePrice;
-//    shopCell.lb_result.text = shopList.goodsCount;
-    
-    [shopCell.img_shopCar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",shopList.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
-    }];
+//    Shoppcartlist * shopList = self.carListArray[indexPath.row];
+//    
+//    shopCell.lb_title.text = shopList.goodsName;
+//    shopCell.lb_price.text = shopList.storePrice;
+////    shopCell.lb_result.text = shopList.goodsCount;
+//    
+//    [shopCell.img_shopCar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",shopList.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        
+//    }];
     
     
     return shopCell;

@@ -42,7 +42,7 @@
     _pageIndex = 1;
     [self initWithEvaluate_tableView];
     
-    [self appriaseToPostRequest];
+    //[self appriaseToPostRequest];
     
     
 }
@@ -96,9 +96,9 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
    
-   // return 3;
+    return 3;
 
-    return self.appraiseListArray.count;
+  //  return self.appraiseListArray.count;
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -115,21 +115,23 @@
     ZFAppraiseCell *appraiseCell = [self.evaluate_tableView  dequeueReusableCellWithIdentifier:@"ZFAppraiseCell" forIndexPath:indexPath];
     
     appraiseCell.Adelegate = self;
-    Cmgoodscommentinfo * info = self.appraiseListArray[indexPath.row];
-    appraiseCell.imgurl = info.reviewsImgUrl;
+//    Cmgoodscommentinfo * info = self.appraiseListArray[indexPath.row];
+    
+    appraiseCell.imgurl = @"http://47.92.118.205:8083/upload/2017/06/21/05513910524572300.jpg,http://47.92.118.205:8083/upload/2017/06/21/05513910524572300.jpg,http://47.92.118.205:8083/upload/2017/06/21/05513910524572300.jpg";
+//    appraiseCell.imgurl = info.reviewsImgUrl;
 
-    if (self.appraiseListArray.count > 0) {
-        
-        appraiseCell.lb_nickName.text = info.userName;
-        appraiseCell.lb_message.text = info.reviewsText;
-        appraiseCell.lb_detailtext.text = [NSString stringWithFormat:@"%@之前,来自%@",info.befor,info.equip];
-        [appraiseCell.img_appraiseView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",info.userAvatarImg]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            
-        }];
-        appraiseCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return appraiseCell;
-        
-    }
+//    if (self.appraiseListArray.count > 0) {
+//        
+//        appraiseCell.lb_nickName.text = info.userName;
+//        appraiseCell.lb_message.text = info.reviewsText;
+//        appraiseCell.lb_detailtext.text = [NSString stringWithFormat:@"%@之前,来自%@",info.befor,info.equip];
+//        [appraiseCell.img_appraiseView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",info.userAvatarImg]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//            
+//        }];
+//        appraiseCell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        return appraiseCell;
+//        
+//    }
     return appraiseCell;
     
 }

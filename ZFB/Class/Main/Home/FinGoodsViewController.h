@@ -10,4 +10,6 @@
 
 @interface FinGoodsViewController : BaseViewController
 
+-(void)reloadDataWithVC;
+
 @end

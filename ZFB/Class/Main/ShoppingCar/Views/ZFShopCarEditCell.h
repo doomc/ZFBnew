@@ -18,7 +18,7 @@
 -(void)DeleteTheGoodsCell:(UITableViewCell *)cell;
 
 @end
-@interface ZFShopCarEditCell : UITableViewCell<PPNumberButtonDelegate>
+@interface ZFShopCarEditCell : UITableViewCell 
 
 @property (assign, nonatomic) id <ShopCarEditDelegate> shopEditDelegate;
 
@@ -26,9 +26,16 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 
+
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 
-@property (weak, nonatomic) IBOutlet PPNumberButton *ppNumberView;
+
+@property (weak, nonatomic) IBOutlet UIButton *add_btn;
+
+@property (weak, nonatomic) IBOutlet UIButton *reduce_btn;
+
+//加减出的结果
+@property (weak, nonatomic) IBOutlet UITextField *tf_result;
 
 @property (weak, nonatomic) IBOutlet UIButton *deldete_btn;
 

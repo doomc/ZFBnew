@@ -16,11 +16,11 @@
     [super awakeFromNib];
     // Initialization code
 
-    self.img_allStoreView.clipsToBounds = YES;
-    self.img_allStoreView.layer.borderWidth = 0.5;
-    self.img_allStoreView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
-    
-    self.starView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 120, 40) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self];
+//    self.img_allStoreView.clipsToBounds = YES;
+//    self.img_allStoreView.layer.borderWidth = 0.5;
+//    self.img_allStoreView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
+//
+//    self.starView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 120, 40) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self];
  
 }
 

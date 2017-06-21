@@ -9,14 +9,7 @@
 #import "AddGoodsToShopCar.h"
 
 @implementation AddGoodsToShopCar
-
-
-+ (NSDictionary *)objectClassInArray{
-    return @{@"shoppCartList" : [Shoppcartlist class]};
-}
-@end
-@implementation Shoppcartlist
-
+ 
 @end
 
 
