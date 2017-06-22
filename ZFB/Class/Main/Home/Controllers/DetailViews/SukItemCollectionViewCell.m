@@ -18,7 +18,10 @@
     self.selectItemColor.layer.cornerRadius = 2;
     self.selectItemColor.layer.borderWidth = 0.5;
     self.selectItemColor.layer.borderColor = HEXCOLOR(0xA7A7A7).CGColor;
- 
+    
+    self.selectItemColor.userInteractionEnabled = NO;
+    
+    
     [_selectItemColor addTarget:self action:@selector(selectItemColor:) forControlEvents:UIControlEventTouchUpInside];
     
 }

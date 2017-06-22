@@ -42,6 +42,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     NSString * _goodsSales;
     NSInteger  _commentNum;
     NSString * _inStock;
+    NSMutableArray *selectIndexPathArr;
 }
 @property(nonatomic,strong) UITableView * list_tableView;
 @property(nonatomic,strong) UIView * headerView;
@@ -49,10 +50,13 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 @property(nonatomic,strong) UIView * popView;
 @property(nonatomic,strong) UIView * BgView;//背景view
 
+
 @property(nonatomic,strong) UIButton * contactService;//客服
 @property(nonatomic,strong) UIButton * addShopCar;//加入购物车
 @property(nonatomic,strong) UIButton * rightNowGo;//立即购买
 @property(nonatomic,strong) UIButton * selectItemStatus;//保存item选择状态
+@property(nonatomic,strong) NSIndexPath  * indexPath;
+
 
 @property(nonatomic,strong) SDCycleScrollView* cycleScrollView;
 @property(nonatomic,strong) NSMutableArray * goodsListArray;//数据源
@@ -73,6 +77,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    selectIndexPathArr = [NSMutableArray arrayWithObjects:@"1",@"1", nil];
+ 
     
     [self goodsDetailListPostRequset];
     [self creatInterfaceDetailTableView];
@@ -149,12 +156,11 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     [self.rightNowGo addTarget:self action:@selector(rightNowGo:) forControlEvents:UIControlEventTouchUpInside];
     [self.addShopCar addTarget:self action:@selector(addShopCar:) forControlEvents:UIControlEventTouchUpInside];
     
-    
-    
 }
 #pragma mark - 立即抢购
 -(void)rightNowGo:(UIButton *)sender
 {
+    
     ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -162,6 +168,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 #pragma mark - 加入购物车
 -(void)addShopCar:(UIButton * )sender
 {
+    
     [self popAcenterView];
 }
 
@@ -561,7 +568,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         make.top.equalTo(self.popView).with.offset(10);
         make.right.equalTo(self.popView).with.offset(-20);
         make.size.mas_equalTo(CGSizeMake(40, 40));
-        
+
     }];
     //加入购物车按钮
     [addShopCar mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -591,14 +598,18 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SukItemCollectionViewCell * cell = [self.SkuColletionView dequeueReusableCellWithReuseIdentifier:@"SukItemCollectionViewCellid" forIndexPath:indexPath];
-    
-    cell.itemDelegate = self;
+  
+
+        [cell.selectItemColor setBackgroundColor:HEXCOLOR(0xffffff)];
+        [cell.selectItemColor setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+        cell.selectItemColor.selected = NO;
+  
+      cell.itemDelegate = self;
     
     return cell;
 }
 #pragma mark - SukItemCollectionViewDelegate 改变选中的状态
 -(void)selectedButton:(UIButton *)button{
-    button.selected =!button.selected;
     
     if (button.selected == YES) {
         
@@ -614,8 +625,38 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    SukItemCollectionViewCell * newCell  = (SukItemCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    
+    id str =   [selectIndexPathArr objectAtIndex:indexPath.section];
+    
 
-    NSLog(@" section = %ld  ,row = %ld",indexPath.section,indexPath.item);
+    if ([str isKindOfClass:[NSIndexPath class]]) {
+    
+        NSIndexPath *oldIndexPath = [selectIndexPathArr objectAtIndex:indexPath.section];
+
+        SukItemCollectionViewCell * oldCell = (SukItemCollectionViewCell *)[collectionView cellForItemAtIndexPath: oldIndexPath];
+   
+            oldCell.selectItemColor.selected = NO;
+           [self selectedButton:oldCell.selectItemColor];
+        
+            newCell.selectItemColor.selected = YES;
+            [self selectedButton:newCell.selectItemColor];
+    }else{
+    
+        
+        newCell.selectItemColor.selected = YES;
+        [self selectedButton:newCell.selectItemColor];
+
+    }
+    
+           
+    [selectIndexPathArr replaceObjectAtIndex:indexPath.section withObject:indexPath];
+
+
+    
+//    [self.SkuColletionView reloadData];
+    NSLog(@" indexPath = %ld  ,row = %ld",indexPath.section,indexPath.item);
     
 }
 
