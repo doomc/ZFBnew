@@ -138,7 +138,6 @@
                     
                     [self.hotArray addObject:hotlist];
                 }
-                NSLog(@"hotArray = %@",  self.hotArray);
                 
                 [self.HotcollectionView reloadData];
             }

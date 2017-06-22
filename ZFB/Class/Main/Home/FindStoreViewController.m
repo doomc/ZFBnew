@@ -278,7 +278,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         
     } success:^(id responseObject) {
         
-        NSLog(@"  %@  = responseObject  " ,responseObject);
+//        NSLog(@"  %@  = responseObject  " ,responseObject);
         
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
             
@@ -288,7 +288,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 
             }else{
                
-                [self.view makeToast:@"请求成功" duration:2 position:@"center" ];
+//                [self.view makeToast:@"请求成功" duration:2 position:@"center" ];
                 NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
                 NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
                 NSArray * dictArray = jsondic [@"cmStoreList"];

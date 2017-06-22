@@ -42,7 +42,6 @@
         
         [self.itemArray addObject:urlstr];
     }
-    //    self.itemArray = [NSMutableArray arrayWithArray:imgArr];
 
      NSLog(@" +++++++++itemArray %@+++++++++++", _itemArray);
     
@@ -50,9 +49,6 @@
 -(void)setup{
  
  
-  //    self.itemArray = [NSMutableArray arrayWithObject:model];
-   
-   // self.itemArray = [NSMutableArray arrayWithObjects:model,model,model,model, nil];
     [self.appriseCollectionView registerNib:[UINib nibWithNibName:@"ApprariseCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"ApprariseCollectionViewCellid"];
     self.appriseCollectionView.delegate = self;
     self.appriseCollectionView.dataSource = self;
@@ -83,9 +79,6 @@
    
     ApprariseCollectionViewCell *cell = [self.appriseCollectionView dequeueReusableCellWithReuseIdentifier:@"ApprariseCollectionViewCellid" forIndexPath:indexPath];
      //  解析需要的数据
-//    Cmgoodscommentinfo * info = _itemArray[indexPath.row];
-//    NSLog(@"%@",info.reviewsImgUrl);
-//    
      for (NSString * urlStr in self.itemArray) {
          
          NSLog(@"-----aaaaaaaaa-------%@",urlStr);

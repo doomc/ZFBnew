@@ -108,9 +108,7 @@
     [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
-        
-        NSLog(@"%@",responseObject);
-        
+                
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
           
             if (self.dataArray.count >0) {
@@ -119,7 +117,6 @@
                 
             }else{
                 
-                [self makeToast:@"请求成功" duration:2 position:@"center" ];
                 NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
                 NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
                 NSArray * dictArray = jsondic [@"CmGoodsTypeList"];
@@ -130,8 +127,6 @@
  
                     [self.dataArray addObject:funclist];
                 }
-                NSLog(@"dataArray = %@",  self.dataArray);
-
                 [self.funcCollectionView reloadData];
             }
             

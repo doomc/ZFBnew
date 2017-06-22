@@ -500,6 +500,11 @@
 		49F113C51ECC55B0000F3BF7 /* WX@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49F113BF1ECC55B0000F3BF7 /* WX@3x.png */; };
 		49F113C61ECC55B0000F3BF7 /* wx_share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49F113C01ECC55B0000F3BF7 /* wx_share@2x.png */; };
 		49F113C71ECC55B0000F3BF7 /* wx_share@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49F113C11ECC55B0000F3BF7 /* wx_share@3x.png */; };
+		49F254991EFB6951008F6E88 /* SukItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F254971EFB6951008F6E88 /* SukItemCollectionViewCell.m */; };
+		49F2549A1EFB6951008F6E88 /* SukItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F254981EFB6951008F6E88 /* SukItemCollectionViewCell.xib */; };
+		49F254A21EFBA125008F6E88 /* SkuHeaderReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F254A11EFBA125008F6E88 /* SkuHeaderReusableView.m */; };
+		49F254A91EFBA21A008F6E88 /* SkuFooterReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F254A71EFBA21A008F6E88 /* SkuFooterReusableView.m */; };
+		49F254AA1EFBA21A008F6E88 /* SkuFooterReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F254A81EFBA21A008F6E88 /* SkuFooterReusableView.xib */; };
 		49F2725F1EEA43B4005D49AD /* UIButton+XW.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F2725E1EEA43B4005D49AD /* UIButton+XW.m */; };
 		49F272621EEA69D7005D49AD /* navback_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49F272601EEA69D7005D49AD /* navback_white@2x.png */; };
 		49F272631EEA69D7005D49AD /* navback_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49F272611EEA69D7005D49AD /* navback_white@3x.png */; };
@@ -1327,6 +1332,14 @@
 		49F113BF1ECC55B0000F3BF7 /* WX@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WX@3x.png"; sourceTree = "<group>"; };
 		49F113C01ECC55B0000F3BF7 /* wx_share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wx_share@2x.png"; sourceTree = "<group>"; };
 		49F113C11ECC55B0000F3BF7 /* wx_share@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wx_share@3x.png"; sourceTree = "<group>"; };
+		49F254961EFB6951008F6E88 /* SukItemCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SukItemCollectionViewCell.h; sourceTree = "<group>"; };
+		49F254971EFB6951008F6E88 /* SukItemCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SukItemCollectionViewCell.m; sourceTree = "<group>"; };
+		49F254981EFB6951008F6E88 /* SukItemCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SukItemCollectionViewCell.xib; sourceTree = "<group>"; };
+		49F254A01EFBA125008F6E88 /* SkuHeaderReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkuHeaderReusableView.h; sourceTree = "<group>"; };
+		49F254A11EFBA125008F6E88 /* SkuHeaderReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkuHeaderReusableView.m; sourceTree = "<group>"; };
+		49F254A61EFBA21A008F6E88 /* SkuFooterReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkuFooterReusableView.h; sourceTree = "<group>"; };
+		49F254A71EFBA21A008F6E88 /* SkuFooterReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkuFooterReusableView.m; sourceTree = "<group>"; };
+		49F254A81EFBA21A008F6E88 /* SkuFooterReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SkuFooterReusableView.xib; sourceTree = "<group>"; };
 		49F2725D1EEA43B4005D49AD /* UIButton+XW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+XW.h"; sourceTree = "<group>"; };
 		49F2725E1EEA43B4005D49AD /* UIButton+XW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+XW.m"; sourceTree = "<group>"; };
 		49F272601EEA69D7005D49AD /* navback_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navback_white@2x.png"; sourceTree = "<group>"; };
@@ -2386,6 +2399,14 @@
 				49DF70481EEAA9B10021EE92 /* ZFTitleAndChooseListCell.h */,
 				49DF70491EEAA9B10021EE92 /* ZFTitleAndChooseListCell.m */,
 				49DF704A1EEAA9B10021EE92 /* ZFTitleAndChooseListCell.xib */,
+				49F254961EFB6951008F6E88 /* SukItemCollectionViewCell.h */,
+				49F254971EFB6951008F6E88 /* SukItemCollectionViewCell.m */,
+				49F254981EFB6951008F6E88 /* SukItemCollectionViewCell.xib */,
+				49F254A01EFBA125008F6E88 /* SkuHeaderReusableView.h */,
+				49F254A11EFBA125008F6E88 /* SkuHeaderReusableView.m */,
+				49F254A61EFBA21A008F6E88 /* SkuFooterReusableView.h */,
+				49F254A71EFBA21A008F6E88 /* SkuFooterReusableView.m */,
+				49F254A81EFBA21A008F6E88 /* SkuFooterReusableView.xib */,
 			);
 			path = DetailViews;
 			sourceTree = "<group>";
@@ -3617,6 +3638,7 @@
 				49F113591ECC5547000F3BF7 /* arrows_down_black@2x.png in Resources */,
 				49F113681ECC5547000F3BF7 /* bag_normal@3x.png in Resources */,
 				49F1136C1ECC5547000F3BF7 /* cellphone_normal@3x.png in Resources */,
+				49F2549A1EFB6951008F6E88 /* SukItemCollectionViewCell.xib in Resources */,
 				49F113A11ECC5547000F3BF7 /* location_icon2@2x.png in Resources */,
 				49FB3C881ECD95C50090075D /* mine_selected@2x.png in Resources */,
 				49C6CFEC1EDFDB2B00652CDB /* setting_shakehand@2x.png in Resources */,
@@ -3633,6 +3655,7 @@
 				49F669721EF7A92300F8D516 /* star_sel@3x.png in Resources */,
 				49F1135D1ECC5547000F3BF7 /* 搜索@2x.png in Resources */,
 				49F113941ECC5547000F3BF7 /* arrows_down_red@3x.png in Resources */,
+				49F254AA1EFBA21A008F6E88 /* SkuFooterReusableView.xib in Resources */,
 				49DF71631EEAA9B20021EE92 /* ZFTitleAndChooseListCell.xib in Resources */,
 				49DF71F11EEAA9B20021EE92 /* PayforCell.xib in Resources */,
 				49FB3C591ECD7AD40090075D /* shoppingCar_normal@2x.png in Resources */,
@@ -3834,6 +3857,7 @@
 				49DF71C51EEAA9B20021EE92 /* ZFSaleAfterSearchCell.m in Sources */,
 				49DF71DC1EEAA9B20021EE92 /* ZFPregressCheckViewController.m in Sources */,
 				5019FFB31ECCAEF800325342 /* UIButton+WebCache.m in Sources */,
+				49F254A91EFBA21A008F6E88 /* SkuFooterReusableView.m in Sources */,
 				496498081EFA8AE8005F65E1 /* AddGoodsToShopCar.m in Sources */,
 				492757561EC4679E003C22D0 /* UIView+MJExtension.m in Sources */,
 				50C672CD1EE83F5E005A1E7C /* ZFEncryptionKey.m in Sources */,
@@ -3862,6 +3886,7 @@
 				49DF71E91EEAA9B20021EE92 /* ZFOrderDetailPaycashCell.m in Sources */,
 				49DF6FE91EEA927C0021EE92 /* TDView.m in Sources */,
 				49DF6FE31EEA927C0021EE92 /* UIImage+FX.m in Sources */,
+				49F254A21EFBA125008F6E88 /* SkuHeaderReusableView.m in Sources */,
 				49DF71AC1EEAA9B20021EE92 /* ZFSendPopView.m in Sources */,
 				49DF71961EEAA9B20021EE92 /* ZFDefaultAddressCell.m in Sources */,
 				49DF71DA1EEAA9B20021EE92 /* ZFMyOpinionViewController.m in Sources */,
@@ -4051,6 +4076,7 @@
 				5019FFAC1ECCAEF800325342 /* SDImageCache.m in Sources */,
 				49DF71E01EEAA9B20021EE92 /* ApplySalesAfterCommonCell.m in Sources */,
 				49DF71E51EEAA9B20021EE92 /* ZFOrderDetailCountCell.m in Sources */,
+				49F254991EFB6951008F6E88 /* SukItemCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4205,7 +4231,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4226,7 +4252,7 @@
 				DEVELOPMENT_TEAM = R58AL3WKFR;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

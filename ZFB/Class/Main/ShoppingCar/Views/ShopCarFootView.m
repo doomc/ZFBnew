@@ -24,23 +24,22 @@
     
     if (self) {
         
-        NSString *buttonTitle = @"结算";
+        NSString *buttonTitle = @"结算（0）";
         NSString *price = @"¥208.00";
-        NSString *caseOrder =  @"订单金额";
+        NSString *caseOrder =  @"合计:";
         UIFont * font  =[UIFont systemFontOfSize:12];
         
+   
         
         //结算按钮
         UIButton * complete_Btn  = [UIButton buttonWithType:UIButtonTypeCustom];
         [complete_Btn setTitle:buttonTitle forState:UIControlStateNormal];
         complete_Btn.titleLabel.font =font;
-        complete_Btn.layer.cornerRadius = 2;
         complete_Btn.backgroundColor =HEXCOLOR(0xfe6d6a);
-        CGSize complete_BtnSize = [buttonTitle sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
-        CGFloat complete_BtnW = complete_BtnSize.width;
-        complete_Btn.frame =CGRectMake(KScreenW - complete_BtnW - 25, 5, complete_BtnW +10, 25);
+        complete_Btn.frame =CGRectMake(KScreenW -100, 0, 100 , 49);
         [complete_Btn addTarget:self action:@selector(didClickClearingShopCar:) forControlEvents:UIControlEventTouchUpInside];
-        
+        [self addSubview:complete_Btn];
+
         
         //价格
         UILabel * lb_price = [[UILabel alloc]init];
@@ -49,21 +48,42 @@
         lb_price.font = font;
         lb_price.textColor = HEXCOLOR(0xfe6d6a);
         CGSize lb_priceSize = [price sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
-        CGFloat lb_priceW = lb_priceSize.width;
-        lb_price.frame = CGRectMake(KScreenW - lb_priceW -35-complete_BtnW, 5, lb_priceW, 30);
+        CGFloat lb_priceSizeW = lb_priceSize.width;
+        [self addSubview: lb_price];
         
-        //固定金额位置
+        [lb_price mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(complete_Btn.mas_left).with.offset(-20);
+            make.centerY.equalTo(complete_Btn.mas_centerY);
+            make.size.mas_equalTo(CGSizeMake(lb_priceSizeW+10, 20));
+        }];
+        
+        //合计
         UILabel * lb_order = [[UILabel alloc]init];
         lb_order.text= caseOrder;
         lb_order.font = font;
         lb_order.textColor = HEXCOLOR(0x363636);
         CGSize lb_orderSiez = [caseOrder sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
         CGFloat lb_orderW = lb_orderSiez.width;
-        lb_order.frame =  CGRectMake(KScreenW - lb_priceW -35-complete_BtnW-15-lb_orderW, 5, lb_orderW, 30);
-        
-        [self addSubview: lb_price];
         [self addSubview:lb_order];
-        [self addSubview:complete_Btn];
+        
+        [lb_order mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(lb_price.mas_left).with.offset(-5);
+            make.centerY.equalTo(complete_Btn.mas_centerY);
+            make.size.mas_equalTo(CGSizeMake(lb_orderW+10, 20));
+        }];
+        
+        //全选
+        UILabel * chooseAll = [UILabel new];
+        chooseAll.text = @"全选";
+        chooseAll.textColor = HEXCOLOR(0x363636);
+        chooseAll.font = font;
+        [self addSubview:chooseAll];
+        [chooseAll mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).with.offset(40);
+            make.centerY.equalTo(complete_Btn.mas_centerY);
+            make.size.mas_equalTo(CGSizeMake(30, 20));
+        }];
+     
     }
     return self;
 }
