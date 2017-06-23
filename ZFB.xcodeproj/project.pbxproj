@@ -89,7 +89,6 @@
 		494F06FF1ED42DED007EC66A /* add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06FB1ED42DED007EC66A /* add@3x.png */; };
 		494F07001ED42DED007EC66A /* reduce@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06FC1ED42DED007EC66A /* reduce@2x.png */; };
 		494F07011ED42DED007EC66A /* reduce@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06FD1ED42DED007EC66A /* reduce@3x.png */; };
-		496498081EFA8AE8005F65E1 /* AddGoodsToShopCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 496498071EFA8AE8005F65E1 /* AddGoodsToShopCar.m */; };
 		49801C8D1ECE870100EDAA53 /* PYSearch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49801C811ECE870100EDAA53 /* PYSearch.bundle */; };
 		49801C8E1ECE870100EDAA53 /* PYSearchConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 49801C841ECE870100EDAA53 /* PYSearchConst.m */; };
 		49801C8F1ECE870100EDAA53 /* PYSearchSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49801C861ECE870100EDAA53 /* PYSearchSuggestionViewController.m */; };
@@ -122,7 +121,6 @@
 		49B9A1C11EE0089400B98DA5 /* NOAddress@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B9A1BF1EE0089400B98DA5 /* NOAddress@3x.png */; };
 		49BEB9A91EF8CD0400779588 /* ZFShopCarEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BEB9A71EF8CD0400779588 /* ZFShopCarEditCell.m */; };
 		49BEB9AA1EF8CD0400779588 /* ZFShopCarEditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49BEB9A81EF8CD0400779588 /* ZFShopCarEditCell.xib */; };
-		49BEB9AD1EF8D11900779588 /* ShopCarHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BEB9AC1EF8D11900779588 /* ShopCarHeadView.m */; };
 		49BEB9B01EF8D13100779588 /* ShopCarFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BEB9AF1EF8D13100779588 /* ShopCarFootView.m */; };
 		49BEB9B31EF917FA00779588 /* 省略@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BEB9B11EF917FA00779588 /* 省略@2x.png */; };
 		49BEB9B41EF917FA00779588 /* 省略@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BEB9B21EF917FA00779588 /* 省略@3x.png */; };
@@ -160,6 +158,8 @@
 		49C95F141ED295AF004EA811 /* sendcar_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49C95F041ED295AF004EA811 /* sendcar_normal@3x.png */; };
 		49C95F151ED295AF004EA811 /* sendComplete_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49C95F051ED295AF004EA811 /* sendComplete_normal@2x.png */; };
 		49C95F161ED295AF004EA811 /* sendComplete_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49C95F061ED295AF004EA811 /* sendComplete_normal@3x.png */; };
+		49CF00B31EFD15870080BE32 /* 删除@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49CF00B11EFD15870080BE32 /* 删除@2x.png */; };
+		49CF00B41EFD15870080BE32 /* 删除@3x .png in Resources */ = {isa = PBXBuildFile; fileRef = 49CF00B21EFD15870080BE32 /* 删除@3x .png */; };
 		49D6E70D1ED96DE4000A837E /* accessory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D6E6FE1ED96DE4000A837E /* accessory@2x.png */; };
 		49D6E70E1ED96DE4000A837E /* accessory@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D6E6FF1ED96DE4000A837E /* accessory@3x.png */; };
 		49D6E70F1ED96DE4000A837E /* cases@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D6E7001ED96DE4000A837E /* cases@2x.png */; };
@@ -736,8 +736,6 @@
 		494F06FB1ED42DED007EC66A /* add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@3x.png"; sourceTree = "<group>"; };
 		494F06FC1ED42DED007EC66A /* reduce@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce@2x.png"; sourceTree = "<group>"; };
 		494F06FD1ED42DED007EC66A /* reduce@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce@3x.png"; sourceTree = "<group>"; };
-		496498061EFA8AE8005F65E1 /* AddGoodsToShopCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddGoodsToShopCar.h; sourceTree = "<group>"; };
-		496498071EFA8AE8005F65E1 /* AddGoodsToShopCar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddGoodsToShopCar.m; sourceTree = "<group>"; };
 		49801C811ECE870100EDAA53 /* PYSearch.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PYSearch.bundle; sourceTree = "<group>"; };
 		49801C821ECE870100EDAA53 /* PYSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearch.h; sourceTree = "<group>"; };
 		49801C831ECE870100EDAA53 /* PYSearchConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearchConst.h; sourceTree = "<group>"; };
@@ -794,8 +792,6 @@
 		49BEB9A61EF8CD0400779588 /* ZFShopCarEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFShopCarEditCell.h; sourceTree = "<group>"; };
 		49BEB9A71EF8CD0400779588 /* ZFShopCarEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFShopCarEditCell.m; sourceTree = "<group>"; };
 		49BEB9A81EF8CD0400779588 /* ZFShopCarEditCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFShopCarEditCell.xib; sourceTree = "<group>"; };
-		49BEB9AB1EF8D11900779588 /* ShopCarHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarHeadView.h; sourceTree = "<group>"; };
-		49BEB9AC1EF8D11900779588 /* ShopCarHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarHeadView.m; sourceTree = "<group>"; };
 		49BEB9AE1EF8D13100779588 /* ShopCarFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarFootView.h; sourceTree = "<group>"; };
 		49BEB9AF1EF8D13100779588 /* ShopCarFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarFootView.m; sourceTree = "<group>"; };
 		49BEB9B11EF917FA00779588 /* 省略@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "省略@2x.png"; sourceTree = "<group>"; };
@@ -837,6 +833,8 @@
 		49C95F041ED295AF004EA811 /* sendcar_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sendcar_normal@3x.png"; sourceTree = "<group>"; };
 		49C95F051ED295AF004EA811 /* sendComplete_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sendComplete_normal@2x.png"; sourceTree = "<group>"; };
 		49C95F061ED295AF004EA811 /* sendComplete_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sendComplete_normal@3x.png"; sourceTree = "<group>"; };
+		49CF00B11EFD15870080BE32 /* 删除@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "删除@2x.png"; sourceTree = "<group>"; };
+		49CF00B21EFD15870080BE32 /* 删除@3x .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "删除@3x .png"; sourceTree = "<group>"; };
 		49D6E6FE1ED96DE4000A837E /* accessory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accessory@2x.png"; sourceTree = "<group>"; };
 		49D6E6FF1ED96DE4000A837E /* accessory@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accessory@3x.png"; sourceTree = "<group>"; };
 		49D6E7001ED96DE4000A837E /* cases@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cases@2x.png"; sourceTree = "<group>"; };
@@ -1919,6 +1917,8 @@
 		494F06E91ED42907007EC66A /* 购物车 */ = {
 			isa = PBXGroup;
 			children = (
+				49CF00B11EFD15870080BE32 /* 删除@2x.png */,
+				49CF00B21EFD15870080BE32 /* 删除@3x .png */,
 				49BEB9B11EF917FA00779588 /* 省略@2x.png */,
 				49BEB9B21EF917FA00779588 /* 省略@3x.png */,
 				494F06FA1ED42DED007EC66A /* add@2x.png */,
@@ -2835,8 +2835,6 @@
 				49BEB9A61EF8CD0400779588 /* ZFShopCarEditCell.h */,
 				49BEB9A71EF8CD0400779588 /* ZFShopCarEditCell.m */,
 				49BEB9A81EF8CD0400779588 /* ZFShopCarEditCell.xib */,
-				49BEB9AB1EF8D11900779588 /* ShopCarHeadView.h */,
-				49BEB9AC1EF8D11900779588 /* ShopCarHeadView.m */,
 				49BEB9AE1EF8D13100779588 /* ShopCarFootView.h */,
 				49BEB9AF1EF8D13100779588 /* ShopCarFootView.m */,
 			);
@@ -3303,8 +3301,6 @@
 		509CC4B11EF829AC0035B1D8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				496498061EFA8AE8005F65E1 /* AddGoodsToShopCar.h */,
-				496498071EFA8AE8005F65E1 /* AddGoodsToShopCar.m */,
 				509CC4B21EF82A1B0035B1D8 /* ShoppingCarModel.h */,
 				509CC4B31EF82A1B0035B1D8 /* ShoppingCarModel.m */,
 			);
@@ -3504,6 +3500,7 @@
 				492752271EC44DFD003C22D0 /* LaunchScreen.storyboard in Resources */,
 				49F113721ECC5547000F3BF7 /* people_icon@3x.png in Resources */,
 				49F113B11ECC5547000F3BF7 /* shakehand@2x.png in Resources */,
+				49CF00B31EFD15870080BE32 /* 删除@2x.png in Resources */,
 				49E0A0AC1ED5390200AEE354 /* 共享梦想@2x.png in Resources */,
 				49FB3C971ECDA0DD0090075D /* 11.jpg in Resources */,
 				49BEB9B31EF917FA00779588 /* 省略@2x.png in Resources */,
@@ -3552,6 +3549,7 @@
 				49E0A0A11ED5344C00AEE354 /* ipone@3x.png in Resources */,
 				493ADAE11ED553DF00CB2866 /* success_order@3x.png in Resources */,
 				49F113931ECC5547000F3BF7 /* arrows_down_red@2x.png in Resources */,
+				49CF00B41EFD15870080BE32 /* 删除@3x .png in Resources */,
 				49FB3C8B1ECD97B30090075D /* 11.png in Resources */,
 				49F113911ECC5547000F3BF7 /* arrows_down_gray@2x.png in Resources */,
 				49DF70001EEA94D80021EE92 /* blankpage_image_Sleep@3x.png in Resources */,
@@ -3858,7 +3856,6 @@
 				49DF71DC1EEAA9B20021EE92 /* ZFPregressCheckViewController.m in Sources */,
 				5019FFB31ECCAEF800325342 /* UIButton+WebCache.m in Sources */,
 				49F254A91EFBA21A008F6E88 /* SkuFooterReusableView.m in Sources */,
-				496498081EFA8AE8005F65E1 /* AddGoodsToShopCar.m in Sources */,
 				492757561EC4679E003C22D0 /* UIView+MJExtension.m in Sources */,
 				50C672CD1EE83F5E005A1E7C /* ZFEncryptionKey.m in Sources */,
 				492756B11EC4679E003C22D0 /* UIImage+Extension.m in Sources */,
@@ -4046,7 +4043,6 @@
 				503BEC101ED72324004FC36C /* UITableView+FDKeyedHeightCache.m in Sources */,
 				5019FFB81ECCAEF800325342 /* UIImageView+WebCache.m in Sources */,
 				49DF71CD1EEAA9B20021EE92 /* ZFSettingCell.m in Sources */,
-				49BEB9AD1EF8D11900779588 /* ShopCarHeadView.m in Sources */,
 				5019FFB71ECCAEF800325342 /* UIImageView+HighlightedWebCache.m in Sources */,
 				4927574A1EC4679E003C22D0 /* MJRefreshAutoNormalFooter.m in Sources */,
 				49DF71671EEAA9B20021EE92 /* FindStoreViewController.m in Sources */,
@@ -4231,7 +4227,7 @@
 				DEVELOPMENT_TEAM = X28D98X7LE;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4252,7 +4248,7 @@
 				DEVELOPMENT_TEAM = X28D98X7LE;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

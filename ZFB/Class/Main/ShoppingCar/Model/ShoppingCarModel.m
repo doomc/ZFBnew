@@ -13,9 +13,20 @@
 + (NSDictionary *)objectClassInArray{
     return @{@"shoppCartList" : [Shoppcartlist class]};
 }
+@end
+
+
+@implementation Shoppcartlist
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"goodsList" : [Goodslist class]};
+}
 
 @end
-@implementation Shoppcartlist
+
+
+@implementation Goodslist
+
 
 @end
 

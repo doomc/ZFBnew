@@ -7,12 +7,52 @@
 //
 
 #import "SkuFooterReusableView.h"
+@interface SkuFooterReusableView ()
 
+{
+    NSInteger num ;
+}
+
+@end
 @implementation SkuFooterReusableView
 
-//- (void)awakeFromNib {
-//    [super awakeFromNib];
-//    // Initialization code
-//}
+
+/**
+ 
+ 增加数量
+ @param sender sender
+ */
+- (IBAction)addAction:(id)sender {
+    
+    if (num >= 10 ) {
+        NSLog(@"超出范围");
+    }else{
+        num = num +1;
+    }
+    _lb_count.text = [NSString stringWithFormat:@"%ld",(long)num];
+    [self.countDelegate addCount:num];
+    
+}
+/**
+ 
+ 减少
+ @param sender reduceAction
+ */
+- (IBAction)reduceAction:(id)sender {
+    
+    if ((num - 1) <= 0 || num == 0) {
+        NSLog(@"超出范围");
+        
+    }else{
+        
+        num  = num -1;
+    }
+    _lb_count.text = [NSString stringWithFormat:@"%ld",(long)num];
+    
+    [self.countDelegate addCount:num];
+    
+}
+
+
 
 @end

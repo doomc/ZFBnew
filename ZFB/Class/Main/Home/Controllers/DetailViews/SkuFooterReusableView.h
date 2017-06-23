@@ -7,8 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol SkuFooterReusableViewDelegate <NSObject>
 
+-(void)addCount:(NSInteger)count;
+
+
+@end
 @interface SkuFooterReusableView : UIView
+
+@property (assign, nonatomic) id <SkuFooterReusableViewDelegate> countDelegate;
+
+@property (weak, nonatomic) IBOutlet UIButton *addAction;
+
+@property (weak, nonatomic) IBOutlet UIButton *reduceAction;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_count;
+
+@property (nonatomic ,assign) NSInteger minNum;//最小数
 
 
 @end

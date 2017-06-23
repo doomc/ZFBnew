@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view tag="101" contentMode="scaleToFill" id="yQs-Gs-l2r">
+        <view tag="101" contentMode="scaleToFill" id="yQs-Gs-l2r" customClass="SkuFooterReusableView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="41"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -34,6 +34,9 @@
                                 <constraint firstAttribute="height" constant="24" id="wo2-73-c2F"/>
                             </constraints>
                             <state key="normal" image="reduce.png"/>
+                            <connections>
+                                <action selector="reduceAction:" destination="yQs-Gs-l2r" eventType="touchUpInside" id="asQ-fS-ht1"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mkI-We-sFq">
                             <rect key="frame" x="0.0" y="3" width="24" height="24"/>
@@ -42,6 +45,9 @@
                                 <constraint firstAttribute="height" constant="24" id="ozF-LC-hDU"/>
                             </constraints>
                             <state key="normal" image="add.png"/>
+                            <connections>
+                                <action selector="addAction:" destination="yQs-Gs-l2r" eventType="touchUpInside" id="awR-hS-Faa"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>
@@ -53,8 +59,8 @@
                         <constraint firstAttribute="trailing" secondItem="wUY-WI-mQG" secondAttribute="trailing" id="sx0-9D-u1P"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwY-xw-hMo">
-                    <rect key="frame" x="302" y="9.5" width="16" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwY-xw-hMo">
+                    <rect key="frame" x="307" y="9.5" width="6" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="5hB-VK-I5s"/>
                     </constraints>
@@ -74,6 +80,11 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="addAction" destination="mkI-We-sFq" id="kav-Df-dtb"/>
+                <outlet property="lb_count" destination="vwY-xw-hMo" id="mMf-N6-Bye"/>
+                <outlet property="reduceAction" destination="wUY-WI-mQG" id="vPG-WO-WBC"/>
+            </connections>
             <point key="canvasLocation" x="-144.5" y="133.5"/>
         </view>
     </objects>

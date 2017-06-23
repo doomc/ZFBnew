@@ -7,9 +7,9 @@
 //
 
 #import "ZFShopCarCell.h"
-@interface ZFShopCarCell ()<PPNumberButtonDelegate>
+@interface ZFShopCarCell ()
 {
-    NSInteger _num;
+    NSInteger num;
 }
 @end
 @implementation ZFShopCarCell
@@ -29,9 +29,7 @@
     
   
 }
-
-
-
+//全选
 -(void)chooseBtnAction:(UIButton * )sender
 {
     sender.selected = !sender.selected ;
@@ -46,10 +44,39 @@
     }
     
 }
--(void)setShopModel:(ShoppingCarModel *)shopModel
-{
-    _shopModel = shopModel;
+
+//添加
+- (IBAction)addAction:(id)sender {
+    
+    if (num >= 10 ) {
+        NSLog(@"超出范围");
+    }else{
+        num = num +1;
+    }
+    _tf_result.text = [NSString stringWithFormat:@"%ld",(long)num];
+    [self.selectDelegate ChangeGoodsNumberCell:self Number:num];
+    
 }
+/**
+ 
+ 减少
+ @param sender reduceAction
+ */
+- (IBAction)reduceAction:(id)sender {
+    
+    if ((num - 1) <= 0 || num == 0) {
+        NSLog(@"超出范围");
+        
+    }else{
+        
+        num  = num -1;
+    }
+    _tf_result.text = [NSString stringWithFormat:@"%ld",(long)num];
+    
+    [self.selectDelegate ChangeGoodsNumberCell:self Number:num];
+    
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

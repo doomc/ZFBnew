@@ -42,7 +42,10 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     NSString * _goodsSales;
     NSInteger  _commentNum;
     NSString * _inStock;
-    NSMutableArray *selectIndexPathArr;
+    NSMutableArray *selectIndexPathArr;//保存indexpath的数组
+    NSString * _sizeOrColorStr;//保存sku规格的字符串
+    NSInteger _goodsCount;//添加的商品个数
+    
 }
 @property(nonatomic,strong) UITableView * list_tableView;
 @property(nonatomic,strong) UIView * headerView;
@@ -54,32 +57,33 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 @property(nonatomic,strong) UIButton * contactService;//客服
 @property(nonatomic,strong) UIButton * addShopCar;//加入购物车
 @property(nonatomic,strong) UIButton * rightNowGo;//立即购买
-@property(nonatomic,strong) UIButton * selectItemStatus;//保存item选择状态
-@property(nonatomic,strong) NSIndexPath  * indexPath;
 
 
 @property(nonatomic,strong) SDCycleScrollView* cycleScrollView;
-@property(nonatomic,strong) NSMutableArray * goodsListArray;//数据源
-@property(nonatomic,strong) NSArray *  imagesURLStrings;//轮播数组
+@property(nonatomic,strong) NSMutableArray * reluJsonKeyArray;//列表个数
+@property(nonatomic,strong) NSArray * relujsonValueArray ;//色值个数
+@property(nonatomic,strong) NSArray * imagesURLStrings;//轮播数组
 @property(nonatomic,strong) UICollectionView * SkuColletionView;
+
 @property(nonatomic,strong) SkuFooterReusableView * skufooterView;
+@property(nonatomic,strong) NSIndexPath  * indexPath;
 
 @end
 
 @implementation DetailFindGoodsViewController
--(NSMutableArray *)goodsListArray
+-(NSMutableArray *)reluJsonKeyArray
 {
-    if (!_goodsListArray) {
-        _goodsListArray = [NSMutableArray array];
+    if (!_reluJsonKeyArray) {
+        _reluJsonKeyArray = [NSMutableArray array];
     }
-    return _goodsListArray;
+    return _reluJsonKeyArray;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     selectIndexPathArr = [NSMutableArray arrayWithObjects:@"1",@"1", nil];
- 
+    
     
     [self goodsDetailListPostRequset];
     [self creatInterfaceDetailTableView];
@@ -93,7 +97,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     if (!_cycleScrollView) {
         // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
-
         _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 594/2) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
         _cycleScrollView.imageURLStringsGroup = self.imagesURLStrings;
         _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleNone;
@@ -127,7 +130,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     [self.list_tableView registerNib:[UINib nibWithNibName:@"ZFLocationGoToStoreCell" bundle:nil] forCellReuseIdentifier:@"ZFLocationGoToStoreCell"];
     
     
-  }
+}
 
 /**
  设置头尾 视图
@@ -298,13 +301,13 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         
     } success:^(id responseObject) {
         
-//        NSLog(@"  %@  = responseObject  " ,responseObject);
+        //        NSLog(@"  %@  = responseObject  " ,responseObject);
         
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
             
-            if (self.goodsListArray.count >0) {
+            if (self.reluJsonKeyArray.count >0) {
                 
-                [self.goodsListArray  removeAllObjects];
+                [self.reluJsonKeyArray  removeAllObjects];
                 
             }else{
                 
@@ -327,7 +330,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                     _sotreId = goodslist.sotreId;
                     _coverImgUrl = goodslist.coverImgUrl;
                     _attachImgUrl = goodslist.attachImgUrl;
-                    _netPurchasePrice = goodslist.netPurchasePrice;
+                    _netPurchasePrice = goodslist.netPurchasePrice;//价格
                     _goodsSales = goodslist.goodsSales;
                     _commentNum = goodslist.commentNum;
                     _inStock = goodslist.productSku.inStock;//库存
@@ -335,18 +338,20 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                     
                     statusDict = goodslist.productSku.mj_keyValues;
                 }
-    
-                NSArray * productSkuArr = [NSArray arrayWithObject:statusDict[@"reluJson"]];
-                NSArray * reluJsonArray = [Relujson mj_objectArrayWithKeyValuesArray:productSkuArr];
-                [self.goodsListArray addObjectsFromArray:reluJsonArray];
                 
-                //                NSLog(@"---------------goodsListArray  = %@ --------------- ",_goodsListArray);
+                //                NSArray * productSkuArr = [NSArray arrayWithObject:statusDict[@"reluJson"]];
+                self.reluJsonKeyArray = [Relujson mj_objectArrayWithKeyValuesArray:statusDict[@"reluJson"]];
+                
+                
+                NSLog(@"---------------reluJsonKeyArray  = %@ --------------- ",self.reluJsonKeyArray);
+                
                 _imagesURLStrings = [[NSArray alloc]init];
                 _imagesURLStrings = [_attachImgUrl componentsSeparatedByString:@","];
+                
                 [self.list_tableView reloadData];
                 
             }
-
+            
             [SVProgressHUD dismiss];
             
         }
@@ -360,8 +365,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     }];
     
 }
-
-
 
 
 #pragma mark - 添加到购物车:saveShoppingCart
@@ -387,19 +390,18 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         
     } success:^(id responseObject) {
         
-//        NSLog(@"  %@  = responseObject  " ,responseObject);
-        
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
             
-            if (self.goodsListArray.count >0) {
+            if (self.reluJsonKeyArray.count >0) {
                 
-                [self.goodsListArray  removeAllObjects];
+                [self.reluJsonKeyArray  removeAllObjects];
                 
             }else{
                 
                 NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
                 
                 NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+                NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",jsondic);
                 
                 [self.list_tableView reloadData];
                 
@@ -407,7 +409,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             [SVProgressHUD dismiss];
             
         }
-        
         
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
@@ -419,9 +420,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 }
 
 
-/**
- 弹框选择规格
- */
+#pragma mark -  弹框选择规格 popAcenterView ----------
 -(void)popAcenterView
 {
     self.BgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH)];
@@ -473,7 +472,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
     
     UICollectionViewFlowLayout * layout  = [[UICollectionViewFlowLayout alloc]init];
-//    layout.footerReferenceSize = CGSizeMake(KScreenW, 40);
+    //    layout.footerReferenceSize = CGSizeMake(KScreenW, 40);
     layout.headerReferenceSize = CGSizeMake(KScreenW, 40);
     
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -489,7 +488,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
     self.skufooterView = [[NSBundle mainBundle]loadNibNamed:@"SkuFooterReusableView" owner:self options:nil].lastObject;
     [self.popView addSubview:self.skufooterView];
-
+    
     
     //  删除
     UIButton * delete = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -555,7 +554,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         
         make.edges.equalTo(self.popView).with.insets(UIEdgeInsetsMake(90, 30, 100, 30));
     }];
-   
+    
     //footerView
     [self.skufooterView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.SkuColletionView.mas_bottom).with.offset(10);
@@ -568,7 +567,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         make.top.equalTo(self.popView).with.offset(10);
         make.right.equalTo(self.popView).with.offset(-20);
         make.size.mas_equalTo(CGSizeMake(40, 40));
-
+        
     }];
     //加入购物车按钮
     [addShopCar mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -588,98 +587,16 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 #pragma mark - SKUColleView -UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 2;
+    return self.reluJsonKeyArray.count;
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 4;
-}
-
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    SukItemCollectionViewCell * cell = [self.SkuColletionView dequeueReusableCellWithReuseIdentifier:@"SukItemCollectionViewCellid" forIndexPath:indexPath];
-  
-
-        [cell.selectItemColor setBackgroundColor:HEXCOLOR(0xffffff)];
-        [cell.selectItemColor setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
-        cell.selectItemColor.selected = NO;
-  
-      cell.itemDelegate = self;
+    Relujson * relujson = self.reluJsonKeyArray[section];
+    _relujsonValueArray = [[NSArray alloc]init];
+    _relujsonValueArray = [relujson.value  componentsSeparatedByString:@","];
+    NSLog(@"_relujsonValueArray  ==== %@",_relujsonValueArray);
     
-    return cell;
-}
-#pragma mark - SukItemCollectionViewDelegate 改变选中的状态
--(void)selectedButton:(UIButton *)button{
-    
-    if (button.selected == YES) {
-        
-        [button setBackgroundColor:HEXCOLOR(0xfe6d6a)];
-        [button setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
-
-    }else{
-        [button setBackgroundColor:HEXCOLOR(0xffffff)];
-        [button setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
-
-    }
-}
-
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    SukItemCollectionViewCell * newCell  = (SukItemCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    
-    id str =   [selectIndexPathArr objectAtIndex:indexPath.section];
-    
-
-    if ([str isKindOfClass:[NSIndexPath class]]) {
-    
-        NSIndexPath *oldIndexPath = [selectIndexPathArr objectAtIndex:indexPath.section];
-
-        SukItemCollectionViewCell * oldCell = (SukItemCollectionViewCell *)[collectionView cellForItemAtIndexPath: oldIndexPath];
-   
-            oldCell.selectItemColor.selected = NO;
-           [self selectedButton:oldCell.selectItemColor];
-        
-            newCell.selectItemColor.selected = YES;
-            [self selectedButton:newCell.selectItemColor];
-    }else{
-    
-        
-        newCell.selectItemColor.selected = YES;
-        [self selectedButton:newCell.selectItemColor];
-
-    }
-    
-           
-    [selectIndexPathArr replaceObjectAtIndex:indexPath.section withObject:indexPath];
-
-
-    
-//    [self.SkuColletionView reloadData];
-    NSLog(@" indexPath = %ld  ,row = %ld",indexPath.section,indexPath.item);
-    
-}
-
-//设置headview
--(UICollectionReusableView*)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    
-    UICollectionReusableView * reusableView = nil;
-    
-    if ( kind  == UICollectionElementKindSectionHeader ) {
-        
-        SkuHeaderReusableView* headerView = (SkuHeaderReusableView *)[self.SkuColletionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
-        headerView.backgroundColor = [UIColor whiteColor];
-        UILabel *  lb_title = [[UILabel alloc]initWithFrame:CGRectMake(0, 5, 100, 30)];
-        lb_title.font = [UIFont systemFontOfSize:14];
-        lb_title.text = @"尺寸:";
-        lb_title.textColor = HEXCOLOR(0x363636);
-        [headerView addSubview:lb_title];
-        
-        reusableView = headerView;
-        
-    }
- 
-    return reusableView;
+    return  _relujsonValueArray.count;
 }
 //设置每个item的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -691,11 +608,106 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     return UIEdgeInsetsMake(5, 5, 5, 5);
 }
 
+//设置headview
+-(UICollectionReusableView*)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    
+    UICollectionReusableView * reusableView = nil;
+    Relujson * relujson = self.reluJsonKeyArray[indexPath.section];
+    
+    NSLog(@"name = =========%@ =========relujson.value =%@",relujson.name, relujson.value );
+    if ( kind  == UICollectionElementKindSectionHeader ) {
+        
+        SkuHeaderReusableView* headerView = (SkuHeaderReusableView *)[self.SkuColletionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+        headerView.backgroundColor = [UIColor whiteColor];
+        UILabel *  lb_title = [[UILabel alloc]initWithFrame:CGRectMake(0, 5, 100, 30)];
+        lb_title.font = [UIFont systemFontOfSize:14];
+        lb_title.text = relujson.name;
+        lb_title.textColor = HEXCOLOR(0x363636);
+        [headerView addSubview:lb_title];
+        
+        reusableView = headerView;
+        
+    }
+    
+    return reusableView;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    SukItemCollectionViewCell * cell = [self.SkuColletionView dequeueReusableCellWithReuseIdentifier:@"SukItemCollectionViewCellid" forIndexPath:indexPath];
+    
+    Relujson * relujson = self.reluJsonKeyArray[indexPath.section];
+    NSArray * newJson = [relujson.value  componentsSeparatedByString:@","];
+    [cell.selectItemColor setTitle:newJson[indexPath.row] forState:UIControlStateNormal] ;
+
+    
+    [cell.selectItemColor setBackgroundColor:HEXCOLOR(0xffffff)];
+    [cell.selectItemColor setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+    cell.selectItemColor.selected = NO;
+    
+    cell.itemDelegate = self;
+    
+    return cell;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    SukItemCollectionViewCell * newCell  = (SukItemCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    
+    id str =   [selectIndexPathArr objectAtIndex:indexPath.section];//找到当前点击的indexPath
+    
+    if ([str isKindOfClass:[NSIndexPath class]]) {
+        
+        NSIndexPath *oldIndexPath = [selectIndexPathArr objectAtIndex:indexPath.section];
+        SukItemCollectionViewCell * oldCell = (SukItemCollectionViewCell *)[collectionView cellForItemAtIndexPath: oldIndexPath];
+        
+        oldCell.selectItemColor.selected = NO;
+        [self selectedButton:oldCell.selectItemColor];
+        
+        newCell.selectItemColor.selected = YES;
+        [self selectedButton:newCell.selectItemColor];
+    }else{
+        
+        
+        newCell.selectItemColor.selected = YES;
+        [self selectedButton:newCell.selectItemColor];
+        
+    }
+    
+    [selectIndexPathArr replaceObjectAtIndex:indexPath.section withObject:indexPath];
+    
+    NSLog(@" -==========title , %@ ", newCell.selectItemColor.titleLabel.text );
+    
+    //    [self.SkuColletionView reloadData];
+    NSLog(@" section = %ld  ,row = %ld",indexPath.section,indexPath.item);
+    
+}
+
+#pragma mark -  改变选中的状态
+-(void)selectedButton:(UIButton *)button{
+    
+    if (button.selected == YES) {
+        NSLog(@"button . name = === ===%@",button.titleLabel.text);
+        
+        [button setBackgroundColor:HEXCOLOR(0xfe6d6a)];
+        [button setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+        
+    }else{
+        [button setBackgroundColor:HEXCOLOR(0xffffff)];
+        [button setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+        
+    }
+}
+
+
 #pragma mark - deleteRemoveTheBackgroundView 删除操作
 -(void)deleteRemoveTheBackgroundView:(UIButton *)sender
 {
+    
     NSLog(@"didClick");
     if (self.BgView != nil) {
+        
         
         [self.BgView removeFromSuperview];
     }

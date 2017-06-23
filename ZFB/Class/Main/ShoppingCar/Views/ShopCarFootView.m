@@ -72,14 +72,26 @@
             make.size.mas_equalTo(CGSizeMake(lb_orderW+10, 20));
         }];
         
+        UIButton * selectAll_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [selectAll_btn setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+        [selectAll_btn addTarget:self action:@selector(chooseBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:selectAll_btn];
+        
+        [selectAll_btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).with.offset(15);
+            make.centerY.equalTo(complete_Btn.mas_centerY);
+            make.size.mas_equalTo(CGSizeMake(24, 24));
+            
+        }];
+        
         //全选
-        UILabel * chooseAll = [UILabel new];
-        chooseAll.text = @"全选";
-        chooseAll.textColor = HEXCOLOR(0x363636);
-        chooseAll.font = font;
-        [self addSubview:chooseAll];
-        [chooseAll mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self).with.offset(40);
+        UILabel * lb_chooseAll = [UILabel new];
+        lb_chooseAll.text = @"全选";
+        lb_chooseAll.textColor = HEXCOLOR(0x363636);
+        lb_chooseAll.font = font;
+        [self addSubview:lb_chooseAll];
+        [lb_chooseAll mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(selectAll_btn.mas_right).with.offset(10);
             make.centerY.equalTo(complete_Btn.mas_centerY);
             make.size.mas_equalTo(CGSizeMake(30, 20));
         }];
@@ -88,6 +100,20 @@
     return self;
 }
 
+-(void)chooseBtnAction:(UIButton * )sender
+{
+    sender.selected = !sender.selected ;
+    
+    if (sender.selected) {
+        
+        [sender setImage:[UIImage imageNamed:@"select_selected"] forState:UIControlStateSelected];
+    }
+    else{
+        
+        [sender setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+    }
+    
+}
 -(void)didClickClearingShopCar:(UIButton * )sender
 {
     if ([self.delegate respondsToSelector:@selector(didClickClearingShoppingCar:)]) {
