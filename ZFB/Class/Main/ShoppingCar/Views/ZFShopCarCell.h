@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ShoppingCarModel.h"
 @protocol ShoppingSelectedDelegate <NSObject>
 
 @optional
@@ -37,6 +37,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
 
+@property (strong,nonatomic) ShoppingCarModel  * shopCarModel;
 
 
 @end

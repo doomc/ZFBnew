@@ -28,7 +28,24 @@
 
     
   
+
 }
+
+-(void)setShopCarModel:(ShoppingCarModel *)shopCarModel
+{
+    
+    [self.chooseBtn setImage:shopCarModel.isSelected ? [UIImage imageNamed:@"select_normal"]:[UIImage imageNamed:@"select_selected"] forState:UIControlStateNormal];
+    
+//    self.shopcarList = shopcarList;
+//    self.lb_title.text = shopcarList.goodsName;
+//    self.lb_price.text = shopcarList.storePrice;
+//    //    shopCell.lb_result.text = shopList.goodsCount;
+//    [self.img_shopCar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",shopcarList.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        
+//    }];
+    
+}
+
 //全选
 -(void)chooseBtnAction:(UIButton * )sender
 {

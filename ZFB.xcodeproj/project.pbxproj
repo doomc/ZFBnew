@@ -571,6 +571,8 @@
 		509CC4B41EF82A1B0035B1D8 /* ShoppingCarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 509CC4B31EF82A1B0035B1D8 /* ShoppingCarModel.m */; };
 		509D1F771ECDD9AC00D70444 /* ZFCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F761ECDD9AC00D70444 /* ZFCoverView.m */; };
 		50C672CD1EE83F5E005A1E7C /* ZFEncryptionKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C672CC1EE83F5E005A1E7C /* ZFEncryptionKey.m */; };
+		50DF1C701F0003B70082FD20 /* CLLocation+YCLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DF1C6D1F0003B70082FD20 /* CLLocation+YCLocation.m */; };
+		50DF1C711F0003B70082FD20 /* JXMapNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DF1C6F1F0003B70082FD20 /* JXMapNavigationView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1435,6 +1437,10 @@
 		509D1F761ECDD9AC00D70444 /* ZFCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCoverView.m; sourceTree = "<group>"; };
 		50C672CB1EE83F5E005A1E7C /* ZFEncryptionKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFEncryptionKey.h; sourceTree = "<group>"; };
 		50C672CC1EE83F5E005A1E7C /* ZFEncryptionKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFEncryptionKey.m; sourceTree = "<group>"; };
+		50DF1C6C1F0003B70082FD20 /* CLLocation+YCLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+YCLocation.h"; sourceTree = "<group>"; };
+		50DF1C6D1F0003B70082FD20 /* CLLocation+YCLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+YCLocation.m"; sourceTree = "<group>"; };
+		50DF1C6E1F0003B70082FD20 /* JXMapNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXMapNavigationView.h; sourceTree = "<group>"; };
+		50DF1C6F1F0003B70082FD20 /* JXMapNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXMapNavigationView.m; sourceTree = "<group>"; };
 		B2E471759A11D3682520CF1E /* libPods-ZFB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZFB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D23F8EC706787ADDD1999100 /* Pods-ZFB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1689,6 +1695,7 @@
 		492755001EC4679E003C22D0 /* Tool(工具) */ = {
 			isa = PBXGroup;
 			children = (
+				50DF1C6B1F0003B70082FD20 /* MapNavigationView(调用手机地图APP导航) */,
 				49F669631EF7A92300F8D516 /* XHStarRateView(评价星星) */,
 				4943AEC91EF0D3D600803973 /* YBPopupMenu(pop菜单) */,
 				5026A4481EEEE6F500AAC84D /* PPNumberButton(加减按钮) */,
@@ -3307,6 +3314,18 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		50DF1C6B1F0003B70082FD20 /* MapNavigationView(调用手机地图APP导航) */ = {
+			isa = PBXGroup;
+			children = (
+				50DF1C6C1F0003B70082FD20 /* CLLocation+YCLocation.h */,
+				50DF1C6D1F0003B70082FD20 /* CLLocation+YCLocation.m */,
+				50DF1C6E1F0003B70082FD20 /* JXMapNavigationView.h */,
+				50DF1C6F1F0003B70082FD20 /* JXMapNavigationView.m */,
+			);
+			name = "MapNavigationView(调用手机地图APP导航)";
+			path = MapNavigationView;
+			sourceTree = "<group>";
+		};
 		7CCC003E8E554BB3C17D907B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3860,6 +3879,7 @@
 				50C672CD1EE83F5E005A1E7C /* ZFEncryptionKey.m in Sources */,
 				492756B11EC4679E003C22D0 /* UIImage+Extension.m in Sources */,
 				492757541EC4679E003C22D0 /* UIScrollView+MJExtension.m in Sources */,
+				50DF1C711F0003B70082FD20 /* JXMapNavigationView.m in Sources */,
 				49DF716E1EEAA9B20021EE92 /* GuessCell.m in Sources */,
 				5019FFAB1ECCAEF800325342 /* NSData+ImageContentType.m in Sources */,
 				49DF71DB1EEAA9B20021EE92 /* ZFPersonalViewController.m in Sources */,
@@ -3912,6 +3932,7 @@
 				5019FFB51ECCAEF800325342 /* UIImage+MultiFormat.m in Sources */,
 				49DF71ED1EEAA9B20021EE92 /* ZFpopView.m in Sources */,
 				49DF71571EEAA9B20021EE92 /* ZFbabyEvaluateCell.m in Sources */,
+				50DF1C701F0003B70082FD20 /* CLLocation+YCLocation.m in Sources */,
 				49DF71721EEAA9B20021EE92 /* HotTableViewCell.m in Sources */,
 				49DF71D11EEAA9B20021EE92 /* ZFSettingRowCell.m in Sources */,
 				4943AED21EF0D3D600803973 /* YBRectConst.m in Sources */,
@@ -4227,7 +4248,7 @@
 				DEVELOPMENT_TEAM = X28D98X7LE;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4248,7 +4269,7 @@
 				DEVELOPMENT_TEAM = X28D98X7LE;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

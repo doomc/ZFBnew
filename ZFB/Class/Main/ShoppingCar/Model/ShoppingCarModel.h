@@ -12,6 +12,8 @@
 @class Shoppcartlist,Goodslist;
 @interface ShoppingCarModel : NSObject
 
+@property (nonatomic) BOOL isSelected;
+
 @property (nonatomic, strong) NSArray<Shoppcartlist *> *shoppCartList;
 
 @property (nonatomic, assign) NSInteger resultCode;

@@ -10,4 +10,10 @@
 
 @interface ZFLoctionNavCell : UITableViewCell
 
+//到这去
+@property (weak, nonatomic) IBOutlet UIButton *whereTogo;
+
+
+@property (weak, nonatomic) IBOutlet UIButton *contactPhone;
+
 @end

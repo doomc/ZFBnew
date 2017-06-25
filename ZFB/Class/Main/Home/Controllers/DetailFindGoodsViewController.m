@@ -21,6 +21,8 @@
 #import "SkuFooterReusableView.h"
 #import "SkuHeaderReusableView.h"
 
+#import "JXMapNavigationView.h"//地图导航
+
 typedef NS_ENUM(NSUInteger, typeCell) {
     
     typeCellrowOftitleCell, //0 第一行cell
@@ -67,6 +69,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 @property(nonatomic,strong) SkuFooterReusableView * skufooterView;
 @property(nonatomic,strong) NSIndexPath  * indexPath;
+
+@property (nonatomic, strong)JXMapNavigationView *mapNavigationView;
+
 
 @end
 
@@ -247,6 +252,8 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     {
         
         ZFLoctionNavCell  *  locaCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFLoctionNavCell" forIndexPath:indexPath];
+        [locaCell.whereTogo addTarget:self action:@selector(whereTogoMap:) forControlEvents:UIControlEventTouchUpInside];
+        [locaCell.contactPhone addTarget:self action:@selector(contactPhone:) forControlEvents:UIControlEventTouchUpInside];
         
         return locaCell;
         
@@ -267,6 +274,38 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     return custopmCell;
 }
 
+#pragma mark - 到这去 唤醒地图
+-(void)whereTogoMap:(UIButton *)sender
+{
+    //当前位置导航到指定地
+
+    [self.mapNavigationView showMapNavigationViewWithtargetLatitude:22.488260 targetLongitute:113.915049 toName:@"中海油华英加油站"];
+    [self.view addSubview:_mapNavigationView];
+    
+//    //从指定地导航到指定地
+//        [self.mapNavigationView showMapNavigationViewFormcurrentLatitude:30.306906 currentLongitute:120.107265 TotargetLatitude:22.488260 targetLongitute:113.915049 toName:@"中海油华英加油站"];
+//        [self.view addSubview:_mapNavigationView];
+}
+#pragma mark - 联系门店 唤醒地图
+-(void)contactPhone:(UIButton *)sender
+{
+    JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"提示信息" message:[NSString stringWithFormat:@"确认拨打023-68006800联系门店吗"] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+       
+        UIWebView *callWebView = [[UIWebView alloc] init];
+        NSURL *telURL = [NSURL URLWithString:@"tel:10086"];
+        [callWebView loadRequest:[NSURLRequest requestWithURL:telURL]];
+        [self.view addSubview:callWebView];
+
+        NSLog(@"系统弄打电话号码");
+    }];
+    [alert addAction:cancel];
+    [alert addAction:sure];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section = %ld,row == %ld",indexPath.section ,indexPath.row);

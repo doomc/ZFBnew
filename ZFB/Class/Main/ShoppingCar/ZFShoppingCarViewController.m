@@ -87,7 +87,7 @@
     [_sectionHeadView addSubview:chooseStore_btn];
     
     [chooseStore_btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).with.offset(15);
+        make.left.equalTo(_sectionHeadView).with.offset(15);
         make.centerY.equalTo(_sectionHeadView.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(24, 24));
         
@@ -165,25 +165,42 @@
 #pragma mark - 编辑状态 editAction
 -(void)editAction:(UIButton *)sender
 {
-    sender.selected = YES;
-    self.selectedBtn = sender;
-    if (sender != self.selectedBtn) {
-       
-        self.selectedBtn.selected = NO;
-        self.selectedBtn = sender;
-        _isEditStatus = NO;
-        [self.selectedBtn setTitle:@"编辑" forState:UIControlStateNormal];
-        NSLog(@"edit 0");
+    if ([sender.titleLabel.text isEqualToString:@"编辑"]) {
         
+        [sender setTitle:@"完成" forState:UIControlStateNormal];
+    
+        _isEditStatus = YES;
+        
+        [self.shopCar_tableview reloadData];
+
     }else{
         
-        self.selectedBtn.selected = YES;
-        _isEditStatus = YES;
-        [self.selectedBtn setTitle:@"完成" forState:UIControlStateNormal];
-        NSLog(@"edit 1");
+        [sender setTitle:@"编辑" forState:UIControlStateNormal];
+        
+        _isEditStatus = NO;
+        
+        [self.shopCar_tableview reloadData];
 
     }
-    [self.shopCar_tableview reloadData];
+
+//     sender.selected = YES;
+//    self.selectedBtn = sender;
+//    if (sender != self.selectedBtn) {
+//       
+//        self.selectedBtn.selected = NO;
+//        self.selectedBtn = sender;
+//        _isEditStatus = NO;
+//        [self.selectedBtn setTitle:@"编辑" forState:UIControlStateNormal];
+//        NSLog(@"edit 0");
+//        
+//    }else{
+//        
+//        self.selectedBtn.selected = YES;
+//        _isEditStatus = YES;
+//        [self.selectedBtn setTitle:@"完成" forState:UIControlStateNormal];
+//        NSLog(@"edit 1");
+//
+//    }
 
     
     
@@ -306,9 +323,9 @@
                 //mjextention 数组转模型
                 NSArray *storArray = [Shoppcartlist mj_objectArrayWithKeyValuesArray:dictArray];
                 
-                for (Shoppcartlist *list in storArray) {
+                for (Shoppcartlist *lists in storArray) {
                     
-                    [self.carListArray addObject:list];
+                    [self.carListArray addObject:lists];
                 }
                 NSLog(@"carListArray = %@",   self.carListArray);
  
