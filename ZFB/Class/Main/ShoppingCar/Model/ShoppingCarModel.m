@@ -15,7 +15,6 @@
 }
 @end
 
-
 @implementation Shoppcartlist
 
 + (NSDictionary *)objectClassInArray{
@@ -26,7 +25,6 @@
 
 
 @implementation Goodslist
-
 
 @end
 

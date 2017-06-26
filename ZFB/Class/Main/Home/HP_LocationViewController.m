@@ -57,7 +57,7 @@
 
 }
 
-#warning ============= poi ===============
+#pragma mark  - 高德POI设置  搜索
 -(void)settingPOI{
  
     if (self.oldPoi) {

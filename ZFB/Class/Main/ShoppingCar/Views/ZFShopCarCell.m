@@ -22,19 +22,13 @@
     self.img_shopCar.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
     self.img_shopCar.layer.borderWidth = 0.5;
     
-    //select_selected.png
-//    self.chooseBtn.selected = !self.chooseBtn.selected;
-    [self.chooseBtn addTarget:self action:@selector(chooseBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-
-    
-  
-
+ 
 }
 
 -(void)setShopCarModel:(ShoppingCarModel *)shopCarModel
 {
     
-    [self.chooseBtn setImage:shopCarModel.isSelected ? [UIImage imageNamed:@"select_normal"]:[UIImage imageNamed:@"select_selected"] forState:UIControlStateNormal];
+ 
     
 //    self.shopcarList = shopcarList;
 //    self.lb_title.text = shopcarList.goodsName;
@@ -46,23 +40,10 @@
     
 }
 
-//全选
--(void)chooseBtnAction:(UIButton * )sender
-{
-    sender.selected = !sender.selected ;
-    
-    if (sender.selected) {
-      
-        [self.chooseBtn setImage:[UIImage imageNamed:@"select_selected"] forState:UIControlStateSelected];
-    }
-    else{
-       
-        [self.chooseBtn setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
-    }
-    
-}
 
-//添加
+
+
+// 增加商品或者减少商品
 - (IBAction)addAction:(id)sender {
     
     if (num >= 10 ) {
@@ -75,7 +56,6 @@
     
 }
 /**
- 
  减少
  @param sender reduceAction
  */
@@ -93,6 +73,54 @@
     [self.selectDelegate ChangeGoodsNumberCell:self Number:num];
     
 }
+
+
+#pragma mark  - 编辑视图 和公共事件
+//点击删除商品
+- (IBAction)deleteGoodsAction:(id)sender {
+    
+    if (self.selectDelegate && [self.selectDelegate respondsToSelector:@selector(deleteRabishClick:)]) {
+        [self.selectDelegate deleteRabishClick:self];
+    }
+}
+
+// 商品选择的按钮回调
+- (IBAction)clickSelected:(UIButton *)sender {
+    
+    if (self.selectDelegate && [self.selectDelegate respondsToSelector:@selector(productSelected:isSelected:)])
+    {
+        [self.selectDelegate productSelected:self isSelected:!sender.selected];
+    }
+}
+
+
+#pragma mark  - 头部视图事件
+// 点击section头部选择按钮回调
+- (IBAction)chooseSectionSelected:(id)sender {
+    
+    if (self.selectDelegate && [self.selectDelegate respondsToSelector:@selector(shopStoreSelected:)]) {
+        
+        [self.selectDelegate shopStoreSelected:self.sectionIndex];
+    }
+}
+// 进入店铺
+- (IBAction)enterStoreAction:(id)sender {
+    if (self.selectDelegate && [self.selectDelegate respondsToSelector:@selector(enterStoreDetailwithStoreId:)]) {
+        
+        [self.selectDelegate shopStoreSelected:self.sectionIndex];
+    }
+}
+
+// 头部编辑按钮回调
+- (IBAction)clickEditing:(id)sender {
+    if (self.selectDelegate && [self.selectDelegate respondsToSelector:@selector(shopCarEditingSelected:)]) {
+        [self.selectDelegate shopCarEditingSelected:self.sectionIndex];
+    }
+}
+
+
+
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

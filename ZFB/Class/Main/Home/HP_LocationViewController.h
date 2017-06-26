@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
-#import <MAMapKit/MAMapKit.h>
+//#import <MAMapKit/MAMapKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 
 typedef void(^SelectLocationSuccessBlock)(AMapPOI *poi);

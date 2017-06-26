@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -31,9 +31,10 @@
                             <constraint firstAttribute="height" constant="20" id="pWI-g0-8hM"/>
                         </constraints>
                         <state key="normal" backgroundImage="select_normal.png"/>
+                        <state key="selected" backgroundImage="select_selected.png"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="aaa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oUH-au-mel">
-                        <rect key="frame" x="270.5" y="10" width="24.5" height="24"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="aaa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oUH-au-mel">
+                        <rect key="frame" x="242.5" y="10" width="24.5" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="fIo-67-GN5"/>
                         </constraints>
@@ -61,5 +62,6 @@
     </objects>
     <resources>
         <image name="select_normal.png" width="16" height="16"/>
+        <image name="select_selected.png" width="16" height="16"/>
     </resources>
 </document>

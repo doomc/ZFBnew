@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		287E1D51FE976BE2DCE0A71B /* libPods-ZFB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2E471759A11D3682520CF1E /* libPods-ZFB.a */; };
+		490C78D71F00B26B0005F207 /* ShopCarSectionHeadViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 490C78D61F00B26B0005F207 /* ShopCarSectionHeadViewCell.xib */; };
 		4914FB0D1EF2826400B968E8 /* HomeStoreListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914FB0C1EF2826400B968E8 /* HomeStoreListModel.m */; };
 		49156C551EEFECB900E5C13E /* HDAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49156C4D1EEFECB900E5C13E /* HDAlertView.m */; };
 		49156C561EEFECB900E5C13E /* NSString+HDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 49156C501EEFECB900E5C13E /* NSString+HDExtension.m */; };
@@ -119,8 +120,6 @@
 		49AAD8721EE12A5900AFE61D /* collectshopCar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AAD8701EE12A5900AFE61D /* collectshopCar@3x.png */; };
 		49B9A1C01EE0089400B98DA5 /* NOAddress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B9A1BE1EE0089400B98DA5 /* NOAddress@2x.png */; };
 		49B9A1C11EE0089400B98DA5 /* NOAddress@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B9A1BF1EE0089400B98DA5 /* NOAddress@3x.png */; };
-		49BEB9A91EF8CD0400779588 /* ZFShopCarEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BEB9A71EF8CD0400779588 /* ZFShopCarEditCell.m */; };
-		49BEB9AA1EF8CD0400779588 /* ZFShopCarEditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49BEB9A81EF8CD0400779588 /* ZFShopCarEditCell.xib */; };
 		49BEB9B01EF8D13100779588 /* ShopCarFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BEB9AF1EF8D13100779588 /* ShopCarFootView.m */; };
 		49BEB9B31EF917FA00779588 /* 省略@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BEB9B11EF917FA00779588 /* 省略@2x.png */; };
 		49BEB9B41EF917FA00779588 /* 省略@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BEB9B21EF917FA00779588 /* 省略@3x.png */; };
@@ -594,6 +593,7 @@
 
 /* Begin PBXFileReference section */
 		3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.debug.xcconfig"; sourceTree = "<group>"; };
+		490C78D61F00B26B0005F207 /* ShopCarSectionHeadViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCarSectionHeadViewCell.xib; sourceTree = "<group>"; };
 		4914FB0B1EF2826400B968E8 /* HomeStoreListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeStoreListModel.h; sourceTree = "<group>"; };
 		4914FB0C1EF2826400B968E8 /* HomeStoreListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeStoreListModel.m; sourceTree = "<group>"; };
 		49156C4C1EEFECB900E5C13E /* HDAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDAlertView.h; sourceTree = "<group>"; };
@@ -791,9 +791,6 @@
 		49AAD8701EE12A5900AFE61D /* collectshopCar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collectshopCar@3x.png"; sourceTree = "<group>"; };
 		49B9A1BE1EE0089400B98DA5 /* NOAddress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NOAddress@2x.png"; sourceTree = "<group>"; };
 		49B9A1BF1EE0089400B98DA5 /* NOAddress@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NOAddress@3x.png"; sourceTree = "<group>"; };
-		49BEB9A61EF8CD0400779588 /* ZFShopCarEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFShopCarEditCell.h; sourceTree = "<group>"; };
-		49BEB9A71EF8CD0400779588 /* ZFShopCarEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFShopCarEditCell.m; sourceTree = "<group>"; };
-		49BEB9A81EF8CD0400779588 /* ZFShopCarEditCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFShopCarEditCell.xib; sourceTree = "<group>"; };
 		49BEB9AE1EF8D13100779588 /* ShopCarFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarFootView.h; sourceTree = "<group>"; };
 		49BEB9AF1EF8D13100779588 /* ShopCarFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarFootView.m; sourceTree = "<group>"; };
 		49BEB9B11EF917FA00779588 /* 省略@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "省略@2x.png"; sourceTree = "<group>"; };
@@ -2839,11 +2836,9 @@
 				49DF71491EEAA9B20021EE92 /* ZFShopCarCell.h */,
 				49DF714A1EEAA9B20021EE92 /* ZFShopCarCell.m */,
 				49DF714B1EEAA9B20021EE92 /* ZFShopCarCell.xib */,
-				49BEB9A61EF8CD0400779588 /* ZFShopCarEditCell.h */,
-				49BEB9A71EF8CD0400779588 /* ZFShopCarEditCell.m */,
-				49BEB9A81EF8CD0400779588 /* ZFShopCarEditCell.xib */,
 				49BEB9AE1EF8D13100779588 /* ShopCarFootView.h */,
 				49BEB9AF1EF8D13100779588 /* ShopCarFootView.m */,
+				490C78D61F00B26B0005F207 /* ShopCarSectionHeadViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3612,7 +3607,6 @@
 				49F113AC1ECC5547000F3BF7 /* location_find@3x.png in Resources */,
 				49FB3C2D1ECD48A30090075D /* qq@3x.png in Resources */,
 				492752221EC44DFC003C22D0 /* Main.storyboard in Resources */,
-				49BEB9AA1EF8CD0400779588 /* ZFShopCarEditCell.xib in Resources */,
 				49FB3C921ECD9F3F0090075D /* nav_right@2x.png in Resources */,
 				493ADAE31ED553DF00CB2866 /* warning_order@3x.png in Resources */,
 				49F113C41ECC55B0000F3BF7 /* WX@2x.png in Resources */,
@@ -3673,6 +3667,7 @@
 				49F1135D1ECC5547000F3BF7 /* 搜索@2x.png in Resources */,
 				49F113941ECC5547000F3BF7 /* arrows_down_red@3x.png in Resources */,
 				49F254AA1EFBA21A008F6E88 /* SkuFooterReusableView.xib in Resources */,
+				490C78D71F00B26B0005F207 /* ShopCarSectionHeadViewCell.xib in Resources */,
 				49DF71631EEAA9B20021EE92 /* ZFTitleAndChooseListCell.xib in Resources */,
 				49DF71F11EEAA9B20021EE92 /* PayforCell.xib in Resources */,
 				49FB3C591ECD7AD40090075D /* shoppingCar_normal@2x.png in Resources */,
@@ -3830,7 +3825,6 @@
 			files = (
 				498AE4C11EE6AADF00EE3FA8 /* NSData+Hash.m in Sources */,
 				49DF71851EEAA9B20021EE92 /* ZFMyOderCell.m in Sources */,
-				49BEB9A91EF8CD0400779588 /* ZFShopCarEditCell.m in Sources */,
 				49DF71B51EEAA9B20021EE92 /* ZFApplyReasonCell.m in Sources */,
 				503BEBF11ED71877004FC36C /* ZFEnum.m in Sources */,
 				5019FFB41ECCAEF800325342 /* UIImage+GIF.m in Sources */,
@@ -4248,7 +4242,7 @@
 				DEVELOPMENT_TEAM = X28D98X7LE;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4269,7 +4263,7 @@
 				DEVELOPMENT_TEAM = X28D98X7LE;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

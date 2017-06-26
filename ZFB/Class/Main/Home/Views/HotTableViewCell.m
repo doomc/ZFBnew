@@ -62,9 +62,8 @@
     [cell.img_hotImgView sd_setImageWithURL:img_url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
     }];
-    
-    
-    cell.lb_price.text = hot.storePrice;//netPurchasePrice 网购价格2选1
+
+    cell.lb_price.text = [NSString stringWithFormat:@"%.2f",hot.storePrice];//netPurchasePrice 网购价格2选1
     return cell;
 }
 

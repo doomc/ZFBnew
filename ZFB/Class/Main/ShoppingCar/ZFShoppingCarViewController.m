@@ -14,16 +14,18 @@
 #import "DetailFindGoodsViewController.h"
 
 #import "ZFShopCarCell.h"
-#import "ZFShopCarEditCell.h"
 
 #import "ShopCarFootView.h"
 #import "ShoppingCarModel.h"
 
-@interface ZFShoppingCarViewController ()<UITableViewDelegate,UITableViewDataSource,ShopCarFootViewDelegate>
+
+static NSString  * shopCarContenCellID = @"ZFShopCarCell";
+static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
+
+@interface ZFShoppingCarViewController ()<UITableViewDelegate,UITableViewDataSource,ShopCarFootViewDelegate,ShoppingSelectedDelegate>
 @property (nonatomic,strong) UITableView * shopCar_tableview;
 
 @property (nonatomic,strong) ShopCarFootView * footView;
-@property (nonatomic,strong) UIView * sectionHeadView;
 @property (nonatomic,strong) NSMutableArray * carListArray;
 
 @property (nonatomic,assign) BOOL isEditStatus;//是否编辑状态
@@ -35,124 +37,62 @@
 
 @implementation ZFShoppingCarViewController
 
--(NSMutableArray *)carListArray
-{
-    if (!_carListArray) {
-        _carListArray = [NSMutableArray array];
-        
-    }
-    return _carListArray;
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self.shopCar_tableview registerNib:[UINib nibWithNibName:@"ZFShopCarCell" bundle:nil] forCellReuseIdentifier:@"ShopCarCellid"];
-    [self.shopCar_tableview registerNib:[UINib nibWithNibName:@"ZFShopCarEditCell" bundle:nil] forCellReuseIdentifier:@"ZFShopCarEditCellid"];
- 
+    [self.shopCar_tableview registerNib:[UINib nibWithNibName:shopCarContenCellID bundle:nil]
+                 forCellReuseIdentifier:shopCarContenCellID];
+    [self.shopCar_tableview registerNib:[UINib nibWithNibName:shoppingHeaderID bundle:nil]
+                 forCellReuseIdentifier:shoppingHeaderID];
+    
     [self shoppingCarPostRequst];
     
     [self.view addSubview:self.footView];
     
-    _isEditStatus = NO; //默认没有编辑状态
+    //    _isEditStatus = NO; //默认没有编辑状态
+    
     
 }
--(UITableView *)shopCar_tableview
+//更新数据
+-(void)refreshData
 {
-    if (!_shopCar_tableview) {
-        self.title = @"购物车";
-        _shopCar_tableview =[[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-49*2) style:UITableViewStyleGrouped];
-        _shopCar_tableview.delegate = self;
-        _shopCar_tableview.dataSource = self;
-        _shopCar_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-        //        _shopCar_tableview.backgroundColor = [UIColor whiteColor];
-        [self.view addSubview:_shopCar_tableview];
-    }
-    return _shopCar_tableview;
+    
 }
 
--(UIView *)sectionHeadView
-{
-    _sectionHeadView  = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, KScreenW, 40)];
-    _sectionHeadView.backgroundColor = [UIColor whiteColor];
-    
-    NSString *statusStr = @"编辑";
-    NSString *titletext = @"王大帅进口食品厂";
-    UIFont * font  =[UIFont systemFontOfSize:12];
-    
-    //x门店全选
-    UIButton * chooseStore_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [chooseStore_btn setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
-    [chooseStore_btn addTarget:self action:@selector(chooseStoreBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_sectionHeadView addSubview:chooseStore_btn];
-    
-    [chooseStore_btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_sectionHeadView).with.offset(15);
-        make.centerY.equalTo(_sectionHeadView.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(24, 24));
-        
-    }];
-    //门店名字
-    UIButton* storeName_btn = [[UIButton alloc]init ];
-    [storeName_btn setTitle:titletext forState:UIControlStateNormal];
-    storeName_btn.titleLabel.font = font;
-    [storeName_btn setTitleColor: HEXCOLOR(0x7a7a7a) forState:UIControlStateNormal];
-    storeName_btn.height = 20;
-    [_sectionHeadView addSubview:storeName_btn];
 
-    [storeName_btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(chooseStore_btn.mas_right).with.offset(10);
-        make.centerY.equalTo(_sectionHeadView.mas_centerY);
-        
-    }];
-    
-    //编辑状态
-    UIButton * edit_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [edit_btn setTitle:statusStr forState:UIControlStateNormal];
-    edit_btn.titleLabel.font = font;
-    [edit_btn addTarget:self action:@selector(editAction:) forControlEvents:UIControlEventTouchUpInside];
-    [edit_btn setTitleColor: HEXCOLOR(0x7a7a7a) forState:UIControlStateNormal];
-    edit_btn.height = 20;
-    [_sectionHeadView addSubview:edit_btn];
-    
-    [edit_btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(_sectionHeadView).with.offset(-15);
-        make.centerY.equalTo(_sectionHeadView.mas_centerY);
-        
-    }];
-
-    
-    UILabel *lineDown =[[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 0.5)];
-    lineDown.backgroundColor = HEXCOLOR(0xffcccc);
-    UILabel *lineUP =[[UILabel alloc]initWithFrame:CGRectMake(0,0, KScreenW, 10)];
-    lineUP.backgroundColor = RGB(247, 247, 247);//#F7F7F7 16进制
-    [_sectionHeadView addSubview:lineDown];
-
-    return _sectionHeadView;
-}
-
--(ShopCarFootView *)footView
-{
-    if (!_footView) {
-        _footView= [[ShopCarFootView alloc]initWithFrame:CGRectMake(0, KScreenH -49-49, KScreenW,  KScreenH -49-49-64)];
-        _footView.backgroundColor = randomColor;
-        _footView.delegate = self;
-    }
-    return _footView;
-}
-#pragma mark - 门店全选 chooseStoreBtnAction
+#pragma mark - 所有门店全选 chooseStoreBtnAction
 -(void)chooseStoreBtnAction:(UIButton * )sender
 {
-    sender.selected = !sender.selected ;
+    //    sender.selected = !sender.selected ;
+    //
+    //    for (Shoppcartlist *list in self.carListArray)
+    //    {
+    //        list.ShoppcartlistIsEditing = sender.selected;
+    //    }
+    //
+    //    [self.shopCar_tableview reloadData];
+    //    NSLog(@" 门店全选");
+    //
     
-    if (sender.selected) {
-        
-        [sender setImage:[UIImage imageNamed:@"select_selected"] forState:UIControlStateSelected];
-    }
-    else{
-        
-        [sender setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
-    }
+}
+#pragma mark - ShopCarFootViewDelegate 全选代理
+-(void)selectAllgoods:(UIButton *)sender
+{
+    
+    NSLog(@" 商品全选");
+    
+    //    sender.selected = !sender.selected ;
+    //
+    //    if (sender.selected) {
+    //
+    //        [sender setImage:[UIImage imageNamed:@"select_selected"] forState:UIControlStateSelected];
+    //    }
+    //    else{
+    //
+    //        [sender setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+    //    }
     
 }
 #pragma mark - didClickClearingShoppingCar 购物车结算
@@ -162,80 +102,76 @@
     
     [self.navigationController pushViewController:payVC animated:YES];
 }
-#pragma mark - 编辑状态 editAction
--(void)editAction:(UIButton *)sender
+
+#pragma mark - 商品编辑状态回调 shopCarEditingSelected
+- (void)shopCarEditingSelected:(NSInteger)sectionIdx
 {
-    if ([sender.titleLabel.text isEqualToString:@"编辑"]) {
-        
-        [sender setTitle:@"完成" forState:UIControlStateNormal];
     
-        _isEditStatus = YES;
-        
-        [self.shopCar_tableview reloadData];
-
-    }else{
-        
-        [sender setTitle:@"编辑" forState:UIControlStateNormal];
-        
-        _isEditStatus = NO;
-        
-        [self.shopCar_tableview reloadData];
-
-    }
-
-//     sender.selected = YES;
-//    self.selectedBtn = sender;
-//    if (sender != self.selectedBtn) {
-//       
-//        self.selectedBtn.selected = NO;
-//        self.selectedBtn = sender;
-//        _isEditStatus = NO;
-//        [self.selectedBtn setTitle:@"编辑" forState:UIControlStateNormal];
-//        NSLog(@"edit 0");
-//        
-//    }else{
-//        
-//        self.selectedBtn.selected = YES;
-//        _isEditStatus = YES;
-//        [self.selectedBtn setTitle:@"完成" forState:UIControlStateNormal];
-//        NSLog(@"edit 1");
-//
-//    }
-
-    
-    
+    Shoppcartlist * list = self.carListArray[sectionIdx];
+    list.ShoppcartlistIsEditing = !list.ShoppcartlistIsEditing;
+    [self.shopCar_tableview reloadData];
     
 }
-
+#pragma mark - 商品 全选择回调 shopCarEditingSelected
+- (void)shopStoreSelected:(NSInteger)sectionIndex
+{
+    
+    Shoppcartlist *list = self.carListArray[sectionIndex];
+    list.leftShoppcartlistIsChoosed = !list.leftShoppcartlistIsChoosed;
+    //遍历数组元素
+    
+#warning ======== 遍历有错误
+    [list.goodsList enumerateObjectsUsingBlock:^(Goodslist *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.goodslistIsChoosed = obj.goodslistIsChoosed;
+    }];
+    [self.shopCar_tableview reloadData];
+    // 每次点击都要统计底部的按钮是否全选
+    //    self.allSelectedButton.selected = [self isAllProcductChoosed];
+    //
+    //    [self.accountButton setTitle:[NSString stringWithFormat:@"结算(%ld)",[self countTotalSelectedNumber]] forState:UIControlStateNormal];
+    //
+    //    self.totalPriceLabel.text = [NSString stringWithFormat:@"合计￥%.2f",[self countTotalPrice]];
+    
+}
 #pragma mark - tableView delegare
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return self.carListArray.count;
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    Shoppcartlist * list  = self.carListArray[section];
+    
+    return list.goodsList.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 92;
+    CGFloat actualHeight = [tableView fd_heightForCellWithIdentifier:shopCarContenCellID cacheByIndexPath:indexPath configuration:^(ZFShopCarCell *cell) {
+        
+        [self configCell:cell indexPath:indexPath];
+        
+    }];
+    return actualHeight >= 100 ? actualHeight : 92;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    Shoppcartlist * list = self.carListArray[section];
+    ZFShopCarCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingHeaderID];
+    cell.chooseStore_btn.selected = list.leftShoppcartlistIsChoosed; //!<  是否需要勾选的字段
+    [cell.enterStore_btn setTitle:[NSString stringWithFormat:@"%@",list.storeName] forState:UIControlStateNormal];
+    cell.sectionIndex = section;
+    cell.editStore_btn.selected = list.ShoppcartlistIsEditing;//是否处于编辑
+    cell.selectDelegate = self;
     
-    return [self sectionHeadView] ;
+    return cell;
     
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    //    if (section == 0) {
-    //        return 0.001;
-    //    }
     return 40.001 ;
-   
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -246,32 +182,36 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell * cell = nil;
-    if (_isEditStatus == NO) {
-        ZFShopCarCell * shopCell = [self.shopCar_tableview dequeueReusableCellWithIdentifier:@"ShopCarCellid" forIndexPath:indexPath];
-        shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
-       
-         cell = shopCell;
-    }else{
-        
-        ZFShopCarEditCell *editCell = [self.shopCar_tableview dequeueReusableCellWithIdentifier:@"ZFShopCarEditCellid" forIndexPath:indexPath];
-        editCell.selectionStyle  = UITableViewCellSelectionStyleNone;
- 
-        cell= editCell;
-    }
-
+    
+    
+    ZFShopCarCell * shopCell = [self.shopCar_tableview dequeueReusableCellWithIdentifier:shopCarContenCellID forIndexPath:indexPath];
+    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
+    shopCell.selectDelegate = self;
+    
+    [self configCell:shopCell indexPath:indexPath];
     
 
-//    Shoppcartlist * shopList = self.carListArray[indexPath.row];
-//    shopCell.lb_title.text = shopList.goodsName;
-//    shopCell.lb_price.text = shopList.storePrice;
-////    shopCell.lb_result.text = shopList.goodsCount;
-//    [shopCell.img_shopCar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",shopList.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        
-//    }];
     
     
-    return cell;
+    return shopCell;
+    
+}
+// 组装cell
+- (void)configCell:(ZFShopCarCell *)cell indexPath:(NSIndexPath *)indexPath
+{
+    
+    
+        Shoppcartlist * shopList = self.carListArray[indexPath.row];
+    
+//        shopCell.lb_title.text = shopList.goodsName;
+//        shopCell.lb_price.text = shopList.storePrice;
+//    //    shopCell.lb_result.text = shopList.goodsCount;
+//        [shopCell.img_shopCar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",shopList.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//    
+//        }];
+}
+-(void)ChangeGoodsNumberCell:(ZFShopCarCell *)cell Number:(NSInteger)num
+{
     
 }
 -(void)selectResult:(NSInteger)result
@@ -282,6 +222,9 @@
 #pragma mark - tableView datasource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
     DetailFindGoodsViewController *deatilGoods =[[DetailFindGoodsViewController alloc]init];
     [self.navigationController pushViewController:deatilGoods animated:YES];
@@ -293,8 +236,6 @@
 #pragma mark - 购物车列表网络请求 getShoppingCartList
 -(void)shoppingCarPostRequst
 {
- 
- 
     NSDictionary * parma = @{
                              
                              @"svcName":@"getShoppingCartList",
@@ -310,17 +251,18 @@
         
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
             
-            if (self.carListArray.count >0) {
+            if (self.carListArray.count > 0) {
                 
                 [self.carListArray  removeAllObjects];
                 
             }else{
                 
                 NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+                //JSON字符串转化为字典
                 NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+              
                 NSArray * dictArray = jsondic [@"shoppCartList"];
                 
-                //mjextention 数组转模型
                 NSArray *storArray = [Shoppcartlist mj_objectArrayWithKeyValuesArray:dictArray];
                 
                 for (Shoppcartlist *lists in storArray) {
@@ -328,7 +270,7 @@
                     [self.carListArray addObject:lists];
                 }
                 NSLog(@"carListArray = %@",   self.carListArray);
- 
+                
                 [self.shopCar_tableview reloadData];
             }
             
@@ -340,11 +282,99 @@
     }];
 }
 
+#pragma mark - 计算商品被选择了数量
+- (NSInteger)countTotalSelectedNumber
+{
+    NSInteger count = 0;
+    for (Shoppcartlist *list in self.carListArray) {
+        for (Goodslist *goods in list.goodsList) {
+            if (goods.goodslistIsChoosed) {
+                count ++;
+            }
+        }
+    }
+    NSLog(@"  -----------%ld ------------",count);
+    
+    return count;
+}
+
+#pragma mark - 计算选出商品的总价
+- (CGFloat)countTotalPrice
+{
+    CGFloat totalPrice = 0.0;
+    for (Shoppcartlist *list in self.carListArray) {
+        if (list.leftShoppcartlistIsChoosed) {
+            for (Goodslist * goods  in list.goodsList) {
+                totalPrice += goods.storePrice * goods.goodsCount;
+            }
+        }else{
+            for (Goodslist * goods  in list.goodsList) {
+                if (goods.goodslistIsChoosed) {
+                    totalPrice += goods.storePrice * goods.goodsCount;
+                }
+            }
+            
+        }
+    }
+    return totalPrice;
+}
+#pragma mark - 判断是否全部选中了
+- (BOOL)isAllProcductChoosed
+{
+    if ([self isEmptyArray:self.carListArray] ) {
+        return NO;
+    }
+    NSInteger count = 0;
+    for (Shoppcartlist * list in self.carListArray) {
+        if (list.leftShoppcartlistIsChoosed) {
+            count ++;
+        }
+    }
+    return (count == self.carListArray.count);
+}
 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(UITableView *)shopCar_tableview
+{
+    if (!_shopCar_tableview) {
+        self.title = @"购物车";
+        _shopCar_tableview =[[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-49*2) style:UITableViewStyleGrouped];
+        _shopCar_tableview.delegate = self;
+        _shopCar_tableview.dataSource = self;
+        _shopCar_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+        //        _shopCar_tableview.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:_shopCar_tableview];
+    }
+    return _shopCar_tableview;
+}
+
+-(ShopCarFootView *)footView
+{
+    if (!_footView) {
+        _footView= [[ShopCarFootView alloc]initWithFrame:CGRectMake(0, KScreenH -49-49, KScreenW,  KScreenH -49-49-64)];
+        _footView.backgroundColor = randomColor;
+        _footView.delegate = self;
+    }
+    return _footView;
+}
+
+-(NSMutableArray *)carListArray
+{
+    if (!_carListArray) {
+        _carListArray = [NSMutableArray array];
+    }
+    return _carListArray;
+}
+
+//判断是不是空数组
+- (BOOL)isEmptyArray:(NSArray *)array
+{
+    return (array.count ==0 || array == nil);
 }
 
 /*

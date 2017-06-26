@@ -36,6 +36,7 @@
 #import "NSObject+Property.h"//collctionViewController
 //#import <YYModel/YYModel.h>
 #import "MJExtension.h"
+#import "MJRefresh.h"
 
 
 #import "Macros.h"

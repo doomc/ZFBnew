@@ -19,7 +19,7 @@
 @property (nonatomic, copy) NSString * coverImgUrl;
 
 /** 售卖价 */
-@property (nonatomic, copy) NSString * storePrice;
+@property (nonatomic, assign) CGFloat  storePrice;
 
 /** 网购价*/
 @property (nonatomic, copy) NSString * netPurchasePrice;

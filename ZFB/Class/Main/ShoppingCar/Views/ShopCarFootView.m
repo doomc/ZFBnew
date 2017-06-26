@@ -30,7 +30,6 @@
         UIFont * font  =[UIFont systemFontOfSize:12];
         
    
-        
         //结算按钮
         UIButton * complete_Btn  = [UIButton buttonWithType:UIButtonTypeCustom];
         [complete_Btn setTitle:buttonTitle forState:UIControlStateNormal];
@@ -74,6 +73,7 @@
         
         UIButton * selectAll_btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [selectAll_btn setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+        [selectAll_btn setImage:[UIImage imageNamed:@"select_selected"] forState:UIControlStateSelected];
         [selectAll_btn addTarget:self action:@selector(chooseBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:selectAll_btn];
         
@@ -99,21 +99,17 @@
     }
     return self;
 }
-
+//全选
 -(void)chooseBtnAction:(UIButton * )sender
 {
-    sender.selected = !sender.selected ;
-    
-    if (sender.selected) {
-        
-        [sender setImage:[UIImage imageNamed:@"select_selected"] forState:UIControlStateSelected];
+
+    if ([self.delegate respondsToSelector:@selector(selectAllgoods:)]) {
+        [self.delegate selectAllgoods:sender];
+ 
     }
-    else{
-        
-        [sender setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
-    }
-    
 }
+
+//结算
 -(void)didClickClearingShopCar:(UIButton * )sender
 {
     if ([self.delegate respondsToSelector:@selector(didClickClearingShoppingCar:)]) {

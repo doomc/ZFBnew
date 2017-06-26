@@ -12,6 +12,9 @@
 
 //结算
 -(void)didClickClearingShoppingCar:(UIButton *)sender;
+-(void)selectAllgoods:(UIButton *)sender;
+
+//全选
 
 
 @end
