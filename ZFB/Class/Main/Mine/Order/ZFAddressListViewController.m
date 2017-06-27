@@ -7,7 +7,7 @@
 //  收货地址列表
 
 #import "ZFAddressListViewController.h"
-#import "ZFEditAddressViewController.h"
+#import "EditAddressViewController.h"
 #import "ZFAddOfListCell.h"
 
 @interface ZFAddressListViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -77,9 +77,9 @@
 -(void)didclickAdd:(UIButton*)add
 {
     NSLog(@"添加地址");
-    ZFEditAddressViewController * edit = [[ZFEditAddressViewController alloc]init];
+    EditAddressViewController * editVC = [[EditAddressViewController alloc]init];
     
-    [self.navigationController pushViewController:edit animated:YES];
+    [self.navigationController pushViewController:editVC animated:YES];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

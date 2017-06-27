@@ -9,11 +9,11 @@
 
 #import "ZFEvaluateViewController.h"
 #import "ZFAppraiseCell.h"
-#import "ZFAppraiseSectionView.h"
+#import "ZFAppraiseSectionCell.h"
 #import "AppraiseModel.h"
 
 
-@interface ZFEvaluateViewController ()<UITableViewDelegate,UITableViewDataSource,AppraiseSectionViewDelegate,ZFAppraiseCellDelegate>
+@interface ZFEvaluateViewController ()<UITableViewDelegate,UITableViewDataSource,AppraiseSectionCellDelegate,ZFAppraiseCellDelegate>
 {
     NSInteger _pageSize;//每页显示条数
     NSInteger _pageIndex;//当前页码;
@@ -26,7 +26,6 @@
     
 }
 @property (nonatomic ,strong) UITableView* evaluate_tableView;
-@property (nonatomic ,strong) ZFAppraiseSectionView * sectionView;
 @property (nonatomic ,strong) NSMutableArray * appraiseListArray;
 
 
@@ -69,8 +68,8 @@
     
     [self.evaluate_tableView registerNib:[UINib nibWithNibName:@"ZFAppraiseCell" bundle:nil] forCellReuseIdentifier:@"ZFAppraiseCell"];
     
-    _sectionView = [[NSBundle mainBundle]loadNibNamed:@"ZFAppraiseSectionView" owner:self options:nil].lastObject;
-    _sectionView.delegate = self;
+    [self.evaluate_tableView registerNib:[UINib nibWithNibName:@"ZFAppraiseSectionCell" bundle:nil]forCellReuseIdentifier:@"ZFAppraiseSectionCell"];
+ 
     
 }
 
@@ -80,13 +79,7 @@
     [self.evaluate_tableView reloadData];
 }
 
-#pragma mark - AppraiseSectionViewDelegate 选择评论
--(void)whichOneDidClickAppraise:(UIButton *)sender
-{
-    NSLog(@"网络请求++");
-   [self appriaseToPostRequest];
-    
-}
+
 #pragma mark - datasoruce  代理实现
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -104,7 +97,17 @@
 }
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return self.sectionView;
+    ZFAppraiseSectionCell  * sectionCell = [tableView dequeueReusableCellWithIdentifier:@"ZFAppraiseSectionCell"];
+  
+    [sectionCell.all_btn setTitle:_commentNum forState:UIControlStateNormal];
+    [sectionCell.goodAppraise_btn setTitle:_goodCommentNum forState:UIControlStateNormal];
+    [sectionCell.bad_btn setTitle:_lackCommentNum forState:UIControlStateNormal];
+    [sectionCell.haveImage_btn setTitle:_imgCommentNum forState:UIControlStateNormal];
+
+    sectionCell.delegate = self;
+    
+    return sectionCell;
+
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -138,7 +141,26 @@
     NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);
     
 }
+#pragma mark - 查看评价列表 AppraiseSectionCellDelegate
+-(void)allbuttonSelect:(UIButton *)button
+{
+    NSLog(@"全部评价");
+}
+-(void)goodPrisebuttonSelect:(UIButton *)button
+{
+    NSLog(@"好评");
 
+}
+-(void)badPrisebuttonSelect:(UIButton *)button
+{
+    NSLog(@"差评");
+
+}
+-(void)haveImgbuttonSelect:(UIButton *)button
+{
+    NSLog(@"哟图");
+
+}
 #pragma mark - 评论的网络请求 getGoodsCommentInfo
 -(void)appriaseToPostRequest
 {

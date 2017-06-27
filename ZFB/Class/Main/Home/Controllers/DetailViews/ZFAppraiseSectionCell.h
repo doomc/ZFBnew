@@ -8,7 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol AppraiseSectionCellDelegate <NSObject>
+
+-(void)allbuttonSelect:(UIButton *)button;
+-(void)goodPrisebuttonSelect:(UIButton *)button;
+-(void)badPrisebuttonSelect:(UIButton *)button;
+-(void)haveImgbuttonSelect:(UIButton *)button;
+
+
+@end
 @interface ZFAppraiseSectionCell : UITableViewCell
+
+@property (nonatomic, strong)  id <AppraiseSectionCellDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UIButton *all_btn;
 

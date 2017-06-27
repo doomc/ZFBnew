@@ -493,7 +493,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                 
                 for (Cmgoodsdetailslist * goodslist in goodsModel.cmGoodsDetailsList) {
                     
-                    
                     _goodsName = goodslist.goodsName;
                     _sotreName = goodslist.sotreName;
                     _contactPhone = goodslist.contactPhone;
@@ -507,27 +506,25 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                     _commentNum = goodslist.commentNum;
                     _inStock = goodslist.productSku.inStock;//库存
                     //    NSLog(@" 店名 = %@ ////////  手机号= %@ ////////  距离 =%@" ,_goodsName,_contactPhone,_juli);
-    
                     statusDict = goodslist.productSku.mj_keyValues;
                 }
                 
-                //                NSArray * productSkuArr = [NSArray arrayWithObject:statusDict[@"reluJson"]];
+                NSDictionary * objDic = [NSDictionary dictionary];
+                [objDic setValue:@"" forKey:@"name"];
+                [objDic setValue:@"" forKey:@"value"];
+//             NSArray * productSkuArr = [NSArray arrayWithObject:statusDict[@"reluJson"]];
                 self.reluJsonKeyArray = [Relujson mj_objectArrayWithKeyValuesArray:statusDict[@"reluJson"]];
                 
                 NSLog(@"---------------reluJsonKeyArray  = %@ --------------- ",self.reluJsonKeyArray);
                 
                 _imagesURLStrings = [[NSArray alloc]init];
                 _imagesURLStrings = [_attachImgUrl componentsSeparatedByString:@","];
-                
                 [self.list_tableView reloadData];
                 
             }
             
             [SVProgressHUD dismiss];
-            
         }
-        
-        
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];

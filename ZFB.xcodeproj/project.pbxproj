@@ -230,8 +230,6 @@
 		49DF71521EEAA9B20021EE92 /* DetailStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF702F1EEAA9B10021EE92 /* DetailStoreViewController.m */; };
 		49DF71531EEAA9B20021EE92 /* ZFAppraiseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70321EEAA9B10021EE92 /* ZFAppraiseCell.m */; };
 		49DF71541EEAA9B20021EE92 /* ZFAppraiseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DF70331EEAA9B10021EE92 /* ZFAppraiseCell.xib */; };
-		49DF71551EEAA9B20021EE92 /* ZFAppraiseSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70351EEAA9B10021EE92 /* ZFAppraiseSectionView.m */; };
-		49DF71561EEAA9B20021EE92 /* ZFAppraiseSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DF70361EEAA9B10021EE92 /* ZFAppraiseSectionView.xib */; };
 		49DF71571EEAA9B20021EE92 /* ZFbabyEvaluateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70381EEAA9B10021EE92 /* ZFbabyEvaluateCell.m */; };
 		49DF71581EEAA9B20021EE92 /* ZFbabyEvaluateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DF70391EEAA9B10021EE92 /* ZFbabyEvaluateCell.xib */; };
 		49DF71591EEAA9B20021EE92 /* ZFDetailStoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF703B1EEAA9B10021EE92 /* ZFDetailStoreCell.m */; };
@@ -291,10 +289,6 @@
 		49DF71911EEAA9B20021EE92 /* OrderWithAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DF709F1EEAA9B10021EE92 /* OrderWithAddressCell.xib */; };
 		49DF71921EEAA9B20021EE92 /* ZFAddOfListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70A11EEAA9B10021EE92 /* ZFAddOfListCell.m */; };
 		49DF71931EEAA9B20021EE92 /* ZFAddOfListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DF70A21EEAA9B10021EE92 /* ZFAddOfListCell.xib */; };
-		49DF71941EEAA9B20021EE92 /* ZFAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70A41EEAA9B10021EE92 /* ZFAddressCell.m */; };
-		49DF71951EEAA9B20021EE92 /* ZFAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DF70A51EEAA9B10021EE92 /* ZFAddressCell.xib */; };
-		49DF71961EEAA9B20021EE92 /* ZFDefaultAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70A71EEAA9B10021EE92 /* ZFDefaultAddressCell.m */; };
-		49DF71971EEAA9B20021EE92 /* ZFDefaultAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DF70A81EEAA9B10021EE92 /* ZFDefaultAddressCell.xib */; };
 		49DF71981EEAA9B20021EE92 /* ZFFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70AA1EEAA9B10021EE92 /* ZFFooterCell.m */; };
 		49DF71991EEAA9B20021EE92 /* ZFFooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DF70AB1EEAA9B10021EE92 /* ZFFooterCell.xib */; };
 		49DF719A1EEAA9B20021EE92 /* ZFOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70AD1EEAA9B10021EE92 /* ZFOrderListCell.m */; };
@@ -304,7 +298,6 @@
 		49DF719E1EEAA9B20021EE92 /* ZFTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70B31EEAA9B10021EE92 /* ZFTitleCell.m */; };
 		49DF719F1EEAA9B20021EE92 /* ZFTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DF70B41EEAA9B10021EE92 /* ZFTitleCell.xib */; };
 		49DF71A01EEAA9B20021EE92 /* ZFAddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70B61EEAA9B10021EE92 /* ZFAddressListViewController.m */; };
-		49DF71A11EEAA9B20021EE92 /* ZFEditAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70B81EEAA9B10021EE92 /* ZFEditAddressViewController.m */; };
 		49DF71A21EEAA9B20021EE92 /* ZFShopListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70BA1EEAA9B10021EE92 /* ZFShopListViewController.m */; };
 		49DF71A31EEAA9B20021EE92 /* ZFSureOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70BC1EEAA9B10021EE92 /* ZFSureOrderViewController.m */; };
 		49DF71A41EEAA9B20021EE92 /* ZFContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF70C11EEAA9B10021EE92 /* ZFContactCell.m */; };
@@ -567,6 +560,8 @@
 		503BEC101ED72324004FC36C /* UITableView+FDKeyedHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEC0A1ED72324004FC36C /* UITableView+FDKeyedHeightCache.m */; };
 		503BEC111ED72324004FC36C /* UITableView+FDTemplateLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEC0C1ED72324004FC36C /* UITableView+FDTemplateLayoutCell.m */; };
 		503BEC121ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEC0E1ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.m */; };
+		506F63751F02A835004DF478 /* EditAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F63731F02A835004DF478 /* EditAddressViewController.m */; };
+		506F63761F02A835004DF478 /* EditAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 506F63741F02A835004DF478 /* EditAddressViewController.xib */; };
 		509A13451EE6EB000093978F /* NSString+ZFSortAppdending.m in Sources */ = {isa = PBXBuildFile; fileRef = 509A13441EE6EB000093978F /* NSString+ZFSortAppdending.m */; };
 		509CC4B41EF82A1B0035B1D8 /* ShoppingCarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 509CC4B31EF82A1B0035B1D8 /* ShoppingCarModel.m */; };
 		509D1F771ECDD9AC00D70444 /* ZFCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D1F761ECDD9AC00D70444 /* ZFCoverView.m */; };
@@ -947,9 +942,6 @@
 		49DF70311EEAA9B10021EE92 /* ZFAppraiseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAppraiseCell.h; sourceTree = "<group>"; };
 		49DF70321EEAA9B10021EE92 /* ZFAppraiseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAppraiseCell.m; sourceTree = "<group>"; };
 		49DF70331EEAA9B10021EE92 /* ZFAppraiseCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFAppraiseCell.xib; sourceTree = "<group>"; };
-		49DF70341EEAA9B10021EE92 /* ZFAppraiseSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAppraiseSectionView.h; sourceTree = "<group>"; };
-		49DF70351EEAA9B10021EE92 /* ZFAppraiseSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAppraiseSectionView.m; sourceTree = "<group>"; };
-		49DF70361EEAA9B10021EE92 /* ZFAppraiseSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFAppraiseSectionView.xib; sourceTree = "<group>"; };
 		49DF70371EEAA9B10021EE92 /* ZFbabyEvaluateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFbabyEvaluateCell.h; sourceTree = "<group>"; };
 		49DF70381EEAA9B10021EE92 /* ZFbabyEvaluateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFbabyEvaluateCell.m; sourceTree = "<group>"; };
 		49DF70391EEAA9B10021EE92 /* ZFbabyEvaluateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFbabyEvaluateCell.xib; sourceTree = "<group>"; };
@@ -1044,12 +1036,6 @@
 		49DF70A01EEAA9B10021EE92 /* ZFAddOfListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAddOfListCell.h; sourceTree = "<group>"; };
 		49DF70A11EEAA9B10021EE92 /* ZFAddOfListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAddOfListCell.m; sourceTree = "<group>"; };
 		49DF70A21EEAA9B10021EE92 /* ZFAddOfListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFAddOfListCell.xib; sourceTree = "<group>"; };
-		49DF70A31EEAA9B10021EE92 /* ZFAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAddressCell.h; sourceTree = "<group>"; };
-		49DF70A41EEAA9B10021EE92 /* ZFAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAddressCell.m; sourceTree = "<group>"; };
-		49DF70A51EEAA9B10021EE92 /* ZFAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFAddressCell.xib; sourceTree = "<group>"; };
-		49DF70A61EEAA9B10021EE92 /* ZFDefaultAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFDefaultAddressCell.h; sourceTree = "<group>"; };
-		49DF70A71EEAA9B10021EE92 /* ZFDefaultAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFDefaultAddressCell.m; sourceTree = "<group>"; };
-		49DF70A81EEAA9B10021EE92 /* ZFDefaultAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFDefaultAddressCell.xib; sourceTree = "<group>"; };
 		49DF70A91EEAA9B10021EE92 /* ZFFooterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFFooterCell.h; sourceTree = "<group>"; };
 		49DF70AA1EEAA9B10021EE92 /* ZFFooterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFFooterCell.m; sourceTree = "<group>"; };
 		49DF70AB1EEAA9B10021EE92 /* ZFFooterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFFooterCell.xib; sourceTree = "<group>"; };
@@ -1064,8 +1050,6 @@
 		49DF70B41EEAA9B10021EE92 /* ZFTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFTitleCell.xib; sourceTree = "<group>"; };
 		49DF70B51EEAA9B10021EE92 /* ZFAddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAddressListViewController.h; sourceTree = "<group>"; };
 		49DF70B61EEAA9B10021EE92 /* ZFAddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAddressListViewController.m; sourceTree = "<group>"; };
-		49DF70B71EEAA9B10021EE92 /* ZFEditAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFEditAddressViewController.h; sourceTree = "<group>"; };
-		49DF70B81EEAA9B10021EE92 /* ZFEditAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFEditAddressViewController.m; sourceTree = "<group>"; };
 		49DF70B91EEAA9B10021EE92 /* ZFShopListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFShopListViewController.h; sourceTree = "<group>"; };
 		49DF70BA1EEAA9B10021EE92 /* ZFShopListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFShopListViewController.m; sourceTree = "<group>"; };
 		49DF70BB1EEAA9B10021EE92 /* ZFSureOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFSureOrderViewController.h; sourceTree = "<group>"; };
@@ -1428,6 +1412,9 @@
 		503BEC0C1ED72324004FC36C /* UITableView+FDTemplateLayoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCell.m"; sourceTree = "<group>"; };
 		503BEC0D1ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDTemplateLayoutCellDebug.h"; sourceTree = "<group>"; };
 		503BEC0E1ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCellDebug.m"; sourceTree = "<group>"; };
+		506F63721F02A835004DF478 /* EditAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAddressViewController.h; sourceTree = "<group>"; };
+		506F63731F02A835004DF478 /* EditAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAddressViewController.m; sourceTree = "<group>"; };
+		506F63741F02A835004DF478 /* EditAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAddressViewController.xib; sourceTree = "<group>"; };
 		509A13431EE6EB000093978F /* NSString+ZFSortAppdending.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZFSortAppdending.h"; sourceTree = "<group>"; };
 		509A13441EE6EB000093978F /* NSString+ZFSortAppdending.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZFSortAppdending.m"; sourceTree = "<group>"; };
 		509CC4B21EF82A1B0035B1D8 /* ShoppingCarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCarModel.h; sourceTree = "<group>"; };
@@ -2382,9 +2369,6 @@
 				49DF70311EEAA9B10021EE92 /* ZFAppraiseCell.h */,
 				49DF70321EEAA9B10021EE92 /* ZFAppraiseCell.m */,
 				49DF70331EEAA9B10021EE92 /* ZFAppraiseCell.xib */,
-				49DF70341EEAA9B10021EE92 /* ZFAppraiseSectionView.h */,
-				49DF70351EEAA9B10021EE92 /* ZFAppraiseSectionView.m */,
-				49DF70361EEAA9B10021EE92 /* ZFAppraiseSectionView.xib */,
 				49DBE0B41F023F160063C201 /* ZFAppraiseSectionCell.h */,
 				49DBE0B51F023F160063C201 /* ZFAppraiseSectionCell.m */,
 				49DBE0B61F023F160063C201 /* ZFAppraiseSectionCell.xib */,
@@ -2571,8 +2555,9 @@
 				49DF70961EEAA9B10021EE92 /* Views */,
 				49DF70B51EEAA9B10021EE92 /* ZFAddressListViewController.h */,
 				49DF70B61EEAA9B10021EE92 /* ZFAddressListViewController.m */,
-				49DF70B71EEAA9B10021EE92 /* ZFEditAddressViewController.h */,
-				49DF70B81EEAA9B10021EE92 /* ZFEditAddressViewController.m */,
+				506F63721F02A835004DF478 /* EditAddressViewController.h */,
+				506F63731F02A835004DF478 /* EditAddressViewController.m */,
+				506F63741F02A835004DF478 /* EditAddressViewController.xib */,
 				49DF70B91EEAA9B10021EE92 /* ZFShopListViewController.h */,
 				49DF70BA1EEAA9B10021EE92 /* ZFShopListViewController.m */,
 				49DF70BB1EEAA9B10021EE92 /* ZFSureOrderViewController.h */,
@@ -2604,12 +2589,6 @@
 				49DF70A01EEAA9B10021EE92 /* ZFAddOfListCell.h */,
 				49DF70A11EEAA9B10021EE92 /* ZFAddOfListCell.m */,
 				49DF70A21EEAA9B10021EE92 /* ZFAddOfListCell.xib */,
-				49DF70A31EEAA9B10021EE92 /* ZFAddressCell.h */,
-				49DF70A41EEAA9B10021EE92 /* ZFAddressCell.m */,
-				49DF70A51EEAA9B10021EE92 /* ZFAddressCell.xib */,
-				49DF70A61EEAA9B10021EE92 /* ZFDefaultAddressCell.h */,
-				49DF70A71EEAA9B10021EE92 /* ZFDefaultAddressCell.m */,
-				49DF70A81EEAA9B10021EE92 /* ZFDefaultAddressCell.xib */,
 				49DF70A91EEAA9B10021EE92 /* ZFFooterCell.h */,
 				49DF70AA1EEAA9B10021EE92 /* ZFFooterCell.m */,
 				49DF70AB1EEAA9B10021EE92 /* ZFFooterCell.xib */,
@@ -3615,6 +3594,7 @@
 				49F113C41ECC55B0000F3BF7 /* WX@2x.png in Resources */,
 				49C6CFE31EDFDB2B00652CDB /* setting_calling@3x.png in Resources */,
 				49C95F081ED295AF004EA811 /* home_normal@3x.png in Resources */,
+				506F63761F02A835004DF478 /* EditAddressViewController.xib in Resources */,
 				49F113671ECC5547000F3BF7 /* bag_normal@2x.png in Resources */,
 				49AAD8721EE12A5900AFE61D /* collectshopCar@3x.png in Resources */,
 				49DF71BE1EEAA9B20021EE92 /* ZFPregressCheckCell.xib in Resources */,
@@ -3631,7 +3611,6 @@
 				49DF71791EEAA9B20021EE92 /* ZFMyOpinionCell.xib in Resources */,
 				49F1135A1ECC5547000F3BF7 /* arrows_down_black@3x.png in Resources */,
 				49D6E72B1ED9789A000A837E /* love@3x.png in Resources */,
-				49DF71971EEAA9B20021EE92 /* ZFDefaultAddressCell.xib in Resources */,
 				49E0A0A01ED5344C00AEE354 /* ipone@2x.png in Resources */,
 				493D83771EF3BD1A005983AA /* FuncListTableViewCell.xib in Resources */,
 				49F113881ECC5547000F3BF7 /* setting@3x.png in Resources */,
@@ -3641,7 +3620,6 @@
 				49F113C71ECC55B0000F3BF7 /* wx_share@3x.png in Resources */,
 				49C95F111ED295AF004EA811 /* send_red@2x.png in Resources */,
 				49D6E72F1ED97AAB000A837E /* write@3x.png in Resources */,
-				49DF71951EEAA9B20021EE92 /* ZFAddressCell.xib in Resources */,
 				49E0A0A51ED5344C00AEE354 /* passWord@3x.png in Resources */,
 				49F113A71ECC5547000F3BF7 /* loca_small@2x.png in Resources */,
 				49F113961ECC5547000F3BF7 /* star_normal@3x.png in Resources */,
@@ -3730,7 +3708,6 @@
 				49FB3C771ECD943C0090075D /* mine@3x.png in Resources */,
 				49C6CFE91EDFDB2B00652CDB /* setting_phone@3x.png in Resources */,
 				49C6CFE81EDFDB2B00652CDB /* setting_phone@2x.png in Resources */,
-				49DF71561EEAA9B20021EE92 /* ZFAppraiseSectionView.xib in Resources */,
 				49F113C61ECC55B0000F3BF7 /* wx_share@2x.png in Resources */,
 				49F1139F1ECC5547000F3BF7 /* dot_selected@2x.png in Resources */,
 				49F6696D1EF7A92300F8D516 /* star_nor.png in Resources */,
@@ -3890,7 +3867,6 @@
 				49DF71AF1EEAA9B20021EE92 /* ApplySalesNumCell.m in Sources */,
 				49DF6FD71EEA927C0021EE92 /* NSString+RegexCategory.m in Sources */,
 				49DF719C1EEAA9B20021EE92 /* ZFShopListCell.m in Sources */,
-				49DF71A11EEAA9B20021EE92 /* ZFEditAddressViewController.m in Sources */,
 				492757491EC4679E003C22D0 /* MJRefreshAutoGifFooter.m in Sources */,
 				498AE4A91EE6A5E100EE3FA8 /* YYKVStorage.m in Sources */,
 				49DF718E1EEAA9B20021EE92 /* OrderPriceCell.m in Sources */,
@@ -3903,7 +3879,6 @@
 				49DF6FE31EEA927C0021EE92 /* UIImage+FX.m in Sources */,
 				49F254A21EFBA125008F6E88 /* SkuHeaderReusableView.m in Sources */,
 				49DF71AC1EEAA9B20021EE92 /* ZFSendPopView.m in Sources */,
-				49DF71961EEAA9B20021EE92 /* ZFDefaultAddressCell.m in Sources */,
 				49DF71DA1EEAA9B20021EE92 /* ZFMyOpinionViewController.m in Sources */,
 				498AE4BF1EE6AADF00EE3FA8 /* NSData+Encrypt.m in Sources */,
 				4927574C1EC4679E003C22D0 /* MJRefreshBackGifFooter.m in Sources */,
@@ -3974,7 +3949,6 @@
 				49DF71691EEAA9B20021EE92 /* HP_LocationViewController.m in Sources */,
 				5019FFB11ECCAEF800325342 /* SDWebImageManager.m in Sources */,
 				49DF71EB1EEAA9B20021EE92 /* ZFOrderDetailSectionCell.m in Sources */,
-				49DF71551EEAA9B20021EE92 /* ZFAppraiseSectionView.m in Sources */,
 				498AE4AA1EE6A5E100EE3FA8 /* YYMemoryCache.m in Sources */,
 				49DF71D31EEAA9B20021EE92 /* ZFAllOrderViewController.m in Sources */,
 				4926AAC01EE7916500178491 /* NSString+JsonChange.m in Sources */,
@@ -4010,6 +3984,7 @@
 				49801C901ECE870100EDAA53 /* PYSearchViewController.m in Sources */,
 				49DF71DF1EEAA9B20021EE92 /* ZFMainPayforViewController.m in Sources */,
 				493D838F1EF3E793005983AA /* DetailStoreModel.m in Sources */,
+				506F63751F02A835004DF478 /* EditAddressViewController.m in Sources */,
 				49DF72041EEAAA5B0021EE92 /* ZFbaseTabbarViewController.m in Sources */,
 				492757471EC4679E003C22D0 /* MJRefreshFooter.m in Sources */,
 				49DF71D81EEAA9B20021EE92 /* ZFDetailOrderViewController.m in Sources */,
@@ -4017,7 +3992,6 @@
 				49DF71981EEAA9B20021EE92 /* ZFFooterCell.m in Sources */,
 				4990A3321EE4EEFC004CB908 /* MENetWorkManager.m in Sources */,
 				4943AEE41EF0D98400803973 /* ZFCollectionViewCell.m in Sources */,
-				49DF71941EEAA9B20021EE92 /* ZFAddressCell.m in Sources */,
 				49DF71F21EEAA9B20021EE92 /* ZFShopCarCell.m in Sources */,
 				49DF717C1EEAA9B20021EE92 /* ZFHistoryViewController.m in Sources */,
 				49E757851EC96E9100220B28 /* TAAbstractDotView.m in Sources */,
@@ -4246,7 +4220,7 @@
 				DEVELOPMENT_TEAM = X28D98X7LE;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4267,7 +4241,7 @@
 				DEVELOPMENT_TEAM = X28D98X7LE;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

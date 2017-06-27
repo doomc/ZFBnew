@@ -59,7 +59,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    
+     [self.view endEditing:YES];
 }
 -(UITableView *)tableView{
     if (!_tableView) {

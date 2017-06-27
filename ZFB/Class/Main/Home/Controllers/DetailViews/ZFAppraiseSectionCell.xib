@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="316" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="316" height="48"/>
+                <rect key="frame" x="0.0" y="0.0" width="316" height="47.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MDu-lZ-5Vl">
@@ -26,6 +26,9 @@
                                 <color key="backgroundColor" red="0.99672204259999997" green="0.5303732753" blue="0.52881073950000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="全部(100)"/>
+                                <connections>
+                                    <action selector="didClickAllAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="i4M-Ub-Sxb"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -41,6 +44,9 @@
                                 <color key="backgroundColor" red="0.99672204259999997" green="0.5303732753" blue="0.52881073950000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="好评(100)"/>
+                                <connections>
+                                    <action selector="didClickGoodAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vjK-rG-hs5"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -56,6 +62,9 @@
                                 <color key="backgroundColor" red="0.99672204259999997" green="0.5303732753" blue="0.52881073950000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="差评(100)"/>
+                                <connections>
+                                    <action selector="didClickBadAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Xzw-ff-Tre"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -71,6 +80,9 @@
                                 <color key="backgroundColor" red="0.99672204259999997" green="0.5303732753" blue="0.52881073950000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="有图(100)"/>
+                                <connections>
+                                    <action selector="didClickCheakImgAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="OKN-G0-xzC"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -101,6 +113,12 @@
                     <constraint firstItem="MDu-lZ-5Vl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="yXN-mv-Q1c"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="all_btn" destination="E9q-cO-uxq" id="pvQ-r8-H1W"/>
+                <outlet property="bad_btn" destination="zAZ-zH-EQz" id="UuQ-j4-X72"/>
+                <outlet property="goodAppraise_btn" destination="1oF-7p-kpd" id="URn-co-rDF"/>
+                <outlet property="haveImage_btn" destination="zet-GB-8zg" id="Fuy-t1-Qfc"/>
+            </connections>
             <point key="canvasLocation" x="-208" y="-76"/>
         </tableViewCell>
     </objects>
