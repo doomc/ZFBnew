@@ -42,7 +42,6 @@
         
         [self.itemArray addObject:urlstr];
     }
-
      NSLog(@" +++++++++itemArray %@+++++++++++", _itemArray);
     
 }

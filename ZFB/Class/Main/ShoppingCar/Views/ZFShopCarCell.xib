@@ -82,7 +82,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OnE-Kf-HjF">
                                 <rect key="frame" x="117" y="46" width="90" height="25"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DF3-zt-muQ">
+                                    <button opaque="NO" tag="666" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DF3-zt-muQ">
                                         <rect key="frame" x="66" y="0.0" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="cVk-IT-uwX"/>
@@ -93,7 +93,7 @@
                                             <action selector="addAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="usq-eX-Wfx"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ai-ge-pu2">
+                                    <button opaque="NO" tag="555" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ai-ge-pu2">
                                         <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="6oB-VV-4ya"/>
@@ -159,7 +159,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9A9-j2-bxg">
                                 <rect key="frame" x="72" y="54" width="90" height="25"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Txc-m1-QhI">
+                                    <button opaque="NO" tag="666" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Txc-m1-QhI">
                                         <rect key="frame" x="66" y="0.0" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="6jV-XD-viP"/>
@@ -167,10 +167,10 @@
                                         </constraints>
                                         <state key="normal" image="add.png"/>
                                         <connections>
-                                            <action selector="addAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="CUh-5r-bCZ"/>
+                                            <action selector="addOrReduce:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="oVy-gS-eSc"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kps-ic-JwX">
+                                    <button opaque="NO" tag="555" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kps-ic-JwX">
                                         <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="QRT-0y-MgI"/>
@@ -178,7 +178,7 @@
                                         </constraints>
                                         <state key="normal" image="reduce.png"/>
                                         <connections>
-                                            <action selector="reduceAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Jb4-XI-GTL"/>
+                                            <action selector="addOrReduce:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="IGO-CF-wPE"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CMp-DN-n1v">
@@ -254,9 +254,9 @@
                 <outlet property="add_btn" destination="DF3-zt-muQ" id="avm-zN-YIa"/>
                 <outlet property="chooseBtn" destination="1DU-qC-ImR" id="4BL-1l-rwo"/>
                 <outlet property="deldete_btn" destination="t82-LG-Jze" id="Qag-Dt-2vk"/>
-                <outlet property="editAdd_btn" destination="Txc-m1-QhI" id="8Y0-fN-6wp"/>
+                <outlet property="editAdd_btn" destination="Txc-m1-QhI" id="eAZ-yu-1bM"/>
                 <outlet property="editBackView" destination="XHD-6i-etg" id="jfj-3H-0Tb"/>
-                <outlet property="editReduce_btn" destination="kps-ic-JwX" id="SXv-uh-H0V"/>
+                <outlet property="editReduce_btn" destination="kps-ic-JwX" id="P0r-Kc-zOX"/>
                 <outlet property="editTf_result" destination="CMp-DN-n1v" id="8P5-KH-toh"/>
                 <outlet property="editlb_price" destination="btS-ce-M5a" id="evF-Lo-wt6"/>
                 <outlet property="editlb_title" destination="wvs-dU-flC" id="dN4-Yx-v4E"/>

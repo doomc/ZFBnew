@@ -120,7 +120,6 @@
 		49AAD8721EE12A5900AFE61D /* collectshopCar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AAD8701EE12A5900AFE61D /* collectshopCar@3x.png */; };
 		49B9A1C01EE0089400B98DA5 /* NOAddress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B9A1BE1EE0089400B98DA5 /* NOAddress@2x.png */; };
 		49B9A1C11EE0089400B98DA5 /* NOAddress@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B9A1BF1EE0089400B98DA5 /* NOAddress@3x.png */; };
-		49BEB9B01EF8D13100779588 /* ShopCarFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BEB9AF1EF8D13100779588 /* ShopCarFootView.m */; };
 		49BEB9B31EF917FA00779588 /* 省略@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BEB9B11EF917FA00779588 /* 省略@2x.png */; };
 		49BEB9B41EF917FA00779588 /* 省略@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BEB9B21EF917FA00779588 /* 省略@3x.png */; };
 		49BEB9B81EF92F9900779588 /* AppraiseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BEB9B71EF92F9900779588 /* AppraiseModel.m */; };
@@ -182,6 +181,8 @@
 		49D6E72F1ED97AAB000A837E /* write@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D6E72D1ED97AAB000A837E /* write@3x.png */; };
 		49D75C861EEE38DD00FACCD8 /* PTXDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D75C851EEE38DD00FACCD8 /* PTXDatePickerView.m */; };
 		49D75C8D1EEE8AF300FACCD8 /* AppDelegate+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D75C8C1EEE8AF300FACCD8 /* AppDelegate+Location.m */; };
+		49DBE0B71F023F160063C201 /* ZFAppraiseSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DBE0B51F023F160063C201 /* ZFAppraiseSectionCell.m */; };
+		49DBE0B81F023F160063C201 /* ZFAppraiseSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DBE0B61F023F160063C201 /* ZFAppraiseSectionCell.xib */; };
 		49DF6FCE1EEA927C0021EE92 /* addressData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49DF6F881EEA927C0021EE92 /* addressData.plist */; };
 		49DF6FCF1EEA927C0021EE92 /* AddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF6F8A1EEA927C0021EE92 /* AddressPickerView.m */; };
 		49DF6FD01EEA927C0021EE92 /* JXTAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF6F8D1EEA927C0021EE92 /* JXTAlertController.m */; };
@@ -791,8 +792,6 @@
 		49AAD8701EE12A5900AFE61D /* collectshopCar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collectshopCar@3x.png"; sourceTree = "<group>"; };
 		49B9A1BE1EE0089400B98DA5 /* NOAddress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NOAddress@2x.png"; sourceTree = "<group>"; };
 		49B9A1BF1EE0089400B98DA5 /* NOAddress@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NOAddress@3x.png"; sourceTree = "<group>"; };
-		49BEB9AE1EF8D13100779588 /* ShopCarFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarFootView.h; sourceTree = "<group>"; };
-		49BEB9AF1EF8D13100779588 /* ShopCarFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarFootView.m; sourceTree = "<group>"; };
 		49BEB9B11EF917FA00779588 /* 省略@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "省略@2x.png"; sourceTree = "<group>"; };
 		49BEB9B21EF917FA00779588 /* 省略@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "省略@3x.png"; sourceTree = "<group>"; };
 		49BEB9B61EF92F9900779588 /* AppraiseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppraiseModel.h; sourceTree = "<group>"; };
@@ -859,6 +858,9 @@
 		49D75C851EEE38DD00FACCD8 /* PTXDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTXDatePickerView.m; sourceTree = "<group>"; };
 		49D75C8B1EEE8AF300FACCD8 /* AppDelegate+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Location.h"; sourceTree = "<group>"; };
 		49D75C8C1EEE8AF300FACCD8 /* AppDelegate+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Location.m"; sourceTree = "<group>"; };
+		49DBE0B41F023F160063C201 /* ZFAppraiseSectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAppraiseSectionCell.h; sourceTree = "<group>"; };
+		49DBE0B51F023F160063C201 /* ZFAppraiseSectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAppraiseSectionCell.m; sourceTree = "<group>"; };
+		49DBE0B61F023F160063C201 /* ZFAppraiseSectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFAppraiseSectionCell.xib; sourceTree = "<group>"; };
 		49DF6F881EEA927C0021EE92 /* addressData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressData.plist; sourceTree = "<group>"; };
 		49DF6F891EEA927C0021EE92 /* AddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressPickerView.h; sourceTree = "<group>"; };
 		49DF6F8A1EEA927C0021EE92 /* AddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressPickerView.m; sourceTree = "<group>"; };
@@ -2383,6 +2385,9 @@
 				49DF70341EEAA9B10021EE92 /* ZFAppraiseSectionView.h */,
 				49DF70351EEAA9B10021EE92 /* ZFAppraiseSectionView.m */,
 				49DF70361EEAA9B10021EE92 /* ZFAppraiseSectionView.xib */,
+				49DBE0B41F023F160063C201 /* ZFAppraiseSectionCell.h */,
+				49DBE0B51F023F160063C201 /* ZFAppraiseSectionCell.m */,
+				49DBE0B61F023F160063C201 /* ZFAppraiseSectionCell.xib */,
 				49DF70371EEAA9B10021EE92 /* ZFbabyEvaluateCell.h */,
 				49DF70381EEAA9B10021EE92 /* ZFbabyEvaluateCell.m */,
 				49DF70391EEAA9B10021EE92 /* ZFbabyEvaluateCell.xib */,
@@ -2836,8 +2841,6 @@
 				49DF71491EEAA9B20021EE92 /* ZFShopCarCell.h */,
 				49DF714A1EEAA9B20021EE92 /* ZFShopCarCell.m */,
 				49DF714B1EEAA9B20021EE92 /* ZFShopCarCell.xib */,
-				49BEB9AE1EF8D13100779588 /* ShopCarFootView.h */,
-				49BEB9AF1EF8D13100779588 /* ShopCarFootView.m */,
 				490C78D61F00B26B0005F207 /* ShopCarSectionHeadViewCell.xib */,
 			);
 			path = Views;
@@ -3738,6 +3741,7 @@
 				493D83811EF3BD76005983AA /* FuncListCollectionViewCell.xib in Resources */,
 				49FB3C931ECD9F3F0090075D /* nav_right@3x.png in Resources */,
 				49D6E7101ED96DE4000A837E /* cases@3x.png in Resources */,
+				49DBE0B81F023F160063C201 /* ZFAppraiseSectionCell.xib in Resources */,
 				49FB3C731ECD943C0090075D /* circle@3x.png in Resources */,
 				49F1136A1ECC5547000F3BF7 /* bag_selected@3x.png in Resources */,
 				49F113AB1ECC5547000F3BF7 /* location_find@2x.png in Resources */,
@@ -3977,6 +3981,7 @@
 				49BEB9B81EF92F9900779588 /* AppraiseModel.m in Sources */,
 				49DF71621EEAA9B20021EE92 /* ZFTitleAndChooseListCell.m in Sources */,
 				4943AED11EF0D3D600803973 /* YBPopupMenuPath.m in Sources */,
+				49DBE0B71F023F160063C201 /* ZFAppraiseSectionCell.m in Sources */,
 				509CC4B41EF82A1B0035B1D8 /* ShoppingCarModel.m in Sources */,
 				49DF71591EEAA9B20021EE92 /* ZFDetailStoreCell.m in Sources */,
 				49DF71C11EEAA9B20021EE92 /* ZFSaleAfterContentCell.m in Sources */,
@@ -4043,7 +4048,6 @@
 				49DF6FE11EEA927C0021EE92 /* DCNavTabBarController.m in Sources */,
 				49DF71701EEAA9B20021EE92 /* HotCollectionViewCell.m in Sources */,
 				49DF6FE01EEA927C0021EE92 /* ControlFactory.m in Sources */,
-				49BEB9B01EF8D13100779588 /* ShopCarFootView.m in Sources */,
 				493D836C1EF3A3F0005983AA /* HomeFuncModel.m in Sources */,
 				4943AEFF1EF0E0B100803973 /* ZFClassifyCollectionViewController.m in Sources */,
 				5019FFB91ECCAEF800325342 /* UIView+WebCacheOperation.m in Sources */,

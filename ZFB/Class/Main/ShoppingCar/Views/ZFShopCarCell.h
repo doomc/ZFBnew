@@ -18,7 +18,7 @@
 // 商品的增加或者减少回调
 - (void)addOrReduceCount:(ZFShopCarCell *)cell tag:(NSInteger)tag;
 // 点击单个商品选择按钮回调
-- (void)productSelected:(ZFShopCarCell *)cell isSelected:(BOOL)choosed;
+- (void)goodsSelected:(ZFShopCarCell *)cell isSelected:(BOOL)choosed;
 // 点击门店全选 按钮回调
 - (void)shopStoreSelected:(NSInteger)sectionIndex;
 // 点击 编辑回调按钮

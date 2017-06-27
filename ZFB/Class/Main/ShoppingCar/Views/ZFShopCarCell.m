@@ -25,28 +25,11 @@
  
 }
 
--(void)setShopCarModel:(ShoppingCarModel *)shopCarModel
-{
-    
- 
-    
-//    self.shopcarList = shopcarList;
-//    self.lb_title.text = shopcarList.goodsName;
-//    self.lb_price.text = shopcarList.storePrice;
-//    //    shopCell.lb_result.text = shopList.goodsCount;
-//    [self.img_shopCar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",shopcarList.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        
-//    }];
-    
-}
-
-
-
 
 // 增加商品或者减少商品
 - (IBAction)addAction:(id)sender {
     
-    if (num >= 10 ) {
+    if (num >= 20 ) {
         NSLog(@"超出范围");
     }else{
         num = num +1;
@@ -86,11 +69,13 @@
 
 // 商品选择的按钮回调
 - (IBAction)clickSelected:(UIButton *)sender {
-    
-    if (self.selectDelegate && [self.selectDelegate respondsToSelector:@selector(productSelected:isSelected:)])
+  
+    if (self.selectDelegate && [self.selectDelegate respondsToSelector:@selector(goodsSelected:isSelected:)])
     {
-        [self.selectDelegate productSelected:self isSelected:!sender.selected];
+        [self.selectDelegate goodsSelected :self isSelected:!sender.selected];
+
     }
+
 }
 
 
@@ -117,7 +102,14 @@
         [self.selectDelegate shopCarEditingSelected:self.sectionIndex];
     }
 }
-
+//加减运算
+- (IBAction)addOrReduce:(UIButton *)sender
+{
+    if (self.selectDelegate && [self.selectDelegate respondsToSelector:@selector(addOrReduceCount:tag:)]) {
+        [self.selectDelegate addOrReduceCount:self tag:sender.tag];
+    }
+    
+}
 
 
 
