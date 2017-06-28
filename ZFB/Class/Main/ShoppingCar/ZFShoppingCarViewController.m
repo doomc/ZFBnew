@@ -25,6 +25,8 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
 
 @property (nonatomic,strong) UIView * underFootView;
 @property (nonatomic,strong) NSMutableArray * carListArray;
+// 由于代理问题衍生出的来已经选择单个或者批量的数组装Cell
+@property (nonatomic,strong) NSMutableArray *tempCellArray;
 
 //////////////////////--underFootView--//////////////////////
 
@@ -78,6 +80,7 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
     [self.navigationController pushViewController:payVC animated:YES];
 }
 
+#pragma mark - ShoppingSelectedDelegate  自定义代理
 #pragma mark - 商品编辑状态回调 shopCarEditingSelected
 - (void)shopCarEditingSelected:(NSInteger)sectionIdx
 {
@@ -165,6 +168,62 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
     self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",totalPrice];
 
 }
+#pragma mark - 删除数据
+- (void)deleteRabishClick:(ZFShopCarCell *)cell
+{
+    [self.tempCellArray removeAllObjects];
+    [self.tempCellArray addObject:cell];
+    JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"确认删除？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        NSIndexPath *indexpath = [self.shopCar_tableview indexPathForCell:self.tempCellArray.firstObject];
+       
+        Shoppcartlist * list = self.carListArray[indexpath.section];
+        Goodslist *goods = list.goodsList[indexpath.row];
+        if (list.goodsList.count == 1) {
+            [self.carListArray removeObject:list];
+        }
+        else
+        {
+            [list.goodsList removeObject:goods];
+        }
+        [self updateInfomation];
+
+    }];
+    
+    [alertVC addAction:cancel];
+    [alertVC addAction:sure];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+#pragma mark - 删除之后一些列更新操作
+- (void)updateInfomation
+{
+    // 会影响到对应的选择
+    NSInteger count = 0;
+    for (Shoppcartlist * list in self.carListArray) {
+        for (Goodslist *goods in list.goodsList) {
+            if (goods.goodslistIsChoosed) {
+                count ++;
+            }
+        }
+        if (count == list.goodsList.count) {
+      
+            list.leftShoppcartlistIsChoosed = YES;
+        }
+    }
+    // 再次影响到全部选择按钮
+    self.allSelectedButton.selected = [self isAllProcductChoosed];
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[self countTotalPrice]];
+    [self.complete_Btn setTitle:[NSString stringWithFormat:@"结算(%ld)",[self countTotalSelectedNumber]] forState:UIControlStateNormal];
+    [self.shopCar_tableview reloadData];
+    
+}
+
+
 #pragma mark -增加或者减少商品
 -(void)addOrReduceCount:(ZFShopCarCell *)cell tag:(NSInteger)tag
 {
@@ -259,11 +318,12 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
     }];
     
     cell.lb_price.text = [NSString stringWithFormat:@"¥%.2f",goodslist.storePrice];
-    cell.editlb_price.text = [NSString stringWithFormat:@"¥%.2f",goodslist.storePrice];
     cell.lb_title.text =  goodslist.goodsName;
+    cell.tf_result.text = [NSString stringWithFormat:@"%ld",goodslist.goodsCount];
+
+    cell.editlb_price.text = [NSString stringWithFormat:@"¥%.2f",goodslist.storePrice];
     cell.editlb_title.text =  goodslist.goodsName;
     cell.editTf_result.text = [NSString stringWithFormat:@"%ld",goodslist.goodsCount];
-    cell.tf_result.text = [NSString stringWithFormat:@"%ld",goodslist.goodsCount];
     
     // 正常模式下面 非编辑
     if (!shopList.ShoppcartlistIsEditing)
@@ -458,7 +518,13 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
     }
     return _carListArray;
 }
-
+- (NSMutableArray *)tempCellArray
+{
+    if (_tempCellArray == nil) {
+        _tempCellArray = [[NSMutableArray alloc] init];
+    }
+    return _tempCellArray;
+}
 //判断是不是空数组
 - (BOOL)isEmptyArray:(NSArray *)array
 {

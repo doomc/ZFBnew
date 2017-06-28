@@ -9,5 +9,8 @@
 #import "BaseViewController.h"
 
 @interface EditAddressViewController : BaseViewController
+@property (nonatomic ,copy)NSString * defaultFlag;// 1 是默认,2 否
+@property (nonatomic ,copy)NSString * postAddressId;//回显id
+
 
 @end

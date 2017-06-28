@@ -12,11 +12,20 @@
 #import "OrderPriceCell.h"
 #import "ZFAddressListViewController.h"
 #import "ZFShopListViewController.h"
+#import "AddressCommitOrderModel.h"
 
 @interface ZFSureOrderViewController ()<UITableViewDelegate ,UITableViewDataSource>
-@property(nonatomic,strong)UITableView * mtableView;
-
-@property(nonatomic,strong)UIView * footerView;
+{
+    NSString * _contactUserName;
+    NSString * _postAddress;
+    NSString * _contactMobilePhone;
+    NSString * _goodsCountMoney;//商品总价
+    NSString * _deliveryFee;//配送费
+    NSString * _goodsAllMoney;//支付总金额
+    
+}
+@property (nonatomic,strong) UITableView * mytableView;
+@property (nonatomic,strong) UIView * footerView;
 
 @end
 
@@ -26,15 +35,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"确认订单";
-    self.mtableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -49-64) style:UITableViewStylePlain];
-    self.mtableView.delegate = self;
-    self.mtableView.dataSource =self;
-    self.mtableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:self.mtableView];
+    self.mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -49-64) style:UITableViewStylePlain];
+    self.mytableView.delegate = self;
+    self.mytableView.dataSource =self;
+    self.mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.mytableView];
     
-    [self.mtableView registerNib:[UINib nibWithNibName:@"ZFOrderListCell" bundle:nil] forCellReuseIdentifier:@"ZFOrderListCellid"];
-    [self.mtableView registerNib:[UINib nibWithNibName:@"OrderWithAddressCell" bundle:nil] forCellReuseIdentifier:@"OrderWithAddressCellid"];
-    [self.mtableView registerNib:[UINib nibWithNibName:@"OrderPriceCell" bundle:nil] forCellReuseIdentifier:@"OrderPriceCellid"];
+    [self.mytableView registerNib:[UINib nibWithNibName:@"ZFOrderListCell" bundle:nil] forCellReuseIdentifier:@"ZFOrderListCellid"];
+    [self.mytableView registerNib:[UINib nibWithNibName:@"OrderWithAddressCell" bundle:nil] forCellReuseIdentifier:@"OrderWithAddressCellid"];
+    [self.mytableView registerNib:[UINib nibWithNibName:@"OrderPriceCell" bundle:nil] forCellReuseIdentifier:@"OrderPriceCellid"];
+    
+    [self commitOrderPostRequst];
     
     [self creatCustomfooterView];
     
@@ -43,9 +54,9 @@
 -(void)creatCustomfooterView
 {
     
-    NSString *buttonTitle = @"配送完成";
-    NSString *price = @"¥208.00";
-    NSString *caseOrder =  @"订单金额";
+    NSString *buttonTitle = @"提交订单";
+    NSString *price = _goodsAllMoney;
+    NSString *caseOrder =  @"实付金额";
     
     UIFont * font  =[UIFont systemFontOfSize:15];
     _footerView = [[UIView alloc]initWithFrame:CGRectMake(0,KScreenH -49, KScreenW, 49)];
@@ -89,7 +100,6 @@
     [_footerView addSubview:lb_price];
     [_footerView addSubview:complete_Btn];
     
-    
     [self.view addSubview:_footerView];
 }
 
@@ -98,7 +108,7 @@
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return 3;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -111,22 +121,37 @@
         
         return 70;
     }
-    return  44;
+    return  62;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (indexPath.row == 0) {
         
-        OrderWithAddressCell * addCell = [self.mtableView dequeueReusableCellWithIdentifier:@"OrderWithAddressCellid" forIndexPath:indexPath];
-       
+        OrderWithAddressCell * addCell = [self.mytableView
+                                          dequeueReusableCellWithIdentifier:@"OrderWithAddressCellid" forIndexPath:indexPath];
+        addCell.lb_address.text = _postAddress;
+        addCell.lb_nameAndPhone.text = [NSString stringWithFormat:@"收货人: %@  %@",_contactUserName,_contactMobilePhone];
+        addCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return addCell;
     }
-    if (indexPath.row == 1) {
+    
+    else if (indexPath.row == 1) {
+        ZFOrderListCell * listCell = [self.mytableView
+                                      dequeueReusableCellWithIdentifier:@"ZFOrderListCellid" forIndexPath:indexPath];
+        listCell.listArray = self.goodsListArray;
+        listCell.lb_totalNum.text = [NSString stringWithFormat:@"一共%ld件",self.goodsListArray.count] ;
+        listCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        ZFOrderListCell * listCell = [self.mtableView dequeueReusableCellWithIdentifier:@"ZFOrderListCellid" forIndexPath:indexPath];
         return listCell;
     }
-    OrderPriceCell * priceCell = [self.mtableView dequeueReusableCellWithIdentifier:@"OrderPriceCellid" forIndexPath:indexPath];
+    
+    OrderPriceCell * priceCell = [self.mytableView dequeueReusableCellWithIdentifier:@"OrderPriceCellid" forIndexPath:indexPath];
+    priceCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    priceCell.lb_tipFree.text = [NSString stringWithFormat:@"+ ¥%@",_deliveryFee];
+    priceCell.lb_priceTotal.text = [NSString stringWithFormat:@"¥%@",_goodsCountMoney];
+    
     return priceCell;
     
 }
@@ -150,6 +175,75 @@
 -(void)didCleckClearing:(UIButton *)sender
 {
     NSLog(@" 确认订单 ");
+}
+
+#pragma mark - 创建 提交订单getOrderFix
+-(void)commitOrderPostRequst
+{
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getOrderFix",
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"cartItemId":@"1",//可能添加参数
+                             
+                             };
+    
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [SVProgressHUD show];
+    
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            if (self.goodsListArray.count >0) {
+                
+                [self.goodsListArray removeAllObjects];
+            }
+            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+            
+            AddressCommitOrderModel *  orderModel = [AddressCommitOrderModel mj_objectWithKeyValues:jsondic];
+            
+            _goodsCountMoney= orderModel.goodsCountMoney ;
+            _goodsAllMoney= orderModel.goodsAllMoney ;
+            _deliveryFee = orderModel.deliveryFee;
+            
+            _contactUserName =  orderModel.orderFixInfo.contactUserName;
+            _postAddress = orderModel.orderFixInfo.postAddress;
+            _contactMobilePhone = orderModel.orderFixInfo.contactMobilePhone;
+            
+            for (Cmgoodslist * goodsList in orderModel.cmGoodsList) {
+                
+                [self.goodsListArray  addObject:goodsList];
+            }
+            NSLog(@"%@ ==== self.goodsListArray",self.goodsListArray);
+            
+            [self.mytableView reloadData];
+            [SVProgressHUD dismiss];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+        
+    }];
+    
+    
+}
+
+
+-(NSMutableArray *)goodsListArray
+{
+    if (!_goodsListArray) {
+        _goodsListArray =[NSMutableArray array];
+        [_goodsListArray addObjectsFromArray:[NSArray arrayWithObjects:@"3",@"1",@"4",@"5",@"2",nil]];
+        
+    }
+    return _goodsListArray;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

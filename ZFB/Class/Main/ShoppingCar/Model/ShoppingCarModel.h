@@ -13,7 +13,7 @@
 
 @property (nonatomic) BOOL isSelected;
 
-@property (nonatomic, strong) NSArray<Shoppcartlist *> *shoppCartList;
+@property (nonatomic, strong) NSMutableArray<Shoppcartlist *> *shoppCartList;
 
 @property (nonatomic, assign) NSInteger resultCode;
 
@@ -31,7 +31,7 @@
 
 @property (nonatomic, copy) NSString *storeName;
 
-@property (nonatomic, strong) NSArray<Goodslist *> *goodsList;
+@property (nonatomic, strong) NSMutableArray<Goodslist *> *goodsList;
 
 @end
 

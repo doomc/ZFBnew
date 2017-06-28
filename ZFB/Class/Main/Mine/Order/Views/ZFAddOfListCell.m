@@ -13,6 +13,22 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.defaultButton.clipsToBounds = YES;
+    self.defaultButton.layer.cornerRadius = 2;
+    
+}
+///点击编辑
+- (IBAction)didEdit:(id)sender {
+
+    if ([self.delegate respondsToSelector:@selector(editAction:)]) {
+        [self.delegate editAction:self.index];
+    }
+}
+///点击删除
+- (IBAction)didDelete:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(deleteAction:)]) {
+        [self.delegate deleteAction:self];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

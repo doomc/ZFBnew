@@ -10,4 +10,6 @@
 
 @interface ZFSureOrderViewController : BaseViewController
 
+@property (nonatomic,strong) NSMutableArray * goodsListArray;
+
 @end

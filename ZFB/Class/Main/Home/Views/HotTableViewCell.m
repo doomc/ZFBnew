@@ -129,7 +129,6 @@
                 NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
                 NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
                 NSArray * dictArray = jsondic [@"bestGoodsList"];
-                NSLog(@"bestGoodsList = %@",  self.hotArray);
 
                 //mjextention 数组转模型
                 NSArray *storArray = [HomeHotModel mj_objectArrayWithKeyValuesArray:dictArray];
@@ -137,7 +136,8 @@
                     
                     [self.hotArray addObject:hotlist];
                 }
-                
+                NSLog(@"bestGoodsList = %@",  self.hotArray);
+
                 [self.HotcollectionView reloadData];
             }
             
