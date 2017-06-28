@@ -8,7 +8,7 @@
 
 #import "ZFOrderListCell.h"
 #import "GoodsitemCell.h"
-
+#import "AddressCommitOrderModel.h"
 @implementation ZFOrderListCell
 
 - (void)awakeFromNib {
@@ -21,17 +21,51 @@
     [self.order_collectionCell registerNib:[UINib nibWithNibName:@"GoodsitemCell" bundle:nil] forCellWithReuseIdentifier:@"GoodsitemCellid"];
 }
 
+-(void)setListArray:(NSMutableArray *)listArray
+{
+    self.listArray = listArray;
+    self.listArray = [NSMutableArray array];
+  
+    
+    
+}
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 3;
+    return  self.listArray.count;
 }
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+//每个cell的大小，因为有indexPath，所以可以判断哪一组，或者哪一个item，可一个给特定的大小，等同于layout的itemSize属性
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return CGSizeMake((KScreenW - self.lb_totalNum.width )*0.3333 - 35,60);
+}
+// 设置整个组的缩进量是多少
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    
+    return UIEdgeInsetsMake(5, 10, 5, 10);
+}
+
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    Cmgoodslist * list = self.listArray[indexPath.row];
     
-    GoodsitemCell * cell = [self.order_collectionCell dequeueReusableCellWithReuseIdentifier:@"GoodsitemCellid" forIndexPath:indexPath];
+    GoodsitemCell * cell = [self.order_collectionCell
+                            dequeueReusableCellWithReuseIdentifier:@"GoodsitemCellid" forIndexPath:indexPath];
+
+    if (self.listArray.count > 3) {
+        self.img_shenglve.hidden = NO;
+    }
+    else{
+        self.img_shenglve.hidden = YES;
+    }
+    
+    [cell.img_listImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",list.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+    }];
     return cell;
 }
 
@@ -40,17 +74,7 @@
     NSLog(@"%ld  = item" ,indexPath.item);
     
 }
-#pragma mark - UICollectionViewDelegateFlowLayout
-//每个cell的大小，因为有indexPath，所以可以判断哪一组，或者哪一个item，可一个给特定的大小，等同于layout的itemSize属性
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
-    return CGSizeMake((KScreenW - self.lb_totalNum.width )*0.3333 - 35,60);
-}
-// 设置整个组的缩进量是多少
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(5, 10, 5, 10);
-}
+
 
 //// 设置最小行间距，也就是前一行与后一行的中间最小间隔
 //- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {

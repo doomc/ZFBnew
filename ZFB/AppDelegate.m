@@ -54,6 +54,10 @@ const static NSString *ApiKey = @"7573ff935a812f01523174f1356b89f5";
     }];
     
  
+    //默认一个switch开关的状态 存储在NSUserDefaults
+    NSDictionary * df = @{@"switchType":@YES};
+    [[NSUserDefaults standardUserDefaults]registerDefaults:df];
+    
     return YES;
 }
 

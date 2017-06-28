@@ -38,8 +38,6 @@ static NSString * settingCellid = @"ZFSettingCellid";
     _imagesArr = @[@"setting_message",@"setting_ps",@"setting_phone",@"setting_cache",@"setting_calling",@"setting_shakehand",];
     
     [self.view addSubview:self.tableView];
-    [self.view addSubview:self.login_btn];
-    
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingCell" bundle:nil] forCellReuseIdentifier:settingCellid];
     
     
@@ -53,21 +51,28 @@ static NSString * settingCellid = @"ZFSettingCellid";
     }
     return _tableView;
 }
--(UIButton *)login_btn
+
+//设置右边按键（如果没有右边 可以不重写）
+-(UIButton*)set_rightButton
 {
-    if (!_login_btn) {
-        NSString * title = @"退出登录";
-        _login_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _login_btn.frame = CGRectMake(40, KScreenH - 64 - 60 - 20, KScreenW - 40-40, 40);
-        [_login_btn setBackgroundColor:HEXCOLOR(0xfe6d6a)];
-        [_login_btn setTitle:title forState:UIControlStateNormal];
-        _login_btn.layer.cornerRadius = 5;
-        _login_btn.clipsToBounds = YES;
-        [_login_btn addTarget:self action:@selector(didClickChangeLoginStatus:) forControlEvents:UIControlEventTouchUpInside];
-        _login_btn.titleLabel .font = SYSTEMFONT(14);
-    }
-   return  _login_btn;
+    NSString * saveStr = @"退出登录";
+    _login_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_login_btn setTitle:saveStr forState:UIControlStateNormal];
+    _login_btn.titleLabel.font=SYSTEMFONT(14);
+    [_login_btn setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
+    _login_btn.titleLabel.textAlignment = NSTextAlignmentRight;
+    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
+    CGFloat width = size.width ;
+    _login_btn.frame =CGRectMake(0, 0, width+10, 22);
     
+    return _login_btn;
+}
+//设置右边事件 didClickChangeLoginStatus
+-(void)right_button_event:(UIButton*)sender{
+    
+    [self didClickChangeLoginStatus:sender];
+    
+    NSLog(@"退出登录");
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

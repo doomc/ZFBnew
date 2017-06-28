@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface OrderPriceCell : UITableViewCell
-
-@property (weak, nonatomic) IBOutlet UILabel *lb_priceTitle;
-
-/**
- 总共金额
- */
+/**配送费 */
+@property (weak, nonatomic) IBOutlet UILabel *lb_tipFree;
+/**总共金额 */
 @property (weak, nonatomic) IBOutlet UILabel *lb_priceTotal;
+
+
 @end

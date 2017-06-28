@@ -509,9 +509,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                     statusDict = goodslist.productSku.mj_keyValues;
                 }
                 
-                NSDictionary * objDic = [NSDictionary dictionary];
-                [objDic setValue:@"" forKey:@"name"];
-                [objDic setValue:@"" forKey:@"value"];
+ 
 //             NSArray * productSkuArr = [NSArray arrayWithObject:statusDict[@"reluJson"]];
                 self.reluJsonKeyArray = [Relujson mj_objectArrayWithKeyValuesArray:statusDict[@"reluJson"]];
                 

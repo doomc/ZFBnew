@@ -28,11 +28,9 @@
     self.dataArr = @[@"选择支付方式",@"余额   350.00元",@"快捷支付",@"微信",@"支付宝",@"实付金额"];
     [self.pay_tableView registerNib:[UINib nibWithNibName:@"PayforCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:self.pay_tableView];
-    
-
-    
 
 }
+
 -(UITableView *)pay_tableView
 {
     if (!_pay_tableView) {
@@ -43,6 +41,7 @@
     
     return _pay_tableView;
 }
+
 -(UIView *)footerView
 {
     if (!_footerView) {

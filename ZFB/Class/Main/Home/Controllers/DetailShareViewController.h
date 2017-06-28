@@ -10,4 +10,5 @@
 
 @interface DetailShareViewController : BaseViewController
 
+
 @end
