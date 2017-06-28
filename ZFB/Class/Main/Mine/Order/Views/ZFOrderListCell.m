@@ -19,15 +19,13 @@
     self.order_collectionCell.dataSource = self;
     
     [self.order_collectionCell registerNib:[UINib nibWithNibName:@"GoodsitemCell" bundle:nil] forCellWithReuseIdentifier:@"GoodsitemCellid"];
+   
 }
-
 -(void)setListArray:(NSMutableArray *)listArray
 {
-    self.listArray = listArray;
-    self.listArray = [NSMutableArray array];
-  
-    
-    
+    _listArray =listArray;
+    NSLog(@"====== == == = == %@",_listArray);
+
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
@@ -57,15 +55,16 @@
                             dequeueReusableCellWithReuseIdentifier:@"GoodsitemCellid" forIndexPath:indexPath];
 
     if (self.listArray.count > 3) {
+        
         self.img_shenglve.hidden = NO;
     }
     else{
         self.img_shenglve.hidden = YES;
     }
     
-    [cell.img_listImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",list.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
-    }];
+//    [cell.img_listImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",list.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        
+//    }];
     return cell;
 }
 

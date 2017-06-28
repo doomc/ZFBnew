@@ -27,6 +27,9 @@
     [self.img_headview setImage:[UIImage  circleImage:@"11.png"]];
     [self.img_headview.image circleImage];
     
+    
+    
+
     //点击头像
     UITapGestureRecognizer * img_headviewtap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didClickimgheadviewGestureRecognizer:)];
     img_headviewtap.delegate = self;

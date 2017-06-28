@@ -115,10 +115,8 @@
     ZFAppraiseCell *appraiseCell = [self.evaluate_tableView  dequeueReusableCellWithIdentifier:@"ZFAppraiseCell" forIndexPath:indexPath];
     
     appraiseCell.Adelegate = self;
-    //    appraiseCell.imgurl = @"http://47.92.118.205:8083/upload/2017/06/21/05513910524572300.jpg,http://47.92.118.205:8083/upload/2017/06/21/05513910524572300.jpg,http://47.92.118.205:8083/upload/2017/06/21/05513910524572300.jpg";
-    
     Cmgoodscommentinfo * info = self.appraiseListArray[indexPath.row];
-
+   
     appraiseCell.imgurl = info.reviewsImgUrl;
     if (self.appraiseListArray.count > 0) {
         

@@ -67,7 +67,8 @@
     [self CDsyceleSettingRunningPaint];
     [self creatButtonWithDouble];
     [self LocationMapManagerInit];
-  //  [self FarawayStorePostRequst];//默认展示距离最近
+
+    [self FarawayStorePostRequst];//默认展示距离最近
 
 }
 
@@ -77,6 +78,7 @@
     self.title =@"全部门店";
     self.all_tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH - 64) style:UITableViewStylePlain];
     [self.view addSubview:self.all_tableview];
+    
     self.all_tableview.delegate = self;
     self.all_tableview.dataSource= self;
     [self.all_tableview registerNib:[UINib nibWithNibName:@"AllStoreCell" bundle:nil] forCellReuseIdentifier:@"AllStoreCell"];
@@ -127,13 +129,12 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    if (_isChanged == NO ) {
-//        return self.farawayStoreArray.count;
-//    }
-//    else{
-//        return self.allStoreArray.count;
-//    }
-    return 3;
+    if (_isChanged == NO ) {
+        return self.farawayStoreArray.count;
+    }
+    else{
+        return self.allStoreArray.count;
+    }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -157,27 +158,27 @@
     all_cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     if (_isChanged == NO) {
-//        AllStoreModel * listModel =  [AllStoreModel new];
-//
-//        if (indexPath.row < [self.farawayStoreArray count]) {
-//            listModel  = [self.farawayStoreArray objectAtIndex:indexPath.row];
-//            
-//        }
-//        CGFloat juli = [listModel.juli floatValue]*0.001;
-        all_cell.lb_distance.text = [NSString stringWithFormat:@"%.2fkm",9.001];
-//        [all_cell.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
+        AllStoreModel * listModel =  [AllStoreModel new];
+
+        if (indexPath.row < [self.farawayStoreArray count]) {
+            listModel  = [self.farawayStoreArray objectAtIndex:indexPath.row];
+            
+        }
+        CGFloat juli = [listModel.juli floatValue]*0.001;
+        all_cell.lb_distance.text = [NSString stringWithFormat:@"%.2fkm",juli];
+        [all_cell.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
         
         return all_cell;
 
     }else{
-//        AllStoreModel * listModel =  [AllStoreModel new];
-//        if (indexPath.row < [self.allStoreArray count]) {
-//            
-//            listModel  = [self.allStoreArray objectAtIndex:indexPath.row];
-//        }
-//        CGFloat juli = [listModel.juli floatValue]*0.001;
-        all_cell.lb_distance.text = [NSString stringWithFormat:@"%.2f公里",3.04];
-//        [all_cell.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
+        AllStoreModel * listModel =  [AllStoreModel new];
+        if (indexPath.row < [self.allStoreArray count]) {
+            
+            listModel  = [self.allStoreArray objectAtIndex:indexPath.row];
+        }
+        CGFloat juli = [listModel.juli floatValue]*0.001;
+        all_cell.lb_distance.text = [NSString stringWithFormat:@"%.2f公里",juli];
+        [all_cell.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
         return all_cell;
 
     }
@@ -247,7 +248,7 @@
     self.all_btn.backgroundColor =  [UIColor whiteColor];
     
     [self.all_tableview reloadData];
-    //[self FarawayStorePostRequst];
+    [self FarawayStorePostRequst];
     
 }
 #pragma mark - buttonBtnClickAllStore全部门店
@@ -264,7 +265,7 @@
     [self.all_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.all_btn.backgroundColor =  HEXCOLOR(0xffcccc);
     [self.all_tableview reloadData];
-   /// [self allStorePostRequst];
+    [self allStorePostRequst];
     
 }
 

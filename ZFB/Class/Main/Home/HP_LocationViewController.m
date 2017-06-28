@@ -15,7 +15,8 @@
 #import "MJRefresh.h"
 //高德api
 #import <AMapLocationKit/AMapLocationKit.h>
-@interface HP_LocationViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,AMapLocationManagerDelegate,AMapSearchDelegate>
+
+@interface HP_LocationViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,AMapLocationManagerDelegate,AMapSearchDelegate>
 
 //poi
 @property (nonatomic,strong) AMapSearchAPI *  searchAPI;
@@ -26,9 +27,10 @@
 
 @property (nonatomic,assign) NSInteger      pageIndex;
 @property (nonatomic,assign) NSInteger      pageCount;
+
 //end
 @property (nonatomic,strong) UITableView * location_TableView;
-@property (nonatomic,strong) UITextField * tf_search;
+@property (nonatomic,strong) UISearchBar * searchBar;
 @property (nonatomic,strong) UIView * bgView;
 
 //高德api
@@ -194,17 +196,14 @@
     self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW,50 )];
     [self.view addSubview:_bgView];
     
-    self.tf_search.clearButtonMode = UITextFieldViewModeAlways;
-    self.tf_search = [[UITextField alloc]initWithFrame:CGRectMake(35, 10, KScreenW-70, 35)];
-    self.tf_search.layer.borderWidth = 1;
-    self.tf_search.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
-    self.tf_search.layer.cornerRadius = 8;
-    self.tf_search.textColor = HEXCOLOR(0xfe6d6a);
-    _tf_search.font = [UIFont fontWithName:@"Arial" size:14.0f];
-    [_bgView addSubview:_tf_search];
+    self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(35, 10, KScreenW-70, 35)];
+    self.searchBar.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
+    self.searchBar.layer.cornerRadius = 4;
+    self.searchBar.tintColor = HEXCOLOR(0xfe6d6a);
+    [_bgView addSubview:self.searchBar];
     
-    self.tf_search.placeholder = @"请输入要搜索的地址";
-    self.tf_search.delegate = self;
+    self.searchBar.placeholder = @"搜索地址";
+    self.searchBar.delegate = self;
     
     
     //tableView的创建
@@ -303,6 +302,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 0) {
+        
+        [self LocationMapManagerInit];
+
+    }
     if (indexPath.section == 1) {
         AMapPOI *info = self.addressList[indexPath.row];
         NSLog(@"%@",info.city);

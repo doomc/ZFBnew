@@ -3,8 +3,8 @@
 //  ZFB
 //
 //  Created by 熊维东 on 2017/5/18.
-//  Copyright © 2017年 com.zfb. All rights reserved.
-//
+//  Copyright  © 2017年 com.zfb. All rights reserved.
+//  搜索详情
 
 #import "ZFSearchDetailViewController.h"
 
@@ -20,8 +20,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.title = @"搜索详情";
     
     [self settingCustomSearchBar];
 
@@ -45,7 +43,7 @@
     _searchBar= [[ UISearchBar alloc]initWithFrame:CGRectMake(30, 0, KScreenW-60, 35)];
     _searchBar.delegate = self;
     _searchBar.clipsToBounds = YES;
-    _searchBar.placeholder = @"请搜索商品或者店铺";
+    _searchBar.placeholder = @"搜索";
     //    [self.searchBar setImage:[UIImage imageNamed:@"search"]
     //            forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     [self.searchBar becomeFirstResponder];

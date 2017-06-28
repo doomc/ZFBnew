@@ -71,7 +71,7 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 3;
+    return self.itemArray.count;
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -95,7 +95,7 @@
 //每个cell的大小，因为有indexPath，所以可以判断哪一组，或者哪一个item，可一个给特定的大小，等同于layout的itemSize属性
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return  CGSizeMake((self.bounds.size.width - 120)* 0.3333, (self.bounds.size.width -125)*0.3333);
+    return  CGSizeMake(self.bounds.size.width/3- 120, self.bounds.size.width /3 - 120);
     
 }
  //设置整个组的缩进量是多少

@@ -288,18 +288,17 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 #pragma mark - 联系门店 唤醒地图
 -(void)contactPhone:(UIButton *)sender
 {
-    JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"提示信息" message:[NSString stringWithFormat:@"确认拨打023-68006800联系门店吗"] preferredStyle:UIAlertControllerStyleAlert];
+    JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"确认拨打023-68006800联系门店吗" message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction * cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
        
         UIWebView *callWebView = [[UIWebView alloc] init];
-        NSURL *telURL = [NSURL URLWithString:@"tel:10086"];
+        NSURL *telURL = [NSURL URLWithString:@"tel:023-68006800"];
         [callWebView loadRequest:[NSURLRequest requestWithURL:telURL]];
         [self.view addSubview:callWebView];
 
-        NSLog(@"系统弄打电话号码");
     }];
     [alert addAction:cancel];
     [alert addAction:sure];

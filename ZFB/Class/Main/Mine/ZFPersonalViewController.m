@@ -329,11 +329,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 
              NSLog(@"data = %@", data);
          }
-         
- 
-
-
-   
      } failure:^(NSError *error) {
          NSLog(@"%@",error);
          [self.view makeToast:@"网络错误" duration:2 position:@"center"];

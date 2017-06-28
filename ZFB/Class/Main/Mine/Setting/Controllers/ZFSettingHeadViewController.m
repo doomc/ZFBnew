@@ -194,6 +194,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             [alertSheet addAction:alertSeet2];
             [alertSheet addAction:alertSeet3];
             [self presentViewController:alertSheet animated:YES completion:nil];
+            
       
         } else if (indexPath.row == 2) {
             if (_isSelectCount == NO) {
@@ -215,6 +216,8 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         }
     }
    
+    [self.tableView reloadData];
+    
 }
 #pragma mark - UIAlertController
 

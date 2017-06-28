@@ -45,8 +45,10 @@
     [self.mytableView registerNib:[UINib nibWithNibName:@"OrderWithAddressCell" bundle:nil] forCellReuseIdentifier:@"OrderWithAddressCellid"];
     [self.mytableView registerNib:[UINib nibWithNibName:@"OrderPriceCell" bundle:nil] forCellReuseIdentifier:@"OrderPriceCellid"];
     
-    [self commitOrderPostRequst];
-    
+   // [self commitOrderPostRequst];
+    AddressCommitOrderModel *  orderModel = [AddressCommitOrderModel  new];
+
+     [self.goodsListArray addObjectsFromArray:[NSArray arrayWithObjects:orderModel,orderModel,orderModel,orderModel,nil]];
     [self creatCustomfooterView];
     
 }
@@ -240,7 +242,6 @@
 {
     if (!_goodsListArray) {
         _goodsListArray =[NSMutableArray array];
-        [_goodsListArray addObjectsFromArray:[NSArray arrayWithObjects:@"3",@"1",@"4",@"5",@"2",nil]];
         
     }
     return _goodsListArray;
