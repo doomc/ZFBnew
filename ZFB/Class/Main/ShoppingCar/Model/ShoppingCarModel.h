@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @class Shoppcartlist,Goodslist;
 
-@interface ShoppingCarModel : NSObject
+@interface ShoppingCarModel : ResponseObject
 
 @property (nonatomic) BOOL isSelected;
 
@@ -19,13 +19,11 @@
 
 @end
 
-@interface Shoppcartlist : NSObject
+@interface Shoppcartlist : ResponseObject
 // 左侧按钮是否选中
 @property (nonatomic,assign) BOOL leftShoppcartlistIsChoosed;
 // 商品是否全部编辑状态
 @property (nonatomic,assign) BOOL ShoppcartlistIsEditing;
-
-@property (nonatomic, copy) NSString *cartItemId;
 
 @property (nonatomic, copy) NSString *cmUserId;
 
@@ -35,9 +33,11 @@
 
 @end
 
-@interface Goodslist : NSObject
+@interface Goodslist : ResponseObject
 // 商品左侧按钮是否选中
 @property (nonatomic,assign) BOOL goodslistIsChoosed;
+
+@property (nonatomic, copy) NSString *cartItemId;
 
 @property (nonatomic, assign) CGFloat storePrice;
 

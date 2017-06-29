@@ -19,14 +19,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单金额" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XOO-dm-gyx">
-                        <rect key="frame" x="15" y="11" width="61.5" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单金额:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XOO-dm-gyx">
+                        <rect key="frame" x="15" y="11" width="66" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥208.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWu-Cx-k0F">
-                        <rect key="frame" x="86.5" y="11" width="58.5" height="18"/>
+                        <rect key="frame" x="91" y="11" width="58.5" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.86666666670000003" green="0.19215686269999999" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -66,7 +66,13 @@
                     <constraint firstItem="ipH-fU-kex" firstAttribute="width" secondItem="Tkq-h0-TDQ" secondAttribute="width" id="pBI-fo-JZG"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="-19" y="43"/>
+            <connections>
+                <outlet property="cancel_button" destination="Tkq-h0-TDQ" id="rqh-mS-37P"/>
+                <outlet property="lb_plachorer" destination="XOO-dm-gyx" id="x0b-oA-f9T"/>
+                <outlet property="lb_totalPrice" destination="gWu-Cx-k0F" id="KIG-OM-ob9"/>
+                <outlet property="payfor_button" destination="ipH-fU-kex" id="TN1-WJ-qEv"/>
+            </connections>
+            <point key="canvasLocation" x="-225" y="28"/>
         </tableViewCell>
     </objects>
 </document>

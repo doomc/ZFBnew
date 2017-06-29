@@ -38,6 +38,7 @@
 #import "MJExtension.h"
 #import "MJRefresh.h"
 #import "OSSImageUploader.h"//阿里云
+#import "ResponseObject.h"//集成该类判断是否有null数据
 
 #import "Macros.h"
 #import "UIButton+EdgeInsets.h"

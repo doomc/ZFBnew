@@ -10,4 +10,12 @@
 
 @interface ZFFooterCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_plachorer;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_totalPrice;
+
+@property (weak, nonatomic) IBOutlet UIButton *cancel_button;
+
+@property (weak, nonatomic) IBOutlet UIButton *payfor_button;
+
 @end

@@ -9,13 +9,13 @@
 #import "AddressListModel.h"
 
 @implementation AddressListModel
-
-
  
 
 + (NSDictionary *)objectClassInArray{
     return @{@"cmUserInfo" : [Cmuserinfo class]};
 }
+
+
 @end
 
 
@@ -23,4 +23,5 @@
 
 @end
 
+ 
 

@@ -10,4 +10,8 @@
 
 @interface ZFAllOrderViewController : BaseViewController
 
+@property(nonatomic ,assign) OrderType orderType;
+
+@property(nonatomic ,copy) NSString * buttonTitle;
+
 @end

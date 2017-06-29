@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AllStoreModel : NSObject
+@interface AllStoreModel : ResponseObject
 /** 门店id*/
 @property (nonatomic, copy) NSString * storeId;
 /** 店铺名字storeName */

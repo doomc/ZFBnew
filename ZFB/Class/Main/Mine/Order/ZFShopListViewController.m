@@ -8,10 +8,13 @@
 
 #import "ZFShopListViewController.h"
 #import "ZFShopListCell.h"
-
+#import "ShopOrderStoreNameCell.h"
+#import "ClearingStoreList.h"
 @interface ZFShopListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property(nonatomic,strong)UITableView  * mytableView;
+@property (nonatomic,strong) UITableView  * mytableView;
+@property (nonatomic,strong) NSMutableArray  * goodsListArray;
+
 
 @end
 
@@ -24,48 +27,25 @@
     self.title =@"商家清单";
     
     
-    self.mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64) style:UITableViewStylePlain];
+    self.mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64) style:UITableViewStyleGrouped];
     self.mytableView.delegate= self;
     self.mytableView.dataSource = self;
     [self.view addSubview:self.mytableView];
     self.mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.mytableView registerNib:[UINib nibWithNibName:@"ZFShopListCell" bundle:nil] forCellReuseIdentifier:@"ZFShopListCellid"];
+    [self.mytableView registerNib:[UINib nibWithNibName:@"ShopOrderStoreNameCell" bundle:nil] forCellReuseIdentifier:@"ShopOrderStoreNameCellid"];
+    
+    [self goodslistDetailPostRequst];
      
 }
 
 
--(UIView *)customHeaderView
-{
-    NSString *leftTitle = @"周妈妈服饰店";
-    
-    UIView *  headerView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, KScreenW, 40)];
-    headerView.backgroundColor =[ UIColor whiteColor];
-    UIFont * font  =[UIFont systemFontOfSize:12];
-    
-    UILabel * title = [[UILabel alloc]init];
-    title.text = leftTitle;
-    title.font = font;
-    CGSize size = [title.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
-    CGFloat titleW = size.width;
-    title.frame = CGRectMake(15, 5, titleW, 30);
-    title.textColor = HEXCOLOR(0x363636);
-    
-    
-    UILabel *lineDown =[[UILabel alloc]initWithFrame:CGRectMake(0, 39, KScreenW, 1)];
-    lineDown.backgroundColor = HEXCOLOR(0xdedede);
-
-    [headerView addSubview:lineDown];
-    [headerView addSubview:title];
-    return headerView;
-    
-}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 3;
     
 }
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
@@ -82,7 +62,11 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return  [self customHeaderView];
+//    Productlist * list = self.goodsListArray[section];
+    ShopOrderStoreNameCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopOrderStoreNameCellid"];
+//    cell.lb_storeName.text = list.storeName;
+    
+    return cell;
 
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -94,5 +78,67 @@
     return listCell;
 }
 
+
+
+#pragma mark - 商品详情页 getProductList
+-(void)goodslistDetailPostRequst
+{
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getProductList",
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"storeId":@"1",//可能添加参数
+                             
+                             };
+    
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [SVProgressHUD show];
+    
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            if (self.goodsListArray.count >0) {
+                
+                [self.goodsListArray removeAllObjects];
+            }
+            
+            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+            
+            ClearingStoreList *  storeList = [ClearingStoreList mj_objectWithKeyValues:jsondic];
+//            
+//            for (Cmgoodslist * goodsList in storeList.cmGoodsList) {
+//                
+//                [self.goodsListArray  addObject:goodsList];
+//            }
+            NSLog(@"%@ ==== self.goodsListArray",self.goodsListArray);
+            
+            [self.mytableView reloadData];
+           
+        }
+        [SVProgressHUD dismiss];
+
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+        
+    }];
+    
+    
+}
+
+
+-(NSMutableArray *)goodsListArray
+{
+    if (!_goodsListArray) {
+        _goodsListArray =[NSMutableArray array];
+        
+    }
+    return _goodsListArray;
+}
 
 @end

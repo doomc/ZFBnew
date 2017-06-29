@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HomeFuncModel : NSObject
+@interface HomeFuncModel : ResponseObject
 /** 商品id*/
 @property (nonatomic, copy) NSString * pid;//(id)
 

@@ -28,11 +28,11 @@ static const NSString  * MD5_key = @"1233@sdf%22dscE3";//全局
     //通用MD5_KEY
     NSString * transactionTime = DateTime;//当前时间
     NSString * transactionId = DateTime; //每个用户唯一
-//    NSLog(@"%@",DateTime);
-    
+    //    NSLog(@"%@",DateTime);
     
     //    signDict 原来的参数进行封装
     NSDictionary *signDict = @{
+
                                @"svcName":[param objectForKey:@"svcName"],
                                @"signType":@"MD5",
                                @"transactionTime":transactionTime,

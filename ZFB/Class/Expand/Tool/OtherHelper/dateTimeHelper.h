@@ -12,6 +12,8 @@
 
 //转换成北京时间字符串
 + (NSString *)htcTimeToLocationStr:(NSDate*)curDate;
+//格式不同
++ (NSString *)TimeToLocationStr:(NSDate*)curDate;
 
 + (void)verificationCode:(void(^)())blockYes blockNo:(void(^)(id time))blockNo ;
 

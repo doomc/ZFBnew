@@ -5,13 +5,13 @@
 //
 //  Created by  展富宝  on 2017/6/28.
 //  Copyright © 2017年 com.zfb. All rights reserved.
-//
+//  选择地址列表
 
 #import <Foundation/Foundation.h>
 
 
 @class Cmuserinfo;
-@interface AddressListModel : NSObject
+@interface AddressListModel : ResponseObject
 
 @property (nonatomic, assign) NSInteger resultCode;
 
@@ -23,7 +23,7 @@
 
 @end
 
-@interface Cmuserinfo : NSObject
+@interface Cmuserinfo : ResponseObject
 
 @property (nonatomic, copy) NSString *postAddressId;
 

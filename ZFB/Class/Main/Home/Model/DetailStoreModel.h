@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DetailStoreModel : NSObject
+@interface DetailStoreModel : ResponseObject
 
 
 /** 门店id*/

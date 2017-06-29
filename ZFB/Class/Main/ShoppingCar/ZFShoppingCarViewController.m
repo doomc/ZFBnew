@@ -10,7 +10,7 @@
 #import "ZFShoppingCarViewController.h"
 #import "LoginViewController.h"
 
-#import "ZFMainPayforViewController.h"
+#import "ZFSureOrderViewController.h"
 #import "DetailFindGoodsViewController.h"
 
 #import "ZFShopCarCell.h"
@@ -21,15 +21,18 @@ static NSString  * shopCarContenCellID = @"ZFShopCarCell";
 static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
 
 @interface ZFShoppingCarViewController ()<UITableViewDelegate,UITableViewDataSource,ShoppingSelectedDelegate>
+{
+    NSString * _cartItemId ;
+}
 @property (nonatomic,strong) UITableView * shopCar_tableview;
-
 @property (nonatomic,strong) UIView * underFootView;
+
 @property (nonatomic,strong) NSMutableArray * carListArray;
 // 由于代理问题衍生出的来已经选择单个或者批量的数组装Cell
 @property (nonatomic,strong) NSMutableArray *tempCellArray;
 
-//////////////////////--underFootView--//////////////////////
 
+//////////////////////--underFootView--//////////////////////
 @property (nonatomic,strong) UIButton * complete_Btn;//结算按钮
 @property (nonatomic,strong) UIButton * allSelectedButton;//全选
 @property (nonatomic,strong) UILabel * totalPriceLabel;//价格
@@ -75,9 +78,9 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
 {
     NSLog(@" 结算");
     
-    ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
+    ZFSureOrderViewController * orderVC = [[ZFSureOrderViewController alloc]init];
+    [self.navigationController pushViewController:orderVC animated:YES];
     
-    [self.navigationController pushViewController:payVC animated:YES];
 }
 
 #pragma mark - ShoppingSelectedDelegate  自定义代理
@@ -184,6 +187,8 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
        
         Shoppcartlist * list = self.carListArray[indexpath.section];
         Goodslist *goods = list.goodsList[indexpath.row];
+     
+        
         if (list.goodsList.count == 1) {
             [self.carListArray removeObject:list];
         }
@@ -191,8 +196,10 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
         {
             [list.goodsList removeObject:goods];
         }
-        [self updateInfomation];
+        _cartItemId = goods.cartItemId;//取到购物车id
 
+        [self deleteShoppingCarPostRequst];
+        
     }];
     
     [alertVC addAction:cancel];
@@ -533,6 +540,7 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
 
 
 
+
 #pragma mark - 购物车列表网络请求 getShoppingCartList
 -(void)shoppingCarPostRequst
 {
@@ -581,6 +589,37 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
         NSLog(@"%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
+}
+
+#pragma mark - 删除网络请求后一些列更新操作delShoppingCart
+-(void)deleteShoppingCarPostRequst
+{
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"delShoppingCart",
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"cartItemId":_cartItemId,
+                             
+                             };
+    
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+    
+    } success:^(id responseObject) {
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+        
+            [self.view makeToast:@"删除成功" duration:2 position:@"center"];
+            [self updateInfomation];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
 }
 
 

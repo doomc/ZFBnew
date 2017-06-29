@@ -10,4 +10,11 @@
 
 @interface ZFTitleCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_nameOrTime;
+
+@property (weak, nonatomic) IBOutlet UIButton *statusButton;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
+
+
 @end

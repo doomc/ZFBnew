@@ -10,7 +10,7 @@
 
 @class Cmgoodscommentinfo;
 
-@interface AppraiseModel : NSObject
+@interface AppraiseModel : ResponseObject
 
 @property (nonatomic, copy) NSString *lackCommentNum;
 
@@ -26,7 +26,7 @@
 
 @end
 
-@interface Cmgoodscommentinfo : NSObject
+@interface Cmgoodscommentinfo : ResponseObject
 
 @property (nonatomic, copy) NSString *reciewsId;
 

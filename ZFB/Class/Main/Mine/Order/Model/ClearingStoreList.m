@@ -1,3 +1,4 @@
+
 //
 //  ClearingStoreList.m
 //  ZFB
@@ -10,4 +11,29 @@
 
 @implementation ClearingStoreList
 
+//@end
+//
+//
+//@implementation Productlist
+//
+//+ (NSDictionary *)objectClassInArray{
+//    return @{@"cmGoodsList" : [Cmgoodslist class]};
+//}
+//
+//@end
+//
+//
+//@implementation Cmgoodslist
+//
+//+ (NSDictionary *)objectClassInArray{
+//    return @{@"goodsProp" : [Goodsprop class]};
+//}
+//
+//@end
+//
+//
+//@implementation Goodsprop
+
 @end
+
+

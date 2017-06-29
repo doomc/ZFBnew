@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_count;
+
 @property (weak, nonatomic) IBOutlet UITextField *tf_message;
 
 

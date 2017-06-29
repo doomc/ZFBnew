@@ -23,6 +23,19 @@
     return fixString;
 }
 
++ (NSString *)TimeToLocationStr:(NSDate*)curDate
+{
+    if (curDate==nil) {
+        return @"";
+    }
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    //[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *fixString = [dateFormatter stringFromDate:curDate];
+    return fixString;
+}
+
 //倒计时工具
 + (void)verificationCode:(void(^)())blockYes blockNo:(void(^)(id time))blockNo {
     __block int timeout = 59; //倒计时时间

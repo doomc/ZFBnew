@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ShopOrderStoreNameCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
 
 @end

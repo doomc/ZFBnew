@@ -118,6 +118,11 @@
 		499745111EE6959B00DA273B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 498DE0C81EE63C8700F64A61 /* libsqlite3.0.tbd */; };
 		49AAD8711EE12A5900AFE61D /* collectshopCar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AAD86F1EE12A5900AFE61D /* collectshopCar@2x.png */; };
 		49AAD8721EE12A5900AFE61D /* collectshopCar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AAD8701EE12A5900AFE61D /* collectshopCar@3x.png */; };
+		49B1E22A1F048A81000F4B20 /* ResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B1E2291F048A81000F4B20 /* ResponseObject.m */; };
+		49B1E22D1F04970E000F4B20 /* ClearingStoreList.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B1E22C1F04970E000F4B20 /* ClearingStoreList.m */; };
+		49B1E2361F049E18000F4B20 /* ShopOrderStoreNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B1E2341F049E18000F4B20 /* ShopOrderStoreNameCell.m */; };
+		49B1E2371F049E18000F4B20 /* ShopOrderStoreNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B1E2351F049E18000F4B20 /* ShopOrderStoreNameCell.xib */; };
+		49B1E23B1F04F662000F4B20 /* AllOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B1E23A1F04F662000F4B20 /* AllOrderModel.m */; };
 		49B9A1C01EE0089400B98DA5 /* NOAddress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B9A1BE1EE0089400B98DA5 /* NOAddress@2x.png */; };
 		49B9A1C11EE0089400B98DA5 /* NOAddress@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B9A1BF1EE0089400B98DA5 /* NOAddress@3x.png */; };
 		49BEB9B31EF917FA00779588 /* 省略@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BEB9B11EF917FA00779588 /* 省略@2x.png */; };
@@ -797,6 +802,15 @@
 		4993CD231EEFAB5B00CDE5FA /* HPLocationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HPLocationCell.xib; sourceTree = "<group>"; };
 		49AAD86F1EE12A5900AFE61D /* collectshopCar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collectshopCar@2x.png"; sourceTree = "<group>"; };
 		49AAD8701EE12A5900AFE61D /* collectshopCar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collectshopCar@3x.png"; sourceTree = "<group>"; };
+		49B1E2281F048A81000F4B20 /* ResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseObject.h; sourceTree = "<group>"; };
+		49B1E2291F048A81000F4B20 /* ResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseObject.m; sourceTree = "<group>"; };
+		49B1E22B1F04970E000F4B20 /* ClearingStoreList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearingStoreList.h; sourceTree = "<group>"; };
+		49B1E22C1F04970E000F4B20 /* ClearingStoreList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearingStoreList.m; sourceTree = "<group>"; };
+		49B1E2331F049E18000F4B20 /* ShopOrderStoreNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopOrderStoreNameCell.h; sourceTree = "<group>"; };
+		49B1E2341F049E18000F4B20 /* ShopOrderStoreNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopOrderStoreNameCell.m; sourceTree = "<group>"; };
+		49B1E2351F049E18000F4B20 /* ShopOrderStoreNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopOrderStoreNameCell.xib; sourceTree = "<group>"; };
+		49B1E2391F04F662000F4B20 /* AllOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllOrderModel.h; sourceTree = "<group>"; };
+		49B1E23A1F04F662000F4B20 /* AllOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllOrderModel.m; sourceTree = "<group>"; };
 		49B9A1BE1EE0089400B98DA5 /* NOAddress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NOAddress@2x.png"; sourceTree = "<group>"; };
 		49B9A1BF1EE0089400B98DA5 /* NOAddress@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NOAddress@3x.png"; sourceTree = "<group>"; };
 		49BEB9B11EF917FA00779588 /* 省略@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "省略@2x.png"; sourceTree = "<group>"; };
@@ -1710,6 +1724,7 @@
 		492755001EC4679E003C22D0 /* Tool(工具) */ = {
 			isa = PBXGroup;
 			children = (
+				49B1E2271F048A81000F4B20 /* ResponseObject(判断是否是null) */,
 				50DF1C6B1F0003B70082FD20 /* MapNavigationView(调用手机地图APP导航) */,
 				49F669631EF7A92300F8D516 /* XHStarRateView(评价星星) */,
 				4943AEC91EF0D3D600803973 /* YBPopupMenu(pop菜单) */,
@@ -2027,6 +2042,25 @@
 				498DE0DF1EE6801600F64A61 /* GVUserDefaults.m */,
 			);
 			path = GVUserDefaults;
+			sourceTree = "<group>";
+		};
+		49B1E2271F048A81000F4B20 /* ResponseObject(判断是否是null) */ = {
+			isa = PBXGroup;
+			children = (
+				49B1E2281F048A81000F4B20 /* ResponseObject.h */,
+				49B1E2291F048A81000F4B20 /* ResponseObject.m */,
+			);
+			name = "ResponseObject(判断是否是null)";
+			path = ResponseObject;
+			sourceTree = "<group>";
+		};
+		49B1E2381F04F639000F4B20 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				49B1E2391F04F662000F4B20 /* AllOrderModel.h */,
+				49B1E23A1F04F662000F4B20 /* AllOrderModel.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		49BEB9B51EF92F8300779588 /* Model */ = {
@@ -2492,6 +2526,7 @@
 		49DF70721EEAA9B10021EE92 /* Mine(我的) */ = {
 			isa = PBXGroup;
 			children = (
+				49B1E2381F04F639000F4B20 /* Models */,
 				49DF711D1EEAA9B10021EE92 /* ZFPersonalViewController.h */,
 				49DF711E1EEAA9B10021EE92 /* ZFPersonalViewController.m */,
 				49DF70731EEAA9B10021EE92 /* CollectOrHistory(收藏历史) */,
@@ -2622,6 +2657,8 @@
 				49DBE0BA1F034F930063C201 /* AddressListModel.m */,
 				49DBE0D91F03B4C00063C201 /* AddressCommitOrderModel.h */,
 				49DBE0DA1F03B4C00063C201 /* AddressCommitOrderModel.m */,
+				49B1E22B1F04970E000F4B20 /* ClearingStoreList.h */,
+				49B1E22C1F04970E000F4B20 /* ClearingStoreList.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2653,6 +2690,9 @@
 				49DF70B21EEAA9B10021EE92 /* ZFTitleCell.h */,
 				49DF70B31EEAA9B10021EE92 /* ZFTitleCell.m */,
 				49DF70B41EEAA9B10021EE92 /* ZFTitleCell.xib */,
+				49B1E2331F049E18000F4B20 /* ShopOrderStoreNameCell.h */,
+				49B1E2341F049E18000F4B20 /* ShopOrderStoreNameCell.m */,
+				49B1E2351F049E18000F4B20 /* ShopOrderStoreNameCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3610,6 +3650,7 @@
 				498B31121ED820F90021D691 /* searchaa@2xpng.png in Resources */,
 				49DF715A1EEAA9B20021EE92 /* ZFDetailStoreCell.xib in Resources */,
 				49DF721F1EEAAA780021EE92 /* ResetPassWViewController.xib in Resources */,
+				49B1E2371F049E18000F4B20 /* ShopOrderStoreNameCell.xib in Resources */,
 				49F1137E1ECC5547000F3BF7 /* evaluate_waitting@3x.png in Resources */,
 				49DBE0C01F0359210063C201 /* choose_normal40@2x.png in Resources */,
 				49F113801ECC5547000F3BF7 /* im_massage@3x.png in Resources */,
@@ -3867,6 +3908,8 @@
 				498AE4C11EE6AADF00EE3FA8 /* NSData+Hash.m in Sources */,
 				49DF71851EEAA9B20021EE92 /* ZFMyOderCell.m in Sources */,
 				49DBE0DB1F03B4C00063C201 /* AddressCommitOrderModel.m in Sources */,
+				49B1E22D1F04970E000F4B20 /* ClearingStoreList.m in Sources */,
+				49B1E2361F049E18000F4B20 /* ShopOrderStoreNameCell.m in Sources */,
 				49DF71B51EEAA9B20021EE92 /* ZFApplyReasonCell.m in Sources */,
 				503BEBF11ED71877004FC36C /* ZFEnum.m in Sources */,
 				5019FFB41ECCAEF800325342 /* UIImage+GIF.m in Sources */,
@@ -3999,6 +4042,7 @@
 				5019FFAD1ECCAEF800325342 /* SDWebImageCompat.m in Sources */,
 				509A13451EE6EB000093978F /* NSString+ZFSortAppdending.m in Sources */,
 				4943AED01EF0D3D600803973 /* YBPopupMenu.m in Sources */,
+				49B1E22A1F048A81000F4B20 /* ResponseObject.m in Sources */,
 				49DF71C31EEAA9B20021EE92 /* ZFSaleAfterHeadCell.m in Sources */,
 				49801C8F1ECE870100EDAA53 /* PYSearchSuggestionViewController.m in Sources */,
 				49DF71781EEAA9B20021EE92 /* ZFMyOpinionCell.m in Sources */,
@@ -4031,6 +4075,7 @@
 				492752191EC44DFC003C22D0 /* main.m in Sources */,
 				49DF72001EEAAA5B0021EE92 /* BaseNavigationController.m in Sources */,
 				49DF714E1EEAA9B20021EE92 /* ZFCInterpersonalCircleViewController.m in Sources */,
+				49B1E23B1F04F662000F4B20 /* AllOrderModel.m in Sources */,
 				49DF6FF11EEA94CC0021EE92 /* AdvertiseView.m in Sources */,
 				49DF717A1EEAA9B20021EE92 /* ZFHomeViewController.m in Sources */,
 				5026A4471EEEE39B00AAC84D /* UIImage+ADCircleImage.m in Sources */,
@@ -4287,7 +4332,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4312,7 +4357,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

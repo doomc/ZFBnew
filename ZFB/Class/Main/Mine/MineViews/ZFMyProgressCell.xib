@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -46,6 +46,9 @@
                                 <constraint firstAttribute="width" constant="46" id="Ug5-Js-GcT"/>
                             </constraints>
                             <state key="normal" image="wait_payfor.png"/>
+                            <connections>
+                                <action selector="waitForPaybutton:" destination="BcX-pN-Qr3" eventType="touchUpInside" id="s7y-9n-GhK"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="待付款" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKH-qZ-0Db">
                             <rect key="frame" x="13.5" y="59" width="37" height="14.5"/>
@@ -71,6 +74,9 @@
                                 <constraint firstAttribute="width" constant="46" id="tet-qe-apF"/>
                             </constraints>
                             <state key="normal" image="sending_icon.png"/>
+                            <connections>
+                                <action selector="serviceSended:" destination="BcX-pN-Qr3" eventType="touchUpInside" id="oji-p5-VYl"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已配送" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKb-or-YwG">
                             <rect key="frame" x="14" y="59" width="37" height="14.5"/>
@@ -96,6 +102,9 @@
                                 <constraint firstAttribute="width" constant="46" id="qsW-xg-YUw"/>
                             </constraints>
                             <state key="normal" image="evaluate_waitting.png"/>
+                            <connections>
+                                <action selector="waitForEvaluate:" destination="BcX-pN-Qr3" eventType="touchUpInside" id="1dD-JI-LAS"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="待评价" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e14-hw-jxH">
                             <rect key="frame" x="14" y="59" width="37" height="14.5"/>
@@ -121,6 +130,9 @@
                                 <constraint firstAttribute="height" constant="46" id="cXN-kb-BXZ"/>
                             </constraints>
                             <state key="normal" image="return_icon.png"/>
+                            <connections>
+                                <action selector="bacKgoods:" destination="BcX-pN-Qr3" eventType="touchUpInside" id="aDu-pn-woL"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退货" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7l-Vs-7bZ">
                             <rect key="frame" x="20.5" y="59" width="25" height="14.5"/>
@@ -167,10 +179,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="bacKgoods_btn" destination="6BR-7J-ErB" id="7Gw-3b-AcP"/>
-            </connections>
-            <point key="canvasLocation" x="-17" y="-83"/>
+            <point key="canvasLocation" x="-133" y="-74"/>
         </view>
     </objects>
     <resources>

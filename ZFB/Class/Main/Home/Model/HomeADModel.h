@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HomeADModel : NSObject
+@interface HomeADModel : ResponseObject
 
 /** 图片id*/
 @property (nonatomic, copy) NSString * pid;//(id)

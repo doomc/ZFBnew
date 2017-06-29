@@ -14,6 +14,8 @@
 #import "ZFShopListViewController.h"
 #import "AddressCommitOrderModel.h"
 
+#import "ZFMainPayforViewController.h"
+
 @interface ZFSureOrderViewController ()<UITableViewDelegate ,UITableViewDataSource>
 {
     NSString * _contactUserName;
@@ -22,7 +24,7 @@
     NSString * _goodsCountMoney;//商品总价
     NSString * _deliveryFee;//配送费
     NSString * _goodsAllMoney;//支付总金额
-    
+    UILabel * lb_price;
 }
 @property (nonatomic,strong) UITableView * mytableView;
 @property (nonatomic,strong) UIView * footerView;
@@ -45,10 +47,8 @@
     [self.mytableView registerNib:[UINib nibWithNibName:@"OrderWithAddressCell" bundle:nil] forCellReuseIdentifier:@"OrderWithAddressCellid"];
     [self.mytableView registerNib:[UINib nibWithNibName:@"OrderPriceCell" bundle:nil] forCellReuseIdentifier:@"OrderPriceCellid"];
     
-   // [self commitOrderPostRequst];
-    AddressCommitOrderModel *  orderModel = [AddressCommitOrderModel  new];
-
-     [self.goodsListArray addObjectsFromArray:[NSArray arrayWithObjects:orderModel,orderModel,orderModel,orderModel,nil]];
+    [self commitOrderPostRequst];
+   
     [self creatCustomfooterView];
     
 }
@@ -57,33 +57,24 @@
 {
     
     NSString *buttonTitle = @"提交订单";
-    NSString *price = _goodsAllMoney;
-    NSString *caseOrder =  @"实付金额";
+    NSString *price = @"¥0.00";
+    NSString *caseOrder =  @"实付金额:";
     
-    UIFont * font  =[UIFont systemFontOfSize:15];
+    UIFont * font  =[UIFont systemFontOfSize:14];
     _footerView = [[UIView alloc]initWithFrame:CGRectMake(0,KScreenH -49, KScreenW, 49)];
     _footerView.backgroundColor =[UIColor clearColor];
-    
+    [self.view addSubview:_footerView];
+
     //结算按钮
     UIButton * complete_Btn  = [UIButton buttonWithType:UIButtonTypeCustom];
     [complete_Btn setTitle:buttonTitle forState:UIControlStateNormal];
     complete_Btn.titleLabel.font =font;
     complete_Btn.backgroundColor =HEXCOLOR(0xfe6d6a);
     
-    complete_Btn.frame =CGRectMake(KScreenW - 120 , 1, 120 , 48);
+    complete_Btn.frame =CGRectMake(KScreenW - 120 , 0, 120 , 49);
     [complete_Btn addTarget:self action:@selector(didCleckClearing:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    //价格
-    UILabel * lb_price = [[UILabel alloc]init];
-    lb_price.text = price;
-    lb_price.textAlignment = NSTextAlignmentLeft;
-    lb_price.font = font;
-    lb_price.textColor = HEXCOLOR(0xfe6d6a);
-    CGSize lb_priceSize = [price sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
-    CGFloat lb_priceW = lb_priceSize.width;
-    lb_price.frame = CGRectMake(KScreenW - 120 -20 - lb_priceW, 1, lb_priceW, 48);
-    
+    [_footerView addSubview:complete_Btn];
+
     //固定金额位置
     UILabel * lb_order = [[UILabel alloc]init];
     lb_order.text= caseOrder;
@@ -91,18 +82,25 @@
     lb_order.textColor = HEXCOLOR(0x363636);
     CGSize lb_orderSiez = [caseOrder sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
     CGFloat lb_orderW = lb_orderSiez.width;
-    lb_order.frame =  CGRectMake(KScreenW - 120-lb_priceW -20-10-lb_orderW, 1, lb_orderW, 48);
-    
+    lb_order.frame =  CGRectMake(50, 1, lb_orderW+10, 48);
+    [_footerView addSubview:lb_order];
+
+    //价格
+    lb_price = [[UILabel alloc]init];
+    lb_price.text = price;
+    lb_price.textAlignment = NSTextAlignmentLeft;
+    lb_price.font = font;
+    lb_price.textColor = HEXCOLOR(0xfe6d6a);
+    lb_price.frame =  CGRectMake(50 +lb_orderW+20, 1, 100, 48);
+    [_footerView addSubview:lb_price];
+
+
     UILabel * line =[[ UILabel alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 1)];
     line.backgroundColor = HEXCOLOR(0xdedede);
-    
-    
     [_footerView addSubview:line];
-    [_footerView addSubview:lb_order];
-    [_footerView addSubview:lb_price];
-    [_footerView addSubview:complete_Btn];
+
     
-    [self.view addSubview:_footerView];
+    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -151,8 +149,8 @@
     OrderPriceCell * priceCell = [self.mytableView dequeueReusableCellWithIdentifier:@"OrderPriceCellid" forIndexPath:indexPath];
     priceCell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    priceCell.lb_tipFree.text = [NSString stringWithFormat:@"+ ¥%@",_deliveryFee];
-    priceCell.lb_priceTotal.text = [NSString stringWithFormat:@"¥%@",_goodsCountMoney];
+    priceCell.lb_tipFree.text = [NSString stringWithFormat:@"+ ¥%.2f",[_deliveryFee floatValue]];
+    priceCell.lb_priceTotal.text = [NSString stringWithFormat:@"¥%.2f",[_goodsCountMoney floatValue]];
     
     return priceCell;
     
@@ -174,9 +172,13 @@
     }
 }
 
+#pragma mark - 提交订单 didCleckClearing
 -(void)didCleckClearing:(UIButton *)sender
 {
     NSLog(@" 确认订单 ");
+    ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
+    
+    [self.navigationController pushViewController:payVC animated:YES];
 }
 
 #pragma mark - 创建 提交订单getOrderFix
@@ -203,25 +205,27 @@
                 
                 [self.goodsListArray removeAllObjects];
             }
+            
             NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
             NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-            
+
             AddressCommitOrderModel *  orderModel = [AddressCommitOrderModel mj_objectWithKeyValues:jsondic];
             
             _goodsCountMoney= orderModel.goodsCountMoney ;
-            _goodsAllMoney= orderModel.goodsAllMoney ;
             _deliveryFee = orderModel.deliveryFee;
-            
+            _goodsAllMoney= orderModel.goodsAllMoney ;
+
             _contactUserName =  orderModel.orderFixInfo.contactUserName;
             _postAddress = orderModel.orderFixInfo.postAddress;
             _contactMobilePhone = orderModel.orderFixInfo.contactMobilePhone;
-            
+           
             for (Cmgoodslist * goodsList in orderModel.cmGoodsList) {
                 
                 [self.goodsListArray  addObject:goodsList];
             }
             NSLog(@"%@ ==== self.goodsListArray",self.goodsListArray);
             
+            lb_price.text = [NSString stringWithFormat:@"¥ %.2f",[_goodsAllMoney floatValue]];
             [self.mytableView reloadData];
             [SVProgressHUD dismiss];
             

@@ -26,6 +26,7 @@
 
 #import "ZFPersonalHeaderView.h"
 typedef NS_ENUM(NSUInteger, TypeCell) {
+    
     TypeCellOfMyCashBagCell,
     TypeCellOfMyProgressCell,
     TypeCellOfMyOderCell,
@@ -36,6 +37,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     NSString * _foolnum ;//足记数量
     NSString * _collectNum ;//收藏数量
+//    NSInteger _orderType;
 }
 @property(nonatomic,strong)UITableView * myTableView;
 @property(nonatomic,strong)UIView * myHeaderView;
@@ -55,7 +57,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 
     //判断是否已经登录
 //    if ( [BBUserDefault.userStatus isEqualToString:@"1" ]) {
-//        [logView setHidden:YES];
+        [_headview.loginView setHidden:YES];
 //        [unlogView setHidden:NO];
 //   
 //    }
@@ -234,6 +236,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     if (indexPath.row == 2) {//全部订单
         
         ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
+        orderVC.buttonTitle =@"全部订单";
         [self.navigationController pushViewController:orderVC animated:YES];
         
     }
@@ -252,24 +255,54 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
 }
 
-/**
- push 退货 页面
- */
--(void)pushToSaleAfterview
+#pragma mark - 待付款didClickWaitForPayAction
+///待付款
+-(void)didClickWaitForPayAction:(UIButton *)button
+{
+
+    ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
+    orderVC.orderType = 1 ;
+    orderVC.buttonTitle = @"待付款";
+    [self.navigationController pushViewController:orderVC animated:YES];
+}
+#pragma mark - 已配送didClickSendedAction
+///已配送
+-(void)didClickSendedAction:(UIButton *)button
+{
+    ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
+    orderVC.orderType = 4 ;
+    orderVC.buttonTitle = @"已配送";
+    [self.navigationController pushViewController:orderVC animated:YES];
+}
+#pragma mark - 待评价didClickWaitForEvaluateAction
+///待评价
+-(void)didClickWaitForEvaluateAction:(UIButton *)button
+{
+    ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
+    orderVC.orderType = 5 ;
+    orderVC.buttonTitle = @"待评价";
+    [self.navigationController pushViewController:orderVC animated:YES];
+
+}
+#pragma mark - 退货didClickBacKgoodsAction
+///退货
+-(void)didClickBacKgoodsAction:(UIButton *)button
 {
     NSLog(@" push 退货 页面");
-    
+
     ZFAppySalesReturnViewController * saleVC = [[ZFAppySalesReturnViewController alloc]init];
     [self.navigationController pushViewController:saleVC animated:YES];
+ 
 }
 
+#pragma mark - 收藏
 //商品收藏的点击事件  需要参数的时候再修改
 -(void)didClickCollectAction :(UIButton *)sender
 {
     NSLog(@"收藏");
     ZFCollectViewController *collecVC=  [[ZFCollectViewController alloc]init];
     
-    NSLog(@"%@", BBUserDefault.cmUserId);
+    NSLog(@" cmUserId  === %@", BBUserDefault.cmUserId);
     
 
     [self.navigationController pushViewController:collecVC animated:NO];
@@ -285,11 +318,10 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 }
 
 //点击头像
-
 -(void)didClickHeadImageViewAction:(UITapGestureRecognizer *)sender
 {
  
-    NSLog(@"%@ 头像",sender);
+    NSLog(@"点击了头像");
     ZFSettingHeadViewController *headVC =  [[ZFSettingHeadViewController alloc]init];
     [self.navigationController pushViewController:headVC animated:NO];
  

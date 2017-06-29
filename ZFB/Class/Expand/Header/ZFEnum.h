@@ -15,7 +15,7 @@
  - OrderTypeAllOrder: 默认全部配送
  */
 typedef NS_ENUM(NSUInteger, OrderType) {
-    OrderTypeAllOrder,//全部订单
+    OrderTypeAllOrder = 0,//全部订单
     OrderTypeWaitPay,//待付款
     OrderTypeWaitSend,//待发货`
     OrderTypeSending,//配送中
@@ -43,15 +43,13 @@ typedef NS_ENUM(NSUInteger, OrderDetailType) {
 };
 
 
-
-
 /**
   配送端
 
  - SendServicTypeWaitSend: 默认待配送
  */
 typedef NS_ENUM(NSUInteger, SendServicType) {
-    SendServicTypeWaitSend,//待配送
+    SendServicTypeWaitSend = 0,//待配送
     SendServicTypeSending,//配送中
     SendServicTypeSended,//已配送
     SendServicTypeUpdoor,//上门取件

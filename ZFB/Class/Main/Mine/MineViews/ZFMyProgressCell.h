@@ -10,18 +10,19 @@
 
 @protocol ZFMyProgressCellDelegate <NSObject>
 
--(void)pushToSaleAfterview;
+///待付款
+-(void)didClickWaitForPayAction:(UIButton *)button;
+///已配送
+-(void)didClickSendedAction:(UIButton *)button;
+///待评价
+-(void)didClickWaitForEvaluateAction:(UIButton *)button;
+///退货
+-(void)didClickBacKgoodsAction:(UIButton *)button;
 
 @end
 @interface ZFMyProgressCell : UITableViewCell
 
-
-/**
- 退出
- */
-@property (weak, nonatomic) IBOutlet UIButton *bacKgoods_btn;
-
-@property (nonatomic,assign)id<ZFMyProgressCellDelegate>delegate;
+@property (nonatomic,assign) id<ZFMyProgressCellDelegate>delegate;
 
 
 @end

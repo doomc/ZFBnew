@@ -4,12 +4,12 @@
 //
 //  Created by  展富宝  on 2017/6/28.
 //  Copyright © 2017年 com.zfb. All rights reserved.
-//
+//  提交订单
 
 #import <Foundation/Foundation.h>
 
 @class Orderfixinfo,Cmgoodslist;
-@interface AddressCommitOrderModel : NSObject
+@interface AddressCommitOrderModel : ResponseObject
 
 @property (nonatomic, strong) Orderfixinfo *orderFixInfo;
 
@@ -27,7 +27,7 @@
 
 
 @end
-@interface Orderfixinfo : NSObject
+@interface Orderfixinfo : ResponseObject
 
 @property (nonatomic, copy) NSString *cmUserId;
 
@@ -42,7 +42,7 @@
 
 
 @end
-@interface Cmgoodslist : NSObject
+@interface Cmgoodslist : ResponseObject
 
 @property (nonatomic, copy) NSString *storeId;
 

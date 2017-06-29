@@ -147,7 +147,7 @@
 ///编辑操作
 -(void)editAction:(NSInteger )sectionIndex
 {
-#warning  --------------indexPath 获取不到
+#warning  ========== 问题！！！ indexPath 获取不到
     EditAddressViewController  * VC= [[EditAddressViewController alloc]init];
     if (self.listArray.count > 0 ) {
         Cmuserinfo * info = self.listArray[sectionIndex];

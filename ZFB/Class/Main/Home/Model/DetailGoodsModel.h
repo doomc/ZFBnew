@@ -10,14 +10,14 @@
 #import <Foundation/Foundation.h>
 
 @class Cmgoodsdetailslist,Productsku,Relujson;
-@interface DetailGoodsModel : NSObject
+@interface DetailGoodsModel : ResponseObject
 
 @property (nonatomic, strong) NSArray<Cmgoodsdetailslist *> *cmGoodsDetailsList;
 
 @end
 
 
-@interface Cmgoodsdetailslist : NSObject
+@interface Cmgoodsdetailslist : ResponseObject
 
 /** 门店id*/
 @property (nonatomic, copy) NSString *sotreName;
@@ -51,7 +51,7 @@
 
 @end
 
-@interface Productsku : NSObject
+@interface Productsku : ResponseObject
 
 @property (nonatomic, copy) NSString *inStock;
 
@@ -60,7 +60,7 @@
 
 @end
 
-@interface Relujson : NSObject
+@interface Relujson : ResponseObject
 
 @property (nonatomic, copy) NSString *name;
 
