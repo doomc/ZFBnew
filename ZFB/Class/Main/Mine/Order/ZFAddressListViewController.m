@@ -96,6 +96,8 @@
     ZFAddOfListCell * addCell = [self.mytableView dequeueReusableCellWithIdentifier:@"ZFAddOfListCellid" forIndexPath:indexPath];
     addCell.selectionStyle  = UITableViewCellSelectionStyleNone;
     [self configCell:addCell indexPath:indexPath];
+   
+    addCell.indexPath = indexPath;
     addCell.delegate = self;
     
     return addCell;
@@ -145,13 +147,12 @@
 
 }
 ///编辑操作
--(void)editAction:(NSInteger )sectionIndex
+-(void)editAction:(NSIndexPath * )indexPath
 {
 #warning  ========== 问题！！！ indexPath 获取不到
     EditAddressViewController  * VC= [[EditAddressViewController alloc]init];
     if (self.listArray.count > 0 ) {
-        Cmuserinfo * info = self.listArray[sectionIndex];
-
+        Cmuserinfo * info = self.listArray[indexPath.row];
         
         NSLog(@"info=====postAddressId %@",info.postAddressId);
         VC.defaultFlag =   info.defaultFlag;  //是否默认

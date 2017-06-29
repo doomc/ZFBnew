@@ -17,7 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *saleAfter_btn;
 
-@property(nonatomic,assign)id<ZFSaleAfterContentCellDelegate>delegate;
+@property (nonatomic,assign) id <ZFSaleAfterContentCellDelegate> delegate;
 
 
 @end

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 @protocol ZFCheckTheProgressCellDelegate <NSObject>
 
+/**
+ *  进度查询
+ */
 -(void)progressWithCheckout;
 
 @end

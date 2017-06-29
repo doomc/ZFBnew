@@ -13,15 +13,16 @@
 ///删除操作
 -(void)deleteAction :(ZFAddOfListCell *)cell;
 ///编辑操作
--(void)editAction :(NSInteger)sectionIndex ;
+-(void)editAction :(NSIndexPath *)indexPath ;
 
 @end
+
 @interface ZFAddOfListCell : UITableViewCell
 
 
 @property (assign, nonatomic)  id <AddressCellDelegate> delegate;
 
-@property (assign, nonatomic)  NSInteger index;
+@property (strong, nonatomic)  NSIndexPath *  indexPath;
 
 @property (weak, nonatomic) IBOutlet UIButton *defaultButton;
 

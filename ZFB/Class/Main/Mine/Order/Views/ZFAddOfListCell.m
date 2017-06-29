@@ -21,7 +21,7 @@
 - (IBAction)didEdit:(id)sender {
 
     if ([self.delegate respondsToSelector:@selector(editAction:)]) {
-        [self.delegate editAction:self.index];
+        [self.delegate editAction:self.indexPath];
     }
 }
 ///点击删除

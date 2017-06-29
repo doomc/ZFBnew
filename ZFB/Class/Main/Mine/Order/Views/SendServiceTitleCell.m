@@ -1,24 +1,18 @@
 //
-//  ZFFooterCell.m
+//  SendServiceTitleCell.m
 //  ZFB
 //
-//  Created by 熊维东 on 2017/5/25.
+//  Created by 熊维东 on 2017/6/29.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
-#import "ZFFooterCell.h"
+#import "SendServiceTitleCell.h"
 
-@implementation ZFFooterCell
+@implementation SendServiceTitleCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
-    _cancel_button.layer.cornerRadius = 4;
-    _cancel_button.clipsToBounds = YES;
-    
-    _payfor_button.layer.cornerRadius = 4;
-    _payfor_button.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -99,8 +99,6 @@
     line.backgroundColor = HEXCOLOR(0xdedede);
     [_footerView addSubview:line];
 
-    
-    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

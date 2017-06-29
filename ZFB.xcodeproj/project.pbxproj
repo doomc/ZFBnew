@@ -585,6 +585,8 @@
 		50C672CD1EE83F5E005A1E7C /* ZFEncryptionKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C672CC1EE83F5E005A1E7C /* ZFEncryptionKey.m */; };
 		50DF1C701F0003B70082FD20 /* CLLocation+YCLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DF1C6D1F0003B70082FD20 /* CLLocation+YCLocation.m */; };
 		50DF1C711F0003B70082FD20 /* JXMapNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DF1C6F1F0003B70082FD20 /* JXMapNavigationView.m */; };
+		50E6A4271F054B3E006BB97A /* SendServiceTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E6A4251F054B3E006BB97A /* SendServiceTitleCell.m */; };
+		50E6A4281F054B3E006BB97A /* SendServiceTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50E6A4261F054B3E006BB97A /* SendServiceTitleCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1468,6 +1470,9 @@
 		50DF1C6D1F0003B70082FD20 /* CLLocation+YCLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+YCLocation.m"; sourceTree = "<group>"; };
 		50DF1C6E1F0003B70082FD20 /* JXMapNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXMapNavigationView.h; sourceTree = "<group>"; };
 		50DF1C6F1F0003B70082FD20 /* JXMapNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXMapNavigationView.m; sourceTree = "<group>"; };
+		50E6A4241F054B3E006BB97A /* SendServiceTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendServiceTitleCell.h; sourceTree = "<group>"; };
+		50E6A4251F054B3E006BB97A /* SendServiceTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendServiceTitleCell.m; sourceTree = "<group>"; };
+		50E6A4261F054B3E006BB97A /* SendServiceTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendServiceTitleCell.xib; sourceTree = "<group>"; };
 		B2E471759A11D3682520CF1E /* libPods-ZFB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZFB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D23F8EC706787ADDD1999100 /* Pods-ZFB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2693,6 +2698,9 @@
 				49B1E2331F049E18000F4B20 /* ShopOrderStoreNameCell.h */,
 				49B1E2341F049E18000F4B20 /* ShopOrderStoreNameCell.m */,
 				49B1E2351F049E18000F4B20 /* ShopOrderStoreNameCell.xib */,
+				50E6A4241F054B3E006BB97A /* SendServiceTitleCell.h */,
+				50E6A4251F054B3E006BB97A /* SendServiceTitleCell.m */,
+				50E6A4261F054B3E006BB97A /* SendServiceTitleCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3643,6 +3651,7 @@
 				49F113911ECC5547000F3BF7 /* arrows_down_gray@2x.png in Resources */,
 				49DF70001EEA94D80021EE92 /* blankpage_image_Sleep@3x.png in Resources */,
 				49DBE0CD1F035AA30063C201 /* editDelete@3x.png in Resources */,
+				50E6A4281F054B3E006BB97A /* SendServiceTitleCell.xib in Resources */,
 				49F113871ECC5547000F3BF7 /* setting@2x.png in Resources */,
 				49B9A1C01EE0089400B98DA5 /* NOAddress@2x.png in Resources */,
 				49C95F141ED295AF004EA811 /* sendcar_normal@3x.png in Resources */,
@@ -4123,6 +4132,7 @@
 				49DF71531EEAA9B20021EE92 /* ZFAppraiseCell.m in Sources */,
 				49DF6FD51EEA927C0021EE92 /* NSData+Base64.m in Sources */,
 				49DF6FDC1EEA927C0021EE92 /* imageCompressHelper.m in Sources */,
+				50E6A4271F054B3E006BB97A /* SendServiceTitleCell.m in Sources */,
 				49DF71601EEAA9B20021EE92 /* ZFLoctionNavCell.m in Sources */,
 				49DF717B1EEAA9B20021EE92 /* ZFCollectViewController.m in Sources */,
 				492757511EC4679E003C22D0 /* MJRefreshStateHeader.m in Sources */,
@@ -4332,7 +4342,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4357,7 +4367,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

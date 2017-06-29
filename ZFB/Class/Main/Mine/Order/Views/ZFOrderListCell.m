@@ -32,7 +32,7 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return  self.listArray.count;
+    return  3;
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -62,9 +62,9 @@
         self.img_shenglve.hidden = YES;
     }
     
-//    [cell.img_listImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",list.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        
-//    }];
+    [cell.img_listImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",list.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+    }];
     return cell;
 }
 
