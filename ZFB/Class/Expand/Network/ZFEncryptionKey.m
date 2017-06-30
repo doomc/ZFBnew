@@ -32,7 +32,7 @@ static const NSString  * MD5_key = @"1233@sdf%22dscE3";//全局
     
     //    signDict 原来的参数进行封装
     NSDictionary *signDict = @{
-
+                               
                                @"svcName":[param objectForKey:@"svcName"],
                                @"signType":@"MD5",
                                @"transactionTime":transactionTime,
@@ -66,6 +66,7 @@ static const NSString  * MD5_key = @"1233@sdf%22dscE3";//全局
     NSString * sign =  [MD5Tool MD5ForLower32Bate:md5String];
     
     NSDictionary *signDic2 = @{
+                               @"cmUserId":BBUserDefault.cmUserId,
                                @"signType":@"MD5",
                                @"transactionTime":transactionTime,
                                @"transactionId":transactionId,
@@ -78,7 +79,7 @@ static const NSString  * MD5_key = @"1233@sdf%22dscE3";//全局
     
     [muParam setObject:sign forKey:@"sign"];
     
-//    NSLog(@"%@ =  parma",muParam);
+//    NSLog(@"muParam = = %@ =  parma",muParam);
 
     return muParam;
 }

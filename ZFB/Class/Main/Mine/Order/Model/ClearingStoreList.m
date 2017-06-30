@@ -11,28 +11,33 @@
 
 @implementation ClearingStoreList
 
-//@end
-//
-//
-//@implementation Productlist
-//
-//+ (NSDictionary *)objectClassInArray{
-//    return @{@"cmGoodsList" : [Cmgoodslist class]};
-//}
-//
-//@end
-//
-//
-//@implementation Cmgoodslist
-//
-//+ (NSDictionary *)objectClassInArray{
-//    return @{@"goodsProp" : [Goodsprop class]};
-//}
-//
-//@end
-//
-//
-//@implementation Goodsprop
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"productList" : @"Productlist"};
+}
+@end
+
+
+
+@implementation Productlist
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"cmGoodsList" :  @"Cmmgoodslist"};
+}
+
+@end
+
+
+@implementation Cmmgoodslist
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"goodsProp" : @"Goodsprop"};
+}
+
+@end
+
+
+@implementation Goodsprop
 
 @end
 

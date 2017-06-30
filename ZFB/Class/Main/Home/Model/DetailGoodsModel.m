@@ -19,15 +19,17 @@
 
 @implementation Cmgoodsdetailslist
 
++ (NSDictionary *)objectClassInArray{
+    return @{@"productSku" : [Productsku class]};
+}
+
 @end
 
 
 @implementation Productsku
 
 + (NSDictionary *)objectClassInArray{
-
     return @{@"reluJson" : [Relujson class]};
-
 }
 
 @end
@@ -36,6 +38,5 @@
 @implementation Relujson
 
 @end
-
 
 

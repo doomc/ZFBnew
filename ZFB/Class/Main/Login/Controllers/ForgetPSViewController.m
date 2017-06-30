@@ -196,7 +196,7 @@
     
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         

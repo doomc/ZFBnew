@@ -137,10 +137,12 @@
     else if (indexPath.row == 1) {
         ZFOrderListCell * listCell = [self.mytableView
                                       dequeueReusableCellWithIdentifier:@"ZFOrderListCellid" forIndexPath:indexPath];
+        listCell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        if (self.goodsListArray.count > 0) {
         listCell.listArray = self.goodsListArray;
         listCell.lb_totalNum.text = [NSString stringWithFormat:@"一共%ld件",self.goodsListArray.count] ;
-        listCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        }
         return listCell;
     }
     
@@ -194,7 +196,7 @@
     
     [SVProgressHUD show];
     
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         
@@ -224,6 +226,7 @@
             NSLog(@"%@ ==== self.goodsListArray",self.goodsListArray);
             
             lb_price.text = [NSString stringWithFormat:@"¥ %.2f",[_goodsAllMoney floatValue]];
+         
             [self.mytableView reloadData];
             [SVProgressHUD dismiss];
             

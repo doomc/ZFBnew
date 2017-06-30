@@ -329,14 +329,14 @@
                              @"latitude":@"" ,//纬度
                              @"pageSize":pageSize,//每页显示条数
                              @"pageIndex":pageIndex,//当前页码
-                             @"cmUserId":BBUserDefault.cmUserId,
+//                             @"cmUserId":BBUserDefault.cmUserId,
                              
                              };
     NSLog(@"    lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
 
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         
@@ -400,7 +400,7 @@
     
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         

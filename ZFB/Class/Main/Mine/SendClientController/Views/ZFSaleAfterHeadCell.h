@@ -10,4 +10,8 @@
 
 @interface ZFSaleAfterHeadCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_orderCode;
+@property (weak, nonatomic) IBOutlet UILabel *creatOrdertime;
+@property (weak, nonatomic) IBOutlet UILabel *lb_status;
+
 @end

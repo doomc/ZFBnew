@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KV6-8b-rt3">
@@ -37,12 +37,6 @@
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="申请售后"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="数量 x1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Qa-Sk-XNk">
-                        <rect key="frame" x="85" y="55.5" width="40" height="14.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="苹果ipone6s 4.7寸官方行货国行没办手机苹果ipone6s 4.7寸官方行货国行没办6s" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDA-NR-RR6">
                         <rect key="frame" x="85" y="10" width="205" height="35"/>
                         <constraints>
@@ -58,6 +52,12 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="bTg-r0-WCB"/>
                         </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="数量 x1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Qa-Sk-XNk">
+                        <rect key="frame" x="85" y="50" width="40" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -81,6 +81,9 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="img_saleAfter" destination="KV6-8b-rt3" id="IJX-Zs-Ihf"/>
+                <outlet property="lb_goodcount" destination="2Qa-Sk-XNk" id="2Hr-ct-I2o"/>
+                <outlet property="lb_title" destination="jDA-NR-RR6" id="0Ke-dR-wrW"/>
                 <outlet property="saleAfter_btn" destination="Bie-bL-Lln" id="qcv-d4-2T7"/>
             </connections>
             <point key="canvasLocation" x="-79" y="69"/>

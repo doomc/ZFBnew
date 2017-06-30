@@ -105,14 +105,14 @@
     NSDictionary * parma = @{
                              
                              @"svcName":@"getBestSellInfo",
-                             @"cmUserId":BBUserDefault.cmUserId,
+//                             @"cmUserId":BBUserDefault.cmUserId,
                              @"pageSize":pageSize,//每页显示条数
                              @"pageIndex":pageIndex,//当前页码
 
                              };
     
     
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfb_url parameters:parma responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         

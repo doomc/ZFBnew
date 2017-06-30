@@ -34,8 +34,8 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收藏" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMJ-kx-CgD">
-                            <rect key="frame" x="242.5" y="5" width="25" height="10"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMJ-kx-CgD">
+                            <rect key="frame" x="247.5" y="5" width="20" height="10"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
@@ -47,8 +47,8 @@
                                 <constraint firstAttribute="height" constant="15" id="nza-3a-he1"/>
                             </constraints>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zan.png" translatesAutoresizingMaskIntoConstraints="NO" id="0pQ-sa-KjU">
-                            <rect key="frame" x="222.5" y="3" width="15" height="15"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="评分.png" translatesAutoresizingMaskIntoConstraints="NO" id="0pQ-sa-KjU">
+                            <rect key="frame" x="227.5" y="3" width="15" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="15" id="CRN-bd-Fjz"/>
                                 <constraint firstAttribute="width" constant="15" id="dNh-Sx-Ith"/>
@@ -96,6 +96,6 @@
     </objects>
     <resources>
         <image name="loca_small.png" width="12" height="12"/>
-        <image name="zan.png" width="12" height="12"/>
+        <image name="评分.png" width="12" height="12"/>
     </resources>
 </document>

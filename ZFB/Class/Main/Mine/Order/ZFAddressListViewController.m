@@ -149,12 +149,12 @@
 ///编辑操作
 -(void)editAction:(NSIndexPath * )indexPath
 {
-#warning  ========== 问题！！！ indexPath 获取不到
     EditAddressViewController  * VC= [[EditAddressViewController alloc]init];
     if (self.listArray.count > 0 ) {
-        Cmuserinfo * info = self.listArray[indexPath.row];
         
+        Cmuserinfo * info = self.listArray[indexPath.row];
         NSLog(@"info=====postAddressId %@",info.postAddressId);
+        
         VC.defaultFlag =   info.defaultFlag;  //是否默认
         VC.postAddressId =  info.postAddressId;//收货地址ID
         [self.mytableView reloadData];
@@ -172,15 +172,20 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#warning  ========== 问题！！！ indexPath 获取不到
+
     ZFAddOfListCell  *cell = (ZFAddOfListCell *) [self.mytableView cellForRowAtIndexPath:indexPath];
     
     NSLog(@"%ld- %ld",indexPath.section,indexPath.row);
-    
+
     cell.selected = !cell.selected;
     
     if (cell.selected) {
+        
         cell.selectedButton.selected = YES;
+        
     }else{
+        
         cell.selectedButton.selected = NO;
     }
     
@@ -192,7 +197,7 @@
      NSDictionary * parma = @{
                              
                              @"svcName":@"getCmUserAdderss",
-                             @"cmUserId":BBUserDefault.cmUserId,
+//                             @"cmUserId":BBUserDefault.cmUserId,
                              
                              };
     
@@ -200,7 +205,7 @@
     
     [SVProgressHUD show];
     
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         

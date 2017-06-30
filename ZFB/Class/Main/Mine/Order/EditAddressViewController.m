@@ -200,7 +200,7 @@
      NSDictionary * parma = @{
                              
                              @"svcName":@"saveUserAddressInfo",
-                             @"cmUserId":BBUserDefault.cmUserId,
+//                             @"cmUserId":BBUserDefault.cmUserId,
                              @"contactUserName":_tf_name.text,
                              @"contactMobilePhone":_tf_cellphone.text,
                              @"mobilePhone":_tf_mobilePhone.text ,
@@ -213,7 +213,7 @@
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
     [SVProgressHUD show];
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         
@@ -250,7 +250,7 @@
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
     [SVProgressHUD show];
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         

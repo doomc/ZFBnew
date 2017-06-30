@@ -554,7 +554,7 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     __weak typeof(self)weakSelf = self;
 
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         
@@ -597,14 +597,14 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
     NSDictionary * parma = @{
                              
                              @"svcName":@"delShoppingCart",
-                             @"cmUserId":BBUserDefault.cmUserId,
+//                             @"cmUserId":BBUserDefault.cmUserId,
                              @"cartItemId":_cartItemId,
                              
                              };
     
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
     
     } success:^(id responseObject) {
         

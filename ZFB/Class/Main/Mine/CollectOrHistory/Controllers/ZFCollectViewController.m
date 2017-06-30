@@ -34,7 +34,9 @@
     self.title = @"商品收藏";
     [self.view addSubview:self.tableView];
     self.view.backgroundColor = RGB(239, 239, 244);
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZFCollectEditCell" bundle:nil] forCellReuseIdentifier:@"ZFCollectEditCellid"];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZFCollectEditCell" bundle:nil]
+        forCellReuseIdentifier:@"ZFCollectEditCellid"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFHistoryCell" bundle:nil] forCellReuseIdentifier:@"ZFHistoryCellid"];
 
     

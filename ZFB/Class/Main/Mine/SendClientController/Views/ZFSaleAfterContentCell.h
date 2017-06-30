@@ -16,6 +16,9 @@
 @interface ZFSaleAfterContentCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *saleAfter_btn;
+@property (weak, nonatomic) IBOutlet UIImageView *img_saleAfter;
+@property (weak, nonatomic) IBOutlet UILabel *lb_title;
+@property (weak, nonatomic) IBOutlet UILabel *lb_goodcount;
 
 @property (nonatomic,assign) id <ZFSaleAfterContentCellDelegate> delegate;
 

@@ -24,7 +24,8 @@
 /// 0.未支付的初始状态 1.支付成功 -1.支付失败 3.付款发起 4.付款取消 (待付款) 5.退款成功（支付成功的）6.退款发起(支付成功) 7.退款失败(支付成功)',
 @property (nonatomic, assign) NSInteger payStatus;
 
-@property (nonatomic, assign) NSInteger payPrice;
+//支付金额
+@property (nonatomic, assign) CGFloat  payPrice;
 
 @property (nonatomic, strong) NSArray<Ordergoods *> *orderGoods;
 
@@ -33,7 +34,7 @@
 
 @property (nonatomic, copy) NSString *orderCode;
 
-@property (nonatomic, strong) NSDate *createTime;
+@property (nonatomic, copy) NSString *createTime;
 
 @property (nonatomic, copy) NSString *storeName;
 
@@ -56,6 +57,8 @@
 @property (nonatomic, copy) NSString *coverImgUrl;
 ///价格单位
 @property (nonatomic, assign) NSInteger priceUnit;
+
+
 
 @end
 

@@ -23,7 +23,7 @@
 
 @implementation Cmgoodslist
 
-@end
+ @end
 
 
 

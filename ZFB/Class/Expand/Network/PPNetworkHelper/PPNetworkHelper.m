@@ -109,7 +109,12 @@ static AFHTTPSessionManager *_sessionManager;
                 parameters:(id)parameters
                    success:(PPHttpRequestSuccess)success
                    failure:(PPHttpRequestFailed)failure {
-    return [self POST:URL parameters:parameters responseCache:nil success:success failure:failure];
+    
+    //参数加密规则
+    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
+    NSDictionary * parma = [keydic signStringWithParam:parameters];
+
+    return [self POST:URL parameters:parma responseCache:nil success:success failure:failure];
 }
 
 #pragma mark - GET请求自动缓存

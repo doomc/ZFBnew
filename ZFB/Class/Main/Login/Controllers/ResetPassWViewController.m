@@ -138,7 +138,7 @@
     
     [SVProgressHUD  showProgress:2];
 
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parma responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfb_url parameters:parma responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         

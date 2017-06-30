@@ -23,8 +23,9 @@
 }
 -(void)setListArray:(NSMutableArray *)listArray
 {
-    _listArray =listArray;
-    NSLog(@"====== == == = == %@",_listArray);
+    _listArray = [NSMutableArray array];
+    _listArray = listArray;
+    NSLog(@"======== %@",_listArray);
 
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -49,12 +50,12 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    Cmgoodslist * list = self.listArray[indexPath.row];
+    Cmgoodslist * list = _listArray[indexPath.row];
     
     GoodsitemCell * cell = [self.order_collectionCell
                             dequeueReusableCellWithReuseIdentifier:@"GoodsitemCellid" forIndexPath:indexPath];
 
-    if (self.listArray.count > 3) {
+    if (_listArray.count > 3) {
         
         self.img_shenglve.hidden = NO;
     }

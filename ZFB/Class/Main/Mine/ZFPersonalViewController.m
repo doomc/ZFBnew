@@ -337,11 +337,11 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)minePagePOSTRequste
 {
     NSDictionary * param = @{
-                             @"cmUserId":BBUserDefault.cmUserId,
+//                             @"cmUserId":BBUserDefault.cmUserId,
                              @"svcName":@"getUserInfo",
                              };
  
-     [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:param responseCache:^(id responseCache) {
+     [PPNetworkHelper POST:zfb_url parameters:param responseCache:^(id responseCache) {
          
      } success:^(id responseObject) {
           ;
