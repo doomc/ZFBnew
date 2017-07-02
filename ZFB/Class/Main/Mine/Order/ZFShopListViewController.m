@@ -47,13 +47,13 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.productlistArray.count;
+    return 2;
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return self.goodsListArray.count;
+    return 2;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -90,16 +90,15 @@
         listCell.lb_price.text = [NSString stringWithFormat:@"¥%@",list.storePrice];
        [listCell.img_shopView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",list.coverImgUrl]] placeholderImage:nil];
     
- 
+        NSString *str = @"";
         for (Goodsprop * sku in list.goodsProp) {
             
             [self.goodsPropArray addObject:sku];
             NSLog(@"%@ --:--%@",sku.name ,sku.value);
+            NSString * goodstr = [NSString stringWithFormat:@"%@:%@ ",sku.name,sku.value];
+            str = [str stringByAppendingString:goodstr];
         }
-        Goodsprop  *sku = self.goodsPropArray[indexPath.row];
-
-        listCell.lb_detailTitle.text = [NSString stringWithFormat:@"%@:%@ %@:%@ ",sku.name,sku.value,sku.name,sku.value];
-        
+        listCell.lb_detailTitle.text = str;
     }
     
     return listCell;
@@ -110,59 +109,111 @@
 #pragma mark -   获取用户商品列表接口 getProductList
 -(void)goodslistDetailPostRequst
 {
-    NSDictionary * parma = @{
-                             
-                             @"svcName":@"getProductList",
-                            //@"cmUserId":BBUserDefault.cmUserId,
-                             @"storeId":@"1",//可能添加参数
-                             
-                             };
+//    NSDictionary * parma = @{
+//                             
+//                             @"svcName":@"getProductList",
+//                            //@"cmUserId":BBUserDefault.cmUserId,
+//                             @"storeId":@"1",//可能添加参数
+//                             
+//                             };
+//    
+//    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+//    
+//    [SVProgressHUD show];
+//    
+//    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+//        
+//    } success:^(id responseObject) {
     
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [SVProgressHUD show];
-    
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+        NSDictionary * dic =  @{
+                                @"productList":@{
+                                        @"storeId": @"1",
+                                        @"storeName": @"陶妈妈服装店"
+                                        },
+                                @"cmGoodsList": @[
+                                        @{
+                                            @"goodsId":  @"1",
+                                            @"goodsName":  @"精装女装修身",
+                                            @"coverImgUrl":  @"http://192.168.1.107:8086/upload/20170615110845_",
+                                            @"goodsProp": @[
+                                                    @{
+                                                        @"name": @"颜色",
+                                                        @"value": @"红色"
+                                                        },
+                                                    @{
+                                                        @"name": @"大小",
+                                                        @"value": @"xxl"
+                                                        }
+                                                    ],
+                                            @"storePrice":  @"238",
+                                            @"goodsCount": @"2"
+                                            },
+                                        @{
+                                            @"goodsId": @"2",
+                                            @"goodsName": @"精品女装-韩妆",
+                                            @"coverImgUrl": @"http://192.168.1.107:8086/upload/20170615110845_",
+                                            @"goodsProp": @[
+                                                    @{
+                                                        @"name": @"颜色",
+                                                        @"value": @"红色"
+                                                        },
+                                                    @{
+                                                        @"name": @"大小",
+                                                        @"value": @"xxl"
+                                                        }
+                                                    ],
+                                            @"storePrice": @"238",
+                                            @"goodsCount": @"2"
+                                            }
+                                        ],
+                                @"goodsAllCount": @"4",
+                                @"resultCode": @0,
+                                };
+//
+//        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+//            if (self.goodsListArray.count >0) {
+//                
+//                [self.goodsListArray removeAllObjects];
+//                [self.goodsPropArray removeAllObjects];
+//
+//            }
         
-    } success:^(id responseObject) {
+           //            NSString  * dataStr    = [responseObject[@"data"] base64DecodedString];
+//            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+//            
+//            ClearingStoreList * storeList = [ClearingStoreList mj_objectWithKeyValues:dic];
+//            
+//            for (Productlist * list in storeList.productList) {
+//             
+//                for (Cmmgoodslist * goods in list.cmGoodsList) {
+//                    
+//                    [self.goodsListArray  addObject:goods];
+//                }
+//                   [self.productlistArray addObject:list];
+//            }
+    
+    Productlist * proList = [Productlist mj_objectWithKeyValues:dic];
+    for (Cmmgoodslist * goodlist in proList.cmGoodsList) {
         
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            if (self.goodsListArray.count >0) {
-                
-                [self.goodsListArray removeAllObjects];
-                [self.goodsPropArray removeAllObjects];
-
-            }
-            
-            NSString  * dataStr    = [responseObject[@"data"] base64DecodedString];
-            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-            
-            ClearingStoreList * storeList = [ClearingStoreList mj_objectWithKeyValues:jsondic];
-            
-            for (Productlist * list in storeList.productList) {
-             
-                for (Cmmgoodslist * goods in list.cmGoodsList) {
-                    
-                    [self.goodsListArray  addObject:goods];
-                }
-                   [self.productlistArray addObject:list];
-            }
-          
-            NSLog(@"%@ ==== productlistArray",self.productlistArray);
+        [self.goodsListArray addObject:goodlist];
+        
+    
+    }
             NSLog(@"%@ ==== goodsListArray",self.goodsListArray);
+    
             
             [self.mytableView reloadData];
             
-        }
+//        }
         [SVProgressHUD dismiss];
-        
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        [SVProgressHUD dismiss];
-        
-    }];
-    
+//        
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+//        [SVProgressHUD dismiss];
+//        
+//    }];
+//    
     
 }
 

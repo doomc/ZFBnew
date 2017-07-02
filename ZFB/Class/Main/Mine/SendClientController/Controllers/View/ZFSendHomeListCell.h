@@ -10,4 +10,7 @@
 
 @interface ZFSendHomeListCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIView *todaybgView;
+@property (weak, nonatomic) IBOutlet UIView *sendingbgView;
+@property (weak, nonatomic) IBOutlet UIView *sendedbgView;
 @end

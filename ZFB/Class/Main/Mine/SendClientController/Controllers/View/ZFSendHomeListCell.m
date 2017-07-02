@@ -14,6 +14,21 @@
     [super awakeFromNib];
     // Initialization code
     //多行必须写
+    self.todaybgView.clipsToBounds = YES;
+    self.todaybgView.layer.borderWidth = 0.5;
+    self.todaybgView.layer.cornerRadius = 2;
+    self.todaybgView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
+   
+    self.sendingbgView.clipsToBounds = YES;
+    self.sendingbgView.layer.borderWidth = 0.5;
+    self.sendingbgView.layer.cornerRadius = 2;
+    self.sendingbgView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
+    
+    self.sendedbgView.clipsToBounds = YES;
+    self.sendedbgView.layer.borderWidth = 0.5;
+    self.sendedbgView.layer.cornerRadius = 2;
+    self.sendedbgView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

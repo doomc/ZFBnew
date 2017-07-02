@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="84.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O3v-h2-XG8">
@@ -28,10 +28,9 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="深林西浅色碎花连衣裙深林西浅色碎花连衣裙" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EwH-Cd-ICI">
-                        <rect key="frame" x="80" y="15" width="165" height="30"/>
+                        <rect key="frame" x="80" y="15" width="165" height="29"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="165" id="UDM-2s-Ozq"/>
-                            <constraint firstAttribute="height" constant="30" id="gQ9-Aa-zIw"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
@@ -62,12 +61,23 @@
                         <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7l-wr-OgH">
+                        <rect key="frame" x="80" y="49" width="25" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="ahh-c1-sZe"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="EwH-Cd-ICI" firstAttribute="leading" secondItem="O3v-h2-XG8" secondAttribute="trailing" constant="10" id="5tE-e2-9zy"/>
+                    <constraint firstItem="T7l-wr-OgH" firstAttribute="top" secondItem="EwH-Cd-ICI" secondAttribute="bottom" constant="5" id="JvJ-AW-EA7"/>
                     <constraint firstItem="Mgc-Bs-NmG" firstAttribute="bottom" secondItem="O3v-h2-XG8" secondAttribute="bottom" id="Jxa-pE-n9l"/>
                     <constraint firstAttribute="bottomMargin" secondItem="O3v-h2-XG8" secondAttribute="bottom" constant="6.5" id="QoT-Rv-Chc"/>
                     <constraint firstItem="zGw-f5-6HS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ReY-DP-v7Q"/>
+                    <constraint firstItem="T7l-wr-OgH" firstAttribute="leading" secondItem="O3v-h2-XG8" secondAttribute="trailing" constant="10" id="SRO-bt-8nF"/>
                     <constraint firstAttribute="trailing" secondItem="UfP-SR-90s" secondAttribute="trailing" constant="20" id="TRg-Mr-SkC"/>
                     <constraint firstItem="EwH-Cd-ICI" firstAttribute="top" secondItem="O3v-h2-XG8" secondAttribute="top" id="W0n-6l-PkI"/>
                     <constraint firstAttribute="trailing" secondItem="zGw-f5-6HS" secondAttribute="trailing" id="dLo-Nj-hJM"/>
@@ -84,6 +94,7 @@
             <connections>
                 <outlet property="img_SenlistView" destination="O3v-h2-XG8" id="z9I-BI-ZDQ"/>
                 <outlet property="lb_Price" destination="UfP-SR-90s" id="fAf-8g-Oe5"/>
+                <outlet property="lb_detailTime" destination="T7l-wr-OgH" id="gdH-jp-2tG"/>
                 <outlet property="lb_num" destination="Mgc-Bs-NmG" id="JAP-F3-fsi"/>
                 <outlet property="lb_sendListTitle" destination="EwH-Cd-ICI" id="81T-gO-idl"/>
             </connections>
