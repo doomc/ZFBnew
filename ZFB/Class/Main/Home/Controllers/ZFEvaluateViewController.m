@@ -99,11 +99,14 @@
 {
     ZFAppraiseSectionCell  * sectionCell = [tableView dequeueReusableCellWithIdentifier:@"ZFAppraiseSectionCell"];
   
-    [sectionCell.all_btn setTitle:_commentNum forState:UIControlStateNormal];
-    [sectionCell.goodAppraise_btn setTitle:_goodCommentNum forState:UIControlStateNormal];
-    [sectionCell.bad_btn setTitle:_lackCommentNum forState:UIControlStateNormal];
-    [sectionCell.haveImage_btn setTitle:_imgCommentNum forState:UIControlStateNormal];
-
+    [sectionCell.all_btn setTitle:[NSString stringWithFormat:@"全部(%@)",_commentNum]
+                         forState:UIControlStateNormal];
+    [sectionCell.goodAppraise_btn setTitle:[NSString stringWithFormat:@"好评(%@)",_goodCommentNum]
+                                  forState:UIControlStateNormal];
+    [sectionCell.bad_btn setTitle:[NSString stringWithFormat:@"差评(%@)",_lackCommentNum]
+                         forState:UIControlStateNormal];
+    [sectionCell.haveImage_btn setTitle:[NSString stringWithFormat:@"有图(%@)",_imgCommentNum]
+                               forState:UIControlStateNormal];
     sectionCell.delegate = self;
     
     return sectionCell;
@@ -113,13 +116,12 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZFAppraiseCell *appraiseCell = [self.evaluate_tableView  dequeueReusableCellWithIdentifier:@"ZFAppraiseCell" forIndexPath:indexPath];
-    
     appraiseCell.Adelegate = self;
-    Cmgoodscommentinfo * info = self.appraiseListArray[indexPath.row];
-   
-    appraiseCell.imgurl = info.reviewsImgUrl;
+    
+ 
     if (self.appraiseListArray.count > 0) {
-        
+        Cmgoodscommentinfo * info = self.appraiseListArray[indexPath.row];
+        appraiseCell.imgurl = info.reviewsImgUrl;
         appraiseCell.lb_nickName.text = info.userName;
         appraiseCell.lb_message.text = info.reviewsText;
         appraiseCell.lb_detailtext.text = [NSString stringWithFormat:@"%@之前,来自%@",info.befor,info.equip];
@@ -143,6 +145,8 @@
 -(void)allbuttonSelect:(UIButton *)button
 {
     NSLog(@"全部评价");
+    [self appriaseToPostRequest];
+
 }
 -(void)goodPrisebuttonSelect:(UIButton *)button
 {
@@ -195,26 +199,30 @@
                 
                 NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
                 NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-                NSArray * dictArray = jsondic [@"cmGoodsCommentInfo"];
-                NSArray *commentInfoArray = [Cmgoodscommentinfo mj_objectArrayWithKeyValuesArray:dictArray];
+              
+        
+                AppraiseModel *model = [AppraiseModel mj_objectWithKeyValues:jsondic];
                 
-                for (Cmgoodscommentinfo * info in commentInfoArray) {
+                for (Cmgoodscommentinfo * info in model.cmGoodsCommentInfo) {
                  
                     [self.appraiseListArray addObject:info];
 
                 }
                 NSLog(@" ===============appraiseListArray ========== %@",  self.appraiseListArray);
 
-                _commentNum = jsondic [@"commentNum"];          //全部评论数
-                _goodCommentNum = jsondic [@"goodCommentNum"];  //好评数
-                _lackCommentNum = jsondic [@"lackCommentNum"];  //差评数
-                _imgCommentNum = jsondic [@"imgCommentNum"];    //有图数
+                _commentNum =model.commentNum;   //全部评论数
+                _goodCommentNum = model.goodCommentNum ;  //好评数
+                _lackCommentNum = model.lackCommentNum ;  //差评数
+                _imgCommentNum = model.imgCommentNum ;    //有图数
 
                 [self shouldReloadData];
+                [SVProgressHUD dismiss];
+
             }
-            [SVProgressHUD dismiss];
             
         }
+        [SVProgressHUD dismiss];
+
         
     } failure:^(NSError *error) {
         NSLog(@"%@",error);

@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
     CellTypeWithGuessCell,
     
 };
-@interface FinGoodsViewController ()<SDCycleScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface FinGoodsViewController ()<SDCycleScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,FuncListTableViewCellDeleagte>
 {
     NSInteger _pageSize;//每页显示条数
     NSInteger _pageIndex;//当前页码;
@@ -51,19 +51,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
 @end
 
 @implementation FinGoodsViewController
--(NSMutableArray *)adArray{
-    if (!_adArray) {
-        _adArray =[ NSMutableArray array];
-    }
-    return _adArray;
-}
-
--(NSMutableArray *)likeListArray{
-    if (!_likeListArray) {
-        _likeListArray =[ NSMutableArray array];
-    }
-    return _likeListArray;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -78,17 +65,19 @@ typedef NS_ENUM(NSUInteger, CellType) {
 }
 
 ///全部分类
--(void)didClickAllClassAction:(UIButton *)sender
+-(void)seleteItemCell:(FuncListTableViewCell *)cell withIndex:(NSIndexPath *)indexPath
 {
-    
+    FuncListTableViewCell * funcCell = [self.findGoods_TableView cellForRowAtIndexPath:indexPath];
+ 
     NSLog(@"进来?");
-
+    ZFClassifyCollectionViewController * classifyVC = [[ZFClassifyCollectionViewController alloc]init];
+    [self.navigationController pushViewController:classifyVC animated:NO];
+    
 //        [self FuncListPostRequst];
     //    [self HotsalesPostRequst];
 
     
-    //    ZFClassifyCollectionViewController * classifyVC = [[ZFClassifyCollectionViewController alloc]init];
-    //    [self.navigationController pushViewController:classifyVC animated:NO];
+    
 }
 /**
  初始化home_tableView
@@ -100,8 +89,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
                                 CGRectMake(0, 0, KScreenW, KScreenH -48-64-44) style:UITableViewStylePlain];
     self.findGoods_TableView.delegate = self;
     self.findGoods_TableView.dataSource = self;
-    
     [self.view addSubview:_findGoods_TableView];
+    
     [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil]
                    forCellReuseIdentifier:cell_guessID];
     [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"FuncListTableViewCell" bundle:nil]
@@ -228,6 +217,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HomeGuessModel *guesslist  =[HomeGuessModel new];
+   
     if (indexPath.row < self.likeListArray.count) {
         
         guesslist = self.likeListArray[indexPath.row];
@@ -236,6 +226,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
     if (indexPath.section == CellTypeWithMainListCell ) {
         
         FuncListTableViewCell * listCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_listID forIndexPath:indexPath];
+        listCell.indexPath = indexPath;
+        listCell.funcDelegate = self;
+
         
         return listCell;
         
@@ -255,8 +248,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
         guessCell.lb_goodsName.text = guesslist.goodsName;
         guessCell.lb_price.text = [NSString stringWithFormat:@"促销价：¥%@",guesslist.netPurchasePrice];
         guessCell.lb_storeName.text = guesslist.storeName;
-        guessCell.lb_collectNum.text = @"120";
-        guessCell.lb_distence.text = @"1.5km";
+        guessCell.lb_collectNum.text = @"死数据";
+        guessCell.lb_distence.text = @"死数据";
         
         return guessCell;
     }
@@ -359,7 +352,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
                 [self.findGoods_TableView reloadData];
                 
             }
-            
         }
         
     } failure:^(NSError *error) {
@@ -368,10 +360,24 @@ typedef NS_ENUM(NSUInteger, CellType) {
     }];
 }
 
+//主控制器加载
 -(void)reloadDataWithVC
 {
     [self ADpagePostRequst];
     [self guessYouLikePostRequst];
+}
+-(NSMutableArray *)adArray{
+    if (!_adArray) {
+        _adArray =[ NSMutableArray array];
+    }
+    return _adArray;
+}
+
+-(NSMutableArray *)likeListArray{
+    if (!_likeListArray) {
+        _likeListArray =[ NSMutableArray array];
+    }
+    return _likeListArray;
 }
 
 - (void)didReceiveMemoryWarning {

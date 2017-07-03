@@ -28,6 +28,5 @@
 /** 返回 0 成功、1失败 */
 @property (nonatomic, copy) NSString * resultCode;
 
-@property (nonatomic, strong) HomeADModel * cmAdvertImgList;/* 自我模型类型 */
-
+ 
 @end

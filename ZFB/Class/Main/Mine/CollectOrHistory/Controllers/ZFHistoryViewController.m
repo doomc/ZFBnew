@@ -8,8 +8,11 @@
 
 #import "ZFHistoryViewController.h"
 #import "ZFHistoryCell.h"
+#import "HistoryFootModel.h"
+
 @interface ZFHistoryViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic , strong) UITableView * tableView;
+@property (nonatomic , strong) NSMutableArray * listArray;
 
 @end
 
@@ -22,7 +25,7 @@
 
     [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFHistoryCell" bundle:nil] forCellReuseIdentifier:@"ZFHistoryCellid"];
-    
+    [self showhistoryListPOSTRequest];
 }
 -(UITableView *)tableView{
     if (!_tableView) {
@@ -54,7 +57,7 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return self.listArray.count;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -78,8 +81,10 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZFHistoryCell * historyCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFHistoryCellid" forIndexPath:indexPath] ;
-    [historyCell.addShopCar_btn removeFromSuperview];
-    
+    Cmgoodsinfo * info =self.listArray[indexPath.section];
+    historyCell.lb_title.text = info.goodsName;
+    historyCell.lb_price.text =[NSString stringWithFormat:@"¥%@",info.storePrice];
+    [historyCell.img_collctView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",info.coverImgUrl]] placeholderImage:[UIImage imageNamed:@""]];
     return historyCell;
     
 }
@@ -96,4 +101,59 @@
 }
 
 
+#pragma mark - 收藏列表 -getSkimFootprintsList
+-(void)showhistoryListPOSTRequest
+{
+    
+    [SVProgressHUD show];
+    NSDictionary * parma = @{
+                             @"svcName":@"getSkimFootprintsList",
+                             };
+    
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+            if (self.listArray.count >0) {
+                
+                [self.listArray  removeAllObjects];
+                
+            }else{
+                
+                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+                
+                HistoryFootModel * history = [HistoryFootModel mj_objectWithKeyValues:jsondic];
+                for (Cmgoodsinfo * info in  history.cmScanFoolprintsList.cmGoodsInfo ) {
+                    [self.listArray addObject:info];
+                }
+                NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",self.listArray);
+                
+                [self.tableView reloadData];
+ 
+                
+                [SVProgressHUD dismiss];
+            }
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+        
+    }];
+    
+}
+
+-(NSMutableArray *)listArray
+{
+    if (!_listArray) {
+        _listArray =[NSMutableArray array];
+    }
+    return _listArray;
+}
 @end

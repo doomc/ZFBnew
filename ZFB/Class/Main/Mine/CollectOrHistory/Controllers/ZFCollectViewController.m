@@ -11,7 +11,7 @@
 #import "ZFCollectEditCell.h"
 #import "ZFCollectBarView.h"
 #import "ZFHistoryCell.h"
-
+#import "CollectModel.h"
 @interface ZFCollectViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
    BOOL _isEdit;
@@ -20,6 +20,7 @@
 @property (nonatomic , strong) UITableView * tableView;
 @property (nonatomic , strong) UIButton * edit_btn;
 @property (nonatomic , strong) UIView *footView;
+@property (nonatomic , strong) NSMutableArray *listArray;
 
 
 @end
@@ -39,6 +40,7 @@
         forCellReuseIdentifier:@"ZFCollectEditCellid"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFHistoryCell" bundle:nil] forCellReuseIdentifier:@"ZFHistoryCellid"];
 
+    [self showCollectListPOSTRequest];
     
 }
 -(UIView *)footView
@@ -103,7 +105,7 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return self.listArray.count;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -128,11 +130,21 @@
 {
     if (_isEdit == NO)
     {
+     
         ZFHistoryCell * normalCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFHistoryCellid" forIndexPath:indexPath];
+        Cmkeepgoodslist * list = self.listArray[indexPath.section];
+        normalCell.lb_price.text = [NSString stringWithFormat:@"¥%@", list.storePrice];
+        normalCell.lb_title.text = [NSString stringWithFormat:@"%@", list.goodsName];
+        [normalCell.img_collctView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",list.coverImgUrl]] placeholderImage:[UIImage imageNamed:@""]];
+        
         return normalCell;
     }else{
         
         ZFCollectEditCell *editCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFCollectEditCellid" forIndexPath:indexPath];
+        Cmkeepgoodslist * list = self.listArray[indexPath.section];
+        editCell.lb_price.text = [NSString stringWithFormat:@"¥%@", list.storePrice];
+        editCell.lb_title.text = [NSString stringWithFormat:@"%@", list.goodsName];
+        [editCell.img_editView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",list.coverImgUrl]] placeholderImage:[UIImage imageNamed:@""]];
         return editCell;
     }
     
@@ -142,6 +154,66 @@
 {
     NSLog(@"sectin = %ld,row = %ld",indexPath.section ,indexPath.row);
     
+}
+
+
+#pragma mark - 收藏列表 -getKeepGoodList
+-(void)showCollectListPOSTRequest
+{
+    
+    [SVProgressHUD show];
+    NSDictionary * parma = @{
+                             @"svcName":@"getKeepGoodList",
+                             };
+    
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+            if (self.listArray.count >0) {
+                
+                [self.listArray  removeAllObjects];
+                
+            }else{
+                
+                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+              
+                CollectModel * collect = [CollectModel mj_objectWithKeyValues:jsondic];
+                for (Cmkeepgoodslist * list in collect.cmKeepGoodsList) {
+                    
+                    [self.listArray addObject:list];
+                }
+                NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",_listArray);
+
+                [self.tableView reloadData];
+                
+                [SVProgressHUD dismiss];
+
+            }
+            [SVProgressHUD dismiss];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+        
+    }];
+    
+}
+
+-(NSMutableArray *)listArray
+{
+    if (!_listArray) {
+        _listArray =[NSMutableArray array];
+    }
+    return _listArray;
 }
 
 /*

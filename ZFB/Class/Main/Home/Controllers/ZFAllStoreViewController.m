@@ -14,17 +14,22 @@
 #import "AllStoreModel.h"
 #import <AMapLocationKit/AMapLocationKit.h>
 
+#import "SelectTableviewCell.h"
 @interface ZFAllStoreViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,AMapLocationManagerDelegate,XHStarRateViewDelegate>
 {
     NSInteger _pageSize;//每页显示条数
     NSInteger _pageIndex;//当前页码;
     NSInteger _starNum;//星星个数;
     BOOL _isChanged;//切换距离最近
-
+    CGFloat tableViewHeight ;
+    
 }
 @property (nonatomic,strong) NSMutableArray * allStoreArray;//全部门店数据源
 @property (nonatomic,strong) NSMutableArray * farawayStoreArray;//距离最近数据源
+@property (nonatomic,strong) NSMutableArray * listArray;//弹框数据源
+
 @property (nonatomic,strong) UITableView * all_tableview;
+@property (nonatomic,strong) UITableView * select_tableview;
 @property (nonatomic,strong) UIView * sectionView;
 @property (nonatomic,strong) UIButton * farway_btn;
 @property (nonatomic,strong) UIButton * all_btn;
@@ -42,6 +47,54 @@
 @end
 
 @implementation ZFAllStoreViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.title =@"全部门店";
+
+    //默认一个页码 和 页数
+    _pageSize = 10;
+    _pageIndex = 1;
+    _isChanged = NO;//默认切换到距离最近 （No?yes : 距离最近 /全部）
+    
+    [self.view addSubview:self.all_tableview];
+    [self.all_tableview registerNib:[UINib nibWithNibName:@"AllStoreCell" bundle:nil]
+             forCellReuseIdentifier:@"AllStoreCell"];
+    [self.select_tableview registerNib:[UINib nibWithNibName:@"SelectTableviewCell" bundle:nil]
+                forCellReuseIdentifier:@"SelectTableviewCell"];
+    
+ 
+    [self CDsyceleSettingRunningPaint];
+    [self creatButtonWithDouble];
+    [self LocationMapManagerInit];
+    
+    [self FarawayStorePostRequst];//默认展示距离最近
+    
+}
+-(UITableView *)select_tableview
+{
+    if (!_select_tableview) {
+        _select_tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW/2, 150) style:UITableViewStylePlain];
+        _select_tableview.layer.borderWidth = 0.5;
+        _select_tableview.layer.borderColor = HEXCOLOR(0xfecccc).CGColor;
+        _select_tableview.clipsToBounds = YES;
+        _select_tableview.delegate = self;
+        _select_tableview.dataSource = self;
+        
+    }
+    return _select_tableview;
+}
+-(UITableView *)all_tableview
+{
+    if (!_all_tableview) {
+        _all_tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH - 64) style:UITableViewStylePlain];
+        _all_tableview.delegate = self;
+        _all_tableview.dataSource= self;
+    }
+    return _all_tableview;
+}
+
 -(NSMutableArray *)allStoreArray{
     if (!_allStoreArray) {
         _allStoreArray =[NSMutableArray array];
@@ -54,37 +107,6 @@
     }
     return _farawayStoreArray;
 }
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    //默认一个页码 和 页数
-    _pageSize = 10;
-    _pageIndex = 1;
-    _isChanged = NO;//默认切换到距离最近 （No?yes : 距离最近 /全部）
-
-    [self initAll_tableviewInterface];
-    [self CDsyceleSettingRunningPaint];
-    [self creatButtonWithDouble];
-    [self LocationMapManagerInit];
-
-    [self FarawayStorePostRequst];//默认展示距离最近
-
-}
-
--(void)initAll_tableviewInterface
-{
-    
-    self.title =@"全部门店";
-    self.all_tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH - 64) style:UITableViewStylePlain];
-    [self.view addSubview:self.all_tableview];
-    
-    self.all_tableview.delegate = self;
-    self.all_tableview.dataSource= self;
-    [self.all_tableview registerNib:[UINib nibWithNibName:@"AllStoreCell" bundle:nil] forCellReuseIdentifier:@"AllStoreCell"];
-    
-}
-
 /**初始化轮播 */
 -(void)CDsyceleSettingRunningPaint
 {
@@ -119,7 +141,6 @@
 
 -(void)starRateView:(XHStarRateView *)starRateView currentScore:(CGFloat)currentScore
 {
-    
     NSLog(@"currentScore = %f",currentScore);
 }
 #pragma mark -  tableViewDelegate
@@ -129,78 +150,123 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (_isChanged == NO ) {
-        return self.farawayStoreArray.count;
+    NSInteger count = 0 ;
+    if (tableView == self.all_tableview) {
+        if (_isChanged == NO ) {
+            return self.farawayStoreArray.count;
+        }
+        else{
+            return self.allStoreArray.count;
+        }
     }
     else{
-        return self.allStoreArray.count;
+        
+        count = 2;
     }
+    return count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 88;
+    CGFloat height  = 0;
+    if (tableView == self.all_tableview) {
+        
+        height =88;
+        
+    }else{
+        height = 30;
+    }
+    return height;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 40;
+    if (tableView == self.all_tableview) {
+        
+        if (section == 0) {
+            return 40;
+        }
+        return 0.001;
+        
+    }else{
+        
     }
-    return 0;
+    
+    return 0.001;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return self.sectionView;
+    UIView * view = nil;
+    if (tableView == self.all_tableview) {
+        view = self.sectionView;
+    }
+    return view;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AllStoreCell *all_cell = [self.all_tableview dequeueReusableCellWithIdentifier:@"AllStoreCell" forIndexPath:indexPath];
-    all_cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-    if (_isChanged == NO) {
-        AllStoreModel * listModel =  [AllStoreModel new];
-
-        if (indexPath.row < [self.farawayStoreArray count]) {
-            listModel  = [self.farawayStoreArray objectAtIndex:indexPath.row];
-            
-        }
-        CGFloat juli = [listModel.juli floatValue]*0.001;
-        all_cell.lb_distance.text = [NSString stringWithFormat:@"%.2fkm",juli];
-        [all_cell.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
+    if (tableView == self.all_tableview) {
         
-        return all_cell;
-
-    }else{
-        AllStoreModel * listModel =  [AllStoreModel new];
-        if (indexPath.row < [self.allStoreArray count]) {
+        AllStoreCell *all_cell = [self.all_tableview
+                                  dequeueReusableCellWithIdentifier:@"AllStoreCell" forIndexPath:indexPath];
+        all_cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        if (_isChanged == NO) {
+            AllStoreModel * listModel =  [AllStoreModel new];
             
-            listModel  = [self.allStoreArray objectAtIndex:indexPath.row];
+            if (indexPath.row < [self.farawayStoreArray count]) {
+                listModel  = [self.farawayStoreArray objectAtIndex:indexPath.row];
+                
+            }
+            CGFloat juli = [listModel.juli floatValue]*0.001;
+            all_cell.lb_distance.text = [NSString stringWithFormat:@"%.2fkm",juli];
+            [all_cell.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
+            
+            return all_cell;
+            
+        }else{
+            
+            AllStoreModel * listModel =  [AllStoreModel new];
+            if (indexPath.row < [self.allStoreArray count]) {
+                
+                listModel  = [self.allStoreArray objectAtIndex:indexPath.row];
+            }
+            CGFloat juli = [listModel.juli floatValue]*0.001;
+            all_cell.lb_distance.text = [NSString stringWithFormat:@"%.2f公里",juli];
+            [all_cell.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
+            return all_cell;
+            
         }
-        CGFloat juli = [listModel.juli floatValue]*0.001;
-        all_cell.lb_distance.text = [NSString stringWithFormat:@"%.2f公里",juli];
-        [all_cell.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
-        return all_cell;
-
+        
+    }else{//selecttableView
+        
     }
+    return nil;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@" section= %ld ,row =  %ld",indexPath.section ,indexPath.row);
-    DetailStoreViewController * detailStroeVC =[[ DetailStoreViewController alloc]init];
-
-    if (_isChanged == NO) {
-        //跳转到门店详情
-        AllStoreModel * listModel = self.farawayStoreArray[indexPath.row];
-        detailStroeVC.storeId =listModel.storeId;
-        [self.navigationController pushViewController:detailStroeVC animated:YES];
-    }else{
-        //跳转到门店详情
-        AllStoreModel * listModel = self.allStoreArray[indexPath.row];
-        detailStroeVC.storeId =listModel.storeId;
-        [self.navigationController pushViewController:detailStroeVC animated:YES];
+    if (tableView == self.all_tableview) {
+        
+        NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
+        DetailStoreViewController * detailStroeVC =[[ DetailStoreViewController alloc]init];
+        
+        if (_isChanged == NO) {
+            //跳转到门店详情
+            AllStoreModel * listModel = self.farawayStoreArray[indexPath.row];
+            detailStroeVC.storeId =listModel.storeId;
+            [self.navigationController pushViewController:detailStroeVC animated:YES];
+        }else{
+            //跳转到门店详情
+            AllStoreModel * listModel = self.allStoreArray[indexPath.row];
+            detailStroeVC.storeId =listModel.storeId;
+            [self.navigationController pushViewController:detailStroeVC animated:YES];
+        }
     }
-
+    else{
+        
+        NSLog(@" section2 ------ %ld ,row2------  %ld",indexPath.section ,indexPath.row);
+        
+    }
+    
 }
 
 -(void)creatButtonWithDouble
@@ -254,7 +320,6 @@
 #pragma mark - buttonBtnClickAllStore全部门店
 -(void)buttonBtnClickAllStore:(UIButton *)button
 {
-    
     _isChanged = YES;
     [self.farway_btn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
     [self.farway_btn setImage:[UIImage imageNamed:@"arrows_down_black"] forState:UIControlStateNormal];
@@ -292,6 +357,7 @@
     [self.locationManager startUpdatingLocation];
     
 }
+
 #pragma mark  -AMapLocationManagerDelegate
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode
 {
@@ -318,7 +384,7 @@
 -(void)allStorePostRequst
 {
     [SVProgressHUD show];
-
+    
     NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageSize];
     NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
     
@@ -329,11 +395,11 @@
                              @"latitude":@"" ,//纬度
                              @"pageSize":pageSize,//每页显示条数
                              @"pageIndex":pageIndex,//当前页码
-//                             @"cmUserId":BBUserDefault.cmUserId,
+                             //                             @"cmUserId":BBUserDefault.cmUserId,
                              
                              };
     NSLog(@"    lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
-
+    
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
     [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
@@ -347,7 +413,7 @@
                 [self.allStoreArray  removeAllObjects];
                 
             }else{
-               
+                
                 NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
                 NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
                 NSArray * dictArray = jsondic [@"cmStoreList"];
@@ -363,17 +429,17 @@
                 
                 [self.all_tableview reloadData];
             }
-             [SVProgressHUD dismiss];
- 
+            [SVProgressHUD dismiss];
+            
         }
-
+        
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         [SVProgressHUD dismiss];
-
+        
     }];
-
+    
 }
 
 #pragma mark - 距离最近门店网络请求
@@ -427,15 +493,51 @@
                 
                 [self.all_tableview reloadData];
             }
-             [SVProgressHUD dismiss];
-
+            [SVProgressHUD dismiss];
+            
         }
         
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         [SVProgressHUD dismiss];
-
+        
     }];
 }
+
+
+
+#pragma mark -  getGoodsTypeInfo 查找商品列表
+-(void)checkClassPostRequst
+{
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getGoodsTypeInfo",
+                             
+                             };
+    
+    
+    [PPNetworkHelper POST:zfb_url parameters:parma responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+   
+                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+                
+                //mjextention 数组转模型
+ 
+                [self.select_tableview reloadData];
+         
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
+
 @end

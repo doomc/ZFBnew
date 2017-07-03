@@ -828,7 +828,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     
     MJWeakSelf;
     [SVProgressHUD show];
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:param success:^(id responseObject) {
+    [PPNetworkHelper POST:zfb_url parameters:param success:^(id responseObject) {
        
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
             

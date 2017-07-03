@@ -28,6 +28,8 @@
 
 @property (nonatomic, copy) NSString *longitude;
 
+
+
 @property (nonatomic, strong) NSArray<Productsku *> *productSku;
 
 @property (nonatomic, copy) NSString *latitude;

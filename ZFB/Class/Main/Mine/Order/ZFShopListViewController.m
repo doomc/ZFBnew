@@ -40,6 +40,8 @@
     [self.mytableView registerNib:[UINib nibWithNibName:@"ShopOrderStoreNameCell" bundle:nil]
            forCellReuseIdentifier:@"ShopOrderStoreNameCellid"];
     
+    _goodsListArray =[NSMutableArray array];
+
     [self goodslistDetailPostRequst];
     
 }
@@ -47,13 +49,16 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return self.productlistArray.count;
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    Productlist * product = self.productlistArray[section];
+ 
+    NSLog(@"product.cmGoodsList == ==== %@",  product.cmGoodsList);
+   return  product.cmGoodsList.count;
     
-    return 2;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -69,7 +74,7 @@
 
     ShopOrderStoreNameCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopOrderStoreNameCellid"];
     
-    if (self.productlistArray.count >0) {
+    if (self.productlistArray.count > 0) {
         
         Productlist * list = self.productlistArray[section];
         cell.lb_storeName.text = list.storeName;
@@ -83,149 +88,90 @@
     
     ZFShopListCell * listCell = [self.mytableView dequeueReusableCellWithIdentifier:@"ZFShopListCellid" forIndexPath:indexPath];
     
-    if (self.goodsListArray.count > 0) {
-        Cmmgoodslist * list  =self.goodsListArray[indexPath.row];
-        listCell.lb_title.text = list.goodsName;
-        listCell.lb_count.text = list.goodsCount;
-        listCell.lb_price.text = [NSString stringWithFormat:@"¥%@",list.storePrice];
-       [listCell.img_shopView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",list.coverImgUrl]] placeholderImage:nil];
-    
+    if (self.productlistArray.count > 0) {
+        Productlist * product = _productlistArray[indexPath.section];
+        Cmmgoodslist * goods  = product.cmGoodsList[indexPath.row];
+
+        listCell.lb_title.text = goods.goodsName;
+        listCell.lb_count.text = goods.goodsCount;
+        listCell.lb_price.text = [NSString stringWithFormat:@"¥%@",goods.storePrice];
+        [listCell.img_shopView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",goods.coverImgUrl]] placeholderImage:nil];
+        
         NSString *str = @"";
-        for (Goodsprop * sku in list.goodsProp) {
+        
+        for (Goodsprop * sku in goods.goodsProp) {
             
             [self.goodsPropArray addObject:sku];
             NSLog(@"%@ --:--%@",sku.name ,sku.value);
             NSString * goodstr = [NSString stringWithFormat:@"%@:%@ ",sku.name,sku.value];
             str = [str stringByAppendingString:goodstr];
         }
+        
         listCell.lb_detailTitle.text = str;
+
     }
     
     return listCell;
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"section = %ld ----  row =%ld",indexPath.section,indexPath.row);
+}
 
 #pragma mark -   获取用户商品列表接口 getProductList
 -(void)goodslistDetailPostRequst
 {
-//    NSDictionary * parma = @{
-//                             
-//                             @"svcName":@"getProductList",
-//                            //@"cmUserId":BBUserDefault.cmUserId,
-//                             @"storeId":@"1",//可能添加参数
-//                             
-//                             };
-//    
-//    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-//    
-//    [SVProgressHUD show];
-//    
-//    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-//        
-//    } success:^(id responseObject) {
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getProductList",
+                            //@"cmUserId":BBUserDefault.cmUserId,
+                             @"storeId":@"1",//可能添加参数
+                             
+                             };
     
-        NSDictionary * dic =  @{
-                                @"productList":@{
-                                        @"storeId": @"1",
-                                        @"storeName": @"陶妈妈服装店"
-                                        },
-                                @"cmGoodsList": @[
-                                        @{
-                                            @"goodsId":  @"1",
-                                            @"goodsName":  @"精装女装修身",
-                                            @"coverImgUrl":  @"http://192.168.1.107:8086/upload/20170615110845_",
-                                            @"goodsProp": @[
-                                                    @{
-                                                        @"name": @"颜色",
-                                                        @"value": @"红色"
-                                                        },
-                                                    @{
-                                                        @"name": @"大小",
-                                                        @"value": @"xxl"
-                                                        }
-                                                    ],
-                                            @"storePrice":  @"238",
-                                            @"goodsCount": @"2"
-                                            },
-                                        @{
-                                            @"goodsId": @"2",
-                                            @"goodsName": @"精品女装-韩妆",
-                                            @"coverImgUrl": @"http://192.168.1.107:8086/upload/20170615110845_",
-                                            @"goodsProp": @[
-                                                    @{
-                                                        @"name": @"颜色",
-                                                        @"value": @"红色"
-                                                        },
-                                                    @{
-                                                        @"name": @"大小",
-                                                        @"value": @"xxl"
-                                                        }
-                                                    ],
-                                            @"storePrice": @"238",
-                                            @"goodsCount": @"2"
-                                            }
-                                        ],
-                                @"goodsAllCount": @"4",
-                                @"resultCode": @0,
-                                };
-//
-//        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-//            if (self.goodsListArray.count >0) {
-//                
-//                [self.goodsListArray removeAllObjects];
-//                [self.goodsPropArray removeAllObjects];
-//
-//            }
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [SVProgressHUD show];
+    
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
         
-           //            NSString  * dataStr    = [responseObject[@"data"] base64DecodedString];
-//            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-//            
-//            ClearingStoreList * storeList = [ClearingStoreList mj_objectWithKeyValues:dic];
-//            
-//            for (Productlist * list in storeList.productList) {
-//             
-//                for (Cmmgoodslist * goods in list.cmGoodsList) {
-//                    
-//                    [self.goodsListArray  addObject:goods];
-//                }
-//                   [self.productlistArray addObject:list];
-//            }
+    } success:^(id responseObject) {
     
-    Productlist * proList = [Productlist mj_objectWithKeyValues:dic];
-    for (Cmmgoodslist * goodlist in proList.cmGoodsList) {
+         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            if (self.productlistArray.count >0) {
+                
+                [self.productlistArray removeAllObjects];
+
+            }
         
-        [self.goodsListArray addObject:goodlist];
-        
-    
-    }
-            NSLog(@"%@ ==== goodsListArray",self.goodsListArray);
-    
+            NSString  * dataStr    = [responseObject[@"data"] base64DecodedString];
+            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
             
-            [self.mytableView reloadData];
+ 
+             ClearingStoreList * storeList = [ClearingStoreList mj_objectWithKeyValues:jsondic];
             
-//        }
+             for (Productlist * product in storeList.productList) {
+                 
+                 [self.productlistArray addObject:product];
+ 
+             }
+     
+             NSLog(@"%@ ==== productlistArray", self.productlistArray);
+             [self.mytableView reloadData];
+            
+        }
         [SVProgressHUD dismiss];
-//        
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
-//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-//        [SVProgressHUD dismiss];
-//        
-//    }];
-//    
-    
-}
-
-
--(NSMutableArray *)goodsListArray
-{
-    if (!_goodsListArray) {
-        _goodsListArray =[NSMutableArray array];
         
-    }
-    return _goodsListArray;
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+        
+    }];
 }
+
+
 -(NSMutableArray *)goodsPropArray
 {
     if (!_goodsPropArray) {

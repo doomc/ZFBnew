@@ -178,7 +178,6 @@ UICollectionViewDataSource>
 }
 
 #pragma mark - UICollectionView DataSource Delegate
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return self.dataSource.count;
@@ -271,6 +270,15 @@ UICollectionViewDataSource>
 }
 
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    NSLog(@"section = %ld,  item = %ld", indexPath.section,indexPath.item);
+}
+
+#pragma mark - tableView - 列表网络请求
+
+#pragma mark - collectionView - 列表网络请求
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

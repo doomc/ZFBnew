@@ -45,7 +45,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     NSString * _inStock;
     NSInteger  _commentNum;
     NSInteger  _isCollect;
-    
     NSMutableArray *selectIndexPathArr;//保存indexpath的数组
     NSMutableArray * addArr;
     
@@ -54,7 +53,8 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     UILabel * lb_Sku;//弹框上视图的选择的sku
     UILabel * lb_inShock ;//库存
     UILabel * lb_price;//价格
-    
+    UIImageView * goodsImgaeView ;//视窗视图
+    UIButton  * collectButton ;//collectButton收藏按钮
 }
 @property(nonatomic,strong) UITableView * list_tableView;
 @property(nonatomic,strong) UIView * headerView;
@@ -91,9 +91,15 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
     
     _goodsCount = 1; //默认商品数量
+    if (_isCollect == 1) {///是否收藏	1.收藏 2.不是
+        [collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateNormal];
+    }else
+    {
+        [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
+        
+    }
     
     selectIndexPathArr = [NSMutableArray arrayWithObjects:@"1",@"1", nil];//用来保存 new 、old的index
-    
     [self goodsDetailListPostRequset];//网络请求
     [self creatInterfaceDetailTableView];//初始化控件tableview
     [self settingHeaderViewAndFooterView];//初始化footerview
@@ -152,14 +158,14 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     [self.view addSubview:self.footerView];
     
     //自定义导航按钮
-    UIButton  * right_btn  =[ UIButton buttonWithType:UIButtonTypeCustom];
-    right_btn.frame = CGRectMake(0, 0, 20, 20);
-    [right_btn setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
-    [right_btn setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateSelected];
-
-    [right_btn addTarget:self action:@selector(didclickLove:) forControlEvents:UIControlEventTouchUpInside];
+    collectButton  =[ UIButton buttonWithType:UIButtonTypeCustom];
+    collectButton.frame = CGRectMake(0, 0, 20, 20);
+    [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
+    [collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateSelected];
+    
+    [collectButton addTarget:self action:@selector(didclickLove:) forControlEvents:UIControlEventTouchUpInside];
     //自定义button必须执行
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:right_btn];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:collectButton];
     self.navigationItem.rightBarButtonItem = rightItem;
     
     self.contactService = [tempView viewWithTag:2001];//客服
@@ -178,11 +184,11 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     [self.navigationController pushViewController:vc animated:YES];
     
 }
-#pragma mark - 加入购物车
+#pragma mark - 加入购物车- 选择规格
 -(void)addShopCar:(UIButton * )sender
 {
     
-    [self popAcenterView];
+    [self popActionView];
 }
 
 /**
@@ -192,21 +198,23 @@ typedef NS_ENUM(NSUInteger, typeCell) {
  */
 -(void )didclickLove:(UIButton *)sender
 {
+#warning  -- 有问题 取消收藏判断有问题;
     sender.selected = !sender.selected;
     ///是否收藏	1.收藏 2.不是
     if (_isCollect == 1) {
         NSLog(@"已经收藏");
         sender.selected = YES;
         [self addCollectedPostRequest]; //添加收藏
-
+        
     }else{
+        _isCollect = 2;
         NSLog(@"暂未收藏");
         sender.selected = NO;
         [self cancelCollectedPostRequest];//取消收藏
-
+        
     }
- 
- 
+    
+    
 }
 #pragma mark  -tableView  delegate
 
@@ -300,6 +308,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
     [self.mapNavigationView showMapNavigationViewWithtargetLatitude:22.488260 targetLongitute:113.915049 toName:@"中海油华英加油站"];
     [self.view addSubview:_mapNavigationView];
+    [self.view bringSubviewToFront:_mapNavigationView];
     
     //    //从指定地导航到指定地
     //        [self.mapNavigationView showMapNavigationViewFormcurrentLatitude:30.306906 currentLongitute:120.107265 TotargetLatitude:22.488260 targetLongitute:113.915049 toName:@"中海油华英加油站"];
@@ -308,14 +317,15 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 #pragma mark - 联系门店 唤醒地图
 -(void)contactPhone:(UIButton *)sender
 {
-    JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"确认拨打023-68006800联系门店吗" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"确认拨打tel:%@联系门店吗",_contactPhone]  preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction * cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         UIWebView *callWebView = [[UIWebView alloc] init];
-        NSURL *telURL = [NSURL URLWithString:@"tel:023-68006800"];
+        
+        NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",_contactPhone]];
         [callWebView loadRequest:[NSURLRequest requestWithURL:telURL]];
         [self.view addSubview:callWebView];
         
@@ -328,6 +338,11 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     NSLog(@"section = %ld,row == %ld",indexPath.section ,indexPath.row);
     
+    if (indexPath.row == 0) {
+        
+        [self popActionView];
+        
+    }
     if (indexPath.row == 1) {
         
         ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
@@ -343,16 +358,13 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 #pragma mark - SKUColleView -UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return self.reluJsonKeyArray.count;
+    return self.productSkuArray.count;
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    Relujson * relujson = self.reluJsonKeyArray[section];
-    _relujsonValueArray = [[NSArray alloc]init];
-    _relujsonValueArray = [relujson.value  componentsSeparatedByString:@","];
-    NSLog(@"_relujsonValueArray  ==== %@",_relujsonValueArray);
-    
-    return  _relujsonValueArray.count;
+    Productsku * product = self.productSkuArray[section];
+    NSLog(@"product.reluJson  ==== %@",product.reluJson);
+    return   product.reluJson.count;
 }
 //设置每个item的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -367,27 +379,27 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 //设置headview
 -(UICollectionReusableView*)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     
-    UICollectionReusableView * reusableView = nil;
+    NSString *reuseIdentifier;
     
-
-    if ( kind  == UICollectionElementKindSectionHeader ) {
-        Relujson * relujson = self.reluJsonKeyArray[indexPath.section];
-        NSLog(@"name = =========%@ =========relujson.value =%@",relujson.name, relujson.value );
-        
-        SkuHeaderReusableView* headerView = [self.SkuColletionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
-        headerView.backgroundColor = [UIColor whiteColor];
-        UILabel *  lb_title = [[UILabel alloc]initWithFrame:CGRectMake(0, 5, 100, 30)];
-        lb_title.font = [UIFont systemFontOfSize:14];
-        
-        lb_title.text = relujson.name;
-        lb_title.textColor = HEXCOLOR(0x363636);
-        [headerView addSubview:lb_title];
-        
-        reusableView = headerView;
-        
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader])
+    { // header
+        reuseIdentifier = @"header";
     }
     
-    return reusableView;
+    SkuHeaderReusableView* headerView = [self.SkuColletionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+
+    
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader])
+    {
+        Productsku * product = self.productSkuArray[indexPath.section];
+        for (Relujson * relujson in product.reluJson) {
+            
+            NSLog(@"name = =========%@  ",relujson.name );
+            headerView.lb_title.text = relujson.name;
+        }
+    }
+    
+    return headerView;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -395,18 +407,24 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     SukItemCollectionViewCell * cell = [self.SkuColletionView
                                         dequeueReusableCellWithReuseIdentifier:@"SukItemCollectionViewCellid" forIndexPath:indexPath];
     
-    if (self.reluJsonKeyArray.count > 0) {
-       
-        Relujson * relujson = self.reluJsonKeyArray[indexPath.section];
-        NSArray * newJson = [relujson.value  componentsSeparatedByString:@","];
-        [cell.selectItemColor setTitle:newJson[indexPath.row] forState:UIControlStateNormal] ;
+    if (self.productSkuArray.count > 0) {
+        
+        
+        Productsku * product= self.productSkuArray[indexPath.row];
+        lb_price.text =  [NSString stringWithFormat:@"价格:¥%@", product.purchase ];//价格
+        lb_inShock.text = [NSString stringWithFormat:@"库存:¥%@", product.buyNum];//库存
+        NSString * colorWthSize =@"";
+        for (Relujson * relujson in product.reluJson) {
+            [self.reluJsonKeyArray addObject:relujson];
+            colorWthSize = [NSString stringWithFormat:@"%@",relujson.value];
+        }
+        
+        [cell.selectItemColor setTitle:colorWthSize forState:UIControlStateNormal] ;
         [cell.selectItemColor setBackgroundColor:HEXCOLOR(0xffffff)];
         [cell.selectItemColor setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
         cell.selectItemColor.selected = NO;
-
+        
     }
-    
-    //    cell.itemDelegate = self;
     
     return cell;
 }
@@ -482,7 +500,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 #pragma mark  - 商品详情 网络请求
 -(void)goodsDetailListPostRequset{
     
-    // [SVProgressHUD show];
     
     NSDictionary * parma = @{
                              
@@ -492,19 +509,17 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                              };
     
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    [SVProgressHUD show];
     
     [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         
-        //        NSLog(@"  %@  = responseObject  " ,responseObject);
-        
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
             
-            if (self.productSkuArray.count >0 || self.reluJsonKeyArray.count >0) {
+            if (self.productSkuArray.count > 0  ) {
                 
                 [self.productSkuArray  removeAllObjects];
-                [self.reluJsonKeyArray  removeAllObjects];
                 
             }else{
                 
@@ -512,8 +527,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                 NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
                 
                 //MJEXTENTION
-                DetailGoodsModel * goodsModel = [DetailGoodsModel mj_objectWithKeyValues:jsondic];
-                for (Cmgoodsdetailslist * goodslist in goodsModel.cmGoodsDetailsList) {
+                DetailGoodsModel * detailList = [DetailGoodsModel mj_objectWithKeyValues:jsondic];
+                
+                for (Cmgoodsdetailslist * goodslist in detailList.cmGoodsDetailsList) {
                     
                     _goodsName = goodslist.goodsName;
                     _sotreName = goodslist.sotreName;
@@ -528,24 +544,17 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                     _commentNum = goodslist.commentNum;
                     _isCollect  = goodslist.isCollect;
                     
-                    //    NSLog(@" 店名 = %@ ////////  手机号= %@ ////////  距离 =%@" ,_goodsName,_contactPhone,_juli);
-                    for (Productsku * sku in goodslist.productSku) {
-                        for (Relujson *reluJson in sku.reluJson) {
-                            
-                            [self.reluJsonKeyArray addObject:reluJson];
-                        }
-                        [self.productSkuArray addObject:sku];
+                    for (Productsku * skuproduct in goodslist.productSku) {
+                        
+                        [self.productSkuArray addObject:skuproduct];
+                        
                     }
-                    
+                    NSLog(@"---------------productSkuArray  = %@ --------------- ",self.productSkuArray);
+                    _imagesURLStrings = [[NSArray alloc]init];
+                    _imagesURLStrings = [_attachImgUrl componentsSeparatedByString:@","];
                 }
-                
-                NSLog(@"---------------productSkuArray  = %@ --------------- ",self.productSkuArray);
-                NSLog(@"---------------reluJsonKeyArray  = %@ --------------- ",self.reluJsonKeyArray);
-           
-                _imagesURLStrings = [[NSArray alloc]init];
-                _imagesURLStrings = [_attachImgUrl componentsSeparatedByString:@","];
                 [self.list_tableView reloadData];
-                
+                [SVProgressHUD dismiss];
             }
             
             [SVProgressHUD dismiss];
@@ -563,7 +572,8 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 #pragma mark - 添加到购物车:saveShoppingCart
 -(void)addToshoppingCarPost
 {
-    //    [SVProgressHUD show];
+    
+    [SVProgressHUD show];
     NSString * count = [NSString stringWithFormat:@"%ld",_goodsCount];
     _sizeOrColorStr = @"{color:黑色,size:xxl}";
     NSDictionary * parma = @{
@@ -626,21 +636,20 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                              @"svcName":@"getKeepGoodInfo",
                              @"goodsId":_goodsId,
                              @"goodName":_goodsName,//商品名
- 
+                             
                              
                              };
-   
-
+    
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
             
             [self.view makeToast:@"收藏成功" duration:2 position:@"center"];
-
+            
         }
         
     } failure:^(NSError *error) {
@@ -654,7 +663,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 -(void)cancelCollectedPostRequest
 {
     NSDictionary * parma = @{
-
+                             
                              @"svcName":@"getKeepGoodDel",
                              @"goodsId":_goodsId,
                              @"cartItemId":@"",//收藏表id
@@ -665,7 +674,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:ZFB_11SendMessageUrl parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         
@@ -691,185 +700,186 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
 }
 
-#pragma mark -  弹框选择规格 popAcenterView ----------
--(void)popAcenterView
+#pragma mark -  弹框选择规格 popActionView ----------
+-(void)popActionView
 {
-    if (!self.BgView) {
+    
+    
+    _BgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH)];
+    _BgView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.3f];
+    [self.view addSubview:self.BgView];
+    [self.list_tableView bringSubviewToFront:_BgView];
+    
+    self.popView = [[UIView alloc]init];
+    self.popView.backgroundColor = [UIColor whiteColor];
+    [_BgView addSubview:self.popView];
+    //头视图
+    UIView * headView = [[UIView alloc]initWithFrame:CGRectMake(30, -10, 80, 80)];
+    headView.backgroundColor = [UIColor whiteColor];
+    headView.clipsToBounds = YES;
+    headView.layer.cornerRadius = 2;
+    [self.popView addSubview:headView];
+    
+    goodsImgaeView = [[UIImageView alloc]init];
+    goodsImgaeView.clipsToBounds = YES;
+    goodsImgaeView.image =[UIImage imageNamed:@"11.png"];
+    [headView addSubview:goodsImgaeView];
+    
+    
+    
+    lb_price = [UILabel new];
+    lb_price.text = @"123";//[NSString stringWithFormat:@"¥%@",_netPurchasePrice]
+    lb_price.textColor = HEXCOLOR(0xfe6d6a);
+    lb_price.font = [UIFont systemFontOfSize:14];
+    [self.popView addSubview:lb_price];
+    
+    //库存
+    lb_inShock = [UILabel new];
+    lb_inShock.text =@"20";
+    lb_inShock.textColor = HEXCOLOR(0xfe6d6a);
+    lb_inShock.font = [UIFont systemFontOfSize:12];
+    [self.popView addSubview:lb_inShock];
+    
+    
+    //lb_Sku规格
+    lb_Sku = [UILabel new];
+    //        lb_Sku.text = _sizeOrColorStr;
+    lb_Sku.text = @"已选择 颜色：白色 尺寸：M";
+    lb_Sku.textColor = HEXCOLOR(0xfe6d6a);
+    lb_Sku.font = [UIFont systemFontOfSize:12];
+    [self.popView addSubview:lb_Sku];
+    
+    UILabel * lb_line = [UILabel new];
+    lb_line.backgroundColor = HEXCOLOR(0xfe6d6a);
+    [self.popView addSubview:lb_line];
+    
+    
+    UICollectionViewFlowLayout * layout  = [[UICollectionViewFlowLayout alloc]init];
+    //    layout.footerReferenceSize = CGSizeMake(KScreenW, 40);
+    layout.headerReferenceSize = CGSizeMake(KScreenW, 40);
+    
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    self.SkuColletionView = [[UICollectionView alloc]initWithFrame:CGRectMake(30, 90, KScreenW - 60, 80) collectionViewLayout:layout];;
+    self.SkuColletionView.delegate  =self;
+    self.SkuColletionView.dataSource = self;
+    self.SkuColletionView.backgroundColor = [UIColor whiteColor];
+    [self.popView addSubview:self.SkuColletionView];
+    
+    [self.SkuColletionView registerNib:[UINib nibWithNibName:@"SukItemCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"SukItemCollectionViewCellid"];
+    //注册区头
+    [self.SkuColletionView  registerClass:[SkuHeaderReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+    [self.SkuColletionView registerNib:[UINib nibWithNibName:@"SkuFooterReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
+    
+    self.skufooterView = [[NSBundle mainBundle]loadNibNamed:@"SkuFooterReusableView" owner:self options:nil].lastObject;
+    self.skufooterView.countDelegate = self;
+    [self.popView addSubview:self.skufooterView];
+    
+    
+    //  删除
+    UIButton * delete = [UIButton buttonWithType:UIButtonTypeCustom];
+    delete.clipsToBounds = YES;
+    delete.layer.cornerRadius = 4;
+    delete.titleLabel.font = [UIFont systemFontOfSize:14];
+    delete.backgroundColor = HEXCOLOR(0xfe6d6a);
+    [delete setTitle:@"删除"forState:UIControlStateNormal];
+    [delete addTarget:self action:@selector(deleteRemoveTheBackgroundView:) forControlEvents:UIControlEventTouchUpInside];
+    [self.popView addSubview:delete];
+    
+    //加入购物车
+    UIButton * addShopCar = [UIButton buttonWithType:UIButtonTypeCustom];
+    addShopCar.clipsToBounds = YES;
+    addShopCar.layer.cornerRadius = 4;
+    addShopCar.titleLabel.font = [UIFont systemFontOfSize:14];
+    addShopCar.backgroundColor = HEXCOLOR(0xfe6d6a);
+    [addShopCar setTitle:@"加入购物车"forState:UIControlStateNormal];
+    [addShopCar addTarget:self action:@selector(SecondAddShopCar:) forControlEvents:UIControlEventTouchUpInside];
+    [self.popView addSubview:addShopCar];
+    
+    //立即抢购
+    UIButton * buyNow = [UIButton buttonWithType:UIButtonTypeCustom];
+    buyNow.clipsToBounds = YES;
+    buyNow.layer.cornerRadius = 4;
+    buyNow.titleLabel.font = [UIFont systemFontOfSize:14];
+    buyNow.backgroundColor = HEXCOLOR(0xfe6d6a);
+    [buyNow setTitle:@"立即抢购"forState:UIControlStateNormal];
+    [self.popView addSubview:buyNow];
+    
+    //添加约束
+    [goodsImgaeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(headView).with.insets(UIEdgeInsetsMake(5, 5, 5, 5));
+    }];
+    
+    //colletionView
+    [self.popView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.BgView);
+        make.size.mas_equalTo(CGSizeMake(KScreenW, KScreenH/2 + 100));//KScreenH/2 + 100
+        //190+self.SkuColletionView.collectionViewLayout.collectionViewContentSize.height
+    }];
+    
+    //价格
+    [lb_price mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(headView.mas_right).with.offset(10);
+        make.top.equalTo(self.popView).with.offset(10);
+        make.size.mas_equalTo(CGSizeMake(120, 15));
+    }];
+    //库存
+    [lb_inShock mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(headView.mas_right).with.offset(10);
+        make.top.equalTo(lb_price.mas_bottom).with.offset(5);
+        make.size.mas_equalTo(CGSizeMake(120, 15));
         
-        self.BgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH)];
-        self.BgView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.3f];
-        [self.view addSubview:self.BgView];
-        [self.list_tableView bringSubviewToFront:self.BgView];
+    }];
+    //规格尺寸
+    [lb_Sku mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(headView.mas_right).with.offset(10);
+        make.top.equalTo(lb_inShock.mas_bottom).with.offset(5);
+        make.size.mas_equalTo(CGSizeMake(200, 15));
+    }];
+    
+    //线
+    [lb_line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.popView).with.offset(0);
+        make.top.equalTo(headView.mas_bottom).with.offset(10);
+        make.size.mas_equalTo(CGSizeMake(KScreenW, 0.5));
+    }];
+    
+    //SkuColletionView
+    [self.SkuColletionView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        self.popView = [[UIView alloc]init];
-        self.popView.backgroundColor = [UIColor whiteColor];
-        [self.BgView addSubview:self.popView];
+        make.edges.equalTo(self.popView).with.insets(UIEdgeInsetsMake(90, 30, 100, 30));
+    }];
+    
+    //footerView
+    [self.skufooterView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.SkuColletionView.mas_bottom).with.offset(10);
+        make.left.equalTo(self.popView).with.offset(10);
+        make.right.equalTo(self.popView).with.offset(-10);
+        make.size.mas_equalTo(CGSizeMake(KScreenW , 30));
+    }];
+    //删除按钮
+    [delete mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.popView).with.offset(10);
+        make.right.equalTo(self.popView).with.offset(-20);
+        make.size.mas_equalTo(CGSizeMake(40, 40));
         
-        //头视图
-        UIView * headView = [[UIView alloc]initWithFrame:CGRectMake(30, -10, 80, 80)];
-        headView.backgroundColor = [UIColor whiteColor];
-        headView.clipsToBounds = YES;
-        headView.layer.cornerRadius = 2;
-        [self.popView addSubview:headView];
+    }];
+    //加入购物车按钮
+    [addShopCar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.skufooterView.mas_bottom).with.offset(10);
+        make.left.equalTo(self.popView).with.offset(30);
+        make.size.mas_equalTo(CGSizeMake((KScreenW - 120)/2, 40));
         
-        UIImageView * img = [[UIImageView alloc]init];
-        img.clipsToBounds = YES;
-        img.image =[UIImage imageNamed:@"11.png"];
-        [headView addSubview:img];
+    }];
+    //抢购按钮
+    [buyNow mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.skufooterView.mas_bottom).with.offset(10);
+        make.right.equalTo(self.popView).with.offset(-30);
+        make.size.mas_equalTo(CGSizeMake((KScreenW - 120)/2, 40));
         
-        [img mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(headView).with.insets(UIEdgeInsetsMake(5, 5, 5, 5));
-        }];
-        
-        lb_price = [UILabel new];
-        lb_price.text = [NSString stringWithFormat:@"¥%@",_netPurchasePrice];
-        lb_price.textColor = HEXCOLOR(0xfe6d6a);
-        lb_price.font = [UIFont systemFontOfSize:14];
-        [self.popView addSubview:lb_price];
-        
-        //库存
-        lb_inShock = [UILabel new];
-        lb_inShock.text =_inStock;
-        lb_inShock.textColor = HEXCOLOR(0xfe6d6a);
-        lb_inShock.font = [UIFont systemFontOfSize:12];
-        [self.popView addSubview:lb_inShock];
-        
-        
-        //lb_Sku规格
-        lb_Sku = [UILabel new];
-        lb_Sku.text = _sizeOrColorStr;
-        //    lb_Sku.text = @"已选择 颜色：白色 尺寸：M";
-        lb_Sku.textColor = HEXCOLOR(0xfe6d6a);
-        lb_Sku.font = [UIFont systemFontOfSize:12];
-        [self.popView addSubview:lb_Sku];
-        
-        UILabel * lb_line = [UILabel new];
-        lb_line.backgroundColor = HEXCOLOR(0xfe6d6a);
-        [self.popView addSubview:lb_line];
-        
-        
-        UICollectionViewFlowLayout * layout  = [[UICollectionViewFlowLayout alloc]init];
-        //    layout.footerReferenceSize = CGSizeMake(KScreenW, 40);
-        layout.headerReferenceSize = CGSizeMake(KScreenW, 40);
-        
-        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        self.SkuColletionView = [[UICollectionView alloc]initWithFrame:CGRectMake(30, 90, KScreenW - 60, 80) collectionViewLayout:layout];;
-        self.SkuColletionView.delegate  =self;
-        self.SkuColletionView.dataSource = self;
-        self.SkuColletionView.backgroundColor = [UIColor whiteColor];
-        [self.popView addSubview:self.SkuColletionView];
-        
-        [self.SkuColletionView registerNib:[UINib nibWithNibName:@"SukItemCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"SukItemCollectionViewCellid"];
-        [self.SkuColletionView  registerClass:[SkuHeaderReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
-        [self.SkuColletionView registerNib:[UINib nibWithNibName:@"SkuFooterReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
-        
-        self.skufooterView = [[NSBundle mainBundle]loadNibNamed:@"SkuFooterReusableView" owner:self options:nil].lastObject;
-        self.skufooterView.countDelegate = self;
-        [self.popView addSubview:self.skufooterView];
-        
-        
-        //  删除
-        UIButton * delete = [UIButton buttonWithType:UIButtonTypeCustom];
-        delete.clipsToBounds = YES;
-        delete.layer.cornerRadius = 4;
-        delete.titleLabel.font = [UIFont systemFontOfSize:14];
-        delete.backgroundColor = HEXCOLOR(0xfe6d6a);
-        [delete setTitle:@"删除"forState:UIControlStateNormal];
-        [delete addTarget:self action:@selector(deleteRemoveTheBackgroundView:) forControlEvents:UIControlEventTouchUpInside];
-        [self.popView addSubview:delete];
-        
-        //加入购物车
-        UIButton * addShopCar = [UIButton buttonWithType:UIButtonTypeCustom];
-        addShopCar.clipsToBounds = YES;
-        addShopCar.layer.cornerRadius = 4;
-        addShopCar.titleLabel.font = [UIFont systemFontOfSize:14];
-        addShopCar.backgroundColor = HEXCOLOR(0xfe6d6a);
-        [addShopCar setTitle:@"加入购物车"forState:UIControlStateNormal];
-        [addShopCar addTarget:self action:@selector(SecondAddShopCar:) forControlEvents:UIControlEventTouchUpInside];
-        [self.popView addSubview:addShopCar];
-        
-        //立即抢购
-        UIButton * buyNow = [UIButton buttonWithType:UIButtonTypeCustom];
-        buyNow.clipsToBounds = YES;
-        buyNow.layer.cornerRadius = 4;
-        buyNow.titleLabel.font = [UIFont systemFontOfSize:14];
-        buyNow.backgroundColor = HEXCOLOR(0xfe6d6a);
-        [buyNow setTitle:@"立即抢购"forState:UIControlStateNormal];
-        [self.popView addSubview:buyNow];
-        
-        //添加约束
-        [self.popView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(self.BgView);
-            make.size.mas_equalTo(CGSizeMake(KScreenW, KScreenH/2 + 100));//KScreenH/2 + 100
-            //190+self.SkuColletionView.collectionViewLayout.collectionViewContentSize.height
-        }];
-        
-        //价格
-        [lb_price mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(headView.mas_right).with.offset(10);
-            make.top.equalTo(self.popView).with.offset(10);
-            make.size.mas_equalTo(CGSizeMake(120, 15));
-        }];
-        //库存
-        [lb_inShock mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(headView.mas_right).with.offset(10);
-            make.top.equalTo(lb_price.mas_bottom).with.offset(5);
-            make.size.mas_equalTo(CGSizeMake(120, 15));
-            
-        }];
-        //规格尺寸
-        [lb_Sku mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(headView.mas_right).with.offset(10);
-            make.top.equalTo(lb_inShock.mas_bottom).with.offset(5);
-            make.size.mas_equalTo(CGSizeMake(200, 15));
-        }];
-        
-        //线
-        [lb_line mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.popView).with.offset(0);
-            make.top.equalTo(headView.mas_bottom).with.offset(10);
-            make.size.mas_equalTo(CGSizeMake(KScreenW, 0.5));
-        }];
-        
-        //SkuColletionView
-        [self.SkuColletionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.edges.equalTo(self.popView).with.insets(UIEdgeInsetsMake(90, 30, 100, 30));
-        }];
-        
-        //footerView
-        [self.skufooterView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.SkuColletionView.mas_bottom).with.offset(10);
-            make.left.equalTo(self.popView).with.offset(10);
-            make.right.equalTo(self.popView).with.offset(-10);
-            make.size.mas_equalTo(CGSizeMake(KScreenW , 30));
-        }];
-        //删除按钮
-        [delete mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.popView).with.offset(10);
-            make.right.equalTo(self.popView).with.offset(-20);
-            make.size.mas_equalTo(CGSizeMake(40, 40));
-            
-        }];
-        //加入购物车按钮
-        [addShopCar mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.skufooterView.mas_bottom).with.offset(10);
-            make.left.equalTo(self.popView).with.offset(30);
-            make.size.mas_equalTo(CGSizeMake((KScreenW - 120)/2, 40));
-            
-        }];
-        //抢购按钮
-        [buyNow mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.skufooterView.mas_bottom).with.offset(10);
-            make.right.equalTo(self.popView).with.offset(-30);
-            make.size.mas_equalTo(CGSizeMake((KScreenW - 120)/2, 40));
-            
-        }];
-
-    }
-    return;
-   
+    }];
+    
 }
+
 #pragma mark -SecondAddShopCar 加入购物车
 -(void)SecondAddShopCar:(UIButton *)button
 {

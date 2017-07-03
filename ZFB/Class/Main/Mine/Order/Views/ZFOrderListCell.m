@@ -25,7 +25,7 @@
 {
     _listArray = [NSMutableArray array];
     _listArray = listArray;
-    NSLog(@"======== %@",_listArray);
+//    NSLog(@"======== %@",_listArray);
 
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{

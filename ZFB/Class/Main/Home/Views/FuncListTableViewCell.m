@@ -9,6 +9,7 @@
 #import "FuncListTableViewCell.h"
 #import "FuncListCollectionViewCell.h"
 #import "HomeFuncModel.h"
+#import "ZFClassifyCollectionViewController.h"
 
 @interface FuncListTableViewCell ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -70,6 +71,11 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld  = item" ,indexPath.item);
+
+     if ([self.funcDelegate respondsToSelector:@selector(seleteItemCell:withIndex:)]) {
+         [self.funcDelegate seleteItemCell:self withIndex:self.indexPath ];
+    }
+    
     
 }
 #pragma mark - UICollectionViewDelegateFlowLayout

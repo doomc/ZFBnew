@@ -224,10 +224,9 @@
                 
                 [self.goodsListArray  addObject:goodsList];
             }
-            NSLog(@"%@ ==== self.goodsListArray",self.goodsListArray);
+//            NSLog(@"%@ ==== self.goodsListArray",self.goodsListArray);
             
             lb_price.text = [NSString stringWithFormat:@"¥ %.2f",[_goodsAllMoney floatValue]];
-         
             [self.mytableView reloadData];
             [SVProgressHUD dismiss];
             

@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="60.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品总额" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmA-fP-J9v">
@@ -66,6 +66,7 @@
                     <constraint firstItem="GmA-fP-J9v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="r16-eE-gWl"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="lb_priceTotal" destination="VQ9-E4-9za" id="0MK-jW-Is5"/>
                 <outlet property="lb_tipFree" destination="Qqi-QW-3ie" id="hSe-ma-DYZ"/>

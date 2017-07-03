@@ -90,6 +90,10 @@
 		494F06FF1ED42DED007EC66A /* add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06FB1ED42DED007EC66A /* add@3x.png */; };
 		494F07001ED42DED007EC66A /* reduce@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06FC1ED42DED007EC66A /* reduce@2x.png */; };
 		494F07011ED42DED007EC66A /* reduce@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06FD1ED42DED007EC66A /* reduce@3x.png */; };
+		496CC8D41F0A3EBE0029623C /* SelectTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 496CC8D21F0A3EBE0029623C /* SelectTableviewCell.m */; };
+		496CC8D51F0A3EBE0029623C /* SelectTableviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 496CC8D31F0A3EBE0029623C /* SelectTableviewCell.xib */; };
+		496CC8D91F0A52470029623C /* CollectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 496CC8D81F0A52470029623C /* CollectModel.m */; };
+		496CC8DC1F0A525F0029623C /* HistoryFootModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 496CC8DB1F0A525F0029623C /* HistoryFootModel.m */; };
 		49801C8D1ECE870100EDAA53 /* PYSearch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49801C811ECE870100EDAA53 /* PYSearch.bundle */; };
 		49801C8E1ECE870100EDAA53 /* PYSearchConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 49801C841ECE870100EDAA53 /* PYSearchConst.m */; };
 		49801C8F1ECE870100EDAA53 /* PYSearchSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49801C861ECE870100EDAA53 /* PYSearchSuggestionViewController.m */; };
@@ -759,6 +763,13 @@
 		494F06FB1ED42DED007EC66A /* add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@3x.png"; sourceTree = "<group>"; };
 		494F06FC1ED42DED007EC66A /* reduce@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce@2x.png"; sourceTree = "<group>"; };
 		494F06FD1ED42DED007EC66A /* reduce@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce@3x.png"; sourceTree = "<group>"; };
+		496CC8D11F0A3EBE0029623C /* SelectTableviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTableviewCell.h; sourceTree = "<group>"; };
+		496CC8D21F0A3EBE0029623C /* SelectTableviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTableviewCell.m; sourceTree = "<group>"; };
+		496CC8D31F0A3EBE0029623C /* SelectTableviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectTableviewCell.xib; sourceTree = "<group>"; };
+		496CC8D71F0A52470029623C /* CollectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectModel.h; sourceTree = "<group>"; };
+		496CC8D81F0A52470029623C /* CollectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectModel.m; sourceTree = "<group>"; };
+		496CC8DA1F0A525F0029623C /* HistoryFootModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryFootModel.h; sourceTree = "<group>"; };
+		496CC8DB1F0A525F0029623C /* HistoryFootModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryFootModel.m; sourceTree = "<group>"; };
 		49801C811ECE870100EDAA53 /* PYSearch.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PYSearch.bundle; sourceTree = "<group>"; };
 		49801C821ECE870100EDAA53 /* PYSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearch.h; sourceTree = "<group>"; };
 		49801C831ECE870100EDAA53 /* PYSearchConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearchConst.h; sourceTree = "<group>"; };
@@ -1941,8 +1952,8 @@
 				4943AEDE1EF0D98400803973 /* ZFCollectionViewCell.m */,
 				4943AEE11EF0D98400803973 /* CollectionViewHeaderView.h */,
 				4943AEE21EF0D98400803973 /* CollectionViewHeaderView.m */,
-				4943AEFD1EF0E0B100803973 /* ZFClassifyCollectionViewController.m */,
 				4943AEFE1EF0E0B100803973 /* ZFClassifyCollectionViewController.h */,
+				4943AEFD1EF0E0B100803973 /* ZFClassifyCollectionViewController.m */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -1990,6 +2001,17 @@
 				493ADADF1ED553DF00CB2866 /* warning_order@3x.png */,
 			);
 			path = "购物车";
+			sourceTree = "<group>";
+		};
+		496CC8D61F0A52340029623C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				496CC8D71F0A52470029623C /* CollectModel.h */,
+				496CC8D81F0A52470029623C /* CollectModel.m */,
+				496CC8DA1F0A525F0029623C /* HistoryFootModel.h */,
+				496CC8DB1F0A525F0029623C /* HistoryFootModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		49801C801ECE870100EDAA53 /* PYSearch */ = {
@@ -2499,6 +2521,9 @@
 				49F254A61EFBA21A008F6E88 /* SkuFooterReusableView.h */,
 				49F254A71EFBA21A008F6E88 /* SkuFooterReusableView.m */,
 				49F254A81EFBA21A008F6E88 /* SkuFooterReusableView.xib */,
+				496CC8D11F0A3EBE0029623C /* SelectTableviewCell.h */,
+				496CC8D21F0A3EBE0029623C /* SelectTableviewCell.m */,
+				496CC8D31F0A3EBE0029623C /* SelectTableviewCell.xib */,
 			);
 			path = DetailViews;
 			sourceTree = "<group>";
@@ -2577,6 +2602,7 @@
 		49DF70731EEAA9B10021EE92 /* CollectOrHistory(收藏历史) */ = {
 			isa = PBXGroup;
 			children = (
+				496CC8D61F0A52340029623C /* Model */,
 				49DF70741EEAA9B10021EE92 /* Controllers */,
 				49DF70791EEAA9B10021EE92 /* Views */,
 			);
@@ -3734,6 +3760,7 @@
 				49DF719D1EEAA9B20021EE92 /* ZFShopListCell.xib in Resources */,
 				49F113701ECC5547000F3BF7 /* Love_selected@3x.png in Resources */,
 				49FB3C721ECD943C0090075D /* circle@2x.png in Resources */,
+				496CC8D51F0A3EBE0029623C /* SelectTableviewCell.xib in Resources */,
 				49D6E7181ED96DE4000A837E /* TV@3x.png in Resources */,
 				49E0A0AE1ED5390200AEE354 /* 共享资源@2x.png in Resources */,
 				49F113901ECC5547000F3BF7 /* placeholder@3x.png in Resources */,
@@ -4098,6 +4125,7 @@
 				509CC4B41EF82A1B0035B1D8 /* ShoppingCarModel.m in Sources */,
 				49DF71591EEAA9B20021EE92 /* ZFDetailStoreCell.m in Sources */,
 				49DF71C11EEAA9B20021EE92 /* ZFSaleAfterContentCell.m in Sources */,
+				496CC8D91F0A52470029623C /* CollectModel.m in Sources */,
 				498AE4BD1EE6AADF00EE3FA8 /* NSData+APNSToken.m in Sources */,
 				49DF72031EEAAA5B0021EE92 /* ZFBaseNavigationViewController.m in Sources */,
 				49DF715D1EEAA9B20021EE92 /* ZFHeadViewCollectionReusableView.m in Sources */,
@@ -4109,6 +4137,7 @@
 				49DF72001EEAAA5B0021EE92 /* BaseNavigationController.m in Sources */,
 				49DF714E1EEAA9B20021EE92 /* ZFCInterpersonalCircleViewController.m in Sources */,
 				49B1E23B1F04F662000F4B20 /* AllOrderModel.m in Sources */,
+				496CC8DC1F0A525F0029623C /* HistoryFootModel.m in Sources */,
 				49DF6FF11EEA94CC0021EE92 /* AdvertiseView.m in Sources */,
 				49DF717A1EEAA9B20021EE92 /* ZFHomeViewController.m in Sources */,
 				5026A4471EEEE39B00AAC84D /* UIImage+ADCircleImage.m in Sources */,
@@ -4132,6 +4161,7 @@
 				494A6C151EE94C830034F7F5 /* UIPlaceHolderTextView.m in Sources */,
 				49DF71981EEAA9B20021EE92 /* ZFFooterCell.m in Sources */,
 				4990A3321EE4EEFC004CB908 /* MENetWorkManager.m in Sources */,
+				496CC8D41F0A3EBE0029623C /* SelectTableviewCell.m in Sources */,
 				4943AEE41EF0D98400803973 /* ZFCollectionViewCell.m in Sources */,
 				49DF71F21EEAA9B20021EE92 /* ZFShopCarCell.m in Sources */,
 				49DF717C1EEAA9B20021EE92 /* ZFHistoryViewController.m in Sources */,
@@ -4366,7 +4396,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4391,7 +4421,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
