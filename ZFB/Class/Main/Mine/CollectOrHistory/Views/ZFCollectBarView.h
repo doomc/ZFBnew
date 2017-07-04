@@ -11,16 +11,17 @@
 @protocol ZFCollectBarViewDelegate <NSObject>
 
 -(void)didClickCancelCollect:(UIButton*)sender;
--(void)didClickAddshoppingCar:(UIButton*)sender;
+-(void)didClickSelectedAll:(UIButton*)sender;
 
 
 @end
 @interface ZFCollectBarView : UIView
 
+@property (assign ,nonatomic)id <ZFCollectBarViewDelegate>delegate;
+
 @property (weak, nonatomic) IBOutlet UIButton *allChoose_btn;
 
 @property (weak, nonatomic) IBOutlet UIButton *cancelCollect_btn;
 
-@property (weak, nonatomic) IBOutlet UIButton *addShopCar_btn;
 
 @end

@@ -18,7 +18,7 @@
 @end
 @interface Cmkeepgoodslist : NSObject
 
-@property (nonatomic, assign) BOOL collectisSelected;//选择单个商品
+@property (nonatomic, assign) BOOL isCollectSelected;//选择单个商品
 
 @property (nonatomic, copy) NSString *cartItemId;
 

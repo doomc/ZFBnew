@@ -14,4 +14,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_time;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_status;
+
+@property (weak, nonatomic) IBOutlet UICollectionView *feedCollectionView;
+
+@property (strong, nonatomic) NSMutableArray * imagerray;
+
+
 @end

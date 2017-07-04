@@ -202,16 +202,18 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     sender.selected = !sender.selected;
     ///是否收藏	1.收藏 2.不是
     if (_isCollect == 1) {
-        NSLog(@"已经收藏");
-        sender.selected = YES;
-        [self addCollectedPostRequest]; //添加收藏
-        
+        if (sender.selected){
+            NSLog(@"暂未收藏");
+            sender.selected = NO;
+            [self cancelCollectedPostRequest];//取消收藏
+        }
+
     }else{
-        _isCollect = 2;
-        NSLog(@"暂未收藏");
-        sender.selected = NO;
-        [self cancelCollectedPostRequest];//取消收藏
-        
+        if (sender.selected) {
+            NSLog(@"已经收藏");
+            [self addCollectedPostRequest]; //添加收藏
+            
+        }
     }
     
     

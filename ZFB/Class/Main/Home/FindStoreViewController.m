@@ -20,9 +20,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 
 @interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,AMapLocationManagerDelegate>
 {
-    NSInteger _pageSize;//每页显示条数
-    NSInteger _pageIndex;//当前页码;
-
+    NSInteger _pageCount;//每页显示条数
+    NSInteger _page;//当前页码;
+    
 }
 @property (strong,nonatomic) UITableView * home_tableView;
 @property (strong,nonatomic) UIView * sectionView;
@@ -44,31 +44,39 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self initWithHome_Tableview];
- 
+    
     [self initInTerfaceView];
     
     //默认一个页码 和 页数
-    _pageSize = 10;
-    _pageIndex = 1;
+    _pageCount = 8;
     
     [self LocationMapManagerInit];
-    [self PostRequst];
-
+    
+    
+    weakSelf(weakSelf);
+    //上拉加载
+    _home_tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        _page ++ ;
+        [weakSelf PostRequst];
+        
+    }];
+    
+    //下拉刷新
+    _home_tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //需要将页码设置为1
+        _page = 1;
+        [weakSelf PostRequst];
+    }];
     
 }
--(NSMutableArray *)storeListArr
-{
-    if (!_storeListArr) {
-        _storeListArr = [NSMutableArray array];
-    }
-    return _storeListArr;
-}
+
 -(void)initInTerfaceView{
-   
+    
     UIView * loc_view =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];//背景图
     UIView * bg_view =[[UIView alloc]initWithFrame:CGRectMake(15, 5, KScreenW-15-15, 30)];
     [loc_view addSubview:bg_view];
-   
+    
     bg_view.layer.borderWidth = 1.0;
     bg_view.layer.cornerRadius = 4.0;
     bg_view.layer.borderColor = HEXCOLOR(0xfa6d6a).CGColor;
@@ -97,12 +105,13 @@ static NSString *CellIdentifier = @"FindStoreCellid";
  */
 -(void)initWithHome_Tableview
 {
-
+    
     self.home_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -49-64-44) style:UITableViewStylePlain];
     self.home_tableView.delegate = self;
     self.home_tableView.dataSource = self;
-    self.home_tableView.separatorStyle =UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_home_tableView];
+    self.home_tableView.separatorStyle =UITableViewCellSeparatorStyleNone;
+    
     [self.home_tableView registerNib:[UINib nibWithNibName:@"FindStoreCell" bundle:nil] forCellReuseIdentifier:CellIdentifier];
 }
 -(UIView *)sectionView
@@ -142,14 +151,14 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (self.storeListArr.count > 0) {
-       
+        
         return self.storeListArr.count;
     }
     return 3;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-
+    
     return 35;
 }
 
@@ -160,7 +169,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         
         view = self.sectionView ;
     }
-
+    
     return view;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -175,7 +184,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         
         listModel  = [self.storeListArr objectAtIndex:indexPath.row];
     }
- 
+    
     FindStoreCell *storeCell = [self.home_tableView  dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     storeCell.selectionStyle = UITableViewCellSelectionStyleNone;
     CGFloat juli = [listModel.juli floatValue]*0.001;
@@ -184,13 +193,14 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     storeCell.store_listTitle.text = listModel.storeName;
     [storeCell.store_listView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
     
-    
     return storeCell;
-
+    
 }
 #pragma tableViewDataSource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@" section --- %ld ,row -----%ld",indexPath.section ,indexPath.row);
+    
     if (self.storeListArr.count > 0) {
         
         DetailStoreViewController * vc = [[DetailStoreViewController alloc]init];
@@ -198,13 +208,13 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         vc.storeId =listModel.storeId;
         [self.navigationController pushViewController:vc animated:YES];
     }
-
-
+    
+    
 }
 
 /**
-  更多门店
-
+ 更多门店
+ 
  @param sender  跳转到更多门店
  */
 -(void)more_btnAction:(UIButton*)sender
@@ -245,73 +255,10 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     //开始定位
     [self.locationManager setLocatingWithReGeocode:YES];
     [self.locationManager startUpdatingLocation];
-
+    
 }
 
 
-
-#pragma mark - 首页网络请求
--(void)PostRequst
-{
-    
-    NSLog(@"    lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
-    
-    NSString * longitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.longitude];
-    NSString * latitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.latitude];
-    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageSize];
-    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
-    
-    NSDictionary * parma = @{
-                             
-                             @"svcName":@"getCmStoreInfo",
-                             @"longitude":longitude,//经度
-                             @"latitude":latitude ,//纬度
-                             @"pageSize":pageSize,//每页显示条数
-                             @"pageIndex":pageIndex,//当前页码
-//                             @"cmUserId":BBUserDefault.cmUserId,
-                             
-                             };
-    
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-        
-    } success:^(id responseObject) {
-        
-//        NSLog(@"  %@  = responseObject  " ,responseObject);
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
-            if (self.storeListArr.count >0) {
-            
-                [self.storeListArr  removeAllObjects];
-
-            }else{
-               
-//                [self.view makeToast:@"请求成功" duration:2 position:@"center" ];
-                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-                NSArray * dictArray = jsondic [@"cmStoreList"];
-                
-                //mjextention 数组转模型
-                NSArray *storArray = [HomeStoreListModel mj_objectArrayWithKeyValuesArray:dictArray];
-                
-                for (HomeStoreListModel *list in storArray) {
-                    
-                    [self.storeListArr addObject:list];
-                }
-                NSLog(@"storeListArr = %@",   self.storeListArr);
-
-                [self.home_tableView reloadData];
-            }
-            
-        }
-        
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-    }];
-}
 
 
 #pragma mark  -AMapLocationManagerDelegate
@@ -336,12 +283,87 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
 }
 
--(void)viewWillAppear:(BOOL)animated
+#pragma mark - 首页网络请求
+-(void)PostRequst
 {
-    [super viewWillAppear:animated];
- 
+    NSLog(@"    lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
+    
+    NSString * longitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.longitude];
+    NSString * latitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.latitude];
+    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageCount];
+    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_page];
+    
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getCmStoreInfo",
+                             @"longitude":longitude,//经度
+                             @"latitude":latitude ,//纬度
+                             @"pageSize":pageSize,//每页显示条数
+                             @"pageIndex":pageIndex,//当前页码
+                             //                             @"cmUserId":BBUserDefault.cmUserId,
+                             
+                             };
+    
+    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    
+    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        
+        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+            
+            [self.home_tableView.mj_header endRefreshing];
+            [self.home_tableView.mj_footer endRefreshing];
+            
+            if (_page == 1) {
+                
+                for (;0 < self.storeListArr.count;) {
+                
+                    [self.storeListArr removeObjectAtIndex:0];
+
+                }
+            }
+    
+            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+            NSArray * dictArray = jsondic [@"cmStoreList"];
+            
+            //mjextention 数组转模型
+            NSArray *storArray = [HomeStoreListModel mj_objectArrayWithKeyValuesArray:dictArray];
+            for (HomeStoreListModel *list in storArray) {
+                
+                [self.storeListArr addObject:list];
+            }
+            
+            [self.home_tableView reloadData];
+            NSLog(@"storeListArr = %@",   self.storeListArr);
+        }
+     
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.home_tableView.mj_header endRefreshing];
+        [self.home_tableView.mj_footer endRefreshing];
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
 }
 
+
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.home_tableView.mj_header beginRefreshing];
+    
+}
+
+-(NSMutableArray *)storeListArr
+{
+    if (!_storeListArr) {
+        _storeListArr = [NSMutableArray array];
+    }
+    return _storeListArr;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -349,13 +371,13 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

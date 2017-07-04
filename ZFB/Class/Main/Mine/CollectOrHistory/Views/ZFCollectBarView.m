@@ -10,18 +10,25 @@
 
 @implementation ZFCollectBarView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
 -(void)awakeFromNib
 {
     [super awakeFromNib];
-    NSLog(@"进来了");
 }
+
+#pragma mark - 取消收藏代理
+
+- (IBAction)cancelCollectAction:(id)sender {
+    
+    [self.delegate didClickCancelCollect:sender];
+}
+
+#pragma mark - 全选代理
+- (IBAction)selectedAllaction:(id)sender {
+    
+    [self.delegate didClickSelectedAll:sender];
+}
+
 
 
 @end

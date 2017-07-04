@@ -19,10 +19,28 @@
     self.img_editView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
 }
 
+
+
+// 商品选择的按钮回调
+- (IBAction)clickSelected:(UIButton *)sender {
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(goodsSelected:isSelected:)])
+    {
+        [self.delegate goodsSelected :self isSelected:!sender.selected];
+        
+    }
+    
+}
+
+
+
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
 }
+
+
 
 @end

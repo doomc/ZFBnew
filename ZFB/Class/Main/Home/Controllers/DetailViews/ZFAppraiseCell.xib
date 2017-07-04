@@ -99,7 +99,7 @@
                 <outlet property="lb_message" destination="av9-Co-Vk9" id="nix-3X-Baq"/>
                 <outlet property="lb_nickName" destination="eaa-ET-CTA" id="aTF-4y-Rkq"/>
             </connections>
-            <point key="canvasLocation" x="-243" y="214.5"/>
+            <point key="canvasLocation" x="-380" y="235"/>
         </tableViewCell>
     </objects>
 </document>

@@ -38,7 +38,10 @@
                             <state key="normal" title="全选" image="select_normal.png">
                                 <color key="titleColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
-                            <state key="selected" image="select_selected.png"/>
+                            <state key="selected" title="全选" image="select_selected.png"/>
+                            <connections>
+                                <action selector="selectedAllaction:" destination="4IW-td-iWI" eventType="touchUpInside" id="o5y-Nd-OmV"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -55,6 +58,9 @@
                             <color key="backgroundColor" red="0.99607843137254903" green="0.42745098039215684" blue="0.41568627450980389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="取消收藏"/>
+                            <connections>
+                                <action selector="cancelCollectAction:" destination="4IW-td-iWI" eventType="touchUpInside" id="mXp-Sb-8ng"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

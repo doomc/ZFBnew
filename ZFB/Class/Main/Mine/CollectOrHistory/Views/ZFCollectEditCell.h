@@ -7,9 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ZFCollectEditCell;
+@protocol ZFCollectEditCellDelegate <NSObject>
 
+- (void)goodsSelected:(ZFCollectEditCell *)cell isSelected:(BOOL)choosed;
+// 点击全选 按钮回调
+
+@end
 @interface ZFCollectEditCell : UITableViewCell
 
+@property (nonatomic,assign) id <ZFCollectEditCellDelegate> delegate;
+ 
 @property (weak, nonatomic) IBOutlet UIImageView *img_editView;
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
