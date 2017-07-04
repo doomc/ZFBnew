@@ -11,6 +11,11 @@
 @protocol ZFCollectBarViewDelegate <NSObject>
 
 -(void)didClickCancelCollect:(UIButton*)sender;
+/**
+ *  全选
+ *
+ *  @param sender  sender
+ */
 -(void)didClickSelectedAll:(UIButton*)sender;
 
 

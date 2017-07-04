@@ -41,13 +41,14 @@
         forCellReuseIdentifier:@"ZFCollectEditCellid"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFHistoryCell" bundle:nil] forCellReuseIdentifier:@"ZFHistoryCellid"];
 
-    [self showCollectListPOSTRequest];
+//    [self showCollectListPOSTRequest];
     
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.listArray.count;
+//    return self.listArray.count;
+    return 3;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -70,25 +71,23 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    Cmkeepgoodslist * list = self.listArray[indexPath.section];
+
     if (_isEdit == NO)
     {
      
         ZFHistoryCell * normalCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFHistoryCellid" forIndexPath:indexPath];
         normalCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        Cmkeepgoodslist * list = self.listArray[indexPath.section];
-        normalCell.lb_price.text = [NSString stringWithFormat:@"¥%@", list.storePrice];
-        normalCell.lb_title.text = [NSString stringWithFormat:@"%@", list.goodsName];
-        [normalCell.img_collctView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",list.coverImgUrl]] placeholderImage:[UIImage imageNamed:@""]];
+        normalCell.goodslist = list;
+
         
         return normalCell;
     }else{
         
         ZFCollectEditCell *editCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFCollectEditCellid" forIndexPath:indexPath];
         editCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        Cmkeepgoodslist * list = self.listArray[indexPath.section];
-        editCell.lb_price.text = [NSString stringWithFormat:@"¥%@", list.storePrice];
-        editCell.lb_title.text = [NSString stringWithFormat:@"%@", list.goodsName];
-        [editCell.img_editView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",list.coverImgUrl]] placeholderImage:[UIImage imageNamed:@""]];
+        
+        editCell.goodlist = list;
         editCell.delegate = self;
         
         return editCell;
@@ -133,6 +132,7 @@
                 for (Cmkeepgoodslist * list in collect.cmKeepGoodsList) {
                     
                     [self.listArray addObject:list];
+               
                 }
                 NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",_listArray);
                 [self.tableView reloadData];
@@ -158,6 +158,11 @@
     Cmkeepgoodslist * list = self.listArray[indexPath.section];
     list.isCollectSelected = !list.isCollectSelected;
 
+    for (Cmkeepgoodslist *list in self.listArray) {
+        
+        NSLog(@"============select========\n%d", list.isCollectSelected);
+    }
+    NSLog(@"==================indexpaht=======\n%@", indexPath);
     [self.tableView reloadData];
 
     // 每次点击都要统计底部的按钮是否全选
@@ -171,6 +176,7 @@
     if ([self isEmptyArray:self.listArray] ) {
         return NO;
     }
+
     NSInteger count = 0;
     for (Cmkeepgoodslist * list in self.listArray) {
         if (list.isCollectSelected) {
@@ -197,14 +203,12 @@
 {
     sender.selected = !sender.selected;
     NSLog(@"全选");
-    
     for (Cmkeepgoodslist *list in self.listArray) {
      
         list.isCollectSelected = sender.selected;
- 
     }
+    
     [self.tableView reloadData];
-
 }
 #pragma mark -  点击编辑
 -(void)right_button_event:(UIButton*)sender{
@@ -233,10 +237,17 @@
         
     }
 }
+
 -(NSMutableArray *)listArray
 {
     if (!_listArray) {
         _listArray =[NSMutableArray array];
+        
+        for (int i = 0; i < 3; i++) {
+            Cmkeepgoodslist * list = [[Cmkeepgoodslist alloc] init];
+            list.isCollectSelected = NO;
+            [self.listArray addObject:list];
+        }
     }
     return _listArray;
 }

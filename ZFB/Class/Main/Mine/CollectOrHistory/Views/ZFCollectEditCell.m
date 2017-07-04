@@ -19,14 +19,21 @@
     self.img_editView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
 }
 
-
+-(void)setGoodlist:(Cmkeepgoodslist *)goodlist
+{
+    _goodlist = goodlist;
+    self.lb_price.text = [NSString stringWithFormat:@"¥%@", _goodlist.storePrice];
+    self.lb_title.text = [NSString stringWithFormat:@"%@", _goodlist.goodsName];
+    [self.img_editView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_goodlist.coverImgUrl]] placeholderImage:[UIImage imageNamed:@""]];
+    self.selecet_btn.selected = _goodlist.isCollectSelected;
+}
 
 // 商品选择的按钮回调
 - (IBAction)clickSelected:(UIButton *)sender {
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(goodsSelected:isSelected:)])
     {
-        [self.delegate goodsSelected :self isSelected:!sender.selected];
+        [self.delegate goodsSelected :self isSelected:sender.selected];
         
     }
     

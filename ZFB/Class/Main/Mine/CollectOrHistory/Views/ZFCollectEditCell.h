@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CollectModel.h"
+
 @class ZFCollectEditCell;
 @protocol ZFCollectEditCellDelegate <NSObject>
 
@@ -23,6 +25,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 
 @property (weak, nonatomic) IBOutlet UIButton *selecet_btn;
+
+@property (strong, nonatomic) Cmkeepgoodslist *goodlist;
+
 
 
 @end

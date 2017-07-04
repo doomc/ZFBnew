@@ -722,7 +722,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             _orderStatus = @"";
             
             [self allOrderPostRequset];
-//            [self.allOrder_tableView reloadData];
+            [self.allOrder_tableView reloadData];
             break;
  
         case OrderTypeWaitPay:///待付款
@@ -730,7 +730,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             _payStatus   = @"0";
             _orderStatus = @"";
             [self allOrderPostRequset];
-//            [self.allOrder_tableView reloadData];
+            [self.allOrder_tableView reloadData];
             
             break;
         case OrderTypeWaitSend:///待配送
@@ -738,7 +738,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             _payStatus   = @"1";
             _orderStatus = @"0";
             [self allOrderPostRequset];
-//            [self.allOrder_tableView reloadData];
+            [self.allOrder_tableView reloadData];
             
             break;
         case OrderTypeSending:///配送中
@@ -746,35 +746,35 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             _payStatus   = @"1";
             _orderStatus = @"1";
             [self allOrderPostRequset];
-//            [self.allOrder_tableView reloadData];
+            [self.allOrder_tableView reloadData];
             break;
         case OrderTypeSended:///已配送
             
             _payStatus   = @"1";
             _orderStatus = @"2";
             [self allOrderPostRequset];
-//            [self.allOrder_tableView reloadData];
+            [self.allOrder_tableView reloadData];
             break;
         case OrderTypeDealSuccess:///交易成功
             
             _payStatus   = @"5";
             _orderStatus = @"2";
             [self allOrderPostRequset];
-//            [self.allOrder_tableView reloadData];
+            [self.allOrder_tableView reloadData];
             break;
         case OrderTypeCancelSuccess:///交易取消
             
             _payStatus   = @"1";
             _orderStatus = @"3";
             [self allOrderPostRequset];
-//            [self.allOrder_tableView reloadData];
+            [self.allOrder_tableView reloadData];
             break;
         case OrderTypeAfterSale:///售后申请
             
             _payStatus   = @"1";
             _orderStatus = @"3";
             [self allOrderPostRequset];
-//            [self.allOrder_tableView reloadData];
+            [self.allOrder_tableView reloadData];
             break;
     }
     

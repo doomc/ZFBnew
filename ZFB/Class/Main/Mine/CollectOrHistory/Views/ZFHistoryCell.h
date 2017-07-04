@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CollectModel.h"
 @interface ZFHistoryCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_collctView;
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 
-@property (weak, nonatomic) IBOutlet UIButton *addShopCar_btn;
+@property (strong, nonatomic) Cmkeepgoodslist * goodslist;
 
 @end
