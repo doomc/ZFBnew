@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AllOrderModel.h"
 
 @interface ZFSaleAfterHeadCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_orderCode;
 @property (weak, nonatomic) IBOutlet UILabel *creatOrdertime;
 @property (weak, nonatomic) IBOutlet UILabel *lb_status;
+
+@property (strong, nonatomic) Orderlist * orderlist;
 
 @end

@@ -20,20 +20,18 @@ PODS:
   - AMapSearch (5.0.0):
     - AMapFoundation (~> 1.2)
   - Masonry (1.0.2)
-  - MGSwipeTableCell (1.5.6)
   - MJExtension (3.0.13)
   - SVProgressHUD (2.1.2)
-  - YYModel (1.0.4)
+  - YBPopupMenu (0.1.2)
 
 DEPENDENCIES:
   - AFNetworking
   - AMapLocation
   - AMapSearch
   - Masonry
-  - MGSwipeTableCell
   - MJExtension
   - SVProgressHUD
-  - YYModel
+  - YBPopupMenu
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -41,11 +39,10 @@ SPEC CHECKSUMS:
   AMapLocation: 47b62b5381a66e4d0c2931b70ffde72682427896
   AMapSearch: cf7fd100d533995822d92c22586abfaf7cdf6eef
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
-  MGSwipeTableCell: 616700eb0ffd1c611ba909066cb7fd739790a0a7
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
-  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
+  YBPopupMenu: f081ab289c4c72483b940594e4976314157fc727
 
-PODFILE CHECKSUM: 8e71a1684aec238fa71dccf5f707987a6afd6b9e
+PODFILE CHECKSUM: a55a10d72e8b87bdce3fe94cba78b683847f929b
 
 COCOAPODS: 1.2.0

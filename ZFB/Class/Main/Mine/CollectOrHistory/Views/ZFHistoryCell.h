@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 
+
 @property (strong, nonatomic) Cmkeepgoodslist * goodslist;
 
 @end

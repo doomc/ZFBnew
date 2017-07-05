@@ -12,12 +12,12 @@
 @interface EditAddressViewController ()<UITextFieldDelegate>
 
 @property (nonatomic,strong) AddressPickerView *myAddressPickerView;
-@property (weak, nonatomic) IBOutlet UILabel *lb_city;
-@property (weak, nonatomic) IBOutlet UITextField *tf_name;
-@property (weak, nonatomic) IBOutlet UITextField *tf_cellphone;
-@property (weak, nonatomic) IBOutlet UITextField *tf_mobilePhone;
-@property (weak, nonatomic) IBOutlet UITextField *tf_detailAddress;
-@property (weak, nonatomic) IBOutlet UISwitch *isDefaultSwitch;
+@property (weak, nonatomic ) IBOutlet UILabel           *lb_city;
+@property (weak, nonatomic ) IBOutlet UITextField       *tf_name;
+@property (weak, nonatomic ) IBOutlet UITextField       *tf_cellphone;
+@property (weak, nonatomic ) IBOutlet UITextField       *tf_mobilePhone;
+@property (weak, nonatomic ) IBOutlet UITextField       *tf_detailAddress;
+@property (weak, nonatomic ) IBOutlet UISwitch          *isDefaultSwitch;
 
 @end
 
@@ -28,30 +28,30 @@
     
     // Do any additional setup after loading the view from its nib.
     
-    self.title =@"编辑收货地址";
- 
-    self.tf_name.delegate =self;
-    self.tf_cellphone.delegate =self;
-    self.tf_mobilePhone.delegate =self;
-    self.tf_detailAddress.delegate =self;
+    self.title =@"新增收货地址";
+    
+    self.tf_name.delegate          = self;
+    self.tf_cellphone.delegate     = self;
+    self.tf_mobilePhone.delegate   = self;
+    self.tf_detailAddress.delegate = self;
     
     [self.tf_name addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     [self.tf_cellphone addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     [self.tf_mobilePhone addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     [self.tf_detailAddress addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
-
+    
     [self initSwitchView];
     
     if ( _postAddressId != nil || ![_postAddressId isEqualToString:@""]) {
-     
+        
         [self editUserRewardInfoMessagePostRequst];
     }
 }
 
 -(void)initSwitchView
 {
-    UISwitch * switchView= [[UISwitch alloc]initWithFrame:CGRectMake(0,0, 40, 30)];
-    self.isDefaultSwitch = switchView;
+    UISwitch * switchView = [[UISwitch alloc]initWithFrame:CGRectMake(0,0, 40, 30)];
+    self.isDefaultSwitch  = switchView;
     //拿到当前userdefults的状态
     self.isDefaultSwitch.on = [[NSUserDefaults standardUserDefaults]boolForKey:@"switchType"];
     
@@ -61,7 +61,7 @@
         
     }else{
         _defaultFlag = @"2";
-
+        
         NSLog(@"关闭状态");
     }
     [self.isDefaultSwitch addTarget:self action:@selector(didClickSwitch:) forControlEvents:UIControlEventValueChanged];
@@ -83,15 +83,15 @@
 //设置右边按键（如果没有右边 可以不重写）
 -(UIButton*)set_rightButton
 {
-    NSString * saveStr = @"保存";
+    NSString * saveStr     = @"保存";
     UIButton *right_button = [[UIButton alloc]init];
     [right_button setTitle:saveStr forState:UIControlStateNormal];
-    right_button.titleLabel.font=SYSTEMFONT(14);
+    right_button.titleLabel.font = SYSTEMFONT(14);
     [right_button setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
     right_button.titleLabel.textAlignment = NSTextAlignmentRight;
-    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
-    CGFloat width = size.width ;
-    right_button.frame =CGRectMake(0, 0, width+10, 22);
+    CGSize size                           = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
+    CGFloat width                         = size.width ;
+    right_button.frame                    = CGRectMake(0, 0, width+10, 22);
     
     return right_button;
 }
@@ -117,14 +117,14 @@
 #pragma mark  - UITextFieldDelegate
 - (void)textChange :(UITextField *)textfiled
 {
-     if (textfiled == _tf_name ) {
+    if (textfiled == _tf_name ) {
         
         NSLog(@"tf_name ==== %@",_tf_name.text);
     }
     else if (textfiled == _tf_cellphone  )
     {
         NSLog(@"_tf_cellphone ==== %@",_tf_name.text);
-
+        
     }
     else if (textfiled == _tf_mobilePhone   )
     {
@@ -141,7 +141,7 @@
         
         if ([_tf_cellphone.text isMobileNumber]) {
             NSLog(@"手机号 ===== %@",_tf_cellphone.text);
- 
+            
         }else{
             
             [self.view makeToast:@"手机格式不对哦~😯" duration:2 position:@"center"];
@@ -149,7 +149,7 @@
         }
     }
     
-   else if (textField == _tf_mobilePhone) {
+    else if (textField == _tf_mobilePhone) {
         
         if ([_tf_mobilePhone.text isMobileNumber]) {
             NSLog(@"备用手机号 ===== %@",_tf_cellphone.text);
@@ -188,19 +188,19 @@
     }
     else{
         [self.view makeToast:@"请填写完地址信息后再保存~" duration:2 position:@"center"];
-
+        
     }
     
 }
 #pragma mark -   保存用户信息saveUserAddressInfo
 -(void)savedInfoMessagePostRequst
 {
- 
+    
     NSLog(@"_saveBool  ---------- %@",_defaultFlag);
-     NSDictionary * parma = @{
+    NSDictionary * parma = @{
                              
                              @"svcName":@"saveUserAddressInfo",
-//                             @"cmUserId":BBUserDefault.cmUserId,
+                             //                             @"cmUserId":BBUserDefault.cmUserId,
                              @"contactUserName":_tf_name.text,
                              @"contactMobilePhone":_tf_cellphone.text,
                              @"mobilePhone":_tf_mobilePhone.text ,
@@ -217,13 +217,13 @@
         
     } success:^(id responseObject) {
         
-        NSLog(@"dic= = == =%@",responseObject);
+        NSLog(@"dic = = == =%@",responseObject);
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
             
             [SVProgressHUD dismiss];
-
+            
         }
-
+        
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
@@ -231,7 +231,7 @@
         
     }];
     
-
+    
 }
 
 
@@ -244,7 +244,7 @@
                              
                              @"svcName":@"editUserReward",
                              @"postAddressId":_postAddressId,
- 
+                             
                              };
     
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
@@ -255,16 +255,16 @@
     } success:^(id responseObject) {
         
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+            NSString  * dataStr    = [responseObject[@"data"] base64DecodedString];
             NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-           
-            _tf_name.text  = jsondic[@"cmUserRewardInfo"][@"contactUserName"];
-            _tf_cellphone.text  = jsondic[@"cmUserRewardInfo"][@"contactMobilePhone"];
-            _tf_mobilePhone.text  = jsondic[@"cmUserRewardInfo"][@"mobilePhone"];
-            _lb_city.text  = jsondic[@"cmUserRewardInfo"][@"deliveryProvince"];
-            _tf_detailAddress.text  = jsondic[@"cmUserRewardInfo"][@"deliveryAddress"];
-            _defaultFlag = jsondic[@"cmUserRewardInfo"][@"defaultFlag"];
-//            NSLog(@"jsondic= = == =%@",jsondic);
+            
+            _tf_name.text          = jsondic[@"cmUserRewardInfo"][@"contactUserName"];
+            _tf_cellphone.text     = jsondic[@"cmUserRewardInfo"][@"contactMobilePhone"];
+            _tf_mobilePhone.text   = jsondic[@"cmUserRewardInfo"][@"mobilePhone"];
+            _lb_city.text          = jsondic[@"cmUserRewardInfo"][@"deliveryProvince"];
+            _tf_detailAddress.text = jsondic[@"cmUserRewardInfo"][@"deliveryAddress"];
+            _defaultFlag           = jsondic[@"cmUserRewardInfo"][@"defaultFlag"];
+            //            NSLog(@"jsondic= = == =%@",jsondic);
             [SVProgressHUD dismiss];
             
         }

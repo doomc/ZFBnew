@@ -79,6 +79,11 @@
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
+		<key>YBPopupMenu.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>19</integer>
+		</dict>
 		<key>YYCache.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -98,6 +103,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>010336AC9E4E73B1605E5AA9B8976F3E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>010585403FE78EEE7EA0952818C11D8B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -153,6 +163,11 @@
 			<true/>
 		</dict>
 		<key>291425B0FC2916BE66CCDC8DA890AC86</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2F94D4FBA58D3C06C5EBD84975E50CF4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -332,7 +347,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>DC6DCFBAD9E0B9C37327AC027B2D0317</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E432AEDAB1BA6480F5B6ABFC66B89F17</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E93A69BA6EB95D7D662E523BB473A3BA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -343,6 +368,11 @@
 			<true/>
 		</dict>
 		<key>EDDDC9DF14F240266ED94D76871618E9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FEE759BC9C9111D6F5D7D5BFE4CB20D6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

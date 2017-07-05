@@ -25,6 +25,7 @@
     _goodslist = goodslist;
     self.lb_price.text = [NSString stringWithFormat:@"¥%@", _goodslist.storePrice];
     self.lb_title.text = [NSString stringWithFormat:@"%@", _goodslist.goodsName];
+
     [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_goodslist.coverImgUrl]] placeholderImage:[UIImage imageNamed:@""]];
 
 }

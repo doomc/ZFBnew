@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class ZFCollectEditCell;
 @protocol ZFCollectBarViewDelegate <NSObject>
 
--(void)didClickCancelCollect:(UIButton*)sender;
+-(void)didClickCancelCollect:(ZFCollectEditCell *)cell;
 /**
  *  全选
  *
@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *allChoose_btn;
 
 @property (weak, nonatomic) IBOutlet UIButton *cancelCollect_btn;
+
+@property (strong,nonatomic) NSIndexPath *indexPath;
 
 
 @end

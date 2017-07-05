@@ -17,11 +17,20 @@
     self.img_editView.clipsToBounds = YES;
     self.img_editView.layer.borderWidth = 0.5;
     self.img_editView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
+    
+
+    if ([self.delegate  respondsToSelector:@selector(deleteCell:)]) {
+       
+        [self.delegate deleteCell:self ];
+    }
 }
 
 -(void)setGoodlist:(Cmkeepgoodslist *)goodlist
 {
     _goodlist = goodlist;
+ 
+    _collectID = _goodlist.cartItemId;
+    _goodsID = _goodlist.goodId;
     self.lb_price.text = [NSString stringWithFormat:@"¥%@", _goodlist.storePrice];
     self.lb_title.text = [NSString stringWithFormat:@"%@", _goodlist.goodsName];
     [self.img_editView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_goodlist.coverImgUrl]] placeholderImage:[UIImage imageNamed:@""]];

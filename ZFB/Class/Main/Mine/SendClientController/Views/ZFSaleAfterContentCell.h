@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AllOrderModel.h"
 @protocol ZFSaleAfterContentCellDelegate <NSObject>
 
 -(void)salesAfterDetailPage;
@@ -22,5 +23,7 @@
 
 @property (nonatomic,assign) id <ZFSaleAfterContentCellDelegate> delegate;
 
+@property (strong,nonatomic) Orderlist * list ;
+@property (strong,nonatomic) Ordergoods * goods ;
 
 @end

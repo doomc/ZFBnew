@@ -12,8 +12,11 @@
 @class ZFCollectEditCell;
 @protocol ZFCollectEditCellDelegate <NSObject>
 
+///选择单个商品
 - (void)goodsSelected:(ZFCollectEditCell *)cell isSelected:(BOOL)choosed;
-// 点击全选 按钮回调
+///删除cell
+- (void)deleteCell:(ZFCollectEditCell *)cell  ;
+
 
 @end
 @interface ZFCollectEditCell : UITableViewCell
@@ -27,6 +30,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *selecet_btn;
 
 @property (strong, nonatomic) Cmkeepgoodslist *goodlist;
+///收藏id
+@property (copy, nonatomic) NSString * collectID;
+///商品id
+@property (copy, nonatomic) NSString * goodsID;
+
 
 
 

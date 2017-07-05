@@ -237,6 +237,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
         ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
         orderVC.buttonTitle =@"全部订单";
+        orderVC.payStatus = @"";//默认状态
+        orderVC.orderStatus = @"";//默认状态
         [self.navigationController pushViewController:orderVC animated:YES];
         
     }

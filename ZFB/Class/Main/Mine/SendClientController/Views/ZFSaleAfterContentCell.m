@@ -18,12 +18,27 @@
     
     [self.saleAfter_btn addTarget:self action:@selector(saleAfter_btnAction:) forControlEvents:UIControlEventTouchUpInside];
 }
+
+///申请售后
 -(void)saleAfter_btnAction:(UIButton *)sender
 {
     if ([self.delegate respondsToSelector:@selector(salesAfterDetailPage)]) {
         [self.delegate salesAfterDetailPage];
     }
 }
+//set
+-(void)setGoods:(Ordergoods *)goods
+{
+    _goods = goods;
+    
+    self.lb_goodcount.text = [NSString stringWithFormat:@"数量x%ld%@",_goods.goodsCount, _goods.goodsUnit];
+    self.lb_title.text =  _goods.goodsName;
+    
+    [self.img_saleAfter sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_goods.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+    }];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

@@ -88,9 +88,6 @@
 		493D83891EF3DD35005983AA /* 距离@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 493D83851EF3DD35005983AA /* 距离@3x.png */; };
 		493D838C1EF3E351005983AA /* AllStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 493D838B1EF3E351005983AA /* AllStoreModel.m */; };
 		493D838F1EF3E793005983AA /* DetailStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 493D838E1EF3E793005983AA /* DetailStoreModel.m */; };
-		4943AED01EF0D3D600803973 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AECB1EF0D3D600803973 /* YBPopupMenu.m */; };
-		4943AED11EF0D3D600803973 /* YBPopupMenuPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AECD1EF0D3D600803973 /* YBPopupMenuPath.m */; };
-		4943AED21EF0D3D600803973 /* YBRectConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AECF1EF0D3D600803973 /* YBRectConst.m */; };
 		4943AEE31EF0D98400803973 /* CollectionCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AEDC1EF0D98400803973 /* CollectionCategoryModel.m */; };
 		4943AEE41EF0D98400803973 /* ZFCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AEDE1EF0D98400803973 /* ZFCollectionViewCell.m */; };
 		4943AEE61EF0D98400803973 /* CollectionViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943AEE21EF0D98400803973 /* CollectionViewHeaderView.m */; };
@@ -775,12 +772,6 @@
 		493D838B1EF3E351005983AA /* AllStoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllStoreModel.m; sourceTree = "<group>"; };
 		493D838D1EF3E793005983AA /* DetailStoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailStoreModel.h; sourceTree = "<group>"; };
 		493D838E1EF3E793005983AA /* DetailStoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailStoreModel.m; sourceTree = "<group>"; };
-		4943AECA1EF0D3D600803973 /* YBPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenu.h; sourceTree = "<group>"; };
-		4943AECB1EF0D3D600803973 /* YBPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenu.m; sourceTree = "<group>"; };
-		4943AECC1EF0D3D600803973 /* YBPopupMenuPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenuPath.h; sourceTree = "<group>"; };
-		4943AECD1EF0D3D600803973 /* YBPopupMenuPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenuPath.m; sourceTree = "<group>"; };
-		4943AECE1EF0D3D600803973 /* YBRectConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBRectConst.h; sourceTree = "<group>"; };
-		4943AECF1EF0D3D600803973 /* YBRectConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBRectConst.m; sourceTree = "<group>"; };
 		4943AEDB1EF0D98400803973 /* CollectionCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionCategoryModel.h; sourceTree = "<group>"; };
 		4943AEDC1EF0D98400803973 /* CollectionCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionCategoryModel.m; sourceTree = "<group>"; };
 		4943AEDD1EF0D98400803973 /* ZFCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1846,7 +1837,6 @@
 				49B1E2271F048A81000F4B20 /* ResponseObject(判断是否是null) */,
 				50DF1C6B1F0003B70082FD20 /* MapNavigationView(调用手机地图APP导航) */,
 				49F669631EF7A92300F8D516 /* XHStarRateView(评价星星) */,
-				4943AEC91EF0D3D600803973 /* YBPopupMenu(pop菜单) */,
 				5026A4481EEEE6F500AAC84D /* PPNumberButton(加减按钮) */,
 				49D75C831EEE38DD00FACCD8 /* PTXDatePickerView(时间选择器) */,
 				49DF70031EEA96340021EE92 /* IntroductoryPages(引导页) */,
@@ -2007,20 +1997,6 @@
 				492756781EC4679E003C22D0 /* MJRefreshStateHeader.m */,
 			);
 			path = Header;
-			sourceTree = "<group>";
-		};
-		4943AEC91EF0D3D600803973 /* YBPopupMenu(pop菜单) */ = {
-			isa = PBXGroup;
-			children = (
-				4943AECA1EF0D3D600803973 /* YBPopupMenu.h */,
-				4943AECB1EF0D3D600803973 /* YBPopupMenu.m */,
-				4943AECC1EF0D3D600803973 /* YBPopupMenuPath.h */,
-				4943AECD1EF0D3D600803973 /* YBPopupMenuPath.m */,
-				4943AECE1EF0D3D600803973 /* YBRectConst.h */,
-				4943AECF1EF0D3D600803973 /* YBRectConst.m */,
-			);
-			name = "YBPopupMenu(pop菜单)";
-			path = YBPopupMenu;
 			sourceTree = "<group>";
 		};
 		4943AED61EF0D95A00803973 /* Classify(分类列表) */ = {
@@ -3631,7 +3607,7 @@
 				TargetAttributes = {
 					492752131EC44DFC003C22D0 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = X28D98X7LE;
+						DevelopmentTeam = 297J2E2F8W;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -4182,7 +4158,6 @@
 				49DF71721EEAA9B20021EE92 /* HotTableViewCell.m in Sources */,
 				49DF71D11EEAA9B20021EE92 /* ZFSettingRowCell.m in Sources */,
 				490E8AD31F0B774900C4447E /* FSTextView.m in Sources */,
-				4943AED21EF0D3D600803973 /* YBRectConst.m in Sources */,
 				49DF72201EEAAA780021EE92 /* VerificationCodeViewController.m in Sources */,
 				49DF71D51EEAA9B20021EE92 /* ZFBackWaysViewController.m in Sources */,
 				4926AAC71EE7A3E700178491 /* NSTimer+Blocks.m in Sources */,
@@ -4210,7 +4185,6 @@
 				49DF716C1EEAA9B20021EE92 /* FindStoreCell.m in Sources */,
 				5019FFAD1ECCAEF800325342 /* SDWebImageCompat.m in Sources */,
 				509A13451EE6EB000093978F /* NSString+ZFSortAppdending.m in Sources */,
-				4943AED01EF0D3D600803973 /* YBPopupMenu.m in Sources */,
 				49B1E22A1F048A81000F4B20 /* ResponseObject.m in Sources */,
 				49DF71C31EEAA9B20021EE92 /* ZFSaleAfterHeadCell.m in Sources */,
 				490E8A9D1F0B435200C4447E /* UserFeedbackModel.m in Sources */,
@@ -4229,7 +4203,6 @@
 				4926AAC01EE7916500178491 /* NSString+JsonChange.m in Sources */,
 				49BEB9B81EF92F9900779588 /* AppraiseModel.m in Sources */,
 				49DF71621EEAA9B20021EE92 /* ZFTitleAndChooseListCell.m in Sources */,
-				4943AED11EF0D3D600803973 /* YBPopupMenuPath.m in Sources */,
 				49DBE0B71F023F160063C201 /* ZFAppraiseSectionCell.m in Sources */,
 				509CC4B41EF82A1B0035B1D8 /* ShoppingCarModel.m in Sources */,
 				49DF71591EEAA9B20021EE92 /* ZFDetailStoreCell.m in Sources */,
@@ -4501,14 +4474,15 @@
 			baseConfigurationReference = 3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = X28D98X7LE;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 297J2E2F8W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZFB/Class/Frameworks",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4516,8 +4490,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZFB/Class/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zfb.ZFB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -4526,14 +4501,15 @@
 			baseConfigurationReference = D23F8EC706787ADDD1999100 /* Pods-ZFB.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = X28D98X7LE;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 297J2E2F8W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZFB/Class/Frameworks",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4541,8 +4517,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZFB/Class/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zfb.ZFB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

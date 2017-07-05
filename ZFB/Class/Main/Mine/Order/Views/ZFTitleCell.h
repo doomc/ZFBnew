@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AllOrderModel.h"
 
 @interface ZFTitleCell : UITableViewCell
 
@@ -15,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *statusButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
+
+@property (strong, nonatomic)  Orderlist * orderlist;
 
 
 @end

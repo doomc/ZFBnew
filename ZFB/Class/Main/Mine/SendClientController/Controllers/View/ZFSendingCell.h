@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AllOrderModel.h"
 @interface ZFSendingCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_sendListTitle;
@@ -15,5 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_Price;
 @property (weak, nonatomic) IBOutlet UILabel *lb_num;
 @property (weak, nonatomic) IBOutlet UILabel *lb_detailTime;
+
+@property (strong,nonatomic) Orderlist * list ;
+@property (strong,nonatomic) Ordergoods * goods ;
 
 @end

@@ -11,15 +11,12 @@ target 'ZFB' do
   pod 'AFNetworking'
   pod 'SVProgressHUD'
   pod 'Masonry'
-  pod 'YYModel' 
   pod 'MJExtension'
-  pod 'MGSwipeTableCell'
-
   # 第三方库
   pod 'AMapLocation'
   pod 'AMapSearch'
   #pod 'AMapNavi'
-  
+  pod 'YBPopupMenu'#弹框
   #其他
   # pod 'QBImagePickerController'
   # pod 'ZYQAssetPickerController']

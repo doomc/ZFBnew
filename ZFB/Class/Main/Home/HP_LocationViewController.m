@@ -8,7 +8,6 @@
 
 
 #import "HP_LocationViewController.h"
-
 #import "SearchCell.h"
 #import "HPLocationCell.h"
 
@@ -17,6 +16,9 @@
 #import <AMapLocationKit/AMapLocationKit.h>
 
 @interface HP_LocationViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,AMapLocationManagerDelegate,AMapSearchDelegate>
+{
+    NSInteger _page;
+}
 
 //poi
 @property (nonatomic,strong) AMapSearchAPI *  searchAPI;
@@ -47,6 +49,41 @@
 
 @implementation HP_LocationViewController
 
+-(UISearchBar *)searchBar {
+    if (!_searchBar) {
+        _searchBar = [UISearchBar new];
+        
+        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(35, 10, KScreenW-70, 35)];
+        _searchBar.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
+        _searchBar.layer.cornerRadius = 4;
+        _searchBar.tintColor = HEXCOLOR(0xfe6d6a);
+         //        _searchBar.translucent = NO;
+        [_searchBar setImage:[UIImage imageNamed:@"index_searchi"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+        _searchBar.placeholder = @"请输入商品或门店";
+        _searchBar.delegate = self;
+        UIView *superView = self.searchBar.subviews.lastObject;
+        for (UIView *view in superView.subviews) {
+            if ([view isKindOfClass:[UITextField class]]) {
+                view.backgroundColor = RGBA(173, 200, 242, 0.4);
+            }else if ([NSStringFromClass([view class]) isEqualToString:@"UISearchBarBackground"]) {
+                [view removeFromSuperview];
+            }
+        }
+        //取出textfield
+        UITextField *searchField = [self.searchBar valueForKey:@"_searchField"];
+        //改变searcher的textcolor
+        searchField.textColor = RGB(144, 156, 192);
+        //改变placeholder的颜色
+        [searchField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+        //改变placeholder的字体
+        [searchField setValue:SYSTEMFONT(14) forKeyPath:@"_placeholderLabel.font"];
+        
+        searchField.layer.cornerRadius = 29/2;
+        searchField.layer.masksToBounds = YES;
+    }
+    return _searchBar;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,9 +93,67 @@
    
     [self LocationMapManagerInit];
 
+    UIView *superView = self.searchBar.subviews.lastObject;
+    for (UIView *view in superView.subviews) {
+        if ([view isKindOfClass:[UITextField class]]) {
+            view.backgroundColor = RGBA(173, 200, 242, 0.4);
+        }else if ([NSStringFromClass([view class]) isEqualToString:@"UISearchBarBackground"]) {
+            [view removeFromSuperview];
+        }
+    }
+    
+    
 
 }
+-(void)creatTableViewInterface
+{
+    self.title = @"选择地址";
+    
+    //创建bgView
+    self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW,50 )];
+    [self.view addSubview:_bgView];
 
+    [_bgView addSubview:self.searchBar];
+    
+    
+    //tableView的创建
+    self.location_TableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 114, KScreenW, KScreenH - 114) style:UITableViewStyleGrouped];
+    [self.view addSubview:self.location_TableView];
+    
+    self.location_TableView.dataSource = self;
+    self.location_TableView.delegate = self;
+    
+
+ 
+    [self.location_TableView registerNib:[UINib nibWithNibName:@"SearchCell" bundle:nil] forCellReuseIdentifier:@"SearchCellid"];
+    [self.location_TableView registerNib:[UINib nibWithNibName:@"HPLocationCell" bundle:nil] forCellReuseIdentifier:@"HPLocationCellid"];
+ 
+    
+    //[self searchApISetting];
+    
+    weakSelf(weakSelf);
+    //上拉加载
+    _location_TableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        _pageIndex ++ ;
+        //        [weakSelf PostRequst];
+        
+    }];
+    
+    //下拉刷新
+    _location_TableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //需要将页码设置为1
+        _pageIndex = 1;
+        //        [weakSelf PostRequst];
+    }];
+    
+    
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.location_TableView.mj_header beginRefreshing];
+    
+}
 #pragma mark  - 高德POI设置  搜索
 -(void)settingPOI{
  
@@ -84,8 +179,7 @@
 #pragma mark  - 高德POI设置 AMapSearchDelegate
 -(void)searchApISetting
 {
-    
-    
+ 
     self.searchAPI = [[AMapSearchAPI alloc] init];
     self.searchAPI.delegate = self;
     
@@ -101,6 +195,7 @@
     request.offset   = self.pageCount;//当前页数
     request.types    = @"050000|060000|070000|080000|090000|100000|110000|120000|130000|140000|150000|160000|170000";
     [self.searchAPI AMapPOIAroundSearch:request];
+    
 }
 #pragma mark - AMapSearchDelegate
 //检索失败
@@ -125,7 +220,7 @@
     }
     [self.location_TableView reloadData];
 
-//    self.location_TableView.mj_footer.hidden = response.pois.count != self.pageIndex;
+    self.location_TableView.mj_footer.hidden = response.pois.count != self.pageIndex;
     
     [self.location_TableView.mj_header endRefreshing];
     [self.location_TableView.mj_footer endRefreshing];
@@ -187,47 +282,6 @@
         _addressList = [NSMutableArray array];
     }
     return _addressList;
-}
--(void)creatTableViewInterface
-{
-    self.title = @"选择地址";
-    
-    //创建bgView
-    self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW,50 )];
-    [self.view addSubview:_bgView];
-    
-    self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(35, 10, KScreenW-70, 35)];
-    self.searchBar.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
-    self.searchBar.layer.cornerRadius = 4;
-    self.searchBar.tintColor = HEXCOLOR(0xfe6d6a);
-    [_bgView addSubview:self.searchBar];
-    
-    self.searchBar.placeholder = @"搜索地址";
-    self.searchBar.delegate = self;
-    
-    
-    //tableView的创建
-    self.location_TableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 114, KScreenW, KScreenH - 114) style:UITableViewStyleGrouped];
-    [self.view addSubview:self.location_TableView];
-    
-    self.location_TableView.dataSource = self;
-    self.location_TableView.delegate = self;
-    
-    [self.location_TableView registerNib:[UINib nibWithNibName:@"SearchCell" bundle:nil] forCellReuseIdentifier:@"SearchCellid"];
-    [self.location_TableView registerNib:[UINib nibWithNibName:@"HPLocationCell" bundle:nil] forCellReuseIdentifier:@"HPLocationCellid"];
-    
-    self.location_TableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
-        [self headRefreshing];
-    }];
-    self.location_TableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        [self footRefreshing];
-        
-    }];
-    
-    //[self searchApISetting];
-
 }
 
 #pragma mark -  UITableViewDelegate    UITableViewDataSource
