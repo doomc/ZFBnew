@@ -19,12 +19,11 @@
 
 static NSString *CellIdentifier = @"FindStoreCellid";
 
-@interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,AMapLocationManagerDelegate>
+@interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,AMapLocationManagerDelegate,AMapSearchDelegate>
 {
     NSInteger _pageCount;//每页显示条数
     NSInteger _page;//当前页码;
-    NSString * _address;
-    
+    NSString * _loactionAddress;
     AMapSearchAPI *_search;
     
 
@@ -32,6 +31,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 @property (strong,nonatomic) UITableView * home_tableView;
 @property (strong,nonatomic) UIView * sectionView;
 @property (nonatomic,strong) NSMutableArray * storeListArr;//数据源
+@property (nonatomic,strong) UIButton * location_btn ;
 
 //高德api
 @property (nonatomic,strong) AMapLocationManager * locationManager;
@@ -50,15 +50,16 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self initWithHome_Tableview];
-    
-    [self initInTerfaceView];
     
     //默认一个页码 和 页数
     _pageCount = 8;
     
     [self LocationMapManagerInit];
     
+    [self initWithHome_Tableview];
+
+    [self initInTerfaceView];
+
     
     weakSelf(weakSelf);
     //上拉加载
@@ -78,8 +79,23 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
 }
 
+-(UIButton *)location_btn
+{
+    if (!_location_btn) {
+        _location_btn  = [UIButton buttonWithType:UIButtonTypeCustom];//定位按钮
+        _location_btn.frame = CGRectMake(25, 0, 100, 30);
+        [_location_btn addTarget:self action:@selector(pushToLocationView:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_location_btn setTitle:_loactionAddress forState:UIControlStateNormal];
+        [_location_btn setTitleColor: HEXCOLOR(0xfa6d6a) forState:UIControlStateNormal];
+        _location_btn.titleLabel.font = [UIFont systemFontOfSize:12];
+        _location_btn.titleLabel.textAlignment = NSTextAlignmentLeft;
+        
+    }
+    return _location_btn;
+}
 -(void)initInTerfaceView{
-    NSString * address = @"龙湖水晶国际 >";
+//    NSString * LoactionAddress = @"龙湖水晶国际 >";
     UIView * loc_view =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];//背景图
     UIView * bg_view =[[UIView alloc]initWithFrame:CGRectMake(15, 5, KScreenW-15-15, 30)];
     [loc_view addSubview:bg_view];
@@ -91,17 +107,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     //定位icon
     UIImageView * icon_locationView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 18, 20) ];
     icon_locationView.image =  [UIImage imageNamed:@"location_find2"];
-    UIButton * location_btn  = [UIButton buttonWithType:UIButtonTypeCustom];//定位按钮
-    location_btn.frame = CGRectMake(25, 0, 100, 30);
-    [location_btn addTarget:self action:@selector(pushToLocationView:) forControlEvents:UIControlEventTouchUpInside];
+ 
     
-    [location_btn setTitle:address forState:UIControlStateNormal];
-    [location_btn setTitleColor: HEXCOLOR(0xfa6d6a) forState:UIControlStateNormal];
-    location_btn.titleLabel.font = [UIFont systemFontOfSize:12];
-    location_btn.titleLabel.textAlignment = NSTextAlignmentLeft;
-    
-    
-    [bg_view addSubview:location_btn];
+    [bg_view addSubview:self.location_btn];
     [bg_view addSubview: icon_locationView ];
     self.home_tableView.tableHeaderView = loc_view;
 }
@@ -260,7 +268,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     //开始定位
     [self.locationManager setLocatingWithReGeocode:YES];
     [self.locationManager startUpdatingLocation];
-    
+
 }
 
 - (void)amapLocationManager:(AMapLocationManager *)manager didFailWithError:(NSError *)error
@@ -270,7 +278,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 
 
 #pragma mark  -AMapLocationManagerDelegate
-
 -(void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
 {
     // 赋值给全局变量
@@ -280,7 +287,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     // 停止定位
     [self.locationManager stopUpdatingLocation];
-    
+   
+    [self reGeoAction];
+
 }
 
 //进行逆地理编码请求
@@ -289,7 +298,11 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     if (_currentLocation) {
         AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
         request.location = [AMapGeoPoint locationWithLatitude:_currentLocation.coordinate.latitude longitude:_currentLocation.coordinate.longitude];
+        request.requireExtension =YES;
+
         //逆地理编码搜索请求
+        _search = [[AMapSearchAPI alloc] init ];
+        _search.delegate = self;
         [_search AMapReGoecodeSearch:request];
     }
     
@@ -300,16 +313,26 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 {
     if(response.regeocode != nil)
     {
+        NSLog(@"反向地理编码回调:%@",response.regeocode.addressComponent.township);
+ 
+        _loactionAddress  = response.regeocode.addressComponent.township;
+        [self.location_btn setTitle:_loactionAddress forState:UIControlStateNormal];
+        NSArray * addressArr = response.regeocode.pois;
+        
+        if (addressArr && addressArr.count >0) {
+            AMapPOI *poiTemp = addressArr[0];
+            NSLog(@"反向地理编码回调:%@",poiTemp.name);
+            
+        }
         //通过AMapReGeocodeSearchResponse对象处理搜索结果
         NSString *result = [NSString stringWithFormat:@"ReGeocode: %@", response.regeocode];
         NSLog(@"ReGeo: %@", result);
     }
-    [self reGeoAction];
 
 }
 - (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error
 {
-    NSLog(@"%@" ,error);
+    NSLog(@"xxxxxxxxxxxx--------%@---------xxxxxxxxxxx" ,error);
 }
 #pragma mark - 首页网络请求
 -(void)PostRequst

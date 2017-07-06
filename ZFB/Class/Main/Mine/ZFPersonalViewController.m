@@ -342,14 +342,15 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 }
 
 
-#pragma mark  - 网络请求 minePagePOSTRequste
+#pragma mark  - 网络请求 getUserInfo
 -(void)minePagePOSTRequste
 {
     NSDictionary * param = @{
+                             
                              @"cmUserId":BBUserDefault.cmUserId,
                              };
     
-    [PPNetworkHelper POST:zfbMine_Url parameters:param responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:[zfb_baseUrl stringByAppendingString:@"/getUserInfo"] parameters:param responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         ;

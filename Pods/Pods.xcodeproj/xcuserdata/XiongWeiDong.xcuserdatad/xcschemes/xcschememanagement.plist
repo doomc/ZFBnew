@@ -34,6 +34,11 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>YBPopupMenu.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
 		<key>YYModel.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -123,6 +128,21 @@
 			<true/>
 		</dict>
 		<key>C092A7EEFD66C00FD4956EC1D2D17939</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC6DCFBAD9E0B9C37327AC027B2D0317</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E93A69BA6EB95D7D662E523BB473A3BA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FEE759BC9C9111D6F5D7D5BFE4CB20D6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

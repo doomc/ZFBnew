@@ -86,6 +86,7 @@
 {
     if (!_isMapViewRegionChangedFromTableView && isFirstLocated) {
         AMapGeoPoint *point = [AMapGeoPoint locationWithLatitude:_mapView.centerCoordinate.latitude longitude:_mapView.centerCoordinate.longitude];
+       
         [self searchReGeocodeWithAMapGeoPoint:point];
         [self searchPoiByAMapGeoPoint:point];
         // 范围移动时当前页面数重置

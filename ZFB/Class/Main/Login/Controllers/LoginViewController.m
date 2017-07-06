@@ -367,13 +367,12 @@ typedef NS_ENUM(NSUInteger, indexType) {
     NSDictionary * parma = @{
                              @"SmsLogo":@"1",
                              @"mobilePhone":_tf_loginphone.text,
-                             @"cmUserId":BBUserDefault.cmUserId,
                              };
     
     
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:zfbMessageCode_Url parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:[zfb_baseUrl stringByAppendingString:@"/SendMessages"] parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
 
@@ -407,7 +406,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
  
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:zfbquickLogin_Url parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:[zfb_baseUrl stringByAppendingString:@"/quickLogin"] parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         
@@ -451,7 +450,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:zfbPasswordLogin_Url parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:[zfb_baseUrl stringByAppendingString:@"/login"] parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         

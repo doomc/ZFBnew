@@ -8,8 +8,11 @@
 
 
 #import "HP_LocationViewController.h"
+//cell
 #import "SearchCell.h"
 #import "HPLocationCell.h"
+//view
+#import "MapPoiTableView.h"
 
 #import "MJRefresh.h"
 //高德api
@@ -17,18 +20,17 @@
 
 @interface HP_LocationViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,AMapLocationManagerDelegate,AMapSearchDelegate>
 {
-    NSInteger _page;
+    NSIndexPath *  _selectedIndexPath;
+    NSInteger      _pageIndex;
 }
 
 //poi
 @property (nonatomic,strong) AMapSearchAPI *  searchAPI;
 @property (nonatomic,strong) NSMutableArray *  addressList;
+@property (nonatomic,strong) NSMutableArray *  searchPoiArray;
 
 @property (nonatomic,assign) BOOL           needInsertOldAddress;
 @property (nonatomic,assign) BOOL           isSelectCity;
-
-@property (nonatomic,assign) NSInteger      pageIndex;
-@property (nonatomic,assign) NSInteger      pageCount;
 
 //end
 @property (nonatomic,strong) UITableView * location_TableView;
@@ -49,41 +51,6 @@
 
 @implementation HP_LocationViewController
 
--(UISearchBar *)searchBar {
-    if (!_searchBar) {
-        _searchBar = [UISearchBar new];
-        
-        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(35, 10, KScreenW-70, 35)];
-        _searchBar.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
-        _searchBar.layer.cornerRadius = 4;
-        _searchBar.tintColor = HEXCOLOR(0xfe6d6a);
-         //        _searchBar.translucent = NO;
-        [_searchBar setImage:[UIImage imageNamed:@"index_searchi"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-        _searchBar.placeholder = @"请输入商品或门店";
-        _searchBar.delegate = self;
-        UIView *superView = self.searchBar.subviews.lastObject;
-        for (UIView *view in superView.subviews) {
-            if ([view isKindOfClass:[UITextField class]]) {
-                view.backgroundColor = RGBA(173, 200, 242, 0.4);
-            }else if ([NSStringFromClass([view class]) isEqualToString:@"UISearchBarBackground"]) {
-                [view removeFromSuperview];
-            }
-        }
-        //取出textfield
-        UITextField *searchField = [self.searchBar valueForKey:@"_searchField"];
-        //改变searcher的textcolor
-        searchField.textColor = RGB(144, 156, 192);
-        //改变placeholder的颜色
-        [searchField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
-        //改变placeholder的字体
-        [searchField setValue:SYSTEMFONT(14) forKeyPath:@"_placeholderLabel.font"];
-        
-        searchField.layer.cornerRadius = 29/2;
-        searchField.layer.masksToBounds = YES;
-    }
-    return _searchBar;
-}
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -96,13 +63,12 @@
     UIView *superView = self.searchBar.subviews.lastObject;
     for (UIView *view in superView.subviews) {
         if ([view isKindOfClass:[UITextField class]]) {
-            view.backgroundColor = RGBA(173, 200, 242, 0.4);
+            view.backgroundColor = HEXCOLOR(0xdedede);
         }else if ([NSStringFromClass([view class]) isEqualToString:@"UISearchBarBackground"]) {
             [view removeFromSuperview];
         }
     }
-    
-    
+
 
 }
 -(void)creatTableViewInterface
@@ -129,14 +95,12 @@
     [self.location_TableView registerNib:[UINib nibWithNibName:@"HPLocationCell" bundle:nil] forCellReuseIdentifier:@"HPLocationCellid"];
  
     
-    //[self searchApISetting];
-    
+
     weakSelf(weakSelf);
     //上拉加载
     _location_TableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         
-        _pageIndex ++ ;
-        //        [weakSelf PostRequst];
+        [weakSelf loadMorePOI];
         
     }];
     
@@ -167,19 +131,19 @@
 }
 #pragma mark - getData
 - (void)headRefreshing{
-    self.pageIndex = 0;
-    self.pageCount = 10;
+    _pageIndex = 0;
+ 
     [self footRefreshing];
 }
 
 - (void)footRefreshing{
-    self.pageIndex += 1;
     [self searchApISetting];
 }
 #pragma mark  - 高德POI设置 AMapSearchDelegate
 -(void)searchApISetting
 {
- 
+    _pageIndex += 1;
+
     self.searchAPI = [[AMapSearchAPI alloc] init];
     self.searchAPI.delegate = self;
     
@@ -189,10 +153,9 @@
     request.requireExtension = YES;
     request.requireSubPOIs  = YES;
     request.keywords = @"";
-    request.radius   = 3000;
+    request.radius   = 1000;
     request.sortrule   = 0;///排序规则, 0-距离排序；1-综合排序, 默认1
-    request.page     = self.pageIndex;//页数
-    request.offset   = self.pageCount;//当前页数
+    request.page     = _pageIndex;//页数
     request.types    = @"050000|060000|070000|080000|090000|100000|110000|120000|130000|140000|150000|160000|170000";
     [self.searchAPI AMapPOIAroundSearch:request];
     
@@ -209,27 +172,54 @@
     if (response.pois.count == 0){
         return;
     }
-    
     [self.addressList removeAllObjects];
+    
     [SVProgressHUD showWithStatus:@"检索成功"];
+  
+
     for(AMapPOI *poi in response.pois){
         
         NSLog(@"%@",[NSString stringWithFormat:@"%@\nPOI: %@,%@", poi.description,poi.name,poi.address]);
      
         [self.addressList addObject:poi];
     }
-    [self.location_TableView reloadData];
 
-    self.location_TableView.mj_footer.hidden = response.pois.count != self.pageIndex;
+    // 刷新POI后默认第一行为打勾状态
+    _selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    // 刷新完成,没有数据时不显示footer
+    self.location_TableView.mj_footer.hidden = response.pois.count != _pageIndex;
     
-    [self.location_TableView.mj_header endRefreshing];
     [self.location_TableView.mj_footer endRefreshing];
+    [self.location_TableView.mj_header endRefreshing];
     
     [SVProgressHUD  dismiss];
-
     
+    [self.location_TableView reloadData];
+ 
     
 }
+#pragma mark - MapPoiTableViewDelegate
+- (void)loadMorePOI
+{
+    _pageIndex++;
+    AMapGeoPoint *point = [AMapGeoPoint locationWithLatitude:_currentLocation.coordinate.latitude longitude:_currentLocation.coordinate.longitude];
+    [self searchPoiByAMapGeoPoint:point];
+}
+// 搜索中心点坐标周围的POI-AMapGeoPoint
+- (void)searchPoiByAMapGeoPoint:(AMapGeoPoint *)location
+{
+    AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
+    request.location = location;
+    // 搜索半径
+    request.radius = 1000;
+    // 搜索结果排序
+    request.sortrule = 1;
+    // 当前页数
+    request.page = _pageIndex;
+    [_searchAPI AMapPOIAroundSearch:request];
+}
+
+
 #pragma mark  - 高德定位
 -(void)LocationMapManagerInit{
     
@@ -255,14 +245,6 @@
 #pragma mark  -AMapLocationManagerDelegate
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode
 {
-    NSLog(@"location:{  lat:%f; lon:%f; accuracy:%f  }", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
-    if (reGeocode)
-    {
-        NSLog(@"reGeocode:%@", reGeocode);
-        self.reGeocode = reGeocode;
-    }
-    NSLog(@"reGeocode:%@", reGeocode.POIName);
-
     // 赋值给全局变量
     _currentLocation = location;
 
@@ -276,13 +258,7 @@
     
 
 }
--(NSMutableArray *)addressList
-{
-    if (!_addressList) {
-        _addressList = [NSMutableArray array];
-    }
-    return _addressList;
-}
+
 
 #pragma mark -  UITableViewDelegate    UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -346,7 +322,9 @@
         AMapPOI *info         = self.addressList[indexPath.row];
         cell.lb_title.text    = info.name.length > 0 ? info.name : info.city;
         cell.lb_detail.text   = info.address;
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = (_selectedIndexPath.row == indexPath.row) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+
         return cell;
         
     }
@@ -362,6 +340,18 @@
 
     }
     if (indexPath.section == 1) {
+        // 单选打勾
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        NSInteger newRow = indexPath.row;
+        NSInteger oldRow = _selectedIndexPath != nil ? _selectedIndexPath.row : -1;
+        if (newRow != oldRow) {
+            UITableViewCell *currentCell = [tableView cellForRowAtIndexPath:indexPath];
+            currentCell.accessoryType = UITableViewCellAccessoryCheckmark;
+            UITableViewCell *lastCell = [tableView cellForRowAtIndexPath:_selectedIndexPath];
+            lastCell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        _selectedIndexPath = indexPath;
+        
         AMapPOI *info = self.addressList[indexPath.row];
         NSLog(@"%@",info.city);
         if (self.successBlock) {
@@ -371,12 +361,55 @@
     }
    
 }
+
+
 - (void)setSuccessBlock:(SelectLocationSuccessBlock)successBlock{
     
     _successBlock = successBlock;
     
 }
 
+-(NSMutableArray *)addressList
+{
+    if (!_addressList) {
+        _addressList = [NSMutableArray array];
+    }
+    return _addressList;
+}
+-(NSMutableArray *)searchPoiArray
+{
+    if (!_searchPoiArray) {
+        _searchPoiArray = [NSMutableArray array];
+    }
+    return _searchPoiArray;
+}
+-(UISearchBar *)searchBar {
+    if (!_searchBar) {
+        _searchBar = [UISearchBar new];
+        
+        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(5, 5, KScreenW-10, 40)];
+        _searchBar.layer.cornerRadius = 2;
+        _searchBar.tintColor = HEXCOLOR(0xfe6d6a);
+        //        _searchBar.translucent = NO;
+        [_searchBar setImage:[UIImage imageNamed:@"index_searchi"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+        _searchBar.placeholder = @"搜索商品或门店";
+        _searchBar.delegate = self;
+        
+        
+        //取出textfield
+        UITextField *searchField = [self.searchBar valueForKey:@"_searchField"];
+        //改变searcher的textcolor
+        searchField.textColor =HEXCOLOR(0x363636);
+        //改变placeholder的颜色
+        [searchField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+        //改变placeholder的字体
+        [searchField setValue:SYSTEMFONT(14) forKeyPath:@"_placeholderLabel.font"];
+        
+        searchField.layer.cornerRadius = 2;
+        searchField.layer.masksToBounds = YES;
+    }
+    return _searchBar;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

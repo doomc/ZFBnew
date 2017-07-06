@@ -16,7 +16,7 @@
 #import <AMapLocationKit/AMapLocationKit.h>
 #import "AppDelegate+Location.h"
 
-const static NSString *ApiKey = @"7573ff935a812f01523174f1356b89f5";
+const static NSString *ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
 
 @interface AppDelegate ()
 @property(nonatomic,strong)CLLocation *  currentLocation;
