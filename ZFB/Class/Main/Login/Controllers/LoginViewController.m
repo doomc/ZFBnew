@@ -71,10 +71,11 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
 //设置右边事件
 -(void)left_button_event:(UIButton *)sender{
-    
-    [self dismissViewControllerAnimated:NO completion:^{
-        
-    }];
+
+    [self.navigationController popToRootViewControllerAnimated:NO];
+//    [self dismissViewControllerAnimated:NO completion:^{
+//        
+//    }];
 }
 
 #pragma mark - getVerificationCodeAction获取验证码
@@ -166,7 +167,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
         if (_tf_verificationCodeOrPassWord == textfiled) {
             
             //当账号与密码同时有值,登录按钮才能够点击
-            if ( [_tf_loginphone.text isMobileNumber] && _tf_verificationCodeOrPassWord.text.length >7) {
+            if ( [_tf_loginphone.text isMobileNumber] && _tf_verificationCodeOrPassWord.text.length >5 &&_tf_verificationCodeOrPassWord.text.length <18 ) {
                 self.login_btn.enabled = YES;
                 self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
                 
@@ -270,23 +271,27 @@ typedef NS_ENUM(NSUInteger, indexType) {
 -(void)LoginSegmentchange:(UISegmentedControl *)segment
 {
     _tf_verificationCodeOrPassWord.text = nil;
+    
+    _indexType  =  segment.selectedSegmentIndex;
+    switch (_indexType) {
+        case quickLoginIndexType:
+            NSLog(@"快捷登录");
+            _isQuickLogin = YES;
+            _tf_verificationCodeOrPassWord.placeholder = @"请输入短信验证码";
+            _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@"message"];
+            _getCodeVerification_btn.hidden = NO;
 
-    if (segment.selectedSegmentIndex == 0) {
-        NSLog(@"快捷登录");
-        _isQuickLogin = YES;
-        _tf_verificationCodeOrPassWord.placeholder = @"请输入短信验证码";
-        _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@"message"];
-        _getCodeVerification_btn.hidden = NO;
+            break;
+            
+        case passwordLoginIndexType:
+            NSLog(@"密码登录");
+            _isQuickLogin = NO;
+            _getCodeVerification_btn.hidden = YES;
+            _tf_verificationCodeOrPassWord.placeholder = @"请输入登录密码";
+            _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@"passWord"];
 
-        
-    }
-    else{
-        NSLog(@"密码登录");
-        _isQuickLogin = NO;
-        _getCodeVerification_btn.hidden = YES;
-        _tf_verificationCodeOrPassWord.placeholder = @"请输入登录密码";
-        _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@"passWord"];
-
+            break;
+ 
     }
 }
 
@@ -304,17 +309,16 @@ typedef NS_ENUM(NSUInteger, indexType) {
             
             [self.view makeToast:@"快速登录成功" duration:2 position:@"center" ];
             NSLog(@"跳转到指定页面");
-            // [self left_button_event:sender];
+            [self left_button_event:sender];
         }
         NSLog(@"快速-登录成功");
         
 
     }else{
-        
         [self PasswordLoginPostRequest];
-        
+
         if ( BBUserDefault.isLogin == YES) {//密码登录
-            
+   
             if ([_tf_verificationCodeOrPassWord.text isEqualToString: BBUserDefault.userPhonePassword]) {
                 
             [self left_button_event:sender];
@@ -362,14 +366,14 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
     NSDictionary * parma = @{
                              @"SmsLogo":@"1",
-                             @"svcName":@"SendMessages",
                              @"mobilePhone":_tf_loginphone.text,
+                             @"cmUserId":BBUserDefault.cmUserId,
                              };
     
     
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfbMessageCode_Url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
 
@@ -396,16 +400,14 @@ typedef NS_ENUM(NSUInteger, indexType) {
     [SVProgressHUD showWithStatus:@"登录中"];
     NSDictionary * parma = @{
                              
-                            @"svcName":@"quickLogin",
                             @"mobilePhone":_tf_loginphone.text,
                             @"smsCheckCode":_smsCode,
-                            
                             };
    
  
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfbquickLogin_Url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         
@@ -441,16 +443,15 @@ typedef NS_ENUM(NSUInteger, indexType) {
     
     NSDictionary * parma = @{
                              
-                             @"svcName":@"login",
-                             @"mobilePhone":_tf_loginphone.text,
-                             @"loginPwd":_tf_verificationCodeOrPassWord.text,
+                            @"mobilePhone":_tf_loginphone.text,
+                            @"loginPwd":_tf_verificationCodeOrPassWord.text,
 
                              };
     
-    
+
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:zfbPasswordLogin_Url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         

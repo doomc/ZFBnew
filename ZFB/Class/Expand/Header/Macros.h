@@ -7,7 +7,7 @@
 //
 
 
-
+#define isNotVersion84                  ([[[UIDevice currentDevice] systemVersion] floatValue] > 8.4)
 //获取屏幕宽高
 #define Iphone6ScaleWidth KScreenWidth/375.0
 #define Iphone6ScaleHeight KScreenHeight/667.0

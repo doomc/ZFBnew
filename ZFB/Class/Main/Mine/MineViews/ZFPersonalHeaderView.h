@@ -48,9 +48,11 @@
 
 //未登录的视图
 @property (weak, nonatomic) IBOutlet UIView *unloginView;
+@property (weak, nonatomic) IBOutlet UIView *loginView;
+
 @property (weak, nonatomic) IBOutlet UIButton *btn_login;
 @property (weak, nonatomic) IBOutlet UIButton *btn_regist;
 
-@property (weak, nonatomic) IBOutlet UIView *loginView;
+
 
 @end

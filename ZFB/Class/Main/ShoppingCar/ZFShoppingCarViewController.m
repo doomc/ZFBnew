@@ -597,7 +597,7 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
     NSDictionary * parma = @{
                              
                              @"svcName":@"delShoppingCart",
-//                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"cmUserId":BBUserDefault.cmUserId,
                              @"cartItemId":_cartItemId,
                              
                              };

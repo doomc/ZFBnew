@@ -26,14 +26,25 @@
 //数据服务器
 #define  ZFB_22SendMessageUrl @"http://192.168.1.106:8087/zfb/InterfaceServlet"
 //
- #define  ZFB_11SendMessageUrl @"http://192.168.1.107:8087/zfb/InterfaceServlet"
+#define  ZFB_11SendMessageUrl @"http://192.168.1.107:8087/zfb/InterfaceServlet"
 
 #define  zfb_url @"http://192.168.1.113:8087/zfb/InterfaceServlet"
 
+#pragma mark -------------测试服务器数--------------------
+//个人中心
+#define zfbMine_Url @"http://192.168.1.107:8087/zfb/InterfaceServlet/getUserInfo"
 
+//注册
+#define zfbRegister_Url @"http://192.168.1.107:8087/zfb/InterfaceServlet/userRegistered"
 
-//登录注册
+//快速登录
+#define zfbquickLogin_Url @"http://192.168.1.107:8087/zfb/InterfaceServlet/quickLogin"
 
+//密码登录
+#define zfbPasswordLogin_Url @"http://192.168.1.107:8087/zfb/InterfaceServlet/login"
+
+//短信验证
+#define zfbMessageCode_Url @"http://192.168.1.107:8087/zfb/InterfaceServlet/SendMessages"
 
 //发送场景短信验证码
 

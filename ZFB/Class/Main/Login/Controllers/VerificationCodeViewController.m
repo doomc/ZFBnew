@@ -237,8 +237,7 @@
     [SVProgressHUD showWithStatus:@"请稍后..."];
     
     NSDictionary * parma = @{
-                             @"svcName":@"userRegistered",
-                             @"mobilePhone":_phoneNumStr,
+                              @"mobilePhone":_phoneNumStr,
                              @"loginPwd":_tf_loginPassword.text,
                              @"smsCheckCode":_smsCode,
                              

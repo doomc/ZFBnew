@@ -8,16 +8,19 @@
 
 #import "EditAddressViewController.h"
 #import "AddressPickerView.h"
+#import "MainViewController.h"
+#import "AddressLocationMapViewController.h"
 
 @interface EditAddressViewController ()<UITextFieldDelegate>
 
-@property (nonatomic,strong) AddressPickerView *myAddressPickerView;
-@property (weak, nonatomic ) IBOutlet UILabel           *lb_city;
-@property (weak, nonatomic ) IBOutlet UITextField       *tf_name;
-@property (weak, nonatomic ) IBOutlet UITextField       *tf_cellphone;
-@property (weak, nonatomic ) IBOutlet UITextField       *tf_mobilePhone;
-@property (weak, nonatomic ) IBOutlet UITextField       *tf_detailAddress;
-@property (weak, nonatomic ) IBOutlet UISwitch          *isDefaultSwitch;
+///城市
+@property (copy, nonatomic) NSString * cityStr;
+
+@property (weak, nonatomic ) IBOutlet UIButton    * locationButton;
+@property (weak, nonatomic ) IBOutlet UITextField * tf_name;
+@property (weak, nonatomic ) IBOutlet UITextField * tf_cellphone;
+@property (weak, nonatomic ) IBOutlet UITextField * tf_detailAddress;
+@property (weak, nonatomic ) IBOutlet UISwitch    * isDefaultSwitch;
 
 @end
 
@@ -32,12 +35,10 @@
     
     self.tf_name.delegate          = self;
     self.tf_cellphone.delegate     = self;
-    self.tf_mobilePhone.delegate   = self;
     self.tf_detailAddress.delegate = self;
     
     [self.tf_name addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     [self.tf_cellphone addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
-    [self.tf_mobilePhone addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     [self.tf_detailAddress addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     
     [self initSwitchView];
@@ -100,18 +101,11 @@
 //选择城市
 - (IBAction)didClickCityList:(id)sender {
     
-    _myAddressPickerView = [AddressPickerView shareInstance];
-    
-    [_myAddressPickerView showAddressPickView];
-    
-    [self.view addSubview:_myAddressPickerView];
-    
-    weakSelf(weakself);
-    _myAddressPickerView.block = ^(NSString *province,NSString *city,NSString *district)
-    {
-        weakself.lb_city.text = [NSString stringWithFormat:@"%@-%@-%@",province,city,district];
-    };
-    
+//    MainViewController * mainVC =[[MainViewController alloc]init];
+//    [self.navigationController pushViewController:mainVC animated:NO];
+    AddressLocationMapViewController * locaVC = [AddressLocationMapViewController new];
+    [self.navigationController pushViewController:locaVC animated:NO];
+
 }
 
 #pragma mark  - UITextFieldDelegate
@@ -125,10 +119,6 @@
     {
         NSLog(@"_tf_cellphone ==== %@",_tf_name.text);
         
-    }
-    else if (textfiled == _tf_mobilePhone   )
-    {
-        NSLog(@"_tf_mobilePhone = = ===== %@",_tf_mobilePhone.text);
     }
     else
     {
@@ -149,15 +139,6 @@
         }
     }
     
-    else if (textField == _tf_mobilePhone) {
-        
-        if ([_tf_mobilePhone.text isMobileNumber]) {
-            NSLog(@"备用手机号 ===== %@",_tf_cellphone.text);
-        }else{
-            [self.view makeToast:@"手机格式不对哦~😯" duration:2 position:@"center"];
-            
-        }
-    }
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -170,7 +151,6 @@
 {
     [_tf_name resignFirstResponder];
     [_tf_detailAddress resignFirstResponder];
-    [_tf_mobilePhone resignFirstResponder];
     [_tf_cellphone resignFirstResponder];
     
     [self.view endEditing:YES];
@@ -182,7 +162,7 @@
     
     NSLog(@"saved！@@！！@！！！");
     
-    if (_tf_name.text.length > 0 && ![_tf_cellphone.text isEqualToString:@""] && ![_tf_detailAddress.text isEqualToString:@""] && ![_lb_city.text isEqualToString:@""]) {
+    if (_tf_name.text.length > 0 && ![_tf_cellphone.text isEqualToString:@""] && ![_tf_detailAddress.text isEqualToString:@""] ) {
         
         [self savedInfoMessagePostRequst];
     }
@@ -200,11 +180,10 @@
     NSDictionary * parma = @{
                              
                              @"svcName":@"saveUserAddressInfo",
-                             //                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"cmUserId":BBUserDefault.cmUserId,
                              @"contactUserName":_tf_name.text,
                              @"contactMobilePhone":_tf_cellphone.text,
-                             @"mobilePhone":_tf_mobilePhone.text ,
-                             @"deliveryProvince": _lb_city.text,
+                             @"deliveryProvince": _cityStr,
                              @"deliveryAddress":_tf_detailAddress.text,
                              @"defaultFlag":_defaultFlag,
                              
@@ -233,8 +212,7 @@
     
     
 }
-
-
+ 
 #pragma mark - 编辑用户信息editUserReward
 -(void)editUserRewardInfoMessagePostRequst
 {
@@ -260,8 +238,7 @@
             
             _tf_name.text          = jsondic[@"cmUserRewardInfo"][@"contactUserName"];
             _tf_cellphone.text     = jsondic[@"cmUserRewardInfo"][@"contactMobilePhone"];
-            _tf_mobilePhone.text   = jsondic[@"cmUserRewardInfo"][@"mobilePhone"];
-            _lb_city.text          = jsondic[@"cmUserRewardInfo"][@"deliveryProvince"];
+            _cityStr               = jsondic[@"cmUserRewardInfo"][@"deliveryProvince"];
             _tf_detailAddress.text = jsondic[@"cmUserRewardInfo"][@"deliveryAddress"];
             _defaultFlag           = jsondic[@"cmUserRewardInfo"][@"defaultFlag"];
             //            NSLog(@"jsondic= = == =%@",jsondic);

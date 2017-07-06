@@ -342,7 +342,7 @@
     if (indexPath.section == 1 ) {
         
         HPLocationCell * cell = [self.location_TableView
-                                 dequeueReusableCellWithIdentifier:@"HPLocationCellid"];
+                                 dequeueReusableCellWithIdentifier:@"HPLocationCellid" forIndexPath:indexPath];
         AMapPOI *info         = self.addressList[indexPath.row];
         cell.lb_title.text    = info.name.length > 0 ? info.name : info.city;
         cell.lb_detail.text   = info.address;

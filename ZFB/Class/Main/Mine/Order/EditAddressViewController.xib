@@ -12,8 +12,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditAddressViewController">
             <connections>
                 <outlet property="isDefaultSwitch" destination="YCC-Qu-Gzq" id="Ra1-J6-ma3"/>
-                <outlet property="lb_city" destination="0PY-H0-tPH" id="mOQ-wC-v3M"/>
+                <outlet property="locationButton" destination="X2E-Gs-zRL" id="UKH-jX-Ml1"/>
                 <outlet property="tf_cellphone" destination="D0s-Ip-KXs" id="n8d-8W-poX"/>
+                <outlet property="tf_detailAddress" destination="Ofm-Sl-mSx" id="VSE-2w-Qsq"/>
                 <outlet property="tf_name" destination="MGk-I9-OiS" id="ONY-Qd-icH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -120,27 +121,15 @@
                             <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="详细地址" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSB-bc-JAY">
-                            <rect key="frame" x="15" y="16" width="62" height="18"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="省、市、区" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSB-bc-JAY">
+                            <rect key="frame" x="15" y="16" width="77" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0PY-H0-tPH">
-                            <rect key="frame" x="360" y="24.5" width="0.0" height="0.0"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2E-Gs-zRL">
-                            <rect key="frame" x="240" y="10.5" width="120" height="29"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="120" id="P33-OF-rvt"/>
-                            </constraints>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2E-Gs-zRL">
+                            <rect key="frame" x="142" y="10.5" width="218" height="29"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="20" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="点击进行定位" image="location_icon2.png">
                                 <color key="titleColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -148,26 +137,18 @@
                                 <action selector="didClickCityList:" destination="-1" eventType="touchUpInside" id="oeZ-Wu-7uJ"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="必填" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sbu-Fd-HOQ">
-                            <rect key="frame" x="119" y="15" width="35" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.65490196079999996" green="0.65490196079999996" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="Je2-lE-Zjq" firstAttribute="leading" secondItem="rPH-at-DCp" secondAttribute="leading" constant="15" id="0z7-nq-xH6"/>
+                        <constraint firstAttribute="trailing" secondItem="X2E-Gs-zRL" secondAttribute="trailing" constant="15" id="63j-jI-tlE"/>
                         <constraint firstAttribute="trailing" secondItem="Je2-lE-Zjq" secondAttribute="trailing" constant="15" id="6Uw-7s-a70"/>
-                        <constraint firstItem="0PY-H0-tPH" firstAttribute="centerY" secondItem="rPH-at-DCp" secondAttribute="centerY" id="ACf-Kf-eXY"/>
-                        <constraint firstAttribute="trailing" secondItem="X2E-Gs-zRL" secondAttribute="trailing" constant="15" id="N2S-C4-UAL"/>
                         <constraint firstAttribute="height" constant="50" id="S5R-FA-gPH"/>
+                        <constraint firstItem="X2E-Gs-zRL" firstAttribute="leading" secondItem="GSB-bc-JAY" secondAttribute="trailing" constant="50" id="TM2-5D-a0a"/>
                         <constraint firstItem="X2E-Gs-zRL" firstAttribute="centerY" secondItem="rPH-at-DCp" secondAttribute="centerY" id="W3n-Aw-HH2"/>
                         <constraint firstItem="GSB-bc-JAY" firstAttribute="centerY" secondItem="rPH-at-DCp" secondAttribute="centerY" id="dvj-pN-gzU"/>
                         <constraint firstAttribute="bottom" secondItem="Je2-lE-Zjq" secondAttribute="bottom" id="edQ-zr-LEU"/>
                         <constraint firstItem="GSB-bc-JAY" firstAttribute="leading" secondItem="rPH-at-DCp" secondAttribute="leading" constant="15" id="fgG-dh-fbD"/>
-                        <constraint firstAttribute="trailing" secondItem="0PY-H0-tPH" secondAttribute="trailing" constant="15" id="qHM-uN-roJ"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tbm-Nd-RGz">
@@ -290,7 +271,7 @@
                 <constraint firstAttribute="trailing" secondItem="rPH-at-DCp" secondAttribute="trailing" id="wHo-bj-rIU"/>
                 <constraint firstItem="rPH-at-DCp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wlb-1n-imV"/>
             </constraints>
-            <point key="canvasLocation" x="133.5" y="80.5"/>
+            <point key="canvasLocation" x="147" y="51"/>
         </view>
     </objects>
     <resources>

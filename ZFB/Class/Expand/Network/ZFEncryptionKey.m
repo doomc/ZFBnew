@@ -38,6 +38,7 @@ static const NSString  * MD5_key = @"1233@sdf%22dscE3";//全局
                                @"transactionTime":transactionTime,
                                @"transactionId":transactionId,
                                @"data":data,
+                               @"svcName":@"",
                                };
     
     NSArray *keyArray = [signDict allKeys];
@@ -66,7 +67,7 @@ static const NSString  * MD5_key = @"1233@sdf%22dscE3";//全局
     NSString * sign =  [MD5Tool MD5ForLower32Bate:md5String];
     
     NSDictionary *signDic2 = @{
-                               @"cmUserId":BBUserDefault.cmUserId,
+//                               @"cmUserId":BBUserDefault.cmUserId,
                                @"signType":@"MD5",
                                @"transactionTime":transactionTime,
                                @"transactionId":transactionId,
@@ -79,7 +80,7 @@ static const NSString  * MD5_key = @"1233@sdf%22dscE3";//全局
     
     [muParam setObject:sign forKey:@"sign"];
     
-//    NSLog(@"muParam = = %@ =  parma",muParam);
+    NSLog(@"muParam = = %@ =  parma",muParam);
 
     return muParam;
 }

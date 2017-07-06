@@ -28,6 +28,7 @@
     self.mytableView.delegate= self;
     self.mytableView.dataSource = self;
     [self.view addSubview:self.mytableView];
+    
     self.mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.mytableView registerNib:[UINib nibWithNibName:@"ZFAddOfListCell" bundle:nil] forCellReuseIdentifier:@"ZFAddOfListCellid"];
     
@@ -39,7 +40,7 @@
 -(void)customFooterView
 {
  
-    UIView *  footerView = [[UIView alloc]initWithFrame:CGRectMake(0 , KScreenH -49, KScreenW, 49)];
+    UIView *  footerView = [[UIView alloc]initWithFrame:CGRectMake(0 , KScreenH -49, KScreenW, 69)];
     footerView.backgroundColor = [UIColor whiteColor];
     UIFont * font  =[UIFont systemFontOfSize:14];
     [self.view addSubview:footerView];
@@ -154,7 +155,6 @@
         
         Cmuserinfo * info = self.listArray[indexPath.row];
         NSLog(@"info=====postAddressId %@",info.postAddressId);
-        
         VC.defaultFlag =   info.defaultFlag;  //是否默认
         VC.postAddressId =  info.postAddressId;//收货地址ID
         [self.mytableView reloadData];
@@ -197,7 +197,7 @@
      NSDictionary * parma = @{
                              
                              @"svcName":@"getCmUserAdderss",
-//                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"cmUserId":BBUserDefault.cmUserId,
                              
                              };
     

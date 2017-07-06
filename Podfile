@@ -15,7 +15,7 @@ target 'ZFB' do
   # 第三方库
   pod 'AMapLocation'
   pod 'AMapSearch'
-  #pod 'AMapNavi'
+  pod 'AMap2DMap'#只能存在一个
   pod 'YBPopupMenu'#弹框
   #其他
   # pod 'QBImagePickerController'

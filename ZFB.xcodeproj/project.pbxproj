@@ -29,6 +29,7 @@
 		490E8AD31F0B774900C4447E /* FSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 490E8AD21F0B774900C4447E /* FSTextView.m */; };
 		490E8ADB1F0B7F6F00C4447E /* UITextView+ZWLimitCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 490E8ADA1F0B7F6F00C4447E /* UITextView+ZWLimitCounter.m */; };
 		4914FB0D1EF2826400B968E8 /* HomeStoreListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914FB0C1EF2826400B968E8 /* HomeStoreListModel.m */; };
+		4914FCA21F0DD4B400CCBAA1 /* AddressLocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914FCA11F0DD4B400CCBAA1 /* AddressLocationMapViewController.m */; };
 		49156C551EEFECB900E5C13E /* HDAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49156C4D1EEFECB900E5C13E /* HDAlertView.m */; };
 		49156C561EEFECB900E5C13E /* NSString+HDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 49156C501EEFECB900E5C13E /* NSString+HDExtension.m */; };
 		49156C571EEFECB900E5C13E /* UIImage+HDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 49156C521EEFECB900E5C13E /* UIImage+HDExtension.m */; };
@@ -106,6 +107,19 @@
 		494F06FF1ED42DED007EC66A /* add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06FB1ED42DED007EC66A /* add@3x.png */; };
 		494F07001ED42DED007EC66A /* reduce@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06FC1ED42DED007EC66A /* reduce@2x.png */; };
 		494F07011ED42DED007EC66A /* reduce@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494F06FD1ED42DED007EC66A /* reduce@3x.png */; };
+		495E64C11F0DE18C007ED2E7 /* LocationDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E64BB1F0DE18C007ED2E7 /* LocationDetailVC.m */; };
+		495E64C21F0DE18C007ED2E7 /* MapPoiTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E64BD1F0DE18C007ED2E7 /* MapPoiTableView.m */; };
+		495E64C31F0DE18C007ED2E7 /* OldMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E64C01F0DE18C007ED2E7 /* OldMainViewController.m */; };
+		495E64C91F0DE1A5007ED2E7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E64C61F0DE1A5007ED2E7 /* MainViewController.m */; };
+		495E64CA1F0DE1A5007ED2E7 /* SearchResultTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E64C81F0DE1A5007ED2E7 /* SearchResultTableVC.m */; };
+		495E64CD1F0E03D3007ED2E7 /* wateRedBlank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495E64CB1F0E03D3007ED2E7 /* wateRedBlank@2x.png */; };
+		495E64CE1F0E03D3007ED2E7 /* wateRedBlank@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495E64CC1F0E03D3007ED2E7 /* wateRedBlank@3x.png */; };
+		495E64D11F0E03D9007ED2E7 /* gpsnormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495E64CF1F0E03D9007ED2E7 /* gpsnormal@2x.png */; };
+		495E64D21F0E03D9007ED2E7 /* gpsnormal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495E64D01F0E03D9007ED2E7 /* gpsnormal@3x.png */; };
+		495E64D51F0E03DE007ED2E7 /* gpssearchbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495E64D31F0E03DE007ED2E7 /* gpssearchbutton@2x.png */; };
+		495E64D61F0E03DF007ED2E7 /* gpssearchbutton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495E64D41F0E03DE007ED2E7 /* gpssearchbutton@3x.png */; };
+		495E64D91F0E1D70007ED2E7 /* icon_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495E64D71F0E1D70007ED2E7 /* icon_location@2x.png */; };
+		495E64DA1F0E1D70007ED2E7 /* icon_location@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495E64D81F0E1D70007ED2E7 /* icon_location@3x.png */; };
 		496CC8D41F0A3EBE0029623C /* SelectTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 496CC8D21F0A3EBE0029623C /* SelectTableviewCell.m */; };
 		496CC8D51F0A3EBE0029623C /* SelectTableviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 496CC8D31F0A3EBE0029623C /* SelectTableviewCell.xib */; };
 		496CC8D91F0A52470029623C /* CollectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 496CC8D81F0A52470029623C /* CollectModel.m */; };
@@ -664,6 +678,8 @@
 		490E8ADA1F0B7F6F00C4447E /* UITextView+ZWLimitCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+ZWLimitCounter.m"; sourceTree = "<group>"; };
 		4914FB0B1EF2826400B968E8 /* HomeStoreListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeStoreListModel.h; sourceTree = "<group>"; };
 		4914FB0C1EF2826400B968E8 /* HomeStoreListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeStoreListModel.m; sourceTree = "<group>"; };
+		4914FCA01F0DD4B300CCBAA1 /* AddressLocationMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressLocationMapViewController.h; sourceTree = "<group>"; };
+		4914FCA11F0DD4B400CCBAA1 /* AddressLocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressLocationMapViewController.m; sourceTree = "<group>"; };
 		49156C4C1EEFECB900E5C13E /* HDAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDAlertView.h; sourceTree = "<group>"; };
 		49156C4D1EEFECB900E5C13E /* HDAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDAlertView.m; sourceTree = "<group>"; };
 		49156C4F1EEFECB900E5C13E /* NSString+HDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HDExtension.h"; sourceTree = "<group>"; };
@@ -800,6 +816,24 @@
 		494F06FB1ED42DED007EC66A /* add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@3x.png"; sourceTree = "<group>"; };
 		494F06FC1ED42DED007EC66A /* reduce@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce@2x.png"; sourceTree = "<group>"; };
 		494F06FD1ED42DED007EC66A /* reduce@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce@3x.png"; sourceTree = "<group>"; };
+		495E64BA1F0DE18C007ED2E7 /* LocationDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailVC.h; sourceTree = "<group>"; };
+		495E64BB1F0DE18C007ED2E7 /* LocationDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailVC.m; sourceTree = "<group>"; };
+		495E64BC1F0DE18C007ED2E7 /* MapPoiTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoiTableView.h; sourceTree = "<group>"; };
+		495E64BD1F0DE18C007ED2E7 /* MapPoiTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoiTableView.m; sourceTree = "<group>"; };
+		495E64BF1F0DE18C007ED2E7 /* OldMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldMainViewController.h; sourceTree = "<group>"; };
+		495E64C01F0DE18C007ED2E7 /* OldMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldMainViewController.m; sourceTree = "<group>"; };
+		495E64C51F0DE1A5007ED2E7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		495E64C61F0DE1A5007ED2E7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		495E64C71F0DE1A5007ED2E7 /* SearchResultTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableVC.h; sourceTree = "<group>"; };
+		495E64C81F0DE1A5007ED2E7 /* SearchResultTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultTableVC.m; sourceTree = "<group>"; };
+		495E64CB1F0E03D3007ED2E7 /* wateRedBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wateRedBlank@2x.png"; sourceTree = "<group>"; };
+		495E64CC1F0E03D3007ED2E7 /* wateRedBlank@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wateRedBlank@3x.png"; sourceTree = "<group>"; };
+		495E64CF1F0E03D9007ED2E7 /* gpsnormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gpsnormal@2x.png"; sourceTree = "<group>"; };
+		495E64D01F0E03D9007ED2E7 /* gpsnormal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gpsnormal@3x.png"; sourceTree = "<group>"; };
+		495E64D31F0E03DE007ED2E7 /* gpssearchbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gpssearchbutton@2x.png"; sourceTree = "<group>"; };
+		495E64D41F0E03DE007ED2E7 /* gpssearchbutton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gpssearchbutton@3x.png"; sourceTree = "<group>"; };
+		495E64D71F0E1D70007ED2E7 /* icon_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_location@2x.png"; sourceTree = "<group>"; };
+		495E64D81F0E1D70007ED2E7 /* icon_location@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_location@3x.png"; sourceTree = "<group>"; };
 		496CC8D11F0A3EBE0029623C /* SelectTableviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTableviewCell.h; sourceTree = "<group>"; };
 		496CC8D21F0A3EBE0029623C /* SelectTableviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTableviewCell.m; sourceTree = "<group>"; };
 		496CC8D31F0A3EBE0029623C /* SelectTableviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectTableviewCell.xib; sourceTree = "<group>"; };
@@ -2072,6 +2106,37 @@
 			path = "购物车";
 			sourceTree = "<group>";
 		};
+		495E64B91F0DE18C007ED2E7 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				495E64BA1F0DE18C007ED2E7 /* LocationDetailVC.h */,
+				495E64BB1F0DE18C007ED2E7 /* LocationDetailVC.m */,
+				495E64BC1F0DE18C007ED2E7 /* MapPoiTableView.h */,
+				495E64BD1F0DE18C007ED2E7 /* MapPoiTableView.m */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		495E64BE1F0DE18C007ED2E7 /* UISearchDisplayController */ = {
+			isa = PBXGroup;
+			children = (
+				495E64BF1F0DE18C007ED2E7 /* OldMainViewController.h */,
+				495E64C01F0DE18C007ED2E7 /* OldMainViewController.m */,
+			);
+			path = UISearchDisplayController;
+			sourceTree = "<group>";
+		};
+		495E64C41F0DE1A5007ED2E7 /* UISearchController */ = {
+			isa = PBXGroup;
+			children = (
+				495E64C51F0DE1A5007ED2E7 /* MainViewController.h */,
+				495E64C61F0DE1A5007ED2E7 /* MainViewController.m */,
+				495E64C71F0DE1A5007ED2E7 /* SearchResultTableVC.h */,
+				495E64C81F0DE1A5007ED2E7 /* SearchResultTableVC.m */,
+			);
+			path = UISearchController;
+			sourceTree = "<group>";
+		};
 		496CC8D61F0A52340029623C /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2185,6 +2250,14 @@
 		49C6CFD11EDFDB2B00652CDB /* 设置 */ = {
 			isa = PBXGroup;
 			children = (
+				495E64D71F0E1D70007ED2E7 /* icon_location@2x.png */,
+				495E64D81F0E1D70007ED2E7 /* icon_location@3x.png */,
+				495E64D31F0E03DE007ED2E7 /* gpssearchbutton@2x.png */,
+				495E64D41F0E03DE007ED2E7 /* gpssearchbutton@3x.png */,
+				495E64CF1F0E03D9007ED2E7 /* gpsnormal@2x.png */,
+				495E64D01F0E03D9007ED2E7 /* gpsnormal@3x.png */,
+				495E64CB1F0E03D3007ED2E7 /* wateRedBlank@2x.png */,
+				495E64CC1F0E03D3007ED2E7 /* wateRedBlank@3x.png */,
 				490E8AC71F0B705700C4447E /* addphone@2x.png */,
 				490E8AC81F0B705700C4447E /* addphone@3x.png */,
 				49DBE0C61F035AA30063C201 /* editting@2x.png */,
@@ -2748,6 +2821,7 @@
 		49DF70941EEAA9B10021EE92 /* Order(订单视图) */ = {
 			isa = PBXGroup;
 			children = (
+				495E64C41F0DE1A5007ED2E7 /* UISearchController */,
 				49DF70951EEAA9B10021EE92 /* Model */,
 				49DF70961EEAA9B10021EE92 /* Views */,
 				49DF70B51EEAA9B10021EE92 /* ZFAddressListViewController.h */,
@@ -2759,6 +2833,8 @@
 				49DF70BA1EEAA9B10021EE92 /* ZFShopListViewController.m */,
 				49DF70BB1EEAA9B10021EE92 /* ZFSureOrderViewController.h */,
 				49DF70BC1EEAA9B10021EE92 /* ZFSureOrderViewController.m */,
+				4914FCA01F0DD4B300CCBAA1 /* AddressLocationMapViewController.h */,
+				4914FCA11F0DD4B400CCBAA1 /* AddressLocationMapViewController.m */,
 			);
 			name = "Order(订单视图)";
 			path = Order;
@@ -2780,6 +2856,8 @@
 		49DF70961EEAA9B10021EE92 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				495E64B91F0DE18C007ED2E7 /* common */,
+				495E64BE1F0DE18C007ED2E7 /* UISearchDisplayController */,
 				49DF70971EEAA9B10021EE92 /* GoodsitemCell.h */,
 				49DF70981EEAA9B10021EE92 /* GoodsitemCell.m */,
 				49DF70991EEAA9B10021EE92 /* GoodsitemCell.xib */,
@@ -3673,6 +3751,7 @@
 				49DF718B1EEAA9B20021EE92 /* ZFPersonalHeaderView.xib in Resources */,
 				49DF71841EEAA9B20021EE92 /* ZFMyCashBagCell.xib in Resources */,
 				494F06FE1ED42DED007EC66A /* add@2x.png in Resources */,
+				495E64D91F0E1D70007ED2E7 /* icon_location@2x.png in Resources */,
 				49F1139A1ECC5547000F3BF7 /* calling_icon@3x.png in Resources */,
 				49DF721B1EEAAA780021EE92 /* LoginViewController.xib in Resources */,
 				49F113661ECC5547000F3BF7 /* arrows_Right_black@3x.png in Resources */,
@@ -3682,6 +3761,7 @@
 				49DF71861EEAA9B20021EE92 /* ZFMyOderCell.xib in Resources */,
 				49DF71A51EEAA9B20021EE92 /* ZFContactCell.xib in Resources */,
 				49F113C51ECC55B0000F3BF7 /* WX@3x.png in Resources */,
+				495E64CD1F0E03D3007ED2E7 /* wateRedBlank@2x.png in Resources */,
 				49DF71C61EEAA9B20021EE92 /* ZFSaleAfterSearchCell.xib in Resources */,
 				49801C8D1ECE870100EDAA53 /* PYSearch.bundle in Resources */,
 				49FB3C861ECD95C50090075D /* circle_selected@2x.png in Resources */,
@@ -3801,6 +3881,7 @@
 				49F113811ECC5547000F3BF7 /* order_icon@2x.png in Resources */,
 				49F6696F1EF7A92300F8D516 /* star_nor@3x.png in Resources */,
 				49C95F0D1ED295AF004EA811 /* Order_normal@2x.png in Resources */,
+				495E64D61F0E03DF007ED2E7 /* gpssearchbutton@3x.png in Resources */,
 				49DF6FFD1EEA94D80021EE92 /* blankpage_image_loadFail@2x.png in Resources */,
 				493D83871EF3DD35005983AA /* 点赞@3x.png in Resources */,
 				49D6E7291ED9789A000A837E /* fire@3x.png in Resources */,
@@ -3812,6 +3893,7 @@
 				49C95F151ED295AF004EA811 /* sendComplete_normal@2x.png in Resources */,
 				49DBE0CA1F035AA30063C201 /* editting@2x.png in Resources */,
 				49DF71DE1EEAA9B20021EE92 /* DetailPayCashViewController.xib in Resources */,
+				495E64D21F0E03D9007ED2E7 /* gpsnormal@3x.png in Resources */,
 				49B9A1C11EE0089400B98DA5 /* NOAddress@3x.png in Resources */,
 				49DBE0CC1F035AA30063C201 /* editDelete@2x.png in Resources */,
 				49F113AC1ECC5547000F3BF7 /* location_find@3x.png in Resources */,
@@ -3859,6 +3941,7 @@
 				49C6CFE51EDFDB2B00652CDB /* setting_headView@3x.png in Resources */,
 				49D6E7121ED96DE4000A837E /* classes@3x.png in Resources */,
 				490E8AC91F0B705700C4447E /* addphone@2x.png in Resources */,
+				495E64D11F0E03D9007ED2E7 /* gpsnormal@2x.png in Resources */,
 				49DF721D1EEAAA780021EE92 /* RegisterViewController.xib in Resources */,
 				49DF72211EEAAA780021EE92 /* VerificationCodeViewController.xib in Resources */,
 				49F113591ECC5547000F3BF7 /* arrows_down_black@2x.png in Resources */,
@@ -3906,6 +3989,7 @@
 				49F113A01ECC5547000F3BF7 /* dot_selected@3x.png in Resources */,
 				493ADAEB1ED554E500CB2866 /* s_Selected@3x.png in Resources */,
 				490E8ABD1F0B6AF600C4447E /* FeedPickerTableViewCell.xib in Resources */,
+				495E64DA1F0E1D70007ED2E7 /* icon_location@3x.png in Resources */,
 				49F113AA1ECC5547000F3BF7 /* location_find2@3x.png in Resources */,
 				49E0A0A41ED5344C00AEE354 /* passWord@2x.png in Resources */,
 				49DF71911EEAA9B20021EE92 /* OrderWithAddressCell.xib in Resources */,
@@ -3916,6 +4000,7 @@
 				49DF719F1EEAA9B20021EE92 /* ZFTitleCell.xib in Resources */,
 				49F113A91ECC5547000F3BF7 /* location_find2@2x.png in Resources */,
 				49F113861ECC5547000F3BF7 /* sending_icon@3x.png in Resources */,
+				495E64CE1F0E03D3007ED2E7 /* wateRedBlank@3x.png in Resources */,
 				49DF716F1EEAA9B20021EE92 /* GuessCell.xib in Resources */,
 				493ADAE81ED554E500CB2866 /* s_normal@2x.png in Resources */,
 				49DF71CE1EEAA9B20021EE92 /* ZFSettingCell.xib in Resources */,
@@ -3933,6 +4018,7 @@
 				49C6CFE21EDFDB2B00652CDB /* setting_calling@2x.png in Resources */,
 				49DF71931EEAA9B20021EE92 /* ZFAddOfListCell.xib in Resources */,
 				49F113791ECC5547000F3BF7 /* location_icon@2x.png in Resources */,
+				495E64D51F0E03DE007ED2E7 /* gpssearchbutton@2x.png in Resources */,
 				49DF71EA1EEAA9B20021EE92 /* ZFOrderDetailPaycashCell.xib in Resources */,
 				49DF71D01EEAA9B20021EE92 /* ZFSettingHeaderCell.xib in Resources */,
 				49DF71D61EEAA9B20021EE92 /* ZFBackWaysViewController.xib in Resources */,
@@ -4051,6 +4137,7 @@
 				49B1E22D1F04970E000F4B20 /* ClearingStoreList.m in Sources */,
 				49B1E2361F049E18000F4B20 /* ShopOrderStoreNameCell.m in Sources */,
 				49DF71B51EEAA9B20021EE92 /* ZFApplyReasonCell.m in Sources */,
+				495E64C91F0DE1A5007ED2E7 /* MainViewController.m in Sources */,
 				503BEBF11ED71877004FC36C /* ZFEnum.m in Sources */,
 				5019FFB41ECCAEF800325342 /* UIImage+GIF.m in Sources */,
 				49DF717D1EEAA9B20021EE92 /* ZFCollectBarView.m in Sources */,
@@ -4079,6 +4166,7 @@
 				49E98AD71EDEA6AD00B04DEF /* MBProgressHUD+MP.m in Sources */,
 				49DF71A21EEAA9B20021EE92 /* ZFShopListViewController.m in Sources */,
 				49DF71831EEAA9B20021EE92 /* ZFMyCashBagCell.m in Sources */,
+				495E64CA1F0DE1A5007ED2E7 /* SearchResultTableVC.m in Sources */,
 				49DF716A1EEAA9B20021EE92 /* AllStoreCell.m in Sources */,
 				492757481EC4679E003C22D0 /* MJRefreshHeader.m in Sources */,
 				49DF715B1EEAA9B20021EE92 /* ZFGoodsFooterView.m in Sources */,
@@ -4121,6 +4209,7 @@
 				498AE4A71EE6A5E100EE3FA8 /* YYCache.m in Sources */,
 				49DF6FD81EEA927C0021EE92 /* NSString+UUID.m in Sources */,
 				492756B21EC4679E003C22D0 /* UIView+MJ.m in Sources */,
+				495E64C11F0DE18C007ED2E7 /* LocationDetailVC.m in Sources */,
 				49DF71EF1EEAA9B20021EE92 /* ZFSearchDetailViewController.m in Sources */,
 				49DF71E91EEAA9B20021EE92 /* ZFOrderDetailPaycashCell.m in Sources */,
 				49DF6FE91EEA927C0021EE92 /* TDView.m in Sources */,
@@ -4129,9 +4218,11 @@
 				49DF71AC1EEAA9B20021EE92 /* ZFSendPopView.m in Sources */,
 				49DF71DA1EEAA9B20021EE92 /* ZFMyOpinionViewController.m in Sources */,
 				498AE4BF1EE6AADF00EE3FA8 /* NSData+Encrypt.m in Sources */,
+				4914FCA21F0DD4B400CCBAA1 /* AddressLocationMapViewController.m in Sources */,
 				4927574C1EC4679E003C22D0 /* MJRefreshBackGifFooter.m in Sources */,
 				498AE4A81EE6A5E100EE3FA8 /* YYDiskCache.m in Sources */,
 				4926AAC61EE7A3E700178491 /* NSTimer+Addition.m in Sources */,
+				495E64C31F0DE18C007ED2E7 /* OldMainViewController.m in Sources */,
 				49E7578A1EC96E9100220B28 /* SDCycleScrollView.m in Sources */,
 				49E757881EC96E9100220B28 /* TAPageControl.m in Sources */,
 				49DF71B91EEAA9B20021EE92 /* ZFCheckTheProgressCell.m in Sources */,
@@ -4181,6 +4272,7 @@
 				4927521C1EC44DFC003C22D0 /* AppDelegate.m in Sources */,
 				49DF71811EEAA9B20021EE92 /* ZFHistoryCell.m in Sources */,
 				49DF721C1EEAAA780021EE92 /* RegisterViewController.m in Sources */,
+				495E64C21F0DE18C007ED2E7 /* MapPoiTableView.m in Sources */,
 				49DF6FE41EEA927C0021EE92 /* UIImage+Resize.m in Sources */,
 				49DF716C1EEAA9B20021EE92 /* FindStoreCell.m in Sources */,
 				5019FFAD1ECCAEF800325342 /* SDWebImageCompat.m in Sources */,

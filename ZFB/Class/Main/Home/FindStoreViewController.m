@@ -16,13 +16,18 @@
 #import "HomeStoreListModel.h"
 #import <AMapLocationKit/AMapLocationKit.h>
 
+
 static NSString *CellIdentifier = @"FindStoreCellid";
 
 @interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,AMapLocationManagerDelegate>
 {
     NSInteger _pageCount;//每页显示条数
     NSInteger _page;//当前页码;
+    NSString * _address;
     
+    AMapSearchAPI *_search;
+    
+
 }
 @property (strong,nonatomic) UITableView * home_tableView;
 @property (strong,nonatomic) UIView * sectionView;
@@ -32,6 +37,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 @property (nonatomic,strong) AMapLocationManager * locationManager;
 @property (nonatomic,strong) AMapLocationReGeocode * reGeocode;//地理编码
 @property (nonatomic,strong) CLLocation *  currentLocation;
+@property (nonatomic,strong) AMapPOI *selectedPoi;
+
 /**
  *  持续定位是否返回逆地理信息，默认NO。
  */
@@ -72,7 +79,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 
 -(void)initInTerfaceView{
-    
+    NSString * address = @"龙湖水晶国际 >";
     UIView * loc_view =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];//背景图
     UIView * bg_view =[[UIView alloc]initWithFrame:CGRectMake(15, 5, KScreenW-15-15, 30)];
     [loc_view addSubview:bg_view];
@@ -88,7 +95,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     location_btn.frame = CGRectMake(25, 0, 100, 30);
     [location_btn addTarget:self action:@selector(pushToLocationView:) forControlEvents:UIControlEventTouchUpInside];
     
-    [location_btn setTitle:@"龙湖水晶国际 >" forState:UIControlStateNormal];
+    [location_btn setTitle:address forState:UIControlStateNormal];
     [location_btn setTitleColor: HEXCOLOR(0xfa6d6a) forState:UIControlStateNormal];
     location_btn.titleLabel.font = [UIFont systemFontOfSize:12];
     location_btn.titleLabel.textAlignment = NSTextAlignmentLeft;
@@ -208,8 +215,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         vc.storeId =listModel.storeId;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    
-    
 }
 
 /**
@@ -258,31 +263,54 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
 }
 
-
+- (void)amapLocationManager:(AMapLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"%@",error);
+}
 
 
 #pragma mark  -AMapLocationManagerDelegate
-- (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode
+
+-(void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
 {
-    NSLog(@"location:{  lat:%f; lon:%f; accuracy:%f  }", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
-    if (reGeocode)
-    {
-        NSLog(@"reGeocode:%@", reGeocode);
-        self.reGeocode = reGeocode;
-    }
-    NSLog(@"reGeocode:%@", reGeocode.POIName);
-    
     // 赋值给全局变量
     _currentLocation = location;
-    
+
     NSLog(@" lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
     
     // 停止定位
     [self.locationManager stopUpdatingLocation];
     
-    
 }
 
+//进行逆地理编码请求
+- (void)reGeoAction{
+    
+    if (_currentLocation) {
+        AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
+        request.location = [AMapGeoPoint locationWithLatitude:_currentLocation.coordinate.latitude longitude:_currentLocation.coordinate.longitude];
+        //逆地理编码搜索请求
+        [_search AMapReGoecodeSearch:request];
+    }
+    
+}
+#pragma mark - AMapSearchDelegate 反地理编码
+//实现逆地理编码的回调函数
+- (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response
+{
+    if(response.regeocode != nil)
+    {
+        //通过AMapReGeocodeSearchResponse对象处理搜索结果
+        NSString *result = [NSString stringWithFormat:@"ReGeocode: %@", response.regeocode];
+        NSLog(@"ReGeo: %@", result);
+    }
+    [self reGeoAction];
+
+}
+- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error
+{
+    NSLog(@"%@" ,error);
+}
 #pragma mark - 首页网络请求
 -(void)PostRequst
 {
@@ -347,8 +375,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     }];
     
 }
-
-
 
 
 -(void)viewWillAppear:(BOOL)animated

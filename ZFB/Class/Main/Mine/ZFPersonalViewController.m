@@ -15,6 +15,7 @@
 #import "ZFAppySalesReturnViewController.h"
 #import "ZFSendSerViceViewController.h"
 #import "LoginViewController.h"
+#import "RegisterViewController.h"
 #import "ZFAllOrderViewController.h"
 
 #import "ZFHistoryViewController.h"
@@ -37,7 +38,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     NSString * _foolnum ;//足记数量
     NSString * _collectNum ;//收藏数量
-//    NSInteger _orderType;
+    //    NSInteger _orderType;
 }
 @property(nonatomic,strong)UITableView * myTableView;
 @property(nonatomic,strong)UIView * myHeaderView;
@@ -51,35 +52,41 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor =  randomColor;
-
+    
     [self initmyTableViewInterface];
- 
+    
+   
 
-    //判断是否已经登录
+//    //判断是否已经登录
 //    if ( [BBUserDefault.userStatus isEqualToString:@"1" ]) {
         [_headview.loginView setHidden:YES];
-//        [unlogView setHidden:NO];
-//   
+//        [_headview.unloginView setHidden:NO];
+//        
 //    }
 //    else if ( [BBUserDefault.userStatus isEqualToString:@"0" ]) {
-//         //移除登录视图
-//        [unlogView setHidden:YES];
-//        [logView setHidden:NO];
-//
+//        //移除登录视图
+//        [_headview.unloginView setHidden:YES];
+//        [_headview.loginView setHidden:NO];
+//        
 //    }
-   
+    
 }
 
 #pragma mark - 注册
 -(void)didClickRegisterAction:(UIButton *)sender
 {
     NSLog(@"注册了");
-
+    RegisterViewController * regiVC= [ RegisterViewController new];
+    
+    [self.navigationController pushViewController:regiVC animated:YES];
 }
 #pragma mark - 登录
 -(void)didClickLoginAction:(UIButton *)sender
 {
     NSLog(@"登录了");
+    LoginViewController * logvc= [ LoginViewController new];
+    
+    [self.navigationController pushViewController:logvc animated:YES];
 }
 -(void)initmyTableViewInterface
 {
@@ -90,8 +97,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_myTableView];
     
- 
-
+    
+    
     self.headview =  [[NSBundle mainBundle]loadNibNamed:@"ZFPersonalHeaderView" owner:self options:nil].lastObject;
     self.myTableView.tableHeaderView =self.headview;
     self.headview.delegate = self;
@@ -99,9 +106,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     self.headview.loginView = [self.headview viewWithTag:912];//登录后的图
     self.headview.lb_collectCount.text = _collectNum;
     self.headview.lb_historyCount.text = _foolnum;
-//    self.headview.lb_userNickname.text = _foolnum;
+    //    self.headview.lb_userNickname.text = _foolnum;
     
-
+    
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyCashBagCell" bundle:nil] forCellReuseIdentifier:@"ZFMyCashBagCell"];
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyProgressCell" bundle:nil] forCellReuseIdentifier:@"ZFMyProgressCell"];
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyOderCell" bundle:nil] forCellReuseIdentifier:@"ZFMyOderCell"];
@@ -123,7 +130,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     //自定义button必须执行
     UIBarButtonItem *left_item = [[UIBarButtonItem alloc] initWithCustomView:left_btn];
     self.navigationItem.leftBarButtonItem = left_item;
-       
+    
 }
 
 
@@ -193,7 +200,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
         pressCell.delegate = self;
         pressCell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+        
         return pressCell;
         
     }
@@ -204,11 +211,11 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
         orderCell.order_imgicon.image =[UIImage imageNamed:@"order_icon"];
         orderCell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+        
         return orderCell;
     }
     else if (indexPath.row ==3) {
-      
+        
         ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
         orderCell.selectionStyle = UITableViewCellSelectionStyleNone;
         orderCell.order_imgicon.image =[UIImage imageNamed:@"switchover_icon"];
@@ -243,14 +250,14 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
     }
     if (indexPath.row == 3) {//切换到配送端
-       
-   
+        
+        
         ZFSendSerViceViewController * sendVC  = [[ZFSendSerViceViewController alloc]init];
         [self.navigationController pushViewController:sendVC animated:YES];
-       
+        
     }  if (indexPath.row == 4) {//意见反馈
         
-       
+        
         ZFFeedbackViewController * feedVC = [[ZFFeedbackViewController alloc]init];
         [self.navigationController pushViewController:feedVC animated:YES];
         
@@ -261,7 +268,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 ///待付款
 -(void)didClickWaitForPayAction:(UIButton *)button
 {
-
+    
     ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
     orderVC.orderType = 1 ;
     orderVC.buttonTitle = @"待付款";
@@ -284,17 +291,17 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     orderVC.orderType = 5 ;
     orderVC.buttonTitle = @"待评价";
     [self.navigationController pushViewController:orderVC animated:YES];
-
+    
 }
 #pragma mark - 退货didClickBacKgoodsAction
 ///退货
 -(void)didClickBacKgoodsAction:(UIButton *)button
 {
     NSLog(@" push 退货 页面");
-
+    
     ZFAppySalesReturnViewController * saleVC = [[ZFAppySalesReturnViewController alloc]init];
     [self.navigationController pushViewController:saleVC animated:YES];
- 
+    
 }
 
 #pragma mark - 收藏
@@ -306,14 +313,14 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
     NSLog(@" cmUserId  === %@", BBUserDefault.cmUserId);
     
-
+    
     [self.navigationController pushViewController:collecVC animated:NO];
 }
 
 //浏览足记的点击事件
 -(void)didClickHistorytAction:(UIButton *)sender
 {
- 
+    
     NSLog(@"历史");
     ZFHistoryViewController *hisVC=  [[ZFHistoryViewController alloc]init];
     [self.navigationController pushViewController:hisVC animated:NO];
@@ -322,11 +329,11 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 //点击头像
 -(void)didClickHeadImageViewAction:(UITapGestureRecognizer *)sender
 {
- 
+    
     NSLog(@"点击了头像");
     ZFSettingHeadViewController *headVC =  [[ZFSettingHeadViewController alloc]init];
     [self.navigationController pushViewController:headVC animated:NO];
- 
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -340,39 +347,38 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     NSDictionary * param = @{
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"svcName":@"getUserInfo",
                              };
- 
-     [PPNetworkHelper POST:zfb_url parameters:param responseCache:^(id responseCache) {
-         
-     } success:^(id responseObject) {
-          ;
-         NSLog(@"%@", responseObject);
-         NSLog(@"%@", BBUserDefault.cmUserId);
-
-         if ([responseObject [@"resultCode"] isEqualToString:@"0"]) {
-             
-             NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-             NSDictionary * data = [NSString dictionaryWithJsonString:dataStr];
-       
-             BBUserDefault.nickName = data[@"userInfo"][@"nickName"];
-             BBUserDefault.userKeyMd5 = data[@"userInfo"][@"userKeyMd5"];
-             BBUserDefault.userStatus = data[@"userInfo"][@"userStatus"];
-             _foolnum = data[@"foolNum"];
-             _collectNum = data[@"collectNum"];
-
-             NSLog(@"data = %@", data);
-         }
-     } failure:^(NSError *error) {
-         NSLog(@"%@",error);
-         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-     }];
+    
+    [PPNetworkHelper POST:zfbMine_Url parameters:param responseCache:^(id responseCache) {
+        
+    } success:^(id responseObject) {
+        ;
+        NSLog(@"%@", responseObject);
+        NSLog(@"%@", BBUserDefault.cmUserId);
+        
+        if ([responseObject [@"resultCode"] isEqualToString:@"0"]) {
+            
+            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+            NSDictionary * data = [NSString dictionaryWithJsonString:dataStr];
+            
+            BBUserDefault.nickName = data[@"userInfo"][@"nickName"];
+            BBUserDefault.userKeyMd5 = data[@"userInfo"][@"userKeyMd5"];
+            BBUserDefault.userStatus = data[@"userInfo"][@"userStatus"];
+            _foolnum = data[@"foolNum"];
+            _collectNum = data[@"collectNum"];
+            
+            NSLog(@"data = %@", data);
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self minePagePOSTRequste];//页面网络请求
-
+//    [self minePagePOSTRequste];//页面网络请求
+    
 }
 /*
  #pragma mark - Navigation
