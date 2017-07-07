@@ -85,11 +85,19 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
     NSInteger newRow = indexPath.row;
     NSInteger oldRow = _selectedIndexPath != nil ? _selectedIndexPath.row : -1;
     if (newRow != oldRow) {
-        UITableViewCell *currentCell = [tableView cellForRowAtIndexPath:indexPath];
+        HPLocationCell *currentCell = [tableView cellForRowAtIndexPath:indexPath];
         currentCell.accessoryType = UITableViewCellAccessoryCheckmark;
-        UITableViewCell *lastCell = [tableView cellForRowAtIndexPath:_selectedIndexPath];
+      
+        HPLocationCell *lastCell = [tableView cellForRowAtIndexPath:_selectedIndexPath];
         lastCell.accessoryType = UITableViewCellAccessoryNone;
+ 
+        _poiName =currentCell.lb_title.text;
+        _poiaddress =currentCell.lb_detail.text;
+        NSLog(@"%@=====%@", currentCell.lb_title.text,currentCell.lb_detail.text );
+        NSLog(@" section----%ld,row----%ld,",indexPath.section ,indexPath.row);
+
     }
+ 
     _selectedIndexPath = indexPath;
     
     // 将地图中心移到选中的位置
@@ -118,7 +126,9 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
         // 刷新TableView第一行数据
         NSIndexPath *reloadIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [_tableView reloadRowsAtIndexPaths:@[reloadIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+       
         NSLog(@"_selectedPoi.name:%@",_selectedPoi.name);
+        
         // 刷新后TableView返回顶部
         [_tableView setContentOffset:CGPointMake(0, 0) animated:NO];
         

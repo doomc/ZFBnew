@@ -33,12 +33,11 @@ static const NSString  * MD5_key = @"1233@sdf%22dscE3";//全局
     //    signDict 原来的参数进行封装
     NSDictionary *signDict = @{
                                
-                               @"svcName":[param objectForKey:@"svcName"],
+//                               @"svcName":[param objectForKey:@"svcName"],
                                @"signType":@"MD5",
                                @"transactionTime":transactionTime,
                                @"transactionId":transactionId,
                                @"data":data,
-                               @"svcName":@"",
                                };
     
     NSArray *keyArray = [signDict allKeys];
@@ -46,24 +45,28 @@ static const NSString  * MD5_key = @"1233@sdf%22dscE3";//全局
         return [obj1 compare:obj2 options:NSNumericSearch];
     }];
     NSMutableArray *valueArray = [NSMutableArray array];
+    
     for (NSString *sortString in sortArray) {
-        [valueArray addObject:[signDict objectForKey:sortString]];
         
+        [valueArray addObject:[signDict objectForKey:sortString]];
     }
     NSMutableArray *signArray = [NSMutableArray array];
     for (int i = 0; i < sortArray.count; i++) {
+        
         NSString *keyValueStr = [NSString stringWithFormat:@"%@=%@",sortArray[i],valueArray[i]];
         NSString * valueStr = [NSString stringWithFormat:@"%@",valueArray[i]];
+        
         if ( !kStringIsEmpty(valueStr)) {
             
-               [signArray addObject:keyValueStr];
+            [signArray addObject:keyValueStr];
         }
     }
   
+    //md5key拼接签名
     NSString * md5String =[NSString stringWithFormat:@"%@|%@",[signArray componentsJoinedByString:@"|"],MD5_key];
-   
     NSLog(@"signStr = %@",md5String);
-    //sign 加密验证 +MD5
+    
+    //sign 加密验证 +MD5ss
     NSString * sign =  [MD5Tool MD5ForLower32Bate:md5String];
     
     NSDictionary *signDic2 = @{

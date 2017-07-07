@@ -128,7 +128,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2E-Gs-zRL">
-                            <rect key="frame" x="142" y="10.5" width="218" height="29"/>
+                            <rect key="frame" x="102" y="10.5" width="258" height="29"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="点击进行定位" image="location_icon2.png">
                                 <color key="titleColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -144,7 +144,7 @@
                         <constraint firstAttribute="trailing" secondItem="X2E-Gs-zRL" secondAttribute="trailing" constant="15" id="63j-jI-tlE"/>
                         <constraint firstAttribute="trailing" secondItem="Je2-lE-Zjq" secondAttribute="trailing" constant="15" id="6Uw-7s-a70"/>
                         <constraint firstAttribute="height" constant="50" id="S5R-FA-gPH"/>
-                        <constraint firstItem="X2E-Gs-zRL" firstAttribute="leading" secondItem="GSB-bc-JAY" secondAttribute="trailing" constant="50" id="TM2-5D-a0a"/>
+                        <constraint firstItem="X2E-Gs-zRL" firstAttribute="leading" secondItem="GSB-bc-JAY" secondAttribute="trailing" constant="10" id="TM2-5D-a0a"/>
                         <constraint firstItem="X2E-Gs-zRL" firstAttribute="centerY" secondItem="rPH-at-DCp" secondAttribute="centerY" id="W3n-Aw-HH2"/>
                         <constraint firstItem="GSB-bc-JAY" firstAttribute="centerY" secondItem="rPH-at-DCp" secondAttribute="centerY" id="dvj-pN-gzU"/>
                         <constraint firstAttribute="bottom" secondItem="Je2-lE-Zjq" secondAttribute="bottom" id="edQ-zr-LEU"/>

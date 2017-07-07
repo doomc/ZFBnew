@@ -47,7 +47,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
     self.login_btn.enabled = NO; //默认关闭用户登录
     [self initSegmentInterfaceAndTextfiled];//设置segement
     [self textFieldSettingDelegate];//代理
-    
     [self.getCodeVerification_btn addTarget:self action:@selector(getVerificationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
 
     [self set_leftButton];
@@ -59,7 +58,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
 #pragma mark - setter方法
 -(UIButton*)set_leftButton
 {
-    
     UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
     left_button.frame =CGRectMake(0, 0,22,22);
     [left_button setBackgroundImage:[UIImage imageNamed:@"navback_white"] forState:UIControlStateNormal];
@@ -72,10 +70,10 @@ typedef NS_ENUM(NSUInteger, indexType) {
 //设置右边事件
 -(void)left_button_event:(UIButton *)sender{
 
-    [self.navigationController popToRootViewControllerAnimated:NO];
-//    [self dismissViewControllerAnimated:NO completion:^{
-//        
-//    }];
+//    [self.navigationController popToRootViewControllerAnimated:NO];
+    [self dismissViewControllerAnimated:NO completion:^{
+        
+    }];
 }
 
 #pragma mark - getVerificationCodeAction获取验证码
@@ -158,7 +156,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
                 
             }
         }
-        NSLog(@"%@ ",_tf_loginphone.text );
+        NSLog(@"验证码j手机号%@ ",_tf_loginphone.text );
     }
     if (_isQuickLogin == NO) {
        
@@ -167,7 +165,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
         if (_tf_verificationCodeOrPassWord == textfiled) {
             
             //当账号与密码同时有值,登录按钮才能够点击
-            if ( [_tf_loginphone.text isMobileNumber] && _tf_verificationCodeOrPassWord.text.length >5 &&_tf_verificationCodeOrPassWord.text.length <18 ) {
+            if ( [_tf_loginphone.text isMobileNumber] && _tf_verificationCodeOrPassWord.text.length > 0) {
                 self.login_btn.enabled = YES;
                 self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
                 
@@ -416,7 +414,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             _isLogin = YES;
             BBUserDefault.isLogin = _isLogin;
             BBUserDefault.userPhoneNumber =_tf_loginphone.text;
-            [self.view makeToast:@"登录成功" duration:2 position:@"center" ];
+            [self.view makeToast:responseObject[@"resultMessage"]   duration:2 position:@"center"];
  
         }
         
@@ -437,60 +435,51 @@ typedef NS_ENUM(NSUInteger, indexType) {
 -(void)PasswordLoginPostRequest{
     
     //测试
-
     [SVProgressHUD showWithStatus:@"登陆中"];
-    
     NSDictionary * parma = @{
                              
-                            @"mobilePhone":_tf_loginphone.text,
-                            @"loginPwd":_tf_verificationCodeOrPassWord.text,
+                             @"mobilePhone":_tf_loginphone.text,
+                             @"loginPwd":_tf_verificationCodeOrPassWord.text,
+//                             @"svcName":@"",
+//                             @"cmUserId":BBUserDefault.cmUserId,
 
                              };
     
-
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:[zfb_baseUrl stringByAppendingString:@"/login"] parameters:parmaDic responseCache:^(id responseCache) {
-        
-    } success:^(id responseObject) {
+    [PPNetworkHelper POST:[zfb_baseUrl stringByAppendingString:@"/login"] parameters:parmaDic success:^(id responseObject) {
         
         NSLog(@"  %@  = responseObject  " ,responseObject);
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
-            _isLogin = YES;
-            [self.view makeToast:@"登录成功" duration:2 position:@"center" ];
+//        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+//            
+//            _isLogin = YES;
+//            [self.view makeToast:@"登录成功" duration:2 position:@"center" ];
+//            
+//            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+//            NSDictionary * dic = [NSString dictionaryWithJsonString:dataStr];
+//            BBUserDefault.isLogin = _isLogin;
+//            BBUserDefault.userPhoneNumber = _tf_loginphone.text;
+//            BBUserDefault.cmUserId = dic[@"userInfo"][@"cmUserId"];
+//            BBUserDefault.nickName = dic[@"userInfo"][@"nickName"];
+//            BBUserDefault.userKeyMd5 = dic[@"userInfo"][@"userKeyMd5"];//QSXQBXDIJIKNGOO6
+//            BBUserDefault.userStatus = dic[@"userInfo"][@"userStatus"];
+//            
+//            NSLog(@"dic= %@ ",dic[@"userInfo"][@"cmUserId"]);
+//    
+//        }
+        [self.view makeToast:responseObject[@"resultMessage"]   duration:2 position:@"center"];
 
-            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-            NSDictionary * dic = [NSString dictionaryWithJsonString:dataStr];
-            BBUserDefault.isLogin = _isLogin;
-            BBUserDefault.userPhoneNumber = _tf_loginphone.text;
-            BBUserDefault.cmUserId = dic[@"userInfo"][@"cmUserId"];
-            BBUserDefault.nickName = dic[@"userInfo"][@"nickName"];
-            BBUserDefault.userKeyMd5 = dic[@"userInfo"][@"userKeyMd5"];//QSXQBXDIJIKNGOO6
-            BBUserDefault.userStatus = dic[@"userInfo"][@"userStatus"];
-            
-            NSLog(@"dic= %@ ",dic[@"userInfo"][@"cmUserId"]);
-            
-        }
-        if ([responseObject[@"resultCode"] isEqualToString:@"109"]) {
-            
-            [self.view makeToast:responseObject[@"resultMessage"] duration:2 position:@"center"];
-            
-        }
-        if ([responseObject[@"resultCode"] isEqualToString:@"104"]) {
-            
-            [self.view makeToast:responseObject[@"resultMessage"] duration:2 position:@"center"];
-            
-        }
+ 
+        
         [SVProgressHUD dismiss];
-
+        
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         [SVProgressHUD dismiss];
-
+        
     }];
-    
 
+   
 }
 @end

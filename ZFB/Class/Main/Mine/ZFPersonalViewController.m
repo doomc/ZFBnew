@@ -26,6 +26,7 @@
 #import "ZFFeedbackViewController.h"
 
 #import "ZFPersonalHeaderView.h"
+#import "BaseNavigationController.h"
 typedef NS_ENUM(NSUInteger, TypeCell) {
     
     TypeCellOfMyCashBagCell,
@@ -77,16 +78,29 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     NSLog(@"注册了");
     RegisterViewController * regiVC= [ RegisterViewController new];
+    BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:regiVC];
     
-    [self.navigationController pushViewController:regiVC animated:YES];
+    [self presentViewController:nav animated:NO completion:^{
+        
+        [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+        [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+    }];
+//    [self.navigationController pushViewController:regiVC animated:YES];
 }
 #pragma mark - 登录
 -(void)didClickLoginAction:(UIButton *)sender
 {
     NSLog(@"登录了");
     LoginViewController * logvc= [ LoginViewController new];
-    
-    [self.navigationController pushViewController:logvc animated:YES];
+    BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logvc];
+
+    [self presentViewController:nav animated:NO completion:^{
+        
+        [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+        [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+    }];
+
+//    [self.navigationController pushViewController:logvc animated:YES];
 }
 -(void)initmyTableViewInterface
 {
@@ -231,9 +245,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         orderCell.order_title.text = @"意见反馈";
         orderCell.order_hiddenTitle.hidden = YES;
         return orderCell;
-        
     }
-    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -346,40 +358,36 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)minePagePOSTRequste
 {
     NSDictionary * param = @{
-                             
-                             @"cmUserId":BBUserDefault.cmUserId,
+                            @"svcName":@"getUserInfo",
+//                            @"cmUserId":@"85",
                              };
     
-    [PPNetworkHelper POST:[zfb_baseUrl stringByAppendingString:@"/getUserInfo"] parameters:param responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:[zfb_baseUrl stringByAppendingString:@"/getUserInfo"] parameters:param success:^(id responseObject) {
+        NSLog(@"-------responseObject------%@", responseObject);
+        NSLog(@"cmUserId ===%@", BBUserDefault.cmUserId);
         
-    } success:^(id responseObject) {
-        ;
-        NSLog(@"%@", responseObject);
-        NSLog(@"%@", BBUserDefault.cmUserId);
-        
-        if ([responseObject [@"resultCode"] isEqualToString:@"0"]) {
-            
-            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-            NSDictionary * data = [NSString dictionaryWithJsonString:dataStr];
-            
-            BBUserDefault.nickName = data[@"userInfo"][@"nickName"];
-            BBUserDefault.userKeyMd5 = data[@"userInfo"][@"userKeyMd5"];
-            BBUserDefault.userStatus = data[@"userInfo"][@"userStatus"];
-            _foolnum = data[@"foolNum"];
-            _collectNum = data[@"collectNum"];
-            
-            NSLog(@"data = %@", data);
-        }
+//        if ([responseObject [@"resultCode"] isEqualToString:@"0"]) {
+//            
+//            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+//            NSDictionary * data = [NSString dictionaryWithJsonString:dataStr];
+//            
+//            BBUserDefault.nickName = data[@"userInfo"][@"nickName"];
+//            BBUserDefault.userKeyMd5 = data[@"userInfo"][@"userKeyMd5"];
+//            BBUserDefault.userStatus = data[@"userInfo"][@"userStatus"];
+//            _foolnum = data[@"foolNum"];
+//            _collectNum = data[@"collectNum"];
+//            
+//            NSLog(@"data = %@", data);
+//        }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
+    
 }
-
 -(void)viewWillAppear:(BOOL)animated
 {
-//    [self minePagePOSTRequste];//页面网络请求
-    
+        [self minePagePOSTRequste];//页面网络请求
 }
 /*
  #pragma mark - Navigation

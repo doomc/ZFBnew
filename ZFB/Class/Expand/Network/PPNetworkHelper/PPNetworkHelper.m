@@ -111,10 +111,10 @@ static AFHTTPSessionManager *_sessionManager;
                    failure:(PPHttpRequestFailed)failure {
     
     //参数加密规则
-    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
-    NSDictionary * parma = [keydic signStringWithParam:parameters];
+//    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
+//    NSDictionary * parma = [keydic signStringWithParam:parameters];
 
-    return [self POST:URL parameters:parma responseCache:nil success:success failure:failure];
+    return [self POST:URL parameters:parameters responseCache:nil success:success failure:failure];
 }
 
 #pragma mark - GET请求自动缓存
@@ -353,7 +353,12 @@ static AFHTTPSessionManager *_sessionManager;
     _sessionManager.requestSerializer.timeoutInterval = 30.f;
     // 设置服务器返回结果的类型:JSON (AFJSONResponseSerializer,AFHTTPResponseSerializer)
     _sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
-    _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript", @"text/xml", @"image/*", nil];
+    
+    [_sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+//    _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript", @"text/xml", @"image/*", nil];
+
+    _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"text/html",@"text/plain",@"application/json", @"text/json", @"text/javascript"]];
     // 打开状态栏的等待菊花
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 }
@@ -365,7 +370,10 @@ static AFHTTPSessionManager *_sessionManager;
 }
 
 + (void)setRequestSerializer:(PPRequestSerializer)requestSerializer {
-    _sessionManager.requestSerializer = requestSerializer==PPRequestSerializerHTTP ? [AFHTTPRequestSerializer serializer] : [AFJSONRequestSerializer serializer];
+    
+    _sessionManager.requestSerializer = requestSerializer == PPRequestSerializerHTTP ? [AFHTTPRequestSerializer serializer] : [AFJSONRequestSerializer serializer];
+//    [_sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
 }
 
 + (void)setResponseSerializer:(PPResponseSerializer)responseSerializer {

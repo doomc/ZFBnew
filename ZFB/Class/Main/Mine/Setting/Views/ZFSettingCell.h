@@ -8,28 +8,27 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ZFSettingCellDelete <NSObject>
+
+
+///清除缓存
+-(void)clearingCache;
+
+
+@end
 @interface ZFSettingCell : UITableViewCell
 
-
-/**
- 头icon
- */
+@property (assign ,nonatomic) id <ZFSettingCellDelete> delegate;
+/* 头icon*/
 @property (weak, nonatomic) IBOutlet UIImageView *img_iconView;
 
-/**
- 尾icon
- */
+/**尾icon */
 @property (weak, nonatomic) IBOutlet UIImageView *img_detailIcon;
 
-
-/**
- 前缀
- */
+/** 前缀 */
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 
-/**
- 后缀详情
- */
+/** 后缀详情 */
 @property (weak, nonatomic) IBOutlet UILabel *lb_detailTitle;
 
 

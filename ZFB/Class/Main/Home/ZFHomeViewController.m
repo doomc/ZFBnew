@@ -138,7 +138,6 @@
 
     
     // 1.创建热门搜索
-    
     NSArray *hotSeaches = @[@"服装", @"热搜", @"iphone8", @"手机", @"电脑", @"展富宝", @"AAABBB"];
     
     // 2. 创建控制器
@@ -179,7 +178,8 @@
 //    [jxt addAction:left];
 //    [jxt addAction:right];
 //    [self presentViewController:jxt animated:YES completion:^{  }];
- }
+ 
+}
 
 
 

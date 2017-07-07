@@ -114,7 +114,6 @@
     request.keywords = searchString;
     request.city = _city;
     request.cityLimit = YES;
-    request.types = @"小区|学校|大厦|街道";
     request.page = searchPage;
     [_searchAPI AMapPOIKeywordsSearch:request];
 }

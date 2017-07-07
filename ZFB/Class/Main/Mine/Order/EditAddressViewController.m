@@ -47,6 +47,10 @@
         
         [self editUserRewardInfoMessagePostRequst];
     }
+    
+    self.locationButton.clipsToBounds = YES;
+    self.locationButton.layer.cornerRadius = 4;
+    
 }
 
 -(void)initSwitchView
@@ -104,6 +108,10 @@
 //    MainViewController * mainVC =[[MainViewController alloc]init];
 //    [self.navigationController pushViewController:mainVC animated:NO];
     AddressLocationMapViewController * locaVC = [AddressLocationMapViewController new];
+    locaVC.block = ^(NSString * address) {
+        NSLog(@"-----%@------",address);
+        [self.locationButton setTitle:address forState:UIControlStateNormal];
+    };
     [self.navigationController pushViewController:locaVC animated:NO];
 
 }
@@ -224,10 +232,8 @@
                              @"postAddressId":_postAddressId,
                              
                              };
-    
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [SVProgressHUD show];
     [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
@@ -242,14 +248,11 @@
             _tf_detailAddress.text = jsondic[@"cmUserRewardInfo"][@"deliveryAddress"];
             _defaultFlag           = jsondic[@"cmUserRewardInfo"][@"defaultFlag"];
             //            NSLog(@"jsondic= = == =%@",jsondic);
-            [SVProgressHUD dismiss];
-            
         }
-        
+
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        [SVProgressHUD dismiss];
         
     }];
     

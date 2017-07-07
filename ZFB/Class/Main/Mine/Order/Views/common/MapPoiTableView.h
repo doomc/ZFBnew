@@ -29,4 +29,7 @@
 // 选中的POI点
 @property (nonatomic, strong) AMapPOI *selectedPoi;
 
+@property (nonatomic, copy) NSString *poiName;//地区名
+@property (nonatomic, copy) NSString *poiaddress;//具体地址
+
 @end

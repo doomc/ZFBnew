@@ -19,10 +19,6 @@
 #define CELL_COUNT                      5
 
 @interface MainViewController () <MAMapViewDelegate,MapPoiTableViewDelegate,AMapSearchDelegate,UISearchBarDelegate,SearchResultTableVCDelegate>
-
-@end
-
-@implementation MainViewController
 {
     MAMapView *_mapView;
     // 地图中心点的标记
@@ -40,7 +36,7 @@
     BOOL isFirstLocated;
     // 搜索页数
     NSInteger searchPage;
-
+    
     // 禁止连续点击两次
     BOOL _isMapViewRegionChangedFromTableView;
     
@@ -48,14 +44,17 @@
     
     UISearchController *_searchController;
     UITableView *_searchTableView;
-    SearchResultTableVC *_searchResultTableVC;
 }
+
+@property (nonatomic , strong) SearchResultTableVC *searchResultTableVC;
+
+@end
+
+@implementation MainViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"地图-SearchController";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(sendLocation)];
-    self.navigationItem.rightBarButtonItem.enabled = NO;
     // 使用通知中心监听kReachabilityChangedNotification通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)

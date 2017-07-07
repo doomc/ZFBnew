@@ -83,14 +83,20 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 {
     if (!_location_btn) {
         _location_btn  = [UIButton buttonWithType:UIButtonTypeCustom];//定位按钮
-        _location_btn.frame = CGRectMake(25, 0, 100, 30);
         [_location_btn addTarget:self action:@selector(pushToLocationView:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [_location_btn setTitle:_loactionAddress forState:UIControlStateNormal];
         [_location_btn setTitleColor: HEXCOLOR(0xfa6d6a) forState:UIControlStateNormal];
-        _location_btn.titleLabel.font = [UIFont systemFontOfSize:12];
-        _location_btn.titleLabel.textAlignment = NSTextAlignmentLeft;
-        
+       
+        UIFont * font = [UIFont systemFontOfSize:13];
+        _location_btn.titleLabel.font = font ;
+        [_location_btn setTitle:_loactionAddress forState:UIControlStateNormal];
+        [_location_btn.titleLabel  sizeToFit];
+        _location_btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+  
+        _location_btn.frame = CGRectMake(25, 0, KScreenW - 60, 30);
+#pragma mark - button内文字居左
+      //  _location_btn.titleLabel.textAlignment = NSTextAlignmentLeft; 无效
+        _location_btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _location_btn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     }
     return _location_btn;
 }
@@ -313,17 +319,24 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 {
     if(response.regeocode != nil)
     {
+      
         NSLog(@"反向地理编码回调:%@",response.regeocode.addressComponent.township);
+        NSLog(@"反向地理编码回调:%@",response.regeocode.addressComponent.district);
+        NSLog(@"反向地理编码回调:%@",response.regeocode.addressComponent.city);
+        NSLog(@"反向地理编码回调:%@",response.regeocode.addressComponent.neighborhood);
  
-        _loactionAddress  = response.regeocode.addressComponent.township;
-        [self.location_btn setTitle:_loactionAddress forState:UIControlStateNormal];
         NSArray * addressArr = response.regeocode.pois;
         
         if (addressArr && addressArr.count >0) {
             AMapPOI *poiTemp = addressArr[0];
-            NSLog(@"反向地理编码回调:%@",poiTemp.name);
             
+            NSLog(@"----反向地理编码回调:%@",poiTemp.name);
+            NSLog(@"----反向地理编码回调:%@",poiTemp.address);
+            _loactionAddress = [NSString stringWithFormat:@"%@%@",poiTemp.name ,poiTemp.address];
         }
+      
+        
+        [self.location_btn setTitle:_loactionAddress forState:UIControlStateNormal];
         //通过AMapReGeocodeSearchResponse对象处理搜索结果
         NSString *result = [NSString stringWithFormat:@"ReGeocode: %@", response.regeocode];
         NSLog(@"ReGeo: %@", result);
@@ -334,7 +347,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 {
     NSLog(@"xxxxxxxxxxxx--------%@---------xxxxxxxxxxx" ,error);
 }
-#pragma mark - 首页网络请求
+#pragma mark - 首页网络请求 getCmStoreInfo
 -(void)PostRequst
 {
     NSLog(@"    lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
@@ -346,7 +359,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     NSDictionary * parma = @{
                              
-                             @"svcName":@"getCmStoreInfo",
+//                             @"svcName":@"getCmStoreInfo",
                              @"longitude":longitude,//经度
                              @"latitude":latitude ,//纬度
                              @"pageSize":pageSize,//每页显示条数
@@ -357,14 +370,13 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+    [PPNetworkHelper POST:[zfb_url stringByAppendingString:@"getCmStoreInfo"] parameters:parmaDic responseCache:^(id responseCache) {
         
     } success:^(id responseObject) {
         
+        NSLog(@"responseObject ====  =%@",responseObject);
+        
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
-            [self.home_tableView.mj_header endRefreshing];
-            [self.home_tableView.mj_footer endRefreshing];
             
             if (_page == 1) {
                 
@@ -375,9 +387,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                 }
             }
     
-            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-            NSArray * dictArray = jsondic [@"cmStoreList"];
+//            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+//            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+            NSArray * dictArray = responseObject [@"cmStoreList"];
             
             //mjextention 数组转模型
             NSArray *storArray = [HomeStoreListModel mj_objectArrayWithKeyValuesArray:dictArray];
@@ -389,7 +401,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
             [self.home_tableView reloadData];
             NSLog(@"storeListArr = %@",   self.storeListArr);
         }
-     
+        [self.home_tableView.mj_header endRefreshing];
+        [self.home_tableView.mj_footer endRefreshing];
+        
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
         [self.home_tableView.mj_header endRefreshing];

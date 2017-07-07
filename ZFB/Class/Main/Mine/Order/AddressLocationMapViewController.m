@@ -24,9 +24,9 @@
 <
 MAMapViewDelegate,
 AMapSearchDelegate,
-AMapGeoFenceManagerDelegate,//地理围栏
 AMapLocationManagerDelegate,//定位代理
 MapPoiTableViewDelegate,//自定义代理
+SearchResultTableVCDelegate,//搜索代理
 UISearchBarDelegate>
 {
     AMapSearchAPI * _searchAPI;//获取周边api
@@ -41,18 +41,19 @@ UISearchBarDelegate>
     UIButton * _locationBtn;
     UIImage  * _imageLocated;
     UIImage  * _imageNotLocate;
-    // 地图中心点POI列表
+    //地图中心点POI列表
     MapPoiTableView *_tableView;
-    SearchResultTableVC *_searchResultTableVC;
     MBProgressHUD * _HUD;
+    NSString * addressPoi ;
 }
 //定位
 @property (nonatomic, strong) MAMapView           *mapView;
 @property (nonatomic, strong) AMapLocationManager *locationManager;
 @property (nonatomic, strong) MAPointAnnotation   *pointAnnotaiton;
+//搜索框
+@property (nonatomic, strong) SearchResultTableVC *searchResultTableVC;
+@property (nonatomic, strong) UISearchController  *searchController       ;
 
-//围栏
-@property (nonatomic, strong) AMapGeoFenceManager *geoFenceManager;
 
 
 
@@ -69,25 +70,26 @@ UISearchBarDelegate>
     [self initCenterMarker];
     [self initLocationButton];//自定义定位按钮回到当前
     [self initTableView];
-    [self initSearch];
+    [self initSearchBar]; //搜索框
     
-    // 使用通知中心监听kReachabilityChangedNotification通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reachabilityChanged:)
-                                                 name:kReachabilityChangedNotification object:nil];
-    // 获取访问指定站点的Reachability对象
-    Reachability *reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
-    // 让Reachability对象开启被监听状态
-    [reach startNotifier];
+    //    // 使用通知中心监听kReachabilityChangedNotification通知
+    //    [[NSNotificationCenter defaultCenter] addObserver:self
+    //                                             selector:@selector(reachabilityChanged:)
+    //                                                 name:kReachabilityChangedNotification object:nil];
+    //    // 获取访问指定站点的Reachability对象
+    //    Reachability *reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
+    //    // 让Reachability对象开启被监听状态
+    //    [reach startNotifier];
     
 }
 
 //初始化地图
 - (void)initMapView {
     
-    _mapView           = [[MAMapView alloc] initWithFrame:CGRectMake(0, 64, KScreenW, 200)];
+    _mapView           = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, KScreenW, 300)];
     _mapView.delegate  = self;
     _mapView.zoomLevel = 15.2;
+    
     // 不显示罗盘
     _mapView.showsCompass = NO;
     // 不显示比例尺
@@ -119,26 +121,23 @@ UISearchBarDelegate>
     UIImage *image      = [UIImage imageNamed:@"icon_location"];
     _centerMaker        = [[UIImageView alloc] initWithImage:image];
     _centerMaker.frame  = CGRectMake(self.view.frame.size.width/2-image.size.width/2, _mapView.bounds.size.height/2-image.size.height, image.size.width, image.size.height);
-    _centerMaker.center = CGPointMake(KScreenW/ 2,  (200 + 64+ image.size.height) * 0.5);
+    _centerMaker.center = CGPointMake(self.view.frame.size.width / 2, (CGRectGetHeight(_mapView.bounds) -  _centerMaker.frame.size.height - 64) * 0.5);
+    
     [self.view addSubview:_centerMaker];
 }
 //初始化atableview
 - (void)initTableView
 {
-    _tableView          = [[MapPoiTableView alloc] initWithFrame:CGRectMake(0, 200+64, KScreenW, KScreenH-64-200)];
+    _tableView          = [[MapPoiTableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_mapView.frame)-64 , KScreenW, 6 * 55 + 64)];
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
 }
 
 #pragma mark - MapPoiTableViewDelegate
--(void)setSendButtonEnabledAfterLoadFinished
-{
-    NSLog(@"崩溃 nim");
-}
 // 加载更多列表数据
 - (void)loadMorePOI
 {
-    searchPage++;
+    searchPage ++;
     AMapGeoPoint *point = [AMapGeoPoint locationWithLatitude:_mapView.centerCoordinate.latitude longitude:_mapView.centerCoordinate.longitude];
     [self searchPoiByAMapGeoPoint:point];
 }
@@ -148,20 +147,20 @@ UISearchBarDelegate>
     //    if (_isMapViewRegionChangedFromTableView) {
     //        return;
     //    }
+    
+    addressPoi = [NSString stringWithFormat:@"%@%@",_tableView.poiName,_tableView.poiaddress];
+    NSLog(@"addressPoi ======= %@",addressPoi);
     // 切换定位图标
     if (isLocateImageShouldChange) {
         [_locationBtn setImage:_imageNotLocate forState:UIControlStateNormal];
+        
     }
     _isMapViewRegionChangedFromTableView = YES;
     CLLocationCoordinate2D location      = CLLocationCoordinate2DMake(point.location.latitude, point.location.longitude);
     [_mapView setCenterCoordinate:location animated:YES];
 }
 
-// 设置当前位置所在城市
-- (void)setCurrentCity:(NSString *)city
-{
-    [_searchResultTableVC setSearchCity:city];
-}
+
 #pragma mark -  开始定位
 - (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
@@ -233,6 +232,9 @@ UISearchBarDelegate>
     request.radius = 200;
     // 搜索结果排序
     request.sortrule = 0;
+    //搜索类型
+    request.types = @"汽车服务|汽车销售|汽车维修|摩托车服务|餐饮服务|购物服务|生活服务|体育休闲服务|医疗保健服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|交通设施服务|金融保险服务|公司企业|道路附属设施|地名地址信息|公共设施";
+    
     // 当前页数
     request.page = searchPage;
     [_searchAPI AMapPOIAroundSearch:request];
@@ -286,7 +288,7 @@ UISearchBarDelegate>
 {
     _imageLocated                   = [UIImage imageNamed:@"gpsselected"];
     _imageNotLocate                 = [UIImage imageNamed:@"gpsnormal"];
-    _locationBtn                    = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(_mapView.bounds)-50, CGRectGetHeight(_mapView.bounds)-50, 40, 40)];
+    _locationBtn                    = [[UIButton alloc] initWithFrame:CGRectMake(10, CGRectGetHeight(_mapView.bounds)-50, 40, 40)];
     _locationBtn.autoresizingMask   = UIViewAutoresizingFlexibleTopMargin;
     _locationBtn.backgroundColor    = [UIColor colorWithRed:239.0/255 green:239.0/255 blue:239.0/255 alpha:1];
     _locationBtn.layer.cornerRadius = 3;
@@ -355,5 +357,96 @@ UISearchBarDelegate>
     }];
     
 }
+
+#pragma - mark  传值到上级页面
+-(void)addressName:(newBlock)block
+{
+    _block = block;
+    
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    if (self.block != nil) {
+        self.block(addressPoi);
+    }
+}
+
+
+#pragma mark - 搜索框------
+-(void)initSearchBar
+{
+    searchPage          = 1;
+    _searchAPI          = [[AMapSearchAPI alloc] init];
+    _searchAPI.delegate = _tableView;
+    
+    _searchResultTableVC                   = [[SearchResultTableVC alloc] init];
+    _searchResultTableVC.delegate          = self;
+    _searchController                      = [[UISearchController alloc] initWithSearchResultsController:_searchResultTableVC];
+    _searchController.searchResultsUpdater = _searchResultTableVC;
+    _searchController.searchBar.placeholder = @"搜索";
+    _searchController.searchBar.barTintColor = HEXCOLOR(0xefefef);
+
+    int SearchBarStyle = 0;
+    switch (SearchBarStyle) {
+        case 0:  // 放在NavigationBar底部
+            [self.view addSubview:_searchController.searchBar];
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+            break;
+        case 1:  // 点击搜索按钮显示SearchBar
+            self.navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(searchAction)];
+            self.navigationItem.rightBarButtonItem = nil;
+            _searchController.searchBar.delegate   = self;
+            break;
+        case 2:  // 放在NavigationBar内部
+            _searchController.searchBar.searchBarStyle             = UISearchBarStyleMinimal;
+            _searchController.hidesNavigationBarDuringPresentation = NO;
+            self.navigationItem.titleView                          = _searchController.searchBar;
+            self.definesPresentationContext                        = YES;
+        default:
+            break;
+    }
+    
+    
+}
+
+- (void)searchAction
+{
+    [self.navigationController.navigationBar addSubview:_searchController.searchBar];
+    _searchController.searchBar.showsCancelButton = YES;
+    _searchController.hidesNavigationBarDuringPresentation = NO;
+    
+}
+// 设置当前位置所在城市
+- (void)setCurrentCity:(NSString *)city
+{
+    [_searchResultTableVC setSearchCity:city];
+}
+#pragma mark - SearchResultTableVCDelegate
+- (void)setSelectedLocationWithLocation:(AMapPOI *)poi
+{
+    [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poi.location.latitude,poi.location.longitude) animated:NO];
+    _searchController.searchBar.text = @"";
+}
+
+
+#pragma mark - UISearchBarDelegate
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    if (_searchController.searchBar) {
+        [_searchController.searchBar removeFromSuperview];
+    }
+}
+
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    if (_searchController.searchBar) {
+        [_searchController.searchBar removeFromSuperview];
+    }
+    return YES;
+}
+
+
 
 @end

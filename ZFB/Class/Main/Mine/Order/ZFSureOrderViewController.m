@@ -228,10 +228,9 @@
             
             lb_price.text = [NSString stringWithFormat:@"¥ %.2f",[_goodsAllMoney floatValue]];
             [self.mytableView reloadData];
-            [SVProgressHUD dismiss];
-            
         }
-        
+        [SVProgressHUD dismiss];
+
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];

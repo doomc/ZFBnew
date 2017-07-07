@@ -14,7 +14,7 @@
 #import "BaseNavigationController.h"
 
 static NSString * settingCellid = @"ZFSettingCellid";
-@interface ZFSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ZFSettingViewController ()<UITableViewDelegate,UITableViewDataSource,ZFSettingCellDelete>
 {
     NSArray * _titleArr;
     NSArray * _imagesArr;
@@ -97,7 +97,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
     settcell.img_iconView.image = [UIImage imageNamed:_imagesArr[indexPath.row]];
     settcell.selectionStyle = UITableViewCellSelectionStyleNone;
     settcell.img_detailIcon.hidden = YES;
- 
+    settcell.delegate = self;
     if (indexPath.row <2 ) {
         
         settcell.lb_detailTitle.text =@"";
@@ -113,14 +113,25 @@ static NSString * settingCellid = @"ZFSettingCellid";
     NSLog(@"sectin = %ld,row = %ld",indexPath.section ,indexPath.row);
 
     if (indexPath.row == 0  ) {
-        
         ZFSettingHeadViewController * settingVC = [[ZFSettingHeadViewController alloc]init];
         [self.navigationController pushViewController:settingVC animated:YES];
         
-    }if (indexPath.row == 1) {
+    }else if (indexPath.row == 1) {
         ForgetPSViewController *chagePSVC =[[ForgetPSViewController alloc]init];
         [self.navigationController pushViewController:chagePSVC animated:YES];
+  
+    }else if (indexPath.row == 2) {
+    
+        
+    }else if (indexPath.row == 3) {
+        //清除缓存
+        [self clearingCache];
     }
+}
+//清除缓存
+-(void)clearingCache
+{
+    
 }
 
 #pragma mark - didClickChangeLoginStatus 切换登录状态
@@ -137,23 +148,29 @@ static NSString * settingCellid = @"ZFSettingCellid";
 //        
 //        
 //    }
+
     
     if (BBUserDefault.isLogin == YES) {  // _isLogin 设置成全局 在登录的时候做保存判断；
         [sender setTitle:@"退出登录" forState:UIControlStateNormal];
-        [WJYAlertView showTwoButtonsWithTitle:@"信息提示" Message:@"退出后您的数据将会被清除，确认要退出吗？" ButtonType:WJYAlertViewButtonTypeCancel ButtonTitle:@"取消" Click:^{
-            
-        } ButtonType:WJYAlertViewButtonTypeWarn ButtonTitle:@"确认" Click:^{
-            
-            [self.view makeToast:@"数据已清空" duration:2.0 position:@"center"];
-            [sender setTitle:@"马上去登陆" forState:UIControlStateNormal ];
+        JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示信息" message:@"退出后您的数据将会被清除，确认要退出吗？" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction * left = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
         }];
+        UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.view makeToast:@"数据已清空" duration:2.0 position:@"center"];
+            [sender setTitle:@"去登陆" forState:UIControlStateNormal ];
+        }];
+        [jxt addAction:left];
+        [jxt addAction:right];
+        [self presentViewController:jxt animated:YES completion:^{  }];
+        
         _isLogin = NO;
         BBUserDefault.isLogin =_isLogin;
 
     }else{
         
-        if ([sender.titleLabel.text isEqualToString:@"马上去登陆"]) {
+        if ([sender.titleLabel.text isEqualToString:@"去登陆"]) {
             LoginViewController * logVC = [[LoginViewController alloc]init ];
             BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logVC];
             [self presentViewController:nav animated:NO completion:^{
