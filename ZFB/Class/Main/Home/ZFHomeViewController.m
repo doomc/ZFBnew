@@ -15,10 +15,11 @@
 #import "ZFSearchDetailViewController.h"
 #import "BaseNavigationController.h"
 #import "PYSearch.h"
+#import "HomeSearchBarViewController.h"
 
 #import <AMapLocationKit/AMapLocationKit.h>
 
-@interface ZFHomeViewController ()<UISearchBarDelegate,PYSearchViewControllerDelegate,AMapLocationManagerDelegate>
+@interface ZFHomeViewController ()<UISearchBarDelegate,AMapLocationManagerDelegate,UISearchControllerDelegate,UISearchResultsUpdating>
 {
     NSInteger _pageSize;//每页显示条数
     NSInteger _pageIndex;//当前页码;
@@ -135,31 +136,47 @@
  */
 -(void)DidClickSearchBarAction:(UIButton*)sender
 {
+    HomeSearchBarViewController  * sVC = [HomeSearchBarViewController new];
 
-    
-    // 1.创建热门搜索
-    NSArray *hotSeaches = @[@"服装", @"热搜", @"iphone8", @"手机", @"电脑", @"展富宝", @"AAABBB"];
-    
-    // 2. 创建控制器
-    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"搜索商品、门店" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
-                // 开始搜索执行以下代码
-                // 如：跳转到指定控制器
-                [searchViewController.navigationController pushViewController:[[ZFSearchDetailViewController alloc] init] animated:YES];
-            }];
-
+    BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:sVC];
+    [self.navigationController presentViewController:nav animated:NO completion:^{
         
-    // 4. 设置代理
-    searchViewController.delegate = self;
-    searchViewController.searchResultShowMode = PYSearchResultShowModeCustom;
-    searchViewController.hotSearchStyle = PYHotSearchStyleBorderTag;
-    // 5. 跳转到搜索控制器
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
-    [self presentViewController:nav  animated:NO completion:nil];
-    
- 
-    NSLog(@"clickAction2");
-
+    }];
 }
+//-(void)DidClickSearchBarAction:(UIButton*)sender
+//{
+//
+//    
+//    // 1.创建热门搜索
+//    NSArray *hotSeaches = @[@"服装", @"热搜", @"iphone8", @"手机", @"电脑", @"展富宝", @"AAABBB"];
+//    
+//    // 2. 创建控制器
+//    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"搜索商品、门店" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+//                // 开始搜索执行以下代码
+//                // 如：跳转到指定控制器
+//                [searchViewController.navigationController pushViewController:[[ZFSearchDetailViewController alloc] init] animated:YES];
+//            }];
+//
+//        
+//    // 4. 设置代理
+//    searchViewController.dataSource = self;
+//    searchViewController.searchResultShowMode = PYSearchResultShowModeEmbed;
+//    searchViewController.searchResultController = [[UITableViewController alloc] init];
+//    searchViewController.hotSearchStyle = PYHotSearchStyleColorfulTag;
+//    searchViewController.searchHistoryStyle = PYSearchHistoryStyleBorderTag;
+//    searchViewController.searchHistoriesCachePath = @"The cache path";
+//    searchViewController.searchSuggestionHidden = YES;
+//
+////    searchViewController.searchResultShowMode = PYSearchResultShowModeCustom;
+////    searchViewController.hotSearchStyle = PYHotSearchStyleBorderTag;
+//    // 5. 跳转到搜索控制器
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+//    [self presentViewController:nav  animated:NO completion:nil];
+//    
+// 
+//    NSLog(@"clickAction2");
+//
+//}
 /**
  扫一扫事件 、  摇一摇  、
  */

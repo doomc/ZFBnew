@@ -23,7 +23,7 @@ static const NSString  * MD5_key = @"1233@sdf%22dscE3";//全局
     [dataParam removeObjectForKey:@"svcName"];
     
     NSString * jsonStr = [NSString convertToJsonData:dataParam];
-    NSString * data = [NSString base64:jsonStr];
+    NSString * data = [NSString stringWithBase64EncodedString:jsonStr];
     
     //通用MD5_KEY
     NSString * transactionTime = DateTime;//当前时间

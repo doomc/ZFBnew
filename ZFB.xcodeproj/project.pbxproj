@@ -110,7 +110,6 @@
 		495E64C11F0DE18C007ED2E7 /* LocationDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E64BB1F0DE18C007ED2E7 /* LocationDetailVC.m */; };
 		495E64C21F0DE18C007ED2E7 /* MapPoiTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E64BD1F0DE18C007ED2E7 /* MapPoiTableView.m */; };
 		495E64C31F0DE18C007ED2E7 /* OldMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E64C01F0DE18C007ED2E7 /* OldMainViewController.m */; };
-		495E64C91F0DE1A5007ED2E7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E64C61F0DE1A5007ED2E7 /* MainViewController.m */; };
 		495E64CA1F0DE1A5007ED2E7 /* SearchResultTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E64C81F0DE1A5007ED2E7 /* SearchResultTableVC.m */; };
 		495E64CD1F0E03D3007ED2E7 /* wateRedBlank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495E64CB1F0E03D3007ED2E7 /* wateRedBlank@2x.png */; };
 		495E64CE1F0E03D3007ED2E7 /* wateRedBlank@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495E64CC1F0E03D3007ED2E7 /* wateRedBlank@3x.png */; };
@@ -615,6 +614,11 @@
 		503BEC101ED72324004FC36C /* UITableView+FDKeyedHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEC0A1ED72324004FC36C /* UITableView+FDKeyedHeightCache.m */; };
 		503BEC111ED72324004FC36C /* UITableView+FDTemplateLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEC0C1ED72324004FC36C /* UITableView+FDTemplateLayoutCell.m */; };
 		503BEC121ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 503BEC0E1ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.m */; };
+		506898311F13BC2C003D2138 /* HomeSearchBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506898301F13BC2C003D2138 /* HomeSearchBarViewController.m */; };
+		506898341F13BEC7003D2138 /* HomeSearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506898331F13BEC7003D2138 /* HomeSearchResultViewController.m */; };
+		5068983C1F13C3AB003D2138 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 506898371F13C3AB003D2138 /* YBPopupMenu.m */; };
+		5068983D1F13C3AB003D2138 /* YBPopupMenuPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 506898391F13C3AB003D2138 /* YBPopupMenuPath.m */; };
+		5068983E1F13C3AB003D2138 /* YBRectConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 5068983B1F13C3AB003D2138 /* YBRectConst.m */; };
 		506F63751F02A835004DF478 /* EditAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F63731F02A835004DF478 /* EditAddressViewController.m */; };
 		506F63761F02A835004DF478 /* EditAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 506F63741F02A835004DF478 /* EditAddressViewController.xib */; };
 		509A13451EE6EB000093978F /* NSString+ZFSortAppdending.m in Sources */ = {isa = PBXBuildFile; fileRef = 509A13441EE6EB000093978F /* NSString+ZFSortAppdending.m */; };
@@ -822,8 +826,6 @@
 		495E64BD1F0DE18C007ED2E7 /* MapPoiTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoiTableView.m; sourceTree = "<group>"; };
 		495E64BF1F0DE18C007ED2E7 /* OldMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldMainViewController.h; sourceTree = "<group>"; };
 		495E64C01F0DE18C007ED2E7 /* OldMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldMainViewController.m; sourceTree = "<group>"; };
-		495E64C51F0DE1A5007ED2E7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		495E64C61F0DE1A5007ED2E7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		495E64C71F0DE1A5007ED2E7 /* SearchResultTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableVC.h; sourceTree = "<group>"; };
 		495E64C81F0DE1A5007ED2E7 /* SearchResultTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultTableVC.m; sourceTree = "<group>"; };
 		495E64CB1F0E03D3007ED2E7 /* wateRedBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wateRedBlank@2x.png"; sourceTree = "<group>"; };
@@ -1546,6 +1548,16 @@
 		503BEC0C1ED72324004FC36C /* UITableView+FDTemplateLayoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCell.m"; sourceTree = "<group>"; };
 		503BEC0D1ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDTemplateLayoutCellDebug.h"; sourceTree = "<group>"; };
 		503BEC0E1ED72324004FC36C /* UITableView+FDTemplateLayoutCellDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCellDebug.m"; sourceTree = "<group>"; };
+		5068982F1F13BC2C003D2138 /* HomeSearchBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeSearchBarViewController.h; sourceTree = "<group>"; };
+		506898301F13BC2C003D2138 /* HomeSearchBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeSearchBarViewController.m; sourceTree = "<group>"; };
+		506898321F13BEC7003D2138 /* HomeSearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeSearchResultViewController.h; sourceTree = "<group>"; };
+		506898331F13BEC7003D2138 /* HomeSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeSearchResultViewController.m; sourceTree = "<group>"; };
+		506898361F13C3AB003D2138 /* YBPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenu.h; sourceTree = "<group>"; };
+		506898371F13C3AB003D2138 /* YBPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenu.m; sourceTree = "<group>"; };
+		506898381F13C3AB003D2138 /* YBPopupMenuPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenuPath.h; sourceTree = "<group>"; };
+		506898391F13C3AB003D2138 /* YBPopupMenuPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenuPath.m; sourceTree = "<group>"; };
+		5068983A1F13C3AB003D2138 /* YBRectConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBRectConst.h; sourceTree = "<group>"; };
+		5068983B1F13C3AB003D2138 /* YBRectConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBRectConst.m; sourceTree = "<group>"; };
 		506F63721F02A835004DF478 /* EditAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAddressViewController.h; sourceTree = "<group>"; };
 		506F63731F02A835004DF478 /* EditAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAddressViewController.m; sourceTree = "<group>"; };
 		506F63741F02A835004DF478 /* EditAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAddressViewController.xib; sourceTree = "<group>"; };
@@ -1924,6 +1936,7 @@
 		492756481EC4679E003C22D0 /* Vender(三方类) */ = {
 			isa = PBXGroup;
 			children = (
+				506898351F13C3AB003D2138 /* YBPopupMenu */,
 				490E8AD81F0B7F6F00C4447E /* ZWLimitCounter(计算字数) */,
 				490E8AD01F0B774900C4447E /* FSTextView(带占位符) */,
 				494A6C121EE94C830034F7F5 /* UIPlaceHolderTextView */,
@@ -2129,8 +2142,6 @@
 		495E64C41F0DE1A5007ED2E7 /* UISearchController */ = {
 			isa = PBXGroup;
 			children = (
-				495E64C51F0DE1A5007ED2E7 /* MainViewController.h */,
-				495E64C61F0DE1A5007ED2E7 /* MainViewController.m */,
 				495E64C71F0DE1A5007ED2E7 /* SearchResultTableVC.h */,
 				495E64C81F0DE1A5007ED2E7 /* SearchResultTableVC.m */,
 			);
@@ -2588,6 +2599,7 @@
 		49DF70271EEAA9B10021EE92 /* Home(首页) */ = {
 			isa = PBXGroup;
 			children = (
+				5068982E1F13BBEC003D2138 /* SearchBarController */,
 				49DF70571EEAA9B10021EE92 /* Views */,
 				4914FB0A1EF2824C00B968E8 /* Model */,
 				4943AED61EF0D95A00803973 /* Classify(分类列表) */,
@@ -3575,6 +3587,30 @@
 			path = "UITableView-FDTemplateLayoutCell";
 			sourceTree = "<group>";
 		};
+		5068982E1F13BBEC003D2138 /* SearchBarController */ = {
+			isa = PBXGroup;
+			children = (
+				5068982F1F13BC2C003D2138 /* HomeSearchBarViewController.h */,
+				506898301F13BC2C003D2138 /* HomeSearchBarViewController.m */,
+				506898321F13BEC7003D2138 /* HomeSearchResultViewController.h */,
+				506898331F13BEC7003D2138 /* HomeSearchResultViewController.m */,
+			);
+			path = SearchBarController;
+			sourceTree = "<group>";
+		};
+		506898351F13C3AB003D2138 /* YBPopupMenu */ = {
+			isa = PBXGroup;
+			children = (
+				506898361F13C3AB003D2138 /* YBPopupMenu.h */,
+				506898371F13C3AB003D2138 /* YBPopupMenu.m */,
+				506898381F13C3AB003D2138 /* YBPopupMenuPath.h */,
+				506898391F13C3AB003D2138 /* YBPopupMenuPath.m */,
+				5068983A1F13C3AB003D2138 /* YBRectConst.h */,
+				5068983B1F13C3AB003D2138 /* YBRectConst.m */,
+			);
+			path = YBPopupMenu;
+			sourceTree = "<group>";
+		};
 		509CC4B11EF829AC0035B1D8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -4137,7 +4173,6 @@
 				49B1E22D1F04970E000F4B20 /* ClearingStoreList.m in Sources */,
 				49B1E2361F049E18000F4B20 /* ShopOrderStoreNameCell.m in Sources */,
 				49DF71B51EEAA9B20021EE92 /* ZFApplyReasonCell.m in Sources */,
-				495E64C91F0DE1A5007ED2E7 /* MainViewController.m in Sources */,
 				503BEBF11ED71877004FC36C /* ZFEnum.m in Sources */,
 				5019FFB41ECCAEF800325342 /* UIImage+GIF.m in Sources */,
 				49DF717D1EEAA9B20021EE92 /* ZFCollectBarView.m in Sources */,
@@ -4181,6 +4216,7 @@
 				49E757861EC96E9100220B28 /* TAAnimatedDotView.m in Sources */,
 				498DE1291EE68A4D00F64A61 /* UIView+ViewController.m in Sources */,
 				49E757871EC96E9100220B28 /* TADotView.m in Sources */,
+				506898311F13BC2C003D2138 /* HomeSearchBarViewController.m in Sources */,
 				49F2725F1EEA43B4005D49AD /* UIButton+XW.m in Sources */,
 				49DF71C51EEAA9B20021EE92 /* ZFSaleAfterSearchCell.m in Sources */,
 				49DF71DC1EEAA9B20021EE92 /* ZFPregressCheckViewController.m in Sources */,
@@ -4191,6 +4227,7 @@
 				492756B11EC4679E003C22D0 /* UIImage+Extension.m in Sources */,
 				492757541EC4679E003C22D0 /* UIScrollView+MJExtension.m in Sources */,
 				50DF1C711F0003B70082FD20 /* JXMapNavigationView.m in Sources */,
+				5068983D1F13C3AB003D2138 /* YBPopupMenuPath.m in Sources */,
 				49DF716E1EEAA9B20021EE92 /* GuessCell.m in Sources */,
 				5019FFAB1ECCAEF800325342 /* NSData+ImageContentType.m in Sources */,
 				49DF71DB1EEAA9B20021EE92 /* ZFPersonalViewController.m in Sources */,
@@ -4244,6 +4281,7 @@
 				490E8AB71F0B659400C4447E /* FeedTypeTableViewCell.m in Sources */,
 				5019FFB51ECCAEF800325342 /* UIImage+MultiFormat.m in Sources */,
 				49DF71ED1EEAA9B20021EE92 /* ZFpopView.m in Sources */,
+				506898341F13BEC7003D2138 /* HomeSearchResultViewController.m in Sources */,
 				49DF71571EEAA9B20021EE92 /* ZFbabyEvaluateCell.m in Sources */,
 				50DF1C701F0003B70082FD20 /* CLLocation+YCLocation.m in Sources */,
 				49DF71721EEAA9B20021EE92 /* HotTableViewCell.m in Sources */,
@@ -4275,6 +4313,7 @@
 				495E64C21F0DE18C007ED2E7 /* MapPoiTableView.m in Sources */,
 				49DF6FE41EEA927C0021EE92 /* UIImage+Resize.m in Sources */,
 				49DF716C1EEAA9B20021EE92 /* FindStoreCell.m in Sources */,
+				5068983E1F13C3AB003D2138 /* YBRectConst.m in Sources */,
 				5019FFAD1ECCAEF800325342 /* SDWebImageCompat.m in Sources */,
 				509A13451EE6EB000093978F /* NSString+ZFSortAppdending.m in Sources */,
 				49B1E22A1F048A81000F4B20 /* ResponseObject.m in Sources */,
@@ -4308,6 +4347,7 @@
 				49DBE0D61F0396240063C201 /* OSSImageUploader.m in Sources */,
 				49DF71921EEAA9B20021EE92 /* ZFAddOfListCell.m in Sources */,
 				492752191EC44DFC003C22D0 /* main.m in Sources */,
+				5068983C1F13C3AB003D2138 /* YBPopupMenu.m in Sources */,
 				49DF72001EEAAA5B0021EE92 /* BaseNavigationController.m in Sources */,
 				49DF714E1EEAA9B20021EE92 /* ZFCInterpersonalCircleViewController.m in Sources */,
 				49B1E23B1F04F662000F4B20 /* AllOrderModel.m in Sources */,
@@ -4574,7 +4614,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4601,7 +4641,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

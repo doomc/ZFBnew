@@ -249,7 +249,7 @@
     UIButton* left_btn   =[UIButton buttonWithType:UIButtonTypeCustom];
     [left_btn setBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     [left_btn addTarget:self action:@selector(cancelDidClick) forControlEvents:UIControlEventTouchUpInside];
-    left_btn.frame = CGRectMake(0, 5, 20, 25);
+    left_btn.frame = CGRectMake(0, 5, 20, 20);
     UIBarButtonItem * leftItem = [[UIBarButtonItem alloc]initWithCustomView:left_btn];
     self.navigationItem.leftBarButtonItem =leftItem;
     self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);

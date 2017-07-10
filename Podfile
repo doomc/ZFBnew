@@ -16,7 +16,7 @@ target 'ZFB' do
   pod 'AMapLocation'
   pod 'AMapSearch'
   pod 'AMap2DMap'#只能存在一个
-  pod 'YBPopupMenu'#弹框
+ 
   #其他
   # pod 'QBImagePickerController'
   # pod 'ZYQAssetPickerController']

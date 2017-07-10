@@ -108,6 +108,7 @@
     _location_TableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         //需要将页码设置为1
         _pageIndex = 1;
+        
         //        [weakSelf PostRequst];
     }];
     

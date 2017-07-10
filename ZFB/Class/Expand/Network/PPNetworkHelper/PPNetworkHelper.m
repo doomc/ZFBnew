@@ -168,7 +168,7 @@ static AFHTTPSessionManager *_sessionManager;
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         if (_isOpenLog) {
-         //   NSLog(@"responseObject = %@",[self jsonToString:responseObject]);
+            NSLog(@"responseObject = %@",[self jsonToString:responseObject]);
         }
         [[self allSessionTask] removeObject:task];
         success ? success(responseObject) : nil;
@@ -354,11 +354,13 @@ static AFHTTPSessionManager *_sessionManager;
     // 设置服务器返回结果的类型:JSON (AFJSONResponseSerializer,AFHTTPResponseSerializer)
     _sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
     
-    [_sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    _sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+//    [_sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
 //    _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript", @"text/xml", @"image/*", nil];
 
-    _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"text/html",@"text/plain",@"application/json", @"text/json", @"text/javascript"]];
+//    _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"text/html",@"text/plain",@"application/json", @"text/json", @"text/javascript"]];
     // 打开状态栏的等待菊花
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 }
