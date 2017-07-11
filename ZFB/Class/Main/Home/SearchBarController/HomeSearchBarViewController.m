@@ -68,6 +68,9 @@
 
 -(void)dismissCurrentPage
 {
+    [self dismissViewControllerAnimated:NO completion:^{
+        
+    }];
     NSLog(@"返回上一页");
 }
 

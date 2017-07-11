@@ -1692,10 +1692,10 @@
 				495EA2FD1F14B64B001FCB7E /* Category */,
 				495EA3201F14B64B001FCB7E /* Const */,
 				495EA3251F14B64B001FCB7E /* Controls */,
-				495EA3281F14B64B001FCB7E /* Header */,
+				495EA3281F14B64B001FCB7E /* Header(头文件) */,
 				495EA32E1F14B64B001FCB7E /* Macros */,
-				495EA32F1F14B64B001FCB7E /* Network */,
-				495EA33E1F14B64B001FCB7E /* Tool */,
+				495EA32F1F14B64B001FCB7E /* Network(网络请求) */,
+				495EA33E1F14B64B001FCB7E /* Tool(工具类) */,
 			);
 			path = Expand;
 			sourceTree = "<group>";
@@ -1789,7 +1789,7 @@
 			path = CustomCell;
 			sourceTree = "<group>";
 		};
-		495EA3281F14B64B001FCB7E /* Header */ = {
+		495EA3281F14B64B001FCB7E /* Header(头文件) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA3291F14B64B001FCB7E /* Macros.h */,
@@ -1798,6 +1798,7 @@
 				495EA32C1F14B64B001FCB7E /* ZFEnum.h */,
 				495EA32D1F14B64B001FCB7E /* ZFEnum.m */,
 			);
+			name = "Header(头文件)";
 			path = Header;
 			sourceTree = "<group>";
 		};
@@ -1808,7 +1809,7 @@
 			path = Macros;
 			sourceTree = "<group>";
 		};
-		495EA32F1F14B64B001FCB7E /* Network */ = {
+		495EA32F1F14B64B001FCB7E /* Network(网络请求) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA3301F14B64B001FCB7E /* MENetWorkManager.h */,
@@ -1818,6 +1819,7 @@
 				495EA33C1F14B64B001FCB7E /* ZFEncryptionKey.h */,
 				495EA33D1F14B64B001FCB7E /* ZFEncryptionKey.m */,
 			);
+			name = "Network(网络请求)";
 			path = Network;
 			sourceTree = "<group>";
 		};
@@ -1841,10 +1843,9 @@
 			path = PPNetworkHelper;
 			sourceTree = "<group>";
 		};
-		495EA33E1F14B64B001FCB7E /* Tool */ = {
+		495EA33E1F14B64B001FCB7E /* Tool(工具类) */ = {
 			isa = PBXGroup;
 			children = (
-				495EA33F1F14B64B001FCB7E /* ACAlertController */,
 				495EA3401F14B64B001FCB7E /* AddressManager */,
 				495EA3441F14B64B001FCB7E /* AdvertiseHelper */,
 				495EA3491F14B64B001FCB7E /* AlertController */,
@@ -1870,14 +1871,8 @@
 				495EA3B41F14B64B001FCB7E /* XHStarRateView */,
 				495EA3BE1F14B64B001FCB7E /* YBPopupMenu */,
 			);
+			name = "Tool(工具类)";
 			path = Tool;
-			sourceTree = "<group>";
-		};
-		495EA33F1F14B64B001FCB7E /* ACAlertController */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ACAlertController;
 			sourceTree = "<group>";
 		};
 		495EA3401F14B64B001FCB7E /* AddressManager */ = {
@@ -2177,20 +2172,20 @@
 		495EA3C21F14B64B001FCB7E /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				495EA3C31F14B64B001FCB7E /* Base */,
-				495EA3CE1F14B64B001FCB7E /* FriendsCircle */,
-				495EA3D41F14B64B001FCB7E /* Home */,
-				495EA45D1F14B64B001FCB7E /* Login */,
-				495EA4701F14B64B001FCB7E /* Mine */,
-				495EA54D1F14B64C001FCB7E /* PayController */,
-				495EA5531F14B64C001FCB7E /* Public */,
-				495EA56B1F14B64C001FCB7E /* Search */,
-				495EA5701F14B64C001FCB7E /* ShoppingCar */,
+				495EA3C31F14B64B001FCB7E /* Base(基类) */,
+				495EA3CE1F14B64B001FCB7E /* FriendsCircle(朋友圈) */,
+				495EA3D41F14B64B001FCB7E /* Home(首页) */,
+				495EA45D1F14B64B001FCB7E /* Login(登录注册) */,
+				495EA4701F14B64B001FCB7E /* Mine(个人中心) */,
+				495EA54D1F14B64C001FCB7E /* PayController(支付类) */,
+				495EA5531F14B64C001FCB7E /* Public(公共) */,
+				495EA56B1F14B64C001FCB7E /* Search(搜索) */,
+				495EA5701F14B64C001FCB7E /* ShoppingCar(购物车) */,
 			);
 			path = Main;
 			sourceTree = "<group>";
 		};
-		495EA3C31F14B64B001FCB7E /* Base */ = {
+		495EA3C31F14B64B001FCB7E /* Base(基类) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA3C41F14B64B001FCB7E /* BaseNavigationController.h */,
@@ -2204,10 +2199,11 @@
 				495EA3CC1F14B64B001FCB7E /* ZFbaseTabbarViewController.h */,
 				495EA3CD1F14B64B001FCB7E /* ZFbaseTabbarViewController.m */,
 			);
+			name = "Base(基类)";
 			path = Base;
 			sourceTree = "<group>";
 		};
-		495EA3CE1F14B64B001FCB7E /* FriendsCircle */ = {
+		495EA3CE1F14B64B001FCB7E /* FriendsCircle(朋友圈) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA3CF1F14B64B001FCB7E /* Controllers */,
@@ -2216,6 +2212,7 @@
 				495EA3D21F14B64B001FCB7E /* ZFCInterpersonalCircleViewController.h */,
 				495EA3D31F14B64B001FCB7E /* ZFCInterpersonalCircleViewController.m */,
 			);
+			name = "FriendsCircle(朋友圈)";
 			path = FriendsCircle;
 			sourceTree = "<group>";
 		};
@@ -2240,11 +2237,11 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		495EA3D41F14B64B001FCB7E /* Home */ = {
+		495EA3D41F14B64B001FCB7E /* Home(首页) */ = {
 			isa = PBXGroup;
 			children = (
-				495EA3D51F14B64B001FCB7E /* Classify */,
-				495EA3E91F14B64B001FCB7E /* Controllers */,
+				495EA45B1F14B64B001FCB7E /* ZFHomeViewController.h */,
+				495EA45C1F14B64B001FCB7E /* ZFHomeViewController.m */,
 				495EA4211F14B64B001FCB7E /* FindCircleViewController.h */,
 				495EA4221F14B64B001FCB7E /* FindCircleViewController.m */,
 				495EA4231F14B64B001FCB7E /* FindStoreViewController.h */,
@@ -2253,21 +2250,23 @@
 				495EA4261F14B64B001FCB7E /* FinGoodsViewController.m */,
 				495EA4271F14B64B001FCB7E /* HP_LocationViewController.h */,
 				495EA4281F14B64B001FCB7E /* HP_LocationViewController.m */,
+				495EA3D51F14B64B001FCB7E /* Classify(分类) */,
+				495EA3E91F14B64B001FCB7E /* Controllers(详情) */,
 				495EA4291F14B64B001FCB7E /* Model */,
-				495EA43A1F14B64B001FCB7E /* SearchBarController */,
+				495EA43A1F14B64B001FCB7E /* SearchBarController(搜索) */,
 				495EA43F1F14B64B001FCB7E /* Views */,
-				495EA45B1F14B64B001FCB7E /* ZFHomeViewController.h */,
-				495EA45C1F14B64B001FCB7E /* ZFHomeViewController.m */,
 			);
+			name = "Home(首页)";
 			path = Home;
 			sourceTree = "<group>";
 		};
-		495EA3D51F14B64B001FCB7E /* Classify */ = {
+		495EA3D51F14B64B001FCB7E /* Classify(分类) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA3D61F14B64B001FCB7E /* CollectionView */,
 				495EA3E21F14B64B001FCB7E /* Tools */,
 			);
+			name = "Classify(分类)";
 			path = Classify;
 			sourceTree = "<group>";
 		};
@@ -2302,7 +2301,7 @@
 			path = Tools;
 			sourceTree = "<group>";
 		};
-		495EA3E91F14B64B001FCB7E /* Controllers */ = {
+		495EA3E91F14B64B001FCB7E /* Controllers(详情) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA3EA1F14B64B001FCB7E /* DetailFindGoodsViewController.h */,
@@ -2319,6 +2318,7 @@
 				495EA41F1F14B64B001FCB7E /* ZFEvaluateViewController.h */,
 				495EA4201F14B64B001FCB7E /* ZFEvaluateViewController.m */,
 			);
+			name = "Controllers(详情)";
 			path = Controllers;
 			sourceTree = "<group>";
 		};
@@ -2401,7 +2401,7 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		495EA43A1F14B64B001FCB7E /* SearchBarController */ = {
+		495EA43A1F14B64B001FCB7E /* SearchBarController(搜索) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA43B1F14B64B001FCB7E /* HomeSearchBarViewController.h */,
@@ -2409,6 +2409,7 @@
 				495EA43D1F14B64B001FCB7E /* HomeSearchResultViewController.h */,
 				495EA43E1F14B64B001FCB7E /* HomeSearchResultViewController.m */,
 			);
+			name = "SearchBarController(搜索)";
 			path = SearchBarController;
 			sourceTree = "<group>";
 		};
@@ -2446,13 +2447,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		495EA45D1F14B64B001FCB7E /* Login */ = {
+		495EA45D1F14B64B001FCB7E /* Login(登录注册) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA45E1F14B64B001FCB7E /* Controllers */,
 				495EA46E1F14B64B001FCB7E /* Models */,
 				495EA46F1F14B64B001FCB7E /* Views */,
 			);
+			name = "Login(登录注册)";
 			path = Login;
 			sourceTree = "<group>";
 		};
@@ -2492,7 +2494,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		495EA4701F14B64B001FCB7E /* Mine */ = {
+		495EA4701F14B64B001FCB7E /* Mine(个人中心) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA4711F14B64B001FCB7E /* CollectOrHistory */,
@@ -2518,11 +2520,12 @@
 				495EA5461F14B64C001FCB7E /* ZFFeedbackViewController.m */,
 				495EA5471F14B64C001FCB7E /* ZFMyOpinionViewController.h */,
 				495EA5481F14B64C001FCB7E /* ZFMyOpinionViewController.m */,
-				495EA5491F14B64C001FCB7E /* ZFPersonalViewController.h */,
-				495EA54A1F14B64C001FCB7E /* ZFPersonalViewController.m */,
 				495EA54B1F14B64C001FCB7E /* ZFPregressCheckViewController.h */,
 				495EA54C1F14B64C001FCB7E /* ZFPregressCheckViewController.m */,
+				495EA5491F14B64C001FCB7E /* ZFPersonalViewController.h */,
+				495EA54A1F14B64C001FCB7E /* ZFPersonalViewController.m */,
 			);
+			name = "Mine(个人中心)";
 			path = Mine;
 			sourceTree = "<group>";
 		};
@@ -2880,7 +2883,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		495EA54D1F14B64C001FCB7E /* PayController */ = {
+		495EA54D1F14B64C001FCB7E /* PayController(支付类) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA54E1F14B64C001FCB7E /* DetailPayCashViewController.h */,
@@ -2889,16 +2892,18 @@
 				495EA5511F14B64C001FCB7E /* ZFMainPayforViewController.h */,
 				495EA5521F14B64C001FCB7E /* ZFMainPayforViewController.m */,
 			);
+			name = "PayController(支付类)";
 			path = PayController;
 			sourceTree = "<group>";
 		};
-		495EA5531F14B64C001FCB7E /* Public */ = {
+		495EA5531F14B64C001FCB7E /* Public(公共) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA5541F14B64C001FCB7E /* Views */,
 				495EA5691F14B64C001FCB7E /* ZFpopView.h */,
 				495EA56A1F14B64C001FCB7E /* ZFpopView.m */,
 			);
+			name = "Public(公共)";
 			path = Public;
 			sourceTree = "<group>";
 		};
@@ -2929,7 +2934,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		495EA56B1F14B64C001FCB7E /* Search */ = {
+		495EA56B1F14B64C001FCB7E /* Search(搜索) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA56C1F14B64C001FCB7E /* ZFSearchBarViewController.h */,
@@ -2937,10 +2942,11 @@
 				495EA56E1F14B64C001FCB7E /* ZFSearchDetailViewController.h */,
 				495EA56F1F14B64C001FCB7E /* ZFSearchDetailViewController.m */,
 			);
+			name = "Search(搜索)";
 			path = Search;
 			sourceTree = "<group>";
 		};
-		495EA5701F14B64C001FCB7E /* ShoppingCar */ = {
+		495EA5701F14B64C001FCB7E /* ShoppingCar(购物车) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA5711F14B64C001FCB7E /* Model */,
@@ -2948,6 +2954,7 @@
 				495EA57C1F14B64C001FCB7E /* ZFShoppingCarViewController.h */,
 				495EA57D1F14B64C001FCB7E /* ZFShoppingCarViewController.m */,
 			);
+			name = "ShoppingCar(购物车)";
 			path = ShoppingCar;
 			sourceTree = "<group>";
 		};
@@ -4681,7 +4688,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4708,7 +4715,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -28,7 +28,7 @@
     [self.funcCollectionView registerNib:[UINib nibWithNibName:@"FuncListCollectionViewCell" bundle:nil]
               forCellWithReuseIdentifier:@"FuncListCollectionViewCellid"];
 
-    [self FuncListPostRequst];
+//    [self FuncListPostRequst];
 }
 -(NSMutableArray *)dataArray
 {

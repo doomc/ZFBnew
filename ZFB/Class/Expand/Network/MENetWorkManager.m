@@ -43,11 +43,10 @@
     //参数加密规则
     ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
     NSDictionary * parma = [keydic signStringWithParam:params];
+    NSLog(@"已经加密的参数%@",parma);
     
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
-
- 
-    //{"data":"eyJjbVVzZXJJZCI6IjMifQ==","sign":"980d8b6bb533375f0559786b2ae039ca","signType":"MD5","svcName":"getUserInfo","transactionTime":"20170706163611","userId":"2","transactionId":"20170706163611"}
+     //{"data":"eyJjbVVzZXJJZCI6IjMifQ==","sign":"980d8b6bb533375f0559786b2ae039ca","signType":"MD5","svcName":"getUserInfo","transactionTime":"20170706163611","userId":"2","transactionId":"20170706163611"}
 
     [manager.requestSerializer setValue:@"application/x-www-form-urlencoded;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
 

@@ -25,6 +25,7 @@
     }
     return _hotArray;
 }
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
@@ -37,7 +38,7 @@
     _pageSize = 5;
     _pageIndex = 0;
     
-    [self HotsalesPostRequst];
+//    [self HotsalesPostRequst];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView

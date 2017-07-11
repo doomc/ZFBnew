@@ -357,15 +357,27 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 #pragma mark  - 网络请求 getUserInfo
 -(void)minePagePOSTRequste
 {
-    NSDictionary * param = @{
-                            @"svcName":@"getUserInfo",
-//                            @"cmUserId":@"85",
+    NSDictionary * parma = @{
+                           
+                             @"serId":@"85",
+                             
                              };
     
-    [PPNetworkHelper POST:[zfb_baseUrl stringByAppendingString:@"/getUserInfo"] parameters:param success:^(id responseObject) {
-        NSLog(@"-------responseObject------%@", responseObject);
-        NSLog(@"cmUserId ===%@", BBUserDefault.cmUserId);
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getUserInfo"] params:parma success:^(id response) {
         
+        NSLog(@"-------response------%@", response);
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+
+    
 //        if ([responseObject [@"resultCode"] isEqualToString:@"0"]) {
 //            
 //            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
@@ -379,11 +391,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 //            
 //            NSLog(@"data = %@", data);
 //        }
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-    }];
-    
+ 
 }
 -(void)viewWillAppear:(BOOL)animated
 {
