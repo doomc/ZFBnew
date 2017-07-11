@@ -444,12 +444,26 @@ typedef NS_ENUM(NSUInteger, indexType) {
 //                             @"cmUserId":BBUserDefault.cmUserId,
 
                              };
-    
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [PPNetworkHelper POST:[zfb_baseUrl stringByAppendingString:@"/login"] parameters:parmaDic success:^(id responseObject) {
-        
+
+    [PPNetworkHelper POST:[zfb_baseUrl stringByAppendingString:@"/login"] parameters:parma responseCache:^(id responseCache) {
+
+    } success:^(id responseObject) {
+       
         NSLog(@"  %@  = responseObject  " ,responseObject);
+        [self.view makeToast:responseObject[@"resultMessage"]   duration:2 position:@"center"];
+        
+        
+        
+        [SVProgressHUD dismiss];
+    } failure:^(NSError *error) {
+        
+        NSLog(@"%@",error);
+       
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+        
+    }];
+   
 //        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
 //            
 //            _isLogin = YES;
@@ -467,19 +481,10 @@ typedef NS_ENUM(NSUInteger, indexType) {
 //            NSLog(@"dic= %@ ",dic[@"userInfo"][@"cmUserId"]);
 //    
 //        }
-        [self.view makeToast:responseObject[@"resultMessage"]   duration:2 position:@"center"];
 
  
-        
-        [SVProgressHUD dismiss];
-        
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        [SVProgressHUD dismiss];
-        
-    }];
-
    
 }
+
+
 @end

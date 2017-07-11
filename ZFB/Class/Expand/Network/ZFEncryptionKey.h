@@ -13,7 +13,9 @@ typedef void(^Block) (NSDictionary * signParam, NSDictionary * param);
 //加密规则
 @interface ZFEncryptionKey : NSObject
 
-@property(nonatomic,copy)Block block;
+@property (nonatomic,copy) Block block;
+ 
+
 
 -(NSDictionary *)signStringWithParam:(NSDictionary *)param;
 

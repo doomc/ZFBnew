@@ -61,10 +61,9 @@
 {
     FindStoreViewController *findStoreVC = [[FindStoreViewController alloc]init];
     findStoreVC.title = @"找 店";
+    
     FinGoodsViewController *findGoodsVC = [[FinGoodsViewController alloc]init];
-    [findGoodsVC reloadDataWithVC];
     findGoodsVC.title = @"找商品";
-  
 
     FindCircleViewController *findCircleVC = [[FindCircleViewController alloc]init];
     findCircleVC.title = @"找圈子";

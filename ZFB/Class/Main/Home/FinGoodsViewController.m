@@ -58,6 +58,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
 
     [self initWithFindGoodsTableView];
     
+    //    [self ADpagePostRequst];
+    //    [self guessYouLikePostRequst];
+
     _pageSize = 10;
     _pageIndex = 1;
     
@@ -360,12 +363,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
     }];
 }
 
-//主控制器加载
--(void)reloadDataWithVC
-{
-    [self ADpagePostRequst];
-    [self guessYouLikePostRequst];
-}
+
 -(NSMutableArray *)adArray{
     if (!_adArray) {
         _adArray =[ NSMutableArray array];

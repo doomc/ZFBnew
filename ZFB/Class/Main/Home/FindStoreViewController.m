@@ -359,7 +359,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     NSDictionary * parma = @{
                              
-//                             @"svcName":@"getCmStoreInfo",
+                             @"userId":@"23",
                              @"longitude":longitude,//经度
                              @"latitude":latitude ,//纬度
                              @"pageSize":pageSize,//每页显示条数
@@ -367,49 +367,62 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                              //                             @"cmUserId":BBUserDefault.cmUserId,
                              
                              };
-    
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [PPNetworkHelper POST:[zfb_url stringByAppendingString:@"getCmStoreInfo"] parameters:parmaDic responseCache:^(id responseCache) {
-        
-    } success:^(id responseObject) {
-        
-        NSLog(@"responseObject ====  =%@",responseObject);
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
-            if (_page == 1) {
-                
-                for (;0 < self.storeListArr.count;) {
-                
-                    [self.storeListArr removeObjectAtIndex:0];
 
-                }
-            }
     
-//            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-//            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-            NSArray * dictArray = responseObject [@"cmStoreList"];
-            
-            //mjextention 数组转模型
-            NSArray *storArray = [HomeStoreListModel mj_objectArrayWithKeyValuesArray:dictArray];
-            for (HomeStoreListModel *list in storArray) {
-                
-                [self.storeListArr addObject:list];
-            }
-            
-            [self.home_tableView reloadData];
-            NSLog(@"storeListArr = %@",   self.storeListArr);
-        }
-        [self.home_tableView.mj_header endRefreshing];
-        [self.home_tableView.mj_footer endRefreshing];
-        
+    NSLog(@" caonima  ----------- %@ ======parma" ,parma);
+    [MENetWorkManager post: [NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
+     
+        NSLog(@"response ====  =%@",response);
+
+    } progress:^(NSProgress *progeress) {
+        NSLog(@"progeress=====%@",progeress);
+
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.home_tableView.mj_header endRefreshing];
-        [self.home_tableView.mj_footer endRefreshing];
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    
+        NSLog(@"error=====%@",error);
+
     }];
+//    [PPNetworkHelper POST:[zfb_url stringByAppendingString:@"/getCmStoreInfo"] parameters:parma responseCache:^(id responseCache) {
+//        
+//    } success:^(id responseObject) {
+//        
+//        NSLog(@"responseObject ====  =%@",responseObject);
+//        
+////        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+////            
+////            if (_page == 1) {
+////                
+////                for (;0 < self.storeListArr.count;) {
+////                
+////                    [self.storeListArr removeObjectAtIndex:0];
+////
+////                }
+////            }
+////    
+////            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+////            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+////            NSArray * dictArray = responseObject [@"cmStoreList"];
+////            
+////            //mjextention 数组转模型
+////            NSArray *storArray = [HomeStoreListModel mj_objectArrayWithKeyValuesArray:dictArray];
+////            for (HomeStoreListModel *list in storArray) {
+////                
+////                [self.storeListArr addObject:list];
+////            }
+////            
+////            [self.home_tableView reloadData];
+////            NSLog(@"storeListArr = %@",   self.storeListArr);
+////        }
+////        [self.home_tableView.mj_header endRefreshing];
+////        [self.home_tableView.mj_footer endRefreshing];
+////        
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//        
+//        [self.home_tableView.mj_header endRefreshing];
+//        [self.home_tableView.mj_footer endRefreshing];
+//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+//    }];
     
 }
 

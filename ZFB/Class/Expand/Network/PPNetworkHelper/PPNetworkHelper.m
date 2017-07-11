@@ -1,3 +1,4 @@
+
 //
 //  PPNetworkHelper.m
 //  PPNetworkHelper
@@ -161,7 +162,7 @@ static AFHTTPSessionManager *_sessionManager;
     NSDictionary * parma = [keydic signStringWithParam:parameters];
     
     //读取缓存
-    responseCache!=nil ? responseCache([PPNetworkCache httpCacheForURL:URL parameters:parameters]) : nil;
+    responseCache!=nil ? responseCache([PPNetworkCache httpCacheForURL:URL parameters:parma]) : nil;
     
     NSURLSessionTask *sessionTask = [_sessionManager POST:URL parameters:parma progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -364,6 +365,7 @@ static AFHTTPSessionManager *_sessionManager;
     // 打开状态栏的等待菊花
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 }
+
 
 #pragma mark - 重置AFHTTPSessionManager相关属性
 
