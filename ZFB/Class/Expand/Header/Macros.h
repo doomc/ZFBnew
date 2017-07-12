@@ -6,6 +6,7 @@
 //  Copyright © 2016年 wujunyang. All rights reserved.
 //
 
+#define TITLES @[@"门店",@"商品"]
 
 #define isNotVersion84                  ([[[UIDevice currentDevice] systemVersion] floatValue] > 8.4)
 //获取屏幕宽高

@@ -9,53 +9,81 @@
 #import "ZFSearchBarViewController.h"
 #import "ZFSearchDetailViewController.h"
 #import "PYSearch.h"
-@interface ZFSearchBarViewController ()<UISearchBarDelegate,PYSearchViewControllerDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface ZFSearchBarViewController ()<UISearchBarDelegate,PYSearchViewControllerDelegate,UITableViewDelegate,UITableViewDataSource,PYSearchViewControllerDataSource>
 
-@property(nonatomic,strong)UISearchBar * searchBar;
-@property(nonatomic,strong)UITableView * search_TableView;
+@property (nonatomic , strong) PYSearchViewController * searchBarViewController;
+@property (nonatomic , strong) UITableView * search_TableView;
+@property (nonatomic , strong) NSMutableArray  * dataArray;
+@property (nonatomic , strong) NSArray  * hotArray;
 
 
 
 @end
 
 @implementation ZFSearchBarViewController
+-(NSMutableArray *)dataArray
+{
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray array];
+        
+        NSMutableArray *tempArray = [NSMutableArray array];
+        for (int i = 0 ; i< 6; i ++) {
+            NSString *number = [NSString stringWithFormat:@"%d",i];
+            [tempArray addObject:number];
+        }
+        _dataArray = tempArray.copy;
+
+    }
+    return _dataArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
     [self settingSearchBarTableView];
-    [self settingCustomSearchBar];
+    
     [self settingNavBarLeftItem];
     
-    
-    
-//    // 1.创建热门搜索
-//        NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
-//        // 2. 创建控制器
-//        PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"搜索编程语言" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
-//            // 开始搜索执行以下代码
-//            // 如：跳转到指定控制器
-//            [searchViewController.navigationController pushViewController:[[ZFSearchDetailViewController alloc] init] animated:YES];
-//        }];
-//        // 4. 设置代理
-//       searchViewController.delegate = self;
-//        searchViewController.searchResultShowMode = PYSearchResultShowModeEmbed;
-//        searchViewController.hotSearchStyle = PYHotSearchStyleColorfulTag;
-//    
-//    
-    
- 
-}
+    self.hotArray = [NSArray array];
 
+    
+    [self PYSearchViewControllerInit];
+    
+
+   
+}
+-(void)PYSearchViewControllerInit
+{
+//    self.hotArray = @[@"服装", @"热搜", @"iphone8", @"手机", @"电脑", @"展富宝", @"AAABBB"];
+//
+//    PYSearchViewController * searchVC= [PYSearchViewController searchViewControllerWithHotSearches:self.hotArray searchBarPlaceholder:@"来搜索啊"];
+//    searchVC.dataSource = self;
+//    searchVC.searchResultShowMode = PYSearchResultShowModeCustom;
+//    searchVC.searchResultController = [[ZFSearchDetailViewController alloc] init];
+//    // Set hotSearchStyle
+//    searchVC.hotSearchStyle = PYHotSearchStyleNormalTag;
+//    // Set searchHistoryStyle
+//    searchVC.searchHistoryStyle = PYSearchHistoryStyleCell;
+//    // Set searchHistoriesCachePath
+//    searchVC.searchHistoriesCachePath = @"The cache path";
+//    // Set searchSuggestionHidden
+//    searchVC.searchSuggestionHidden = NO;
+//    
+//    //自定义
+//    
+//    self.navigationItem.titleView = searchVC.searchBar;
+
+}
 /**初始化搜索列表 */
 -(void)settingSearchBarTableView
 {
     self.search_TableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -64) style:UITableViewStyleGrouped];
     [self.view addSubview:_search_TableView];
-    
     self.search_TableView .delegate = self;
     self.search_TableView.dataSource = self;
+    
+
 }
 
 /**定义导航栏返回*/
@@ -64,43 +92,13 @@
     UIButton* left_btn   =[UIButton buttonWithType:UIButtonTypeCustom];
     [left_btn setBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     [left_btn addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
-    left_btn.frame = CGRectMake(0, 5, 20, 25);
+    left_btn.frame = CGRectMake(0, 5, 22, 22);
     UIBarButtonItem * leftItem = [[UIBarButtonItem alloc]initWithCustomView:left_btn];
     self.navigationItem.leftBarButtonItem =leftItem;
-    
-    
-    
-}
-/** 自定义搜索框和放大镜 */
--(void)settingCustomSearchBar
-{
-    _searchBar= [[ UISearchBar alloc]initWithFrame:CGRectMake(30, 0, KScreenW-60, 35)];
-    _searchBar.delegate = self;
-    _searchBar.clipsToBounds = YES;
-    _searchBar.placeholder = @"请搜索商品或者店铺";
-//    [self.searchBar setImage:[UIImage imageNamed:@"search"]
-//            forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-    [self.searchBar becomeFirstResponder];
-    _searchBar.tintColor =  HEXCOLOR(0xfe6d6a);
-    self.navigationItem.titleView = _searchBar;
-    
-}
-#pragma mark  ----  searchBar delegate
-//   searchBar开始编辑响应
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-    //因为闲置时赋了空格，防止不必要的bug，在启用的时候先清空内容
-    self.searchBar.text = @"";
+
 }
 
-//取消键盘 搜索框闲置的时候赋给其一个空格，保证放大镜居左
-- (void)registerFR{
-    if ([self.searchBar isFirstResponder]) {
-         self.searchBar.text = @" ";
-        [self.searchBar resignFirstResponder];
-    }
-}
-
-#pragma mark  ----  TableView delegate
+#pragma mark  -  UITableViewDataSource
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -108,20 +106,32 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    if (section == 0) {
+        return  _hotArray.count;
+    }
+    
+    return   self.dataArray.count  ;
+ 
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
-
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+    }
+    
+    // Configure the cell...
+    cell.textLabel.text = self.dataArray[indexPath.row];
     
     return cell;
 
+ 
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+ 
+    
 }
 
 
@@ -144,12 +154,6 @@
 }
 
 
--(void)cancel2:(UIButton*)sender{
-    
-    ZFSearchBarViewController * zfSearchVC= [ZFSearchBarViewController new];
-    [self.navigationController pushViewController:zfSearchVC animated:YES];
-    
-}
 
 -(void)cancel:(UIButton*)sender{
   
@@ -158,7 +162,6 @@
         
     }];
 }
-
 
 
 

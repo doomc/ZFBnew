@@ -19,7 +19,7 @@
 
 #import <AMapLocationKit/AMapLocationKit.h>
 
-@interface ZFHomeViewController ()<UISearchBarDelegate,AMapLocationManagerDelegate,UISearchControllerDelegate,UISearchResultsUpdating>
+@interface ZFHomeViewController ()<AMapLocationManagerDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,PYSearchViewControllerDataSource>
 {
     NSInteger _pageSize;//每页显示条数
     NSInteger _pageIndex;//当前页码;
@@ -29,7 +29,7 @@
 @property(nonatomic,strong)UIButton * customLeft_btn;//扫一扫
 @property(nonatomic,strong)UIButton * navSearch_btn;//搜索
 @property(nonatomic,strong)UIButton * shakehanderRight_btn;//摇一摇
-@property(nonatomic,strong)UISearchBar* searchBar;
+@property(nonatomic,strong)PYSearchViewController* searchBarController;
 
 //高德api
 @property (nonatomic,strong) AMapLocationManager * locationManager;
@@ -138,42 +138,28 @@
 -(void)DidClickSearchBarAction:(UIButton*)sender
 {
     HomeSearchBarViewController  * sVC = [HomeSearchBarViewController new];
-
     BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:sVC];
     [self.navigationController presentViewController:nav animated:NO completion:^{
         
     }];
+    
+
+
 }
 //-(void)DidClickSearchBarAction:(UIButton*)sender
 //{
 //
 //    
-//    // 1.创建热门搜索
-//    NSArray *hotSeaches = @[@"服装", @"热搜", @"iphone8", @"手机", @"电脑", @"展富宝", @"AAABBB"];
-//    
-//    // 2. 创建控制器
-//    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"搜索商品、门店" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
-//                // 开始搜索执行以下代码
-//                // 如：跳转到指定控制器
-//                [searchViewController.navigationController pushViewController:[[ZFSearchDetailViewController alloc] init] animated:YES];
-//            }];
-//
+// 
+//    ZFSearchBarViewController  * sVC = [ZFSearchBarViewController new];
 //        
-//    // 4. 设置代理
-//    searchViewController.dataSource = self;
-//    searchViewController.searchResultShowMode = PYSearchResultShowModeEmbed;
-//    searchViewController.searchResultController = [[UITableViewController alloc] init];
-//    searchViewController.hotSearchStyle = PYHotSearchStyleColorfulTag;
-//    searchViewController.searchHistoryStyle = PYSearchHistoryStyleBorderTag;
-//    searchViewController.searchHistoriesCachePath = @"The cache path";
-//    searchViewController.searchSuggestionHidden = YES;
-//
-////    searchViewController.searchResultShowMode = PYSearchResultShowModeCustom;
-////    searchViewController.hotSearchStyle = PYHotSearchStyleBorderTag;
-//    // 5. 跳转到搜索控制器
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
-//    [self presentViewController:nav  animated:NO completion:nil];
 //    
+//    BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:sVC];
+//    
+//    [self.navigationController presentViewController:nav animated:NO completion:^{
+//            
+//        }];
+// 
 // 
 //    NSLog(@"clickAction2");
 //
@@ -185,17 +171,14 @@
 {
     NSLog(@"clickAction");
  
-//    JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示信息" message:@"登陆成功！" preferredStyle:UIAlertControllerStyleAlert];
-//    
-//    UIAlertAction * left = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        
-//    }];
-//    UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        
-//    }];
-//    [jxt addAction:left];
-//    [jxt addAction:right];
-//    [self presentViewController:jxt animated:YES completion:^{  }];
+    JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示信息" message:@"功能暂未开放，敬请期待！" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+
+    [jxt addAction:right];
+    [self presentViewController:jxt animated:YES completion:^{  }];
  
 }
 

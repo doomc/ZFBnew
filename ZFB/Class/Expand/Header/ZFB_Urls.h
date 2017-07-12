@@ -19,7 +19,7 @@
 
 
 //baseUrl
-#define  zfb_baseUrl @"http://192.168.1.104:8087/zfb/InterfaceServlet"
+#define  zfb_baseUrl @"http://192.168.1.107:8087/zfb/InterfaceServlet"
 
 //正式
 //#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"

@@ -370,9 +370,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                              };
     
     NSLog(@" 参与加密的参数  ----------- %@ ======parma" ,parma);
-    // [NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl]
+
     
-    [MENetWorkManager post:@"http//:www.baidu.com" params:parma success:^(id response) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
         
         NSLog(@"response ====  =%@",response);
         
