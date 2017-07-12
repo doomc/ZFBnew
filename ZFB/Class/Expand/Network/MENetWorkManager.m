@@ -46,10 +46,12 @@
     NSLog(@"已经加密的参数%@",parma);
     
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
      //{"data":"eyJjbVVzZXJJZCI6IjMifQ==","sign":"980d8b6bb533375f0559786b2ae039ca","signType":"MD5","svcName":"getUserInfo","transactionTime":"20170706163611","userId":"2","transactionId":"20170706163611"}
-
-    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-
+//
+//    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//
     [manager POST:url parameters:parma progress:^(NSProgress * _Nonnull uploadProgress) {
         if (progeress) {
             progeress(uploadProgress);
