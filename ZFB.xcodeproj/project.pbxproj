@@ -15,6 +15,11 @@
 		492752271EC44DFD003C22D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 492752251EC44DFD003C22D0 /* LaunchScreen.storyboard */; };
 		492752321EC44DFD003C22D0 /* ZFBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 492752311EC44DFD003C22D0 /* ZFBTests.m */; };
 		4927523D1EC44DFD003C22D0 /* ZFBUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4927523C1EC44DFD003C22D0 /* ZFBUITests.m */; };
+		4956CEA31F15F61000DAD466 /* ZFSearchDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4956CEA21F15F61000DAD466 /* ZFSearchDetailViewController.m */; };
+		4956CEA81F16042A00DAD466 /* HotSearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4956CEA61F16042A00DAD466 /* HotSearchCollectionViewCell.m */; };
+		4956CEA91F16042A00DAD466 /* HotSearchCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4956CEA71F16042A00DAD466 /* HotSearchCollectionViewCell.xib */; };
+		4956CEB01F16046E00DAD466 /* HotSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4956CEAE1F16046E00DAD466 /* HotSearchCell.m */; };
+		4956CEB11F16046E00DAD466 /* HotSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4956CEAF1F16046E00DAD466 /* HotSearchCell.xib */; };
 		495EA7151F14B64D001FCB7E /* NSData+APNSToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3001F14B64B001FCB7E /* NSData+APNSToken.m */; };
 		495EA7161F14B64D001FCB7E /* NSData+Encrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3021F14B64B001FCB7E /* NSData+Encrypt.m */; };
 		495EA7171F14B64D001FCB7E /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3041F14B64B001FCB7E /* NSData+Hash.m */; };
@@ -322,7 +327,6 @@
 		495EA8491F14B64D001FCB7E /* ZFOrderDetailSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA5681F14B64C001FCB7E /* ZFOrderDetailSectionCell.xib */; };
 		495EA84A1F14B64D001FCB7E /* ZFpopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA56A1F14B64C001FCB7E /* ZFpopView.m */; };
 		495EA84B1F14B64D001FCB7E /* ZFSearchBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA56D1F14B64C001FCB7E /* ZFSearchBarViewController.m */; };
-		495EA84C1F14B64D001FCB7E /* ZFSearchDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA56F1F14B64C001FCB7E /* ZFSearchDetailViewController.m */; };
 		495EA84D1F14B64D001FCB7E /* ShoppingCarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA5731F14B64C001FCB7E /* ShoppingCarModel.m */; };
 		495EA84E1F14B64D001FCB7E /* PayforCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA5761F14B64C001FCB7E /* PayforCell.m */; };
 		495EA84F1F14B64D001FCB7E /* PayforCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA5771F14B64C001FCB7E /* PayforCell.xib */; };
@@ -664,6 +668,14 @@
 		492752381EC44DFD003C22D0 /* ZFBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZFBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4927523C1EC44DFD003C22D0 /* ZFBUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZFBUITests.m; sourceTree = "<group>"; };
 		4927523E1EC44DFD003C22D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4956CEA11F15F61000DAD466 /* ZFSearchDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFSearchDetailViewController.h; sourceTree = "<group>"; };
+		4956CEA21F15F61000DAD466 /* ZFSearchDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFSearchDetailViewController.m; sourceTree = "<group>"; };
+		4956CEA51F16042A00DAD466 /* HotSearchCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotSearchCollectionViewCell.h; sourceTree = "<group>"; };
+		4956CEA61F16042A00DAD466 /* HotSearchCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotSearchCollectionViewCell.m; sourceTree = "<group>"; };
+		4956CEA71F16042A00DAD466 /* HotSearchCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotSearchCollectionViewCell.xib; sourceTree = "<group>"; };
+		4956CEAD1F16046E00DAD466 /* HotSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotSearchCell.h; sourceTree = "<group>"; };
+		4956CEAE1F16046E00DAD466 /* HotSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotSearchCell.m; sourceTree = "<group>"; };
+		4956CEAF1F16046E00DAD466 /* HotSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotSearchCell.xib; sourceTree = "<group>"; };
 		495EA2FF1F14B64B001FCB7E /* NSData+APNSToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+APNSToken.h"; sourceTree = "<group>"; };
 		495EA3001F14B64B001FCB7E /* NSData+APNSToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+APNSToken.m"; sourceTree = "<group>"; };
 		495EA3011F14B64B001FCB7E /* NSData+Encrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Encrypt.h"; sourceTree = "<group>"; };
@@ -1194,8 +1206,6 @@
 		495EA56A1F14B64C001FCB7E /* ZFpopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFpopView.m; sourceTree = "<group>"; };
 		495EA56C1F14B64C001FCB7E /* ZFSearchBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFSearchBarViewController.h; sourceTree = "<group>"; };
 		495EA56D1F14B64C001FCB7E /* ZFSearchBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFSearchBarViewController.m; sourceTree = "<group>"; };
-		495EA56E1F14B64C001FCB7E /* ZFSearchDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFSearchDetailViewController.h; sourceTree = "<group>"; };
-		495EA56F1F14B64C001FCB7E /* ZFSearchDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFSearchDetailViewController.m; sourceTree = "<group>"; };
 		495EA5721F14B64C001FCB7E /* ShoppingCarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCarModel.h; sourceTree = "<group>"; };
 		495EA5731F14B64C001FCB7E /* ShoppingCarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCarModel.m; sourceTree = "<group>"; };
 		495EA5751F14B64C001FCB7E /* PayforCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayforCell.h; sourceTree = "<group>"; };
@@ -1671,6 +1681,19 @@
 				4927523E1EC44DFD003C22D0 /* Info.plist */,
 			);
 			path = ZFBUITests;
+			sourceTree = "<group>";
+		};
+		4956CEA41F16040A00DAD466 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4956CEA51F16042A00DAD466 /* HotSearchCollectionViewCell.h */,
+				4956CEA61F16042A00DAD466 /* HotSearchCollectionViewCell.m */,
+				4956CEA71F16042A00DAD466 /* HotSearchCollectionViewCell.xib */,
+				4956CEAD1F16046E00DAD466 /* HotSearchCell.h */,
+				4956CEAE1F16046E00DAD466 /* HotSearchCell.m */,
+				4956CEAF1F16046E00DAD466 /* HotSearchCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		495EA2FB1F14B64B001FCB7E /* Class */ = {
@@ -2253,7 +2276,6 @@
 				495EA3D51F14B64B001FCB7E /* Classify(分类) */,
 				495EA3E91F14B64B001FCB7E /* Controllers(详情) */,
 				495EA4291F14B64B001FCB7E /* Model */,
-				495EA43A1F14B64B001FCB7E /* SearchBarController(搜索) */,
 				495EA43F1F14B64B001FCB7E /* Views */,
 			);
 			name = "Home(首页)";
@@ -2381,6 +2403,7 @@
 		495EA4291F14B64B001FCB7E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				495EA43A1F14B64B001FCB7E /* SearchBarController(搜索) */,
 				495EA42A1F14B64B001FCB7E /* AllStoreModel.h */,
 				495EA42B1F14B64B001FCB7E /* AllStoreModel.m */,
 				495EA42C1F14B64B001FCB7E /* DetailGoodsModel.h */,
@@ -2404,13 +2427,14 @@
 		495EA43A1F14B64B001FCB7E /* SearchBarController(搜索) */ = {
 			isa = PBXGroup;
 			children = (
+				4956CEA41F16040A00DAD466 /* View */,
 				495EA43B1F14B64B001FCB7E /* HomeSearchBarViewController.h */,
 				495EA43C1F14B64B001FCB7E /* HomeSearchBarViewController.m */,
 				495EA43D1F14B64B001FCB7E /* HomeSearchResultViewController.h */,
 				495EA43E1F14B64B001FCB7E /* HomeSearchResultViewController.m */,
 			);
 			name = "SearchBarController(搜索)";
-			path = SearchBarController;
+			path = ../SearchBarController;
 			sourceTree = "<group>";
 		};
 		495EA43F1F14B64B001FCB7E /* Views */ = {
@@ -2939,8 +2963,8 @@
 			children = (
 				495EA56C1F14B64C001FCB7E /* ZFSearchBarViewController.h */,
 				495EA56D1F14B64C001FCB7E /* ZFSearchBarViewController.m */,
-				495EA56E1F14B64C001FCB7E /* ZFSearchDetailViewController.h */,
-				495EA56F1F14B64C001FCB7E /* ZFSearchDetailViewController.m */,
+				4956CEA11F15F61000DAD466 /* ZFSearchDetailViewController.h */,
+				4956CEA21F15F61000DAD466 /* ZFSearchDetailViewController.m */,
 			);
 			name = "Search(搜索)";
 			path = Search;
@@ -3939,6 +3963,7 @@
 				495EA8631F14B64D001FCB7E /* wx_share@3x.png in Resources */,
 				495EA85B1F14B64D001FCB7E /* 搜索@3x.png in Resources */,
 				495EA8901F14B64D001FCB7E /* arrows_down_gray@2x.png in Resources */,
+				4956CEA91F16042A00DAD466 /* HotSearchCollectionViewCell.xib in Resources */,
 				495EA8431F14B64D001FCB7E /* ZFOrderDetailCountCell.xib in Resources */,
 				495EA89B1F14B64D001FCB7E /* s_normal@3x.png in Resources */,
 				495EA8F91F14B64E001FCB7E /* sendcar_normal@3x.png in Resources */,
@@ -3985,6 +4010,7 @@
 				495EA8971F14B64D001FCB7E /* message@3x.png in Resources */,
 				495EA7811F14B64D001FCB7E /* SukItemCollectionViewCell.xib in Resources */,
 				495EA75D1F14B64D001FCB7E /* star_nor.png in Resources */,
+				4956CEB11F16046E00DAD466 /* HotSearchCell.xib in Resources */,
 				495EA8E21F14B64E001FCB7E /* select_selected@2x.png in Resources */,
 				495EA8771F14B64D001FCB7E /* nav_back@3x.png in Resources */,
 				495EA7BC1F14B64D001FCB7E /* RegisterViewController.xib in Resources */,
@@ -4256,7 +4282,6 @@
 				495EA7C91F14B64D001FCB7E /* ZFHistoryCell.m in Sources */,
 				495EA78F1F14B64D001FCB7E /* ZFLoctionNavCell.m in Sources */,
 				495EA7F61F14B64D001FCB7E /* ZFSureOrderViewController.m in Sources */,
-				495EA84C1F14B64D001FCB7E /* ZFSearchDetailViewController.m in Sources */,
 				495EA7161F14B64D001FCB7E /* NSData+Encrypt.m in Sources */,
 				495EA8001F14B64D001FCB7E /* ZFSendSerViceViewController.m in Sources */,
 				495EA79F1F14B64D001FCB7E /* HomeGuessModel.m in Sources */,
@@ -4307,6 +4332,7 @@
 				495EA74C1F14B64D001FCB7E /* UITapImageView.m in Sources */,
 				495EA7D71F14B64D001FCB7E /* EditAddressViewController.m in Sources */,
 				495EA75C1F14B64D001FCB7E /* UIView+ZFCornerRadius.m in Sources */,
+				4956CEA31F15F61000DAD466 /* ZFSearchDetailViewController.m in Sources */,
 				495EA83C1F14B64D001FCB7E /* ZFMainPayforViewController.m in Sources */,
 				495EA79A1F14B64D001FCB7E /* AllStoreModel.m in Sources */,
 				495EA8021F14B64D001FCB7E /* ApplySalesNumCell.m in Sources */,
@@ -4346,6 +4372,7 @@
 				495EA7701F14B64D001FCB7E /* ZFClassifyCollectionViewController.m in Sources */,
 				49690CBD1F14D0CF004C501B /* PPNetworkHelper.m in Sources */,
 				495EA9741F14B64E001FCB7E /* YBRectConst.m in Sources */,
+				4956CEA81F16042A00DAD466 /* HotSearchCollectionViewCell.m in Sources */,
 				495EA7DF1F14B64D001FCB7E /* GoodsitemCell.m in Sources */,
 				495EA7F41F14B64D001FCB7E /* ZFAddressListViewController.m in Sources */,
 				495EA9521F14B64E001FCB7E /* PYSearchSuggestionViewController.m in Sources */,
@@ -4491,6 +4518,7 @@
 				495EA7531F14B64D001FCB7E /* DCNavTabBarController.m in Sources */,
 				495EA8101F14B64D001FCB7E /* ZFPregressCheckCell2.m in Sources */,
 				495EA9691F14B64E001FCB7E /* UIImage+WebP.m in Sources */,
+				4956CEB01F16046E00DAD466 /* HotSearchCell.m in Sources */,
 				495EA7431F14B64D001FCB7E /* MD5Tool.m in Sources */,
 				495EA9401F14B64E001FCB7E /* MJRefreshFooter.m in Sources */,
 				495EA9641F14B64E001FCB7E /* SDWebImageManager.m in Sources */,
@@ -4688,7 +4716,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4715,7 +4743,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

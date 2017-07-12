@@ -10,7 +10,7 @@
 #import "HomeSearchResultViewController.h"
 #import "YBPopupMenu.h"
 
-#define TITLES @[@"门店",@"商品"]
+#import "HotSearchCell.h"
 @interface HomeSearchBarViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchControllerDelegate,UISearchResultsUpdating,UISearchBarDelegate,YBPopupMenuDelegate>
 
 @property (nonatomic, strong) UISearchController *searchController;
@@ -29,10 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    if ([[[UIDevice currentDevice] systemVersion] floatValue]>=9.0) {
-        _searchController.obscuresBackgroundDuringPresentation = NO;
-    }
-    self.definesPresentationContext = YES;
+
+    
     [self createTableView];
     [self createSearch];
     
@@ -43,27 +41,14 @@
     _searchList = [NSMutableArray arrayWithArray:arr2];//search到的数组
     
     
-//    UIBarButtonItem * left  =[[UIBarButtonItem alloc]initWithTitle:@"back" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
     UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
     left_button.frame =CGRectMake(0, 0,22,22);
     [left_button setBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     [left_button addTarget:self action:@selector(dismissCurrentPage) forControlEvents:UIControlEventTouchUpInside];
-    
     UIBarButtonItem *leftItem1 = [[UIBarButtonItem alloc]initWithCustomView: left_button];
-
     UIBarButtonItem *leftItem2 = [[UIBarButtonItem alloc]initWithCustomView:self.selectbutton];
     self.navigationItem.leftBarButtonItems = @[leftItem1,leftItem2];
     
-}
--(UIButton*)set_leftButton
-{
-    UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
-    left_button.frame =CGRectMake(0, 0,22,22);
-    [left_button setBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
-    [left_button addTarget:self action:@selector(dismissCurrentPage) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:left_button];
-    self.navigationItem.leftBarButtonItem = leftItem;
-    return left_button;
 }
 
 -(void)dismissCurrentPage
@@ -90,51 +75,72 @@
 }
 
 
-#pragma mark- TableView
+#pragma mark - TableView
 - (void)createTableView{
+    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64)];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    [_tableView registerNib:[UINib nibWithNibName:@"HotSearchCell" bundle:nil] forCellReuseIdentifier:@"HotSearchCellid"];
     [self.view addSubview:_tableView];
     
 }
-
+#pragma mark -  UITableViewDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 2;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (indexPath.section == 0) {
+        
+        return 120;
+    }
     return 60;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
 }
 //设置区域的行数
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (self.searchController.active) {
-        //        _tableView.hidden = NO;
-        return [self.searchList count];
-    }else{
-        //        _tableView.hidden = YES;
-        return [self.dataList count];
+    if (section == 1) {
+        
+        if (self.searchController.active) {
+            //        _tableView.hidden = NO;
+            return [self.searchList count];
+        }else{
+            //        _tableView.hidden = YES;
+            return [self.dataList count];
+        }
+
     }
+    return 1;
 }
+#pragma mark -  UITableViewDelegate
 
 //返回单元格内容
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *flag=@"cellFlag";
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:flag];
-    if (cell==nil) {
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:flag];
+  
+    static NSString * flag = @"cellFlag";
+    static NSString * hotflag = @"HotSearchCellid";
+
+    if (indexPath.section == 0) {
+        HotSearchCell * hotCell = [self.tableView dequeueReusableCellWithIdentifier:hotflag forIndexPath:indexPath];
+       
+        return hotCell;
+    }
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:flag];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:flag];
         //取消选中状态
-        //        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        cell.backgroundColor = [UIColor colorWithRed:arc4random()%255/256.0f green:arc4random()%255/256.0f  blue:arc4random()%255/256.0f  alpha:1];
+//                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        cell.backgroundColor = randomColor;
     }
     if (self.searchController.active) {
-        //        _tableView.hidden = NO;
+//                _tableView.hidden = NO;
         [cell.textLabel setText:self.searchList[indexPath.row]];
     }
     else{
-        //        _tableView.hidden = YES;
+//                _tableView.hidden = YES;
         [cell.textLabel setText:self.dataList[indexPath.row]];
     }
     //
@@ -145,32 +151,36 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
-    if (_searchList.count != 0) {
-        reslutVC.number = _searchList[indexPath.row];
-    }else{
-        reslutVC.number = _dataList[indexPath.row];
+   
+    if (indexPath.section > 0) {
+        if (_searchList.count != 0) {
+            
+            reslutVC.number = _searchList[indexPath.row];
+        }else{
+            reslutVC.number = _dataList[indexPath.row];
+        }
+        //_searchController.active = NO;
+        //这样的话就可以实现下边跳转到reslutVC页面的方法了，因为取消了它的活跃，能看到有个动作是直接回到了最初的界面，然后才执行的跳转方法
+        
+        [self.navigationController pushViewController:reslutVC animated:NO];
+        
+        NSLog(@"reslutVC.number = %@",reslutVC.number);
+        //下边这五个方法貌似没什么卵用。会在此时同时打印出来
+        [self willPresentSearchController:_searchController];
+        [self didPresentSearchController:_searchController];
+        [self willDismissSearchController:_searchController];
+        [self didDismissSearchController:_searchController];
+        [self presentSearchController:_searchController];
+
     }
-    //_searchController.active = NO;
-    //这样的话就可以实现下边跳转到reslutVC页面的方法了，因为取消了它的活跃，能看到有个动作是直接回到了最初的界面，然后才执行的跳转方法
-    
-    [self.navigationController pushViewController:reslutVC animated:NO];
-    
-    NSLog(@"reslutVC.number = %@",reslutVC.number);
-    //下边这五个方法貌似没什么卵用。会在此时同时打印出来
-    [self willPresentSearchController:_searchController];
-    [self didPresentSearchController:_searchController];
-    [self willDismissSearchController:_searchController];
-    [self didDismissSearchController:_searchController];
-    [self presentSearchController:_searchController];
     
 }
-
 
 // 6.添加多个按钮在Cell
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     _cureHistoryDeleteBtnString = @"删除";
     // 添加一个删除按钮
     UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:_cureHistoryDeleteBtnString handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
@@ -205,7 +215,13 @@
 
 #pragma mark- SearchController
 - (void)createSearch{
-
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue]>=9.0) {
+        
+        _searchController.obscuresBackgroundDuringPresentation = NO;
+    }
+    self.definesPresentationContext = YES;
+    
     _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     _searchController.searchResultsUpdater = self;
     _searchController.searchBar.delegate = self;//*****这个很重要，一定要设置并引用了代理之后才能调用searchBar的常用方法*****
@@ -213,10 +229,10 @@
     _searchController.hidesNavigationBarDuringPresentation = NO;//是否隐藏导航栏
 
 //    _searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x + 50, self.searchController.searchBar.frame.origin.y, self.searchController.searchBar.frame.size.width, 44.0);
-    [_searchController.searchBar sizeToFit];
     
+    [_searchController.searchBar sizeToFit];
     _searchController.searchBar.placeholder = @"造作啊~";
-    NSLog(@"%f",_searchController.searchBar.frame.size.width);
+
     [[[_searchController.searchBar.subviews.firstObject subviews] firstObject] removeFromSuperview];// 直接把背景imageView干掉。在iOS8,9是没问题的，7没测试过。
 
     UIView * navbarView = [[UIView alloc]initWithFrame:
@@ -235,8 +251,8 @@
 
 //展示搜索结果
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-   
-    searchController.searchBar.showsCancelButton = YES;
+    
+//    searchController.searchBar.showsCancelButton = YES;
     UIView * view = [searchController.searchBar.subviews objectAtIndex:0];
     for (UIView *subView in view.subviews) {
         
@@ -307,6 +323,7 @@
 }
 
 
+
 #pragma mark -  选择搜索类型
 -(void)selectTypeAction :(UIButton *)sender
 {
@@ -317,7 +334,7 @@
         popupMenu.arrowWidth  = 10;
         popupMenu.fontSize = 14;
         popupMenu.delegate = self;
-        popupMenu.borderColor = [UIColor redColor];
+        popupMenu.borderColor = HEXCOLOR(0xfe6d6a);
     }];
 }
 #pragma mark - YBPopupMenuDelegate

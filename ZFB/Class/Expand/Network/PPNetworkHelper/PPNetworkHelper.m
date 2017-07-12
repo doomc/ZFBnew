@@ -159,7 +159,7 @@ static AFHTTPSessionManager *_sessionManager;
     
     //参数加密规则
     ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
-    NSDictionary * parma = [keydic signStringWithParam:parameters];
+    NSDictionary * parma = [keydic signStringWithParamdic:parameters];
     
     //读取缓存
     responseCache!=nil ? responseCache([PPNetworkCache httpCacheForURL:URL parameters:parma]) : nil;

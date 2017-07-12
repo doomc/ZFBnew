@@ -8,88 +8,68 @@
 
 #import "ZFEncryptionKey.h"
 
-static const NSString  * MD5_key = @"1233@sdf%22dscE3";//全局
+static  NSString  * MD5_key = @"1233@sdf%22dscE3";//全局
 
 @implementation ZFEncryptionKey
 
--(NSDictionary *)signStringWithParam:(NSDictionary *)param
+
+
+-(NSDictionary *)signStringWithParamdic:(NSDictionary *)param
 {
-    //获取当前时间
+    // 固定参数
     NSDate *date = [NSDate date];
     NSString *DateTime =  [dateTimeHelper htcTimeToLocationStr: date];
+    NSString * transactionTime = DateTime;
+    NSString * transactionId = DateTime;
     
-    //创建一个临时dataParam 接收源数据
+    // 实际参数生成data
     NSMutableDictionary *dataParam = [NSMutableDictionary dictionaryWithDictionary:param];
-    //    [dataParam removeObjectForKey:@"svcName"];
- 
     NSString * jsonStr = [NSString convertToJsonData:dataParam];
     NSString * data = [NSString base64:jsonStr];
-    
-    //通用MD5_KEY
-    NSString * transactionTime = DateTime;//当前时间
-    NSString * transactionId = DateTime; //每个用户唯一
-     
     if (BBUserDefault.cmUserId  == nil) {
-       
         BBUserDefault.cmUserId =@"";
     }
-    //    signDict 原来的参数进行封装
-    NSDictionary *signDict = @{
-//                               @"svcName":@"",
-//                               @"userId":BBUserDefault.cmUserId,
-                               @"signType":@"MD5",
-                               @"transactionTime":transactionTime,
-                               @"transactionId":transactionId,
-                               @"data":data,
-                               };
     
-    NSArray *keyArray = [signDict allKeys];
+    
+    // 添加默认参数
+    NSMutableDictionary *paramDict = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                     @"signType":@"MD5",
+                                                                                     @"transactionTime":transactionTime,
+                                                                                     @"transactionId":transactionId,
+                                                                                     @"data":data,
+                                                                                     }];
+    
+    // sign签名（MD5规则）
+    NSArray *keyArray = [paramDict allKeys];
     NSArray *sortArray = [keyArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2)
-    {
-        return [obj1 compare:obj2 options:NSNumericSearch];
-    }];
+                          {
+                              return [obj1 compare:obj2 options:NSNumericSearch];
+                          }];
     NSMutableArray *valueArray = [NSMutableArray array];
     for (NSString *sortString in sortArray) {
-
-        [valueArray addObject:[signDict objectForKey:sortString]];
+        
+        [valueArray addObject:[paramDict objectForKey:sortString]];
     }
     NSMutableArray *signArray = [NSMutableArray array];
     for (int i = 0; i < sortArray.count; i++) {
-        
         NSString *keyValueStr = [NSString stringWithFormat:@"%@=%@",sortArray[i],valueArray[i]];
-//        NSString * valueStr = [NSString stringWithFormat:@"%@",valueArray[i]];
-//        if ( !kStringIsEmpty(valueStr)) {
-            
-            [signArray addObject:keyValueStr];
-//        }
+        [signArray addObject:keyValueStr];
     }
     
-    NSString * md5String =[NSString stringWithFormat:@"%@|%@",[signArray componentsJoinedByString:@"|"],MD5_key];
+    ///判断如果登录成功了  给一个登陆状态
+    _md5String =[NSString stringWithFormat:@"%@|%@",[signArray componentsJoinedByString:@"|"],MD5_key];
     
-    NSLog(@"signStr = %@",md5String);
-    //sign 加密验证 +MD5
-    NSString * sign =  [MD5Tool MD5ForLower32Bate:md5String];
+    if (BBUserDefault.isLogin == YES) {///判断如果登录成功了  给一个登陆状态
+        
+        _md5String =[NSString stringWithFormat:@"%@|%@",[signArray componentsJoinedByString:@"|"],BBUserDefault.userKeyMd5];
+        
+    }
+    NSString * sign =  [MD5Tool MD5ForLower32Bate:_md5String];
     
-    NSDictionary *signDic = @{
-                               
-                               @"signType":@"MD5",
-                               @"transactionTime":transactionTime,
-                               @"transactionId":transactionId,
-                               @"data":data,
-                               @"sign":sign,
-                               };
+    // 添加sign 参数
+    [paramDict setValue:sign forKey:@"sign"];
     
-//    NSMutableDictionary *muParam = [NSMutableDictionary dictionaryWithDictionary:param];
-//    
-//    [muParam addEntriesFromDictionary:signDic];
-//    
-//    [muParam setObject:sign forKey:@"sign"];
-    
-    NSLog(@"%@ =  signDic",signDic);
-    
-    return signDic;
+    return paramDict;
 }
-
-
-
 @end
+

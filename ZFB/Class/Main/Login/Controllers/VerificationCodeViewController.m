@@ -30,9 +30,13 @@
     
     [self set_leftButton];
     self.title =@"注册";
+    
     _isRegiste = NO;
+    
     self.regist_btn.enabled = NO;
+    
     [self.regist_btn addTarget:self action:@selector(regist_btnSuccess:) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.getVerificationCode_btn addTarget:self action:@selector(getVerificationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
 
 
@@ -104,10 +108,8 @@
             
             NSLog(@" 验证码 正确");
             
-        }else{
-            
-            [self.view makeToast:@"验证码输入错误" duration:2.0 position:@"center"];
         }
+        
     }
     if (_tf_loginPassword == textField) {
         
@@ -139,19 +141,18 @@
 -(void)regist_btnSuccess:(UIButton*)sender
 {
    
-    if ([_tf_verificationCode.text isEqualToString:_smsCode] && _tf_loginPassword.text.length >7 &&_tf_loginPassword.text.length < 21 ) {
+    if ([_tf_verificationCode.text isEqualToString:_smsCode] && _tf_loginPassword.text.length > 7  ) {
 
         [self RegisterPostRequest];
        
-    }else{
-        
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
- 
     }
-
     
-    
+    else{
+        
+        [self.view makeToast:@"注册成功" duration:2 position:@"center"];
+    }
 }
+
 -(UIButton*)set_leftButton
 {
     UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -190,77 +191,55 @@
 -(void)ValidateCodePostRequset
 {
     [self timeCountdown]; //开始倒计时
-
     [SVProgressHUD showWithStatus:@"正在发送验证码"];
 
     NSDictionary * parma = @{
-                             @"SmsLogo":@"1",
-                             @"svcName":@"SendMessages",
+
                              @"mobilePhone":_phoneNumStr,
+                             @"SmsLogo":@"1",
+                             @"svcName":@"",
+                             @"userId":@"",
                              };
-    
-    
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
 
-    } success:^(id responseObject) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/SendMessages",zfb_baseUrl] params:parma success:^(id response) {
         
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
- 
-            NSString  * data = [ responseObject[@"data"] base64DecodedString];
-            
-            NSDictionary * dataDic= [NSString dictionaryWithJsonString:data];
-            
-            _smsCode = dataDic[@"smsCode"];
-       
-            _tf_verificationCode.text = _smsCode;
-
-            [self.view makeToast:@"验证码发送成功" duration:2 position:@"center"];
-
-        }
+        NSLog(@"response ===== %@",response);
+        
+        _smsCode = response[@"smsCode"];
+        _tf_verificationCode.text = _smsCode;
+        [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
         [SVProgressHUD dismiss];
+        
+    } progress:^(NSProgress *progeress) {
+        
+        
     } failure:^(NSError *error) {
-        
-        NSLog(@"%@  = error " ,error);
-        
-        [self.view makeToast:@"验证码中心很忙,稍后重试" duration:2 position:@"center"];
         [SVProgressHUD dismiss];
-
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        
     }];
+
 
 }
 
 #pragma mark - RetetPasswordPostRequest注册网络请求
 -(void)RegisterPostRequest
 {
-    [SVProgressHUD showWithStatus:@"请稍后..."];
+    [SVProgressHUD show ];
     
     NSDictionary * parma = @{
-                              @"mobilePhone":_phoneNumStr,
+                             
+                             @"mobilePhone":_phoneNumStr,
                              @"loginPwd":_tf_loginPassword.text,
                              @"smsCheckCode":_smsCode,
+                             @"userId":@"",
+                             @"svcname":@"",
                              
                              };
     
-    [PPNetworkHelper POST:zfb_url parameters:parma responseCache:^(id responseCache) {
-        
-    } success:^(id responseObject) {
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0" ]) {
-       
-            BBUserDefault.userPhonePassword = _tf_loginPassword.text;//保存密码
-            NSLog(@"%@", BBUserDefault.userPhonePassword );
-            _isRegiste = YES;
-  
-        }
-        if ([responseObject[@"resultCode"] isEqualToString:@"103"]) {
-            
-            NSString * message = responseObject[@"resultMessage"];
-            
-            [self.view makeToast:[NSString stringWithFormat:@"%@",message] duration:2 position:@"center"];
-
-        }
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/userRegistered",zfb_baseUrl] params:parma success:^(id response) {
+ 
         if (_isRegiste== YES) {
             
             JXTAlertController *AlertVC =[JXTAlertController alertControllerWithTitle:@"提示信息" message:@"已经注册成功了是否马上去登陆" preferredStyle:UIAlertControllerStyleAlert];
@@ -276,18 +255,21 @@
             [self presentViewController:AlertVC animated:YES completion:nil];
             
         }
-
-        [SVProgressHUD dismiss];
-
+        BBUserDefault.userPhonePassword = _tf_loginPassword.text;//保存密码
+        _isRegiste = YES;
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        
+        
+    } progress:^(NSProgress *progeress) {
+        
+        
     } failure:^(NSError *error) {
-       
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-
-        NSLog(@"%@",error);
+        
         [SVProgressHUD dismiss];
-
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-    
+ 
 }
 
 @end

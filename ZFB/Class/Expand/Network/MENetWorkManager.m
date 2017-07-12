@@ -35,27 +35,33 @@
     }];
 }
 
+
 +(void)post:(NSString *)url params:(NSDictionary *)params
-                           success:(void (^)(id response))success
-                          progress:(void (^)(NSProgress * progeress))progeress
-                           failure:(void (^)(NSError * error))failure {
-   
+                            success:(void (^)(id response))success
+                            progress:(void (^)(NSProgress * progeress))progeress
+                            failure:(void (^)(NSError * error))failure {
+    
     //参数加密规则
     ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
-    NSDictionary * parma = [keydic signStringWithParam:params];
-    NSLog(@"已经加密的参数%@",parma);
-    
+    NSDictionary * parmaStr = [keydic signStringWithParamdic:params];
+//    NSString * parmaStr = [keydic signStringWithParam:params];
+
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
-     //{"data":"eyJjbVVzZXJJZCI6IjMifQ==","sign":"980d8b6bb533375f0559786b2ae039ca","signType":"MD5","svcName":"getUserInfo","transactionTime":"20170706163611","userId":"2","transactionId":"20170706163611"}
-
-    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-
-    [manager POST:url parameters:parma progress:^(NSProgress * _Nonnull uploadProgress) {
+    
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+   
+    NSLog(@"已经加密的参数%@",parmaStr);
+//    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    [manager POST:url parameters:parmaStr progress:^(NSProgress * _Nonnull uploadProgress) {
         if (progeress) {
             progeress(uploadProgress);
         }
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
+            NSString *result = [NSString convertToJsonData:responseObject];
+            NSLog(@"%@",result);
             success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

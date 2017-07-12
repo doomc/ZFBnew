@@ -29,13 +29,13 @@
     self.title =@"找回密码";
     
     self.nextStep_btn.enabled = NO;
-   
+    
     [self.nextStep_btn addTarget:self action:@selector(goToResetPageView:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.getCodeVerification_btn addTarget:self action:@selector(getVerificationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
     
     [self textFieldSettingDelegate];
-  
+    
     [self set_leftButton];
 }
 -(UIButton*)set_leftButton
@@ -57,7 +57,7 @@
 }
 #pragma mark - 获取验证码
 -(void)getVerificationCodeAction:(UIButton *)sender{
-   
+    
     if ([_tf_phoneNum.text isMobileNumber]) {
         // 网络请求
         [self ValidateCodePostRequset];
@@ -72,13 +72,13 @@
             [sender setTitle:time forState:UIControlStateNormal];
             [sender setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal] ;
         }];
- 
+        
     }
     else{
         [self.view makeToast:@"请输入手机号格式不正确" duration:2.0 position:@"center"];
-
+        
     }
-
+    
 }
 #pragma mark - UITextFieldDelegate  设置代理
 -(void)textFieldSettingDelegate
@@ -97,25 +97,24 @@
     textfiled.clearButtonMode = UITextFieldViewModeWhileEditing;
     
     if (textfiled == _tf_phoneNum) {
-    
+        
         NSLog(@"_tf_phoneNum==%@",_tf_phoneNum.text);
     }
     if (textfiled == _tf_codeVerification) {
         NSLog(@"tf_codeVerification==%ld",_tf_codeVerification.text.length);
         
         //当账号与密码同时有值,登录按钮才能够点击
-        
-        if ([_tf_phoneNum.text  isMobileNumber] && _tf_codeVerification.text.length == 6 ) {
-           
+        if ([_tf_phoneNum.text  isMobileNumber] && _tf_codeVerification.text.length > 0 ) {
+            
             self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
             self.nextStep_btn.enabled = YES;
-
+            
         }else{
             self.nextStep_btn.enabled = NO;
             self.nextStep_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
-
+            
         }
-    
+        
     }
     
 }
@@ -143,7 +142,7 @@
             self.nextStep_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
             
         }
-        NSLog(@"验证码 ----- 不匹配");
+        NSLog(@"提示 ----- 提示");
     }
     
 }
@@ -165,18 +164,23 @@
 
 #pragma mark - goToResetPageView 重置密码下一步
 - (void)goToResetPageView:(id)sender {
-
+    
     if (![self.tf_codeVerification.text isEqualToString:_smsCode]) {
         
-      [WJYAlertView showOneButtonWithTitle:@"提示信息" Message:@"验证码输入错误" ButtonType:WJYAlertViewButtonTypeHeight ButtonTitle:@"知道了" Click:^{
-      }];
+        JXTAlertController * alert =  [JXTAlertController alertControllerWithTitle:nil message:@"验证码输入错误" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction  * action  =[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {   }];
+        [alert addAction:action];
+        
+        [self presentViewController:alert animated:NO completion:nil];
+        
     }else{
+        
         ResetPassWViewController * resetVc= [[ResetPassWViewController alloc]init];
         resetVc.phoneNum = _tf_phoneNum.text;
         resetVc.Vercode = _smsCode;
         [self.navigationController pushViewController:resetVc animated:YES];
     }
-
+    
 }
 
 
@@ -185,40 +189,43 @@
 #pragma mark - ValidateCodePostRequset验证码网络请求
 -(void)ValidateCodePostRequset
 {
-    [SVProgressHUD showWithStatus:@""];
+    [SVProgressHUD show ];
     
     NSDictionary * parma = @{
                              @"SmsLogo":@"1",
-                             @"svcName":@"SendMessages",
+                             @"svcName":@"",
                              @"mobilePhone":_tf_phoneNum.text,
+                             //                             @"userId":@"",
+                             
                              };
     
-    
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/SendMessages",zfb_baseUrl] params:parma success:^(id response) {
         
-    } success:^(id responseObject) {
+        NSLog(@"response ===== %@",response);
         
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
-            NSString  * data = [ responseObject[@"data"] base64DecodedString];
-            NSDictionary * dataDic= [NSString dictionaryWithJsonString:data];
-            _smsCode = dataDic[@"smsCode"];
-            _tf_codeVerification.text = _smsCode;
-            self.nextStep_btn.enabled = YES;
-            self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
-            
-        }
+        
+        _smsCode =  response[@"smsCode"];
+        NSLog(@"_smsCode ===== %@",_smsCode);
+        _tf_codeVerification.text = _smsCode;
+        self.nextStep_btn.enabled = YES;
+        self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+        
+        [self.view makeToast:response[@"resultMsg"]  duration:2 position:@"center"];
+        
         
         [SVProgressHUD dismiss];
-
+        
+    } progress:^(NSProgress *progeress) {
+        
+        
     } failure:^(NSError *error) {
-        
-        NSLog(@"%@  = error " ,error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        
     }];
+    
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -226,13 +233,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

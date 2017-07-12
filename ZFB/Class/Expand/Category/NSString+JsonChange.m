@@ -16,7 +16,6 @@
 +(NSString *)convertToJsonData:(NSDictionary *)dict
 
 {
-    
     NSError *error;
     
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];

@@ -56,20 +56,22 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
     [self initmyTableViewInterface];
     
-   
+    _foolnum = @"0" ;
+    _collectNum = @"0" ;
 
-//    //判断是否已经登录
-//    if ( [BBUserDefault.userStatus isEqualToString:@"1" ]) {
+    //判断是否已经登录
+    if (  BBUserDefault.isLogin == YES) {
+       
         [_headview.loginView setHidden:YES];
-//        [_headview.unloginView setHidden:NO];
-//        
-//    }
-//    else if ( [BBUserDefault.userStatus isEqualToString:@"0" ]) {
-//        //移除登录视图
-//        [_headview.unloginView setHidden:YES];
-//        [_headview.loginView setHidden:NO];
-//        
-//    }
+        [_headview.unloginView setHidden:NO];
+        
+    }
+    else{
+        //移除登录视图
+        [_headview.unloginView setHidden:YES];
+        [_headview.loginView setHidden:NO];
+        
+    }
     
 }
 
@@ -352,21 +354,28 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+ 
 
 #pragma mark  - 网络请求 getUserInfo
 -(void)minePagePOSTRequste
 {
+    if (kStringIsEmpty(BBUserDefault.cmUserId)) {
+        BBUserDefault.cmUserId = @"";
+    }
     NSDictionary * parma = @{
                            
-                             @"serId":@"85",
+                             @"userId":BBUserDefault.cmUserId,
                              
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getUserInfo"] params:parma success:^(id response) {
         
-        NSLog(@"-------response------%@", response);
-        
+        BBUserDefault.nickName = response[@"userInfo"][@"nickName"];
+        BBUserDefault.userKeyMd5 = response[@"userInfo"][@"userKeyMd5"];
+        BBUserDefault.userStatus = response[@"userInfo"][@"userStatus"];
+        _foolnum =  [NSString stringWithFormat:@"%@", response[@"foolNum"] ];
+        _collectNum = [NSString stringWithFormat:@"%@",response[@"collectNum"]];
+
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
@@ -383,12 +392,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 //            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
 //            NSDictionary * data = [NSString dictionaryWithJsonString:dataStr];
 //            
-//            BBUserDefault.nickName = data[@"userInfo"][@"nickName"];
-//            BBUserDefault.userKeyMd5 = data[@"userInfo"][@"userKeyMd5"];
-//            BBUserDefault.userStatus = data[@"userInfo"][@"userStatus"];
-//            _foolnum = data[@"foolNum"];
-//            _collectNum = data[@"collectNum"];
-//            
+//
 //            NSLog(@"data = %@", data);
 //        }
  

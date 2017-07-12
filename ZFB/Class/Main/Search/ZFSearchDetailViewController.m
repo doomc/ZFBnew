@@ -2,16 +2,13 @@
 //  ZFSearchDetailViewController.m
 //  ZFB
 //
-//  Created by 熊维东 on 2017/5/18.
-//  Copyright  © 2017年 com.zfb. All rights reserved.
-//  搜索详情
+//  Created by  展富宝  on 2017/7/12.
+//  Copyright © 2017年 com.zfb. All rights reserved.
+//
 
 #import "ZFSearchDetailViewController.h"
 
-@interface ZFSearchDetailViewController ()<UISearchBarDelegate>
-
-@property(nonatomic,strong)UISearchBar* searchBar;
-@property(nonatomic,strong)UIButton* shakehanderRight_btn;
+@interface ZFSearchDetailViewController ()
 
 @end
 
@@ -19,57 +16,72 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
-    [self settingCustomSearchBar];
-
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
     
-    
-}
--(UIButton *)set_rightButton
-{
-    self.shakehanderRight_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.shakehanderRight_btn.frame = CGRectMake(KScreenW - 50 -40, 0, 40, 40);
-
-    //把button的视图交给Item
-    UIBarButtonItem * shakeItem = [[UIBarButtonItem alloc] initWithCustomView:self.shakehanderRight_btn];
-    //添加到导航项的左按钮
-    self.navigationItem.rightBarButtonItem = shakeItem;
-    return self.shakehanderRight_btn;
-}
-/** 自定义搜索框和放大镜 */
--(void)settingCustomSearchBar
-{
-    _searchBar= [[ UISearchBar alloc]initWithFrame:CGRectMake(30, 0, KScreenW-60, 35)];
-    _searchBar.delegate = self;
-    _searchBar.clipsToBounds = YES;
-    _searchBar.placeholder = @"搜索";
-    //    [self.searchBar setImage:[UIImage imageNamed:@"search"]
-    //            forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-    [self.searchBar becomeFirstResponder];
-    _searchBar.tintColor =  HEXCOLOR(0x363636);
-    self.navigationItem.titleView = _searchBar;
-
-}
-#pragma mark  ----  searchBar delegate
-//   searchBar开始编辑响应
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-    //因为闲置时赋了空格，防止不必要的bug，在启用的时候先清空内容
-    self.searchBar.text = @"";
-}
-
-//取消键盘 搜索框闲置的时候赋给其一个空格，保证放大镜居左
-- (void)registerFR{
-    if ([self.searchBar isFirstResponder]) {
-        self.searchBar.text = @" ";
-        [self.searchBar resignFirstResponder];
-    }
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+     return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+     return 2;
+}
+
+/*
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    
+    // Configure the cell...
+    
+    return cell;
+}
+*/
+
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
+
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
 
 /*
 #pragma mark - Navigation

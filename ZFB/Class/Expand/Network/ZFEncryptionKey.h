@@ -15,10 +15,10 @@ typedef void(^Block) (NSDictionary * signParam, NSDictionary * param);
 
 @property (nonatomic,copy) Block block;
  
+@property (nonatomic,copy) NSString * md5String;//MD5 Str
 
+- (NSString *)signStringWithParam:(NSDictionary *)param;
 
--(NSDictionary *)signStringWithParam:(NSDictionary *)param;
-
-
+- (NSDictionary *)signStringWithParamdic:(NSDictionary *)param;
 
 @end

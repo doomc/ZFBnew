@@ -15,13 +15,16 @@
 #import "ZFCollectionViewFlowLayout.h"
 
 @interface ZFClassifyCollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout,
-UICollectionViewDataSource>
+UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableArray *collectionDatas;
 @property (nonatomic, strong) ZFCollectionViewFlowLayout *flowLayout;
+
+@property (nonatomic, strong) UISearchController * searchController;
+@property (nonatomic, strong) UIButton *selectbutton;
 
 @end
 
@@ -30,12 +33,18 @@ UICollectionViewDataSource>
     NSInteger _selectIndex;
     BOOL _isScrollDown;
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
-
+    UIView * barView= [[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
+    
+    barView.backgroundColor= randomColor;
+    [barView addSubview:self.selectbutton];
+ 
+    
+    self.navigationItem.titleView = barView;
+    
+    
     _selectIndex = 0;
     _isScrollDown = YES;
     
@@ -65,8 +74,49 @@ UICollectionViewDataSource>
     [self.tableView reloadData];
     [self.collectionView reloadData];
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
-
+    
 }
+
+-(UISearchController *)searchController
+{
+    if (!_searchController ) {
+        _searchController = [[UISearchController alloc] init];
+         _searchController.searchBar.delegate = self;
+        [_searchController.searchBar sizeToFit];
+        _searchController.searchBar.placeholder = @"造作啊~";
+        //去除灰色背景
+        for (UIView *view in  _searchController.searchBar.subviews) {
+            // for before iOS7.0
+            if ([view isKindOfClass:NSClassFromString(@"UISearchBarBackground")]) {
+                [view removeFromSuperview];
+                break;
+            }
+            // for later iOS7.0(include)
+            if ([view isKindOfClass:NSClassFromString(@"UIView")] && view.subviews.count > 0) {
+                [[view.subviews objectAtIndex:0] removeFromSuperview];
+                break;
+            }
+        }
+
+    }
+    return _searchController;
+}
+-(UIButton *)selectbutton
+{
+    if (!_selectbutton) {
+        _selectbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _selectbutton.backgroundColor = HEXCOLOR(0xfe6d6a);
+        [_selectbutton setTitle:@"商铺" forState:UIControlStateNormal];
+        _selectbutton.frame = CGRectMake(5, 7, 40, 30);
+        _selectbutton.titleLabel.font = [UIFont systemFontOfSize:14];
+        _selectbutton.layer.cornerRadius = 4;
+        _selectbutton.clipsToBounds = YES;
+        [_selectbutton addTarget:self action:@selector(selectTypeAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _selectbutton;
+}
+
+
 #pragma mark - Getters
 - (NSMutableArray *)dataSource
 {
@@ -279,6 +329,63 @@ UICollectionViewDataSource>
 #pragma mark - tableView - 列表网络请求
 
 #pragma mark - collectionView - 列表网络请求
+
+
+
+#pragma mark -  选择搜索类型
+-(void)selectTypeAction :(UIButton *)sender
+{
+    [YBPopupMenu showRelyOnView:sender titles:TITLES  icons:nil menuWidth:60 otherSettings:^(YBPopupMenu *popupMenu) {
+        popupMenu.priorityDirection = YBPopupMenuPriorityDirectionBottom;
+        popupMenu.borderWidth = 0.5;
+        popupMenu.arrowHeight = 5;
+        popupMenu.arrowWidth  = 10;
+        popupMenu.fontSize = 14;
+        popupMenu.delegate = self;
+        popupMenu.borderColor = HEXCOLOR(0xfe6d6a);
+    }];
+}
+#pragma mark - YBPopupMenuDelegate
+- (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu
+{
+    NSLog(@"点击了 %@ 选项",TITLES[index]);
+}
+
+#pragma mark -  UISearchBarDelegate选择搜索类型
+-(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    NSLog(@"------开始编辑");
+    return YES;
+}
+-(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    NSLog(@"------结束编辑");
+    return YES;
+}
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    NSLog(@"%@",searchText);
+}
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    NSLog(@"点击搜索方法");
+    [searchBar resignFirstResponder];
+
+}
+#pragma mark  ----  searchBar delegate
+//   searchBar开始编辑响应
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    //因为闲置时赋了空格，防止不必要的bug，在启用的时候先清空内容
+    self.searchController.searchBar.text = @"";
+}
+
+//取消键盘 搜索框闲置的时候赋给其一个空格，保证放大镜居左
+- (void)registerFR{
+    if ([self.searchController.searchBar isFirstResponder]) {
+        self.searchController.searchBar.text = @" ";
+        [self.searchController.searchBar resignFirstResponder];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

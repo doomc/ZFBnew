@@ -11,7 +11,7 @@
 @interface ResetPassWViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *tf_newPS;
 @property (weak, nonatomic) IBOutlet UITextField *tf_surePS;
-@property (weak, nonatomic) IBOutlet UIButton *complete_btn;
+@property (weak, nonatomic) IBOutlet UIButton    *complete_btn;
 
 @end
 
@@ -23,7 +23,7 @@
     
     self.title =@"重置密码";
     self.complete_btn.enabled = NO;
- 
+    
     [self set_leftButton];
     [self textFieldSettingDelegate];
 }
@@ -49,19 +49,22 @@
         if (_tf_newPS.text.length < 20 && _tf_newPS.text.length > 8 ) {
             NSLog(@"_tf_newPS==%@",_tf_newPS.text);
         }
+        
+        [self.view makeToast:@"密码格式不对" duration:2 position:@"center"];
+        
     }
     if (textfiled == _tf_surePS) {
         NSLog(@"_tf_surePS==%@",_tf_surePS.text);
         
         //当账号与密码同时有值,登录按钮才能够点击
-        if ([_tf_surePS.text isEqualToString:_tf_newPS.text] && (_tf_newPS.text.length >= 8 && _tf_newPS.text.length <=20) ) {
-          
-            self.complete_btn.enabled = YES;
+        if ( _tf_surePS.text.length > 0  && (_tf_newPS.text.length >= 8 && _tf_newPS.text.length <=20) ) {
+            
+            self.complete_btn.enabled         = YES;
             self.complete_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
             
         }
         else{
-            self.complete_btn.enabled = NO;
+            self.complete_btn.enabled         = NO;
             self.complete_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
         }
     }
@@ -69,7 +72,7 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField == _tf_surePS) {
-      
+        
         BBUserDefault.newPassWord = _tf_surePS.text;
         
     }
@@ -92,10 +95,10 @@
 {
     
     UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
-    left_button.frame =CGRectMake(0, 0,22,22);
+    left_button.frame     = CGRectMake(0, 0,22,22);
     [left_button setBackgroundImage:[UIImage imageNamed:@"navback_white"] forState:UIControlStateNormal];
     [left_button addTarget:self action:@selector(left_button_event:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:left_button];
+    UIBarButtonItem *leftItem             = [[UIBarButtonItem alloc]initWithCustomView:left_button];
     self.navigationItem.leftBarButtonItem = leftItem;
     return left_button;
 }
@@ -107,55 +110,54 @@
 }
 //确认重置密码
 - (IBAction)sureReset_btn:(id)sender {
-
+    
     if (! [_tf_newPS.text isEqualToString:_tf_surePS.text ]) {
-       
+        
         [self.view makeToast:@"2次输入的密码不匹配" duration:2 position:@"center"];
         
-       
+        
     }else{
         NSLog(@"重置成功了");
         [self RetetPasswordPostRequest];
-
-     }
-
+        
+    }
+    
 }
 
 
 #pragma mark - RetetPasswordPostRequest注册网络请求
 -(void)RetetPasswordPostRequest
 {
-    [SVProgressHUD showWithStatus:@"请稍后"];
-
+    
+    
     NSDictionary * parma = @{
-                             @"svcName":@"forgetPassword",
+                             @"svcName":@"",
+                             @"userId":@"",
                              @"mobilePhone":_phoneNum,
                              @"newPassword":_tf_surePS.text,
                              @"smsCheckCode":_Vercode,
                              
                              };
     
-    
-    [SVProgressHUD  showProgress:2];
-
-    [PPNetworkHelper POST:zfb_url parameters:parma responseCache:^(id responseCache) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/forgetPassword",zfb_baseUrl] params:parma success:^(id response) {
         
-    } success:^(id responseObject) {
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         
-        if ([responseObject[@"responseObject"] isEqualToString:@"0" ]) {
-             
-            [self.view makeToast:@"重置成功" duration:2 position:@"center"];
-            [self.navigationController popToRootViewControllerAnimated:NO];
-
-        }
-        [SVProgressHUD dismiss];
-
+        BBUserDefault.userPhonePassword = _tf_surePS.text;//保存密码
+        
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        
+    } progress:^(NSProgress *progeress) {
+        
+        
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
+        
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
-    [SVProgressHUD dismiss];
+    
     
 }
 

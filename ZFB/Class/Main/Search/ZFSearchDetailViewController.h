@@ -2,12 +2,12 @@
 //  ZFSearchDetailViewController.h
 //  ZFB
 //
-//  Created by 熊维东 on 2017/5/18.
+//  Created by  展富宝  on 2017/7/12.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface ZFSearchDetailViewController : BaseViewController
+@interface ZFSearchDetailViewController : UITableViewController
 
 @end
