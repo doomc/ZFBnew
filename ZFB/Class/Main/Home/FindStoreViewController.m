@@ -221,6 +221,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@" section --- %ld ,row -----%ld",indexPath.section ,indexPath.row);
+    [self PostRequst];
     
     if (self.storeListArr.count > 0) {
         
@@ -359,9 +360,12 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageCount];
     NSString * pageIndex= [NSString stringWithFormat:@"%ld",_page];
     
+    if (kStringIsEmpty(BBUserDefault.cmUserId)) {
+        BBUserDefault.cmUserId =@"";
+    }
     NSDictionary * parma = @{
                              
-                             @"userId":@"23",
+                             @"userId":BBUserDefault.cmUserId,
                              @"svcname":@"",
                              @"longitude":longitude,//经度
                              @"latitude":latitude ,//纬度
@@ -371,6 +375,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     NSLog(@" 参与加密的参数  ----------- %@ ======parma" ,parma);
 
+    
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
         

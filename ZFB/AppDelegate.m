@@ -24,7 +24,8 @@ const static NSString *ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
 @end
 
 @implementation AppDelegate
-
+@synthesize isLogin;
+@synthesize signMD5Key;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -35,28 +36,17 @@ const static NSString *ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
     self.window.rootViewController = tabbarVC;
     [self.window makeKeyAndVisible];
     
+    //高德地图
     [AMapServices sharedServices].apiKey = (NSString *)ApiKey;
-    
-    //获取当前城市和经纬度
-    [self receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {
-        if(isLocationSuccess)
-        {
-            [SVProgressHUD showWithStatus:@"定位成功"];
-            if(regeocode.city){
-                //为接收
-                NSLog(@"当前城市 ：%@" , [regeocode.city substringToIndex:2]);//显示当前城市
-            }
-        }else{
-            [SVProgressHUD showWithStatus:@"定位失败"];
-        }
-        self.currentLocation = currentLocation;
-        self.currentCity = [regeocode.city copy];
-    }];
     
  
     //默认一个switch开关的状态 存储在NSUserDefaults
     NSDictionary * df = @{@"switchType":@YES};
     [[NSUserDefaults standardUserDefaults]registerDefaults:df];
+    
+    //登录状态默认
+ 
+    
     
     return YES;
 }

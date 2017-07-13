@@ -16,10 +16,15 @@
                          progress:(void (^)(NSProgress * progeress))progress
                           failure:(void (^)(NSError * error))failure {
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    
+    //参数加密规则
+    ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
+    NSDictionary * parmaDic = [keydic signStringWithParamdic:params];
+    
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"text/html",@"text/plain"]];
     //添加一个默认参数
  
-    [manager GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+    [manager GET:url parameters:parmaDic progress:^(NSProgress * _Nonnull downloadProgress) {
         if (progress) {
             progress(downloadProgress);
         }
@@ -44,8 +49,8 @@
     //参数加密规则
     ZFEncryptionKey  * keydic = [ZFEncryptionKey new];
     NSDictionary * parmaStr = [keydic signStringWithParamdic:params];
-//    NSString * parmaStr = [keydic signStringWithParam:params];
-
+    
+    //选择请求方式
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -61,8 +66,11 @@
         }
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
-            NSString *result = [NSString convertToJsonData:responseObject];
-            NSLog(@"%@",result);
+            if (responseObject != nil) {
+
+                NSString *result = [NSString convertToJsonData:responseObject];
+                NSLog(@"%@",result);
+            }
             success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

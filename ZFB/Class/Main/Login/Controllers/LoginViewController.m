@@ -10,7 +10,7 @@
 #import "RegisterViewController.h"
 #import "ForgetPSViewController.h"
 #import "ZFPersonalViewController.h"
-
+#import "AppDelegate.h"
 typedef NS_ENUM(NSUInteger, indexType) {
     
     quickLoginIndexType = 0,//快捷登录
@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 @interface LoginViewController ()<UITextFieldDelegate>
 {
     BOOL _isQuickLogin;
- 
+    
     NSString * _smsCode;
 }
 @property (weak, nonatomic) IBOutlet UISegmentedControl * loginSegment;
@@ -42,6 +42,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+
     _isQuickLogin = YES;//默认为快速登录
     _indexType = quickLoginIndexType; //默认为快速登录
     self.login_btn.enabled = NO; //默认关闭用户登录
@@ -61,18 +62,18 @@ typedef NS_ENUM(NSUInteger, indexType) {
     UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
     left_button.frame =CGRectMake(0, 0,22,22);
     [left_button setBackgroundImage:[UIImage imageNamed:@"navback_white"] forState:UIControlStateNormal];
-    [left_button addTarget:self action:@selector(left_button_event:) forControlEvents:UIControlEventTouchUpInside];
+    [left_button addTarget:self action:@selector(left_button_event) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:left_button];
     self.navigationItem.leftBarButtonItem = leftItem;
     return left_button;
 }
 
 //设置右边事件
--(void)left_button_event:(UIButton *)sender{
+-(void)left_button_event{
     
     //    [self.navigationController popToRootViewControllerAnimated:NO];
     [self dismissViewControllerAnimated:NO completion:^{
-        
+         
     }];
 }
 
@@ -154,7 +155,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
                 
             }
         }
-        NSLog(@"验证码j手机号%@ ",_tf_loginphone.text );
+        NSLog(@"验证码手机号%@ ",_tf_loginphone.text );
     }
     if (_isQuickLogin == NO) {
         
@@ -207,7 +208,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
                 self.login_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
                 
             }
-            
             NSLog(@"快捷登录--验证码 匹配正确  = %@",_smsCode);
             
         }
@@ -294,36 +294,29 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
 #pragma mark - login_Success 点击登录
 - (void)login_Success:(UIButton *)sender {
-    
+ 
     NSLog(@"%@",BBUserDefault.cmUserId);
     
     if (_isQuickLogin == YES) {//快捷登录
         
         [self QuickLoginPostRequest];
         
-        if ( BBUserDefault.isLogin == YES) {
-            
-            [self.view makeToast:@"快速登录成功" duration:2 position:@"center" ];
-            NSLog(@"跳转到指定页面");
-            [self left_button_event:sender];
-        }
-        NSLog(@"快速-登录成功");
-        
-        
     }else{
         [self PasswordLoginPostRequest];
         
         if ( BBUserDefault.isLogin == YES) {//密码登录
             
+            NSLog(@"输入的密码 = %@",BBUserDefault.userPhonePassword);
             if ([_tf_verificationCodeOrPassWord.text isEqualToString: BBUserDefault.userPhonePassword]) {
                 
-                [self left_button_event:sender];
+                [self left_button_event];
                 NSLog(@"跳转到指定页面");
                 
-            }else{
-                
-                [self.view makeToast:@"密码输入错误" duration:2 position:@"center" ];
             }
+//            [self left_button_event:sender];
+//            
+            [self.view makeToast:@"密码输入错误" duration:2 position:@"center" ];
+           
         }
     }
 }
@@ -359,11 +352,14 @@ typedef NS_ENUM(NSUInteger, indexType) {
 -(void)ValidateCodePostRequset
 {
     [SVProgressHUD show];
+    if (kStringIsEmpty(BBUserDefault.cmUserId)) {
+        BBUserDefault.cmUserId = @"";
+    }
     NSDictionary * parma = @{
                              @"SmsLogo":@"1",
                              @"mobilePhone":_tf_loginphone.text,
                              @"svcName":@"",
-                             @"userId":@"",
+                             @"cmUserId":@"",
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/SendMessages",zfb_baseUrl] params:parma success:^(id response) {
@@ -393,26 +389,36 @@ typedef NS_ENUM(NSUInteger, indexType) {
 #pragma mark -  QuickLoginPostRequest 快速登录
 -(void)QuickLoginPostRequest
 {
-    
+    if (kStringIsEmpty(BBUserDefault.cmUserId)) {
+        BBUserDefault.cmUserId = @"";
+    }
     [SVProgressHUD show ];
     NSDictionary * parma = @{
                              
                              @"mobilePhone":_tf_loginphone.text,
                              @"smsCheckCode":_smsCode,
                              @"svcName":@"",
-                             @"userId":@"",
+                             @"cmUserId":BBUserDefault.cmUserId,
                              };
     
-    
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/quickLogin",zfb_baseUrl] params:parma success:^(id response) {
-        
-        
-        BBUserDefault.isLogin = YES;
-        BBUserDefault.userPhoneNumber = _tf_loginphone.text;
+
+        AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
+        appdelegate.isLogin = YES;
+//        appdelegate.signMD5Key = response[@"userInfo"][@"userKeyMd5"];
+
         BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
         BBUserDefault.nickName = response[@"userInfo"][@"nickName"];
-        BBUserDefault.userKeyMd5 = response[@"userInfo"][@"userKeyMd5"];
+        
+        BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
+        NSLog(@" ======= signMD5Key=======%@", BBUserDefault.userKeyMd5 );
+
+        int code = [response[@""] intValue];
+        if (code == 0) {
+            
+            [self left_button_event];
+        }
+
         [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
         
         [SVProgressHUD dismiss];
@@ -426,12 +432,14 @@ typedef NS_ENUM(NSUInteger, indexType) {
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         
     }];
-    
+    [SVProgressHUD dismiss];
+
 }
 
 #pragma mark -  PasswordLoginPostRequest 密码登录
 -(void)PasswordLoginPostRequest{
     
+ 
     //测试
     [SVProgressHUD show];
     NSDictionary * parma = @{
@@ -439,7 +447,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              @"mobilePhone":_tf_loginphone.text,
                              @"loginPwd":_tf_verificationCodeOrPassWord.text,
                              @"svcName":@"",
-                             @"userId":@"",
+                             @"cmUserId":@"",
                              
                              };
     
@@ -447,33 +455,31 @@ typedef NS_ENUM(NSUInteger, indexType) {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/login",zfb_baseUrl] params:parma success:^(id response) {
         
         NSLog(@"response ===== %@",response);
-        
-        if (response[@"resultCode"] == 0) {
-       
-            BBUserDefault.isLogin = YES;
-            BBUserDefault.userPhoneNumber = _tf_loginphone.text;
+        int code = [response[@"resultCode"] intValue];
+        if (code == 0) {
+            //设置全局变量
+            AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
+            appdelegate.isLogin = YES;
+            BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
             BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
             BBUserDefault.nickName = response[@"userInfo"][@"nickName"];
-            BBUserDefault.userKeyMd5 = response[@"userInfo"][@"userKeyMd5"];
-            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-            
-        }else{
-            
-            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
         }
-        
+        NSLog(@" ======= userKeyMd5=======%@",BBUserDefault.userKeyMd5 );
+
+        [self.view makeToast:response [@"resultMsg"] duration:2 position:@"center"];
         [SVProgressHUD dismiss];
         
     } progress:^(NSProgress *progeress) {
         
         
     } failure:^(NSError *error) {
-        
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-    
+    [SVProgressHUD dismiss];
+
 }
 
 

@@ -177,7 +177,6 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
     [self.tempCellArray removeAllObjects];
     [self.tempCellArray addObject:cell];
     JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"确认删除？" message:nil preferredStyle:UIAlertControllerStyleAlert];
-
     UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
@@ -541,54 +540,42 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
 
 
 
-#pragma mark - 购物车列表网络请求 getShoppingCartList
+#pragma mark - 购物车列表网络请求 getShoppCartList
 -(void)shoppingCarPostRequst
 {
     NSDictionary * parma = @{
                              
-                             @"svcName":@"getShoppingCartList",
-                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"svcName":@"",
+                             @"cmUserId":@"8",
                              
                              };
-    
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    __weak typeof(self)weakSelf = self;
-
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-        
-    } success:^(id responseObject) {
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getShoppCartList"] params:parma success:^(id response) {
+        weakSelf(weakSelf);
+                
             if (![self isEmptyArray:weakSelf.carListArray]) {
                 
                 [self.carListArray  removeAllObjects];
-                
-            }else{
-                
-                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-                //JSON字符串转化为字典
-                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-                
-                NSArray * dictArray = jsondic [@"shoppCartList"];
-                
-                NSArray *storArray = [Shoppcartlist mj_objectArrayWithKeyValuesArray:dictArray];
-                
-                for (Shoppcartlist *lists in storArray) {
-                    
-                    [weakSelf.carListArray addObject:lists];
-                }
-                NSLog(@"carListArray = %@",   weakSelf.carListArray);
-                
-                [weakSelf.shopCar_tableview reloadData];
             }
-
-        }
+            else{
+                
+                ShoppingCarModel * shopModel = [ShoppingCarModel mj_objectWithKeyValues:response];
+                
+                for (Shoppcartlist * list in shopModel.shoppCartList) {
+                    
+                       [weakSelf.carListArray addObject:list];
+                }
+            }
         
+            [weakSelf.shopCar_tableview reloadData];
+       
+    } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
+        
+        NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
+
+ 
 }
 
 #pragma mark - 删除网络请求后一些列更新操作delShoppingCart
@@ -596,29 +583,28 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
 {
     NSDictionary * parma = @{
                              
-                             @"svcName":@"delShoppingCart",
+                             @"svcName":@"",
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"cartItemId":_cartItemId,
                              
                              };
     
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-    
-    } success:^(id responseObject) {
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/delShoppingCart"] params:parma success:^(id response) {
         
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
         
-            [self.view makeToast:@"删除成功" duration:2 position:@"center"];
-            [self updateInfomation];
-            
-        }
-        
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+       
+        [self.shopCar_tableview reloadData];
+
+    } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
+        
+        NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
+
+
     
 }
 

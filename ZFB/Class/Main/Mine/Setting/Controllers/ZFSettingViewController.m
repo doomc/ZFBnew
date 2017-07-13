@@ -131,7 +131,15 @@ static NSString * settingCellid = @"ZFSettingCellid";
 //清除缓存
 -(void)clearingCache
 {
+    [SDCycleScrollView  clearImagesCache];//清除缓存
+    [self clearAllUserDefaultsData];//清除NSUserDefaults
     
+}
+- (void)clearAllUserDefaultsData
+{
+    
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
 }
 
 #pragma mark - didClickChangeLoginStatus 切换登录状态
@@ -148,7 +156,6 @@ static NSString * settingCellid = @"ZFSettingCellid";
 //        
 //        
 //    }
-
     
     if (BBUserDefault.isLogin == YES) {  // _isLogin 设置成全局 在登录的时候做保存判断；
         [sender setTitle:@"退出登录" forState:UIControlStateNormal];
@@ -160,6 +167,9 @@ static NSString * settingCellid = @"ZFSettingCellid";
         UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.view makeToast:@"数据已清空" duration:2.0 position:@"center"];
             [sender setTitle:@"去登陆" forState:UIControlStateNormal ];
+           
+            [self clearingCache];//清除所有缓存;
+            
         }];
         [jxt addAction:left];
         [jxt addAction:right];

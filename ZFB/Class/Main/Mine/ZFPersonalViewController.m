@@ -27,23 +27,21 @@
 
 #import "ZFPersonalHeaderView.h"
 #import "BaseNavigationController.h"
+#import "AppDelegate.h"
 typedef NS_ENUM(NSUInteger, TypeCell) {
     
     TypeCellOfMyCashBagCell,
     TypeCellOfMyProgressCell,
     TypeCellOfMyOderCell,
-    
-    
 };
 @interface ZFPersonalViewController ()<UITableViewDelegate,UITableViewDataSource,ZFMyProgressCellDelegate,PersonalHeaderViewDelegate>
-{
-    NSString * _foolnum ;//足记数量
-    NSString * _collectNum ;//收藏数量
-    //    NSInteger _orderType;
-}
-@property(nonatomic,strong)UITableView * myTableView;
-@property(nonatomic,strong)UIView * myHeaderView;
-@property(nonatomic,strong)ZFPersonalHeaderView * headview;
+
+@property (nonatomic,strong) UITableView          * myTableView;
+@property (nonatomic,strong) ZFPersonalHeaderView * headview;
+
+@property (nonatomic,copy) NSString * foolnum    ;//足记数量
+@property (nonatomic,copy) NSString * collectNum ;//收藏数量
+@property (nonatomic,copy) NSString * nickName   ;//用户
 
 @end
 
@@ -52,26 +50,37 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor =  randomColor;
     
-    [self initmyTableViewInterface];
+    self.title = @"我的";
     
-    _foolnum = @"0" ;
-    _collectNum = @"0" ;
-
+    [self.view addSubview:self.myTableView];
+    [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyCashBagCell" bundle:nil] forCellReuseIdentifier:@"ZFMyCashBagCell"];
+    [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyProgressCell" bundle:nil] forCellReuseIdentifier:@"ZFMyProgressCell"];
+    [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyOderCell" bundle:nil] forCellReuseIdentifier:@"ZFMyOderCell"];
+    
+    self.headview                    = [[NSBundle mainBundle]loadNibNamed:@"ZFPersonalHeaderView" owner:self options:nil].lastObject;
+    self.myTableView.tableHeaderView = self.headview;
+    self.headview.delegate           = self;
+    self.headview.unloginView        = [self.headview viewWithTag:911];//没登录之前的图
+    self.headview.loginView          = [self.headview viewWithTag:912];//登录后的图
+    
+    
+    AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
+    NSLog(@" isLogin====%d",appdelegate.isLogin);
+    
     //判断是否已经登录
-    if (  BBUserDefault.isLogin == YES) {
-       
-        [_headview.loginView setHidden:YES];
-        [_headview.unloginView setHidden:NO];
-        
+    if ( appdelegate.isLogin == 1)
+    {
+        //移除登录视图
+        _headview.loginView.hidden   = NO;
+        _headview.unloginView.hidden = YES;
     }
     else{
-        //移除登录视图
-        [_headview.unloginView setHidden:YES];
-        [_headview.loginView setHidden:NO];
-        
+        _headview.loginView.hidden   = YES;
+        _headview.unloginView.hidden = NO;
     }
+    
+    [self initmyTableViewInterface];
     
 }
 
@@ -79,55 +88,45 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)didClickRegisterAction:(UIButton *)sender
 {
     NSLog(@"注册了");
-    RegisterViewController * regiVC= [ RegisterViewController new];
-    BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:regiVC];
+    RegisterViewController * regiVC = [ RegisterViewController new];
+    BaseNavigationController * nav  = [[BaseNavigationController alloc]initWithRootViewController:regiVC];
     
     [self presentViewController:nav animated:NO completion:^{
         
         [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
         [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
     }];
-//    [self.navigationController pushViewController:regiVC animated:YES];
+    //    [self.navigationController pushViewController:regiVC animated:YES];
 }
 #pragma mark - 登录
 -(void)didClickLoginAction:(UIButton *)sender
 {
     NSLog(@"登录了");
-    LoginViewController * logvc= [ LoginViewController new];
+    LoginViewController * logvc    = [ LoginViewController new];
     BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logvc];
-
+    
     [self presentViewController:nav animated:NO completion:^{
         
         [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
         [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
     }];
-
-//    [self.navigationController pushViewController:logvc animated:YES];
+    
+    //    [self.navigationController pushViewController:logvc animated:YES];
 }
+-(UITableView *)myTableView
+{
+    if (!_myTableView) {
+        _myTableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH) style:UITableViewStylePlain];
+        _myTableView.delegate       = self;
+        _myTableView.dataSource     = self;
+        _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    return _myTableView;
+}
+
 -(void)initmyTableViewInterface
 {
-    self.title = @"我的";
-    self.myTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH) style:UITableViewStylePlain];
-    self.myTableView.delegate = self;
-    self.myTableView.dataSource = self;
-    self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:_myTableView];
     
-    
-    
-    self.headview =  [[NSBundle mainBundle]loadNibNamed:@"ZFPersonalHeaderView" owner:self options:nil].lastObject;
-    self.myTableView.tableHeaderView =self.headview;
-    self.headview.delegate = self;
-    self.headview.unloginView = [self.headview viewWithTag:911];//没登录之前的图
-    self.headview.loginView = [self.headview viewWithTag:912];//登录后的图
-    self.headview.lb_collectCount.text = _collectNum;
-    self.headview.lb_historyCount.text = _foolnum;
-    //    self.headview.lb_userNickname.text = _foolnum;
-    
-    
-    [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyCashBagCell" bundle:nil] forCellReuseIdentifier:@"ZFMyCashBagCell"];
-    [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyProgressCell" bundle:nil] forCellReuseIdentifier:@"ZFMyProgressCell"];
-    [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyOderCell" bundle:nil] forCellReuseIdentifier:@"ZFMyOderCell"];
     
     
     //自定义导航按钮
@@ -136,7 +135,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [right_btn setBackgroundImage:[UIImage imageNamed:@"im_massage"] forState:UIControlStateNormal];
     [right_btn addTarget:self action:@selector(im_messageTag:) forControlEvents:UIControlEventTouchUpInside];
     //自定义button必须执行
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:right_btn];
+    UIBarButtonItem *rightItem             = [[UIBarButtonItem alloc] initWithCustomView:right_btn];
     self.navigationItem.rightBarButtonItem = rightItem;
     
     UIButton  * left_btn  =[ UIButton buttonWithType:UIButtonTypeCustom];
@@ -144,7 +143,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [left_btn setBackgroundImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
     [left_btn addTarget:self action:@selector(im_SettingTag:) forControlEvents:UIControlEventTouchUpInside];
     //自定义button必须执行
-    UIBarButtonItem *left_item = [[UIBarButtonItem alloc] initWithCustomView:left_btn];
+    UIBarButtonItem *left_item            = [[UIBarButtonItem alloc] initWithCustomView:left_btn];
     self.navigationItem.leftBarButtonItem = left_item;
     
 }
@@ -205,7 +204,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
     if (indexPath.row == 0 ) {
         ZFMyCashBagCell  * cashCell = [ self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyCashBagCell" forIndexPath:indexPath];
-        cashCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cashCell.selectionStyle     = UITableViewCellSelectionStyleNone;
         
         return cashCell;
         
@@ -214,7 +213,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     else if (indexPath.row == 1) {
         ZFMyProgressCell * pressCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyProgressCell" forIndexPath:indexPath];
         
-        pressCell.delegate = self;
+        pressCell.delegate       = self;
         pressCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return pressCell;
@@ -232,19 +231,19 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
     else if (indexPath.row ==3) {
         
-        ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
-        orderCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        ZFMyOderCell * orderCell           = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
+        orderCell.selectionStyle           = UITableViewCellSelectionStyleNone;
         orderCell.order_imgicon.image =[UIImage imageNamed:@"switchover_icon"];
-        orderCell.order_title.text = @"切换到配送端";
+        orderCell.order_title.text         = @"切换到配送端";
         orderCell.order_hiddenTitle.hidden = YES;
         return orderCell;
     }
     else{
         ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
         
-        orderCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        orderCell.selectionStyle           = UITableViewCellSelectionStyleNone;
         orderCell.order_imgicon.image =[UIImage imageNamed:@"write"];
-        orderCell.order_title.text = @"意见反馈";
+        orderCell.order_title.text         = @"意见反馈";
         orderCell.order_hiddenTitle.hidden = YES;
         return orderCell;
     }
@@ -258,7 +257,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
         ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
         orderVC.buttonTitle =@"全部订单";
-        orderVC.payStatus = @"";//默认状态
+        orderVC.payStatus   = @"";//默认状态
         orderVC.orderStatus = @"";//默认状态
         [self.navigationController pushViewController:orderVC animated:YES];
         
@@ -266,7 +265,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     if (indexPath.row == 3) {//切换到配送端
         
         
-        ZFSendSerViceViewController * sendVC  = [[ZFSendSerViceViewController alloc]init];
+        ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
         [self.navigationController pushViewController:sendVC animated:YES];
         
     }  if (indexPath.row == 4) {//意见反馈
@@ -284,7 +283,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     
     ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
-    orderVC.orderType = 1 ;
+    orderVC.orderType   = 1 ;
     orderVC.buttonTitle = @"待付款";
     [self.navigationController pushViewController:orderVC animated:YES];
 }
@@ -293,7 +292,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)didClickSendedAction:(UIButton *)button
 {
     ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
-    orderVC.orderType = 4 ;
+    orderVC.orderType   = 4 ;
     orderVC.buttonTitle = @"已配送";
     [self.navigationController pushViewController:orderVC animated:YES];
 }
@@ -302,7 +301,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)didClickWaitForEvaluateAction:(UIButton *)button
 {
     ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
-    orderVC.orderType = 5 ;
+    orderVC.orderType   = 5 ;
     orderVC.buttonTitle = @"待评价";
     [self.navigationController pushViewController:orderVC animated:YES];
     
@@ -323,7 +322,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)didClickCollectAction :(UIButton *)sender
 {
     NSLog(@"收藏");
-    ZFCollectViewController *collecVC=  [[ZFCollectViewController alloc]init];
+    ZFCollectViewController *collecVC = [[ZFCollectViewController alloc]init];
     
     NSLog(@" cmUserId  === %@", BBUserDefault.cmUserId);
     
@@ -336,7 +335,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     
     NSLog(@"历史");
-    ZFHistoryViewController *hisVC=  [[ZFHistoryViewController alloc]init];
+    ZFHistoryViewController *hisVC = [[ZFHistoryViewController alloc]init];
     [self.navigationController pushViewController:hisVC animated:NO];
 }
 
@@ -345,7 +344,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     
     NSLog(@"点击了头像");
-    ZFSettingHeadViewController *headVC =  [[ZFSettingHeadViewController alloc]init];
+    ZFSettingHeadViewController *headVC = [[ZFSettingHeadViewController alloc]init];
     [self.navigationController pushViewController:headVC animated:NO];
     
 }
@@ -354,52 +353,56 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
- 
+
 
 #pragma mark  - 网络请求 getUserInfo
 -(void)minePagePOSTRequste
 {
-    if (kStringIsEmpty(BBUserDefault.cmUserId)) {
+    if (BBUserDefault.cmUserId == nil) {
         BBUserDefault.cmUserId = @"";
     }
     NSDictionary * parma = @{
-                           
-                             @"userId":BBUserDefault.cmUserId,
                              
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"svcname":@"",
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getUserInfo"] params:parma success:^(id response) {
         
-        BBUserDefault.nickName = response[@"userInfo"][@"nickName"];
-        BBUserDefault.userKeyMd5 = response[@"userInfo"][@"userKeyMd5"];
-        BBUserDefault.userStatus = response[@"userInfo"][@"userStatus"];
-        _foolnum =  [NSString stringWithFormat:@"%@", response[@"foolNum"] ];
-        _collectNum = [NSString stringWithFormat:@"%@",response[@"collectNum"]];
-
+        NSLog(@"%@",response);
+        int resultCode = [response [@"resultCode"] intValue];
+        
+        if (resultCode == 0) {
+            
+            _nickName   = [NSString stringWithFormat:@"%@",response[@"nickName"] ];
+            _foolnum    = [NSString stringWithFormat:@"%@",response[@"foolNum"] ];
+            _collectNum = [NSString stringWithFormat:@"%@",response[@"collectNum"]];
+            
+            //赋值
+            self.headview.lb_collectCount.text = _collectNum;
+            self.headview.lb_historyCount.text = _foolnum;
+            self.headview.lb_userNickname.text = _nickName;
+            
+        }
+        [self.myTableView reloadData];
+        
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-
     
-//        if ([responseObject [@"resultCode"] isEqualToString:@"0"]) {
-//            
-//            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-//            NSDictionary * data = [NSString dictionaryWithJsonString:dataStr];
-//            
-//
-//            NSLog(@"data = %@", data);
-//        }
- 
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
+    
+    if (appdelegate.isLogin == 1) {
+        
         [self minePagePOSTRequste];//页面网络请求
+        
+    }
 }
 /*
  #pragma mark - Navigation

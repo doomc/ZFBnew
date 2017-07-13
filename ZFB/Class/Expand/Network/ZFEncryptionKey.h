@@ -14,11 +14,14 @@ typedef void(^Block) (NSDictionary * signParam, NSDictionary * param);
 @interface ZFEncryptionKey : NSObject
 
 @property (nonatomic,copy) Block block;
- 
-@property (nonatomic,copy) NSString * md5String;//MD5 Str
+@property (nonatomic,copy) NSString  * MD5_key;
 
-- (NSString *)signStringWithParam:(NSDictionary *)param;
+
+
+
+//- (NSString *)signStringWithParam:(NSDictionary *)param;
 
 - (NSDictionary *)signStringWithParamdic:(NSDictionary *)param;
+- (NSDictionary *)signStringWithParamdic:(NSDictionary *)param andMD5Key:(NSString* )MD5key;
 
 @end

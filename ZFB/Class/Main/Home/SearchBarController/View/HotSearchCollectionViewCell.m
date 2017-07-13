@@ -17,7 +17,7 @@
     self.hotTitle.layer.cornerRadius = 2;
     self.hotTitle.clipsToBounds = YES;
     
-    
+ 
 }
 
 #pragma mark — 实现自适应文字宽度的关键步骤:item的layoutAttributes

@@ -19,9 +19,9 @@
 
 
 //baseUrl
-#define  zfb_baseUrl @"http://192.168.1.107:8087/zfb/InterfaceServlet"
+#define  zfb_baseUrl @"http://192.168.1.222:8087/zfb/InterfaceServlet"
 
-//正式
+//测试服务器
 //#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
 
 //图片服务器

@@ -191,7 +191,7 @@
 -(void)ValidateCodePostRequset
 {
     [self timeCountdown]; //开始倒计时
-    [SVProgressHUD showWithStatus:@"正在发送验证码"];
+    [SVProgressHUD show ];
 
     NSDictionary * parma = @{
 
@@ -208,12 +208,13 @@
         _smsCode = response[@"smsCode"];
         _tf_verificationCode.text = _smsCode;
         [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
+     
         [SVProgressHUD dismiss];
-        
     } progress:^(NSProgress *progeress) {
         
         
     } failure:^(NSError *error) {
+        
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
@@ -226,7 +227,6 @@
 #pragma mark - RetetPasswordPostRequest注册网络请求
 -(void)RegisterPostRequest
 {
-    [SVProgressHUD show ];
     
     NSDictionary * parma = @{
                              
@@ -265,7 +265,6 @@
         
     } failure:^(NSError *error) {
         
-        [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];

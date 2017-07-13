@@ -2521,7 +2521,7 @@
 		495EA4701F14B64B001FCB7E /* Mine(个人中心) */ = {
 			isa = PBXGroup;
 			children = (
-				495EA4711F14B64B001FCB7E /* CollectOrHistory */,
+				495EA4711F14B64B001FCB7E /* CollectOrHistory(历史收藏) */,
 				495EA4861F14B64C001FCB7E /* MerchantClientController */,
 				495EA4881F14B64C001FCB7E /* MineViews */,
 				495EA4971F14B64C001FCB7E /* Models */,
@@ -2553,13 +2553,14 @@
 			path = Mine;
 			sourceTree = "<group>";
 		};
-		495EA4711F14B64B001FCB7E /* CollectOrHistory */ = {
+		495EA4711F14B64B001FCB7E /* CollectOrHistory(历史收藏) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA4721F14B64B001FCB7E /* Controllers */,
 				495EA4771F14B64B001FCB7E /* Model */,
 				495EA47C1F14B64B001FCB7E /* Views */,
 			);
+			name = "CollectOrHistory(历史收藏)";
 			path = CollectOrHistory;
 			sourceTree = "<group>";
 		};
@@ -4716,7 +4717,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4743,7 +4744,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Expand/Header/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/zhanfubao/Desktop/ZFB/ZFB/Class/Expand/Header/PrefixHeader.pch;
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

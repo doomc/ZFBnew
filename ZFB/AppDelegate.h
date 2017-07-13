@@ -12,6 +12,9 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (assign, nonatomic) BOOL isLogin;
+
+@property (copy, nonatomic) NSString * signMD5Key;
 
 @end
 

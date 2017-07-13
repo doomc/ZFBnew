@@ -167,11 +167,7 @@
     
     if (![self.tf_codeVerification.text isEqualToString:_smsCode]) {
         
-        JXTAlertController * alert =  [JXTAlertController alertControllerWithTitle:nil message:@"验证码输入错误" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction  * action  =[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {   }];
-        [alert addAction:action];
-        
-        [self presentViewController:alert animated:NO completion:nil];
+        [self.view makeToast:@" 验证码输入错误" duration:2.0 position:@"center"];
         
     }else{
         
@@ -191,34 +187,36 @@
 {
     [SVProgressHUD show ];
     
+    if (  kStringIsEmpty(BBUserDefault.cmUserId)) {
+        BBUserDefault.cmUserId = @"";
+    }
+    NSLog(@"重置密码的id   == %@", BBUserDefault.cmUserId);
     NSDictionary * parma = @{
                              @"SmsLogo":@"1",
                              @"svcName":@"",
                              @"mobilePhone":_tf_phoneNum.text,
-                             //                             @"userId":@"",
+                             @"userId":BBUserDefault.cmUserId,
                              
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/SendMessages",zfb_baseUrl] params:parma success:^(id response) {
         
         NSLog(@"response ===== %@",response);
-        
-        
         _smsCode =  response[@"smsCode"];
         NSLog(@"_smsCode ===== %@",_smsCode);
+        
         _tf_codeVerification.text = _smsCode;
+        
         self.nextStep_btn.enabled = YES;
         self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
         
-        [self.view makeToast:response[@"resultMsg"]  duration:2 position:@"center"];
-        
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         
         [SVProgressHUD dismiss];
         
     } progress:^(NSProgress *progeress) {
-        
-        
     } failure:^(NSError *error) {
+        
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];

@@ -22,7 +22,7 @@
     // Initialization code
     self.hotArray  = [NSArray array];
  
-    self.hotArray =  @[@"2123",@"裤子裤子",@"裤子裤子:",@"衣服服",@"衣服2:"];
+    self.hotArray =  @[@"2123",@"裤子裤子",@"裤子裤子:",@"衣服服",@"衣服2:",@"裤子裤子:",@"衣服服",@"衣服2:"];
     
     [self setup ];
 }
@@ -90,9 +90,9 @@
 //每个cell的大小，因为有indexPath，所以可以判断哪一组，或者哪一个item，可一个给特定的大小，等同于layout的itemSize属性
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return [(NSString*)[_hotArray objectAtIndex:indexPath.row] sizeWithAttributes:NULL];
-
-//    return  CGSizeMake(self.bounds.size.width/5-20, 30);
+    
+    return [(NSString*)[_hotArray objectAtIndex:indexPath.row] sizeWithAttributes:[NSDictionary dictionaryWithObject:NSFontAttributeName forKey:@""]];
+//    return  CGSizeMake(self.bounds.size.width/4-20, 30);
     
 }
 //设置整个组的缩进量是多少

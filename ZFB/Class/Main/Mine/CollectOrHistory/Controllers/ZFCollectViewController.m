@@ -300,46 +300,32 @@
 #pragma mark - 收藏列表 -getKeepGoodList
 -(void)showCollectListPOSTRequest
 {
-    [SVProgressHUD show];
+ 
+    NSLog(@" user id = ==== %@",BBUserDefault.cmUserId)
     NSDictionary * parma = @{
-                             @"svcName":@"getKeepGoodList",
+                             @"svcName":@"",
+                             @"cmUserId":@"8",
+
                              };
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getKeepGoodList"] params:parma success:^(id response) {
         
-    } success:^(id responseObject) {
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+        CollectModel * collect = [CollectModel mj_objectWithKeyValues:response];
+
+        for (Cmkeepgoodslist * list in collect.cmKeepGoodsList) {
             
-            if (self.listArray.count >0) {
-                
-                [self.listArray  removeAllObjects];
-                
-            }else{
-                
-                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-                
-                CollectModel * collect = [CollectModel mj_objectWithKeyValues:jsondic];
-                for (Cmkeepgoodslist * list in collect.cmKeepGoodsList) {
-                    
-                    [self.listArray addObject:list];
-                }
-                NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",_listArray);
-                [self.tableView reloadData];
-                
-                [SVProgressHUD dismiss];
-            }
-            [SVProgressHUD dismiss];
+            [self.listArray addObject:list];
         }
-        
+        NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",_listArray);
+        [self.tableView reloadData];
+    
+    } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        [SVProgressHUD dismiss];
         
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
+
     
 }
 
@@ -348,25 +334,23 @@
 -(void)cancelCollectListPOSTRequest
 {
     NSDictionary * parma = @{
-                             @"svcName":@"getKeepGoodDel",
+                             @"svcName":@"",
                              @"cartItemId":_collectID,
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             
                              };
     
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getKeepGoodDel"] params:parma success:^(id response) {
         
-    } success:^(id responseObject) {
         
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
-            [self.view makeToast:@"取消收藏成功！" duration:2 position:@"center"];
-            //取消后的更新操作
-            [self updateInfomation];
-        }
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         
+        [self updateInfomation];
+        
+    } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
+        
+        NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
