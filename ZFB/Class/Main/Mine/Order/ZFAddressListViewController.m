@@ -196,45 +196,53 @@
 {
      NSDictionary * parma = @{
                              
-                             @"svcName":@"getCmUserAdderss",
+                             @"svcName":@"",
                              @"cmUserId":BBUserDefault.cmUserId,
                              
                              };
-    
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [SVProgressHUD show];
-    
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-        
-    } success:^(id responseObject) {
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            if (self.listArray.count >0) {
-                
-                [self.listArray removeAllObjects];
-            }
-            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-
-            AddressListModel * list = [AddressListModel mj_objectWithKeyValues:jsondic];
-            for (Cmuserinfo * info in list.cmUserInfo) {
  
-                [self.listArray addObject:info];
-            }
-            NSLog(@"%@ ==== listArray",self.listArray);
-            
-            [self.mytableView reloadData];
-            
-        }
-        [SVProgressHUD dismiss];
- 
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmUserAdderss",zfb_baseUrl] params:parma success:^(id response) {
+        
+   
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        [SVProgressHUD dismiss];
+        
+        NSLog(@"error=====%@",error);
         
     }];
+//    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+//        
+//    } success:^(id responseObject) {
+//        
+//        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+//            if (self.listArray.count >0) {
+//                
+//                [self.listArray removeAllObjects];
+//            }
+//            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+//            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+//
+//            AddressListModel * list = [AddressListModel mj_objectWithKeyValues:jsondic];
+//            for (Cmuserinfo * info in list.cmUserInfo) {
+// 
+//                [self.listArray addObject:info];
+//            }
+//            NSLog(@"%@ ==== listArray",self.listArray);
+//            
+//            [self.mytableView reloadData];
+//            
+//        }
+//        [SVProgressHUD dismiss];
+// 
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+//        [SVProgressHUD dismiss];
+//        
+//    }];
     
     
 }

@@ -8,57 +8,88 @@
 
 #import <Foundation/Foundation.h>
 
-@class Orderlist,Ordergoods;
+@class Orderlist,Ordergoods,Goods_Properties;
+
 @interface AllOrderModel : NSObject
+
+@property (nonatomic, assign) NSInteger status;
 
 @property (nonatomic, strong) NSArray<Orderlist *> *orderList;
 
-@property (nonatomic, assign) NSInteger totalCount;
+@property (nonatomic, assign) NSInteger resultCode;
+
+@property (nonatomic, assign) NSInteger pageCount;
+
+@property (nonatomic, copy) NSString *responseText;
+
+@property (nonatomic, copy) NSString *resultMsg;
+
 
 @end
 
 @interface Orderlist : NSObject
 
-///订单id
-@property (nonatomic, assign) NSInteger orderId;
-/// 0.未支付的初始状态 1.支付成功 -1.支付失败 3.付款发起 4.付款取消 (待付款) 5.退款成功（支付成功的）6.退款发起(支付成功) 7.退款失败(支付成功)',
-@property (nonatomic, assign) NSInteger payStatus;
-
-//支付金额
-@property (nonatomic, assign) CGFloat  payPrice;
-
-@property (nonatomic, strong) NSArray<Ordergoods *> *orderGoods;
-
-///0待配送 1配送中 2配送完成
-@property (nonatomic, assign) NSInteger orderStatus;
+@property (nonatomic, copy) NSString *orderAmount;
 
 @property (nonatomic, copy) NSString *orderCode;
 
+@property (nonatomic, assign) CGFloat orderDeliveryFee;
+
+@property (nonatomic, copy) NSString *orderFinishTime;
+
+@property (nonatomic, copy) NSString *order_id;
+
+@property (nonatomic, copy) NSString *orderStatusName;
+
+@property (nonatomic, copy) NSString *payStatus;
+
 @property (nonatomic, copy) NSString *createTime;
 
+@property (nonatomic, copy) NSString *payModeName;
+
+@property (nonatomic, copy) NSString *orderStatus;
+
 @property (nonatomic, copy) NSString *storeName;
+
+@property (nonatomic, strong) NSArray<Ordergoods *> *orderGoods;
+
+@property (nonatomic, copy) NSString *orderComment;
+
+@property (nonatomic, copy) NSString *payStatusName;
 
 @end
 
 @interface Ordergoods : NSObject
 
-@property (nonatomic, assign) NSInteger orderId;
+@property (nonatomic, copy) NSString *order_id;
 
-@property (nonatomic, copy) NSString *goodsName;
+@property (nonatomic, copy) NSString *original_price;
 
-@property (nonatomic, assign) NSInteger goodsCount;
+@property (nonatomic, strong) Goods_Properties *goods_properties;
 
-@property (nonatomic, assign) NSInteger goodsId;
-///商品单位  包
+@property (nonatomic, copy) NSString *goodsCount;
+
+@property (nonatomic, copy) NSString *goodsId;
+
 @property (nonatomic, copy) NSString *goodsUnit;
-///原价
-@property (nonatomic, assign) NSInteger originalPrice;
+
+@property (nonatomic, copy) NSString *purchase_price;
+
+@property (nonatomic, copy) NSString *concessional_price;
+
+@property (nonatomic, copy) NSString *goods_name;
 
 @property (nonatomic, copy) NSString *coverImgUrl;
-///价格单位
-@property (nonatomic, assign) NSInteger priceUnit;
 
+@property (nonatomic, copy) NSString *priceUnit;
 
+@end
+
+@interface Goods_Properties : NSObject
+
+@property (nonatomic, copy) NSString *name;
+
+@property (nonatomic, copy) NSString *value;
 
 @end
 

@@ -56,7 +56,9 @@
     
     NSLog(@"清空");
     [self.listArray removeAllObjects];
+    [self deletFootRemovePOSTRequest];
     [self.tableView reloadData];
+    
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -108,7 +110,7 @@
 -(void)showhistoryListPOSTRequest
 {
     
-    [SVProgressHUD show];
+ 
     NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
                              };
@@ -123,20 +125,16 @@
                 
             }else{
                 
-                HistoryFootModel * history = [HistoryFootModel mj_objectWithKeyValues:response[@"data"]];
+                HistoryFootModel * history = [HistoryFootModel mj_objectWithKeyValues:response];
                 for (Cmscanfoolprintslist * info in  history.data.cmScanFoolprintsList ) {
                
                     [self.listArray addObject:info];
                 }
-    
-            NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",_listArray);
-                
+            NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",self.listArray);
             }
             
             [self.tableView reloadData];
-
         }
-        
         
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
@@ -147,6 +145,40 @@
     
        
 }
+
+#pragma mark - 足记列表 -getSkimFootRemove
+
+-(void)deletFootRemovePOSTRequest
+{
+    
+    
+    NSDictionary * parma = @{
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"id":@"",
+                             };
+    
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getSkimFootRemove"] params:parma success:^(id response) {
+        
+        if ([response[@"resultCode"]isEqualToString:@"0"]) {
+            
+            [self.view makeToast:@"清空成功" duration:2 position:@"center"];
+
+            }
+            
+            [self.tableView reloadData];
+        }
+        
+        progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+    
+}
+
+
 
 -(NSMutableArray *)listArray
 {

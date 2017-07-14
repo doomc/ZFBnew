@@ -113,7 +113,9 @@
     for (Cmkeepgoodslist *list in self.listArray) {
         
         NSString *cartItemId = [NSString stringWithFormat:@"%ld",list.cartItemId];
+      
         [listArr addObject:cartItemId];
+      
         NSString * str = [listArr componentsJoinedByString:@","];
         if (list.isCollectSelected) {
             
@@ -122,6 +124,7 @@
     }
 //    NSLog(@"============_collectID %@========\n%d",_collectID, list.isCollectSelected);
     [self.tableView reloadData];
+    
     // 每次点击都要统计底部的按钮是否全选
     self.footView.allChoose_btn.selected = [self isAllProcductChoosed];
     
@@ -338,14 +341,13 @@
 -(void)cancelCollectListPOSTRequest
 {
     NSDictionary * parma = @{
-                             @"svcName":@"",
+                             
                              @"cartItemId":_collectID,
                              @"cmUserId":BBUserDefault.cmUserId,
                              
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getKeepGoodDel"] params:parma success:^(id response) {
-        
         
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         

@@ -19,14 +19,13 @@
 {
     _orderlist = orderlist;
     
-    self.lb_storeName.text =_orderlist.storeName;
     
     //13位时间戳
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[_orderlist.createTime doubleValue] / 1000];
-    self.lb_nameOrTime.text = [dateTimeHelper TimeToLocationStr:date];
-    
-    [self.statusButton setTitle:[NSString stringWithFormat:@"订单状态%ld",_orderlist.orderStatus] forState:UIControlStateNormal];
-    self.lb_storeName.text = _orderlist.storeName;
+//    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[_orderlist.createTime doubleValue] / 1000];
+//    self.lb_nameOrTime.text = [dateTimeHelper TimeToLocationStr:date];
+    self.lb_nameOrTime.text = _orderlist.createTime;
+    self.lb_storeName.text =_orderlist.storeName;
+    [self.statusButton setTitle:_orderlist.orderStatusName forState:UIControlStateNormal];
 
     
 }

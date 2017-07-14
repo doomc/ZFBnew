@@ -31,8 +31,8 @@
 {
     _goods = goods;
     
-    self.lb_goodcount.text = [NSString stringWithFormat:@"数量x%ld%@",_goods.goodsCount, _goods.goodsUnit];
-    self.lb_title.text =  _goods.goodsName;
+    self.lb_goodcount.text = [NSString stringWithFormat:@"数量x%@%@",_goods.goodsCount, _goods.goodsUnit];
+    self.lb_title.text =  _goods.goods_name;
     
     [self.img_saleAfter sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_goods.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
