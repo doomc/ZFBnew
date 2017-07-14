@@ -8,25 +8,48 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HomeADModel : ResponseObject
+@class ADdata,Cmadvertimglist;
+@interface HomeADModel : NSObject
 
-/** 图片id*/
-@property (nonatomic, copy) NSString * pid;//(id)
+ 
+@property (nonatomic, copy) NSString *resultCode;
 
-/** 图片名称 */
-@property (nonatomic, copy) NSString * imgTitle;
+@property (nonatomic, copy) NSString *resultMsg;
 
-/** 商品id */
-@property (nonatomic, copy) NSString * goodId;
+@property (nonatomic, strong) ADdata *data;
 
-/** 跳转地址 */
-@property (nonatomic, copy) NSString * redirectUrl;
-
-/** 图片地址*/
-@property (nonatomic, copy) NSString * imgUrl;
-
-/** 返回 0 成功、1失败 */
-@property (nonatomic, copy) NSString * resultCode;
 
  
 @end
+@interface ADdata : NSObject
+
+@property (nonatomic, strong) NSArray<Cmadvertimglist *> *cmAdvertImgList;
+
+@end
+
+@interface Cmadvertimglist : NSObject
+
+@property (nonatomic, copy) NSString *imgUrl;
+
+@property (nonatomic, copy) NSString *imgCode;
+
+@property (nonatomic, assign) NSInteger goodId;
+
+@property (nonatomic, copy) NSString *imgTitle;
+
+@property (nonatomic, assign) NSInteger id;
+
+@property (nonatomic, assign) NSInteger sort;
+
+@property (nonatomic, copy) NSString *redirectUrl;
+
+@property (nonatomic, copy) NSString *imgDesc;
+
+@property (nonatomic, assign) BOOL isOn;
+
+@property (nonatomic, assign) BOOL isDel;
+
+@property (nonatomic, copy) NSString *createTime;
+
+@end
+

@@ -9,18 +9,21 @@
 #import "HistoryFootModel.h"
 
 @implementation HistoryFootModel
+ 
 
 @end
-@implementation Cmscanfoolprintslist
+
+
+@implementation DataAA
 
 + (NSDictionary *)objectClassInArray{
-    return @{@"cmGoodsInfo" : [Cmgoodsinfo class]};
+    return @{@"cmScanFoolprintsList" : [Cmscanfoolprintslist class]};
 }
 
 @end
 
 
-@implementation Cmgoodsinfo
+@implementation Cmscanfoolprintslist
 
 @end
 

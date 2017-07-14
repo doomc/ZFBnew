@@ -35,10 +35,9 @@
      
     [self.HotcollectionView registerNib:[UINib nibWithNibName:@"HotCollectionViewCell" bundle:nil]
              forCellWithReuseIdentifier:@"HotCollectionViewCellid"];
-    _pageSize = 5;
-    _pageIndex = 0;
+ 
     
-//    [self HotsalesPostRequst];
+    [self HotsalesPostRequst];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -52,19 +51,21 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomeHotModel * hot=  [HomeHotModel new];
-    if (indexPath.row < [self.hotArray count]) {
-        
-    }
-    hot  = [self.hotArray objectAtIndex:indexPath.row];
-
+    
     HotCollectionViewCell * cell = [self.HotcollectionView dequeueReusableCellWithReuseIdentifier:@"HotCollectionViewCellid" forIndexPath:indexPath];
-    NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",hot.coverImgUrl]];
-    [cell.img_hotImgView sd_setImageWithURL:img_url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
-    }];
 
-    cell.lb_price.text = [NSString stringWithFormat:@"%.2f",hot.storePrice];//netPurchasePrice 网购价格2选1
+//    HomeHotModel * hot=  [HomeHotModel new];
+//    if (indexPath.row < [self.hotArray count]) {
+//        
+//    }
+//    hot  = [self.hotArray objectAtIndex:indexPath.row];
+
+//    NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",hot.coverImgUrl]];
+//    [cell.img_hotImgView sd_setImageWithURL:img_url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        
+//    }];
+//
+//    cell.lb_price.text = [NSString stringWithFormat:@"%.2f",hot.storePrice];//netPurchasePrice 网购价格2选1
     return cell;
 }
 
@@ -101,53 +102,56 @@
 #pragma mark - 热卖-getBestSellInfo网络请求
 -(void)HotsalesPostRequst
 {
-    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageSize];
-    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
-    NSDictionary * parma = @{
-                             
-                             @"svcName":@"getBestSellInfo",
-//                             @"cmUserId":BBUserDefault.cmUserId,
-                             @"pageSize":pageSize,//每页显示条数
-                             @"pageIndex":pageIndex,//当前页码
-
-                             };
-    
-    
-    [PPNetworkHelper POST:zfb_url parameters:parma responseCache:^(id responseCache) {
+ 
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getBestSellInfo",zfb_baseUrl] params:nil success:^(id response) {
         
-    } success:^(id responseObject) {
+        NSLog(@"热卖- =%@",response);
         
-        NSLog(@"%@",responseObject);
+    } progress:^(NSProgress *progeress) {
         
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
-            if (self.hotArray.count >0) {
-                
-                [self.hotArray removeAllObjects];
-                
-            }else{
-                
-                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-                NSArray * dictArray = jsondic [@"bestGoodsList"];
-
-                //mjextention 数组转模型
-                NSArray *storArray = [HomeHotModel mj_objectArrayWithKeyValuesArray:dictArray];
-                for (HomeHotModel *hotlist in storArray) {
-                    
-                    [self.hotArray addObject:hotlist];
-                }
-                NSLog(@"bestGoodsList = %@",  self.hotArray);
-
-                [self.HotcollectionView reloadData];
-            }
-            
-        }
+        NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self makeToast:@"网络错误" duration:2 position:@"center"];
+        
+        NSLog(@"error=====%@",error);
+        
     }];
+    
+//    [PPNetworkHelper POST:zfb_url parameters:parma responseCache:^(id responseCache) {
+//        
+//    } success:^(id responseObject) {
+//        
+//        NSLog(@"%@",responseObject);
+//        
+//        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+//            
+//            if (self.hotArray.count >0) {
+//                
+//                [self.hotArray removeAllObjects];
+//                
+//            }else{
+//                
+//                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+//                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+//                NSArray * dictArray = jsondic [@"bestGoodsList"];
+//
+//                //mjextention 数组转模型
+//                NSArray *storArray = [HomeHotModel mj_objectArrayWithKeyValuesArray:dictArray];
+//                for (HomeHotModel *hotlist in storArray) {
+//                    
+//                    [self.hotArray addObject:hotlist];
+//                }
+//                NSLog(@"bestGoodsList = %@",  self.hotArray);
+//
+//                [self.HotcollectionView reloadData];
+//            }
+//            
+//        }
+//        
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//        [self makeToast:@"网络错误" duration:2 position:@"center"];
+//    }];
 }
 
 

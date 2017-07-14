@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
+//    BBUserDefault.isLogin = 0;
     _isQuickLogin = YES;//默认为快速登录
     _indexType = quickLoginIndexType; //默认为快速登录
     self.login_btn.enabled = NO; //默认关闭用户登录
@@ -304,20 +304,13 @@ typedef NS_ENUM(NSUInteger, indexType) {
     }else{
         [self PasswordLoginPostRequest];
         
-        if ( BBUserDefault.isLogin == YES) {//密码登录
-            
-            NSLog(@"输入的密码 = %@",BBUserDefault.userPhonePassword);
-            if ([_tf_verificationCodeOrPassWord.text isEqualToString: BBUserDefault.userPhonePassword]) {
-                
+        if ( BBUserDefault.isLogin == 1) {//密码登录
+        
                 [self left_button_event];
                 NSLog(@"跳转到指定页面");
                 
             }
-//            [self left_button_event:sender];
-//            
-            [self.view makeToast:@"密码输入错误" duration:2 position:@"center" ];
-           
-        }
+        [self.view makeToast:@"密码输入错误" duration:2 position:@"center" ];
     }
 }
 
@@ -403,9 +396,10 @@ typedef NS_ENUM(NSUInteger, indexType) {
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/quickLogin",zfb_baseUrl] params:parma success:^(id response) {
 
-        AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
-        appdelegate.isLogin = YES;
+//        AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
 //        appdelegate.signMD5Key = response[@"userInfo"][@"userKeyMd5"];
+
+        BBUserDefault.isLogin = 1;
 
         BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
         BBUserDefault.nickName = response[@"userInfo"][@"nickName"];
@@ -458,8 +452,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
         int code = [response[@"resultCode"] intValue];
         if (code == 0) {
             //设置全局变量
-            AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
-            appdelegate.isLogin = YES;
+//            AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
+            BBUserDefault.isLogin = 1;
             BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
             BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
             BBUserDefault.nickName = response[@"userInfo"][@"nickName"];
@@ -477,6 +471,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+
     }];
     [SVProgressHUD dismiss];
 

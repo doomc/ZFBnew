@@ -12,3 +12,22 @@
 @implementation HomeGuessModel
 
 @end
+@implementation GuessData
+
+@end
+
+
+@implementation Cmgoodsbrowselist
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"findGoodsList" : [Findgoodslist class]};
+}
+
+@end
+
+
+@implementation Findgoodslist
+
+@end
+
+

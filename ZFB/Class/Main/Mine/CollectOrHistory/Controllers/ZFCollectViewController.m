@@ -112,15 +112,15 @@
     NSMutableArray * listArr = [NSMutableArray array];
     for (Cmkeepgoodslist *list in self.listArray) {
         
-        [listArr addObject:list.cartItemId];
+        NSString *cartItemId = [NSString stringWithFormat:@"%ld",list.cartItemId];
+        [listArr addObject:cartItemId];
         NSString * str = [listArr componentsJoinedByString:@","];
-        
         if (list.isCollectSelected) {
             
             _collectID = str ;
         }
     }
-    NSLog(@"============_collectID %@========\n%d",_collectID, list.isCollectSelected);
+//    NSLog(@"============_collectID %@========\n%d",_collectID, list.isCollectSelected);
     [self.tableView reloadData];
     // 每次点击都要统计底部的按钮是否全选
     self.footView.allChoose_btn.selected = [self isAllProcductChoosed];
@@ -189,7 +189,6 @@
         if (list.isCollectSelected) {
             count ++;
         }
-        
     }
     // 再次影响到全部选择按钮
     self.footView.allChoose_btn.selected = [self isAllProcductChoosed];
@@ -303,20 +302,25 @@
  
     NSLog(@" user id = ==== %@",BBUserDefault.cmUserId)
     NSDictionary * parma = @{
-                             @"svcName":@"",
-                             @"cmUserId":@"8",
+                 
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"svcname":@"",
 
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getKeepGoodList"] params:parma success:^(id response) {
         
-        CollectModel * collect = [CollectModel mj_objectWithKeyValues:response];
-
-        for (Cmkeepgoodslist * list in collect.cmKeepGoodsList) {
+        if ([response[@"resultCode"]isEqualToString:@"0"]) {
+    
+            CollectModel * collect = [CollectModel mj_objectWithKeyValues:response];
             
-            [self.listArray addObject:list];
+                    for (Cmkeepgoodslist * list in collect.data.cmKeepGoodsList) {
+            
+                        [self.listArray addObject:list];
+                    }
+            NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",_listArray);
         }
-        NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",_listArray);
+  
         [self.tableView reloadData];
     
     } progress:^(NSProgress *progeress) {

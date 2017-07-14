@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 @interface DetailFindGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate>
 {
     NSString * _goodsName;
-    NSString * _sotreName;
+    NSString * _storeName;
     NSString * _contactPhone;
     NSString * _juli;
     NSString * _address;
@@ -41,10 +41,11 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     NSString * _coverImgUrl;
     NSString * _attachImgUrl;
     NSString * _netPurchasePrice;
-    NSString * _goodsSales;
     NSString * _inStock;
-    NSInteger  _commentNum;
+    NSString * _commentNum;
     NSInteger  _isCollect;
+    NSInteger  _goodsSales;
+
     NSMutableArray *selectIndexPathArr;//保存indexpath的数组
     NSMutableArray * addArr;
     
@@ -100,7 +101,10 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     }
     
     selectIndexPathArr = [NSMutableArray arrayWithObjects:@"1",@"1", nil];//用来保存 new 、old的index
+  
+    
     [self goodsDetailListPostRequset];//网络请求
+    
     [self creatInterfaceDetailTableView];//初始化控件tableview
     [self settingHeaderViewAndFooterView];//初始化footerview
     self.list_tableView.tableHeaderView = self.cycleScrollView;//加载轮播
@@ -254,25 +258,28 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     if (indexPath.row == typeCellrowOftitleCell) {
         
         ZFTitleAndChooseListCell  * listCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFTitleAndChooseListCell" forIndexPath:indexPath];
-        
+        listCell.selectionStyle = UITableViewCellSelectionStyleNone;
         listCell.lb_title.text = _goodsName;
         listCell.lb_price.text = [NSString stringWithFormat:@"¥%@",_netPurchasePrice];
-        listCell.lb_sales.text = [NSString stringWithFormat:@"已售%@件",_goodsSales];
+        listCell.lb_sales.text = [NSString stringWithFormat:@"已售%ld件",_goodsSales];
         return listCell;
         
     }else if (indexPath.row == typeCellrowOfbabyCell)
     {
         ZFbabyEvaluateCell  *  babyCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
-        babyCell.lb_commonCount.text = [NSString stringWithFormat:@"(%ld)",_commentNum];
+        babyCell.lb_commonCount.text = [NSString stringWithFormat:@"(%@)",_commentNum];
+        babyCell.selectionStyle = UITableViewCellSelectionStyleNone;
+
         return babyCell;
         
     }else if (indexPath.row == typeCellrowOfGoToStoreCell)
     {
         
         ZFLocationGoToStoreCell  *  goToStoreCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFLocationGoToStoreCell" forIndexPath:indexPath];
+        goToStoreCell.selectionStyle = UITableViewCellSelectionStyleNone;
         CGFloat juli = [_juli floatValue]*0.001;
         goToStoreCell.lb_address.text =  [NSString stringWithFormat:@"%@  %.2fkm",_address,juli];
-        goToStoreCell.lb_storeName.text = _sotreName;
+        goToStoreCell.lb_storeName.text = _storeName;
         
         
         return goToStoreCell;
@@ -281,14 +288,15 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     {
         
         ZFLoctionNavCell  *  locaCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFLoctionNavCell" forIndexPath:indexPath];
+        locaCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [locaCell.whereTogo addTarget:self action:@selector(whereTogoMap:) forControlEvents:UIControlEventTouchUpInside];
         [locaCell.contactPhone addTarget:self action:@selector(contactPhone:) forControlEvents:UIControlEventTouchUpInside];
-        
         return locaCell;
         
     }   else if (indexPath.row == 4)
     {
         ZFbabyEvaluateCell  *  goodsDetailCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
+        goodsDetailCell.selectionStyle = UITableViewCellSelectionStyleNone;
         goodsDetailCell.lb_title.text = @"宝贝详情";
         [goodsDetailCell.lb_commonCount removeFromSuperview];
         [goodsDetailCell.img_arrowRight removeFromSuperview];
@@ -364,9 +372,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    Productsku * product = self.productSkuArray[section];
-    NSLog(@"product.reluJson  ==== %@",product.reluJson);
-    return   product.reluJson.count;
+    Productattribute * product = self.productSkuArray[section];
+    NSLog(@"product.reluJson  ==== %@",product.valueList);
+    return   product.valueList.count;
 }
 //设置每个item的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -393,12 +401,11 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
     if ([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
-        Productsku * product = self.productSkuArray[indexPath.section];
-        for (Relujson * relujson in product.reluJson) {
-            
-            NSLog(@"name = =========%@  ",relujson.name );
-            headerView.lb_title.text = relujson.name;
-        }
+        Productattribute * product = self.productSkuArray[indexPath.section];
+     
+            NSLog(@"name = =========%@  ",product.name );
+            headerView.lb_title.text = product.name;
+         
     }
     
     return headerView;
@@ -412,21 +419,20 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     if (self.productSkuArray.count > 0) {
         
         
-        Productsku * product= self.productSkuArray[indexPath.row];
-        lb_price.text =  [NSString stringWithFormat:@"价格:¥%@", product.purchase ];//价格
-        lb_inShock.text = [NSString stringWithFormat:@"库存:¥%@", product.buyNum];//库存
-        NSString * colorWthSize =@"";
-        for (Relujson * relujson in product.reluJson) {
-            [self.reluJsonKeyArray addObject:relujson];
-            colorWthSize = [NSString stringWithFormat:@"%@",relujson.value];
-        }
+        Productattribute * product= self.productSkuArray[indexPath.section];
+//        lb_price.text =  [NSString stringWithFormat:@"价格:¥%@", product.purchase ];//价格
+//        lb_inShock.text = [NSString stringWithFormat:@"库存:¥%@", product.buyNum];//库存
         
-        [cell.selectItemColor setTitle:colorWthSize forState:UIControlStateNormal] ;
+  
+        Valuelist * value = product.valueList[indexPath.row];
+        NSLog(@"%@ =value",value);
+        
+        [cell.selectItemColor setTitle:value.name forState:UIControlStateNormal] ;
         [cell.selectItemColor setBackgroundColor:HEXCOLOR(0xffffff)];
         [cell.selectItemColor setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
         cell.selectItemColor.selected = NO;
         
-    }
+       }
     
     return cell;
 }
@@ -499,200 +505,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 }
 
 
-#pragma mark  - 商品详情 网络请求
--(void)goodsDetailListPostRequset{
-    
-    
-    NSDictionary * parma = @{
-                             
-                             @"svcName":@"getGoodsDetailsInfo",
-                             @"goodsId":_goodsId,//商品id
-                             
-                             };
-    
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    [SVProgressHUD show];
-    
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-        
-    } success:^(id responseObject) {
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
-            if (self.productSkuArray.count > 0  ) {
-                
-                [self.productSkuArray  removeAllObjects];
-                
-            }else{
-                
-                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-                
-                //MJEXTENTION
-                DetailGoodsModel * detailList = [DetailGoodsModel mj_objectWithKeyValues:jsondic];
-                
-                for (Cmgoodsdetailslist * goodslist in detailList.cmGoodsDetailsList) {
-                    
-                    _goodsName = goodslist.goodsName;
-                    _sotreName = goodslist.sotreName;
-                    _contactPhone = goodslist.contactPhone;
-                    _juli = goodslist.juli;
-                    _address = goodslist.address;
-                    _storeId = goodslist.sotreId;
-                    _coverImgUrl = goodslist.coverImgUrl;
-                    _attachImgUrl = goodslist.attachImgUrl;
-                    _netPurchasePrice = goodslist.netPurchasePrice;//价格
-                    _goodsSales = goodslist.goodsSales;
-                    _commentNum = goodslist.commentNum;
-                    _isCollect  = goodslist.isCollect;
-                    
-                    for (Productsku * skuproduct in goodslist.productSku) {
-                        
-                        [self.productSkuArray addObject:skuproduct];
-                        
-                    }
-                    NSLog(@"---------------productSkuArray  = %@ --------------- ",self.productSkuArray);
-                    _imagesURLStrings = [[NSArray alloc]init];
-                    _imagesURLStrings = [_attachImgUrl componentsSeparatedByString:@","];
-                }
-                [self.list_tableView reloadData];
-                [SVProgressHUD dismiss];
-            }
-            
-            [SVProgressHUD dismiss];
-        }
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        [SVProgressHUD dismiss];
-        
-    }];
-    
-}
-
-
-#pragma mark - 添加到购物车:saveShoppingCart
--(void)addToshoppingCarPost
-{
-    
-    [SVProgressHUD show];
-    NSString * count = [NSString stringWithFormat:@"%ld",_goodsCount];
-    _sizeOrColorStr = @"{color:黑色,size:xxl}";
-    NSDictionary * parma = @{
-                             
-                             @"svcName":@"saveShoppingCart",
-                             @"goodsId":_goodsId,
-                             @"storeId":_storeId,
-                             @"goodsCount":count,//商品个数
-                             @"goodsProp":_sizeOrColorStr,//商品规格
-                             @"userKeyMd5":BBUserDefault.userKeyMd5,//商品id
-                             
-                             };
-    
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-        
-    } success:^(id responseObject) {
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
-            if (self.reluJsonKeyArray.count >0) {
-                
-                [self.reluJsonKeyArray  removeAllObjects];
-                
-            }else{
-                
-                if (self.BgView != nil) {
-                    
-                    [self.BgView removeFromSuperview];
-                }
-                
-                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-                
-                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-                NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",jsondic);
-                [self.view makeToast:@"成功添加到购物车" duration:2 position:@"bottom"];
-                
-                [self.list_tableView reloadData];
-                
-            }
-            [SVProgressHUD dismiss];
-            
-        }
-        
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        [SVProgressHUD dismiss];
-        
-    }];
-    
-}
-
-#pragma mark - 添加收藏 getKeepGoodInfo
--(void)addCollectedPostRequest
-{
-    NSDictionary * parma = @{
-                             @"cmUserId":BBUserDefault.cmUserId,
-                             @"svcName":@"getKeepGoodInfo",
-                             @"goodsId":_goodsId,
-                             @"goodName":_goodsName,//商品名
-                             
-                             
-                             };
-    
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-        
-    } success:^(id responseObject) {
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
-            [self.view makeToast:@"收藏成功" duration:2 position:@"center"];
-            
-        }
-        
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        
-    }];
-    
-}
-#pragma mark - 取消收藏 getKeepGoodDel
--(void)cancelCollectedPostRequest
-{
-    NSDictionary * parma = @{
-                             
-                             @"svcName":@"getKeepGoodDel",
-                             @"goodsId":_goodsId,
-                             @"cartItemId":@"",//收藏表id
-                             
-                             
-                             };
-    
-    
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-        
-    } success:^(id responseObject) {
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
-            [self.view makeToast:@"取消收藏" duration:2 position:@"center"];
-            
-        }
-        
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        
-    }];
-    
-}
 
 #pragma mark  - 选择商品数量
 -(void)addCount:(NSInteger)count
@@ -886,7 +698,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 -(void)SecondAddShopCar:(UIButton *)button
 {
     
-    [self addToshoppingCarPost];
+//    [self addToshoppingCarPost];
     NSLog(@"加入购物车 。请求接口");
 }
 
@@ -905,6 +717,205 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     }
     return _productSkuArray;
 }
+
+
+
+
+#pragma mark  - 商品详情 网络请求
+-(void)goodsDetailListPostRequset{
+    
+    NSLog(@" 经度 %@ ----- 纬度 %@",BBUserDefault.latitude,BBUserDefault.longitude);
+    NSDictionary * parma = @{
+                             
+//                             @"svcName":@"",
+                             @"latitude":BBUserDefault.latitude,
+                             @"longitude":BBUserDefault.longitude,
+                             @"goodsId":@"1",//商品id
+                             
+                             };
+   // findSkuListByGooodsId
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsDetailsInfo",zfb_baseUrl] params:parma success:^(id response) {
+        
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            
+            DetailGoodsModel * detailModel = [DetailGoodsModel mj_objectWithKeyValues:response];
+ 
+            //goods信息 ----goodsInfo
+            _goodsName = detailModel.data.goodsInfo.goodsName;//商品名
+            _coverImgUrl = detailModel.data.goodsInfo.coverImgUrl;//商品封面
+            _attachImgUrl = detailModel.data.goodsInfo.attachImgUrl;//图片链接
+            _netPurchasePrice = detailModel.data.goodsInfo.netPurchasePrice;//价格
+            _goodsSales = detailModel.data.goodsInfo.goodsSales;//已经销售
+            _commentNum = detailModel.data.goodsInfo.commentNum;//评论数
+            _isCollect  = detailModel.data.goodsInfo.isCollect;//是否收藏
+            
+            //store信息 ----storeInfo
+            _storeName = detailModel.data.storeInfo.storeName;//店名
+            _contactPhone = detailModel.data.storeInfo.contactPhone;//联系手机号
+            _address = detailModel.data.storeInfo.address;//门店地址
+            _juli = detailModel.data.storeInfo.storeDist;//门店距离
+           
+            for (Productattribute * product in detailModel.data.productAttribute) {
+                
+                [self.productSkuArray addObject:product];
+            
+            
+            }
+            _imagesURLStrings = [[NSArray alloc]init];
+            _imagesURLStrings = [_attachImgUrl componentsSeparatedByString:@","];
+            NSLog(@"%@\n",self.productSkuArray);
+            NSLog(@"%@",  _imagesURLStrings);
+
+            [self.list_tableView reloadData];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+         
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+
+}
+
+
+#pragma mark - 添加到购物车:saveShoppingCart
+-(void)addToshoppingCarPost
+{
+    
+    [SVProgressHUD show];
+    NSString * count = [NSString stringWithFormat:@"%ld",_goodsCount];
+    _sizeOrColorStr = @"{color:黑色,size:xxl}";
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"",
+                             @"goodsId":_goodsId,
+                             @"storeId":_storeId,
+                             @"goodsCount":count,//商品个数
+                             @"goodsProp":_sizeOrColorStr,//商品规格
+                             @"userKeyMd5":BBUserDefault.userKeyMd5,//商品id
+                             
+                             };
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/ShoppCartJoin",zfb_baseUrl] params:parma success:^(id response) {
+        
+        NSLog(@"热卖- =%@",response);
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        
+    }];
+    
+//    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+//        
+//    } success:^(id responseObject) {
+//        
+//        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+//            
+//            if (self.reluJsonKeyArray.count >0) {
+//                
+//                [self.reluJsonKeyArray  removeAllObjects];
+//                
+//            }else{
+//                
+//                if (self.BgView != nil) {
+//                    
+//                    [self.BgView removeFromSuperview];
+//                }
+//                
+//                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+//                
+//                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+//                NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",jsondic);
+//                [self.view makeToast:@"成功添加到购物车" duration:2 position:@"bottom"];
+//                
+//                [self.list_tableView reloadData];
+//                
+//            }
+//            [SVProgressHUD dismiss];
+//            
+//        }
+//        
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+//        [SVProgressHUD dismiss];
+//        
+//    }];
+    
+}
+
+#pragma mark - 添加收藏 getKeepGoodInfo
+-(void)addCollectedPostRequest
+{
+    NSDictionary * parma = @{
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"svcName":@"getKeepGoodInfo",
+                             @"goodsId":_goodsId,
+                             @"goodName":_goodsName,//商品名
+                             
+                             
+                             };
+    
+//    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+//    
+//    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+//        
+//    } success:^(id responseObject) {
+//        
+//        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+//            
+//            [self.view makeToast:@"收藏成功" duration:2 position:@"center"];
+//            
+//        }
+//        
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+//        
+//    }];
+    
+}
+#pragma mark - 取消收藏 getKeepGoodDel
+-(void)cancelCollectedPostRequest
+{
+    NSDictionary * parma = @{
+                             
+                             @"svcName":@"getKeepGoodDel",
+                             @"goodsId":_goodsId,
+                             @"cartItemId":@"",//收藏表id
+                             
+                             
+                             };
+    
+    
+    //    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
+    //
+    //    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+    //
+    //    } success:^(id responseObject) {
+    //
+    //        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+    //
+    //            [self.view makeToast:@"取消收藏" duration:2 position:@"center"];
+    //            
+    //        }
+    //        
+    //    } failure:^(NSError *error) {
+    //        NSLog(@"%@",error);
+    //        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    //        
+    //    }];
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

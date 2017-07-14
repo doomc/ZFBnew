@@ -28,7 +28,7 @@
     [self.funcCollectionView registerNib:[UINib nibWithNibName:@"FuncListCollectionViewCell" bundle:nil]
               forCellWithReuseIdentifier:@"FuncListCollectionViewCellid"];
 
-//    [self FuncListPostRequst];
+    [self FuncListPostRequst];
 }
 -(NSMutableArray *)dataArray
 {
@@ -54,17 +54,17 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomeFuncModel * func=  [HomeFuncModel new];
+    CMgoodstypelist * type=  [CMgoodstypelist new];
     if (indexPath.item < [self.dataArray count]) {
         
-       func  = [self.dataArray objectAtIndex:indexPath.row];
+       type  = [self.dataArray objectAtIndex:indexPath.row];
     }
     FuncListCollectionViewCell * cell = [self.funcCollectionView dequeueReusableCellWithReuseIdentifier:@"FuncListCollectionViewCellid" forIndexPath:indexPath];
-    cell.lb_listName.text = func.name;
-    NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",func.iconUrl]];
-    [cell.img_listView sd_setImageWithURL:img_url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
- 
-    }];
+    cell.lb_listName.text = type.name;
+//    NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",type.iconUrl]];
+//    [cell.img_listView sd_setImageWithURL:img_url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+// 
+//    }];
     return cell;
 }
 
@@ -91,57 +91,45 @@
 
 // 设置最小行间距，也就是前一行与后一行的中间最小间隔
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
+    return 5;
 }
 
 // 设置最小列间距，也就是左行与右一行的中间最小间隔
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
+    return 5;
 }
 
 
 #pragma mark - funcList-getGoodsTypeInfo 按钮图片和状态
 -(void)FuncListPostRequst
 {
-    NSDictionary * parma = @{
-                             
-                             @"svcName":@"getGoodsTypeInfo",
-//                             @"cmUserId":BBUserDefault.cmUserId,
-                             
-                             };
- 
     
-    [PPNetworkHelper POST:zfb_url parameters:parma responseCache:^(id responseCache) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsTypeInfo",zfb_baseUrl] params:nil success:^(id response) {
         
-    } success:^(id responseObject) {
-                
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-          
-            if (self.dataArray.count >0) {
-
-                [self.dataArray removeAllObjects];
-                
-            }else{
-                
-                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-                NSArray * dictArray = jsondic [@"CmGoodsTypeList"];
-                
-                //mjextention 数组转模型
-                NSArray *storArray = [HomeFuncModel mj_objectArrayWithKeyValuesArray:dictArray];
-                for (HomeFuncModel *funclist in storArray) {
- 
-                    [self.dataArray addObject:funclist];
-                }
-                [self.funcCollectionView reloadData];
-            }
+        NSLog(@"getGoodsTypeInfo====  =%@",response);
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            //mjextention 数组转模型
+            HomeFuncModel *functype =[HomeFuncModel mj_objectWithKeyValues:response];
             
+            for (CMgoodstypelist * typeList in functype.data.CmGoodsTypeList) {
+                
+                [self.dataArray addObject:typeList];
+
+            }
+            [self.funcCollectionView reloadData];
+
         }
         
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-       [self makeToast:@"网络错误" duration:2 position:@"center"];
+        
+        NSLog(@"error=====%@",error);
+        
     }];
+
 }
 
 

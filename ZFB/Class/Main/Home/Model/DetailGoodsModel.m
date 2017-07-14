@@ -10,32 +10,41 @@
 
 @implementation DetailGoodsModel
 
+ 
+
+@end
+
+
+@implementation detailData
+
 + (NSDictionary *)objectClassInArray{
-    return @{@"cmGoodsDetailsList" : [Cmgoodsdetailslist class]};
+    return @{@"productAttribute" : [Productattribute class]};
 }
 
 @end
 
 
-@implementation Cmgoodsdetailslist
+@implementation Goodsinfo
+
+@end
+
+ 
+
+@implementation Storeinfo
+
+@end
+
+
+@implementation Productattribute
 
 + (NSDictionary *)objectClassInArray{
-    return @{@"productSku" : [Productsku class]};
+    return @{@"valueList" : [Valuelist class]};
 }
 
 @end
 
 
-@implementation Productsku
-
-+ (NSDictionary *)objectClassInArray{
-    return @{@"reluJson" : [Relujson class]};
-}
-
-@end
-
-
-@implementation Relujson
+@implementation Valuelist
 
 @end
 

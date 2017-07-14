@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeGuessModel.h"
 
 @interface GuessCell : UITableViewCell
 /** 视图URL */
@@ -27,5 +28,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_distence;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_collectNum;
+
+@property (nonatomic  , strong) Findgoodslist * goodlist;
+
 
 @end

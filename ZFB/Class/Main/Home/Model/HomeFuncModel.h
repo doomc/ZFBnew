@@ -8,20 +8,101 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HomeFuncModel : ResponseObject
-/** 商品id*/
-@property (nonatomic, copy) NSString * pid;//(id)
+@class YypeData,CMgoodstypelist,Createdate,Updatedate;
 
-/** 商品分类名称 */
-@property (nonatomic, copy) NSString * name;
+@interface HomeFuncModel : NSObject
 
-/** 图标url地址 */
-@property (nonatomic, copy) NSString * iconUrl;
+@property (nonatomic, copy) NSString *resultCode;
+@property (nonatomic, copy) NSString *resultMsg;
+@property (nonatomic, strong) YypeData *data;
 
-
-/** 返回 0 成功、1失败 */
-@property (nonatomic, copy) NSString * resultCode;
-
-@property (nonatomic, strong) HomeFuncModel * cmAdvertImgList;/* 自我模型类型 */
 
 @end
+@interface YypeData : NSObject
+
+@property (nonatomic, strong) NSArray <CMgoodstypelist *> *CmGoodsTypeList;
+
+
+@end
+
+@interface CMgoodstypelist : NSObject
+
+@property (nonatomic, assign) NSInteger id;
+
+@property (nonatomic, copy) NSString *name;
+
+//@property (nonatomic, copy) NSString *name;
+
+@property (nonatomic, copy) NSString *delFlag;
+
+@property (nonatomic, assign) NSInteger parentId;
+
+@property (nonatomic, copy) NSString *updateBy;
+
+
+
+@property (nonatomic, strong) Createdate *createDate;
+
+@property (nonatomic, assign) NSInteger typeLevel;
+
+@property (nonatomic, copy) NSString *parentIds;
+
+
+
+@property (nonatomic, strong) Updatedate *updateDate;
+
+@property (nonatomic, copy) NSString *remarks;
+
+@property (nonatomic, assign) NSInteger sort;
+
+@property (nonatomic, copy) NSString *createBy;
+
+@end
+
+
+@interface Createdate : NSObject
+
+@property (nonatomic, assign) long long time;
+
+@property (nonatomic, assign) NSInteger day;
+
+@property (nonatomic, assign) NSInteger date;
+
+@property (nonatomic, assign) NSInteger hours;
+
+@property (nonatomic, assign) NSInteger seconds;
+
+@property (nonatomic, assign) NSInteger month;
+
+@property (nonatomic, assign) NSInteger timezoneOffset;
+
+@property (nonatomic, assign) NSInteger year;
+
+@property (nonatomic, assign) NSInteger minutes;
+
+@end
+
+@interface Updatedate : NSObject
+
+@property (nonatomic, assign) long long time;
+
+@property (nonatomic, assign) NSInteger day;
+
+@property (nonatomic, assign) NSInteger date;
+
+@property (nonatomic, assign) NSInteger hours;
+
+@property (nonatomic, assign) NSInteger seconds;
+
+@property (nonatomic, assign) NSInteger month;
+
+@property (nonatomic, assign) NSInteger timezoneOffset;
+
+@property (nonatomic, assign) NSInteger year;
+
+@property (nonatomic, assign) NSInteger minutes;
+
+
+
+@end
+

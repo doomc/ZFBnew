@@ -11,10 +11,17 @@
 @implementation CollectModel
 
 
+ 
+@end
+@implementation Data
+
 + (NSDictionary *)objectClassInArray{
     return @{@"cmKeepGoodsList" : [Cmkeepgoodslist class]};
 }
+
 @end
+
+
 @implementation Cmkeepgoodslist
 
 @end

@@ -2527,7 +2527,7 @@
 				495EA4971F14B64C001FCB7E /* Models */,
 				495EA49C1F14B64C001FCB7E /* Order */,
 				495EA4D91F14B64C001FCB7E /* SendClientController */,
-				495EA5121F14B64C001FCB7E /* Setting */,
+				495EA5121F14B64C001FCB7E /* Setting(设置) */,
 				495EA5241F14B64C001FCB7E /* Views */,
 				495EA53A1F14B64C001FCB7E /* ZFAllOrderViewController.h */,
 				495EA53B1F14B64C001FCB7E /* ZFAllOrderViewController.m */,
@@ -2842,12 +2842,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		495EA5121F14B64C001FCB7E /* Setting */ = {
+		495EA5121F14B64C001FCB7E /* Setting(设置) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA5131F14B64C001FCB7E /* Controllers */,
 				495EA51A1F14B64C001FCB7E /* Views */,
 			);
+			name = "Setting(设置)";
 			path = Setting;
 			sourceTree = "<group>";
 		};

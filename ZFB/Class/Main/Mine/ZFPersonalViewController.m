@@ -63,23 +63,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     self.headview.delegate           = self;
     self.headview.unloginView        = [self.headview viewWithTag:911];//没登录之前的图
     self.headview.loginView          = [self.headview viewWithTag:912];//登录后的图
-    
-    
-    AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
-    NSLog(@" isLogin====%d",appdelegate.isLogin);
-    
-    //判断是否已经登录
-    if ( appdelegate.isLogin == 1)
-    {
-        //移除登录视图
-        _headview.loginView.hidden   = NO;
-        _headview.unloginView.hidden = YES;
-    }
-    else{
-        _headview.loginView.hidden   = YES;
-        _headview.unloginView.hidden = NO;
-    }
-    
+
     [self initmyTableViewInterface];
     
 }
@@ -322,21 +306,49 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)didClickCollectAction :(UIButton *)sender
 {
     NSLog(@"收藏");
-    ZFCollectViewController *collecVC = [[ZFCollectViewController alloc]init];
+    if (BBUserDefault.isLogin == 1) {
+        
+        ZFCollectViewController *collecVC = [[ZFCollectViewController alloc]init];
+        
+        NSLog(@" cmUserId  === %@", BBUserDefault.cmUserId);
+        [self.navigationController pushViewController:collecVC animated:NO];
+ 
+    }else{
+        
+        LoginViewController * logvc    = [ LoginViewController new];
+        BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logvc];
+        [self presentViewController:nav animated:NO completion:^{
+            
+            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+        }];
+        
+
+    }
     
-    NSLog(@" cmUserId  === %@", BBUserDefault.cmUserId);
-    
-    
-    [self.navigationController pushViewController:collecVC animated:NO];
 }
 
 //浏览足记的点击事件
 -(void)didClickHistorytAction:(UIButton *)sender
 {
     
-    NSLog(@"历史");
-    ZFHistoryViewController *hisVC = [[ZFHistoryViewController alloc]init];
-    [self.navigationController pushViewController:hisVC animated:NO];
+    if (BBUserDefault.isLogin == 1) {
+        
+        NSLog(@"历史");
+        ZFHistoryViewController *hisVC = [[ZFHistoryViewController alloc]init];
+        [self.navigationController pushViewController:hisVC animated:NO];
+        
+    }else{
+        
+        LoginViewController * logvc    = [ LoginViewController new];
+        BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logvc];
+        [self presentViewController:nav animated:NO completion:^{
+            
+            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+        }];
+    
+    }
 }
 
 //点击头像
@@ -396,12 +408,19 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
+    //    AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
     
-    if (appdelegate.isLogin == 1) {
-        
+    if (BBUserDefault.isLogin == 1) {
         [self minePagePOSTRequste];//页面网络请求
+        //判断是否已经登录
         
+        //移除登录视图
+        _headview.loginView.hidden   = NO;
+        _headview.unloginView.hidden = YES;
+    }
+    else{
+        _headview.loginView.hidden   = YES;
+        _headview.unloginView.hidden = NO;
     }
 }
 /*

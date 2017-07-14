@@ -9,72 +9,160 @@
 
 #import <Foundation/Foundation.h>
 
-@class Cmgoodsdetailslist,Productsku,Relujson;
-@interface DetailGoodsModel : ResponseObject
+@class detailData,Goodsinfo,Storeinfo,Productattribute,Valuelist;
+@interface DetailGoodsModel : NSObject
 
 
-@property (nonatomic, strong) NSArray<Cmgoodsdetailslist *> *cmGoodsDetailsList;
+@property (nonatomic, copy) NSString *resultCode;
+
+@property (nonatomic, copy) NSString *resultMsg;
+
+@property (nonatomic, strong) detailData *data;
 
 
 @end
 
-@interface Cmgoodsdetailslist : NSObject
+@interface detailData : NSObject
 
-@property (nonatomic, copy) NSString *sotreName;
+@property (nonatomic, strong) Goodsinfo *goodsInfo;
 
-@property (nonatomic, copy) NSString *contactPhone;
+@property (nonatomic, strong) Storeinfo *storeInfo;
 
-@property (nonatomic, copy) NSString *juli;
+@property (nonatomic, strong) NSArray<Productattribute *> *productAttribute;
 
-@property (nonatomic, copy) NSString *longitude;
+@end
 
+@interface Goodsinfo : NSObject
 
+@property (nonatomic, copy) NSString *goodsType;
 
-@property (nonatomic, strong) NSArray<Productsku *> *productSku;
-
-@property (nonatomic, copy) NSString *latitude;
-
-@property (nonatomic, assign) NSInteger commentNum;
-
-@property (nonatomic, copy) NSString *netPurchasePrice;
-
-@property (nonatomic, copy) NSString *address;
-
-@property (nonatomic, copy) NSString *attachImgUrl;
-
-@property (nonatomic, copy) NSString *sotreId;
+@property (nonatomic, assign) NSInteger storeId;
 
 @property (nonatomic, copy) NSString *goodsName;
 
-@property (nonatomic, copy) NSString *goodsSales;
 
-@property (nonatomic, assign) NSInteger resultCode;
+@property (nonatomic, copy) NSString *coverImgUrl;///商品封面
 
-@property (nonatomic, copy) NSString *coverImgUrl;
+@property (nonatomic, copy) NSString *auditMemo;
 
-@property (nonatomic, copy) NSString *goodsId;
-///是否收藏	1.收藏 2.不是
-@property (nonatomic, assign) NSInteger isCollect ;
+@property (nonatomic, assign) NSInteger auditUserId;
 
+@property (nonatomic, copy) NSString *attachImgUrl;///商品轮播地址
+
+@property (nonatomic, copy) NSString *goodsUnit;
+
+@property (nonatomic, assign) NSInteger onlineFlag;
+
+@property (nonatomic, assign) NSInteger isFeatured;
+
+@property (nonatomic, copy) NSString *commentNum;
+
+@property (nonatomic, copy) NSString *goodsDetail;
+
+@property (nonatomic, copy) NSString *storeName;
+
+@property (nonatomic, copy) NSString *goodsDesc;
+
+@property (nonatomic, copy) NSString *delFlag;
+
+@property (nonatomic, copy) NSString *labelId;
+
+
+@property (nonatomic, copy) NSString *operateUserId;
+
+@property (nonatomic, copy) NSString *goodsCode;
+
+@property (nonatomic, assign) NSInteger goodsId;
+
+@property (nonatomic, copy) NSString *inventory;///商品总库存
+
+@property (nonatomic, copy) NSString *labelName;
+
+@property (nonatomic, assign) NSInteger snapshotFlag;
+
+@property (nonatomic, copy) NSString *storePrice;
+
+@property (nonatomic, assign) NSInteger auditStatus;
+
+@property (nonatomic, strong) NSArray *productList;
+
+@property (nonatomic, copy) NSString *isGoodsRules;
+
+@property (nonatomic, assign) NSInteger originalGoodsId;
+
+@property (nonatomic, copy) NSString *netPurchasePrice;///int(11)	网购价	用户售卖时的价格
+
+@property (nonatomic, assign) NSInteger goodsSales;
+
+@property (nonatomic, copy) NSString *brandName;
+
+@property (nonatomic, copy) NSString *productSkuId;
+
+@property (nonatomic, assign) NSInteger isRecommened;
+
+@property (nonatomic, assign) NSInteger isCollect;///是否收藏	1.收藏 2.不是
+
+@property (nonatomic, copy) NSString *keywords;
+
+@property (nonatomic, copy) NSString *goodsTypeName;
+
+@property (nonatomic, assign) NSInteger goodsPv;
+
+@property (nonatomic, copy) NSString *brandId;
+
+@property (nonatomic, assign) NSInteger goodsStatus;
+
+@property (nonatomic, assign) NSInteger lockFlag;
 
 @end
 
-@interface Productsku : NSObject
 
-@property (nonatomic, strong) NSArray<Relujson *> *reluJson;
 
-//价格
-@property (nonatomic, copy) NSString *purchase;
-//库存
-@property (nonatomic, copy) NSString *buyNum;
+@interface Storeinfo : NSObject
+
+@property (nonatomic, copy) NSString *storeName;
+
+@property (nonatomic, copy) NSString *storeDist;///门店距离	单位：米(m)
+
+@property (nonatomic, copy) NSString *latitude;
+
+@property (nonatomic, copy) NSString *longitude;
+
+@property (nonatomic, copy) NSString *contactPhone;
+
+@property (nonatomic, copy) NSString *address;///门店地址
 
 @end
 
-@interface Relujson : NSObject
+@interface Productattribute : NSObject///规格
 
-@property (nonatomic, copy) NSString *name;
+@property (nonatomic, strong) NSArray<Valuelist *> *valueList;
 
-@property (nonatomic, copy) NSString *value;
+@property (nonatomic, assign) NSInteger nameStatus;
+
+@property (nonatomic, assign) NSInteger goodsTypeId;
+
+@property (nonatomic, assign) NSInteger orderNum;
+
+@property (nonatomic, copy) NSString *name;///尺寸：颜色：类型
+
+@property (nonatomic, assign) NSInteger createTime;
+
+@end
+
+@interface Valuelist : NSObject
+
+@property (nonatomic, assign) NSInteger nameId;
+
+@property (nonatomic, assign) NSInteger nameStatus;
+
+@property (nonatomic, assign) NSInteger goodsTypeId;
+
+@property (nonatomic, assign) NSInteger orderNum;
+
+@property (nonatomic, copy) NSString * name;///value：尺寸：颜色：类型
+
+
 
 @end
 

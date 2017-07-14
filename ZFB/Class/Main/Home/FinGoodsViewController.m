@@ -35,14 +35,13 @@ typedef NS_ENUM(NSUInteger, CellType) {
 };
 @interface FinGoodsViewController ()<SDCycleScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,FuncListTableViewCellDeleagte>
 {
-    NSInteger _pageSize;//每页显示条数
-    NSInteger _pageIndex;//当前页码;
+    NSInteger _pageCount;//每页显示条数
+    NSInteger _page;//当前页码;
     
 }
 @property(strong,nonatomic)UIView * CircleHeadView;
 @property(strong,nonatomic)UITableView * findGoods_TableView;
 @property(strong,nonatomic)SDCycleScrollView *cycleScrollView ;
-@property(strong,nonatomic)UICollectionView *collectView ;
 
 @property(strong,nonatomic)NSMutableArray * adArray;//广告轮播
 @property(strong,nonatomic)NSMutableArray * likeListArray;//喜欢列表
@@ -55,30 +54,46 @@ typedef NS_ENUM(NSUInteger, CellType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    _pageCount = 8;
+    _page = 1;
+    
     [self initWithFindGoodsTableView];
     
-    //    [self ADpagePostRequst];
-    //    [self guessYouLikePostRequst];
-
-    _pageSize = 10;
-    _pageIndex = 1;
+    [self ADpagePostRequst];
     
+    [self guessYouLikePostRequst];
 
+//    weakSelf(weakSelf);
+//    //上拉加载
+//    _findGoods_TableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//        
+//        _page ++ ;
+//        [weakSelf guessYouLikePostRequst];
+//        
+//    }];
+//    
+//    //下拉刷新
+//    _findGoods_TableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        //需要将页码设置为1
+//        _page = 1;
+//        [weakSelf guessYouLikePostRequst];
+//    }];
+    
+    
 }
-
+#pragma mark - FuncListTableViewCellDeleagte
 ///全部分类
 -(void)seleteItemCell:(FuncListTableViewCell *)cell withIndex:(NSIndexPath *)indexPath
 {
     FuncListTableViewCell * funcCell = [self.findGoods_TableView cellForRowAtIndexPath:indexPath];
- 
+    
     NSLog(@"进来?");
     ZFClassifyCollectionViewController * classifyVC = [[ZFClassifyCollectionViewController alloc]init];
     [self.navigationController pushViewController:classifyVC animated:NO];
     
-//        [self FuncListPostRequst];
-    //    [self HotsalesPostRequst];
-
+    //        [self FuncListPostRequst];
+    //        [self HotsalesPostRequst];
+    
     
     
 }
@@ -113,10 +128,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
 /**初始化轮播 */
 -(void)CDsyceleSettingRunningPaint
 {
-    self.title = @"轮播Demo";
-    
-    
-    // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 150) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     _cycleScrollView.imageURLStringsGroup = self.adArray;
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
@@ -141,7 +152,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
     
     //  [self.navigationController pushViewController:[NSClassFromString(@"DemoVCWithXib") new] animated:YES];
 }
-
 
 
 #pragma mark - datasoruce  代理实现
@@ -207,31 +217,28 @@ typedef NS_ENUM(NSUInteger, CellType) {
     
     return headView;
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 ) {
-        return 170;
+        return 180;
     }
     if (indexPath.section == 1 ) {
-        return 135;
+        
+        return 140;
     }
     return  100;
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomeGuessModel *guesslist  =[HomeGuessModel new];
-   
-    if (indexPath.row < self.likeListArray.count) {
-        
-        guesslist = self.likeListArray[indexPath.row];
-    }
     
     if (indexPath.section == CellTypeWithMainListCell ) {
         
         FuncListTableViewCell * listCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_listID forIndexPath:indexPath];
         listCell.indexPath = indexPath;
         listCell.funcDelegate = self;
-
+        
         
         return listCell;
         
@@ -241,18 +248,13 @@ typedef NS_ENUM(NSUInteger, CellType) {
         
         return hotCell;
     }else{
-        
         GuessCell *guessCell = [self.findGoods_TableView  dequeueReusableCellWithIdentifier:cell_guessID forIndexPath:indexPath];
         
-        NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",guesslist.coverImgUrl]];
-        [guessCell.guess_listView sd_setImageWithURL:img_url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (self.likeListArray.count > 0 ) {
+            Findgoodslist *goodlist  = self.likeListArray[indexPath.row];
             
-        }];
-        guessCell.lb_goodsName.text = guesslist.goodsName;
-        guessCell.lb_price.text = [NSString stringWithFormat:@"促销价：¥%@",guesslist.netPurchasePrice];
-        guessCell.lb_storeName.text = guesslist.storeName;
-        guessCell.lb_collectNum.text = @"死数据";
-        guessCell.lb_distence.text = @"死数据";
+            guessCell.goodlist = goodlist;
+        }
         
         return guessCell;
     }
@@ -263,7 +265,12 @@ typedef NS_ENUM(NSUInteger, CellType) {
 {
     NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);
     
+    Findgoodslist *goodlist  = self.likeListArray[indexPath.row];
+ 
     DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
+    findVCgoods.goodsId  = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
+    
+    NSLog(@" push goodsId  = %@",findVCgoods.goodsId);
     [self.navigationController pushViewController:findVCgoods animated:YES];
     
 }
@@ -271,98 +278,101 @@ typedef NS_ENUM(NSUInteger, CellType) {
 #pragma mark - 广告轮播-getAdImageInfo网络请求
 -(void)ADpagePostRequst
 {
-    NSDictionary * parma = @{
-                             
-                             @"svcName":@"getAdImageInfo",
-//                             @"cmUserId":BBUserDefault.cmUserId,
-                             
-                             };
-    
-    [PPNetworkHelper POST:zfb_url parameters:parma responseCache:^(id responseCache) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getAdImageInfo",zfb_baseUrl] params:nil success:^(id response) {
         
-    } success:^(id responseObject) {
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
             if (self.adArray.count >0) {
-                
                 [self.adArray  removeAllObjects];
                 
             }else{
-                
-                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-                NSArray * dictArray = jsondic [@"cmAdvertImgList"];
-                
-                //mjextention 数组转模型
-                NSArray *storArray = [HomeADModel mj_objectArrayWithKeyValuesArray:dictArray];
-                for (HomeADModel *adlist in storArray) {
+                HomeADModel * homeAd = [HomeADModel mj_objectWithKeyValues:response];
+                for (Cmadvertimglist * adList in homeAd.data.cmAdvertImgList) {
                     
-                    [self.adArray addObject:adlist.imgUrl];
+                    [self.adArray addObject:adList.imgUrl];
                 }
-                NSLog(@"广告页 =adArray = %@",  self.adArray);
-                [self.findGoods_TableView reloadData];
-                
             }
-            [self CDsyceleSettingRunningPaint];
-
+            NSLog(@"广告页 =adArray = %@",  self.adArray);
             
+            [self.findGoods_TableView reloadData];
+            [self CDsyceleSettingRunningPaint];
         }
         
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
+        
+        NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
+    
 }
 
 #pragma mark - 猜你喜欢- getYouWillLike网络请求
 -(void)guessYouLikePostRequst
-{
-    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageSize];
-    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
+{    
+    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageCount];
+    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_page];
     
     NSDictionary * parma = @{
-                             
-                             @"svcName":@"getYouWillLike",
+                            
+                             @"latitude" : BBUserDefault.latitude ,
+                             @"longitude": BBUserDefault.longitude,
+                             @"svcName":@"",
                              @"pageSize":pageSize,//每页显示条数
                              @"pageIndex":pageIndex,//当前页码
-//                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"cmUserId":BBUserDefault.cmUserId,
                              
                              };
     
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getYouWillLike",zfb_baseUrl] params:parma success:^(id response) {
         
-    } success:^(id responseObject) {
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            if (self.likeListArray.count >0) {
-                
-                [self.likeListArray  removeAllObjects];
-                
-            }else{
-                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-                NSArray * dictArray = jsondic [@"cmGoodsBrowseList"];
-                
-                //mjextention 数组转模型
-                NSArray *storArray = [HomeGuessModel mj_objectArrayWithKeyValuesArray:dictArray];
-                for (HomeGuessModel *guesslist in storArray) {
-                    
-                    [self.likeListArray addObject:guesslist];
-                }
-                NSLog(@"likeListArray = %@",  self.likeListArray);
-                [self.findGoods_TableView reloadData];
+        if ([response[@"resultCode"]isEqualToString:@"0"]) {
+            
+//            if (_page == 1) {
+//                
+//                if (self.likeListArray.count > 0) {
+//                    
+//                    [self.likeListArray removeAllObjects];
+//
+//                }
+//  
+//            }
+            
+            HomeGuessModel * guess  = [HomeGuessModel  mj_objectWithKeyValues:response];
+            
+            for (Cmgoodsbrowselist * guesslist in guess.data.cmGoodsBrowseList.findGoodsList) {
+             
+                [self.likeListArray addObject:guesslist];
                 
             }
+            NSLog(@"猜你喜欢 =likeListArray = %@",  self.likeListArray);
+            [self.findGoods_TableView reloadData];
+            
         }
         
+        [self.findGoods_TableView.mj_header endRefreshing];
+        [self.findGoods_TableView.mj_footer endRefreshing];
+    } progress:^(NSProgress *progeress) {
+        
+        
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
+        
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [self.findGoods_TableView.mj_header endRefreshing];
+        [self.findGoods_TableView.mj_footer endRefreshing];
+        NSLog(@"error=====%@",error);
+        
     }];
+    
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.findGoods_TableView.mj_header beginRefreshing];
+    
+}
 
 -(NSMutableArray *)adArray{
     if (!_adArray) {

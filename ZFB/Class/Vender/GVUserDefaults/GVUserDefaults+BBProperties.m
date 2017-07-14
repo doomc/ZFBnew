@@ -22,5 +22,7 @@
 @dynamic isNoFirstLaunch;
 @dynamic isLogin;
 
+@dynamic latitude;
+@dynamic longitude;
 
 @end

@@ -31,7 +31,7 @@
 
 @property (strong, nonatomic) Cmkeepgoodslist *goodlist;
 ///收藏id
-@property (copy, nonatomic) NSString * collectID;
+@property (assign, nonatomic) NSInteger  collectID;
 ///商品id
 @property (copy, nonatomic) NSString * goodsID;
 

@@ -11,3 +11,17 @@
 @implementation HomeADModel
 
 @end
+@implementation ADdata
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"cmAdvertImgList" : [Cmadvertimglist class]};
+}
+
+@end
+
+
+@implementation Cmadvertimglist
+
+@end
+
+

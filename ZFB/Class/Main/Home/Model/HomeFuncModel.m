@@ -12,3 +12,27 @@
 
 
 @end
+@implementation YypeData
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"CmGoodsTypeList" : [CMgoodstypelist class]};
+}
+
+@end
+
+
+@implementation CMgoodstypelist
+
+@end
+
+
+@implementation Createdate
+
+@end
+
+
+@implementation Updatedate
+
+@end
+
+

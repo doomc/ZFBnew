@@ -14,11 +14,11 @@
 
 -(NSDictionary *)signStringWithParamdic:(NSDictionary *)param
 {
-    AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
+//    AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
     
-    NSLog(@"isLogin====%d",appdelegate.isLogin);
+    NSLog(@"isLogin====%d",BBUserDefault.isLogin);
     
-    if (appdelegate.isLogin == 1) {
+    if (BBUserDefault.isLogin == 1) {
     
         _MD5_key = BBUserDefault.userKeyMd5 ;
     
@@ -26,7 +26,7 @@
         BBUserDefault.cmUserId = @"";
         _MD5_key = @"1233@sdf%22dscE3";//全局
     }
-    NSLog(@" ====登录状态  %d ///////// _MD5_key 值======%@",appdelegate.isLogin,BBUserDefault.userKeyMd5 );
+    NSLog(@" ////////登录状态  = %d --------- _MD5_key 值== %@ ///////////",BBUserDefault.isLogin,BBUserDefault.userKeyMd5 );
 
     // 固定参数
     NSDate * date = [NSDate date];
@@ -71,15 +71,14 @@
     for (int i = 0; i < sortArray.count; i++) {
         NSString *keyValueStr = [NSString stringWithFormat:@"%@=%@",sortArray[i],valueArray[i]];
         NSString *ValueStr = [NSString stringWithFormat:@"%@",valueArray[i]];
-        
-        if (!kStringIsEmpty(ValueStr)) {
+        //////重要
+        if (!kStringIsEmpty(ValueStr)) {//如果有value为空不参与加密
             [signArray addObject:keyValueStr];
         }
     }
     
     NSString * md5String =[NSString stringWithFormat:@"%@|%@",[signArray componentsJoinedByString:@"|"],_MD5_key];
   
-    NSLog(@"md5String === %@ ",md5String);
     NSString * sign =  [MD5Tool MD5ForLower32Bate:md5String];
     
     // 添加sign 参数

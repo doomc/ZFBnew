@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CollectModel.h"
+#import "HistoryFootModel.h"
 @interface ZFHistoryCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_collctView;
@@ -16,5 +17,9 @@
 
 
 @property (strong, nonatomic) Cmkeepgoodslist * goodslist;
+
+@property (strong, nonatomic) Cmscanfoolprintslist * scanfool;
+
+
 
 @end

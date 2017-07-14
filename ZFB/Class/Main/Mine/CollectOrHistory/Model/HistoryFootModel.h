@@ -8,35 +8,42 @@
 
 #import <Foundation/Foundation.h>
 
-@class Cmscanfoolprintslist,Cmgoodsinfo;
+
+@class DataAA,Cmscanfoolprintslist;
 @interface HistoryFootModel : NSObject
 
-@property (nonatomic, strong) Cmscanfoolprintslist *cmScanFoolprintsList;
 
-@property (nonatomic, assign) NSInteger resultCode;
+@property (nonatomic, copy) NSString *resultCode;
 
 @property (nonatomic, copy) NSString *resultMsg;
 
+@property (nonatomic, strong) DataAA *data;
+
 @end
+
+@interface DataAA : NSObject
+
+@property (nonatomic, strong) NSArray<Cmscanfoolprintslist *> *cmScanFoolprintsList;
+
+@property (nonatomic, assign) NSInteger totalCount;
+
+@end
+
 @interface Cmscanfoolprintslist : NSObject
 
-@property (nonatomic, copy) NSString *id;
+@property (nonatomic, assign) NSInteger foolId;
 
-@property (nonatomic, copy) NSString *cmUserId;
+@property (nonatomic, assign) NSInteger userId;
 
-@property (nonatomic, strong) NSArray<Cmgoodsinfo *> *cmGoodsInfo;
+@property (nonatomic, assign) NSInteger goodId;
 
-@end
+@property (nonatomic, assign) NSInteger createName;
 
-@interface Cmgoodsinfo : NSObject
+@property (nonatomic, assign) NSInteger storePrice;
 
-@property (nonatomic, copy) NSString *storePrice;
-
-@property (nonatomic, copy) NSString *goodsId;
+@property (nonatomic, copy) NSString *goodName;
 
 @property (nonatomic, copy) NSString *coverImgUrl;
-
-@property (nonatomic, copy) NSString *goodsName;
 
 @end
 

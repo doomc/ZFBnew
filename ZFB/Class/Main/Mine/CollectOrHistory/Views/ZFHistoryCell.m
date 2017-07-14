@@ -23,11 +23,20 @@
 -(void)setGoodslist:(Cmkeepgoodslist *)goodslist
 {
     _goodslist = goodslist;
-    self.lb_price.text = [NSString stringWithFormat:@"¥%@", _goodslist.storePrice];
-    self.lb_title.text = [NSString stringWithFormat:@"%@", _goodslist.goodsName];
-
+    
+    self.lb_price.text = [NSString stringWithFormat:@"¥%ld", _goodslist.storePrice];
+    self.lb_title.text = [NSString stringWithFormat:@"%@", _goodslist.goodName];
     [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_goodslist.coverImgUrl]] placeholderImage:[UIImage imageNamed:@""]];
 
+}
+
+-(void)setScanfool:(Cmscanfoolprintslist *)scanfool
+{
+    _scanfool = scanfool;
+    self.lb_title.text = _scanfool.goodName;
+    self.lb_price.text =[NSString stringWithFormat:@"¥%ld",_scanfool.storePrice];
+    [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_scanfool.coverImgUrl]] placeholderImage:[UIImage imageNamed:@""]];
+    
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

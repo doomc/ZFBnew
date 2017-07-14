@@ -190,7 +190,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         
         view = self.sectionView ;
     }
-    
     return view;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -354,12 +353,15 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     [self.home_tableView.mj_header endRefreshing];
 
     NSLog(@"    lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
-    
     NSString * longitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.longitude];
     NSString * latitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.latitude];
     NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageCount];
     NSString * pageIndex= [NSString stringWithFormat:@"%ld",_page];
     
+    BBUserDefault.longitude = longitude;
+    BBUserDefault.latitude = latitude;
+    
+
     if (kStringIsEmpty(BBUserDefault.cmUserId)) {
         BBUserDefault.cmUserId =@"";
     }
@@ -378,7 +380,12 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
-        
+       
+        if (self.storeListArr.count > 0) {
+            
+            [self.storeListArr removeAllObjects];
+            
+        }
         NSLog(@"response ====  =%@",response);
         
     } progress:^(NSProgress *progeress) {
