@@ -21,9 +21,10 @@
     _orderlist = orderlist;
     self.lb_orderCode.text = _orderlist.orderCode;
     //13位时间戳
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[_orderlist.createTime doubleValue] / 1000];
-    self.creatOrdertime.text = [dateTimeHelper TimeToLocationStr:date];
-    self.lb_status.text = [NSString stringWithFormat:@"订单状态%ld",_orderlist.orderStatus];
+//    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[_orderlist.createTime doubleValue] / 1000];
+//    self.creatOrdertime.text = [dateTimeHelper TimeToLocationStr:date];
+    self.lb_status.text =_orderlist.orderStatusName;
+    self.creatOrdertime.text = _orderlist.createTime;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

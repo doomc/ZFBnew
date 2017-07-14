@@ -25,9 +25,9 @@
 {
     _goods = goods;
     
-    self.lb_num.text = [NSString stringWithFormat:@"x %ld%@",_goods.goodsCount, _goods.goodsUnit];
-    self.lb_sendListTitle.text =  _goods.goodsName;
-    self.lb_Price.text =[NSString stringWithFormat:@"¥%ld", goods.originalPrice];
+    self.lb_num.text = [NSString stringWithFormat:@"x %@ %@",_goods.goodsCount, _goods.goodsUnit];
+    self.lb_sendListTitle.text =  _goods.goods_name;
+    self.lb_Price.text =[NSString stringWithFormat:@"¥%@", goods.original_price];
     self.lb_detailTime.text = @"";
     [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",goods.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         

@@ -11,21 +11,7 @@
 @implementation AllOrderModel
 
 
-+ (NSDictionary *)objectClassInArray{
-    return @{@"orderList" : [Orderlist class]};
-}
-@end
-@implementation Orderlist
-
-+ (NSDictionary *)objectClassInArray{
-    return @{@"orderGoods" : [Ordergoods class]};
-}
-
-@end
-
-
-@implementation Ordergoods
-
+ 
 @end
 
 

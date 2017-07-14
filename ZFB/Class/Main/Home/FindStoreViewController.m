@@ -373,11 +373,16 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                              @"latitude":latitude ,//纬度
                              @"pageSize":pageSize,//每页显示条数
                              @"pageIndex":pageIndex,//当前页码
+                             @"businessType":@"",//当前页码
+                             @"payType":@"",//当前页码
+                             @"orderBydisc":@"",//当前页码
+                             @"orderbylikeNum":@"",//当前页码
+                             @"nearBydisc":@"",//当前页码
+                             @"sercahText":@"",//当前页码
+    
                              };
     
     NSLog(@" 参与加密的参数  ----------- %@ ======parma" ,parma);
-
-    
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
        

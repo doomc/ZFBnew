@@ -78,7 +78,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 @property(nonatomic,strong) SkuFooterReusableView * skufooterView;
 @property(nonatomic,strong) NSIndexPath  * indexPath;//记录选择的index
-
 @property (nonatomic, strong)JXMapNavigationView *mapNavigationView;//弹框地图指定到位置
 
 
@@ -98,15 +97,14 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     {
         [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
         
-    }
-    
+    }   
     dictProductValue = [NSMutableDictionary dictionary];//用来保存 new 、old的index
   
-    
     [self goodsDetailListPostRequset];//网络请求
     
     [self creatInterfaceDetailTableView];//初始化控件tableview
     [self settingHeaderViewAndFooterView];//初始化footerview
+   
     self.list_tableView.tableHeaderView = self.cycleScrollView;//加载轮播
     
 }
@@ -703,8 +701,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             for (Productattribute * product in detailModel.data.productAttribute) {
                 
                 [self.productSkuArray addObject:product];
-            
-            
+    
             }
             _imagesURLStrings = [[NSArray alloc]init];
             _imagesURLStrings = [_attachImgUrl componentsSeparatedByString:@","];

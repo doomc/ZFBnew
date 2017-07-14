@@ -251,6 +251,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
         GuessCell *guessCell = [self.findGoods_TableView  dequeueReusableCellWithIdentifier:cell_guessID forIndexPath:indexPath];
         
         if (self.likeListArray.count > 0 ) {
+            
             Findgoodslist *goodlist  = self.likeListArray[indexPath.row];
             
             guessCell.goodlist = goodlist;
