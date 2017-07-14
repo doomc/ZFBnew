@@ -46,7 +46,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     NSInteger  _isCollect;
     NSInteger  _goodsSales;
 
-    NSMutableArray *selectIndexPathArr;//保存indexpath的数组
+    NSMutableDictionary *dictProductValue; //保存选择的数据
     NSMutableArray * addArr;
     
     NSString * _sizeOrColorStr;//保存sku规格的字符串
@@ -100,7 +100,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         
     }
     
-    selectIndexPathArr = [NSMutableArray arrayWithObjects:@"1",@"1", nil];//用来保存 new 、old的index
+    dictProductValue = [NSMutableDictionary dictionary];//用来保存 new 、old的index
   
     
     [self goodsDetailListPostRequset];//网络请求
@@ -415,80 +415,25 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     SukItemCollectionViewCell * cell = [self.SkuColletionView
                                         dequeueReusableCellWithReuseIdentifier:@"SukItemCollectionViewCellid" forIndexPath:indexPath];
-    
-    if (self.productSkuArray.count > 0) {
-        
-        
+    if (self.productSkuArray.count > indexPath.section)
+    {
         Productattribute * product= self.productSkuArray[indexPath.section];
-//        lb_price.text =  [NSString stringWithFormat:@"价格:¥%@", product.purchase ];//价格
-//        lb_inShock.text = [NSString stringWithFormat:@"库存:¥%@", product.buyNum];//库存
-        
-  
         Valuelist * value = product.valueList[indexPath.row];
-        NSLog(@"%@ =value",value);
-        
-        [cell.selectItemColor setTitle:value.name forState:UIControlStateNormal] ;
-        [cell.selectItemColor setBackgroundColor:HEXCOLOR(0xffffff)];
-        [cell.selectItemColor setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
-        cell.selectItemColor.selected = NO;
-        
-       }
+        cell.valueObj = value;
+        Valuelist *tempValue = [dictProductValue objectForKey:@(indexPath.section).stringValue];
+        cell.isSelected = value.nameId == tempValue.nameId;
+    }
     
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    SukItemCollectionViewCell * newCell  = (SukItemCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    
-    id str =   [selectIndexPathArr objectAtIndex:indexPath.section];//找到当前点击的indexPath
-    
-    if ([str isKindOfClass:[NSIndexPath class]]) {
-        
-        NSIndexPath *oldIndexPath = [selectIndexPathArr objectAtIndex:indexPath.section];
-        SukItemCollectionViewCell * oldCell = (SukItemCollectionViewCell *)[collectionView cellForItemAtIndexPath: oldIndexPath];
-        
-        oldCell.selectItemColor.selected = NO;
-        [self selectedButton:oldCell.selectItemColor];
-        
-        newCell.selectItemColor.selected = YES;
-        [self selectedButton:newCell.selectItemColor];
-        
-        
-    }else{
-        
-        newCell.selectItemColor.selected = YES;
-        [self selectedButton:newCell.selectItemColor];
-        
-    }
-    
-    [selectIndexPathArr replaceObjectAtIndex:indexPath.section withObject:indexPath];
-    //
-    //    NSLog(@"  =========_sizeOrColorStr =======  %@ ", _sizeOrColorStr );
-    //    NSLog(@" section = %ld  ,row = %ld",indexPath.section,indexPath.item);
-    
-    //    [self.SkuColletionView reloadData];
-    
-}
-
-#pragma mark -  改变选中的状态
--(void)selectedButton:(UIButton *)button{
-    
-    if (button.selected == YES) {
-        
-        _sizeOrColorStr = button.titleLabel.text;
-        
-        NSLog(@" name.value === %@",_sizeOrColorStr);
-        //        addArr = [NSMutableArray arrayWithObject:_sizeOrColorStr];
-        //        NSLog(@"addArr =  %@",addArr);
-        [button setBackgroundColor:HEXCOLOR(0xfe6d6a)];
-        [button setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
-        
-    }else{
-        [button setBackgroundColor:HEXCOLOR(0xffffff)];
-        [button setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
-        
+    Productattribute *product = self.productSkuArray[indexPath.section];
+    Valuelist *value = product.valueList[indexPath.row];
+    if (value) {
+        [dictProductValue setValue:value forKey:@(indexPath.section).stringValue];
+        _sizeOrColorStr = value.name;
     }
 }
 

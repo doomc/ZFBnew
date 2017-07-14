@@ -7,17 +7,10 @@
 //  sku 规则
 
 #import <UIKit/UIKit.h>
-@protocol SukItemCollectionViewDelegate <NSObject>
-
-@optional
--(void)selectedButton:(UIButton *)button;
-
-
-@end
+#import "DetailGoodsModel.h"
 @interface SukItemCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIButton *selectItemColor;
-
-@property ( nonatomic, assign) id<SukItemCollectionViewDelegate>itemDelegate;
+@property (strong, nonatomic) Valuelist *valueObj;
+@property (assign, nonatomic) BOOL isSelected; 
 
 @end
