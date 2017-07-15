@@ -8,32 +8,51 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DetailStoreModel : ResponseObject
+@class Cmstoredetailslist,DetailCmgoodslist;
 
+@interface DetailStoreModel : NSObject
+ 
+@property (nonatomic, assign) NSInteger total;
 
-/** 门店id*/
-@property (nonatomic, copy) NSString * storeId;
+@property (nonatomic, assign) NSInteger resultCode;
 
-/** 店铺名字storeName */
-@property (nonatomic, copy) NSString * storeName;
+@property (nonatomic, strong) NSArray<DetailCmgoodslist *>  *cmGoodsList;
 
-/** 商品名goodsName */
-@property (nonatomic, copy) NSString * goodsName;
+@property (nonatomic, strong) Cmstoredetailslist *cmStoreDetailsList;
 
-/** 门店地址 */
-@property (nonatomic, copy) NSString * address;
-
-/** 门店电话号码*/
-@property (nonatomic, copy) NSString * contactPhone;
-
-/** 商品封面url*/
-@property (nonatomic, copy) NSString * coverImgUrl;
-
-/** 是否支持到店付 1.支持 0.不支持*/
-@property (nonatomic, copy) NSString * payType;
-
-/** 返回 0 成功、1失败 */
-@property (nonatomic, copy) NSString * resultCode;
+@property (nonatomic, copy) NSString *resultMsg;
 
 
 @end
+@interface Cmstoredetailslist : NSObject
+
+@property (nonatomic, copy) NSString *address;
+
+@property (nonatomic, assign) NSInteger payType;
+
+@property (nonatomic, assign) NSInteger id;
+
+@property (nonatomic, copy) NSString *longitude;
+
+@property (nonatomic, copy) NSString *latitude;
+
+@property (nonatomic, copy) NSString *storeName;
+
+@property (nonatomic, copy) NSString *contactPhone;
+
+@property (nonatomic, copy) NSString *attachUrl;
+
+@end
+
+@interface DetailCmgoodslist : NSObject
+
+@property (nonatomic, copy) NSString *storePrice;
+
+@property (nonatomic, assign) NSInteger goodsId;
+
+@property (nonatomic, copy) NSString *coverImgUrl;
+
+@property (nonatomic, copy) NSString *goodsName;
+
+@end
+

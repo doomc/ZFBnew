@@ -81,10 +81,9 @@
      for (NSString * urlStr in self.itemArray) {
          
          NSLog(@"-----aaaaaaaaa-------%@",urlStr);
-         [cell.img_CollectionView  sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",urlStr]] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-             
-         }];
-    }
+         [cell.img_CollectionView  sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",urlStr]] placeholderImage:nil ];
+     
+     }
     
     return cell;
     

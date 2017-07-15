@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class GuessData,Cmgoodsbrowselist,Findgoodslist;
+@class GuessData,Cmgoodsbrowselist,Guessgoodslist;
 @interface HomeGuessModel : NSObject
 
 
@@ -29,11 +29,11 @@
 
 @property (nonatomic, assign) NSInteger totalCount;
 
-@property (nonatomic, strong) NSArray<Findgoodslist *> *findGoodsList;
+@property (nonatomic, strong) NSArray<Guessgoodslist *> *findGoodsList;
 
 @end
 
-@interface Findgoodslist : NSObject
+@interface Guessgoodslist : NSObject
 
 @property (nonatomic, copy) NSString *goodsType;
 

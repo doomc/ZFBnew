@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class YypeData,CMgoodstypelist,Createdate,Updatedate;
+@class YypeData,CMgoodstypelist;
 
 @interface HomeFuncModel : NSObject
 
@@ -31,7 +31,8 @@
 
 @property (nonatomic, copy) NSString *name;
 
-//@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *iconUrl;
+
 
 @property (nonatomic, copy) NSString *delFlag;
 
@@ -41,7 +42,6 @@
 
 
 
-@property (nonatomic, strong) Createdate *createDate;
 
 @property (nonatomic, assign) NSInteger typeLevel;
 
@@ -49,7 +49,6 @@
 
 
 
-@property (nonatomic, strong) Updatedate *updateDate;
 
 @property (nonatomic, copy) NSString *remarks;
 
@@ -57,50 +56,7 @@
 
 @property (nonatomic, copy) NSString *createBy;
 
-@end
 
-
-@interface Createdate : NSObject
-
-@property (nonatomic, assign) long long time;
-
-@property (nonatomic, assign) NSInteger day;
-
-@property (nonatomic, assign) NSInteger date;
-
-@property (nonatomic, assign) NSInteger hours;
-
-@property (nonatomic, assign) NSInteger seconds;
-
-@property (nonatomic, assign) NSInteger month;
-
-@property (nonatomic, assign) NSInteger timezoneOffset;
-
-@property (nonatomic, assign) NSInteger year;
-
-@property (nonatomic, assign) NSInteger minutes;
-
-@end
-
-@interface Updatedate : NSObject
-
-@property (nonatomic, assign) long long time;
-
-@property (nonatomic, assign) NSInteger day;
-
-@property (nonatomic, assign) NSInteger date;
-
-@property (nonatomic, assign) NSInteger hours;
-
-@property (nonatomic, assign) NSInteger seconds;
-
-@property (nonatomic, assign) NSInteger month;
-
-@property (nonatomic, assign) NSInteger timezoneOffset;
-
-@property (nonatomic, assign) NSInteger year;
-
-@property (nonatomic, assign) NSInteger minutes;
 
 
 

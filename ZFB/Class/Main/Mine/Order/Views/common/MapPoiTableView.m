@@ -50,11 +50,13 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
     HPLocationCell * cell = [_tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
   
     AMapPOI *point = _searchPoiArray[indexPath.row];
-    cell.lb_title.text = point.name;
+    
+    cell.lb_title.text =  point.name;//[NSString stringWithFormat:@"%@ %@",point.city,point.district ] ;
+
     if (indexPath.row == 0) {
         cell.lb_title.frame = cell.frame;
-        cell.lb_title.font = [UIFont systemFontOfSize:16];
-        cell.lb_detail.text = point.address;
+        cell.lb_title.font = [UIFont systemFontOfSize:15];
+        cell.lb_detail.text = point.address ;
     }
     else {
         cell.lb_title.font = [UIFont systemFontOfSize:14];
@@ -95,16 +97,27 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
         _poiaddress =currentCell.lb_detail.text;
         NSLog(@"%@=====%@", currentCell.lb_title.text,currentCell.lb_detail.text );
         NSLog(@" section----%ld,row----%ld,",indexPath.section ,indexPath.row);
-
+        
+    
     }
  
     _selectedIndexPath = indexPath;
     
     // 将地图中心移到选中的位置
     _selectedPoi = _searchPoiArray[indexPath.row];
+    
+    //获取邮编
+    _postcode = _selectedPoi.postcode;
+    NSLog(@"  ---------  %@--------", _postcode);
+
     if ([self.delegate respondsToSelector:@selector(setMapCenterWithPOI:isLocateImageShouldChange:)]) {
         BOOL isShouldChange = indexPath.row == 0 ? NO : YES;
         [self.delegate setMapCenterWithPOI:_selectedPoi isLocateImageShouldChange:isShouldChange];
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(backviewWithpossCode:)]) {
+        
+        [self.delegate backviewWithpossCode:_postcode];//定位邮编地址
     }
 }
 
@@ -117,17 +130,19 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
         AMapAddressComponent *component = response.regeocode.addressComponent;
         address = [address stringByReplacingOccurrencesOfString:component.province withString:@""];
         address = [address stringByReplacingOccurrencesOfString:component.city withString:@""];
+        
         // 将逆地理编码结果保存到数组第一个位置，并作为选中的POI点
         _selectedPoi = [[AMapPOI alloc] init];
         _selectedPoi.name = address;
         _selectedPoi.address = response.regeocode.formattedAddress;
         _selectedPoi.location = request.location;
+       
         [_searchPoiArray setObject:_selectedPoi atIndexedSubscript:0];
         // 刷新TableView第一行数据
         NSIndexPath *reloadIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [_tableView reloadRowsAtIndexPaths:@[reloadIndexPath] withRowAnimation:UITableViewRowAnimationNone];
        
-        NSLog(@"_selectedPoi.name:%@",_selectedPoi.name);
+        NSLog(@"_selectedPoi.name:%@  _postcode === %@",_selectedPoi.name,_selectedPoi.postcode);
         
         // 刷新后TableView返回顶部
         [_tableView setContentOffset:CGPointMake(0, 0) animated:NO];
@@ -135,6 +150,8 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
         NSString *city = response.regeocode.addressComponent.city;
         [self.delegate setCurrentCity:city];
         
+
+
         if ([self.delegate respondsToSelector:@selector(setSendButtonEnabledAfterLoadFinished) ]) {
             [self.delegate setSendButtonEnabledAfterLoadFinished];
 

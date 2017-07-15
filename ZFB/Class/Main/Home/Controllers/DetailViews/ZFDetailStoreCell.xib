@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,7 +23,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PTX-ba-b4h">
                                 <rect key="frame" x="8" y="8" width="121" height="100"/>
-                                <color key="backgroundColor" red="0.99976259469999995" green="0.37686329140000002" blue="0.32606267059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="z4F-TK-xu7"/>
                                 </constraints>
@@ -41,7 +41,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.50553816559999998" green="0.81836944820000002" blue="0.93576711420000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="PTX-ba-b4h" firstAttribute="leading" secondItem="UR9-B3-O6m" secondAttribute="leading" constant="8" id="8rr-Pc-0V7"/>
                             <constraint firstAttribute="trailing" secondItem="PTX-ba-b4h" secondAttribute="trailing" constant="8" id="ASD-4S-ex8"/>
@@ -65,6 +65,7 @@
                 <outlet property="Store_Bgview" destination="UR9-B3-O6m" id="ELt-xl-EHE"/>
                 <outlet property="img_storeImageView" destination="PTX-ba-b4h" id="JFK-2M-nZh"/>
                 <outlet property="lb_Storetitle" destination="ao0-jE-LpQ" id="HjR-fE-6gs"/>
+                <outlet property="lb_price" destination="FE6-63-f9c" id="HdL-dA-Scg"/>
             </connections>
             <point key="canvasLocation" x="-279.5" y="-99"/>
         </collectionViewCell>

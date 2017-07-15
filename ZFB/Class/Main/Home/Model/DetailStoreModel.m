@@ -10,4 +10,18 @@
 
 @implementation DetailStoreModel
 
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"cmGoodsList" : [DetailCmgoodslist class]};
+}
 @end
+@implementation Cmstoredetailslist
+
+@end
+
+
+@implementation DetailCmgoodslist
+
+@end
+
+

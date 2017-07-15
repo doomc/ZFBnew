@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditAddressViewController">
             <connections>
+                <outlet property="SaveAndbackAction" destination="YZM-lD-kSw" id="bh3-cK-CTu"/>
                 <outlet property="isDefaultSwitch" destination="YCC-Qu-Gzq" id="Ra1-J6-ma3"/>
                 <outlet property="locationButton" destination="X2E-Gs-zRL" id="UKH-jX-Ml1"/>
                 <outlet property="tf_cellphone" destination="D0s-Ip-KXs" id="n8d-8W-poX"/>
@@ -248,6 +249,9 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="保存并使用"/>
+                    <connections>
+                        <action selector="saveActionAndBack:" destination="-1" eventType="touchUpInside" id="Ga8-3d-eoO"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

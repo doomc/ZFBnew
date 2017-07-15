@@ -29,7 +29,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_collectNum;
 
-@property (nonatomic  , strong) Findgoodslist * goodlist;
+@property (nonatomic  , strong) Guessgoodslist * goodlist;
 
 
 @end

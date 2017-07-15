@@ -55,12 +55,15 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
     
     [self.view addSubview:self.underFootView];
     
-    [self refreshData];
+ 
     
     
     
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self refreshData];
+}
 //更新数据
 -(void)refreshData
 {
@@ -319,9 +322,7 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
     Goodslist *goodslist = shopList.goodsList[indexPath.row];
     
     cell.chooseBtn.selected = goodslist.goodslistIsChoosed; //!< 商品是否需要选择的字段
-    [cell.img_shopCar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",goodslist.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
-    }];
+    [cell.img_shopCar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",goodslist.coverImgUrl]] placeholderImage:nil];
     
     cell.lb_price.text = [NSString stringWithFormat:@"¥%.2f",goodslist.storePrice];
     cell.lb_title.text =  goodslist.goodsName;
@@ -569,6 +570,7 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
             [weakSelf.shopCar_tableview reloadData];
        
     } progress:^(NSProgress *progeress) {
+        
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);

@@ -18,6 +18,17 @@
 }
  
 
+-(void)setFindgoodslist:(FindStoreGoodslist *)findgoodslist
+{
+    _findgoodslist = findgoodslist;
+    
+    CGFloat juli = [_findgoodslist.storeDist floatValue]*0.001;
+    self.lb_distence.text = [NSString stringWithFormat:@"%.2f公里",juli];
+    self.lb_collectNum.text = [NSString stringWithFormat:@"%ld",_findgoodslist.likeNum];
+    self.store_listTitle.text = _findgoodslist.storeName;
+    [self.store_listView sd_setImageWithURL:[NSURL URLWithString:_findgoodslist.coverUrl] placeholderImage:nil];
+    
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

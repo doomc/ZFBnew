@@ -2525,7 +2525,7 @@
 				495EA4861F14B64C001FCB7E /* MerchantClientController */,
 				495EA4881F14B64C001FCB7E /* MineViews */,
 				495EA4971F14B64C001FCB7E /* Models */,
-				495EA49C1F14B64C001FCB7E /* Order */,
+				495EA49C1F14B64C001FCB7E /* Order(订单地址) */,
 				495EA4D91F14B64C001FCB7E /* SendClientController */,
 				495EA5121F14B64C001FCB7E /* Setting(设置) */,
 				495EA5241F14B64C001FCB7E /* Views */,
@@ -2649,7 +2649,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		495EA49C1F14B64C001FCB7E /* Order */ = {
+		495EA49C1F14B64C001FCB7E /* Order(订单地址) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA49D1F14B64C001FCB7E /* AddressLocationMapViewController.h */,
@@ -2667,6 +2667,7 @@
 				495EA4D71F14B64C001FCB7E /* ZFSureOrderViewController.h */,
 				495EA4D81F14B64C001FCB7E /* ZFSureOrderViewController.m */,
 			);
+			name = "Order(订单地址)";
 			path = Order;
 			sourceTree = "<group>";
 		};

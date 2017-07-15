@@ -14,12 +14,17 @@
 
 ///城市
 @property (copy, nonatomic) NSString * cityStr;
+@property (copy, nonatomic) NSString * longitudeSTR;//接收回传的经纬度
+@property (copy, nonatomic) NSString * latitudeSTR;
+@property (copy, nonatomic) NSString * postAddress;//收货地址（拼接补全的）
+@property (copy, nonatomic) NSString * possid;//邮编
 
 @property (weak, nonatomic ) IBOutlet UIButton    * locationButton;
 @property (weak, nonatomic ) IBOutlet UITextField * tf_name;
 @property (weak, nonatomic ) IBOutlet UITextField * tf_cellphone;
 @property (weak, nonatomic ) IBOutlet UITextField * tf_detailAddress;
 @property (weak, nonatomic ) IBOutlet UISwitch    * isDefaultSwitch;
+@property (weak, nonatomic) IBOutlet UIButton *SaveAndbackAction;
 
 @end
 
@@ -31,6 +36,8 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title =@"新增收货地址";
+    self.SaveAndbackAction.clipsToBounds = YES;
+    self.SaveAndbackAction.layer.cornerRadius = 4;
     
     self.tf_name.delegate          = self;
     self.tf_cellphone.delegate     = self;
@@ -84,35 +91,29 @@
     
     self.isDefaultSwitch.on = isOn;
 }
-//设置右边按键（如果没有右边 可以不重写）
--(UIButton*)set_rightButton
-{
-    NSString * saveStr     = @"保存";
-    UIButton *right_button = [[UIButton alloc]init];
-    [right_button setTitle:saveStr forState:UIControlStateNormal];
-    right_button.titleLabel.font = SYSTEMFONT(14);
-    [right_button setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
-    right_button.titleLabel.textAlignment = NSTextAlignmentRight;
-    CGSize size                           = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
-    CGFloat width                         = size.width ;
-    right_button.frame                    = CGRectMake(0, 0, width+10, 22);
-    
-    return right_button;
-}
 
 
 //选择城市
 - (IBAction)didClickCityList:(id)sender {
     
-//    MainViewController * mainVC =[[MainViewController alloc]init];
-//    [self.navigationController pushViewController:mainVC animated:NO];
     AddressLocationMapViewController * locaVC = [AddressLocationMapViewController new];
     locaVC.block = ^(NSString * address) {
-        NSLog(@"-----%@------",address);
+        //        NSLog(@"-----%@------",address);
         [self.locationButton setTitle:address forState:UIControlStateNormal];
     };
+    locaVC.longitudeBlock = ^(NSString * longitude) {
+        _longitudeSTR = longitude;
+    };
+    locaVC.latitudeBlock = ^(NSString * latitude) {
+        _latitudeSTR = latitude;
+    };
+    locaVC.possidBlock = ^(NSString * possid) {
+        _possid = possid;
+    };
+    
+    NSLog(@"%@ ------ %@------%@",_longitudeSTR,_latitudeSTR ,_possid)
     [self.navigationController pushViewController:locaVC animated:NO];
-
+    
 }
 
 #pragma mark  - UITextFieldDelegate
@@ -125,7 +126,6 @@
     else if (textfiled == _tf_cellphone  )
     {
         NSLog(@"_tf_cellphone ==== %@",_tf_name.text);
-        
     }
     else
     {
@@ -165,10 +165,9 @@
 
 
 //设置保存事件
--(void)right_button_event:(UIButton*)sender{
+- (IBAction)saveActionAndBack:(id)sender {
     
     NSLog(@"saved！@@！！@！！！");
-    
     if (_tf_name.text.length > 0 && ![_tf_cellphone.text isEqualToString:@""] && ![_tf_detailAddress.text isEqualToString:@""] ) {
         
         [self savedInfoMessagePostRequst];
@@ -184,76 +183,82 @@
 {
     
     NSLog(@"_saveBool  ---------- %@",_defaultFlag);
-    NSDictionary * parma = @{
+    NSDictionary * param = @{
                              
-                             @"svcName":@"saveUserAddressInfo",
+                             
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"contactUserName":_tf_name.text,
                              @"contactMobilePhone":_tf_cellphone.text,
+                             @"mobilePhone":@"",
                              @"deliveryProvince": _cityStr,
                              @"deliveryAddress":_tf_detailAddress.text,
-                             @"defaultFlag":_defaultFlag,
+                             @"defaultFlag":_defaultFlag,//是否为默认	否	1.是 2.否
+                             @"postAddress":_postAddressId,// 用户全收货地址	否
+                             @"zipCode":@"123123",// 邮政编号
+                             @"longitude":_longitudeSTR,// 经度	否	6位小数
+                             @"latitude":_latitudeSTR,// 纬度	否	6位小数
                              
                              };
     
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [SVProgressHUD show];
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/saveUserAddressInfo"] params:param success:^(id response) {
         
-    } success:^(id responseObject) {
-        
-        NSLog(@"dic = = == =%@",responseObject);
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+        if ([response[@"resultCode"] intValue] == 0) {
             
-            [SVProgressHUD dismiss];
+            [self.navigationController popViewControllerAnimated:NO];
             
         }
         
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        [SVProgressHUD dismiss];
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         
+        
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
     
 }
- 
+
 #pragma mark - 编辑用户信息editUserReward
 -(void)editUserRewardInfoMessagePostRequst
 {
     
     NSLog(@"_postAddressId  ---------- %@",_postAddressId);
-    NSDictionary * parma = @{
-                             
-                             @"svcName":@"editUserReward",
+    NSDictionary * param = @{
+
                              @"postAddressId":_postAddressId,
                              
                              };
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
     
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/editUserReward"] params:param success:^(id response) {
         
-    } success:^(id responseObject) {
         
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            NSString  * dataStr    = [responseObject[@"data"] base64DecodedString];
-            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-            
-            _tf_name.text          = jsondic[@"cmUserRewardInfo"][@"contactUserName"];
-            _tf_cellphone.text     = jsondic[@"cmUserRewardInfo"][@"contactMobilePhone"];
-            _cityStr               = jsondic[@"cmUserRewardInfo"][@"deliveryProvince"];
-            _tf_detailAddress.text = jsondic[@"cmUserRewardInfo"][@"deliveryAddress"];
-            _defaultFlag           = jsondic[@"cmUserRewardInfo"][@"defaultFlag"];
-            //            NSLog(@"jsondic= = == =%@",jsondic);
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        
+        if ([response[@"resultCode"] intValue] == 0) {
+            {
+                _tf_name.text          = response[@"cmUserRewardInfo"][@"userName"];
+                _tf_cellphone.text     = response[@"cmUserRewardInfo"][@"contactMobilePhone"];
+                _cityStr               = response[@"cmUserRewardInfo"][@"postAddress"];
+                _tf_detailAddress.text = response[@"cmUserRewardInfo"][@"replenish"];
+                _defaultFlag           = response[@"cmUserRewardInfo"][@"defaultFlag"];
+                
+                
+            }
         }
-
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
+    
     
     
 }

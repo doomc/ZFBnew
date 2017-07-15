@@ -10,18 +10,22 @@
 
 @implementation AddressListModel
  
-
-+ (NSDictionary *)objectClassInArray{
-    return @{@"cmUserInfo" : [Cmuserinfo class]};
-}
-
-
-@end
-
-
-@implementation Cmuserinfo
-
+ 
 @end
 
  
+
+@implementation Addresslist
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"userAddressList" : [Useraddresslist class]};
+}
+
+@end
+
+
+@implementation Useraddresslist
+
+@end
+
 

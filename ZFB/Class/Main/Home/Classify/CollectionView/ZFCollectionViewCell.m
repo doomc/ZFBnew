@@ -36,7 +36,7 @@
 
 - (void)setModel:(SubCategoryModel *)model
 {
-    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.icon_url]];
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.icon_url] placeholderImage:nil];
     self.name.text = model.name;
 }
 

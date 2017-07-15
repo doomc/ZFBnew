@@ -21,6 +21,9 @@
 // 设置当前位置所在城市
 - (void)setCurrentCity:(NSString *)city;
 
+//返回选择
+- (void)backviewWithpossCode :(NSString  *)possCode ;
+
 @end
 
 @interface MapPoiTableView : UIView <UITableViewDelegate,UITableViewDataSource,AMapSearchDelegate>
@@ -31,5 +34,6 @@
 
 @property (nonatomic, copy) NSString *poiName;//地区名
 @property (nonatomic, copy) NSString *poiaddress;//具体地址
+@property (nonatomic, copy) NSString *postcode;//邮编
 
 @end

@@ -10,8 +10,8 @@
 
 @interface ZFHeadViewCollectionReusableView : UICollectionReusableView
 
-
- 
-
+@property (strong,nonatomic) UILabel * title_lb;//店名
+@property (strong,nonatomic) UILabel * address_lb;//地址
+@property (copy,nonatomic) NSString * payStatus;//到店付款
 
 @end

@@ -200,7 +200,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     switch (_orderType) {
         case OrderTypeAllOrder:
             
-            sectionNum = 1;
+            sectionNum = self.orderListArray.count;
             
             break;
         case OrderTypeWaitPay:
@@ -223,7 +223,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             break;
         case OrderTypeAfterSale:
             if (self.tagNum == 0) {
-           
+                
                 sectionNum = self.orderListArray.count + 1;
                 
             }else{
@@ -247,7 +247,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                 rowNum = self.orderGoodsArray.count;
                 
             }
-             break;
+            break;
         case OrderTypeWaitPay:
             rowNum = 2;
             break;
@@ -273,7 +273,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                 if (section == 0) {
                     
                     rowNum = 1;
-     
+                    
                 }
                 
                 rowNum = self.orderGoodsArray.count;
@@ -326,7 +326,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                     height = 56;
                     
                 }
-                
                 height = 50;
                 
                 
@@ -350,7 +349,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             ZFTitleCell * titleCell = [self.allOrder_tableView
                                        dequeueReusableCellWithIdentifier:@"ZFTitleCellid"];
             if (self.orderListArray.count > 0) {
-
+                
                 Orderlist  * sectionList   = self.orderListArray[section];
                 titleCell.orderlist = sectionList;
             }
@@ -559,15 +558,16 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
             sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
             if (self.orderGoodsArray.count > 0 ) {
-                
+                //                Orderlist * list  = self.orderListArray[indexPath.section];
                 Ordergoods * goods = self.orderGoodsArray[indexPath.row];
+                //                sendCell.list = list;
                 sendCell.goods = goods;
                 
             }
             return sendCell;
         }
             break;
- 
+            
         case OrderTypeWaitPay:
         {
             
@@ -624,13 +624,13 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                 ZFSaleAfterContentCell* contentell = [self.allOrder_tableView dequeueReusableCellWithIdentifier:saleAfterContentCellid forIndexPath:indexPath];
                 contentell.selectionStyle = UITableViewCellSelectionStyleNone;
                 contentell.delegate = self;
-
+                
                 Ordergoods * goods = self.orderGoodsArray[indexPath.row];
-                    contentell.goods = goods;
-                        
-         
-                    return   contentell;
-       
+                contentell.goods = goods;
+                
+                
+                return   contentell;
+                
                 
             }else if (self.tagNum ==1){
                 
@@ -643,7 +643,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             }
         }
             break;
- 
+            
     }
     return nil;
     
@@ -694,8 +694,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     switch (_orderType) {
         case OrderTypeAllOrder:///全部订单
             
-//            _payStatus   = @"";
-//            _orderStatus = 0;
+            //            _payStatus   = @"";
+            //            _orderStatus = 0;
             
             [self allOrderPostRequset];
             [self.allOrder_tableView reloadData];
@@ -703,15 +703,15 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             
         case OrderTypeWaitPay:///待付款
             
-//            _payStatus   = 1;
+            //            _payStatus   = 1;
             _orderStatus = 4;
             [self allOrderPostRequset];
             [self.allOrder_tableView reloadData];
             
             break;
         case OrderTypeWaitSend:///待配送
-//            
-//            _payStatus   = @"1";
+            //
+            //            _payStatus   = @"1";
             _orderStatus = 0;
             [self allOrderPostRequset];
             [self.allOrder_tableView reloadData];
@@ -719,36 +719,36 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             break;
         case OrderTypeSending:///配送中
             
-//            _payStatus   = @"1";
+            //            _payStatus   = @"1";
             _orderStatus = 1;
             [self allOrderPostRequset];
             [self.allOrder_tableView reloadData];
             break;
         case OrderTypeSended:///已配送
             
-//            _payStatus   = @"1";
+            //            _payStatus   = @"1";
             _orderStatus =2  ;
             [self allOrderPostRequset];
             [self.allOrder_tableView reloadData];
             break;
         case OrderTypeDealSuccess:///交易成功
             
-//            _payStatus   = @"5";
+            //            _payStatus   = @"5";
             _orderStatus = 3;
             [self allOrderPostRequset];
             [self.allOrder_tableView reloadData];
             break;
         case OrderTypeCancelSuccess:///交易取消
             
-//            _payStatus   = @"1";
+            //            _payStatus   = @"1";
             _orderStatus = -1;
             [self allOrderPostRequset];
             [self.allOrder_tableView reloadData];
             break;
         case OrderTypeAfterSale:///售后申请
             
-//            _payStatus   = @"1";
-//            _orderStatus = @"3";
+            //            _payStatus   = @"1";
+            //            _orderStatus = @"3";
             [self allOrderPostRequset];
             [self.allOrder_tableView reloadData];
             break;
@@ -798,42 +798,50 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     NSString * orderStatus = [NSString stringWithFormat:@"%d",_orderStatus];
     
     NSDictionary * param = @{
- 
+                             
                              @"size":@"1",
                              @"page":@"1",
-//                             @"payStatus":payStatus,
-//                             @"orderStatus":orderStatus,
-//                             @"searchWord":@"",
+                             //                             @"payStatus":payStatus,
+                             //                             @"orderStatus":orderStatus,
+                             //                             @"searchWord":@"",
                              @"cmUserId":BBUserDefault.cmUserId,
-    
+                             
                              };
     
     MJWeakSelf;
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/order/getOrderListBystatus"] params:param success:^(id response) {
         
- 
-        if (response[@"resultCode"] == 0 ) {
+        
+        if (weakSelf.orderListArray.count > 0) {
             
-            AllOrderModel * allorder  = [AllOrderModel mj_objectWithKeyValues:response];
-            
-            for (Orderlist * list in allorder.orderList) {
-                
-                [weakSelf.orderListArray addObject:list];
-                
-                for (Ordergoods * goodlist in list.orderGoods) {
-                    
-                    [weakSelf.orderGoodsArray addObject:goodlist];
-                }
-            }
-            NSLog(@"orderListArray ====%@",weakSelf.orderListArray);
-            NSLog(@"orderGoodsArray ====%@",weakSelf.orderGoodsArray);
-            
-            [weakSelf.allOrder_tableView reloadData];
+            [weakSelf.orderGoodsArray removeAllObjects];
+            [weakSelf.orderListArray removeAllObjects];
             
         }
         
+        AllOrderModel * allorder  = [AllOrderModel mj_objectWithKeyValues:response];
+        NSLog(@"%ld",allorder.resultCode);
+        
+        
+        
+        //            for (Orderlist * list in allorder.orderList) {
+        //
+        //                [weakSelf.orderListArray addObject:list];
+        //
+        //                for (Ordergoods * goodlist in list.orderGoods) {
+        //
+        //                    [weakSelf.orderGoodsArray addObject:goodlist];
+        //                }
+        //            }
+        
+        NSLog(@"orderListArray ====%@",weakSelf.orderListArray);
+        NSLog(@"orderGoodsArray ====%@",weakSelf.orderGoodsArray);
+        
+        [weakSelf.allOrder_tableView reloadData];
+        
+        
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-
+        
         
     } progress:^(NSProgress *progeress) {
         
@@ -843,47 +851,47 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
-//    [PPNetworkHelper POST:zfb_url parameters:param success:^(id responseObject) {
-//        
-//        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-//            
-//            if (![self isEmptyArray:weakSelf.orderGoodsArray] || ![self isEmptyArray:weakSelf.orderListArray]) {
-//                
-//                [weakSelf.orderGoodsArray  removeAllObjects];
-//                [weakSelf.orderListArray  removeAllObjects];
-//                
-//            }else{
-//                
-//                NSString  * dataStr    = [responseObject[@"data"] base64DecodedString];
-//                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-//                
-//                AllOrderModel * allOrder = [AllOrderModel mj_objectWithKeyValues:jsondic];
-//                NSInteger allcount       = allOrder.totalCount  ;//总个数
-//                
-//                for (Orderlist * orderList in allOrder.orderList) {
-//                    
-//                    for (Ordergoods * goodslist in orderList.orderGoods) {
-//                        
-//                        [weakSelf.orderGoodsArray addObject:goodslist];
-//                    }
-//                    [weakSelf.orderListArray addObject:orderList];
-//                }
-//                NSLog(@"orderGoodsArray---------------=%@",weakSelf.orderGoodsArray);
-//                NSLog(@"orderListArray ===========%@",weakSelf.orderListArray);
-//                
-//                [self.allOrder_tableView reloadData];
-//                
-//            }
-//            
-//        }
-//        [SVProgressHUD dismiss];
-//        
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
-//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-//        [SVProgressHUD dismiss];
-//        
-//    }];
+    //    [PPNetworkHelper POST:zfb_url parameters:param success:^(id responseObject) {
+    //
+    //        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+    //
+    //            if (![self isEmptyArray:weakSelf.orderGoodsArray] || ![self isEmptyArray:weakSelf.orderListArray]) {
+    //
+    //                [weakSelf.orderGoodsArray  removeAllObjects];
+    //                [weakSelf.orderListArray  removeAllObjects];
+    //
+    //            }else{
+    //
+    //                NSString  * dataStr    = [responseObject[@"data"] base64DecodedString];
+    //                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+    //
+    //                AllOrderModel * allOrder = [AllOrderModel mj_objectWithKeyValues:jsondic];
+    //                NSInteger allcount       = allOrder.totalCount  ;//总个数
+    //
+    //                for (Orderlist * orderList in allOrder.orderList) {
+    //
+    //                    for (Ordergoods * goodslist in orderList.orderGoods) {
+    //
+    //                        [weakSelf.orderGoodsArray addObject:goodslist];
+    //                    }
+    //                    [weakSelf.orderListArray addObject:orderList];
+    //                }
+    //                NSLog(@"orderGoodsArray---------------=%@",weakSelf.orderGoodsArray);
+    //                NSLog(@"orderListArray ===========%@",weakSelf.orderListArray);
+    //                
+    //                [self.allOrder_tableView reloadData];
+    //                
+    //            }
+    //            
+    //        }
+    //        [SVProgressHUD dismiss];
+    //        
+    //    } failure:^(NSError *error) {
+    //        NSLog(@"%@",error);
+    //        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    //        [SVProgressHUD dismiss];
+    //        
+    //    }];
     
     
 }

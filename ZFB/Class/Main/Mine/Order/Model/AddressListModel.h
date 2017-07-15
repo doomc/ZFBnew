@@ -10,34 +10,54 @@
 #import <Foundation/Foundation.h>
 
 
-@class Cmuserinfo;
-@interface AddressListModel : ResponseObject
+@class Addresslist,Useraddresslist;
+@interface AddressListModel : NSObject
+
+
+@property (nonatomic, strong) Addresslist *addressList;
 
 @property (nonatomic, assign) NSInteger resultCode;
 
-@property (nonatomic, strong) NSArray<Cmuserinfo *> *cmUserInfo;
-
-@property (nonatomic,assign) BOOL isChoosedDefaultesAddress;//选择默认地址
-
+@property (nonatomic, copy) NSString *resultMsg;
 
 
 @end
 
-@interface Cmuserinfo : ResponseObject
+@interface Addresslist : NSObject
 
-@property (nonatomic, copy) NSString *postAddressId;
+@property (nonatomic, strong) NSArray<Useraddresslist *> *userAddressList;
 
-@property (nonatomic, copy) NSString *cmUserId;
+@property (nonatomic, copy) NSString *responsetext;
 
-@property (nonatomic, copy) NSString *contactUserName;
+@property (nonatomic, copy) NSString *status;
+
+@end
+
+@interface Useraddresslist : NSObject
 
 @property (nonatomic, copy) NSString *contactMobilePhone;
 
+@property (nonatomic, copy) NSString *contactUserName;
+
+@property (nonatomic, assign) NSInteger defaultFlag;
+
+@property (nonatomic, assign) NSInteger postAddressId;
+
+@property (nonatomic, copy) NSString *replenish;
+
+@property (nonatomic, copy) NSString *longitude;
+
 @property (nonatomic, copy) NSString *postAddress;
 
-@property (nonatomic, copy) NSString *defaultFlag;
+@property (nonatomic, copy) NSString *latitude;
 
- 
+@property (nonatomic, assign) long long modifyDate;
+
+@property (nonatomic, assign) NSInteger cmUserId;
+
+@property (nonatomic, copy) NSString *mobilePhone;
+
+@property (nonatomic, copy) NSString *zipCode;
 
 @end
 

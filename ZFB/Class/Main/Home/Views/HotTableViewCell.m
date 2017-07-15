@@ -54,18 +54,15 @@
     
     HotCollectionViewCell * cell = [self.HotcollectionView dequeueReusableCellWithReuseIdentifier:@"HotCollectionViewCellid" forIndexPath:indexPath];
 
-//    HomeHotModel * hot=  [HomeHotModel new];
-//    if (indexPath.row < [self.hotArray count]) {
-//        
-//    }
-//    hot  = [self.hotArray objectAtIndex:indexPath.row];
-
-//    NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",hot.coverImgUrl]];
-//    [cell.img_hotImgView sd_setImageWithURL:img_url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        
-//    }];
-//
-//    cell.lb_price.text = [NSString stringWithFormat:@"%.2f",hot.storePrice];//netPurchasePrice 网购价格2选1
+    HomeHotModel * hot=  [HomeHotModel new];
+    if (indexPath.row < [self.hotArray count]) {
+        
+    }
+    hot  = [self.hotArray objectAtIndex:indexPath.row];
+    
+    NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",hot.coverImgUrl]];
+    [cell.img_hotImgView sd_setImageWithURL:img_url placeholderImage:nil];
+    cell.lb_price.text = [NSString stringWithFormat:@"%.2f",hot.storePrice];//netPurchasePrice 网购价格2选1
     return cell;
 }
 

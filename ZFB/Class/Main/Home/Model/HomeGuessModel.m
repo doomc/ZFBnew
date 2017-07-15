@@ -20,13 +20,13 @@
 @implementation Cmgoodsbrowselist
 
 + (NSDictionary *)objectClassInArray{
-    return @{@"findGoodsList" : [Findgoodslist class]};
+    return @{@"findGoodsList" : [Guessgoodslist class]};
 }
 
 @end
 
 
-@implementation Findgoodslist
+@implementation Guessgoodslist
 
 @end
 

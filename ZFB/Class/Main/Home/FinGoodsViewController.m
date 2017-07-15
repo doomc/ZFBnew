@@ -63,21 +63,21 @@ typedef NS_ENUM(NSUInteger, CellType) {
     
     [self guessYouLikePostRequst];
 
-//    weakSelf(weakSelf);
-//    //上拉加载
-//    _findGoods_TableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-//        
-//        _page ++ ;
-//        [weakSelf guessYouLikePostRequst];
-//        
-//    }];
-//    
-//    //下拉刷新
-//    _findGoods_TableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-//        //需要将页码设置为1
-//        _page = 1;
-//        [weakSelf guessYouLikePostRequst];
-//    }];
+    weakSelf(weakSelf);
+    //上拉加载
+    _findGoods_TableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        _page ++ ;
+        [weakSelf guessYouLikePostRequst];
+        
+    }];
+    
+    //下拉刷新
+    _findGoods_TableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //需要将页码设置为1
+        _page = 1;
+        [weakSelf guessYouLikePostRequst];
+    }];
     
     
 }
@@ -162,7 +162,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 2 ) {
-        return 3;
+        return self.likeListArray.count;
     }
     return 1;
 }
@@ -239,8 +239,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
         listCell.indexPath = indexPath;
         listCell.funcDelegate = self;
         
-        
         return listCell;
+        
         
     }else if(indexPath.section == CellTypeWithHotTableViewCell )
     {
@@ -248,11 +248,11 @@ typedef NS_ENUM(NSUInteger, CellType) {
         
         return hotCell;
     }else{
+
         GuessCell *guessCell = [self.findGoods_TableView  dequeueReusableCellWithIdentifier:cell_guessID forIndexPath:indexPath];
-        
         if (self.likeListArray.count > 0 ) {
             
-            Findgoodslist *goodlist  = self.likeListArray[indexPath.row];
+            Guessgoodslist *goodlist  = self.likeListArray[indexPath.row];
             
             guessCell.goodlist = goodlist;
         }
@@ -266,7 +266,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 {
     NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);
     
-    Findgoodslist *goodlist  = self.likeListArray[indexPath.row];
+    Guessgoodslist *goodlist  = self.likeListArray[indexPath.row];
  
     DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
     findVCgoods.goodsId  = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
@@ -286,21 +286,20 @@ typedef NS_ENUM(NSUInteger, CellType) {
                 [self.adArray  removeAllObjects];
                 
             }else{
+            
                 HomeADModel * homeAd = [HomeADModel mj_objectWithKeyValues:response];
+               
                 for (Cmadvertimglist * adList in homeAd.data.cmAdvertImgList) {
                     
                     [self.adArray addObject:adList.imgUrl];
                 }
             }
-            NSLog(@"广告页 =adArray = %@",  self.adArray);
-            
+            NSLog(@"广告页 =adArray = %@",self.adArray);
             [self.findGoods_TableView reloadData];
             [self CDsyceleSettingRunningPaint];
         }
         
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
         
@@ -331,16 +330,15 @@ typedef NS_ENUM(NSUInteger, CellType) {
         
         if ([response[@"resultCode"]isEqualToString:@"0"]) {
             
-//            if (_page == 1) {
-//                
-//                if (self.likeListArray.count > 0) {
-//                    
-//                    [self.likeListArray removeAllObjects];
-//
-//                }
-//  
-//            }
-            
+            if (_page == 1) {
+                
+                if (self.likeListArray.count > 0) {
+                    
+                    [self.likeListArray removeAllObjects];
+
+                }
+  
+            }
             HomeGuessModel * guess  = [HomeGuessModel  mj_objectWithKeyValues:response];
             
             for (Cmgoodsbrowselist * guesslist in guess.data.cmGoodsBrowseList.findGoodsList) {
@@ -350,9 +348,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
             }
             NSLog(@"猜你喜欢 =likeListArray = %@",  self.likeListArray);
             [self.findGoods_TableView reloadData];
-            
         }
-        
         [self.findGoods_TableView.mj_header endRefreshing];
         [self.findGoods_TableView.mj_footer endRefreshing];
     } progress:^(NSProgress *progeress) {

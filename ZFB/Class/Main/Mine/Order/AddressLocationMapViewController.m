@@ -72,15 +72,7 @@ UISearchBarDelegate>
     [self initTableView];
     [self initSearchBar]; //搜索框
     
-    //    // 使用通知中心监听kReachabilityChangedNotification通知
-    //    [[NSNotificationCenter defaultCenter] addObserver:self
-    //                                             selector:@selector(reachabilityChanged:)
-    //                                                 name:kReachabilityChangedNotification object:nil];
-    //    // 获取访问指定站点的Reachability对象
-    //    Reachability *reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
-    //    // 让Reachability对象开启被监听状态
-    //    [reach startNotifier];
-    
+ 
 }
 
 //初始化地图
@@ -101,7 +93,6 @@ UISearchBarDelegate>
     
     [AMapServices sharedServices].enableHTTPS = YES;
     [self.view addSubview:_mapView];
-    
     
 }
 
@@ -133,12 +124,24 @@ UISearchBarDelegate>
     [self.view addSubview:_tableView];
 }
 
-#pragma mark - MapPoiTableViewDelegate
+#pragma mark - MapPoiTableViewDelegate 搜索列表代理
+-(void)backviewWithpossCode:(NSString *)possCode
+{
+    NSLog(@"返回传回 经纬度   ===== %f======邮编 ==%@",_mapView.centerCoordinate.latitude,possCode);
+    [self.navigationController popViewControllerAnimated:NO];
+    self.latitudeBlock([NSString stringWithFormat:@"%f",_mapView.centerCoordinate.latitude]);
+    self.longitudeBlock([NSString stringWithFormat:@"%f",_mapView.centerCoordinate.longitude]);
+    self.possidBlock(possCode);
+    NSLog(@"    possCode ======= %@ ",possCode);
+
+}
+
 // 加载更多列表数据
 - (void)loadMorePOI
 {
     searchPage ++;
     AMapGeoPoint *point = [AMapGeoPoint locationWithLatitude:_mapView.centerCoordinate.latitude longitude:_mapView.centerCoordinate.longitude];
+   
     [self searchPoiByAMapGeoPoint:point];
 }
 // 将地图中心移到所选的POI位置上
@@ -148,8 +151,9 @@ UISearchBarDelegate>
     //        return;
     //    }
     
+
     addressPoi = [NSString stringWithFormat:@"%@%@",_tableView.poiName,_tableView.poiaddress];
-    NSLog(@"addressPoi ======= %@",addressPoi);
+    NSLog(@"addressPoi ======= %@    point.postcode======%@",addressPoi,_tableView.postcode);
     // 切换定位图标
     if (isLocateImageShouldChange) {
         [_locationBtn setImage:_imageNotLocate forState:UIControlStateNormal];
@@ -188,6 +192,7 @@ UISearchBarDelegate>
     // 首次定位
     if (updatingLocation && !isFirstLocated) {
         [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude)];
+        
         isFirstLocated = YES;
     }
 }
@@ -203,6 +208,8 @@ UISearchBarDelegate>
         
         NSLog(@"%lf,%lf",_mapView.centerCoordinate.latitude,_mapView.centerCoordinate.longitude);
         NSLog(@"%lf,%lf",_mapView.userLocation.coordinate.latitude,_mapView.userLocation.coordinate.longitude);
+        
+        
         // 设置定位图标
         //        if (fabs(_mapView.centerCoordinate.latitude-_mapView.userLocation.coordinate.latitude) < 0.0001f && fabs(_mapView.centerCoordinate.longitude - _mapView.userLocation.coordinate.longitude) < 0.0001f) {
         //            [_locationBtn setImage:_imageLocated forState:UIControlStateNormal];
@@ -220,6 +227,7 @@ UISearchBarDelegate>
     regeo.location                    = location;
     // 返回扩展信息
     regeo.requireExtension = YES;
+    
     [_searchAPI AMapReGoecodeSearch:regeo];
 }
 
@@ -239,7 +247,7 @@ UISearchBarDelegate>
     request.page = searchPage;
     [_searchAPI AMapPOIAroundSearch:request];
 }
-
+ 
 #pragma mark - MAMapView Delegate
 // 自定义Marker
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
@@ -358,19 +366,6 @@ UISearchBarDelegate>
     
 }
 
-#pragma - mark  传值到上级页面
--(void)addressName:(newBlock)block
-{
-    _block = block;
-    
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:YES];
-    if (self.block != nil) {
-        self.block(addressPoi);
-    }
-}
 
 
 #pragma mark - 搜索框------
@@ -422,9 +417,12 @@ UISearchBarDelegate>
 {
     [_searchResultTableVC setSearchCity:city];
 }
+
 #pragma mark - SearchResultTableVCDelegate
 - (void)setSelectedLocationWithLocation:(AMapPOI *)poi
 {
+ 
+    
     [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poi.location.latitude,poi.location.longitude) animated:NO];
     _searchController.searchBar.text = @"";
 }
@@ -447,6 +445,23 @@ UISearchBarDelegate>
     return YES;
 }
 
+#pragma - mark  传值到上级页面
+-(void)addressName:(newBlock)block
+{
+    _block = block;
+    
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    if (self.block != nil) {
+        self.block(addressPoi);
+
+        
+    }
+}
 
 
 @end

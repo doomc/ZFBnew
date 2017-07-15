@@ -198,35 +198,28 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomeStoreListModel * listModel =  [HomeStoreListModel new];
-    
-    if (indexPath.row < [self.storeListArr count]) {
-        
-        listModel  = [self.storeListArr objectAtIndex:indexPath.row];
-    }
-    
+  
     FindStoreCell *storeCell = [self.home_tableView  dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     storeCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    CGFloat juli = [listModel.juli floatValue]*0.001;
-    storeCell.lb_distence.text = [NSString stringWithFormat:@"%.2f公里",juli];
-    storeCell.lb_collectNum.text = listModel.likeNum;
-    storeCell.store_listTitle.text = listModel.storeName;
-    [storeCell.store_listView sd_setImageWithURL:[NSURL URLWithString:listModel.urls] placeholderImage:nil];
-    
+   
+    if (self.storeListArr.count > 0) {
+        
+        FindStoreGoodslist * listModel =  [self.storeListArr objectAtIndex:indexPath.row];
+        storeCell.findgoodslist = listModel;
+    }
+
     return storeCell;
     
 }
 #pragma tableViewDataSource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@" section --- %ld ,row -----%ld",indexPath.section ,indexPath.row);
-    [self PostRequst];
-    
+    NSLog(@" section --- %ld ,row -----%ld",indexPath.section ,indexPath.row);    
     if (self.storeListArr.count > 0) {
         
         DetailStoreViewController * vc = [[DetailStoreViewController alloc]init];
-        HomeStoreListModel * listModel = self.storeListArr[indexPath.row];
-        vc.storeId =listModel.storeId;
+        FindStoreGoodslist * listModel = self.storeListArr[indexPath.row];
+        vc.storeId =[NSString stringWithFormat:@"%ld",listModel.storeId];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -351,7 +344,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)PostRequst
 {
     [self.home_tableView.mj_header endRefreshing];
-
+    
     NSLog(@"    lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
     NSString * longitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.longitude];
     NSString * latitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.latitude];
@@ -361,37 +354,50 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     BBUserDefault.longitude = longitude;
     BBUserDefault.latitude = latitude;
     
-
+    
     if (kStringIsEmpty(BBUserDefault.cmUserId)) {
         BBUserDefault.cmUserId =@"";
     }
     NSDictionary * parma = @{
                              
-                             @"userId":BBUserDefault.cmUserId,
+                             //                             @"userId":BBUserDefault.cmUserId,
                              @"svcname":@"",
                              @"longitude":longitude,//经度
                              @"latitude":latitude ,//纬度
                              @"pageSize":pageSize,//每页显示条数
                              @"pageIndex":pageIndex,//当前页码
-                             @"businessType":@"",//当前页码
-                             @"payType":@"",//当前页码
-                             @"orderBydisc":@"",//当前页码
-                             @"orderbylikeNum":@"",//当前页码
-                             @"nearBydisc":@"",//当前页码
-                             @"sercahText":@"",//当前页码
-    
+                             @"businessType":@"",
+                             @"payType":@"",
+                             @"orderBydisc":@"",
+                             @"orderbylikeNum":@"",
+                             @"nearBydisc":@"",
+                             @"sercahText":@"",
+                             
                              };
     
     NSLog(@" 参与加密的参数  ----------- %@ ======parma" ,parma);
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
-       
-        if (self.storeListArr.count > 0) {
+        
+        if (_page == 1) {
             
-            [self.storeListArr removeAllObjects];
-            
+            if (self.storeListArr.count > 0) {
+                
+                [self.storeListArr removeAllObjects];
+                
+            }
         }
-        NSLog(@"response ====  =%@",response);
+        HomeStoreListModel  * homeStore = [HomeStoreListModel mj_objectWithKeyValues:response];
+        for (Storeinfolist * storelist in homeStore.storeInfoList.findGoodsList) {
+            
+            [self.storeListArr addObject:storelist];
+        }
+        
+        NSLog(@"门店列表 = %@",   self.storeListArr);
+        [self.home_tableView reloadData];
+        [self.home_tableView.mj_header endRefreshing];
+        [self.home_tableView.mj_footer endRefreshing];
+        
         
     } progress:^(NSProgress *progeress) {
         
@@ -399,51 +405,13 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         
     } failure:^(NSError *error) {
         
+        [self.home_tableView.mj_header endRefreshing];
+        [self.home_tableView.mj_footer endRefreshing];
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         NSLog(@"error=====%@",error);
         
     }];
-    //    [PPNetworkHelper POST:[zfb_url stringByAppendingString:@"/getCmStoreInfo"] parameters:parma responseCache:^(id responseCache) {
-    //
-    //    } success:^(id responseObject) {
-    //
-    //        NSLog(@"responseObject ====  =%@",responseObject);
-    //
-    ////        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-    ////
-    ////            if (_page == 1) {
-    ////
-    ////                for (;0 < self.storeListArr.count;) {
-    ////
-    ////                    [self.storeListArr removeObjectAtIndex:0];
-    ////
-    ////                }
-    ////            }
-    ////
-    ////            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-    ////            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-    ////            NSArray * dictArray = responseObject [@"cmStoreList"];
-    ////
-    ////            //mjextention 数组转模型
-    ////            NSArray *storArray = [HomeStoreListModel mj_objectArrayWithKeyValuesArray:dictArray];
-    ////            for (HomeStoreListModel *list in storArray) {
-    ////
-    ////                [self.storeListArr addObject:list];
-    ////            }
-    ////
-    ////            [self.home_tableView reloadData];
-    ////            NSLog(@"storeListArr = %@",   self.storeListArr);
-    ////        }
-    ////        [self.home_tableView.mj_header endRefreshing];
-    ////        [self.home_tableView.mj_footer endRefreshing];
-    ////
-    //    } failure:^(NSError *error) {
-    //        NSLog(@"%@",error);
-    //
-    //        [self.home_tableView.mj_header endRefreshing];
-    //        [self.home_tableView.mj_footer endRefreshing];
-    //        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-    //    }];
-    
+ 
 }
 
 

@@ -22,14 +22,13 @@
 }
 
 
--(void)setGoodlist:(Findgoodslist *)goodlist
+-(void)setGoodlist:(Guessgoodslist *)goodlist
 {
     _goodlist = goodlist;
     
     NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",_goodlist.coverImgUrl]];
-    [self.guess_listView sd_setImageWithURL:img_url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
-    }];
+    [self.guess_listView sd_setImageWithURL:img_url placeholderImage:nil];
+
     self.lb_goodsName.text = _goodlist.goodsName;
     self.lb_price.text = [NSString stringWithFormat:@"¥%@",_goodlist.netPurchasePrice];
     self.lb_storeName.text = _goodlist.storeName;

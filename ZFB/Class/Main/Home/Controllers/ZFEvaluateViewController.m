@@ -125,9 +125,7 @@
         appraiseCell.lb_nickName.text = info.userName;
         appraiseCell.lb_message.text = info.reviewsText;
         appraiseCell.lb_detailtext.text = [NSString stringWithFormat:@"%@之前,来自%@",info.befor,info.equip];
-        [appraiseCell.img_appraiseView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",info.userAvatarImg]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            
-        }];
+        [appraiseCell.img_appraiseView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",info.userAvatarImg]] placeholderImage:nil];
         appraiseCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return appraiseCell;
         

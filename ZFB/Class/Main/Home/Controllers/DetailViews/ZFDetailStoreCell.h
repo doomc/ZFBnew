@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "DetailStoreModel.h"
 @interface ZFDetailStoreCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_storeImageView;
-
 @property (weak, nonatomic) IBOutlet UIView *Store_Bgview;
 @property (weak, nonatomic) IBOutlet UILabel *lb_Storetitle;
+@property (weak, nonatomic) IBOutlet UILabel *lb_price;
+
+@property (strong ,nonatomic) DetailCmgoodslist * detailGoodlist;
 
 @end

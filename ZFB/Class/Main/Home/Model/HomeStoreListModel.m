@@ -9,10 +9,21 @@
 #import "HomeStoreListModel.h"
 
 @implementation HomeStoreListModel
--(void)setValue:(id)value forUndefinedKey:(NSString *)key
-{
-    
-}
+ 
 
 
 @end
+@implementation Storeinfolist
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"findGoodsList" : [FindStoreGoodslist class]};
+}
+
+@end
+
+
+@implementation FindStoreGoodslist
+
+@end
+
+

@@ -641,7 +641,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 -(void)SecondAddShopCar:(UIButton *)button
 {
     
-//    [self addToshoppingCarPost];
+    [self addToshoppingCarPost];
     NSLog(@"加入购物车 。请求接口");
 }
 
@@ -723,7 +723,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 }
 
 
-#pragma mark - 添加到购物车:saveShoppingCart
+#pragma mark - 添加到购物车:ShoppCartJoin
 -(void)addToshoppingCarPost
 {
     
@@ -732,19 +732,20 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     _sizeOrColorStr = @"{color:黑色,size:xxl}";
     NSDictionary * parma = @{
                              
-                             @"svcName":@"",
                              @"goodsId":_goodsId,
                              @"storeId":_storeId,
                              @"goodsCount":count,//商品个数
-                             @"goodsProp":_sizeOrColorStr,//商品规格
-                             @"userKeyMd5":BBUserDefault.userKeyMd5,//商品id
+                             @"goodsProp":@"",//商品规格
+                             @"storeName":_storeName,
+                             @"cmUserId":BBUserDefault.cmUserId,
+                     
                              
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/ShoppCartJoin",zfb_baseUrl] params:parma success:^(id response) {
         
-        NSLog(@"热卖- =%@",response);
-        
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
@@ -752,7 +753,8 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);
-        
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+
     }];
     
 //    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
@@ -799,62 +801,47 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"svcName":@"getKeepGoodInfo",
-                             @"goodsId":_goodsId,
+                              @"goodsId":_goodsId,
                              @"goodName":_goodsName,//商品名
                              
                              
                              };
     
-//    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-//    
-//    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-//        
-//    } success:^(id responseObject) {
-//        
-//        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-//            
-//            [self.view makeToast:@"收藏成功" duration:2 position:@"center"];
-//            
-//        }
-//        
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
-//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-//        
-//    }];
+    
+        [MENetWorkManager post:[NSString stringWithFormat:@"%@/getKeepGoodInfo",zfb_baseUrl] params:parma success:^(id response) {
+            
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+            
+        } progress:^(NSProgress *progeress) {
+            
+        } failure:^(NSError *error) {
+            
+            NSLog(@"error=====%@",error);
+            [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        }];
     
 }
 #pragma mark - 取消收藏 getKeepGoodDel
 -(void)cancelCollectedPostRequest
 {
     NSDictionary * parma = @{
-                             
-                             @"svcName":@"getKeepGoodDel",
-                             @"goodsId":_goodsId,
                              @"cartItemId":@"",//收藏表id
-                             
-                             
                              };
     
-    
-    //    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    //
-    //    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-    //
-    //    } success:^(id responseObject) {
-    //
-    //        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-    //
-    //            [self.view makeToast:@"取消收藏" duration:2 position:@"center"];
-    //            
-    //        }
-    //        
-    //    } failure:^(NSError *error) {
-    //        NSLog(@"%@",error);
-    //        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-    //        
-    //    }];
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getKeepGoodDel",zfb_baseUrl] params:parma success:^(id response) {
+        
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+
+
+ 
     
 }
 

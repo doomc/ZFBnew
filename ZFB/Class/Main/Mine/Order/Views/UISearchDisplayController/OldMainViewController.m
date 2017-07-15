@@ -193,6 +193,7 @@
         [_locationBtn setImage:_imageNotLocate forState:UIControlStateNormal];
     }
     _isMapViewRegionChangedFromTableView = YES;
+
     CLLocationCoordinate2D location = CLLocationCoordinate2DMake(point.location.latitude, point.location.longitude);
     [_mapView setCenterCoordinate:location animated:YES];
 }

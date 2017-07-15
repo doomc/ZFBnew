@@ -49,7 +49,7 @@
     [self.mytableView registerNib:[UINib nibWithNibName:@"OrderPriceCell" bundle:nil] forCellReuseIdentifier:@"OrderPriceCellid"];
     
     [self commitOrderPostRequst];
-   
+    
     [self creatCustomfooterView];
     
 }
@@ -65,7 +65,7 @@
     _footerView = [[UIView alloc]initWithFrame:CGRectMake(0,KScreenH -49, KScreenW, 49)];
     _footerView.backgroundColor =[UIColor clearColor];
     [self.view addSubview:_footerView];
-
+    
     //结算按钮
     UIButton * complete_Btn  = [UIButton buttonWithType:UIButtonTypeCustom];
     [complete_Btn setTitle:buttonTitle forState:UIControlStateNormal];
@@ -75,7 +75,7 @@
     complete_Btn.frame =CGRectMake(KScreenW - 120 , 0, 120 , 49);
     [complete_Btn addTarget:self action:@selector(didCleckClearing:) forControlEvents:UIControlEventTouchUpInside];
     [_footerView addSubview:complete_Btn];
-
+    
     //固定金额位置
     UILabel * lb_order = [[UILabel alloc]init];
     lb_order.text= caseOrder;
@@ -85,7 +85,7 @@
     CGFloat lb_orderW = lb_orderSiez.width;
     lb_order.frame =  CGRectMake(50, 1, lb_orderW+10, 48);
     [_footerView addSubview:lb_order];
-
+    
     //价格
     lb_price = [[UILabel alloc]init];
     lb_price.text = price;
@@ -94,12 +94,12 @@
     lb_price.textColor = HEXCOLOR(0xfe6d6a);
     lb_price.frame =  CGRectMake(50 +lb_orderW+20, 1, 100, 48);
     [_footerView addSubview:lb_price];
-
-
+    
+    
     UILabel * line =[[ UILabel alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 1)];
     line.backgroundColor = HEXCOLOR(0xdedede);
     [_footerView addSubview:line];
-
+    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -139,10 +139,10 @@
         ZFOrderListCell * listCell = [self.mytableView
                                       dequeueReusableCellWithIdentifier:@"ZFOrderListCellid" forIndexPath:indexPath];
         listCell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+        
         if (self.goodsListArray.count > 0) {
-        listCell.listArray = self.goodsListArray;
-        listCell.lb_totalNum.text = [NSString stringWithFormat:@"一共%ld件",self.goodsListArray.count] ;
+            listCell.listArray = self.goodsListArray;
+            listCell.lb_totalNum.text = [NSString stringWithFormat:@"一共%ld件",self.goodsListArray.count] ;
         }
         return listCell;
     }
@@ -187,57 +187,53 @@
 {
     NSDictionary * parma = @{
                              
-                             @"svcName":@"getOrderFix",
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"cartItemId":@"1",//可能添加参数
                              
                              };
     
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [SVProgressHUD show];
-    
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getOrderFix",zfb_baseUrl] params:parma success:^(id response) {
         
-    } success:^(id responseObject) {
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+        if ([response[@"resultCode"] intValue] == 0) {
+            
             if (self.goodsListArray.count >0) {
                 
                 [self.goodsListArray removeAllObjects];
+                
             }
-            
-            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-
-            AddressCommitOrderModel *  orderModel = [AddressCommitOrderModel mj_objectWithKeyValues:jsondic];
+            AddressCommitOrderModel *  orderModel = [AddressCommitOrderModel mj_objectWithKeyValues:response];
             
             _goodsCountMoney= orderModel.goodsCountMoney ;
             _deliveryFee = orderModel.deliveryFee;
             _goodsAllMoney= orderModel.goodsAllMoney ;
-
+            
             _contactUserName =  orderModel.orderFixInfo.contactUserName;
             _postAddress = orderModel.orderFixInfo.postAddress;
             _contactMobilePhone = orderModel.orderFixInfo.contactMobilePhone;
-           
+            
             for (Cmgoodslist * goodsList in orderModel.cmGoodsList) {
                 
                 [self.goodsListArray  addObject:goodsList];
             }
-//            NSLog(@"%@ ==== self.goodsListArray",self.goodsListArray);
+            
+            NSLog(@"%@ ==== self.goodsListArray",self.goodsListArray);
             
             lb_price.text = [NSString stringWithFormat:@"¥ %.2f",[_goodsAllMoney floatValue]];
+            
             [self.mytableView reloadData];
-        }
-        [SVProgressHUD dismiss];
 
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        [SVProgressHUD dismiss];
+        }
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
+    } progress:^(NSProgress *progeress) {
         
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-    
+ 
     
 }
 

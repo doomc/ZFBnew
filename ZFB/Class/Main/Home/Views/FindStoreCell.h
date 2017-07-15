@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HomeStoreListModel.h"
 @interface FindStoreCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *store_listView;
@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_distence;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_collectNum;
+
+@property (strong,nonatomic) FindStoreGoodslist  * findgoodslist;
 
 
 @end

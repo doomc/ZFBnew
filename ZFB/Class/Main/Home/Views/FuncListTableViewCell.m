@@ -61,10 +61,9 @@
     }
     FuncListCollectionViewCell * cell = [self.funcCollectionView dequeueReusableCellWithReuseIdentifier:@"FuncListCollectionViewCellid" forIndexPath:indexPath];
     cell.lb_listName.text = type.name;
-//    NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",type.iconUrl]];
-//    [cell.img_listView sd_setImageWithURL:img_url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-// 
-//    }];
+ 
+    NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",type.iconUrl]];
+    [cell.img_listView sd_setImageWithURL:img_url placeholderImage:nil];
     return cell;
 }
 

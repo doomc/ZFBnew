@@ -29,15 +29,13 @@
     self.lb_sendListTitle.text =  _goods.goods_name;
     self.lb_Price.text =[NSString stringWithFormat:@"¥%@", goods.original_price];
     self.lb_detailTime.text = @"";
-    [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",goods.coverImgUrl]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
-    }];
+    [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",goods.coverImgUrl]] placeholderImage:nil];
 }
--(void)setList:(Orderlist *)list
-{
-    _list = list;
-
-}
+//-(void)setList:(Orderlist *)list
+//{
+//    _list = list;
+//
+//}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
