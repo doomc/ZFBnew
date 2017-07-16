@@ -435,7 +435,7 @@
 {
     _HUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:_HUD];
-    _HUD.label.text = str;
+    _HUD.labelText = str;
     _HUD.mode = MBProgressHUDModeText;
 
     //指定距离中心点的X轴和Y轴的位置，不指定则在屏幕中间显示

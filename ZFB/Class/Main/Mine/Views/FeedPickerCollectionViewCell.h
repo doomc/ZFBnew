@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MPImageItemModel.h"
+#define FeedPickerCollectionViewCellHeight 50
 
 @interface FeedPickerCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *addImgView;
 
 @property (weak, nonatomic) IBOutlet UIButton *delete_button;
+
+@property (strong, nonatomic) MPImageItemModel *curImageItem;
 
 @end

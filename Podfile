@@ -15,8 +15,8 @@ target 'ZFB' do
   # 第三方库
   pod 'AMapLocation'
   pod 'AMapSearch'
-  pod 'AMap2DMap'#只能存在一个
- 
+  pod 'AMap2DMap', '~> 4.6.0'
+  pod 'MWPhotoBrowser'
   #其他
   # pod 'QBImagePickerController'
   # pod 'ZYQAssetPickerController']

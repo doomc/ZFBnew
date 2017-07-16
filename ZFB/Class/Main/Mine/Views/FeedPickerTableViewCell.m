@@ -13,6 +13,8 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionLayoutHeight;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *collectionViewFlowLayout;
+@property (strong, nonatomic) NSMutableArray *imageViewsDict;
+ 
 
 @end
 @implementation FeedPickerTableViewCell
@@ -51,6 +53,22 @@
     _imgArray = [NSMutableArray array];
     _imgArray = imgArray;
 }
+-(void)setCurUploadImageHelper:(MPUploadImageHelper *)curUploadImageHelper {
+    if (_curUploadImageHelper!=curUploadImageHelper) {
+        _curUploadImageHelper=curUploadImageHelper;
+    }
+    
+    //把为浏览大图做准备
+    if (_imageViewsDict) {
+        [_imageViewsDict removeAllObjects];
+        
+        for (NSURL *itemUrl in curUploadImageHelper.selectedAssetURLs) {
+            MWPhoto *mwphoto=[MWPhoto photoWithURL:itemUrl];
+            mwphoto.caption=nil;
+            [_imageViewsDict addObject:mwphoto];
+        }
+    }
+}
 #pragma  mark - UICollectionViewDelegate
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -59,21 +77,39 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    return 1;
+    NSInteger num = self.curUploadImageHelper.imagesArray.count;
+    //如果没有大于最大上传数 则显示增加图标
+    if (num<kupdateMaximumNumberOfImage) {
+        return num+ 1;
+    }
+    return num;
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     FeedPickerCollectionViewCell *cell = [self.pickerCollectionView dequeueReusableCellWithReuseIdentifier:@"FeedPickerCollectionViewCellid" forIndexPath:indexPath];
     
-    if (_imgArray.count > 0) {
-        //数据操作
+    if (indexPath.row < self.curUploadImageHelper.imagesArray.count) {
+        MPImageItemModel *curImage = [self.curUploadImageHelper.imagesArray objectAtIndex:indexPath.row];
+        cell.curImageItem = curImage;
+    }else{
+        cell.curImageItem = nil;
     }
+//    cell.deleteImageBlock = ^(MPImageItemModel *toDelete){
+//        if (self.deleteImageBlock) {
+//            self.deleteImageBlock(toDelete);
+//        }
+//    };
     
     return cell;
     
 }
-
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (_addPicturesBlock) {
+        _addPicturesBlock();
+    }
+}
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 //每个cell的大小，因为有indexPath，所以可以判断哪一组，或者哪一个item，可一个给特定的大小，等同于layout的itemSize属性
@@ -97,10 +133,6 @@
     return 10;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    NSLog(@"%ld ==== section =%ld ==== item",indexPath.section,indexPath.item);
-}
 
 
 #pragma mark - changeTextFiled 手机号
@@ -133,6 +165,7 @@
         [self.delegate didClickCommit];
     }
 }
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

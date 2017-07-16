@@ -7,6 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import "QBImagePickerController.h"
+#import "cameraHelper.h"
+#import "MPUploadImageHelper.h"
+#import "MPImageItemModel.h"
+ 
 
 @interface ZFCommitOpinionViewController : BaseViewController
 

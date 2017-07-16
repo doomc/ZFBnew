@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MPUploadImageHelper.h"
+#import <MWPhotoBrowser.h>
 @protocol FeedPickerTableViewCellDelegate <NSObject>
 @required
 ///输入的手机号码
@@ -14,7 +16,6 @@
 
 ///提交数据
 -(void)didClickCommit;
-
 
 @end
 @interface FeedPickerTableViewCell : UITableViewCell
@@ -31,4 +32,7 @@
 
 @property (nonatomic,strong) NSMutableArray * imgArray;
 
+@property (copy, nonatomic) void(^addPicturesBlock)();
+
+@property (strong, nonatomic) MPUploadImageHelper *curUploadImageHelper;
 @end
