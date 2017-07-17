@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PublishAppraiseViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品评价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Pu-dA-oke">
+                    <rect key="frame" x="15" y="74" width="61.5" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="WVk-pB-pO9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评分：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Sc-y4-m5i">
+                    <rect key="frame" x="100" y="119.5" width="46" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="tO7-6A-lII"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vND-ua-tw1">
+                    <rect key="frame" x="0.0" y="104" width="375" height="0.5"/>
+                    <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="bg4-lx-xcO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mhd-vd-Ndr">
+                    <rect key="frame" x="15" y="114.5" width="70" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="70" id="N29-lj-30j"/>
+                        <constraint firstAttribute="width" constant="70" id="oxm-qk-16V"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AlY-LM-rIP">
+                    <rect key="frame" x="100" y="144.5" width="200" height="30"/>
+                    <color key="backgroundColor" red="1" green="0.6442871094" blue="0.51288519970000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="BCI-hR-cYH"/>
+                        <constraint firstAttribute="height" constant="30" id="BrS-MS-AeH"/>
+                    </constraints>
+                </view>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XyR-8c-Oad">
+                    <rect key="frame" x="15" y="204.5" width="345" height="100"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="L1T-aY-3vE"/>
+                    </constraints>
+                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品评价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZH-mw-CDR">
+                    <rect key="frame" x="15" y="314.5" width="61.5" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="pQ4-mH-q1r"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pOl-lA-irt">
+                    <rect key="frame" x="0.0" y="344.5" width="375" height="0.5"/>
+                    <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="GvL-At-aMS"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n0X-at-LHI">
+                    <rect key="frame" x="20" y="365" width="335" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="m2D-pe-YKL"/>
+                    </constraints>
+                    <state key="normal" title="提交"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="pOl-lA-irt" secondAttribute="trailing" id="2r5-d2-aJb"/>
+                <constraint firstItem="7Pu-dA-oke" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="5ku-vR-7Oz"/>
+                <constraint firstItem="8Sc-y4-m5i" firstAttribute="leading" secondItem="mhd-vd-Ndr" secondAttribute="trailing" constant="15" id="6KU-mU-IAk"/>
+                <constraint firstAttribute="trailing" secondItem="vND-ua-tw1" secondAttribute="trailing" id="6Zj-wr-h9f"/>
+                <constraint firstItem="pOl-lA-irt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="BCN-Xe-8N9"/>
+                <constraint firstAttribute="trailing" secondItem="n0X-at-LHI" secondAttribute="trailing" constant="20" id="Be5-hJ-q0K"/>
+                <constraint firstItem="XyR-8c-Oad" firstAttribute="top" secondItem="mhd-vd-Ndr" secondAttribute="bottom" constant="20" id="Bmf-PB-PCV"/>
+                <constraint firstAttribute="trailing" secondItem="XyR-8c-Oad" secondAttribute="trailing" constant="15" id="Cvh-dx-37f"/>
+                <constraint firstItem="vND-ua-tw1" firstAttribute="top" secondItem="7Pu-dA-oke" secondAttribute="bottom" constant="10" id="HfI-Ho-KZf"/>
+                <constraint firstItem="mhd-vd-Ndr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="Htk-sb-u37"/>
+                <constraint firstItem="7Pu-dA-oke" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="NWW-Ns-Rau"/>
+                <constraint firstItem="vND-ua-tw1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="OpQ-OD-gnr"/>
+                <constraint firstItem="AlY-LM-rIP" firstAttribute="top" secondItem="8Sc-y4-m5i" secondAttribute="bottom" constant="5" id="PFj-Wi-TxX"/>
+                <constraint firstItem="mhd-vd-Ndr" firstAttribute="top" secondItem="vND-ua-tw1" secondAttribute="bottom" constant="10" id="R80-Vp-LVF"/>
+                <constraint firstItem="8Sc-y4-m5i" firstAttribute="top" secondItem="vND-ua-tw1" secondAttribute="bottom" constant="15" id="S1r-0x-JXN"/>
+                <constraint firstItem="XyR-8c-Oad" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="Uj8-rV-GRN"/>
+                <constraint firstItem="pOl-lA-irt" firstAttribute="top" secondItem="fZH-mw-CDR" secondAttribute="bottom" constant="10" id="lZD-q0-cjI"/>
+                <constraint firstItem="fZH-mw-CDR" firstAttribute="top" secondItem="XyR-8c-Oad" secondAttribute="bottom" constant="10" id="olk-48-Md4"/>
+                <constraint firstItem="n0X-at-LHI" firstAttribute="top" secondItem="pOl-lA-irt" secondAttribute="bottom" constant="20" id="pI5-Xu-coB"/>
+                <constraint firstItem="AlY-LM-rIP" firstAttribute="leading" secondItem="mhd-vd-Ndr" secondAttribute="trailing" constant="15" id="qFz-Zh-Loo"/>
+                <constraint firstItem="fZH-mw-CDR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="saf-j6-OhX"/>
+                <constraint firstItem="n0X-at-LHI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="tHW-zd-Omm"/>
+            </constraints>
+            <point key="canvasLocation" x="34.5" y="54.5"/>
+        </view>
+    </objects>
+</document>

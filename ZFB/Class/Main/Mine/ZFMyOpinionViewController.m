@@ -130,8 +130,7 @@
                              };
     
     NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    [SVProgressHUD show];
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
+     [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
     } success:^(id responseObject) {
         
         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
@@ -156,15 +155,12 @@
             }
             NSLog(@"listArray===== = %@",   self.listArray);
             [self.tableView reloadData];
-            [SVProgressHUD dismiss];
-
+ 
         }
-        [SVProgressHUD dismiss];
-
+ 
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
-        [SVProgressHUD dismiss];
-        [self.tableView.mj_header endRefreshing];
+         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];

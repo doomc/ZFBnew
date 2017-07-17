@@ -11,6 +11,7 @@
 
 @interface ZFAppraiseCell ()<UICollectionViewDataSource,UICollectionViewDelegate,ZFAppraiseCellDelegate>
 
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionLayoutHeight;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *collectionViewFlowLayout;
 @property (nonatomic ,strong) NSMutableArray * itemArray;
@@ -25,6 +26,8 @@
     self.img_appraiseView.layer.borderWidth = 0.5;
     self.img_appraiseView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
   
+
+    
     [self setup];
    
 }
@@ -53,8 +56,7 @@
 }
 
 -(void)setup{
- 
- 
+    
     [self.appriseCollectionView registerNib:[UINib nibWithNibName:@"ApprariseCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"ApprariseCollectionViewCellid"];
     self.appriseCollectionView.delegate = self;
     self.appriseCollectionView.dataSource = self;

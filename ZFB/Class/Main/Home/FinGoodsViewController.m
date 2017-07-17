@@ -162,8 +162,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 2 ) {
-        
-        return self.likeListArray.count;
+
+        return 2;
+//        return self.likeListArray.count;
     }
     return 1;
 }
@@ -266,12 +267,13 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);
-    
-    Guessgoodslist *goodlist  = self.likeListArray[indexPath.row];
- 
+   
     DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
-    findVCgoods.goodsId  = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
-    
+
+    if (self.likeListArray.count > 0) {
+        Guessgoodslist *goodlist  = self.likeListArray[indexPath.row];
+        findVCgoods.goodsId  = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
+    }
     NSLog(@" push goodsId  = %@",findVCgoods.goodsId);
     [self.navigationController pushViewController:findVCgoods animated:YES];
     

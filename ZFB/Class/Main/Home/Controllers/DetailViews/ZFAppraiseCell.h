@@ -19,6 +19,7 @@
 
 @interface ZFAppraiseCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet DWQRatingView *starView;
 
 @property (nonatomic,assign) id<ZFAppraiseCellDelegate> Adelegate;
 
