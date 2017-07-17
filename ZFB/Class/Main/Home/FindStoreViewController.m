@@ -60,7 +60,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     [self initInTerfaceView];
     
-    
     weakSelf(weakSelf);
     //上拉加载
     _home_tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -355,8 +354,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     BBUserDefault.latitude = latitude;
     
     
-    if (kStringIsEmpty(BBUserDefault.cmUserId)) {
-        BBUserDefault.cmUserId =@"";
+    if ( BBUserDefault.cmUserId == nil) {
+        BBUserDefault.cmUserId = @"";
     }
     NSDictionary * parma = @{
                              

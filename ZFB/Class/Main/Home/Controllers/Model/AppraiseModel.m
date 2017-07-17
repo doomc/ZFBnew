@@ -10,14 +10,25 @@
 
 @implementation AppraiseModel
 
-
-+ (NSDictionary *)objectClassInArray{
-    return @{@"cmGoodsCommentInfo" : [Cmgoodscommentinfo class]};
-}
+ 
 @end
 
 
-@implementation Cmgoodscommentinfo
+@implementation CommentData
+
+@end
+
+
+@implementation Goodscommentlist
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"findListReviews" : [Findlistreviews class]};
+}
+
+@end
+
+
+@implementation Findlistreviews
 
 @end
 

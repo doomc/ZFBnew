@@ -49,5 +49,11 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSExceptionRequiresForwardSecrecy</key>
+	<string>NO</string>
+	<key>NSIncludesSubdomains</key>
+	<string>YES</string>
+	<key>NSExceptionAllowInsecureHTTPLoads</key>
+	<string>YES</string>
 </dict>
 </plist>

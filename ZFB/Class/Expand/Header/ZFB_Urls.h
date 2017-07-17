@@ -19,10 +19,7 @@
 
 
 //baseUrl
-//#define  zfb_baseUrl @"http://192.168.1.107:8087/zfb/InterfaceServlet"
-
-//测试服务器
-#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
+#define  zfb_baseUrl @"http://192.168.1.104:8087/zfb/InterfaceServlet"
 
 //图片服务器
 #define  uploadImgae_Url @"http://192.168.1.106:8086/cmfile/upload"
@@ -37,24 +34,7 @@
 
 
 #pragma mark -------------测试服务器数--------------------
-////个人中心
-//#define zfbMine_Url @"http://192.168.1.107:8087/zfb/InterfaceServlet/getUserInfo"
-//
-////注册
-//#define zfbRegister_Url @"http://192.168.1.107:8087/zfb/InterfaceServlet/userRegistered"
-//
-////快速登录
-//#define zfbquickLogin_Url @"http://192.168.1.107:8087/zfb/InterfaceServlet/quickLogin"
-//
-////密码登录
-//#define zfbPasswordLogin_Url @"http://192.168.1.107:8087/zfb/InterfaceServlet/login"
-//
-////短信验证
-//#define zfbMessageCode_Url @"http://192.168.1.107:8087/zfb/InterfaceServlet/SendMessages"
-//
-////发送场景短信验证码
-
-
+//#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
 
 
 

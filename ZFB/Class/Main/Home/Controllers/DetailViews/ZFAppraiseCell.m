@@ -30,21 +30,28 @@
 }
 
 #pragma mark - setter
--(void)setImgurl:(NSString *)imgurl
+-(void)setInfoList:(Findlistreviews *)infoList
 {
-    _imgurl = imgurl;
-
+    _infoList = infoList;
+    
+    self.imgurl = _infoList.reviewsImgUrl;
+    self.lb_nickName.text = _infoList.userName;
+    self.lb_message.text = _infoList.reviewsText;
+    self.lb_detailtext.text = [NSString stringWithFormat:@"%@之前,来自%@",_infoList.createDate,_infoList.equip];
+    [self.img_appraiseView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_infoList.userAvatarImg]] placeholderImage:nil];
+    
     self.itemArray = [NSMutableArray array];
     
-    NSArray * imgArr = [_imgurl componentsSeparatedByString:@","];
-
+    NSArray * imgArr = [self.imgurl componentsSeparatedByString:@","];
+    
     for (NSString * urlstr  in imgArr) {
         
         [self.itemArray addObject:urlstr];
     }
-     NSLog(@" +++++++++itemArray %@+++++++++++", _itemArray);
-    
+    NSLog(@" +++++++++itemArray %@+++++++++++", _itemArray);
+
 }
+
 -(void)setup{
  
  

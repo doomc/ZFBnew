@@ -44,11 +44,6 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (self.dataArray.count > 0) {
-       
-        return self.dataArray.count;
-
-    }
     return 8;
 }
 
@@ -64,6 +59,12 @@
  
     NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",type.iconUrl]];
     [cell.img_listView sd_setImageWithURL:img_url placeholderImage:nil];
+    
+    if (indexPath.item == 7) {
+        cell.lb_listName.text = @"全部分类";
+        cell.img_listView.image = [UIImage imageNamed:@"classes"];
+    }
+    
     return cell;
 }
 

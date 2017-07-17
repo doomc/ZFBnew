@@ -1,36 +1,34 @@
 //
-//  CategoryModel.h
-//  Linkage
+//  ClassLeftListModel.h
+//  ZFB
 //
-//  Created by xwd on 16/8/22.
-//  Copyright © 2016年 LeeJay. All rights reserved.
+//  Created by  展富宝  on 2017/7/17.
+//  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@class ClassData,Nexttypelist;
-@interface CollectionCategoryModel : NSObject
-
+@class ClassListData,CmgoodsClasstypelist;
+@interface ClassLeftListModel : NSObject
 
 @property (nonatomic, copy) NSString *resultMsg;
 
-@property (nonatomic, strong) ClassData *data;
+@property (nonatomic, strong) ClassListData *data;
 
 @property (nonatomic, copy) NSString *resultCode;
 
+@end
+@interface ClassListData : NSObject
+
+@property (nonatomic, strong) NSArray<CmgoodsClasstypelist *> *CmGoodsTypeList;
 
 @end
-@interface ClassData : NSObject
 
-@property (nonatomic, strong) NSArray<Nexttypelist *> *nextTypeList;
-
-@end
-
-@interface Nexttypelist : NSObject
+@interface CmgoodsClasstypelist : NSObject
 
 @property (nonatomic, copy) NSString *createBy;
 
-@property (nonatomic, assign) NSInteger goodId;
+@property (nonatomic, assign) NSInteger  typeId;
 
 @property (nonatomic, copy) NSString *delFlag;
 

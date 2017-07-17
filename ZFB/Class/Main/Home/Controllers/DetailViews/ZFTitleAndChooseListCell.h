@@ -14,9 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 
-
 @property (weak, nonatomic) IBOutlet UILabel *lb_sales;
 
-@property (weak, nonatomic) IBOutlet UILabel *lb_selectSUK;
+
 
 @end

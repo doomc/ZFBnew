@@ -34,10 +34,11 @@
     return self;
 }
 
-- (void)setModel:(SubCategoryModel *)model
+- (void)setGoodlist:(Nexttypelist *)goodlist
 {
-    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.icon_url] placeholderImage:nil];
-    self.name.text = model.name;
+    _goodlist = goodlist;
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:_goodlist.iconUrl] placeholderImage:nil];
+    self.name.text = _goodlist.name;
 }
 
 @end

@@ -1,26 +1,19 @@
 //
-//  ZFSettingCell.m
+//  DetailgoodsSelectCell.m
 //  ZFB
 //
-//  Created by  展富宝  on 2017/5/31.
+//  Created by  展富宝  on 2017/7/17.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
-#import "ZFSettingCell.h"
-@interface ZFSettingCell ()
+#import "DetailgoodsSelectCell.h"
 
-
-
-@end
-@implementation ZFSettingCell
+@implementation DetailgoodsSelectCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-  
-  
 }
-
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

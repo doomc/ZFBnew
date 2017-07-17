@@ -31,11 +31,11 @@
     self.lb_detailTime.text = @"";
     [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",goods.coverImgUrl]] placeholderImage:nil];
 }
-//-(void)setList:(Orderlist *)list
-//{
-//    _list = list;
-//
-//}
+-(void)setList:(Orderlist *)list
+{
+    _list = list;
+
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

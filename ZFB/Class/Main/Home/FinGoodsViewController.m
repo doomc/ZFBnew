@@ -87,7 +87,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 {
     FuncListTableViewCell * funcCell = [self.findGoods_TableView cellForRowAtIndexPath:indexPath];
     
-    NSLog(@"进来?");
+    NSLog(@"全部分类全部分类");
     ZFClassifyCollectionViewController * classifyVC = [[ZFClassifyCollectionViewController alloc]init];
     [self.navigationController pushViewController:classifyVC animated:NO];
     
@@ -162,6 +162,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 2 ) {
+        
         return self.likeListArray.count;
     }
     return 1;

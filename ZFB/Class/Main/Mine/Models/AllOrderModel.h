@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class Orderlist,Ordergoods,Goods_Properties;
 
+@class Orderlist,Ordergoods,Goods_Properties;
 @interface AllOrderModel : NSObject
+
 
 @property (nonatomic, assign) NSInteger status;
 

@@ -56,13 +56,13 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
     [self.view addSubview:self.underFootView];
     
  
-    
+    [self refreshData];
+
     
     
 }
 -(void)viewWillAppear:(BOOL)animated{
     
-    [self refreshData];
 }
 //更新数据
 -(void)refreshData
@@ -547,7 +547,7 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
     NSDictionary * parma = @{
                              
                              @"svcName":@"",
-                             @"cmUserId":@"8",
+                             @"cmUserId":BBUserDefault.cmUserId,
                              
                              };
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getShoppCartList"] params:parma success:^(id response) {
@@ -585,7 +585,6 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
 {
     NSDictionary * parma = @{
                              
-                             @"svcName":@"",
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"cartItemId":_cartItemId,
                              
@@ -596,7 +595,6 @@ static NSString  * shoppingHeaderID = @"ShopCarSectionHeadViewCell";
         
         
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-       
         [self.shopCar_tableview reloadData];
 
     } progress:^(NSProgress *progeress) {

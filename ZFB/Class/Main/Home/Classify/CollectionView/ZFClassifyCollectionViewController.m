@@ -7,20 +7,25 @@
 //  功能分类
 
 #import "ZFClassifyCollectionViewController.h"
-
+//Model
 #import "CollectionCategoryModel.h"
+#import "ClassLeftListModel.h"
+//cell  View
 #import "ZFCollectionViewCell.h"
 #import "LeftTableViewCell.h"
 #import "CollectionViewHeaderView.h"
 #import "ZFCollectionViewFlowLayout.h"
+//controller
+#import "DetailFindGoodsViewController.h"
 
 @interface ZFClassifyCollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout,
 UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, strong) NSMutableArray *collectionDatas;
+
+@property (nonatomic, strong) NSMutableArray *dataSource; ///左列表
+@property (nonatomic, strong) NSMutableArray *collectionDatas;//数据
 @property (nonatomic, strong) ZFCollectionViewFlowLayout *flowLayout;
 
 @property (nonatomic, strong) UISearchController * searchController;
@@ -32,7 +37,28 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 {
     NSInteger _selectIndex;
     BOOL _isScrollDown;
+    NSString * _typeId;
+
 }
+#pragma mark - Getters
+- (NSMutableArray *)dataSource
+{
+    if (!_dataSource)
+    {
+        _dataSource = [NSMutableArray array];
+    }
+    return _dataSource;
+}
+
+- (NSMutableArray *)collectionDatas
+{
+    if (!_collectionDatas)
+    {
+        _collectionDatas = [NSMutableArray array];
+    }
+    return _collectionDatas;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -53,28 +79,8 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.collectionView];
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"liwushuo" ofType:@"json"];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-    NSArray *categories = dict[@"data"][@"categories"];
-    for (NSDictionary *dict in categories)
-    {
-        CollectionCategoryModel *model =
-        [CollectionCategoryModel objectWithDictionary:dict];
-        [self.dataSource addObject:model];
-        
-        NSMutableArray *datas = [NSMutableArray array];
-        for (SubCategoryModel *sModel in model.subcategories)
-        {
-            [datas addObject:sModel];
-        }
-        [self.collectionDatas addObject:datas];
-    }
     
-    [self.tableView reloadData];
-    [self.collectionView reloadData];
-    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
-    
+    [self classListTableVieWithGoodTypePostRequset];//一级
 }
 
 -(UISearchController *)searchController
@@ -117,24 +123,6 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 }
 
 
-#pragma mark - Getters
-- (NSMutableArray *)dataSource
-{
-    if (!_dataSource)
-    {
-        _dataSource = [NSMutableArray array];
-    }
-    return _dataSource;
-}
-
-- (NSMutableArray *)collectionDatas
-{
-    if (!_collectionDatas)
-    {
-        _collectionDatas = [NSMutableArray array];
-    }
-    return _collectionDatas;
-}
 
 - (UITableView *)tableView
 {
@@ -193,26 +181,40 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     LeftTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Left forIndexPath:indexPath];
-    CollectionCategoryModel *model = self.dataSource[indexPath.row];
-    cell.name.text = model.name;
+    if (self.dataSource.count > 0) {
+      
+        CmgoodsClasstypelist *list = self.dataSource[indexPath.row];
+        cell.name.text =list.name;
+        
+        if (indexPath.row == 0) {
+            
+            [self tableView:_tableView didSelectRowAtIndexPath:indexPath];
+        }
+    }
+   
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _selectIndex = indexPath.row;
-    
-    // http://stackoverflow.com/questions/22100227/scroll-uicollectionview-to-section-header-view
-    // 解决点击 TableView 后 CollectionView 的 Header 遮挡问题。
-    [self scrollToTopOfSection:_selectIndex animated:YES];
-    
-    //    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:_selectIndex] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_selectIndex inSection:0]
-                          atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    if (self.dataSource.count > 0) {
+        
+        _selectIndex = indexPath.row;
+        // http://stackoverflow.com/questions/22100227/scroll-uicollectionview-to-section-header-view
+        // 解决点击 TableView 后 CollectionView 的 Header 遮挡问题。
+        [self scrollToTopOfSection:_selectIndex animated:YES];
+        
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_selectIndex inSection:0]
+                              atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        
+        CmgoodsClasstypelist * list  =  _dataSource[_selectIndex];
+        _typeId  = [NSString stringWithFormat:@"%ld",list.typeId];
+        [self secondClassListWithGoodTypePostRequsetTypeid:_typeId];
+
+    }
 }
 
 #pragma mark - 解决点击 TableView 后 CollectionView 的 Header 遮挡问题
-
 - (void)scrollToTopOfSection:(NSInteger)section animated:(BOOL)animated
 {
     CGRect headerRect = [self frameForHeaderForSection:section];
@@ -235,15 +237,17 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    CollectionCategoryModel *model = self.dataSource[section];
-    return model.subcategories.count;
+ 
+    return self.collectionDatas.count;
+
+ 
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ZFCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentifier_CollectionView forIndexPath:indexPath];
-    SubCategoryModel *model = self.collectionDatas[indexPath.section][indexPath.row];
-    cell.model = model;
+    Nexttypelist * goodlist = self.collectionDatas[indexPath.row];
+    cell.goodlist = goodlist;
     return cell;
 }
 
@@ -269,8 +273,8 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
                                                                                forIndexPath:indexPath];
     if ([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
-        CollectionCategoryModel *model = self.dataSource[indexPath.section];
-        view.title.text = model.name;
+        CmgoodsClasstypelist * leftList = self.dataSource[indexPath.section];
+        view.title.text = leftList.name;
     }
     return view;
 }
@@ -322,13 +326,15 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    Nexttypelist * goodlist = self.collectionDatas[indexPath.item];
     
     NSLog(@"section = %ld,  item = %ld", indexPath.section,indexPath.item);
+    DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
+    NSString  * goodid = [NSString stringWithFormat:@"%ld",goodlist.goodId];
+    goodid =  detailVC.goodsId ;
+    [self.navigationController pushViewController:detailVC animated:NO];
+    
 }
-
-#pragma mark - tableView - 列表网络请求
-
-#pragma mark - collectionView - 列表网络请求
 
 
 
@@ -386,6 +392,92 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
         [self.searchController.searchBar resignFirstResponder];
     }
 }
+
+
+#pragma mark - tableView - 列表网络请求
+#pragma mark  - 第一级分类网络请求
+-(void)classListTableVieWithGoodTypePostRequset
+{
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getMaxType",zfb_baseUrl] params:nil success:^(id response) {
+        
+ 
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+           
+            if (self.dataSource.count > 0) {
+                
+                [self.dataSource removeAllObjects];
+                
+            }
+            ClassLeftListModel * list = [ClassLeftListModel mj_objectWithKeyValues:response];
+            for (CmgoodsClasstypelist * Typelist in list.data.CmGoodsTypeList) {
+                
+                [self.dataSource addObject:Typelist];
+                
+            }
+            [self.tableView reloadData];
+            
+        }
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+
+}
+
+#pragma mark - collectionView - 列表网络请求
+#pragma mark  - 第2级分类网络请求
+-(void)secondClassListWithGoodTypePostRequsetTypeid:(NSString *) typeID
+{
+    
+   
+    NSDictionary * parma = @{
+                             
+                            @"typeId":typeID,
+                             
+                             };
+    
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getNextType",zfb_baseUrl] params:parma success:^(id response) {
+ 
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            if (self.collectionDatas.count > 0) {
+                
+                [self.collectionDatas removeAllObjects];
+        
+            }
+            CollectionCategoryModel *model = [CollectionCategoryModel mj_objectWithKeyValues:response];
+            for (Nexttypelist  * list in model.data.nextTypeList) {
+                
+                [self.collectionDatas addObject:list];
+            }
+         
+            
+            [self.collectionView reloadData];
+
+        }
+    
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
+
+
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

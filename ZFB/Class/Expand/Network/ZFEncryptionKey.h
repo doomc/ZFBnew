@@ -22,6 +22,5 @@ typedef void(^Block) (NSDictionary * signParam, NSDictionary * param);
 //- (NSString *)signStringWithParam:(NSDictionary *)param;
 
 - (NSDictionary *)signStringWithParamdic:(NSDictionary *)param;
-- (NSDictionary *)signStringWithParamdic:(NSDictionary *)param andMD5Key:(NSString* )MD5key;
-
+ 
 @end

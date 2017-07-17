@@ -8,41 +8,78 @@
 
 #import <Foundation/Foundation.h>
 
-@class Cmgoodscommentinfo;
+@class CommentData,Goodscommentlist,Findlistreviews;
+@interface AppraiseModel : NSObject
 
-@interface AppraiseModel : ResponseObject
+@property (nonatomic, copy) NSString *resultCode;
 
-@property (nonatomic, copy) NSString *lackCommentNum;
+@property (nonatomic, copy) NSString *resultMsg;
 
-@property (nonatomic, copy) NSString *goodCommentNum;
+@property (nonatomic, strong) CommentData *data;
 
-@property (nonatomic, copy) NSString *imgCommentNum;
 
-@property (nonatomic, copy) NSString *commentNum;
-
-@property (nonatomic, assign) NSInteger resultCode;
-
-@property (nonatomic, strong) NSArray<Cmgoodscommentinfo *> *cmGoodsCommentInfo;
 
 @end
 
-@interface Cmgoodscommentinfo : ResponseObject
+@interface CommentData : NSObject
 
-@property (nonatomic, copy) NSString *reciewsId;
+@property (nonatomic, strong) Goodscommentlist *goodsCommentList;
+
+@end
+
+@interface Goodscommentlist : NSObject
+
+@property (nonatomic, assign) NSInteger goodCommentNum;
+
+@property (nonatomic, assign) NSInteger imgCommentNum;
+
+@property (nonatomic, strong) NSArray<Findlistreviews *> *findListReviews;
+
+@property (nonatomic, assign) NSInteger totalCount;
+
+@property (nonatomic, assign) NSInteger commentNum;
+
+@property (nonatomic, assign) NSInteger lackCommentNum;
+
+@end
+
+@interface Findlistreviews : NSObject
+
+@property (nonatomic, assign) NSInteger imgComment;
+
+@property (nonatomic, copy) NSString *equip;
+
+@property (nonatomic, assign) NSInteger serAttitude;
+
+@property (nonatomic, assign) NSInteger deliverySpeed;
+
+@property (nonatomic, assign) NSInteger readFlag;
+
+@property (nonatomic, assign) NSInteger reviewsStatus;
+
+@property (nonatomic, copy) NSString *createDate;
+
+@property (nonatomic, assign) NSInteger goodsComment;
+
+@property (nonatomic, copy) NSString *modifyDate;
+
+@property (nonatomic, copy) NSString *reviewsImgUrl;
 
 @property (nonatomic, copy) NSString *userName;
 
 @property (nonatomic, copy) NSString *reviewsText;
 
-@property (nonatomic, copy) NSString *goodsComment;
+@property (nonatomic, assign) NSInteger cmUserId;
 
-@property (nonatomic, copy) NSString *equip;
+@property (nonatomic, assign) NSInteger orderId;
 
-@property (nonatomic, copy) NSString *reviewsImgUrl;
+@property (nonatomic, assign) NSInteger mainReviewsId;
+
+@property (nonatomic, assign) NSInteger reviewsId;
+
+@property (nonatomic, assign) NSInteger goodsId;
 
 @property (nonatomic, copy) NSString *userAvatarImg;
-
-@property (nonatomic, copy) NSString *befor;
 
 @end
 

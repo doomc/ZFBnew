@@ -97,7 +97,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
     }else{
         
         JXTAlertController * alert =  [JXTAlertController alertControllerWithTitle:nil message:@"请输入手机号" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction  * action  =[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {   }];
+        UIAlertAction  * action  =[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        }];
         [alert addAction:action];
         
         [self presentViewController:alert animated:NO completion:nil];
@@ -154,8 +155,9 @@ typedef NS_ENUM(NSUInteger, indexType) {
                 self.login_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
                 
             }
+            NSLog(@"验证码手机号%@ ",_tf_loginphone.text );
+
         }
-        NSLog(@"验证码手机号%@ ",_tf_loginphone.text );
     }
     if (_isQuickLogin == NO) {
         
@@ -181,6 +183,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
     
 }
 
+
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     
@@ -192,9 +195,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
                 BBUserDefault.userPhoneNumber = _tf_loginphone.text;
                 
             }else{
-                
+    
                 [self.view makeToast:@"你输入的手机格式错误" duration:2.0 position:@"center"];
-                
             }
         }
         if (_tf_verificationCodeOrPassWord == textField) {
@@ -227,13 +229,15 @@ typedef NS_ENUM(NSUInteger, indexType) {
         }
         if (_tf_verificationCodeOrPassWord == textField) {
             if ( [_tf_loginphone.text isMobileNumber] && _tf_verificationCodeOrPassWord.text.length > 0) {
+               
                 self.login_btn.enabled = YES;
                 self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
                 
             }else{
+                
                 self.login_btn.enabled = NO;
                 self.login_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
-                
+
             }
             NSLog(@"登录--账号+密码2 %@",textField );
             
@@ -287,7 +291,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
             _img_iconOfVerificationOrPs.image = [UIImage imageNamed:@"passWord"];
             
             break;
-            
     }
 }
 
@@ -341,17 +344,14 @@ typedef NS_ENUM(NSUInteger, indexType) {
     
 }
 
+
 #pragma mark - ValidateCodePostRequset验证码网络请求
 -(void)ValidateCodePostRequset
 {
     [SVProgressHUD show];
-    if (kStringIsEmpty(BBUserDefault.cmUserId)) {
-        BBUserDefault.cmUserId = @"";
-    }
     NSDictionary * parma = @{
                              @"SmsLogo":@"1",
                              @"mobilePhone":_tf_loginphone.text,
-                             @"svcName":@"",
                              @"cmUserId":@"",
                              };
     
@@ -382,16 +382,13 @@ typedef NS_ENUM(NSUInteger, indexType) {
 #pragma mark -  QuickLoginPostRequest 快速登录
 -(void)QuickLoginPostRequest
 {
-    if (kStringIsEmpty(BBUserDefault.cmUserId)) {
-        BBUserDefault.cmUserId = @"";
-    }
+ 
     [SVProgressHUD show ];
     NSDictionary * parma = @{
                              
                              @"mobilePhone":_tf_loginphone.text,
                              @"smsCheckCode":_smsCode,
-                             @"svcName":@"",
-                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"cmUserId":@"",
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/quickLogin",zfb_baseUrl] params:parma success:^(id response) {
@@ -440,11 +437,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              
                              @"mobilePhone":_tf_loginphone.text,
                              @"loginPwd":_tf_verificationCodeOrPassWord.text,
-                             @"svcName":@"",
                              @"cmUserId":@"",
-                             
                              };
-    
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/login",zfb_baseUrl] params:parma success:^(id response) {
         

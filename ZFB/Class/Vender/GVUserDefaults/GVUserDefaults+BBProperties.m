@@ -21,6 +21,7 @@
 @dynamic floatValue;
 @dynamic isNoFirstLaunch;
 @dynamic isLogin;
+@dynamic isCollect;
 
 @dynamic latitude;
 @dynamic longitude;

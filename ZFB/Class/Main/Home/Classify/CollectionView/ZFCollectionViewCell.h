@@ -7,13 +7,13 @@
 //  代码下载地址https://github.com/leejayID/Linkage
 
 #import <UIKit/UIKit.h>
-
+#import "CollectionCategoryModel.h"
 #define kCellIdentifier_CollectionView @"ZFCollectionViewCell"
 
-@class SubCategoryModel;
+ 
 
 @interface ZFCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, strong) SubCategoryModel *model;
+@property (nonatomic, strong) Nexttypelist  *  goodlist;
 
 @end

@@ -36,4 +36,8 @@
 
 #pragma mark --是否已经登录
 @property (nonatomic,assign) int isLogin;
+
+#pragma mark - 判断是否收藏了_isCollect
+@property (nonatomic,assign) NSInteger isCollect;
+
 @end

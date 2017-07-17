@@ -66,22 +66,20 @@
 /**
  初始化轮播
  */
--(SDCycleScrollView *)sd_HeadScrollView
+-(void)sd_HeadScrollViewInit
 {
-    if (!_sd_HeadScrollView) {
-        _sd_HeadScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 310*0.5) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
-        _sd_HeadScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
-        _sd_HeadScrollView.imageURLStringsGroup = imgArray;
-        _sd_HeadScrollView.delegate = self;
-        
-        //自定义dot 大小和图案
-        _sd_HeadScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
-        _sd_HeadScrollView.pageDotImage = [UIImage imageNamed:@"dot_selected"];
-        _sd_HeadScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
-        _sd_HeadScrollView.placeholderImage = [UIImage imageNamed:@"placeholder"];
-        
-    }
-    return _sd_HeadScrollView;
+    _sd_HeadScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 310*0.5) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    _sd_HeadScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
+    _sd_HeadScrollView.imageURLStringsGroup = imgArray;
+    _sd_HeadScrollView.delegate = self;
+    
+    //自定义dot 大小和图案
+    _sd_HeadScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
+    _sd_HeadScrollView.pageDotImage = [UIImage imageNamed:@"dot_selected"];
+    _sd_HeadScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
+    _sd_HeadScrollView.placeholderImage = [UIImage imageNamed:@"placeholder"];
+    
+    
 }
 
 
@@ -247,6 +245,14 @@
             }
             
             DetailStoreModel * detailModel  = [DetailStoreModel  mj_objectWithKeyValues:response];
+
+            for (DetailCmgoodslist * goodlist in detailModel.cmGoodsList) {
+                
+                [weakSelf.storeListArray addObject:goodlist];
+            }
+            
+            NSLog(@"门店详情 =storeListArray = %@",  weakSelf.storeListArray);
+
             _storeName =  detailModel.cmStoreDetailsList.storeName;
             _address =  detailModel.cmStoreDetailsList.address;
             _contactPhone =  detailModel.cmStoreDetailsList.contactPhone;
@@ -255,19 +261,13 @@
             
             imgArray = [NSArray array];
             imgArray = [_stroreUrl componentsSeparatedByString:@","];
-            
             NSLog(@"图片地址 = %@",imgArray);
-            for (DetailCmgoodslist * goodlist in detailModel.cmGoodsList) {
-                
-                [weakSelf.storeListArray addObject:goodlist];
-            }
-            
-            NSLog(@"门店详情 =storeListArray = %@",  weakSelf.storeListArray);
+
+            [self sd_HeadScrollViewInit];
             [weakSelf.main_ColletionView reloadData];
         }
         
     } progress:^(NSProgress *progeress) {
-        
         
     } failure:^(NSError *error) {
         [weakSelf.view makeToast:@"网络错误" duration:2 position:@"center"];

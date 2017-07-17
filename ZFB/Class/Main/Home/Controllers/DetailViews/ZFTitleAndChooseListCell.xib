@@ -11,11 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="103" id="mmf-M3-xfr" customClass="ZFTitleAndChooseListCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="103"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="68" id="mmf-M3-xfr" customClass="ZFTitleAndChooseListCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mmf-M3-xfr" id="gOA-te-yBu">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="102.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="春夏衬衫男生长袖青少年纯棉复古休闲学生工装打底韩版修身潮流" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgP-Sw-3W9">
@@ -33,44 +33,6 @@
                         <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qEM-fr-mft">
-                        <rect key="frame" x="0.0" y="62.5" width="320" height="40"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows_Right_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="AFp-RM-9Y4">
-                                <rect key="frame" x="293" y="14" width="12" height="12"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wAz-4Y-M8W">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
-                                <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="p8a-Ff-ILu"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已选 灰色 XL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azm-OY-Qht">
-                                <rect key="frame" x="15" y="13" width="71" height="14.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="15" id="FKT-4s-KY2"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="azm-OY-Qht" firstAttribute="leading" secondItem="qEM-fr-mft" secondAttribute="leading" constant="15" id="9IP-2d-NNi"/>
-                            <constraint firstItem="wAz-4Y-M8W" firstAttribute="leading" secondItem="qEM-fr-mft" secondAttribute="leading" id="Hnv-2x-pma"/>
-                            <constraint firstAttribute="trailing" secondItem="AFp-RM-9Y4" secondAttribute="trailing" constant="15" id="OUC-BJ-ndV"/>
-                            <constraint firstItem="wAz-4Y-M8W" firstAttribute="top" secondItem="qEM-fr-mft" secondAttribute="top" id="RtW-eC-Uxf"/>
-                            <constraint firstAttribute="height" constant="40" id="URQ-40-mi3"/>
-                            <constraint firstItem="AFp-RM-9Y4" firstAttribute="centerY" secondItem="qEM-fr-mft" secondAttribute="centerY" id="UYF-jM-e91"/>
-                            <constraint firstAttribute="trailing" secondItem="wAz-4Y-M8W" secondAttribute="trailing" id="ggw-ja-jOK"/>
-                            <constraint firstItem="azm-OY-Qht" firstAttribute="centerY" secondItem="qEM-fr-mft" secondAttribute="centerY" id="tDD-Tg-ukJ"/>
-                        </constraints>
-                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已售112件" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2h-tR-VYs">
                         <rect key="frame" x="249.5" y="46" width="55.5" height="14.5"/>
                         <constraints>
@@ -82,10 +44,7 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="qEM-fr-mft" secondAttribute="trailing" id="4Ul-hr-TYx"/>
-                    <constraint firstAttribute="bottom" secondItem="qEM-fr-mft" secondAttribute="bottom" id="Phn-2q-W1o"/>
                     <constraint firstItem="qZk-OU-hEb" firstAttribute="leading" secondItem="wgP-Sw-3W9" secondAttribute="leading" id="WQ5-fN-34h"/>
-                    <constraint firstItem="qEM-fr-mft" firstAttribute="leading" secondItem="gOA-te-yBu" secondAttribute="leading" id="WpA-O9-44v"/>
                     <constraint firstAttribute="trailing" secondItem="wgP-Sw-3W9" secondAttribute="trailing" constant="15" id="Yal-dh-FbT"/>
                     <constraint firstItem="wgP-Sw-3W9" firstAttribute="top" secondItem="gOA-te-yBu" secondAttribute="top" constant="10" id="aDG-1Q-aQe"/>
                     <constraint firstItem="qZk-OU-hEb" firstAttribute="top" secondItem="wgP-Sw-3W9" secondAttribute="bottom" constant="5" id="b3K-Ro-Igb"/>
@@ -97,13 +56,9 @@
             <connections>
                 <outlet property="lb_price" destination="qZk-OU-hEb" id="r6Y-BV-uxD"/>
                 <outlet property="lb_sales" destination="v2h-tR-VYs" id="5hD-Zs-4lw"/>
-                <outlet property="lb_selectSUK" destination="azm-OY-Qht" id="595-KY-ghd"/>
                 <outlet property="lb_title" destination="wgP-Sw-3W9" id="Mak-VM-LBQ"/>
             </connections>
-            <point key="canvasLocation" x="-226" y="-33.5"/>
+            <point key="canvasLocation" x="-226" y="-51"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="arrows_Right_black.png" width="12" height="12"/>
-    </resources>
 </document>

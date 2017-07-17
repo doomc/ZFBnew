@@ -54,6 +54,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     self.title = @"我的";
     
     [self.view addSubview:self.myTableView];
+    
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyCashBagCell" bundle:nil] forCellReuseIdentifier:@"ZFMyCashBagCell"];
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyProgressCell" bundle:nil] forCellReuseIdentifier:@"ZFMyProgressCell"];
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyOderCell" bundle:nil] forCellReuseIdentifier:@"ZFMyOderCell"];
@@ -111,8 +112,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)initmyTableViewInterface
 {
     
-    
-    
+ 
     //自定义导航按钮
     UIButton  * right_btn  =[ UIButton buttonWithType:UIButtonTypeCustom];
     right_btn.frame = CGRectMake(0, 0, 30, 30);
@@ -241,7 +241,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
         ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
         orderVC.buttonTitle =@"全部订单";
-        orderVC.payStatus   = @"";//默认状态
         orderVC.orderStatus = @"";//默认状态
         [self.navigationController pushViewController:orderVC animated:YES];
         
@@ -268,6 +267,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
     ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
     orderVC.orderType   = 1 ;
+    orderVC.orderStatus =@"4";
     orderVC.buttonTitle = @"待付款";
     [self.navigationController pushViewController:orderVC animated:YES];
 }
@@ -277,6 +277,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
     orderVC.orderType   = 4 ;
+    orderVC.orderStatus =@"2";
     orderVC.buttonTitle = @"已配送";
     [self.navigationController pushViewController:orderVC animated:YES];
 }
@@ -376,8 +377,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     NSDictionary * parma = @{
                              
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"svcname":@"",
-                             };
+                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getUserInfo"] params:parma success:^(id response) {
         

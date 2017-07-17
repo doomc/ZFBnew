@@ -34,6 +34,7 @@
 
 @property (copy ,nonatomic) NSString * imgurl;
  
+@property (nonatomic ,strong) Findlistreviews * infoList ;
 
 
 

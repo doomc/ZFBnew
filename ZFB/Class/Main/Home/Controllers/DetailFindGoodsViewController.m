@@ -7,16 +7,19 @@
 //  商品详情
 
 #import "DetailFindGoodsViewController.h"
+//cell
 #import "ZFTitleAndChooseListCell.h"
 #import "ZFbabyEvaluateCell.h"
 #import "ZFLoctionNavCell.h"
 #import "ZFLocationGoToStoreCell.h"
 #import "ZFGoodsFooterView.h"
-
+#import "DetailgoodsSelectCell.h"
+//controlller
 #import "ZFEvaluateViewController.h"
 #import "ZFSureOrderViewController.h"
+//model
 #import "DetailGoodsModel.h"
-
+//sku - view
 #import "SukItemCollectionViewCell.h"
 #import "SkuFooterReusableView.h"
 #import "SkuHeaderReusableView.h"
@@ -26,6 +29,7 @@
 typedef NS_ENUM(NSUInteger, typeCell) {
     
     typeCellrowOftitleCell, //0 第一行cell
+    typeCellrowgoodsSelectedCell,
     typeCellrowOfbabyCell,
     typeCellrowOfGoToStoreCell,
     typeCellrowOflocaCell,
@@ -91,36 +95,27 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
     
     _goodsCount = 1; //默认商品数量
-    if (_isCollect == 1) {///是否收藏	1.收藏 2.不是
-        [collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateNormal];
-    }else
-    {
-        [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
-        
-    }   
+ 
     dictProductValue = [NSMutableDictionary dictionary];//用来保存 new 、old的index
-  
-    [self goodsDetailListPostRequset];//网络请求
-    
+ 
     [self creatInterfaceDetailTableView];//初始化控件tableview
     [self settingHeaderViewAndFooterView];//初始化footerview
    
-    self.list_tableView.tableHeaderView = self.cycleScrollView;//加载轮播
     
 }
 
--(SDCycleScrollView *)cycleScrollView
+-(void)cycleScrollViewInit
 {
-    if (!_cycleScrollView) {
-        // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
-        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 594/2) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
-        _cycleScrollView.imageURLStringsGroup = self.imagesURLStrings;
-        _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleNone;
-        _cycleScrollView.delegate = self;
-        _cycleScrollView.autoScroll = NO;
-        _cycleScrollView.infiniteLoop =NO;
-    }
-    return _cycleScrollView;
+    // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
+    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 594/2) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    _cycleScrollView.imageURLStringsGroup = _imagesURLStrings;
+    _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleNone;
+    _cycleScrollView.delegate = self;
+    _cycleScrollView.autoScroll = NO;
+    _cycleScrollView.infiniteLoop =NO;
+    self.list_tableView.tableHeaderView = _cycleScrollView;//加载轮播
+
+    
 }
 
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
@@ -141,11 +136,14 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     self.list_tableView.dataSource= self;
     
     [self.list_tableView registerNib:[UINib nibWithNibName:@"ZFTitleAndChooseListCell" bundle:nil] forCellReuseIdentifier:@"ZFTitleAndChooseListCell"];
-    [self.list_tableView registerNib:[UINib nibWithNibName:@"ZFbabyEvaluateCell" bundle:nil] forCellReuseIdentifier:@"ZFbabyEvaluateCell"];
+    [self.list_tableView registerNib:[UINib nibWithNibName:@"ZFbabyEvaluateCell" bundle:nil]
+              forCellReuseIdentifier:@"ZFbabyEvaluateCell"];
     [self.list_tableView registerNib:[UINib nibWithNibName:@"ZFLoctionNavCell" bundle:nil]
               forCellReuseIdentifier:@"ZFLoctionNavCell"];
-    [self.list_tableView registerNib:[UINib nibWithNibName:@"ZFLocationGoToStoreCell" bundle:nil] forCellReuseIdentifier:@"ZFLocationGoToStoreCell"];
-    
+    [self.list_tableView registerNib:[UINib nibWithNibName:@"ZFLocationGoToStoreCell" bundle:nil]
+              forCellReuseIdentifier:@"ZFLocationGoToStoreCell"];
+    [self.list_tableView registerNib:[UINib nibWithNibName:@"DetailgoodsSelectCell" bundle:nil]
+              forCellReuseIdentifier:@"DetailgoodsSelectCell"];
 }
 
 /**
@@ -159,13 +157,13 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     [self.footerView addSubview: tempView];
     [self.view addSubview:self.footerView];
     
-    //自定义导航按钮
+    //收藏按钮
     collectButton  =[ UIButton buttonWithType:UIButtonTypeCustom];
     collectButton.frame = CGRectMake(0, 0, 20, 20);
     [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
     [collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateSelected];
-    
     [collectButton addTarget:self action:@selector(didclickLove:) forControlEvents:UIControlEventTouchUpInside];
+    
     //自定义button必须执行
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:collectButton];
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -189,8 +187,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 #pragma mark - 加入购物车- 选择规格
 -(void)addShopCar:(UIButton * )sender
 {
-    
-    [self popActionView];
+
+    [self addToshoppingCarPost];
+//    [self popActionView];
 }
 
 /**
@@ -204,18 +203,13 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     sender.selected = !sender.selected;
     ///是否收藏	1.收藏 2.不是
     if (_isCollect == 1) {
-        if (sender.selected){
-            NSLog(@"暂未收藏");
-            sender.selected = NO;
-            [self cancelCollectedPostRequest];//取消收藏
-        }
-
+ 
+        [self cancelCollectedPostRequest];//取消收藏
+        
     }else{
-        if (sender.selected) {
-            NSLog(@"已经收藏");
-            [self addCollectedPostRequest]; //添加收藏
-            
-        }
+        
+         [self addCollectedPostRequest]; //添加收藏
+        
     }
     
     
@@ -228,19 +222,27 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 7;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0 ) {
         
-        return 96;
+        return 56;
     }
-    if (indexPath.row == 2) {
+    else if (indexPath.row == 1 ) {
+
+//        if (self.productSkuArray.count > 0) {
+//            return 40;
+//        }
+        return 40;
+    }
+ 
+   else if (indexPath.row == 3) {
         return 54;
     }
-    if (indexPath.row == 5) {
+   else if (indexPath.row == 6) {
         
         return 200;
     }
@@ -262,7 +264,20 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         listCell.lb_sales.text = [NSString stringWithFormat:@"已售%ld件",_goodsSales];
         return listCell;
         
-    }else if (indexPath.row == typeCellrowOfbabyCell)
+    }
+    else if (indexPath.row == typeCellrowgoodsSelectedCell)
+    {
+        
+        DetailgoodsSelectCell  *  selectCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"DetailgoodsSelectCell" forIndexPath:indexPath];
+ 
+#warning  -  暂时死数据
+            selectCell.lb_selectSUK.text = [NSString stringWithFormat:@"已选择 灰色 XL"];
+            selectCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return selectCell;
+ 
+    }
+    else if (indexPath.row == typeCellrowOfbabyCell)
     {
         ZFbabyEvaluateCell  *  babyCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
         babyCell.lb_commonCount.text = [NSString stringWithFormat:@"(%@)",_commentNum];
@@ -284,14 +299,15 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     }
     else if (indexPath.row == typeCellrowOflocaCell)
     {
-        
         ZFLoctionNavCell  *  locaCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFLoctionNavCell" forIndexPath:indexPath];
         locaCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [locaCell.whereTogo addTarget:self action:@selector(whereTogoMap:) forControlEvents:UIControlEventTouchUpInside];
         [locaCell.contactPhone addTarget:self action:@selector(contactPhone:) forControlEvents:UIControlEventTouchUpInside];
+       
         return locaCell;
         
-    }   else if (indexPath.row == 4)
+    }
+    else if (indexPath.row == 4)
     {
         ZFbabyEvaluateCell  *  goodsDetailCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
         goodsDetailCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -309,58 +325,26 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     return custopmCell;
 }
 
-#pragma mark - 到这去 唤醒地图
--(void)whereTogoMap:(UIButton *)sender
-{
-    //当前位置导航到指定地
-    
-    [self.mapNavigationView showMapNavigationViewWithtargetLatitude:22.488260 targetLongitute:113.915049 toName:@"中海油华英加油站"];
-    [self.view addSubview:_mapNavigationView];
-    [self.view bringSubviewToFront:_mapNavigationView];
-    
-    //    //从指定地导航到指定地
-    //        [self.mapNavigationView showMapNavigationViewFormcurrentLatitude:30.306906 currentLongitute:120.107265 TotargetLatitude:22.488260 targetLongitute:113.915049 toName:@"中海油华英加油站"];
-    //        [self.view addSubview:_mapNavigationView];
-}
-#pragma mark - 联系门店 唤醒地图
--(void)contactPhone:(UIButton *)sender
-{
-    JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"确认拨打tel:%@联系门店吗",_contactPhone]  preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction * cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        UIWebView *callWebView = [[UIWebView alloc] init];
-        
-        NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",_contactPhone]];
-        [callWebView loadRequest:[NSURLRequest requestWithURL:telURL]];
-        [self.view addSubview:callWebView];
-        
-    }];
-    [alert addAction:cancel];
-    [alert addAction:sure];
-    [self presentViewController:alert animated:YES completion:nil];
-}
+
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section = %ld,row == %ld",indexPath.section ,indexPath.row);
-    
-    if (indexPath.row == 0) {
-        
-        [self popActionView];
-        
-    }
+
     if (indexPath.row == 1) {
         
+        [self popActionView];
+    }
+    if (indexPath.row == 2) {
+        
         ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
-        //        DetailGoodsModel * model = self.goodsListArray[indexPath.row];
-        //        evc.goodsId = model.goodsId;
+        evc.goodsId = _goodsId;
         [self.navigationController pushViewController:evc animated:YES];
         
     }
     
 }
+
 
 
 #pragma mark - SKUColleView -UICollectionViewDataSource
@@ -434,6 +418,40 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         _sizeOrColorStr = value.name;
     }
 }
+#pragma mark - 到这去 唤醒地图
+-(void)whereTogoMap:(UIButton *)sender
+{
+    //当前位置导航到指定地
+    
+    [self.mapNavigationView showMapNavigationViewWithtargetLatitude:22.488260 targetLongitute:113.915049 toName:@"中海油华英加油站"];
+    [self.view addSubview:_mapNavigationView];
+    [self.view bringSubviewToFront:_mapNavigationView];
+    
+    //    //从指定地导航到指定地
+    //        [self.mapNavigationView showMapNavigationViewFormcurrentLatitude:30.306906 currentLongitute:120.107265 TotargetLatitude:22.488260 targetLongitute:113.915049 toName:@"中海油华英加油站"];
+    //        [self.view addSubview:_mapNavigationView];
+}
+
+#pragma mark - 联系门店 唤醒地图
+-(void)contactPhone:(UIButton *)sender
+{
+    JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"确认拨打号码:%@联系门店吗",_contactPhone]  preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        UIWebView *callWebView = [[UIWebView alloc] init];
+        
+        NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",_contactPhone]];
+        [callWebView loadRequest:[NSURLRequest requestWithURL:telURL]];
+        [self.view addSubview:callWebView];
+        
+    }];
+    [alert addAction:cancel];
+    [alert addAction:sure];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 
 #pragma mark - deleteRemoveTheBackgroundView 删除操作
@@ -442,11 +460,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     NSLog(@"didClick");
     if (self.BgView != nil) {
         
-        
         [self.BgView removeFromSuperview];
     }
 }
-
 
 
 #pragma mark  - 选择商品数量
@@ -549,7 +565,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     addShopCar.titleLabel.font = [UIFont systemFontOfSize:14];
     addShopCar.backgroundColor = HEXCOLOR(0xfe6d6a);
     [addShopCar setTitle:@"加入购物车"forState:UIControlStateNormal];
-    [addShopCar addTarget:self action:@selector(SecondAddShopCar:) forControlEvents:UIControlEventTouchUpInside];
     [self.popView addSubview:addShopCar];
     
     //立即抢购
@@ -670,13 +685,12 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     NSLog(@" 经度 %@ ----- 纬度 %@",BBUserDefault.latitude,BBUserDefault.longitude);
     NSDictionary * parma = @{
                              
-//                             @"svcName":@"",
                              @"latitude":BBUserDefault.latitude,
                              @"longitude":BBUserDefault.longitude,
-                             @"goodsId":@"1",//商品id
+                             @"goodsId":_goodsId,//商品id
                              
                              };
-   // findSkuListByGooodsId
+ 
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsDetailsInfo",zfb_baseUrl] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
@@ -691,6 +705,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             _goodsSales = detailModel.data.goodsInfo.goodsSales;//已经销售
             _commentNum = detailModel.data.goodsInfo.commentNum;//评论数
             _isCollect  = detailModel.data.goodsInfo.isCollect;//是否收藏
+            _storeId = [NSString stringWithFormat:@"%ld",detailModel.data.goodsInfo.storeId]; //店铺id
             
             //store信息 ----storeInfo
             _storeName = detailModel.data.storeInfo.storeName;//店名
@@ -698,18 +713,32 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             _address = detailModel.data.storeInfo.address;//门店地址
             _juli = detailModel.data.storeInfo.storeDist;//门店距离
            
+   
+            if (_isCollect == 1) {///是否收藏	1.收藏 2.不是
+                
+                [collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateNormal];
+                
+            }else
+            {
+                [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
+            }
+            
             for (Productattribute * product in detailModel.data.productAttribute) {
                 
                 [self.productSkuArray addObject:product];
     
             }
+            
             _imagesURLStrings = [[NSArray alloc]init];
             _imagesURLStrings = [_attachImgUrl componentsSeparatedByString:@","];
             NSLog(@"%@\n",self.productSkuArray);
             NSLog(@"%@",  _imagesURLStrings);
-
-            [self.list_tableView reloadData];
+            
+            [self cycleScrollViewInit];
+            
         }
+        [self.list_tableView reloadData];
+
         
     } progress:^(NSProgress *progeress) {
         
@@ -727,24 +756,22 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 -(void)addToshoppingCarPost
 {
     
-    [SVProgressHUD show];
     NSString * count = [NSString stringWithFormat:@"%ld",_goodsCount];
     _sizeOrColorStr = @"{color:黑色,size:xxl}";
     NSDictionary * parma = @{
-                             
-                             @"goodsId":_goodsId,
+                             @"cmUserId":BBUserDefault.cmUserId,
                              @"storeId":_storeId,
+                             @"storeName":_storeName,
+                             @"goodsId":_goodsId,
                              @"goodsCount":count,//商品个数
                              @"goodsProp":@"",//商品规格
-                             @"storeName":_storeName,
-                             @"cmUserId":BBUserDefault.cmUserId,
-                     
-                             
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/ShoppCartJoin",zfb_baseUrl] params:parma success:^(id response) {
         
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        [self.view makeToast:@"加入购物车成功！" duration:2 position:@"center"];
+        
+        //                [self.list_tableView reloadData];
 
     } progress:^(NSProgress *progeress) {
         
@@ -801,16 +828,18 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
-                              @"goodsId":_goodsId,
+                             @"goodId":_goodsId,
                              @"goodName":_goodsName,//商品名
                              
-                             
                              };
-    
     
         [MENetWorkManager post:[NSString stringWithFormat:@"%@/getKeepGoodInfo",zfb_baseUrl] params:parma success:^(id response) {
             
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+           
+            _isCollect = 1;
+            
+            [self iscollect];
             
         } progress:^(NSProgress *progeress) {
             
@@ -821,16 +850,23 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         }];
     
 }
-#pragma mark - 取消收藏 getKeepGoodDel
+#pragma mark - 取消收藏 cancalGoodsCollect
 -(void)cancelCollectedPostRequest
 {
     NSDictionary * parma = @{
-                             @"cartItemId":@"",//收藏表id
+                             
+                             @"goodId":_goodsId,
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             
                              };
     
-    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getKeepGoodDel",zfb_baseUrl] params:parma success:^(id response) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/cancalGoodsCollect",zfb_baseUrl] params:parma success:^(id response) {
         
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+       
+        _isCollect = 0;
+   
+        [self iscollect];
         
     } progress:^(NSProgress *progeress) {
         
@@ -839,13 +875,26 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-
-
- 
-    
+   
 }
+//判断是否收藏了
+-(void)iscollect
+{
+    if (_isCollect == 1) {///是否收藏	1.收藏 2.不是
+        
+        [collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateNormal];
+        
+    }else
+    {
+        [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
+    }
+}
+-(void)viewWillAppear:(BOOL)animated
+{
 
+    [self goodsDetailListPostRequset];//网络请求
 
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

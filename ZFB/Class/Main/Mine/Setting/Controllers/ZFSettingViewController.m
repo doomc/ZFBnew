@@ -18,6 +18,8 @@ static NSString * settingCellid = @"ZFSettingCellid";
 {
     NSArray * _titleArr;
     NSArray * _imagesArr;
+    NSString  * _cacheSize;
+    
     
 }
 @property (nonatomic , strong) UITableView * tableView;
@@ -129,17 +131,90 @@ static NSString * settingCellid = @"ZFSettingCellid";
         
         
     }else if (indexPath.row == 3) {
-        //清除缓存
-        [self clearingCache];
+    
+        [self clearFile];//先计算
+    
+        JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"缓存%@,确认清除缓存 ",_cacheSize] preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction * left = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self clearingCache];//清除所有缓存;
+        }];
+        [jxt addAction:left];
+        [jxt addAction:right];
+        [self presentViewController:jxt animated:YES completion:^{  }];
     }
 }
-//清除缓存
+///清除缓存
 -(void)clearingCache
 {
     [SDCycleScrollView  clearImagesCache];//清除缓存
-    //    [self clearAllUserDefaultsData];//清除NSUserDefaults
+    //    [self clearAllUserDefaultsData];
+    [self clearFile];//清除文件
     
 }
+//清除缓存
+- (void)clearFile
+{
+    NSString * cachePath = [NSSearchPathForDirectoriesInDomains (NSCachesDirectory , NSUserDomainMask , YES ) firstObject];
+    NSArray * files = [[NSFileManager defaultManager ] subpathsAtPath :cachePath];
+    //NSLog ( @"cachpath = %@" , cachePath);
+    for ( NSString * p in files) {
+        
+        NSError * error = nil ;
+        //获取文件全路径
+        NSString * fileAbsolutePath = [cachePath stringByAppendingPathComponent :p];
+        
+        if ([[NSFileManager defaultManager ] fileExistsAtPath :fileAbsolutePath]) {
+            [[NSFileManager defaultManager ] removeItemAtPath :fileAbsolutePath error :&error];
+        }
+    }
+    
+    //读取缓存大小
+    float cacheSize = [self readCacheSize] *1024 *1024;
+    _cacheSize = [NSString stringWithFormat:@"%.2fM",cacheSize];
+    
+    
+}
+///获取缓存文件的大小
+-( float )readCacheSize
+{
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains (NSCachesDirectory , NSUserDomainMask , YES) firstObject];
+    return [ self folderSizeAtPath :cachePath];
+}
+
+
+///由于缓存文件存在沙箱中，我们可以通过NSFileManager API来实现对缓存文件大小的计算。
+// 遍历文件夹获得文件夹大小，返回多少 M
+- ( float ) folderSizeAtPath:( NSString *) folderPath{
+    
+    NSFileManager * manager = [NSFileManager defaultManager];
+    if (![manager fileExistsAtPath :folderPath]) return 0 ;
+    NSEnumerator *childFilesEnumerator = [[manager subpathsAtPath :folderPath] objectEnumerator];
+    NSString * fileName;
+    long long folderSize = 0 ;
+    while ((fileName = [childFilesEnumerator nextObject]) != nil ){
+        //获取文件全路径
+        NSString * fileAbsolutePath = [folderPath stringByAppendingPathComponent :fileName];
+        folderSize += [ self fileSizeAtPath :fileAbsolutePath];
+    }
+    
+    return folderSize/( 1024.0 * 1024.0);
+    
+}
+
+// 计算 单个文件的大小
+- ( long long ) fileSizeAtPath:( NSString *) filePath{
+    NSFileManager * manager = [NSFileManager defaultManager];
+    if ([manager fileExistsAtPath :filePath]){
+        return [[manager attributesOfItemAtPath :filePath error : nil] fileSize];
+    }
+    return 0;
+}
+
+
 - (void)clearAllUserDefaultsData
 {
     
@@ -160,7 +235,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
             [self.view makeToast:@"数据已清空" duration:2.0 position:@"center"];
             [sender setTitle:@"登陆" forState:UIControlStateNormal ];
             [self clearingCache];//清除所有缓存;
-            
+            BBUserDefault.isLogin = 0;
         }];
         [jxt addAction:left];
         [jxt addAction:right];

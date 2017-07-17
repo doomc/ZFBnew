@@ -10,13 +10,27 @@
 
 @implementation CollectionCategoryModel
 
-+ (NSDictionary *)objectClassInArray
-{
-    return @{ @"subcategories": @"SubCategoryModel"};
+
+ 
+@end
+@implementation ClassData
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"nextTypeList" : [Nexttypelist class]};
 }
 
 @end
 
-@implementation SubCategoryModel
+
+@implementation Nexttypelist
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    if ([key isEqualToString:@"id"]) {
+        self.goodId = [value integerValue];
+        
+    }
+}
 
 @end
+
+
