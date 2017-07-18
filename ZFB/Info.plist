@@ -24,6 +24,18 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>192.168.1.113</key>
+			<dict>
+				<key>NSExceptionAllowInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>需要您的同意,才能访问相机</string>
@@ -49,11 +61,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>NSExceptionRequiresForwardSecrecy</key>
-	<string>NO</string>
-	<key>NSIncludesSubdomains</key>
-	<string>YES</string>
-	<key>NSExceptionAllowInsecureHTTPLoads</key>
-	<string>YES</string>
 </dict>
 </plist>
