@@ -18,4 +18,5 @@
 
 @property (strong, nonatomic) MPImageItemModel *curImageItem;
 
+@property (copy, nonatomic) void (^deleteImageBlock) (MPImageItemModel *toDelete);
 @end

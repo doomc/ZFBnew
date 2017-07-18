@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,22 +21,18 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addphone.png" translatesAutoresizingMaskIntoConstraints="NO" id="Nye-qI-94A">
                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHn-u2-0TK">
-                        <rect key="frame" x="30" y="0.0" width="20" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="RZX-oU-D0X"/>
-                            <constraint firstAttribute="width" constant="20" id="uCU-up-vzE"/>
-                        </constraints>
-                        <state key="normal" title="D"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHn-u2-0TK">
+                        <rect key="frame" x="30" y="0.0" width="20" height="22"/>
+                        <state key="normal" image="close.png"/>
                     </button>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="vHn-u2-0TK" secondAttribute="trailing" id="8t2-By-wvk"/>
-                <constraint firstItem="vHn-u2-0TK" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="KqP-cJ-FNI"/>
+                <constraint firstAttribute="trailing" secondItem="vHn-u2-0TK" secondAttribute="trailing" id="FoG-rU-8si"/>
                 <constraint firstItem="Nye-qI-94A" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="amN-y1-oMO"/>
                 <constraint firstAttribute="trailing" secondItem="Nye-qI-94A" secondAttribute="trailing" id="bff-wI-sc0"/>
+                <constraint firstItem="vHn-u2-0TK" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="bhk-f5-dIw"/>
                 <constraint firstAttribute="bottom" secondItem="Nye-qI-94A" secondAttribute="bottom" id="oIf-EQ-qZy"/>
                 <constraint firstItem="Nye-qI-94A" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="xjO-w3-Ccm"/>
             </constraints>
@@ -50,5 +46,6 @@
     </objects>
     <resources>
         <image name="addphone.png" width="29" height="29"/>
+        <image name="close.png" width="20" height="20"/>
     </resources>
 </document>

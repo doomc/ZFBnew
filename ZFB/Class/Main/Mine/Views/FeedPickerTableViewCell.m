@@ -68,6 +68,7 @@
             [_imageViewsDict addObject:mwphoto];
         }
     }
+    [self.pickerCollectionView reloadData];
 }
 #pragma  mark - UICollectionViewDelegate
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -79,7 +80,7 @@
     
     NSInteger num = self.curUploadImageHelper.imagesArray.count;
     //如果没有大于最大上传数 则显示增加图标
-    if (num<kupdateMaximumNumberOfImage) {
+    if (num<=kupdateMaximumNumberOfImage) {
         return num+ 1;
     }
     return num;
@@ -95,11 +96,11 @@
     }else{
         cell.curImageItem = nil;
     }
-//    cell.deleteImageBlock = ^(MPImageItemModel *toDelete){
-//        if (self.deleteImageBlock) {
-//            self.deleteImageBlock(toDelete);
-//        }
-//    };
+    cell.deleteImageBlock = ^(MPImageItemModel *toDelete){
+        if (self.deleteImageBlock) {
+            self.deleteImageBlock(toDelete);
+        }
+    };
     
     return cell;
     

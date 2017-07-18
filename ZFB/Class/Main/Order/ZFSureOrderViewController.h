@@ -12,7 +12,7 @@
 
 @property (nonatomic,strong) NSMutableArray * goodsListArray;
 //jsonstr
-@property (nonatomic,copy) NSString * jsonStrArray;
+@property (nonatomic,copy) NSString * jsonString;
 
 
 @end

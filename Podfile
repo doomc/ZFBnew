@@ -20,7 +20,8 @@ target 'ZFB' do
   #其他
   # pod 'QBImagePickerController'
   # pod 'ZYQAssetPickerController']
+  pod 'ReactiveCocoa', '~> 2.5'
 
-
+  
 
 end

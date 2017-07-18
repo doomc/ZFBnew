@@ -65,13 +65,15 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     
     [self.view addSubview:self.underFootView];
     
-    [self refreshData];
     
     
     
 }
+
 -(void)viewWillAppear:(BOOL)animated{
     
+    [self refreshData];
+
 }
 //更新数据
 -(void)refreshData
@@ -89,9 +91,13 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 -(void)didClickClearingShoppingCar:(UIButton *)sender
 {
     NSLog(@" 结算");
-    
-    
+
     ZFSureOrderViewController * orderVC = [[ZFSureOrderViewController alloc]init];
+    
+    orderVC.jsonString =  _jsonString;
+    
+    NSLog(@"提交成功了 ----------- %@ ",_jsonString);
+    
     [self.navigationController pushViewController:orderVC animated:YES];
     
 }
@@ -130,22 +136,14 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             
             NSDictionary * dic = obj.mj_keyValues ;
             
-            NSMutableArray * mArray = [NSMutableArray array];
-            
-            [mArray addObject:dic];
-            
-            //            _goodsArray =  [Goodslist mj_keyValuesArrayWithObjectArray:list.goodsList];
-            
-            NSDictionary * dict       = [NSDictionary dictionaryWithObjectsAndKeys:@"storeName",list.storeName,@"storeId",list.storeId, nil];
-            NSMutableArray * newArray = [NSMutableArray array];
-            [newArray addObject:dict];
-            
-            dic = [NSDictionary dictionaryWithDictionary:dict];
-            dic = [NSDictionary dictionaryWithObject:mArray forKey:@"userGoodsInfoJSON"];
-            
+            NSMutableArray * mArray = [NSMutableArray arrayWithObject:dic];
+    
+            NSDictionary * dict  = [NSDictionary dictionaryWithObjectsAndKeys:@"storeName",list.storeName,@"storeId",list.storeId, nil];
+            [dic setValuesForKeysWithDictionary:dict];//赋值
+            [dic setValue:mArray forKey:@"userGoodsInfoJSON"];
+      
             NSLog(@"dic = %@",dic);
-            
-            //            _jsonString = [NSString convertToJsonData:self.jsonDict];
+            _jsonString = [NSString convertToJsonData:dic];
             NSLog(@"_jsonString = %@",_jsonString);
             
         }else{

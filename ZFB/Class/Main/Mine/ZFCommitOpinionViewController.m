@@ -18,6 +18,8 @@
 
 @property (strong, nonatomic) MPUploadImageHelper *curUploadImageHelper;
 
+@property (nonatomic, strong) NSMutableArray<UIImage *> *uploadImageArray;
+
 @end
 
 @implementation ZFCommitOpinionViewController
@@ -100,7 +102,11 @@
         pickerCell.addPicturesBlock = ^(){
             [weakself showActionForPhoto];
         };
-//        pickerCell.curUploadImageHelper=self.curUploadImageHelper;
+        pickerCell.deleteImageBlock = ^(MPImageItemModel *toDelete){
+            [weakself.curUploadImageHelper deleteAImage:toDelete];
+            [weakself.tableView reloadData];
+        };
+        pickerCell.curUploadImageHelper=self.curUploadImageHelper;
         return pickerCell;
     }
  
@@ -180,7 +186,7 @@
         [self.curUploadImageHelper addASelectedAssetURL:assetURL];
         
         //局部刷新 根据布局相应调整
-//        [self partialTableViewRefresh];
+        [self partialTableViewRefresh];
     }];
     [picker dismissViewControllerAnimated:YES completion:^{}];
 }
@@ -200,7 +206,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.curUploadImageHelper.selectedAssetURLs = selectedAssetURLs;
         //局部刷新 根据布局相应调整
-//        [self partialTableViewRefresh];
+        [self partialTableViewRefresh];
     });
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -211,7 +217,20 @@
 //上传图后局部刷新图片行 根据布局相应调整
 -(void)partialTableViewRefresh
 {
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:2]] withRowAnimation:UITableViewRowAnimationFade];
+//    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:2]] withRowAnimation:UITableViewRowAnimationFade];
+    
+    [self.tableView reloadData];
 }
-
+-(NSMutableArray<UIImage *> *)uploadImageArray {
+    
+    if (!_uploadImageArray) {
+        _uploadImageArray = [NSMutableArray<UIImage *> array];
+        MPWeakSelf(self);
+        [self.curUploadImageHelper.imagesArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            MPImageItemModel *itemModel = obj;
+            [weakself.uploadImageArray addObject:itemModel.image];
+        }];
+    }
+    return _uploadImageArray;
+}
 @end

@@ -35,4 +35,6 @@
 @property (copy, nonatomic) void(^addPicturesBlock)();
 
 @property (strong, nonatomic) MPUploadImageHelper *curUploadImageHelper;
+
+@property (copy, nonatomic) void (^deleteImageBlock)(MPImageItemModel *toDelete);
 @end
