@@ -191,7 +191,7 @@
                              
                              };
     
-    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getOrderFix",zfb_baseUrl] params:parma success:^(id response) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderFix",zfb_baseUrl] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] intValue] == 0) {
             

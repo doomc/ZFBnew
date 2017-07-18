@@ -11,3 +11,17 @@
 @implementation AllStoreModel
 
 @end
+@implementation Storeinfolists
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"findGoodsList" : [Findgoodslists class]};
+}
+
+@end
+
+
+@implementation Findgoodslists
+
+@end
+
+

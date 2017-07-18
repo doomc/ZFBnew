@@ -15,6 +15,39 @@
 		492752271EC44DFD003C22D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 492752251EC44DFD003C22D0 /* LaunchScreen.storyboard */; };
 		492752321EC44DFD003C22D0 /* ZFBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 492752311EC44DFD003C22D0 /* ZFBTests.m */; };
 		4927523D1EC44DFD003C22D0 /* ZFBUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4927523C1EC44DFD003C22D0 /* ZFBUITests.m */; };
+		49555E961F1E0092002E5688 /* AddressLocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E5B1F1E0092002E5688 /* AddressLocationMapViewController.m */; };
+		49555E971F1E0092002E5688 /* EditAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E5D1F1E0092002E5688 /* EditAddressViewController.m */; };
+		49555E981F1E0092002E5688 /* EditAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49555E5E1F1E0092002E5688 /* EditAddressViewController.xib */; };
+		49555E991F1E0092002E5688 /* AddressCommitOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E611F1E0092002E5688 /* AddressCommitOrderModel.m */; };
+		49555E9A1F1E0092002E5688 /* AddressListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E631F1E0092002E5688 /* AddressListModel.m */; };
+		49555E9B1F1E0092002E5688 /* ClearingStoreList.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E651F1E0092002E5688 /* ClearingStoreList.m */; };
+		49555E9C1F1E0092002E5688 /* SearchResultTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E681F1E0092002E5688 /* SearchResultTableVC.m */; };
+		49555E9D1F1E0092002E5688 /* LocationDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E6C1F1E0092002E5688 /* LocationDetailVC.m */; };
+		49555E9E1F1E0092002E5688 /* MapPoiTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E6E1F1E0092002E5688 /* MapPoiTableView.m */; };
+		49555E9F1F1E0092002E5688 /* GoodsitemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E701F1E0092002E5688 /* GoodsitemCell.m */; };
+		49555EA01F1E0092002E5688 /* GoodsitemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49555E711F1E0092002E5688 /* GoodsitemCell.xib */; };
+		49555EA11F1E0092002E5688 /* OrderPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E731F1E0092002E5688 /* OrderPriceCell.m */; };
+		49555EA21F1E0092002E5688 /* OrderPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49555E741F1E0092002E5688 /* OrderPriceCell.xib */; };
+		49555EA31F1E0092002E5688 /* OrderWithAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E761F1E0092002E5688 /* OrderWithAddressCell.m */; };
+		49555EA41F1E0092002E5688 /* OrderWithAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49555E771F1E0092002E5688 /* OrderWithAddressCell.xib */; };
+		49555EA51F1E0092002E5688 /* SendServiceTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E791F1E0092002E5688 /* SendServiceTitleCell.m */; };
+		49555EA61F1E0092002E5688 /* SendServiceTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49555E7A1F1E0092002E5688 /* SendServiceTitleCell.xib */; };
+		49555EA71F1E0092002E5688 /* ShopOrderStoreNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E7C1F1E0092002E5688 /* ShopOrderStoreNameCell.m */; };
+		49555EA81F1E0092002E5688 /* ShopOrderStoreNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49555E7D1F1E0092002E5688 /* ShopOrderStoreNameCell.xib */; };
+		49555EA91F1E0092002E5688 /* OldMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E801F1E0092002E5688 /* OldMainViewController.m */; };
+		49555EAA1F1E0092002E5688 /* ZFAddOfListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E821F1E0092002E5688 /* ZFAddOfListCell.m */; };
+		49555EAB1F1E0092002E5688 /* ZFAddOfListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49555E831F1E0092002E5688 /* ZFAddOfListCell.xib */; };
+		49555EAC1F1E0092002E5688 /* ZFFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E851F1E0092002E5688 /* ZFFooterCell.m */; };
+		49555EAD1F1E0092002E5688 /* ZFFooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49555E861F1E0092002E5688 /* ZFFooterCell.xib */; };
+		49555EAE1F1E0092002E5688 /* ZFOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E881F1E0092002E5688 /* ZFOrderListCell.m */; };
+		49555EAF1F1E0092002E5688 /* ZFOrderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49555E891F1E0092002E5688 /* ZFOrderListCell.xib */; };
+		49555EB01F1E0092002E5688 /* ZFShopListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E8B1F1E0092002E5688 /* ZFShopListCell.m */; };
+		49555EB11F1E0092002E5688 /* ZFShopListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49555E8C1F1E0092002E5688 /* ZFShopListCell.xib */; };
+		49555EB21F1E0092002E5688 /* ZFTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E8E1F1E0092002E5688 /* ZFTitleCell.m */; };
+		49555EB31F1E0092002E5688 /* ZFTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49555E8F1F1E0092002E5688 /* ZFTitleCell.xib */; };
+		49555EB41F1E0092002E5688 /* ZFAddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E911F1E0092002E5688 /* ZFAddressListViewController.m */; };
+		49555EB51F1E0092002E5688 /* ZFShopListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E931F1E0092002E5688 /* ZFShopListViewController.m */; };
+		49555EB61F1E0092002E5688 /* ZFSureOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E951F1E0092002E5688 /* ZFSureOrderViewController.m */; };
 		4956CEA31F15F61000DAD466 /* ZFSearchDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4956CEA21F15F61000DAD466 /* ZFSearchDetailViewController.m */; };
 		4956CEA81F16042A00DAD466 /* HotSearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4956CEA61F16042A00DAD466 /* HotSearchCollectionViewCell.m */; };
 		4956CEA91F16042A00DAD466 /* HotSearchCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4956CEA71F16042A00DAD466 /* HotSearchCollectionViewCell.xib */; };
@@ -207,39 +240,6 @@
 		495EA7D31F14B64D001FCB7E /* ZFPersonalHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA4961F14B64C001FCB7E /* ZFPersonalHeaderView.xib */; };
 		495EA7D41F14B64D001FCB7E /* AllOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4991F14B64C001FCB7E /* AllOrderModel.m */; };
 		495EA7D51F14B64D001FCB7E /* UserFeedbackModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA49B1F14B64C001FCB7E /* UserFeedbackModel.m */; };
-		495EA7D61F14B64D001FCB7E /* AddressLocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA49E1F14B64C001FCB7E /* AddressLocationMapViewController.m */; };
-		495EA7D71F14B64D001FCB7E /* EditAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4A01F14B64C001FCB7E /* EditAddressViewController.m */; };
-		495EA7D81F14B64D001FCB7E /* EditAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA4A11F14B64C001FCB7E /* EditAddressViewController.xib */; };
-		495EA7D91F14B64D001FCB7E /* AddressCommitOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4A41F14B64C001FCB7E /* AddressCommitOrderModel.m */; };
-		495EA7DA1F14B64D001FCB7E /* AddressListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4A61F14B64C001FCB7E /* AddressListModel.m */; };
-		495EA7DB1F14B64D001FCB7E /* ClearingStoreList.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4A81F14B64C001FCB7E /* ClearingStoreList.m */; };
-		495EA7DC1F14B64D001FCB7E /* SearchResultTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4AB1F14B64C001FCB7E /* SearchResultTableVC.m */; };
-		495EA7DD1F14B64D001FCB7E /* LocationDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4AF1F14B64C001FCB7E /* LocationDetailVC.m */; };
-		495EA7DE1F14B64D001FCB7E /* MapPoiTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4B11F14B64C001FCB7E /* MapPoiTableView.m */; };
-		495EA7DF1F14B64D001FCB7E /* GoodsitemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4B31F14B64C001FCB7E /* GoodsitemCell.m */; };
-		495EA7E01F14B64D001FCB7E /* GoodsitemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA4B41F14B64C001FCB7E /* GoodsitemCell.xib */; };
-		495EA7E11F14B64D001FCB7E /* OrderPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4B61F14B64C001FCB7E /* OrderPriceCell.m */; };
-		495EA7E21F14B64D001FCB7E /* OrderPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA4B71F14B64C001FCB7E /* OrderPriceCell.xib */; };
-		495EA7E31F14B64D001FCB7E /* OrderWithAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4B91F14B64C001FCB7E /* OrderWithAddressCell.m */; };
-		495EA7E41F14B64D001FCB7E /* OrderWithAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA4BA1F14B64C001FCB7E /* OrderWithAddressCell.xib */; };
-		495EA7E51F14B64D001FCB7E /* SendServiceTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4BC1F14B64C001FCB7E /* SendServiceTitleCell.m */; };
-		495EA7E61F14B64D001FCB7E /* SendServiceTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA4BD1F14B64C001FCB7E /* SendServiceTitleCell.xib */; };
-		495EA7E71F14B64D001FCB7E /* ShopOrderStoreNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4BF1F14B64C001FCB7E /* ShopOrderStoreNameCell.m */; };
-		495EA7E81F14B64D001FCB7E /* ShopOrderStoreNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA4C01F14B64C001FCB7E /* ShopOrderStoreNameCell.xib */; };
-		495EA7E91F14B64D001FCB7E /* OldMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4C31F14B64C001FCB7E /* OldMainViewController.m */; };
-		495EA7EA1F14B64D001FCB7E /* ZFAddOfListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4C51F14B64C001FCB7E /* ZFAddOfListCell.m */; };
-		495EA7EB1F14B64D001FCB7E /* ZFAddOfListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA4C61F14B64C001FCB7E /* ZFAddOfListCell.xib */; };
-		495EA7EC1F14B64D001FCB7E /* ZFFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4C81F14B64C001FCB7E /* ZFFooterCell.m */; };
-		495EA7ED1F14B64D001FCB7E /* ZFFooterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA4C91F14B64C001FCB7E /* ZFFooterCell.xib */; };
-		495EA7EE1F14B64D001FCB7E /* ZFOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4CB1F14B64C001FCB7E /* ZFOrderListCell.m */; };
-		495EA7EF1F14B64D001FCB7E /* ZFOrderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA4CC1F14B64C001FCB7E /* ZFOrderListCell.xib */; };
-		495EA7F01F14B64D001FCB7E /* ZFShopListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4CE1F14B64C001FCB7E /* ZFShopListCell.m */; };
-		495EA7F11F14B64D001FCB7E /* ZFShopListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA4CF1F14B64C001FCB7E /* ZFShopListCell.xib */; };
-		495EA7F21F14B64D001FCB7E /* ZFTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4D11F14B64C001FCB7E /* ZFTitleCell.m */; };
-		495EA7F31F14B64D001FCB7E /* ZFTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA4D21F14B64C001FCB7E /* ZFTitleCell.xib */; };
-		495EA7F41F14B64D001FCB7E /* ZFAddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4D41F14B64C001FCB7E /* ZFAddressListViewController.m */; };
-		495EA7F51F14B64D001FCB7E /* ZFShopListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4D61F14B64C001FCB7E /* ZFShopListViewController.m */; };
-		495EA7F61F14B64D001FCB7E /* ZFSureOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4D81F14B64C001FCB7E /* ZFSureOrderViewController.m */; };
 		495EA7F71F14B64D001FCB7E /* ZFContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4DD1F14B64C001FCB7E /* ZFContactCell.m */; };
 		495EA7F81F14B64D001FCB7E /* ZFContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495EA4DE1F14B64C001FCB7E /* ZFContactCell.xib */; };
 		495EA7F91F14B64D001FCB7E /* ZFSendHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA4E01F14B64C001FCB7E /* ZFSendHomeCell.m */; };
@@ -672,6 +672,61 @@
 		492752381EC44DFD003C22D0 /* ZFBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZFBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4927523C1EC44DFD003C22D0 /* ZFBUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZFBUITests.m; sourceTree = "<group>"; };
 		4927523E1EC44DFD003C22D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49555E5A1F1E0092002E5688 /* AddressLocationMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressLocationMapViewController.h; sourceTree = "<group>"; };
+		49555E5B1F1E0092002E5688 /* AddressLocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressLocationMapViewController.m; sourceTree = "<group>"; };
+		49555E5C1F1E0092002E5688 /* EditAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAddressViewController.h; sourceTree = "<group>"; };
+		49555E5D1F1E0092002E5688 /* EditAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAddressViewController.m; sourceTree = "<group>"; };
+		49555E5E1F1E0092002E5688 /* EditAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAddressViewController.xib; sourceTree = "<group>"; };
+		49555E601F1E0092002E5688 /* AddressCommitOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressCommitOrderModel.h; sourceTree = "<group>"; };
+		49555E611F1E0092002E5688 /* AddressCommitOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCommitOrderModel.m; sourceTree = "<group>"; };
+		49555E621F1E0092002E5688 /* AddressListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListModel.h; sourceTree = "<group>"; };
+		49555E631F1E0092002E5688 /* AddressListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListModel.m; sourceTree = "<group>"; };
+		49555E641F1E0092002E5688 /* ClearingStoreList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearingStoreList.h; sourceTree = "<group>"; };
+		49555E651F1E0092002E5688 /* ClearingStoreList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearingStoreList.m; sourceTree = "<group>"; };
+		49555E671F1E0092002E5688 /* SearchResultTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableVC.h; sourceTree = "<group>"; };
+		49555E681F1E0092002E5688 /* SearchResultTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultTableVC.m; sourceTree = "<group>"; };
+		49555E6B1F1E0092002E5688 /* LocationDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailVC.h; sourceTree = "<group>"; };
+		49555E6C1F1E0092002E5688 /* LocationDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailVC.m; sourceTree = "<group>"; };
+		49555E6D1F1E0092002E5688 /* MapPoiTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoiTableView.h; sourceTree = "<group>"; };
+		49555E6E1F1E0092002E5688 /* MapPoiTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoiTableView.m; sourceTree = "<group>"; };
+		49555E6F1F1E0092002E5688 /* GoodsitemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsitemCell.h; sourceTree = "<group>"; };
+		49555E701F1E0092002E5688 /* GoodsitemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsitemCell.m; sourceTree = "<group>"; };
+		49555E711F1E0092002E5688 /* GoodsitemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsitemCell.xib; sourceTree = "<group>"; };
+		49555E721F1E0092002E5688 /* OrderPriceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPriceCell.h; sourceTree = "<group>"; };
+		49555E731F1E0092002E5688 /* OrderPriceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPriceCell.m; sourceTree = "<group>"; };
+		49555E741F1E0092002E5688 /* OrderPriceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPriceCell.xib; sourceTree = "<group>"; };
+		49555E751F1E0092002E5688 /* OrderWithAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderWithAddressCell.h; sourceTree = "<group>"; };
+		49555E761F1E0092002E5688 /* OrderWithAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderWithAddressCell.m; sourceTree = "<group>"; };
+		49555E771F1E0092002E5688 /* OrderWithAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderWithAddressCell.xib; sourceTree = "<group>"; };
+		49555E781F1E0092002E5688 /* SendServiceTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendServiceTitleCell.h; sourceTree = "<group>"; };
+		49555E791F1E0092002E5688 /* SendServiceTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendServiceTitleCell.m; sourceTree = "<group>"; };
+		49555E7A1F1E0092002E5688 /* SendServiceTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendServiceTitleCell.xib; sourceTree = "<group>"; };
+		49555E7B1F1E0092002E5688 /* ShopOrderStoreNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopOrderStoreNameCell.h; sourceTree = "<group>"; };
+		49555E7C1F1E0092002E5688 /* ShopOrderStoreNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopOrderStoreNameCell.m; sourceTree = "<group>"; };
+		49555E7D1F1E0092002E5688 /* ShopOrderStoreNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopOrderStoreNameCell.xib; sourceTree = "<group>"; };
+		49555E7F1F1E0092002E5688 /* OldMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldMainViewController.h; sourceTree = "<group>"; };
+		49555E801F1E0092002E5688 /* OldMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldMainViewController.m; sourceTree = "<group>"; };
+		49555E811F1E0092002E5688 /* ZFAddOfListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAddOfListCell.h; sourceTree = "<group>"; };
+		49555E821F1E0092002E5688 /* ZFAddOfListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAddOfListCell.m; sourceTree = "<group>"; };
+		49555E831F1E0092002E5688 /* ZFAddOfListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFAddOfListCell.xib; sourceTree = "<group>"; };
+		49555E841F1E0092002E5688 /* ZFFooterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFFooterCell.h; sourceTree = "<group>"; };
+		49555E851F1E0092002E5688 /* ZFFooterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFFooterCell.m; sourceTree = "<group>"; };
+		49555E861F1E0092002E5688 /* ZFFooterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFFooterCell.xib; sourceTree = "<group>"; };
+		49555E871F1E0092002E5688 /* ZFOrderListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFOrderListCell.h; sourceTree = "<group>"; };
+		49555E881F1E0092002E5688 /* ZFOrderListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFOrderListCell.m; sourceTree = "<group>"; };
+		49555E891F1E0092002E5688 /* ZFOrderListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFOrderListCell.xib; sourceTree = "<group>"; };
+		49555E8A1F1E0092002E5688 /* ZFShopListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFShopListCell.h; sourceTree = "<group>"; };
+		49555E8B1F1E0092002E5688 /* ZFShopListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFShopListCell.m; sourceTree = "<group>"; };
+		49555E8C1F1E0092002E5688 /* ZFShopListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFShopListCell.xib; sourceTree = "<group>"; };
+		49555E8D1F1E0092002E5688 /* ZFTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFTitleCell.h; sourceTree = "<group>"; };
+		49555E8E1F1E0092002E5688 /* ZFTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFTitleCell.m; sourceTree = "<group>"; };
+		49555E8F1F1E0092002E5688 /* ZFTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFTitleCell.xib; sourceTree = "<group>"; };
+		49555E901F1E0092002E5688 /* ZFAddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAddressListViewController.h; sourceTree = "<group>"; };
+		49555E911F1E0092002E5688 /* ZFAddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAddressListViewController.m; sourceTree = "<group>"; };
+		49555E921F1E0092002E5688 /* ZFShopListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFShopListViewController.h; sourceTree = "<group>"; };
+		49555E931F1E0092002E5688 /* ZFShopListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFShopListViewController.m; sourceTree = "<group>"; };
+		49555E941F1E0092002E5688 /* ZFSureOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFSureOrderViewController.h; sourceTree = "<group>"; };
+		49555E951F1E0092002E5688 /* ZFSureOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFSureOrderViewController.m; sourceTree = "<group>"; };
 		4956CEA11F15F61000DAD466 /* ZFSearchDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFSearchDetailViewController.h; sourceTree = "<group>"; };
 		4956CEA21F15F61000DAD466 /* ZFSearchDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFSearchDetailViewController.m; sourceTree = "<group>"; };
 		4956CEA51F16042A00DAD466 /* HotSearchCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotSearchCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1016,61 +1071,6 @@
 		495EA4991F14B64C001FCB7E /* AllOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllOrderModel.m; sourceTree = "<group>"; };
 		495EA49A1F14B64C001FCB7E /* UserFeedbackModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFeedbackModel.h; sourceTree = "<group>"; };
 		495EA49B1F14B64C001FCB7E /* UserFeedbackModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFeedbackModel.m; sourceTree = "<group>"; };
-		495EA49D1F14B64C001FCB7E /* AddressLocationMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressLocationMapViewController.h; sourceTree = "<group>"; };
-		495EA49E1F14B64C001FCB7E /* AddressLocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressLocationMapViewController.m; sourceTree = "<group>"; };
-		495EA49F1F14B64C001FCB7E /* EditAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAddressViewController.h; sourceTree = "<group>"; };
-		495EA4A01F14B64C001FCB7E /* EditAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAddressViewController.m; sourceTree = "<group>"; };
-		495EA4A11F14B64C001FCB7E /* EditAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAddressViewController.xib; sourceTree = "<group>"; };
-		495EA4A31F14B64C001FCB7E /* AddressCommitOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressCommitOrderModel.h; sourceTree = "<group>"; };
-		495EA4A41F14B64C001FCB7E /* AddressCommitOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCommitOrderModel.m; sourceTree = "<group>"; };
-		495EA4A51F14B64C001FCB7E /* AddressListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListModel.h; sourceTree = "<group>"; };
-		495EA4A61F14B64C001FCB7E /* AddressListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListModel.m; sourceTree = "<group>"; };
-		495EA4A71F14B64C001FCB7E /* ClearingStoreList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearingStoreList.h; sourceTree = "<group>"; };
-		495EA4A81F14B64C001FCB7E /* ClearingStoreList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearingStoreList.m; sourceTree = "<group>"; };
-		495EA4AA1F14B64C001FCB7E /* SearchResultTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableVC.h; sourceTree = "<group>"; };
-		495EA4AB1F14B64C001FCB7E /* SearchResultTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultTableVC.m; sourceTree = "<group>"; };
-		495EA4AE1F14B64C001FCB7E /* LocationDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailVC.h; sourceTree = "<group>"; };
-		495EA4AF1F14B64C001FCB7E /* LocationDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailVC.m; sourceTree = "<group>"; };
-		495EA4B01F14B64C001FCB7E /* MapPoiTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoiTableView.h; sourceTree = "<group>"; };
-		495EA4B11F14B64C001FCB7E /* MapPoiTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoiTableView.m; sourceTree = "<group>"; };
-		495EA4B21F14B64C001FCB7E /* GoodsitemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsitemCell.h; sourceTree = "<group>"; };
-		495EA4B31F14B64C001FCB7E /* GoodsitemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsitemCell.m; sourceTree = "<group>"; };
-		495EA4B41F14B64C001FCB7E /* GoodsitemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsitemCell.xib; sourceTree = "<group>"; };
-		495EA4B51F14B64C001FCB7E /* OrderPriceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPriceCell.h; sourceTree = "<group>"; };
-		495EA4B61F14B64C001FCB7E /* OrderPriceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPriceCell.m; sourceTree = "<group>"; };
-		495EA4B71F14B64C001FCB7E /* OrderPriceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPriceCell.xib; sourceTree = "<group>"; };
-		495EA4B81F14B64C001FCB7E /* OrderWithAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderWithAddressCell.h; sourceTree = "<group>"; };
-		495EA4B91F14B64C001FCB7E /* OrderWithAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderWithAddressCell.m; sourceTree = "<group>"; };
-		495EA4BA1F14B64C001FCB7E /* OrderWithAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderWithAddressCell.xib; sourceTree = "<group>"; };
-		495EA4BB1F14B64C001FCB7E /* SendServiceTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendServiceTitleCell.h; sourceTree = "<group>"; };
-		495EA4BC1F14B64C001FCB7E /* SendServiceTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendServiceTitleCell.m; sourceTree = "<group>"; };
-		495EA4BD1F14B64C001FCB7E /* SendServiceTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendServiceTitleCell.xib; sourceTree = "<group>"; };
-		495EA4BE1F14B64C001FCB7E /* ShopOrderStoreNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopOrderStoreNameCell.h; sourceTree = "<group>"; };
-		495EA4BF1F14B64C001FCB7E /* ShopOrderStoreNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopOrderStoreNameCell.m; sourceTree = "<group>"; };
-		495EA4C01F14B64C001FCB7E /* ShopOrderStoreNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopOrderStoreNameCell.xib; sourceTree = "<group>"; };
-		495EA4C21F14B64C001FCB7E /* OldMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldMainViewController.h; sourceTree = "<group>"; };
-		495EA4C31F14B64C001FCB7E /* OldMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldMainViewController.m; sourceTree = "<group>"; };
-		495EA4C41F14B64C001FCB7E /* ZFAddOfListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAddOfListCell.h; sourceTree = "<group>"; };
-		495EA4C51F14B64C001FCB7E /* ZFAddOfListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAddOfListCell.m; sourceTree = "<group>"; };
-		495EA4C61F14B64C001FCB7E /* ZFAddOfListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFAddOfListCell.xib; sourceTree = "<group>"; };
-		495EA4C71F14B64C001FCB7E /* ZFFooterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFFooterCell.h; sourceTree = "<group>"; };
-		495EA4C81F14B64C001FCB7E /* ZFFooterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFFooterCell.m; sourceTree = "<group>"; };
-		495EA4C91F14B64C001FCB7E /* ZFFooterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFFooterCell.xib; sourceTree = "<group>"; };
-		495EA4CA1F14B64C001FCB7E /* ZFOrderListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFOrderListCell.h; sourceTree = "<group>"; };
-		495EA4CB1F14B64C001FCB7E /* ZFOrderListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFOrderListCell.m; sourceTree = "<group>"; };
-		495EA4CC1F14B64C001FCB7E /* ZFOrderListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFOrderListCell.xib; sourceTree = "<group>"; };
-		495EA4CD1F14B64C001FCB7E /* ZFShopListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFShopListCell.h; sourceTree = "<group>"; };
-		495EA4CE1F14B64C001FCB7E /* ZFShopListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFShopListCell.m; sourceTree = "<group>"; };
-		495EA4CF1F14B64C001FCB7E /* ZFShopListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFShopListCell.xib; sourceTree = "<group>"; };
-		495EA4D01F14B64C001FCB7E /* ZFTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFTitleCell.h; sourceTree = "<group>"; };
-		495EA4D11F14B64C001FCB7E /* ZFTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFTitleCell.m; sourceTree = "<group>"; };
-		495EA4D21F14B64C001FCB7E /* ZFTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFTitleCell.xib; sourceTree = "<group>"; };
-		495EA4D31F14B64C001FCB7E /* ZFAddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAddressListViewController.h; sourceTree = "<group>"; };
-		495EA4D41F14B64C001FCB7E /* ZFAddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAddressListViewController.m; sourceTree = "<group>"; };
-		495EA4D51F14B64C001FCB7E /* ZFShopListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFShopListViewController.h; sourceTree = "<group>"; };
-		495EA4D61F14B64C001FCB7E /* ZFShopListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFShopListViewController.m; sourceTree = "<group>"; };
-		495EA4D71F14B64C001FCB7E /* ZFSureOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFSureOrderViewController.h; sourceTree = "<group>"; };
-		495EA4D81F14B64C001FCB7E /* ZFSureOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFSureOrderViewController.m; sourceTree = "<group>"; };
 		495EA4DC1F14B64C001FCB7E /* ZFContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFContactCell.h; sourceTree = "<group>"; };
 		495EA4DD1F14B64C001FCB7E /* ZFContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFContactCell.m; sourceTree = "<group>"; };
 		495EA4DE1F14B64C001FCB7E /* ZFContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFContactCell.xib; sourceTree = "<group>"; };
@@ -1692,6 +1692,109 @@
 			path = ZFBUITests;
 			sourceTree = "<group>";
 		};
+		49555E591F1E0092002E5688 /* Order(订单地址) */ = {
+			isa = PBXGroup;
+			children = (
+				49555E5A1F1E0092002E5688 /* AddressLocationMapViewController.h */,
+				49555E5B1F1E0092002E5688 /* AddressLocationMapViewController.m */,
+				49555E5C1F1E0092002E5688 /* EditAddressViewController.h */,
+				49555E5D1F1E0092002E5688 /* EditAddressViewController.m */,
+				49555E5E1F1E0092002E5688 /* EditAddressViewController.xib */,
+				49555E5F1F1E0092002E5688 /* Model */,
+				49555E661F1E0092002E5688 /* UISearchController */,
+				49555E691F1E0092002E5688 /* Views */,
+				49555E901F1E0092002E5688 /* ZFAddressListViewController.h */,
+				49555E911F1E0092002E5688 /* ZFAddressListViewController.m */,
+				49555E921F1E0092002E5688 /* ZFShopListViewController.h */,
+				49555E931F1E0092002E5688 /* ZFShopListViewController.m */,
+				49555E941F1E0092002E5688 /* ZFSureOrderViewController.h */,
+				49555E951F1E0092002E5688 /* ZFSureOrderViewController.m */,
+			);
+			name = "Order(订单地址)";
+			path = Order;
+			sourceTree = "<group>";
+		};
+		49555E5F1F1E0092002E5688 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				49555E601F1E0092002E5688 /* AddressCommitOrderModel.h */,
+				49555E611F1E0092002E5688 /* AddressCommitOrderModel.m */,
+				49555E621F1E0092002E5688 /* AddressListModel.h */,
+				49555E631F1E0092002E5688 /* AddressListModel.m */,
+				49555E641F1E0092002E5688 /* ClearingStoreList.h */,
+				49555E651F1E0092002E5688 /* ClearingStoreList.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		49555E661F1E0092002E5688 /* UISearchController */ = {
+			isa = PBXGroup;
+			children = (
+				49555E671F1E0092002E5688 /* SearchResultTableVC.h */,
+				49555E681F1E0092002E5688 /* SearchResultTableVC.m */,
+			);
+			path = UISearchController;
+			sourceTree = "<group>";
+		};
+		49555E691F1E0092002E5688 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				49555E6A1F1E0092002E5688 /* common */,
+				49555E6F1F1E0092002E5688 /* GoodsitemCell.h */,
+				49555E701F1E0092002E5688 /* GoodsitemCell.m */,
+				49555E711F1E0092002E5688 /* GoodsitemCell.xib */,
+				49555E721F1E0092002E5688 /* OrderPriceCell.h */,
+				49555E731F1E0092002E5688 /* OrderPriceCell.m */,
+				49555E741F1E0092002E5688 /* OrderPriceCell.xib */,
+				49555E751F1E0092002E5688 /* OrderWithAddressCell.h */,
+				49555E761F1E0092002E5688 /* OrderWithAddressCell.m */,
+				49555E771F1E0092002E5688 /* OrderWithAddressCell.xib */,
+				49555E781F1E0092002E5688 /* SendServiceTitleCell.h */,
+				49555E791F1E0092002E5688 /* SendServiceTitleCell.m */,
+				49555E7A1F1E0092002E5688 /* SendServiceTitleCell.xib */,
+				49555E7B1F1E0092002E5688 /* ShopOrderStoreNameCell.h */,
+				49555E7C1F1E0092002E5688 /* ShopOrderStoreNameCell.m */,
+				49555E7D1F1E0092002E5688 /* ShopOrderStoreNameCell.xib */,
+				49555E7E1F1E0092002E5688 /* UISearchDisplayController */,
+				49555E811F1E0092002E5688 /* ZFAddOfListCell.h */,
+				49555E821F1E0092002E5688 /* ZFAddOfListCell.m */,
+				49555E831F1E0092002E5688 /* ZFAddOfListCell.xib */,
+				49555E841F1E0092002E5688 /* ZFFooterCell.h */,
+				49555E851F1E0092002E5688 /* ZFFooterCell.m */,
+				49555E861F1E0092002E5688 /* ZFFooterCell.xib */,
+				49555E871F1E0092002E5688 /* ZFOrderListCell.h */,
+				49555E881F1E0092002E5688 /* ZFOrderListCell.m */,
+				49555E891F1E0092002E5688 /* ZFOrderListCell.xib */,
+				49555E8A1F1E0092002E5688 /* ZFShopListCell.h */,
+				49555E8B1F1E0092002E5688 /* ZFShopListCell.m */,
+				49555E8C1F1E0092002E5688 /* ZFShopListCell.xib */,
+				49555E8D1F1E0092002E5688 /* ZFTitleCell.h */,
+				49555E8E1F1E0092002E5688 /* ZFTitleCell.m */,
+				49555E8F1F1E0092002E5688 /* ZFTitleCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		49555E6A1F1E0092002E5688 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				49555E6B1F1E0092002E5688 /* LocationDetailVC.h */,
+				49555E6C1F1E0092002E5688 /* LocationDetailVC.m */,
+				49555E6D1F1E0092002E5688 /* MapPoiTableView.h */,
+				49555E6E1F1E0092002E5688 /* MapPoiTableView.m */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		49555E7E1F1E0092002E5688 /* UISearchDisplayController */ = {
+			isa = PBXGroup;
+			children = (
+				49555E7F1F1E0092002E5688 /* OldMainViewController.h */,
+				49555E801F1E0092002E5688 /* OldMainViewController.m */,
+			);
+			path = UISearchDisplayController;
+			sourceTree = "<group>";
+		};
 		4956CEA41F16040A00DAD466 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2185,6 +2288,7 @@
 		495EA3C21F14B64B001FCB7E /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				49555E591F1E0092002E5688 /* Order(订单地址) */,
 				495EA3C31F14B64B001FCB7E /* Base(基类) */,
 				495EA3CE1F14B64B001FCB7E /* FriendsCircle(朋友圈) */,
 				495EA3D41F14B64B001FCB7E /* Home(首页) */,
@@ -2522,7 +2626,6 @@
 				495EA4861F14B64C001FCB7E /* MerchantClientController */,
 				495EA4881F14B64C001FCB7E /* MineViews */,
 				495EA4971F14B64C001FCB7E /* Models */,
-				495EA49C1F14B64C001FCB7E /* Order(订单地址) */,
 				495EA4D91F14B64C001FCB7E /* SendClientController */,
 				495EA5121F14B64C001FCB7E /* Setting(设置) */,
 				495EA5241F14B64C001FCB7E /* Views */,
@@ -2644,109 +2747,6 @@
 				495EA49B1F14B64C001FCB7E /* UserFeedbackModel.m */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		495EA49C1F14B64C001FCB7E /* Order(订单地址) */ = {
-			isa = PBXGroup;
-			children = (
-				495EA49D1F14B64C001FCB7E /* AddressLocationMapViewController.h */,
-				495EA49E1F14B64C001FCB7E /* AddressLocationMapViewController.m */,
-				495EA49F1F14B64C001FCB7E /* EditAddressViewController.h */,
-				495EA4A01F14B64C001FCB7E /* EditAddressViewController.m */,
-				495EA4A11F14B64C001FCB7E /* EditAddressViewController.xib */,
-				495EA4A21F14B64C001FCB7E /* Model */,
-				495EA4A91F14B64C001FCB7E /* UISearchController */,
-				495EA4AC1F14B64C001FCB7E /* Views */,
-				495EA4D31F14B64C001FCB7E /* ZFAddressListViewController.h */,
-				495EA4D41F14B64C001FCB7E /* ZFAddressListViewController.m */,
-				495EA4D51F14B64C001FCB7E /* ZFShopListViewController.h */,
-				495EA4D61F14B64C001FCB7E /* ZFShopListViewController.m */,
-				495EA4D71F14B64C001FCB7E /* ZFSureOrderViewController.h */,
-				495EA4D81F14B64C001FCB7E /* ZFSureOrderViewController.m */,
-			);
-			name = "Order(订单地址)";
-			path = Order;
-			sourceTree = "<group>";
-		};
-		495EA4A21F14B64C001FCB7E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				495EA4A31F14B64C001FCB7E /* AddressCommitOrderModel.h */,
-				495EA4A41F14B64C001FCB7E /* AddressCommitOrderModel.m */,
-				495EA4A51F14B64C001FCB7E /* AddressListModel.h */,
-				495EA4A61F14B64C001FCB7E /* AddressListModel.m */,
-				495EA4A71F14B64C001FCB7E /* ClearingStoreList.h */,
-				495EA4A81F14B64C001FCB7E /* ClearingStoreList.m */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		495EA4A91F14B64C001FCB7E /* UISearchController */ = {
-			isa = PBXGroup;
-			children = (
-				495EA4AA1F14B64C001FCB7E /* SearchResultTableVC.h */,
-				495EA4AB1F14B64C001FCB7E /* SearchResultTableVC.m */,
-			);
-			path = UISearchController;
-			sourceTree = "<group>";
-		};
-		495EA4AC1F14B64C001FCB7E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				495EA4AD1F14B64C001FCB7E /* common */,
-				495EA4B21F14B64C001FCB7E /* GoodsitemCell.h */,
-				495EA4B31F14B64C001FCB7E /* GoodsitemCell.m */,
-				495EA4B41F14B64C001FCB7E /* GoodsitemCell.xib */,
-				495EA4B51F14B64C001FCB7E /* OrderPriceCell.h */,
-				495EA4B61F14B64C001FCB7E /* OrderPriceCell.m */,
-				495EA4B71F14B64C001FCB7E /* OrderPriceCell.xib */,
-				495EA4B81F14B64C001FCB7E /* OrderWithAddressCell.h */,
-				495EA4B91F14B64C001FCB7E /* OrderWithAddressCell.m */,
-				495EA4BA1F14B64C001FCB7E /* OrderWithAddressCell.xib */,
-				495EA4BB1F14B64C001FCB7E /* SendServiceTitleCell.h */,
-				495EA4BC1F14B64C001FCB7E /* SendServiceTitleCell.m */,
-				495EA4BD1F14B64C001FCB7E /* SendServiceTitleCell.xib */,
-				495EA4BE1F14B64C001FCB7E /* ShopOrderStoreNameCell.h */,
-				495EA4BF1F14B64C001FCB7E /* ShopOrderStoreNameCell.m */,
-				495EA4C01F14B64C001FCB7E /* ShopOrderStoreNameCell.xib */,
-				495EA4C11F14B64C001FCB7E /* UISearchDisplayController */,
-				495EA4C41F14B64C001FCB7E /* ZFAddOfListCell.h */,
-				495EA4C51F14B64C001FCB7E /* ZFAddOfListCell.m */,
-				495EA4C61F14B64C001FCB7E /* ZFAddOfListCell.xib */,
-				495EA4C71F14B64C001FCB7E /* ZFFooterCell.h */,
-				495EA4C81F14B64C001FCB7E /* ZFFooterCell.m */,
-				495EA4C91F14B64C001FCB7E /* ZFFooterCell.xib */,
-				495EA4CA1F14B64C001FCB7E /* ZFOrderListCell.h */,
-				495EA4CB1F14B64C001FCB7E /* ZFOrderListCell.m */,
-				495EA4CC1F14B64C001FCB7E /* ZFOrderListCell.xib */,
-				495EA4CD1F14B64C001FCB7E /* ZFShopListCell.h */,
-				495EA4CE1F14B64C001FCB7E /* ZFShopListCell.m */,
-				495EA4CF1F14B64C001FCB7E /* ZFShopListCell.xib */,
-				495EA4D01F14B64C001FCB7E /* ZFTitleCell.h */,
-				495EA4D11F14B64C001FCB7E /* ZFTitleCell.m */,
-				495EA4D21F14B64C001FCB7E /* ZFTitleCell.xib */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		495EA4AD1F14B64C001FCB7E /* common */ = {
-			isa = PBXGroup;
-			children = (
-				495EA4AE1F14B64C001FCB7E /* LocationDetailVC.h */,
-				495EA4AF1F14B64C001FCB7E /* LocationDetailVC.m */,
-				495EA4B01F14B64C001FCB7E /* MapPoiTableView.h */,
-				495EA4B11F14B64C001FCB7E /* MapPoiTableView.m */,
-			);
-			path = common;
-			sourceTree = "<group>";
-		};
-		495EA4C11F14B64C001FCB7E /* UISearchDisplayController */ = {
-			isa = PBXGroup;
-			children = (
-				495EA4C21F14B64C001FCB7E /* OldMainViewController.h */,
-				495EA4C31F14B64C001FCB7E /* OldMainViewController.m */,
-			);
-			path = UISearchDisplayController;
 			sourceTree = "<group>";
 		};
 		495EA4D91F14B64C001FCB7E /* SendClientController */ = {
@@ -3875,7 +3875,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				495EA8561F14B64D001FCB7E /* arrows_down_black@2x.png in Resources */,
-				495EA7E21F14B64D001FCB7E /* OrderPriceCell.xib in Resources */,
 				495EA8151F14B64D001FCB7E /* ZFSaleAfterHeadCell.xib in Resources */,
 				495EA9231F14B64E001FCB7E /* cases@3x.png in Resources */,
 				495EA7BA1F14B64D001FCB7E /* LoginViewController.xib in Resources */,
@@ -3885,6 +3884,7 @@
 				495EA8981F14B64D001FCB7E /* passWord@2x.png in Resources */,
 				495EA7AB1F14B64D001FCB7E /* FuncListTableViewCell.xib in Resources */,
 				495EA8F01F14B64E001FCB7E /* Order_down@2x.png in Resources */,
+				49555EB11F1E0092002E5688 /* ZFShopListCell.xib in Resources */,
 				495EA8CA1F14B64E001FCB7E /* setting_calling@2x.png in Resources */,
 				495EA8DB1F14B64E001FCB7E /* star_Selected@3x.png in Resources */,
 				495EA8B01F14B64D001FCB7E /* shoppingCar_selected@2x.png in Resources */,
@@ -3900,7 +3900,7 @@
 				495EA8BC1F14B64E001FCB7E /* editting@2x.png in Resources */,
 				495EA87A1F14B64D001FCB7E /* im_massage@2x.png in Resources */,
 				495EA82F1F14B64D001FCB7E /* ZFMyOpinionCell.xib in Resources */,
-				495EA7EB1F14B64D001FCB7E /* ZFAddOfListCell.xib in Resources */,
+				49555EAF1F1E0092002E5688 /* ZFOrderListCell.xib in Resources */,
 				495EA9081F14B64E001FCB7E /* more_icon@2x.png in Resources */,
 				495EA8521F14B64D001FCB7E /* ZFShopCarCell.xib in Resources */,
 				495EA7D01F14B64D001FCB7E /* ZFMyProgressCell.xib in Resources */,
@@ -3927,11 +3927,13 @@
 				495EA8DD1F14B64E001FCB7E /* add@3x.png in Resources */,
 				495EA8D71F14B64E001FCB7E /* wateRedBlank@3x.png in Resources */,
 				495EA7851F14B64D001FCB7E /* ZFAppraiseSectionCell.xib in Resources */,
+				49555EA81F1E0092002E5688 /* ShopOrderStoreNameCell.xib in Resources */,
 				495EA83E1F14B64D001FCB7E /* ApplySalesAfterCommonCell.xib in Resources */,
 				495EA8231F14B64D001FCB7E /* FeedCollectionViewCell.xib in Resources */,
 				495EA8FD1F14B64E001FCB7E /* calling_icon@3x.png in Resources */,
 				495EA9061F14B64E001FCB7E /* location_icon2@2x.png in Resources */,
 				495EA8291F14B64D001FCB7E /* FeedPickerTableViewCell.xib in Resources */,
+				49555E981F1E0092002E5688 /* EditAddressViewController.xib in Resources */,
 				495EA8F61F14B64E001FCB7E /* send_red@2x.png in Resources */,
 				495EA8F31F14B64E001FCB7E /* Order_normal@3x.png in Resources */,
 				495EA9211F14B64E001FCB7E /* accessory@3x.png in Resources */,
@@ -3958,12 +3960,10 @@
 				495EA92F1F14B64E001FCB7E /* TV@3x.png in Resources */,
 				495EA8921F14B64D001FCB7E /* arrows_down_red@2x.png in Resources */,
 				495EA9321F14B64E001FCB7E /* womanClothes@2x.png in Resources */,
-				495EA7D81F14B64D001FCB7E /* EditAddressViewController.xib in Resources */,
 				495EA7A51F14B64D001FCB7E /* AllStoreCell.xib in Resources */,
 				495EA8851F14B64D001FCB7E /* setting@3x.png in Resources */,
 				495EA8691F14B64D001FCB7E /* bag_selected@3x.png in Resources */,
 				495EA8E51F14B64E001FCB7E /* success_order@3x.png in Resources */,
-				495EA7F11F14B64D001FCB7E /* ZFShopListCell.xib in Resources */,
 				495EA7B31F14B64D001FCB7E /* HPLocationCell.xib in Resources */,
 				495EA87E1F14B64D001FCB7E /* order_icon@2x.png in Resources */,
 				495EA8C31F14B64E001FCB7E /* icon_location@3x.png in Resources */,
@@ -3994,6 +3994,7 @@
 				495EA8C91F14B64E001FCB7E /* setting_cache@3x.png in Resources */,
 				495EA8FA1F14B64E001FCB7E /* sendComplete_normal@2x.png in Resources */,
 				495EA7BE1F14B64D001FCB7E /* ResetPassWViewController.xib in Resources */,
+				49555EB31F1E0092002E5688 /* ZFTitleCell.xib in Resources */,
 				495EA8911F14B64D001FCB7E /* arrows_down_gray@3x.png in Resources */,
 				495EA8E61F14B64E001FCB7E /* warning_order@2x.png in Resources */,
 				495EA8CF1F14B64E001FCB7E /* setting_message@3x.png in Resources */,
@@ -4002,6 +4003,7 @@
 				495EA9051F14B64E001FCB7E /* dot_selected@3x.png in Resources */,
 				495EA8651F14B64D001FCB7E /* arrows_Right_black@3x.png in Resources */,
 				495EA8EC1F14B64E001FCB7E /* home_normal@2x.png in Resources */,
+				49555EAB1F1E0092002E5688 /* ZFAddOfListCell.xib in Resources */,
 				495EA8641F14B64D001FCB7E /* arrows_Right_black@2x.png in Resources */,
 				495EA88B1F14B64D001FCB7E /* write@3x.png in Resources */,
 				495EA8AB1F14B64D001FCB7E /* shopkeeper@3x.png in Resources */,
@@ -4036,7 +4038,6 @@
 				495EA7AF1F14B64D001FCB7E /* HotCollectionViewCell.xib in Resources */,
 				495EA7391F14B64D001FCB7E /* blankpage_image_loadFail@3x.png in Resources */,
 				495EA8C61F14B64E001FCB7E /* NOAddress@2x.png in Resources */,
-				495EA7E61F14B64D001FCB7E /* SendServiceTitleCell.xib in Resources */,
 				495EA8CD1F14B64E001FCB7E /* setting_headView@3x.png in Resources */,
 				495EA8F11F14B64E001FCB7E /* Order_down@3x.png in Resources */,
 				495EA86B1F14B64D001FCB7E /* cellphone_normal@3x.png in Resources */,
@@ -4044,12 +4045,10 @@
 				495EA8A41F14B64D001FCB7E /* circle_selected@2x.png in Resources */,
 				495EA8B11F14B64D001FCB7E /* shoppingCar_selected@3x.png in Resources */,
 				495EA9201F14B64E001FCB7E /* accessory@2x.png in Resources */,
-				495EA7F31F14B64D001FCB7E /* ZFTitleCell.xib in Resources */,
 				495EA8C81F14B64E001FCB7E /* setting_cache@2x.png in Resources */,
 				495EA7AD1F14B64D001FCB7E /* GuessCell.xib in Resources */,
 				495EA8D41F14B64E001FCB7E /* setting_shakehand@2x.png in Resources */,
 				495EA8DA1F14B64E001FCB7E /* star_Selected@2x.png in Resources */,
-				495EA7E81F14B64D001FCB7E /* ShopOrderStoreNameCell.xib in Resources */,
 				495EA8661F14B64D001FCB7E /* bag_normal@2x.png in Resources */,
 				495EA8FF1F14B64E001FCB7E /* Collected@3x.png in Resources */,
 				495EA8501F14B64D001FCB7E /* ShopCarSectionHeadViewCell.xib in Resources */,
@@ -4072,11 +4071,13 @@
 				495EA85E1F14B64D001FCB7E /* weibo@2x.png in Resources */,
 				495EA8721F14B64D001FCB7E /* shoppingCar_normal@2x.png in Resources */,
 				495EA82B1F14B64D001FCB7E /* FeedTextViewCell.xib in Resources */,
+				49555EA01F1E0092002E5688 /* GoodsitemCell.xib in Resources */,
 				495EA92E1F14B64E001FCB7E /* TV@2x.png in Resources */,
 				495EA8B91F14B64D001FCB7E /* collectshopCar@3x.png in Resources */,
 				495EA8451F14B64D001FCB7E /* ZFOrderDetailGoosContentCell.xib in Resources */,
 				495EA8B51F14B64D001FCB7E /* choose_normal40@3x.png in Resources */,
 				495EA9001F14B64E001FCB7E /* comment_white@2x.png in Resources */,
+				49555EA61F1E0092002E5688 /* SendServiceTitleCell.xib in Resources */,
 				495EA7771F14B64D001FCB7E /* DetailShareViewController.xib in Resources */,
 				495EA85F1F14B64D001FCB7E /* weibo@3x.png in Resources */,
 				495EA90A1F14B64E001FCB7E /* share_icon@2x.png in Resources */,
@@ -4099,6 +4100,7 @@
 				495EA9121F14B64E001FCB7E /* location_find@2x.png in Resources */,
 				495EA8B21F14B64D001FCB7E /* addphone@2x.png in Resources */,
 				495EA8541F14B64D001FCB7E /* 11.jpg in Resources */,
+				49555EA21F1E0092002E5688 /* OrderPriceCell.xib in Resources */,
 				495EA77C1F14B64D001FCB7E /* SelectTableviewCell.xib in Resources */,
 				495EA82D1F14B64D001FCB7E /* FeedTypeTableViewCell.xib in Resources */,
 				495EA80D1F14B64D001FCB7E /* ZFCheckTheProgressCell.xib in Resources */,
@@ -4110,12 +4112,12 @@
 				495EA7891F14B64D001FCB7E /* ZFDetailStoreCell.xib in Resources */,
 				495EA8C11F14B64E001FCB7E /* gpssearchbutton@3x.png in Resources */,
 				495EA7F81F14B64D001FCB7E /* ZFContactCell.xib in Resources */,
-				495EA7EF1F14B64D001FCB7E /* ZFOrderListCell.xib in Resources */,
 				495EA8A21F14B64D001FCB7E /* circle@2x.png in Resources */,
 				495EA8A31F14B64D001FCB7E /* circle@3x.png in Resources */,
 				495EA8621F14B64D001FCB7E /* wx_share@2x.png in Resources */,
 				495EA8961F14B64D001FCB7E /* message@2x.png in Resources */,
 				495EA8841F14B64D001FCB7E /* setting@2x.png in Resources */,
+				49555EAD1F1E0092002E5688 /* ZFFooterCell.xib in Resources */,
 				495EA8681F14B64D001FCB7E /* bag_selected@2x.png in Resources */,
 				495EA8F81F14B64E001FCB7E /* sendcar_normal@2x.png in Resources */,
 				495EA8AC1F14B64D001FCB7E /* shopkeeper_selected@2x.png in Resources */,
@@ -4159,7 +4161,6 @@
 				495EA78E1F14B64D001FCB7E /* ZFLocationGoToStoreCell.xib in Resources */,
 				495EA8C51F14B64E001FCB7E /* navback_white@3x.png in Resources */,
 				495EA8E71F14B64E001FCB7E /* warning_order@3x.png in Resources */,
-				495EA7ED1F14B64D001FCB7E /* ZFFooterCell.xib in Resources */,
 				495EA7FE1F14B64D001FCB7E /* ZFSendingCell.xib in Resources */,
 				495EA9181F14B64E001FCB7E /* searchBar@2x.png in Resources */,
 				495EA92C1F14B64E001FCB7E /* manClothes@2x.png in Resources */,
@@ -4177,12 +4178,11 @@
 				495EA8251F14B64D001FCB7E /* FeedCommitCollectionViewCell.xib in Resources */,
 				495EA7A71F14B64D001FCB7E /* FindStoreCell.xib in Resources */,
 				495EA87F1F14B64D001FCB7E /* order_icon@3x.png in Resources */,
-				495EA7E01F14B64D001FCB7E /* GoodsitemCell.xib in Resources */,
 				495EA89C1F14B64D001FCB7E /* s_Selected@2x.png in Resources */,
 				49917B9F1F1C937A005790AF /* DetailgoodsSelectCell.xib in Resources */,
 				495EA8B61F14B64D001FCB7E /* choose_selected40@2x.png in Resources */,
 				495EA86F1F14B64D001FCB7E /* Love_selected@3x.png in Resources */,
-				495EA7E41F14B64D001FCB7E /* OrderWithAddressCell.xib in Resources */,
+				49555EA41F1E0092002E5688 /* OrderWithAddressCell.xib in Resources */,
 				495EA8DE1F14B64E001FCB7E /* reduce@2x.png in Resources */,
 				495EA7B11F14B64D001FCB7E /* HotTableViewCell.xib in Resources */,
 				495EA88F1F14B64D001FCB7E /* placeholder@3x.png in Resources */,
@@ -4283,7 +4283,7 @@
 				50D4D6841F1BB94D0073DBC1 /* QBAssetsCollectionViewLayout.m in Sources */,
 				495EA7D11F14B64D001FCB7E /* ZFMySendServiceCell.m in Sources */,
 				495EA8081F14B64D001FCB7E /* ZFApplyReasonCell.m in Sources */,
-				495EA7F01F14B64D001FCB7E /* ZFShopListCell.m in Sources */,
+				49555EA11F1E0092002E5688 /* OrderPriceCell.m in Sources */,
 				495EA9591F14B64E001FCB7E /* TAPageControl.m in Sources */,
 				49917B971F1C5723005790AF /* ClassLeftListModel.m in Sources */,
 				495EA7BB1F14B64D001FCB7E /* RegisterViewController.m in Sources */,
@@ -4293,7 +4293,6 @@
 				495EA8351F14B64D001FCB7E /* ZFDetailOrderViewController.m in Sources */,
 				495EA7C91F14B64D001FCB7E /* ZFHistoryCell.m in Sources */,
 				495EA78F1F14B64D001FCB7E /* ZFLoctionNavCell.m in Sources */,
-				495EA7F61F14B64D001FCB7E /* ZFSureOrderViewController.m in Sources */,
 				50D4D6811F1BB94D0073DBC1 /* QBAssetsCollectionVideoIndicatorView.m in Sources */,
 				495EA7161F14B64D001FCB7E /* NSData+Encrypt.m in Sources */,
 				495EA8001F14B64D001FCB7E /* ZFSendSerViceViewController.m in Sources */,
@@ -4303,12 +4302,8 @@
 				495EA9381F14B64E001FCB7E /* FSTextView.m in Sources */,
 				495EA8161F14B64D001FCB7E /* ZFSaleAfterSearchCell.m in Sources */,
 				495EA75B1F14B64D001FCB7E /* TDView.m in Sources */,
-				495EA7DA1F14B64D001FCB7E /* AddressListModel.m in Sources */,
 				495EA7361F14B64D001FCB7E /* WJYAlertView.m in Sources */,
-				495EA7DD1F14B64D001FCB7E /* LocationDetailVC.m in Sources */,
-				495EA7E31F14B64D001FCB7E /* OrderWithAddressCell.m in Sources */,
 				495EA94C1F14B64E001FCB7E /* MJRefreshConst.m in Sources */,
-				495EA7DC1F14B64D001FCB7E /* SearchResultTableVC.m in Sources */,
 				495EA7671F14B64D001FCB7E /* BaseTabbarController.m in Sources */,
 				495EA80A1F14B64D001FCB7E /* ZFAppySalesReturnCell.m in Sources */,
 				506745AC1F1D1A2F000CC722 /* PublishAppraiseViewController.m in Sources */,
@@ -4316,12 +4311,12 @@
 				495EA8121F14B64D001FCB7E /* ZFSaleAfterContentCell.m in Sources */,
 				495EA74B1F14B64D001FCB7E /* imageCompressHelper.m in Sources */,
 				495EA96F1F14B64E001FCB7E /* UITableView+FDKeyedHeightCache.m in Sources */,
-				495EA7F51F14B64D001FCB7E /* ZFShopListViewController.m in Sources */,
 				495EA8361F14B64D001FCB7E /* ZFFeedbackViewController.m in Sources */,
 				495EA80E1F14B64D001FCB7E /* ZFPregressCheckCell.m in Sources */,
 				495EA78D1F14B64D001FCB7E /* ZFLocationGoToStoreCell.m in Sources */,
 				495EA7461F14B64D001FCB7E /* NSString+RegexCategory.m in Sources */,
 				495EA7C11F14B64D001FCB7E /* ZFCollectViewController.m in Sources */,
+				49555EA31F1E0092002E5688 /* OrderWithAddressCell.m in Sources */,
 				495EA7471F14B64D001FCB7E /* NSString+UUID.m in Sources */,
 				495EA7781F14B64D001FCB7E /* DetailStoreViewController.m in Sources */,
 				495EA94F1F14B64E001FCB7E /* UIView+MJExtension.m in Sources */,
@@ -4331,6 +4326,7 @@
 				495EA7A01F14B64D001FCB7E /* HomeHotModel.m in Sources */,
 				495EA82C1F14B64D001FCB7E /* FeedTypeTableViewCell.m in Sources */,
 				495EA93D1F14B64E001FCB7E /* MJRefreshAutoFooter.m in Sources */,
+				49555EAA1F1E0092002E5688 /* ZFAddOfListCell.m in Sources */,
 				50D4D6671F1BB8C00073DBC1 /* UIView+Extension.m in Sources */,
 				495EA7A21F14B64D001FCB7E /* HomeSearchBarViewController.m in Sources */,
 				495EA8181F14B64D001FCB7E /* ZFSaleAfterTopView.m in Sources */,
@@ -4347,7 +4343,6 @@
 				495EA7B61F14B64D001FCB7E /* ZFHomeViewController.m in Sources */,
 				495EA9771F14B64E001FCB7E /* YYKVStorage.m in Sources */,
 				495EA74C1F14B64D001FCB7E /* UITapImageView.m in Sources */,
-				495EA7D71F14B64D001FCB7E /* EditAddressViewController.m in Sources */,
 				495EA75C1F14B64D001FCB7E /* UIView+ZFCornerRadius.m in Sources */,
 				4956CEA31F15F61000DAD466 /* ZFSearchDetailViewController.m in Sources */,
 				50D4D7AB1F1BC2A10073DBC1 /* MBProgressHUD+MP.m in Sources */,
@@ -4355,22 +4350,22 @@
 				495EA79A1F14B64D001FCB7E /* AllStoreModel.m in Sources */,
 				495EA8021F14B64D001FCB7E /* ApplySalesNumCell.m in Sources */,
 				495EA84E1F14B64D001FCB7E /* PayforCell.m in Sources */,
-				495EA7EA1F14B64D001FCB7E /* ZFAddOfListCell.m in Sources */,
 				50D4D7B21F1BC5A60073DBC1 /* UIWindow+currentVC.m in Sources */,
 				495EA76A1F14B64D001FCB7E /* ZFbaseTabbarViewController.m in Sources */,
+				49555E9A1F1E0092002E5688 /* AddressListModel.m in Sources */,
+				49555EAC1F1E0092002E5688 /* ZFFooterCell.m in Sources */,
 				50D4D6881F1BB94D0073DBC1 /* QBImagePickerThumbnailView.m in Sources */,
 				495EA7541F14B64D001FCB7E /* UIImage+Alpha.m in Sources */,
 				495EA72F1F14B64D001FCB7E /* AdvertiseView.m in Sources */,
 				50D4D6851F1BB94D0073DBC1 /* QBImagePickerController.m in Sources */,
-				495EA7E11F14B64D001FCB7E /* OrderPriceCell.m in Sources */,
 				495EA94A1F14B64E001FCB7E /* MJRefreshStateHeader.m in Sources */,
 				495EA8461F14B64D001FCB7E /* ZFOrderDetailPaycashCell.m in Sources */,
 				495EA7A81F14B64D001FCB7E /* FuncListCollectionViewCell.m in Sources */,
 				495EA7A11F14B64D001FCB7E /* HomeStoreListModel.m in Sources */,
 				50D4D6801F1BB94D0073DBC1 /* QBAssetsCollectionOverlayView.m in Sources */,
 				495EA8311F14B64D001FCB7E /* ZFAppySalesReturnViewController.m in Sources */,
+				49555EA51F1E0092002E5688 /* SendServiceTitleCell.m in Sources */,
 				495EA7201F14B64D001FCB7E /* UIImageView+Extentsion.m in Sources */,
-				495EA7DE1F14B64D001FCB7E /* MapPoiTableView.m in Sources */,
 				495EA7CB1F14B64D001FCB7E /* ZFMyCashBagCell.m in Sources */,
 				495EA76D1F14B64D001FCB7E /* CollectionViewHeaderView.m in Sources */,
 				495EA7FF1F14B64D001FCB7E /* ZFSendPopView.m in Sources */,
@@ -4383,6 +4378,7 @@
 				495EA94E1F14B64E001FCB7E /* UIScrollView+MJRefresh.m in Sources */,
 				495EA7BD1F14B64D001FCB7E /* ResetPassWViewController.m in Sources */,
 				495EA7481F14B64D001FCB7E /* ZZYPhotoHelper.m in Sources */,
+				49555EAE1F1E0092002E5688 /* ZFOrderListCell.m in Sources */,
 				495EA9721F14B64E001FCB7E /* YBPopupMenu.m in Sources */,
 				495EA80C1F14B64D001FCB7E /* ZFCheckTheProgressCell.m in Sources */,
 				495EA9441F14B64E001FCB7E /* MJRefreshAutoStateFooter.m in Sources */,
@@ -4396,11 +4392,10 @@
 				49690CBD1F14D0CF004C501B /* PPNetworkHelper.m in Sources */,
 				495EA9741F14B64E001FCB7E /* YBRectConst.m in Sources */,
 				4956CEA81F16042A00DAD466 /* HotSearchCollectionViewCell.m in Sources */,
-				495EA7DF1F14B64D001FCB7E /* GoodsitemCell.m in Sources */,
-				495EA7F41F14B64D001FCB7E /* ZFAddressListViewController.m in Sources */,
 				495EA9521F14B64E001FCB7E /* PYSearchSuggestionViewController.m in Sources */,
 				495EA8531F14B64D001FCB7E /* ZFShoppingCarViewController.m in Sources */,
 				495EA96E1F14B64E001FCB7E /* UITableView+FDIndexPathHeightCache.m in Sources */,
+				49555EA71F1E0092002E5688 /* ShopOrderStoreNameCell.m in Sources */,
 				495EA8441F14B64D001FCB7E /* ZFOrderDetailGoosContentCell.m in Sources */,
 				492752191EC44DFC003C22D0 /* main.m in Sources */,
 				495EA7591F14B64D001FCB7E /* CustomFooterView.m in Sources */,
@@ -4412,6 +4407,7 @@
 				495EA7FB1F14B64D001FCB7E /* ZFSendHomeListCell.m in Sources */,
 				495EA74E1F14B64D001FCB7E /* PTXDatePickerView.m in Sources */,
 				495EA7941F14B64D001FCB7E /* ZFAllStoreViewController.m in Sources */,
+				49555E9B1F1E0092002E5688 /* ClearingStoreList.m in Sources */,
 				495EA7AE1F14B64D001FCB7E /* HotCollectionViewCell.m in Sources */,
 				50D4D6871F1BB94D0073DBC1 /* QBImagePickerGroupCell.m in Sources */,
 				495EA73C1F14B64D001FCB7E /* EaseBlankPageView.m in Sources */,
@@ -4421,10 +4417,12 @@
 				495EA7A61F14B64D001FCB7E /* FindStoreCell.m in Sources */,
 				495EA7971F14B64D001FCB7E /* FindStoreViewController.m in Sources */,
 				49690CBF1F14EB3A004C501B /* MENetWorkManager.m in Sources */,
+				49555E9E1F1E0092002E5688 /* MapPoiTableView.m in Sources */,
 				495EA7B91F14B64D001FCB7E /* LoginViewController.m in Sources */,
 				495EA9421F14B64E001FCB7E /* MJRefreshAutoGifFooter.m in Sources */,
 				495EA93A1F14B64E001FCB7E /* GVUserDefaults.m in Sources */,
 				495EA7861F14B64D001FCB7E /* ZFbabyEvaluateCell.m in Sources */,
+				49555EB01F1E0092002E5688 /* ZFShopListCell.m in Sources */,
 				495EA8191F14B64D001FCB7E /* ZFSettingAddressViewController.m in Sources */,
 				495EA82E1F14B64D001FCB7E /* ZFMyOpinionCell.m in Sources */,
 				495EA7741F14B64D001FCB7E /* ZFCollectionViewFlowLayout.m in Sources */,
@@ -4434,24 +4432,28 @@
 				495EA7571F14B64D001FCB7E /* UIImage+RoundedCorner.m in Sources */,
 				495EA7B21F14B64D001FCB7E /* HPLocationCell.m in Sources */,
 				495EA9471F14B64E001FCB7E /* MJRefreshBackStateFooter.m in Sources */,
+				49555E9C1F1E0092002E5688 /* SearchResultTableVC.m in Sources */,
 				495EA71E1F14B64D001FCB7E /* UIImage+ADCircleImage.m in Sources */,
 				495EA81A1F14B64D001FCB7E /* ZFSettingHeadViewController.m in Sources */,
 				495EA95A1F14B64E001FCB7E /* SDCollectionViewCell.m in Sources */,
 				495EA76B1F14B64D001FCB7E /* ZFCInterpersonalCircleViewController.m in Sources */,
+				49555EB61F1E0092002E5688 /* ZFSureOrderViewController.m in Sources */,
 				495EA74F1F14B64D001FCB7E /* NSDictionary+TJSafe.m in Sources */,
 				495EA71D1F14B64D001FCB7E /* UIButton+XW.m in Sources */,
 				495EA75A1F14B64D001FCB7E /* CustomHeaderView.m in Sources */,
 				50D4D67E1F1BB94D0073DBC1 /* QBAssetsCollectionCheckmarkView.m in Sources */,
 				495EA7441F14B64D001FCB7E /* NSData+Base64.m in Sources */,
+				49555EB41F1E0092002E5688 /* ZFAddressListViewController.m in Sources */,
 				495EA9761F14B64E001FCB7E /* YYDiskCache.m in Sources */,
 				495EA7191F14B64D001FCB7E /* NSString+ZFSortAppdending.m in Sources */,
+				49555E991F1E0092002E5688 /* AddressCommitOrderModel.m in Sources */,
 				495EA7D21F14B64D001FCB7E /* ZFPersonalHeaderView.m in Sources */,
 				495EA7151F14B64D001FCB7E /* NSData+APNSToken.m in Sources */,
 				495EA8511F14B64D001FCB7E /* ZFShopCarCell.m in Sources */,
 				495EA93F1F14B64E001FCB7E /* MJRefreshComponent.m in Sources */,
 				495EA7AC1F14B64D001FCB7E /* GuessCell.m in Sources */,
+				49555E961F1E0092002E5688 /* AddressLocationMapViewController.m in Sources */,
 				495EA76C1F14B64D001FCB7E /* CollectionCategoryModel.m in Sources */,
-				495EA7E71F14B64D001FCB7E /* ShopOrderStoreNameCell.m in Sources */,
 				495EA73F1F14B64D001FCB7E /* introductoryPagesHelper.m in Sources */,
 				495EA7181F14B64D001FCB7E /* NSString+JsonChange.m in Sources */,
 				495EA7221F14B64D001FCB7E /* UIView+MJ.m in Sources */,
@@ -4459,6 +4461,7 @@
 				495EA9781F14B64E001FCB7E /* YYMemoryCache.m in Sources */,
 				495EA7C41F14B64D001FCB7E /* HistoryFootModel.m in Sources */,
 				495EA7491F14B64D001FCB7E /* cameraHelper.m in Sources */,
+				49555EB21F1E0092002E5688 /* ZFTitleCell.m in Sources */,
 				50D4D7AF1F1BC5680073DBC1 /* UIViewController+Unitil.m in Sources */,
 				495EA79C1F14B64D001FCB7E /* DetailStoreModel.m in Sources */,
 				495EA7C21F14B64D001FCB7E /* ZFHistoryViewController.m in Sources */,
@@ -4475,20 +4478,19 @@
 				495EA79B1F14B64D001FCB7E /* DetailGoodsModel.m in Sources */,
 				495EA7CD1F14B64D001FCB7E /* ZFMyOderCell.m in Sources */,
 				495EA7241F14B64D001FCB7E /* ZFCoverView.m in Sources */,
-				495EA7D91F14B64D001FCB7E /* AddressCommitOrderModel.m in Sources */,
 				495EA7841F14B64D001FCB7E /* ZFAppraiseSectionCell.m in Sources */,
+				49555EB51F1E0092002E5688 /* ZFShopListViewController.m in Sources */,
 				495EA7981F14B64D001FCB7E /* FinGoodsViewController.m in Sources */,
 				495EA8261F14B64D001FCB7E /* FeedPickerCollectionViewCell.m in Sources */,
 				495EA8221F14B64D001FCB7E /* FeedCollectionViewCell.m in Sources */,
 				495EA7521F14B64D001FCB7E /* ControlFactory.m in Sources */,
 				495EA7301F14B64D001FCB7E /* JXTAlertController.m in Sources */,
 				495EA7551F14B64D001FCB7E /* UIImage+FX.m in Sources */,
-				495EA7F21F14B64D001FCB7E /* ZFTitleCell.m in Sources */,
-				495EA7E91F14B64D001FCB7E /* OldMainViewController.m in Sources */,
 				495EA7731F14B64D001FCB7E /* UIViewController+Dealloc.m in Sources */,
 				495EA9461F14B64E001FCB7E /* MJRefreshBackNormalFooter.m in Sources */,
 				495EA78A1F14B64D001FCB7E /* ZFGoodsFooterView.m in Sources */,
 				495EA79D1F14B64D001FCB7E /* HomeADModel.m in Sources */,
+				49555E9D1F1E0092002E5688 /* LocationDetailVC.m in Sources */,
 				495EA7751F14B64D001FCB7E /* DetailFindGoodsViewController.m in Sources */,
 				495EA7B71F14B64D001FCB7E /* ForgetPSViewController.m in Sources */,
 				495EA9731F14B64E001FCB7E /* YBPopupMenuPath.m in Sources */,
@@ -4519,8 +4521,6 @@
 				495EA7351F14B64D001FCB7E /* Toast+UIView.m in Sources */,
 				495EA8241F14B64D001FCB7E /* FeedCommitCollectionViewCell.m in Sources */,
 				495EA7281F14B64D001FCB7E /* PPNetworkCache.m in Sources */,
-				495EA7DB1F14B64D001FCB7E /* ClearingStoreList.m in Sources */,
-				495EA7D61F14B64D001FCB7E /* AddressLocationMapViewController.m in Sources */,
 				495EA8421F14B64D001FCB7E /* ZFOrderDetailCountCell.m in Sources */,
 				495EA7A31F14B64D001FCB7E /* HomeSearchResultViewController.m in Sources */,
 				495EA83D1F14B64D001FCB7E /* ApplySalesAfterCommonCell.m in Sources */,
@@ -4540,8 +4540,8 @@
 				495EA7C51F14B64D001FCB7E /* ZFCollectBarView.m in Sources */,
 				495EA7951F14B64D001FCB7E /* ZFEvaluateViewController.m in Sources */,
 				495EA7311F14B64D001FCB7E /* HDAlertView.m in Sources */,
+				49555EA91F1E0092002E5688 /* OldMainViewController.m in Sources */,
 				495EA7691F14B64D001FCB7E /* ZFBaseNavigationViewController.m in Sources */,
-				495EA7EE1F14B64D001FCB7E /* ZFOrderListCell.m in Sources */,
 				495EA8201F14B64D001FCB7E /* ZFSettingRowCell.m in Sources */,
 				495EA8281F14B64D001FCB7E /* FeedPickerTableViewCell.m in Sources */,
 				495EA7511F14B64D001FCB7E /* ResponseObject.m in Sources */,
@@ -4558,18 +4558,18 @@
 				495EA8401F14B64D001FCB7E /* ZFOrderDetailCell.m in Sources */,
 				495EA81E1F14B64D001FCB7E /* ZFSettingHeaderCell.m in Sources */,
 				495EA8041F14B64D001FCB7E /* ApplySalesQuestionCell.m in Sources */,
+				49555E971F1E0092002E5688 /* EditAddressViewController.m in Sources */,
 				495EA9791F14B64E001FCB7E /* UITextView+ZWLimitCounter.m in Sources */,
 				49D75C8D1EEE8AF300FACCD8 /* AppDelegate+Location.m in Sources */,
 				495EA77B1F14B64D001FCB7E /* SelectTableviewCell.m in Sources */,
-				495EA7EC1F14B64D001FCB7E /* ZFFooterCell.m in Sources */,
 				495EA7331F14B64D001FCB7E /* UIImage+HDExtension.m in Sources */,
 				495EA72E1F14B64D001FCB7E /* AdvertiseHelper.m in Sources */,
 				495EA8061F14B64D001FCB7E /* ApplySalesUploadCell.m in Sources */,
 				495EA8391F14B64D001FCB7E /* ZFPregressCheckViewController.m in Sources */,
 				495EA9581F14B64E001FCB7E /* TADotView.m in Sources */,
 				495EA9551F14B64E001FCB7E /* UIView+PYExtension.m in Sources */,
-				495EA7E51F14B64D001FCB7E /* SendServiceTitleCell.m in Sources */,
 				49690CBB1F14C442004C501B /* Reachability.m in Sources */,
+				49555E9F1F1E0092002E5688 /* GoodsitemCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

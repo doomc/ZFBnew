@@ -7,7 +7,7 @@
 //
 
 #import "AllStoreCell.h"
-@interface AllStoreCell ()<XHStarRateViewDelegate>
+@interface AllStoreCell ()
 
 @end
 @implementation AllStoreCell
@@ -16,18 +16,26 @@
     [super awakeFromNib];
     // Initialization code
 
-//    self.img_allStoreView.clipsToBounds = YES;
-//    self.img_allStoreView.layer.borderWidth = 0.5;
-//    self.img_allStoreView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
-//
+    self.img_allStoreView.clipsToBounds = YES;
+    self.img_allStoreView.layer.borderWidth = 0.5;
+    self.img_allStoreView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
+
 //    self.starView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 120, 40) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self];
  
 }
-
-
--(void)starRateView:(XHStarRateView *)starRateView currentScore:(CGFloat)currentScore{
-    NSLog(@"%ld----  %f",starRateView.tag,currentScore);
+-(void)setStorelist:(Findgoodslists *)Storelist
+{
+    _Storelist = Storelist;
+    
+    CGFloat juli = [_Storelist.storeDist floatValue]*0.001;
+    self.lb_distance.text = [NSString stringWithFormat:@"%.2fkm",juli];
+    self.lb_title.text = _Storelist.storeName;
+    [self.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:_Storelist.coverUrl] placeholderImage:nil];
+    
 }
+
+
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

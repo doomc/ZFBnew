@@ -34,7 +34,7 @@
     
     NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
     
-    NSRange range = {0,jsonString.length};
+//    NSRange range = {0,jsonString.length};
     
 //    //去掉字符串中的空格
 //    

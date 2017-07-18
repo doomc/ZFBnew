@@ -129,41 +129,43 @@
                              
                              };
     
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-     [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-    } success:^(id responseObject) {
-        
-        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshing];
-            
-            if (_page == 1) {
-                
-                for (;0 < self.listArray.count;) {
-                    
-                    [self.listArray removeObjectAtIndex:0];
-                    
-                }
-            }
-            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-            //mjextention 数组转模
-            UserFeedbackModel  *feedmodel = [UserFeedbackModel mj_objectWithKeyValues:jsondic];
-            for (Userfeedbacklist *list in feedmodel.userFeedbackList) {
-                [self.listArray addObject:list];
-            }
-            NSLog(@"listArray===== = %@",   self.listArray);
-            [self.tableView reloadData];
  
-        }
- 
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-         [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-    }];
+   
+//    [PPNetworkHelper POST:@"" parameters:parmaDic responseCache:^(id responseCache) {
+//    
+//    } success:^(id responseObject) {
+//        
+//        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+//            
+//            [self.tableView.mj_header endRefreshing];
+//            [self.tableView.mj_footer endRefreshing];
+//            
+//            if (_page == 1) {
+//                
+//                for (;0 < self.listArray.count;) {
+//                    
+//                    [self.listArray removeObjectAtIndex:0];
+//                    
+//                }
+//            }
+//            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+//            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+//            //mjextention 数组转模
+//            UserFeedbackModel  *feedmodel = [UserFeedbackModel mj_objectWithKeyValues:jsondic];
+//            for (Userfeedbacklist *list in feedmodel.userFeedbackList) {
+//                [self.listArray addObject:list];
+//            }
+//            NSLog(@"listArray===== = %@",   self.listArray);
+//            [self.tableView reloadData];
+// 
+//        }
+// 
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//         [self.tableView.mj_header endRefreshing];
+//        [self.tableView.mj_footer endRefreshing];
+//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+//    }];
     
 }
 

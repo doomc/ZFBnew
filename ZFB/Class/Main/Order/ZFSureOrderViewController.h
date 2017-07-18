@@ -11,5 +11,8 @@
 @interface ZFSureOrderViewController : BaseViewController
 
 @property (nonatomic,strong) NSMutableArray * goodsListArray;
- 
+//jsonstr
+@property (nonatomic,copy) NSString * jsonStrArray;
+
+
 @end

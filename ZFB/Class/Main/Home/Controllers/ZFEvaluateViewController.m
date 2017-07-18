@@ -201,7 +201,7 @@
                              @"pageIndex":pageIndex,//当前页码
                              
                              };
-    [MBProgressHUD showAutoMessage:@"加载中..."] ;
+    [MBProgressHUD showMessage: @"加载中..." ToView:self.view] ;
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsCommentInfo",zfb_baseUrl] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {

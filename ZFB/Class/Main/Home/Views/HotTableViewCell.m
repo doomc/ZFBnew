@@ -101,8 +101,12 @@
 {
  
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getBestSellInfo",zfb_baseUrl] params:nil success:^(id response) {
-        
-        NSLog(@"热卖- =%@",response);
+ 
+        if (self.hotArray.count >0) {
+            
+            [self.hotArray removeAllObjects];
+            
+        }
         
     } progress:^(NSProgress *progeress) {
         

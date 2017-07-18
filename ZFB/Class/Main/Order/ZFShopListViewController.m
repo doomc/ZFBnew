@@ -10,6 +10,7 @@
 #import "ZFShopListCell.h"
 #import "ShopOrderStoreNameCell.h"
 #import "ClearingStoreList.h"
+
 @interface ZFShopListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) UITableView    * mytableView;
@@ -42,7 +43,7 @@
     
     _goodsListArray =[NSMutableArray array];
 
-    [self goodslistDetailPostRequst];
+//    [self goodslistDetailPostRequst];
     
 }
 
@@ -123,52 +124,66 @@
 -(void)goodslistDetailPostRequst
 {
     NSDictionary * parma = @{
-                             
-                             @"svcName":@"getProductList",
-                            //@"cmUserId":BBUserDefault.cmUserId,
-                             @"storeId":@"1",//可能添加参数
-                             
+
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"storeId":@"1",//可能添加参数 _storeId
+                             @"goodsList":@"",
+                             @"goodsId":@"",
+                             @"goodsProp":@"",
+                             @"goodsCount":@"",
+ 
                              };
     
-    NSDictionary *parmaDic=[NSDictionary dictionaryWithDictionary:parma];
-    
-    [SVProgressHUD show];
-    
-    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-        
-    } success:^(id responseObject) {
-    
-         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-            if (self.productlistArray.count >0) {
-                
-                [self.productlistArray removeAllObjects];
-
-            }
-        
-            NSString  * dataStr    = [responseObject[@"data"] base64DecodedString];
-            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-            
  
-             ClearingStoreList * storeList = [ClearingStoreList mj_objectWithKeyValues:jsondic];
-            
-             for (Productlist * product in storeList.productList) {
-                 
-                 [self.productlistArray addObject:product];
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsInfoList",zfb_baseUrl] params:parma success:^(id response) {
+        
+    [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        
  
-             }
-     
-             NSLog(@"%@ ==== productlistArray", self.productlistArray);
-             [self.mytableView reloadData];
-            
-        }
-        [SVProgressHUD dismiss];
+        
+    
+        
+    } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        [SVProgressHUD dismiss];
         
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
+//    [PPNetworkHelper POST:zfb_baseUrl parameters:parma responseCache:^(id responseCache) {
+//        
+//    } success:^(id responseObject) {
+//    
+//         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+//            if (self.productlistArray.count >0) {
+//                
+//                [self.productlistArray removeAllObjects];
+//
+//            }
+//        
+//            NSString  * dataStr    = [responseObject[@"data"] base64DecodedString];
+//            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+//            
+// 
+//             ClearingStoreList * storeList = [ClearingStoreList mj_objectWithKeyValues:jsondic];
+//            
+//             for (Productlist * product in storeList.productList) {
+//                 
+//                 [self.productlistArray addObject:product];
+// 
+//             }
+//     
+//             NSLog(@"%@ ==== productlistArray", self.productlistArray);
+//             [self.mytableView reloadData];
+//            
+//        }
+//        
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+//        
+//    }];
 }
 
 

@@ -19,17 +19,16 @@
 
 
 //baseUrl
-#define  zfb_baseUrl @"http://192.168.1.104:8087/zfb/InterfaceServlet"
+#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
 
 //图片服务器
 #define  uploadImgae_Url @"http://192.168.1.106:8086/cmfile/upload"
 
 //数据服务器
-#define  ZFB_22SendMessageUrl @"http://192.168.1.106:8087/zfb/InterfaceServlet"
-//
-#define  ZFB_11SendMessageUrl @"http://192.168.1.107:8087/zfb/InterfaceServlet"
 
-#define  zfb_url @"http://192.168.1.113:8087/zfb/InterfaceServlet"
+#define  cqdUrl @"http://192.168.1.107:8087/zfb/InterfaceServlet"
+
+
 
 
 

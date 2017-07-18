@@ -783,43 +783,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
 
     }];
-    
-//    [PPNetworkHelper POST:zfb_url parameters:parmaDic responseCache:^(id responseCache) {
-//        
-//    } success:^(id responseObject) {
-//        
-//        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-//            
-//            if (self.reluJsonKeyArray.count >0) {
-//                
-//                [self.reluJsonKeyArray  removeAllObjects];
-//                
-//            }else{
-//                
-//                if (self.BgView != nil) {
-//                    
-//                    [self.BgView removeFromSuperview];
-//                }
-//                
-//                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-//                
-//                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-//                NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",jsondic);
-//                [self.view makeToast:@"成功添加到购物车" duration:2 position:@"bottom"];
-//                
-//                [self.list_tableView reloadData];
-//                
-//            }
-//            [SVProgressHUD dismiss];
-//            
-//        }
-//        
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
-//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-//        [SVProgressHUD dismiss];
-//        
-//    }];
+ 
     
 }
 

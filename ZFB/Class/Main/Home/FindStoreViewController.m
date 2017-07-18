@@ -353,14 +353,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     BBUserDefault.longitude = longitude;
     BBUserDefault.latitude = latitude;
     
-    
-    if ( BBUserDefault.cmUserId == nil) {
-        BBUserDefault.cmUserId = @"";
-    }
     NSDictionary * parma = @{
-                             
-                             //                             @"userId":BBUserDefault.cmUserId,
-                             @"svcname":@"",
+ 
                              @"longitude":longitude,//经度
                              @"latitude":latitude ,//纬度
                              @"pageSize":pageSize,//每页显示条数

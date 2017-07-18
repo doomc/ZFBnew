@@ -10,4 +10,6 @@
 
 @interface ZFShopListViewController : BaseViewController
 
+@property (nonatomic , copy) NSString * storeId;
+
 @end
