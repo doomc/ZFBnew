@@ -25,6 +25,11 @@
  
 }
 
+-(void)setGoodlist:(Goodslist *)goodlist
+{
+    _goodlist = goodlist;
+    //拿到商品的数量在加减
+}
 
 // 增加商品或者减少商品
 - (IBAction)addAction:(id)sender {
@@ -38,6 +43,8 @@
     [self.selectDelegate ChangeGoodsNumberCell:self Number:num];
     
 }
+
+
 /**
  减少
  @param sender reduceAction

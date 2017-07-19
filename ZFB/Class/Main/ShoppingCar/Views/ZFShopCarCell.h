@@ -10,6 +10,7 @@
 #import "ShoppingCarModel.h"
 
 @class ZFShopCarCell;
+
 @protocol ShoppingSelectedDelegate <NSObject>
 
 @optional
@@ -38,7 +39,8 @@
 @interface ZFShopCarCell : UITableViewCell
 
 @property (assign, nonatomic) id <ShoppingSelectedDelegate> selectDelegate;
-@property (strong,nonatomic) ShoppingCarModel  * shopCarModel;
+
+@property (strong,nonatomic) Goodslist  * goodlist;
 
 
 #pragma mark -  头部视图shopCarSectionHeadViewCell

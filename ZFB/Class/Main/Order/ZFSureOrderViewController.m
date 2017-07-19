@@ -45,7 +45,9 @@
 @property (nonatomic,strong) NSMutableArray * storelistArry;
 @property (nonatomic,strong) NSMutableArray * feeList;//价格
 
-@property (nonatomic,strong) NSMutableArray * aNewStoreArr;//要拆分的数组
+@property (nonatomic,strong) NSMutableArray * storeAttachListArr;//要拆分的数组
+@property (nonatomic,strong) NSMutableArray * storeDeliveryfeeListArr;//要拆分的数组
+
 
 
 @end
@@ -56,7 +58,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"确认订单";
-    _aNewStoreArr = [NSMutableArray array];
     
     self.mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -49-64) style:UITableViewStylePlain];
     self.mytableView.delegate = self;
@@ -79,7 +80,6 @@
 -(void)jsonArryanalysis
 {
     //storeid数组
-    
     NSDictionary * jsondic = [NSString dictionaryWithJsonString:_jsonString];
     JsonModel * jsonmodel =[JsonModel mj_objectWithKeyValues:jsondic];
 
@@ -93,27 +93,35 @@
             
         }
     }
+    /////////////////////////////////////////////////////////
+
     NSArray * storeIdAarray = [JsonModel mj_keyValuesArrayWithObjectArray:self.storelistArry];//拿到地店铺id
     NSMutableDictionary * dic = [NSMutableDictionary dictionary];
     [dic setValue:storeIdAarray forKey:@"storeList"];
     [dic setValue:_postAddressId forKey:@"postAddressId"];
 
     
-    //  /////移除goodsList模型数组转成字典数组
-//    NSMutableArray *storeAttachArr = [JsonModel mj_keyValuesArrayWithObjectArray:self.storelistArry];
-//    //字典数组转成模型数组
-//    NSArray * Aarr = [JsonModel mj_objectArrayWithKeyValuesArray:storeAttachArr];
-//    
-//    for (Usergoodsinfojson * infojson in Aarr) {
-//        
-//        [_aNewStoreArr addObject:infojson];
-//        
-//        [_aNewStoreArr removeObject:infojson.goodsList];
-//    }
-//  
-//    NSLog(@"-----------_aNewStoreArr %@",_aNewStoreArr);
- 
+    /////////////////////////////////////////////////////////
+    NSMutableArray * arr =  jsondic[@"userGoodsInfoJSON"];
+    for (NSDictionary * dic in arr) {
     
+        NSDictionary * storeAttachDic = [NSDictionary dictionary];
+        
+        [storeAttachDic setValue:[dic objectForKey:@"storeId"]  forKey:@"storeId"];
+        [storeAttachDic setValue:[dic objectForKey:@"storeName"]  forKey:@"storeName"];
+        [storeAttachDic setValue:@"" forKey:@"comment"];
+        [self.storeAttachListArr addObject:storeAttachDic];
+        
+        /////////////////////////////////////////////////////////
+        NSDictionary *storeDeliveryfeeDic = [NSDictionary dictionary];
+        [storeDeliveryfeeDic setValue:[dic objectForKey:@"storeId"] forKey:@"storeId"];
+        [storeDeliveryfeeDic setValue:_orderDeliveryfee forKey:@"orderDeliveryfee"];
+        [self.storeDeliveryfeeListArr addObject:storeDeliveryfeeDic];
+        
+    }
+
+    /////////////////////////////////////////////////////////
+
 
     if (_postAddressId != nil) {
      
@@ -261,6 +269,7 @@
     [jsondic setValue:BBUserDefault.cmUserId forKey:@"cmUserId"];
     [jsondic setValue:_postAddressId forKey:@"postAddressId"];
     [jsondic setValue:_contactUserName forKey:@"contactUserName" ];
+    
 /// /// /// /// /// /// /// ///实付方式   /// /// /// /// /// /// /// /// /// ///
     [jsondic setValue:@"1" forKey:@"payMode" ];
 
@@ -269,7 +278,8 @@
     [jsondic setValue: feelistArr forKey:@"storeDeliveryfeeList"];
     [jsondic setValue: goodlistArr forKey:@"cmGoodsList"];
     
-    
+    [jsondic setValue: self.storeDeliveryfeeListArr forKey:@"storeDeliveryfeeList"];
+    [jsondic setValue: self.storeAttachListArr forKey:@"storeAttachList"];
     
     [self commitOrder:jsondic];
 //    [self.navigationController pushViewController:payVC animated:YES];
@@ -284,11 +294,11 @@
                              
                              };
  
-    [MBProgressHUD showProgressToView:nil Text:@"加载中..."];
+//    [MBProgressHUD showProgressToView:nil Text:@"加载中..."];
 
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderFix",zfb_baseUrl] params:parma success:^(id response) {
     
-        [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].delegate.window animated:YES];
+//        [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].delegate.window animated:YES];
 
         if ([response[@"resultCode"] intValue] == 0) {
             
@@ -340,7 +350,6 @@
         _userCostNum = [NSString stringWithFormat:@"%.2f",suremodel.userCostNum]  ;//支付总金额
         lb_price.text = _userCostNum;
         
-
         
     } progress:^(NSProgress *progeress) {
         
@@ -374,13 +383,21 @@
     
     
 }
--(NSMutableArray *)aNewStoreArr
+-(NSMutableArray *)storeDeliveryfeeListArr
 {
-    if (!_aNewStoreArr) {
-        _aNewStoreArr =[NSMutableArray array];
+    if (!_storeDeliveryfeeListArr) {
+        _storeDeliveryfeeListArr =[NSMutableArray array];
         
     }
-    return _aNewStoreArr;
+    return _storeDeliveryfeeListArr;
+}
+-(NSMutableArray *)storeAttachListArr
+{
+    if (!_storeAttachListArr) {
+        _storeAttachListArr =[NSMutableArray array];
+        
+    }
+    return _storeAttachListArr;
 }
 
 -(NSMutableArray *)feeList

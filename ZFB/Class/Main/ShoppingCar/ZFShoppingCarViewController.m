@@ -88,17 +88,21 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     if (_jsonString != nil) {
         orderVC.jsonString =  _jsonString;
         NSLog(@"提交成功了 ----------- %@ ",_jsonString);
-        [self.navigationController pushViewController:orderVC animated:YES];
 
-    }else{
-        JXTAlertController * alert =  [JXTAlertController alertControllerWithTitle:nil message:@"您还没有选择商品" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction * action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        [alert addAction:action];
-        [self presentViewController:alert animated:YES completion:nil];
-        
     }
+    
+    [self.navigationController pushViewController:orderVC animated:YES];
+
+//    else{
+//        JXTAlertController * alert =  [JXTAlertController alertControllerWithTitle:nil message:@"您还没有选择商品" preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction * action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+//            
+//        }];
+//        [alert addAction:action];
+//        [self presentViewController:alert animated:YES completion:nil];
+//        
+//    }
+
    
     
 }
@@ -639,7 +643,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
                              
                              };
 
-    [MBProgressHUD showProgressToView:nil Text:@"加载中..."];
+//    [MBProgressHUD showProgressToView:nil Text:@"加载中..."];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getShoppCartList"] params:parma success:^(id response) {
         weakSelf(weakSelf);
         
