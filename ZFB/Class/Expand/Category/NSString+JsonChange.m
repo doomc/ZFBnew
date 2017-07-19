@@ -20,23 +20,30 @@
     
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
     
+    
     NSString *jsonString;
     
+
     if (!jsonData) {
         
         NSLog(@"%@",error);
         
     }else{
-        
+
         jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
+        [jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+
+//        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+//        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
+//        jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     }
     
     NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
     
+    
 //    NSRange range = {0,jsonString.length};
     
-//    //去掉字符串中的空格
+//    //去掉字符串中的空格        \"storeList\"
 //    
 //    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
 //    

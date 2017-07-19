@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		287E1D51FE976BE2DCE0A71B /* libPods-ZFB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2E471759A11D3682520CF1E /* libPods-ZFB.a */; };
+		4926DF081F1F4AA400E9060B /* JsonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4926DF071F1F4AA400E9060B /* JsonModel.m */; };
+		4927189B1F1F5C6C002A7A54 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 492718941F1F5C6C002A7A54 /* WebViewJavascriptBridge.m */; };
+		4927189C1F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 492718961F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.m */; };
+		4927189D1F1F5C6C002A7A54 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 492718981F1F5C6C002A7A54 /* WebViewJavascriptBridgeBase.m */; };
+		4927189E1F1F5C6C002A7A54 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4927189A1F1F5C6C002A7A54 /* WKWebViewJavascriptBridge.m */; };
+		492718A91F1F767D002A7A54 /* SureOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 492718A81F1F767D002A7A54 /* SureOrderModel.m */; };
 		492752191EC44DFC003C22D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 492752181EC44DFC003C22D0 /* main.m */; };
 		4927521C1EC44DFC003C22D0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4927521B1EC44DFC003C22D0 /* AppDelegate.m */; };
 		492752221EC44DFC003C22D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 492752201EC44DFC003C22D0 /* Main.storyboard */; };
@@ -670,6 +676,18 @@
 
 /* Begin PBXFileReference section */
 		3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.debug.xcconfig"; sourceTree = "<group>"; };
+		4926DF061F1F4AA400E9060B /* JsonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonModel.h; sourceTree = "<group>"; };
+		4926DF071F1F4AA400E9060B /* JsonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonModel.m; sourceTree = "<group>"; };
+		492718931F1F5C6C002A7A54 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		492718941F1F5C6C002A7A54 /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		492718951F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
+		492718961F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
+		492718971F1F5C6C002A7A54 /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
+		492718981F1F5C6C002A7A54 /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
+		492718991F1F5C6C002A7A54 /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		4927189A1F1F5C6C002A7A54 /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		492718A71F1F767D002A7A54 /* SureOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SureOrderModel.h; sourceTree = "<group>"; };
+		492718A81F1F767D002A7A54 /* SureOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SureOrderModel.m; sourceTree = "<group>"; };
 		492752141EC44DFC003C22D0 /* ZFB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZFB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		492752181EC44DFC003C22D0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4927521A1EC44DFC003C22D0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1651,6 +1669,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		492718921F1F5C6C002A7A54 /* WebViewJavascriptBridge */ = {
+			isa = PBXGroup;
+			children = (
+				492718931F1F5C6C002A7A54 /* WebViewJavascriptBridge.h */,
+				492718941F1F5C6C002A7A54 /* WebViewJavascriptBridge.m */,
+				492718951F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.h */,
+				492718961F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.m */,
+				492718971F1F5C6C002A7A54 /* WebViewJavascriptBridgeBase.h */,
+				492718981F1F5C6C002A7A54 /* WebViewJavascriptBridgeBase.m */,
+				492718991F1F5C6C002A7A54 /* WKWebViewJavascriptBridge.h */,
+				4927189A1F1F5C6C002A7A54 /* WKWebViewJavascriptBridge.m */,
+			);
+			path = WebViewJavascriptBridge;
+			sourceTree = "<group>";
+		};
 		4927520B1EC44DFC003C22D0 = {
 			isa = PBXGroup;
 			children = (
@@ -1747,6 +1780,10 @@
 				49555E631F1E0092002E5688 /* AddressListModel.m */,
 				49555E641F1E0092002E5688 /* ClearingStoreList.h */,
 				49555E651F1E0092002E5688 /* ClearingStoreList.m */,
+				4926DF061F1F4AA400E9060B /* JsonModel.h */,
+				4926DF071F1F4AA400E9060B /* JsonModel.m */,
+				492718A71F1F767D002A7A54 /* SureOrderModel.h */,
+				492718A81F1F767D002A7A54 /* SureOrderModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3431,8 +3468,8 @@
 		495EA6771F14B64C001FCB7E /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				492718921F1F5C6C002A7A54 /* WebViewJavascriptBridge */,
 				50D4D6681F1BB94D0073DBC1 /* QBImagePickerController */,
-				495EA6781F14B64C001FCB7E /* Demo */,
 				495EA67C1F14B64C001FCB7E /* FSTextView */,
 				495EA67F1F14B64C001FCB7E /* GVUserDefaults */,
 				495EA6891F14B64C001FCB7E /* MJRefresh */,
@@ -3446,37 +3483,6 @@
 				495EA7141F14B64D001FCB7E /* ZWPlaceHolder */,
 			);
 			path = Vender;
-			sourceTree = "<group>";
-		};
-		495EA6781F14B64C001FCB7E /* Demo */ = {
-			isa = PBXGroup;
-			children = (
-				495EA6791F14B64C001FCB7E /* HudDemo */,
-				495EA67A1F14B64C001FCB7E /* HudDemoTV */,
-				495EA67B1F14B64C001FCB7E /* HudTests */,
-			);
-			path = Demo;
-			sourceTree = "<group>";
-		};
-		495EA6791F14B64C001FCB7E /* HudDemo */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = HudDemo;
-			sourceTree = "<group>";
-		};
-		495EA67A1F14B64C001FCB7E /* HudDemoTV */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = HudDemoTV;
-			sourceTree = "<group>";
-		};
-		495EA67B1F14B64C001FCB7E /* HudTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = HudTests;
 			sourceTree = "<group>";
 		};
 		495EA67C1F14B64C001FCB7E /* FSTextView */ = {
@@ -4374,6 +4380,7 @@
 				495EA7C11F14B64D001FCB7E /* ZFCollectViewController.m in Sources */,
 				49555EA31F1E0092002E5688 /* OrderWithAddressCell.m in Sources */,
 				495EA7471F14B64D001FCB7E /* NSString+UUID.m in Sources */,
+				4927189D1F1F5C6C002A7A54 /* WebViewJavascriptBridgeBase.m in Sources */,
 				495EA7781F14B64D001FCB7E /* DetailStoreViewController.m in Sources */,
 				495EA94F1F14B64E001FCB7E /* UIView+MJExtension.m in Sources */,
 				495EA8301F14B64D001FCB7E /* ZFAllOrderViewController.m in Sources */,
@@ -4388,10 +4395,12 @@
 				495EA8181F14B64D001FCB7E /* ZFSaleAfterTopView.m in Sources */,
 				495EA71F1F14B64D001FCB7E /* UIImage+Extension.m in Sources */,
 				4927521C1EC44DFC003C22D0 /* AppDelegate.m in Sources */,
+				492718A91F1F767D002A7A54 /* SureOrderModel.m in Sources */,
 				495EA78C1F14B64D001FCB7E /* ZFHeadViewCollectionReusableView.m in Sources */,
 				495EA9391F14B64E001FCB7E /* GVUserDefaults+BBProperties.m in Sources */,
 				495EA7C31F14B64D001FCB7E /* CollectModel.m in Sources */,
 				495EA9541F14B64E001FCB7E /* UIColor+PYExtension.m in Sources */,
+				4927189E1F1F5C6C002A7A54 /* WKWebViewJavascriptBridge.m in Sources */,
 				495EA7881F14B64D001FCB7E /* ZFDetailStoreCell.m in Sources */,
 				495EA74A1F14B64D001FCB7E /* dateTimeHelper.m in Sources */,
 				50D4D67F1F1BB94D0073DBC1 /* QBAssetsCollectionFooterView.m in Sources */,
@@ -4488,6 +4497,7 @@
 				495EA7571F14B64D001FCB7E /* UIImage+RoundedCorner.m in Sources */,
 				495EA7B21F14B64D001FCB7E /* HPLocationCell.m in Sources */,
 				495EA9471F14B64E001FCB7E /* MJRefreshBackStateFooter.m in Sources */,
+				4927189C1F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.m in Sources */,
 				49555E9C1F1E0092002E5688 /* SearchResultTableVC.m in Sources */,
 				495EA71E1F14B64D001FCB7E /* UIImage+ADCircleImage.m in Sources */,
 				495EA81A1F14B64D001FCB7E /* ZFSettingHeadViewController.m in Sources */,
@@ -4563,6 +4573,7 @@
 				495EA76E1F14B64D001FCB7E /* LeftTableViewCell.m in Sources */,
 				495EA7401F14B64D001FCB7E /* introductoryPagesView.m in Sources */,
 				495EA7AA1F14B64D001FCB7E /* FuncListTableViewCell.m in Sources */,
+				4927189B1F1F5C6C002A7A54 /* WebViewJavascriptBridge.m in Sources */,
 				495EA7341F14B64D001FCB7E /* UIView+HDExtension.m in Sources */,
 				495EA7821F14B64D001FCB7E /* ZFAppraiseCell.m in Sources */,
 				50D4D65E1F1BB73B0073DBC1 /* MPImageItemModel.m in Sources */,
@@ -4590,6 +4601,7 @@
 				495EA7531F14B64D001FCB7E /* DCNavTabBarController.m in Sources */,
 				495EA8101F14B64D001FCB7E /* ZFPregressCheckCell2.m in Sources */,
 				4956CEB01F16046E00DAD466 /* HotSearchCell.m in Sources */,
+				4926DF081F1F4AA400E9060B /* JsonModel.m in Sources */,
 				495EA7431F14B64D001FCB7E /* MD5Tool.m in Sources */,
 				495EA9401F14B64E001FCB7E /* MJRefreshFooter.m in Sources */,
 				495EA7211F14B64D001FCB7E /* UIView+Extension.m in Sources */,
@@ -4779,6 +4791,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 297J2E2F8W;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZFB/Class/Frameworks",
@@ -4806,6 +4819,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 297J2E2F8W;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZFB/Class/Frameworks",

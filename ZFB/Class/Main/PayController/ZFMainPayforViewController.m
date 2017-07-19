@@ -7,104 +7,77 @@
 //  支付页面
 
 #import "ZFMainPayforViewController.h"
-#import "DetailPayCashViewController.h"
-#import "PayforCell.h"
-@interface ZFMainPayforViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "WebViewJavascriptBridge.h"
+@interface ZFMainPayforViewController ()<UIWebViewDelegate>
 
-@property(nonatomic ,strong)NSArray * dataArr ;
-@property(nonatomic ,strong)UITableView * pay_tableView ;
-@property(nonatomic ,strong)UIView * footerView;
-@property(nonatomic ,strong)UIButton * sure_payfor;//确认支付
+@property(nonatomic ,strong)UIWebView *webView ;
+@property(nonatomic ,strong)WebViewJavascriptBridge * bridge ;
+
 
 @end
 
 @implementation ZFMainPayforViewController
+-(void)viewWillAppear:(BOOL)animated
+{
+    //用UIWebView加载web
+    self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    _webView.delegate = self;
 
+    //设置能够进行桥接
+    [WebViewJavascriptBridge enableLogging];
+    // 初始化*WebViewJavascriptBridge*实例,设置代理,进行桥接
+    _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
+  
+}
+ 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"收银台";
-
-    self.dataArr = @[@"选择支付方式",@"余额   350.00元",@"快捷支付",@"微信",@"支付宝",@"实付金额"];
-    [self.pay_tableView registerNib:[UINib nibWithNibName:@"PayforCell" bundle:nil] forCellReuseIdentifier:@"cell"];
-    [self.view addSubview:self.pay_tableView];
-
-}
-
--(UITableView *)pay_tableView
-{
-    if (!_pay_tableView) {
-        _pay_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64) style:UITableViewStylePlain];
-        _pay_tableView.delegate =self;
-        _pay_tableView.dataSource= self;
-     }
     
-    return _pay_tableView;
-}
-
--(UIView *)footerView
-{
-    if (!_footerView) {
-        _footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 100)];
-        _sure_payfor = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_sure_payfor setTitle:@"确认支付" forState:UIControlStateNormal];
-        [_sure_payfor setBackgroundColor:HEXCOLOR(0xfe6d6a)];
-        _sure_payfor.titleLabel.font =[UIFont systemFontOfSize:15];
-        _sure_payfor.frame = CGRectMake(30, 50, KScreenW-60, 40);
-        _sure_payfor.layer.cornerRadius = 4;
-        [_sure_payfor addTarget:self action:@selector(didClickPayFor:) forControlEvents:UIControlEventTouchUpInside];
-        [_footerView addSubview:_sure_payfor];
-    }
-   return  _footerView;
-}
-
--(void)didClickPayFor:(UIButton *)sender
-{
- 
-    DetailPayCashViewController  *deatilPayVC =[[DetailPayCashViewController alloc]init];
-    [self.navigationController pushViewController:deatilPayVC animated:YES];
     
 }
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    if (section == 0) {
-        return _dataArr.count;
+//-(UIWebView *)webView
+//{
+//    if (!_webView) {
+//        _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH)];
+//        _webView.delegate = self;
+//        
+//    }
+//    return _webView;
+//}
 
-    }
-    return 1;
-}
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark -  getGoodsCostInfo 用户订单确定费用信息接口
+-(void)getGoodsCostInfoListPostRequst
 {
-    return 50;
-}
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    return  self.footerView;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 100;
-}
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    PayforCell * cell = [self.pay_tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    NSDictionary * parma = @{
+                             
+                             @"goodsCostList":@"",//集合
+                             
+                             };
     
-    cell.lb_title.text = _dataArr[indexPath.row];
-    if (indexPath.row ==5) {
-        cell.btn_selected.hidden = YES;
-        cell.lb_Price.hidden = NO;
+    [MBProgressHUD showProgressToView:nil Text:@"加载中..."];
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsCostInfo",zfb_baseUrl] params:parma success:^(id response) {
         
-    }
-    return cell;
+        [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].delegate.window animated:YES];
+ 
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+    
 }
-
-
-
 
 
 @end

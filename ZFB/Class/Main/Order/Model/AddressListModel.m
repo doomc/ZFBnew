@@ -13,8 +13,11 @@
  
 @end
 
- 
 
+@implementation UserAddressMap
+
+
+@end
 @implementation Addresslist
 
 + (NSDictionary *)objectClassInArray{

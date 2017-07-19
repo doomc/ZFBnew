@@ -17,18 +17,36 @@
 #import "AddressCommitOrderModel.h"
 #import "ZFMainPayforViewController.h"
 
+#import "AddressListModel.h"
+#import "JsonModel.h"
+#import "SureOrderModel.h"
+ 
 @interface ZFSureOrderViewController ()<UITableViewDelegate ,UITableViewDataSource>
 {
     NSString * _contactUserName;
     NSString * _postAddress;
     NSString * _contactMobilePhone;
-    NSString * _goodsCountMoney;//商品总价
-    NSString * _deliveryFee;//配送费
-    NSString * _goodsAllMoney;//支付总金额
+    NSString * _postAddressId;//收货地址id
+    
+    NSString * _goodsCount;//商品总价
+    NSString * _costNum;//配送费
+    NSString * _userCostNum;//支付总金额
+    NSString * _orderDeliveryfee;//每家门店的配送费
+ 
     UILabel * lb_price;
 }
 @property (nonatomic,strong) UITableView * mytableView;
 @property (nonatomic,strong) UIView * footerView;
+@property (nonatomic,strong) NSMutableArray * imgArray;
+
+@property (nonatomic,copy) NSString * anewJsonString;
+
+@property (nonatomic,strong) NSMutableArray * goodlistArry;
+@property (nonatomic,strong) NSMutableArray * storelistArry;
+@property (nonatomic,strong) NSMutableArray * feeList;//价格
+
+@property (nonatomic,strong) NSMutableArray * aNewStoreArr;//要拆分的数组
+
 
 @end
 
@@ -38,6 +56,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"确认订单";
+    _aNewStoreArr = [NSMutableArray array];
+    
     self.mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -49-64) style:UITableViewStylePlain];
     self.mytableView.delegate = self;
     self.mytableView.dataSource =self;
@@ -47,16 +67,64 @@
     [self.mytableView registerNib:[UINib nibWithNibName:@"ZFOrderListCell" bundle:nil] forCellReuseIdentifier:@"ZFOrderListCellid"];
     [self.mytableView registerNib:[UINib nibWithNibName:@"OrderWithAddressCell" bundle:nil] forCellReuseIdentifier:@"OrderWithAddressCellid"];
     [self.mytableView registerNib:[UINib nibWithNibName:@"OrderPriceCell" bundle:nil] forCellReuseIdentifier:@"OrderPriceCellid"];
-    
-    [self commitOrderPostRequst];
+
+    ///网络请求
+    [self addresslistPostRequst];//收货地址
     
     [self creatCustomfooterView];
     
+ 
+  
+}
+-(void)jsonArryanalysis
+{
+    //storeid数组
+    
+    NSDictionary * jsondic = [NSString dictionaryWithJsonString:_jsonString];
+    JsonModel * jsonmodel =[JsonModel mj_objectWithKeyValues:jsondic];
+
+    for ( Usergoodsinfojson  * storeList  in jsonmodel.userGoodsInfoJSON) {
+        
+        [self.storelistArry addObject:storeList];
+        
+        for (JosnGoodslist * goodlist in storeList.goodsList) {
+            
+            [self.goodlistArry addObject:goodlist];
+            
+        }
+    }
+    NSArray * storeIdAarray = [JsonModel mj_keyValuesArrayWithObjectArray:self.storelistArry];//拿到地店铺id
+    NSMutableDictionary * dic = [NSMutableDictionary dictionary];
+    [dic setValue:storeIdAarray forKey:@"storeList"];
+    [dic setValue:_postAddressId forKey:@"postAddressId"];
+
+    
+    //  /////移除goodsList模型数组转成字典数组
+//    NSMutableArray *storeAttachArr = [JsonModel mj_keyValuesArrayWithObjectArray:self.storelistArry];
+//    //字典数组转成模型数组
+//    NSArray * Aarr = [JsonModel mj_objectArrayWithKeyValuesArray:storeAttachArr];
+//    
+//    for (Usergoodsinfojson * infojson in Aarr) {
+//        
+//        [_aNewStoreArr addObject:infojson];
+//        
+//        [_aNewStoreArr removeObject:infojson.goodsList];
+//    }
+//  
+//    NSLog(@"-----------_aNewStoreArr %@",_aNewStoreArr);
+ 
+    
+
+    if (_postAddressId != nil) {
+     
+        [self getGoodsCostInfoListPostRequstWithJsonString:dic];//订单数据
+
+    }
+
 }
 
 -(void)creatCustomfooterView
 {
-    
     NSString *buttonTitle = @"提交订单";
     NSString *price = @"¥0.00";
     NSString *caseOrder =  @"实付金额:";
@@ -140,18 +208,21 @@
                                       dequeueReusableCellWithIdentifier:@"ZFOrderListCellid" forIndexPath:indexPath];
         listCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        if (self.goodsListArray.count > 0) {
-            listCell.listArray = self.goodsListArray;
-            listCell.lb_totalNum.text = [NSString stringWithFormat:@"一共%ld件",self.goodsListArray.count] ;
+        if (self.goodlistArry.count > 0) {
+            listCell.listArray = self.goodlistArry;
+            listCell.lb_totalNum.text = [NSString stringWithFormat:@"一共%ld件",self.goodlistArry.count] ;
+            
         }
         return listCell;
     }
     
     OrderPriceCell * priceCell = [self.mytableView dequeueReusableCellWithIdentifier:@"OrderPriceCellid" forIndexPath:indexPath];
     priceCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    priceCell.lb_tipFree.text = [NSString stringWithFormat:@"+ ¥%.2f",[_deliveryFee floatValue]];
-    priceCell.lb_priceTotal.text = [NSString stringWithFormat:@"¥%.2f",[_goodsCountMoney floatValue]];
+    //goodsCount	int(11)	商品总金额
+    //costNum	int(11)	配送费总金额
+    //userCostNum	int(11)	支付总金额
+    priceCell.lb_tipFree.text = [NSString stringWithFormat:@"+ ¥%.2f",[_costNum floatValue]];
+    priceCell.lb_priceTotal.text = [NSString stringWithFormat:@"¥%.2f",[_goodsCount floatValue]];
     
     return priceCell;
     
@@ -177,53 +248,63 @@
 -(void)didCleckClearing:(UIButton *)sender
 {
     NSLog(@" 确认订单 ");
-    ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
+//    ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
     
-    [self.navigationController pushViewController:payVC animated:YES];
+    //还原成字典数组
+    NSArray * feelistArr = [Storedeliveryfeelist mj_keyValuesArrayWithObjectArray:self.feeList];
+    NSArray * goodlistArr = [JosnGoodslist mj_keyValuesArrayWithObjectArray:self.feeList];
+    
+    NSLog(@"-----feelistArr-%@---------goodlistArr--%@------",feelistArr,goodlistArr);
+    
+    NSMutableDictionary * jsondic  = [NSMutableDictionary dictionary] ;
+    
+    [jsondic setValue:BBUserDefault.cmUserId forKey:@"cmUserId"];
+    [jsondic setValue:_postAddressId forKey:@"postAddressId"];
+    [jsondic setValue:_contactUserName forKey:@"contactUserName" ];
+/// /// /// /// /// /// /// ///实付方式   /// /// /// /// /// /// /// /// /// ///
+    [jsondic setValue:@"1" forKey:@"payMode" ];
+
+    [jsondic setValue:_postAddress forKey:@"postAddress"];
+    [jsondic setValue:_contactMobilePhone forKey:@"contactMobilePhone"];
+    [jsondic setValue: feelistArr forKey:@"storeDeliveryfeeList"];
+    [jsondic setValue: goodlistArr forKey:@"cmGoodsList"];
+    
+    
+    
+    [self commitOrder:jsondic];
+//    [self.navigationController pushViewController:payVC animated:YES];
 }
 
-#pragma mark - 创建 提交订单getOrderFix
--(void)commitOrderPostRequst
+#pragma mark -  getOrderFix 用户订单确定地址接口
+-(void)addresslistPostRequst
 {
     NSDictionary * parma = @{
                              
                              @"cmUserId":BBUserDefault.cmUserId,
                              
                              };
-    
+ 
+    [MBProgressHUD showProgressToView:nil Text:@"加载中..."];
+
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderFix",zfb_baseUrl] params:parma success:^(id response) {
-        
+    
+        [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].delegate.window animated:YES];
+
         if ([response[@"resultCode"] intValue] == 0) {
             
-            if (self.goodsListArray.count >0) {
-                
-                [self.goodsListArray removeAllObjects];
-                
-            }
-            AddressCommitOrderModel *  orderModel = [AddressCommitOrderModel mj_objectWithKeyValues:response];
-            
-            _goodsCountMoney= orderModel.goodsCountMoney ;
-            _deliveryFee = orderModel.deliveryFee;
-            _goodsAllMoney= orderModel.goodsAllMoney ;
-            
-            _contactUserName =  orderModel.orderFixInfo.contactUserName;
-            _postAddress = orderModel.orderFixInfo.postAddress;
-            _contactMobilePhone = orderModel.orderFixInfo.contactMobilePhone;
-            
-            for (Cmgoodslist * goodsList in orderModel.cmGoodsList) {
-                
-                [self.goodsListArray  addObject:goodsList];
-            }
-            
-            NSLog(@"%@ ==== self.goodsListArray",self.goodsListArray);
-            
-            lb_price.text = [NSString stringWithFormat:@"¥ %.2f",[_goodsAllMoney floatValue]];
-            
-            [self.mytableView reloadData];
+            AddressListModel * addressModel = [AddressListModel mj_objectWithKeyValues:response ];
 
+            _contactUserName =  addressModel.userAddressMap.userName;
+            _postAddress = addressModel.userAddressMap.postAddress;
+            _contactMobilePhone = addressModel.userAddressMap.mobilePhone;
+            _postAddressId  = addressModel.userAddressMap.postAddressId;
+          
+            //解析json在重新组装新的json
+            [self jsonArryanalysis];
         }
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-
+        
+        [self.mytableView reloadData];
+ 
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
@@ -233,11 +314,91 @@
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
- 
+//
     
 }
 
+#pragma mark -  getGoodsCostInfo 用户订单确定费用信息接口
+-(void)getGoodsCostInfoListPostRequstWithJsonString:(NSDictionary *) jsondic
+{
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsCostInfo",zfb_baseUrl] params:jsondic success:^(id response) {
+     
+        SureOrderModel * suremodel = [SureOrderModel mj_objectWithKeyValues:response];
+      
+        for (Storedeliveryfeelist * feelist in suremodel.storeDeliveryfeeList) {
+            
+            [self.feeList addObject:feelist];
+            
+        }
+//        orderDeliveryfee	int(11)	每家门店的配送费
+//        goodsCount	int(11)	商品总金额
+//        costNum	int(11)	配送费总金额
+//        userCostNum	int(11)	支付总金额
+        _goodsCount = [NSString stringWithFormat:@"%.2f",suremodel.goodsCount]  ;//商品总金额
+        _costNum = [NSString stringWithFormat:@"%.2f",suremodel.costNum]  ;//配送费总金额
+        _userCostNum = [NSString stringWithFormat:@"%.2f",suremodel.userCostNum]  ;//支付总金额
+        lb_price.text = _userCostNum;
+        
 
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+    
+}
+#pragma mark -  order/generateOrderNumber 用户订单提交
+-(void)commitOrder:(NSDictionary *) jsondic
+{
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/generateOrderNumber",zfb_baseUrl] params:jsondic success:^(id response) {
+  
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+    
+}
+-(NSMutableArray *)aNewStoreArr
+{
+    if (!_aNewStoreArr) {
+        _aNewStoreArr =[NSMutableArray array];
+        
+    }
+    return _aNewStoreArr;
+}
+
+-(NSMutableArray *)feeList
+{
+    if (!_feeList) {
+        _feeList =[NSMutableArray array];
+        
+    }
+    return _feeList;
+}
+-(NSMutableArray *)goodlistArry
+{
+    if (!_goodlistArry) {
+        _goodlistArry =[NSMutableArray array];
+        
+    }
+    return _goodlistArry;
+}
 -(NSMutableArray *)goodsListArray
 {
     if (!_goodsListArray) {
@@ -246,6 +407,24 @@
     }
     return _goodsListArray;
 }
+
+-(NSMutableArray *)storelistArry
+{
+    if (!_storelistArry) {
+        _storelistArry = [NSMutableArray array];
+    }
+    return _storelistArry;
+}
+
+-(NSMutableArray *)imgArray
+{
+    if (!_imgArray) {
+        _imgArray =[NSMutableArray array];
+        
+    }
+    return _imgArray;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

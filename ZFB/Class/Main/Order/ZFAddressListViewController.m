@@ -65,12 +65,14 @@
     
     
 }
+
+#pragma mark  - 添加收货地址
 -(void)didclickAdd:(UIButton*)add
 {
     NSLog(@"添加地址");
     
     EditAddressViewController * editVC = [[EditAddressViewController alloc]init];
-    
+    editVC.postAddressId = @"";
     [self.navigationController pushViewController:editVC animated:YES];
     
 }
@@ -211,8 +213,10 @@
  
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmUserAdderss",zfb_baseUrl] params:parma success:^(id response) {
         
-        
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        if (self.listArray.count > 0) {
+            
+            [self.listArray removeAllObjects];
+        }
         
         AddressListModel * list = [AddressListModel mj_objectWithKeyValues:response];
         
@@ -222,7 +226,6 @@
         }
         
         NSLog(@"%@ ==== listArray",self.listArray);
-
         [self.mytableView reloadData];
         
 

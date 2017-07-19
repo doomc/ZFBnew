@@ -8,7 +8,7 @@
 
 #import "ZFOrderListCell.h"
 #import "GoodsitemCell.h"
-#import "AddressCommitOrderModel.h"
+#import "JsonModel.h"
 @implementation ZFOrderListCell
 
 - (void)awakeFromNib {
@@ -25,7 +25,8 @@
 {
     _listArray = [NSMutableArray array];
     _listArray = listArray;
-//    NSLog(@"======== %@",_listArray);
+    
+    NSLog(@"======== %@====_listArray",_listArray);
 
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -50,7 +51,7 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    Cmgoodslist * list = _listArray[indexPath.row];
+    JosnGoodslist * list = _listArray[indexPath.row];
     
     GoodsitemCell * cell = [self.order_collectionCell
                             dequeueReusableCellWithReuseIdentifier:@"GoodsitemCellid" forIndexPath:indexPath];

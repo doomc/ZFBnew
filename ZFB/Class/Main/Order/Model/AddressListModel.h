@@ -10,15 +10,35 @@
 #import <Foundation/Foundation.h>
 
 
-@class Addresslist,Useraddresslist;
+@class Addresslist,Useraddresslist,UserAddressMap;
 @interface AddressListModel : NSObject
 
+@property (nonatomic, strong) UserAddressMap * userAddressMap;
 
 @property (nonatomic, strong) Addresslist *addressList;
 
 @property (nonatomic, assign) NSInteger resultCode;
 
 @property (nonatomic, copy) NSString *resultMsg;
+
+
+@end
+
+@interface UserAddressMap : NSObject
+
+@property (nonatomic, copy) NSString *postAddressId;
+
+@property (nonatomic, copy) NSString *userName;
+
+@property (nonatomic, assign) NSInteger longitude;
+
+@property (nonatomic, copy) NSString *postAddress;
+
+@property (nonatomic, copy) NSString *latitude;
+
+@property (nonatomic, copy) NSString *mobilePhone;
+
+@property (nonatomic, assign) NSInteger defaultFlag;
 
 
 @end
@@ -30,6 +50,7 @@
 @property (nonatomic, copy) NSString *responsetext;
 
 @property (nonatomic, copy) NSString *status;
+
 
 @end
 
@@ -51,7 +72,6 @@
 
 @property (nonatomic, copy) NSString *latitude;
 
-@property (nonatomic, assign) long long modifyDate;
 
 @property (nonatomic, assign) NSInteger cmUserId;
 

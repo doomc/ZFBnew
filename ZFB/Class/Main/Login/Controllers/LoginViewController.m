@@ -297,26 +297,17 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
 #pragma mark - login_Success 点击登录
 - (void)login_Success:(UIButton *)sender {
- 
-    NSLog(@"%@",BBUserDefault.cmUserId);
     
     if (_isQuickLogin == YES) {//快捷登录
         
         [self QuickLoginPostRequest];
         
     }else{
+        
         [self PasswordLoginPostRequest];
         
-        if ( BBUserDefault.isLogin == 1) {//密码登录
-        
-                [self left_button_event];
-                NSLog(@"跳转到指定页面");
-                
-            }
-        [self.view makeToast:@"密码输入错误" duration:2 position:@"center" ];
     }
 }
-
 
 
 /**
@@ -432,7 +423,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
     
  
     //测试
-    [SVProgressHUD show];
+    
     NSDictionary * parma = @{
                              
                              @"mobilePhone":_tf_loginphone.text,
@@ -451,12 +442,14 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
             BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
             BBUserDefault.nickName = response[@"userInfo"][@"nickName"];
-
+            
+            [self left_button_event];
+    
         }
+        
         NSLog(@" ======= userKeyMd5=======%@",BBUserDefault.userKeyMd5 );
-
         [self.view makeToast:response [@"resultMsg"] duration:2 position:@"center"];
-        [SVProgressHUD dismiss];
+   
         
     } progress:^(NSProgress *progeress) {
         
@@ -467,7 +460,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
 
     }];
-    [SVProgressHUD dismiss];
+   
 
 }
 

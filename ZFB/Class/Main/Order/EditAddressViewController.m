@@ -13,7 +13,7 @@
 @interface EditAddressViewController ()<UITextFieldDelegate>
 
 ///城市
-@property (copy, nonatomic) NSString * cityStr;
+@property (copy, nonatomic) NSString * cityStr;//城市地址
 @property (copy, nonatomic) NSString * longitudeSTR;//接收回传的经纬度
 @property (copy, nonatomic) NSString * latitudeSTR;
 @property (copy, nonatomic) NSString * postAddress;//收货地址（拼接补全的）
@@ -24,7 +24,7 @@
 @property (weak, nonatomic ) IBOutlet UITextField * tf_cellphone;
 @property (weak, nonatomic ) IBOutlet UITextField * tf_detailAddress;
 @property (weak, nonatomic ) IBOutlet UISwitch    * isDefaultSwitch;
-@property (weak, nonatomic) IBOutlet UIButton *SaveAndbackAction;
+@property (weak, nonatomic ) IBOutlet UIButton    *SaveAndbackAction;
 
 @end
 
@@ -36,7 +36,7 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title =@"新增收货地址";
-    self.SaveAndbackAction.clipsToBounds = YES;
+    self.SaveAndbackAction.clipsToBounds      = YES;
     self.SaveAndbackAction.layer.cornerRadius = 4;
     
     self.tf_name.delegate          = self;
@@ -49,12 +49,9 @@
     
     [self initSwitchView];
     
-    if ( _postAddressId != nil || ![_postAddressId isEqualToString:@""]) {
-        
-        [self editUserRewardInfoMessagePostRequst];
-    }
+
     
-    self.locationButton.clipsToBounds = YES;
+    self.locationButton.clipsToBounds      = YES;
     self.locationButton.layer.cornerRadius = 4;
     
 }
@@ -97,18 +94,18 @@
 - (IBAction)didClickCityList:(id)sender {
     
     AddressLocationMapViewController * locaVC = [AddressLocationMapViewController new];
-    locaVC.block = ^(NSString * address) {
+    locaVC.block                              = ^(NSString * address) {
         //        NSLog(@"-----%@------",address);
         [self.locationButton setTitle:address forState:UIControlStateNormal];
     };
     locaVC.longitudeBlock = ^(NSString * longitude) {
-        _longitudeSTR = longitude;
+        _longitudeSTR         = longitude;
     };
     locaVC.latitudeBlock = ^(NSString * latitude) {
-        _latitudeSTR = latitude;
+        _latitudeSTR         = latitude;
     };
     locaVC.possidBlock = ^(NSString * possid) {
-        _possid = possid;
+        _possid            = possid;
     };
     
     NSLog(@"%@ ------ %@------%@",_longitudeSTR,_latitudeSTR ,_possid)
@@ -184,20 +181,18 @@
     
     NSLog(@"_saveBool  ---------- %@",_defaultFlag);
     NSDictionary * param = @{
-                             
-                             
+                             @"postAddressId":@"",
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"contactUserName":_tf_name.text,
                              @"contactMobilePhone":_tf_cellphone.text,
+                             @"postAddress":_locationButton.titleLabel.text,// 用户全收货地址	否
+                             @"replenish":_tf_detailAddress.text,
                              @"mobilePhone":@"",
-                             @"deliveryProvince": _cityStr,
-                             @"deliveryAddress":_tf_detailAddress.text,
-                             @"defaultFlag":_defaultFlag,//是否为默认	否	1.是 2.否
-                             @"postAddress":_postAddressId,// 用户全收货地址	否
-                             @"zipCode":@"123123",// 邮政编号
+                             @"zipCode":@"400000",// 邮政编号
                              @"longitude":_longitudeSTR,// 经度	否	6位小数
                              @"latitude":_latitudeSTR,// 纬度	否	6位小数
-                             
+                             @"defaultFlag":_defaultFlag,//是否为默认	否	1.是 2.否
+
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/saveUserAddressInfo"] params:param success:^(id response) {
@@ -229,15 +224,12 @@
     
     NSLog(@"_postAddressId  ---------- %@",_postAddressId);
     NSDictionary * param = @{
-
+                             
                              @"postAddressId":_postAddressId,
                              
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/editUserReward"] params:param success:^(id response) {
-        
-        
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         
         if ([response[@"resultCode"] intValue] == 0) {
             {
@@ -245,8 +237,10 @@
                 _tf_cellphone.text     = response[@"cmUserRewardInfo"][@"contactMobilePhone"];
                 _cityStr               = response[@"cmUserRewardInfo"][@"postAddress"];
                 _tf_detailAddress.text = response[@"cmUserRewardInfo"][@"replenish"];
+                _latitudeSTR           = response[@"cmUserRewardInfo"][@"latitude"];
+                _longitudeSTR          = response[@"cmUserRewardInfo"][@"longitude"];
                 _defaultFlag           = response[@"cmUserRewardInfo"][@"defaultFlag"];
-                
+                [_locationButton setTitle:_cityStr forState:UIControlStateNormal];
                 
             }
         }
@@ -258,10 +252,23 @@
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-    
-    
-    
+ 
 }
+
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"%@",_postAddressId);
+    if ( ![_postAddressId isEqualToString:@""]) {
+      
+        [self editUserRewardInfoMessagePostRequst];
+
+    }else{
+        NSLog(@"不做任何操作");
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -69,6 +69,11 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>ReactiveCocoa.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>20</integer>
+		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -232,6 +237,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>6212FA6969C7C8D6C83AE18C053ED44F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>67D829A41A4D5C5EB4E891AD317D10C4</key>
 		<dict>
 			<key>primary</key>
@@ -327,6 +337,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>C178455D6BB25059D9C8C5CE456776CF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C44CCF0F2E8EC207CFE3113B0347C2E6</key>
 		<dict>
 			<key>primary</key>
@@ -378,6 +393,11 @@
 			<true/>
 		</dict>
 		<key>EDDDC9DF14F240266ED94D76871618E9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F9B19F8D3B7E7A5106D5B8E9C122BCB1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

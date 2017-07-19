@@ -58,7 +58,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"text/html",@"text/plain",@"application/json", @"text/json", @"text/javascript"]];
     
-    NSLog(@"已经加密的参数%@",parmaStr);
+//    NSLog(@"已经加密的参数%@",parmaStr);
 //    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     [manager POST:url parameters:parmaStr progress:^(NSProgress * _Nonnull uploadProgress) {
