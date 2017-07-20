@@ -19,7 +19,7 @@
 
 
 //baseUrl
-#define  zfb_baseUrl @"http://192.168.1.107:8087/zfb/InterfaceServlet"
+#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
 
 //图片服务器
 #define  uploadImgae_Url @"http://192.168.1.106:8086/cmfile/upload"
@@ -35,8 +35,8 @@
 #pragma mark -------------测试服务器数--------------------
 //#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
 
-
-
-
+#define PayResulrUrl @"http://192.168.1.115:8080/cashier_zavfpay/cashier/gateway.do"//支付页面地址
+#define notify_url   @"http://192.168.1.104:8087/notify/order/getOrderNotify"//支付异步回调地址
+#define return_url   @"http://localhost:8080/return"//支付同步回调地址
 
 #endif /* ZFB_Urls_h */

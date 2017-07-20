@@ -27,6 +27,8 @@
 
 @interface JosnGoodslist : NSObject
 
+@property (nonatomic, copy) NSString *storeId;
+
 @property (nonatomic, copy) NSString *goodsProp;
 
 @property (nonatomic, copy) NSString *goodsName;

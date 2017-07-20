@@ -70,8 +70,10 @@
         if (success) {
             if (responseObject != nil) {
 
-                NSString *result = [NSString convertToJsonData:responseObject];
-                NSLog(@"%@",result);
+//                NSString *result = [NSString convertToJsonData:responseObject];
+                
+                
+                NSLog(@"%@",responseObject);
             }
             success(responseObject);
         }
@@ -81,6 +83,7 @@
         }
     }];
 }
+
 
 
 @end

@@ -10,4 +10,11 @@
 
 @interface ZFMainPayforViewController : BaseViewController
 
+@property (nonatomic,strong )NSDictionary *orderListdic;
+
+
+
+
+
+
 @end

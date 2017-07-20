@@ -37,6 +37,8 @@
 // 商品左侧按钮是否选中
 @property (nonatomic,assign) BOOL goodslistIsChoosed;
 
+@property (nonatomic, copy) NSString *storeId;
+
 @property (nonatomic, copy) NSString *cartItemId;
 
 @property (nonatomic, assign) CGFloat storePrice;

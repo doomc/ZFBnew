@@ -27,6 +27,7 @@
 @property (nonatomic,copy) NSString *longitude;///经度
 
 
+
 @property (nonatomic) BOOL boolValue;
 @property (nonatomic) float floatValue;
 

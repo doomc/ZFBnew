@@ -22,7 +22,9 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 
 @interface ZFShoppingCarViewController ()<UITableViewDelegate,UITableViewDataSource,ShoppingSelectedDelegate>
 {
-    NSString * _cartItemId ;
+    NSString * _cartItemId ;//
+    NSString * _goodsCount; //商品数量
+    
 }
 @property (nonatomic,strong) UITableView * shopCar_tableview;
 @property (nonatomic,strong) UIView      * underFootView;
@@ -126,12 +128,13 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     Shoppcartlist * list     = self.carListArray[indexPath.section];
     Goodslist *goods         = list.goodsList[indexPath.row];
     goods.goodslistIsChoosed = !goods.goodslistIsChoosed;
-    
-    
+  
+    //////////////////////////////////////////////////////////////////////////
     NSMutableArray * mArray = [NSMutableArray array];
     NSMutableArray *  InfojsonArray = [NSMutableArray array];
     NSMutableDictionary * dict  = [NSMutableDictionary dictionary];
     NSMutableDictionary * jsonDict  = [NSMutableDictionary dictionary];
+    
     // 当点击单个的时候，判断是否该买手下面的商品是否全部选中
     __block NSInteger count = 0;
     [list.goodsList enumerateObjectsUsingBlock:^(Goodslist *obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -146,16 +149,14 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             [dict setValue: [NSArray arrayWithArray:mArray]  forKey:@"goodsList"];
             [dict setValue:list.storeName forKey:@"storeName"];
             [dict setValue:list.storeId forKey:@"storeId"];
+    
             NSLog(@"dict = %@",dict);
             
             [InfojsonArray addObject:dict];
-        
             [jsonDict setValue:[NSArray arrayWithArray:InfojsonArray]  forKey:@"userGoodsInfoJSON"];
             
             NSLog(@"jsonDict = %@",jsonDict);
-            
-//            _jsonString = [self.jsonDict mj_JSONString];
-
+    
             _jsonString = [NSString convertToJsonData:self.jsonDict];
             
             NSLog(@"_jsonString = %@",_jsonString);
@@ -212,8 +213,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         NSLog(@"dic = %@",dic);
         self.jsonDict = [NSMutableDictionary dictionary];
         [self.jsonDict setValue:[NSArray arrayWithArray:self.jsonGoodArray] forKey:@"userGoodsInfoJSON"];
-       
-//        _jsonString = [self.jsonDict mj_JSONString];
 
         _jsonString = [NSString convertToJsonData:self.jsonDict];
         
@@ -255,7 +254,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         self.jsonDict   = [NSMutableDictionary dictionaryWithObject:dictArray forKey:@"userGoodsInfoJSON"];
         NSLog(@"添加选中的 商品  到数组中  ----jsonDict  = %@",self.jsonDict);
         
- 
         _jsonString  = [NSString convertToJsonData:self.jsonDict];
     }
 

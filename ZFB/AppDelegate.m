@@ -15,7 +15,7 @@
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
 #import "AppDelegate+Location.h"
-
+#import "SYSafeCategory.h"
 const static NSString *ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
 
 @interface AppDelegate ()
@@ -29,6 +29,9 @@ const static NSString *ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //统一处理一些为数组、集合等对nil插入会引起闪退
+    [SYSafeCategory callSafeCategory];
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];

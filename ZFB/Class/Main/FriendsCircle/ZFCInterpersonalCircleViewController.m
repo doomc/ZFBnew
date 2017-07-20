@@ -8,12 +8,11 @@
 
 #import "ZFCInterpersonalCircleViewController.h"
 
-
-static NSString *const dataUrl = @"http://api.budejie.com/api/api_open.php";
-static NSString *const downloadUrl = @"http://wvideo.spriteapp.cn/video/2016/0328/56f8ec01d9bfe_wpd.mp4";
-
-
-@interface ZFCInterpersonalCircleViewController ()
+#import <WebKit/WebKit.h>
+#import "WKWebViewJavascriptBridge.h"
+@interface ZFCInterpersonalCircleViewController ()<WKUIDelegate,WKNavigationDelegate>
+@property (nonatomic ,strong) WKWebView *               webView ;
+@property (nonatomic ,strong) WKWebViewJavascriptBridge * bridge  ;
 @property(nonatomic,strong)   UITextView  * textView;
 
 @end
@@ -26,11 +25,19 @@ static NSString *const downloadUrl = @"http://wvideo.spriteapp.cn/video/2016/032
     self.view.backgroundColor =  randomColor;
     self.title = @"人际圈";
     
- 
 
-}
--(void)uploadaaaaa{
-       
+    //用UIWebView加载web
+    _webView    = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH)];
+    _webView.allowsBackForwardNavigationGestures = YES;
+    _webView.navigationDelegate = self;
+    [self.view addSubview:_webView];
+    
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.tmall.com"]]];
+    //    _webView.UIDelegate = self;
+    //    _webView.navigationDelegate = self;
+    _webView.backgroundColor = randomColor;
+
+
 }
 
 

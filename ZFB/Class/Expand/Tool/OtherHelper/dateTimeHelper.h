@@ -15,6 +15,9 @@
 //格式不同
 + (NSString *)TimeToLocationStr:(NSDate*)curDate;
 
++ (NSString *)timehelpFormatter:(NSDate*)curDate;
+
+
 + (void)verificationCode:(void(^)())blockYes blockNo:(void(^)(id time))blockNo ;
 
 @end

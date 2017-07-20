@@ -10,6 +10,18 @@
 
 @implementation dateTimeHelper
 
+
++ (NSString *)timehelpFormatter:(NSDate*)curDate
+{
+    if (curDate==nil) {
+        return @"";
+    }
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *fixString = [dateFormatter stringFromDate:curDate];
+    return fixString;
+}
+
 + (NSString *)htcTimeToLocationStr:(NSDate*)curDate
 {
     if (curDate==nil) {

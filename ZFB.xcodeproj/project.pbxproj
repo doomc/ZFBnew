@@ -621,6 +621,11 @@
 		49917B9E1F1C937A005790AF /* DetailgoodsSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49917B9C1F1C937A005790AF /* DetailgoodsSelectCell.m */; };
 		49917B9F1F1C937A005790AF /* DetailgoodsSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49917B9D1F1C937A005790AF /* DetailgoodsSelectCell.xib */; };
 		499745111EE6959B00DA273B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 498DE0C81EE63C8700F64A61 /* libsqlite3.0.tbd */; };
+		49B3BCD71F204F70002A0FDC /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3BCD41F204F70002A0FDC /* JRSwizzle.m */; };
+		49B3BCD81F204F70002A0FDC /* SYSafeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3BCD61F204F70002A0FDC /* SYSafeCategory.m */; };
+		49B3BCDB1F204FAC002A0FDC /* NSArray+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3BCDA1F204FAC002A0FDC /* NSArray+SafeAccess.m */; };
+		49B3BCDE1F204FB5002A0FDC /* NSDictionary+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3BCDD1F204FB5002A0FDC /* NSDictionary+SafeAccess.m */; };
+		49B3BCE11F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3BCE01F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m */; };
 		49D75C8D1EEE8AF300FACCD8 /* AppDelegate+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D75C8C1EEE8AF300FACCD8 /* AppDelegate+Location.m */; };
 		506745A71F1D0D39000CC722 /* DWQRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 506745A31F1D0D39000CC722 /* DWQRatingView.m */; };
 		506745A81F1D0D39000CC722 /* DWQStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 506745A51F1D0D39000CC722 /* DWQStarView.m */; };
@@ -1582,6 +1587,16 @@
 		49917B9B1F1C937A005790AF /* DetailgoodsSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailgoodsSelectCell.h; sourceTree = "<group>"; };
 		49917B9C1F1C937A005790AF /* DetailgoodsSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailgoodsSelectCell.m; sourceTree = "<group>"; };
 		49917B9D1F1C937A005790AF /* DetailgoodsSelectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailgoodsSelectCell.xib; sourceTree = "<group>"; };
+		49B3BCD31F204F70002A0FDC /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
+		49B3BCD41F204F70002A0FDC /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
+		49B3BCD51F204F70002A0FDC /* SYSafeCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYSafeCategory.h; sourceTree = "<group>"; };
+		49B3BCD61F204F70002A0FDC /* SYSafeCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYSafeCategory.m; sourceTree = "<group>"; };
+		49B3BCD91F204FA6002A0FDC /* NSArray+SafeAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SafeAccess.h"; sourceTree = "<group>"; };
+		49B3BCDA1F204FAC002A0FDC /* NSArray+SafeAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SafeAccess.m"; sourceTree = "<group>"; };
+		49B3BCDC1F204FB1002A0FDC /* NSDictionary+SafeAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+SafeAccess.h"; sourceTree = "<group>"; };
+		49B3BCDD1F204FB5002A0FDC /* NSDictionary+SafeAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+SafeAccess.m"; sourceTree = "<group>"; };
+		49B3BCDF1F204FBA002A0FDC /* NSUserDefaults+SafeAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+SafeAccess.h"; sourceTree = "<group>"; };
+		49B3BCE01F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+SafeAccess.m"; sourceTree = "<group>"; };
 		49D75C8B1EEE8AF300FACCD8 /* AppDelegate+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Location.h"; sourceTree = "<group>"; };
 		49D75C8C1EEE8AF300FACCD8 /* AppDelegate+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Location.m"; sourceTree = "<group>"; };
 		506745A21F1D0D39000CC722 /* DWQRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWQRatingView.h; sourceTree = "<group>"; };
@@ -1899,6 +1914,7 @@
 		495EA2FD1F14B64B001FCB7E /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				49B3BCD21F204F70002A0FDC /* SySafeCategory */,
 				50D4D7AC1F1BC2EC0073DBC1 /* MBProgressHUD+MP.h */,
 				50D4D7AA1F1BC2A10073DBC1 /* MBProgressHUD+MP.m */,
 				50D4D7AD1F1BC5680073DBC1 /* UIViewController+Unitil.h */,
@@ -2355,7 +2371,7 @@
 				495EA3D41F14B64B001FCB7E /* Home(首页) */,
 				495EA45D1F14B64B001FCB7E /* Login(登录注册) */,
 				495EA4701F14B64B001FCB7E /* Mine(个人中心) */,
-				495EA54D1F14B64C001FCB7E /* PayController(支付类) */,
+				495EA54D1F14B64C001FCB7E /* PayController(收银台) */,
 				495EA5531F14B64C001FCB7E /* Public(公共) */,
 				495EA56B1F14B64C001FCB7E /* Search(搜索) */,
 				495EA5701F14B64C001FCB7E /* ShoppingCar(购物车) */,
@@ -2968,7 +2984,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		495EA54D1F14B64C001FCB7E /* PayController(支付类) */ = {
+		495EA54D1F14B64C001FCB7E /* PayController(收银台) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA54E1F14B64C001FCB7E /* DetailPayCashViewController.h */,
@@ -2977,7 +2993,7 @@
 				495EA5511F14B64C001FCB7E /* ZFMainPayforViewController.h */,
 				495EA5521F14B64C001FCB7E /* ZFMainPayforViewController.m */,
 			);
-			name = "PayController(支付类)";
+			name = "PayController(收银台)";
 			path = PayController;
 			sourceTree = "<group>";
 		};
@@ -3714,6 +3730,23 @@
 			path = ZWPlaceHolder;
 			sourceTree = "<group>";
 		};
+		49B3BCD21F204F70002A0FDC /* SySafeCategory */ = {
+			isa = PBXGroup;
+			children = (
+				49B3BCD31F204F70002A0FDC /* JRSwizzle.h */,
+				49B3BCD41F204F70002A0FDC /* JRSwizzle.m */,
+				49B3BCD51F204F70002A0FDC /* SYSafeCategory.h */,
+				49B3BCD61F204F70002A0FDC /* SYSafeCategory.m */,
+				49B3BCD91F204FA6002A0FDC /* NSArray+SafeAccess.h */,
+				49B3BCDA1F204FAC002A0FDC /* NSArray+SafeAccess.m */,
+				49B3BCDC1F204FB1002A0FDC /* NSDictionary+SafeAccess.h */,
+				49B3BCDD1F204FB5002A0FDC /* NSDictionary+SafeAccess.m */,
+				49B3BCDF1F204FBA002A0FDC /* NSUserDefaults+SafeAccess.h */,
+				49B3BCE01F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m */,
+			);
+			path = SySafeCategory;
+			sourceTree = "<group>";
+		};
 		506745A01F1D0D39000CC722 /* DWQFivestarRating */ = {
 			isa = PBXGroup;
 			children = (
@@ -4346,6 +4379,7 @@
 				495EA7D11F14B64D001FCB7E /* ZFMySendServiceCell.m in Sources */,
 				495EA8081F14B64D001FCB7E /* ZFApplyReasonCell.m in Sources */,
 				49555EA11F1E0092002E5688 /* OrderPriceCell.m in Sources */,
+				49B3BCDB1F204FAC002A0FDC /* NSArray+SafeAccess.m in Sources */,
 				495EA9591F14B64E001FCB7E /* TAPageControl.m in Sources */,
 				49917B971F1C5723005790AF /* ClassLeftListModel.m in Sources */,
 				495EA7BB1F14B64D001FCB7E /* RegisterViewController.m in Sources */,
@@ -4516,10 +4550,13 @@
 				495EA7D21F14B64D001FCB7E /* ZFPersonalHeaderView.m in Sources */,
 				495EA7151F14B64D001FCB7E /* NSData+APNSToken.m in Sources */,
 				495EA8511F14B64D001FCB7E /* ZFShopCarCell.m in Sources */,
+				49B3BCDE1F204FB5002A0FDC /* NSDictionary+SafeAccess.m in Sources */,
 				495EA93F1F14B64E001FCB7E /* MJRefreshComponent.m in Sources */,
+				49B3BCE11F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m in Sources */,
 				495EA7AC1F14B64D001FCB7E /* GuessCell.m in Sources */,
 				49555E961F1E0092002E5688 /* AddressLocationMapViewController.m in Sources */,
 				495EA76C1F14B64D001FCB7E /* CollectionCategoryModel.m in Sources */,
+				49B3BCD81F204F70002A0FDC /* SYSafeCategory.m in Sources */,
 				495EA73F1F14B64D001FCB7E /* introductoryPagesHelper.m in Sources */,
 				495EA7181F14B64D001FCB7E /* NSString+JsonChange.m in Sources */,
 				495EA7221F14B64D001FCB7E /* UIView+MJ.m in Sources */,
@@ -4608,6 +4645,7 @@
 				495EA7C51F14B64D001FCB7E /* ZFCollectBarView.m in Sources */,
 				495EA7951F14B64D001FCB7E /* ZFEvaluateViewController.m in Sources */,
 				495EA7311F14B64D001FCB7E /* HDAlertView.m in Sources */,
+				49B3BCD71F204F70002A0FDC /* JRSwizzle.m in Sources */,
 				49555EA91F1E0092002E5688 /* OldMainViewController.m in Sources */,
 				495EA7691F14B64D001FCB7E /* ZFBaseNavigationViewController.m in Sources */,
 				495EA8201F14B64D001FCB7E /* ZFSettingRowCell.m in Sources */,
