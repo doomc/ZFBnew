@@ -41,7 +41,7 @@
     self.lb_nickName.text = _infoList.userName;
     self.lb_message.text = _infoList.reviewsText;
     self.lb_detailtext.text = [NSString stringWithFormat:@"%@之前,来自%@",_infoList.createDate,_infoList.equip];
-    [self.img_appraiseView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_infoList.userAvatarImg]] placeholderImage:nil];
+    [self.img_appraiseView sd_setImageWithURL:[NSURL URLWithString:_infoList.userAvatarImg] placeholderImage:nil];
     
     self.itemArray = [NSMutableArray array];
     
@@ -90,7 +90,7 @@
      for (NSString * urlStr in self.itemArray) {
          
          NSLog(@"-----aaaaaaaaa-------%@",urlStr);
-         [cell.img_CollectionView  sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",urlStr]] placeholderImage:nil ];
+         [cell.img_CollectionView  sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:nil ];
      
      }
     

@@ -163,8 +163,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 {
     if (section == 2 ) {
 
-        return 2;
-//        return self.likeListArray.count;
+       return self.likeListArray.count; 
     }
     return 1;
 }

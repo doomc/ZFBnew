@@ -11,6 +11,6 @@
 @interface SukItemCollectionViewCell : UICollectionViewCell
 
 @property (strong, nonatomic) Valuelist *valueObj;
-@property (assign, nonatomic) BOOL isSelected; 
+@property (assign, nonatomic) BOOL isSelecteditems;
 
 @end

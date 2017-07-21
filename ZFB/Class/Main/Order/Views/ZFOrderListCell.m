@@ -64,7 +64,7 @@
         self.img_shenglve.hidden = YES;
     }
     
-    [cell.img_listImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",list.coverImgUrl]] placeholderImage:nil];
+    [cell.img_listImgView sd_setImageWithURL:[NSURL URLWithString:list.coverImgUrl] placeholderImage:nil];
     return cell;
 }
 

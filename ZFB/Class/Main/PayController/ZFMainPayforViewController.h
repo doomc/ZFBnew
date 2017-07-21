@@ -10,9 +10,9 @@
 
 @interface ZFMainPayforViewController : BaseViewController
 
-@property (nonatomic,strong )NSDictionary *orderListdic;
-
-
+@property (nonatomic,strong )NSString  * orderjsonString;
+@property (nonatomic,strong )NSString  * datetime;
+@property (nonatomic,strong )NSString  * access_token;
 
 
 

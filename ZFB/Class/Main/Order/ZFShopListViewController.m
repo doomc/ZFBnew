@@ -96,7 +96,7 @@
         listCell.lb_title.text = goods.goodsName;
         listCell.lb_count.text = goods.goodsCount;
         listCell.lb_price.text = [NSString stringWithFormat:@"¥%@",goods.storePrice];
-        [listCell.img_shopView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",goods.coverImgUrl]] placeholderImage:nil];
+        [listCell.img_shopView sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:nil];
         
         NSString *str = @"";
         

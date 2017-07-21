@@ -27,7 +27,8 @@
     
     self.lb_Storetitle.text = _detailGoodlist.goodsName;
     self.lb_price.text = [NSString stringWithFormat:@"价格:¥%@",_detailGoodlist.storePrice];
-    [self.img_storeImageView sd_setImageWithURL: [NSURL URLWithString:[NSString stringWithFormat:@"%@",_detailGoodlist.coverImgUrl]] placeholderImage:nil];
+    NSURL * url  =[ NSURL URLWithString:detailGoodlist.coverImgUrl];
+    [self.img_storeImageView sd_setImageWithURL: url placeholderImage:nil];
 
 }
 @end

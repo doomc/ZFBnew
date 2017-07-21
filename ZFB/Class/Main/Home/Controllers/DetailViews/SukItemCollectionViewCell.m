@@ -33,10 +33,10 @@
     [_selectItemColor setTitle:valueObj.name forState:UIControlStateNormal] ;
 }
 
-- (void)setIsSelected:(BOOL)isSelected
+- (void)setIsSelecteditems:(BOOL)isSelecteditems
 {
-    _isSelected = isSelected;
-    if (isSelected) {
+    _isSelecteditems = isSelecteditems;
+    if (_isSelecteditems) {
         [_selectItemColor setBackgroundColor:HEXCOLOR(0xfe6d6a)];
         [_selectItemColor setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
         

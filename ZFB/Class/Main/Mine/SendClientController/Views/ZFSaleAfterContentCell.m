@@ -34,7 +34,7 @@
     self.lb_goodcount.text = [NSString stringWithFormat:@"数量x%@%@",_goods.goodsCount, _goods.goodsUnit];
     self.lb_title.text =  _goods.goods_name;
     
-    [self.img_saleAfter sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_goods.coverImgUrl]] placeholderImage:nil];
+    [self.img_saleAfter sd_setImageWithURL:[NSURL URLWithString:_goods.coverImgUrl] placeholderImage:nil];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

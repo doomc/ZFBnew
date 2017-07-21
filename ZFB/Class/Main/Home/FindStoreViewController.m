@@ -370,6 +370,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     NSLog(@" 参与加密的参数  ----------- %@ ======parma" ,parma);
     
+  
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
         
         if (_page == 1) {
