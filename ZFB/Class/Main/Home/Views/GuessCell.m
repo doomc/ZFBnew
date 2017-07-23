@@ -26,7 +26,7 @@
 {
     _goodlist = goodlist;
     
-    NSURL * img_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",_goodlist.coverImgUrl]];
+    NSURL * img_url = [NSURL URLWithString:_goodlist.coverImgUrl ];
     [self.guess_listView sd_setImageWithURL:img_url placeholderImage:nil];
 
     self.lb_goodsName.text = _goodlist.goodsName;

@@ -28,19 +28,34 @@
 
     //用UIWebView加载web
     _webView    = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH)];
-    _webView.allowsBackForwardNavigationGestures = YES;
-    _webView.navigationDelegate = self;
+//    _webView.allowsBackForwardNavigationGestures = YES;
+//    _webView.navigationDelegate = self;
+//    [self.view addSubview:_webView];
+//    
+//    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.tmall.com"]]];
+//    //    _webView.UIDelegate = self;
+//    //    _webView.navigationDelegate = self;
+//    _webView.backgroundColor = randomColor;
+
+    // 设置访问的URL
+    NSURL *url = [NSURL URLWithString:@"http://www.jianshu.com"];
+    // 根据URL创建请求
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    // WKWebView加载请求
+    [_webView loadRequest:request];
+    // 将WKWebView添加到视图
     [self.view addSubview:_webView];
     
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.tmall.com"]]];
-    //    _webView.UIDelegate = self;
-    //    _webView.navigationDelegate = self;
-    _webView.backgroundColor = randomColor;
-
-
+ 
 }
 
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    [webView evaluateJavaScript:@"showAlert('奏是一个弹框')" completionHandler:^(id item, NSError * _Nullable error) {
+        // Block中处理是否通过了或者执行JS错误的代码
+    }];
 
+}
 
 
 

@@ -77,6 +77,18 @@
     return dic;
 }
 
++ (NSString *)arrayToJSONString:(NSArray *)array
+{
+    NSError *error = nil;
+ 
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+//    [jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+      [jsonString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+      [jsonString stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    NSLog(@"json array is: %@", jsonResult);
+    return jsonString;
+}
 
 
 +(NSString *)base64:(NSString *)dataStr;

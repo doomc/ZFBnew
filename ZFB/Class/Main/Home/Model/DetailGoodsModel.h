@@ -67,7 +67,6 @@
 
 @property (nonatomic, copy) NSString *labelId;
 
-
 @property (nonatomic, copy) NSString *operateUserId;
 
 @property (nonatomic, copy) NSString *goodsCode;
@@ -144,13 +143,16 @@
 
 @property (nonatomic, assign) NSInteger orderNum;
 
+@property (nonatomic, assign) NSInteger nameId;//根据这个id区匹配
+
 @property (nonatomic, copy) NSString *name;///尺寸：颜色：类型
 
-@property (nonatomic, assign) NSInteger createTime;
 
 @end
 
 @interface Valuelist : NSObject
+
+@property (nonatomic, assign) NSInteger selectedId;
 
 @property (nonatomic, assign) NSInteger nameId;
 

@@ -16,6 +16,8 @@
 //2. JSON字符串转化为字典
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 
+//数组转json
++ (NSString *)arrayToJSONString:(NSArray *)array;
 
 
 //MD5 加密 排序

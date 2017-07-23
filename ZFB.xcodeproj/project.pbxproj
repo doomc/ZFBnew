@@ -617,6 +617,7 @@
 		49690CBB1F14C442004C501B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 49690CBA1F14C442004C501B /* Reachability.m */; };
 		49690CBD1F14D0CF004C501B /* PPNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49690CBC1F14D0CF004C501B /* PPNetworkHelper.m */; };
 		49690CBF1F14EB3A004C501B /* MENetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49690CBE1F14EB3A004C501B /* MENetWorkManager.m */; };
+		498063B91F21A12800BA89AA /* CommitOrderlist.m in Sources */ = {isa = PBXBuildFile; fileRef = 498063B81F21A12800BA89AA /* CommitOrderlist.m */; };
 		49917B971F1C5723005790AF /* ClassLeftListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49917B961F1C5723005790AF /* ClassLeftListModel.m */; };
 		49917B9E1F1C937A005790AF /* DetailgoodsSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49917B9C1F1C937A005790AF /* DetailgoodsSelectCell.m */; };
 		49917B9F1F1C937A005790AF /* DetailgoodsSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49917B9D1F1C937A005790AF /* DetailgoodsSelectCell.xib */; };
@@ -1582,6 +1583,8 @@
 		49690CBA1F14C442004C501B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		49690CBC1F14D0CF004C501B /* PPNetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNetworkHelper.m; sourceTree = "<group>"; };
 		49690CBE1F14EB3A004C501B /* MENetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MENetWorkManager.m; sourceTree = "<group>"; };
+		498063B71F21A12800BA89AA /* CommitOrderlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitOrderlist.h; sourceTree = "<group>"; };
+		498063B81F21A12800BA89AA /* CommitOrderlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitOrderlist.m; sourceTree = "<group>"; };
 		498DE0C81EE63C8700F64A61 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		49917B951F1C5723005790AF /* ClassLeftListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassLeftListModel.h; sourceTree = "<group>"; };
 		49917B961F1C5723005790AF /* ClassLeftListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassLeftListModel.m; sourceTree = "<group>"; };
@@ -1802,6 +1805,8 @@
 				4926DF071F1F4AA400E9060B /* JsonModel.m */,
 				492718A71F1F767D002A7A54 /* SureOrderModel.h */,
 				492718A81F1F767D002A7A54 /* SureOrderModel.m */,
+				498063B71F21A12800BA89AA /* CommitOrderlist.h */,
+				498063B81F21A12800BA89AA /* CommitOrderlist.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4551,6 +4556,7 @@
 				49555EB41F1E0092002E5688 /* ZFAddressListViewController.m in Sources */,
 				495EA9761F14B64E001FCB7E /* YYDiskCache.m in Sources */,
 				495EA7191F14B64D001FCB7E /* NSString+ZFSortAppdending.m in Sources */,
+				498063B91F21A12800BA89AA /* CommitOrderlist.m in Sources */,
 				49555E991F1E0092002E5688 /* AddressCommitOrderModel.m in Sources */,
 				495EA7D21F14B64D001FCB7E /* ZFPersonalHeaderView.m in Sources */,
 				495EA7151F14B64D001FCB7E /* NSData+APNSToken.m in Sources */,

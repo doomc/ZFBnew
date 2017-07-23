@@ -62,21 +62,17 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
                  forCellReuseIdentifier:shoppingHeaderID];
     
     [self.view addSubview:self.underFootView];
-    
-    [self refreshData];
-
-}
-
-
-//更新数据
--(void)refreshData
-{
-    
     self.allSelectedButton.selected = NO;
     self.complete_Btn.selected      = NO;
-    
-    [self shoppingCarPostRequst];
+
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+     [self shoppingCarPostRequst];
+
+}
+
+
 
 
 
@@ -85,15 +81,17 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 {
     NSLog(@" 结算");
 
+    [SVProgressHUD show];
     ZFSureOrderViewController * orderVC = [[ZFSureOrderViewController alloc]init];
-    
+
     if (_jsonString != nil) {
         orderVC.jsonString =  _jsonString;
         NSLog(@"提交成功了 ----------- %@ ",_jsonString);
+        [SVProgressHUD dismissWithDelay:1];
+        [self.navigationController pushViewController:orderVC animated:YES];
 
     }
     
-    [self.navigationController pushViewController:orderVC animated:YES];
 
 //    else{
 //        JXTAlertController * alert =  [JXTAlertController alertControllerWithTitle:nil message:@"您还没有选择商品" preferredStyle:UIAlertControllerStyleAlert];
@@ -417,7 +415,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     Goodslist *goodslist     = shopList.goodsList[indexPath.row];
     
     cell.chooseBtn.selected = goodslist.goodslistIsChoosed;//!< 商品是否需要选择的字段
-    [cell.img_shopCar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",goodslist.coverImgUrl]] placeholderImage:nil];
+    [cell.img_shopCar sd_setImageWithURL:[NSURL URLWithString:goodslist.coverImgUrl] placeholderImage:nil];
     
     cell.lb_price.text  = [NSString stringWithFormat:@"¥%.2f",goodslist.storePrice];
     cell.lb_title.text  = goodslist.goodsName;
@@ -645,27 +643,29 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
                              
                              };
 
-//    [MBProgressHUD showProgressToView:nil Text:@"加载中..."];
+    [SVProgressHUD show];
+    
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getShoppCartList"] params:parma success:^(id response) {
-        weakSelf(weakSelf);
+   
         
-        if (![self isEmptyArray:weakSelf.carListArray]) {
+        if ([response[@"resultCode"] intValue] == 0 ) {
             
-            [self.carListArray  removeAllObjects];
-        }
-        else{
-            
-            ShoppingCarModel * shopModel = [ShoppingCarModel mj_objectWithKeyValues:response];
-            
-            for (Shoppcartlist * list in shopModel.shoppCartList) {
+            if (self.carListArray.count > 0) {
                 
-                [weakSelf.carListArray addObject:list];
+                [self.carListArray  removeAllObjects];
             }
+            ShoppingCarModel * shopModel = [ShoppingCarModel mj_objectWithKeyValues:response];
+                
+            for (Shoppcartlist * list in shopModel.shoppCartList) {
+                [self.carListArray addObject:list];
+               
+            }
+            
+            [SVProgressHUD dismissWithDelay:1];
+            
+            [self.shopCar_tableview reloadData];
+  
         }
-        
-        [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].delegate.window animated:YES];
-        
-        [weakSelf.shopCar_tableview reloadData];
         
     } progress:^(NSProgress *progeress) {
         
@@ -675,6 +675,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
+    [SVProgressHUD dismissWithDelay:1];
     
 }
 

@@ -44,9 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    //////////当前页数据不全////////
-    [self detailListStorePostRequst];
+ 
     
     [self CreatCollctionViewInterface];
     
@@ -228,19 +226,19 @@
 {
     NSDictionary * parma = @{
                              
-                             @"svcName":@"",
-                             @"storeId":_storeId,//门店id
+                              @"storeId":_storeId,//门店id
                              
                              };
     
-    MJWeakSelf;
+    [SVProgressHUD show];
+    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreDetailsInfo",zfb_baseUrl] params:parma success:^(id response) {
         
         if ( [response[@"resultCode"] intValue] == 0) {
             
-            if (weakSelf.storeListArray.count > 0) {
+            if (self.storeListArray.count > 0) {
                 
-                [weakSelf.storeListArray removeAllObjects];
+                [self.storeListArray removeAllObjects];
                 
             }
             
@@ -248,37 +246,46 @@
 
             for (DetailCmgoodslist * goodlist in detailModel.cmGoodsList) {
                 
-                [weakSelf.storeListArray addObject:goodlist];
+                [self.storeListArray addObject:goodlist];
             }
-            
-            NSLog(@"门店详情 =storeListArray = %@",  weakSelf.storeListArray);
+            NSLog(@"门店详情 =storeListArray = %@",  self.storeListArray);
 
             _storeName =  detailModel.cmStoreDetailsList.storeName;
             _address =  detailModel.cmStoreDetailsList.address;
             _contactPhone =  detailModel.cmStoreDetailsList.contactPhone;
             _payType = [NSString stringWithFormat:@"%ld", detailModel.cmStoreDetailsList.payType];
-            _stroreUrl =  detailModel.cmStoreDetailsList.attachUrl;
             
+            _stroreUrl =  detailModel.cmStoreDetailsList.attachUrl;
             imgArray = [NSArray array];
             imgArray = [_stroreUrl componentsSeparatedByString:@","];
             NSLog(@"图片地址 = %@",imgArray);
 
+            [SVProgressHUD dismiss];
+            
             [self sd_HeadScrollViewInit];
-            [weakSelf.main_ColletionView reloadData];
+            
+            [self.main_ColletionView reloadData];
+
         }
         
+
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
-        [weakSelf.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         NSLog(@"error=====%@",error);
         
     }];
-    
-    
+    [SVProgressHUD dismissWithDelay:1];
+
 }
 
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    [self detailListStorePostRequst];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
