@@ -242,9 +242,9 @@
         
         NSString *htmlStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
-        [self.webView loadRequest:request];
+//        [self.webView loadRequest:request];
         NSLog(@"%@",htmlStr);
-//        [self.webView loadHTMLString:htmlStr baseURL:[NSURL URLWithString:PayResulrUrl]];
+        [self.webView loadHTMLString:htmlStr baseURL:[NSURL URLWithString:PayResulrUrl]];
  
     }];
  

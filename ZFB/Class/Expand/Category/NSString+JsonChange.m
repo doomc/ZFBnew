@@ -79,15 +79,19 @@
 
 + (NSString *)arrayToJSONString:(NSArray *)array
 {
-    NSError *error = nil;
- 
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//    [jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-      [jsonString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-      [jsonString stringByReplacingOccurrencesOfString:@" " withString:@""];
-//    NSLog(@"json array is: %@", jsonResult);
-    return jsonString;
+    if (array.count > 0) {
+        NSError *error = nil;
+        
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        //    [jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+        [jsonString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        [jsonString stringByReplacingOccurrencesOfString:@" " withString:@""];
+        //    NSLog(@"json array is: %@", jsonResult);
+        return jsonString;
+    }
+    
+    return nil;
 }
 
 

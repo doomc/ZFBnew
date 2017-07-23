@@ -89,19 +89,15 @@
 //每个cell的大小，因为有indexPath，所以可以判断哪一组，或者哪一个item，可一个给特定的大小，等同于layout的itemSize属性
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-   HotSearchCollectionViewCell * cell  = (HotSearchCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+   
+    HotSearchCollectionViewCell * cell  = (HotSearchCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
     cell.hotTitle.text = [NSString stringWithFormat:@"%@",[_hotArray objectAtIndex:indexPath.item]];
-    // make label width depend on text width
-    [cell.hotTitle sizeToFit];
+ 
     
-    //get the width and height of the label (CGSize contains two parameters: width and height)
-    CGSize labelSize = cell.hotTitle.frame.size;
-    
-    
-//    return [(NSString*)[_hotArray objectAtIndex:indexPath.row] sizeWithAttributes:[NSDictionary dictionaryWithObject:NSFontAttributeName forKey:@""]];
+    return [(NSString*)[_hotArray objectAtIndex:indexPath.row] sizeWithAttributes:[NSDictionary dictionaryWithObject:NSFontAttributeName forKey:@""]];
 //    return  CGSizeMake(self.bounds.size.width/4-20, 30);
-    return CGSizeMake(labelSize.width  +20, 30);
+//    return CGSizeMake(labelSize.width  +20, 30);
     
     
 }

@@ -214,7 +214,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
 }
 #pragma mark  -tableView  delegate
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -355,6 +354,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     Productattribute * product = self.productSkuArray[section];
 //    NSLog(@"product.reluJson  ==== %@",product.valueList);
+
     return   product.valueList.count;
 }
 //设置每个item的尺寸
@@ -397,8 +397,10 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     Valuelist * value          = product.valueList[indexPath.row];
     cell.valueObj              = value;
     Valuelist * tempValue      = [dictProductValue objectForKey:@(indexPath.section).stringValue];
-    cell.isSelecteditems       = value.selectedId == tempValue.nameId;
+    cell.isSelecteditems     = value.selectedId == tempValue.nameId;
     
+    
+    NSLog(@"%d %ld  %ld  ",cell.isSelecteditems ,value.selectedId,tempValue.nameId);
     
     
     return cell;
@@ -406,13 +408,14 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     NSLog(@"----%ld-----",indexPath.item);
   
     Productattribute *product = self.productSkuArray[indexPath.section];
     Valuelist *value          = product.valueList[indexPath.item];
     
     if (value) {
-        value.selectedId = 1;
+        value.selectedId = value.nameId;
         [dictProductValue setValue:value forKey:@(indexPath.section).stringValue];
         NSLog(@"规格：== %@",dictProductValue);
         _sizeOrColorStr = value.name;
@@ -711,6 +714,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                 [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
             }
             
+           
             for (Productattribute * product in detailModel.data.productAttribute) {
                 
                 [self.productSkuArray addObject:product];
@@ -741,7 +745,102 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
 }
 
+-(void)deathdata
+{
+    //复杂的字典[模型中有个数组属性，数组里面又要装着其他模型的字典]
+    NSDictionary *dict_m8m = @{
+                               @"data" : @{
+                                       @"goodsInfo":@{
+                                               
+                                               },
+                                       @"productAttribute" : @[
+                                               @{
+                                                   @"valueList" : @[
+                                                           @{
+                                                               @"nameId" : @"1",
+                                                               @"valueId" : @"1",
+                                                               @"nameStatus" : @"0",
+                                                               @"goodsTypeId" : @"8",
+                                                               @"orderNum" : @"1",
+                                                               @"name" : @"红色",
+                                                               },
+                                                           @{
+                                                               @"nameId" : @"2",
+                                                               @"valueId" : @"1",
+                                                               @"nameStatus" : @"0",
+                                                               @"goodsTypeId" : @"8",
+                                                               @"orderNum" : @"1",
+                                                               @"name" : @"黑色",
+                                                               },
+                                                           @{
+                                                               @"nameId" : @"3",
+                                                               @"valueId" : @"1",
+                                                               @"nameStatus" : @"0",
+                                                               @"goodsTypeId" : @"8",
+                                                               @"orderNum" : @"1",
+                                                               @"name" : @"黄色",
+                                                               },
+                                                           ],
+                                                   
+                                                   @"nameId" : @"1",
+                                                   @"nameStatus" : @"0",
+                                                   @"goodsTypeId" : @"8",
+                                                   @"orderNum" : @"1",
+                                                   @"name" : @"颜色",
+                                                   
+                                                   },
+                                               @{
+                                                   @"valueList" : @[
+                                                           @{
+                                                               @"nameId" : @"4",
+                                                               @"valueId" : @"1",
+                                                               @"nameStatus" : @"0",
+                                                               @"goodsTypeId" : @"8",
+                                                               @"orderNum" : @"1",
+                                                               @"name" : @"ll",
+                                                               },
+                                                           @{
+                                                               @"nameId" : @"2",
+                                                               @"valueId" : @"1",
+                                                               @"nameStatus" : @"0",
+                                                               @"goodsTypeId" : @"8",
+                                                               @"orderNum" : @"1",
+                                                               @"name" : @",ml",
+                                                               },
+                                                           @{
+                                                               @"nameId" : @"3",
+                                                               @"valueId" : @"1",
+                                                               @"nameStatus" : @"0",
+                                                               @"goodsTypeId" : @"8",
+                                                               @"orderNum" : @"1",
+                                                               @"name" : @"xl",
+                                                               },
+                                                           ],
+                                                   
+                                                   @"nameId" : @"1",
+                                                   @"nameStatus" : @"0",
+                                                   @"goodsTypeId" : @"8",
+                                                   @"orderNum" : @"1",
+                                                   @"name" : @"尺码",
+                                                   
+                                                   
+                                                   }
+                                               ]      
 
+                                       }
+                        };
+    
+    DetailGoodsModel * detailModel = [DetailGoodsModel mj_objectWithKeyValues:dict_m8m];
+    
+    
+    for (Productattribute * product in detailModel.data.productAttribute) {
+        
+        [self.productSkuArray addObject:product];
+        
+    }
+    [self.SkuColletionView reloadData];
+ 
+}
 
 #pragma mark - 添加收藏 getKeepGoodInfo
 -(void)addCollectedPostRequest
@@ -891,10 +990,12 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 -(void)viewWillAppear:(BOOL)animated
 {
+ 
+   
+//    [self goodsDetailListPostRequset];//网络请求
     
-    [self goodsDetailListPostRequset];//网络请求
     
-    
+    [self deathdata];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

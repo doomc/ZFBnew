@@ -11,7 +11,8 @@
 @interface HotTableViewCell : UITableViewCell<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *HotcollectionView;
-@property(strong,nonatomic)NSMutableArray * hotArray;//热卖
+@property (strong,nonatomic)NSMutableArray * hotArray;//热卖
+
 
 
 @end

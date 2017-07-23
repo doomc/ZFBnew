@@ -296,8 +296,9 @@
     
     NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
     NSLog(@"提交订单 -----------%@",successDic);
-    [self commitOrder:successDic];
-    
+//    [self commitOrder:successDic];
+    ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
+    [self.navigationController pushViewController:payVC animated:YES];
 
 }
 
@@ -431,6 +432,8 @@
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
+    [SVProgressHUD dismissWithDelay:2];
+
     
 }
 

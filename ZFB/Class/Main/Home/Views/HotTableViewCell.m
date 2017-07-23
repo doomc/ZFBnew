@@ -18,14 +18,6 @@
 @end
 @implementation HotTableViewCell
 
--(NSMutableArray *)hotArray
-{
-    if (!_hotArray) {
-        _hotArray =[NSMutableArray array];
-    }
-    return _hotArray;
-}
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
@@ -37,7 +29,10 @@
              forCellWithReuseIdentifier:@"HotCollectionViewCellid"];
  
     
-    [self HotsalesPostRequst];
+}
+-(void)setHotArray:(NSMutableArray *)hotArray
+{
+    _hotArray = hotArray;
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -46,7 +41,7 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.hotArray.count;
+    return _hotArray.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -96,64 +91,6 @@
 }
 
 
-#pragma mark - 热卖-getBestSellInfo网络请求
--(void)HotsalesPostRequst
-{
- 
-    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getBestSellInfo",zfb_baseUrl] params:nil success:^(id response) {
- 
-        if (self.hotArray.count >0) {
-            
-            [self.hotArray removeAllObjects];
-            
-        }
-        
-    } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
-    } failure:^(NSError *error) {
-        
-        NSLog(@"error=====%@",error);
-        
-    }];
-    
-//    [PPNetworkHelper POST:zfb_url parameters:parma responseCache:^(id responseCache) {
-//        
-//    } success:^(id responseObject) {
-//        
-//        NSLog(@"%@",responseObject);
-//        
-//        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-//            
-//            if (self.hotArray.count >0) {
-//                
-//                [self.hotArray removeAllObjects];
-//                
-//            }else{
-//                
-//                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-//                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-//                NSArray * dictArray = jsondic [@"bestGoodsList"];
-//
-//                //mjextention 数组转模型
-//                NSArray *storArray = [HomeHotModel mj_objectArrayWithKeyValuesArray:dictArray];
-//                for (HomeHotModel *hotlist in storArray) {
-//                    
-//                    [self.hotArray addObject:hotlist];
-//                }
-//                NSLog(@"bestGoodsList = %@",  self.hotArray);
-//
-//                [self.HotcollectionView reloadData];
-//            }
-//            
-//        }
-//        
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
-//        [self makeToast:@"网络错误" duration:2 position:@"center"];
-//    }];
-}
 
 
 

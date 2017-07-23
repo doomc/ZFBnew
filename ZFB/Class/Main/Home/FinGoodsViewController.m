@@ -45,6 +45,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 
 @property(strong,nonatomic)NSMutableArray * adArray;//广告轮播
 @property(strong,nonatomic)NSMutableArray * likeListArray;//喜欢列表
+@property(strong,nonatomic)NSMutableArray * hotArray;//热卖
 
 
 @end
@@ -60,6 +61,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
     [self initWithFindGoodsTableView];
     
     [self ADpagePostRequst];
+    
+    [self HotsalesPostRequst];
     
     [self guessYouLikePostRequst];
 
@@ -158,12 +161,17 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 3;
+    
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section == 1) {
+        
+        return self.hotArray.count > 0 ? 1 : 0;
+    }
     if (section == 2 ) {
-
-       return self.likeListArray.count; 
+        return 3;
+//       return self.likeListArray.count; 
     }
     return 1;
 }
@@ -171,7 +179,11 @@ typedef NS_ENUM(NSUInteger, CellType) {
 {
     if (section == 0) {
         return 0;
+    }
+    if (section == 1) {
         
+        return self.hotArray.count > 0 ? 1 : 0;
+
     }
     return 35;
 }
@@ -246,7 +258,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
     }else if(indexPath.section == CellTypeWithHotTableViewCell )
     {
         HotTableViewCell * hotCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_hotID forIndexPath:indexPath];
-        
+        hotCell.hotArray = self.hotArray;
         return hotCell;
     }else{
 
@@ -367,10 +379,77 @@ typedef NS_ENUM(NSUInteger, CellType) {
     
 }
 
+#pragma mark - 热卖-getBestSellInfo网络请求
+-(void)HotsalesPostRequst
+{
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getBestSellInfo",zfb_baseUrl] params:nil success:^(id response) {
+        
+        if (self.hotArray.count >0) {
+            
+            [self.hotArray removeAllObjects];
+            
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        
+    }];
+    
+    //    [PPNetworkHelper POST:zfb_url parameters:parma responseCache:^(id responseCache) {
+    //
+    //    } success:^(id responseObject) {
+    //
+    //        NSLog(@"%@",responseObject);
+    //
+    //        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
+    //
+    //            if (self.hotArray.count >0) {
+    //
+    //                [self.hotArray removeAllObjects];
+    //
+    //            }else{
+    //
+    //                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
+    //                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
+    //                NSArray * dictArray = jsondic [@"bestGoodsList"];
+    //
+    //                //mjextention 数组转模型
+    //                NSArray *storArray = [HomeHotModel mj_objectArrayWithKeyValuesArray:dictArray];
+    //                for (HomeHotModel *hotlist in storArray) {
+    //
+    //                    [self.hotArray addObject:hotlist];
+    //                }
+    //                NSLog(@"bestGoodsList = %@",  self.hotArray);
+    //
+    //                [self.HotcollectionView reloadData];
+    //            }
+    //
+    //        }
+    //
+    //    } failure:^(NSError *error) {
+    //        NSLog(@"%@",error);
+    //        [self makeToast:@"网络错误" duration:2 position:@"center"];
+    //    }];
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.findGoods_TableView.mj_header beginRefreshing];
     
+}
+
+-(NSMutableArray *)hotArray
+{
+    if (!_hotArray) {
+        _hotArray =[NSMutableArray array];
+    }
+    return _hotArray;
 }
 
 -(NSMutableArray *)adArray{

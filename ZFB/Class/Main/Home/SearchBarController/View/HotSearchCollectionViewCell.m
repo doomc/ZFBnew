@@ -25,7 +25,7 @@
     
     UICollectionViewLayoutAttributes *attributes = [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
     
-    CGRect frame = [self.hotTitle.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX + 20, 30) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:[NSDictionary dictionaryWithObjectsAndKeys:self.hotTitle.font,NSFontAttributeName, nil] context:nil];
+    CGRect frame = [self.hotTitle.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 30) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:[NSDictionary dictionaryWithObjectsAndKeys:self.hotTitle.font,NSFontAttributeName, nil] context:nil];
     
     frame.size.height = itemHeight;
     attributes.frame = frame;

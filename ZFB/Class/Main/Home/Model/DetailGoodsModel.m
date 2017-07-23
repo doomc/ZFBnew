@@ -45,7 +45,13 @@
 
 
 @implementation Valuelist
-
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        _selectedId = 121212121;
+    }
+    return self;
+}
 @end
 
 

@@ -88,10 +88,10 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         orderVC.jsonString =  _jsonString;
         NSLog(@"提交成功了 ----------- %@ ",_jsonString);
         [SVProgressHUD dismissWithDelay:1];
-        [self.navigationController pushViewController:orderVC animated:YES];
-
+ 
     }
     
+    [self.navigationController pushViewController:orderVC animated:YES];
 
 //    else{
 //        JXTAlertController * alert =  [JXTAlertController alertControllerWithTitle:nil message:@"您还没有选择商品" preferredStyle:UIAlertControllerStyleAlert];
