@@ -627,6 +627,7 @@
 		49B3BCDE1F204FB5002A0FDC /* NSDictionary+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3BCDD1F204FB5002A0FDC /* NSDictionary+SafeAccess.m */; };
 		49B3BCE11F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3BCE01F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m */; };
 		49D75C8D1EEE8AF300FACCD8 /* AppDelegate+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D75C8C1EEE8AF300FACCD8 /* AppDelegate+Location.m */; };
+		505A53C11F20FFDC002FB5CF /* ShopCarJsonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 505A53C01F20FFDC002FB5CF /* ShopCarJsonModel.m */; };
 		506745A71F1D0D39000CC722 /* DWQRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 506745A31F1D0D39000CC722 /* DWQRatingView.m */; };
 		506745A81F1D0D39000CC722 /* DWQStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 506745A51F1D0D39000CC722 /* DWQStarView.m */; };
 		506745AC1F1D1A2F000CC722 /* PublishAppraiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506745AA1F1D1A2F000CC722 /* PublishAppraiseViewController.m */; };
@@ -1599,6 +1600,8 @@
 		49B3BCE01F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+SafeAccess.m"; sourceTree = "<group>"; };
 		49D75C8B1EEE8AF300FACCD8 /* AppDelegate+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Location.h"; sourceTree = "<group>"; };
 		49D75C8C1EEE8AF300FACCD8 /* AppDelegate+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Location.m"; sourceTree = "<group>"; };
+		505A53BF1F20FFDC002FB5CF /* ShopCarJsonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarJsonModel.h; sourceTree = "<group>"; };
+		505A53C01F20FFDC002FB5CF /* ShopCarJsonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarJsonModel.m; sourceTree = "<group>"; };
 		506745A21F1D0D39000CC722 /* DWQRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWQRatingView.h; sourceTree = "<group>"; };
 		506745A31F1D0D39000CC722 /* DWQRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWQRatingView.m; sourceTree = "<group>"; };
 		506745A41F1D0D39000CC722 /* DWQStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWQStarView.h; sourceTree = "<group>"; };
@@ -3068,6 +3071,8 @@
 			children = (
 				495EA5721F14B64C001FCB7E /* ShoppingCarModel.h */,
 				495EA5731F14B64C001FCB7E /* ShoppingCarModel.m */,
+				505A53BF1F20FFDC002FB5CF /* ShopCarJsonModel.h */,
+				505A53C01F20FFDC002FB5CF /* ShopCarJsonModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4669,6 +4674,7 @@
 				49D75C8D1EEE8AF300FACCD8 /* AppDelegate+Location.m in Sources */,
 				495EA77B1F14B64D001FCB7E /* SelectTableviewCell.m in Sources */,
 				495EA7331F14B64D001FCB7E /* UIImage+HDExtension.m in Sources */,
+				505A53C11F20FFDC002FB5CF /* ShopCarJsonModel.m in Sources */,
 				495EA72E1F14B64D001FCB7E /* AdvertiseHelper.m in Sources */,
 				495EA8061F14B64D001FCB7E /* ApplySalesUploadCell.m in Sources */,
 				495EA8391F14B64D001FCB7E /* ZFPregressCheckViewController.m in Sources */,

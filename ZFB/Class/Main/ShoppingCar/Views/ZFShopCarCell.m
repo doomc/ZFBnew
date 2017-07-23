@@ -22,8 +22,7 @@
     self.img_shopCar.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
     self.img_shopCar.layer.borderWidth = 0.5;
     
- 
-}
+ }
 
 -(void)setGoodlist:(Goodslist *)goodlist
 {
@@ -40,7 +39,7 @@
         num = num +1;
     }
     _tf_result.text = [NSString stringWithFormat:@"%ld",(long)num];
-    [self.selectDelegate ChangeGoodsNumberCell:self Number:num];
+//    [self.selectDelegate ChangeGoodsNumberCell:self Number:num];
     
 }
 
@@ -60,7 +59,7 @@
     }
     _tf_result.text = [NSString stringWithFormat:@"%ld",(long)num];
     
-    [self.selectDelegate ChangeGoodsNumberCell:self Number:num];
+//    [self.selectDelegate ChangeGoodsNumberCell:self Number:num];
     
 }
 

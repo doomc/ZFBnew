@@ -15,7 +15,7 @@
 
 @optional
 
--(void)ChangeGoodsNumberCell:(ZFShopCarCell *)cell Number:(NSInteger)num;
+//-(void)ChangeGoodsNumberCell:(ZFShopCarCell *)cell Number:(NSInteger)num;
 // 商品的增加或者减少回调
 - (void)addOrReduceCount:(ZFShopCarCell *)cell tag:(NSInteger)tag;
 // 点击单个商品选择按钮回调

@@ -330,6 +330,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     NSIndexPath *indexpath = [self.shopCar_tableview indexPathForCell:cell];
     Shoppcartlist *list    = self.carListArray[indexpath.section];
     Goodslist * goods      = list.goodsList[indexpath.row];
+    goods.goodsCount = 1;
     if (tag == 555)
     {
         if (goods.goodsCount <= 1) {
@@ -344,6 +345,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     {
         goods.goodsCount ++;
     }
+    
     self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[self countTotalPrice]];
     [self.shopCar_tableview reloadData];
     
@@ -352,13 +354,15 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 #pragma mark - tableView delegare
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.carListArray.count;
+//    return self.carListArray.count;
+    return 2;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     Shoppcartlist * list = self.carListArray[section];
-    
-    return list.goodsList.count;
+
+    return  3;
+//    return list.goodsList.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
