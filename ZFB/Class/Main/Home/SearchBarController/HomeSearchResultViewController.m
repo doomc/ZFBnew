@@ -7,19 +7,35 @@
 //
 
 #import "HomeSearchResultViewController.h"
+//view
+#import "SearchTypeView.h"
+#import "SearchTypeCollectionView.h"
 
-@interface HomeSearchResultViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchControllerDelegate,UISearchResultsUpdating,UISearchBarDelegate,YBPopupMenuDelegate>
+//cell
+#import "GuessCell.h"
+@interface HomeSearchResultViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate,SearchTypeViewDelegate >
 
-@property (nonatomic, strong) UISearchController *searchController;
+
+@property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UITableView *tableView;
+
+
 @property (nonatomic, strong) NSMutableArray  *dataList;//全部数据的array
 @property (nonatomic, strong) NSMutableArray  *searchList;//search到的array
-@property (nonatomic, copy) NSString *cureHistoryDeleteBtnString;  // 删除按钮字样
-@property (nonatomic, copy) NSString *inputText;//获取输入框的值
-@property (nonatomic ,strong) UIButton * selectbutton;//选择方式
+
+@property (nonatomic ,strong) UIButton * selectbutton;//搜索选择方式
+@property (nonatomic ,strong) SearchTypeView * searchTypeHeaderView;//选择方式
+@property (nonatomic ,strong) UIView * titleView;
+@property (nonatomic ,strong) UIView * popBgView;//全屏背景
+@property (nonatomic ,strong) SearchTypeCollectionView * searchCollectionView;//品牌列表
+
+@property (nonatomic, strong) NSArray  *distenceList;
+@property (nonatomic, strong) NSArray  *salesList;
+@property (nonatomic, strong) NSArray  *priceList;
 
 
 @end
+
 
 @implementation HomeSearchResultViewController
 
@@ -27,37 +43,103 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    _priceList = @[@"0-290",@"300-500",@"1000+",@"50000+"];
+    _distenceList = @[@"附近", @"1km", @"3km", @"5km",@"10km",@"全城"];
+    _salesList = @[@"智能排序", @"离我最近", @"好评优先", @"人气最高"];
+
     
-    [self createTableView];
-    [self createSearch];
+    //创建titleView
+    _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
+    self.navigationItem.titleView = _titleView;
+    [_titleView addSubview:self.selectbutton];
+    [_titleView addSubview:self.searchBar];
     
-    NSArray *arr1 = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12"];
-    NSArray *arr2 = @[];
+    //加载xib
+    [self.tableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil] forCellReuseIdentifier:@"resultCellid"];
+    _searchTypeHeaderView = [[NSBundle mainBundle]loadNibNamed:@"SearchTypeView" owner:self options:nil].lastObject;
+    _searchTypeHeaderView.frame = CGRectMake(0, 64, KScreenW, 40);
+    _searchTypeHeaderView.delegate = self;
     
-    _dataList = [NSMutableArray arrayWithArray:arr1];//数据数组
-    _searchList = [NSMutableArray arrayWithArray:arr2];//search到的数组
+    //添加视图
+    [self.view addSubview: self.tableView];
+    [self.view addSubview: _searchTypeHeaderView];
     
-    
-    UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
-    left_button.frame =CGRectMake(0, 0,22,22);
-    [left_button setBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
-    [left_button addTarget:self action:@selector(dismissCurrentPage) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftItem1 = [[UIBarButtonItem alloc]initWithCustomView: left_button];
-    UIBarButtonItem *leftItem2 = [[UIBarButtonItem alloc]initWithCustomView:self.selectbutton];
-    self.navigationItem.leftBarButtonItems = @[leftItem1,leftItem2];
-    
+
+
 }
 
-
--(void)dismissCurrentPage
+//选择品牌列表
+-(void)popCollectionView
 {
-//    [self dismissViewControllerAnimated:NO completion:^{
-//        
-//    }];
-    [self.navigationController popViewControllerAnimated:YES];
-    NSLog(@"返回上一页");
+    _popBgView = [[UIView alloc]initWithFrame: CGRectMake(0, 0, KScreenW, KScreenH)];
+    _popBgView.backgroundColor =  RGBA(0, 0, 0, 0.15);
+    [self.view addSubview:_popBgView];
+    [self.tableView bringSubviewToFront:_popBgView];
+    
+ 
+    //创建集合视图
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    layout.itemSize = CGSizeMake( (KScreenW - 120) / 2,  30);
+    _searchCollectionView = [[SearchTypeCollectionView alloc]initWithFrame:CGRectMake(0,64+40, KScreenW, 230) collectionViewLayout:layout];
+    _searchCollectionView.showsVerticalScrollIndicator = NO;
+    [_popBgView addSubview:_searchCollectionView];
+ 
+}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+    [_popBgView removeFromSuperview];
+    [_searchCollectionView  removeFromSuperview];
+}
+#pragma mark - SearchTypeViewDelegate
+///品牌选择
+-(void)brandActionlist:(UIButton *)button
+{
+    NSLog(@"需要 条件");
+ 
+    [self popCollectionView];
+
+}
+///价格排序
+-(void)priceSortAction:(UIButton *)button
+{
+  
+}
+///销量排序
+-(void)salesSortAction:(UIButton *)button
+{
+ 
+    
+}
+///距离排序
+-(void)distenceSortAction:(UIButton *)button
+{
+ 
+
 }
 
+-(UISearchBar *)searchBar
+{
+    if (!_searchBar) {
+        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(50, 0, KScreenW - 2*50, 44)];
+        _searchBar.delegate = self;
+        _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
+        _searchBar.placeholder =@"搜索";
+    }
+    return _searchBar;
+}
+
+#pragma mark - tableView
+-(UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64+44  , KScreenW, KScreenH-64-44 ) style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+    }
+    return _tableView;
+}
 -(UIButton *)selectbutton
 {
     if (!_selectbutton) {
@@ -72,234 +154,11 @@
     }
     return _selectbutton;
 }
-
-
-#pragma mark- TableView
-- (void)createTableView{
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64)];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    [self.view addSubview:_tableView];
-    
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 60;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-//设置区域的行数
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    if (self.searchController.active) {
-        //        _tableView.hidden = NO;
-        return [self.searchList count];
-    }else{
-        //        _tableView.hidden = YES;
-        return [self.dataList count];
-    }
-}
-
-//返回单元格内容
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *flag=@"cellFlag";
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:flag];
-    if (cell==nil) {
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:flag];
-        //取消选中状态
-        //        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        cell.backgroundColor = [UIColor colorWithRed:arc4random()%255/256.0f green:arc4random()%255/256.0f  blue:arc4random()%255/256.0f  alpha:1];
-    }
-    if (self.searchController.active) {
-        //        _tableView.hidden = NO;
-        [cell.textLabel setText:self.searchList[indexPath.row]];
-    }
-    else{
-        //        _tableView.hidden = YES;
-        [cell.textLabel setText:self.dataList[indexPath.row]];
-    }
-    //
-    
-    
-    return cell;
-}
-
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
-    if (_searchList.count != 0) {
-        reslutVC.number = _searchList[indexPath.row];
-    }else{
-        reslutVC.number = _dataList[indexPath.row];
-    }
-    //_searchController.active = NO;
-    //这样的话就可以实现下边跳转到reslutVC页面的方法了，因为取消了它的活跃，能看到有个动作是直接回到了最初的界面，然后才执行的跳转方法
-    
-    [self.navigationController pushViewController:reslutVC animated:NO];
-    
-    NSLog(@"reslutVC.number = %@",reslutVC.number);
-    //下边这五个方法貌似没什么卵用。会在此时同时打印出来
-    [self willPresentSearchController:_searchController];
-    [self didPresentSearchController:_searchController];
-    [self willDismissSearchController:_searchController];
-    [self didDismissSearchController:_searchController];
-    [self presentSearchController:_searchController];
-    
-}
-
-
-// 6.添加多个按钮在Cell
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    _cureHistoryDeleteBtnString = @"删除";
-    // 添加一个删除按钮
-    UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:_cureHistoryDeleteBtnString handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        NSLog(@"删除本行");
-        /*
-         // 1.删除数据源
-         [self.dataArray removeObject:lastModel];
-         
-         // 2.删除数据库
-         NSArray *lastPointModels = [manager selectModelArrayInDatabase:localDatabaseName table:@"tcmt_cure_acupoints" modelName:@"LastPointModel" selectFactor:[NSString stringWithFormat:@"WHERE cure_id = '%@'", lastModel.cure_id]];
-         for (LastPointModel *lastPointModel in lastPointModels) {
-         [manager deleteModelWithDatabase:localDatabaseName table:@"tcmt_cure_acupoints" model:lastPointModel];
-         
-         }
-         [manager deleteModelWithDatabase:localDatabaseName table:@"tcmt_cure" model:lastModel];
-         
-         
-         // 3.更新UI
-         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-         
-         // 4.是否显示infoLabel
-         if (self.dataArray.count == 0) {
-         self.infoLabel.text = _cureHistoryInfoLabelString;
-         self.infoLabel.hidden = NO;
-         }
-         */
-    }];
-    return @[deleteRowAction];
-}
-
-
-
-#pragma mark- SearchController
-- (void)createSearch{
-    
-    if ([[[UIDevice currentDevice] systemVersion] floatValue]>=9.0) {
-        
-        _searchController.obscuresBackgroundDuringPresentation = NO;
-    }
-    self.definesPresentationContext = YES;
-    
-    _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    _searchController.searchResultsUpdater = self;
-    _searchController.searchBar.delegate = self;//*****这个很重要，一定要设置并引用了代理之后才能调用searchBar的常用方法*****
-    _searchController.dimsBackgroundDuringPresentation = NO;//是否添加半透明覆盖层
-    _searchController.hidesNavigationBarDuringPresentation = NO;//是否隐藏导航栏
-    
-    //    _searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x + 50, self.searchController.searchBar.frame.origin.y, self.searchController.searchBar.frame.size.width, 44.0);
-    
-    [_searchController.searchBar sizeToFit];
-    _searchController.searchBar.placeholder = @"造作啊~";
-    
-    [[[_searchController.searchBar.subviews.firstObject subviews] firstObject] removeFromSuperview];// 直接把背景imageView干掉。在iOS8,9是没问题的，7没测试过。
-    
-    UIView * navbarView = [[UIView alloc]initWithFrame:
-                           CGRectMake(0, 0, KScreenW - 60, 44)];
-    //    navbarView.backgroundColor = [UIColor whiteColor];
-    navbarView.clipsToBounds = YES;
-    navbarView.layer.cornerRadius = 4;
-    
-    [navbarView addSubview:_searchController.searchBar];
-    [navbarView addSubview:self.selectbutton];
-    
-    self.navigationItem.titleView = _searchController.searchBar;
-}
-
-
-
-//展示搜索结果
--(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    
-    //    searchController.searchBar.showsCancelButton = YES;
-    UIView * view = [searchController.searchBar.subviews objectAtIndex:0];
-    for (UIView *subView in view.subviews) {
-        
-        if ([subView isKindOfClass:[UIButton class]]) {
-            
-            UIButton *bar = (UIButton *)subView;
-            
-            [bar setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
-            
-            [bar setTitle:@"泥煤的" forState:UIControlStateNormal];
-        }
-    }
-    
-    NSString *searchString = [self.searchController.searchBar text];
-    NSPredicate *preicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[c] %@", searchString];
-    if (self.searchList!= nil) {
-        [self.searchList removeAllObjects];
-    }
-    //过滤数据
-    self.searchList= [NSMutableArray arrayWithArray:[_dataList filteredArrayUsingPredicate:preicate]];
-    //刷新表格
-    [self.tableView reloadData];
-}
-
-
-//
-#pragma mark - UISearchControllerDelegate
-- (void)willPresentSearchController:(UISearchController *)searchController
-{
-    NSLog(@"willPresentSearchController");
-}
-
-- (void)didPresentSearchController:(UISearchController *)searchController
-{
-    NSLog(@"didPresentSearchController");
-}
-
-- (void)willDismissSearchController:(UISearchController *)searchController
-{
-    NSLog(@"willDismissSearchController");
-}
-
-- (void)didDismissSearchController:(UISearchController *)searchController
-{
-    NSLog(@"didDismissSearchController");
-}
-
-- (void)presentSearchController:(UISearchController *)searchController
-{
-    NSLog(@"presentSearchController");
-}
-
-
-//以下的两个方法必须设置_searchController.searchBar.delegate 才可以
--(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    NSLog(@"开始编辑");
-    return YES;
-}
-
--(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
-    NSLog(@"结束编辑");
-    return YES;
-}
-
--(BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    NSLog(@"正在编辑");
-    return YES;
-}
-
-
 #pragma mark -  选择搜索类型
 -(void)selectTypeAction :(UIButton *)sender
 {
+    [sender setTag:1001];
+
     [YBPopupMenu showRelyOnView:sender titles:TITLES  icons:nil menuWidth:60 otherSettings:^(YBPopupMenu *popupMenu) {
         popupMenu.priorityDirection = YBPopupMenuPriorityDirectionBottom;
         popupMenu.borderWidth = 0.5;
@@ -313,7 +172,74 @@
 #pragma mark - YBPopupMenuDelegate
 - (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu
 {
-    NSLog(@"点击了 %@ 选项",TITLES[index]);
+    NSLog(@" %@ 1001",TITLES[index]);
+ 
+
+}
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+  
+    return 1;
+}
+
+//设置区域的行数
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return 4;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 100;
+}
+
+//返回单元格内容
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    GuessCell * resultCell = [self.tableView dequeueReusableCellWithIdentifier:@"resultCellid" forIndexPath:indexPath];
+    return resultCell;
+}
+ 
+
+#pragma mark -  UISearchBarDelegate 选择搜索类型
+-(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    NSLog(@"------开始编辑");
+    return YES;
+}
+
+-(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    NSLog(@"------结束编辑");
+    return YES;
+}
+
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    NSLog(@"%@",searchText);
+}
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    NSLog(@"点击搜索方法");
+    [searchBar resignFirstResponder];
+    
+}
+
+#pragma mark  ----  searchBar delegate
+//   searchBar开始编辑响应
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    //因为闲置时赋了空格，防止不必要的bug，在启用的时候先清空内容
+    self.searchBar.text = @"";
+}
+
+//取消键盘 搜索框闲置的时候赋给其一个空格，保证放大镜居左
+- (void)registerFR{
+    if ([self.searchBar isFirstResponder]) {
+        self.searchBar.text = @" ";
+        [self.searchBar resignFirstResponder];
+    }
 }
 
 

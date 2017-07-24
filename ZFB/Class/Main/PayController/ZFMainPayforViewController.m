@@ -9,11 +9,12 @@
 #import "ZFMainPayforViewController.h"
 #import "WebViewJavascriptBridge.h"
 #import <WebKit/WebKit.h>
-@interface ZFMainPayforViewController ()<WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler>
+@interface ZFMainPayforViewController ()<UIWebViewDelegate>
 
  @property (nonatomic,copy ) NSString * paySign;//获取签名
 
-@property (nonatomic ,strong) WKWebView *               webView ;
+//@property (nonatomic ,strong) WKWebView *               wkwebView ;
+@property (nonatomic ,strong) UIWebView *               webView ;
 @property (nonatomic ,strong) WebViewJavascriptBridge * bridge  ;
 
 @property (nonatomic ,copy)  NSString * signString;
@@ -27,84 +28,97 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self removeWebCache];//清除缓存
- 
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self removeWebCache];
+    [self clearCache];//清除缓存
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+//    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    if ( [self.webView isLoading] ) {
+        
+        [self.webView stopLoading];
+    }
+    self.webView.delegate = nil;
+    // disconnect the delegate as the webview is hidden
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
     _orderjsonString = nil;
 }
+
+-(UIWebView *)webView
+{
+    if (!_webView ) {
+        _webView   = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, KScreenW, KScreenH)];
+        _webView.delegate = self;
+        _webView.backgroundColor = [UIColor whiteColor];
+        _webView.scalesPageToFit = YES;
+
+    }
+    return _webView;
+}
+//代理方法
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    /**返回YES，进行加载。通过UIWebViewNavigationType可以得到请求发起的原因
+     如果为webView添加了delegate对象并实现该接口，那么在webView加载任何一个frame之前都会delegate对象的该方法，该方法的返回值用以控制是否允许加载目标链接页面的内容，返回YES将直接加载内容，NO则反之。并且UIWebViewNavigationType枚举，定义了页面中用户行为的分类，包括
+     
+     UIWebViewNavigationTypeLinkClicked，用户触击了一个链接。
+     UIWebViewNavigationTypeFormSubmitted，用户提交了一个表单。
+     UIWebViewNavigationTypeBackForward，用户触击前进或返回按钮。
+     UIWebViewNavigationTypeReload，用户触击重新加载的按钮。
+     UIWebViewNavigationTypeFormResubmitted，用户重复提交表单
+     UIWebViewNavigationTypeOther，发生其它行为。
+     */
+ 
+    
+     return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    //开始加载，可以加上风火轮（也叫菊花）
+    [SVProgressHUD show];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    //完成加载
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
+    [SVProgressHUD dismiss];
+    
+}
+
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
+    //加载出错
+    [SVProgressHUD dismiss];
+
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"收银台";
     
     self.view.backgroundColor = HEXCOLOR(0xffcccc);
-    
-
-    
+  
     [self getPaypaySignAccessTokenUrl];
     
+    [self.view addSubview:self.webView];
 
 }
 
--(void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
-{
-    [_webView.configuration.userContentController removeScriptMessageHandlerForName:@"NativeMethod"];
-    
-}
-#pragma mark - WKNavigationDelegate
- // 页面开始加载时调用
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    NSLog(@"%s",__FUNCTION__);
-}
 
-// 内容开始返回时调用(view的过渡动画可在此方法中加载)
-- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {
-    NSLog(@"%s",__FUNCTION__);
-}
-// 页面加载完成时调用(view的过渡动画的移除可在此方法中进行)
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    NSLog(@"%s",__FUNCTION__);
-    
-
-}
-// 页面加载失败时调用
-- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation{
-    NSLog(@"%s",__FUNCTION__);
-}
-#pragma mark WKNavigation 当web视图需要响应身份验证跳转时调用
-- (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * credential))completionHandler{
-}
-#pragma mark 接收到服务器跳转请求之后调用
-- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation {
-    
-}
-#pragma mark 在收到响应后，决定是否跳转
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
-    
-    NSLog(@"%@",navigationResponse.response.URL.absoluteString);
-    //允许跳转
-    decisionHandler(WKNavigationResponsePolicyAllow);
-    //不允许跳转
-    //decisionHandler(WKNavigationResponsePolicyCancel);
-}
-#pragma mark 在发送请求之前，决定是否跳转
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    //需执行decisionHandler的block。
-    
-    NSLog(@"%@",navigationAction.request.URL.absoluteString);
-    //允许跳转
-    decisionHandler(WKNavigationActionPolicyAllow);
-    //不允许跳转
-    //decisionHandler(WKNavigationActionPolicyCancel);
-}
 
 
 #pragma mark - 获取支付paySign值，进行传值到支付参数222222
@@ -192,63 +206,13 @@
     
     _signString =[NSString stringWithFormat:@"%@",[signArray componentsJoinedByString:@"&"]];
 
-    //对请求路径的说明
-    //http://120.25.226.186:32812/login
-    //协议头+主机地址+接口名称
-    //协议头(http://)+主机地址(120.25.226.186:32812)+接口名称(login)
-    //POST请求需要修改请求方法为POST，并把参数转换为二进制数据设置为请求体
-    
-    _webView   = [[WKWebView alloc] initWithFrame:CGRectMake(0, 20, KScreenW, KScreenH)];
-    _webView.allowsBackForwardNavigationGestures = YES;
-    _webView.navigationDelegate = self;
-    _webView.UIDelegate = self;
-    // 将WKWebView添加到视图
-    [self.view addSubview:_webView];
-    
-    //2.根据会话对象创建task   //PayResulrUrl  @"http://192.168.1.188:8080/cashier/gateway.do"
-    NSURL *url = [NSURL URLWithString:PayResulrUrl];
-    
-    //3.创建可变的请求对象
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-  
-    //4.修改请求方法为POST
-    [request setHTTPMethod:@"POST"];
-
     //5.设置请求体
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:PayResulrUrl]];
     [request setHTTPBody:[_signString dataUsingEncoding:NSUTF8StringEncoding]];
-
+    [request setHTTPMethod: @"POST"];
+    [request setHTTPBody: [_signString dataUsingEncoding: NSUTF8StringEncoding]];
+    [self.webView loadRequest:request];
  
-    //6.根据会话对象创建一个Task(发送请求）
-    /*
-     第一个参数：请求对象
-     第二个参数：completionHandler回调（请求完成【成功|失败】的回调）
-     data：响应体信息（期望的数据）
-     response：响应头信息，主要是对服务器端的描述
-     error：错误信息，如果请求失败，则error有值
-     */
-    
-    //1.创建会话对象
-    NSURLSession *session = [NSURLSession sharedSession];
-    
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-
-        //8.解析数据
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        NSLog(@"-===222222222====%@",dict);
-        
-        NSLog(@"-===33333333====%@",response);
-        
-        NSLog(@"-===44444444====%@",error);
-        
-        NSString *htmlStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
-//        [self.webView loadRequest:request];
-        NSLog(@"%@",htmlStr);
-        [self.webView loadHTMLString:htmlStr baseURL:[NSURL URLWithString:PayResulrUrl]];
- 
-    }];
- 
-    [dataTask resume];
     
 }
 

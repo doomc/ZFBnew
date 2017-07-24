@@ -446,9 +446,9 @@
             
             [self.all_tableview reloadData];
             _imgArray = [imgstr componentsSeparatedByString:@","];
-            
+            [self CDsyceleSettingRunningPaintWithArray:_imgArray];
+
         }
-        [self CDsyceleSettingRunningPaintWithArray:_imgArray];
         
         NSLog(@"门店列表         = %@",   self.allStoreArray);
         [self.all_tableview.mj_header endRefreshing];

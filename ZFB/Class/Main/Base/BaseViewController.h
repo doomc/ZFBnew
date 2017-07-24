@@ -29,8 +29,8 @@
 -(void)didclickEdit:(UIButton *)edit;
 
 
-
-
+/** 取消searchBar背景色 */
+- (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 
 
 @end

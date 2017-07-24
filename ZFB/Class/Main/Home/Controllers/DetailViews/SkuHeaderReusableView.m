@@ -24,21 +24,4 @@
 }
 
 
-//-(instancetype)initWithFrame:(CGRect)frame
-//{
-//    if (self = [super initWithFrame:frame]) {
-//        
-//        [self creatSkutitle:@"title :"];
-//        
-//    }
-//    return self;
-//}
-//
-//
-//-(void)creatSkutitle :(NSString *)title
-//{
-//    UILabel *  lb_title = [UILabel new];
-//    lb_title.text = title;
-//    [self addSubview:lb_title];
-//}
 @end

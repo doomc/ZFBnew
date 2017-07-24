@@ -170,8 +170,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
         return self.hotArray.count > 0 ? 1 : 0;
     }
     if (section == 2 ) {
-        return 3;
-//       return self.likeListArray.count; 
+//        return 3;
+       return self.likeListArray.count; 
     }
     return 1;
 }

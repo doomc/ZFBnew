@@ -352,15 +352,15 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 #pragma mark - tableView delegare
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//    return self.carListArray.count;
-    return 2;
+    return self.carListArray.count;
+//    return 2;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     Shoppcartlist * list = self.carListArray[section];
 
-    return  3;
-//    return list.goodsList.count;
+//    return  3;
+    return list.goodsList.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -661,7 +661,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
                
             }
             
-            [SVProgressHUD dismissWithDelay:1];
+            [SVProgressHUD dismiss];
             
             [self.shopCar_tableview reloadData];
   
@@ -674,8 +674,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-    
-    [SVProgressHUD dismissWithDelay:1];
     
 }
 

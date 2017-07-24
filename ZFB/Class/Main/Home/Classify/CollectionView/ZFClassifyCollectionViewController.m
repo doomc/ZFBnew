@@ -28,8 +28,10 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 @property (nonatomic, strong) NSMutableArray *collectionDatas;//数据
 @property (nonatomic, strong) ZFCollectionViewFlowLayout *flowLayout;
 
-@property (nonatomic, strong) UISearchController * searchController;
+@property (nonatomic, strong) UISearchBar * searchBar;
 @property (nonatomic, strong) UIButton *selectbutton;
+@property (nonatomic, strong) UIView *titleView;
+
 
 @end
 
@@ -64,10 +66,13 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
     // Do any additional setup after loading the view.
     UIView * barView= [[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
     
-    barView.backgroundColor= randomColor;
-    [barView addSubview:self.selectbutton];
- 
     
+ 
+    //创建titleView
+    _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
+    self.navigationItem.titleView = _titleView;
+    [_titleView addSubview:self.selectbutton];
+    [_titleView addSubview:self.searchBar];
     self.navigationItem.titleView = barView;
     
     
@@ -82,30 +87,15 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
     
     [self classListTableVieWithGoodTypePostRequset];//一级
 }
-
--(UISearchController *)searchController
+-(UISearchBar *)searchBar
 {
-    if (!_searchController ) {
-        _searchController = [[UISearchController alloc] init];
-         _searchController.searchBar.delegate = self;
-        [_searchController.searchBar sizeToFit];
-        _searchController.searchBar.placeholder = @"造作啊~";
-        //去除灰色背景
-        for (UIView *view in  _searchController.searchBar.subviews) {
-            // for before iOS7.0
-            if ([view isKindOfClass:NSClassFromString(@"UISearchBarBackground")]) {
-                [view removeFromSuperview];
-                break;
-            }
-            // for later iOS7.0(include)
-            if ([view isKindOfClass:NSClassFromString(@"UIView")] && view.subviews.count > 0) {
-                [[view.subviews objectAtIndex:0] removeFromSuperview];
-                break;
-            }
-        }
-
+    if (!_searchBar) {
+        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(50, 0, KScreenW - 2*50, 44)];
+        _searchBar.delegate = self;
+        _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
+        _searchBar.placeholder =@"搜索";
     }
-    return _searchController;
+    return _searchBar;
 }
 -(UIButton *)selectbutton
 {
@@ -121,8 +111,6 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
     }
     return _selectbutton;
 }
-
-
 
 - (UITableView *)tableView
 {
@@ -382,26 +370,24 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 //   searchBar开始编辑响应
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
     //因为闲置时赋了空格，防止不必要的bug，在启用的时候先清空内容
-    self.searchController.searchBar.text = @"";
+    self.searchBar.text = @"";
 }
 
 //取消键盘 搜索框闲置的时候赋给其一个空格，保证放大镜居左
 - (void)registerFR{
-    if ([self.searchController.searchBar isFirstResponder]) {
-        self.searchController.searchBar.text = @" ";
-        [self.searchController.searchBar resignFirstResponder];
+    if ([self.searchBar isFirstResponder]) {
+        self.searchBar.text = @" ";
+        [self.searchBar resignFirstResponder];
     }
 }
 
 
 #pragma mark - tableView - 列表网络请求
 #pragma mark  - 第一级分类网络请求
--(void)classListTableVieWithGoodTypePostRequset
-{
+-(void)classListTableVieWithGoodTypePostRequset{
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getMaxType",zfb_baseUrl] params:nil success:^(id response) {
-        
- 
+
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
            
             if (self.dataSource.count > 0) {

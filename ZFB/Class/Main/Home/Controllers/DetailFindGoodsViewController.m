@@ -188,8 +188,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     
     [self addToshoppingCarPost];
-    //    [self popActionView];
-}
+ }
 
 /**
  点爱心
@@ -377,7 +376,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         reuseIdentifier = @"header";
     }
     SkuHeaderReusableView* headerView = [self.SkuColletionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    
     
     if ([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
@@ -992,10 +990,10 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
  
    
-//    [self goodsDetailListPostRequset];//网络请求
+    [self goodsDetailListPostRequset];//网络请求
     
     
-    [self deathdata];
+//    [self deathdata];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

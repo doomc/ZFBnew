@@ -11,15 +11,16 @@
 #import "YBPopupMenu.h"
 
 #import "HotSearchCell.h"
-@interface HomeSearchBarViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchControllerDelegate,UISearchResultsUpdating,UISearchBarDelegate,YBPopupMenuDelegate>
+@interface HomeSearchBarViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 
-@property (nonatomic, strong) UISearchController *searchController;
+@property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray  *dataList;//全部数据的array
 @property (nonatomic, strong) NSMutableArray  *searchList;//search到的array
 @property (nonatomic, copy) NSString *cureHistoryDeleteBtnString;  // 删除按钮字样
 @property (nonatomic, copy) NSString *inputText;//获取输入框的值
 @property (nonatomic ,strong) UIButton * selectbutton;//选择方式
+@property (nonatomic ,strong) UIView * titleView;
 
 
 @end
@@ -32,7 +33,7 @@
 
     
     [self createTableView];
-    [self createSearch];
+ 
     
     NSArray *arr1 = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12"];
     NSArray *arr2 = @[];
@@ -40,14 +41,19 @@
     _dataList = [NSMutableArray arrayWithArray:arr1];//数据数组
     _searchList = [NSMutableArray arrayWithArray:arr2];//search到的数组
     
-    
+    //创建titleView
+    _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
+    self.navigationItem.titleView = _titleView;
+    [_titleView addSubview:self.selectbutton];
+    [_titleView addSubview:self.searchBar];
+    self.navigationItem.titleView = _titleView;
+
     UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
     left_button.frame =CGRectMake(0, 0,22,22);
     [left_button setBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     [left_button addTarget:self action:@selector(dismissCurrentPage) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem1 = [[UIBarButtonItem alloc]initWithCustomView: left_button];
-    UIBarButtonItem *leftItem2 = [[UIBarButtonItem alloc]initWithCustomView:self.selectbutton];
-    self.navigationItem.leftBarButtonItems = @[leftItem1,leftItem2];
+     self.navigationItem.leftBarButtonItems = @[leftItem1];
     
 }
 
@@ -74,6 +80,16 @@
     return _selectbutton;
 }
 
+-(UISearchBar *)searchBar
+{
+    if (!_searchBar) {
+        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(50, 0, KScreenW - 2*50, 44)];
+        _searchBar.delegate = self;
+        _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
+        _searchBar.placeholder =@"搜索";
+    }
+    return _searchBar;
+}
 
 #pragma mark - TableView
 - (void)createTableView{
@@ -100,18 +116,7 @@
 }
 //设置区域的行数
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    if (section == 1) {
-        
-        if (self.searchController.active) {
-            //        _tableView.hidden = NO;
-            return [self.searchList count];
-        }else{
-            //        _tableView.hidden = YES;
-            return [self.dataList count];
-        }
-
-    }
+ 
     return 1;
 }
 #pragma mark -  UITableViewDelegate
@@ -134,12 +139,11 @@
         //取消选中状态
 //                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         cell.backgroundColor = randomColor;
-    }
-    if (self.searchController.active) {
+  
+ 
 //                _tableView.hidden = NO;
         [cell.textLabel setText:self.searchList[indexPath.row]];
-    }
-    else{
+ 
 //                _tableView.hidden = YES;
         [cell.textLabel setText:self.dataList[indexPath.row]];
     }
@@ -153,28 +157,28 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
-   
-    if (indexPath.section > 0) {
-        if (_searchList.count != 0) {
-            
-            reslutVC.number = _searchList[indexPath.row];
-        }else{
-            reslutVC.number = _dataList[indexPath.row];
-        }
-        //_searchController.active = NO;
-        //这样的话就可以实现下边跳转到reslutVC页面的方法了，因为取消了它的活跃，能看到有个动作是直接回到了最初的界面，然后才执行的跳转方法
-        
-        [self.navigationController pushViewController:reslutVC animated:NO];
-        
-        NSLog(@"reslutVC.number = %@",reslutVC.number);
-        //下边这五个方法貌似没什么卵用。会在此时同时打印出来
-        [self willPresentSearchController:_searchController];
-        [self didPresentSearchController:_searchController];
-        [self willDismissSearchController:_searchController];
-        [self didDismissSearchController:_searchController];
-        [self presentSearchController:_searchController];
+    [self.navigationController pushViewController:reslutVC animated:NO];
 
-    }
+//    if (indexPath.section > 0) {
+//        if (_searchList.count != 0) {
+//            
+//            reslutVC.number = _searchList[indexPath.row];
+//        }else{
+//            reslutVC.number = _dataList[indexPath.row];
+//        }
+//        //_searchController.active = NO;
+//        //这样的话就可以实现下边跳转到reslutVC页面的方法了，因为取消了它的活跃，能看到有个动作是直接回到了最初的界面，然后才执行的跳转方法
+//        
+//        
+//        NSLog(@"reslutVC.number = %@",reslutVC.number);
+//        //下边这五个方法貌似没什么卵用。会在此时同时打印出来
+//        [self willPresentSearchController:_searchController];
+//        [self didPresentSearchController:_searchController];
+//        [self willDismissSearchController:_searchController];
+//        [self didDismissSearchController:_searchController];
+//        [self presentSearchController:_searchController];
+//
+//    }
     
 }
 
@@ -213,39 +217,6 @@
 
 
 
-#pragma mark- SearchController
-- (void)createSearch{
-    
-    if ([[[UIDevice currentDevice] systemVersion] floatValue]>=9.0) {
-        
-        _searchController.obscuresBackgroundDuringPresentation = NO;
-    }
-    self.definesPresentationContext = YES;
-    
-    _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    _searchController.searchResultsUpdater = self;
-    _searchController.searchBar.delegate = self;//*****这个很重要，一定要设置并引用了代理之后才能调用searchBar的常用方法*****
-    _searchController.dimsBackgroundDuringPresentation = NO;//是否添加半透明覆盖层
-    _searchController.hidesNavigationBarDuringPresentation = NO;//是否隐藏导航栏
-
-//    _searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x + 50, self.searchController.searchBar.frame.origin.y, self.searchController.searchBar.frame.size.width, 44.0);
-    
-    [_searchController.searchBar sizeToFit];
-    _searchController.searchBar.placeholder = @"造作啊~";
-
-    [[[_searchController.searchBar.subviews.firstObject subviews] firstObject] removeFromSuperview];// 直接把背景imageView干掉。在iOS8,9是没问题的，7没测试过。
-
-    UIView * navbarView = [[UIView alloc]initWithFrame:
-                           CGRectMake(0, 0, KScreenW - 60, 44)];
-    //    navbarView.backgroundColor = [UIColor whiteColor];
-    navbarView.clipsToBounds = YES;
-    navbarView.layer.cornerRadius = 4;
-    
-    [navbarView addSubview:_searchController.searchBar];
-    [navbarView addSubview:self.selectbutton];
-    
-    self.navigationItem.titleView = _searchController.searchBar;
-}
 
 
 
@@ -266,7 +237,7 @@
         }
     }
     
-    NSString *searchString = [self.searchController.searchBar text];
+    NSString *searchString = [self.searchBar text];
     NSPredicate *preicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[c] %@", searchString];
     if (self.searchList!= nil) {
         [self.searchList removeAllObjects];
