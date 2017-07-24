@@ -8,19 +8,26 @@
 
 #import "HomeSearchBarViewController.h"
 #import "HomeSearchResultViewController.h"
+//view
 #import "YBPopupMenu.h"
+#import "BYETagListView.h"
+//cell
 
-#import "HotSearchCell.h"
+#define WeakSelf(type)  __weak typeof(type) weak##type = type;
 @interface HomeSearchBarViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
-
+{
+        TagListView *_tagListView;
+        NSMutableArray *_tagArray;
+}
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray  *dataList;//全部数据的array
 @property (nonatomic, strong) NSMutableArray  *searchList;//search到的array
-@property (nonatomic, copy) NSString *cureHistoryDeleteBtnString;  // 删除按钮字样
-@property (nonatomic, copy) NSString *inputText;//获取输入框的值
+@property (nonatomic, copy)  NSString  *cureHistoryDeleteBtnString;  // 删除按钮字样
+@property (nonatomic, copy)  NSString  *inputText;//获取输入框的值
 @property (nonatomic ,strong) UIButton * selectbutton;//选择方式
-@property (nonatomic ,strong) UIView * titleView;
+@property (nonatomic ,strong) UIView   * titleView;
+@property (nonatomic ,strong) NSArray  * hotArray;
 
 
 @end
@@ -33,13 +40,10 @@
 
     
     [self createTableView];
- 
-    
-    NSArray *arr1 = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12"];
-    NSArray *arr2 = @[];
-    
-    _dataList = [NSMutableArray arrayWithArray:arr1];//数据数组
-    _searchList = [NSMutableArray arrayWithArray:arr2];//search到的数组
+
+    _hotArray =  @[@"2123",@"裤子裤子",@"裤子裤子:",@"衣服服",@"衣服2:",@"裤子裤子:",@"衣服服",@"衣服2:"];
+    _tagArray = [NSMutableArray arrayWithArray:_hotArray];
+
     
     //创建titleView
     _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
@@ -48,14 +52,53 @@
     [_titleView addSubview:self.searchBar];
     self.navigationItem.titleView = _titleView;
 
+    //返回时间
     UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
     left_button.frame =CGRectMake(0, 0,22,22);
     [left_button setBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     [left_button addTarget:self action:@selector(dismissCurrentPage) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem1 = [[UIBarButtonItem alloc]initWithCustomView: left_button];
-     self.navigationItem.leftBarButtonItems = @[leftItem1];
+    self.navigationItem.leftBarButtonItems = @[leftItem1];
+    
+    //标签视图
+     WeakSelf(self);
+    _tagListView = [[TagListView alloc] initWithFrame:CGRectMake(0, 84, KScreenW, 80)];
+    [self.view addSubview:_tagListView];
+    _tagListView.font = [UIFont systemFontOfSize:13];
+    _tagListView.maxLineCount = 3;
+    _tagListView.tagCurrentClickTitleBlock = ^(NSString *searchStr){
+        NSLog(@"searchStr==%@",searchStr);
+    };
+    _tagListView.tagHeightBlock = ^(CGFloat tagHeight){
+        [weakself uploadTagViewHeight:tagHeight];
+    };
+    _tagListView.tagFontColor = [UIColor whiteColor];
+    _tagListView.signalTagColor = HEXCOLOR(0xffcccc);
+    _tagListView.GBbackgroundColor = [UIColor whiteColor];
+    
+    //给标签注入数据
+    [_tagListView setTagWithTagArray:_tagArray];
+
+
     
 }
+#pragma mark - TableView
+- (void)createTableView{
+    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 84+80, KScreenW, KScreenH-64-20-80)];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [_tableView registerNib:[UINib nibWithNibName:@"HotSearchCell" bundle:nil] forCellReuseIdentifier:@"HotSearchCellid"];
+    [self.view addSubview:_tableView];
+    
+}
+
+- (void)uploadTagViewHeight:(CGFloat )height {
+    /*
+     ** 动态修改tagView的高度
+     */
+}
+
 
 -(void)dismissCurrentPage
 {
@@ -91,33 +134,20 @@
     return _searchBar;
 }
 
-#pragma mark - TableView
-- (void)createTableView{
-    
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64)];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    [_tableView registerNib:[UINib nibWithNibName:@"HotSearchCell" bundle:nil] forCellReuseIdentifier:@"HotSearchCellid"];
-    [self.view addSubview:_tableView];
-    
-}
+
 #pragma mark -  UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 2;
+    return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (indexPath.section == 0) {
-        
-        return 120;
-    }
+ 
     return 60;
 }
 //设置区域的行数
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
  
-    return 1;
+    return 5;
 }
 #pragma mark -  UITableViewDelegate
 
@@ -125,27 +155,26 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
   
     static NSString * flag = @"cellFlag";
-    static NSString * hotflag = @"HotSearchCellid";
+//    static NSString * hotflag = @"HotSearchCellid";
 
-    if (indexPath.section == 0) {
-        HotSearchCell * hotCell = [self.tableView dequeueReusableCellWithIdentifier:hotflag forIndexPath:indexPath];
-       
-        return hotCell;
-    }
-    
+//    if (indexPath.section == 0) {
+//        HotSearchCell * hotCell = [self.tableView dequeueReusableCellWithIdentifier:hotflag forIndexPath:indexPath];
+//       
+//        return hotCell;
+//    }
+//    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:flag];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:flag];
         //取消选中状态
 //                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        cell.backgroundColor = randomColor;
-  
  
 //                _tableView.hidden = NO;
         [cell.textLabel setText:self.searchList[indexPath.row]];
  
 //                _tableView.hidden = YES;
         [cell.textLabel setText:self.dataList[indexPath.row]];
+        cell.contentView.backgroundColor = randomColor;
     }
     //
     

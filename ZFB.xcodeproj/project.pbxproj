@@ -53,8 +53,6 @@
 		4956CEA31F15F61000DAD466 /* ZFSearchDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4956CEA21F15F61000DAD466 /* ZFSearchDetailViewController.m */; };
 		4956CEA81F16042A00DAD466 /* HotSearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4956CEA61F16042A00DAD466 /* HotSearchCollectionViewCell.m */; };
 		4956CEA91F16042A00DAD466 /* HotSearchCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4956CEA71F16042A00DAD466 /* HotSearchCollectionViewCell.xib */; };
-		4956CEB01F16046E00DAD466 /* HotSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4956CEAE1F16046E00DAD466 /* HotSearchCell.m */; };
-		4956CEB11F16046E00DAD466 /* HotSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4956CEAF1F16046E00DAD466 /* HotSearchCell.xib */; };
 		495EA7151F14B64D001FCB7E /* NSData+APNSToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3001F14B64B001FCB7E /* NSData+APNSToken.m */; };
 		495EA7161F14B64D001FCB7E /* NSData+Encrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3021F14B64B001FCB7E /* NSData+Encrypt.m */; };
 		495EA7171F14B64D001FCB7E /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3041F14B64B001FCB7E /* NSData+Hash.m */; };
@@ -642,6 +640,7 @@
 		49DA74AF1F25CFBB009F5577 /* SearchTypeFootReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74AD1F25CFBB009F5577 /* SearchTypeFootReusableView.m */; };
 		49DA74B01F25CFBB009F5577 /* SearchTypeFootReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DA74AE1F25CFBB009F5577 /* SearchTypeFootReusableView.xib */; };
 		49DA74B41F25F371009F5577 /* ZspMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74B31F25F371009F5577 /* ZspMenu.m */; };
+		502215021F261B250089D7A7 /* BYETagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 502215011F261B250089D7A7 /* BYETagListView.m */; };
 		505A53C11F20FFDC002FB5CF /* ShopCarJsonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 505A53C01F20FFDC002FB5CF /* ShopCarJsonModel.m */; };
 		506745A71F1D0D39000CC722 /* DWQRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 506745A31F1D0D39000CC722 /* DWQRatingView.m */; };
 		506745A81F1D0D39000CC722 /* DWQStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 506745A51F1D0D39000CC722 /* DWQStarView.m */; };
@@ -775,9 +774,6 @@
 		4956CEA51F16042A00DAD466 /* HotSearchCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotSearchCollectionViewCell.h; sourceTree = "<group>"; };
 		4956CEA61F16042A00DAD466 /* HotSearchCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotSearchCollectionViewCell.m; sourceTree = "<group>"; };
 		4956CEA71F16042A00DAD466 /* HotSearchCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotSearchCollectionViewCell.xib; sourceTree = "<group>"; };
-		4956CEAD1F16046E00DAD466 /* HotSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotSearchCell.h; sourceTree = "<group>"; };
-		4956CEAE1F16046E00DAD466 /* HotSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotSearchCell.m; sourceTree = "<group>"; };
-		4956CEAF1F16046E00DAD466 /* HotSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotSearchCell.xib; sourceTree = "<group>"; };
 		495EA2FF1F14B64B001FCB7E /* NSData+APNSToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+APNSToken.h"; sourceTree = "<group>"; };
 		495EA3001F14B64B001FCB7E /* NSData+APNSToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+APNSToken.m"; sourceTree = "<group>"; };
 		495EA3011F14B64B001FCB7E /* NSData+Encrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Encrypt.h"; sourceTree = "<group>"; };
@@ -1636,6 +1632,8 @@
 		49DA74AE1F25CFBB009F5577 /* SearchTypeFootReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTypeFootReusableView.xib; sourceTree = "<group>"; };
 		49DA74B21F25F371009F5577 /* ZspMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZspMenu.h; sourceTree = "<group>"; };
 		49DA74B31F25F371009F5577 /* ZspMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZspMenu.m; sourceTree = "<group>"; };
+		502215001F261B1D0089D7A7 /* BYETagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYETagListView.h; sourceTree = "<group>"; };
+		502215011F261B250089D7A7 /* BYETagListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYETagListView.m; sourceTree = "<group>"; };
 		505A53BF1F20FFDC002FB5CF /* ShopCarJsonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarJsonModel.h; sourceTree = "<group>"; };
 		505A53C01F20FFDC002FB5CF /* ShopCarJsonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarJsonModel.m; sourceTree = "<group>"; };
 		506745A21F1D0D39000CC722 /* DWQRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWQRatingView.h; sourceTree = "<group>"; };
@@ -1899,9 +1897,6 @@
 				4956CEA51F16042A00DAD466 /* HotSearchCollectionViewCell.h */,
 				4956CEA61F16042A00DAD466 /* HotSearchCollectionViewCell.m */,
 				4956CEA71F16042A00DAD466 /* HotSearchCollectionViewCell.xib */,
-				4956CEAD1F16046E00DAD466 /* HotSearchCell.h */,
-				4956CEAE1F16046E00DAD466 /* HotSearchCell.m */,
-				4956CEAF1F16046E00DAD466 /* HotSearchCell.xib */,
 				49DA748F1F259BD8009F5577 /* SearchTypeView.h */,
 				49DA74901F259BD8009F5577 /* SearchTypeView.m */,
 				49DA74921F259BED009F5577 /* SearchTypeView.xib */,
@@ -3814,6 +3809,8 @@
 			children = (
 				49DA74B21F25F371009F5577 /* ZspMenu.h */,
 				49DA74B31F25F371009F5577 /* ZspMenu.m */,
+				502215001F261B1D0089D7A7 /* BYETagListView.h */,
+				502215011F261B250089D7A7 /* BYETagListView.m */,
 			);
 			name = "ZspMenuFile(筛选工具)";
 			path = ZspMenuFile;
@@ -4186,7 +4183,6 @@
 				495EA8971F14B64D001FCB7E /* message@3x.png in Resources */,
 				495EA7811F14B64D001FCB7E /* SukItemCollectionViewCell.xib in Resources */,
 				495EA75D1F14B64D001FCB7E /* star_nor.png in Resources */,
-				4956CEB11F16046E00DAD466 /* HotSearchCell.xib in Resources */,
 				495EA8E21F14B64E001FCB7E /* select_selected@2x.png in Resources */,
 				495EA8771F14B64D001FCB7E /* nav_back@3x.png in Resources */,
 				495EA7BC1F14B64D001FCB7E /* RegisterViewController.xib in Resources */,
@@ -4653,6 +4649,7 @@
 				495EA7C41F14B64D001FCB7E /* HistoryFootModel.m in Sources */,
 				495EA7491F14B64D001FCB7E /* cameraHelper.m in Sources */,
 				49555EB21F1E0092002E5688 /* ZFTitleCell.m in Sources */,
+				502215021F261B250089D7A7 /* BYETagListView.m in Sources */,
 				50D4D7AF1F1BC5680073DBC1 /* UIViewController+Unitil.m in Sources */,
 				495EA79C1F14B64D001FCB7E /* DetailStoreModel.m in Sources */,
 				495EA7C21F14B64D001FCB7E /* ZFHistoryViewController.m in Sources */,
@@ -4725,7 +4722,6 @@
 				495EA7661F14B64D001FCB7E /* BaseNavigationController.m in Sources */,
 				495EA7531F14B64D001FCB7E /* DCNavTabBarController.m in Sources */,
 				495EA8101F14B64D001FCB7E /* ZFPregressCheckCell2.m in Sources */,
-				4956CEB01F16046E00DAD466 /* HotSearchCell.m in Sources */,
 				4926DF081F1F4AA400E9060B /* JsonModel.m in Sources */,
 				495EA7431F14B64D001FCB7E /* MD5Tool.m in Sources */,
 				495EA9401F14B64E001FCB7E /* MJRefreshFooter.m in Sources */,

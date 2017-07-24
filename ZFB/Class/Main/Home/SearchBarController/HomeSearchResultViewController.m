@@ -13,6 +13,7 @@
 
 //cell
 #import "GuessCell.h"
+
 @interface HomeSearchResultViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate,SearchTypeViewDelegate >
 
 

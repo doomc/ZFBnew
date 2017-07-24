@@ -152,9 +152,11 @@
 
 @interface Valuelist : NSObject
 
-@property (nonatomic, assign) NSInteger selectedId;
+@property (nonatomic, assign) BOOL isSelect;
 
 @property (nonatomic, assign) NSInteger nameId;
+
+@property (nonatomic, assign) NSInteger valueId;
 
 @property (nonatomic, assign) NSInteger nameStatus;
 
