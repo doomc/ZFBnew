@@ -10,4 +10,6 @@
 
 @interface ZFDetailOrderViewController : BaseViewController
 
+@property (nonatomic,strong) NSString * cmOrderid;
+
 @end

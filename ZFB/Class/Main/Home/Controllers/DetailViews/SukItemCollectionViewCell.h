@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "DetailGoodsModel.h"
+#import "SkuMatchModel.h"
 @interface SukItemCollectionViewCell : UICollectionViewCell
 
-@property (strong, nonatomic) Valuelist *valueObj;
+@property (strong, nonatomic) Valuelist   * valueObj;
+
+@property (strong, nonatomic) SkuValulist * skuValueoObj;
+
 @property (assign, nonatomic) BOOL isSelecteditems;
+
+@property (weak, nonatomic) IBOutlet UIButton *selectItemColor;
+
 
 @end

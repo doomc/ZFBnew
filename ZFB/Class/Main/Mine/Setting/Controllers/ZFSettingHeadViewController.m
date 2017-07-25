@@ -214,9 +214,12 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             ZFSettingAddressViewController *addVC = [[ZFSettingAddressViewController alloc]init];
             [self.navigationController pushViewController:addVC animated:YES];
         }
+        
+        [self.tableView reloadData];
+        
     }
    
-    [self.tableView reloadData];
+
     
 }
 #pragma mark - UIAlertController

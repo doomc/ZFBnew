@@ -11,14 +11,14 @@
 #import <WebKit/WebKit.h>
 @interface ZFMainPayforViewController ()<UIWebViewDelegate>
 
- @property (nonatomic,copy ) NSString * paySign;//获取签名
+@property (nonatomic,copy ) NSString * paySign;//获取签名
 
 //@property (nonatomic ,strong) WKWebView *               wkwebView ;
 @property (nonatomic ,strong) UIWebView *               webView ;
-@property (nonatomic ,strong) WebViewJavascriptBridge * bridge  ;
+@property (nonatomic ,strong) WebViewJavascriptBridge * bridge   ;
 
-@property (nonatomic ,copy)  NSString * signString;
-@property (nonatomic ,strong) WKNavigation *backNavigation;
+@property (nonatomic ,copy  ) NSString       * signString;
+@property (nonatomic ,strong) WKNavigation   *backNavigation;
 @property (nonatomic ,strong) UIProgressView *pressView;
 
 @end
@@ -27,17 +27,17 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    self.title = @"收银台";
     [self removeWebCache];
     [self clearCache];//清除缓存
-//    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    //    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-//    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    //    [self.navigationController setNavigationBarHidden:NO animated:YES];
     if ( [self.webView isLoading] ) {
         
         [self.webView stopLoading];
@@ -52,11 +52,11 @@
 -(UIWebView *)webView
 {
     if (!_webView ) {
-        _webView   = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, KScreenW, KScreenH)];
-        _webView.delegate = self;
+        _webView                 = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, KScreenW, KScreenH)];
+        _webView.delegate        = self;
         _webView.backgroundColor = [UIColor whiteColor];
         _webView.scalesPageToFit = YES;
-
+        
     }
     return _webView;
 }
@@ -73,9 +73,9 @@
      UIWebViewNavigationTypeFormResubmitted，用户重复提交表单
      UIWebViewNavigationTypeOther，发生其它行为。
      */
- 
     
-     return YES;
+    
+    return YES;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -83,14 +83,14 @@
     //开始加载，可以加上风火轮（也叫菊花）
     [SVProgressHUD show];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-
+    
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     //完成加载
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-
+    
     [SVProgressHUD dismiss];
     
 }
@@ -99,10 +99,10 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-
+    
     //加载出错
     [SVProgressHUD dismiss];
-
+    
 }
 
 
@@ -111,11 +111,11 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = HEXCOLOR(0xffcccc);
-  
+    
     [self getPaypaySignAccessTokenUrl];
     
     [self.view addSubview:self.webView];
-
+    
 }
 
 
@@ -145,11 +145,11 @@
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/paySign",zfb_baseUrl] params:[NSDictionary dictionaryWithDictionary:params]success:^(id response) {
         
         _paySign = response[@"paySign"];
-       
+        
         [self getGoodsCostPayResulrUrlL];
- 
+        
         [SVProgressHUD dismissWithDelay:3];
-
+        
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
@@ -161,7 +161,7 @@
     }];
     
     [SVProgressHUD dismissWithDelay:2];
-
+    
 }
 
 
@@ -171,10 +171,10 @@
     NSDictionary * orderdic =[NSString dictionaryWithJsonString:_orderjsonString];//json转字典
     NSArray * orderlist = orderdic[@"orderList"];
     NSString * listJsonString  =[NSString arrayToJSONString:orderlist];
- 
+    
     
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
-
+    
     [params setValue:_access_token forKey:@"access_token"];
     [params setValue:@"18602343931" forKey:@"account"];
     [params setValue:_datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
@@ -185,7 +185,7 @@
     [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
     
     
-    NSArray *keyArray = [[NSDictionary dictionaryWithDictionary:params] allKeys];
+    NSArray *keyArray  = [[NSDictionary dictionaryWithDictionary:params] allKeys];
     NSArray *sortArray = [keyArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2)
                           {
                               return [obj1 compare:obj2 options:NSNumericSearch];
@@ -197,7 +197,7 @@
     }
     NSMutableArray *signArray = [NSMutableArray array];
     
-    for (int i = 0; i < sortArray.count; i++) {
+    for (int i            = 0; i < sortArray.count; i++) {
         NSString *keyValueStr = [NSString stringWithFormat:@"%@=%@",sortArray[i],valueArray[i]];
         
         [signArray addObject:keyValueStr];
@@ -205,32 +205,29 @@
     }
     
     _signString =[NSString stringWithFormat:@"%@",[signArray componentsJoinedByString:@"&"]];
-
+    
     //5.设置请求体
     NSMutableURLRequest * request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:PayResulrUrl]];
     [request setHTTPBody:[_signString dataUsingEncoding:NSUTF8StringEncoding]];
     [request setHTTPMethod: @"POST"];
     [request setHTTPBody: [_signString dataUsingEncoding: NSUTF8StringEncoding]];
     [self.webView loadRequest:request];
- 
     
 }
-
-
 
 //清除缓存
 - (void)removeWebCache{
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 9.0) {
-        NSSet *websiteDataTypes= [NSSet setWithArray:@[
-                                                       WKWebsiteDataTypeDiskCache,
-                                                       //WKWebsiteDataTypeOfflineWebApplication
-                                                       WKWebsiteDataTypeMemoryCache,
-                                                       //WKWebsiteDataTypeLocal
-                                                       WKWebsiteDataTypeCookies,
-                                                       //WKWebsiteDataTypeSessionStorage,
-                                                       //WKWebsiteDataTypeIndexedDBDatabases,
-                                                       //WKWebsiteDataTypeWebSQLDatabases
-                                                       ]];
+        NSSet *websiteDataTypes = [NSSet setWithArray:@[
+                                                        WKWebsiteDataTypeDiskCache,
+                                                        //WKWebsiteDataTypeOfflineWebApplication
+                                                        WKWebsiteDataTypeMemoryCache,
+                                                        //WKWebsiteDataTypeLocal
+                                                        WKWebsiteDataTypeCookies,
+                                                        //WKWebsiteDataTypeSessionStorage,
+                                                        //WKWebsiteDataTypeIndexedDBDatabases,
+                                                        //WKWebsiteDataTypeWebSQLDatabases
+                                                        ]];
         
         // All kinds of data
         //NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
@@ -250,9 +247,10 @@
         }
         
         NSString *libraryDir = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *bundleId  =  [[[NSBundle mainBundle] infoDictionary]
+        NSString *bundleId   = [[[NSBundle mainBundle] infoDictionary]
                                 objectForKey:@"CFBundleIdentifier"];
         NSString *webkitFolderInLib = [NSString stringWithFormat:@"%@/WebKit",libraryDir];
+        
         NSString *webKitFolderInCaches = [NSString
                                           stringWithFormat:@"%@/Caches/%@/WebKit",libraryDir,bundleId];
         NSString *webKitFolderInCachesfs = [NSString
@@ -273,9 +271,9 @@
 - (void)clearCache
 {
     /* 取得Library文件夹的位置*/
-    NSString *libraryDir =NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,NSUserDomainMask, YES)[0];
+    NSString *libraryDir = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,NSUserDomainMask, YES)[0];
     /* 取得bundle id，用作文件拼接用*/
-    NSString *bundleId  =  [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleIdentifier"];
+    NSString *bundleId = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleIdentifier"];
     /*
      * 拼接缓存地址，具体目录为App/Library/Caches/你的APPBundleID/fsCachedData
      */
@@ -284,11 +282,11 @@
     NSError *error;
     /* 取得目录下所有的文件，取得文件数组*/
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *fileList = [[NSArray alloc] init];
+    NSArray *fileList          = [[NSArray alloc] init];
     //fileList便是包含有该文件夹下所有文件的文件名及文件夹名的数组
     fileList = [fileManager contentsOfDirectoryAtPath:webKitFolderInCachesfs error:&error];
     
-//    HLog(@"路径==%@,fileList%@",webKitFolderInCachesfs,fileList);
+    //    HLog(@"路径==%@,fileList%@",webKitFolderInCachesfs,fileList);
     /* 遍历文件组成的数组*/
     for(NSString * fileName in fileList){
         /* 定位每个文件的位置*/
@@ -298,9 +296,9 @@
         /* 如果FileData的长度大于2，说明FileData不为空*/
         if(fileData.length >2){
             /* 创建两个用于显示文件类型的变量*/
-            int char1 =0;
-            int char2 =0;
-    
+            int char1 = 0;
+            int char2 = 0;
+            
             [fileData getBytes:&char1 range:NSMakeRange(0,1)];
             [fileData getBytes:&char2 range:NSMakeRange(1,1)];
             /* 拼接两个变量*/

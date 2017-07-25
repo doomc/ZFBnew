@@ -170,8 +170,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
         return self.hotArray.count > 0 ? 1 : 0;
     }
     if (section == 2 ) {
-        return 3;
-//       return self.likeListArray.count;
+//        return 3;
+       return self.likeListArray.count;
     }
     return 1;
 }
@@ -240,7 +240,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
         
         return 140;
     }
-    return  100;
+    return  90;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -279,14 +279,17 @@ typedef NS_ENUM(NSUInteger, CellType) {
 {
     NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);
    
-    DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
 
     if (self.likeListArray.count > 0) {
+        DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
+
         Guessgoodslist *goodlist  = self.likeListArray[indexPath.row];
         findVCgoods.goodsId  = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
+        NSLog(@" push goodsId  = %@",findVCgoods.goodsId);
+        [self.navigationController pushViewController:findVCgoods animated:YES];
+        
     }
-    NSLog(@" push goodsId  = %@",findVCgoods.goodsId);
-    [self.navigationController pushViewController:findVCgoods animated:YES];
+
     
 }
 

@@ -615,7 +615,11 @@
 		49917B971F1C5723005790AF /* ClassLeftListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49917B961F1C5723005790AF /* ClassLeftListModel.m */; };
 		49917B9E1F1C937A005790AF /* DetailgoodsSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49917B9C1F1C937A005790AF /* DetailgoodsSelectCell.m */; };
 		49917B9F1F1C937A005790AF /* DetailgoodsSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49917B9D1F1C937A005790AF /* DetailgoodsSelectCell.xib */; };
+		4992D7201F26E14800FBF982 /* SkuMatchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4992D71F1F26E14800FBF982 /* SkuMatchModel.m */; };
+		4992D7231F27499800FBF982 /* arrowdown_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4992D7211F27499800FBF982 /* arrowdown_black@3x.png */; };
+		4992D7241F27499800FBF982 /* arrowdown_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4992D7221F27499800FBF982 /* arrowdown_black@2x.png */; };
 		499745111EE6959B00DA273B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 498DE0C81EE63C8700F64A61 /* libsqlite3.0.tbd */; };
+		49AC8FD21F276404005559A8 /* DetailOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AC8FD11F276404005559A8 /* DetailOrderModel.m */; };
 		49B3BCD71F204F70002A0FDC /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3BCD41F204F70002A0FDC /* JRSwizzle.m */; };
 		49B3BCD81F204F70002A0FDC /* SYSafeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3BCD61F204F70002A0FDC /* SYSafeCategory.m */; };
 		49B3BCDB1F204FAC002A0FDC /* NSArray+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3BCDA1F204FAC002A0FDC /* NSArray+SafeAccess.m */; };
@@ -632,8 +636,6 @@
 		49DA749D1F259D20009F5577 /* arrowdown_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49DA74971F259D20009F5577 /* arrowdown_red@3x.png */; };
 		49DA749E1F259D20009F5577 /* arrowdown_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49DA74981F259D20009F5577 /* arrowdown_white@2x.png */; };
 		49DA749F1F259D20009F5577 /* arrowdown_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49DA74991F259D20009F5577 /* arrowdown_white@3x.png */; };
-		49DA74A21F25A116009F5577 /* arrowdown_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49DA74A01F25A116009F5577 /* arrowdown_black@2x.png */; };
-		49DA74A31F25A116009F5577 /* arrowdown_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49DA74A11F25A116009F5577 /* arrowdown_black@3x.png */; };
 		49DA74A71F25CB9C009F5577 /* SearchTypeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74A51F25CB9C009F5577 /* SearchTypeCollectionCell.m */; };
 		49DA74A81F25CB9C009F5577 /* SearchTypeCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DA74A61F25CB9C009F5577 /* SearchTypeCollectionCell.xib */; };
 		49DA74AB1F25CCFB009F5577 /* SearchTypeCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74AA1F25CCFB009F5577 /* SearchTypeCollectionView.m */; };
@@ -1593,6 +1595,12 @@
 		49917B9B1F1C937A005790AF /* DetailgoodsSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailgoodsSelectCell.h; sourceTree = "<group>"; };
 		49917B9C1F1C937A005790AF /* DetailgoodsSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailgoodsSelectCell.m; sourceTree = "<group>"; };
 		49917B9D1F1C937A005790AF /* DetailgoodsSelectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailgoodsSelectCell.xib; sourceTree = "<group>"; };
+		4992D71E1F26E14800FBF982 /* SkuMatchModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkuMatchModel.h; sourceTree = "<group>"; };
+		4992D71F1F26E14800FBF982 /* SkuMatchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkuMatchModel.m; sourceTree = "<group>"; };
+		4992D7211F27499800FBF982 /* arrowdown_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowdown_black@3x.png"; sourceTree = "<group>"; };
+		4992D7221F27499800FBF982 /* arrowdown_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowdown_black@2x.png"; sourceTree = "<group>"; };
+		49AC8FD01F276404005559A8 /* DetailOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailOrderModel.h; sourceTree = "<group>"; };
+		49AC8FD11F276404005559A8 /* DetailOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailOrderModel.m; sourceTree = "<group>"; };
 		49B3BCD31F204F70002A0FDC /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
 		49B3BCD41F204F70002A0FDC /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		49B3BCD51F204F70002A0FDC /* SYSafeCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYSafeCategory.h; sourceTree = "<group>"; };
@@ -1620,8 +1628,6 @@
 		49DA74971F259D20009F5577 /* arrowdown_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowdown_red@3x.png"; sourceTree = "<group>"; };
 		49DA74981F259D20009F5577 /* arrowdown_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowdown_white@2x.png"; sourceTree = "<group>"; };
 		49DA74991F259D20009F5577 /* arrowdown_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowdown_white@3x.png"; sourceTree = "<group>"; };
-		49DA74A01F25A116009F5577 /* arrowdown_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowdown_black@2x.png"; sourceTree = "<group>"; };
-		49DA74A11F25A116009F5577 /* arrowdown_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowdown_black@3x.png"; sourceTree = "<group>"; };
 		49DA74A41F25CB9C009F5577 /* SearchTypeCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTypeCollectionCell.h; sourceTree = "<group>"; };
 		49DA74A51F25CB9C009F5577 /* SearchTypeCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTypeCollectionCell.m; sourceTree = "<group>"; };
 		49DA74A61F25CB9C009F5577 /* SearchTypeCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTypeCollectionCell.xib; sourceTree = "<group>"; };
@@ -2627,6 +2633,8 @@
 				495EA4371F14B64B001FCB7E /* HomeHotModel.m */,
 				495EA4381F14B64B001FCB7E /* HomeStoreListModel.h */,
 				495EA4391F14B64B001FCB7E /* HomeStoreListModel.m */,
+				4992D71E1F26E14800FBF982 /* SkuMatchModel.h */,
+				4992D71F1F26E14800FBF982 /* SkuMatchModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2732,7 +2740,7 @@
 				495EA4861F14B64C001FCB7E /* MerchantClientController */,
 				495EA4881F14B64C001FCB7E /* MineViews */,
 				495EA4971F14B64C001FCB7E /* Models */,
-				495EA4D91F14B64C001FCB7E /* SendClientController */,
+				495EA4D91F14B64C001FCB7E /* SendClientController(配送端) */,
 				495EA5121F14B64C001FCB7E /* Setting(设置) */,
 				495EA5241F14B64C001FCB7E /* Views */,
 				495EA53A1F14B64C001FCB7E /* ZFAllOrderViewController.h */,
@@ -2851,17 +2859,20 @@
 				495EA4991F14B64C001FCB7E /* AllOrderModel.m */,
 				495EA49A1F14B64C001FCB7E /* UserFeedbackModel.h */,
 				495EA49B1F14B64C001FCB7E /* UserFeedbackModel.m */,
+				49AC8FD01F276404005559A8 /* DetailOrderModel.h */,
+				49AC8FD11F276404005559A8 /* DetailOrderModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		495EA4D91F14B64C001FCB7E /* SendClientController */ = {
+		495EA4D91F14B64C001FCB7E /* SendClientController(配送端) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA4DA1F14B64C001FCB7E /* Controllers */,
 				495EA4ED1F14B64C001FCB7E /* Model */,
 				495EA4EE1F14B64C001FCB7E /* Views */,
 			);
+			name = "SendClientController(配送端)";
 			path = SendClientController;
 			sourceTree = "<group>";
 		};
@@ -3271,8 +3282,8 @@
 		495EA5C41F14B64C001FCB7E /* 搜索（有数据） */ = {
 			isa = PBXGroup;
 			children = (
-				49DA74A01F25A116009F5577 /* arrowdown_black@2x.png */,
-				49DA74A11F25A116009F5577 /* arrowdown_black@3x.png */,
+				4992D7211F27499800FBF982 /* arrowdown_black@3x.png */,
+				4992D7221F27499800FBF982 /* arrowdown_black@2x.png */,
 				49DA74961F259D20009F5577 /* arrowdown_red@2x.png */,
 				49DA74971F259D20009F5577 /* arrowdown_red@3x.png */,
 				49DA74981F259D20009F5577 /* arrowdown_white@2x.png */,
@@ -4066,7 +4077,6 @@
 				495EA8861F14B64D001FCB7E /* switchover_icon@2x.png in Resources */,
 				495EA9161F14B64E001FCB7E /* searchaa@2xpng.png in Resources */,
 				49DA749E1F259D20009F5577 /* arrowdown_white@2x.png in Resources */,
-				49DA74A31F25A116009F5577 /* arrowdown_black@3x.png in Resources */,
 				50D61E941F1E5BAD00DBDA4D /* plus@2x.png in Resources */,
 				495EA7381F14B64D001FCB7E /* blankpage_image_loadFail@2x.png in Resources */,
 				495EA90E1F14B64E001FCB7E /* loca_small@2x.png in Resources */,
@@ -4074,6 +4084,7 @@
 				495EA7CA1F14B64D001FCB7E /* ZFHistoryCell.xib in Resources */,
 				495EA8E01F14B64E001FCB7E /* select_normal@2x.png in Resources */,
 				495EA9171F14B64E001FCB7E /* searchaa@3x.png in Resources */,
+				4992D7231F27499800FBF982 /* arrowdown_black@3x.png in Resources */,
 				495EA9011F14B64E001FCB7E /* comment_white@3x.png in Resources */,
 				495EA8891F14B64D001FCB7E /* wait_payfor@3x.png in Resources */,
 				495EA8C41F14B64E001FCB7E /* navback_white@2x.png in Resources */,
@@ -4108,10 +4119,10 @@
 				495EA7611F14B64D001FCB7E /* star_sel@2x.png in Resources */,
 				495EA87C1F14B64D001FCB7E /* nav_right@2x.png in Resources */,
 				495EA8FB1F14B64E001FCB7E /* sendComplete_normal@3x.png in Resources */,
+				4992D7241F27499800FBF982 /* arrowdown_black@2x.png in Resources */,
 				495EA8581F14B64D001FCB7E /* arrows_down_white@2x.png in Resources */,
 				495EA8D01F14B64E001FCB7E /* setting_phone@2x.png in Resources */,
 				495EA89F1F14B64D001FCB7E /* 共享梦想@3x.png in Resources */,
-				49DA74A21F25A116009F5577 /* arrowdown_black@2x.png in Resources */,
 				492752271EC44DFD003C22D0 /* LaunchScreen.storyboard in Resources */,
 				495EA8E31F14B64E001FCB7E /* select_selected@3x.png in Resources */,
 				495EA92F1F14B64E001FCB7E /* TV@3x.png in Resources */,
@@ -4479,6 +4490,7 @@
 				495EA94C1F14B64E001FCB7E /* MJRefreshConst.m in Sources */,
 				495EA7671F14B64D001FCB7E /* BaseTabbarController.m in Sources */,
 				495EA80A1F14B64D001FCB7E /* ZFAppySalesReturnCell.m in Sources */,
+				49AC8FD21F276404005559A8 /* DetailOrderModel.m in Sources */,
 				506745AC1F1D1A2F000CC722 /* PublishAppraiseViewController.m in Sources */,
 				495EA8141F14B64D001FCB7E /* ZFSaleAfterHeadCell.m in Sources */,
 				495EA8121F14B64D001FCB7E /* ZFSaleAfterContentCell.m in Sources */,
@@ -4647,6 +4659,7 @@
 				495EA81B1F14B64D001FCB7E /* ZFSettingViewController.m in Sources */,
 				495EA9781F14B64E001FCB7E /* YYMemoryCache.m in Sources */,
 				495EA7C41F14B64D001FCB7E /* HistoryFootModel.m in Sources */,
+				4992D7201F26E14800FBF982 /* SkuMatchModel.m in Sources */,
 				495EA7491F14B64D001FCB7E /* cameraHelper.m in Sources */,
 				49555EB21F1E0092002E5688 /* ZFTitleCell.m in Sources */,
 				502215021F261B250089D7A7 /* BYETagListView.m in Sources */,

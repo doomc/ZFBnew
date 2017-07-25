@@ -10,7 +10,6 @@
 
 @interface SukItemCollectionViewCell ()
 
-@property (weak, nonatomic) IBOutlet UIButton *selectItemColor;
 
 @end
 
@@ -26,7 +25,13 @@
     self.selectItemColor.userInteractionEnabled = NO;
 }
 
+-(void)setSkuValueoObj:(SkuValulist *)skuValueoObj
+{
+    _skuValueoObj = skuValueoObj;
+//    [_selectItemColor setTitle:skuValueoObj.nameId forState:UIControlStateNormal] ;
 
+    
+}
 - (void)setValueObj:(Valuelist *)valueObj
 {
     _valueObj = valueObj;

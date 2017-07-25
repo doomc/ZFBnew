@@ -169,6 +169,9 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     LeftTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Left forIndexPath:indexPath];
+    
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+    
     if (self.dataSource.count > 0) {
       
         CmgoodsClasstypelist *list = self.dataSource[indexPath.row];
@@ -395,16 +398,19 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
                 [self.dataSource removeAllObjects];
                 
             }
+            
             ClassLeftListModel * list = [ClassLeftListModel mj_objectWithKeyValues:response];
+           
             for (CmgoodsClasstypelist * Typelist in list.data.CmGoodsTypeList) {
                 
                 [self.dataSource addObject:Typelist];
                 
             }
+  
             [self.tableView reloadData];
             
         }
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+
 
     } progress:^(NSProgress *progeress) {
         

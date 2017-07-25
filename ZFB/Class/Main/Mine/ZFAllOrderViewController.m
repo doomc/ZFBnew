@@ -853,9 +853,14 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
-    
+    Ordergoods * goodlist = _orderGoodsArray [indexPath.row];
     ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-    [self.navigationController pushViewController:detailVc animated:YES];
+    if (goodlist.order_id != nil) {
+        
+        detailVc.cmOrderid = goodlist.order_id;
+        [self.navigationController pushViewController:detailVc animated:YES];
+
+    }
 }
 
 

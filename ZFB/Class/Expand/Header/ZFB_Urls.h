@@ -25,13 +25,10 @@
 #define  uploadImgae_Url @"http://192.168.1.106:8086/cmfile/upload"
 
 //数据服务器
-
 #define  cqdUrl @"http://192.168.1.107:8087/zfb/InterfaceServlet"
 
 
-
-
-
+ 
 #pragma mark -------------测试服务器数--------------------
 //#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
 

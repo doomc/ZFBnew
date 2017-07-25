@@ -311,8 +311,7 @@
                              };
  
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderFix",zfb_baseUrl] params:parma success:^(id response) {
-        
-        
+ 
         if ([response[@"resultCode"] intValue] == 0) {
             
             AddressListModel * addressModel = [AddressListModel mj_objectWithKeyValues:response ];
@@ -439,7 +438,6 @@
 #pragma mark - 获取支付accessToken值，通过accessToken值获取支付签名1111111111111
 -(void)getPayAccessTokenUrl
 {
-    
 #warning -- 此账号为测试时账号  正式时 需要修改成正式账号
     NSDictionary * param = @{
                              
@@ -447,6 +445,7 @@
                              @"pass"   : @"123456",
                              
                              };
+    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getPayAccessToken",zfb_baseUrl] params:param success:^(id response) {
         
         NSDate * date = [NSDate date];

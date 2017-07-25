@@ -96,8 +96,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
     }];
     
-    //    [self.navigationController pushViewController:logvc animated:YES];
-}
+ }
 -(UITableView *)myTableView
 {
     if (!_myTableView) {
@@ -386,7 +385,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
         if (resultCode == 0) {
             
-            _nickName   = [NSString stringWithFormat:@"%@",response[@"nickName"] ];
+            _nickName   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"nickName"]];
             _foolnum    = [NSString stringWithFormat:@"%@",response[@"foolNum"] ];
             _collectNum = [NSString stringWithFormat:@"%@",response[@"collectNum"]];
             

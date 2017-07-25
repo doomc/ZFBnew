@@ -12,10 +12,6 @@
 @class detailData,Goodsinfo,Storeinfo,Productattribute,Valuelist;
 @interface DetailGoodsModel : NSObject
 
-//
-//@property (nonatomic, copy) NSString *resultCode;
-//
-//@property (nonatomic, copy) NSString *resultMsg;
 
 @property (nonatomic, strong) detailData *data;
 

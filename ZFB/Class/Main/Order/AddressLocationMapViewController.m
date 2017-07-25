@@ -304,6 +304,7 @@ UISearchBarDelegate>
     [_locationBtn setImage:_imageNotLocate forState:UIControlStateNormal];
     [self.view addSubview:_locationBtn];
 }
+
 #pragma mark - Action
 - (void)actionLocation
 {
