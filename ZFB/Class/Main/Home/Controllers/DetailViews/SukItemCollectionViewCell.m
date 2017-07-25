@@ -25,29 +25,36 @@
     self.selectItemColor.userInteractionEnabled = NO;
 }
 
--(void)setSkuValueoObj:(SkuValulist *)skuValueoObj
-{
-    _skuValueoObj = skuValueoObj;
-//    [_selectItemColor setTitle:skuValueoObj.nameId forState:UIControlStateNormal] ;
-
-    
-}
+ 
 - (void)setValueObj:(Valuelist *)valueObj
 {
     _valueObj = valueObj;
     [_selectItemColor setTitle:valueObj.name forState:UIControlStateNormal] ;
+    
+    switch (valueObj.selectType) {
+        case ValueSelectType_normal:
+            [_selectItemColor setBackgroundColor:HEXCOLOR(0xffffff)];
+            [_selectItemColor setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+            break;
+        case ValueSelectType_selected:
+            [_selectItemColor setBackgroundColor:HEXCOLOR(0xfe6d6a)];
+            [_selectItemColor setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+            break;
+        case ValueSelectType_enable:
+            [_selectItemColor setBackgroundColor:HEXCOLOR(0xdedede)];
+            [_selectItemColor setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+            break;
+    }
 }
 
 - (void)setIsSelecteditems:(BOOL)isSelecteditems
 {
     _isSelecteditems = isSelecteditems;
     if (_isSelecteditems) {
-        [_selectItemColor setBackgroundColor:HEXCOLOR(0xfe6d6a)];
-        [_selectItemColor setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+        
         
     }else{
-        [_selectItemColor setBackgroundColor:HEXCOLOR(0xffffff)];
-        [_selectItemColor setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+        
     }
 }
 

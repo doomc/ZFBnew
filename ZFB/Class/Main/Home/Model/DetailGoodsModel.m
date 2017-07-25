@@ -45,7 +45,15 @@
 
 
 @implementation Valuelist
- 
+
+-(instancetype)init {
+    
+    self = [super init];
+    if (self) {
+        _selectType = ValueSelectType_normal;
+    }
+    return self;
+}
 @end
 
 

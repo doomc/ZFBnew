@@ -215,7 +215,7 @@ static  NSString * homeListCellid =@"ZFSendHomeListCellid";
         }
         else{
         
-            height  = 180;
+            height  = 220;
         }
     }else{
 ///根据  cellType 返回的高度

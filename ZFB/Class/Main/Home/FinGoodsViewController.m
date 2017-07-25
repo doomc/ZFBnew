@@ -170,8 +170,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
         return self.hotArray.count > 0 ? 1 : 0;
     }
     if (section == 2 ) {
-//        return 3;
-       return self.likeListArray.count;
+        return 3;
+//       return self.likeListArray.count;
     }
     return 1;
 }
@@ -279,18 +279,18 @@ typedef NS_ENUM(NSUInteger, CellType) {
 {
     NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);
    
+    DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
 
     if (self.likeListArray.count > 0) {
-        DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
 
         Guessgoodslist *goodlist  = self.likeListArray[indexPath.row];
         findVCgoods.goodsId  = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
         NSLog(@" push goodsId  = %@",findVCgoods.goodsId);
-        [self.navigationController pushViewController:findVCgoods animated:YES];
         
     }
 
-    
+    [self.navigationController pushViewController:findVCgoods animated:YES];
+
 }
 
 #pragma mark - 广告轮播-getAdImageInfo网络请求

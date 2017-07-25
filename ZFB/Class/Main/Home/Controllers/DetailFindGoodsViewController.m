@@ -192,21 +192,31 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     [self.navigationController pushViewController:vc animated:YES];
     
 }
-#pragma mark - 加入购物车- 选择规格
+#pragma mark - 加入购物车- 不选择规格
 -(void)addShopCar:(UIButton * )sender
 {
     
     [self addToshoppingCarPost];
     
 }
-#pragma mark -SecondAddShopCar 加入购物车
+#pragma mark -SecondAddShopCar 加入购物车选择规格
 -(void)SecondAddShopCar:(UIButton *)button
 {
+    if ([self isSKuAllSelect]) {
+        
+        [self addToshoppingCarPost];
+
+    }else{
+        
+        JXTAlertController * alertVC= [JXTAlertController alertControllerWithTitle:@"提示 " message:@"请选择好规格再加入购物车" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction  * sure = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alertVC addAction:sure];
+        [alertVC presentViewController:alertVC animated:YES completion:nil];
+    }
     
-    NSLog(@"dictProductValue ==== %@",dictProductValue);
-    
-//    [self addToshoppingCarPost];
-    
+
     
     NSLog(@"加入购物车 。请求接口");
 }
@@ -281,7 +291,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         return 200;
 
     }
-    
 
 }
 
@@ -330,6 +339,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         goToStoreCell.lb_storeName.text           = _storeName;
         
         return goToStoreCell;
+        
     }
     else if (indexPath.row == typeCellrowOfGoToStoreCell) {
         
@@ -363,34 +373,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         return custopmCell;
         
     }
-    
-//    if ([typeCell isEqualToString:typeCellrowOftitleString]) {
-//        
-//     
-//    }
-//    else if ([typeCell isEqualToString:typeCellrowgoodsSelectedString]) {
-//    
-//    }
-//    else if ([typeCell isEqualToString:typeCellrowOfbabyString]) {
-//        
-//      
-//    }
-//    else if ([typeCell isEqualToString:typeCellrowOfGoToStoreString]) {
-//        
-//
-//    }
-//    else if ([typeCell isEqualToString:typeCellrowOflocaString]) {
-//        
-//        
-//
-//    }
-//    else if ([typeCell isEqualToString:typeCellrowOfbabyString2])
-//    {
-//        
-//         }
-//    else{
-//        
-//        }
+ 
  
  
 }
@@ -484,10 +467,10 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         Productattribute *product = self.productSkuArray[indexPath.section];
         Valuelist *value = product.valueList[indexPath.item];
       
-        NSLog(@"------------%ld------------",product.nameId);
+//        NSLog(@"------------%ld------------",product.nameId);
         
         cell.valueObj = value;
-        cell.isSelecteditems = value.isSelect;
+//        cell.isSelecteditems = value.selectType;
         return cell;
   
     }
@@ -498,27 +481,51 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"-----%ld-----",indexPath.item);
+
     Productattribute *product = self.productSkuArray[indexPath.section];
     Valuelist *value = product.valueList[indexPath.item];
     
-    for (Valuelist *valueItem in product.valueList) {
-        if ([value isEqual:valueItem]) {
-            valueItem.isSelect = !value.isSelect;
- 
-            if (value.isSelect == YES) {
-                [dictProductValue setValue:_goodsId forKey:@"goodsId"];
-                [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.nameId] forKey:@"nameId"];
-                [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.valueId]  forKey:@"valueId"];
-            }
-            NSLog(@"%@ ---dictProductValue",dictProductValue);
+    if (!(value.selectType == ValueSelectType_enable)) {
+        
+        for (Valuelist *valueItem in product.valueList) {
             
+            if ([value isEqual:valueItem]) {
+               
+                if (valueItem.selectType == ValueSelectType_normal) {
+                
+                    valueItem.selectType = ValueSelectType_selected;
+             
+                }else {
+                    valueItem.selectType = ValueSelectType_normal;
+                }
+                
+                if (value.selectType == ValueSelectType_selected) {
+                    
+                    [dictProductValue setValue:_goodsId forKey:@"goodsId"];
+            
+                    [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.nameId] forKey:@"nameId"];
+                    
+                    [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.valueId]  forKey:@"valueId"];
+                }
         }else {
-            valueItem.isSelect = NO;
+            
+            valueItem.selectType = ValueSelectType_normal;
         }
+            
     }
-    [self skuMatchPostRequsetWithParam:[NSDictionary dictionaryWithDictionary:dictProductValue]];
-    [self.SkuColletionView reloadData];
+        if ([self isSKuAllSelect]) {  //规则全部选完，请求价格
+            
+            
+        }else {  //匹配其他规格
+           
+//            [self textData];
+            [self skuMatchPostRequsetWithParam:[NSDictionary dictionaryWithDictionary:dictProductValue]];
+
+        }
+        
+        [self.SkuColletionView reloadData];
+    }
+    
 }
 
 
@@ -964,36 +971,39 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 #pragma mark - skuMatch 规格匹配
 -(void)skuMatchPostRequsetWithParam :(NSDictionary *) parma
 {
-    
-    NSLog(@"productSkuArray ===%@",self.productSkuArray);
+
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/skuMatch",zfb_baseUrl] params:parma success:^(id response) {
         
-        DetailGoodsModel * goods = [DetailGoodsModel mj_objectWithKeyValues:response];
-       
-        for (Productattribute * product in goods.data.productAttribute) {
+        SkuMatchModel * sku  = [SkuMatchModel mj_objectWithKeyValues:response];
+        
+        for (Skumatch *skumatch in sku.data.skuMatch) {
             
-            [self.skuMatch addObject:product];
+            NSInteger nameId = skumatch.nameId;
             
+            for (SkuValulist *skuValu in  skumatch.valuList) {
+                
+                for (Productattribute *attribute in self.productSkuArray) {
+                    
+                    if (nameId == attribute.nameId) {
+                        
+                        for (Valuelist *valueItem in attribute.valueList) {
+                            
+                            if (skuValu.valueId == valueItem.valueId) {
+                                
+                                valueItem.selectType = ValueSelectType_normal;
+                                
+                            }else {
+                                
+                                valueItem.selectType = ValueSelectType_enable;
+                            }
+                        }
+                    }
+                }
+            }
         }
- 
-     for (int i = 0; i < self.productSkuArray.count; i++) {
-         
-         Productattribute *productModel = self.productSkuArray[i];
-         
-         for (int j = 0; j < self.skuMatch.count; j++) {
-             
-             Productattribute *currentModel = self.skuMatch[j];
-             
-             if (productModel.nameId == currentModel.nameId) {
-                 
-                 [self.productSkuArray replaceObjectAtIndex:i withObject:self.skuMatch];
-             }
-         }
-    
-     }
-        NSLog(@"productSkuArray ===%@",self.productSkuArray);
+        
         [self.SkuColletionView reloadData];
-
+ 
      } progress:^(NSProgress *progeress) {
          
          NSLog(@"progeress=====%@",progeress);
@@ -1070,15 +1080,35 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self goodsDetailListPostRequset];//网络请求
+//    [self goodsDetailListPostRequset];//网络请求
     
-    
-//    [self deathdata];
+    [self deathdata];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+//判断规格是否全部选取
+-(BOOL)isSKuAllSelect {
+    
+    BOOL isAllSelect = YES;
+    
+    for (Productattribute *attribute in self.productSkuArray) {
+        
+        for (Valuelist *value in attribute.valueList) {
+            
+            if (!(value.selectType == ValueSelectType_selected)) {
+                
+                isAllSelect = NO;
+            }
+        }
+    }
+    
+    return isAllSelect;
+}
+
 
 //测试数据
 -(void)deathdata
@@ -1150,7 +1180,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                                                                @"nameStatus" : @"0",
                                                                @"goodsTypeId" : @"8",
                                                                @"orderNum" : @"2",
-                                                               @"name" : @",ml",
+                                                               @"name" : @"xml",
                                                                },
                                                            @{
                                                                @"nameId" : @"2",
@@ -1194,6 +1224,63 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     [self.SkuColletionView reloadData];
     
 }
+
+-(void)textData{
+    
+    NSDictionary * dic = @{
+                           @"resultMsg":@"请求成功",
+                           @"data":@{
+                                   @"skuMatch":@[
+                                           @{
+                                               @"nameId" : @"1",
+                                               @"valuList":@[
+                                                       @{
+                                                           @"valueId":@"3",
+                                                           @"createTime" : @"5",
+                                                           @"nameId" : @"2",
+                                                           @"goodsId" : @"1",
+                                                           @"id" : @"4",
+                                                           @"skuId" : @"1",
+                                                           }
+                                                       ]
+                                               
+                                               }
+                                           
+                                        ]
+                                   }
+                           };
+    
+    SkuMatchModel * sku  = [SkuMatchModel mj_objectWithKeyValues:dic];
+
+    for (Skumatch *skumatch in sku.data.skuMatch) {
+        
+        NSInteger nameId = skumatch.nameId;
+        
+        for (SkuValulist *skuValu in  skumatch.valuList) {
+            
+            for (Productattribute *attribute in self.productSkuArray) {
+                
+                if (nameId == attribute.nameId) {
+                
+                    for (Valuelist *valueItem in attribute.valueList) {
+                        
+                        if (skuValu.valueId == valueItem.valueId) {
+                            
+                            valueItem.selectType = ValueSelectType_normal;
+    
+                        }else {
+                           
+                            valueItem.selectType = ValueSelectType_enable;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    [self.SkuColletionView reloadData];
+}
+
 
 /*
  #pragma mark - Navigation

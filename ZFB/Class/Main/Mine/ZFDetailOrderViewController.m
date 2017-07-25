@@ -30,6 +30,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     NSString * mobilePhone;
     NSString * postAddress;
     
+    NSString * orderNumid;
     NSString * orderStatusName;
     NSString * deliveryFee;
     NSString * payStatusName;
@@ -199,8 +200,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         }
         
     }
-    
-    
+ 
     return height;
 }
 
@@ -211,6 +211,9 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         if (indexPath.row == 0) {
             
             ZFOrderDetailCell* detailCell = [self.tableView dequeueReusableCellWithIdentifier:commonDetailCellid forIndexPath:indexPath];
+            detailCell.lb_detailtitle.text = [NSString stringWithFormat:@"订单号：%@",orderNumid];
+            detailCell.lb_detaileFootTitle.text = orderStatusName;
+            
             cell                          = detailCell;
             
         }
@@ -292,19 +295,30 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         
         DetailOrderModel * orderModel = [DetailOrderModel mj_objectWithKeyValues:response];
         
+        //签名数组
         for (Unpayorderinfo * unpay in orderModel.unpayOrderInfo) {
             
             [self.paySignArray addObject:unpay];
+            orderNumid =  unpay.orderNum;//订单号
+            
         }
-        
+        //商品列表
         for (DetailShoppcartlist * list in orderModel.shoppCartList.goodsList) {
             
             [self.shoppCartList addObject:list];
         }
         
+        //地址信息
         nickName    = orderModel.cmUserInfo.nickName ;
         mobilePhone = orderModel.cmUserInfo.mobilePhone ;
         postAddress = orderModel.cmUserInfo.postAddress ;
+        
+        //订单信息
+        orderStatusName = orderModel.orderDetails.orderStatusName ;//支付状态
+//        payMethodName = orderModel.orderDetails.payMethodName ;//支付方式
+        deliveryFee = [NSString stringWithFormat:@"%ld",orderModel.orderDetails.deliveryFee] ;//配送费用
+        createTime = orderModel.orderDetails.createTime ;//订单时间
+
         
         [self.tableView reloadData];
         

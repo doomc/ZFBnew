@@ -19,6 +19,6 @@
 /**
   标题尾部名称
  */
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lb_detaileFootTitle;
-
+@property (weak, nonatomic) IBOutlet UILabel *lb_detaileFootTitle;
+ 
 @end

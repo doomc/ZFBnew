@@ -858,9 +858,11 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     if (goodlist.order_id != nil) {
         
         detailVc.cmOrderid = goodlist.order_id;
-        [self.navigationController pushViewController:detailVc animated:YES];
 
     }
+#warning 改动过 需要把修改的值放到里面
+    [self.navigationController pushViewController:detailVc animated:YES];
+
 }
 
 

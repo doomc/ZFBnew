@@ -8,10 +8,16 @@
 
 
 #import <Foundation/Foundation.h>
+typedef enum {
+    ValueSelectType_normal,  //没选
+    ValueSelectType_selected,  //已选
+    ValueSelectType_enable  //不可选
+}ValueSelectType;
 
 @class detailData,Goodsinfo,Storeinfo,Productattribute,Valuelist;
 @interface DetailGoodsModel : NSObject
 
+@property (nonatomic, copy) NSString *resultMsg;
 
 @property (nonatomic, strong) detailData *data;
 
@@ -149,6 +155,8 @@
 @interface Valuelist : NSObject
 
 @property (nonatomic, assign) BOOL isSelect;
+
+@property (nonatomic, assign) ValueSelectType selectType;//根据枚举类型显示
 
 @property (nonatomic, assign) NSInteger nameId;
 
