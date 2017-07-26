@@ -8,11 +8,13 @@
 
 
 #import <Foundation/Foundation.h>
-typedef enum {
+
+typedef NS_ENUM(NSUInteger, ValueSelectType) {
+  
     ValueSelectType_normal,  //没选
     ValueSelectType_selected,  //已选
     ValueSelectType_enable  //不可选
-}ValueSelectType;
+};
 
 @class detailData,Goodsinfo,Storeinfo,Productattribute,Valuelist;
 @interface DetailGoodsModel : NSObject

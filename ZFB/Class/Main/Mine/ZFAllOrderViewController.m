@@ -853,10 +853,10 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
-    Ordergoods * goodlist = _orderGoodsArray [indexPath.row];
+    
     ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-    if (goodlist.order_id != nil) {
-        
+    if (self.orderGoodsArray.count > 0) {
+        Ordergoods * goodlist = self.orderGoodsArray [indexPath.row];
         detailVc.cmOrderid = goodlist.order_id;
 
     }
@@ -898,7 +898,9 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     ///            所有订单	待配送	配送中	已配送   待付款  交易取消   交易完成	 售后申请
     
     //0待配送 1配送中 2配送完成,3.交易完成，4.待付款，6,待上门取件，-1.关闭
+   
     switch (_orderType) {
+            
         case OrderTypeAllOrder:///全部订单
             
   
@@ -1000,7 +1002,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                              };
     
     MJWeakSelf;
-    
+    [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/order/getOrderListBystatus"] params:param success:^(id response) {
         
         if ([response[@"resultCode"] intValue] == 0) {
@@ -1031,20 +1033,33 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             NSLog(@"orderGoodsArray ====%@",weakSelf.orderGoodsArray);
             
             [weakSelf.allOrder_tableView reloadData];
-            
+            [SVProgressHUD dismiss];
         }
         
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
-        
+        [SVProgressHUD dismiss];
+
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
 
     
 }
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+    
+    [self.bgview removeFromSuperview];
 
+    
+}
+-(void)viewWillDisappear:(BOOL)animated{
+   
+    [SVProgressHUD dismiss];
+    
+}
 //判断是不是空数组
 - (BOOL)isEmptyArray:(NSArray *)array
 {

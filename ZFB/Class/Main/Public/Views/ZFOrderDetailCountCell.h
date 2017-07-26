@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ZFOrderDetailCountCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *lb_goodsAllPrice;
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_freeSendPrice;
 @end

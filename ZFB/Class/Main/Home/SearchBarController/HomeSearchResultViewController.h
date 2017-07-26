@@ -10,6 +10,8 @@
 
 @interface HomeSearchResultViewController : BaseViewController
 
+@property (nonatomic , copy) NSString * searchType;//门店或者商品
 @property (nonatomic , copy) NSString * number;
+@property (nonatomic , copy) NSString * resultsText;
 
 @end

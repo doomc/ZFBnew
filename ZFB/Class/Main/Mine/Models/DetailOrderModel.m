@@ -10,21 +10,23 @@
 
 @implementation DetailOrderModel
 
+ 
 
 + (NSDictionary *)objectClassInArray{
     return @{@"unpayOrderInfo" : [Unpayorderinfo class]};
 }
 @end
+
 @implementation DetailShoppcartlist
 
 + (NSDictionary *)objectClassInArray{
-    return @{@"goodsList" : [DetailOrderGoodslist class]};
+    return @{@"goodsList" : [DetailGoodslist class]};
 }
 
 @end
 
 
-@implementation DetailOrderGoodslist
+@implementation DetailGoodslist
 
 @end
 
@@ -34,7 +36,11 @@
 @end
 
 
-@implementation DetailCmuserinfo
+@implementation Deliveryinfo
+
+@end
+
+@implementation DetailcmUserInfo
 
 @end
 

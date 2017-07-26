@@ -25,8 +25,8 @@
                             <constraint firstAttribute="height" constant="70" id="j8U-Ix-v8I"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="韩版碎花气质修身长衬衫连衣裙外套2016秋装新款女款a字裙子" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBE-qQ-Awd">
-                        <rect key="frame" x="100" y="15" width="203" height="29"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="韩版碎花气" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBE-qQ-Awd">
+                        <rect key="frame" x="100" y="15" width="203" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -38,7 +38,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="促销价:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7b-t1-wbW">
-                        <rect key="frame" x="100" y="46" width="40.5" height="14.5"/>
+                        <rect key="frame" x="100" y="38" width="40.5" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -69,8 +69,8 @@
                             <constraint firstAttribute="width" constant="12" id="Uny-TH-KcF"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="促销价：¥156" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phn-X2-hWH">
-                        <rect key="frame" x="145.5" y="46" width="77.5" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥156" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phn-X2-hWH">
+                        <rect key="frame" x="145.5" y="38" width="28.5" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.99607843137254903" green="0.42745098039215684" blue="0.41568627450980389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -82,6 +82,7 @@
                     <constraint firstItem="oKm-bh-kSm" firstAttribute="bottom" secondItem="emD-mM-3dI" secondAttribute="bottom" id="Cyw-ya-IiF"/>
                     <constraint firstItem="zYq-pu-ijN" firstAttribute="leading" secondItem="1Fd-CN-a2U" secondAttribute="trailing" constant="5" id="DXC-iG-m8U"/>
                     <constraint firstItem="bBE-qQ-Awd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Gmo-xk-iYk"/>
+                    <constraint firstItem="A7b-t1-wbW" firstAttribute="centerY" secondItem="emD-mM-3dI" secondAttribute="centerY" id="MhS-bw-ic5"/>
                     <constraint firstItem="Mud-vr-b5S" firstAttribute="centerY" secondItem="V6x-58-KbG" secondAttribute="centerY" id="ODH-mh-Avo"/>
                     <constraint firstItem="emD-mM-3dI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="PrT-Ha-mlk"/>
                     <constraint firstItem="Phn-X2-hWH" firstAttribute="centerY" secondItem="A7b-t1-wbW" secondAttribute="centerY" id="c0y-E8-GJE"/>
@@ -105,8 +106,10 @@
                 <outlet property="lb_goodsName" destination="bBE-qQ-Awd" id="b2j-RR-Iwx"/>
                 <outlet property="lb_price" destination="Phn-X2-hWH" id="Kge-po-ZQa"/>
                 <outlet property="lb_storeName" destination="oKm-bh-kSm" id="p79-wv-KBR"/>
+                <outlet property="loca_img" destination="Mud-vr-b5S" id="uyb-b9-VVm"/>
+                <outlet property="zan_Image" destination="1Fd-CN-a2U" id="o8a-xN-d9R"/>
             </connections>
-            <point key="canvasLocation" x="-422.5" y="22.5"/>
+            <point key="canvasLocation" x="-733" y="50"/>
         </tableViewCell>
     </objects>
     <resources>

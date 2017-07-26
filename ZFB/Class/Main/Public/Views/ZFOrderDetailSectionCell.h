@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ZFOrderDetailSectionCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
+@property (weak, nonatomic) IBOutlet UIImageView *storeIamge;
 
 @end

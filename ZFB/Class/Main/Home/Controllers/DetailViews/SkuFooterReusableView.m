@@ -23,12 +23,9 @@
  @param sender sender
  */
 - (IBAction)addAction:(id)sender {
-    
-    if (num >= 10 ) {
-        NSLog(@"超出范围");
-    }else{
-        num = num +1;
-    }
+  
+    num = 1;
+    num ++;
     _lb_count.text = [NSString stringWithFormat:@"%ld",(long)num];
     [self.countDelegate addCount:num];
     
@@ -40,7 +37,7 @@
  */
 - (IBAction)reduceAction:(id)sender {
     
-    if ((num - 1) <= 0 || num == 0) {
+    if ((num - 1) <= 1|| num == 1) {
         NSLog(@"超出范围");
         
     }else{

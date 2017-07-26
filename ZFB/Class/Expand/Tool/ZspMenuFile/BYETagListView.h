@@ -16,10 +16,12 @@ typedef void (^ClicBlock)(NSString*);
  * 整个view的背景色
  */
 @property(nonatomic,retain)UIColor *GBbackgroundColor;
+
 /**
  *  设置单一颜色
  */
 @property(nonatomic)UIColor *signalTagColor;
+
 //设置tag字体颜色
 @property(nonatomic)UIColor *tagFontColor;
 /**

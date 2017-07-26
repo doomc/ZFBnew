@@ -17,8 +17,7 @@
 @property (nonatomic ,strong) UIWebView *               webView ;
 @property (nonatomic ,strong) WebViewJavascriptBridge * bridge   ;
 
-@property (nonatomic ,copy  ) NSString       * signString;
-@property (nonatomic ,strong) WKNavigation   *backNavigation;
+@property (nonatomic ,copy  ) NSString       *signString;
 @property (nonatomic ,strong) UIProgressView *pressView;
 
 @end

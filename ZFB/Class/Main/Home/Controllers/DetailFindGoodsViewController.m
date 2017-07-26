@@ -374,8 +374,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         
     }
  
- 
- 
 }
 
 
@@ -393,7 +391,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         }
     }
  
-    else if (indexPath.row == 1) {
+    else if (indexPath.row == 2) {
         
         
         ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
@@ -455,13 +453,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     SukItemCollectionViewCell *cell = [self.SkuColletionView
                                         dequeueReusableCellWithReuseIdentifier:@"SukItemCollectionViewCellid" forIndexPath:indexPath];
  
-    
-    if (self.skuMatch.count == 0 || self.skuMatch == nil) {
-        cell.selectItemColor.backgroundColor = [UIColor grayColor];
-        cell.selectItemColor.enabled = NO;
- 
-    }
-    
     if (self.productSkuArray.count > 0) {
         
         Productattribute *product = self.productSkuArray[indexPath.section];
@@ -481,8 +472,8 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-
     Productattribute *product = self.productSkuArray[indexPath.section];
+ 
     Valuelist *value = product.valueList[indexPath.item];
     
     if (!(value.selectType == ValueSelectType_enable)) {
@@ -496,6 +487,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                     valueItem.selectType = ValueSelectType_selected;
              
                 }else {
+                    
                     valueItem.selectType = ValueSelectType_normal;
                 }
                 
@@ -515,6 +507,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     }
         if ([self isSKuAllSelect]) {  //规则全部选完，请求价格
             
+            [self skuMatchPricePostRequset];
             
         }else {  //匹配其他规格
            
@@ -934,44 +927,11 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 }
 
 
-#pragma mark - 添加到购物车:ShoppCartJoin
--(void)addToshoppingCarPost
-{
-    
-    NSString * count     = [NSString stringWithFormat:@"%ld",_goodsCount];
-    _sizeOrColorStr      = @"{color:黑色,size:xxl}";
-    NSDictionary * parma = @{
-                             @"cmUserId":BBUserDefault.cmUserId,
-                             @"storeId":_storeId,
-                             @"storeName":_storeName,
-                             @"goodsId":_goodsId,
-                             @"goodsCount":count,//商品个数
-                             @"goodsProp":@"",//商品规格
-                             };
-    
-    [MENetWorkManager post:[NSString stringWithFormat:@"%@/ShoppCartJoin",zfb_baseUrl] params:parma success:^(id response) {
-        
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-        
-    } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
-    } failure:^(NSError *error) {
-        
-        NSLog(@"error=====%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        
-    }];
-    
-    
-}
 
 
-#pragma mark - skuMatch 规格匹配
+#pragma mark - skuMatch 规格匹配 ////第2步
 -(void)skuMatchPostRequsetWithParam :(NSDictionary *) parma
 {
-
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/skuMatch",zfb_baseUrl] params:parma success:^(id response) {
         
         SkuMatchModel * sku  = [SkuMatchModel mj_objectWithKeyValues:response];
@@ -1017,7 +977,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
 }
 
-#pragma mark - skuMatchPrice 规格匹配价格库存数量信息
+#pragma mark - skuMatchPrice 规格匹配价格库存数量信息////第3步
 -(void)skuMatchPricePostRequset
 {
   
@@ -1044,6 +1004,45 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         
     }];
+    
+}
+#pragma mark - 添加到购物车:ShoppCartJoin////第4步
+-(void)addToshoppingCarPost
+{
+    
+    NSString * count     = [NSString stringWithFormat:@"%ld",_goodsCount];
+    if (dictProductValue != nil) {
+        
+        _sizeOrColorStr = [NSString convertToJsonData:dictProductValue];
+        
+    }else{
+        _sizeOrColorStr = @"";
+    }
+    //    _sizeOrColorStr      = @"{color:黑色,size:xxl}";
+    NSDictionary * parma = @{
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"storeId":_storeId,
+                             @"storeName":_storeName,
+                             @"goodsId":_goodsId,
+                             @"goodsCount":count,//商品个数
+                             @"goodsProp":_sizeOrColorStr,//商品规格
+                             };
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/ShoppCartJoin",zfb_baseUrl] params:parma success:^(id response) {
+        
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        
+    }];
+    
     
 }
 
@@ -1080,9 +1079,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 -(void)viewWillAppear:(BOOL)animated
 {
-//    [self goodsDetailListPostRequset];//网络请求
+    [self goodsDetailListPostRequset];//网络请求
     
-    [self deathdata];
+//    [self deathdata];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -1232,16 +1231,25 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                            @"data":@{
                                    @"skuMatch":@[
                                            @{
-                                               @"nameId" : @"1",
+                                               @"nameId" : @"2",
                                                @"valuList":@[
                                                        @{
-                                                           @"valueId":@"3",
+                                                           @"valueId":@"6",
                                                            @"createTime" : @"5",
                                                            @"nameId" : @"2",
                                                            @"goodsId" : @"1",
-                                                           @"id" : @"4",
-                                                           @"skuId" : @"1",
-                                                           }
+                                                           @"id" : @"5",
+                                                           @"skuId" : @"2",
+                                                           },
+                                                       @{
+                                                           @"valueId" : @"7",
+                                                           @"createTime" : @"2017-07-04",
+                                                           @"nameId" : @"2",
+                                                           @"goodsId" :@"1",
+                                                           @"id" : @"6",
+                                                           @"skuId" : @"3",
+                                                       }
+
                                                        ]
                                                
                                                }

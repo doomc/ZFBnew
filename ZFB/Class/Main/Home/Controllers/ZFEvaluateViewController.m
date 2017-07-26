@@ -201,7 +201,8 @@
                              @"pageIndex":pageIndex,//当前页码
                              
                              };
-    [MBProgressHUD showMessage: @"加载中..." ToView:self.view] ;
+    
+    [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsCommentInfo",zfb_baseUrl] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
@@ -228,7 +229,7 @@
             
             [self shouldReloadData];
             
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [SVProgressHUD dismissWithDelay:1];
         }
         
         [self.evaluate_tableView.mj_header endRefreshing];
@@ -237,20 +238,23 @@
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
- 
+        [SVProgressHUD dismiss];
+
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
   
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    [self.evaluate_tableView.mj_header endRefreshing];
-    [self.evaluate_tableView.mj_footer endRefreshing];
-    
+  
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.evaluate_tableView.mj_header beginRefreshing];
     
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [SVProgressHUD dismiss];
+
 }
 @end

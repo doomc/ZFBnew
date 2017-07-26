@@ -8,15 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@class DetailShoppcartlist,DetailOrderGoodslist,Orderdetails,DetailCmuserinfo,Unpayorderinfo;
+ 
+@class DetailShoppcartlist,DetailGoodslist,Orderdetails,Deliveryinfo,Unpayorderinfo,DetailcmUserInfo;
 @interface DetailOrderModel : NSObject
 
 
 @property (nonatomic, assign) NSInteger status;
 
-@property (nonatomic, strong) NSArray<Unpayorderinfo *> *unpayOrderInfo;//付款信息    未付款，需要此内容，用于提交支付信息
-
-@property (nonatomic, strong) DetailCmuserinfo *cmUserInfo;
+@property (nonatomic, strong) NSArray<Unpayorderinfo *> *unpayOrderInfo;
 
 @property (nonatomic, copy) NSString *resultMsg;
 
@@ -28,10 +27,27 @@
 
 @property (nonatomic, strong) DetailShoppcartlist *shoppCartList;
 
+@property (nonatomic, strong) Deliveryinfo *deliveryInfo;
+
+@property (nonatomic, strong) DetailcmUserInfo *cmUserInfo;
+
 @end
+@interface DetailcmUserInfo : NSObject
+
+@property (nonatomic, copy) NSString *cmUserId;
+
+@property (nonatomic, copy) NSString *nickName;
+
+@property (nonatomic, copy) NSString *postAddress;
+
+@property (nonatomic, copy) NSString *mobilePhone;
+
+@end
+
+
 @interface DetailShoppcartlist : NSObject
 
-@property (nonatomic, strong) NSArray<DetailOrderGoodslist *> *goodsList;
+@property (nonatomic, strong) NSArray<DetailGoodslist *> *goodsList;
 
 @property (nonatomic, assign) NSInteger storeId;
 
@@ -39,23 +55,23 @@
 
 @end
 
-@interface DetailOrderGoodslist : NSObject
+@interface DetailGoodslist : NSObject
 
-@property (nonatomic, copy) NSString *goodsName;
+@property (nonatomic, copy) NSString *storePrice;
 
 @property (nonatomic, copy) NSString *goodsCount;
-
-@property (nonatomic, assign) NSInteger storePrice;
 
 @property (nonatomic, copy) NSString *goodsId;
 
 @property (nonatomic, copy) NSString *coverImgUrl;
 
+@property (nonatomic, copy) NSString *goodsName;
+
 @end
 
 @interface Orderdetails : NSObject
 
-@property (nonatomic, assign) NSInteger cmOrderId;
+@property (nonatomic, copy) NSString * payRelPrice;
 
 @property (nonatomic, assign) NSInteger payStatus;
 
@@ -63,27 +79,29 @@
 
 @property (nonatomic, assign) NSInteger payMethod;
 
-@property (nonatomic, assign) NSInteger deliveryFee;
+@property (nonatomic, copy) NSString * deliveryFee;
 
 @property (nonatomic, copy) NSString *payStatusName;
 
 @property (nonatomic, copy) NSString *payMethodName;
 
+@property (nonatomic, assign) NSInteger orderStatus;
+
+@property (nonatomic, copy) NSString  * goodsAmount;
+
 @property (nonatomic, copy) NSString *createTime;
 
-@property (nonatomic, assign) NSInteger payRelPrice;
+@property (nonatomic, assign) NSInteger cmOrderId;
 
 @end
 
-@interface DetailCmuserinfo : NSObject
+@interface Deliveryinfo : NSObject
 
-@property (nonatomic, assign) NSInteger cmUserId;
+@property (nonatomic, assign) NSInteger deliveryId;
 
-@property (nonatomic, copy) NSString *nickName;
+@property (nonatomic, copy) NSString *deliveryName;
 
-@property (nonatomic, copy) NSString *mobilePhone;
-
-@property (nonatomic, copy) NSString *postAddress;
+@property (nonatomic, copy) NSString *deliveryPhone;
 
 @end
 

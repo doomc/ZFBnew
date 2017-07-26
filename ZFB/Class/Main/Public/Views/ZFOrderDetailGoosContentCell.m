@@ -18,6 +18,19 @@
     self.img_orderDetailView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
 }
 
+-(void)setGoodlist:(DetailGoodslist *)goodlist
+{
+    _goodlist =  goodlist;
+    
+    self.lb_title.text = _goodlist.goodsName;
+    self.lb_price.text = [NSString stringWithFormat:@"%@",_goodlist.storePrice];
+    self.lb_count.text = [NSString stringWithFormat:@"x %@",_goodlist.goodsCount];
+    [self.img_orderDetailView sd_setImageWithURL:[NSURL URLWithString:_goodlist.coverImgUrl] placeholderImage:nil];
+    
+    
+    
+    
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

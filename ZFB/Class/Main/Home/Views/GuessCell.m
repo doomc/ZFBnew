@@ -21,14 +21,27 @@
     self.guess_listView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
 }
 
+//搜索无结果，精选列表模型
+-(void)setSgoodlist:(SearchFindgoodslist *)sgoodlist
+{
+    _sgoodlist = sgoodlist;
+    
+    NSURL * img_url = [NSURL URLWithString:sgoodlist.coverImgUrl ];
+    [self.guess_listView sd_setImageWithURL:img_url placeholderImage:nil];
+    
+    self.lb_goodsName.text = sgoodlist.goodsName;
+    self.lb_price.text = [NSString stringWithFormat:@"¥%@",sgoodlist.netPurchasePrice];
+    self.lb_storeName.text = sgoodlist.storeName;
 
+}
+//猜你喜欢模型
 -(void)setGoodlist:(Guessgoodslist *)goodlist
 {
     _goodlist = goodlist;
     
     NSURL * img_url = [NSURL URLWithString:_goodlist.coverImgUrl ];
     [self.guess_listView sd_setImageWithURL:img_url placeholderImage:nil];
-
+    
     self.lb_goodsName.text = _goodlist.goodsName;
     self.lb_price.text = [NSString stringWithFormat:@"¥%@",_goodlist.netPurchasePrice];
     self.lb_storeName.text = _goodlist.storeName;

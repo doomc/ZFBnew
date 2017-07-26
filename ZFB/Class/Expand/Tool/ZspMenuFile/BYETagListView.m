@@ -35,20 +35,23 @@
     }
     totalLineCount = 1;
     previousFrame = CGRectZero;
+    
     for (int loop = 0; loop < arr.count; loop++) {
         NSString *str = arr[loop];
         UIButton *tag = [UIButton buttonWithType:UIButtonTypeCustom];
         tag.backgroundColor=_signalTagColor;
         [tag setTitleColor:self.tagFontColor forState:UIControlStateNormal];
-        tag.titleLabel.font = [UIFont systemFontOfSize:13];
+        tag.titleLabel.font = [UIFont systemFontOfSize:14];
         [tag setTitle:str forState:UIControlStateNormal];
         tag.clipsToBounds=YES;
+       
         [tag addTarget:self action:@selector(tagClicked:) forControlEvents:UIControlEventTouchUpInside];
         NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:12]};
         CGSize Size_str=[str sizeWithAttributes:attrs];
         Size_str.width += HORIZONTAL_PADDING*4-10;
         Size_str.height += VERTICAL_PADDING*2;
         tag.layer.cornerRadius= 2;
+        
 //        tag.layer.borderColor = [UIColor lightGrayColor].CGColor;
 //        tag.layer.borderWidth = 1.f;
         CGRect newRect = CGRectZero;
@@ -63,7 +66,7 @@
             }
         }
         else {
-            newRect.origin = CGPointMake(previousFrame.origin.x+20  + previousFrame.size.width + LABEL_MARGIN, previousFrame.origin.y);
+            newRect.origin = CGPointMake(previousFrame.origin.x+10  + previousFrame.size.width + LABEL_MARGIN, previousFrame.origin.y);
         }
         newRect.size = Size_str;
         [tag setFrame:newRect];
@@ -72,6 +75,7 @@
         [self addSubview:tag];
     }
     if(_GBbackgroundColor){
+        
         self.backgroundColor=_GBbackgroundColor;
     }else{
         self.backgroundColor=[UIColor whiteColor];
@@ -92,6 +96,7 @@
 -(void)tagClicked:(UIButton*)button
 {
     if(self.tagCurrentClickTitleBlock){
+        
         self.tagCurrentClickTitleBlock([button currentTitle]);
     }
 }
