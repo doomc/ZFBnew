@@ -170,8 +170,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
         return self.hotArray.count > 0 ? 1 : 0;
     }
     if (section == 2 ) {
-//        return 3;
-       return self.likeListArray.count;
+        return 3;
+//       return self.likeListArray.count;
     }
     return 1;
 }
@@ -393,7 +393,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
             [self.hotArray removeAllObjects];
             
         }
-        
+ 
+#warning  此处数据未加----
+     
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
@@ -404,41 +406,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
         
     }];
     
-    //    [PPNetworkHelper POST:zfb_url parameters:parma responseCache:^(id responseCache) {
-    //
-    //    } success:^(id responseObject) {
-    //
-    //        NSLog(@"%@",responseObject);
-    //
-    //        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-    //
-    //            if (self.hotArray.count >0) {
-    //
-    //                [self.hotArray removeAllObjects];
-    //
-    //            }else{
-    //
-    //                NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-    //                NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-    //                NSArray * dictArray = jsondic [@"bestGoodsList"];
-    //
-    //                //mjextention 数组转模型
-    //                NSArray *storArray = [HomeHotModel mj_objectArrayWithKeyValuesArray:dictArray];
-    //                for (HomeHotModel *hotlist in storArray) {
-    //
-    //                    [self.hotArray addObject:hotlist];
-    //                }
-    //                NSLog(@"bestGoodsList = %@",  self.hotArray);
-    //
-    //                [self.HotcollectionView reloadData];
-    //            }
-    //
-    //        }
-    //
-    //    } failure:^(NSError *error) {
-    //        NSLog(@"%@",error);
-    //        [self makeToast:@"网络错误" duration:2 position:@"center"];
-    //    }];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated

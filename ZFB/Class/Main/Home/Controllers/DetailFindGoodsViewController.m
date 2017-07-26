@@ -480,16 +480,17 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         
         for (Valuelist *valueItem in product.valueList) {
             
+            
             if ([value isEqual:valueItem]) {
-               
                 if (valueItem.selectType == ValueSelectType_normal) {
-                
+                    
                     valueItem.selectType = ValueSelectType_selected;
-             
+                    
                 }else {
                     
                     valueItem.selectType = ValueSelectType_normal;
                 }
+                
                 
                 if (value.selectType == ValueSelectType_selected) {
                     
@@ -500,19 +501,21 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                     [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.valueId]  forKey:@"valueId"];
                 }
         }else {
+            if (!(valueItem.selectType == ValueSelectType_enable)) {
+                valueItem.selectType = ValueSelectType_normal;
+            }
             
-            valueItem.selectType = ValueSelectType_normal;
         }
             
     }
         if ([self isSKuAllSelect]) {  //规则全部选完，请求价格
             
-            [self skuMatchPricePostRequset];
+//            [self skuMatchPricePostRequset];
             
         }else {  //匹配其他规格
            
-//            [self textData];
-            [self skuMatchPostRequsetWithParam:[NSDictionary dictionaryWithDictionary:dictProductValue]];
+            [self textData];
+//            [self skuMatchPostRequsetWithParam:[NSDictionary dictionaryWithDictionary:dictProductValue]];
 
         }
         
@@ -1079,9 +1082,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self goodsDetailListPostRequset];//网络请求
+//    [self goodsDetailListPostRequset];//网络请求
     
-//    [self deathdata];
+    [self deathdata];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -1092,19 +1095,23 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 //判断规格是否全部选取
 -(BOOL)isSKuAllSelect {
     
-    BOOL isAllSelect = YES;
-    
+    BOOL isAllSelect = NO;
+    NSInteger selectCount = 0;
     for (Productattribute *attribute in self.productSkuArray) {
         
         for (Valuelist *value in attribute.valueList) {
             
-            if (!(value.selectType == ValueSelectType_selected)) {
+            if (value.selectType == ValueSelectType_selected) {
                 
-                isAllSelect = NO;
+                selectCount++;
+                break;
             }
         }
     }
-    
+    if (selectCount == self.productSkuArray.count) {
+        isAllSelect = YES;
+    }
+    NSLog(@"==========isSelect==========%d", isAllSelect);
     return isAllSelect;
 }
 
@@ -1234,7 +1241,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                                                @"nameId" : @"2",
                                                @"valuList":@[
                                                        @{
-                                                           @"valueId":@"6",
+                                                           @"valueId":@"5",
                                                            @"createTime" : @"5",
                                                            @"nameId" : @"2",
                                                            @"goodsId" : @"1",
@@ -1242,13 +1249,22 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                                                            @"skuId" : @"2",
                                                            },
                                                        @{
+                                                           @"valueId" : @"6",
+                                                           @"createTime" : @"2017-07-04",
+                                                           @"nameId" : @"2",
+                                                           @"goodsId" :@"1",
+                                                           @"id" : @"6",
+                                                           @"skuId" : @"3",
+                                                       },
+                                                       
+                                                       @{
                                                            @"valueId" : @"7",
                                                            @"createTime" : @"2017-07-04",
                                                            @"nameId" : @"2",
                                                            @"goodsId" :@"1",
                                                            @"id" : @"6",
                                                            @"skuId" : @"3",
-                                                       }
+                                                           }
 
                                                        ]
                                                
@@ -1264,25 +1280,28 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         
         NSInteger nameId = skumatch.nameId;
         
-        for (SkuValulist *skuValu in  skumatch.valuList) {
+        for (Productattribute *attribute in self.productSkuArray) {
             
-            for (Productattribute *attribute in self.productSkuArray) {
+            if (nameId == attribute.nameId) {
                 
-                if (nameId == attribute.nameId) {
-                
-                    for (Valuelist *valueItem in attribute.valueList) {
+                for (Valuelist *valueItem in attribute.valueList) {
+                    
+                    BOOL flag = NO;
+                    for (SkuValulist *skulist in skumatch.valuList) {
                         
-                        if (skuValu.valueId == valueItem.valueId) {
-                            
-                            valueItem.selectType = ValueSelectType_normal;
-    
-                        }else {
-                           
-                            valueItem.selectType = ValueSelectType_enable;
+                        if (valueItem.valueId == skulist.valueId) {
+                            flag = YES;
                         }
                     }
+                    if (flag) {
+                        valueItem.selectType = ValueSelectType_normal;
+                    }else {
+                        valueItem.selectType = ValueSelectType_enable;
+                    }
                 }
+                
             }
+            
         }
     }
     

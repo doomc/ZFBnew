@@ -22,26 +22,33 @@
 @interface HomeSearchResultViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate,SearchTypeViewDelegate >
 
 
+//返回结果无数据的view
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UITableView *tableView;
+
+//返回有结果的view
+@property (nonatomic, strong) UITableView *resultTableView;//返回结果的tableview
+@property (nonatomic, strong) UIView *resultView;//返回结有数据的view
 
 @property (nonatomic, strong) NSMutableArray *searchList;//search到的array
 @property (nonatomic, strong) NSMutableArray *noResultArray;//精选数据，搜索无结果数据
 
 @property (nonatomic ,strong) UIButton                 * selectbutton;//搜索选择方式
-@property (nonatomic ,strong) SearchTypeView           * searchTypeHeaderView;//选择方式
-@property (nonatomic ,strong) UIView                   * titleView;
+@property (nonatomic ,strong) SearchTypeView           * searchTypeHeaderView;//选择检索类型
+@property (nonatomic ,strong) UIView                   * titleView;//导航视图
 @property (nonatomic ,strong) UIView                   * popBgView;//全屏背景
 @property (nonatomic ,strong) SearchTypeCollectionView * searchCollectionView;//品牌列表
 
 @property (nonatomic, strong) NSArray *distenceList;
 @property (nonatomic, strong) NSArray *salesList;
 @property (nonatomic, strong) NSArray *priceList;
+
 @property (nonatomic, assign) BOOL    isFeatured;//是否精选  1是 0 否
 @property (nonatomic ,strong) UIView  * headView;//无数据显示的view
 
 
 @end
+
 
 
 @implementation HomeSearchResultViewController
@@ -55,7 +62,6 @@
     _salesList    = @[@"智能排序", @"离我最近", @"好评优先", @"人气最高"];
     
     _isFeatured = NO;//默认有精选 无数据
-    
     
     
     self.searchBar.text = _resultsText;
