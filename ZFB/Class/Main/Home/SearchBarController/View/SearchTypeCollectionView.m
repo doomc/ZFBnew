@@ -9,7 +9,7 @@
 #import "SearchTypeCollectionView.h"
 #import "SearchTypeCollectionCell.h"
 #import "SearchTypeFootReusableView.h"
-
+#import "BrandListModel.h"
 @interface SearchTypeCollectionView ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 
 @end
@@ -23,10 +23,12 @@ static NSString * footIdentifier = @"SearchTypeFootReusableView";
 {
     if (self = [super initWithFrame:frame collectionViewLayout:layout]) {
         
+        
         self.backgroundColor = [UIColor whiteColor];
         self.delegate = self;
         self.dataSource = self;
-    
+ 
+        
         [self registerNib:[UINib nibWithNibName:@"SearchTypeCollectionCell" bundle:nil] forCellWithReuseIdentifier:identifier];
         //如果collectionView有头的话，那么写上它，注册collectionview的尾部视图，
         
@@ -37,6 +39,14 @@ static NSString * footIdentifier = @"SearchTypeFootReusableView";
     return self;
 }
 
+
+-(void)setBrandListArray:(NSMutableArray *)brandListArray
+{
+    _brandListArray = [NSMutableArray array];
+    _brandListArray = brandListArray;
+
+    NSLog(@"%@",_brandListArray);
+}
 //返回collection view里区(section)的个数，如果没有实现该方法，将默认返回1：
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -46,7 +56,7 @@ static NSString * footIdentifier = @"SearchTypeFootReusableView";
 //返回指定区(section)包含的数据源条目数(number of items)，该方法必须实现：
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return  7;
+    return  _brandListArray.count;
 }
 
 //返回某个indexPath对应的cell，该方法必须实现：
@@ -54,6 +64,11 @@ static NSString * footIdentifier = @"SearchTypeFootReusableView";
 {
     SearchTypeCollectionCell *cell =  [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
+    if (_brandListArray.count > 0) {
+        BrandFindbrandlist * list = _brandListArray[indexPath.item];
+        cell.lb_title.text = list.brandName;
+
+    }
     return cell;
     
 }
@@ -68,6 +83,20 @@ static NSString * footIdentifier = @"SearchTypeFootReusableView";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"selcted item  ==== %ld",indexPath.item);
+    BrandFindbrandlist * list = self.brandListArray[indexPath.item];
+   
+    NSString * brandName =list.brandName;
+    NSString * brandid = list.brandId;
+    
+    NSLog(@"brandid = = =%@",brandid);
+
+    if ([self.typeDelegate respondsToSelector:@selector(didSelectedIndex:brandId:brandName:)]) {
+        
+        [self.typeDelegate didSelectedIndex:indexPath.item brandId:brandid brandName:brandName];
+        
+    }
+   
+    
 }
 
 //设置footer和header
@@ -95,7 +124,6 @@ static NSString * footIdentifier = @"SearchTypeFootReusableView";
 {
     return  CGSizeMake(KScreenW, 40);
 }
-
 
 
 

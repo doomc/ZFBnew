@@ -23,9 +23,10 @@
  @param sender sender
  */
 - (IBAction)addAction:(id)sender {
-  
-    num = 1;
-    num ++;
+ 
+    
+    num  = num + 1 ;
+    
     _lb_count.text = [NSString stringWithFormat:@"%ld",(long)num];
     [self.countDelegate addCount:num];
     

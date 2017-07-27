@@ -10,7 +10,7 @@
 #import "RegisterViewController.h"
 #import "ForgetPSViewController.h"
 #import "ZFPersonalViewController.h"
-#import "AppDelegate.h"
+
 typedef NS_ENUM(NSUInteger, indexType) {
     
     quickLoginIndexType = 0,//快捷登录

@@ -27,7 +27,9 @@
 
 #import "ZFPersonalHeaderView.h"
 #import "BaseNavigationController.h"
-#import "AppDelegate.h"
+//#import "AppDelegate.h"
+#import "BusinessServiceViewController.h"
+
 typedef NS_ENUM(NSUInteger, TypeCell) {
     
     TypeCellOfMyCashBagCell,
@@ -246,15 +248,18 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
     if (indexPath.row == 3) {//切换到配送端
         
-        
-        ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
-        [self.navigationController pushViewController:sendVC animated:YES];
+        //服务端
+        BusinessServiceViewController * servc = [[BusinessServiceViewController alloc]init];
+        [self.navigationController pushViewController:servc animated:YES];
+
+
         
     }  if (indexPath.row == 4) {//意见反馈
         
-        
-        ZFFeedbackViewController * feedVC = [[ZFFeedbackViewController alloc]init];
-        [self.navigationController pushViewController:feedVC animated:YES];
+                ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
+                [self.navigationController pushViewController:sendVC animated:YES];
+//        ZFFeedbackViewController * feedVC = [[ZFFeedbackViewController alloc]init];
+//        [self.navigationController pushViewController:feedVC animated:YES];
         
     }
 }

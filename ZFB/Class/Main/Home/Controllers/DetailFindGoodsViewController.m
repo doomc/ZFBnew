@@ -59,6 +59,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     NSInteger  _goodsSales;
     
     NSMutableDictionary *dictProductValue; //保存选择的数据
+    NSMutableDictionary * ruleJsondic; //保存选择的sku
     NSMutableArray * addArr;
     
     NSString * _sizeOrColorStr;//保存sku规格的字符串
@@ -80,7 +81,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 @property (nonatomic,strong) UIButton * addShopCar;//加入购物车
 @property (nonatomic,strong) UIButton * rightNowGo;//立即购买
 
-@property (nonatomic,strong) SDCycleScrollView * cycleScrollView;
+@property (nonatomic,strong) SDCycleScrollView * cycleScrollView;//轮播图
 
 @property (nonatomic,strong) NSMutableArray * productSkuArray;//sku个数
 @property (nonatomic,strong) NSMutableArray * reluJsonKeyArray;//列表个数
@@ -89,9 +90,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 @property (nonatomic,strong) NSArray            * imagesURLStrings;//轮播数组
 @property (nonatomic,strong) UICollectionView   * SkuColletionView;
 
-@property (nonatomic,strong ) SkuFooterReusableView * skufooterView;
-@property (nonatomic,strong ) NSIndexPath           * indexPath;//记录选择的index
-@property (nonatomic,strong ) JXMapNavigationView   *mapNavigationView;//弹框地图指定到位置
+@property (nonatomic,strong) SkuFooterReusableView * skufooterView;
+@property (nonatomic,strong) NSIndexPath           * indexPath;//记录选择的index
+@property (nonatomic,strong) JXMapNavigationView   *mapNavigationView;//弹框地图指定到位置
 
 @property(nonatomic ,strong) NSMutableArray * typeCellArr;
 @property(nonatomic ,strong) NSMutableArray * skuMatch;//规格匹配数组
@@ -106,6 +107,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
  
     _goodsCount = 1;//默认商品数量
     dictProductValue = [NSMutableDictionary dictionary];//用来保存 new 、old的index
+    ruleJsondic = [NSMutableDictionary dictionary];
     
     [self creatInterfaceDetailTableView];//初始化控件tableview
     [self settingHeaderViewAndFooterView];//初始化footerview
@@ -490,15 +492,17 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                     
                     valueItem.selectType = ValueSelectType_normal;
                 }
-                
-                
                 if (value.selectType == ValueSelectType_selected) {
                     
                     [dictProductValue setValue:_goodsId forKey:@"goodsId"];
-            
                     [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.nameId] forKey:@"nameId"];
-                    
                     [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.valueId]  forKey:@"valueId"];
+                    
+                    [ruleJsondic setValue:product.name forKey:@"name"];
+                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",product.nameId] forKey:@"nameId"];
+                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",valueItem.valueId] forKey:@"valueId"];
+                    [ruleJsondic setValue:valueItem.name forKey:@"value"];
+                    
                 }
         }else {
             if (!(valueItem.selectType == ValueSelectType_enable)) {
@@ -510,12 +514,12 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     }
         if ([self isSKuAllSelect]) {  //规则全部选完，请求价格
             
-//            [self skuMatchPricePostRequset];
+            [self skuMatchPricePostRequset];
             
         }else {  //匹配其他规格
            
-            [self textData];
-//            [self skuMatchPostRequsetWithParam:[NSDictionary dictionaryWithDictionary:dictProductValue]];
+//            [self textData];
+            [self skuMatchPostRequsetWithParam:[NSDictionary dictionaryWithDictionary:dictProductValue]];
 
         }
         
@@ -661,8 +665,8 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     delete.clipsToBounds      = YES;
     delete.layer.cornerRadius = 4;
     delete.titleLabel.font    = [UIFont systemFontOfSize:14];
-    delete.backgroundColor    = HEXCOLOR(0xfe6d6a);
-    [delete setTitle:@"删除"forState:UIControlStateNormal];
+//    delete.backgroundColor    = HEXCOLOR(0xfe6d6a);
+    [delete setImage:[UIImage imageNamed:@"delete_sku"] forState:UIControlStateNormal];
     [delete addTarget:self action:@selector(deleteRemoveTheBackgroundView:) forControlEvents:UIControlEventTouchUpInside];
     [self.popView addSubview:delete];
     
@@ -741,7 +745,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     [delete mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.popView).with.offset(10);
         make.right.equalTo(self.popView).with.offset(-20);
-        make.size.mas_equalTo(CGSizeMake(40, 40));
+        make.size.mas_equalTo(CGSizeMake(22, 22));
         
     }];
     //加入购物车按钮
@@ -943,28 +947,36 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             
             NSInteger nameId = skumatch.nameId;
             
-            for (SkuValulist *skuValu in  skumatch.valuList) {
+            for (Productattribute *attribute in self.productSkuArray) {
                 
-                for (Productattribute *attribute in self.productSkuArray) {
-                    
-                    if (nameId == attribute.nameId) {
+                if (nameId == attribute.nameId) {
+                
+                    for (Valuelist *valueItem in attribute.valueList) {
                         
-                        for (Valuelist *valueItem in attribute.valueList) {
+                        BOOL flag = NO;
+                       
+                        for (SkuValulist *skulist in skumatch.valuList) {
                             
-                            if (skuValu.valueId == valueItem.valueId) {
+                            if (valueItem.valueId == skulist.valueId) {
                                 
-                                valueItem.selectType = ValueSelectType_normal;
-                                
-                            }else {
-                                
-                                valueItem.selectType = ValueSelectType_enable;
+                                flag = YES;
                             }
                         }
+                        if (flag) {
+
+                            valueItem.selectType = ValueSelectType_normal;
+                            
+                        }else {
+                            
+                            valueItem.selectType = ValueSelectType_enable;
+                        }
                     }
+                    
                 }
+                
             }
         }
-        
+    
         [self.SkuColletionView reloadData];
  
      } progress:^(NSProgress *progeress) {
@@ -984,8 +996,10 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 -(void)skuMatchPricePostRequset
 {
   
-    NSString *reluJson  =[NSString convertToJsonData:dictProductValue];
+    
+    NSString *reluJson  = [NSString convertToJsonData:ruleJsondic];
     //"reluJson":[{"name":"颜色","nameId":"1","valueId":"1","value":"红色"}]
+    
     NSDictionary * parma = @{
                              
                              @"goodsId":_goodsId,
@@ -996,6 +1010,8 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/skuMatchPrice",zfb_baseUrl] params:parma success:^(id response) {
         
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+    
+        //更新价格和数据
         
     } progress:^(NSProgress *progeress) {
         
@@ -1021,7 +1037,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     }else{
         _sizeOrColorStr = @"";
     }
-    //    _sizeOrColorStr      = @"{color:黑色,size:xxl}";
     NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"storeId":_storeId,
@@ -1034,6 +1049,11 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/ShoppCartJoin",zfb_baseUrl] params:parma success:^(id response) {
         
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        
+        if (self.BgView != nil) {
+            
+            [self.BgView removeFromSuperview];
+        }
         
     } progress:^(NSProgress *progeress) {
         
@@ -1082,9 +1102,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 -(void)viewWillAppear:(BOOL)animated
 {
-//    [self goodsDetailListPostRequset];//网络请求
+    [self goodsDetailListPostRequset];//网络请求
     
-    [self deathdata];
+//    [self deathdata];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

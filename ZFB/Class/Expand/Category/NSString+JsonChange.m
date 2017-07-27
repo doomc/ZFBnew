@@ -32,7 +32,7 @@
 
         
         jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
-        [jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\n" withString:@""];
 
 //        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 //        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];

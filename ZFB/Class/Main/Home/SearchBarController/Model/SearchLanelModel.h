@@ -26,11 +26,11 @@
 
 @interface Cmgoodslanel : NSObject
 
-@property (nonatomic, assign) NSInteger labelId;
+@property (nonatomic, copy) NSString * labelId;
 
-@property (nonatomic, assign) NSInteger orderNum;
+@property (nonatomic, copy) NSString * orderNum;
 
-@property (nonatomic, copy) NSString *labelName;
+@property (nonatomic, copy) NSString * labelName;
 
 @end
 

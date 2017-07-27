@@ -11,3 +11,17 @@
 @implementation SearchResultModel
 
 @end
+@implementation ResultNewData
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"findGoodsList" : [ResultFindgoodslist class]};
+}
+
+@end
+
+
+@implementation ResultFindgoodslist
+
+@end
+
+

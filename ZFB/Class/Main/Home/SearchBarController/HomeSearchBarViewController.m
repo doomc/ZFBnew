@@ -10,24 +10,26 @@
 #import "HomeSearchResultViewController.h"
 //view
 #import "YBPopupMenu.h"
-#import "BYETagListView.h"
+
 //cell
+#import "MKJTagViewTableViewCell.h"
+
 //model
 #import "SearchLanelModel.h"
 
-
+static NSString * identyfy = @"MKJTagViewTableViewCell";
 @interface HomeSearchBarViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 {
-    TagListView *_tagListView;
-    NSMutableArray *_tagArray;
     NSString * _searchText;//搜索关键字
+    NSString * _tagId;//搜索关键字
     
 }
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UITableView *tableView;
+
 @property (nonatomic, strong) NSMutableArray  *tagList;//标签
-@property (nonatomic, copy)  NSString  *cureHistoryDeleteBtnString;  // 删除按钮字样
-@property (nonatomic, copy)  NSString  *inputText;//获取输入框的值
+@property (nonatomic, strong) NSMutableArray  *tagIdArr;//标签id
+
 @property (nonatomic ,strong) UIButton * selectbutton;//选择方式
 @property (nonatomic ,strong) UIView   * titleView;
 
@@ -59,39 +61,18 @@
     UIBarButtonItem *leftItem1 = [[UIBarButtonItem alloc]initWithCustomView: left_button];
     self.navigationItem.leftBarButtonItems = @[leftItem1];
     
-    //标签视图
-    weakSelf(weakself);
-    _tagListView = [[TagListView alloc] initWithFrame:CGRectMake(0, 84, KScreenW, 80)];
-    [self.view addSubview:_tagListView];
-    _tagListView.font = [UIFont systemFontOfSize:14];
-    _tagListView.maxLineCount = 3;
-    _tagListView.tagCurrentClickTitleBlock = ^(NSString *searchStr){
-       
-        //直接跳转
-        HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
-        reslutVC.resultsText = searchStr;
-        [weakself.navigationController pushViewController:reslutVC animated:NO];
-        weakself.searchBar.text = searchStr;
-        NSLog(@"searchStr==%@",searchStr);
-    
-    };
-    _tagListView.tagHeightBlock = ^(CGFloat tagHeight){
-        [weakself uploadTagViewHeight:tagHeight];
-    };
-    _tagListView.tagFontColor = [UIColor whiteColor];
-    _tagListView.signalTagColor = HEXCOLOR(0xffcccc);
-    _tagListView.GBbackgroundColor = [UIColor whiteColor];
-    
+
 
  
 }
 #pragma mark - TableView
 - (void)createTableView{
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 84+80, KScreenW, KScreenH-64-20-80)];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64)];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView registerNib:[UINib nibWithNibName:@"HotSearchCell" bundle:nil] forCellReuseIdentifier:@"HotSearchCellid"];
+    [self.tableView registerNib:[UINib nibWithNibName:identyfy bundle:nil] forCellReuseIdentifier:identyfy];
     [self.view addSubview:_tableView];
     
 }
@@ -103,10 +84,12 @@
     }
     return _tagList;
 }
-- (void)uploadTagViewHeight:(CGFloat )height {
-    /*
-     ** 动态修改tagView的高度
-     */
+-(NSMutableArray *)tagIdArr
+{
+    if (!_tagIdArr) {
+        _tagIdArr = [NSMutableArray array];
+    }
+    return _tagIdArr;
 }
 
 
@@ -148,72 +131,113 @@
 #pragma mark -  UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 1;
+    return 2;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
- 
+    if (indexPath.section == 0) {
+       
+        return [tableView fd_heightForCellWithIdentifier:identyfy configuration:^(id cell) {
+            
+            [self configCell:cell indexpath:indexPath];
+        }];
+
+    }
     return 50;
 }
 //设置区域的行数
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
- 
+    if (section == 0) {
+        
+        return 1;
+    }
     return 5;
 }
 #pragma mark -  UITableViewDelegate
 
 //返回单元格内容
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-  
     static NSString * flag = @"cellFlag";
-  
+
+    if (indexPath.section == 0) {
+        MKJTagViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identyfy forIndexPath:indexPath];
+      
+        [self configCell:cell indexpath:indexPath];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
+    
+    }
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:flag];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:flag];
         //取消选中状态
-//                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
- 
-//                _tableView.hidden = NO;
- 
- 
-//                _tableView.hidden = YES;
- 
+  
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         cell.contentView.backgroundColor = randomColor;
+    
     }
-    //
-    
-    
+ 
     return cell;
 }
 
+- (void)configCell:(MKJTagViewTableViewCell *)cell indexpath:(NSIndexPath *)indexpath
+{
+    [cell.tagView removeAllTags];
+    cell.tagView.preferredMaxLayoutWidth = [UIScreen mainScreen].bounds.size.width;
+    cell.tagView.padding = UIEdgeInsetsMake(20, 20, 20, 20);
+    cell.tagView.lineSpacing = 20;
+    cell.tagView.interitemSpacing = 30;
+    cell.tagView.singleLine = NO;
+    // 给出两个字段，如果给的是0，那么就是变化的,如果给的不是0，那么就是固定的
+    //        cell.tagView.regularWidth = 80;
+    //        cell.tagView.regularHeight = 30;
+    
+    
+ 
+    NSArray * arr = [NSArray arrayWithArray:self.tagList];
+    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        SKTag *tag = [[SKTag alloc] initWithText:arr[idx]];
+        
+        tag.font = [UIFont systemFontOfSize:14];
+        tag.textColor = HEXCOLOR(0xfefefe);
+        tag.bgColor = HEXCOLOR(0xffcccc);
+        tag.cornerRadius = 4;
+        tag.enable = YES;
+        tag.padding = UIEdgeInsetsMake(5, 10, 5, 10);
+        [cell.tagView addTag:tag];
+    }];
+//
+    cell.tagView.didTapTagAtIndex = ^(NSUInteger index)
+    {
+        _searchText =  self.tagList[index];
+        _tagId  =  self.tagIdArr[index];
+        
+        HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
+        reslutVC.searchType = self.selectbutton.titleLabel.text;
+        reslutVC.resultsText = _searchBar.text = _searchText;
+        reslutVC.labelId = _tagId;
+        
+        [self.navigationController pushViewController:reslutVC animated:NO];
+        NSLog(@"点击了%ld  === %@ =====%@id ",index,_searchText,_tagId);
+    
+    };
+    
+}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
-    HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
-    reslutVC.searchType = self.selectbutton.titleLabel.text;
-    reslutVC.resultsText = _searchBar.text;
-    [self.navigationController pushViewController:reslutVC animated:NO];\
-//    if (indexPath.section > 0) {
-//        if (_searchList.count != 0) {
-//            
-//            reslutVC.number = _searchList[indexPath.row];
-//        }else{
-//            reslutVC.number = _dataList[indexPath.row];
-//        }
-//        //_searchController.active = NO;
-//        //这样的话就可以实现下边跳转到reslutVC页面的方法了，因为取消了它的活跃，能看到有个动作是直接回到了最初的界面，然后才执行的跳转方法
-//        
-//        
-//        NSLog(@"reslutVC.number = %@",reslutVC.number);
-//        //下边这五个方法貌似没什么卵用。会在此时同时打印出来
-//        [self willPresentSearchController:_searchController];
-//        [self didPresentSearchController:_searchController];
-//        [self willDismissSearchController:_searchController];
-//        [self didDismissSearchController:_searchController];
-//        [self presentSearchController:_searchController];
-//
-//    }
-    
+    if (indexPath.section == 1) {
+        //标签视图
+        HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
+        reslutVC.searchType = self.selectbutton.titleLabel.text;
+        reslutVC.resultsText = _searchBar.text;
+        [self.navigationController pushViewController:reslutVC animated:NO];
+
+    }
+
 }
 
 
@@ -299,9 +323,9 @@
         for (Cmgoodslanel * lanel in searchLanel.data.cmGoodsLanel) {
             
             [self.tagList addObject:lanel.labelName];
+            [self.tagIdArr addObject:lanel.labelId];
         }
-        //给标签注入数据
-        [_tagListView setTagWithTagArray:[NSMutableArray arrayWithArray:self.tagList]];
+        [self.tableView reloadData];
         
     } progress:^(NSProgress *progeress) {
         

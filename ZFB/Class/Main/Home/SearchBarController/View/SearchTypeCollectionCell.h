@@ -10,7 +10,7 @@
 
 @interface SearchTypeCollectionCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIView *bgview;
+@property (weak, nonatomic) IBOutlet UIView * bgview;
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 
 @end

@@ -21,6 +21,18 @@
     self.guess_listView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
 }
 
+//搜索有结果的模型
+-(void)setResultgGoodslist:(ResultFindgoodslist *)resultgGoodslist{
+    _resultgGoodslist = resultgGoodslist;
+    
+    NSURL * img_url = [NSURL URLWithString:resultgGoodslist.coverImgUrl ];
+    [self.guess_listView sd_setImageWithURL:img_url placeholderImage:nil];
+    
+    self.lb_goodsName.text = resultgGoodslist.goodsName;
+    self.lb_price.text = [NSString stringWithFormat:@"¥%@",resultgGoodslist.netPurchasePrice];
+    self.lb_storeName.text = resultgGoodslist.storeName;
+
+}
 //搜索无结果，精选列表模型
 -(void)setSgoodlist:(SearchFindgoodslist *)sgoodlist
 {
@@ -43,7 +55,7 @@
     [self.guess_listView sd_setImageWithURL:img_url placeholderImage:nil];
     
     self.lb_goodsName.text = _goodlist.goodsName;
-    self.lb_price.text = [NSString stringWithFormat:@"¥%@",_goodlist.netPurchasePrice];
+    self.lb_price.text = [NSString stringWithFormat:@"¥%@",_goodlist.storePrice];
     self.lb_storeName.text = _goodlist.storeName;
     self.lb_collectNum.text = [NSString stringWithFormat:@"%ld",_goodlist.goodsPv];
     self.lb_distence.text = [NSString stringWithFormat:@"%@公里", _goodlist.storeDist];

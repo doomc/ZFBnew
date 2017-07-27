@@ -17,34 +17,42 @@
 //model
 #import "SearchResultModel.h"//搜索商品model
 #import "SearchNoResultModel.h"//搜索无数据的模型
+#import "BrandListModel.h"//品牌模型
 
+@interface HomeSearchResultViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate,SearchTypeCollectionViewDelegate,SearchTypeViewDelegate >
 
-@interface HomeSearchResultViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate,SearchTypeViewDelegate >
-
+{
+    NSString * _brandId ;//获取品牌
+    NSUInteger _priceSort ;//价格排序  价格排序  1升 0降
+    NSUInteger _salesSort ;//销售排序     排序  1升 0降
+    
+}
 
 //返回结果无数据的view
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *noResultArray;//精选数据，搜索无结果数据
+@property (nonatomic ,strong) UIView  * headView;//无数据显示的view
+@property (nonatomic, assign) NSInteger    isFeatured;//是否精选  1是 0 否
 
 //返回有结果的view
 @property (nonatomic, strong) UITableView *resultTableView;//返回结果的tableview
-@property (nonatomic, strong) UIView *resultView;//返回结有数据的view
-
-@property (nonatomic, strong) NSMutableArray *searchList;//search到的array
-@property (nonatomic, strong) NSMutableArray *noResultArray;//精选数据，搜索无结果数据
-
-@property (nonatomic ,strong) UIButton                 * selectbutton;//搜索选择方式
+@property (nonatomic, strong) UIView *  resultView;//返回结有数据的view
+@property (nonatomic, strong) NSMutableArray *searchListArray;//search到的array
 @property (nonatomic ,strong) SearchTypeView           * searchTypeHeaderView;//选择检索类型
-@property (nonatomic ,strong) UIView                   * titleView;//导航视图
-@property (nonatomic ,strong) UIView                   * popBgView;//全屏背景
 @property (nonatomic ,strong) SearchTypeCollectionView * searchCollectionView;//品牌列表
+@property (nonatomic ,strong) UIView                   * popBgView;//品牌弹框
+
+//公共
+@property (nonatomic ,strong) UIButton                 * selectbutton;//搜索选择方式
+@property (nonatomic ,strong) UIView                   * titleView;//导航视图
 
 @property (nonatomic, strong) NSArray *distenceList;
 @property (nonatomic, strong) NSArray *salesList;
 @property (nonatomic, strong) NSArray *priceList;
 
-@property (nonatomic, assign) BOOL    isFeatured;//是否精选  1是 0 否
-@property (nonatomic ,strong) UIView  * headView;//无数据显示的view
+//品牌列表 数据源
+@property (nonatomic, strong) NSMutableArray * brandListArray;
 
 
 @end
@@ -61,29 +69,27 @@
     _distenceList = @[@"附近", @"1km", @"3km", @"5km",@"10km",@"全城"];
     _salesList    = @[@"智能排序", @"离我最近", @"好评优先", @"人气最高"];
     
-    _isFeatured = NO;//默认有精选 无数据
-    
-    
-    self.searchBar.text = _resultsText;
+    self.searchBar.text = _resultsText;//设置一个搜索默认值
     
     //创建titleView
     [self creatTitleView];
     
-    //添加视图
+
+    _resultView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH)];
+    [self.view addSubview:_resultView];
+
+    //有数据的tableView
+    [self.resultView addSubview:self.resultTableView];
+    
+    //无数据tableview
     [self.view addSubview: self.tableView];
+ 
+    [self addtableViewHeadview];//添加headview （无数据状态下）
     
-    
-    if (self.noResultArray.count > 0) {
-        //添加headview （无数据状态下）
-        [self addtableViewHeadview];
-    }
-    else{//添加选择搜索类型（noResultArray = 0 的状态下显示）
-        
-        [self addSelectedTpye];
-    }
-    
+    [self addSelectedTpye];//选择分类类型（noResultArray = 0 的状态下显示）
     
 }
+//////////////////////////////////无结果需要加载的视图///////////////////////////////////////
 //添加headview
 -(void)addtableViewHeadview
 {
@@ -106,6 +112,8 @@
     self.tableView.tableHeaderView.height = 200;
     
 }
+
+//////////////////////////////////有结果需要加载的视图///////////////////////////////////////
 //创建titleView
 -(void)creatTitleView
 {
@@ -119,11 +127,11 @@
 //创建选择类型视图
 -(void)addSelectedTpye
 {
+ 
     _searchTypeHeaderView          = [[NSBundle mainBundle]loadNibNamed:@"SearchTypeView" owner:self options:nil].lastObject;
     _searchTypeHeaderView.frame    = CGRectMake(0, 64, KScreenW, 40);
     _searchTypeHeaderView.delegate = self;
-    [self.view addSubview: _searchTypeHeaderView];
-    
+    [self.resultView addSubview: _searchTypeHeaderView];
     
 }
 //选择品牌列表
@@ -138,7 +146,15 @@
     UICollectionViewFlowLayout *layout                 = [[UICollectionViewFlowLayout alloc] init];
     layout.scrollDirection                             = UICollectionViewScrollDirectionVertical;
     layout.itemSize                                    = CGSizeMake( (KScreenW - 120) / 2,  30);
-    _searchCollectionView                              = [[SearchTypeCollectionView alloc]initWithFrame:CGRectMake(0,64+40, KScreenW, 230) collectionViewLayout:layout];
+    
+     NSInteger count = self.brandListArray.count ;
+    // ceil(count/2.0) 最大取整
+    //140  = 30*2+40*2
+    _searchCollectionView                              = [[SearchTypeCollectionView alloc]initWithFrame:CGRectMake(0,64+40, KScreenW, 30 * ceil(count/2.0) + 2*40+10) collectionViewLayout:layout];
+    
+    _searchCollectionView.brandListArray = self.brandListArray;
+    _searchCollectionView.typeDelegate = self;
+
     _searchCollectionView.showsVerticalScrollIndicator = NO;
     [_popBgView addSubview:_searchCollectionView];
     
@@ -155,13 +171,25 @@
     }
     return _searchBar;
 }
-
-#pragma mark - tableView
+#pragma mark - tableView  有数据的列表
+-(UITableView *)resultTableView
+{
+    if (!_resultTableView) {
+        _resultTableView = [[UITableView alloc] initWithFrame:
+                      CGRectMake(0, 64 + 44  , KScreenW, KScreenH-64-44 ) style:UITableViewStylePlain];
+        //加载xib
+        [_resultTableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil] forCellReuseIdentifier:@"resultCellid"];
+        _resultTableView.delegate   = self;
+        _resultTableView.dataSource = self;
+    }
+    return _resultTableView;
+}
+#pragma mark - tableView  无数据的列表
 -(UITableView *)tableView
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:
-                      CGRectMake(0, 64+44  , KScreenW, KScreenH-64-44 ) style:UITableViewStylePlain];
+                      CGRectMake(0, 64  , KScreenW, KScreenH-64 ) style:UITableViewStylePlain];
         //加载xib
         [self.tableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil] forCellReuseIdentifier:@"resultCellid"];
         _tableView.delegate   = self;
@@ -174,6 +202,7 @@
     if (!_selectbutton) {
         _selectbutton                 = [UIButton buttonWithType:UIButtonTypeCustom];
         _selectbutton.backgroundColor = HEXCOLOR(0xfe6d6a);
+        
         //默认值
         [_selectbutton setTitle:@"商品" forState:UIControlStateNormal];
         _selectbutton.frame              = CGRectMake(5, 7, 40, 30);
@@ -190,6 +219,20 @@
         _noResultArray = [NSMutableArray array];
     }
     return _noResultArray;
+}
+-(NSMutableArray *)brandListArray
+{
+    if (!_brandListArray) {
+        _brandListArray =[ NSMutableArray array];
+    }
+    return _brandListArray;
+}
+-(NSMutableArray *)searchListArray
+{
+    if (!_searchListArray ) {
+        _searchListArray  = [NSMutableArray array];
+    }
+    return _searchListArray;
 }
 #pragma mark -  选择搜索类型
 -(void)selectTypeAction :(UIButton *)sender
@@ -228,13 +271,23 @@
 ///价格排序
 -(void)priceSortAction:(UIButton *)button
 {
+    button.selected = !button.selected;
+    
+    button.selected  =  _priceSort > 0 ?  1 : 0;
+ 
+   
     
 }
 ///销量排序
 -(void)salesSortAction:(UIButton *)button
 {
     
+    button.selected = !button.selected;
     
+    button.selected  = _salesSort > 0 ?  1 : 0;
+    
+    [self SearchgoodsPOSTRequestAndsearchText:_searchBar.text brandId:_brandId orderByPrice:[NSString stringWithFormat:@"%ld",_priceSort] orderBySales:[NSString stringWithFormat:@"%ld",_salesSort] labelId:_labelId isFeatured:@"" page:@"" size:@""];
+
 }
 ///距离排序
 -(void)distenceSortAction:(UIButton *)button
@@ -244,80 +297,130 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 2;
+    if (self.tableView == tableView) {
+        return 2;
+
+    }
+    else{
+        return 1;
+    }
 }
 
 //设置区域的行数
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (section == 1 ) {
-        return  self.noResultArray.count;
+    if (self.tableView == tableView) {
+       
+        if (section == 1 ) {
+       
+            return  self.noResultArray.count;
+        }
+        return 0;
+
     }
-    return 0;
+    return self.searchListArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+ 
     return 90;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 1) {
-        return 40;
+    if (self.tableView == tableView) {
+        if (section == 1) {
+            return 40;
+        }
+        return 0.001;
+
     }
     return 0.001;
+   
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    
     UIView *headView = nil;
     UIFont *font     = [UIFont systemFontOfSize:14];
     
-    if (section== 1) {
-        headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
-        [headView setBackgroundColor:HEXCOLOR(0xffcccc)];
-        
-        UILabel * title     = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 3.0f, 200.0f, 30.0f)];
-        title.textColor     = HEXCOLOR(0x363636);
-        title.textAlignment = NSTextAlignmentLeft;
-        title.text          = @"为你精选";
-        title.font          = font;
-        [headView addSubview:title];
-        
-        UIImageView * logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"diamond"] ];//定位icon
-        logo.frame         = CGRectMake(5, 5, 25, 25);
-        [headView addSubview:logo];
-        return headView;
-        
+    if (self.tableView == tableView) {
+      
+        if (section== 1) {
+            
+            headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
+            [headView setBackgroundColor:HEXCOLOR(0xffcccc)];
+            
+            UILabel * title     = [[UILabel alloc] initWithFrame:CGRectMake(35.0f, 5.0f, 200.0f, 30.0f)];
+            title.textColor     = HEXCOLOR(0x363636);
+            title.textAlignment = NSTextAlignmentLeft;
+            title.text          = @"为你精选";
+            title.font          = font;
+            [headView addSubview:title];
+            
+            UIImageView * logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"diamond"] ];//logo
+            logo.frame = CGRectMake(5, 5, 30, 30);
+            [headView addSubview:logo];
+
+            return headView;
+        }
+  
     }
     
     return headView;
 }
 //返回单元格内容
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    GuessCell * resultCell = [self.tableView dequeueReusableCellWithIdentifier:@"resultCellid" forIndexPath:indexPath];
-    [resultCell.zan_Image removeFromSuperview];
-    [resultCell.loca_img removeFromSuperview];
-    [resultCell.lb_collectNum removeFromSuperview];
-    [resultCell.lb_distence removeFromSuperview];
-    
-    SearchFindgoodslist  * nogoods = self.noResultArray[indexPath.row];
-    resultCell.sgoodlist           = nogoods;
-    
-    return resultCell;
+
+    if (self.tableView == tableView) {
+        GuessCell * cell = [self.tableView dequeueReusableCellWithIdentifier:@"resultCellid" forIndexPath:indexPath];
+        [cell.zan_Image removeFromSuperview];
+        [cell.loca_img removeFromSuperview];
+        [cell.lb_collectNum removeFromSuperview];
+        [cell.lb_distence removeFromSuperview];
+        if (self.noResultArray.count > 0) {
+            SearchFindgoodslist  * nogoods = self.noResultArray[indexPath.row];
+            cell.sgoodlist           = nogoods;
+        }
+        return cell;
+
+    }else{
+        
+        GuessCell * resultCell = [self.resultTableView dequeueReusableCellWithIdentifier:@"resultCellid" forIndexPath:indexPath];
+        [resultCell.zan_Image removeFromSuperview];
+        [resultCell.loca_img removeFromSuperview];
+        [resultCell.lb_collectNum removeFromSuperview];
+        [resultCell.lb_distence removeFromSuperview];
+        if (self.searchListArray.count > 0) {
+            ResultFindgoodslist  * result = self.searchListArray[indexPath.row];
+            resultCell.resultgGoodslist = result;
+        }
+        
+        return resultCell;
+
+    }
+ 
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@" sction == %ld  ---  row == %ld",indexPath.section ,indexPath.row);
+    [self.searchBar resignFirstResponder];
+
+    if (self.tableView == tableView) {
+        NSLog(@" sction1 == %ld  ---  row1 == %ld",indexPath.section ,indexPath.row);
+
+    }else{
+        NSLog(@" sction2 == %ld  ---  row2 == %ld",indexPath.section ,indexPath.row);
+
+    }
 }
 
 
-#pragma mark -  UISearchBarDelegate 选择搜索类型
+#pragma mark -  UISearchBarDelegate 搜索代理
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
-    NSLog(@"------开始编辑");
-    
+    NSLog(@"------开始编辑---%@",searchBar.text);
+ 
     return YES;
 }
 
@@ -329,7 +432,16 @@
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    NSLog(@"%@",searchText);
+    NSLog(@"searchText ==== %@",searchText);
+    if ([self.selectbutton.titleLabel.text isEqualToString:@"商品"]) {
+        //商品搜索
+        [self SearchgoodsPOSTRequestAndsearchText:searchText brandId:@""orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"0" page:@"0" size:@"0"];
+   
+    }else{
+        
+        [self searchStorePOSTRequestAndbusinessType:@"" payType:@"1" latitude:@"" longitude:@"" orderBydisc:@"" orderbylikeNum:@"" nearBydisc:@"" page:@"" size:@"" sercahText:searchBar.text];
+    }
+
 }
 
 //点击键盘搜索后的方法
@@ -339,7 +451,7 @@
     [searchBar resignFirstResponder];
     if ([self.selectbutton.titleLabel.text isEqualToString:@"商品"]) {
         //商品搜索
-        [self SearchgoodsPOSTRequestAndsearchText:searchBar.text brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"1" page:@"1" size:@"6"];
+        [self SearchgoodsPOSTRequestAndsearchText:searchBar.text brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"0" page:@"0" size:@"0"];
         
     }else{
         
@@ -347,23 +459,22 @@
     }
 }
 
-#pragma mark  ----  searchBar delegate
-//   searchBar开始编辑响应
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-    //因为闲置时赋了空格，防止不必要的bug，在启用的时候先清空内容
-    self.searchBar.text = @"";
-}
 
-
-//取消键盘 搜索框闲置的时候赋给其一个空格，保证放大镜居左
-- (void)registerFR{
+#pragma mark - SearchTypeCollectionViewDelegate 自定义代理
+-(void)didSelectedIndex:(NSInteger )index brandId :(NSString *)brandId brandName:(NSString *)brandName
+{
+    [self.view endEditing:YES];
+    [_popBgView removeFromSuperview];
+    [_searchCollectionView  removeFromSuperview];
+    [self.searchBar resignFirstResponder];
     
-    if ([self.searchBar isFirstResponder]) {
-        self.searchBar.text = _resultsText;
-        [self.searchBar resignFirstResponder];
-    }
+    self.searchBar.text = brandName;
+    
+    [self SearchgoodsPOSTRequestAndsearchText:brandName brandId:brandId orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" page:@"" size:@""];
+    NSLog(@"品牌index === %ld   brandId == %@  brandName = %@",index,brandId,brandName);
+    
+    
 }
-
 
 
 #pragma mark  - getCmStoreInfo用于查找门店
@@ -470,23 +581,35 @@
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getProSearch",zfb_baseUrl] params:param success:^(id response) {
         
         if ([response[@"resultCode"]  isEqualToString: @"0"]) {
-            
-            SearchNoResultModel  * nodata = [SearchNoResultModel mj_objectWithKeyValues:response];
-            
-            NSInteger totalcount = nodata.data.totalCount ;
-            
-            NSLog(@"totala %ld",totalcount);
-            
-            for (SearchFindgoodslist * goodlist in nodata.data.findGoodsList) {
+            if (self.searchListArray.count > 0) {
                 
-                [self.noResultArray addObject:goodlist];
-                
+                [self.searchListArray removeAllObjects];
             }
-            [self.tableView reloadData];
+            SearchResultModel * result = [SearchResultModel mj_objectWithKeyValues:response];
+            
+            for (ResultFindgoodslist * goodlist in result.data.findGoodsList) {
+                
+                [self.searchListArray addObject:goodlist];
+            }
+            
+            [self.resultTableView reloadData];
             
             [SVProgressHUD dismissWithDelay:1];
             
         }
+
+        if (self.searchListArray.count > 0) {
+            
+            [self.view bringSubviewToFront:_resultView];//如果搜索有结果，_resultView在置顶
+
+        }else{
+            
+            [self.view sendSubviewToBack:_resultView]; //如果无数据 在滞后 在精选列表
+            
+            [self isFeaturePost];
+ 
+        }
+
         
     } progress:^(NSProgress *progeress) {
         
@@ -501,13 +624,99 @@
     }];
     
 }
+#pragma mark  - isFeaturePost搜索 精品
+-(void)isFeaturePost
+{
+    NSDictionary * param = @{
+                             
+                             @"sercahText":@"",
+                             @"brandId":@"",
+                             @"orderByPrice":@"",
+                             @"orderBySales":@"",
+                             @"labelId":@"",
+                             @"isFeatured":@"1",
+                             @"page":@"",
+                             @"size":@"",
+                             };
+    
+    [SVProgressHUD show];
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getProSearch",zfb_baseUrl] params:param success:^(id response) {
+    
+        if ([response[@"resultCode"]  isEqualToString: @"0"]) {
+            
+            if ( self.noResultArray.count > 0) {
+                
+                [self.noResultArray removeAllObjects];
+                
+            }
+            SearchNoResultModel  * nodata = [SearchNoResultModel mj_objectWithKeyValues:response];
+            
+            NSInteger totalcount = nodata.data.totalCount ;
+            
+            NSLog(@"totala = = = %ld",totalcount);
+            
+            for (SearchFindgoodslist * goodlist in nodata.data.findGoodsList) {
+                
+                [self.noResultArray addObject:goodlist];
+                
+            }
+            [self.tableView reloadData];
+            
+            [SVProgressHUD dismissWithDelay:1];
+            
+            
+        }
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        
+        [SVProgressHUD dismiss];
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        NSLog(@"error=====%@",error);
+        
+    }];
 
+}
+#pragma mark - 获取品牌列表接口findBrandList
+-(void)getFindbrandListPost
+{
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/findBrandList",zfb_baseUrl] params:nil success:^(id response) {
+    
+        BrandListModel  * brand = [BrandListModel mj_objectWithKeyValues:response];
+        
+        for (BrandFindbrandlist * brandlist  in brand.data.findBrandList) {
+            
+            [self.brandListArray addObject:brandlist];
+            
+        }
+        [self.searchCollectionView reloadData];
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        NSLog(@"error=====%@",error);
+        
+    }];
+    
+
+}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self.searchBar resignFirstResponder];
+
+}
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
     [_popBgView removeFromSuperview];
     [_searchCollectionView  removeFromSuperview];
-    
+    [self.searchBar resignFirstResponder];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -517,17 +726,22 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self getFindbrandListPost];
     
     if ([self.selectbutton.titleLabel.text isEqualToString:@"商品"]) {
         //商品搜索
-        [self SearchgoodsPOSTRequestAndsearchText:@"" brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"1" page:@"1" size:@"6"];
+        [self SearchgoodsPOSTRequestAndsearchText:self.searchBar.text brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" page:@"" size:@""];
         
     }else{
         
-        [self searchStorePOSTRequestAndbusinessType:@"" payType:@"1" latitude:@"" longitude:@"" orderBydisc:@"" orderbylikeNum:@"" nearBydisc:@"" page:@"1" size:@"6" sercahText:_searchBar.text];
+        [self searchStorePOSTRequestAndbusinessType:@"" payType:@"1" latitude:@"" longitude:@"" orderBydisc:@"" orderbylikeNum:@"" nearBydisc:@"" page:@"" size:@"" sercahText:_searchBar.text];
     }
     
+
 }
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

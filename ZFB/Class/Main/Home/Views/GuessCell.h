@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HomeGuessModel.h"
 #import "SearchNoResultModel.h"
-
+#import "SearchResultModel.h"
 @interface GuessCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *zan_Image;
@@ -31,7 +31,9 @@
 
 @property (nonatomic  , strong) Guessgoodslist * goodlist;
 
-@property (nonatomic  , strong) SearchFindgoodslist * sgoodlist;
+@property (nonatomic  , strong) SearchFindgoodslist * sgoodlist;//搜索无结果哟的推荐模型
+
+@property (nonatomic  , strong) ResultFindgoodslist * resultgGoodslist;//搜索有结果
 
 
 
