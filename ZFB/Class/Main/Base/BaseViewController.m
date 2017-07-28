@@ -139,11 +139,7 @@
         [self right_button_event:sender];
     }
 }
-//设置右边事件
--(void)right_button_event:(UIButton*)sender
-{
-    
-}
+ 
 
 #pragma mark --  leftButton
 -(BOOL)leftButton
@@ -164,11 +160,7 @@
         [self left_button_event:sender];
     }
 }
-//设置左边事件
--(void)left_button_event:(UIButton*)sender
-{
-    
-}
+
 #pragma mark - 去除searchbar 背景色
 - (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
 {

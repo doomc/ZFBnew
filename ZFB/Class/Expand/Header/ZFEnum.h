@@ -57,6 +57,21 @@ typedef NS_ENUM(NSUInteger, SendServicType) {
     
 };
 
+
+/**
+ 商户端
+ 
+ - SendServicTypeWaitSend: 默认待配送
+ */
+typedef NS_ENUM(NSUInteger, BusinessServicType) {
+    BusinessServicTypeWaitSendlist = 0,//待派单
+    BusinessServicTypeSending,//配送中
+    BusinessServicTypeWaitPay,//待付款
+    BusinessServicTypeDealComplete,//交易完成
+    BusinessServicTypeSureReturn,//待确认退回
+    
+};
+
 @interface ZFEnum : NSObject
 
 @end

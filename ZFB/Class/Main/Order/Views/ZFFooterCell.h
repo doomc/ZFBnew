@@ -8,7 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "AllOrderModel.h"
+#import "BusinessOrderModel.h"
+
+@protocol ZFFooterCellDelegate <NSObject>
+
+///取消订单
+-(void)cancelOrderAction;
+
+///派单
+-(void)sendOrdersAction;
+
+
+@end
 @interface ZFFooterCell : UITableViewCell
+
+@property (nonatomic, strong) id <ZFFooterCellDelegate> footDelegate ;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_plachorer;
 
@@ -19,5 +33,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *payfor_button;
 
 @property (nonatomic, strong) Orderlist * orderlist ;
+
+@property (nonatomic, strong) BusinessOrderlist * businessOrder ;
+
 
 @end

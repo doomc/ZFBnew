@@ -28,7 +28,7 @@
 #import "ZFPersonalHeaderView.h"
 #import "BaseNavigationController.h"
 //#import "AppDelegate.h"
-#import "BusinessServiceViewController.h"
+#import "BusinessServicerViewController.h"
 
 typedef NS_ENUM(NSUInteger, TypeCell) {
     
@@ -44,6 +44,10 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 @property (nonatomic,copy) NSString * foolnum    ;//足记数量
 @property (nonatomic,copy) NSString * collectNum ;//收藏数量
 @property (nonatomic,copy) NSString * nickName   ;//用户
+@property (nonatomic,copy) NSString * shopFlag   ;//判断是否是商家 1/0
+@property (nonatomic,copy) NSString * courierFlag   ;//判断是否是快递员 1/0
+
+
 
 @end
 
@@ -249,11 +253,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     if (indexPath.row == 3) {//切换到配送端
         
         //服务端
-        BusinessServiceViewController * servc = [[BusinessServiceViewController alloc]init];
-        [self.navigationController pushViewController:servc animated:YES];
-
-
-        
+        BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
+        [self.navigationController pushViewController:businessVC animated:YES];
+     
     }  if (indexPath.row == 4) {//意见反馈
         
                 ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
@@ -385,7 +387,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getUserInfo"] params:parma success:^(id response) {
         
-        NSLog(@"%@",response);
         int resultCode = [response [@"resultCode"] intValue];
         
         if (resultCode == 0) {
@@ -393,6 +394,10 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             _nickName   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"nickName"]];
             _foolnum    = [NSString stringWithFormat:@"%@",response[@"foolNum"] ];
             _collectNum = [NSString stringWithFormat:@"%@",response[@"collectNum"]];
+            _shopFlag   = [NSString stringWithFormat:@"%@",response[@"shopFlag"]];
+            _shopFlag   = [NSString stringWithFormat:@"%@",response[@"shopFlag"]];//是否是商户
+            _courierFlag   = [NSString stringWithFormat:@"%@",response[@"courierFlag"]];//是否是快递员
+            
             
             //赋值
             self.headview.lb_collectCount.text = _collectNum;
@@ -427,6 +432,11 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         _headview.unloginView.hidden = NO;
     }
 }
+
+
+//
+
+
 /*
  #pragma mark - Navigation
  

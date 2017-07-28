@@ -46,6 +46,7 @@
 }
 
 -(void)didclickSendPopViewAction:(UIButton *)sender {
+    
     [_selectBtn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
     _selectBtn.layer.borderColor =HEXCOLOR(0xdedede).CGColor;
     
@@ -57,6 +58,7 @@
     _selectBtn = sender;
  
     switch (selectTag) {
+            
         case 2000:
             _selctedType = OrderTypeAllOrder;//全部订单
             break;
@@ -96,4 +98,6 @@
     }
     
 }
+
+
 @end

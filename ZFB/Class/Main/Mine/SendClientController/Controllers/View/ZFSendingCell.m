@@ -21,11 +21,22 @@
  
 }
 
+-(void)setBusinesGoods:(BusinessOrdergoods *)businesGoods
+{
+    _businesGoods = businesGoods;
+    self.lb_num.text = [NSString stringWithFormat:@"x %@ %@",businesGoods.goodsCount, businesGoods.goodsUnit];
+    self.lb_sendListTitle.text =  businesGoods.goods_name;
+    self.lb_Price.text =[NSString stringWithFormat:@"¥%@", businesGoods.original_price];
+    self.lb_detailTime.text = @"";
+    [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:businesGoods.coverImgUrl] placeholderImage:nil];
+    
+}
+
 -(void)setGoods:(Ordergoods *)goods
 {
     _goods = goods;
     
-    self.lb_num.text = [NSString stringWithFormat:@"x %@ %@",_goods.goodsCount, _goods.goodsUnit];
+    self.lb_num.text = [NSString stringWithFormat:@"x %@ %@",goods.goodsCount, goods.goodsUnit];
     self.lb_sendListTitle.text =  _goods.goods_name;
     self.lb_Price.text =[NSString stringWithFormat:@"¥%@", goods.original_price];
     self.lb_detailTime.text = @"";

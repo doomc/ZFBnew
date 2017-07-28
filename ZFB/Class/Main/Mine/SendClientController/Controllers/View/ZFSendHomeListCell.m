@@ -30,6 +30,31 @@
     self.sendedbgView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
     
 }
+///今日
+- (IBAction)todayAction:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(todayOrderDetial)]) {
+        [self.delegate todayOrderDetial];
+
+    }
+}
+//周
+- (IBAction)weekAction:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(weekOrderDetial)]) {
+
+        [self.delegate weekOrderDetial ];
+    }
+}
+
+//月
+- (IBAction)monthAction:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(monthOrderDetial)]) {
+        
+        [self.delegate monthOrderDetial ];
+    }
+}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
