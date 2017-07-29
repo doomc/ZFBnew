@@ -9,11 +9,6 @@
 /* Begin PBXBuildFile section */
 		287E1D51FE976BE2DCE0A71B /* libPods-ZFB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2E471759A11D3682520CF1E /* libPods-ZFB.a */; };
 		4921415E1F298DA800C44D10 /* BrandListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921415D1F298DA800C44D10 /* BrandListModel.m */; };
-		4921416E1F29C41600C44D10 /* MKJTagViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 492141651F29C41600C44D10 /* MKJTagViewTableViewCell.m */; };
-		4921416F1F29C41600C44D10 /* MKJTagViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492141661F29C41600C44D10 /* MKJTagViewTableViewCell.xib */; };
-		492141701F29C41600C44D10 /* SKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 492141671F29C41600C44D10 /* SKTag.m */; };
-		492141711F29C41600C44D10 /* SKTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921416A1F29C41600C44D10 /* SKTagButton.m */; };
-		492141721F29C41600C44D10 /* SKTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921416C1F29C41600C44D10 /* SKTagView.m */; };
 		492141741F29E62300C44D10 /* delete_sku.png in Resources */ = {isa = PBXBuildFile; fileRef = 492141731F29E62300C44D10 /* delete_sku.png */; };
 		4921417B1F29FA8D00C44D10 /* BusinessServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492141791F29FA8D00C44D10 /* BusinessServiceViewController.m */; };
 		492141821F29FB0A00C44D10 /* OrderStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492141811F29FB0A00C44D10 /* OrderStatisticsViewController.m */; };
@@ -722,15 +717,6 @@
 		3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.debug.xcconfig"; sourceTree = "<group>"; };
 		4921415C1F298DA800C44D10 /* BrandListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandListModel.h; sourceTree = "<group>"; };
 		4921415D1F298DA800C44D10 /* BrandListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandListModel.m; sourceTree = "<group>"; };
-		492141641F29C41600C44D10 /* MKJTagViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKJTagViewTableViewCell.h; sourceTree = "<group>"; };
-		492141651F29C41600C44D10 /* MKJTagViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKJTagViewTableViewCell.m; sourceTree = "<group>"; };
-		492141661F29C41600C44D10 /* MKJTagViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MKJTagViewTableViewCell.xib; sourceTree = "<group>"; };
-		492141671F29C41600C44D10 /* SKTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTag.m; sourceTree = "<group>"; };
-		492141681F29C41600C44D10 /* SKTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTag.h; sourceTree = "<group>"; };
-		492141691F29C41600C44D10 /* SKTagButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTagButton.h; sourceTree = "<group>"; };
-		4921416A1F29C41600C44D10 /* SKTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTagButton.m; sourceTree = "<group>"; };
-		4921416B1F29C41600C44D10 /* SKTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTagView.h; sourceTree = "<group>"; };
-		4921416C1F29C41600C44D10 /* SKTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTagView.m; sourceTree = "<group>"; };
 		492141731F29E62300C44D10 /* delete_sku.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_sku.png; sourceTree = "<group>"; };
 		492141781F29FA8D00C44D10 /* BusinessServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessServiceViewController.h; sourceTree = "<group>"; };
 		492141791F29FA8D00C44D10 /* BusinessServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessServiceViewController.m; sourceTree = "<group>"; };
@@ -1783,15 +1769,6 @@
 		4921416D1F29C41600C44D10 /* SKTag(标签) */ = {
 			isa = PBXGroup;
 			children = (
-				492141641F29C41600C44D10 /* MKJTagViewTableViewCell.h */,
-				492141651F29C41600C44D10 /* MKJTagViewTableViewCell.m */,
-				492141661F29C41600C44D10 /* MKJTagViewTableViewCell.xib */,
-				492141671F29C41600C44D10 /* SKTag.m */,
-				492141681F29C41600C44D10 /* SKTag.h */,
-				492141691F29C41600C44D10 /* SKTagButton.h */,
-				4921416A1F29C41600C44D10 /* SKTagButton.m */,
-				4921416B1F29C41600C44D10 /* SKTagView.h */,
-				4921416C1F29C41600C44D10 /* SKTagView.m */,
 			);
 			name = "SKTag(标签)";
 			path = "../../../../../../Downloads/SKTag-master/TagListLayoutDemo";
@@ -4262,7 +4239,6 @@
 				495EA87C1F14B64D001FCB7E /* nav_right@2x.png in Resources */,
 				495EA8FB1F14B64E001FCB7E /* sendComplete_normal@3x.png in Resources */,
 				4992D7241F27499800FBF982 /* arrowdown_black@2x.png in Resources */,
-				4921416F1F29C41600C44D10 /* MKJTagViewTableViewCell.xib in Resources */,
 				495EA8581F14B64D001FCB7E /* arrows_down_white@2x.png in Resources */,
 				495EA8D01F14B64E001FCB7E /* setting_phone@2x.png in Resources */,
 				495EA89F1F14B64D001FCB7E /* 共享梦想@3x.png in Resources */,
@@ -4659,7 +4635,6 @@
 				495EA7C11F14B64D001FCB7E /* ZFCollectViewController.m in Sources */,
 				49555EA31F1E0092002E5688 /* OrderWithAddressCell.m in Sources */,
 				495EA7471F14B64D001FCB7E /* NSString+UUID.m in Sources */,
-				4921416E1F29C41600C44D10 /* MKJTagViewTableViewCell.m in Sources */,
 				4927189D1F1F5C6C002A7A54 /* WebViewJavascriptBridgeBase.m in Sources */,
 				495EA7781F14B64D001FCB7E /* DetailStoreViewController.m in Sources */,
 				495EA94F1F14B64E001FCB7E /* UIView+MJExtension.m in Sources */,
@@ -4738,7 +4713,6 @@
 				49917B9E1F1C937A005790AF /* DetailgoodsSelectCell.m in Sources */,
 				495EA9561F14B64E001FCB7E /* TAAbstractDotView.m in Sources */,
 				495EA96D1F14B64E001FCB7E /* UIPlaceHolderTextView.m in Sources */,
-				492141721F29C41600C44D10 /* SKTagView.m in Sources */,
 				495EA93E1F14B64E001FCB7E /* MJRefreshBackFooter.m in Sources */,
 				506745A81F1D0D39000CC722 /* DWQStarView.m in Sources */,
 				495EA7421F14B64D001FCB7E /* JXMapNavigationView.m in Sources */,
@@ -4876,7 +4850,6 @@
 				495EA71C1F14B64D001FCB7E /* UIButton+EdgeInsets.m in Sources */,
 				495EA84A1F14B64D001FCB7E /* ZFpopView.m in Sources */,
 				495EA9751F14B64E001FCB7E /* YYCache.m in Sources */,
-				492141711F29C41600C44D10 /* SKTagButton.m in Sources */,
 				495EA7231F14B64D001FCB7E /* UIView+ViewController.m in Sources */,
 				495EA7801F14B64D001FCB7E /* SukItemCollectionViewCell.m in Sources */,
 				495EA7451F14B64D001FCB7E /* NSString+Base64.m in Sources */,
@@ -4930,7 +4903,6 @@
 				505A53C11F20FFDC002FB5CF /* ShopCarJsonModel.m in Sources */,
 				495EA72E1F14B64D001FCB7E /* AdvertiseHelper.m in Sources */,
 				495EA8061F14B64D001FCB7E /* ApplySalesUploadCell.m in Sources */,
-				492141701F29C41600C44D10 /* SKTag.m in Sources */,
 				495EA8391F14B64D001FCB7E /* ZFPregressCheckViewController.m in Sources */,
 				495EA9581F14B64E001FCB7E /* TADotView.m in Sources */,
 				495EA9551F14B64E001FCB7E /* UIView+PYExtension.m in Sources */,

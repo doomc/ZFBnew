@@ -953,7 +953,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                 
                     for (Valuelist *valueItem in attribute.valueList) {
                         
-                        BOOL flag = NO;
+                        BOOL flag = NO;//查找正常的状态
                        
                         for (SkuValulist *skulist in skumatch.valuList) {
                             
@@ -970,6 +970,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                             
                             valueItem.selectType = ValueSelectType_enable;
                         }
+                        
                     }
                     
                 }
