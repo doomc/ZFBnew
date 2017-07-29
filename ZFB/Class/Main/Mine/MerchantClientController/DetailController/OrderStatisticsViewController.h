@@ -10,4 +10,8 @@
 
 @interface OrderStatisticsViewController : BaseViewController
 
+@property (nonatomic , strong) NSString * orderNum;
+
+@property (nonatomic , strong) NSString * dealPrice;
+
 @end

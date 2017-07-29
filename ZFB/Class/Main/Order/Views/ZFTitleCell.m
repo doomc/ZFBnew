@@ -15,6 +15,17 @@
     // Initialization code
 }
 
+
+-(void)setBusinessOrder:(BusinessOrderlist *)businessOrder
+{
+    _businessOrder = businessOrder;
+
+    self.lb_nameOrTime.text = businessOrder.createTime;
+    self.lb_storeName.text = businessOrder.storeName;
+    [self.statusButton setTitle:businessOrder.orderStatusName forState:UIControlStateNormal];
+    
+}
+
 -(void)setOrderlist:(Orderlist *)orderlist
 {
     _orderlist = orderlist;

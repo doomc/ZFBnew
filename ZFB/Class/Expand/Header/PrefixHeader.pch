@@ -41,7 +41,8 @@
 #import "ResponseObject.h"//集成该类判断是否有null数据
 #import "YBPopupMenu.h"//pop 菜单列表
 #import "DWQRatingView.h"//五星评价
- 
+#import "UILabel+LXAdd.h"//富文本
+
 
 #import "Macros.h"
 #import "UIButton+EdgeInsets.h"

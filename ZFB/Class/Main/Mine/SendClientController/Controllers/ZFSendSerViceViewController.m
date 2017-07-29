@@ -114,7 +114,7 @@ static  NSString * homeListCellid =@"ZFSendHomeListCellid";
 {
     if (!_popView) {
         
-        _popView          = [[ZFSendPopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 110) titleArray:self.titles];
+        _popView          = [[ZFSendPopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 60) titleArray:self.titles];
         _popView.delegate = self;
     }
     return _popView;

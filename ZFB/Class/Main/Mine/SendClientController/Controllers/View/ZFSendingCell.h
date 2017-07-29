@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "AllOrderModel.h"
+#import "BusinessOrderModel.h"
+
 @interface ZFSendingCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_sendListTitle;
@@ -18,5 +20,6 @@
 
 @property (strong,nonatomic) Orderlist * list ;
 @property (strong,nonatomic) Ordergoods * goods ;
+@property (strong,nonatomic) BusinessOrdergoods * businesGoods ;
 
 @end

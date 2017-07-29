@@ -19,6 +19,14 @@
     
     _payfor_button.layer.cornerRadius = 4;
     _payfor_button.clipsToBounds = YES;
+    
+    //默认值
+    [_cancel_button setTitle:@"取消订单" forState:UIControlStateNormal];
+    [_payfor_button setTitle:@"派单" forState:UIControlStateNormal];
+    
+    [self.cancel_button addTarget:self action:@selector(cancel_buttonAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.payfor_button addTarget:self action:@selector(payfor_buttonAction) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 -(void)setOrderlist:(Orderlist *)orderlist
@@ -59,6 +67,36 @@
     self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",_orderlist.orderAmount];//订单价格
     
 }
+
+///订单goodlist
+-(void)setBusinessOrder:(BusinessOrderlist *)businessOrder
+{
+    _businessOrder = businessOrder;
+    //订单金额
+    self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",businessOrder.orderAmount];//订单价格
+}
+
+///取消 所有指令
+-(void)cancel_buttonAction
+{
+    if ([self.footDelegate respondsToSelector:@selector(cancelOrderAction)]) {
+       
+        [self.footDelegate cancelOrderAction];
+    }
+}
+
+///派单 、、、确认支付 等所有指令
+-(void)payfor_buttonAction
+{
+    if ([self.footDelegate respondsToSelector:@selector(sendOrdersAction)]) {
+   
+        [self.footDelegate sendOrdersAction];
+ 
+    }
+}
+
+
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

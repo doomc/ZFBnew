@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单金额:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XOO-dm-gyx">
@@ -55,7 +55,7 @@
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5a-VC-1wf">
                         <rect key="frame" x="0.0" y="40" width="320" height="10"/>
-                        <color key="backgroundColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.95283776521682739" green="0.95300072431564331" blue="0.95282751321792603" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="n5D-70-ptm"/>
                         </constraints>
@@ -66,11 +66,11 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="ipH-fU-kex" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="4ST-SC-uhe"/>
+                    <constraint firstAttribute="bottom" secondItem="t5a-VC-1wf" secondAttribute="bottom" id="7vj-65-kyG"/>
                     <constraint firstAttribute="trailing" secondItem="t5a-VC-1wf" secondAttribute="trailing" id="BwC-8t-Mmi"/>
                     <constraint firstItem="Tkq-h0-TDQ" firstAttribute="width" secondItem="ipH-fU-kex" secondAttribute="width" id="LUL-Xs-9vA"/>
                     <constraint firstItem="ipH-fU-kex" firstAttribute="leading" secondItem="Tkq-h0-TDQ" secondAttribute="trailing" constant="15" id="Orj-0A-imF"/>
                     <constraint firstItem="XOO-dm-gyx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="PyM-E6-5hG"/>
-                    <constraint firstItem="t5a-VC-1wf" firstAttribute="top" secondItem="ipH-fU-kex" secondAttribute="bottom" constant="5" id="Wcp-Um-hok"/>
                     <constraint firstItem="XOO-dm-gyx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="dPt-a2-sIe"/>
                     <constraint firstItem="gWu-Cx-k0F" firstAttribute="leading" secondItem="XOO-dm-gyx" secondAttribute="trailing" constant="10" id="dhB-aS-c8z"/>
                     <constraint firstAttribute="trailing" secondItem="ipH-fU-kex" secondAttribute="trailing" constant="15" id="j1F-NG-dXK"/>
