@@ -56,7 +56,6 @@
     dealNum.text = [NSString stringWithFormat:@"交易笔数: 56 笔"];
     dealPrice.text = [NSString stringWithFormat:@"交易金额:230012.00元"];
 
-    
     //富文本设置
     //关键字
     dealNum.keywords = @"56";
@@ -102,14 +101,15 @@
 #pragma mark - UITableViewDelegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.orderListArray.count;
-    
+//    return self.orderListArray.count;
+    return 2;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return self.orderGoodsArry.count;
-    
+//    return self.orderGoodsArry.count;
+
+    return 2;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -127,9 +127,9 @@
 {
     ZFTitleCell * titleCell = [self.orderdTableView
                                dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
-    
-    BusinessOrderlist * orderlist  = self.orderListArray[section];
-    titleCell.businessOrder = orderlist;
+    [titleCell.statusButton setTitle:@"交易完成" forState:UIControlStateNormal];
+ //    BusinessOrderlist * orderlist  = self.orderListArray[section];
+//    titleCell.businessOrder = orderlist;
     return titleCell;
 }
 

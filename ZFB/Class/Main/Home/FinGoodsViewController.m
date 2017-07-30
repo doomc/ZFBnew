@@ -170,8 +170,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
         return self.hotArray.count > 0 ? 1 : 0;
     }
     if (section == 2 ) {
-//        return 3;
-       return self.likeListArray.count;
+        return 3;
+//       return self.likeListArray.count;
     }
     return 1;
 }
@@ -182,7 +182,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
     }
     if (section == 1) {
         
-        return self.hotArray.count > 0 ? 1 : 0;
+        
+        return self.hotArray.count > 0 ? 40 : 0;
 
     }
     return 35;
@@ -418,7 +419,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(NSMutableArray *)hotArray
 {
     if (!_hotArray) {
-        _hotArray =[NSMutableArray array];
+        
+        _hotArray =[NSMutableArray arrayWithObjects:@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3439142207,445655643&fm=26&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3482505542,1886996970&fm=26&gp=0.jpg",@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1257582905,2995398711&fm=26&gp=0.jpg", nil];
     }
     return _hotArray;
 }

@@ -74,11 +74,7 @@
             _selectType = SendServicTypeSended;//已配送
             
             break;
-        case 1003:
-            _selectType = SendServicTypeUpdoor;//上门取件
-            
-            
-            break;
+ 
     }
     
     if ([self.delegate respondsToSelector:@selector(sendTitle:SendServiceType:)]) {

@@ -11,15 +11,11 @@
 #import "FindStoreViewController.h"
 #import "FindCircleViewController.h"
 
-#import "ZFSearchBarViewController.h"
-#import "ZFSearchDetailViewController.h"
 #import "BaseNavigationController.h"
-#import "PYSearch.h"
 #import "HomeSearchBarViewController.h"
-
 #import <AMapLocationKit/AMapLocationKit.h>
 
-@interface ZFHomeViewController ()<AMapLocationManagerDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,PYSearchViewControllerDataSource>
+@interface ZFHomeViewController ()<AMapLocationManagerDelegate,UISearchBarDelegate,UISearchControllerDelegate>
 {
     NSInteger _pageSize;//每页显示条数
     NSInteger _pageIndex;//当前页码;
@@ -29,7 +25,7 @@
 @property(nonatomic,strong)UIButton * customLeft_btn;//扫一扫
 @property(nonatomic,strong)UIButton * navSearch_btn;//搜索
 @property(nonatomic,strong)UIButton * shakehanderRight_btn;//摇一摇
-@property(nonatomic,strong)PYSearchViewController* searchBarController;
+
 
 //高德api
 @property (nonatomic,strong) AMapLocationManager * locationManager;

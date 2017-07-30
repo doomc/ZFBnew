@@ -14,7 +14,6 @@
 
 -(void)sendTitle:(NSString *)title orderType:(OrderType)type;
 
--(void)sendTitle:(NSString *)title businessServicType:(BusinessServicType)type;
 
 @end
 

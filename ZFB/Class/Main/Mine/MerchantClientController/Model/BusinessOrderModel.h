@@ -78,7 +78,7 @@
 
 @property (nonatomic, copy) NSString *store_price;
 
-@property (nonatomic, copy) NSString *order_id;
+@property (nonatomic, copy) NSString *order_id;//订单id
 
 @property (nonatomic, copy) NSString *purchase_price;
 

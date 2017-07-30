@@ -8,7 +8,8 @@
 
 #import "BusinessServicerViewController.h"
 //view
-#import "ZFpopView.h"
+#import "BusinessServicPopView.h"//导航选择pop
+#import "BusinessSendOrderView.h"//派单pop
 
 //首页cell
 #import "ZFTitleCell.h"
@@ -25,7 +26,13 @@
 
 //model
 #import "BusinessHomeModel.h"
-@interface BusinessServicerViewController ()<ZFFooterCellDelegate, ZFpopViewDelegate,UITableViewDelegate,UITableViewDataSource,ZFSendHomeListCellDelegate>
+#import "DeliveryModel.h"//配送员列表
+
+//获取经纬度
+#import <CoreLocation/CoreLocation.h>
+
+@interface BusinessServicerViewController ()<ZFFooterCellDelegate, BusinessServicPopViewDelegate,UITableViewDelegate,UITableViewDataSource,ZFSendHomeListCellDelegate,BusinessSendOrderViewDelegate,CLLocationManagerDelegate>
+
 {
     //day
     NSString * _dayorder_count;
@@ -49,6 +56,15 @@
     
     //订单数
     NSString * _order_count;
+    //订单id
+    NSString * _order_id;
+    NSString * _order_amount;//当前价格
+    
+    CLLocationManager *locationmanager;//定位服务
+    NSString *currentCity;//当前城市
+    NSString *strlatitude;//经度
+    NSString *strlongitude;//纬度
+
     
 }
 
@@ -63,15 +79,18 @@
 @property (nonatomic,assign) BOOL     isSelectPage;//默认选择一个首页面
 @property (nonatomic,strong) UIButton *  navbar_btn;//导航页选择器
 @property (nonatomic,strong) UIView   *  titleView;
-@property (nonatomic,strong) UIView   *  bgview;//蒙板
+@property (nonatomic,strong) UIView   *  bgview;//蒙板1
 
-@property (nonatomic ,strong) ZFpopView * popView;
+@property (nonatomic ,strong) BusinessServicPopView  * popView;
 @property (nonatomic ,strong) NSArray   * titles;//pop数据源
-
 @property (nonatomic ,assign) BusinessServicType servicType;//传一个type
+
+@property (nonatomic ,strong) BusinessSendOrderView * sendOrderPopView;
+@property (nonatomic ,strong) UIView   *  orderBgview;//蒙板2
 
 @property (nonatomic ,strong) NSMutableArray *  orderListArray ;//订单列表
 @property (nonatomic ,strong) NSMutableArray *  orderGoodsArry ;//订单商品
+@property (nonatomic ,strong) NSMutableArray *  deliveryArray ;//配送员列表
 
 
 @end
@@ -81,6 +100,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self startLocation];
+
     
     _isSelectPage = YES;
     
@@ -138,10 +159,10 @@
     
 }
 //弹框初始化
--(ZFpopView *)popView
+-(BusinessServicPopView *)popView
 {
     if (!_popView) {
-        _popView =[[ZFpopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 110) titleArray:_titles];
+        _popView =[[BusinessServicPopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 110) titleArray:_titles];
         _popView.delegate = self;
         
     }
@@ -209,7 +230,7 @@
     self.img_sendOrder.image         = [UIImage imageNamed:@"send_red"];
     
     self.navigationItem.titleView = self.navbar_btn;
-    
+
     
     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:@"1" size:@"6" storeId:@"1"];
     
@@ -230,23 +251,23 @@
     }else{
         switch (_servicType) {
             case BusinessServicTypeWaitSendlist://待派单
-                sectionNum = self.orderListArray.count;
+                return  sectionNum;//  = self.orderListArray.count;
                 
                 break;
             case BusinessServicTypeSending://配送中
-                sectionNum = self.orderListArray.count;
+                return  sectionNum;//  = self.orderListArray.count;
                 
                 break;
             case BusinessServicTypeWaitPay://待付款
-                sectionNum = self.orderListArray.count;
+                return  sectionNum;//  = self.orderListArray.count;
                 
                 break;
             case BusinessServicTypeDealComplete://交易完成
-                sectionNum = self.orderListArray.count;
+                return  sectionNum;//  = self.orderListArray.count;
                 
                 break;
             case BusinessServicTypeSureReturn://待确认退回
-                sectionNum = self.orderListArray.count;
+                return  sectionNum;//  = self.orderListArray.count;
                 
                 break;
         }
@@ -256,7 +277,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger sectionRow = 1;
+    NSInteger sectionRow = 2;
     
     if (_isSelectPage == YES ) {
         
@@ -266,23 +287,23 @@
     }else{
         switch (_servicType) {
             case BusinessServicTypeWaitSendlist://待派单
-                sectionRow = self.orderGoodsArry.count;
+                return  sectionRow;// = self.orderGoodsArry.count;
                 
                 break;
             case BusinessServicTypeSending://配送中
-                sectionRow = self.orderGoodsArry.count;
+                return  sectionRow;//  = self.orderGoodsArry.count;
                 
                 break;
             case BusinessServicTypeWaitPay://待付款
-                sectionRow = self.orderGoodsArry.count;
+                return  sectionRow;//  = self.orderGoodsArry.count;
                 
                 break;
             case BusinessServicTypeDealComplete://交易完成
-                sectionRow = self.orderGoodsArry.count;
+                return  sectionRow;//  = self.orderGoodsArry.count;
                 
                 break;
             case BusinessServicTypeSureReturn://待确认退回
-                sectionRow = self.orderGoodsArry.count;
+                return  sectionRow;//  = self.orderGoodsArry.count;
                 
                 break;
         }
@@ -355,8 +376,8 @@
             {
                 ZFTitleCell * titleCell = [self.homeTableView
                                            dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                titleCell.businessOrder        = orderlist;
+                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                //                titleCell.businessOrder        = orderlist;
                 return titleCell;
             }
                 
@@ -365,8 +386,8 @@
             {
                 ZFTitleCell * titleCell = [self.homeTableView
                                            dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                titleCell.businessOrder        = orderlist;
+                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                //                titleCell.businessOrder        = orderlist;
                 return titleCell;
             }
                 break;
@@ -374,8 +395,8 @@
             {
                 ZFTitleCell * titleCell = [self.homeTableView
                                            dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                titleCell.businessOrder        = orderlist;
+                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                //                titleCell.businessOrder        = orderlist;
                 return titleCell;
             }
                 break;
@@ -383,17 +404,17 @@
             {
                 ZFTitleCell * titleCell = [self.homeTableView
                                            dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                titleCell.businessOrder        = orderlist;
+                [titleCell.statusButton setTitle:@"交易完成" forState:UIControlStateNormal];
+                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                //                titleCell.businessOrder        = orderlist;
                 return titleCell;
             }
                 break;
             case BusinessServicTypeSureReturn://待确认退回
             {
-                ZFTitleCell * titleCell = [self.homeTableView
-                                           dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                titleCell.businessOrder        = orderlist;
+                ZFTitleCell * titleCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
+                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                //                titleCell.businessOrder        = orderlist;
                 return titleCell;
             }
                 break;
@@ -463,9 +484,10 @@
             {
                 ZFFooterCell * cell = [self.homeTableView
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
                 cell.footDelegate =  self;
-                cell.businessOrder             = orderlist;
+
+//                BusinessOrderlist  * orderlist = self.orderListArray[section];
+//                cell.businessOrder             = orderlist;
                 footerView                     = cell;
                 
             }
@@ -474,9 +496,10 @@
             {
                 ZFFooterCell * cell = [self.homeTableView
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
                 cell.footDelegate =  self;
-                cell.businessOrder             = orderlist;
+
+                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                //                cell.businessOrder             = orderlist;
                 footerView                     = cell;
                 
             }
@@ -487,8 +510,8 @@
                 ZFFooterCell * cell = [self.homeTableView
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
                 cell.footDelegate =  self;
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                cell.businessOrder             = orderlist;
+                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                //                cell.businessOrder             = orderlist;
                 footerView                     = cell;
                 
             }
@@ -498,9 +521,12 @@
             {
                 ZFFooterCell * cell = [self.homeTableView
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                [cell.cancel_button setHidden:YES];
+                [cell.payfor_button setHidden:YES];
+                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
                 cell.footDelegate =  self;
-                cell.businessOrder             = orderlist;
+                
+                //                cell.businessOrder             = orderlist;
                 footerView                     = cell;
                 
             }
@@ -510,9 +536,9 @@
             {
                 ZFFooterCell * cell = [self.homeTableView
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
                 cell.footDelegate =  self;
-                cell.businessOrder             = orderlist;
+                //                cell.businessOrder             = orderlist;
                 footerView                     = cell;
                 
             }
@@ -653,6 +679,10 @@
             case BusinessServicTypeWaitSendlist://待派单
             {
                 BusinessOrdergoods * goodlist = self.orderGoodsArry[indexPath.row];
+#warning - 不知道这个能获取到orderid吗
+                //获取_order_id
+                _order_id = goodlist.order_id;
+                
                 contentCell.businesGoods      = goodlist;
                 return contentCell;
             }
@@ -728,8 +758,8 @@
 }
 
 
-#pragma mark - ZFpopViewDelegate 选择一个type
--(void)sendTitle:(NSString *)title orderType:(OrderType)type
+#pragma mark - BusinessServicPopViewDelegate 选择一个type
+-(void)sendTitle:(NSString *)title businessServicType:(BusinessServicType)type
 {
     [UIView animateWithDuration:0.3 animations:^{
         
@@ -789,6 +819,7 @@
     [self.view endEditing:YES];
     
     [self.bgview removeFromSuperview];
+    [self.orderBgview removeFromSuperview];
     
     
 }
@@ -816,6 +847,12 @@
     }
     return _orderListArray;
 }
+-(NSMutableArray *)deliveryArray{
+    if (!_deliveryArray) {
+        _deliveryArray = [NSMutableArray array];
+    }
+    return _deliveryArray;
+}
 
 
 #pragma mark - ZFFooterCellDelegate   footerview的所有代理方法
@@ -829,9 +866,12 @@
     }];
     UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        //确认后调用该接口
-        [self cancleOrderPostRequst];
-
+        if (_order_id != nil) {
+            //确认后调用该接口
+            [self cancleOrderPostRequst];
+        }
+ 
+        
         
     }];
     [alertavc addAction:cancelAction];
@@ -841,20 +881,53 @@
     
     
 }
-
-//派单
--(void)sendOrdersAction//派单
-{
-    NSLog(@"派单操作")
-
-}
-
+#pragma mark - ZFFooterCellDelegate 派单代理
 ///派单列表添加   自定义tableview
--(void)popAlertViewOfSendOrderList;
+-(void)sendOrdersActionOrderId:(NSString *)orderId totalPrice:(NSString *)totalPrice//派单
 {
-    NSLog(@"")
+    _order_id = orderId;
+    _order_amount = totalPrice;//当前总价
+    NSLog(@"派单操作 - orderId =%@ ,totalPrice = %@ ",_order_id,_order_amount);
+    [self.view addSubview:self.orderBgview];
+    
 }
 
+#pragma mark - BusinessSendOrderViewDelegate 选择派单给谁
+-(void)didClickPushdeliveryId:(NSString *)deliveryId
+                 deliveryName:(NSString *)deliveryName
+                deliveryPhone:(NSString *)deliveryPhone
+                        Index:(NSInteger)index
+{
+    //这里需要网络请求，派单操作
+    //orderid Huoqu
+    [self sendOrderPostRequstStoreID:@"1" deliveryId:deliveryId orderId:_order_id postAddress:@"" status:@"" orderAmount:_order_amount deliveryName:deliveryName deliveryPhone:deliveryPhone];
+}
+
+-(BusinessSendOrderView *)sendOrderPopView
+{
+    if (!_sendOrderPopView) {
+        _sendOrderPopView = [[BusinessSendOrderView alloc]initWithFrame:CGRectMake(50, 0, KScreenW - 100, 250)];
+        _sendOrderPopView.deliveryArray = self.deliveryArray;
+        _sendOrderPopView.center  = self.view.center;
+        _sendOrderPopView.delegate = self;
+        
+    }
+    return _sendOrderPopView;
+}
+/**
+ @return  背景蒙板
+ */
+-(UIView *)orderBgview
+{
+    if (!_orderBgview) {
+        _orderBgview =[[ UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH)];
+        _orderBgview.backgroundColor = RGBA(0, 0, 0, 0.2) ;
+        
+        [_orderBgview addSubview:self.sendOrderPopView];
+    }
+    return _orderBgview;
+    
+}
 #pragma mark -  获取商户端数据列表    order/storeHomePage
 -(void)storeHomePagePostRequst
 {
@@ -953,6 +1026,7 @@
             for (BusinessOrdergoods * goodslist in orderlist.orderGoods) {
                 
                 [self.orderGoodsArry addObject:goodslist];
+
             }
             
         }
@@ -974,13 +1048,20 @@
 #pragma mark -  取消订单接口    order/cancelOrder
 -(void)cancleOrderPostRequst
 {
+    NSLog(@" ==== %@ ==_order_id" ,_order_id);
     NSDictionary * param = @{
-                             @"orderId":@""
+                             @"orderId":_order_id,
                              };
-
+    
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/cancelOrder",zfb_baseUrl] params:param success:^(id response) {
-        
+        if (self.orderListArray.count > 0) {
+            [self.orderListArray removeAllObjects];
+            
+        }
+        if (self.orderGoodsArry.count > 0) {
+            [self.orderGoodsArry removeAllObjects];
+        }
         BusinessOrderModel * orderModel = [BusinessOrderModel mj_objectWithKeyValues:response];
         
         for (BusinessOrderlist * orderlist in orderModel.orderList) {
@@ -1007,6 +1088,123 @@
     }];
     
 }
+
+#pragma mark -  商户派单接口    order/orderSheet
+-(void)sendOrderPostRequstStoreID:(NSString *)storeId
+                       deliveryId:(NSString *)deliveryId
+                          orderId:(NSString *)orderId
+                      postAddress:(NSString *)postAddress
+                           status:(NSString *)status
+                      orderAmount:(NSString *)orderAmount
+                     deliveryName:(NSString *)deliveryName
+                    deliveryPhone:(NSString *)deliveryPhone
+{
+    NSDictionary * param = @{
+                             @"storeId":@"1",
+                             @"deliveryId":deliveryId,//配送员id
+                             @"orderId":@"",//订单编号
+                             @"postAddress":@"",//接收人地址
+                             @"postName":@"",//接收人名称
+                             @"status":@"1",//订单状态		0:配送完成,1:待配送，2:上门取件，3：配送中
+                             @"orderAmount":@"100",//订单金额
+                             @"deliveryName": deliveryName,
+                             @"deliveryPhone":deliveryPhone,//配送员电话
+                             };
+    
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/cancelOrder",zfb_baseUrl] params:param success:^(id response) {
+        
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+    }];
+    
+}
+
+#pragma mark -  配送员列表接口       order/selectDeliveryList
+-(void)selectDeliveryListPostRequst
+{
+    NSDictionary * param = @{
+                             @"longitude":strlongitude,
+                             @"latitude":strlatitude,
+                             
+                             };
+    
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/selectDeliveryList",zfb_baseUrl] params:param success:^(id response) {
+        
+        DeliveryModel * model = [DeliveryModel mj_objectWithKeyValues:response];
+        
+        for (Deliverylist * list in model.deliveryList) {
+            
+            [self.deliveryArray addObject:list];
+        }
+        
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+    }];
+    
+}
+
+
+#pragma mark - 获取经纬度
+//开始定位
+- (void)startLocation {
+    //判断定位功能是否打开
+    if ([CLLocationManager locationServicesEnabled]) {
+        locationmanager = [[CLLocationManager alloc]init];
+        locationmanager.delegate = self;
+        [locationmanager requestAlwaysAuthorization];
+        currentCity = [NSString new];
+        [locationmanager requestWhenInUseAuthorization];
+        
+        //设置寻址精度
+        locationmanager.desiredAccuracy = kCLLocationAccuracyBest;
+        locationmanager.distanceFilter = 5.0;
+        [locationmanager startUpdatingLocation];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    //设置提示提醒用户打开定位服务
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"允许定位提示" message:@"请在设置中打开定位" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:nil];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:okAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+//定位代理经纬度回调
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+
+    //旧址
+    CLLocation *currentLocation = [locations lastObject];
+
+    //打印当前的经度与纬度
+    NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
+    
+    strlatitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
+    strlongitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
+    
+    //系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新
+    [manager stopUpdatingLocation];
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

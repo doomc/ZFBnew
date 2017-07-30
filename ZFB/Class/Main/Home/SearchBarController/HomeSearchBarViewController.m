@@ -241,10 +241,6 @@ static NSString * identyfy = @"MKJTagViewTableViewCell";
 }
 
 
-
-
-
-
 //以下的两个方法必须设置.searchBar.delegate 才可以
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     NSLog(@"开始编辑");

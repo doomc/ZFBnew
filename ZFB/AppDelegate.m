@@ -11,16 +11,15 @@
 #import "BaseTabbarController.h"
 #import "ZFbaseTabbarViewController.h"
 
-
+//高德
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
-#import "AppDelegate+Location.h"
+
 #import "SYSafeCategory.h"
 const static NSString *ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
 
 @interface AppDelegate ()
-@property(nonatomic,strong)CLLocation *  currentLocation;
-@property(nonatomic,copy)CLLocation *  currentCity;
+
 @end
 
 @implementation AppDelegate

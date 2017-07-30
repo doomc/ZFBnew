@@ -152,10 +152,11 @@ UISearchBarDelegate>
     //    }
     
 
-    addressPoi = [NSString stringWithFormat:@"%@%@",_tableView.poiName,_tableView.poiaddress];
+    addressPoi = [NSString stringWithFormat:@"%@%@",_tableView.poiaddress,_tableView.poiName];
     NSLog(@"addressPoi ======= %@    point.postcode======%@",addressPoi,_tableView.postcode);
     // 切换定位图标
     if (isLocateImageShouldChange) {
+        
         [_locationBtn setImage:_imageNotLocate forState:UIControlStateNormal];
         
     }

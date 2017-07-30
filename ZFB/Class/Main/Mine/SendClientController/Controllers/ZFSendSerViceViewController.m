@@ -16,7 +16,7 @@
 #import "OrderPriceCell.h"
 #import "ZFSendHomeCell.h"
 #import "ZFSendHomeListCell.h"
-
+#import "ZFTitleCell.h"
 //订单待配送cell  section0
 static  NSString * headerCellid =@"SendServiceTitleCellid";
 static  NSString * sendingCellid =@"ZFSendingCellid";
@@ -29,7 +29,7 @@ static  NSString * homeCellid =@"ZFSendHomeCellid";
 static  NSString * homeListCellid =@"ZFSendHomeListCellid";
 
 
-@interface ZFSendSerViceViewController ()<UITableViewDelegate,UITableViewDataSource,ZFSendPopViewDelegate>
+@interface ZFSendSerViceViewController ()<UITableViewDelegate,UITableViewDataSource,ZFSendPopViewDelegate,ZFFooterCellDelegate>
 
 @property (strong, nonatomic) UITableView *send_tableView;
 @property (weak, nonatomic  ) IBOutlet UIButton    *Home_btn;//首页安妞
@@ -70,6 +70,9 @@ static  NSString * homeListCellid =@"ZFSendHomeListCellid";
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendHomeCell" bundle:nil] forCellReuseIdentifier:homeCellid];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendHomeListCell" bundle:nil] forCellReuseIdentifier:homeListCellid];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"OrderPriceCell" bundle:nil] forCellReuseIdentifier:@"OrderPriceCell"];
+    
+    [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFTitleCell" bundle:nil] forCellReuseIdentifier:@"ZFTitleCell"];
+    
     
     _titles = @[@"待配送",@"配送中",@"已配送"];
     _detailTitles =@[@"张三",@"182139823",@"收货地址收货地址收货地址",@"取货地址取货地址取货地址取货地址:",@"¥19.00"];
@@ -157,10 +160,7 @@ static  NSString * homeListCellid =@"ZFSendHomeListCellid";
                 sectionNum = 1;
                 
                 break;
-            case SendServicTypeUpdoor:
-                sectionNum = 1;
-                
-                break;
+ 
                 
         }
     }
@@ -194,10 +194,7 @@ static  NSString * homeListCellid =@"ZFSendHomeListCellid";
                 sectionRow = 2;
                 
                 break;
-            case SendServicTypeUpdoor://上门取件
-                sectionRow = 1;
-                
-                break;
+ 
                 
         }
         
@@ -224,17 +221,9 @@ static  NSString * homeListCellid =@"ZFSendHomeListCellid";
         switch (_servicType) {
 #pragma mark - 待配送 返回height
             case SendServicTypeWaitSend:
-                if (indexPath.section == 0) {
-                    
-                    height = 84;
-                    
-                }
-                if (indexPath.section== 1) {
-                    
-                    height = [tableView fd_heightForCellWithIdentifier:homeCellid configuration:^(id cell) {
-                    }];
-                    
-                }
+               
+                    height = 82;
+               
                 break;
 #pragma mark - 配送中 返回height
             case SendServicTypeSending:
@@ -250,11 +239,6 @@ static  NSString * homeListCellid =@"ZFSendHomeListCellid";
                 
                 break;
 #pragma mark - 上门取货 返回height
-            case SendServicTypeUpdoor:
-                
-                height = 84;
-                break;
-                
         }
     }
     
@@ -264,11 +248,51 @@ static  NSString * homeListCellid =@"ZFSendHomeListCellid";
 {
     UIView  * view = nil;
     
-    SendServiceTitleCell *titleCell = [self.send_tableView
-                                       dequeueReusableCellWithIdentifier:headerCellid];
-    titleCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    view = titleCell;
+    if (_isSelectPage == YES) {
+        
+        SendServiceTitleCell *titleCell = [self.send_tableView
+                                           dequeueReusableCellWithIdentifier:headerCellid];
+        titleCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        view = titleCell;
+        
+        return view;
+    }
+    else{
+        switch (_servicType) {
+            case SendServicTypeWaitSend:
+            {
+                ZFTitleCell * titleCell = [self.send_tableView
+                                           dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
+                
+//                BusinessOrderlist * orderlist  = self.orderListArray[section];
+//                titleCell.businessOrder = orderlist;
+                return titleCell;
+            }
+                break;
+            case SendServicTypeSending:
+            {
+                ZFTitleCell * titleCell = [self.send_tableView
+                                           dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
+                
+                //                BusinessOrderlist * orderlist  = self.orderListArray[section];
+                //                titleCell.businessOrder = orderlist;
+                return titleCell;
+            }
+                break;
+            case SendServicTypeSended:
+            {
+                ZFTitleCell * titleCell = [self.send_tableView
+                                           dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
+                
+                //                BusinessOrderlist * orderlist  = self.orderListArray[section];
+                //                titleCell.businessOrder = orderlist;
+                return titleCell;
+            }
+                break;
+        }
+    }
+ 
     
     return view;
 }
@@ -304,6 +328,7 @@ static  NSString * homeListCellid =@"ZFSendHomeListCellid";
             {
                 ZFFooterCell *footCell  = [self.send_tableView dequeueReusableCellWithIdentifier:footerCellid];
                 footCell.selectionStyle = UITableViewCellSelectionStyleNone;
+                footCell.footDelegate = self;
                 footerView              = footCell;
                 
             }
@@ -325,16 +350,7 @@ static  NSString * homeListCellid =@"ZFSendHomeListCellid";
                 footerView                     = orderfootCell;
                 
             }
-                break;
-                
-            case SendServicTypeUpdoor:
-            {
-                ZFFooterCell *footCell  = [self.send_tableView dequeueReusableCellWithIdentifier:footerCellid];
-                footCell.selectionStyle = UITableViewCellSelectionStyleNone;
-                footerView              = footCell;
-                
-            }
-                
+ 
                 break;
                 
         }
@@ -374,11 +390,6 @@ static  NSString * homeListCellid =@"ZFSendHomeListCellid";
                 
                 break;
                 
-            case SendServicTypeUpdoor:
-                
-                height = 50;
-                
-                break;
         }
     }
     return height;
@@ -449,16 +460,7 @@ static  NSString * homeListCellid =@"ZFSendHomeListCellid";
                 
                 break;
 #pragma mark - SendServicTypeUpdoor 上门取货
-            case SendServicTypeUpdoor:
-                
-            {
-                ZFSendingCell *contentCell = [self.send_tableView dequeueReusableCellWithIdentifier:sendingCellid forIndexPath:indexPath];
-                contentCell.selectionStyle = UITableViewCellSelectionStyleNone;
-                return contentCell;
-                
-            }
-                
-                break;
+ 
         }
         
     }

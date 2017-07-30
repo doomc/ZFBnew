@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, SendServicType) {
     SendServicTypeWaitSend = 0,//待配送
     SendServicTypeSending,//配送中
     SendServicTypeSended,//已配送
-    SendServicTypeUpdoor,//上门取件
+ 
  
     
 };

@@ -9,22 +9,27 @@
 //
 
 #import "FindStoreViewController.h"
-#import "FindStoreCell.h"
 #import "HP_LocationViewController.h"
 #import "DetailStoreViewController.h"
 #import "ZFAllStoreViewController.h"
+//cell
+#import "FindStoreCell.h"
+//model
 #import "HomeStoreListModel.h"
-#import <AMapLocationKit/AMapLocationKit.h>
+//map
+#import <CoreLocation/CoreLocation.h>
 
 
 static NSString *CellIdentifier = @"FindStoreCellid";
 
-@interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,AMapLocationManagerDelegate,AMapSearchDelegate>
+@interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,CLLocationManagerDelegate>
 {
     NSInteger _pageCount;//每页显示条数
     NSInteger _page;//当前页码;
-    NSString * _loactionAddress;
-    AMapSearchAPI *_search;
+
+    NSString *currentCityAndStreet;//当前城市
+    NSString *latitudestr;//经度
+    NSString *longitudestr;//纬度
     
     
 }
@@ -34,15 +39,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 @property (nonatomic,strong) UIButton * location_btn ;
 
 //高德api
-@property (nonatomic,strong) AMapLocationManager * locationManager;
-@property (nonatomic,strong) AMapLocationReGeocode * reGeocode;//地理编码
-@property (nonatomic,strong) CLLocation *  currentLocation;
-@property (nonatomic,strong) AMapPOI *selectedPoi;
-
-/**
- *  持续定位是否返回逆地理信息，默认NO。
- */
-@property (nonatomic, assign) BOOL locatingWithReGeocode;
+@property (nonatomic,strong) CLLocationManager * locationManager;
 
 @end
 @implementation FindStoreViewController
@@ -53,8 +50,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     //默认一个页码 和 页数
     _pageCount = 8;
-    
-    [self LocationMapManagerInit];
+
     
     [self initWithHome_Tableview];
     
@@ -87,7 +83,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         
         UIFont * font = [UIFont systemFontOfSize:13];
         _location_btn.titleLabel.font = font ;
-        [_location_btn setTitle:_loactionAddress forState:UIControlStateNormal];
+        [_location_btn setTitle:currentCityAndStreet forState:UIControlStateNormal];
         [_location_btn.titleLabel  sizeToFit];
         _location_btn.titleLabel.adjustsFontSizeToFitWidth = YES;
         
@@ -245,118 +241,92 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     [self.navigationController pushViewController: locationVC animated:YES];
     
 }
-#pragma mark  - 高德定位
+#pragma mark  - 定位当前
 /**定位当前 */
 -(void)LocationMapManagerInit
 {
-    self.locationManager = [[AMapLocationManager alloc] init];
-    
-    self.locationManager.delegate = self;
-    
-    // 带逆地理信息的一次定位（返回坐标和地址信息）
-    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
-    self.locationManager.distanceFilter = 200;
-    
-    //   定位超时时间，最低2s，此处设置为2s
-    self.locationManager.locationTimeout =10;
-    
-    //   逆地理请求超时时间，最低2s，此处设置为2s
-    self.locationManager.reGeocodeTimeout = 10;
-    
-    //开始定位
-    [self.locationManager setLocatingWithReGeocode:YES];
-    [self.locationManager startUpdatingLocation];
-    
-}
-
-- (void)amapLocationManager:(AMapLocationManager *)manager didFailWithError:(NSError *)error
-{
-    NSLog(@"%@",error);
-}
-
-
-#pragma mark  -AMapLocationManagerDelegate
--(void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
-{
-    // 赋值给全局变量
-    _currentLocation = location;
-    
-    NSLog(@" lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
-    
-    // 停止定位
-    [self.locationManager stopUpdatingLocation];
-    
-    [self reGeoAction];
-    
-}
-
-//进行逆地理编码请求
-- (void)reGeoAction{
-    
-    if (_currentLocation) {
-        AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
-        request.location = [AMapGeoPoint locationWithLatitude:_currentLocation.coordinate.latitude longitude:_currentLocation.coordinate.longitude];
-        request.requireExtension =YES;
+    //判断定位功能是否打开
+    if ([CLLocationManager locationServicesEnabled]) {
         
-        //逆地理编码搜索请求
-        _search = [[AMapSearchAPI alloc] init ];
-        _search.delegate = self;
-        [_search AMapReGoecodeSearch:request];
+        _locationManager = [[CLLocationManager alloc]init];
+        _locationManager.distanceFilter = 200;
+        _locationManager.delegate = self;
+        [_locationManager requestAlwaysAuthorization];
+        currentCityAndStreet = [NSString new];
+        [_locationManager requestWhenInUseAuthorization];
+        
+        //设置寻址精度
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        _locationManager.distanceFilter = 5.0;
+        [_locationManager startUpdatingLocation];
     }
     
 }
-#pragma mark - AMapSearchDelegate 反地理编码
-//实现逆地理编码的回调函数
-- (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response
+#pragma mark CoreLocation delegate (定位失败)
+//定位失败后调用此代理方法
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    if(response.regeocode != nil)
-    {
-        NSLog(@"反向地理编码回调:%@",response.regeocode.addressComponent.township);
-        NSLog(@"反向地理编码回调:%@",response.regeocode.addressComponent.district);
-        NSLog(@"反向地理编码回调:%@",response.regeocode.addressComponent.city);
-        NSLog(@"反向地理编码回调:%@",response.regeocode.addressComponent.neighborhood);
-        
-        NSArray * addressArr = response.regeocode.pois;
-        
-        if (addressArr && addressArr.count >0) {
-            AMapPOI *poiTemp = addressArr[0];
+    //设置提示提醒用户打开定位服务
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"允许定位提示" message:@"请在设置中打开定位" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:nil];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:okAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark 定位成功后则执行此代理方法
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    //旧址
+    CLLocation *currentLocation = [locations lastObject];
+    CLGeocoder *geoCoder = [[CLGeocoder alloc]init];
+    //打印当前的经度与纬度
+    NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
+    latitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
+    longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
+    
+    //反地理编码
+    [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (placemarks.count > 0) {
+            CLPlacemark *placeMark = placemarks[0];
+            currentCityAndStreet = placeMark.locality;
+            if (!currentCityAndStreet) {
+                currentCityAndStreet = @"无法定位当前城市";
+            }
             
-            NSLog(@"----反向地理编码回调:%@",poiTemp.name);
-            NSLog(@"----反向地理编码回调:%@",poiTemp.address);
-            _loactionAddress = [NSString stringWithFormat:@"%@%@",poiTemp.name ,poiTemp.address];
-        }
-        
-        [self.location_btn setTitle:_loactionAddress forState:UIControlStateNormal];
-        //通过AMapReGeocodeSearchResponse对象处理搜索结果
-        NSString *result = [NSString stringWithFormat:@"ReGeocode: %@", response.regeocode];
-        NSLog(@"ReGeo: %@", result);
-    }
-    
-}
+            /*看需求定义一个全局变量来接收赋值*/
+//            NSLog(@"----%@",placeMark.country);//当前国家
+            NSLog(@"%@",currentCityAndStreet);//当前的城市
+            NSLog(@"%@",placeMark.subLocality);//当前的位置
+            NSLog(@"%@",placeMark.thoroughfare);//当前街道
+            NSLog(@"%@",placeMark.name);//具体地址
 
-- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error
-{
-    NSLog(@"xxxxxxxxxxxx--------%@---------xxxxxxxxxxx" ,error);
+            currentCityAndStreet = [NSString stringWithFormat:@"%@%@",placeMark.subLocality,placeMark.name];
+            [self.location_btn setTitle:currentCityAndStreet forState:UIControlStateNormal];
+            
+        }
+    }];
+    [_locationManager stopUpdatingHeading];
+
 }
 
 #pragma mark - 首页网络请求 getCmStoreInfo
 -(void)PostRequst
 {
     [self.home_tableView.mj_header endRefreshing];
-    
-    NSLog(@"    lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
-    NSString * longitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.longitude];
-    NSString * latitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.latitude];
+ 
     NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageCount];
     NSString * pageIndex= [NSString stringWithFormat:@"%ld",_page];
     
-    BBUserDefault.longitude = longitude;
-    BBUserDefault.latitude = latitude;
+    BBUserDefault.longitude = longitudestr;
+    BBUserDefault.latitude = latitudestr;
     
     NSDictionary * parma = @{
  
-                             @"longitude":longitude,//经度
-                             @"latitude":latitude ,//纬度
+                             @"longitude":longitudestr,//经度
+                             @"latitude":latitudestr ,//纬度
                              @"pageSize":pageSize,//每页显示条数
                              @"pageIndex":pageIndex,//当前页码
                              @"businessType":@"",
@@ -412,6 +382,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.home_tableView.mj_header beginRefreshing];
+    
+    //刷新定位
+    [self LocationMapManagerInit];
     
 }
 

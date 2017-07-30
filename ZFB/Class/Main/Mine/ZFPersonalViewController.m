@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     BaseNavigationController * nav  = [[BaseNavigationController alloc]initWithRootViewController:regiVC];
     
     [self presentViewController:nav animated:NO completion:^{
-        
+        regiVC.mark = YES;
         [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
         [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
     }];

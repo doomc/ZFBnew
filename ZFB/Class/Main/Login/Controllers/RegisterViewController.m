@@ -150,7 +150,13 @@
 //设置右边事件
 -(void)left_button_event:(UIButton *)sender{
     
-    [self.navigationController popViewControllerAnimated:YES];
+    if (_mark == YES) {
+     
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }else{
+      
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 

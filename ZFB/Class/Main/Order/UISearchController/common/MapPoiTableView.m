@@ -149,9 +149,7 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
         
         NSString *city = response.regeocode.addressComponent.city;
         [self.delegate setCurrentCity:city];
-        
-
-
+ 
         if ([self.delegate respondsToSelector:@selector(setSendButtonEnabledAfterLoadFinished) ]) {
             [self.delegate setSendButtonEnabledAfterLoadFinished];
 

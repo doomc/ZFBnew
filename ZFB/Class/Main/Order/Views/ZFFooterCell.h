@@ -16,7 +16,7 @@
 -(void)cancelOrderAction;
 
 ///派单
--(void)sendOrdersAction;
+-(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice;
 
 
 @end
@@ -35,6 +35,10 @@
 @property (nonatomic, strong) Orderlist * orderlist ;
 
 @property (nonatomic, strong) BusinessOrderlist * businessOrder ;
+
+@property (nonatomic, copy) NSString  * orderId ;
+
+@property (nonatomic, copy) NSString  * totalPrice ;//总价
 
 
 @end

@@ -9,6 +9,7 @@
 #import "BaseViewController.h"
 
 @interface RegisterViewController : UIViewController
+@property (nonatomic, assign) BOOL mark;//判断是模态还是push
 
 
 @end

@@ -17,6 +17,8 @@ target 'ZFB' do
   pod 'AMapSearch'
   pod 'AMap2DMap', '~> 4.6.0'
   pod 'MWPhotoBrowser'
+  pod 'SDWebImage'
+    
   #其他
   # pod 'QBImagePickerController'
   # pod 'ZYQAssetPickerController']

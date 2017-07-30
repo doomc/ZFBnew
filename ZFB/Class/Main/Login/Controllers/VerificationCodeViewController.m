@@ -29,6 +29,7 @@
     // Do any additional setup after loading the view from its nib.
     
     [self set_leftButton];
+    
     self.title =@"注册";
     
     _isRegiste = NO;

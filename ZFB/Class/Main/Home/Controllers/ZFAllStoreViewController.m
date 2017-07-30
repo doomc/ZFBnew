@@ -4,17 +4,20 @@
 //
 //  Created by  展富宝  on 2017/5/19.
 //  Copyright © 2017年 com.zfb. All rights reserved.
-//
+//  全部门店
 
 #import "ZFAllStoreViewController.h"
 #import "AllStoreCell.h"
 #import "SDCycleScrollView.h"
 
 #import "DetailStoreViewController.h"
-#import <AMapLocationKit/AMapLocationKit.h>
 #import "AllStoreModel.h"
+//map
+#import <CoreLocation/CoreLocation.h>
 
-@interface ZFAllStoreViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,AMapLocationManagerDelegate,YBPopupMenuDelegate>
+//view
+#import "ZspMenu.h"
+@interface ZFAllStoreViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,CLLocationManagerDelegate,ZspMenuDataSource, ZspMenuDelegate>
 {
     NSInteger _pageSize;//每页显示条数
     NSInteger _pageIndex;//当前页码;
@@ -22,6 +25,12 @@
     NSString * _storeTypeInfo;//门店类型
     BOOL _isChanged;//切换距离最近
     CGFloat tableViewHeight ;
+    
+    NSString *currentCityAndStreet;//当前城市
+    NSString *latitudestr;//经度
+    NSString *longitudestr;//纬度
+    
+  
     
 }
 @property (nonatomic,strong) NSMutableArray * allStoreArray;//全部门店数据源
@@ -37,15 +46,13 @@
 @property (nonatomic,strong) UIButton    * all_btn;
 @property (nonatomic,weak  ) UIButton    *selectedBtn;
 
-
 //高德api
-@property (nonatomic,strong) AMapLocationManager   * locationManager;
-@property (nonatomic,strong) AMapLocationReGeocode * reGeocode;//地理编码
-@property (nonatomic,strong) CLLocation            *  currentLocation;
-/**
- *  持续定位是否返回逆地理信息，默认NO。
- */
-@property (nonatomic, assign) BOOL locatingWithReGeocode;
+@property (nonatomic,strong) CLLocationManager * locationManager;
+
+@property (nonatomic, strong) ZspMenu *menu;
+@property (nonatomic, strong) NSArray *sort;
+@property (nonatomic, strong) NSArray *choose;
+
 @end
 
 @implementation ZFAllStoreViewController
@@ -54,6 +61,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title =@"全部门店";
+    
+    self.sort = @[@"全部", @"离我最近", @"好评优先", @"人气最高"];
+    self.choose = @[@"距离最近", @"折扣商品", @"进店领券", @"下单返券"];
+ 
     
     //默认一个页码 和 页数
     _pageSize  = 6;
@@ -68,14 +79,15 @@
                 forCellReuseIdentifier:@"SelectTableviewCell"];
     
     
-    [self creatButtonWithDouble];
-    
     [self LocationMapManagerInit];
+
+//    [self creatButtonWithDouble];
     
     [self refreshAuto];
-    
-    
+ 
 }
+
+
 -(void)refreshAuto
 {
     weakSelf(weakSelf);
@@ -101,7 +113,7 @@
     if (!_select_tableview) {
         _select_tableview                   = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW/2, 150) style:UITableViewStylePlain];
         _select_tableview.layer.borderWidth = 0.5;
-        _select_tableview.layer.borderColor = HEXCOLOR(0xfecccc).CGColor;
+        _select_tableview.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
         _select_tableview.clipsToBounds     = YES;
         _select_tableview.delegate          = self;
         _select_tableview.dataSource        = self;
@@ -164,15 +176,15 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger count = 0 ;
-    
-    if (_isChanged == NO ) {
-        return self.farawayStoreArray.count;
-    }
-    else{
-        return self.allStoreArray.count;
-    }
-    
+    NSInteger count = 2 ;
+//    
+//    if (_isChanged == NO ) {
+//        return self.farawayStoreArray.count;
+//    }
+//    else{
+//        return self.allStoreArray.count;
+//    }
+//    
     
     return count;
 }
@@ -192,7 +204,12 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    return self.sectionView;
+    _menu = [[ZspMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:44];
+    _menu.delegate = self;
+    _menu.dataSource = self;
+    [_menu selectDeafultIndexPath];
+    
+    return _menu;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -303,15 +320,8 @@
     
     [self.all_tableview reloadData];
     
-    [YBPopupMenu showRelyOnView:self.farway_btn titles:_titlelistArray icons:nil menuWidth:self.view.frame.size.width/2-10 otherSettings:^(YBPopupMenu *popupMenu) {
-        popupMenu.delegate        = self;
-        popupMenu.arrowHeight     = 0;
-        popupMenu.arrowWidth      = 0;
-        popupMenu.fontSize        = 14;
-        popupMenu.type            = YBPopupMenuTypeDefault;
-        popupMenu.rectCorner      = YBPopupMenuPriorityDirectionNone;
-        popupMenu.maxVisibleCount = _titlelistArray.count;
-    }];
+        [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"" orderbylikeNum:@"" nearBydisc:@""];
+  
 }
 
 #pragma mark - buttonBtnClickAllStore全部门店
@@ -351,47 +361,52 @@
 /**定位当前 */
 -(void)LocationMapManagerInit
 {
-    self.locationManager = [[AMapLocationManager alloc] init];
+    //判断定位功能是否打开
+    if ([CLLocationManager locationServicesEnabled]) {
+        
+        _locationManager = [[CLLocationManager alloc]init];
+        _locationManager.distanceFilter = 200;
+        _locationManager.delegate = self;
+        [_locationManager requestAlwaysAuthorization];
+        currentCityAndStreet = [NSString new];
+        [_locationManager requestWhenInUseAuthorization];
+        
+        //设置寻址精度
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        _locationManager.distanceFilter = 5.0;
+        [_locationManager startUpdatingLocation];
+    }
     
-    self.locationManager.delegate = self;
+}
+#pragma mark CoreLocation delegate (定位失败)
+//定位失败后调用此代理方法
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    //设置提示提醒用户打开定位服务
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"允许定位提示" message:@"请在设置中打开定位" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:nil];
     
-    // 带逆地理信息的一次定位（返回坐标和地址信息）
-    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
-    self.locationManager.distanceFilter = 200;
-    
-    //   定位超时时间，最低2s，此处设置为2s
-    self.locationManager.locationTimeout = 10;
-    
-    //   逆地理请求超时时间，最低2s，此处设置为2s
-    self.locationManager.reGeocodeTimeout = 10;
-    
-    //开始定位
-    [self.locationManager setLocatingWithReGeocode:YES];
-    [self.locationManager startUpdatingLocation];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:okAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark 定位成功后则执行此代理方法
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    //旧址
+    CLLocation *currentLocation = [locations lastObject];
+ 
+    //打印当前的经度与纬度
+    NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
+    latitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
+    longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
+  
+    [_locationManager stopUpdatingHeading];
     
 }
 
-#pragma mark  -AMapLocationManagerDelegate
-- (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode
-{
-    NSLog(@"location:{  lat:%f; lon:%f; accuracy:%f  }", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
-    if (reGeocode)
-    {
-        NSLog(@"reGeocode:%@", reGeocode);
-        self.reGeocode = reGeocode;
-    }
-    NSLog(@"reGeocode:%@", reGeocode.POIName);
-    
-    // 赋值给全局变量
-    _currentLocation = location;
-    
-    NSLog(@" lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
-    
-    // 停止定位
-    [self.locationManager stopUpdatingLocation];
-    
-    
-}
 
 #pragma mark - 全部门店网络请求
 -(void)allStorePostRequstAndbusinessType:(NSString *)businessType
@@ -400,18 +415,14 @@
                               nearBydisc:(NSString *)nearBydisc
 {
     
-    
-    
-    NSString * longitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.longitude];
-    NSString * latitude  = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.latitude];
     NSString * pageSize  = [NSString stringWithFormat:@"%ld",_pageSize];
     NSString * pageIndex = [NSString stringWithFormat:@"%ld",_pageIndex];
     
     
     NSDictionary * parma = @{
                              
-                             @"longitude":longitude,//经度
-                             @"latitude":latitude ,//纬度
+                             @"longitude":longitudestr,//经度
+                             @"latitude":latitudestr ,//纬度
                              @"pageSize":pageSize,//每页显示条数
                              @"pageIndex":pageIndex,//当前页码
                              
@@ -479,18 +490,15 @@
                                   sercahText:(NSString *)sercahText
 
 {
-    NSString * longitude = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.longitude];
-    NSString * latitude  = [NSString stringWithFormat:@"%.6f",_currentLocation.coordinate.latitude];
+ 
     NSString * pageSize  = [NSString stringWithFormat:@"%ld",_pageSize];
     NSString * pageIndex = [NSString stringWithFormat:@"%ld",_pageIndex];
-    
-    BBUserDefault.longitude = longitude;
-    BBUserDefault.latitude  = latitude;
+ 
     
     NSDictionary * parma = @{
                              
-                             @"longitude":longitude,//经度
-                             @"latitude":latitude ,//纬度
+                             @"longitude":longitudestr,//经度
+                             @"latitude":latitudestr ,//纬度
                              @"pageSize":pageSize,//每页显示条数
                              @"pageIndex":pageIndex,//当前页码
                              
@@ -575,5 +583,39 @@
     [self.all_tableview.mj_header beginRefreshing];
     
 }
+
+#pragma mark - ZspMenuDataSource, ZspMenuDelegate
+- (NSInteger)numberOfColumnsInMenu:(ZspMenu *)menu {
+    return 2;
+}
+
+- (NSInteger)menu:(ZspMenu *)menu numberOfRowsInColumn:(NSInteger)column {
+    if (column == 0) {
+        return self.sort.count;
+    }
+        else {
+        return self.choose.count;
+    }
+}
+
+- (NSString *)menu:(ZspMenu *)menu titleForRowAtIndexPath:(ZspIndexPath *)indexPath {
+    if (indexPath.column == 0) {
+        return self.sort[indexPath.row];
+        
+    }else{
+        return self.choose[indexPath.row];
+        
+    }
+}
+
+- (void)menu:(ZspMenu *)menu didSelectRowAtIndexPath:(ZspIndexPath *)indexPath {
+    if (indexPath.item >= 0) {
+        NSLog(@"点击了 %ld - %ld - %ld",indexPath.column,indexPath.row,indexPath.item);
+    }else {
+        NSLog(@"点击了 %ld - %ld",indexPath.column,indexPath.row);
+    }
+}
+
+
 
 @end

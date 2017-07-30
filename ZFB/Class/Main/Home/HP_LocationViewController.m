@@ -384,33 +384,50 @@
     }
     return _searchPoiArray;
 }
--(UISearchBar *)searchBar {
+
+-(UISearchBar *)searchBar
+{
     if (!_searchBar) {
-        _searchBar = [UISearchBar new];
-        
-        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(5, 5, KScreenW-10, 40)];
-        _searchBar.layer.cornerRadius = 2;
-        _searchBar.tintColor = HEXCOLOR(0xfe6d6a);
-        //        _searchBar.translucent = NO;
-        [_searchBar setImage:[UIImage imageNamed:@"index_searchi"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-        _searchBar.placeholder = @"搜索商品或门店";
+        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(10, 0, KScreenW - 2*10, 44)];
         _searchBar.delegate = self;
-        
-        
-        //取出textfield
-        UITextField *searchField = [self.searchBar valueForKey:@"_searchField"];
-        //改变searcher的textcolor
-        searchField.textColor =HEXCOLOR(0x363636);
-        //改变placeholder的颜色
-        [searchField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
-        //改变placeholder的字体
-        [searchField setValue:SYSTEMFONT(14) forKeyPath:@"_placeholderLabel.font"];
-        
-        searchField.layer.cornerRadius = 2;
-        searchField.layer.masksToBounds = YES;
+        _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
+        _searchBar.placeholder = @"搜索商品或门店";
     }
     return _searchBar;
 }
+
+
+//以下的两个方法必须设置.searchBar.delegate 才可以
+-(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    NSLog(@"开始编辑");
+    return YES;
+}
+
+-(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
+    NSLog(@"结束编辑");
+    return YES;
+}
+//当搜索框中的内容发生改变时会自动进行搜索,这个是经常用的
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    NSLog(@"结束编辑 %@",searchText);
+    
+}
+-(BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    
+    NSLog(@"正在编辑--- %@",text);
+    
+    return YES;
+}
+
+
+//在键盘中的搜索按钮的点击事件
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    NSLog(@"点击了搜索");
+
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -7,7 +7,9 @@
 //
 
 #import "ZFFooterCell.h"
+@interface ZFFooterCell ()
 
+@end
 @implementation ZFFooterCell
 
 - (void)awakeFromNib {
@@ -74,6 +76,9 @@
     _businessOrder = businessOrder;
     //订单金额
     self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",businessOrder.orderAmount];//订单价格
+    //通过传值把这个id传出去
+    _orderId = businessOrder.order_id;
+    _totalPrice  = businessOrder.orderAmount;//总价
 }
 
 ///取消 所有指令
@@ -88,9 +93,9 @@
 ///派单 、、、确认支付 等所有指令
 -(void)payfor_buttonAction
 {
-    if ([self.footDelegate respondsToSelector:@selector(sendOrdersAction)]) {
+    if ([self.footDelegate respondsToSelector:@selector(sendOrdersActionOrderId:totalPrice:)]) {
    
-        [self.footDelegate sendOrdersAction];
+        [self.footDelegate sendOrdersActionOrderId:_orderId totalPrice:_totalPrice];
  
     }
 }

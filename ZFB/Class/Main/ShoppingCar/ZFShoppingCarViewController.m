@@ -72,7 +72,10 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 
 }
 
-
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [SVProgressHUD dismiss];
+}
 
 
 
@@ -352,15 +355,15 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 #pragma mark - tableView delegare
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.carListArray.count;
-//    return 2;
+//    return self.carListArray.count;
+    return 2;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     Shoppcartlist * list = self.carListArray[section];
 
-//    return  3;
-    return list.goodsList.count;
+    return  3;
+//    return list.goodsList.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -415,7 +418,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     Goodslist *goodslist     = shopList.goodsList[indexPath.row];
     
     cell.chooseBtn.selected = goodslist.goodslistIsChoosed;//!< 商品是否需要选择的字段
-    [cell.img_shopCar sd_setImageWithURL:[NSURL URLWithString:goodslist.coverImgUrl] placeholderImage:[UIImage imageNamed:@"11"]];
+    [cell.img_shopCar sd_setImageWithURL:[NSURL URLWithString:goodslist.coverImgUrl] placeholderImage:[UIImage imageNamed:@""]];
     
     cell.lb_price.text  = [NSString stringWithFormat:@"¥%.2f",goodslist.storePrice];
     cell.lb_title.text  = goodslist.goodsName;
