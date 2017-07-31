@@ -21,14 +21,14 @@
 
 @property (nonatomic, strong) Numarray *numArray;
 
-@property (nonatomic, assign) NSInteger deliveryId;
+@property (nonatomic, copy) NSString* deliveryId;
 
 @property (nonatomic, strong) Todaymap *todayMap;
 
 @end
 @interface Weedmap : NSObject
 
-@property (nonatomic, assign) NSInteger distriCount;
+@property (nonatomic, copy) NSString * distriCount;
 
 @property (nonatomic, copy) NSString *startDay;
 
@@ -36,13 +36,13 @@
 
 @property (nonatomic, copy) NSString *time;
 
-@property (nonatomic, assign) NSInteger orderDeliveryFee;
+@property (nonatomic, copy) NSString * orderDeliveryFee;
 
 @end
 
 @interface Monthmap : NSObject
 
-@property (nonatomic, assign) NSInteger distriCount;
+@property (nonatomic, copy) NSString *distriCount;
 
 @property (nonatomic, copy) NSString *statusMbth;
 
@@ -50,7 +50,7 @@
 
 @property (nonatomic, copy) NSString *betweenMonth;
 
-@property (nonatomic, assign) NSInteger orderDeliveryFee;
+@property (nonatomic, copy) NSString *orderDeliveryFee;
 
 @end
 
@@ -62,11 +62,11 @@
 
 @interface Todaymap : NSObject
 
-@property (nonatomic, assign) NSInteger distriCount;
+@property (nonatomic, copy) NSString *distriCount;
 
 @property (nonatomic, copy) NSString *nowDay;
 
-@property (nonatomic, assign) NSInteger orderDeliveryFee;
+@property (nonatomic, copy) NSString *orderDeliveryFee;
 
 @property (nonatomic, copy) NSString *completTimeStart;
 

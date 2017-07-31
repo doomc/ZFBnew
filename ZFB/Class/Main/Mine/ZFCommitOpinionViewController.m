@@ -150,7 +150,14 @@
     
     [self getFeedbackINfoInsertPOSTRequste];
     
-  
+    NSLog(@"uploadImageArray ===== %@", self.uploadImageArray);
+    NSArray * imgArray = [NSArray arrayWithArray:self.uploadImageArray];
+    [OSSImageUploader asyncUploadImages:imgArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
+        NSLog(@"names---%@", names);
+        
+    }];
+    
+    
 }
 
 //弹出选择框
@@ -202,8 +209,8 @@
     ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
    
     [assetsLibrary writeImageToSavedPhotosAlbum:[pickerImage CGImage] orientation:(ALAssetOrientation)pickerImage.imageOrientation completionBlock:^(NSURL *assetURL, NSError *error) {
-        [self.curUploadImageHelper addASelectedAssetURL:assetURL];
         
+        [self.curUploadImageHelper addASelectedAssetURL:assetURL];
         
         //局部刷新 根据布局相应调整
         [self partialTableViewRefresh];
@@ -231,12 +238,14 @@
         [self partialTableViewRefresh];
     });
 #warning ------添加到阿里服务器会崩溃
-//    NSLog(@"selectedAssetURLs ===== %@", selectedAssetURLs);
-//    NSArray * imgArray = [NSArray arrayWithArray:selectedAssetURLs];
+//    NSLog(@"uploadImageArray ===== %@", self.uploadImageArray);
+//    NSArray * imgArray = [NSArray arrayWithArray:self.uploadImageArray];
 //    [OSSImageUploader asyncUploadImages:imgArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
 //        NSLog(@"names---%@", names);
 //        
 //    }];
+//    
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)qb_imagePickerControllerDidCancel:(QBImagePickerController *)imagePickerController{
@@ -280,8 +289,6 @@
         _typeArray = [typestr componentsSeparatedByString:@","];
         
         NSLog(@"%@",_typeArray);
-        
-        
         
         [self.tableView reloadData];
         

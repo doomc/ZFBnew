@@ -26,21 +26,22 @@
 @interface ZFSendSerViceViewController ()<UITableViewDelegate,UITableViewDataSource,ZFSendPopViewDelegate,ZFFooterCellDelegate,ZFSendHomeListCellDelegate>
 {
     //day
-    NSString * _dayorder_count;
-    NSString * _dayorder_amount;//订单金额
+    NSString * _daydistriCount;
+    NSString * _dayOrderDeliveryFee;//日配送费
     NSString * _daydate_time;
     NSString * _daystart_time;
     NSString * _dayend_time;
     
     //week
-    NSString * _weekorder_count;
-    NSString * _weekorder_amount;//订单金额
+    NSString * _weekdistriCount;
+    NSString * _weekOrderDeliveryFee;//周配送费
     NSString * _weekodate_time;
     NSString * _weekstart_time;
     NSString * _weekend_time;
+    
     //month
-    NSString * _monthorder_count;
-    NSString * _monthorder_amount;//订单金额
+    NSString * _monthdistriCount;
+    NSString * _monthOrderDeliveryFee;//月配送费
     NSString * _monthodate_time;
     NSString * _monthstart_time;
     NSString * _monthend_time;
@@ -86,6 +87,10 @@
     
     self.title    = @"配送端";
     
+    _titles = @[@"待配送",@"配送中",@"已配送"];
+
+    [self initButtonWithInterface];
+
     [self.view addSubview:self.send_tableView];
     
     self.send_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -96,16 +101,10 @@
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFContactCell" bundle:nil] forCellReuseIdentifier:@"ZFContactCellid"];
     
     [self.send_tableView registerNib:[UINib nibWithNibName:@"SendServiceTitleCell" bundle:nil] forCellReuseIdentifier:@"SendServiceTitleCellid"];
-    
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendHomeCell" bundle:nil] forCellReuseIdentifier:@"ZFSendHomeCellid"];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendHomeListCell" bundle:nil] forCellReuseIdentifier:@"ZFSendHomeListCellid"];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"OrderPriceCell" bundle:nil] forCellReuseIdentifier:@"OrderPriceCellid"];
-    [self.send_tableView registerNib:[UINib nibWithNibName:@"SendServiceFootCell" bundle:nil]
-             forCellReuseIdentifier:@"SendServiceFootCellid"];
-    
-    _titles = @[@"待配送",@"配送中",@"已配送"];
-    
-    [self initButtonWithInterface];
+    [self.send_tableView registerNib:[UINib nibWithNibName:@"SendServiceFootCell" bundle:nil]forCellReuseIdentifier:@"SendServiceFootCellid"];
 }
 
 #pragma mark - 创建视图
@@ -177,15 +176,15 @@
         switch (_servicType) {
                 
             case SendServicTypeWaitSend:
-                sectionNum = 1;
+                sectionNum = 2;
                 break;
             case SendServicTypeSending:
                 
-                sectionNum = 1;
+                sectionNum = 2;
                 
                 break;
             case SendServicTypeSended:
-                sectionNum = 1;
+                sectionNum = 2;
                 
                 break;
                 
@@ -478,23 +477,20 @@
         cell.delegate             = self;
         //日
         cell.lb_todayCreatTime.text = _daydate_time;
-        cell.lb_todayOrderNum.text  = _dayorder_count;
-        cell.lb_todayPriceFree.text = _dayorder_amount;
+        cell.lb_todayOrderNum.text  = _daydistriCount;
+        cell.lb_todayPriceFree.text = _dayOrderDeliveryFee;
         //周
         cell.lb_weekCreatTime.text = _weekodate_time;
-        cell.lb_weekOrderNum.text  = _weekorder_count;
-        cell.lb_weekPriceFree.text = _weekorder_amount;
+        cell.lb_weekOrderNum.text  = _weekdistriCount;
+        cell.lb_weekPriceFree.text = _weekOrderDeliveryFee;
         //月
-        cell.lb_monthOrderNum.text  = _monthorder_count;
-        cell.lb_monthPriceFree.text = _monthorder_amount;
         cell.lb_monthCreatTime.text = _monthodate_time;
+        cell.lb_monthOrderNum.text  = _monthdistriCount;
+        cell.lb_monthPriceFree.text = _monthOrderDeliveryFee;
         
         return cell;
         
-        
-        
-    }else{
-        //     NSLog(@"切换到我的订单 列表")
+    }else{//     NSLog(@"切换到我的订单 列表")
         switch (_servicType) {
 #pragma mark - SendServicTypeWaitSend 待配送
             case SendServicTypeWaitSend:
@@ -647,7 +643,6 @@
     
 
 }
-
 #pragma mark - ZFFooterCellDelegate footerView上的按钮事件
 ///取消
 -(void)cancelOrderAction
@@ -672,8 +667,23 @@
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderDeliveryInfo",zfb_baseUrl] params:param success:^(id response) {
         
         SendServiceModel * model = [SendServiceModel mj_objectWithKeyValues:response];
+        //配送员id
+        deliveryId = model.deliveryId;
+        //day
+        _daydate_time = model.todayMap.nowDay;
+        _dayOrderDeliveryFee = model.todayMap.orderDeliveryFee;
+        _daydistriCount = model.todayMap.distriCount;
         
-        //        model.weedMap.distriCount ;
+        //week
+        _weekodate_time = model.weedMap.time;
+        _weekOrderDeliveryFee = model.weedMap.orderDeliveryFee;
+        _weekdistriCount = model.weedMap.distriCount;
+        
+        //month
+        _monthOrderDeliveryFee = model.monthMap.orderDeliveryFee;
+        _monthdistriCount = model.monthMap.distriCount;
+        _monthodate_time = model.monthMap.betweenMonth;
+        
         
         [self.send_tableView reloadData];
         
@@ -689,7 +699,10 @@
     }];
     
 }
-
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [SVProgressHUD dismiss];
+}
 -(void)viewWillAppear:(BOOL)animated
 {
     [self selectDeliveryListPostRequst];
