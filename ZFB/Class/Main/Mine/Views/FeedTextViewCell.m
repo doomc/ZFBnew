@@ -8,7 +8,7 @@
 //
 
 #import "FeedTextViewCell.h" 
-@interface FeedTextViewCell ()
+@interface FeedTextViewCell ()<UITextViewDelegate>
 
 
 @end
@@ -21,7 +21,7 @@
     self.textView.zw_limitCount = 150;//个数显示
     self.textView.zw_labHeight = 20;//高度
     self.textView.placeholder = @"此处为投诉建议入口，如您在购物中遇到困难,请使用在线客服，谢谢。";
-    
+    self.textView.delegate = self;
     // 添加输入改变Block回调.
     [self.textView addTextDidChangeHandler:^(FSTextView *textView) {
         // 文本改变后的相应操作.
@@ -33,6 +33,26 @@
         // 达到最大限制数后的相应操作.
     }];
  
+}
+ 
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    NSLog(@"开始编辑");
+    return YES;
+}
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView;
+{
+    return YES;
+    NSLog(@"结束编辑");
+}
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    return YES;
+}
+- (void)textViewDidChange:(UITextView *)textView
+{
+    NSLog(@"结束编辑 ------%@",textView.text);
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

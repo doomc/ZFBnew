@@ -64,7 +64,7 @@
     NSString *currentCity;//当前城市
     NSString *strlatitude;//经度
     NSString *strlongitude;//纬度
-
+    
     
 }
 
@@ -81,16 +81,16 @@
 @property (nonatomic,strong) UIView   *  titleView;
 @property (nonatomic,strong) UIView   *  bgview;//蒙板1
 
-@property (nonatomic ,strong) BusinessServicPopView  * popView;
-@property (nonatomic ,strong) NSArray   * titles;//pop数据源
-@property (nonatomic ,assign) BusinessServicType servicType;//传一个type
+@property (nonatomic ,strong) BusinessServicPopView * popView;
+@property (nonatomic ,strong) NSArray               * titles;//pop数据源
+@property (nonatomic ,assign) BusinessServicType    servicType;//传一个type
 
 @property (nonatomic ,strong) BusinessSendOrderView * sendOrderPopView;
-@property (nonatomic ,strong) UIView   *  orderBgview;//蒙板2
+@property (nonatomic ,strong) UIView                *  orderBgview;//蒙板2
 
 @property (nonatomic ,strong) NSMutableArray *  orderListArray ;//订单列表
 @property (nonatomic ,strong) NSMutableArray *  orderGoodsArry ;//订单商品
-@property (nonatomic ,strong) NSMutableArray *  deliveryArray ;//配送员列表
+@property (nonatomic ,strong) NSMutableArray *  deliveryArray  ;//配送员列表
 
 
 @end
@@ -100,8 +100,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self startLocation];
-
+    
     
     _isSelectPage = YES;
     
@@ -230,7 +229,7 @@
     self.img_sendOrder.image         = [UIImage imageNamed:@"send_red"];
     
     self.navigationItem.titleView = self.navbar_btn;
-
+    
     
     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:@"1" size:@"6" storeId:@"1"];
     
@@ -251,23 +250,23 @@
     }else{
         switch (_servicType) {
             case BusinessServicTypeWaitSendlist://待派单
-                return  sectionNum;//  = self.orderListArray.count;
+                return  self.orderListArray.count;
                 
                 break;
             case BusinessServicTypeSending://配送中
-                return  sectionNum;//  = self.orderListArray.count;
+                return  self.orderListArray.count;
                 
                 break;
             case BusinessServicTypeWaitPay://待付款
-                return  sectionNum;//  = self.orderListArray.count;
+                return self.orderListArray.count;
                 
                 break;
             case BusinessServicTypeDealComplete://交易完成
-                return  sectionNum;//  = self.orderListArray.count;
+                return  self.orderListArray.count;
                 
                 break;
             case BusinessServicTypeSureReturn://待确认退回
-                return  sectionNum;//  = self.orderListArray.count;
+                return self.orderListArray.count;
                 
                 break;
         }
@@ -287,23 +286,23 @@
     }else{
         switch (_servicType) {
             case BusinessServicTypeWaitSendlist://待派单
-                return  sectionRow;// = self.orderGoodsArry.count;
+                return   self.orderGoodsArry.count;
                 
                 break;
             case BusinessServicTypeSending://配送中
-                return  sectionRow;//  = self.orderGoodsArry.count;
+                return   self.orderGoodsArry.count;
                 
                 break;
             case BusinessServicTypeWaitPay://待付款
-                return  sectionRow;//  = self.orderGoodsArry.count;
+                return   self.orderGoodsArry.count;
                 
                 break;
             case BusinessServicTypeDealComplete://交易完成
-                return  sectionRow;//  = self.orderGoodsArry.count;
+                return   self.orderGoodsArry.count;
                 
                 break;
             case BusinessServicTypeSureReturn://待确认退回
-                return  sectionRow;//  = self.orderGoodsArry.count;
+                return   self.orderGoodsArry.count;
                 
                 break;
         }
@@ -376,8 +375,8 @@
             {
                 ZFTitleCell * titleCell = [self.homeTableView
                                            dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
-                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                //                titleCell.businessOrder        = orderlist;
+                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                titleCell.businessOrder        = orderlist;
                 return titleCell;
             }
                 
@@ -386,8 +385,8 @@
             {
                 ZFTitleCell * titleCell = [self.homeTableView
                                            dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
-                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                //                titleCell.businessOrder        = orderlist;
+                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                titleCell.businessOrder        = orderlist;
                 return titleCell;
             }
                 break;
@@ -395,8 +394,8 @@
             {
                 ZFTitleCell * titleCell = [self.homeTableView
                                            dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
-                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                //                titleCell.businessOrder        = orderlist;
+                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                titleCell.businessOrder        = orderlist;
                 return titleCell;
             }
                 break;
@@ -405,16 +404,16 @@
                 ZFTitleCell * titleCell = [self.homeTableView
                                            dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
                 [titleCell.statusButton setTitle:@"交易完成" forState:UIControlStateNormal];
-                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                //                titleCell.businessOrder        = orderlist;
+                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                titleCell.businessOrder        = orderlist;
                 return titleCell;
             }
                 break;
             case BusinessServicTypeSureReturn://待确认退回
             {
-                ZFTitleCell * titleCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
-                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                //                titleCell.businessOrder        = orderlist;
+                ZFTitleCell * titleCell        = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
+                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                titleCell.businessOrder        = orderlist;
                 return titleCell;
             }
                 break;
@@ -484,10 +483,10 @@
             {
                 ZFFooterCell * cell = [self.homeTableView
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
-                cell.footDelegate =  self;
-
-//                BusinessOrderlist  * orderlist = self.orderListArray[section];
-//                cell.businessOrder             = orderlist;
+                cell.footDelegate = self;
+                
+                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                cell.businessOrder             = orderlist;
                 footerView                     = cell;
                 
             }
@@ -496,10 +495,10 @@
             {
                 ZFFooterCell * cell = [self.homeTableView
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
-                cell.footDelegate =  self;
-
-                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                //                cell.businessOrder             = orderlist;
+                cell.footDelegate = self;
+                
+                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                cell.businessOrder             = orderlist;
                 footerView                     = cell;
                 
             }
@@ -509,9 +508,9 @@
             {
                 ZFFooterCell * cell = [self.homeTableView
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
-                cell.footDelegate =  self;
-                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                //                cell.businessOrder             = orderlist;
+                cell.footDelegate              = self;
+                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                cell.businessOrder             = orderlist;
                 footerView                     = cell;
                 
             }
@@ -523,10 +522,9 @@
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
                 [cell.cancel_button setHidden:YES];
                 [cell.payfor_button setHidden:YES];
-                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                cell.footDelegate =  self;
-                
-                //                cell.businessOrder             = orderlist;
+                cell.footDelegate              = self;
+                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                cell.businessOrder             = orderlist;
                 footerView                     = cell;
                 
             }
@@ -536,9 +534,10 @@
             {
                 ZFFooterCell * cell = [self.homeTableView
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
-                //                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                cell.footDelegate =  self;
-                //                cell.businessOrder             = orderlist;
+                cell.footDelegate = self;
+                
+                BusinessOrderlist  * orderlist = self.orderListArray[section];
+                cell.businessOrder             = orderlist;
                 footerView                     = cell;
                 
             }
@@ -583,6 +582,7 @@
     return height;
     
 }
+
 #pragma mark - ZFSendHomeListCellDelegate 订单详情的代理
 ///日统计
 -(void)todayOrderDetial{
@@ -683,7 +683,7 @@
                 //获取_order_id
                 _order_id = goodlist.order_id;
                 
-                contentCell.businesGoods      = goodlist;
+                contentCell.businesGoods = goodlist;
                 return contentCell;
             }
                 break;
@@ -830,7 +830,11 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    //获取商户端数据列表
     [self storeHomePagePostRequst];
+    
+    //获取定位
+    [self startLocation];
     
 }
 -(NSMutableArray *)orderGoodsArry
@@ -870,8 +874,6 @@
             //确认后调用该接口
             [self cancleOrderPostRequst];
         }
- 
-        
         
     }];
     [alertavc addAction:cancelAction];
@@ -885,9 +887,12 @@
 ///派单列表添加   自定义tableview
 -(void)sendOrdersActionOrderId:(NSString *)orderId totalPrice:(NSString *)totalPrice//派单
 {
-    _order_id = orderId;
-    _order_amount = totalPrice;//当前总价
-    NSLog(@"派单操作 - orderId =%@ ,totalPrice = %@ ",_order_id,_order_amount);
+    _order_id                                      = orderId;
+    _order_amount                                  = totalPrice;//当前总价
+    NSLog(@"派单操作 - orderId =%@ ,totalPrice         = %@ ",_order_id,_order_amount);
+    
+    [self selectDeliveryListPostRequst];//请求配送员接口
+    
     [self.view addSubview:self.orderBgview];
     
 }
@@ -901,15 +906,16 @@
     //这里需要网络请求，派单操作
     //orderid Huoqu
     [self sendOrderPostRequstStoreID:@"1" deliveryId:deliveryId orderId:_order_id postAddress:@"" status:@"" orderAmount:_order_amount deliveryName:deliveryName deliveryPhone:deliveryPhone];
+    
 }
 
 -(BusinessSendOrderView *)sendOrderPopView
 {
     if (!_sendOrderPopView) {
-        _sendOrderPopView = [[BusinessSendOrderView alloc]initWithFrame:CGRectMake(50, 0, KScreenW - 100, 250)];
+        _sendOrderPopView               = [[BusinessSendOrderView alloc]initWithFrame:CGRectMake(50, 0, KScreenW - 100, 250)];
         _sendOrderPopView.deliveryArray = self.deliveryArray;
-        _sendOrderPopView.center  = self.view.center;
-        _sendOrderPopView.delegate = self;
+        _sendOrderPopView.center        = self.view.center;
+        _sendOrderPopView.delegate      = self;
         
     }
     return _sendOrderPopView;
@@ -1026,7 +1032,7 @@
             for (BusinessOrdergoods * goodslist in orderlist.orderGoods) {
                 
                 [self.orderGoodsArry addObject:goodslist];
-
+                
             }
             
         }
@@ -1136,7 +1142,7 @@
                              
                              };
     
-    
+    [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/selectDeliveryList",zfb_baseUrl] params:param success:^(id response) {
         
         DeliveryModel * model = [DeliveryModel mj_objectWithKeyValues:response];
@@ -1145,15 +1151,14 @@
             
             [self.deliveryArray addObject:list];
         }
-        
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        [SVProgressHUD dismissWithDelay:1];
         
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
-        
+        [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
     }];
     
@@ -1165,7 +1170,7 @@
 - (void)startLocation {
     //判断定位功能是否打开
     if ([CLLocationManager locationServicesEnabled]) {
-        locationmanager = [[CLLocationManager alloc]init];
+        locationmanager          = [[CLLocationManager alloc]init];
         locationmanager.delegate = self;
         [locationmanager requestAlwaysAuthorization];
         currentCity = [NSString new];
@@ -1173,7 +1178,7 @@
         
         //设置寻址精度
         locationmanager.desiredAccuracy = kCLLocationAccuracyBest;
-        locationmanager.distanceFilter = 5.0;
+        locationmanager.distanceFilter  = 5.0;
         [locationmanager startUpdatingLocation];
     }
 }
@@ -1181,7 +1186,7 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     //设置提示提醒用户打开定位服务
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"允许定位提示" message:@"请在设置中打开定位" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *okAction  = [UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:nil];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:okAction];
@@ -1190,14 +1195,14 @@
 }
 //定位代理经纬度回调
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-
+    
     //旧址
     CLLocation *currentLocation = [locations lastObject];
-
+    
     //打印当前的经度与纬度
     NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
     
-    strlatitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
+    strlatitude  = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
     strlongitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
     
     //系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新

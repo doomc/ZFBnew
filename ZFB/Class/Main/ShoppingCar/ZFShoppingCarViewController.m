@@ -8,14 +8,14 @@
 
 
 #import "ZFShoppingCarViewController.h"
-#import "LoginViewController.h"
-
 #import "ZFSureOrderViewController.h"
 #import "DetailFindGoodsViewController.h"
+#import "LoginViewController.h"
 
 #import "ZFShopCarCell.h"
 #import "ShoppingCarModel.h"
 
+#import "BaseNavigationController.h"
 
 static NSString  * shopCarContenCellID = @"ZFShopCarCell";
 static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
@@ -68,7 +68,21 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-     [self shoppingCarPostRequst];
+    if (BBUserDefault.isLogin == 1) {
+        [self shoppingCarPostRequst];
+ 
+    }else{
+        
+        NSLog(@"登录了");
+        LoginViewController * logvc    = [ LoginViewController new];
+        BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logvc];
+        
+        [self presentViewController:nav animated:NO completion:^{
+            
+            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+        }];
+    }
 
 }
 
@@ -355,15 +369,15 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 #pragma mark - tableView delegare
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//    return self.carListArray.count;
-    return 2;
+    return self.carListArray.count;
+//    return 2;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     Shoppcartlist * list = self.carListArray[section];
 
-    return  3;
-//    return list.goodsList.count;
+//    return  3;
+    return list.goodsList.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -455,11 +469,11 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 {
     DetailFindGoodsViewController *deatilGoods =[[DetailFindGoodsViewController alloc]init];
     NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
-//    if (self.carListArray.count > 0 ) {
-//        Goodslist * goodlist = self.carListArray[indexPath.row];
-//        deatilGoods.goodsId  = goodlist.goodsId;
-//
-//    }
+    if (self.carListArray.count > 0 ) {
+        Goodslist * goodlist = self.carListArray[indexPath.row];
+        deatilGoods.goodsId  = goodlist.goodsId;
+
+    }
     [self.navigationController pushViewController:deatilGoods animated:YES];
 
 }

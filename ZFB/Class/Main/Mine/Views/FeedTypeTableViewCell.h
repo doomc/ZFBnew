@@ -7,11 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol FeedTypeTableViewCellDelegate <NSObject>
+
+@required
+
+-(void)didClickTypeName:(NSString *)typeName Index :(NSInteger)index;
+
+@end
 
 @interface FeedTypeTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *collectionViewFlowLayout;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewLayoutHeight;
+
+@property (assign , nonatomic) id <FeedTypeTableViewCellDelegate> delegate;
+
 @property (weak, nonatomic) IBOutlet UICollectionView *typeCollectionView;
 
-@property (strong,nonatomic) NSMutableArray * nameArray;
+@property (strong,nonatomic) NSArray * nameArray;
+ 
 
 @end

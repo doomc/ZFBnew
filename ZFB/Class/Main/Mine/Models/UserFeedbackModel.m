@@ -9,13 +9,15 @@
 #import "UserFeedbackModel.h"
 
 @implementation UserFeedbackModel
-
+ 
 
 + (NSDictionary *)objectClassInArray{
-    return @{@"userFeedbackList" : [Userfeedbacklist class]};
+    return @{@"feedbackList" : [Feedbacklist class]};
 }
 @end
-@implementation Userfeedbacklist
+
+
+@implementation Feedbacklist
 
 @end
 

@@ -71,7 +71,6 @@
             if (responseObject != nil) {
 
                 NSString *result = [NSString convertToJsonData:responseObject];
-                
                 NSLog(@"%@",result);
 //                NSLog(@"%@",responseObject);
             }

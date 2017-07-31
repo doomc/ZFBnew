@@ -8,26 +8,30 @@
 
 #import <Foundation/Foundation.h>
 
-
-@class Userfeedbacklist;
+@class Feedbacklist;
 @interface UserFeedbackModel : NSObject
 
- 
-@property (nonatomic, copy) NSString *resultMsg;
-
-@property (nonatomic, strong) NSArray<Userfeedbacklist *> *userFeedbackList;
+@property (nonatomic, strong) NSArray<Feedbacklist *> *feedbackList;
 
 @property (nonatomic, assign) NSInteger resultCode;
 
+@property (nonatomic, copy) NSString *resultMsg;
+
+
+
 @end
 
-@interface Userfeedbacklist : NSObject
+@interface Feedbacklist : NSObject
 
-@property (nonatomic, copy) NSString *feedbackId;
+@property (nonatomic, copy) NSString *feedbackContent;
 
-@property (nonatomic, copy) NSString *idea;
+@property (nonatomic, copy) NSString *cmUserId;
 
-@property (nonatomic, copy) NSString *ideaTime;
+@property (nonatomic, copy) NSString *feedbackTime;
+
+@property (nonatomic, copy) NSString *feedbackUrl;
+
+@property (nonatomic, copy) NSString *isTreat;
 
 @end
 

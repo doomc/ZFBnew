@@ -498,11 +498,11 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                     [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.nameId] forKey:@"nameId"];
                     [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.valueId]  forKey:@"valueId"];
                     
-                    [ruleJsondic setValue:product.name forKey:@"name"];
-                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",product.nameId] forKey:@"nameId"];
-                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",valueItem.valueId] forKey:@"valueId"];
-                    [ruleJsondic setValue:valueItem.name forKey:@"value"];
-                    
+//                    [ruleJsondic setValue:product.name forKey:@"name"];
+//                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",product.nameId] forKey:@"nameId"];
+//                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",valueItem.valueId] forKey:@"valueId"];
+//                    [ruleJsondic setValue:valueItem.name forKey:@"value"];
+//                    
                 }
         }else {
             if (!(valueItem.selectType == ValueSelectType_enable)) {
@@ -1031,20 +1031,20 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     
     NSString * count     = [NSString stringWithFormat:@"%ld",_goodsCount];
-    if (dictProductValue != nil) {
-        
-        _sizeOrColorStr = [NSString convertToJsonData:dictProductValue];
-        
-    }else{
-        _sizeOrColorStr = @"";
-    }
+//    if (ruleJsondic != nil) {
+//        
+//        _sizeOrColorStr = [NSString convertToJsonData:ruleJsondic];
+//        
+//    }else{
+//        _sizeOrColorStr = @"[]";//重要，后台解析不了@“”;
+//    }
     NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"storeId":_storeId,
                              @"storeName":_storeName,
                              @"goodsId":_goodsId,
                              @"goodsCount":count,//商品个数
-                             @"goodsProp":_sizeOrColorStr,//商品规格
+                             @"goodsProp":@"[]",//商品规格
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/ShoppCartJoin",zfb_baseUrl] params:parma success:^(id response) {

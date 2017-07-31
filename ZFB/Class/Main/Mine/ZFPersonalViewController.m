@@ -46,6 +46,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 @property (nonatomic,copy) NSString * nickName   ;//用户
 @property (nonatomic,copy) NSString * shopFlag   ;//判断是否是商家 1/0
 @property (nonatomic,copy) NSString * courierFlag   ;//判断是否是快递员 1/0
+@property (nonatomic,copy) NSString * storeId   ;///*******重要     商户端配送端都要的**********
+
 
 
 
@@ -251,17 +253,24 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
     }
     if (indexPath.row == 3) {//切换到配送端
-        
-        //服务端
-        BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
-        [self.navigationController pushViewController:businessVC animated:YES];
-     
+        if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
+            
+            //商户端
+            BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
+            [self.navigationController pushViewController:businessVC animated:YES];
+            
+        }if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
+            //配送端
+            ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
+            [self.navigationController pushViewController:sendVC animated:YES];
+            
+        }
+    
     }  if (indexPath.row == 4) {//意见反馈
         
-                ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
-                [self.navigationController pushViewController:sendVC animated:YES];
-//        ZFFeedbackViewController * feedVC = [[ZFFeedbackViewController alloc]init];
-//        [self.navigationController pushViewController:feedVC animated:YES];
+     
+        ZFFeedbackViewController * feedVC = [[ZFFeedbackViewController alloc]init];
+        [self.navigationController pushViewController:feedVC animated:YES];
         
     }
 }
@@ -394,9 +403,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             _nickName   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"nickName"]];
             _foolnum    = [NSString stringWithFormat:@"%@",response[@"foolNum"] ];
             _collectNum = [NSString stringWithFormat:@"%@",response[@"collectNum"]];
-            _shopFlag   = [NSString stringWithFormat:@"%@",response[@"shopFlag"]];
-            _shopFlag   = [NSString stringWithFormat:@"%@",response[@"shopFlag"]];//是否是商户
-            _courierFlag   = [NSString stringWithFormat:@"%@",response[@"courierFlag"]];//是否是快递员
+            _shopFlag   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"shopFlag"]];//是否是商户
+            _courierFlag= [NSString stringWithFormat:@"%@",response[@"userInfo"][@"courierFlag"]];//是否是快递员
             
             
             //赋值

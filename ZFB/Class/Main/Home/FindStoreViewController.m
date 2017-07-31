@@ -279,6 +279,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 #pragma mark 定位成功后则执行此代理方法
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
+    [_locationManager stopUpdatingHeading];
+
     //旧址
     CLLocation *currentLocation = [locations lastObject];
     CLGeocoder *geoCoder = [[CLGeocoder alloc]init];
@@ -308,7 +310,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
             
         }
     }];
-    [_locationManager stopUpdatingHeading];
 
 }
 

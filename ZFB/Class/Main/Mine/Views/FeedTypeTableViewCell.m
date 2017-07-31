@@ -9,8 +9,7 @@
 #import "FeedTypeTableViewCell.h"
 #import "FeedCommitCollectionViewCell.h"
 @interface FeedTypeTableViewCell ()<UICollectionViewDelegate,UICollectionViewDataSource>
-@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *collectionViewFlowLayout;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewLayoutHeight;
+
 
 @end
 @implementation FeedTypeTableViewCell
@@ -23,21 +22,25 @@
     self.typeCollectionView.dataSource =self;
 
     [self.typeCollectionView registerNib:[UINib nibWithNibName:@"FeedCommitCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"FeedCommitCollectionViewCellid"];
+    
+ 
+}
 
+-(void)setNameArray:(NSArray *)nameArray
+{
+    _nameArray = [NSArray array];
+    _nameArray = nameArray;
+    
     [self reloadCell];
 }
--(void)reloadCell
-{
+- (void)reloadCell{
+    
     self.collectionViewLayoutHeight.constant = self.collectionViewFlowLayout.collectionViewContentSize.height;
     [self updateConstraintsIfNeeded];
-    [self.typeCollectionView reloadData];
+ 
+}
 
-}
--(void)setNameArray:(NSMutableArray *)nameArray
-{
-    _nameArray =[NSMutableArray array];
-    _nameArray = nameArray;
-}
+
 #pragma  mark - UICollectionViewDelegate
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -45,8 +48,9 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    
-    return 5;
+ 
+    return _nameArray.count;
+    NSLog(@" - name array =  %@",_nameArray);
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -55,12 +59,24 @@
     
     if (_nameArray.count > 0) {
         //数据操作
+        cell.lb_type.text = _nameArray[indexPath.item];
      }
 
     return cell;
     
 }
-
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSLog(@"%ld ==== section =%ld ==== item",indexPath.section,indexPath.item);
+    if (_nameArray.count > 0 ) {
+        NSString * name = _nameArray[indexPath.item];
+        if ([self.delegate respondsToSelector:@selector(didClickTypeName:Index:)]) {
+            [self.delegate didClickTypeName:name Index:indexPath.item];
+        }
+        
+    }
+    
+}
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 //每个cell的大小，因为有indexPath，所以可以判断哪一组，或者哪一个item，可一个给特定的大小，等同于layout的itemSize属性
@@ -85,11 +101,6 @@
 }
 
 
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    NSLog(@"%ld ==== section =%ld ==== item",indexPath.section,indexPath.item);
-}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

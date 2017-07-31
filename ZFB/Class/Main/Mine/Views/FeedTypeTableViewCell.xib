@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="反馈类型:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5wS-zJ-GV7">
-                        <rect key="frame" x="15" y="10" width="61.5" height="20"/>
+                        <rect key="frame" x="15" y="10" width="290" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="l3r-oI-CI9"/>
                         </constraints>
@@ -47,12 +48,14 @@
                     <constraint firstItem="5wS-zJ-GV7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Ng8-c7-c6T"/>
                     <constraint firstItem="HI7-WS-mah" firstAttribute="top" secondItem="5wS-zJ-GV7" secondAttribute="bottom" constant="5" id="aZw-3S-N4c"/>
                     <constraint firstItem="HI7-WS-mah" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="gUh-HU-dSi"/>
+                    <constraint firstAttribute="trailing" secondItem="5wS-zJ-GV7" secondAttribute="trailing" constant="15" id="mny-ZO-a8h"/>
+                    <constraint firstItem="HI7-WS-mah" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="27" id="upm-LY-6Gh"/>
                     <constraint firstItem="5wS-zJ-GV7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="vns-EU-WoD"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="collectionViewFlowLayout" destination="TlB-x6-1kk" id="bJh-Is-Fqf"/>
-                <outlet property="collectionViewLayoutHeight" destination="E0W-60-48G" id="Exi-Uv-1JE"/>
+                <outlet property="collectionViewLayoutHeight" destination="E0W-60-48G" id="DD1-BV-mDZ"/>
                 <outlet property="typeCollectionView" destination="HI7-WS-mah" id="EbE-EW-4Or"/>
             </connections>
             <point key="canvasLocation" x="34" y="76"/>

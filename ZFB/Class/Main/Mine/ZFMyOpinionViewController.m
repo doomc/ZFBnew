@@ -29,22 +29,6 @@
     [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFMyOpinionCell" bundle:nil] forCellReuseIdentifier:@"ZFMyOpinionCellid"];
     
-    _pageCount = 8;
-    weakSelf(weakSelf);
-    //上拉加载
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        _page ++ ;
-        [weakSelf feedOpinionPostRequst];
-        
-    }];
-    
-    //下拉刷新
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        //需要将页码设置为1
-        _page = 1;
-        [weakSelf feedOpinionPostRequst];
-    }];
 }
 
 -(UITableView *)tableView
@@ -53,6 +37,7 @@
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -104) style:UITableViewStylePlain];
         _tableView.dataSource =self;
         _tableView.delegate= self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
 }
@@ -69,22 +54,27 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height = 0;
-    Userfeedbacklist * list = self.listArray[indexPath.section];
+    Feedbacklist * list = self.listArray[indexPath.section];
     
-    if ([list.ideaTime isEqualToString:@""]) {//判断图片地址是不是空
-         //有图的是112  68
-//        height = 68;
-        height =    [tableView fd_heightForCellWithIdentifier:@"ZFMyOpinionCellid" configuration:^(id cell) {
+    if ([list.feedbackUrl isEqualToString:@""]) {//判断图片地址是不是空
+        
+        return [tableView fd_heightForCellWithIdentifier:@"ZFMyOpinionCellid" configuration:^(id cell) {
+          
+            [self configCell:cell indexPath:indexPath];
         }];
     }
     else{
-//        height = 112;
-    height =    [tableView fd_heightForCellWithIdentifier:@"ZFMyOpinionCellid" configuration:^(id cell) {
+        
+        return [tableView fd_heightForCellWithIdentifier:@"ZFMyOpinionCellid" configuration:^(id cell) {
+            
+            [self configCell:cell indexPath:indexPath];
         }];
     }
 
     return height;
 }
+
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
     return 10;
@@ -92,20 +82,25 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZFMyOpinionCell *opinionCell = [self.tableView  dequeueReusableCellWithIdentifier:@"ZFMyOpinionCellid" forIndexPath:indexPath];
+   
     opinionCell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    if (self.listArray.count > 0) {
-        Userfeedbacklist * list = self.listArray[indexPath.section];
-        opinionCell.imagerray  = self.listArray ;
-        opinionCell.lb_title.text = list.idea;
-        opinionCell.lb_time.text = list.ideaTime;
-        opinionCell.lb_status.text =@"已采纳";
-        
-    }
-    
+    [self configCell:opinionCell indexPath:indexPath];
+
     return opinionCell;
     
 }
+-(void)configCell:(ZFMyOpinionCell *)cell indexPath:(NSIndexPath *)indexPath
+{
+    if (self.listArray.count > 0) {
+       
+        Feedbacklist * list = self.listArray[indexPath.section];
+        cell.feedList = list;
+        [cell.feedCollectionView reloadData];
+
+    }
+}
+
 #pragma tableViewDataSource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -113,67 +108,50 @@
 }
 
 
-#pragma mark - 意见反馈列表 -getCmUserFeedbackByUserId
+#pragma mark - 意见反馈列表 -getFeedbackINfoByUserId
 -(void)feedOpinionPostRequst
 {
-    
-    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageCount];
-    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_page];
-    
     NSDictionary * parma = @{
-                             
-                             @"svcName":@"getCmUserFeedbackByUserId",
-                             @"pageSize":pageSize,//每页显示条数
-                             @"pageIndex":pageIndex,//当前页码
-                             //                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"cmUserId":BBUserDefault.cmUserId,
                              
                              };
-    
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getFeedbackINfoByUserId"] params:parma success:^(id response) {
+        
+        if ([response[@"resultCode"] intValue] == 0) {
+            if (self.listArray.count > 0) {
+                
+                [self.listArray removeAllObjects];
+            }
+            UserFeedbackModel * feedModel = [UserFeedbackModel mj_objectWithKeyValues:response];
+            
+            for (Feedbacklist * list in feedModel.feedbackList) {
+                
+                [self.listArray addObject:list];
+                
+                
+            }
+            
+            [self.tableView reloadData];
  
-   
-//    [PPNetworkHelper POST:@"" parameters:parmaDic responseCache:^(id responseCache) {
-//    
-//    } success:^(id responseObject) {
-//        
-//        if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-//            
-//            [self.tableView.mj_header endRefreshing];
-//            [self.tableView.mj_footer endRefreshing];
-//            
-//            if (_page == 1) {
-//                
-//                for (;0 < self.listArray.count;) {
-//                    
-//                    [self.listArray removeObjectAtIndex:0];
-//                    
-//                }
-//            }
-//            NSString  * dataStr= [responseObject[@"data"] base64DecodedString];
-//            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-//            //mjextention 数组转模
-//            UserFeedbackModel  *feedmodel = [UserFeedbackModel mj_objectWithKeyValues:jsondic];
-//            for (Userfeedbacklist *list in feedmodel.userFeedbackList) {
-//                [self.listArray addObject:list];
-//            }
-//            NSLog(@"listArray===== = %@",   self.listArray);
-//            [self.tableView reloadData];
-// 
-//        }
-// 
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
-//         [self.tableView.mj_header endRefreshing];
-//        [self.tableView.mj_footer endRefreshing];
-//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-//    }];
+        }
+       
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
     
 }
 
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self.tableView.mj_header beginRefreshing];
-    
+    [self feedOpinionPostRequst];
+
 }
 
 -(NSMutableArray *)listArray

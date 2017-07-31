@@ -10,8 +10,7 @@
 #import "FeedCollectionViewCell.h"
 @interface ZFMyOpinionCell ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *colletionviewLayoutFlow;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *feedcollectViewLayoutheight;
+
 
 @end
 
@@ -24,23 +23,41 @@
     [self.lb_title setPreferredMaxLayoutWidth:(KScreenW - 30)];
     
     [self.feedCollectionView registerNib:[UINib nibWithNibName:@"FeedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"FeedCollectionViewCellid"];
+   
     self.feedCollectionView.delegate = self;
     self.feedCollectionView.dataSource =self;
-
-    [self reloadCell];
-}
--(void)reloadCell
-{
-    [self.feedCollectionView reloadData];
-    self.feedcollectViewLayoutheight.constant = self.colletionviewLayoutFlow.collectionViewContentSize.height;
-    [self updateConstraintsIfNeeded];
     
+    _imagerray = [NSMutableArray array];
+ 
 }
 
--(void)setImagerray:(NSMutableArray *)imagerray
+//意见反馈列表数据
+-(void)setFeedList:(Feedbacklist *)feedList
 {
-    _imagerray = [NSMutableArray array];
-    _imagerray = imagerray;
+    _feedList = feedList;
+    self.lb_title.text = feedList.feedbackContent;
+    
+    NSTimeInterval time = [feedList.feedbackTime doubleValue];
+    NSDate * detaildate=[NSDate dateWithTimeIntervalSince1970:time / 1000];
+    NSString*  timeSt = [dateTimeHelper TimeToLocationStr:detaildate];
+    self.lb_time.text = timeSt;
+    
+  
+    
+    NSArray * imgArray= [feedList.feedbackUrl componentsSeparatedByString:@","];//图片是多张
+//    NSLog(@"%@",imgArray);
+    [_imagerray addObjectsFromArray:imgArray];
+    
+    //isTreat 处理状态	否	1.未采纳 2.已采纳 3.已处理
+    if ([feedList.isTreat isEqualToString:@"1"]) {
+        self.lb_status.text =@"未采纳";
+    }
+    else if ([feedList.isTreat isEqualToString:@"2"]) {
+        self.lb_status.text =@"已采纳";
+    }
+    else {
+        self.lb_status.text =@"已处理";
+    }
 }
 #pragma  mark - UICollectionViewDelegate
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -54,13 +71,25 @@
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (_imagerray.count == 0) {
-        
-        _feedcollectViewLayoutheight = 0;
-    }
-        
-    
+  
     FeedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FeedCollectionViewCellid" forIndexPath:indexPath];
+    
+    if (_imagerray.count > 0) {
+        
+        for (NSString * imgurl in _imagerray) {
+//            NSLog(@"imgurl ====== %@ =====",imgurl);
+            [cell.feedImgeView sd_setImageWithURL:[NSURL URLWithString:imgurl] placeholderImage:nil];
+            _feedcollectViewLayoutheight.constant = self.colletionviewLayoutFlow.collectionViewContentSize.height;
+            cell.feedImgeView.hidden = NO;
+ 
+        }
+   
+    }else{
+
+        _feedcollectViewLayoutheight.constant = 0;
+        cell.feedImgeView.hidden = YES;
+        _collcetionlayoutTop.constant = 5;
+    }
     
     return cell;
     

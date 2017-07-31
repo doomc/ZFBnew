@@ -9,10 +9,10 @@
 #import "ZFSettingHeadViewController.h"
 #import "ZFSettingHeaderCell.h"
 #import "ZFSettingRowCell.h"
-#import "ZFSettingAddressViewController.h"
+#import "ZFAddressListViewController.h"
 
 #import "ZZYPhotoHelper.h"
-#import "PTXDatePickerView.h"
+#import "UICustomDatePicker.h"
 
 typedef NS_ENUM(NSUInteger, IndexType) {
     IndexTypeMan,
@@ -23,17 +23,16 @@ static NSString * settingheadid = @"ZFSettingHeaderCellid";
 static NSString * settingRowid = @"ZFSettingRowCellid";
 
 
-@interface ZFSettingHeadViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,PTXDatePickerViewDelegate>
+@interface ZFSettingHeadViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     NSArray * _titleArr;
-    NSString * _seletDate;//选择时间
     BOOL _isSelectCount;
     
 }
 @property (nonatomic,strong) UITableView * tableView;
 @property (nonatomic,strong) NSArray *sexTitleArr;
 //@property (nonatomic,assign) IndexType indexType;
-@property (nonatomic,strong) PTXDatePickerView *datePickerView;
+
 @property (nonatomic, strong) NSDate *selectedDate; //代表dateButton上显示的时间。
 
 @end
@@ -54,8 +53,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingRowCell" bundle:nil] forCellReuseIdentifier:settingRowid];
     
     [self.view addSubview:self.tableView];
-    _datePickerView.datePickerViewShowModel = PTXDatePickerViewShowModelYearMonthDay;
-
+ 
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
@@ -70,17 +68,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     }
     return _tableView;
 }
--(PTXDatePickerView *)datePickerView{
-    if (!_datePickerView) {
-        _datePickerView = [[PTXDatePickerView alloc]initWithFrame:CGRectMake(0, KScreenH, KScreenW, 246.0)];
-        _datePickerView.delegate = self;
-        _datePickerView.datePickerViewShowModel = PTXDatePickerViewShowModelYearMonthDay;
 
-        [self.view addSubview:_datePickerView];
-    }
-    
-    return _datePickerView;
-}
 //设置右边按键（如果没有右边 可以不重写）
 -(UIButton*)set_rightButton
 {
@@ -199,8 +187,18 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         } else if (indexPath.row == 2) {
             if (_isSelectCount == NO) {
                 
-                [self.datePickerView  showViewWithDate:_selectedDate animation:YES];
-                rowCell.lb_detailTitle.text = _seletDate;
+                [UICustomDatePicker showCustomDatePickerAtView:self.view choosedDateBlock:^(NSDate *date) {
+                  
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+                    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+                    NSString * dataStr =[dateFormatter stringFromDate:date];
+
+                    rowCell.lb_detailTitle.text = dataStr;
+                    NSLog(@"current Date:%@",dataStr);
+                } cancelBlock:^{
+                    
+                }];
+                
                 //_isSelectCount = YES;  //Yes 默认为只能执行一次
 
             }else{
@@ -211,7 +209,8 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         }
         else if (indexPath.row == 3)
         {
-            ZFSettingAddressViewController *addVC = [[ZFSettingAddressViewController alloc]init];
+            //收货地址
+            ZFAddressListViewController  * addVC = [[ZFAddressListViewController alloc]init];
             [self.navigationController pushViewController:addVC animated:YES];
         }
         
@@ -222,18 +221,9 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 
     
 }
-#pragma mark - UIAlertController
 
 
-#pragma mark - PTXDatePickerViewDelegate 日期选择器
-- (void)datePickerView:(PTXDatePickerView *)datePickerView didSelectDate:(NSDate *)date {
-
-    self.selectedDate = date;
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    _seletDate =[dateFormatter stringFromDate:date];
 
 
-}
 
 @end
