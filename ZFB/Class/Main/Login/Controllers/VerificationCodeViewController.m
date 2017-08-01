@@ -42,7 +42,7 @@
 
 
     // 验证码请求
-    if ([_phoneNumStr isMobileNumber]) {
+    if ([_phoneNumStr isMobileNumberClassification]) {
        
         self.lb_VerificationNum.text = [NSString stringWithFormat:@" 短信验证码已发送到手机号为 %@",_phoneNumStr];
         [self ValidateCodePostRequset];

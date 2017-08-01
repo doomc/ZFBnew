@@ -15,4 +15,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_detailTitle;
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_line;
+
 @end

@@ -22,7 +22,8 @@
 @property (nonatomic , strong) NSMutableArray *listArray;
 @property (nonatomic , strong) NSMutableArray *tempCellArray;
 //拿到商品id 和收藏id
-@property (nonatomic , copy) NSString * collectID;
+@property (nonatomic , copy) NSString * collectId;
+@property (nonatomic , copy) NSString * goodId;
 
 
 @end
@@ -107,19 +108,15 @@
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     Cmkeepgoodslist * list = self.listArray[indexPath.section];
+    
     list.isCollectSelected = !list.isCollectSelected;
     
-    NSMutableArray * listArr = [NSMutableArray array];
     for (Cmkeepgoodslist *list in self.listArray) {
-        
-        NSString *cartItemId = [NSString stringWithFormat:@"%ld",list.cartItemId];
-      
-        [listArr addObject:cartItemId];
-      
-        NSString * str = [listArr componentsJoinedByString:@","];
+       
         if (list.isCollectSelected) {
-            
-            _collectID = str ;
+          
+            _goodId = [NSString stringWithFormat:@"%ld",list.goodId];
+
         }
     }
 //    NSLog(@"============_collectID %@========\n%d",_collectID, list.isCollectSelected);
@@ -128,7 +125,38 @@
     // 每次点击都要统计底部的按钮是否全选
     self.footView.allChoose_btn.selected = [self isAllProcductChoosed];
     
+
 }
+
+///全选
+-(void)didClickSelectedAll:(UIButton*)sender
+{
+    sender.selected = !sender.selected;
+    NSLog(@"全选");
+    
+    NSMutableArray * listArr = [NSMutableArray array];
+    for (Cmkeepgoodslist *list in self.listArray) {
+        
+        list.isCollectSelected = sender.selected;
+        
+        NSString *cartItemId = [NSString stringWithFormat:@"%ld",list.cartItemId];
+        
+        [listArr addObject:cartItemId];
+        
+        NSString * str = [listArr componentsJoinedByString:@","];
+        
+        if (list.isCollectSelected == YES) {
+            
+            _collectId = str ;
+        }
+    }
+    [self.tableView reloadData];
+
+    self.footView.allChoose_btn.selected = [self isAllProcductChoosed];
+
+}
+
+
 
 #pragma mark - 判断是否全部选中了
 - (BOOL)isAllProcductChoosed
@@ -139,49 +167,15 @@
     
     NSInteger count = 0;
     for (Cmkeepgoodslist * list in self.listArray) {
+     
         if (list.isCollectSelected) {
             count ++;
         }
     }
     return (count == self.listArray.count);
 }
-///判断是不是空数组
-- (BOOL)isEmptyArray:(NSArray *)array
-{
-    return (array.count ==0 || array == nil);
-}
 
 
-#pragma mark -  ZFCollectBarViewDelegate 代理
-///取消收藏后删除cell
-- (void)deleteCell:(ZFCollectEditCell *)cell
-{
-    JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"确认取消收藏？" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        
-        for (Cmkeepgoodslist * list in self.listArray)
-        {
-            if (list.isCollectSelected)
-            {
-                [self.tempCellArray addObject:list];
-            }
-            
-        }
-        [self.listArray removeObjectsInArray:self.tempCellArray];
-        [self cancelCollectListPOSTRequest];
-        
-    }];
-    
-    [alertVC addAction:cancel];
-    [alertVC addAction:sure];
-    [self presentViewController:alertVC animated:YES completion:nil];
-    
-    
-}
 #pragma mark - 删除之后一些列更新操作
 - (void)updateInfomation
 {
@@ -205,19 +199,43 @@
 {
     NSLog(@"取消收藏");
     
-    [self deleteCell:cell];
-}
-///全选
--(void)didClickSelectedAll:(UIButton*)sender
-{
-    sender.selected = !sender.selected;
-    NSLog(@"全选");
-    for (Cmkeepgoodslist *list in self.listArray) {
-        
-        list.isCollectSelected = sender.selected;
-    }
+    JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"确认取消收藏？" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    [self.tableView reloadData];
+    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        //重点 --------- //
+        if ([self isAllProcductChoosed] == YES) {
+            
+            [self cancelCollectListPOSTRequest];//取消全部收藏
+            
+        }else{
+            
+            [self cancalsingleGoodsCollectPOSTRequest];//单个商品收藏
+        }
+        
+        for (Cmkeepgoodslist * list in self.listArray)
+        {
+            if (list.isCollectSelected)
+            {
+                [self.tempCellArray addObject:list];
+            }
+            
+        }
+        [self.listArray removeObjectsInArray:self.tempCellArray];
+        
+ 
+        
+    }];
+    
+    [alertVC addAction:cancel];
+    [alertVC addAction:sure];
+    [self presentViewController:alertVC animated:YES completion:nil];
+
+
+ 
 }
 
 #pragma mark -  点击编辑
@@ -337,13 +355,12 @@
 }
 
 
-#pragma mark - 取消收藏列表 -getKeepGoodDel
+#pragma mark - 取消全选收藏列表 -getKeepGoodDel
 -(void)cancelCollectListPOSTRequest
 {
     NSDictionary * parma = @{
                              
-                             @"cartItemId":_collectID,
-                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"cartItemId":_collectId,
                              
                              };
     
@@ -361,6 +378,38 @@
     }];
     
     
+}
+
+#pragma mark - 单个取消收藏列表 -cancalGoodsCollect
+-(void)cancalsingleGoodsCollectPOSTRequest
+{
+    NSDictionary * parma = @{
+                             
+                             @"goodId":_goodId,
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             
+                             };
+    
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/cancalGoodsCollect"] params:parma success:^(id response) {
+        
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        
+        [self updateInfomation];
+        
+    } progress:^(NSProgress *progeress) {
+    
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+    
+}
+///判断是不是空数组
+- (BOOL)isEmptyArray:(NSArray *)array
+{
+    return (array.count ==0 || array == nil);
 }
 
 /*

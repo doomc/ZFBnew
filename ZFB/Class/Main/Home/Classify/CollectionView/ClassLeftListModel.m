@@ -22,12 +22,10 @@
 
 
 @implementation CmgoodsClasstypelist
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+
++(NSDictionary *)mj_replacedKeyFromPropertyName
 {
-    if([key isEqualToString:@"id"]){
-        
-        self.typeId = [value integerValue];
-    }
+    return @{@"typeId":@"id"};
 }
 
 @end

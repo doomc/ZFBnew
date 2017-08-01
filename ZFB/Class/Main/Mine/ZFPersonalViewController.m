@@ -254,11 +254,13 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
     if (indexPath.row == 3) {//切换到配送端
 //        if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
-//            
+
 //            //商户端
 //            BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
 //            [self.navigationController pushViewController:businessVC animated:YES];
-//            
+
+        
+
 //        }if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
             //配送端
             ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];

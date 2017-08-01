@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SendServiceOrderModel.h"
 
 @interface SendServiceTitleCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 
 @property (weak, nonatomic) IBOutlet UIButton *statusButton;
+
+@property (strong, nonatomic) SendServiceStoreinfomap * storlist;
 
 @end

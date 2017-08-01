@@ -23,14 +23,13 @@
 
 
 @implementation Nexttypelist
--(void)setValue:(id)value forUndefinedKey:(NSString *)key
+ 
++(NSDictionary *)mj_replacedKeyFromPropertyName
 {
-    if ([key isEqualToString:@"id"]) {
-        self.goodId = [value integerValue];
-        
-    }
+    return @{
+             @"goodId":@"id"
+             };
 }
-
 @end
 
 

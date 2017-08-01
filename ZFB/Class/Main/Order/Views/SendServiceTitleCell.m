@@ -15,6 +15,14 @@
     // Initialization code
 }
 
+
+-(void)setStorlist:(SendServiceStoreinfomap *)storlist
+{
+    _storlist = storlist;
+    
+    self.lb_title.text = storlist.storeName;
+ 
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

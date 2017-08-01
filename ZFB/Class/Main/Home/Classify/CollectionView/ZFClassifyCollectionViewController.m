@@ -17,6 +17,8 @@
 #import "ZFCollectionViewFlowLayout.h"
 //controller
 #import "DetailFindGoodsViewController.h"
+#import "HomeSearchResultViewController.h"
+
 
 @interface ZFClassifyCollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout,
 UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
@@ -64,16 +66,12 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    UIView * barView= [[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
     
-    
- 
     //创建titleView
     _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
     self.navigationItem.titleView = _titleView;
     [_titleView addSubview:self.selectbutton];
     [_titleView addSubview:self.searchBar];
-    self.navigationItem.titleView = barView;
     
     
     _selectIndex = 0;
@@ -83,7 +81,6 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.collectionView];
-    
     
     [self classListTableVieWithGoodTypePostRequset];//一级
 }
@@ -191,7 +188,6 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
     if (self.dataSource.count > 0) {
         
         _selectIndex = indexPath.row;
-        // http://stackoverflow.com/questions/22100227/scroll-uicollectionview-to-section-header-view
         // 解决点击 TableView 后 CollectionView 的 Header 遮挡问题。
         [self scrollToTopOfSection:_selectIndex animated:YES];
         
@@ -200,6 +196,7 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
         
         CmgoodsClasstypelist * list  =  _dataSource[_selectIndex];
         _typeId  = [NSString stringWithFormat:@"%ld",list.typeId];
+        
         [self secondClassListWithGoodTypePostRequsetTypeid:_typeId];
 
     }
@@ -321,8 +318,7 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
     
     NSLog(@"section = %ld,  item = %ld", indexPath.section,indexPath.item);
     DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
-    NSString  * goodid = [NSString stringWithFormat:@"%ld",goodlist.goodId];
-    goodid =  detailVC.goodsId ;
+    detailVC.goodsId = [NSString stringWithFormat:@"%ld",goodlist.goodId];
     [self.navigationController pushViewController:detailVC animated:NO];
     
 }
@@ -366,6 +362,8 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     NSLog(@"点击搜索方法");
+    HomeSearchResultViewController  * home  = [HomeSearchResultViewController new];
+    home.resultsText = searchBar.text;
     [searchBar resignFirstResponder];
 
 }
@@ -426,8 +424,6 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 #pragma mark  - 第2级分类网络请求
 -(void)secondClassListWithGoodTypePostRequsetTypeid:(NSString *) typeID
 {
-    
-   
     NSDictionary * parma = @{
                              
                             @"typeId":typeID,
