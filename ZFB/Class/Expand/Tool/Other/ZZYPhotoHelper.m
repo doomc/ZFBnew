@@ -1,8 +1,8 @@
 //
 //  ZZYPhotoHelper.m
-//  OC_FunctionDemo
+//  dd
 //
-//  Created by 周智勇 on 16/9/9.
+//  Created by dd on 16/9/9.
 //  Copyright © 2016年 Tuse. All rights reserved.
 //
 

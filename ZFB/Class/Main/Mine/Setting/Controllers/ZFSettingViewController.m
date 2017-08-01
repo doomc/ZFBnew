@@ -33,14 +33,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //默认为登录状态后面根据后台数据返回
-    if (BBUserDefault.isLogin == 1) {
-        [self.login_btn setTitle:@"退出登录" forState:UIControlStateNormal];
-        
-    }else{
-        [self.login_btn setTitle:@"登陆" forState:UIControlStateNormal ];
-    }
-    
+ 
     self.title = @"设置";
     _titleArr  = @[@"我的信息",@"修改密码",@"手机号码",@"清楚缓存",@"客服热线",@"招商入驻"];
     _imagesArr = @[@"setting_message",@"setting_ps",@"setting_phone",@"setting_cache",@"setting_calling",@"setting_shakehand",];
@@ -254,6 +247,19 @@ static NSString * settingCellid = @"ZFSettingCellid";
             
         }];
         
+    }
+    
+}
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    //默认为登录状态后面根据后台数据返回
+    if (BBUserDefault.isLogin == 1) {
+        [self.login_btn setTitle:@"退出登录" forState:UIControlStateNormal];
+        
+    }else{
+        [self.login_btn setTitle:@"登陆" forState:UIControlStateNormal ];
     }
     
 }

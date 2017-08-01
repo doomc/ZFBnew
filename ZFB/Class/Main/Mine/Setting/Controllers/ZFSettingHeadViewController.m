@@ -55,10 +55,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     [self.view addSubview:self.tableView];
  
 }
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-     [self.view endEditing:YES];
-}
+
 -(UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH - 64) style:UITableViewStylePlain];
@@ -104,6 +101,9 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 0) {
+        return  70;
+    }
     return 50;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,6 +122,8 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 
         if (indexPath.row == 0) {
             rowCell.lb_detailTitle.hidden = YES;
+            rowCell.tf_contentTextfiled.delegate = self;
+            [rowCell.tf_contentTextfiled addTarget:self action:@selector(textFieldEditing:) forControlEvents:UIControlEventEditingChanged];
         }
         else if (indexPath.row == 1) {
             rowCell.tf_contentTextfiled.hidden = YES;
@@ -151,15 +153,19 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     ZFSettingRowCell *rowCell =(ZFSettingRowCell *)[tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.section == 0) {
     
-//        ZFSettingHeaderCell *cell = (ZFSettingHeaderCell *)[tableView cellForRowAtIndexPath:indexPath];
-//        [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data) {
-// 
-//            cell.img_headView.image = (UIImage *)data;
-//        }];
+        ZFSettingHeaderCell *cell = (ZFSettingHeaderCell *)[tableView cellForRowAtIndexPath:indexPath];
+        [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data) {
+ 
+            cell.img_headView.image = (UIImage *)data;
+        }];
  
     }
     if (indexPath.section == 1){
         
+        //设置第一想要
+        [rowCell.tf_contentTextfiled resignFirstResponder];
+
+
         if (indexPath.row == 0) {
             
         }
@@ -217,13 +223,28 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         [self.tableView reloadData];
         
     }
-   
-
-    
 }
 
+//cell UITextField 的text
+-(void)textFieldEditing:(UITextField *)textField
+{
+    NSLog(@"%@",textField.text);
+    
+}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 
+    ZFSettingRowCell *rowCell  = [ZFSettingRowCell new];
+    [rowCell.tf_contentTextfiled resignFirstResponder];
+}
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    ZFSettingRowCell *rowCell  = [ZFSettingRowCell new];
+    [rowCell.tf_contentTextfiled resignFirstResponder];
+    return YES;
+}
 
 
 @end

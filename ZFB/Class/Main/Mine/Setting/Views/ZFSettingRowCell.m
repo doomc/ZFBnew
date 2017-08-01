@@ -7,7 +7,9 @@
 //
 
 #import "ZFSettingRowCell.h"
+@interface ZFSettingRowCell ()
 
+@end
 @implementation ZFSettingRowCell
 
 - (void)awakeFromNib {
@@ -15,7 +17,12 @@
     // Initialization code
     
     
+    self.tf_contentTextfiled.clearButtonMode = UITextFieldViewModeWhileEditing;
+
 }
+
+
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

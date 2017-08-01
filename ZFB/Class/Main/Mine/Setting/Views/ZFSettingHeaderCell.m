@@ -14,11 +14,11 @@
     // Initialization code
 
     self.img_headView.clipsToBounds = YES;
-    self.img_headView.layer.cornerRadius = 14;
+    self.img_headView.layer.cornerRadius = 25;
     
     self.img_headView.layer.borderWidth = 0.5;
     self.img_headView.layer.borderColor = HEXCOLOR(0xffffff).CGColor;
-    [self.img_headView setImage:[UIImage  circleImage:@"setting_headView"]];
+    [self.img_headView setImage:[UIImage  circleImage:@"head"]];
     [self.img_headView.image circleImage];
     
 }
