@@ -41,7 +41,7 @@
 - (IBAction)clickSelected:(UIButton *)sender {
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(goodsSelected:isSelected:)])
-    {
+    {  
         [self.delegate goodsSelected :self isSelected:sender.selected];
         
     }

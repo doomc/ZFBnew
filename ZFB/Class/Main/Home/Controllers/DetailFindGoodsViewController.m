@@ -498,11 +498,11 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                     [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.nameId] forKey:@"nameId"];
                     [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.valueId]  forKey:@"valueId"];
                     
-//                    [ruleJsondic setValue:product.name forKey:@"name"];
-//                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",product.nameId] forKey:@"nameId"];
-//                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",valueItem.valueId] forKey:@"valueId"];
-//                    [ruleJsondic setValue:valueItem.name forKey:@"value"];
-//                    
+                    [ruleJsondic setValue:product.name forKey:@"name"];
+                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",product.nameId] forKey:@"nameId"];
+                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",valueItem.valueId] forKey:@"valueId"];
+                    [ruleJsondic setValue:valueItem.name forKey:@"value"];
+                    
                 }
         }else {
             if (!(valueItem.selectType == ValueSelectType_enable)) {
@@ -791,7 +791,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             _netPurchasePrice = detailModel.data.goodsInfo.netPurchasePrice;//价格
             _goodsSales       = detailModel.data.goodsInfo.goodsSales;//已经销售
             _commentNum       = detailModel.data.goodsInfo.commentNum;//评论数
-            _isCollect        = detailModel.data.goodsInfo.isCollect;//是否收藏
+            _isCollect        = [detailModel.data.goodsInfo.isCollect integerValue];//是否收藏
             _storeId          = [NSString stringWithFormat:@"%ld",detailModel.data.goodsInfo.storeId];//店铺id
             
             //store信息 ----storeInfo
@@ -879,11 +879,16 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/cancalGoodsCollect",zfb_baseUrl] params:parma success:^(id response) {
         
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+           
+            _isCollect = 0;
+            
+            [self iscollect];
+
+        }
         
-        _isCollect = 0;
-        
-        [self iscollect];
         
     } progress:^(NSProgress *progeress) {
         
@@ -903,6 +908,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         
     }else
     {
+        
         [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
     }
 }
@@ -996,9 +1002,13 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 #pragma mark - skuMatchPrice 规格匹配价格库存数量信息////第3步
 -(void)skuMatchPricePostRequset
 {
-  
     
-    NSString *reluJson  = [NSString convertToJsonData:ruleJsondic];
+    [self.reluJsonKeyArray addObject:ruleJsondic];
+    NSArray * arr  = [NSArray arrayWithArray:self.reluJsonKeyArray];
+   
+    NSMutableDictionary * dic = [NSMutableDictionary dictionary];
+    [dic setValue:arr forKey:@"reluJson"];
+    NSString * reluJson = [NSString convertToJsonData:[NSDictionary dictionaryWithDictionary:dic]];
     //"reluJson":[{"name":"颜色","nameId":"1","valueId":"1","value":"红色"}]
     
     NSDictionary * parma = @{
@@ -1031,13 +1041,13 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     
     NSString * count     = [NSString stringWithFormat:@"%ld",_goodsCount];
-//    if (ruleJsondic != nil) {
-//        
-//        _sizeOrColorStr = [NSString convertToJsonData:ruleJsondic];
-//        
-//    }else{
-//        _sizeOrColorStr = @"[]";//重要，后台解析不了@“”;
-//    }
+    if (ruleJsondic != nil) {
+        
+        _sizeOrColorStr = [NSString convertToJsonData:ruleJsondic];
+        
+    }else{
+        _sizeOrColorStr = @"[]";//重要，后台解析不了@“”;
+    }
     NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"storeId":_storeId,

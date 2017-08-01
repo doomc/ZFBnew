@@ -103,7 +103,7 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 
 @property (nonatomic, assign) NSInteger isRecommened;
 
-@property (nonatomic, assign) NSInteger isCollect;///是否收藏	1.收藏 2.不是
+@property (nonatomic, copy) NSString* isCollect;///是否收藏	1.收藏 2.不是
 
 @property (nonatomic, copy) NSString *keywords;
 

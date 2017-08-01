@@ -40,7 +40,7 @@
 {
     _tf_phoneNum.text = textfiled.text;
 
-    if ([_tf_phoneNum.text isMobileNumber]) {
+    if ([_tf_phoneNum.text isMobileNumberClassification]) {
         
         _nextTarget_btn.enabled = YES;
        
@@ -56,7 +56,7 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     //判断是不是手机号
-    if ( [_tf_phoneNum.text isMobileNumber] && _choose_btn.selected == YES) {
+    if ( [_tf_phoneNum.text isMobileNumberClassification] && _choose_btn.selected == YES) {
         
         _nextTarget_btn.enabled = YES;
         _nextTarget_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
@@ -89,7 +89,7 @@
  */
 - (void)goToRegisterAcount:(UIButton *)sender {
     
-    if ([_tf_phoneNum.text isMobileNumber])
+    if ([_tf_phoneNum.text isMobileNumberClassification])
     {
         VerificationCodeViewController * verificationVC = [[VerificationCodeViewController alloc]init];
         verificationVC.phoneNumStr = _tf_phoneNum.text;
@@ -111,7 +111,7 @@
     sender.selected = !sender.selected;
     if (sender.selected == YES) {
        
-        if ([_tf_phoneNum.text isMobileNumber]) {
+        if ([_tf_phoneNum.text isMobileNumberClassification]) {
             _nextTarget_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
             _nextTarget_btn.enabled = YES;
         }

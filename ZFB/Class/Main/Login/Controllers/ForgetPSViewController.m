@@ -58,7 +58,7 @@
 #pragma mark - 获取验证码
 -(void)getVerificationCodeAction:(UIButton *)sender{
     
-    if ([_tf_phoneNum.text isMobileNumber]) {
+    if ([_tf_phoneNum.text isMobileNumberClassification]) {
         // 网络请求
         [self ValidateCodePostRequset];
         [dateTimeHelper verificationCode:^{
@@ -104,7 +104,7 @@
         NSLog(@"tf_codeVerification==%ld",_tf_codeVerification.text.length);
         
         //当账号与密码同时有值,登录按钮才能够点击
-        if ([_tf_phoneNum.text  isMobileNumber] && _tf_codeVerification.text.length > 0 ) {
+        if ([_tf_phoneNum.text  isMobileNumberClassification] && _tf_codeVerification.text.length > 0 ) {
             
             self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
             self.nextStep_btn.enabled = YES;
@@ -122,7 +122,7 @@
 {
     if (_tf_phoneNum == textField) {
         //判断是不是手机号
-        if ( [_tf_phoneNum.text isMobileNumber]) {
+        if ( [_tf_phoneNum.text isMobileNumberClassification]) {
             
             NSLog(@" 正确");
             
@@ -132,7 +132,7 @@
         }
     }
     if (_tf_codeVerification == textField) {
-        if ([_tf_phoneNum.text  isMobileNumber] && _tf_codeVerification.text.length == 6 ) {
+        if ([_tf_phoneNum.text  isMobileNumberClassification] && _tf_codeVerification.text.length == 6 ) {
             
             self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
             self.nextStep_btn.enabled = YES;

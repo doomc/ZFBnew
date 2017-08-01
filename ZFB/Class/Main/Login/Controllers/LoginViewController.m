@@ -79,7 +79,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
 #pragma mark - getVerificationCodeAction获取验证码
 -(void)getVerificationCodeAction:(UIButton *)sender{
-    if ([_tf_loginphone.text isMobileNumber]) {
+    if ([_tf_loginphone.text isMobileNumberClassification]) {
         // 网络请求
         [self ValidateCodePostRequset];
         [dateTimeHelper verificationCode:^{
@@ -143,10 +143,11 @@ typedef NS_ENUM(NSUInteger, indexType) {
     if (_isQuickLogin == YES) {
         
         _tf_verificationCodeOrPassWord.secureTextEntry = NO;
+        
         if (textfiled == _tf_verificationCodeOrPassWord) {
             
             //当账号与密码同时有值,登录按钮才能够点击
-            if ( [_tf_loginphone.text isMobileNumber] && _tf_verificationCodeOrPassWord.text.length > 0) {
+            if ( _tf_verificationCodeOrPassWord.text.length > 0) {
                 self.login_btn.enabled = YES;
                 self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
                 
@@ -166,7 +167,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
         if (_tf_verificationCodeOrPassWord == textfiled) {
             
             //当账号与密码同时有值,登录按钮才能够点击
-            if ( [_tf_loginphone.text isMobileNumber] && _tf_verificationCodeOrPassWord.text.length > 0) {
+            if ( _tf_verificationCodeOrPassWord.text.length > 0) {
                 self.login_btn.enabled = YES;
                 self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
                 
@@ -186,13 +187,11 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
-    
     if (_isQuickLogin == YES ) {
         if (_tf_loginphone == textField) {
+         
             //判断是不是手机号
-            if ( [_tf_loginphone.text isMobileNumber]) {
-                
-                BBUserDefault.userPhoneNumber = _tf_loginphone.text;
+            if ( [_tf_loginphone.text isMobileNumberClassification]) {
                 
             }else{
     
@@ -201,7 +200,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
         }
         if (_tf_verificationCodeOrPassWord == textField) {
             
-            if ( [_tf_loginphone.text isMobileNumber] && _tf_verificationCodeOrPassWord.text.length > 0) {
+            if ( [_tf_loginphone.text isMobileNumberClassification] && _tf_verificationCodeOrPassWord.text.length > 0) {
                 self.login_btn.enabled = YES;
                 self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
                 
@@ -218,7 +217,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
         
         if (_tf_loginphone == textField) {
             //判断是不是手机号
-            if ( [_tf_loginphone.text isMobileNumber]) {
+            if ( [_tf_loginphone.text isMobileNumberClassification]) {
                 
                 NSLog(@"自动请求发送验证码");
                 
@@ -228,7 +227,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             }
         }
         if (_tf_verificationCodeOrPassWord == textField) {
-            if ( [_tf_loginphone.text isMobileNumber] && _tf_verificationCodeOrPassWord.text.length > 0) {
+            if ( [_tf_loginphone.text isMobileNumberClassification] && _tf_verificationCodeOrPassWord.text.length > 0) {
                
                 self.login_btn.enabled = YES;
                 self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);

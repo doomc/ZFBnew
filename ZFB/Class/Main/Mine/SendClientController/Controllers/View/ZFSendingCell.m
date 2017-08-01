@@ -20,7 +20,7 @@
 
  
 }
-
+//商户端数据
 -(void)setBusinesGoods:(BusinessOrdergoods *)businesGoods
 {
     _businesGoods = businesGoods;
@@ -31,7 +31,7 @@
     [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:businesGoods.coverImgUrl] placeholderImage:nil];
     
 }
-
+//全部订单
 -(void)setGoods:(Ordergoods *)goods
 {
     _goods = goods;
@@ -41,6 +41,18 @@
     self.lb_Price.text =[NSString stringWithFormat:@"¥%@", goods.original_price];
     self.lb_detailTime.text = @"";
     [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:nil];
+}
+//配送端数据
+-(void)setSendGoods:(SendServiceOrdergoodslist *)sendGoods
+{
+    _sendGoods = sendGoods;
+    
+    self.lb_num.text = [NSString stringWithFormat:@"x %ld %@",sendGoods.goodsCount, sendGoods.goodsUnit];
+    self.lb_sendListTitle.text =  sendGoods.goodsName;
+    self.lb_Price.text =[NSString stringWithFormat:@"¥%ld", sendGoods.originalPrice];
+    self.lb_detailTime.text = @"";
+    [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:sendGoods.coverImgUrl] placeholderImage:nil];
+    
 }
 -(void)setList:(Orderlist *)list
 {

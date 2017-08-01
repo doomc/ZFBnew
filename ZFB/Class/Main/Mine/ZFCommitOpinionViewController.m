@@ -133,7 +133,7 @@
 {
     if (phoneNum.length == 11) {
  
-        if (![phoneNum isMobileNumber]) {
+        if (![phoneNum isMobileNumberClassification]) {
             
             [self.view makeToast:@"手机格式不正确" duration:2.0 position:@"center"];
         }else{
@@ -149,7 +149,7 @@
     NSLog(@"请求----_phoneNum= %@",_phoneNum);
     
     [self getFeedbackINfoInsertPOSTRequste];
-    
+ 
   
 }
 
@@ -230,14 +230,20 @@
         //局部刷新 根据布局相应调整
         [self partialTableViewRefresh];
     });
-#warning ------添加到阿里服务器会崩溃
-//    NSLog(@"selectedAssetURLs ===== %@", selectedAssetURLs);
-//    NSArray * imgArray = [NSArray arrayWithArray:selectedAssetURLs];
-//    [OSSImageUploader asyncUploadImages:imgArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
-//        NSLog(@"names---%@", names);
-//        
-//    }];
-    [self dismissViewControllerAnimated:YES completion:nil];
+
+    [self dismissViewControllerAnimated:YES completion:^{
+       
+        NSArray * imgArray = [NSArray arrayWithArray:self.uploadImageArray];
+        [OSSImageUploader asyncUploadImages:imgArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
+            
+            _pickerImgString = [NSString arrayToJSONString:names];
+            NSLog(@" ---- names---%@", names);
+            NSLog(@" ---- _pickerImgString---%@", _pickerImgString);
+            
+        }];
+    }];
+    
+ 
 }
 - (void)qb_imagePickerControllerDidCancel:(QBImagePickerController *)imagePickerController{
     [self dismissViewControllerAnimated:YES completion:nil];

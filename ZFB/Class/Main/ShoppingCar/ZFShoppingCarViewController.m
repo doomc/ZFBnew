@@ -105,20 +105,18 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         orderVC.jsonString =  _jsonString;
         NSLog(@"提交成功了 ----------- %@ ",_jsonString);
         [SVProgressHUD dismissWithDelay:1];
- 
-    }
-    
-    [self.navigationController pushViewController:orderVC animated:YES];
+        [self.navigationController pushViewController:orderVC animated:YES];
 
-//    else{
-//        JXTAlertController * alert =  [JXTAlertController alertControllerWithTitle:nil message:@"您还没有选择商品" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction * action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-//            
-//        }];
-//        [alert addAction:action];
-//        [self presentViewController:alert animated:YES completion:nil];
-//        
-//    }
+    }
+    else{
+        JXTAlertController * alert =  [JXTAlertController alertControllerWithTitle:nil message:@"您还没有选择商品" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alert addAction:action];
+        [self presentViewController:alert animated:YES completion:nil];
+        
+    }
 
    
     
@@ -168,6 +166,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             NSLog(@"dict = %@",dict);
             
             [InfojsonArray addObject:dict];
+            
             [jsonDict setValue:[NSArray arrayWithArray:InfojsonArray]  forKey:@"userGoodsInfoJSON"];
             
             NSLog(@"jsonDict = %@",jsonDict);
@@ -227,6 +226,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         
         NSLog(@"dic = %@",dic);
         self.jsonDict = [NSMutableDictionary dictionary];
+        
         [self.jsonDict setValue:[NSArray arrayWithArray:self.jsonGoodArray] forKey:@"userGoodsInfoJSON"];
 
         _jsonString = [NSString convertToJsonData:self.jsonDict];
@@ -243,6 +243,8 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[self countTotalPrice]];
     
 }
+
+
 #pragma mark - 点击底部全选按钮 clickAllGoodsSelected:
 - (void)clickAllGoodsSelected:(UIButton *)sender {
     
@@ -467,14 +469,14 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 #pragma mark - tableView datasource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DetailFindGoodsViewController *deatilGoods =[[DetailFindGoodsViewController alloc]init];
-    NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
-    if (self.carListArray.count > 0 ) {
-        Goodslist * goodlist = self.carListArray[indexPath.row];
-        deatilGoods.goodsId  = goodlist.goodsId;
-
-    }
-    [self.navigationController pushViewController:deatilGoods animated:YES];
+//    DetailFindGoodsViewController *deatilGoods =[[DetailFindGoodsViewController alloc]init];
+//    NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
+//    if (self.carListArray.count > 0 ) {
+//        Goodslist * goodlist = self.carListArray[indexPath.row];
+//        deatilGoods.goodsId  = goodlist.goodsId;
+//
+//    }
+//    [self.navigationController pushViewController:deatilGoods animated:YES];
 
 }
 
@@ -554,7 +556,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 {
     if (!_underFootView) {
         _underFootView                 = [[UIView alloc]initWithFrame:CGRectMake(0, KScreenH -49-49, KScreenW,  KScreenH -49-49-64)];
-        _underFootView.backgroundColor = randomColor;
+        _underFootView.backgroundColor = [UIColor whiteColor];
         
         NSString *caseOrder = @"合计:";
         UIFont * font  =[UIFont systemFontOfSize:12];

@@ -48,7 +48,6 @@ static NSString * identyfy = @"MKJTagViewTableViewCell";
     
     //创建titleView
     _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
-    self.navigationItem.titleView = _titleView;
     [_titleView addSubview:self.selectbutton];
     [_titleView addSubview:self.searchBar];
     self.navigationItem.titleView = _titleView;

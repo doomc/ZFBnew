@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AllOrderModel.h"
 #import "BusinessOrderModel.h"
+#import "SendServiceOrderModel.h"
 
 @interface ZFSendingCell : UITableViewCell
 
@@ -21,5 +22,6 @@
 @property (strong,nonatomic) Orderlist * list ;
 @property (strong,nonatomic) Ordergoods * goods ;
 @property (strong,nonatomic) BusinessOrdergoods * businesGoods ;
+@property (strong,nonatomic) SendServiceOrdergoodslist * sendGoods ;
 
 @end

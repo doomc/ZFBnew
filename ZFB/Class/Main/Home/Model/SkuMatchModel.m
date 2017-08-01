@@ -30,12 +30,12 @@
 
 
 @implementation SkuValulist
--(void)setValue:(id)value forUndefinedKey:(NSString *)key
+ 
++(NSDictionary *)replacedKeyFromPropertyName
 {
-    if([key isEqualToString:@"id"]){
-        
-        self.typeId = [value integerValue];
-    }
+    return @{
+             @"typeId":@"id"
+             };
 }
 @end
 

@@ -133,7 +133,7 @@
 {
     if (textField == _tf_cellphone) {
         
-        if ([_tf_cellphone.text isMobileNumber]) {
+        if ([_tf_cellphone.text isMobileNumberClassification]) {
             NSLog(@"手机号 ===== %@",_tf_cellphone.text);
             
         }else{
