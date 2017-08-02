@@ -13,6 +13,7 @@
 @interface GuessCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *zan_Image;
+
 @property (weak, nonatomic) IBOutlet UIImageView *loca_img;
 
 /** 视图URL */

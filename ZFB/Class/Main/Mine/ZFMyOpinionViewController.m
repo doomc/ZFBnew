@@ -113,7 +113,8 @@
 {
     NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
-                             
+                             @"page":@"1",
+                             @"size":@"5",
                              };
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getFeedbackINfoByUserId"] params:parma success:^(id response) {
         
@@ -127,7 +128,6 @@
             for (Feedbacklist * list in feedModel.feedbackList) {
                 
                 [self.listArray addObject:list];
-                
                 
             }
             

@@ -30,6 +30,9 @@
 
 @property (nonatomic, assign) NSInteger orderAmmount;
 
+@property (nonatomic, assign) NSInteger orderId;
+
+
 @property (nonatomic, strong) NSArray<SendServiceOrdergoodslist *> *orderGoodsList;
 
 @property (nonatomic, assign) NSInteger orderDeliveryFee;

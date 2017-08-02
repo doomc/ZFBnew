@@ -32,6 +32,7 @@
 }
 -(void)setHotArray:(NSMutableArray *)hotArray
 {
+    _hotArray = [NSMutableArray array];
     _hotArray = hotArray;
  
 }
@@ -50,15 +51,10 @@
     
     HotCollectionViewCell * cell = [self.HotcollectionView dequeueReusableCellWithReuseIdentifier:@"HotCollectionViewCellid" forIndexPath:indexPath];
 
-//    HomeHotModel * hot=  [HomeHotModel new];
-//    if (indexPath.row < [self.hotArray count]) {
-//        
-//    }
-//    hot  = [self.hotArray objectAtIndex:indexPath.row];
-//    
-    NSURL * img_url = [NSURL URLWithString:_hotArray[indexPath.row]];
+    hotFindgoodslist * hotlist =  _hotArray[indexPath.item];
+    NSURL * img_url = [NSURL URLWithString:hotlist.coverImgUrl];
     [cell.img_hotImgView sd_setImageWithURL:img_url placeholderImage:nil];
-//    cell.lb_price.text = [NSString stringWithFormat:@"%.2f",hot.storePrice];//netPurchasePrice 网购价格2选1
+    cell.lb_price.text = [NSString stringWithFormat:@"%.2f",hotlist.storePrice];//netPurchasePrice 网购价格2选1
     return cell;
 }
 

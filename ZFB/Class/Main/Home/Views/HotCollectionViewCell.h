@@ -15,8 +15,6 @@
 /** 价格 */
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 
-
-
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 
 @end

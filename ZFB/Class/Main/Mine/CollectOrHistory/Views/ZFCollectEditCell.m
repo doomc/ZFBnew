@@ -31,7 +31,7 @@
  
     _collectID = _goodlist.cartItemId;
     _goodsID = [NSString stringWithFormat:@"%ld",_goodlist.goodId];
-    self.lb_price.text = [NSString stringWithFormat:@"¥%ld", _goodlist.storePrice];
+    self.lb_price.text = [NSString stringWithFormat:@"¥%@", _goodlist.storePrice];
     self.lb_title.text = [NSString stringWithFormat:@"%@", _goodlist.goodName];
     [self.img_editView sd_setImageWithURL:[NSURL URLWithString:_goodlist.coverImgUrl] placeholderImage:[UIImage imageNamed:@""]];
     self.selecet_btn.selected = _goodlist.isCollectSelected;

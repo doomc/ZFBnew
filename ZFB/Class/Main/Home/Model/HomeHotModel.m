@@ -11,3 +11,22 @@
 @implementation HomeHotModel
 
 @end
+@implementation hotData
+
+@end
+
+
+@implementation hotBestgoodslist
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"findGoodsList" : [hotFindgoodslist class]};
+}
+
+@end
+
+
+@implementation hotFindgoodslist
+
+@end
+
+

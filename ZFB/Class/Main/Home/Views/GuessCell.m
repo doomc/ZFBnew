@@ -55,10 +55,11 @@
     [self.guess_listView sd_setImageWithURL:img_url placeholderImage:nil];
     
     self.lb_goodsName.text = _goodlist.goodsName;
-    self.lb_price.text = [NSString stringWithFormat:@"¥%@",_goodlist.storePrice];
+    self.lb_price.text = [NSString stringWithFormat:@"¥%.2f",_goodlist.storePrice];
     self.lb_storeName.text = _goodlist.storeName;
     self.lb_collectNum.text = [NSString stringWithFormat:@"%ld",_goodlist.goodsPv];
-    self.lb_distence.text = [NSString stringWithFormat:@"%@公里", _goodlist.storeDist];
+    CGFloat dictence  = _goodlist.storeDist/1000;
+    self.lb_distence.text = [NSString stringWithFormat:@"%.2f公里",dictence ];
     
 }
 

@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-
-@class Storeinfolist,FindStoreGoodslist;
+ 
+@class Storeinfolist,Findgoodslist;
 @interface HomeStoreListModel : NSObject
 
 @property (nonatomic, copy) NSString *resultMsg;
@@ -26,21 +26,21 @@
 
 @property (nonatomic, assign) NSInteger totalCount;
 
-@property (nonatomic, strong) NSArray<FindStoreGoodslist *> *findGoodsList;
+@property (nonatomic, strong) NSArray<Findgoodslist *> *findGoodsList;
 
 @end
 
-@interface FindStoreGoodslist : NSObject
+@interface Findgoodslist : NSObject
 
 @property (nonatomic, copy) NSString *auditDesc;
 
-@property (nonatomic, copy) NSString *facilities;
-
 @property (nonatomic, copy) NSString *coverUrl;
 
-@property (nonatomic, copy) NSString *storeContact;
+@property (nonatomic, copy) NSString *facilities;
 
 @property (nonatomic, assign) NSInteger storeStatus;
+
+@property (nonatomic, copy) NSString *storeContact;
 
 @property (nonatomic, copy) NSString *storeDist;
 
@@ -52,11 +52,11 @@
 
 @property (nonatomic, assign) NSInteger likeNum;
 
-@property (nonatomic, assign) NSInteger auditStatus;
-
 @property (nonatomic, copy) NSString *attachUrl;
 
 @property (nonatomic, copy) NSString *latitude;
+
+@property (nonatomic, assign) NSInteger auditStatus;
 
 @property (nonatomic, assign) NSInteger storePid;
 
@@ -64,17 +64,17 @@
 
 @property (nonatomic, assign) NSInteger delFlag;
 
-@property (nonatomic, assign) NSInteger auditUserId;
-
 @property (nonatomic, copy) NSString *servicePeomise;
+
+@property (nonatomic, assign) NSInteger auditUserId;
 
 @property (nonatomic, assign) NSInteger storeId;
 
 @property (nonatomic, assign) NSInteger starLevel;
 
-@property (nonatomic, assign) NSInteger storekeeperUserId;
-
 @property (nonatomic, copy) NSString *storeDesc;
+
+@property (nonatomic, assign) NSInteger storekeeperUserId;
 
 @property (nonatomic, assign) NSInteger storeAdminUserId;
 
@@ -85,8 +85,6 @@
 @property (nonatomic, copy) NSString *businessType;
 
 @property (nonatomic, copy) NSString *brandStory;
-
-@property (nonatomic, copy) NSString *auditTime;
 
 @property (nonatomic, copy) NSString *address;
 

@@ -484,7 +484,7 @@
                 ZFFooterCell * cell = [self.homeTableView
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
                 cell.footDelegate = self;
-                
+                cell.index = section;
                 BusinessOrderlist  * orderlist = self.orderListArray[section];
                 cell.businessOrder             = orderlist;
                 footerView                     = cell;
@@ -496,7 +496,8 @@
                 ZFFooterCell * cell = [self.homeTableView
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
                 cell.footDelegate = self;
-                
+                cell.index = section;
+
                 BusinessOrderlist  * orderlist = self.orderListArray[section];
                 cell.businessOrder             = orderlist;
                 footerView                     = cell;
@@ -509,6 +510,7 @@
                 ZFFooterCell * cell = [self.homeTableView
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
                 cell.footDelegate              = self;
+                cell.index = section;
                 BusinessOrderlist  * orderlist = self.orderListArray[section];
                 cell.businessOrder             = orderlist;
                 footerView                     = cell;
@@ -522,6 +524,8 @@
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
                 [cell.cancel_button setHidden:YES];
                 [cell.payfor_button setHidden:YES];
+                cell.index = section;
+
                 cell.footDelegate              = self;
                 BusinessOrderlist  * orderlist = self.orderListArray[section];
                 cell.businessOrder             = orderlist;
@@ -535,7 +539,8 @@
                 ZFFooterCell * cell = [self.homeTableView
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
                 cell.footDelegate = self;
-                
+                cell.index = section;
+
                 BusinessOrderlist  * orderlist = self.orderListArray[section];
                 cell.businessOrder             = orderlist;
                 footerView                     = cell;
@@ -860,8 +865,7 @@
 
 
 #pragma mark - ZFFooterCellDelegate   footerview的所有代理方法
-//取消订单
--(void)cancelOrderAction{//取消操作
+-(void)cancelOrderActionbyIndex:(NSInteger)index{//取消操作
     NSLog(@"取消操作")
     
     JXTAlertController * alertavc =[JXTAlertController alertControllerWithTitle:@"提示" message:@"是否取消该订单！" preferredStyle:UIAlertControllerStyleAlert];
@@ -885,7 +889,7 @@
 }
 #pragma mark - ZFFooterCellDelegate 派单代理
 ///派单列表添加   自定义tableview
--(void)sendOrdersActionOrderId:(NSString *)orderId totalPrice:(NSString *)totalPrice//派单
+-(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice  indexPath :(NSInteger)indexPath
 {
     _order_id                                      = orderId;
     _order_amount                                  = totalPrice;//当前总价

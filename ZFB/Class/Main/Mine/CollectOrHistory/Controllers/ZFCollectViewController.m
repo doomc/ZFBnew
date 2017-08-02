@@ -325,7 +325,11 @@
     NSDictionary * parma = @{
                  
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"svcname":@"",
+                             @"page":@"1",
+                             @"size":@"6",
+                             @"collectType":@"1",//1商品 2门店
+                             @"latitude":BBUserDefault.latitude,
+                             @"longitude":BBUserDefault.longitude,
 
                              };
     
@@ -387,6 +391,7 @@
                              
                              @"goodId":_goodId,
                              @"cmUserId":BBUserDefault.cmUserId,
+                             @"collectType":@"1",//1商品 2门店
                              
                              };
     

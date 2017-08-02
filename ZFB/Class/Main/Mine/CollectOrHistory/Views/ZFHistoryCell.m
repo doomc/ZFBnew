@@ -24,7 +24,7 @@
 {
     _goodslist = goodslist;
     
-    self.lb_price.text = [NSString stringWithFormat:@"¥%ld", _goodslist.storePrice];
+    self.lb_price.text = [NSString stringWithFormat:@"¥%.2f", _goodslist.storePrice];
     self.lb_title.text = [NSString stringWithFormat:@"%@", _goodslist.goodName];
     [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:_goodslist.coverImgUrl] placeholderImage:[UIImage imageNamed:@""]];
 
@@ -34,7 +34,7 @@
 {
     _scanfool = scanfool;
     self.lb_title.text = _scanfool.goodName;
-    self.lb_price.text =[NSString stringWithFormat:@"¥%ld",_scanfool.storePrice];
+    self.lb_price.text =[NSString stringWithFormat:@"¥%.2f",_scanfool.storePrice];
     [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:_scanfool.coverImgUrl] placeholderImage:[UIImage imageNamed:@""]];
     
 }

@@ -16,4 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_detailTitle;
 
+@property (copy, nonatomic) NSString * nickName;
+
+
 @end

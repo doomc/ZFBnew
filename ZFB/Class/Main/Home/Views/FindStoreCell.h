@@ -18,7 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_collectNum;
 
-@property (strong,nonatomic) FindStoreGoodslist  * findgoodslist;
+@property (strong,nonatomic) Findgoodslist  * findgoodslist;
 
 
 @end

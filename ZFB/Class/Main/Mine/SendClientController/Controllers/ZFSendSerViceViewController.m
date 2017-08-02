@@ -26,7 +26,8 @@
 //model
 #import "SendServiceModel.h"
 #import "SendServiceOrderModel.h"//订单模型
-
+//vc
+#import "SendOrderStatisticsViewController.h"
 @interface ZFSendSerViceViewController ()<UITableViewDelegate,UITableViewDataSource,ZFSendPopViewDelegate,ZFFooterCellDelegate,ZFSendHomeListCellDelegate>
 {
     //day
@@ -56,6 +57,14 @@
     //订单id
     NSString * _order_id;
     NSString * _deliveryId;//配送员id
+
+    //// 配送信息 ////
+    NSString * msg_address ;
+    NSString * msg_postPhone;
+    NSString * msg_postName ;
+    NSString * msg_postAddress;
+    NSString * msg_orderDeliveryFee ;
+    NSString * msg_contactPhone;
     
 }
 @property (strong, nonatomic) UITableView *send_tableView;
@@ -75,13 +84,15 @@
 
 @property (nonatomic ,strong) NSMutableArray *  orderListArray ;//订单列表
 @property (nonatomic ,strong) NSMutableArray *  orderGoodsArry ;//订单商品
-@property (nonatomic ,strong) NSMutableArray *  deliveryArray   ;//配送员列表
+//@property (nonatomic ,strong) NSMutableArray *  deliveryArray   ;//配送员列表
 
 //根据footerView 的按钮判断切换到对应定订单的页面
 @property (nonatomic ,copy)  NSString * buttonType;
 //配送信息视图
 @property (nonatomic ,strong) SendMessageView * messageView;
 @property (nonatomic ,strong) UIView    * messagebgview;
+///配送信息数组
+@property (nonatomic ,strong) NSMutableArray * msgArray;
 
 @end
 
@@ -127,6 +138,30 @@
     [self.Order_btn  addTarget:self action:@selector(Order_btnaTargetAction) forControlEvents:UIControlEventTouchUpInside];
     
 }
+#pragma mark - 懒加载
+-(NSMutableArray *)msgArray
+{
+    if (!_msgArray) {
+        _msgArray = [NSMutableArray array];
+    }
+    return _msgArray;
+}
+-(NSMutableArray *)orderListArray
+{
+    if (!_orderListArray) {
+        _orderListArray = [NSMutableArray array];
+    }
+    return _orderListArray;
+}
+-(NSMutableArray *)orderGoodsArry
+{
+    if (!_orderGoodsArry) {
+        _orderGoodsArry = [NSMutableArray array];
+    }
+    return _orderGoodsArry;
+}
+
+
 //自定义导航按钮选择定订单
 -(UIButton *)navbar_btn
 {
@@ -175,6 +210,7 @@
     return _bgview;
     
 }
+//配送信息背景蒙板
 -(UIView *)messagebgview
 {
     if (!_messagebgview) {
@@ -193,6 +229,7 @@
     if (!_messageView) {
         _messageView = [[SendMessageView alloc]initWithFrame:CGRectMake(30, 0, KScreenW - 60, 240)];
         _messageView.center = self.view.center;
+        _messageView.detailTitleArray = self.msgArray;//传值试试
     }
     return _messageView;
 }
@@ -247,16 +284,19 @@
                 
             case SendServicTypeWaitSend://待配送
                 
-                sectionRow = self.orderGoodsArry.count;
+                sectionRow = 2;
+//                sectionRow = self.orderGoodsArry.count;
                 
                 break;
             case SendServicTypeSending://配送中
-                
-                sectionRow = self.orderGoodsArry.count;
+                sectionRow = 2;
+
+//                sectionRow = self.orderGoodsArry.count;
                 break;
             case SendServicTypeSended://已配送
-                
-                sectionRow = self.orderGoodsArry.count;
+                sectionRow = 2;
+
+//                sectionRow = self.orderGoodsArry.count;
                 
                 break;
                 
@@ -373,7 +413,6 @@
         }
     }
     
-    
     return view;
 }
 //设置headView视图
@@ -431,9 +470,9 @@
                 cell.footDelegate = self;
                 [cell.cancel_button setTitle:@"配送信息" forState:UIControlStateNormal];
                 [cell.payfor_button setTitle:@"接单" forState:UIControlStateNormal];
-                
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                cell.businessOrder             = orderlist;
+                cell.index = section;//获取当前section
+                SendServiceStoreinfomap  * orderlist = self.orderListArray[section];
+                cell.sendOrder             = orderlist;
                 footerView                     = cell;
                 
             }
@@ -444,10 +483,11 @@
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCellid"];
                 cell.footDelegate = self;
                 [cell.cancel_button setTitle:@"配送信息" forState:UIControlStateNormal];
-                [cell.payfor_button setTitle:@"配送完成" forState:UIControlStateNormal];
-                
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                cell.businessOrder             = orderlist;
+                [cell.payfor_button setTitle:@"已接单" forState:UIControlStateNormal];
+                cell.index = section;//获取当前section
+
+                SendServiceStoreinfomap  * orderlist = self.orderListArray[section];
+                cell.sendOrder             = orderlist;
                 footerView                     = cell;
                 
             }
@@ -457,6 +497,8 @@
             {
                 SendServiceFootCell * cell = [self.send_tableView
                                               dequeueReusableCellWithIdentifier:@"SendServiceFootCellid"];
+                SendServiceStoreinfomap * storeModel = self.orderListArray[section];
+                cell.storeList = storeModel;
                 footerView = cell;
                 
             }
@@ -612,9 +654,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     NSLog(@"section  =%ld , row = %ld",indexPath.section ,indexPath.row);
-    
-    
+
     
 }
 
@@ -698,6 +740,7 @@
     _servicType = type;
     
     [self.navbar_btn setTitle:title forState:UIControlStateNormal];
+   
     //status  1.待接单 2.已接单 3.已配送
     switch (_servicType) {
             
@@ -717,46 +760,85 @@
     }
     [self.send_tableView reloadData];
     
-    
 }
 #pragma mark - ZFSendHomeListCellDelegate 订单详情页事件
-///查看订单详情
+///今日订单统计
 -(void)todayOrderDetial
 {
+    SendOrderStatisticsViewController * orderDeal =[[SendOrderStatisticsViewController alloc]init];
+    orderDeal.deliveryId = _deliveryId;
+    orderDeal.orderNum = _order_count;
+    orderDeal.orderStartTime = _daystart_time;
+    orderDeal.orderEndTime = _dayend_time;
+    [self.navigationController pushViewController:orderDeal animated:NO];
     
 }
 
-///查看订单详情
+///周订单统计
 -(void)weekOrderDetial
 {
+    SendOrderStatisticsViewController * orderDeal =[[SendOrderStatisticsViewController alloc]init];
+    orderDeal.deliveryId = _deliveryId;
+    orderDeal.orderNum = _order_count;
+    orderDeal.orderStartTime = _weekstart_time;
+    orderDeal.orderEndTime = _weekend_time;
     
+    [self.navigationController pushViewController:orderDeal animated:NO];
 }
 
-///查看订单详情
+///月订单统计
 -(void)monthOrderDetial
 {
-    
+    SendOrderStatisticsViewController * orderDeal =[[SendOrderStatisticsViewController alloc]init];
+    orderDeal.deliveryId = _deliveryId;
+    orderDeal.orderNum = _order_count;
+
+    orderDeal.orderStartTime = _monthstart_time;
+    orderDeal.orderEndTime = _monthend_time;
+    [self.navigationController pushViewController:orderDeal animated:NO];
     
 }
 #pragma mark - ZFFooterCellDelegate footerView上的按钮事件
-///配送信息 + 取消
--(void)cancelOrderAction
+///调用接口-配送信息
+-(void)cancelOrderActionbyIndex:(NSInteger)index
 {
-    [self.view addSubview:self.messagebgview];
+    SendServiceStoreinfomap * store  = self.orderListArray[index];
+#warning ----orderid暂时没有
+    _order_id = [NSString stringWithFormat:@"%ld",store.orderId];
+
+    //确认后调用该接口
+    [self sendMsgOrderDeliveryByorderId:_order_id];
+    
 }
+
 ///接单+配送完成
--(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice{
-    
-    
+-(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice  indexPath :(NSInteger)indexPath
+{
+
     JXTAlertController * alertavc =[JXTAlertController alertControllerWithTitle:@"提示" message:@"亲,确定要接单吗？" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    
+        SendServiceStoreinfomap * store = self.orderListArray[indexPath];
         
-        if (_order_id != nil) {
-            //确认后调用该接口
+        switch (_servicType) {
+            case SendServicTypeWaitSend:
+                
+                [self getOrderbyOrderId:[NSString stringWithFormat:@"%ld",store.orderId] deliveryId:_deliveryId status:@"1"];
+                break;
+            case SendServicTypeSending:
+                
+                [self getOrderbyOrderId:[NSString stringWithFormat:@"%ld",store.orderId] deliveryId:_deliveryId status:@"2"];
+                break;
+                
+            case SendServicTypeSended:
+                
+                [self getOrderbyOrderId:[NSString stringWithFormat:@"%ld",store.orderId] deliveryId:_deliveryId status:@"3"];
+                break;
         }
+        
         
     }];
     [alertavc addAction:cancelAction];
@@ -836,6 +918,8 @@
                              @"orderStartTime":orderStartTime,
                              @"orderEndTime":orderEndTime,
                              @"status":orderStatus,
+                             @"page":@"1",
+                             @"size":@"5",
                              
                              };
     [SVProgressHUD show];
@@ -889,15 +973,62 @@
     [SVProgressHUD show];
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderDeliveryInfo",zfb_baseUrl] params:param success:^(id response) {
+        
         if ([response[@"resultCode"] intValue] == 0) {
             
-        
-            [self.send_tableView reloadData];
             
             [SVProgressHUD dismissWithDelay:1];
             
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
         }
+        [self.send_tableView reloadData];
+
+    } progress:^(NSProgress *progeress) {
         
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        
+    }];
+    
+    
+}
+
+#pragma mark - getDistriInfo 根据订单id查询订单配送信息
+-(void)sendMsgOrderDeliveryByorderId:(NSString *)orderId
+{
+    NSDictionary * param = @{
+                             @"orderId":orderId,
+                             
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getDistriInfo",zfb_baseUrl] params:param success:^(id response) {
+        if ([response[@"resultCode"] intValue] == 0) {
+            
+            //懒得转模型
+            msg_address = response[@"orderInfoMap"][@"address"];
+            msg_postPhone = response[@"orderInfoMap"][@"postPhone"];
+            msg_postName = response[@"orderInfoMap"][@"postName"];
+            msg_postAddress = response[@"orderInfoMap"][@"postAddress"];
+            msg_orderDeliveryFee = response[@"orderInfoMap"][@"orderDeliveryFee"];
+            msg_contactPhone = response[@"orderInfoMap"][@"contactPhone"];
+            
+            [self.msgArray addObject:msg_address];
+            [self.msgArray addObject:msg_postPhone];
+            [self.msgArray addObject:msg_postName];
+            [self.msgArray addObject:msg_postAddress];
+            [self.msgArray addObject:msg_orderDeliveryFee];
+            [self.msgArray addObject:msg_contactPhone];
+        
+        }
+        [SVProgressHUD dismissWithDelay:1];
+
+        //弹出 配送信息----当前视图
+        [self.view addSubview:self.messagebgview];
+
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
@@ -906,13 +1037,6 @@
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
     }];
-    
-    
-}
-
-#pragma mark - 配送信息 getOrderDeliveryByDeliveryId 根据配送员ID、配送状态查询对应的订单配送信息接口
--(void)sendMsgOrderDeliveryByDeliveryId:(NSString *)orderId deliveryId:(NSString *)deliveryId status:(NSString *)status
-{
     
 }
 -(void)viewWillDisappear:(BOOL)animated

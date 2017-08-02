@@ -95,16 +95,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)didClickLoginAction:(UIButton *)sender
 {
     NSLog(@"登录了");
-    LoginViewController * logvc    = [ LoginViewController new];
-    BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logvc];
-    
-    [self presentViewController:nav animated:NO completion:^{
-        
-        [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
-        [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-    }];
-    
- }
+    [self isloginSuccess];
+}
 -(UITableView *)myTableView
 {
     if (!_myTableView) {
@@ -148,6 +140,12 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)im_messageTag:(UIButton*)sender
 {
     NSLog(@"消息列表");
+    if (BBUserDefault.isLogin == 1) {
+        
+    }else{
+        
+        [self isloginSuccess];
+    }
 }
 
 /**
@@ -157,10 +155,16 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
  */
 -(void)im_SettingTag:(UIButton *)sender{
     NSLog(@"设置");
-    
-    ZFSettingViewController * settingVC = [[ZFSettingViewController alloc]init];
-    [self.navigationController pushViewController:settingVC animated:YES];
-    
+    if (BBUserDefault.isLogin == 1) {
+       
+        ZFSettingViewController * settingVC = [[ZFSettingViewController alloc]init];
+        [self.navigationController pushViewController:settingVC animated:YES];
+        
+    }else{
+      
+        [self isloginSuccess];
+    }
+
     
 }
 
@@ -256,16 +260,16 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 //        if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
 
 //            //商户端
-//            BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
-//            [self.navigationController pushViewController:businessVC animated:YES];
+            BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
+            [self.navigationController pushViewController:businessVC animated:YES];
 
         
 
 //        }if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
             //配送端
-            ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
-            [self.navigationController pushViewController:sendVC animated:YES];
-            
+//            ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
+//            [self.navigationController pushViewController:sendVC animated:YES];
+//            
 //        }
     
     }  if (indexPath.row == 4) {//意见反馈
@@ -281,42 +285,65 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 ///待付款
 -(void)didClickWaitForPayAction:(UIButton *)button
 {
-    
-    ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
-    orderVC.orderType   = 1 ;
-    orderVC.orderStatus =@"4";
-    orderVC.buttonTitle = @"待付款";
-    [self.navigationController pushViewController:orderVC animated:YES];
+    if (BBUserDefault.isLogin == 1) {
+        ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
+        orderVC.orderType   = 1 ;
+        orderVC.orderStatus =@"4";
+        orderVC.buttonTitle = @"待付款";
+        [self.navigationController pushViewController:orderVC animated:YES];
+    }else{
+        [self isloginSuccess];
+        
+    }
+
 }
 #pragma mark - 已配送didClickSendedAction
 ///已配送
 -(void)didClickSendedAction:(UIButton *)button
 {
-    ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
-    orderVC.orderType   = 4 ;
-    orderVC.orderStatus =@"2";
-    orderVC.buttonTitle = @"已配送";
-    [self.navigationController pushViewController:orderVC animated:YES];
+    if (BBUserDefault.isLogin == 1) {
+        ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
+        orderVC.orderType   = 4 ;
+        orderVC.orderStatus =@"2";
+        orderVC.buttonTitle = @"已配送";
+        [self.navigationController pushViewController:orderVC animated:YES];
+    }else{
+        [self isloginSuccess];
+        
+    }
+   
 }
 #pragma mark - 待评价didClickWaitForEvaluateAction
 ///待评价
 -(void)didClickWaitForEvaluateAction:(UIButton *)button
 {
-    ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
-    orderVC.orderType   = 5 ;
-    orderVC.buttonTitle = @"待评价";
-    [self.navigationController pushViewController:orderVC animated:YES];
+    if (BBUserDefault.isLogin == 1) {
+        ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
+        orderVC.orderType   = 5 ;
+        orderVC.buttonTitle = @"待评价";
+        [self.navigationController pushViewController:orderVC animated:YES];
+  
+    }else{
+        [self isloginSuccess];
+        
+    }
     
 }
 #pragma mark - 退货didClickBacKgoodsAction
 ///退货
 -(void)didClickBacKgoodsAction:(UIButton *)button
 {
+
     NSLog(@" push 退货 页面");
-    
-    ZFAppySalesReturnViewController * saleVC = [[ZFAppySalesReturnViewController alloc]init];
-    [self.navigationController pushViewController:saleVC animated:YES];
-    
+    if (BBUserDefault.isLogin == 1) {
+        ZFAppySalesReturnViewController * saleVC = [[ZFAppySalesReturnViewController alloc]init];
+        [self.navigationController pushViewController:saleVC animated:YES];
+        
+    }else{
+        [self isloginSuccess];
+
+    }
+
 }
 
 #pragma mark - 收藏
@@ -333,15 +360,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
  
     }else{
         
-        LoginViewController * logvc    = [ LoginViewController new];
-        BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logvc];
-        [self presentViewController:nav animated:NO completion:^{
-            
-            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
-            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-        }];
-        
-
+        [self isloginSuccess];
     }
     
 }
@@ -358,14 +377,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
     }else{
         
-        LoginViewController * logvc    = [ LoginViewController new];
-        BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logvc];
-        [self presentViewController:nav animated:NO completion:^{
-            
-            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
-            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-        }];
-    
+        [self isloginSuccess];
     }
 }
 
@@ -443,6 +455,20 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
 }
 
+//判断是否登录了
+-(void)isloginSuccess
+{
+
+    LoginViewController * logvc    = [ LoginViewController new];
+    BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logvc];
+    [self presentViewController:nav animated:NO completion:^{
+        
+        [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+        [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+    }];
+    
+    
+}
 
 //
 

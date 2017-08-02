@@ -191,12 +191,18 @@ typedef NS_ENUM(NSUInteger, indexType) {
         if (_tf_loginphone == textField) {
          
             //判断是不是手机号
+
             if ( [_tf_loginphone.text isMobileNumberClassification]) {
+                self.login_btn.enabled = YES;
+                self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
                 
             }else{
-    
+                self.login_btn.enabled = NO;
+                self.login_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
                 [self.view makeToast:@"你输入的手机格式错误" duration:2.0 position:@"center"];
+
             }
+
         }
         if (_tf_verificationCodeOrPassWord == textField) {
             
@@ -218,10 +224,12 @@ typedef NS_ENUM(NSUInteger, indexType) {
         if (_tf_loginphone == textField) {
             //判断是不是手机号
             if ( [_tf_loginphone.text isMobileNumberClassification]) {
-                
-                NSLog(@"自动请求发送验证码");
+                self.login_btn.enabled = YES;
+                self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
                 
             }else{
+                self.login_btn.enabled = NO;
+                self.login_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
                 [self.view makeToast:@"你输入的手机格式错误" duration:2.0 position:@"center"];
                 
             }
@@ -346,13 +354,16 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/SendMessages",zfb_baseUrl] params:parma success:^(id response) {
-        
-        _smsCode = response[@"smsCode" ];
-        _tf_verificationCodeOrPassWord.text = _smsCode;
-        
-        self.login_btn.enabled = YES;
-        self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
-        
+        if ([response[@"resultCode"] intValue ] == 0) {
+            
+            _smsCode = response[@"smsCode" ];
+            _tf_verificationCodeOrPassWord.text = _smsCode;
+            
+            self.login_btn.enabled = YES;
+            self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+            
+        }
+
         [self.view makeToast:response[@"resultMsg"]  duration:2 position:@"center"];
         
         [SVProgressHUD dismiss];
@@ -382,20 +393,15 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/quickLogin",zfb_baseUrl] params:parma success:^(id response) {
-
-//        AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
-//        appdelegate.signMD5Key = response[@"userInfo"][@"userKeyMd5"];
-
-        BBUserDefault.isLogin = 1;
-
-        BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
-        BBUserDefault.nickName = response[@"userInfo"][@"nickName"];
-        
-        BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
-        NSLog(@" ======= signMD5Key=======%@", BBUserDefault.userKeyMd5 );
-
-        int code = [response[@""] intValue];
-        if (code == 0) {
+ 
+        if ([response[@"resultCode"] intValue ] == 0) {
+            BBUserDefault.isLogin = 1;
+            
+            BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
+            BBUserDefault.nickName = response[@"userInfo"][@"nickName"];
+            
+            BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
+            NSLog(@" ======= signMD5Key=======%@", BBUserDefault.userKeyMd5 );
             
             [self left_button_event];
         }
@@ -433,8 +439,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/login",zfb_baseUrl] params:parma success:^(id response) {
         
         NSLog(@"response ===== %@",response);
-        int code = [response[@"resultCode"] intValue];
-        if (code == 0) {
+ 
+        if ([response[@"resultCode"] intValue ] == 0) {
             //设置全局变量
 //            AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
             BBUserDefault.isLogin = 1;

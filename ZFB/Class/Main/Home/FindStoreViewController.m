@@ -50,17 +50,28 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     //默认一个页码 和 页数
     _pageCount = 8;
+    _page = 1;
 
-    
+    //刷新定位
+    [self LocationMapManagerInit];
+ 
     [self initWithHome_Tableview];
     
     [self initInTerfaceView];
+   
+    //定位成功后请求
+    [self PostRequst];
     
     weakSelf(weakSelf);
-    //上拉加载
     _home_tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         
-        _page ++ ;
+        if (self.storeListArr.count > _pageCount * _page) {
+
+            _page ++ ;
+  
+        }else{
+            _page = 1;
+        }
         [weakSelf PostRequst];
         
     }];
@@ -70,8 +81,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         //需要将页码设置为1
         _page = 1;
         [weakSelf PostRequst];
-    }];
-    
+    }];    
 }
 
 -(UIButton *)location_btn
@@ -199,7 +209,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
    
     if (self.storeListArr.count > 0) {
         
-        FindStoreGoodslist * listModel =  [self.storeListArr objectAtIndex:indexPath.row];
+        Findgoodslist * listModel =  self.storeListArr[indexPath.row];
         storeCell.findgoodslist = listModel;
     }
 
@@ -213,7 +223,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     if (self.storeListArr.count > 0) {
         
         DetailStoreViewController * vc = [[DetailStoreViewController alloc]init];
-        FindStoreGoodslist * listModel = self.storeListArr[indexPath.row];
+        Findgoodslist * listModel = self.storeListArr[indexPath.row];
         vc.storeId =[NSString stringWithFormat:@"%ld",listModel.storeId];
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -251,7 +261,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         _locationManager = [[CLLocationManager alloc]init];
         _locationManager.distanceFilter = 200;
         _locationManager.delegate = self;
-        [_locationManager requestAlwaysAuthorization];
+        [_locationManager startUpdatingLocation];
         currentCityAndStreet = [NSString new];
         [_locationManager requestWhenInUseAuthorization];
         
@@ -268,16 +278,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 {
     [self.view makeToast:[NSString stringWithFormat:@"%@",error] duration:2 position:@"center"];
 
-    //设置提示提醒用户打开定位服务
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"允许定位提示" message:@"请在设置中打开定位" preferredStyle:UIAlertControllerStyleAlert];
-//    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:nil];
-//    
-//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-//    [alert addAction:okAction];
-//    [alert addAction:cancelAction];
-//    [self presentViewController:alert animated:YES completion:nil];
-
-
 }
 
 #pragma mark 定位成功后则执行此代理方法
@@ -292,6 +292,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
     latitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
     longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
+    
+    BBUserDefault.latitude = latitudestr;
+    BBUserDefault.longitude = longitudestr;
     
     //反地理编码
     [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
@@ -314,13 +317,13 @@ static NSString *CellIdentifier = @"FindStoreCellid";
             
         }
     }];
+    
 
 }
 
 #pragma mark - 首页网络请求 getCmStoreInfo
 -(void)PostRequst
 {
-    [self.home_tableView.mj_header endRefreshing];
  
     NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageCount];
     NSString * pageIndex= [NSString stringWithFormat:@"%ld",_page];
@@ -342,31 +345,33 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                              @"sercahText":@"",
                              
                              };
-    
-    NSLog(@" 参与加密的参数  ----------- %@ ======parma" ,parma);
-    
   
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
         
-        if (_page == 1) {
+        if ([response[@"resultCode"] intValue] == 0) {
             
-            if (self.storeListArr.count > 0) {
+            if (_page == 1) {
                 
-                [self.storeListArr removeAllObjects];
-                
+                if (self.storeListArr.count > 0) {
+                    
+                    [self.storeListArr removeAllObjects];
+                    
+                }
             }
-        }
-        HomeStoreListModel  * homeStore = [HomeStoreListModel mj_objectWithKeyValues:response];
-        for (Storeinfolist * storelist in homeStore.storeInfoList.findGoodsList) {
+            HomeStoreListModel * homeStore = [HomeStoreListModel mj_objectWithKeyValues:response];
             
-            [self.storeListArr addObject:storelist];
+            for (Findgoodslist  * goodlist in homeStore.storeInfoList.findGoodsList) {
+      
+                [self.storeListArr addObject:goodlist];
+
+            }
+
+            [self.home_tableView reloadData];
+            NSLog(@"门店列表 = %@",   self.storeListArr);
+ 
         }
-        
-        NSLog(@"门店列表 = %@",   self.storeListArr);
-        [self.home_tableView reloadData];
         [self.home_tableView.mj_header endRefreshing];
         [self.home_tableView.mj_footer endRefreshing];
-        
         
     } progress:^(NSProgress *progeress) {
         
@@ -383,15 +388,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
  
 }
 
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [self.home_tableView.mj_header beginRefreshing];
-    
-    //刷新定位
-    [self LocationMapManagerInit];
-    
-}
 
 -(NSMutableArray *)storeListArr
 {

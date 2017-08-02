@@ -19,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_num;
 @property (weak, nonatomic) IBOutlet UILabel *lb_detailTime;
 
-@property (strong,nonatomic) Orderlist * list ;
 @property (strong,nonatomic) Ordergoods * goods ;
 @property (strong,nonatomic) BusinessOrdergoods * businesGoods ;
 @property (strong,nonatomic) SendServiceOrdergoodslist * sendGoods ;

@@ -176,7 +176,7 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
         
         if (indexPath.row == 0) {
             
-            [self tableView:_tableView didSelectRowAtIndexPath:indexPath];
+            [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
         }
     }
    

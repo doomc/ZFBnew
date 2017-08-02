@@ -20,7 +20,9 @@
 {
     _storlist = storlist;
     
-    self.lb_title.text = storlist.storeName;
+    self.lb_title.text = storlist.createTime;
+    [self.statusButton setTitle:@"已配送" forState:UIControlStateNormal];
+
  
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

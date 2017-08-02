@@ -85,7 +85,7 @@
 
 @property (nonatomic, assign) NSInteger auditStatus;
 
-@property (nonatomic, copy) NSString *storePrice;
+@property (nonatomic, assign) CGFloat storePrice;
 
 @property (nonatomic, copy) NSString *isGoodsRules;
 
@@ -113,7 +113,7 @@
 
 @property (nonatomic, assign) NSInteger goodsPv;///访问量
 
-@property (nonatomic, copy) NSString * storeDist;///距离
+@property (nonatomic, assign) CGFloat storeDist;///距离
 
 
 

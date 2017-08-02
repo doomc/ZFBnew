@@ -10,4 +10,6 @@
 
 @interface SendMessageView : UIView
 
+@property (nonatomic , strong) NSArray *  detailTitleArray;
+
 @end

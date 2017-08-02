@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "AllOrderModel.h"
 #import "BusinessOrderModel.h"
+
+
 @interface ZFTitleCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_nameOrTime;
@@ -17,9 +19,10 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
 
-@property (strong, nonatomic)  Orderlist * orderlist;
+@property (strong, nonatomic)  Orderlist * orderlist;//全部订单
 
-@property (strong, nonatomic)  BusinessOrderlist * businessOrder;
+@property (strong, nonatomic)  BusinessOrderlist * businessOrder;//商户端订单
+
 
 
 @end

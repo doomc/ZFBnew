@@ -19,7 +19,7 @@
 #import "HomeADModel.h"
 #import "HomeGuessModel.h"
 
-
+#import "HomeHotModel.h"
 
 static NSString * cell_guessID = @"GuessCellid";
 static NSString * cell_listID = @"FuncListTableViewCellid";
@@ -69,8 +69,15 @@ typedef NS_ENUM(NSUInteger, CellType) {
     weakSelf(weakSelf);
     //上拉加载
     _findGoods_TableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        _page ++ ;
+       
+        if (self.likeListArray.count > _pageCount * _page) {
+            
+            _page ++ ;
+            
+        }else{
+            _page = 1;
+        }
+ 
         [weakSelf guessYouLikePostRequst];
         
     }];
@@ -88,8 +95,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 ///全部分类
 -(void)seleteItemCell:(FuncListTableViewCell *)cell withIndex:(NSIndexPath *)indexPath
 {
-    FuncListTableViewCell * funcCell = [self.findGoods_TableView cellForRowAtIndexPath:indexPath];
-    
+     
     NSLog(@"全部分类全部分类");
     ZFClassifyCollectionViewController * classifyVC = [[ZFClassifyCollectionViewController alloc]init];
     [self.navigationController pushViewController:classifyVC animated:NO];
@@ -394,8 +400,14 @@ typedef NS_ENUM(NSUInteger, CellType) {
             [self.hotArray removeAllObjects];
             
         }
- 
-#warning  此处数据未加----
+        HomeHotModel * hotmodel = [HomeHotModel mj_objectWithKeyValues:response];
+        
+        for (hotFindgoodslist * hotlist in hotmodel.data.bestGoodsList.findGoodsList) {
+            
+            [self.hotArray addObject:hotlist];
+        }
+        NSLog(@"%@ ==== hote 热手",self.hotArray );
+        [self.findGoods_TableView reloadData];
      
     } progress:^(NSProgress *progeress) {
         
@@ -410,17 +422,17 @@ typedef NS_ENUM(NSUInteger, CellType) {
 
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [self.findGoods_TableView.mj_header beginRefreshing];
-    
-}
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    [self.findGoods_TableView.mj_header beginRefreshing];
+//    
+//}
 
 -(NSMutableArray *)hotArray
 {
     if (!_hotArray) {
         
-        _hotArray =[NSMutableArray arrayWithObjects:@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3439142207,445655643&fm=26&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3482505542,1886996970&fm=26&gp=0.jpg",@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1257582905,2995398711&fm=26&gp=0.jpg", nil];
+        _hotArray =[NSMutableArray array];
     }
     return _hotArray;
 }

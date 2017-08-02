@@ -27,7 +27,12 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 {
     NSArray * _titleArr;
     BOOL _isSelectCount;
-    
+
+    NSString  * _nickName;
+    NSInteger * _sex;
+    NSString  * _cmBirthday;
+    NSString  * _userImgAttachUrl;
+
 }
 @property (nonatomic,strong) UITableView * tableView;
 @property (nonatomic,strong) NSArray *sexTitleArr;
@@ -49,6 +54,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     _titleArr  = @[@"昵称",@"性别",@"生日",@"地址管理"];
     _sexTitleArr = @[@"男",@"女"];
     _isSelectCount = NO;//默认选择一次
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingHeaderCell" bundle:nil] forCellReuseIdentifier:settingheadid];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingRowCell" bundle:nil] forCellReuseIdentifier:settingRowid];
     
@@ -81,10 +87,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     
     return right_button;
 }
-//设置右边事件
--(void)right_button_event:(UIButton*)sender{
-    NSLog(@"保存")
-}
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -122,12 +125,12 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 
         if (indexPath.row == 0) {
             rowCell.lb_detailTitle.hidden = YES;
-            rowCell.tf_contentTextfiled.delegate = self;
-            [rowCell.tf_contentTextfiled addTarget:self action:@selector(textFieldEditing:) forControlEvents:UIControlEventEditingChanged];
+            rowCell.tf_contentTextfiled.placeholder = @"请输入昵称,该昵称填写后不可修改";
+
         }
         else if (indexPath.row == 1) {
             rowCell.tf_contentTextfiled.hidden = YES;
-
+            rowCell.lb_detailTitle.text= @"保密";
         }
         else if (indexPath.row == 2) {
             rowCell.tf_contentTextfiled.hidden = YES;
@@ -174,16 +177,19 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             JXTAlertController * alertSheet  =[[ JXTAlertController alloc]init];
             UIAlertAction  * alertSeet1 = [UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 rowCell.lb_detailTitle.text = @"男";
-
+ 
             }];
             UIAlertAction  * alertSeet2 = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 rowCell.lb_detailTitle.text = @"女";
 
-            }];   UIAlertAction  * alertSeet3 = [UIAlertAction actionWithTitle:@"保密" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            UIAlertAction  * alertSeet3 = [UIAlertAction actionWithTitle:@"保密" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 rowCell.lb_detailTitle.text = @"保密";
 
             }];
-
+            
+            
+    
             [alertSheet addAction:alertSeet1];
             [alertSheet addAction:alertSeet2];
             [alertSheet addAction:alertSeet3];
@@ -198,14 +204,14 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
                     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
                     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
                     NSString * dataStr =[dateFormatter stringFromDate:date];
-
                     rowCell.lb_detailTitle.text = dataStr;
                     NSLog(@"current Date:%@",dataStr);
+    
                 } cancelBlock:^{
                     
                 }];
                 
-                //_isSelectCount = YES;  //Yes 默认为只能执行一次
+     
 
             }else{
                 
@@ -225,26 +231,52 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     }
 }
 
-//cell UITextField 的text
--(void)textFieldEditing:(UITextField *)textField
+//保存事件
+-(void)right_button_event:(UIButton*)sender{
+    
+    NSLog(@"保存")
+    
+    //保存成功后不可以修改
+     _isSelectCount = YES;  //Yes 默认为只能执行一次
+    //保存后的操作
+    ZFSettingRowCell *rowCell  = [ZFSettingRowCell new];
+    rowCell.tf_contentTextfiled.userInteractionEnabled = NO;
+    rowCell.tf_contentTextfiled.delegate = nil;
+    
+    [self getUserInfoUpdate];
+}
+
+#pragma mark -  保存用户信息getUserInfoUpdate  //1. 男 2.女 3保密
+-(void)getUserInfoUpdate
 {
-    NSLog(@"%@",textField.text);
+    NSDictionary * param = @{
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"nickName":@"",
+                             @"sex":@"",
+                             @"cmBirthday":@"",
+                             @"userImgAttachUrl":@"",
+                             
+                             };
+    [SVProgressHUD show];
+   
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getDistriInfo",zfb_baseUrl] params:param success:^(id response) {
+        if ([response[@"resultCode"] intValue] == 0) {
+            
+         
+        }
+        
+        [SVProgressHUD dismissWithDelay:1];
+ 
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+    }];
     
 }
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self.view endEditing:YES];
-
-    ZFSettingRowCell *rowCell  = [ZFSettingRowCell new];
-    [rowCell.tf_contentTextfiled resignFirstResponder];
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    ZFSettingRowCell *rowCell  = [ZFSettingRowCell new];
-    [rowCell.tf_contentTextfiled resignFirstResponder];
-    return YES;
-}
-
 
 @end

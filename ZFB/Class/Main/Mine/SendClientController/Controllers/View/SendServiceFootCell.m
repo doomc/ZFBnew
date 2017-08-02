@@ -16,6 +16,14 @@
     // Initialization code
 }
 
+
+-(void)setStoreList:(SendServiceStoreinfomap *)storeList
+{
+    _storeList = storeList;
+    self.lb_orderPrice.text = [NSString stringWithFormat:@"%ld",storeList.orderAmmount];
+    self.lb_freePrice.text = [NSString stringWithFormat:@"%ld",storeList.orderDeliveryFee];
+    
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

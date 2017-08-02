@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "AllOrderModel.h"
 #import "BusinessOrderModel.h"
-
+#import "SendServiceOrderModel.h"
 @protocol ZFFooterCellDelegate <NSObject>
 
 ///取消订单
--(void)cancelOrderAction;
+-(void)cancelOrderActionbyIndex :(NSInteger)index ;
 
 ///派单
--(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice;
+-(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice  indexPath :(NSInteger)indexPath;
 
 
 @end
@@ -36,9 +36,13 @@
 
 @property (nonatomic, strong) BusinessOrderlist * businessOrder ;
 
+@property (nonatomic, strong) SendServiceStoreinfomap * sendOrder ;
+
 @property (nonatomic, copy) NSString  * orderId ;
 
 @property (nonatomic, copy) NSString  * totalPrice ;//总价
+
+@property (nonatomic, assign) NSInteger    index ;//当前的下标 
 
 
 @end

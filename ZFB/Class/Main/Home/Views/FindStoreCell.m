@@ -18,7 +18,7 @@
 }
  
 
--(void)setFindgoodslist:(FindStoreGoodslist *)findgoodslist
+-(void)setFindgoodslist:(Findgoodslist *)findgoodslist
 {
     _findgoodslist = findgoodslist;
     

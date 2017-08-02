@@ -31,6 +31,7 @@
     
 }
 
+//全部订单
 -(void)setOrderlist:(Orderlist *)orderlist
 {
     _orderlist = orderlist;
@@ -70,7 +71,7 @@
     
 }
 
-///订单goodlist
+///服务端订单goodlist
 -(void)setBusinessOrder:(BusinessOrderlist *)businessOrder
 {
     _businessOrder = businessOrder;
@@ -81,21 +82,28 @@
     _totalPrice  = businessOrder.orderAmount;//总价
 }
 
+//配送端订单
+-(void)setSendOrder:(SendServiceStoreinfomap *)sendOrder
+{
+    _sendOrder = sendOrder;
+    self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%ld",sendOrder.orderAmmount];//订单价格
+
+}
 ///取消 所有指令
 -(void)cancel_buttonAction
 {
-    if ([self.footDelegate respondsToSelector:@selector(cancelOrderAction)]) {
+    if ([self.footDelegate respondsToSelector:@selector(cancelOrderActionbyIndex:)]) {
        
-        [self.footDelegate cancelOrderAction];
+        [self.footDelegate cancelOrderActionbyIndex:_index];
     }
 }
 
 ///派单 、、、确认支付 等所有指令
 -(void)payfor_buttonAction
 {
-    if ([self.footDelegate respondsToSelector:@selector(sendOrdersActionOrderId:totalPrice:)]) {
+    if ([self.footDelegate respondsToSelector:@selector(sendOrdersActionOrderId:totalPrice:indexPath:)]) {
    
-        [self.footDelegate sendOrdersActionOrderId:_orderId totalPrice:_totalPrice];
+        [self.footDelegate sendOrdersActionOrderId:_orderId totalPrice:_totalPrice indexPath:_index];
  
     }
 }

@@ -536,7 +536,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
     [self.mapNavigationView showMapNavigationViewWithtargetLatitude:22.488260 targetLongitute:113.915049 toName:@"中海油华英加油站"];
     [self.view addSubview:_mapNavigationView];
-    [self.view bringSubviewToFront:_mapNavigationView];
+    [self.list_tableView bringSubviewToFront:_mapNavigationView];
     
     //    //从指定地导航到指定地
     //        [self.mapNavigationView showMapNavigationViewFormcurrentLatitude:30.306906 currentLongitute:120.107265 TotargetLatitude:22.488260 targetLongitute:113.915049 toName:@"中海油华英加油站"];
@@ -611,7 +611,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
     
     lb_price           = [UILabel new];
-    lb_price.text      = @"123";//[NSString stringWithFormat:@"¥%@",_netPurchasePrice]
+    lb_price.text      = @"0";//[NSString stringWithFormat:@"¥%@",_netPurchasePrice]
     lb_price.textColor = HEXCOLOR(0xfe6d6a);
     lb_price.font      = [UIFont systemFontOfSize:14];
     [self.popView addSubview:lb_price];
@@ -788,7 +788,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             _goodsName        = detailModel.data.goodsInfo.goodsName;//商品名
             _coverImgUrl      = detailModel.data.goodsInfo.coverImgUrl;//商品封面
             _attachImgUrl     = detailModel.data.goodsInfo.attachImgUrl;//图片链接
-            _netPurchasePrice = detailModel.data.goodsInfo.netPurchasePrice;//价格
+            _netPurchasePrice = detailModel.data.goodsInfo.storePrice;//价格
             _goodsSales       = detailModel.data.goodsInfo.goodsSales;//已经销售
             _commentNum       = detailModel.data.goodsInfo.commentNum;//评论数
             _isCollect        = [detailModel.data.goodsInfo.isCollect integerValue];//是否收藏
@@ -847,6 +847,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"goodId":_goodsId,
                              @"goodName":_goodsName,//商品名
+                             @"collectType":@"1",//1收藏商品 2收藏门店
                              
                              };
     
@@ -874,7 +875,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                              
                              @"goodId":_goodsId,
                              @"cmUserId":BBUserDefault.cmUserId,
-                             
+                             @"collectType" :@"1"    //collectType	string	收藏类型	1商品 2门店	否
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/cancalGoodsCollect",zfb_baseUrl] params:parma success:^(id response) {

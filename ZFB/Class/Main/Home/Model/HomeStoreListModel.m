@@ -10,19 +10,19 @@
 
 @implementation HomeStoreListModel
  
-
-
 @end
+
+
 @implementation Storeinfolist
 
 + (NSDictionary *)objectClassInArray{
-    return @{@"findGoodsList" : [FindStoreGoodslist class]};
+    return @{@"findGoodsList" : [Findgoodslist class]};
 }
 
 @end
 
 
-@implementation FindStoreGoodslist
+@implementation Findgoodslist
 
 @end
 

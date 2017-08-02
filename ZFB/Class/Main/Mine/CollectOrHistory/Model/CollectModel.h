@@ -39,7 +39,7 @@
 
 @property (nonatomic, assign) NSInteger userId;
 
-@property (nonatomic, assign) NSInteger storePrice;
+@property (nonatomic, assign) CGFloat storePrice;
 
 @property (nonatomic, assign) NSInteger createTime;
 

@@ -14,10 +14,11 @@
     [super awakeFromNib];
     // Initialization code
     
-    self.bgView.layer.borderWidth = 0.5;
+    self.bgView.clipsToBounds = YES;
+ 
+    self.bgView.layer.borderWidth = 1;
     self.bgView.layer.cornerRadius = 2;
     self.bgView.layer.borderColor = HEXCOLOR(0xdedede).CGColor;
-    self.bgView.clipsToBounds = YES;
 
 }
 

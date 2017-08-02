@@ -11,7 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 
-@interface JXMapNavigationView : UIView<UIActionSheetDelegate,CLLocationManagerDelegate>
+@interface JXMapNavigationView : UIView <UIActionSheetDelegate,CLLocationManagerDelegate>
 /**
  *  从指定地导航到指定地
  *

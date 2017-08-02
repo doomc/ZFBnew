@@ -7,7 +7,7 @@
 //
 
 #import "ZFSettingRowCell.h"
-@interface ZFSettingRowCell ()
+@interface ZFSettingRowCell ()<UITextFieldDelegate>
 
 @end
 @implementation ZFSettingRowCell
@@ -18,9 +18,38 @@
     
     
     self.tf_contentTextfiled.clearButtonMode = UITextFieldViewModeWhileEditing;
-
+    self.tf_contentTextfiled.delegate =self;
+    
+    self.tf_contentTextfiled.delegate = self;
+    [self.tf_contentTextfiled addTarget:self action:@selector(textFieldEditing:) forControlEvents:UIControlEventEditingChanged];
 }
 
+
+//cell UITextField 的text
+-(void)textFieldEditing:(UITextField *)textField
+{
+    NSLog(@"%@",textField.text);
+    
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    _nickName = textField.text;
+    NSLog(@"%@",textField.text);
+
+}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self endEditing:YES];
+    
+}
+
+//回收键盘
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    ZFSettingRowCell *rowCell  = [ZFSettingRowCell new];
+    [rowCell.tf_contentTextfiled resignFirstResponder];
+    return YES;
+}
 
 
 

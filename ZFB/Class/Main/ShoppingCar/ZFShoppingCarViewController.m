@@ -98,24 +98,25 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 {
     NSLog(@" 结算");
 
-    [SVProgressHUD show];
+#warning  ----- 进入到结算前提是要选择一个商品 暂时没有处理
     ZFSureOrderViewController * orderVC = [[ZFSureOrderViewController alloc]init];
 
-    if (_jsonString != nil) {
-        orderVC.jsonString =  _jsonString;
-        NSLog(@"提交成功了 ----------- %@ ",_jsonString);
-        [SVProgressHUD dismissWithDelay:1];
-        [self.navigationController pushViewController:orderVC animated:YES];
-
-    }
-    else{
+    if (  _jsonString  == nil  ) {
+   
         JXTAlertController * alert =  [JXTAlertController alertControllerWithTitle:nil message:@"您还没有选择商品" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             
         }];
         [alert addAction:action];
         [self presentViewController:alert animated:YES completion:nil];
+
+    }
+    else{
         
+        orderVC.jsonString =  _jsonString;
+        NSLog(@"提交成功了 ----------- %@ ",_jsonString);
+        [SVProgressHUD dismissWithDelay:1];
+        [self.navigationController pushViewController:orderVC animated:YES];
     }
 
    
@@ -219,6 +220,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             
             [self.jsonGoodArray removeAllObjects];
         }
+        
         //模型转字典
         NSDictionary * dic = list.mj_keyValues;
       
