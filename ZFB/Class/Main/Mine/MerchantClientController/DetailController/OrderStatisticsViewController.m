@@ -127,7 +127,7 @@
 {
     ZFTitleCell * titleCell = [self.orderdTableView
                                dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
-    [titleCell.statusButton setTitle:@"交易完成" forState:UIControlStateNormal];
+    [titleCell.statusButton setTitle:@"交易完成w" forState:UIControlStateNormal];
  //    BusinessOrderlist * orderlist  = self.orderListArray[section];
 //    titleCell.businessOrder = orderlist;
     return titleCell;

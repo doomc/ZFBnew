@@ -44,7 +44,7 @@
 @property (nonatomic,strong) UIView      * sectionView;
 @property (nonatomic,strong) UIButton    * farway_btn;
 @property (nonatomic,strong) UIButton    * all_btn;
-@property (nonatomic,weak  ) UIButton    *selectedBtn;
+@property (nonatomic,weak  ) UIButton    * selectedBtn;
 
 //高德api
 @property (nonatomic,strong) CLLocationManager * locationManager;
@@ -75,14 +75,14 @@
     [self.view addSubview:self.all_tableview];
     [self.all_tableview registerNib:[UINib nibWithNibName:@"AllStoreCell" bundle:nil]
              forCellReuseIdentifier:@"AllStoreCell"];
-    [self.select_tableview registerNib:[UINib nibWithNibName:@"SelectTableviewCell" bundle:nil]
-                forCellReuseIdentifier:@"SelectTableviewCell"];
+    [self.select_tableview registerNib:[UINib nibWithNibName:@"SelectTableviewCell" bundle:nil]forCellReuseIdentifier:@"SelectTableviewCell"];
     
     
     [self LocationMapManagerInit];
 
-//    [self creatButtonWithDouble];
     
+//    [self creatButtonWithDouble];
+    [self CDsyceleSettingRunningPaintWithArray:self.imgArray];
     [self refreshAuto];
  
 }
@@ -108,23 +108,10 @@
     
 }
 
--(UITableView *)select_tableview
-{
-    if (!_select_tableview) {
-        _select_tableview                   = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW/2, 150) style:UITableViewStylePlain];
-        _select_tableview.layer.borderWidth = 0.5;
-        _select_tableview.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
-        _select_tableview.clipsToBounds     = YES;
-        _select_tableview.delegate          = self;
-        _select_tableview.dataSource        = self;
-        
-    }
-    return _select_tableview;
-}
 -(UITableView *)all_tableview
 {
     if (!_all_tableview) {
-        _all_tableview            = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH - 64) style:UITableViewStylePlain];
+        _all_tableview            = [[UITableView alloc]initWithFrame:CGRectMake(0, 64+150+44, KScreenW, KScreenH - 64-44-150) style:UITableViewStylePlain];
         _all_tableview.delegate   = self;
         _all_tableview.dataSource = self;
     }
@@ -147,7 +134,7 @@
 -(void)CDsyceleSettingRunningPaintWithArray:(NSArray *)imgArray
 {
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
-    SDCycleScrollView *  _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 150) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    SDCycleScrollView *  _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, KScreenW, 150) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     _cycleScrollView.imageURLStringsGroup = imgArray;
     _cycleScrollView.pageControlAliment   = SDCycleScrollViewPageContolAlimentCenter;
     _cycleScrollView.delegate             = self;
@@ -156,7 +143,14 @@
     _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
     _cycleScrollView.pageDotImage        = [UIImage imageNamed:@"dot_selected"];
     _cycleScrollView.currentPageDotColor = [UIColor whiteColor];// 自定义分页控件小圆标颜色
-    self.all_tableview.tableHeaderView   = _cycleScrollView;
+    [self.view addSubview:_cycleScrollView];
+    
+    _menu = [[ZspMenu alloc] initWithOrigin:CGPointMake(0, 64+150) andHeight:44];
+    _menu.delegate = self;
+    _menu.dataSource = self;
+    [_menu selectDeafultIndexPath];
+    [self.view addSubview:_menu];
+
     
 }
 
@@ -193,24 +187,7 @@
     CGFloat height = 88;
     return height;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if (section == 0) {
-        return 40;
-    }
-    
-    return 0.001;
-}
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    
-    _menu = [[ZspMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:44];
-    _menu.delegate = self;
-    _menu.dataSource = self;
-    [_menu selectDeafultIndexPath];
-    
-    return _menu;
-}
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -548,7 +525,6 @@
         
         [self.all_tableview.mj_header endRefreshing];
         [self.all_tableview.mj_footer endRefreshing];
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         NSLog(@"error=====%@",error);
         
     }];
@@ -573,7 +549,6 @@
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
 }

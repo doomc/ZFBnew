@@ -153,7 +153,11 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"sectin = %ld,row = %ld",indexPath.section ,indexPath.row);
+    
     ZFSettingRowCell *rowCell =(ZFSettingRowCell *)[tableView cellForRowAtIndexPath:indexPath];
+    
+    [rowCell.tf_contentTextfiled resignFirstResponder];
+    
     if (indexPath.section == 0) {
     
         ZFSettingHeaderCell *cell = (ZFSettingHeaderCell *)[tableView cellForRowAtIndexPath:indexPath];
@@ -165,10 +169,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     }
     if (indexPath.section == 1){
         
-        //设置第一想要
-        [rowCell.tf_contentTextfiled resignFirstResponder];
-
-
+   
         if (indexPath.row == 0) {
             
         }
@@ -236,14 +237,14 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     
     NSLog(@"保存")
     
-    //保存成功后不可以修改
-     _isSelectCount = YES;  //Yes 默认为只能执行一次
-    //保存后的操作
-    ZFSettingRowCell *rowCell  = [ZFSettingRowCell new];
-    rowCell.tf_contentTextfiled.userInteractionEnabled = NO;
-    rowCell.tf_contentTextfiled.delegate = nil;
-    
-    [self getUserInfoUpdate];
+//    //保存成功后不可以修改
+//     _isSelectCount = YES;  //Yes 默认为只能执行一次
+//    //保存后的操作
+//    ZFSettingRowCell *rowCell  = [ZFSettingRowCell new];
+//    rowCell.tf_contentTextfiled.userInteractionEnabled = NO;
+//    rowCell.tf_contentTextfiled.delegate = nil;
+//    
+//    [self getUserInfoUpdate];
 }
 
 #pragma mark -  保存用户信息getUserInfoUpdate  //1. 男 2.女 3保密

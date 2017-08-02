@@ -581,6 +581,7 @@ typedef void(^complete)();
 #pragma mark - 方法实现
 //默认选中的index
 - (void)selectDeafultIndexPath {
+    
     [self selectIndexPath:[ZspIndexPath indexPathWithColumn:0 row:0]];
 }
 //获取IndexPath所对应的字符串

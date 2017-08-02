@@ -144,7 +144,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
     }else{
         
-        [self isloginSuccess];
+//        [self isloginSuccess];
     }
 }
 
@@ -157,12 +157,12 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     NSLog(@"设置");
     if (BBUserDefault.isLogin == 1) {
        
-        ZFSettingViewController * settingVC = [[ZFSettingViewController alloc]init];
-        [self.navigationController pushViewController:settingVC animated:YES];
+       
         
     }else{
-      
-        [self isloginSuccess];
+        ZFSettingViewController * settingVC = [[ZFSettingViewController alloc]init];
+        [self.navigationController pushViewController:settingVC animated:YES];
+//        [self isloginSuccess];
     }
 
     

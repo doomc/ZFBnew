@@ -261,7 +261,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         _locationManager = [[CLLocationManager alloc]init];
         _locationManager.distanceFilter = 200;
         _locationManager.delegate = self;
-        [_locationManager startUpdatingLocation];
+        [_locationManager requestWhenInUseAuthorization];
         currentCityAndStreet = [NSString new];
         [_locationManager requestWhenInUseAuthorization];
         

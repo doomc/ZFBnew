@@ -116,7 +116,7 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-                  timestampString = "523301128.07591"
+                  timestampString = "523383462.721218"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "242"
@@ -131,7 +131,7 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-                  timestampString = "523301128.078438"
+                  timestampString = "523383462.724003"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "242"
@@ -146,7 +146,7 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-                  timestampString = "523301128.082346"
+                  timestampString = "523383462.727235"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "242"
@@ -211,13 +211,59 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/Setting/Controllers/ZFSettingHeadViewController.m"
-            timestampString = "523300988.618342"
+            timestampString = "523383387.761794"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
-            landmarkName = "-textFieldShouldReturn:"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
+            landmarkName = "-right_button_event:"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Home/Controllers/ZFAllStoreViewController.m"
+            timestampString = "523381910.426248"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Mine/Setting/Controllers/ZFSettingHeadViewController.m"
+            timestampString = "523383387.761794"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Mine/Setting/Views/ZFSettingRowCell.m"
+            timestampString = "523383462.508849"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -55,7 +55,7 @@
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
+    manager.requestSerializer.timeoutInterval = 20;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"text/html",@"text/plain",@"application/json", @"text/json", @"text/javascript"]];
     
 //    NSLog(@"已经加密的参数%@",parmaStr);
