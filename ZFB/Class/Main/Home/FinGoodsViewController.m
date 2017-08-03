@@ -126,13 +126,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
                    forCellReuseIdentifier:cell_hotID];
 }
 
-/**
- 初始化功能板块
- */
--(void)initFunctionWithInterface
-{
-    
-}
+
 
 /**初始化轮播 */
 -(void)CDsyceleSettingRunningPaint
@@ -176,8 +170,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
         return self.hotArray.count > 0 ? 1 : 0;
     }
     if (section == 2 ) {
-//        return 3;
-       return self.likeListArray.count;
+        return 3;
+//       return self.likeListArray.count;
     }
     return 1;
 }
@@ -422,11 +416,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
 
 }
 
-//-(void)viewWillAppear:(BOOL)animated
-//{
-//    [self.findGoods_TableView.mj_header beginRefreshing];
-//    
-//}
 
 -(NSMutableArray *)hotArray
 {

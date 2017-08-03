@@ -26,6 +26,8 @@
 #import "SkuHeaderReusableView.h"
 //view
 
+#import "TJMapNavigationService.h"
+
 typedef NS_ENUM(NSUInteger, typeCell) {
     
     typeCellrowOftitleCell, //0 第一行cell
@@ -527,18 +529,16 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 -(void)whereTogoMap:(UIButton *)sender
 {
     //当前位置导航到指定地
+    CGFloat endLat = 39.54;
+    CGFloat endLot = 116.23;
+    NSString *endAddress = @"北京";
     
-    JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"功能完善中"]  preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction * cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
- 
-    }];
-    [alert addAction:cancel];
-    [alert addAction:sure];
-    [self presentViewController:alert animated:YES completion:nil];
-    NSLog(@"地图唤醒暂时没做");
+    CGFloat startLat = [BBUserDefault.latitude floatValue];
+    CGFloat startLot =  [BBUserDefault.longitude floatValue];
+    
+    TJMapNavigationService *mapNavigationService = [[TJMapNavigationService alloc] initWithStartLatitude:startLat startLongitude:startLot endLatitude:endLat endLongitude:endLot endAddress:endAddress locationType:LocationType_Mars];
+    
+    [mapNavigationService showAlert];
 }
 
 #pragma mark - 联系门店 唤醒地图

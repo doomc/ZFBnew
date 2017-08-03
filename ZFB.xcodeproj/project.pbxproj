@@ -33,7 +33,6 @@
 		4939E6711F2AC3EE00ECD0B7 /* SKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 4939E66A1F2AC3EE00ECD0B7 /* SKTag.m */; };
 		4939E6721F2AC3EE00ECD0B7 /* SKTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4939E66C1F2AC3EE00ECD0B7 /* SKTagButton.m */; };
 		4939E6731F2AC3EE00ECD0B7 /* SKTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4939E66E1F2AC3EE00ECD0B7 /* SKTagView.m */; };
-		49555A2A1F32B0C200C3C748 /* CLLocation+MPLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555A291F32B0C200C3C748 /* CLLocation+MPLocation.m */; };
 		49555D871F32EA6B00C3C748 /* IQNSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555D651F32EA6B00C3C748 /* IQNSArray+Sort.m */; };
 		49555D881F32EA6B00C3C748 /* IQUIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555D671F32EA6B00C3C748 /* IQUIScrollView+Additions.m */; };
 		49555D891F32EA6B00C3C748 /* IQUITextFieldView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555D691F32EA6B00C3C748 /* IQUITextFieldView+Additions.m */; };
@@ -700,6 +699,8 @@
 		50777C2A1F2DBA170067B295 /* BusinessSendoOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50777C281F2DBA170067B295 /* BusinessSendoOrderCell.m */; };
 		50777C2B1F2DBA170067B295 /* BusinessSendoOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50777C291F2DBA170067B295 /* BusinessSendoOrderCell.xib */; };
 		50777C2E1F2DD9D20067B295 /* DeliveryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 50777C2D1F2DD9D20067B295 /* DeliveryModel.m */; };
+		50CD44471F33706100B618D0 /* CLLocation+MPLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CD44441F33706100B618D0 /* CLLocation+MPLocation.m */; };
+		50CD44481F33706100B618D0 /* TJMapNavigationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CD44461F33706100B618D0 /* TJMapNavigationService.m */; };
 		50D4D65A1F1BB6F70073DBC1 /* MPUploadImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D4D6591F1BB6F70073DBC1 /* MPUploadImageHelper.m */; };
 		50D4D65E1F1BB73B0073DBC1 /* MPImageItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D4D65D1F1BB73B0073DBC1 /* MPImageItemModel.m */; };
 		50D4D6671F1BB8C00073DBC1 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D4D6661F1BB8C00073DBC1 /* UIView+Extension.m */; };
@@ -796,8 +797,6 @@
 		4939E66C1F2AC3EE00ECD0B7 /* SKTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTagButton.m; sourceTree = "<group>"; };
 		4939E66D1F2AC3EE00ECD0B7 /* SKTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTagView.h; sourceTree = "<group>"; };
 		4939E66E1F2AC3EE00ECD0B7 /* SKTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTagView.m; sourceTree = "<group>"; };
-		49555A281F32B0C200C3C748 /* CLLocation+MPLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+MPLocation.h"; sourceTree = "<group>"; };
-		49555A291F32B0C200C3C748 /* CLLocation+MPLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+MPLocation.m"; sourceTree = "<group>"; };
 		49555D641F32EA6B00C3C748 /* IQNSArray+Sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQNSArray+Sort.h"; sourceTree = "<group>"; };
 		49555D651F32EA6B00C3C748 /* IQNSArray+Sort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQNSArray+Sort.m"; sourceTree = "<group>"; };
 		49555D661F32EA6B00C3C748 /* IQUIScrollView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIScrollView+Additions.h"; sourceTree = "<group>"; };
@@ -1784,6 +1783,10 @@
 		50777C291F2DBA170067B295 /* BusinessSendoOrderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessSendoOrderCell.xib; sourceTree = "<group>"; };
 		50777C2C1F2DD9D20067B295 /* DeliveryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliveryModel.h; sourceTree = "<group>"; };
 		50777C2D1F2DD9D20067B295 /* DeliveryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeliveryModel.m; sourceTree = "<group>"; };
+		50CD44431F33706100B618D0 /* CLLocation+MPLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+MPLocation.h"; sourceTree = "<group>"; };
+		50CD44441F33706100B618D0 /* CLLocation+MPLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+MPLocation.m"; sourceTree = "<group>"; };
+		50CD44451F33706100B618D0 /* TJMapNavigationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJMapNavigationService.h; sourceTree = "<group>"; };
+		50CD44461F33706100B618D0 /* TJMapNavigationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJMapNavigationService.m; sourceTree = "<group>"; };
 		50D4D6581F1BB6F70073DBC1 /* MPUploadImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPUploadImageHelper.h; sourceTree = "<group>"; };
 		50D4D6591F1BB6F70073DBC1 /* MPUploadImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPUploadImageHelper.m; sourceTree = "<group>"; };
 		50D4D65C1F1BB73B0073DBC1 /* MPImageItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPImageItemModel.h; sourceTree = "<group>"; };
@@ -2518,8 +2521,6 @@
 		495EA36E1F14B64B001FCB7E /* MapNavigationView */ = {
 			isa = PBXGroup;
 			children = (
-				49555A281F32B0C200C3C748 /* CLLocation+MPLocation.h */,
-				49555A291F32B0C200C3C748 /* CLLocation+MPLocation.m */,
 			);
 			path = MapNavigationView;
 			sourceTree = "<group>";
@@ -3333,6 +3334,7 @@
 		495EA5531F14B64C001FCB7E /* Public(公共) */ = {
 			isa = PBXGroup;
 			children = (
+				50CD44411F33704B00B618D0 /* Service */,
 				50D4D65B1F1BB73B0073DBC1 /* Model */,
 				50D4D6571F1BB6F70073DBC1 /* Other */,
 				495EA5541F14B64C001FCB7E /* Views */,
@@ -4175,6 +4177,25 @@
 			path = DWQFivestarRating;
 			sourceTree = "<group>";
 		};
+		50CD44411F33704B00B618D0 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				50CD44421F33706100B618D0 /* mapNavigation */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		50CD44421F33706100B618D0 /* mapNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				50CD44431F33706100B618D0 /* CLLocation+MPLocation.h */,
+				50CD44441F33706100B618D0 /* CLLocation+MPLocation.m */,
+				50CD44451F33706100B618D0 /* TJMapNavigationService.h */,
+				50CD44461F33706100B618D0 /* TJMapNavigationService.m */,
+			);
+			path = mapNavigation;
+			sourceTree = "<group>";
+		};
 		50D4D6571F1BB6F70073DBC1 /* Other */ = {
 			isa = PBXGroup;
 			children = (
@@ -4947,6 +4968,7 @@
 				4921415E1F298DA800C44D10 /* BrandListModel.m in Sources */,
 				50D4D6801F1BB94D0073DBC1 /* QBAssetsCollectionOverlayView.m in Sources */,
 				495EA8311F14B64D001FCB7E /* ZFAppySalesReturnViewController.m in Sources */,
+				50CD44481F33706100B618D0 /* TJMapNavigationService.m in Sources */,
 				49555EA51F1E0092002E5688 /* SendServiceTitleCell.m in Sources */,
 				495EA7201F14B64D001FCB7E /* UIImageView+Extentsion.m in Sources */,
 				49AD34581F28C4CC00DC8A8F /* SearchNoResultModel.m in Sources */,
@@ -5117,6 +5139,7 @@
 				495EA76E1F14B64D001FCB7E /* LeftTableViewCell.m in Sources */,
 				495EA7401F14B64D001FCB7E /* introductoryPagesView.m in Sources */,
 				495EA7AA1F14B64D001FCB7E /* FuncListTableViewCell.m in Sources */,
+				50CD44471F33706100B618D0 /* CLLocation+MPLocation.m in Sources */,
 				4927189B1F1F5C6C002A7A54 /* WebViewJavascriptBridge.m in Sources */,
 				49555D891F32EA6B00C3C748 /* IQUITextFieldView+Additions.m in Sources */,
 				495EA7341F14B64D001FCB7E /* UIView+HDExtension.m in Sources */,
@@ -5167,7 +5190,6 @@
 				495EA7321F14B64D001FCB7E /* NSString+HDExtension.m in Sources */,
 				495EA7631F14B64D001FCB7E /* XHStarRateView.m in Sources */,
 				495EA7B41F14B64D001FCB7E /* SearchCell.m in Sources */,
-				49555A2A1F32B0C200C3C748 /* CLLocation+MPLocation.m in Sources */,
 				495EA9481F14B64E001FCB7E /* MJRefreshGifHeader.m in Sources */,
 				495EA8401F14B64D001FCB7E /* ZFOrderDetailCell.m in Sources */,
 				495EA81E1F14B64D001FCB7E /* ZFSettingHeaderCell.m in Sources */,
