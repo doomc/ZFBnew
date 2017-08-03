@@ -37,7 +37,7 @@
 
 @property (nonatomic, copy) NSString *goodsId;
 
-@property (nonatomic, assign) NSInteger storePrice;
+@property (nonatomic, assign) CGFloat storePrice;
 
 @property (nonatomic, copy) NSString *cartItemId;
 

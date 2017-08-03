@@ -22,7 +22,6 @@
 @end
 @interface ZFSendHomeListCell : UITableViewCell
 
-
 @property (assign , nonatomic) id <ZFSendHomeListCellDelegate> delegate;
 
 ///今日

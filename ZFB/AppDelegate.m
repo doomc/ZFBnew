@@ -13,7 +13,6 @@
 
 //高德
 #import <AMapFoundationKit/AMapFoundationKit.h>
-#import <AMapLocationKit/AMapLocationKit.h>
 
 #import "SYSafeCategory.h"
 const static NSString *ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";

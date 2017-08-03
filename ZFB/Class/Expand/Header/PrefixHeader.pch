@@ -17,6 +17,11 @@
 #define NSLog(...)
 #endif
 
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+
 //第三方工具类
 #import <Masonry.h>
 #import "SDCycleScrollView.h"

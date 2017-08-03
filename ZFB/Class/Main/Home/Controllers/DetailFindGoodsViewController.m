@@ -25,14 +25,6 @@
 #import "SkuFooterReusableView.h"
 #import "SkuHeaderReusableView.h"
 //view
-#import "JXMapNavigationView.h"//地图导航
-
-//static NSString  * typeCellrowOftitleString = @"typeCellrowOftitleCell";
-//static NSString  * typeCellrowgoodsSelectedString = @"typeCellrowgoodsSelectedCell";
-//static NSString  * typeCellrowOfbabyString = @"typeCellrowOfbabyCell";
-//static NSString  * typeCellrowOfGoToStoreString = @"typeCellrowOfGoToStoreCell";
-//static NSString  * typeCellrowOflocaString = @"typeCellrowOflocaCell";
-//static NSString  * typeCellrowOfbabyString2 = @"typeCellrowOfbabyCell";
 
 typedef NS_ENUM(NSUInteger, typeCell) {
     
@@ -92,7 +84,8 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 @property (nonatomic,strong) SkuFooterReusableView * skufooterView;
 @property (nonatomic,strong) NSIndexPath           * indexPath;//记录选择的index
-@property (nonatomic,strong) JXMapNavigationView   *mapNavigationView;//弹框地图指定到位置
+
+//弹框地图指定到位置
 
 @property(nonatomic ,strong) NSMutableArray * typeCellArr;
 @property(nonatomic ,strong) NSMutableArray * skuMatch;//规格匹配数组
@@ -396,6 +389,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     else if (indexPath.row == 2) {
         
         
+        //评论列表
         ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
         evc.goodsId                    = _goodsId;
         [self.navigationController pushViewController:evc animated:YES];
@@ -534,13 +528,17 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     //当前位置导航到指定地
     
-    [self.mapNavigationView showMapNavigationViewWithtargetLatitude:22.488260 targetLongitute:113.915049 toName:@"中海油华英加油站"];
-    [self.view addSubview:_mapNavigationView];
-    [self.list_tableView bringSubviewToFront:_mapNavigationView];
-    
-    //    //从指定地导航到指定地
-    //        [self.mapNavigationView showMapNavigationViewFormcurrentLatitude:30.306906 currentLongitute:120.107265 TotargetLatitude:22.488260 targetLongitute:113.915049 toName:@"中海油华英加油站"];
-    //        [self.view addSubview:_mapNavigationView];
+    JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"功能完善中"]  preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+ 
+    }];
+    [alert addAction:cancel];
+    [alert addAction:sure];
+    [self presentViewController:alert animated:YES completion:nil];
+    NSLog(@"地图唤醒暂时没做");
 }
 
 #pragma mark - 联系门店 唤醒地图

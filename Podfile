@@ -12,17 +12,20 @@ target 'ZFB' do
   pod 'SVProgressHUD'
   pod 'Masonry'
   pod 'MJExtension'
+  pod 'SDWebImage'
+    
   # 第三方库
+  #高德地图定位
   pod 'AMapLocation'
   pod 'AMapSearch'
   pod 'AMap2DMap', '~> 4.6.0'
+  #相册
   pod 'MWPhotoBrowser'
-  pod 'SDWebImage'
-  pod 'IQKeyboardManager'
- 
+
+  #扫一扫
+
   #其他
-  # pod 'QBImagePickerController'
-  # pod 'ZYQAssetPickerController']
+
   pod 'ReactiveCocoa', '~> 2.5'
 
   

@@ -17,11 +17,11 @@
 #import "ZFCollectionViewFlowLayout.h"
 //controller
 #import "DetailFindGoodsViewController.h"
-#import "HomeSearchResultViewController.h"
+#import "HomeSearchBarViewController.h"
+#import "BaseNavigationController.h"
 
 
-@interface ZFClassifyCollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout,
-UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
+@interface ZFClassifyCollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -99,7 +99,7 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
     if (!_selectbutton) {
         _selectbutton = [UIButton buttonWithType:UIButtonTypeCustom];
         _selectbutton.backgroundColor = HEXCOLOR(0xfe6d6a);
-        [_selectbutton setTitle:@"商铺" forState:UIControlStateNormal];
+        [_selectbutton setTitle:@"商品" forState:UIControlStateNormal];
         _selectbutton.frame = CGRectMake(5, 7, 40, 30);
         _selectbutton.titleLabel.font = [UIFont systemFontOfSize:14];
         _selectbutton.layer.cornerRadius = 4;
@@ -227,8 +227,6 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 {
  
     return self.collectionDatas.count;
-
- 
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -307,6 +305,7 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
     if (self.collectionView == scrollView)
     {
         _isScrollDown = lastOffsetY < scrollView.contentOffset.y;
+        
         lastOffsetY = scrollView.contentOffset.y;
     }
 }
@@ -348,6 +347,13 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
     NSLog(@"------开始编辑");
+    [self.searchBar resignFirstResponder];
+    HomeSearchBarViewController  * searVC  = [HomeSearchBarViewController new];
+    BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:searVC];
+    [self.navigationController presentViewController:nav animated:NO completion:^{
+        
+    }];
+ 
     return YES;
 }
 -(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
@@ -362,26 +368,9 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     NSLog(@"点击搜索方法");
-    HomeSearchResultViewController  * home  = [HomeSearchResultViewController new];
-    home.resultsText = searchBar.text;
-    [searchBar resignFirstResponder];
+
 
 }
-#pragma mark  ----  searchBar delegate
-//   searchBar开始编辑响应
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-    //因为闲置时赋了空格，防止不必要的bug，在启用的时候先清空内容
-    self.searchBar.text = @"";
-}
-
-//取消键盘 搜索框闲置的时候赋给其一个空格，保证放大镜居左
-- (void)registerFR{
-    if ([self.searchBar isFirstResponder]) {
-        self.searchBar.text = @" ";
-        [self.searchBar resignFirstResponder];
-    }
-}
-
 
 #pragma mark - tableView - 列表网络请求
 #pragma mark  - 第一级分类网络请求
@@ -430,7 +419,6 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
                              
                              };
     
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getNextType",zfb_baseUrl] params:parma success:^(id response) {
  
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
@@ -440,12 +428,12 @@ UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
         
             }
             CollectionCategoryModel *model = [CollectionCategoryModel mj_objectWithKeyValues:response];
+           
             for (Nexttypelist  * list in model.data.nextTypeList) {
                 
                 [self.collectionDatas addObject:list];
             }
          
-            
             [self.collectionView reloadData];
 
         }

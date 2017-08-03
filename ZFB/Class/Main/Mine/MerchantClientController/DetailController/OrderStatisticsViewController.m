@@ -101,15 +101,21 @@
 #pragma mark - UITableViewDelegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//    return self.orderListArray.count;
-    return 2;
+    return self.orderListArray.count;
+//    return 2;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    BusinessOrderlist * list = self.orderListArray[section];
+    NSMutableArray  * goodsArr = [NSMutableArray array];
+   
+    for (BusinessOrdergoods  * goods in list.orderGoods) {
+        [goodsArr addObject:goods];
+    }
     
-//    return self.orderGoodsArry.count;
+    return goodsArr.count;
 
-    return 2;
+//    return 2;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -127,9 +133,9 @@
 {
     ZFTitleCell * titleCell = [self.orderdTableView
                                dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
-    [titleCell.statusButton setTitle:@"交易完成w" forState:UIControlStateNormal];
- //    BusinessOrderlist * orderlist  = self.orderListArray[section];
-//    titleCell.businessOrder = orderlist;
+    [titleCell.statusButton setTitle:@"交易完成" forState:UIControlStateNormal];
+    BusinessOrderlist * orderlist  = self.orderListArray[section];
+    titleCell.businessOrder = orderlist;
     return titleCell;
 }
 
@@ -151,8 +157,16 @@
 {
     
     ZFSendingCell * cell = [self.orderdTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
-    BusinessOrdergoods * goodslist = self.orderGoodsArry[indexPath.row];
+    
+    BusinessOrderlist * list = self.orderListArray[indexPath.section];
+    NSMutableArray  * goodsArr = [NSMutableArray array];
+    
+    for (BusinessOrdergoods  * goods in list.orderGoods) {
+        [goodsArr addObject:goods];
+    }
+    BusinessOrdergoods * goodslist = goodsArr[indexPath.row];
     cell.businesGoods = goodslist;
+    
     return cell;
 }
 
@@ -162,7 +176,7 @@
 {
 
     NSDictionary * param = @{
-                             @"storeId": @"1",
+                             @"storeId": _storeId ,
 
                              };
     

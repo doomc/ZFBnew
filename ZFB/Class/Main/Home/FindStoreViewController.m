@@ -261,7 +261,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         _locationManager = [[CLLocationManager alloc]init];
         _locationManager.distanceFilter = 200;
         _locationManager.delegate = self;
-        [_locationManager requestWhenInUseAuthorization];
         currentCityAndStreet = [NSString new];
         [_locationManager requestWhenInUseAuthorization];
         
@@ -283,7 +282,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 #pragma mark 定位成功后则执行此代理方法
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-    [_locationManager stopUpdatingHeading];
+    [_locationManager stopUpdatingLocation];
 
     //旧址
     CLLocation *currentLocation = [locations lastObject];
@@ -292,6 +291,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
     latitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
     longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
+    
     
     BBUserDefault.latitude = latitudestr;
     BBUserDefault.longitude = longitudestr;

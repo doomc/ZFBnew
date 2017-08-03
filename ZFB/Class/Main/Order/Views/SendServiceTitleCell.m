@@ -21,7 +21,6 @@
     _storlist = storlist;
     
     self.lb_title.text = storlist.createTime;
-    [self.statusButton setTitle:@"已配送" forState:UIControlStateNormal];
 
  
 }

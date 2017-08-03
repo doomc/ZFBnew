@@ -14,6 +14,16 @@
 			<key>orderHint</key>
 			<integer>9</integer>
 		</dict>
+		<key>IQKeyboardManager.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>21</integer>
+		</dict>
+		<key>LBXScan.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>22</integer>
+		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -99,6 +109,11 @@
 			<key>orderHint</key>
 			<integer>16</integer>
 		</dict>
+		<key>ZBarSDK.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>23</integer>
+		</dict>
 		<key>ZYQAssetPickerController.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -123,6 +138,11 @@
 			<true/>
 		</dict>
 		<key>040118B95AE915986B57CF790C909FD9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0659B71386995AC7EE2A305F0A360EB1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -167,12 +187,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1FB68B239FC231AB91DAFE46BBC8CF03</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2596169E954907C07413FA0DF674480A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>291425B0FC2916BE66CCDC8DA890AC86</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2E9078D773E462A23ABD18D004D3070E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -218,6 +248,11 @@
 			<true/>
 		</dict>
 		<key>499745021EE6952F00DA273B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4AE8A4D622DA6E77CC837CB46F86F857</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -268,6 +303,11 @@
 			<true/>
 		</dict>
 		<key>77DBF2C50CE89935FC9C1DDB75C75C42</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7AE111E7EB2A52AF2D0CB20C22D68E37</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -342,6 +382,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>C39A797F98A76BE540692761B9C00E5B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C44CCF0F2E8EC207CFE3113B0347C2E6</key>
 		<dict>
 			<key>primary</key>
@@ -353,6 +398,11 @@
 			<true/>
 		</dict>
 		<key>CD6240E052CBD98D1542B37D686D4D22</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CFF9740221AD1C992E9092838457BF33</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -397,7 +447,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>F3EC04B8F58A791B1146D4857AE8B379</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>F9B19F8D3B7E7A5106D5B8E9C122BCB1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FB02B1E07BD95D649DB027F71D9CC43C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

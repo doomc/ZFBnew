@@ -57,16 +57,16 @@
     dealNum.font = font;
     dealPrice.font = font;
     
-    dealNum.text = [NSString stringWithFormat:@"交易笔数: 56 笔"];
-    dealPrice.text = [NSString stringWithFormat:@"交易金额:230012.00元"];
+    dealNum.text = [NSString stringWithFormat:@"交易笔数: %@ 笔",_orderNum];
+    dealPrice.text = [NSString stringWithFormat:@"交易金额:%@ 元",_dealPrice];
     
     //富文本设置
     //关键字
-    dealNum.keywords = @"56";
+    dealNum.keywords = _orderNum;
     dealNum.keywordsColor = HEXCOLOR(0xfe6d6a);
     dealNum.keywordsFont = [UIFont systemFontOfSize:20];
     //关键字
-    dealPrice.keywords = @"230012.00";
+    dealPrice.keywords = _dealPrice;
     dealPrice.keywordsColor = HEXCOLOR(0xfe6d6a);
     dealPrice.keywordsFont = [UIFont systemFontOfSize:20];
     
@@ -105,19 +105,27 @@
 #pragma mark - UITableViewDelegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //    return self.orderListArray.count;
-    return 2;
+        return self.orderListArray.count;
+//    return 2;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
-    //    return self.orderGoodsArry.count;
-    
-    return 2;
+    SendServiceStoreinfomap * store = self.orderListArray[section];
+    if (self.orderGoodsArry.count > 0) {
+        
+        [self.orderGoodsArry removeAllObjects];
+    }
+    for (SendServiceOrdergoodslist  * goods in store.orderGoodsList) {
+       
+        [self.orderGoodsArry addObject:goods];
+    }
+    return self.orderGoodsArry.count;
+
+ 
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 82;
+    return 41;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -130,7 +138,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     SendServiceTitleCell * titleCell = [self.orderdTableView
-                               dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
+                               dequeueReusableCellWithIdentifier:@"SendServiceTitleCell"];
   
     SendServiceStoreinfomap* storeInfo = self.orderListArray[section];
     titleCell.storlist = storeInfo ;
@@ -143,8 +151,8 @@
 {
     ZFFooterCell * cell = [self.orderdTableView
                            dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
-    BusinessOrderlist * orderlist  = self.orderListArray[section];
-    cell.businessOrder = orderlist;
+    SendServiceStoreinfomap * store  = self.orderListArray[section];
+    cell.sendOrder = store;
     
     [cell.cancel_button removeFromSuperview];
     [cell.payfor_button removeFromSuperview];
@@ -174,7 +182,7 @@
 //    status	int(11)	接单状态
     NSDictionary * param = @{
                              @"deliveryId": _deliveryId,
-                             @"status": @"3",
+                             @"status": @"4",
                              @"orderStartTime": _orderStartTime,
                              @"orderEndTime": _orderEndTime,
                              
@@ -182,16 +190,16 @@
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderDeliveryByDeliveryId",zfb_baseUrl] params:param success:^(id response) {
         
+        if (self.orderListArray.count > 0) {
+            
+            [self.orderListArray  removeAllObjects];
+        }
         SendServiceOrderModel * orderModel = [SendServiceOrderModel mj_objectWithKeyValues:response];
         
         for (SendServiceStoreinfomap * orderlist in orderModel.storeInfoMap) {
             
             [self.orderListArray addObject:orderlist];
-            
-            for (SendServiceOrdergoodslist * goodslist in orderlist.orderGoodsList) {
-                
-                [self.orderGoodsArry addObject:goodslist];
-            }
+ 
             
         }
         [self.orderdTableView reloadData];

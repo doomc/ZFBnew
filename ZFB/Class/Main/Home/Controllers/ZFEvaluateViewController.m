@@ -107,9 +107,9 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-//    return self.appraiseListArray.count;
+    return self.appraiseListArray.count;
     
-    return 3;
+//    return 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -143,13 +143,14 @@
     if (self.appraiseListArray.count > 0) {
         Findlistreviews * info = self.appraiseListArray[indexPath.row];
         appraiseCell.infoList = info;
+       
         //初始化五星好评控件
         appraiseCell.starView .needIntValue = YES;   //是否整数显示，默认整数显示
         appraiseCell.starView .canTouch = NO;//是否可以点击，默认为NO
         NSNumber *number = [NSNumber numberWithInteger:info.goodsComment];
         appraiseCell.starView .scoreNum = number;//星星显示个数
-        appraiseCell.starView .normalColorChain(HEXCOLOR(0xdedede));
-        appraiseCell.starView .highlightColorChian(HEXCOLOR(0xfe6d6a));
+//        appraiseCell.starView .normalColorChain(HEXCOLOR(0xdedede));
+//        appraiseCell.starView .highlightColorChian(HEXCOLOR(0xfe6d6a));
         
     }
     return appraiseCell;
@@ -194,7 +195,7 @@
     NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
  
     NSDictionary * parma = @{
-                             @"goodsId":@"3", //_goodsId = 3 有数据
+                             @"goodsId":_goodsId, //_goodsId = 3 有数据
                              @"goodsComment":goodsComment,
                              @"imgComment":imgComment,
                              @"pageSize":pageSize,//每页显示条数

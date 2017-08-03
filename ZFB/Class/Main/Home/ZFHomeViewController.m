@@ -13,9 +13,9 @@
 
 #import "BaseNavigationController.h"
 #import "HomeSearchBarViewController.h"
-#import <AMapLocationKit/AMapLocationKit.h>
 
-@interface ZFHomeViewController ()<AMapLocationManagerDelegate,UISearchBarDelegate,UISearchControllerDelegate>
+
+@interface ZFHomeViewController ()<UISearchBarDelegate>
 {
     NSInteger _pageSize;//每页显示条数
     NSInteger _pageIndex;//当前页码;
@@ -26,15 +26,6 @@
 @property(nonatomic,strong)UIButton * navSearch_btn;//搜索
 @property(nonatomic,strong)UIButton * shakehanderRight_btn;//摇一摇
 
-
-//高德api
-@property (nonatomic,strong) AMapLocationManager * locationManager;
-@property (nonatomic,strong) AMapLocationReGeocode * reGeocode;//地理编码
-@property (nonatomic,strong) CLLocation *  currentLocation;
-/**
- *  持续定位是否返回逆地理信息，默认NO。
- */
-@property (nonatomic, assign) BOOL locatingWithReGeocode;
 
 @end
 
@@ -170,7 +161,10 @@
     JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示信息" message:@"功能暂未开放，敬请期待！" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
+ 
+        //添加一些扫码或相册结果处理
+ 
+
     }];
 
     [jxt addAction:right];

@@ -14,4 +14,7 @@
 
 @property (nonatomic , copy) NSString * dealPrice;
 
+@property (nonatomic , copy) NSString * storeId;
+
+
 @end

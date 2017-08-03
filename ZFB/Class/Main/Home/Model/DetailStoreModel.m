@@ -16,7 +16,12 @@
 }
 @end
 @implementation Cmstoredetailslist
-
++(NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{
+             @"typeId":@"id"
+             };
+}
 @end
 
 

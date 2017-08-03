@@ -12,11 +12,11 @@
 #import "SendServiceOrderModel.h"
 @protocol ZFFooterCellDelegate <NSObject>
 
-///取消订单
--(void)cancelOrderActionbyIndex :(NSInteger)index ;
+///取消订单   左边按钮
+-(void)cancelOrderActionbyIndex :(NSIndexPath *) indexPath ;
 
-///派单
--(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice  indexPath :(NSInteger)indexPath;
+///派单 ----- 右边
+-(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice  indexPath :(NSIndexPath *)indexPath;
 
 
 @end
@@ -42,7 +42,7 @@
 
 @property (nonatomic, copy) NSString  * totalPrice ;//总价
 
-@property (nonatomic, assign) NSInteger    index ;//当前的下标 
+@property (nonatomic, strong) NSIndexPath * indexPath;//当前的下标
 
 
 @end

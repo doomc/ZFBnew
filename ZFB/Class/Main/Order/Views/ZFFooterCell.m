@@ -29,6 +29,7 @@
     [self.cancel_button addTarget:self action:@selector(cancel_buttonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.payfor_button addTarget:self action:@selector(payfor_buttonAction) forControlEvents:UIControlEventTouchUpInside];
     
+    
 }
 
 //全部订单
@@ -87,14 +88,15 @@
 {
     _sendOrder = sendOrder;
     self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%ld",sendOrder.orderAmmount];//订单价格
-
+ 
+    
 }
 ///取消 所有指令
 -(void)cancel_buttonAction
 {
     if ([self.footDelegate respondsToSelector:@selector(cancelOrderActionbyIndex:)]) {
        
-        [self.footDelegate cancelOrderActionbyIndex:_index];
+        [self.footDelegate cancelOrderActionbyIndex:_indexPath];
     }
 }
 
@@ -103,7 +105,7 @@
 {
     if ([self.footDelegate respondsToSelector:@selector(sendOrdersActionOrderId:totalPrice:indexPath:)]) {
    
-        [self.footDelegate sendOrdersActionOrderId:_orderId totalPrice:_totalPrice indexPath:_index];
+        [self.footDelegate sendOrdersActionOrderId:_orderId totalPrice:_totalPrice indexPath:_indexPath];
  
     }
 }

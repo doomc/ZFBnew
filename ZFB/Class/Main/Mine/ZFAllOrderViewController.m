@@ -739,10 +739,12 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                 
                 [goodArray addObject:ordergoods];
             }
-            NSLog(@"%@",goodArray);
             
             Ordergoods * goods = goodArray[indexPath.row];
             sendCell.goods = goods;
+
+            NSLog(@"%@",goodArray);
+
 
             return sendCell;
         }

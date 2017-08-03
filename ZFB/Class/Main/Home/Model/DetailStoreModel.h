@@ -30,7 +30,7 @@
 
 @property (nonatomic, assign) NSInteger payType;
 
-@property (nonatomic, assign) NSInteger id;
+@property (nonatomic, assign) NSInteger typeId;//id
 
 @property (nonatomic, copy) NSString *longitude;
 

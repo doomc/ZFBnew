@@ -10,4 +10,7 @@
 
 @interface BusinessServicerViewController : BaseViewController
 
+@property (nonatomic, copy) NSString * storeId;
+
+
 @end

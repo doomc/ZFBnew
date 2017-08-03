@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="219"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KXe-CB-aAn" id="qy9-CP-xUA">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="218.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="219"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zcQ-T4-iby">
@@ -108,9 +108,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rl5-zf-T2v">
                                 <rect key="frame" x="5" y="5" width="95" height="188.5"/>
                                 <connections>
-                                    <action selector="monthAction:" destination="KXe-CB-aAn" eventType="touchUpInside" id="XCI-5B-y0p"/>
                                     <action selector="todayAction:" destination="KXe-CB-aAn" eventType="touchUpInside" id="ZtC-et-DsU"/>
-                                    <action selector="weekAction:" destination="KXe-CB-aAn" eventType="touchUpInside" id="it2-sm-zoe"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -218,7 +216,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JEV-Ns-KTy">
                                 <rect key="frame" x="5" y="5" width="95" height="188.5"/>
                                 <connections>
-                                    <action selector="monthAction:" destination="KXe-CB-aAn" eventType="touchUpInside" id="6nP-mR-nJd"/>
                                     <action selector="weekAction:" destination="KXe-CB-aAn" eventType="touchUpInside" id="1Xs-06-32L"/>
                                 </connections>
                             </button>

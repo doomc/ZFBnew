@@ -27,7 +27,7 @@
 
 #import "ZFPersonalHeaderView.h"
 #import "BaseNavigationController.h"
-//#import "AppDelegate.h"
+
 #import "BusinessServicerViewController.h"
 
 typedef NS_ENUM(NSUInteger, TypeCell) {
@@ -157,12 +157,12 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     NSLog(@"设置");
     if (BBUserDefault.isLogin == 1) {
        
-       
-        
-    }else{
         ZFSettingViewController * settingVC = [[ZFSettingViewController alloc]init];
         [self.navigationController pushViewController:settingVC animated:YES];
-//        [self isloginSuccess];
+        
+    }else{
+
+        [self isloginSuccess];
     }
 
     
@@ -259,17 +259,18 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     if (indexPath.row == 3) {//切换到配送端
 //        if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
 
-//            //商户端
+////            //商户端
             BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
+            businessVC.storeId = _storeId;
             [self.navigationController pushViewController:businessVC animated:YES];
 
-        
+//
 
 //        }if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
-            //配送端
+//            配送端
 //            ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
 //            [self.navigationController pushViewController:sendVC animated:YES];
-//            
+////
 //        }
     
     }  if (indexPath.row == 4) {//意见反馈
@@ -419,7 +420,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             _collectNum = [NSString stringWithFormat:@"%@",response[@"collectNum"]];
             _shopFlag   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"shopFlag"]];//是否是商户
             _courierFlag= [NSString stringWithFormat:@"%@",response[@"userInfo"][@"courierFlag"]];//是否是快递员
-            
+            _storeId = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"storeId"]];
             
             //赋值
             self.headview.lb_collectCount.text = _collectNum;
@@ -439,7 +440,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    //    AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
     
     if (BBUserDefault.isLogin == 1) {
         [self minePagePOSTRequste];//页面网络请求
