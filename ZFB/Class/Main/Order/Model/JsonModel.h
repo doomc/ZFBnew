@@ -37,13 +37,18 @@
 
 @property (nonatomic, copy) NSString *goodsId;
 
-@property (nonatomic, assign) CGFloat storePrice;
+@property (nonatomic, copy) NSString *goodsUnit;
 
 @property (nonatomic, copy) NSString *cartItemId;
 
 @property (nonatomic, copy) NSString *coverImgUrl;
 
-@property (nonatomic, copy) NSString *consessionalPrice;
+@property (nonatomic, assign) CGFloat storePrice;//门店价
+@property (nonatomic, copy) NSString *concessionalPrice;//优惠价
+@property (nonatomic, copy) NSString *purchasePrice;//价格
+@property (nonatomic, copy) NSString *originalPrice;//原价格
+
+
 
 @end
 

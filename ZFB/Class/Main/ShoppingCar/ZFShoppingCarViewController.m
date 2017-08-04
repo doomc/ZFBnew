@@ -112,7 +112,8 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 
     }
     else{
-        
+       
+        orderVC.cartItemId = @"";
         orderVC.jsonString =  _jsonString;
         NSLog(@"提交成功了 ----------- %@ ",_jsonString);
         [SVProgressHUD dismissWithDelay:1];

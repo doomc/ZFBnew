@@ -12,7 +12,7 @@
 
 @interface ShopCarJsonModel : NSObject
 
-@property (nonatomic, strong) NSMutableArray <UserGoodsInfoJSON *> *userGoodsInfoJSON;
+@property (nonatomic, strong) NSArray <UserGoodsInfoJSON *> *userGoodsInfoJSON;
 
 
 @end

@@ -46,7 +46,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     NSString * _storeId;
     NSString * _coverImgUrl;
     NSString * _attachImgUrl;
-    NSString * _netPurchasePrice;
+    NSString * _storePrice;
     NSString * _inStock;
     NSString * _commentNum;
     NSInteger  _isCollect;
@@ -88,9 +88,10 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 @property (nonatomic,strong) NSIndexPath           * indexPath;//记录选择的index
 
 //弹框地图指定到位置
-
-@property(nonatomic ,strong) NSMutableArray * typeCellArr;
-@property(nonatomic ,strong) NSMutableArray * skuMatch;//规格匹配数组
+@property (nonatomic ,strong) NSMutableArray * typeCellArr;
+@property (nonatomic ,strong) NSMutableArray * skuMatch;//规格匹配数组
+//没有规格的立即购买数据
+@property (nonatomic ,strong) NSMutableArray * noReluArray;
 
 @end
 
@@ -99,33 +100,13 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
- 
-    _goodsCount = 1;//默认商品数量
+    
+    _goodsCount      = 1;//默认商品数量
     dictProductValue = [NSMutableDictionary dictionary];//用来保存 new 、old的index
-    ruleJsondic = [NSMutableDictionary dictionary];
+    ruleJsondic      = [NSMutableDictionary dictionary];
     
     [self creatInterfaceDetailTableView];//初始化控件tableview
     [self settingHeaderViewAndFooterView];//初始化footerview
-    
-}
-
--(void)cycleScrollViewInit
-{
-    // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
-    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 594/2) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    _cycleScrollView.imageURLStringsGroup = _imagesURLStrings;
-    _cycleScrollView.pageControlStyle     = SDCycleScrollViewPageContolStyleNone;
-    _cycleScrollView.delegate             = self;
-    _cycleScrollView.autoScroll           = NO;
-    _cycleScrollView.infiniteLoop         = NO;
-    self.list_tableView.tableHeaderView   = _cycleScrollView;//加载轮播
-    
-    
-}
-
--(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
-{
-    NSLog(@"%ld",index);
     
 }
 
@@ -181,19 +162,60 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     [self.addShopCar addTarget:self action:@selector(addShopCar:) forControlEvents:UIControlEventTouchUpInside];
     
 }
+#pragma mark - 轮播图
+-(void)cycleScrollViewInit
+{
+    // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
+    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, KScreenH/2) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    _cycleScrollView.imageURLStringsGroup = _imagesURLStrings;
+    _cycleScrollView.pageControlStyle     = SDCycleScrollViewPageContolStyleNone;
+    _cycleScrollView.delegate             = self;
+    _cycleScrollView.autoScroll           = NO;
+    _cycleScrollView.infiniteLoop         = NO;
+    self.list_tableView.tableHeaderView   = _cycleScrollView;//加载轮播
+}
+
+-(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
+{
+    NSLog(@"%ld",index);
+    
+}
+
 #pragma mark - 立即抢购
 -(void)rightNowGo:(UIButton *)sender
 {
-    
+#warning  ----- 立即抢购 没传值
     ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    if (self.productSkuArray.count > 0) {
+        
+        //先选规格  在传值
+        [self popActionView];
+        
+    }else{
+        //没有规格 - 直接传值
+        
+        vc.userGoodsInfoJSON = _noReluArray;//没有规格的数组
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
     
 }
 #pragma mark - 加入购物车- 不选择规格
 -(void)addShopCar:(UIButton * )sender
 {
+    //没有规格 - 直接加入购物车
     
-    [self addToshoppingCarPost];
+    if (self.productSkuArray.count > 0){
+        
+        [self popActionView];
+        
+    }else{
+        
+        [self addToshoppingCarPostsizeWithColor:@"[]"];
+        
+    }
+    
     
 }
 #pragma mark -SecondAddShopCar 加入购物车选择规格
@@ -201,19 +223,20 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     if ([self isSKuAllSelect]) {
         
-        [self addToshoppingCarPost];
-
+        _sizeOrColorStr = [NSString convertToJsonData:ruleJsondic];
+        
+        [self addToshoppingCarPostsizeWithColor:_sizeOrColorStr];
+        
+        
     }else{
         
-        JXTAlertController * alertVC= [JXTAlertController alertControllerWithTitle:@"提示 " message:@"请选择好规格再加入购物车" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction  * sure = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"请选择好规格再加入购物车" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
         }];
         [alertVC addAction:sure];
         [alertVC presentViewController:alertVC animated:YES completion:nil];
     }
-    
-
     
     NSLog(@"加入购物车 。请求接口");
 }
@@ -251,12 +274,10 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSString* typeCell = _typeCellArr[indexPath.row];
-    
     if (indexPath.row == 0) {
- 
+        
         return 56;
-
+        
     }
     else if (indexPath.row == 1) {
         
@@ -265,43 +286,43 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     else if (indexPath.row == 2) {
         
         return 40;
-
+        
         
     }
     else if (indexPath.row == 3) {
         
-      return 44;
+        return 44;
         
     }
     else if (indexPath.row == 4) {
- 
+        
         return 56;
- 
+        
     }
     else if (indexPath.row == 5)
     {
         return 44;
-
+        
     }
     else{
         
         return 200;
-
+        
     }
-
+    
 }
 
 #pragma mark  - UITableViewDataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * custopmCellID =@"custopmCellID";
-
+    
     if (indexPath.row == typeCellrowOftitleCell) {
         
         ZFTitleAndChooseListCell  * listCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFTitleAndChooseListCell" forIndexPath:indexPath];
         listCell.selectionStyle              = UITableViewCellSelectionStyleNone;
         listCell.lb_title.text               = _goodsName;
-        listCell.lb_price.text               = [NSString stringWithFormat:@"¥%@",_netPurchasePrice];
+        listCell.lb_price.text               = [NSString stringWithFormat:@"¥%@",_storePrice];
         listCell.lb_sales.text               = [NSString stringWithFormat:@"已售%ld件",_goodsSales];
         return listCell;
         
@@ -312,7 +333,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         DetailgoodsSelectCell  *  selectCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"DetailgoodsSelectCell" forIndexPath:indexPath];
         
 #warning  -  暂时死数据
-        selectCell.lb_selectSUK.text = [NSString stringWithFormat:@"已选择 灰色 XL"];
+        selectCell.lb_selectSUK.text = [NSString stringWithFormat:@"请选择规格"];
         selectCell.selectionStyle    = UITableViewCellSelectionStyleNone;
         
         return selectCell;
@@ -370,36 +391,29 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         return custopmCell;
         
     }
- 
+    
 }
-
-
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section = %ld,row == %ld",indexPath.section ,indexPath.row);
     
- 
     if (indexPath.row == 1) {
         
         if (self.productSkuArray.count > 0) {
-          
+            
             [self popActionView];
         }
     }
- 
+    
     else if (indexPath.row == 2) {
-        
         
         //评论列表
         ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
         evc.goodsId                    = _goodsId;
         [self.navigationController pushViewController:evc animated:YES];
         
-
     }
-    
-    
 }
 
 
@@ -412,8 +426,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     Productattribute * product = self.productSkuArray[section];
-//    NSLog(@"product.reluJson  ==== %@",product.valueList);
-
+ 
     return   product.valueList.count;
 }
 //设置每个item的尺寸
@@ -449,37 +462,36 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SukItemCollectionViewCell *cell = [self.SkuColletionView
-                                        dequeueReusableCellWithReuseIdentifier:@"SukItemCollectionViewCellid" forIndexPath:indexPath];
- 
+                                       dequeueReusableCellWithReuseIdentifier:@"SukItemCollectionViewCellid" forIndexPath:indexPath];
+    
     if (self.productSkuArray.count > 0) {
         
         Productattribute *product = self.productSkuArray[indexPath.section];
-        Valuelist *value = product.valueList[indexPath.item];
-      
-//        NSLog(@"------------%ld------------",product.nameId);
+        Valuelist *value          = product.valueList[indexPath.item];
         
+        //        NSLog(@"------------%ld------------",product.nameId);
         cell.valueObj = value;
-//        cell.isSelecteditems = value.selectType;
+        
         return cell;
-  
+        
     }
     return  nil;
     
 }
 
-
+#pragma mark - 选择规格
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     Productattribute *product = self.productSkuArray[indexPath.section];
- 
+    
     Valuelist *value = product.valueList[indexPath.item];
     
     if (!(value.selectType == ValueSelectType_enable)) {
         
         for (Valuelist *valueItem in product.valueList) {
             
-            
             if ([value isEqual:valueItem]) {
+                //判断选择的类型
                 if (valueItem.selectType == ValueSelectType_normal) {
                     
                     valueItem.selectType = ValueSelectType_selected;
@@ -500,23 +512,23 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                     [ruleJsondic setValue:valueItem.name forKey:@"value"];
                     
                 }
-        }else {
-            if (!(valueItem.selectType == ValueSelectType_enable)) {
-                valueItem.selectType = ValueSelectType_normal;
+            }else {
+                if (!(valueItem.selectType == ValueSelectType_enable)) {
+                    valueItem.selectType = ValueSelectType_normal;
+                }
+                
             }
             
         }
-            
-    }
         if ([self isSKuAllSelect]) {  //规则全部选完，请求价格
             
             [self skuMatchPricePostRequset];
             
         }else {  //匹配其他规格
-           
-//            [self textData];
+            
+            //            [self textData];
             [self skuMatchPostRequsetWithParam:[NSDictionary dictionaryWithDictionary:dictProductValue]];
-
+            
         }
         
         [self.SkuColletionView reloadData];
@@ -529,12 +541,12 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 -(void)whereTogoMap:(UIButton *)sender
 {
     //当前位置导航到指定地
-    CGFloat endLat = 39.54;
-    CGFloat endLot = 116.23;
+    CGFloat endLat       = 39.54;
+    CGFloat endLot       = 116.23;
     NSString *endAddress = @"北京";
     
     CGFloat startLat = [BBUserDefault.latitude floatValue];
-    CGFloat startLot =  [BBUserDefault.longitude floatValue];
+    CGFloat startLot = [BBUserDefault.longitude floatValue];
     
     TJMapNavigationService *mapNavigationService = [[TJMapNavigationService alloc] initWithStartLatitude:startLat startLongitude:startLot endLatitude:endLat endLongitude:endLot endAddress:endAddress locationType:LocationType_Mars];
     
@@ -577,15 +589,17 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 #pragma mark  - 选择商品数量
 -(void)addCount:(NSInteger)count
 {
-    NSLog(@"%ld",count);
+    NSLog(@"count ===== %ld",count);
     _goodsCount = count;
     
 }
 
+
+
 #pragma mark -  弹框选择规格 popActionView ----------
 -(void)popActionView
 {
- 
+    
     _BgView                 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH)];
     _BgView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.3f];
     [self.view addSubview:self.BgView];
@@ -594,6 +608,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     self.popView                 = [[UIView alloc]init];
     self.popView.backgroundColor = [UIColor whiteColor];
     [_BgView addSubview:self.popView];
+    
     //头视图
     UIView * headView           = [[UIView alloc]initWithFrame:CGRectMake(30, -10, 80, 80)];
     headView.backgroundColor    = [UIColor whiteColor];
@@ -605,7 +620,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     goodsImgaeView.clipsToBounds = YES;
     goodsImgaeView.image =[UIImage imageNamed:@"11.png"];
     [headView addSubview:goodsImgaeView];
-    
     
     
     lb_price           = [UILabel new];
@@ -621,7 +635,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     lb_inShock.font      = [UIFont systemFontOfSize:12];
     [self.popView addSubview:lb_inShock];
     
-    
     //lb_Sku规格
     lb_Sku           = [UILabel new];
     //        lb_Sku.text = _sizeOrColorStr;
@@ -634,36 +647,41 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     lb_line.backgroundColor = HEXCOLOR(0xfe6d6a);
     [self.popView addSubview:lb_line];
     
-    
-    UICollectionViewFlowLayout * layout   = [[UICollectionViewFlowLayout alloc]init];
+
+    UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
     //    layout.footerReferenceSize = CGSizeMake(KScreenW, 40);
-    layout.headerReferenceSize            = CGSizeMake(KScreenW, 40);
-    layout.scrollDirection                = UICollectionViewScrollDirectionVertical;
-    self.SkuColletionView                 = [[UICollectionView alloc]initWithFrame:CGRectMake(30, 90, KScreenW - 60, 80) collectionViewLayout:layout];;
+    layout.headerReferenceSize          = CGSizeMake(KScreenW, 30);
+    layout.scrollDirection              = UICollectionViewScrollDirectionVertical;
     
+    
+    self.SkuColletionView        = [[UICollectionView alloc]initWithFrame:CGRectMake(30, 90, KScreenW - 60, 80) collectionViewLayout:layout];
     self.SkuColletionView.delegate        = self;
     self.SkuColletionView.dataSource      = self;
     self.SkuColletionView.backgroundColor = [UIColor whiteColor];
     [self.popView addSubview:self.SkuColletionView];
+  
+    //注册nib 和区头
     [self.SkuColletionView registerNib:[UINib nibWithNibName:@"SukItemCollectionViewCell" bundle:nil]
             forCellWithReuseIdentifier:@"SukItemCollectionViewCellid"];
-   
-    //注册区头
     [self.SkuColletionView  registerClass:[SkuHeaderReusableView class]
-               forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+            forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
     [self.SkuColletionView registerNib:[UINib nibWithNibName:@"SkuFooterReusableView" bundle:nil]
-                forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
-    self.skufooterView               = [[NSBundle mainBundle]loadNibNamed:@"SkuFooterReusableView" owner:self options:nil].lastObject;
+            forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
+    self.skufooterView =  [[NSBundle mainBundle]loadNibNamed:@"SkuFooterReusableView" owner:self options:nil].lastObject;
+    
+    //////////------高度 只能在代理走完了才可以获取到------////////
+    CGFloat collectionViewHeight = self.SkuColletionView.collectionViewLayout.collectionViewContentSize.height ;
+    self.SkuColletionView.frame =CGRectMake(30, 90, KScreenW - 60, collectionViewHeight);
+
     self.skufooterView.countDelegate = self;
     [self.popView addSubview:self.skufooterView];
-    
     
     //  删除
     UIButton * delete         = [UIButton buttonWithType:UIButtonTypeCustom];
     delete.clipsToBounds      = YES;
     delete.layer.cornerRadius = 4;
     delete.titleLabel.font    = [UIFont systemFontOfSize:14];
-//    delete.backgroundColor    = HEXCOLOR(0xfe6d6a);
+    //    delete.backgroundColor    = HEXCOLOR(0xfe6d6a);
     [delete setImage:[UIImage imageNamed:@"delete_sku"] forState:UIControlStateNormal];
     [delete addTarget:self action:@selector(deleteRemoveTheBackgroundView:) forControlEvents:UIControlEventTouchUpInside];
     [self.popView addSubview:delete];
@@ -694,9 +712,12 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
     //colletionView
     [self.popView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.BgView);
-        make.size.mas_equalTo(CGSizeMake(KScreenW, KScreenH/2 + 100));//KScreenH/2 + 100
-//        190+self.SkuColletionView.collectionViewLayout.collectionViewContentSize.height
+        //        make.center.equalTo(self.BgView);
+        make.bottom.equalTo(self.BgView).with.offset(0);
+        make.left.equalTo(self.BgView).with.offset(0);
+        make.right.equalTo(self.BgView).with.offset(0);
+        make.size.mas_equalTo(CGSizeMake(KScreenW, collectionViewHeight + 90 + 50 + 40 + 20));
+        
     }];
     
     //价格
@@ -728,7 +749,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
     //SkuColletionView
     [self.SkuColletionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.edges.equalTo(self.popView).with.insets(UIEdgeInsetsMake(90, 30, 100, 30));
     }];
     
@@ -761,6 +781,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         
     }];
     
+    
 }
 
 
@@ -773,31 +794,39 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                              @"latitude":BBUserDefault.latitude,
                              @"longitude":BBUserDefault.longitude,
                              @"goodsId":_goodsId,//商品id
-
+                             
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsDetailsInfo",zfb_baseUrl] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
             
-            DetailGoodsModel * detailModel = [DetailGoodsModel mj_objectWithKeyValues:response];
+            if (self.productSkuArray.count > 0) {
+                
+                [self.productSkuArray removeAllObjects];
+            }
+            if (self.noReluArray.count > 0) {
+                
+                [self.noReluArray removeAllObjects ];
+            }
             
+            DetailGoodsModel * goodsmodel = [DetailGoodsModel mj_objectWithKeyValues:response];
             //goods信息 ----goodsInfo
-            _goodsName        = detailModel.data.goodsInfo.goodsName;//商品名
-            _coverImgUrl      = detailModel.data.goodsInfo.coverImgUrl;//商品封面
-            _attachImgUrl     = detailModel.data.goodsInfo.attachImgUrl;//图片链接
-            _netPurchasePrice = detailModel.data.goodsInfo.storePrice;//价格
-            _goodsSales       = detailModel.data.goodsInfo.goodsSales;//已经销售
-            _commentNum       = detailModel.data.goodsInfo.commentNum;//评论数
-            _isCollect        = [detailModel.data.goodsInfo.isCollect integerValue];//是否收藏
-            _storeId          = [NSString stringWithFormat:@"%ld",detailModel.data.goodsInfo.storeId];//店铺id
+            _goodsName    = goodsmodel.data.goodsInfo.goodsName;//商品名
+            _coverImgUrl  = goodsmodel.data.goodsInfo.coverImgUrl;//商品封面
+            _attachImgUrl = goodsmodel.data.goodsInfo.attachImgUrl;//图片链接
+            _storePrice   = goodsmodel.data.goodsInfo.storePrice;//价格
+            _goodsSales   = goodsmodel.data.goodsInfo.goodsSales;//已经销售
+            _commentNum   = goodsmodel.data.goodsInfo.commentNum;//评论数
+            _isCollect    = [goodsmodel.data.goodsInfo.isCollect integerValue];//是否收藏
+            _storeId      = [NSString stringWithFormat:@"%ld",goodsmodel.data.goodsInfo.storeId];//店铺id
             
             //store信息 ----storeInfo
-            _storeName    = detailModel.data.storeInfo.storeName;//店名
-            _contactPhone = detailModel.data.storeInfo.contactPhone;//联系手机号
-            _address      = detailModel.data.storeInfo.address;//门店地址
-            _juli         = detailModel.data.storeInfo.storeDist;//门店距离
-   
+            _storeName    = goodsmodel.data.storeInfo.storeName;//店名
+            _contactPhone = goodsmodel.data.storeInfo.contactPhone;//联系手机号
+            _address      = goodsmodel.data.storeInfo.address;//门店地址
+            _juli         = goodsmodel.data.storeInfo.storeDist;//门店距离
+            
             if (_isCollect == 1) {///是否收藏	1.收藏 2.不是
                 
                 [collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateNormal];
@@ -806,15 +835,49 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             {
                 [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
             }
-            
-            for (Productattribute * product in detailModel.data.productAttribute) {
+
+            for (Productattribute * product in goodsmodel.data.productAttribute) {
                 
                 [self.productSkuArray addObject:product];
                 
+    
             }
+            //当规格为空的时候才组装下列数据
+            if (self.productSkuArray != nil && ![self.productSkuArray isKindOfClass:[NSNull class]] && self.productSkuArray.count != 0){
+            }else{
+                
+                //---------------没有规格的数据------------------
+                NSMutableArray * goodsListArray = [NSMutableArray array];
+                
+                NSMutableDictionary * goodsListDic = [NSMutableDictionary dictionary];
+                NSMutableDictionary * storeListDic = [NSMutableDictionary dictionary];
+                
+                [goodsListDic setValue:goodsmodel.data.storeInfo.storeName forKey:@"storeName"];
+                [goodsListDic setValue:_storePrice forKey:@"originalPrice"];
+                [goodsListDic setValue:@"0" forKey:@"concessionalPrice"];//优惠价
+                [goodsListDic setValue:goodsmodel.data.goodsInfo.coverImgUrl forKey:@"coverImgUrl"];//图片地址
+                [goodsListDic setValue:goodsmodel.data.goodsInfo.netPurchasePrice forKey:@"purchasePrice"];//网购价
+                [goodsListDic setValue:_goodsId forKey:@"goodsId"];
+                [goodsListDic setValue:_storeId forKey:@"storeId"];
+                [goodsListDic setValue:@"[]" forKey:@"goodsProp"];//规格
+                [goodsListDic setValue:goodsmodel.data.goodsInfo.goodsUnit forKey:@"goodsUnit"];
+                [goodsListDic setValue:goodsmodel.data.goodsInfo.goodsName forKey:@"goodsName"];
+                [goodsListDic setValue:[NSString stringWithFormat:@"%ld",_goodsCount] forKey:@"goodsCount"];
+                
+                [goodsListArray addObject:goodsListDic];
+                
+                [storeListDic setValue:goodsListArray forKey:@"goodsList"];
+                [storeListDic setValue:_storeName forKey:@"storeName"];
+                [storeListDic setValue:_storeId forKey:@"storeId"];
+                [self.noReluArray addObject:storeListDic];
+                NSLog(@"noReluArray ==  %@",self.noReluArray);
+                //---------------没有规格的数据------------------
+
+            }
+            
             _imagesURLStrings = [[NSArray alloc]init];
             _imagesURLStrings = [_attachImgUrl componentsSeparatedByString:@","];
-          
+            
             NSLog(@"%@\n",self.productSkuArray);
             NSLog(@"%@",  _imagesURLStrings);
             
@@ -824,8 +887,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             
         }
         [self.list_tableView reloadData];
-        
-        
+
     } progress:^(NSProgress *progeress) {
         
         
@@ -881,11 +943,11 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
             
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-           
+            
             _isCollect = 0;
             
             [self iscollect];
-
+            
         }
         
         
@@ -926,19 +988,17 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getSkimFootprintsSave",zfb_baseUrl] params:parma success:^(id response) {
         
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        //        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        //        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
 }
-
-
 
 
 #pragma mark - skuMatch 规格匹配 ////第2步
@@ -946,7 +1006,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/skuMatch",zfb_baseUrl] params:parma success:^(id response) {
         
-        SkuMatchModel * sku  = [SkuMatchModel mj_objectWithKeyValues:response];
+        SkuMatchModel * sku = [SkuMatchModel mj_objectWithKeyValues:response];
         
         for (Skumatch *skumatch in sku.data.skuMatch) {
             
@@ -955,11 +1015,11 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             for (Productattribute *attribute in self.productSkuArray) {
                 
                 if (nameId == attribute.nameId) {
-                
+                    
                     for (Valuelist *valueItem in attribute.valueList) {
                         
                         BOOL flag = NO;//查找正常的状态
-                       
+                        
                         for (SkuValulist *skulist in skumatch.valuList) {
                             
                             if (valueItem.valueId == skulist.valueId) {
@@ -968,7 +1028,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                             }
                         }
                         if (flag) {
-
+                            
                             valueItem.selectType = ValueSelectType_normal;
                             
                         }else {
@@ -982,19 +1042,19 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                 
             }
         }
-    
+        
         [self.SkuColletionView reloadData];
- 
-     } progress:^(NSProgress *progeress) {
-         
-         NSLog(@"progeress=====%@",progeress);
-         
-     } failure:^(NSError *error) {
-         
-         NSLog(@"error=====%@",error);
-         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-         
-     }];
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        
+    }];
     
 }
 
@@ -1003,8 +1063,8 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     
     [self.reluJsonKeyArray addObject:ruleJsondic];
-    NSArray * arr  = [NSArray arrayWithArray:self.reluJsonKeyArray];
-   
+    NSArray * arr = [NSArray arrayWithArray:self.reluJsonKeyArray];
+    
     NSMutableDictionary * dic = [NSMutableDictionary dictionary];
     [dic setValue:arr forKey:@"reluJson"];
     NSString * reluJson = [NSString convertToJsonData:[NSDictionary dictionaryWithDictionary:dic]];
@@ -1014,13 +1074,13 @@ typedef NS_ENUM(NSUInteger, typeCell) {
                              
                              @"goodsId":_goodsId,
                              @"reluJson":reluJson,
-
+                             
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/skuMatchPrice",zfb_baseUrl] params:parma success:^(id response) {
         
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-    
+        
         //更新价格和数据
         
     } progress:^(NSProgress *progeress) {
@@ -1036,24 +1096,18 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
 }
 #pragma mark - 添加到购物车:ShoppCartJoin////第4步
--(void)addToshoppingCarPost
+-(void)addToshoppingCarPostsizeWithColor:(NSString *)jsonSizeOrColor
 {
     
-    NSString * count     = [NSString stringWithFormat:@"%ld",_goodsCount];
-    if (ruleJsondic != nil) {
-        
-        _sizeOrColorStr = [NSString convertToJsonData:ruleJsondic];
-        
-    }else{
-        _sizeOrColorStr = @"[]";//重要，后台解析不了@“”;
-    }
+    NSString * count = [NSString stringWithFormat:@"%ld",_goodsCount];
+    
     NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"storeId":_storeId,
                              @"storeName":_storeName,
                              @"goodsId":_goodsId,
                              @"goodsCount":count,//商品个数
-                             @"goodsProp":@"[]",//商品规格
+                             @"goodsProp":jsonSizeOrColor,//商品规格
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/ShoppCartJoin",zfb_baseUrl] params:parma success:^(id response) {
@@ -1109,13 +1163,25 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     }
     return _skuMatch;
 }
-
+-(NSMutableArray *)noReluArray
+{
+    if (!_noReluArray) {
+        _noReluArray = [NSMutableArray array];
+    }
+    return _noReluArray;
+}
 -(void)viewWillAppear:(BOOL)animated
 {
     [self goodsDetailListPostRequset];//网络请求
     
-//    [self deathdata];
 }
+
+//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    [self setEditing:YES];
+//    [self.BgView removeFromSuperview];
+//    
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -1125,7 +1191,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 //判断规格是否全部选取
 -(BOOL)isSKuAllSelect {
     
-    BOOL isAllSelect = NO;
+    BOOL isAllSelect      = NO;
     NSInteger selectCount = 0;
     for (Productattribute *attribute in self.productSkuArray) {
         
@@ -1151,102 +1217,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     //复杂的字典[模型中有个数组属性，数组里面又要装着其他模型的字典]
     NSDictionary *dict_m8m = @{
-                               @"data" : @{
-                                       @"goodsInfo":@{
-                                               
-                                               },
-                                       @"productAttribute" : @[
-                                               @{
-                                                   @"valueList" : @[
-                                                           @{
-                                                               @"nameId" : @"1",
-                                                               @"valueId" : @"1",
-                                                               @"nameStatus" : @"0",
-                                                               @"goodsTypeId" : @"8",
-                                                               @"orderNum" : @"1",
-                                                               @"name" : @"红色",
-                                                               },
-                                                           @{
-                                                               @"nameId" : @"1",
-                                                               @"valueId" : @"2",
-                                                               @"nameStatus" : @"0",
-                                                               @"goodsTypeId" : @"8",
-                                                               @"orderNum" : @"2",
-                                                               @"name" : @"黑色",
-                                                               },
-                                                           @{
-                                                               @"nameId" : @"1",
-                                                               @"valueId" : @"3",
-                                                               @"nameStatus" : @"0",
-                                                               @"goodsTypeId" : @"8",
-                                                               @"orderNum" : @"3",
-                                                               @"name" : @"黄色",
-                                                               },
-                                                           @{
-                                                               @"nameId" : @"1",
-                                                               @"valueId" : @"4",
-                                                               @"nameStatus" : @"0",
-                                                               @"goodsTypeId" : @"8",
-                                                               @"orderNum" : @"4",
-                                                               @"name" : @"白色",
-                                                               },
-                                                           
-                                                           ],
-                                                   
-                                                   @"nameId" : @"1",
-                                                   @"nameStatus" : @"0",
-                                                   @"goodsTypeId" : @"8",
-                                                   @"orderNum" : @"1",
-                                                   @"name" : @"颜色",
-                                                   
-                                                   },
-                                               @{
-                                                   @"valueList" : @[
-                                                           @{
-                                                               @"nameId" : @"2",
-                                                               @"valueId" : @"5",
-                                                               @"nameStatus" : @"0",
-                                                               @"goodsTypeId" : @"8",
-                                                               @"orderNum" : @"1",
-                                                               @"name" : @"ll",
-                                                               },
-                                                           @{
-                                                               @"nameId" : @"2",
-                                                               @"valueId" : @"6",
-                                                               @"nameStatus" : @"0",
-                                                               @"goodsTypeId" : @"8",
-                                                               @"orderNum" : @"2",
-                                                               @"name" : @"xml",
-                                                               },
-                                                           @{
-                                                               @"nameId" : @"2",
-                                                               @"valueId" : @"7",
-                                                               @"nameStatus" : @"0",
-                                                               @"goodsTypeId" : @"8",
-                                                               @"orderNum" : @"3",
-                                                               @"name" : @"xl",
-                                                               },
-                                                           @{
-                                                               @"nameId" : @"2",
-                                                               @"valueId" : @"8",
-                                                               @"nameStatus" : @"0",
-                                                               @"goodsTypeId" : @"8",
-                                                               @"orderNum" : @"4",
-                                                               @"name" : @"xl",
-                                                               },
-                                                           ],
-                                                   
-                                                   @"nameId" : @"2",
-                                                   @"nameStatus" : @"0",
-                                                   @"goodsTypeId" : @"8",
-                                                   @"orderNum" : @"2",
-                                                   @"name" : @"尺码",
-                                                   
-                                                   
-                                                   }
-                                               ]
-                                       
-                                       }
+                               
                                };
     
     DetailGoodsModel * detailModel = [DetailGoodsModel mj_objectWithKeyValues:dict_m8m];
@@ -1264,48 +1235,11 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 -(void)textData{
     
     NSDictionary * dic = @{
-                           @"resultMsg":@"请求成功",
-                           @"data":@{
-                                   @"skuMatch":@[
-                                           @{
-                                               @"nameId" : @"2",
-                                               @"valuList":@[
-                                                       @{
-                                                           @"valueId":@"5",
-                                                           @"createTime" : @"5",
-                                                           @"nameId" : @"2",
-                                                           @"goodsId" : @"1",
-                                                           @"id" : @"5",
-                                                           @"skuId" : @"2",
-                                                           },
-                                                       @{
-                                                           @"valueId" : @"6",
-                                                           @"createTime" : @"2017-07-04",
-                                                           @"nameId" : @"2",
-                                                           @"goodsId" :@"1",
-                                                           @"id" : @"6",
-                                                           @"skuId" : @"3",
-                                                       },
-                                                       
-                                                       @{
-                                                           @"valueId" : @"7",
-                                                           @"createTime" : @"2017-07-04",
-                                                           @"nameId" : @"2",
-                                                           @"goodsId" :@"1",
-                                                           @"id" : @"6",
-                                                           @"skuId" : @"3",
-                                                           }
-
-                                                       ]
-                                               
-                                               }
-                                           
-                                        ]
-                                   }
+                           
                            };
     
-    SkuMatchModel * sku  = [SkuMatchModel mj_objectWithKeyValues:dic];
-
+    SkuMatchModel * sku = [SkuMatchModel mj_objectWithKeyValues:dic];
+    
     for (Skumatch *skumatch in sku.data.skuMatch) {
         
         NSInteger nameId = skumatch.nameId;

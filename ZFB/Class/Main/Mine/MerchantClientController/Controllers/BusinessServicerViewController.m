@@ -997,10 +997,13 @@
 {
     _order_id                                      = orderId;
     _order_amount                                  = totalPrice;//当前总价
+    
     NSLog(@"派单操作 - orderId =%@ ,totalPrice         = %@ ",_order_id,_order_amount);
     
-    [self selectDeliveryListPostRequst];//请求配送员接口
     [self.view addSubview:self.orderBgview];
+    
+    [self selectDeliveryListPostRequst];//请求配送员接口
+
     
 }
 
@@ -1120,13 +1123,15 @@
             NSLog(@"orderListArray = %@",self.orderListArray);
         }
         [self.homeTableView reloadData];
-
+        [self.homeTableView.mj_header endRefreshing];
+        [self.homeTableView.mj_footer endRefreshing];
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
-        
+        [self.homeTableView.mj_header endRefreshing];
+        [self.homeTableView.mj_footer endRefreshing];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
