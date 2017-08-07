@@ -85,10 +85,11 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     }
 
 }
-
+#pragma mark -当购物车页面消失后   取消选中
 -(void)viewWillDisappear:(BOOL)animated
 {
     [SVProgressHUD dismiss];
+    
 }
 
 
@@ -114,7 +115,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     else{
        
         orderVC.cartItemId = @"";
-        orderVC.jsonString =  _jsonString;
+        orderVC.jsonString = _jsonString;
         NSLog(@"提交成功了 ----------- %@ ",_jsonString);
         [SVProgressHUD dismissWithDelay:1];
         [self.navigationController pushViewController:orderVC animated:YES];
@@ -141,18 +142,18 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     
     NSIndexPath *indexPath   = [self.shopCar_tableview indexPathForCell:cell];
     Shoppcartlist * list     = self.carListArray[indexPath.section];
-    Goodslist *goods         = list.goodsList[indexPath.row];
+    ShopGoodslist *goods         = list.goodsList[indexPath.row];
     goods.goodslistIsChoosed = !goods.goodslistIsChoosed;
   
     //////////////////////////////////////////////////////////////////////////
     NSMutableArray * mArray = [NSMutableArray array];
-    NSMutableArray *  InfojsonArray = [NSMutableArray array];
-    NSMutableDictionary * dict  = [NSMutableDictionary dictionary];
-    NSMutableDictionary * jsonDict  = [NSMutableDictionary dictionary];
+//    NSMutableArray *  InfojsonArray = [NSMutableArray array];
+//    NSMutableDictionary * dict  = [NSMutableDictionary dictionary];
+//    NSMutableDictionary * jsonDict  = [NSMutableDictionary dictionary];
     
     // 当点击单个的时候，判断是否该买手下面的商品是否全部选中
     __block NSInteger count = 0;
-    [list.goodsList enumerateObjectsUsingBlock:^(Goodslist *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [list.goodsList enumerateObjectsUsingBlock:^(ShopGoodslist *obj, NSUInteger idx, BOOL * _Nonnull stop) {
     
         if (obj.goodslistIsChoosed)
         {
@@ -161,21 +162,21 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             NSMutableDictionary *goodDic = obj.mj_keyValues;
             [mArray addObject:goodDic];
             
-            [dict setValue: [NSArray arrayWithArray:mArray]  forKey:@"goodsList"];
-            [dict setValue:list.storeName forKey:@"storeName"];
-            [dict setValue:list.storeId forKey:@"storeId"];
-    
-            NSLog(@"dict = %@",dict);
-            
-            [InfojsonArray addObject:dict];
-            
-            [jsonDict setValue:[NSArray arrayWithArray:InfojsonArray]  forKey:@"userGoodsInfoJSON"];
-            
-            NSLog(@"jsonDict = %@",jsonDict);
-    
-            _jsonString = [NSString convertToJsonData:self.jsonDict];
-            
-            NSLog(@"_jsonString = %@",_jsonString);
+//            [dict setValue: [NSArray arrayWithArray:mArray]  forKey:@"goodsList"];
+//            [dict setValue:list.storeName forKey:@"storeName"];
+//            [dict setValue:list.storeId forKey:@"storeId"];
+//    
+//            NSLog(@"dict = %@",dict);
+//            
+//            [InfojsonArray addObject:dict];
+//            
+//            [jsonDict setValue:[NSArray arrayWithArray:InfojsonArray]  forKey:@"userGoodsInfoJSON"];
+//            
+//            NSLog(@"jsonDict = %@",jsonDict);
+//    
+//            _jsonString = [NSString convertToJsonData:self.jsonDict];
+//            
+//            NSLog(@"_jsonString = %@",_jsonString);
         }
  
         
@@ -196,7 +197,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     // 每次点击都要统计底部的按钮是否全选
     self.allSelectedButton.selected = [self isAllProcductChoosed];
     
-    [self.complete_Btn setTitle:[NSString stringWithFormat:@"结算(%ld)",[self countTotalSelectedNumber]] forState:UIControlStateNormal];
+    [self.complete_Btn setTitle:[NSString stringWithFormat:@"结算"] forState:UIControlStateNormal];
     self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[self countTotalPrice]];
     
 }
@@ -209,7 +210,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     list.leftShoppcartlistIsChoosed = !list.leftShoppcartlistIsChoosed;
     
     //遍历数组元素
-    [list.goodsList enumerateObjectsUsingBlock:^(Goodslist *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [list.goodsList enumerateObjectsUsingBlock:^(ShopGoodslist *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         obj.goodslistIsChoosed = list.leftShoppcartlistIsChoosed;
         
@@ -221,20 +222,20 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             
             [self.jsonGoodArray removeAllObjects];
         }
-        
-        //模型转字典
-        NSDictionary * dic = list.mj_keyValues;
-      
-        [self.jsonGoodArray addObject:dic];
-        
-        NSLog(@"dic = %@",dic);
-        self.jsonDict = [NSMutableDictionary dictionary];
-        
-        [self.jsonDict setValue:[NSArray arrayWithArray:self.jsonGoodArray] forKey:@"userGoodsInfoJSON"];
-
-        _jsonString = [NSString convertToJsonData:self.jsonDict];
-        
-        NSLog(@"_jsonString = %@",_jsonString);
+//        
+//        //模型转字典
+//        NSDictionary * dic = list.mj_keyValues;
+//      
+//        [self.jsonGoodArray addObject:dic];
+//        
+//        NSLog(@"dic = %@",dic);
+//        self.jsonDict = [NSMutableDictionary dictionary];
+//        
+//        [self.jsonDict setValue:[NSArray arrayWithArray:self.jsonGoodArray] forKey:@"userGoodsInfoJSON"];
+//
+//        _jsonString = [NSString convertToJsonData:self.jsonDict];
+//        
+//        NSLog(@"_jsonString = %@",_jsonString);
     }
     
     
@@ -242,7 +243,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     
     // 每次点击都要统计底部的按钮是否全选
     self.allSelectedButton.selected = [self isAllProcductChoosed];
-    [self.complete_Btn setTitle:[NSString stringWithFormat:@"结算(%ld)",[self countTotalSelectedNumber]] forState:UIControlStateNormal];
+    [self.complete_Btn setTitle:[NSString stringWithFormat:@"结算"] forState:UIControlStateNormal];
     self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[self countTotalPrice]];
     
 }
@@ -258,28 +259,30 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         
         list.leftShoppcartlistIsChoosed = sender.selected;
         
-        for (Goodslist * goods in list.goodsList) {
+        for (ShopGoodslist * goods in list.goodsList) {
             
             goods.goodslistIsChoosed = list.leftShoppcartlistIsChoosed;
             
         }
     }
     
-    if (sender.selected) {
-        
-        //模型数组转字典数组
-        NSArray *dictArray    = [Shoppcartlist mj_keyValuesArrayWithObjectArray:self.carListArray];
-        NSLog(@"mo xingshuszu = %@",dictArray);
-
-        self.jsonDict   = [NSMutableDictionary dictionaryWithObject:dictArray forKey:@"userGoodsInfoJSON"];
-        NSLog(@"添加选中的 商品  到数组中  ----jsonDict  = %@",self.jsonDict);
-        
-        _jsonString  = [NSString convertToJsonData:self.jsonDict];
-    }
+//    if (sender.selected) {
+//        
+//        //模型数组转字典数组
+//        NSArray *dictArray    = [Shoppcartlist mj_keyValuesArrayWithObjectArray:self.carListArray];
+//        NSLog(@"mo xingshuszu = %@",dictArray);
+//
+//        self.jsonDict   = [NSMutableDictionary dictionaryWithObject:dictArray forKey:@"userGoodsInfoJSON"];
+//        NSLog(@"添加选中的 商品  到数组中  ----jsonDict  = %@",self.jsonDict);
+//        
+//        _jsonString  = [NSString convertToJsonData:self.jsonDict];
+//    }
 
     [self.shopCar_tableview reloadData];
+    
     CGFloat totalPrice = [self countTotalPrice];
-    [self.complete_Btn setTitle:[NSString stringWithFormat:@"结算(%ld)",[self countTotalSelectedNumber]] forState:UIControlStateNormal];
+    
+    [self.complete_Btn setTitle:[NSString stringWithFormat:@"结算"] forState:UIControlStateNormal];
     self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",totalPrice];
     
 }
@@ -298,7 +301,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         NSIndexPath *indexpath = [self.shopCar_tableview indexPathForCell:self.tempCellArray.firstObject];
         
         Shoppcartlist * list = self.carListArray[indexpath.section];
-        Goodslist *goods     = list.goodsList[indexpath.row];
+        ShopGoodslist *goods     = list.goodsList[indexpath.row];
         
         
         if (list.goodsList.count == 1) {
@@ -325,7 +328,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     // 会影响到对应的选择
     NSInteger count = 0;
     for (Shoppcartlist * list in self.carListArray) {
-        for (Goodslist *goods in list.goodsList) {
+        for (ShopGoodslist *goods in list.goodsList) {
             if (goods.goodslistIsChoosed) {
                 count ++;
             }
@@ -338,7 +341,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     // 再次影响到全部选择按钮
     self.allSelectedButton.selected = [self isAllProcductChoosed];
     self.totalPriceLabel.text       = [NSString stringWithFormat:@"￥%.2f",[self countTotalPrice]];
-    [self.complete_Btn setTitle:[NSString stringWithFormat:@"结算(%ld)",[self countTotalSelectedNumber]] forState:UIControlStateNormal];
+    [self.complete_Btn setTitle:[NSString stringWithFormat:@"结算"] forState:UIControlStateNormal];
     [self.shopCar_tableview reloadData];
     
 }
@@ -349,7 +352,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 {
     NSIndexPath *indexpath = [self.shopCar_tableview indexPathForCell:cell];
     Shoppcartlist *list    = self.carListArray[indexpath.section];
-    Goodslist * goods      = list.goodsList[indexpath.row];
+    ShopGoodslist * goods      = list.goodsList[indexpath.row];
     goods.goodsCount = 1;
     if (tag == 555)
     {
@@ -434,7 +437,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 - (void)configCell:(ZFShopCarCell *)cell indexPath:(NSIndexPath *)indexPath
 {
     Shoppcartlist * shopList = self.carListArray[indexPath.section];
-    Goodslist *goodslist     = shopList.goodsList[indexPath.row];
+    ShopGoodslist *goodslist     = shopList.goodsList[indexPath.row];
     
     cell.chooseBtn.selected = goodslist.goodslistIsChoosed;//!< 商品是否需要选择的字段
     [cell.img_shopCar sd_setImageWithURL:[NSURL URLWithString:goodslist.coverImgUrl] placeholderImage:[UIImage imageNamed:@""]];
@@ -488,8 +491,9 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 {
     NSInteger count = 0;
     for (Shoppcartlist *list in self.carListArray) {
-        for (Goodslist *goods in list.goodsList) {
+        for (ShopGoodslist *goods in list.goodsList) {
             if (goods.goodslistIsChoosed) {
+                
                 count ++;
             }
         }
@@ -505,11 +509,11 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     CGFloat totalPrice = 0.0;
     for (Shoppcartlist *list in self.carListArray) {
         if (list.leftShoppcartlistIsChoosed) {
-            for (Goodslist * goods  in list.goodsList) {
+            for (ShopGoodslist * goods  in list.goodsList) {
                 totalPrice += goods.storePrice * goods.goodsCount;
             }
         }else{
-            for (Goodslist * goods  in list.goodsList) {
+            for (ShopGoodslist * goods  in list.goodsList) {
                 if (goods.goodslistIsChoosed) {
                     totalPrice += goods.storePrice * goods.goodsCount;
                 }
@@ -549,7 +553,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         _shopCar_tableview.delegate       = self;
         _shopCar_tableview.dataSource     = self;
         _shopCar_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-        //        _shopCar_tableview.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:_shopCar_tableview];
     }
     return _shopCar_tableview;
@@ -566,7 +569,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         
         //结算按钮
         _complete_Btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_complete_Btn setTitle:@"结算(0)" forState:UIControlStateNormal];
+        [_complete_Btn setTitle:@"结算" forState:UIControlStateNormal];
         _complete_Btn.titleLabel.font = font;
         _complete_Btn.backgroundColor = HEXCOLOR(0xfe6d6a);
         _complete_Btn.frame           = CGRectMake(KScreenW -100, 0, 100 , 49);

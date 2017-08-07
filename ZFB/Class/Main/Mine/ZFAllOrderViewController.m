@@ -17,13 +17,16 @@
 
 #import "ZFpopView.h"
 #import "ZFSaleAfterTopView.h"
+
 #import "ZFSaleAfterHeadCell.h"
 #import "ZFSaleAfterContentCell.h"
 #import "ZFSaleAfterSearchCell.h"
 #import "ZFCheckTheProgressCell.h"
+
 #import "ZFPregressCheckViewController.h"
 #import "ZFDetailOrderViewController.h"
 #import "ZFMainPayforViewController.h"
+#import "ZFPersonalViewController.h"
 
 #import "AllOrderModel.h"
 
@@ -1180,5 +1183,10 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     return (array.count ==0 || array == nil);
 }
 
+//重写返回方法
+-(void)backAction{
+    ZFPersonalViewController * personVc =[[ZFPersonalViewController alloc]init];
+    [self.navigationController popToViewController:personVc animated:NO];
+}
 
 @end

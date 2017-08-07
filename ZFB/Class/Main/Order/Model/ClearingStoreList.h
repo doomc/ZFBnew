@@ -34,7 +34,7 @@
 
 @property (nonatomic, strong) NSArray <Goodsprop *> *goodsProp;
 
-@property (nonatomic, copy) NSString *storePrice;
+@property (nonatomic, assign) CGFloat storePrice;
 
 @property (nonatomic, copy) NSString *goodsCount;
 

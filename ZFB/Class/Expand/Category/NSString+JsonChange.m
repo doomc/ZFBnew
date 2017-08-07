@@ -33,26 +33,11 @@
         
         jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
         jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\n" withString:@""];
-
-//        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
-//        jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+ 
     }
     
     NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
-    
-    
-//    NSRange range = {0,jsonString.length};
-    
-//    //去掉字符串中的空格        \"storeList\"
-//    
-//    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
-//    
-//    NSRange range2 = {0,mutStr.length};
-//    
-//    //去掉字符串中的换行符
-//    
-//    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+ 
     
     return mutStr;
     
@@ -82,19 +67,55 @@
     if (array.count > 0) {
         NSError *error = nil;
         
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments error:&error];
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        //    [jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-        [jsonString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        [jsonString stringByReplacingOccurrencesOfString:@" " withString:@""];
-        //    NSLog(@"json array is: %@", jsonResult);
+
+        jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\n" withString:@""];
         return jsonString;
     }
     
     return nil;
 }
 
++(NSString*)ObjectTojsonString:(id)object
 
+{
+    
+    NSString *jsonString = [[NSString alloc]init];
+    
+    NSError *error;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
+                        
+                                                      options:NSJSONWritingPrettyPrinted
+                        
+                                                        error:&error];
+    
+    if (! jsonData) {
+        
+        NSLog(@"error: %@", error);
+        
+    } else {
+        
+        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+    }
+    
+    NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
+    
+    NSRange range = {0,jsonString.length};
+    
+    [mutStr replaceOccurrencesOfString:@" "withString:@""options:NSLiteralSearch range:range];
+    
+    NSRange range2 = {0,mutStr.length};
+    
+    [mutStr replaceOccurrencesOfString:@"\n"withString:@""options:NSLiteralSearch range:range2];
+  
+ 
+    return mutStr;
+    
+}
 +(NSString *)base64:(NSString *)dataStr;
 {
     NSData *strData = [dataStr dataUsingEncoding:NSUTF8StringEncoding];

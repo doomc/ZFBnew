@@ -9,6 +9,7 @@
 #import "ZFMainPayforViewController.h"
 #import "WebViewJavascriptBridge.h"
 #import <WebKit/WebKit.h>
+#import "ZFAllOrderViewController.h"
 @interface ZFMainPayforViewController ()<UIWebViewDelegate>
 
 @property (nonatomic,copy ) NSString * paySign;//获取签名
@@ -19,6 +20,7 @@
 
 @property (nonatomic ,copy  ) NSString       *signString;
 @property (nonatomic ,strong) UIProgressView *pressView;
+@property (nonatomic ,strong) NSDictionary *  payDic;
 
 @end
 
@@ -27,7 +29,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.title = @"收银台";
-    [self removeWebCache];
     [self clearCache];//清除缓存
     //    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
@@ -45,7 +46,8 @@
     // disconnect the delegate as the webview is hidden
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
-    _orderjsonString = nil;
+    _orderListArray = nil;
+ 
 }
 
 -(UIWebView *)webView
@@ -82,14 +84,23 @@
     //开始加载，可以加上风火轮（也叫菊花）
     [SVProgressHUD show];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
+ 
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     //完成加载
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    NSString * backUrl = @"http://192.168.1.115:8080/cashier_zavfpay/standard/goback.html";
+    NSString * currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
     
+    NSLog(@"currentURL ===== %@",currentURL);
+    if ([backUrl isEqualToString:currentURL]) {
+        
+        NSLog(@"可以跳转到全部订单列表");
+        ZFAllOrderViewController * allorder = [[ZFAllOrderViewController alloc]init];
+        [self.navigationController pushViewController:allorder animated:NO];
+    }
     [SVProgressHUD dismiss];
     
 }
@@ -98,7 +109,7 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
+    NSLog(@"加载失败了");
     //加载出错
     [SVProgressHUD dismiss];
     
@@ -124,42 +135,42 @@
 -(void)getPaypaySignAccessTokenUrl
 {
     [SVProgressHUD show];
-    NSDictionary * orderdic =[NSString dictionaryWithJsonString:_orderjsonString];//json转字典
-    NSArray * orderlist = orderdic[@"orderList"];
-    NSString * listJsonString  =[NSString arrayToJSONString:orderlist];
+    NSString * listJsonString  =[NSString arrayToJSONString:_orderListArray];
     
 #warning -- 此账号为测试时账号  正式时 需要修改成正式账号
     
-    NSLog(@"=======%@_access_token",_access_token);
+//    NSLog(@"=======%@_access_token",_access_token);
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     
     [params setValue:_access_token forKey:@"access_token"];
     [params setValue:@"18602343931" forKey:@"account"];
     [params setValue:_datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
-    [params setValue:notify_url forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）
-    [params setValue:return_url forKey:@"return_url"];//同步通知地址（支付成功后的跳转）
+    [params setValue:_notify_url forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）
+    [params setValue:_return_url forKey:@"return_url"];//同步通知地址（支付成功后的跳转）
     [params setValue:listJsonString forKey:@"order_list"];//Json格式的订单字符集
-    [params setValue:@"123" forKey:@"passback_params"];//回传参数：商户可自定义该参数，在支付回调后带回
+    [params setValue:@"" forKey:@"passback_params"];//回传参数：商户可自定义该参数，在支付回调后带回
     
-    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/paySign",zfb_baseUrl] params:[NSDictionary dictionaryWithDictionary:params]success:^(id response) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/paySign",zfb_baseUrl] params:[NSDictionary dictionaryWithDictionary:params] success:^(id response) {
         
         _paySign = response[@"paySign"];
-        
-        [self getGoodsCostPayResulrUrlL];
-        
-        [SVProgressHUD dismissWithDelay:3];
+
+        [SVProgressHUD dismissWithCompletion:^{
+           
+            [self getGoodsCostPayResulrUrlL];
+
+        }];
         
     } progress:^(NSProgress *progeress) {
+        
         
         NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
-        
+        [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
-    [SVProgressHUD dismissWithDelay:2];
     
 }
 
@@ -167,103 +178,48 @@
 #pragma mark -  PayResulrUrl支付页面地址
 -(void)getGoodsCostPayResulrUrlL
 {
-    NSDictionary * orderdic =[NSString dictionaryWithJsonString:_orderjsonString];//json转字典
-    NSArray * orderlist = orderdic[@"orderList"];
-    NSString * listJsonString  =[NSString arrayToJSONString:orderlist];
-    
-    
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
-    
+    NSString * listJsonString  =[NSString arrayToJSONString:_orderListArray];
+ 
+    [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
     [params setValue:_access_token forKey:@"access_token"];
     [params setValue:@"18602343931" forKey:@"account"];
     [params setValue:_datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
-    [params setValue:notify_url forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）
-    [params setValue:return_url forKey:@"return_url"];//同步通知地址（支付成功后的跳转）
+    [params setValue:_notify_url forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）
+    [params setValue:_return_url forKey:@"return_url"];//同步通知地址（支付成功后的跳转）
     [params setValue:listJsonString forKey:@"order_list"];//Json格式的订单字符集
     [params setValue:@"" forKey:@"passback_params"];//回传参数：商户可自定义该参数，在支付回调后带回
-    [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
     
+    NSDictionary * dic  = [NSDictionary dictionaryWithDictionary:params];
+    NSArray *keyArray  = [dic allKeys];
+    NSArray *sortArray = [keyArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2){
     
-    NSArray *keyArray  = [[NSDictionary dictionaryWithDictionary:params] allKeys];
-    NSArray *sortArray = [keyArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2)
-                          {
-                              return [obj1 compare:obj2 options:NSNumericSearch];
-                          }];
+        return [obj1 compare:obj2 options:NSNumericSearch];
+    }];
     NSMutableArray *valueArray = [NSMutableArray array];
     for (NSString *sortString in sortArray) {
         
         [valueArray addObject:[params objectForKey:sortString]];
     }
     NSMutableArray *signArray = [NSMutableArray array];
-    
-    for (int i            = 0; i < sortArray.count; i++) {
+ 
+    for (int i = 0; i < sortArray.count; i++) {
+        
+  
         NSString *keyValueStr = [NSString stringWithFormat:@"%@=%@",sortArray[i],valueArray[i]];
-        
         [signArray addObject:keyValueStr];
-        
+
     }
     
-    _signString =[NSString stringWithFormat:@"%@",[signArray componentsJoinedByString:@"&"]];
-    
+    _signString =[NSString stringWithFormat:@"%@", [signArray componentsJoinedByString:@"&"]];
+    NSLog(@"_signString========%@",_signString);
+ 
     //5.设置请求体
-    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:PayResulrUrl]];
-    [request setHTTPBody:[_signString dataUsingEncoding:NSUTF8StringEncoding]];
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:_gateWay_url]];
     [request setHTTPMethod: @"POST"];
     [request setHTTPBody: [_signString dataUsingEncoding: NSUTF8StringEncoding]];
     [self.webView loadRequest:request];
     
-}
-
-//清除缓存
-- (void)removeWebCache{
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 9.0) {
-        NSSet *websiteDataTypes = [NSSet setWithArray:@[
-                                                        WKWebsiteDataTypeDiskCache,
-                                                        //WKWebsiteDataTypeOfflineWebApplication
-                                                        WKWebsiteDataTypeMemoryCache,
-                                                        //WKWebsiteDataTypeLocal
-                                                        WKWebsiteDataTypeCookies,
-                                                        //WKWebsiteDataTypeSessionStorage,
-                                                        //WKWebsiteDataTypeIndexedDBDatabases,
-                                                        //WKWebsiteDataTypeWebSQLDatabases
-                                                        ]];
-        
-        // All kinds of data
-        //NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
-        NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
-        [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
-            
-        }];
-        [[NSURLCache sharedURLCache] removeAllCachedResponses];
-        
-    } else {
-        //先删除cookie
-        NSHTTPCookie *cookie;
-        NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-        for (cookie in [storage cookies])
-        {
-            [storage deleteCookie:cookie];
-        }
-        
-        NSString *libraryDir = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *bundleId   = [[[NSBundle mainBundle] infoDictionary]
-                                objectForKey:@"CFBundleIdentifier"];
-        NSString *webkitFolderInLib = [NSString stringWithFormat:@"%@/WebKit",libraryDir];
-        
-        NSString *webKitFolderInCaches = [NSString
-                                          stringWithFormat:@"%@/Caches/%@/WebKit",libraryDir,bundleId];
-        NSString *webKitFolderInCachesfs = [NSString
-                                            stringWithFormat:@"%@/Caches/%@/fsCachedData",libraryDir,bundleId];
-        NSError *error;
-        /* iOS8.0 WebView Cache的存放路径 */
-        [[NSFileManager defaultManager] removeItemAtPath:webKitFolderInCaches error:&error];
-        [[NSFileManager defaultManager] removeItemAtPath:webkitFolderInLib error:nil];
-        /* iOS7.0 WebView Cache的存放路径 */
-        [[NSFileManager defaultManager] removeItemAtPath:webKitFolderInCachesfs error:&error];
-        NSString *cookiesFolderPath = [libraryDir stringByAppendingString:@"/Cookies"];
-        [[NSFileManager defaultManager] removeItemAtPath:cookiesFolderPath error:&error];
-        [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    }
 }
 
 /** 清理缓存的方法，这个方法会清除缓存类型为HTML类型的文件*/

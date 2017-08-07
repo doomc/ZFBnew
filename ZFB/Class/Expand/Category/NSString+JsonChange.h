@@ -26,4 +26,8 @@
 //base64转换
 +(NSString *)base64:(NSString *)dataStr;
 
+
++(NSString*)ObjectTojsonString:(id)object;
+
+ 
 @end

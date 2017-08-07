@@ -47,7 +47,7 @@
 
 @interface DetailShoppcartlist : NSObject
 
-@property (nonatomic, strong) NSArray<DetailGoodslist *> *goodsList;
+@property (nonatomic, strong) NSMutableArray<DetailGoodslist *> *goodsList;
 
 @property (nonatomic, assign) NSInteger storeId;
 

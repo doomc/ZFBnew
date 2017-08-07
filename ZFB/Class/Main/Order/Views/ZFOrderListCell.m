@@ -25,8 +25,6 @@
 {
     _listArray = [NSMutableArray array];
     _listArray = listArray;
-    
-    NSLog(@"======== %@====_listArray",_listArray);
 
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -34,7 +32,7 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return  3;
+    return  _listArray.count;
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -51,20 +49,24 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    JosnGoodslist * list = _listArray[indexPath.row];
-    
     GoodsitemCell * cell = [self.order_collectionCell
                             dequeueReusableCellWithReuseIdentifier:@"GoodsitemCellid" forIndexPath:indexPath];
 
+    for (NSDictionary * imgDic in _listArray) {
+      
+        NSString *coverImgUrl  = [imgDic objectForKey:@"coverImgUrl"];
+        [cell.img_listImgView sd_setImageWithURL:[NSURL URLWithString:coverImgUrl] placeholderImage:nil];
+
+    }
     if (_listArray.count > 3) {
-        
+      
         self.img_shenglve.hidden = NO;
     }
     else{
         self.img_shenglve.hidden = YES;
     }
     
-    [cell.img_listImgView sd_setImageWithURL:[NSURL URLWithString:list.coverImgUrl] placeholderImage:nil];
+    
     return cell;
 }
 

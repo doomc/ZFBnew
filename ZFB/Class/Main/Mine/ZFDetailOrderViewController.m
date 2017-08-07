@@ -330,7 +330,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     
     payVc.access_token = _access_token;
     payVc.datetime = _datetime;
-    payVc.orderjsonString = OrderjsonString;
+//    payVc.orderListArray = OrderjsonString;
     
 //    [self.navigationController pushViewController:payVc animated:NO];
     

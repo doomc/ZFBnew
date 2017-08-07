@@ -68,7 +68,7 @@
 
 @property (nonatomic, strong) Goods_Properties *goods_properties;
 
-@property (nonatomic, copy) NSString *goodsCount;
+@property (nonatomic, assign) NSInteger goodsCount;
 
 @property (nonatomic, copy) NSString *goodsId;
 

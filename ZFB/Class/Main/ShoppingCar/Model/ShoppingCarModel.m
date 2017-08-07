@@ -9,22 +9,32 @@
 #import "ShoppingCarModel.h"
 
 @implementation ShoppingCarModel
-
+ 
 + (NSDictionary *)objectClassInArray{
     return @{@"shoppCartList" : [Shoppcartlist class]};
 }
 @end
 
+
 @implementation Shoppcartlist
 
 + (NSDictionary *)objectClassInArray{
-    return @{@"goodsList" : [Goodslist class]};
+    return @{@"goodsList" : [ShopGoodslist class]};
 }
 
 @end
 
 
-@implementation Goodslist
+@implementation ShopGoodslist
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"goodsProp" : [ShopGoodsprop class]};
+}
+
+@end
+
+
+@implementation ShopGoodsprop
 
 @end
 

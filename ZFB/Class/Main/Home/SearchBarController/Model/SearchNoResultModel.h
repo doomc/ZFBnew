@@ -76,7 +76,7 @@
 
 @property (nonatomic, copy) NSString *storeDist;
 
-@property (nonatomic, assign) NSInteger storePrice;
+@property (nonatomic, assign) CGFloat storePrice;
 
 @property (nonatomic, assign) NSInteger auditStatus;
 

@@ -40,7 +40,7 @@
 
 @property (assign, nonatomic) id <ShoppingSelectedDelegate> selectDelegate;
 
-@property (strong,nonatomic) Goodslist  * goodlist;
+@property (strong,nonatomic) ShopGoodslist  * goodlist;
 
 
 #pragma mark -  头部视图shopCarSectionHeadViewCell

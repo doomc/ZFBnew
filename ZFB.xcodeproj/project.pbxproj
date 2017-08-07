@@ -631,6 +631,8 @@
 		49690CBB1F14C442004C501B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 49690CBA1F14C442004C501B /* Reachability.m */; };
 		49690CBD1F14D0CF004C501B /* PPNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49690CBC1F14D0CF004C501B /* PPNetworkHelper.m */; };
 		49690CBF1F14EB3A004C501B /* MENetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49690CBE1F14EB3A004C501B /* MENetWorkManager.m */; };
+		4971FB811F38638A0012DF84 /* ShopCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4971FB801F38638A0012DF84 /* ShopCarViewController.m */; };
+		4971FB841F3864A20012DF84 /* ShopCarSectionHeadViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4971FB831F3864A20012DF84 /* ShopCarSectionHeadViewCell.m */; };
 		497A8AAC1F2AECAA0003D7CB /* 30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497A8AA61F2AECAA0003D7CB /* 30@2x.png */; };
 		497A8AAD1F2AECAA0003D7CB /* 30@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497A8AA71F2AECAA0003D7CB /* 30@3x.png */; };
 		497A8AAE1F2AECAA0003D7CB /* 今日@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497A8AA81F2AECAA0003D7CB /* 今日@2x.png */; };
@@ -1677,6 +1679,10 @@
 		49690CBA1F14C442004C501B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		49690CBC1F14D0CF004C501B /* PPNetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNetworkHelper.m; sourceTree = "<group>"; };
 		49690CBE1F14EB3A004C501B /* MENetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MENetWorkManager.m; sourceTree = "<group>"; };
+		4971FB7F1F38638A0012DF84 /* ShopCarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarViewController.h; sourceTree = "<group>"; };
+		4971FB801F38638A0012DF84 /* ShopCarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarViewController.m; sourceTree = "<group>"; };
+		4971FB821F3864A20012DF84 /* ShopCarSectionHeadViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarSectionHeadViewCell.h; sourceTree = "<group>"; };
+		4971FB831F3864A20012DF84 /* ShopCarSectionHeadViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarSectionHeadViewCell.m; sourceTree = "<group>"; };
 		497A8AA61F2AECAA0003D7CB /* 30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "30@2x.png"; sourceTree = "<group>"; };
 		497A8AA71F2AECAA0003D7CB /* 30@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "30@3x.png"; sourceTree = "<group>"; };
 		497A8AA81F2AECAA0003D7CB /* 今日@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "今日@2x.png"; sourceTree = "<group>"; };
@@ -3389,6 +3395,8 @@
 				495EA5741F14B64C001FCB7E /* Views */,
 				495EA57C1F14B64C001FCB7E /* ZFShoppingCarViewController.h */,
 				495EA57D1F14B64C001FCB7E /* ZFShoppingCarViewController.m */,
+				4971FB7F1F38638A0012DF84 /* ShopCarViewController.h */,
+				4971FB801F38638A0012DF84 /* ShopCarViewController.m */,
 			);
 			name = "ShoppingCar(购物车)";
 			path = ShoppingCar;
@@ -3411,6 +3419,8 @@
 				495EA5751F14B64C001FCB7E /* PayforCell.h */,
 				495EA5761F14B64C001FCB7E /* PayforCell.m */,
 				495EA5771F14B64C001FCB7E /* PayforCell.xib */,
+				4971FB821F3864A20012DF84 /* ShopCarSectionHeadViewCell.h */,
+				4971FB831F3864A20012DF84 /* ShopCarSectionHeadViewCell.m */,
 				495EA5781F14B64C001FCB7E /* ShopCarSectionHeadViewCell.xib */,
 				495EA5791F14B64C001FCB7E /* ZFShopCarCell.h */,
 				495EA57A1F14B64C001FCB7E /* ZFShopCarCell.m */,
@@ -5106,6 +5116,7 @@
 				50777C2A1F2DBA170067B295 /* BusinessSendoOrderCell.m in Sources */,
 				495EA7761F14B64D001FCB7E /* DetailShareViewController.m in Sources */,
 				495EA79B1F14B64D001FCB7E /* DetailGoodsModel.m in Sources */,
+				4971FB841F3864A20012DF84 /* ShopCarSectionHeadViewCell.m in Sources */,
 				495EA7CD1F14B64D001FCB7E /* ZFMyOderCell.m in Sources */,
 				495EA7241F14B64D001FCB7E /* ZFCoverView.m in Sources */,
 				495EA7841F14B64D001FCB7E /* ZFAppraiseSectionCell.m in Sources */,
@@ -5191,6 +5202,7 @@
 				495EA7631F14B64D001FCB7E /* XHStarRateView.m in Sources */,
 				495EA7B41F14B64D001FCB7E /* SearchCell.m in Sources */,
 				495EA9481F14B64E001FCB7E /* MJRefreshGifHeader.m in Sources */,
+				4971FB811F38638A0012DF84 /* ShopCarViewController.m in Sources */,
 				495EA8401F14B64D001FCB7E /* ZFOrderDetailCell.m in Sources */,
 				495EA81E1F14B64D001FCB7E /* ZFSettingHeaderCell.m in Sources */,
 				495EA8041F14B64D001FCB7E /* ApplySalesQuestionCell.m in Sources */,

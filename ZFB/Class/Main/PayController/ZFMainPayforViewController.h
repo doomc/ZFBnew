@@ -10,9 +10,16 @@
 
 @interface ZFMainPayforViewController : BaseViewController
 
-@property (nonatomic,strong )NSString  * orderjsonString;
-@property (nonatomic,strong )NSString  * datetime;
-@property (nonatomic,strong )NSString  * access_token;
+@property (nonatomic,copy ) NSString  * datetime;
+@property (nonatomic,copy ) NSString  * access_token;
+@property (nonatomic,strong )NSArray  * orderListArray;
+
+//支付的回调地址
+@property (nonatomic,copy ) NSString  * notify_url;
+@property (nonatomic,copy ) NSString  * return_url;
+@property (nonatomic,copy ) NSString  * gateWay_url;
+
+
 
 
 

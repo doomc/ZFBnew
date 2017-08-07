@@ -24,7 +24,7 @@
     
  }
 
--(void)setGoodlist:(Goodslist *)goodlist
+-(void)setGoodlist:(ShopGoodslist *)goodlist
 {
     _goodlist = goodlist;
     //拿到商品的数量在加减

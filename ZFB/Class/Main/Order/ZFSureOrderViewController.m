@@ -40,21 +40,17 @@
     NSString * _access_token;
     
 }
-@property (nonatomic,strong) NSMutableArray * goodsListArray;//用来接收的商品数组
 
 @property (nonatomic,strong) UITableView    * mytableView;
 @property (nonatomic,strong) UIView         * footerView;
-@property (nonatomic,strong) NSMutableArray * imgArray;
 
-@property (nonatomic,copy) NSString * anewJsonString;
+@property (nonatomic,strong) NSMutableArray * goodsListArray;//用来接收的商品数组
+@property (nonatomic,strong) NSMutableArray * cmGoodsListArray;//cmgoodslist
+@property (nonatomic,strong) NSMutableArray * storelistArry;//门店数组
 
-@property (nonatomic,strong) NSMutableArray * goodlistArry;
-@property (nonatomic,strong) NSMutableArray * storelistArry;
-@property (nonatomic,strong) NSMutableArray * feeList;//价格
+@property (nonatomic,strong) NSMutableArray * storeAttachListArr;//有备注的数组
+@property (nonatomic,strong) NSMutableArray * storeDeliveryfeeListArr;//配送费数组
 
-@property (nonatomic,strong) NSMutableArray * storeAttachListArr;//要拆分的数组
-@property (nonatomic,strong) NSMutableArray * storeDeliveryfeeListArr;//要拆分的数组
-@property (nonatomic,strong) NSMutableArray * mutOrderlistArr;//要拆分的数组
 
 
 
@@ -97,92 +93,49 @@
  */
 -(void)userGoodsInfoJSONanalysis
 {
-    NSMutableDictionary * jsondic = [NSMutableDictionary dictionary];
-    [jsondic setValue:_userGoodsInfoJSON forKey:@"userGoodsInfoJSON"];
     
-    //数组字典转 模型字典
-    JsonModel * jsonModel = [JsonModel mj_objectWithKeyValues:jsondic];
-    for (Usergoodsinfojson * storelist in jsonModel.userGoodsInfoJSON) {
+    for (NSDictionary * adic in _userGoodsInfoJSON) {
         
-        [self.storelistArry addObject:storelist];
+        NSMutableDictionary * storeDic     = [NSMutableDictionary dictionary];
+        NSMutableDictionary * storeAttachListDic = [NSMutableDictionary dictionary];
         
-        for (JosnGoodslist * goods in storelist.goodsList) {
-            
-            [self.goodlistArry addObject:goods];
+        //===================cmGoodsList字段===================//
+        self.cmGoodsListArray = [adic objectForKey:@"goodsList"];
+       
+        //===================storeAttachList字段===================//
+        [storeAttachListDic setValue:[adic objectForKey:@"storeId"] forKey:@"storeId"];
+        [storeAttachListDic setValue:[adic objectForKey:@"storeName"] forKey:@"storeName"];
+        [storeAttachListDic setValue:@"暂无备注" forKey:@"comment"];
+        [self.storeAttachListArr addObject:storeAttachListDic];
+        
+        //获取配送费需要的数据结构
+        NSMutableDictionary * mutGoodsDic = [ NSMutableDictionary dictionary];
+        for (NSDictionary * goodsDic in self.cmGoodsListArray) {
+ 
+            [mutGoodsDic setValue:[goodsDic objectForKey:@"goodsId"] forKey:@"goodsId"];
+            [mutGoodsDic setValue:[goodsDic objectForKey:@"goodsCount"] forKey:@"goodsCount"];
+ 
+            [self.goodsListArray addObject:mutGoodsDic];
+            NSLog(@"goodsListArray = %@",self.goodsListArray);
         }
-    }
-    //////////   order/generateOrderNumber  ////////// 
-    NSLog(@"storelistArry === %@",self.storelistArry);
-    NSArray  * storeIdAarray = [Usergoodsinfojson mj_objectArrayWithKeyValuesArray:self.storelistArry];
     
-    NSMutableDictionary * dic = [NSMutableDictionary dictionary];
-    [dic setValue:storeIdAarray forKey:@"storeList"];
-    [dic setValue:_postAddressId forKey:@"postAddressId"];
-}
-
-
--(void)jsonArryanalysis123123123
-{
-    [SVProgressHUD show];
-    //storeid数组
-    NSDictionary * jsondic = [NSString dictionaryWithJsonString:_jsonString];
-    
-    JsonModel * jsonmodel =[JsonModel mj_objectWithKeyValues:jsondic];
-    
-    for ( Usergoodsinfojson  * storeList  in jsonmodel.userGoodsInfoJSON) {
+        [storeDic setValue:[adic objectForKey:@"storeId"]  forKey:@"storeId"];
+        [storeDic setValue:self.goodsListArray  forKey:@"goodsList"];
+        [self.storelistArry addObject:storeDic];
         
-        [self.storelistArry addObject:storeList];
-        
-        for (JosnGoodslist * goodlist in storeList.goodsList) {
-            
-            [self.goodlistArry addObject:goodlist];
-            
-        }
     }
     
-    /////////////////////////////////////////////////////////
-    NSArray * storeIdAarray   = [JsonModel mj_keyValuesArrayWithObjectArray:self.storelistArry];//拿到地店铺id
+    //用来接收立即购买的dic
     NSMutableDictionary * dic = [NSMutableDictionary dictionary];
-    
-    [dic setValue:storeIdAarray forKey:@"storeList"];
+    [dic setValue:self.storelistArry forKey:@"storeList"];
     [dic setValue:_postAddressId forKey:@"postAddressId"];
     
-    /////////////////////////////////////////////////////////
-    NSMutableArray * arr = jsondic[@"userGoodsInfoJSON"];
+    //获取配送费数据
+    [self getGoodsCostInfoListPostRequstWithJsonString:[NSDictionary dictionaryWithDictionary:dic]];
     
-    for (NSDictionary * adic in arr) {
-        
-        NSMutableDictionary * storeAttachDic = [NSMutableDictionary dictionary];
-        NSMutableDictionary * storeidDic     = [NSMutableDictionary dictionary];
-        
-        /////////////////////////添加到cmgoodlis的storeid////////////////////////////////
-        [storeidDic setValue:[adic objectForKey:@"storeId"]  forKey:@"storeId"];
-        [self.goodsListArray addObject:storeidDic];
-        
-        /////////////////////////storeAttachListArr////////////////////////////////
-        [storeAttachDic setValue:[adic objectForKey:@"storeId"]  forKey:@"storeId"];
-        [storeAttachDic setValue:[adic objectForKey:@"storeName"]  forKey:@"storeName"];
-        [storeAttachDic setValue:@"备注" forKey:@"comment"];
-        [self.storeAttachListArr addObject:storeAttachDic];
-        
-        //////////////////////////storeDeliveryfeeListArr///////////////////////////////
-        NSMutableDictionary *storeDeliveryfeeDic = [NSMutableDictionary dictionary];
-        [storeDeliveryfeeDic setValue:[adic objectForKey:@"storeId"] forKey:@"storeId"];
-        [storeDeliveryfeeDic setValue:_orderDeliveryfee forKey:@"orderDeliveryfee"];
-        [self.storeDeliveryfeeListArr addObject:storeDeliveryfeeDic];
-    }
-    
-    if (_postAddressId != nil) {
-        
-        [SVProgressHUD dismissWithDelay:1 completion:^{
-            //
-            //            [self getGoodsCostInfoListPostRequstWithJsonString:[NSDictionary dictionaryWithDictionary:dic]];//订单数据
-            
-        }];
-        
-    }
-    
+
 }
+
 
 -(void)creatCustomfooterView
 {
@@ -236,6 +189,7 @@
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+   
     return 3;
 }
 
@@ -269,10 +223,11 @@
                                       dequeueReusableCellWithIdentifier:@"ZFOrderListCellid" forIndexPath:indexPath];
         listCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        if (self.goodlistArry.count > 0) {
-            listCell.listArray        = self.goodlistArry;
-            listCell.lb_totalNum.text = [NSString stringWithFormat:@"一共%ld件",self.goodlistArry.count] ;
-            
+        if (self.cmGoodsListArray.count > 0) {
+            listCell.listArray        = self.cmGoodsListArray;
+            listCell.lb_totalNum.text = [NSString stringWithFormat:@"一共%ld件",self.cmGoodsListArray.count] ;
+            [listCell.order_collectionCell reloadData];
+
         }
         return listCell;
     }
@@ -306,39 +261,7 @@
     }
 }
 
-#pragma mark - 提交订单 didCleckClearing
--(void)didCleckClearing:(UIButton *)sender
-{
-    NSLog(@" 确认订单 ");
-    
-    //还原成字典数组
-    NSArray * goodlistArr = [JosnGoodslist mj_keyValuesArrayWithObjectArray:self.goodlistArry];
-    NSArray * feelistArr  = [NSArray arrayWithArray:self.storeDeliveryfeeListArr];
-    
-    NSLog(@"-----feelistArr-%@---------goodlistArr--%@------",feelistArr,goodlistArr);
-    /////////////////////////// 一个大集合 /////////////////////////////////////////////
-    NSMutableDictionary * jsondic = [NSMutableDictionary dictionary] ;
-    
-    [jsondic setValue:BBUserDefault.cmUserId forKey:@"cmUserId"];
-    [jsondic setValue:_postAddressId forKey:@"postAddressId"];
-    [jsondic setValue:_contactUserName forKey:@"contactUserName" ];
-    [jsondic setValue:@"1" forKey:@"payMode" ];
-    
-    [jsondic setValue:_postAddress forKey:@"postAddress"];
-    [jsondic setValue:_contactMobilePhone forKey:@"contactMobilePhone"];
-    
-    [jsondic setValue: goodlistArr forKey:@"cmGoodsList"];
-    [jsondic setValue: feelistArr forKey:@"storeDeliveryfeeList"];
-    [jsondic setValue: self.storeAttachListArr forKey:@"storeAttachList"];
-    
-    NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
-    NSLog(@"提交订单 -----------%@",successDic);
-    
-    
-    //[self commitOrder:successDic];
-    
-    
-}
+
 
 #pragma mark -  getOrderFix 用户订单确定地址接口
 -(void)addresslistPostRequst
@@ -373,34 +296,22 @@
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-    //
     
 }
 
 #pragma mark -  getGoodsCostInfo 用户订单确定费用信息接口
 -(void)getGoodsCostInfoListPostRequstWithJsonString:(NSDictionary *) jsondic
 {
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsCostInfo",zfb_baseUrl] params:jsondic success:^(id response) {
         
         if ([response[@"resultCode"] intValue ] == 0) {
             SureOrderModel * suremodel = [SureOrderModel mj_objectWithKeyValues:response];
-            
-            for (Storedeliveryfeelist * feelist in suremodel.storeDeliveryfeeList) {
-                
-                [self.feeList addObject:feelist];
-                
-            }
-            //        orderDeliveryfee	int(11)	每家门店的配送费
-            //        goodsCount	int(11)	商品总金额
-            //        costNum	int(11)	配送费总金额
-            //        userCostNum	int(11)	支付总金额
+          
             self.storeDeliveryfeeListArr = response[@"storeDeliveryfeeList"];
-            
             _goodsCount   = [NSString stringWithFormat:@"¥%.2f",suremodel.goodsCount]  ;//商品总金额
             _costNum      = [NSString stringWithFormat:@"+ ¥%.2f",suremodel.costNum]  ;//配送费总金额
             _userCostNum  = [NSString stringWithFormat:@"¥%.2f",suremodel.userCostNum]  ;//支付总金额
-            lb_price.text = _userCostNum;
+            lb_price.text = _userCostNum;//支付总金额
             
         }
         
@@ -426,53 +337,40 @@
     [SVProgressHUD show];
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/generateOrderNumber",zfb_baseUrl] params:jsondic success:^(id response) {
-        
-        NSDictionary * orderListdic = [NSDictionary dictionaryWithDictionary:response] ;
-        
-        NSArray * array = orderListdic[@"orderList"];
-        
-        for (NSDictionary * dicto in array) {
-            NSMutableDictionary * mutOrder = [NSMutableDictionary dictionary];
+
+        if ([response[@"resultCode"] intValue] == 0) {
             
-            [mutOrder setValue:[dicto objectForKey:@"orderNum"] forKey:@"orderNum"];
-            [mutOrder setValue:[dicto objectForKey:@"body"] forKey:@"body"];
-            [mutOrder setValue:[dicto objectForKey:@"title"] forKey:@"title"];
-            [mutOrder setValue:[dicto objectForKey:@"pay_money"] forKey:@"pay_money"];
-            [mutOrder setValue:@"10"forKey:@"total_amount"];
-            [mutOrder setValue:@"11"forKey:@"discountable_amount"];
+            NSArray   * orderArr = response[@"orderList"];
+    
+            //支付的回调地址
+            NSString  * notify_url = response[@"thirdURI"][@"notify_url"];
+            NSString  * return_url = response[@"thirdURI"][@"return_url"];
+            NSString  * gateWay_url = response[@"thirdURI"][@"gateWay_url"];
             
-            [self.mutOrderlistArr addObject:mutOrder];
-        }
-        NSLog(@"self.mutOrderlistArr == %@",self.mutOrderlistArr);
-        
-        NSMutableDictionary * listdict = [NSMutableDictionary dictionary];
-        [listdict setValue:[NSArray arrayWithArray:self.mutOrderlistArr] forKey:@"orderList"];
-        
-        NSString * jsonstr = [NSString convertToJsonData:listdict];
-        
-        [SVProgressHUD dismissWithDelay:2];
-        
-        //跳转到webview
-        ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
-        if (listdict != nil) {
-            
-            payVC.orderjsonString = jsonstr;
+            //跳转到webview
+            ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
+            payVC.orderListArray  = orderArr;
             payVC.datetime        = _datetime;
             payVC.access_token    = _access_token;
-            
+
+            payVC.notify_url    = notify_url;
+            payVC.return_url    = return_url;
+            payVC.gateWay_url   = gateWay_url;
             [self.navigationController pushViewController:payVC animated:YES];
             
+            [SVProgressHUD dismiss];
         }
+
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
         
+        [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-    [SVProgressHUD dismissWithDelay:2];
     
     
 }
@@ -495,6 +393,7 @@
         _access_token = response[@"accessToken"];
         
         NSLog(@"=======%@_access_token",_access_token);
+        NSLog(@"=======%@_datetime",_datetime);
         
     } progress:^(NSProgress *progeress) {
         
@@ -509,17 +408,42 @@
     
 }
 
-
-
-#pragma webview
-
-
--(NSMutableArray *)mutOrderlistArr{
-    if (!_mutOrderlistArr) {
-        _mutOrderlistArr = [NSMutableArray array];
-    }
-    return  _mutOrderlistArr;
+#pragma mark - 提交订单 didCleckClearing
+-(void)didCleckClearing:(UIButton *)sender
+{
+    NSLog(@" 确认订单 ");
+    
+    //还原成字典数组
+    NSArray * cmgoodsList = [NSArray arrayWithArray:self.cmGoodsListArray];
+    NSArray * storeDeliveryfeeList  = [NSArray arrayWithArray:self.storeDeliveryfeeListArr];
+    NSArray * storeAttachList  = [NSArray arrayWithArray:self.storeAttachListArr];
+    
+    /////////////////////////// 一个大集合 /////////////////////////////////////////////
+    NSMutableDictionary * jsondic = [NSMutableDictionary dictionary] ;
+    
+    [jsondic setValue:BBUserDefault.cmUserId forKey:@"cmUserId"];
+    [jsondic setValue:_postAddressId forKey:@"postAddressId"];
+    [jsondic setValue:_contactUserName forKey:@"contactUserName" ];
+    [jsondic setValue:_contactMobilePhone forKey:@"contactMobilePhone"];
+    [jsondic setValue:_contactMobilePhone forKey:@"mobilePhone"];
+    [jsondic setValue:_postAddress forKey:@"postAddress"];
+    [jsondic setValue:@"1" forKey:@"payMode" ];
+    [jsondic setValue:@"" forKey:@"cartItemId"];//立即购买不传，购物车加入的订单需要传
+    
+    [jsondic setValue: cmgoodsList forKey:@"cmGoodsList"];
+    [jsondic setValue: storeDeliveryfeeList forKey:@"storeDeliveryfeeList"];
+    [jsondic setValue: storeAttachList forKey:@"storeAttachList"];
+    
+    NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
+//    NSLog(@"提交订单 -----------%@",successDic);
+    
+    
+    [self commitOrder:successDic];
+    
+    
 }
+#pragma mark - 懒加载
+
 -(NSMutableArray *)storeDeliveryfeeListArr
 {
     if (!_storeDeliveryfeeListArr) {
@@ -537,14 +461,6 @@
     return _storeAttachListArr;
 }
 
--(NSMutableArray *)feeList
-{
-    if (!_feeList) {
-        _feeList =[NSMutableArray array];
-        
-    }
-    return _feeList;
-}
 
 -(NSMutableArray *)goodsListArray
 {
@@ -554,7 +470,13 @@
     }
     return _goodsListArray;
 }
-
+-(NSMutableArray *)cmGoodsListArray
+{
+    if (!_cmGoodsListArray) {
+        _cmGoodsListArray = [NSMutableArray array];
+    }
+    return _cmGoodsListArray;
+}
 -(NSMutableArray *)storelistArry
 {
     if (!_storelistArry) {
@@ -563,13 +485,10 @@
     return _storelistArry;
 }
 
--(NSMutableArray *)imgArray
+-(void)viewWillDisappear:(BOOL)animated
 {
-    if (!_imgArray) {
-        _imgArray =[NSMutableArray array];
-        
-    }
-    return _imgArray;
+    [SVProgressHUD dismiss];
+
 }
 
 - (void)didReceiveMemoryWarning {
