@@ -28,6 +28,8 @@
 
 @property (nonatomic, copy) NSString *orderAmount;
 
+@property (nonatomic, copy) NSString *deliveryId;
+
 @property (nonatomic, copy) NSString *storeId;
 
 @property (nonatomic, copy) NSString *orderCode;
@@ -61,6 +63,14 @@
 @property (nonatomic, copy) NSString *orderComment;
 
 @property (nonatomic, copy) NSString *payStatusName;
+
+@property (nonatomic, copy) NSString *post_address;
+@property (nonatomic, copy) NSString *post_phone;
+@property (nonatomic, copy) NSString *post_name;
+ 
+
+
+
 
 @end
 

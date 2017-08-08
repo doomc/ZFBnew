@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+ 
 @class Deliverylist;
 @interface DeliveryModel : NSObject
 
+
+@property (nonatomic, assign) NSInteger status;
 
 @property (nonatomic, assign) NSInteger resultCode;
 
@@ -21,6 +24,7 @@
 @property (nonatomic, copy) NSString *resultMsg;
 
 @end
+
 @interface Deliverylist : NSObject
 
 @property (nonatomic, assign) NSInteger cmAreaId;
@@ -39,7 +43,7 @@
 
 @property (nonatomic, copy) NSString *deliveryArea;
 
-@property (nonatomic, copy) NSString * deliveryDist;
+@property (nonatomic, assign) NSInteger deliveryDist;
 
 @property (nonatomic, assign) NSInteger cmUserId;
 

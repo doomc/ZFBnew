@@ -111,6 +111,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     SendServiceStoreinfomap * store = self.orderListArray[section];
+    
     if (self.orderGoodsArry.count > 0) {
         
         [self.orderGoodsArry removeAllObjects];

@@ -648,6 +648,10 @@
 		497A8AD11F2F4F040003D7CB /* SendServiceFootCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 497A8ACF1F2F4F040003D7CB /* SendServiceFootCell.m */; };
 		497A8AD21F2F4F040003D7CB /* SendServiceFootCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497A8AD01F2F4F040003D7CB /* SendServiceFootCell.xib */; };
 		498063B91F21A12800BA89AA /* CommitOrderlist.m in Sources */ = {isa = PBXBuildFile; fileRef = 498063B81F21A12800BA89AA /* CommitOrderlist.m */; };
+		498A33C01F3956600057E2AE /* ShopCarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 498A33BE1F3956600057E2AE /* ShopCarCell.m */; };
+		498A33C11F3956600057E2AE /* ShopCarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 498A33BF1F3956600057E2AE /* ShopCarCell.xib */; };
+		498A33C41F39612F0057E2AE /* DDChangeBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 498A33C31F39612F0057E2AE /* DDChangeBtn.m */; };
+		498A33C71F398AC30057E2AE /* NSString+helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 498A33C61F398AC30057E2AE /* NSString+helper.m */; };
 		49917B971F1C5723005790AF /* ClassLeftListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49917B961F1C5723005790AF /* ClassLeftListModel.m */; };
 		49917B9E1F1C937A005790AF /* DetailgoodsSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49917B9C1F1C937A005790AF /* DetailgoodsSelectCell.m */; };
 		49917B9F1F1C937A005790AF /* DetailgoodsSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49917B9D1F1C937A005790AF /* DetailgoodsSelectCell.xib */; };
@@ -1705,6 +1709,13 @@
 		497A8AD01F2F4F040003D7CB /* SendServiceFootCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendServiceFootCell.xib; sourceTree = "<group>"; };
 		498063B71F21A12800BA89AA /* CommitOrderlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitOrderlist.h; sourceTree = "<group>"; };
 		498063B81F21A12800BA89AA /* CommitOrderlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitOrderlist.m; sourceTree = "<group>"; };
+		498A33BD1F3956600057E2AE /* ShopCarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarCell.h; sourceTree = "<group>"; };
+		498A33BE1F3956600057E2AE /* ShopCarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarCell.m; sourceTree = "<group>"; };
+		498A33BF1F3956600057E2AE /* ShopCarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCarCell.xib; sourceTree = "<group>"; };
+		498A33C21F39612F0057E2AE /* DDChangeBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDChangeBtn.h; sourceTree = "<group>"; };
+		498A33C31F39612F0057E2AE /* DDChangeBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDChangeBtn.m; sourceTree = "<group>"; };
+		498A33C51F398AC30057E2AE /* NSString+helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+helper.h"; sourceTree = "<group>"; };
+		498A33C61F398AC30057E2AE /* NSString+helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+helper.m"; sourceTree = "<group>"; };
 		498DE0C81EE63C8700F64A61 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		49917B951F1C5723005790AF /* ClassLeftListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassLeftListModel.h; sourceTree = "<group>"; };
 		49917B961F1C5723005790AF /* ClassLeftListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassLeftListModel.m; sourceTree = "<group>"; };
@@ -2263,6 +2274,8 @@
 				495EA3061F14B64B001FCB7E /* NSString+JsonChange.m */,
 				495EA3071F14B64B001FCB7E /* NSString+ZFSortAppdending.h */,
 				495EA3081F14B64B001FCB7E /* NSString+ZFSortAppdending.m */,
+				498A33C51F398AC30057E2AE /* NSString+helper.h */,
+				498A33C61F398AC30057E2AE /* NSString+helper.m */,
 				495EA3091F14B64B001FCB7E /* NSTimer */,
 				495EA30E1F14B64B001FCB7E /* UIButton+EdgeInsets.h */,
 				495EA30F1F14B64B001FCB7E /* UIButton+EdgeInsets.m */,
@@ -2280,6 +2293,8 @@
 				495EA31D1F14B64B001FCB7E /* UIView+ViewController.m */,
 				495EA31E1F14B64B001FCB7E /* ZFCoverView.h */,
 				495EA31F1F14B64B001FCB7E /* ZFCoverView.m */,
+				498A33C21F39612F0057E2AE /* DDChangeBtn.h */,
+				498A33C31F39612F0057E2AE /* DDChangeBtn.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2411,7 +2426,6 @@
 				495EA35B1F14B64B001FCB7E /* EaseBlankPage(无数据背景) */,
 				495EA3651F14B64B001FCB7E /* FileManager */,
 				495EA3691F14B64B001FCB7E /* IntroductoryPages */,
-				495EA36E1F14B64B001FCB7E /* MapNavigationView */,
 				495EA3731F14B64B001FCB7E /* NSObject */,
 				495EA3761F14B64B001FCB7E /* NSString */,
 				495EA37F1F14B64B001FCB7E /* Other */,
@@ -2522,13 +2536,6 @@
 				495EA36D1F14B64B001FCB7E /* introductoryPagesView.m */,
 			);
 			path = IntroductoryPages;
-			sourceTree = "<group>";
-		};
-		495EA36E1F14B64B001FCB7E /* MapNavigationView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MapNavigationView;
 			sourceTree = "<group>";
 		};
 		495EA3731F14B64B001FCB7E /* NSObject */ = {
@@ -3425,6 +3432,9 @@
 				495EA5791F14B64C001FCB7E /* ZFShopCarCell.h */,
 				495EA57A1F14B64C001FCB7E /* ZFShopCarCell.m */,
 				495EA57B1F14B64C001FCB7E /* ZFShopCarCell.xib */,
+				498A33BD1F3956600057E2AE /* ShopCarCell.h */,
+				498A33BE1F3956600057E2AE /* ShopCarCell.m */,
+				498A33BF1F3956600057E2AE /* ShopCarCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4646,6 +4656,7 @@
 				492141741F29E62300C44D10 /* delete_sku.png in Resources */,
 				495EA8791F14B64D001FCB7E /* evaluate_waitting@3x.png in Resources */,
 				495EA8AD1F14B64D001FCB7E /* shopkeeper_selected@3x.png in Resources */,
+				498A33C11F3956600057E2AE /* ShopCarCell.xib in Resources */,
 				495EA8D31F14B64E001FCB7E /* setting_ps@3x.png in Resources */,
 				495EA8741F14B64D001FCB7E /* location_icon@2x.png in Resources */,
 				495EA85E1F14B64D001FCB7E /* weibo@2x.png in Resources */,
@@ -4905,6 +4916,7 @@
 				495EA94C1F14B64E001FCB7E /* MJRefreshConst.m in Sources */,
 				495EA7671F14B64D001FCB7E /* BaseTabbarController.m in Sources */,
 				495EA80A1F14B64D001FCB7E /* ZFAppySalesReturnCell.m in Sources */,
+				498A33C01F3956600057E2AE /* ShopCarCell.m in Sources */,
 				49AC8FD21F276404005559A8 /* DetailOrderModel.m in Sources */,
 				506745AC1F1D1A2F000CC722 /* PublishAppraiseViewController.m in Sources */,
 				495EA8141F14B64D001FCB7E /* ZFSaleAfterHeadCell.m in Sources */,
@@ -5108,6 +5120,7 @@
 				495EA9701F14B64E001FCB7E /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				495EA9571F14B64E001FCB7E /* TAAnimatedDotView.m in Sources */,
 				50D4D65A1F1BB6F70073DBC1 /* MPUploadImageHelper.m in Sources */,
+				498A33C41F39612F0057E2AE /* DDChangeBtn.m in Sources */,
 				495EA7D41F14B64D001FCB7E /* AllOrderModel.m in Sources */,
 				495EA9511F14B64E001FCB7E /* PYSearchConst.m in Sources */,
 				495EA95C1F14B64E001FCB7E /* UIView+SDExtension.m in Sources */,
@@ -5183,6 +5196,7 @@
 				495EA9401F14B64E001FCB7E /* MJRefreshFooter.m in Sources */,
 				495EA7211F14B64D001FCB7E /* UIView+Extension.m in Sources */,
 				495EA7C51F14B64D001FCB7E /* ZFCollectBarView.m in Sources */,
+				498A33C71F398AC30057E2AE /* NSString+helper.m in Sources */,
 				4939E66F1F2AC3EE00ECD0B7 /* MKJTagViewTableViewCell.m in Sources */,
 				495EA7951F14B64D001FCB7E /* ZFEvaluateViewController.m in Sources */,
 				495EA7311F14B64D001FCB7E /* HDAlertView.m in Sources */,

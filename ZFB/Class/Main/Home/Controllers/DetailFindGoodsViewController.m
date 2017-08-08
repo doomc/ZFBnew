@@ -25,7 +25,7 @@
 #import "SkuFooterReusableView.h"
 #import "SkuHeaderReusableView.h"
 //view
-
+#import <WebKit/WebKit.h>
 #import "TJMapNavigationService.h"
 
 typedef NS_ENUM(NSUInteger, typeCell) {
@@ -36,7 +36,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     typeCellrowOfGoToStoreCell,
     typeCellrowOflocaCell,
 };
-@interface DetailFindGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate>
+@interface DetailFindGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate,
+WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler
+>
 {
     NSString * _goodsName;
     NSString * _storeName;
@@ -51,7 +53,8 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     NSString * _commentNum;
     NSInteger  _isCollect;
     NSInteger  _goodsSales;
-    
+    NSString * _goodsDetail;
+ 
     NSMutableDictionary *dictProductValue; //保存选择的数据
     NSMutableDictionary * ruleJsondic; //保存选择的sku
     NSMutableArray * addArr;
@@ -63,6 +66,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     UILabel * lb_price;//价格
     UIImageView * goodsImgaeView ;//视窗视图
     UIButton  * collectButton ;//collectButton收藏按钮
+    
+    WKWebView * _webview;
+    
 }
 
 @property (nonatomic,strong) UITableView * list_tableView;
@@ -388,12 +394,21 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             custopmCell                 = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:custopmCellID];
             custopmCell.backgroundColor = randomColor;
         }
+        UIWebView * webview = [[UIWebView alloc]initWithFrame:custopmCell.bounds];
+        [webview loadHTMLString:_goodsDetail baseURL:nil];
+        [custopmCell.contentView addSubview:webview];
         return custopmCell;
         
     }
     
 }
-
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+    if (((NSHTTPURLResponse *)navigationResponse.response).statusCode == 200) {
+        decisionHandler (WKNavigationResponsePolicyAllow);
+    }else {
+        decisionHandler(WKNavigationResponsePolicyCancel);
+    }
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section = %ld,row == %ld",indexPath.section ,indexPath.row);
@@ -815,7 +830,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             _goodsName    = goodsmodel.data.goodsInfo.goodsName;//商品名
             _coverImgUrl  = goodsmodel.data.goodsInfo.coverImgUrl;//商品封面
             _attachImgUrl = goodsmodel.data.goodsInfo.attachImgUrl;//图片链接
-            _storePrice   = goodsmodel.data.goodsInfo.storePrice;//价格
             _goodsSales   = goodsmodel.data.goodsInfo.goodsSales;//已经销售
             _commentNum   = goodsmodel.data.goodsInfo.commentNum;//评论数
             _isCollect    = [goodsmodel.data.goodsInfo.isCollect integerValue];//是否收藏
@@ -827,6 +841,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             _address      = goodsmodel.data.storeInfo.address;//门店地址
             _juli         = goodsmodel.data.storeInfo.storeDist;//门店距离
             
+            //图片详情网址
+            _goodsDetail    = goodsmodel.data.goodsInfo.goodsDetail;//网址
+
             if (_isCollect == 1) {///是否收藏	1.收藏 2.不是
                 
                 [collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateNormal];
@@ -844,8 +861,13 @@ typedef NS_ENUM(NSUInteger, typeCell) {
             }
             //当规格为空的时候才组装下列数据
             if (self.productSkuArray != nil && ![self.productSkuArray isKindOfClass:[NSNull class]] && self.productSkuArray.count != 0){
+               
+                _storePrice   = goodsmodel.data.goodsInfo.storePrice;//价格
+
             }else{
-                
+                 //没有规格的价格
+                _storePrice   = goodsmodel.data.goodsInfo.netPurchasePrice;//网店价格
+
                 //---------------没有规格的数据------------------
                 NSMutableArray * goodsListArray = [NSMutableArray array];
                 
@@ -1272,6 +1294,84 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     [self.SkuColletionView reloadData];
 }
 
+
+- (void)removeWebCache{
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 9.0) {
+        NSSet *websiteDataTypes= [NSSet setWithArray:@[
+                                                       WKWebsiteDataTypeDiskCache,
+                                                       //WKWebsiteDataTypeOfflineWebApplication
+                                                       WKWebsiteDataTypeMemoryCache,
+                                                       //WKWebsiteDataTypeLocal
+                                                       WKWebsiteDataTypeCookies,
+                                                       //WKWebsiteDataTypeSessionStorage,
+                                                       //WKWebsiteDataTypeIndexedDBDatabases,
+                                                       //WKWebsiteDataTypeWebSQLDatabases
+                                                       ]];
+        
+        // All kinds of data
+        //NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
+        NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
+        [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
+            
+        }];
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
+        
+    } else {
+        //先删除cookie
+        NSHTTPCookie *cookie;
+        NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+        for (cookie in [storage cookies])
+        {
+            [storage deleteCookie:cookie];
+        }
+        
+        NSString *libraryDir = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *bundleId  =  [[[NSBundle mainBundle] infoDictionary]
+                                objectForKey:@"CFBundleIdentifier"];
+        NSString *webkitFolderInLib = [NSString stringWithFormat:@"%@/WebKit",libraryDir];
+        NSString *webKitFolderInCaches = [NSString
+                                          stringWithFormat:@"%@/Caches/%@/WebKit",libraryDir,bundleId];
+        NSString *webKitFolderInCachesfs = [NSString
+                                            stringWithFormat:@"%@/Caches/%@/fsCachedData",libraryDir,bundleId];
+        NSError *error;
+        /* iOS8.0 WebView Cache的存放路径 */
+        [[NSFileManager defaultManager] removeItemAtPath:webKitFolderInCaches error:&error];
+        [[NSFileManager defaultManager] removeItemAtPath:webkitFolderInLib error:nil];
+        /* iOS7.0 WebView Cache的存放路径 */
+        [[NSFileManager defaultManager] removeItemAtPath:webKitFolderInCachesfs error:&error];
+        NSString *cookiesFolderPath = [libraryDir stringByAppendingString:@"/Cookies"];
+        [[NSFileManager defaultManager] removeItemAtPath:cookiesFolderPath error:&error];
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    }
+}
+
+
+//- (void)webViewDidFinishLoad:(UIWebView *)webView
+//{
+//    //防止内存泄漏
+//    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
+//    //本地webkit硬盘图片的缓存；
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitDiskImageCacheEnabled"];//自己添加的，原文没有提到。
+//    //静止webkit离线缓存
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitOfflineWebApplicationCacheEnabled"];//自己添加的，，原文没有提到。
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//}
+//
+//- (void)dealloc
+//{
+//    [_webview loadHTMLString:@"" baseURL:nil];
+//    [_webview stopLoading];
+//    [_webview removeFromSuperview];
+//    _webview = nil;
+//    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+//    [[NSURLCache sharedURLCache] setDiskCapacity:0];
+//    [[NSURLCache sharedURLCache] setMemoryCapacity:0];
+//    NSLog(@"释放了webview");
+//}
+//-(void)viewWillDisappear:(BOOL)animated
+//{
+//    [self removeWebCache];
+//}
 
 /*
  #pragma mark - Navigation

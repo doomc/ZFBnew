@@ -20,15 +20,9 @@
 - (void)addOrReduceCount:(ZFShopCarCell *)cell tag:(NSInteger)tag;
 // 点击单个商品选择按钮回调
 - (void)goodsSelected:(ZFShopCarCell *)cell isSelected:(BOOL)choosed;
-// 点击门店全选 按钮回调
-- (void)shopStoreSelected:(NSInteger)sectionIndex;
-// 点击 编辑回调按钮
-- (void)shopCarEditingSelected:(NSInteger)sectionIdx;
+
 // 点击垃圾桶删除
 - (void)deleteRabishClick:(ZFShopCarCell *)cell;
-
-//进入店铺详情
-- (void)enterStoreDetailwithStoreId:(NSInteger )storeId;
 
 // 点击编辑规格按钮下拉回调
 //- (void)clickEditingDetailInfo:(ZFShopCarCell *)cell;
@@ -42,12 +36,6 @@
 
 @property (strong,nonatomic) ShopGoodslist  * goodlist;
 
-
-#pragma mark -  头部视图shopCarSectionHeadViewCell
-@property (weak, nonatomic) IBOutlet UIButton *chooseStore_btn;//选择店铺
-@property (weak, nonatomic) IBOutlet UIButton *editStore_btn;//编辑状态
-@property (weak, nonatomic) IBOutlet UIButton *enterStore_btn;//进入店铺
-@property (nonatomic,assign) NSInteger sectionIndex;//区头位置
 
 
 

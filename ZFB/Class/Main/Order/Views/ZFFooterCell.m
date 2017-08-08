@@ -66,7 +66,6 @@
     //去付款
     [self.payfor_button setTitle:payStr forState:UIControlStateNormal];
     
-    
     //订单金额
     self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",_orderlist.orderAmount];//订单价格
     
@@ -78,6 +77,11 @@
     _businessOrder = businessOrder;
     //订单金额
     self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",businessOrder.orderAmount];//订单价格
+    _payStatus = businessOrder.payStatus;
+    _orderStatus = businessOrder.orderStatus;
+    _orderNum = businessOrder.orderCode;
+    _deliveryId = businessOrder.deliveryId;
+    
     //通过传值把这个id传出去
     _orderId = businessOrder.order_id;
     _totalPrice  = businessOrder.orderAmount;//总价
@@ -94,9 +98,9 @@
 ///取消 所有指令
 -(void)cancel_buttonAction
 {
-    if ([self.footDelegate respondsToSelector:@selector(cancelOrderActionbyIndex:)]) {
-       
-        [self.footDelegate cancelOrderActionbyIndex:_indexPath];
+    if ([self.footDelegate respondsToSelector:@selector(cancelOrderActionbyOrderNum:orderStatus:payStatus:deliveryId:indexPath:)]) {
+        
+        [self.footDelegate  cancelOrderActionbyOrderNum:_orderNum orderStatus:_orderStatus payStatus:_payStatus deliveryId:_deliveryId indexPath:_indexPath];
     }
 }
 

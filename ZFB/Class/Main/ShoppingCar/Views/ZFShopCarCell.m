@@ -30,39 +30,7 @@
     //拿到商品的数量在加减
 }
 
-// 增加商品或者减少商品
-- (IBAction)addAction:(id)sender {
-    
-    if (num >= 20 ) {
-        NSLog(@"超出范围");
-    }else{
-        num = num +1;
-    }
-    _tf_result.text = [NSString stringWithFormat:@"%ld",(long)num];
-//    [self.selectDelegate ChangeGoodsNumberCell:self Number:num];
-    
-}
-
-
-/**
- 减少
- @param sender reduceAction
- */
-- (IBAction)reduceAction:(id)sender {
-    
-    if ((num - 1) <= 0 || num == 0) {
-        NSLog(@"超出范围");
-        
-    }else{
-        
-        num  = num -1;
-    }
-    _tf_result.text = [NSString stringWithFormat:@"%ld",(long)num];
-    
-//    [self.selectDelegate ChangeGoodsNumberCell:self Number:num];
-    
-}
-
+ 
 
 #pragma mark  - 编辑视图 和公共事件
 //点击删除商品
@@ -84,29 +52,7 @@
 
 }
 
-#pragma mark  - 头部视图事件
-// 点击section头部选择按钮回调
-- (IBAction)chooseSectionSelected:(id)sender {
-    
-    if (self.selectDelegate && [self.selectDelegate respondsToSelector:@selector(shopStoreSelected:)]) {
-        
-        [self.selectDelegate shopStoreSelected:self.sectionIndex];
-    }
-}
-// 进入店铺
-- (IBAction)enterStoreAction:(id)sender {
-    if (self.selectDelegate && [self.selectDelegate respondsToSelector:@selector(enterStoreDetailwithStoreId:)]) {
-        
-        [self.selectDelegate shopStoreSelected:self.sectionIndex];
-    }
-}
 
-// 头部编辑按钮回调
-- (IBAction)clickEditing:(id)sender {
-    if (self.selectDelegate && [self.selectDelegate respondsToSelector:@selector(shopCarEditingSelected:)]) {
-        [self.selectDelegate shopCarEditingSelected:self.sectionIndex];
-    }
-}
 //加减运算
 - (IBAction)addOrReduce:(UIButton *)sender
 {

@@ -13,10 +13,13 @@
 @protocol ZFFooterCellDelegate <NSObject>
 
 ///取消订单   左边按钮
--(void)cancelOrderActionbyIndex :(NSIndexPath *) indexPath ;
-
+-(void)cancelOrderActionbyOrderNum:(NSString *)orderNum
+                       orderStatus:(NSString *)orderStatus
+                        payStatus :(NSString *)payStatus
+                       deliveryId :(NSString *)deliveryId
+                        indexPath :(NSInteger )indexPath;
 ///派单 ----- 右边
--(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice  indexPath :(NSIndexPath *)indexPath;
+-(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice  indexPath :(NSInteger)indexPath;
 
 
 @end
@@ -38,11 +41,17 @@
 
 @property (nonatomic, strong) SendServiceStoreinfomap * sendOrder ;
 
-@property (nonatomic, copy) NSString  * orderId ;
 
+
+@property (nonatomic, assign) NSInteger   indexPath;//当前的下标
+
+@property (nonatomic, copy) NSString  * orderId ;
 @property (nonatomic, copy) NSString  * totalPrice ;//总价
 
-@property (nonatomic, strong) NSIndexPath * indexPath;//当前的下标
+@property (nonatomic, copy) NSString  * deliveryId ;//配送员编号
+@property (nonatomic, copy) NSString  * orderNum ;//订单编号
+@property (nonatomic, copy) NSString  * orderStatus ;//订单状态
+@property (nonatomic, copy) NSString  * payStatus ;//支付状态
 
 
 @end

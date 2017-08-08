@@ -18,7 +18,7 @@
 @property (nonatomic ,strong) UITableView * orderdTableView ;
 @property (nonatomic ,strong) UIView *  headView ;
 @property (nonatomic ,strong) NSMutableArray *  orderListArray ;
-@property (nonatomic ,strong) NSMutableArray *  orderGoodsArry ;
+
 
 @end
 
@@ -53,16 +53,16 @@
     dealNum.font = font;
     dealPrice.font = font;
  
-    dealNum.text = [NSString stringWithFormat:@"交易笔数: 56 笔"];
-    dealPrice.text = [NSString stringWithFormat:@"交易金额:230012.00元"];
+    dealNum.text = [NSString stringWithFormat:@"交易笔数: %@ 笔",_orderNum];
+    dealPrice.text = [NSString stringWithFormat:@"交易金额:%@元",_dealPrice];
 
     //富文本设置
     //关键字
-    dealNum.keywords = @"56";
+    dealNum.keywords = _orderNum;
     dealNum.keywordsColor = HEXCOLOR(0xfe6d6a);
     dealNum.keywordsFont = [UIFont systemFontOfSize:20];
     //关键字
-    dealPrice.keywords = @"230012.00";
+    dealPrice.keywords = _dealPrice;
     dealPrice.keywordsColor = HEXCOLOR(0xfe6d6a);
     dealPrice.keywordsFont = [UIFont systemFontOfSize:20];
    
@@ -102,7 +102,7 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.orderListArray.count;
-//    return 2;
+ 
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -114,8 +114,7 @@
     }
     
     return goodsArr.count;
-
-//    return 2;
+ 
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -157,7 +156,6 @@
 {
     
     ZFSendingCell * cell = [self.orderdTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
-    
     BusinessOrderlist * list = self.orderListArray[indexPath.section];
     NSMutableArray  * goodsArr = [NSMutableArray array];
     
@@ -165,6 +163,7 @@
         [goodsArr addObject:goods];
     }
     BusinessOrdergoods * goodslist = goodsArr[indexPath.row];
+    
     cell.businesGoods = goodslist;
     
     return cell;
@@ -187,11 +186,6 @@
         for (BusinessOrderlist * orderlist in orderModel.orderList) {
             
             [self.orderListArray addObject:orderlist];
-            
-            for (BusinessOrdergoods * goodslist in orderlist.orderGoods) {
-                
-                [self.orderGoodsArry addObject:goodslist];
-            }
             
         }
         [self.orderdTableView reloadData];
@@ -216,14 +210,7 @@
     }
     return _orderListArray;
 }
--(NSMutableArray *)orderGoodsArry
-{
-    if (!_orderGoodsArry) {
-        _orderGoodsArry = [NSMutableArray array];
-    }
-    return _orderGoodsArry;
-    
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

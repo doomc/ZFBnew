@@ -23,6 +23,8 @@
 #import "SureOrderModel.h"
 #import "CommitOrderlist.h"
 
+#import "LoginViewController.h"
+#import "BaseNavigationController.h"
 @interface ZFSureOrderViewController ()<UITableViewDelegate ,UITableViewDataSource>
 {
     NSString * _contactUserName;
@@ -338,21 +340,33 @@
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/generateOrderNumber",zfb_baseUrl] params:jsondic success:^(id response) {
 
+     
         if ([response[@"resultCode"] intValue] == 0) {
             
             NSArray   * orderArr = response[@"orderList"];
     
+            NSMutableDictionary * mutOrderDic = [NSMutableDictionary dictionary];
+            NSMutableArray * mutOrderArray  = [NSMutableArray array];
+            for (NSDictionary * orderdic in orderArr) {
+               
+                [mutOrderDic setValue:[orderdic objectForKey:@"order_num"] forKey:@"order_num"];
+                [mutOrderDic setValue:[orderdic objectForKey:@"body"]forKey:@"body"];
+                [mutOrderDic setValue:[orderdic objectForKey:@"title"] forKey:@"title"];
+                [mutOrderDic setValue:[orderdic objectForKey:@"pay_money"] forKey:@"pay_money"];
+                [mutOrderArray addObject:mutOrderDic];
+            }
+            
+            //跳转到webview
+            ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
+            payVC.orderListArray  = [NSArray arrayWithArray:mutOrderArray];
+            payVC.datetime        = _datetime;
+            payVC.access_token    = _access_token;
+
             //支付的回调地址
             NSString  * notify_url = response[@"thirdURI"][@"notify_url"];
             NSString  * return_url = response[@"thirdURI"][@"return_url"];
             NSString  * gateWay_url = response[@"thirdURI"][@"gateWay_url"];
             
-            //跳转到webview
-            ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
-            payVC.orderListArray  = orderArr;
-            payVC.datetime        = _datetime;
-            payVC.access_token    = _access_token;
-
             payVC.notify_url    = notify_url;
             payVC.return_url    = return_url;
             payVC.gateWay_url   = gateWay_url;
@@ -438,7 +452,20 @@
 //    NSLog(@"提交订单 -----------%@",successDic);
     
     
-    [self commitOrder:successDic];
+    if (BBUserDefault.isLogin == 1) {
+     
+        [self commitOrder:successDic];
+
+    }else
+    {
+        LoginViewController * logVc = [[LoginViewController alloc]init];
+        BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logVc];
+        [self.navigationController presentViewController:nav animated:NO completion:^{
+            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+            BBUserDefault.isLogin = 0;//登录状态为0
+        }];
+    }
     
     
 }

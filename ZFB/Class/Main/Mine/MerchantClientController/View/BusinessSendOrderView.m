@@ -10,7 +10,9 @@
 #import "BusinessSendoOrderCell.h"
 #import "DeliveryModel.h"
 @interface BusinessSendOrderView ()<UITableViewDelegate,UITableViewDataSource>
-
+{
+    NSInteger  indexpathRow;
+}
 @property (nonatomic , strong) UIView * headerView;
 @property (nonatomic , strong) UIView * footerView;
 
@@ -19,7 +21,6 @@
 
 @property (nonatomic , strong) UIButton * footcancelButton;
 @property (nonatomic , strong) UIButton * footcloseButton;
-
 
 @property (nonatomic , strong) UITableView * alertTableView;
 
@@ -77,6 +78,7 @@
 {
     if (!_headerView) {
         _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, 40)];
+        _headerView.backgroundColor = [UIColor lightGrayColor];
         [_headerView addSubview:self.lb_SendArea];
         [_headerView addSubview:self.headcloseButton];
         
@@ -86,7 +88,7 @@
 -(UILabel *)lb_SendArea{
     if (!_lb_SendArea) {
         _lb_SendArea = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, self.frame.size.width - 15- 60, 30)];
-//        _lb_SendArea.text = @"派送区域：渝北区-冉家坝";
+        _lb_SendArea.text = @"派送区域:";
         _lb_SendArea.font = [UIFont systemFontOfSize: 15];
         _lb_SendArea.textColor = HEXCOLOR(0x363636);
         
@@ -140,7 +142,7 @@
         [_footcloseButton setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal ];
         _footcloseButton.backgroundColor = HEXCOLOR(0xffffff);
         [_footcloseButton  setTitle:@"确定" forState:UIControlStateNormal];
-        [_footcloseButton addTarget:self action:@selector(closePopViewAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_footcloseButton addTarget:self action:@selector(didClickSureAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _footcloseButton;
 }
@@ -156,7 +158,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    return 44;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -164,9 +166,9 @@
     
     BusinessSendoOrderCell * cell = [self.alertTableView dequeueReusableCellWithIdentifier:@"BusinessSendoOrderCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.lb_SendArea.text =[NSString stringWithFormat:@"派送区域:%@",list.deliveryArea];
-    cell.listmodel = list;
     
+    cell.listmodel = list;
+
     return cell;
 }
 
@@ -179,18 +181,45 @@
 
     //需要配送员信息，姓名电话什么的
     Deliverylist * list = self.deliveryArray[indexPath.row];
-
-    if ([self.delegate respondsToSelector:@selector(didClickPushdeliveryId:deliveryName:deliveryPhone:Index:)]) {
-        [self.delegate didClickPushdeliveryId:[NSString stringWithFormat:@"%ld",list.deliveryId]  deliveryName:list.deliveryName deliveryPhone:list.deliveryPhone  Index:indexPath.row];
-    }
+    indexpathRow = indexPath.row;
+    
+    self.lb_SendArea.text =[NSString stringWithFormat:@"派送区域:%@",list.deliveryArea];
 
 }
 
- 
-
 -(void)closePopViewAction:(UIButton * )sender
 {
-    NSLog(@"方法 ----");
+    NSLog(@"取消 ----");
+    if ([self.delegate respondsToSelector:@selector(cancelAction)]) {
+        [self.delegate cancelAction];
+    }
+ 
+}
+-(void)didClickSureAction:(UIButton *)sender
+{
+    Deliverylist * list = self.deliveryArray[indexpathRow];
+    
+//    JXTAlertController * alerVC  = [JXTAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"确认选择派单给%@吗",list.deliveryName] preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    
+    if ([self.delegate respondsToSelector:@selector(didClickPushdeliveryId:deliveryName:deliveryPhone:Index:)]) {
+            [self.delegate didClickPushdeliveryId:[NSString stringWithFormat:@"%ld",list.deliveryId]
+                                     deliveryName:list.deliveryName
+                                    deliveryPhone:list.deliveryPhone
+                                            Index:indexpathRow];
+        }
+
+//    }];
+//    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//        
+//    }];
+//    [alerVC addAction:cancel];
+//    [alerVC addAction:sure];
+//    [self presentViewController:alerVC animated:YES completion:nil];
+
+ 
+    NSLog(@"确定");
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {

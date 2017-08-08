@@ -51,15 +51,16 @@
 
 @property (nonatomic, assign) CGFloat storePrice;
 
-@property (nonatomic, copy) NSString *goodsUnit;
+@property (nonatomic, assign) CGFloat *netPurchasePrice;
 
-@property (nonatomic, copy) NSString *netPurchasePrice;
+@property (nonatomic, copy) NSString *goodsUnit;
 
 @property (nonatomic, copy) NSString * cartItemId;
 
 @property (nonatomic, copy) NSString *coverImgUrl;
 
 @property (nonatomic, copy) NSString *consessionalPrice;
+
 
 @end
 

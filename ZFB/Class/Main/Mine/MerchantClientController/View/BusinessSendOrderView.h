@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+
+
 @protocol BusinessSendOrderViewDelegate <NSObject>
+
+
 
 /**
  商户进行针对于距离选择配送员派单
- 
+ //确定操作
+
  @param deliveryId 配送员
  @param deliveryName 配送员名称
  @param deliveryPhone 配送手机号
@@ -21,6 +26,12 @@
                  deliveryName:(NSString *)deliveryName
                 deliveryPhone:(NSString *)deliveryPhone
                         Index:(NSInteger)index;
+
+//取消操作
+-(void)cancelAction;
+
+
+
 
 @end
 @interface BusinessSendOrderView : UIView

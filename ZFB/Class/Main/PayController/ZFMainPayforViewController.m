@@ -91,7 +91,7 @@
 {
     //完成加载
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    NSString * backUrl = @"http://192.168.1.115:8080/cashier_zavfpay/standard/goback.html";
+    NSString * backUrl = @"http://192.168.1.115:8080/cashier_zavfpay/standard/goback.html";//返回地址
     NSString * currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
     
     NSLog(@"currentURL ===== %@",currentURL);
@@ -110,6 +110,7 @@
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     NSLog(@"加载失败了");
+
     //加载出错
     [SVProgressHUD dismiss];
     

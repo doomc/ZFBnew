@@ -18,7 +18,7 @@
 {
     _listmodel =listmodel;
     self.lb_name.text = listmodel.deliveryName;
-    self.lb_distence.text = listmodel.deliveryDist;
+    self.lb_distence.text = [NSString stringWithFormat:@"%ld 米",listmodel.deliveryDist];
     
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

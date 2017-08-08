@@ -61,7 +61,7 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 
 @property (nonatomic, copy) NSString *commentNum;
 
-@property (nonatomic, copy) NSString *goodsDetail;
+@property (nonatomic, copy) NSString *goodsDetail;//网址链接
 
 @property (nonatomic, copy) NSString *storeName;
 

@@ -9,12 +9,15 @@
 #import "DeliveryModel.h"
 
 @implementation DeliveryModel
+ 
 
 
 + (NSDictionary *)objectClassInArray{
     return @{@"deliveryList" : [Deliverylist class]};
 }
 @end
+
+
 @implementation Deliverylist
 
 @end

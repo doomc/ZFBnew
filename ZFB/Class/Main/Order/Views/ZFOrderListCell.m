@@ -51,20 +51,23 @@
 {
     GoodsitemCell * cell = [self.order_collectionCell
                             dequeueReusableCellWithReuseIdentifier:@"GoodsitemCellid" forIndexPath:indexPath];
-
+    
+    self.img_shenglve.hidden = NO;
+    
     for (NSDictionary * imgDic in _listArray) {
       
         NSString *coverImgUrl  = [imgDic objectForKey:@"coverImgUrl"];
         [cell.img_listImgView sd_setImageWithURL:[NSURL URLWithString:coverImgUrl] placeholderImage:nil];
 
     }
-    if (_listArray.count > 3) {
-      
-        self.img_shenglve.hidden = NO;
-    }
-    else{
-        self.img_shenglve.hidden = YES;
-    }
+
+//    if (_listArray.count > 3) {
+//        self.img_shenglve.hidden = NO;
+//
+//    }
+//    else{
+//        self.img_shenglve.hidden = YES;
+//    }
     
     
     return cell;
