@@ -24,9 +24,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 
 @interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,CLLocationManagerDelegate>
 {
-    NSInteger _pageCount;//每页显示条数
-    NSInteger _page;//当前页码;
-
     NSString *currentCityAndStreet;//当前城市
     NSString *latitudestr;//经度
     NSString *longitudestr;//纬度
@@ -48,10 +45,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //默认一个页码 和 页数
-    _pageCount = 15;
-    _page = 1;
-
+ 
     //刷新定位
     [self LocationMapManagerInit];
  
@@ -59,35 +53,21 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     [self initInTerfaceView];
    
-    //定位成功后请求
     [self PostRequst];
+    //定位成功后请求
+    [self setupRefresh];
     
 }
-
--(void)reloadDataRefrsh
-{
-    weakSelf(weakSelf);
-    _home_tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        if (self.storeListArr.count > _pageCount * _page) {
-            _page ++ ;
-            
-        }else{
-            
-            _page = 1;
-        }
-        [weakSelf PostRequst];
-        
-    }];
-    
-    //下拉刷新
-    _home_tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        //需要将页码设置为1
-        _page = 1;
-        [weakSelf PostRequst];
-    }];
-
+#pragma mark -数据请求
+-(void)headerRefresh {
+    [super headerRefresh];
+    [self PostRequst];
 }
+-(void)footerRefresh {
+    [super footerRefresh];
+    [self PostRequst];
+}
+
 -(UIButton *)location_btn
 {
     if (!_location_btn) {
@@ -143,6 +123,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     self.home_tableView.separatorStyle =UITableViewCellSeparatorStyleNone;
     
     [self.home_tableView registerNib:[UINib nibWithNibName:@"FindStoreCell" bundle:nil] forCellReuseIdentifier:CellIdentifier];
+    
+    self.zfb_tableView = self.home_tableView;
 }
 -(UIView *)sectionView
 {
@@ -328,21 +310,15 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 #pragma mark - 首页网络请求 getCmStoreInfo
 -(void)PostRequst
 {
- 
-    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageCount];
-    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_page];
-    
     BBUserDefault.longitude = longitudestr;
     BBUserDefault.latitude = latitudestr;
-    
-    NSLog(@"%ld ------ %ld",_page,_pageCount);
     
     NSDictionary * parma = @{
  
                              @"longitude":longitudestr,//经度
                              @"latitude":latitudestr ,//纬度
-                             @"pageSize":pageSize,//每页显示条数
-                             @"pageIndex":pageIndex,//当前页码
+                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
+                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"businessType":@"",
                              @"payType":@"",
                              @"orderBydisc":@"",
@@ -356,8 +332,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         
         if ([response[@"resultCode"] intValue] == 0) {
             
-            if (_page == 1) {
-                
+            if (self.refreshType == RefreshTypeHeader) {
                 if (self.storeListArr.count > 0) {
                     
                     [self.storeListArr removeAllObjects];
@@ -376,8 +351,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
             NSLog(@"门店列表 = %@",   self.storeListArr);
  
         }
-        [self.home_tableView.mj_header endRefreshing];
-        [self.home_tableView.mj_footer endRefreshing];
+        
+        [self endRefresh];
         
     } progress:^(NSProgress *progeress) {
         
@@ -385,8 +360,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         
     } failure:^(NSError *error) {
         
-        [self.home_tableView.mj_header endRefreshing];
-        [self.home_tableView.mj_footer endRefreshing];
+        [self endRefresh];
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         NSLog(@"error=====%@",error);
         

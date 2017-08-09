@@ -46,7 +46,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 {
     NSInteger _pageCount;
     NSInteger _page;
-    NSInteger _indexPath;
 }
 
 @property (nonatomic ,strong) UIView * titleView ;
@@ -82,9 +81,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     // Do any additional setup after loading the view.
     
     self.tagNum = 0;//默认为售后申请
-    //默认一个页码 和 页数
-    _pageCount = 15;
-    _page      = 1;
     
     self.saleTitles = @[@"申请售后",@"进度查询"];
     
@@ -321,8 +317,9 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     NSInteger sectionNum = 0;
     switch (_orderType) {
         case OrderTypeAllOrder:
-            
-            sectionNum = self.orderListArray.count;
+
+            sectionNum  = 2;
+//            sectionNum = self.orderListArray.count;
             
             break;
         case OrderTypeWaitPay:
@@ -369,8 +366,9 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     
     switch (_orderType) {
         case OrderTypeAllOrder:
-            
-            rowNum = goodsArray.count;
+
+            rowNum = 2;
+//            rowNum = goodsArray.count;
             
             break;
         case OrderTypeWaitPay:
@@ -662,7 +660,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 #warning -----没获取 当前的 indexPath
             Orderlist  * orderlist = self.orderListArray[section];
             cell.orderlist         = orderlist;
-            _indexPath             = section;
+            cell.section = section;
+            NSLog(@"section === %ld",section);
             //默认值
             if ([orderlist.orderStatusName isEqualToString:@"已配送"]) {
                 [cell.payfor_button  setTitle:@"确认收货" forState:UIControlStateNormal];
@@ -693,8 +692,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             //没获取 当前的 indexPath
             Orderlist  * orderlist = self.orderListArray[section];
             cell.orderlist         = orderlist;
-            _indexPath             = section;
-            
             [cell.payfor_button  setTitle:@"去付款" forState:UIControlStateNormal];
             [cell.cancel_button  setTitle:@"取消" forState:UIControlStateNormal];
             
@@ -711,8 +708,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             cell.footDelegate      = self;
             Orderlist  * orderlist = self.orderListArray[section];
             cell.orderlist         = orderlist;
-            _indexPath             = section;
-            
             
             if ([orderlist.payModeName isEqualToString:@"线下支付"]) {
                 
@@ -735,8 +730,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             
             Orderlist  * footList = self.orderListArray[section];
             cell.orderlist        = footList;
-            _indexPath            = section;
-            
             [cell.cancel_button setHidden:YES];
             [cell.payfor_button setHidden:YES];
             
@@ -753,7 +746,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             
             Orderlist  * footList = self.orderListArray[section];
             cell.orderlist        = footList;
-            _indexPath            = section;
             
             [cell.cancel_button setHidden:YES];
             [cell.payfor_button setTitle:@"确认收货" forState:UIControlStateNormal];
@@ -770,7 +762,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             
             Orderlist  * footList = self.orderListArray[section];
             cell.orderlist        = footList;
-            _indexPath            = section;
             
             [cell.cancel_button setHidden:YES];
             [cell.payfor_button setTitle:@"晒单" forState:UIControlStateNormal];
@@ -786,7 +777,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             
             Orderlist  * footList = self.orderListArray[section];
             cell.orderlist        = footList;
-            _indexPath            = section;
             
             [cell.cancel_button setHidden:YES];
             [cell.payfor_button setHidden:YES];
@@ -1237,7 +1227,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-    
+    [SVProgressHUD dismiss];
+
 }
 
 #pragma mark - 申请售后 进度查询列表     zfb/InterfaceServlet/afterSale/afterSaleList
@@ -1285,8 +1276,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
         
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         //成功后需要刷新列表
-        
-        //        [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
+      
+        [self.allOrder_tableView reloadData];
         
         
     } progress:^(NSProgress *progeress) {
@@ -1302,17 +1293,26 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 }
 
 #pragma mark - 用户确认收货接口 order/userConfirmReceipt
--(void)receiveUserConfirmReceiptPost
+-(void)receiveUserConfirmReceiptPostDeliveryId:(NSString *)deliveryId
+                                       storeId:(NSString *)storeId
+                                   deliveryFee:(NSString *)deliveryFee
+                                      orderNum:(NSString *)orderNum
+                                        userId:(NSString *)userId
+                                   orderAmount:(NSString *)orderAmount
+                                     storeName:(NSString *)storeName
+                                   orderDetail:(NSString *)orderDetail
+
 {
     NSDictionary * param = @{
-                             @"deliveryId":@"",
-                             @"storeId":@"",
-                             @"deliveryFee":@"",
-                             @"orderNum":@"",
-                             @"userId":@"",
-                             @"orderAmount":@"",//订单金额
-                             @"orderDetail":@"",//订单详情
-                             @"storeName":@"",
+                             
+                             @"deliveryId":deliveryId,
+                             @"storeId":storeId,
+                             @"deliveryFee":deliveryFee,
+                             @"orderNum":orderNum,
+                             @"userId":BBUserDefault.cmUserId,
+                             @"orderAmount":orderAmount,//订单金额
+                             @"orderDetail":orderDetail,//订单详情
+                             @"storeName":storeName,
                              
                              };
     
@@ -1339,8 +1339,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 -(void)sendOrdersActionOrderId:(NSString *)orderId totalPrice:(NSString *)totalPrice indexPath:(NSInteger)indexPath
 {
     ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-    Orderlist * orderlist = self.orderListArray [_indexPath];
-    NSLog(@"---------%ld",_indexPath);
+    Orderlist * orderlist = self.orderListArray [indexPath];
+    NSLog(@"---------%ld",indexPath);
     
     switch (_orderType) {
         case OrderTypeAllOrder://全部订单
@@ -1353,7 +1353,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                 }];
                 UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                     //确认收货 - 成功后跳转交易完成 - 晒单
-                    [self sendTitle:@"交易完成" orderType:OrderTypeDealSuccess];
+                    [self receiveUserConfirmReceiptPostDeliveryId:@"" storeId:@"" deliveryFee:[NSString stringWithFormat:@"%.2f",orderlist.orderDeliveryFee] orderNum:orderlist.orderCode userId:@"" orderAmount:orderlist.orderAmount storeName:orderlist.storeName orderDetail:@""];
                     
                 }];
                 [alertavc addAction:cancelAction];
@@ -1400,7 +1400,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             }];
             UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 //确认收货 - 成功后跳转交易完成 - 晒单
-                [self receiveUserConfirmReceiptPost];
+                [self receiveUserConfirmReceiptPostDeliveryId:@"" storeId:@"" deliveryFee:[NSString stringWithFormat:@"%.2f",orderlist.orderDeliveryFee] orderNum:orderlist.orderCode userId:@"" orderAmount:orderlist.orderAmount storeName:orderlist.storeName orderDetail:@""];
+                
             }];
             [alertavc addAction:cancelAction];
             [alertavc addAction:sureAction];
@@ -1440,7 +1441,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
         case OrderTypeAllOrder://确认付款
         {
             Orderlist * orderlist = self.orderListArray [indexPath];
-            NSLog(@"---------%ld",_indexPath);
+            NSLog(@"---------%ld",indexPath);
             
             if ([orderlist.orderStatusName isEqualToString:@"已配送"]) {//button
                 
@@ -1477,7 +1478,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             
         case OrderTypeWaitPay:
         {
-            Orderlist * orderlist = self.orderListArray [_indexPath];
+            Orderlist * orderlist = self.orderListArray [indexPath];
             
             if ([orderlist.orderStatusName isEqualToString:@"待付款"]) {
                 

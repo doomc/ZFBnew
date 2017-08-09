@@ -20,7 +20,11 @@
                        deliveryId :(NSString *)deliveryId
                         indexPath :(NSInteger )indexPath;
 ///派单 ----- 右边
--(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice  indexPath :(NSInteger)indexPath;
+-(void)sendOrdersActionOrderId:(NSString*)orderId
+                    totalPrice:(NSString *)totalPrice
+                   deliveryId :(NSString *)deliveryId
+
+                    indexPath :(NSInteger)indexPath;
 
 @end
 @interface ZFFooterCell : UITableViewCell

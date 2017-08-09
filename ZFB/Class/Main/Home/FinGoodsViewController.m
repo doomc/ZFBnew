@@ -66,35 +66,19 @@ typedef NS_ENUM(NSUInteger, CellType) {
     
     [self guessYouLikePostRequst];
 
-    
-    
+    [self setupRefresh];
 }
--(void)reloadDataRefrsh
-{
-    weakSelf(weakSelf);
-    //上拉加载
-    _findGoods_TableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        if (self.likeListArray.count > _pageCount * _page) {
-            _page ++ ;
-            
-        }else{
-            
-            _page = 1;
-        }
-        
-        [weakSelf guessYouLikePostRequst];
-        
-    }];
-    
-    //下拉刷新
-    _findGoods_TableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        //需要将页码设置为1
-        _page = 1;
-        [weakSelf guessYouLikePostRequst];
-    }];
+#pragma mark -数据请求
+-(void)headerRefresh {
+    [super headerRefresh];
+    [self guessYouLikePostRequst];
+}
+-(void)footerRefresh {
+    [super footerRefresh];
+    [self guessYouLikePostRequst];
+}
 
-}
+
 #pragma mark - FuncListTableViewCellDeleagte
 ///全部分类
 -(void)seleteItemCell:(FuncListTableViewCell *)cell withIndex:(NSIndexPath *)indexPath
@@ -103,10 +87,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
     NSLog(@"全部分类全部分类");
     ZFClassifyCollectionViewController * classifyVC = [[ZFClassifyCollectionViewController alloc]init];
     [self.navigationController pushViewController:classifyVC animated:NO];
-    
-    //        [self FuncListPostRequst];
-    //        [self HotsalesPostRequst];
-    
     
     
 }
@@ -120,16 +100,16 @@ typedef NS_ENUM(NSUInteger, CellType) {
                                 CGRectMake(0, 0, KScreenW, KScreenH -48-64-44) style:UITableViewStylePlain];
     self.findGoods_TableView.delegate = self;
     self.findGoods_TableView.dataSource = self;
-    [self.view addSubview:_findGoods_TableView];
     
-    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil]
-                   forCellReuseIdentifier:cell_guessID];
-    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"FuncListTableViewCell" bundle:nil]
-                   forCellReuseIdentifier:cell_listID];
-    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"HotTableViewCell" bundle:nil]
-                   forCellReuseIdentifier:cell_hotID];
-}
+    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil]forCellReuseIdentifier:cell_guessID];
+    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"FuncListTableViewCell" bundle:nil]forCellReuseIdentifier:cell_listID];
+    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"HotTableViewCell" bundle:nil]forCellReuseIdentifier:cell_hotID];
 
+    [self.view addSubview:_findGoods_TableView];
+
+    self.zfb_tableView = self.findGoods_TableView;
+
+}
 
 
 /**初始化轮播 */
@@ -353,16 +333,15 @@ typedef NS_ENUM(NSUInteger, CellType) {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getYouWillLike",zfb_baseUrl] params:parma success:^(id response) {
         
         if ([response[@"resultCode"]isEqualToString:@"0"]) {
-            
-            if (_page == 1) {
+            if (self.refreshType == RefreshTypeHeader) {
                 
                 if (self.likeListArray.count > 0) {
                     
                     [self.likeListArray removeAllObjects];
-
+                    
                 }
-  
             }
+
             HomeGuessModel * guess  = [HomeGuessModel  mj_objectWithKeyValues:response];
             
             for (Cmgoodsbrowselist * guesslist in guess.data.cmGoodsBrowseList.findGoodsList) {
@@ -373,16 +352,14 @@ typedef NS_ENUM(NSUInteger, CellType) {
             NSLog(@"猜你喜欢 =likeListArray = %@",  self.likeListArray);
             [self.findGoods_TableView reloadData];
         }
-        [self.findGoods_TableView.mj_header endRefreshing];
-        [self.findGoods_TableView.mj_footer endRefreshing];
+        [self endRefresh];
     } progress:^(NSProgress *progeress) {
         
         
     } failure:^(NSError *error) {
         
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-        [self.findGoods_TableView.mj_header endRefreshing];
-        [self.findGoods_TableView.mj_footer endRefreshing];
+        [self endRefresh];
         NSLog(@"error=====%@",error);
         
     }];

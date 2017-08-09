@@ -8,7 +8,47 @@
 
 #import <UIKit/UIKit.h>
 
+#define kPageCount 10
+
+/**
+ 刷新类型
+
+ - RefreshTypeHeader: 下拉刷新
+ - RefreshTypeFooter: 上拉刷新
+ */
+typedef NS_ENUM(NSInteger, RefreshType) {
+    RefreshTypeHeader,
+    RefreshTypeFooter
+};
+
 @interface BaseViewController : UIViewController
+
+@property (nonatomic, assign) RefreshType refreshType;
+@property (nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, strong) UITableView *zfb_tableView;
+
+
+/**
+ 集成刷新
+ */
+-(void)setupRefresh;
+
+/**
+ 下拉刷新
+ */
+-(void)headerRefresh;
+
+/**
+ 上拉刷新
+ */
+-(void)footerRefresh;
+
+/**
+ 结束刷新
+ */
+-(void)endRefresh;
+
+
 
 -(void)backAction;
 -(void)popToViewControllerWithName:(NSString *)name ;

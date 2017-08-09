@@ -13,7 +13,8 @@ target 'ZFB' do
   pod 'Masonry'
   pod 'MJExtension'
   pod 'SDWebImage'
-    
+  pod 'MJRefresh'
+  
   # 第三方库
   #高德地图定位
   pod 'AMapLocation'

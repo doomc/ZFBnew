@@ -65,6 +65,7 @@
 ///取消 所有指令
 -(void)cancel_buttonAction
 {
+    NSLog(@"innerSection-============%ld", _section);
     if ([self.footDelegate respondsToSelector:@selector(cancelOrderActionbyOrderNum:orderStatus:payStatus:deliveryId:indexPath:)]) {
         
         [self.footDelegate  cancelOrderActionbyOrderNum:_orderNum orderStatus:_orderStatus payStatus:_payStatus deliveryId:_deliveryId indexPath:_section];
@@ -75,6 +76,7 @@
 ///派单 、、、确认支付 等所有指令
 -(void)payfor_buttonAction
 {
+    NSLog(@"parInnerSection-============%ld", _section);
     if ([self.footDelegate respondsToSelector:@selector(sendOrdersActionOrderId:totalPrice:indexPath:)]) {
    
         [self.footDelegate sendOrdersActionOrderId:_orderId totalPrice:_totalPrice indexPath:_section];

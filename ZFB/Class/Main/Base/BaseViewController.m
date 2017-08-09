@@ -53,8 +53,6 @@
         }else{
             
             self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-            
-            
         }
         
         UISwipeGestureRecognizer *gesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backSweepGesture:)];
@@ -69,6 +67,34 @@
     [self rightButton];
     [self leftButton];
     
+}
+#pragma mark - 集成刷新
+-(void)setupRefresh {
+  
+    self.zfb_tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+    self.zfb_tableView.mj_footer = [MJRefreshBackStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
+}
+-(void)headerRefresh {
+
+    self.refreshType = RefreshTypeHeader;
+    self.currentPage=1;
+}
+-(void)footerRefresh {
+    
+    self.refreshType = RefreshTypeFooter;
+    self.currentPage++;
+}
+
+-(void)endRefresh {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self.refreshType == RefreshTypeHeader) {
+            
+            [self.zfb_tableView.mj_header endRefreshing];
+        }else {
+            [self.zfb_tableView.mj_footer endRefreshing];
+        }
+
+    });
 }
 
 - (void)backSweepGesture:(UISwipeGestureRecognizer*)gesture{
