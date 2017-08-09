@@ -26,7 +26,11 @@
 @property (nonatomic,copy) NSString *latitude;///纬度
 @property (nonatomic,copy) NSString *longitude;///经度
 
+@property (nonatomic,copy) NSString *shopFlag;///是否是商户  1是 0 不是
+@property (nonatomic,copy) NSString *courierFlag;///是否是配送员 1是 0不是
 
+
+ 
 
 @property (nonatomic) BOOL boolValue;
 @property (nonatomic) float floatValue;

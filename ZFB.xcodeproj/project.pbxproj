@@ -652,6 +652,7 @@
 		498A33C11F3956600057E2AE /* ShopCarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 498A33BF1F3956600057E2AE /* ShopCarCell.xib */; };
 		498A33C41F39612F0057E2AE /* DDChangeBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 498A33C31F39612F0057E2AE /* DDChangeBtn.m */; };
 		498A33C71F398AC30057E2AE /* NSString+helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 498A33C61F398AC30057E2AE /* NSString+helper.m */; };
+		498A33CD1F3ADF7F0057E2AE /* SalesAfterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 498A33CC1F3ADF7F0057E2AE /* SalesAfterModel.m */; };
 		49917B971F1C5723005790AF /* ClassLeftListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49917B961F1C5723005790AF /* ClassLeftListModel.m */; };
 		49917B9E1F1C937A005790AF /* DetailgoodsSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49917B9C1F1C937A005790AF /* DetailgoodsSelectCell.m */; };
 		49917B9F1F1C937A005790AF /* DetailgoodsSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49917B9D1F1C937A005790AF /* DetailgoodsSelectCell.xib */; };
@@ -1716,6 +1717,8 @@
 		498A33C31F39612F0057E2AE /* DDChangeBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDChangeBtn.m; sourceTree = "<group>"; };
 		498A33C51F398AC30057E2AE /* NSString+helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+helper.h"; sourceTree = "<group>"; };
 		498A33C61F398AC30057E2AE /* NSString+helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+helper.m"; sourceTree = "<group>"; };
+		498A33CB1F3ADF7F0057E2AE /* SalesAfterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesAfterModel.h; sourceTree = "<group>"; };
+		498A33CC1F3ADF7F0057E2AE /* SalesAfterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesAfterModel.m; sourceTree = "<group>"; };
 		498DE0C81EE63C8700F64A61 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		49917B951F1C5723005790AF /* ClassLeftListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassLeftListModel.h; sourceTree = "<group>"; };
 		49917B961F1C5723005790AF /* ClassLeftListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassLeftListModel.m; sourceTree = "<group>"; };
@@ -3159,6 +3162,8 @@
 				495EA49B1F14B64C001FCB7E /* UserFeedbackModel.m */,
 				49AC8FD01F276404005559A8 /* DetailOrderModel.h */,
 				49AC8FD11F276404005559A8 /* DetailOrderModel.m */,
+				498A33CB1F3ADF7F0057E2AE /* SalesAfterModel.h */,
+				498A33CC1F3ADF7F0057E2AE /* SalesAfterModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5145,6 +5150,7 @@
 				495EA78A1F14B64D001FCB7E /* ZFGoodsFooterView.m in Sources */,
 				495EA79D1F14B64D001FCB7E /* HomeADModel.m in Sources */,
 				495EA7751F14B64D001FCB7E /* DetailFindGoodsViewController.m in Sources */,
+				498A33CD1F3ADF7F0057E2AE /* SalesAfterModel.m in Sources */,
 				49555D8D1F32EA6B00C3C748 /* IQKeyboardManager.m in Sources */,
 				495EA7B71F14B64D001FCB7E /* ForgetPSViewController.m in Sources */,
 				495EA9731F14B64E001FCB7E /* YBPopupMenuPath.m in Sources */,

@@ -17,6 +17,9 @@
     // Initialization code
     
     [self.saleAfter_btn addTarget:self action:@selector(saleAfter_btnAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.saleAfter_btn.clipsToBounds = YES;
+    self.saleAfter_btn.layer.cornerRadius = 4;
+    
 }
 
 ///申请售后
@@ -31,7 +34,7 @@
 {
     _goods = goods;
     
-    self.lb_goodcount.text = [NSString stringWithFormat:@"数量x%@%@",_goods.goodsCount, _goods.goodsUnit];
+    self.lb_goodcount.text = [NSString stringWithFormat:@"数量x%ld%@",_goods.goodsCount, _goods.goodsUnit];
     self.lb_title.text =  _goods.goods_name;
     
     [self.img_saleAfter sd_setImageWithURL:[NSURL URLWithString:_goods.coverImgUrl] placeholderImage:nil];

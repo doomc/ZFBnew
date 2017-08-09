@@ -76,7 +76,10 @@
             _selctedType = BusinessServicTypeSureReturn;//待确认退回
             
             break;
- 
+        case 3005:
+            _selctedType = BusinessServicTypeSended;//已配送
+            
+            break;
     }
     if ([_delegate respondsToSelector:@selector(sendTitle:businessServicType:)]) {
         

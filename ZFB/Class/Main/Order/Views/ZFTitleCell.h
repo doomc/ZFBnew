@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *statusButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
+///支付方式
+@property (weak, nonatomic) IBOutlet UILabel *lb_payMethod;
 
 @property (strong, nonatomic)  Orderlist * orderlist;//全部订单
 

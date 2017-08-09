@@ -48,12 +48,14 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
  
     NSString * _datetime;
     NSString * _access_token;//token
+    
+    NSString * _payStatus;//支付状态
  
     
 }
-@property (nonatomic,strong) UITableView * tableView;
+@property (nonatomic,strong) UITableView *  tableView;
 @property (nonatomic,strong) UIView      *  footerView;
-@property (nonatomic,strong) UIButton    * sure_payfor;//确认支付
+@property (nonatomic,strong) UIButton    *  sure_payfor;//确认支付
 
 @property (nonatomic,assign) OrderDetailType orderDetailType;
 
@@ -108,7 +110,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 {
     if (!_sure_payfor) {
         _sure_payfor = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_sure_payfor setTitle:@"待付款" forState:UIControlStateNormal];
+        [_sure_payfor setTitle:@"去付款" forState:UIControlStateNormal];
         [_sure_payfor setBackgroundColor:HEXCOLOR(0xfe6d6a)];
         UIFont *font  =[UIFont systemFontOfSize:15];
         _sure_payfor.titleLabel.font    = font;
@@ -234,7 +236,8 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         if (indexPath.row == 0) {
         
             ZFOrderDetailCell* detailCell       = [self.tableView dequeueReusableCellWithIdentifier:commonDetailCellid forIndexPath:indexPath];
-            detailCell.lb_detailtitle.text      = [NSString stringWithFormat:@"订单号：%@",ordernum];
+            Unpayorderinfo * payinfo = self.paySignArray[indexPath.row];
+            detailCell.lb_detailtitle.text      = [NSString stringWithFormat:@"订单号：%@",payinfo.order_num];
             detailCell.lb_detaileFootTitle.text = orderStatusName;
             detailCell.lb_detaileFootTitle.textColor = HEXCOLOR(0xfe6d6a);
             cell = detailCell;
@@ -313,29 +316,6 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     NSLog(@"%ld = section ,%ld = row ",indexPath.section,indexPath.row);
 }
 
-#pragma mark  - didClickPayFor  去付款
-- (void)didClickPayFor:(UIButton *)sender {
-    
-    NSLog(@" 去付款了oooo ");
-    
-    NSArray * jsonArray = [Unpayorderinfo mj_keyValuesArrayWithObjectArray:self.paySignArray ];
-    NSMutableDictionary * jsondic = [NSMutableDictionary dictionary];
-    
-    //需要一个key orderList
-    [jsondic setValue:jsonArray forKey:@"orderList"];
-    NSString * OrderjsonString  = [NSString convertToJsonData:[NSDictionary dictionaryWithDictionary:jsondic]];
-    NSLog(@"看看字段添加进去了没有 ----- --- -- - -%@",OrderjsonString);
-    
-    ZFMainPayforViewController * payVc = [[ZFMainPayforViewController alloc]init];
-    
-    payVc.access_token = _access_token;
-    payVc.datetime = _datetime;
-//    payVc.orderListArray = OrderjsonString;
-    
-//    [self.navigationController pushViewController:payVc animated:NO];
-    
-    
-}
 
 #pragma mark  - 网络请求 getUserInfo
 -(void)getOrderDetailsInfoPostResquestcmOrderid:(NSString*) cmOrderId
@@ -345,51 +325,71 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
                              
                              @"cmOrderid":cmOrderId,
                              };
-    
+    [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/order/getOrderDetailsInfo"] params:parma success:^(id response) {
         
-        DetailOrderModel * orderModel = [DetailOrderModel mj_objectWithKeyValues:response];
-        
-        //签名数组
-        for (Unpayorderinfo * unpay in orderModel.unpayOrderInfo) {
+        if ([response[@"resultCode"]intValue ]==0) {
+            DetailOrderModel * orderModel = [DetailOrderModel mj_objectWithKeyValues:response];
             
-            [self.paySignArray addObject:unpay];
-            ordernum = unpay.orderNum;//订单号
-        }
-        //商品列表
-        for (DetailShoppcartlist * list in orderModel.shoppCartList.goodsList) {
+            //签名数组
+            for (Unpayorderinfo * unpay in orderModel.unpayOrderInfo) {
+                
+                [self.paySignArray addObject:unpay];
+                
+            }
+            //商品列表
+            for (DetailShoppcartlist * list in orderModel.shoppCartList.goodsList) {
+                
+                [self.shoppCartList addObject:list];
+            }
+            //地址信息
+            nickName    = orderModel.cmUserInfo.nickName ;
+            mobilePhone = orderModel.cmUserInfo.mobilePhone ;
+            postAddress = orderModel.cmUserInfo.postAddress ;
             
-            [self.shoppCartList addObject:list];
+            //订单信息
+            orderStatusName = orderModel.orderDetails.orderStatusName ;//配送状态
+            //        payMethodName = orderModel.orderDetails.payMethodName ;//支付方式
+            createTime      = [NSString stringWithFormat:@"下单时间:%@",orderModel.orderDetails.createTime] ;//订单时间
+            payMethodName   = orderModel.orderDetails.payMethodName;
+            
+            _payStatus = orderModel.orderDetails.payStatus;//支付状态
+            //0.未支付的初始状态  1.支付成功 -1.支付失败  3.付款发起   4.付款取消 (待付款) 5.退款成功（支付成功的）6.退款发起(支付成功) 7.退款失败(支付成功)
+            
+            if ([orderStatusName isEqualToString:@"待付款"] && [payMethodName isEqualToString:@"线下支付"]) {
+                
+                [self.sure_payfor setTitle:@"确认取货" forState:UIControlStateNormal];
+                self.sure_payfor.enabled = YES;
+                [self.sure_payfor setHidden:NO];
+                
+                NSLog(@"确认取货 ~！！~");
+            }else{
+                [self.sure_payfor setHidden:YES];
+                self.sure_payfor.enabled = NO;
+            }
+        
+            //配送信息
+            deliveryName  = orderModel.deliveryInfo.deliveryName;
+            deliveryPhone  = orderModel.deliveryInfo.deliveryPhone;
+            
+            //价格
+            goodsAmount = orderModel.orderDetails.goodsAmount;//总价
+            deliveryFee = orderModel.orderDetails.deliveryFee;//配送费用
+            payRelPrice = orderModel.orderDetails.payRelPrice;//实际支付
+            
+            //店铺名称
+            storeName = orderModel.shoppCartList.storeName;
+            
+            [SVProgressHUD dismiss];
+            
+            [self.tableView reloadData];
+
         }
-        //地址信息
-        nickName    = orderModel.cmUserInfo.nickName ;
-        mobilePhone = orderModel.cmUserInfo.mobilePhone ;
-        postAddress = orderModel.cmUserInfo.postAddress ;
-        
-        //订单信息
-        orderStatusName = orderModel.orderDetails.orderStatusName ;//支付状态
-        //        payMethodName = orderModel.orderDetails.payMethodName ;//支付方式
-        createTime      = [NSString stringWithFormat:@"下单时间:%@",orderModel.orderDetails.createTime] ;//订单时间
-        payMethodName   = orderModel.orderDetails.payMethodName;
-        
-        //配送信息
-        deliveryName  = orderModel.deliveryInfo.deliveryName;
-        deliveryPhone  = orderModel.deliveryInfo.deliveryPhone;
-        
-        //价格
-        goodsAmount = orderModel.orderDetails.goodsAmount;//总价
-        deliveryFee = orderModel.orderDetails.deliveryFee;//配送费用
-        payRelPrice = orderModel.orderDetails.payRelPrice;//实际支付
-      
-        //店铺名称
-        storeName = orderModel.shoppCartList.storeName;
-        
-        [self.tableView reloadData];
         
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
-        
+        [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
@@ -425,7 +425,26 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
+}
+#pragma mark  - didClickPayFor  去付款
+- (void)didClickPayFor:(UIButton *)sender {
+    NSLog(@" 去付款了oooo ");
     
+    if ([BBUserDefault.shopFlag isEqualToString:@"1"]) {
+       
+        NSLog(@"商户端 +取货接口");
+        
+    }
+    if ([BBUserDefault.courierFlag isEqualToString:@"1"]) {
+       
+        NSLog(@"配送端");
+        ZFMainPayforViewController * payVc = [[ZFMainPayforViewController alloc]init];
+        payVc.orderListArray = [NSArray arrayWithArray:self.paySignArray];
+        payVc.access_token = _access_token;
+        payVc.datetime = _datetime;
+        [self.navigationController pushViewController:payVc animated:NO];
+        
+    }
 }
 
 
@@ -445,6 +464,10 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         
     }
     
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [SVProgressHUD dismiss];
 }
 
 -(NSMutableArray *)shoppCartList

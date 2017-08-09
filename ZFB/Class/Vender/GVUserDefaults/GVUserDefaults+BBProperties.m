@@ -26,4 +26,7 @@
 @dynamic latitude;
 @dynamic longitude;
 
+@dynamic shopFlag;
+@dynamic courierFlag;
+
 @end

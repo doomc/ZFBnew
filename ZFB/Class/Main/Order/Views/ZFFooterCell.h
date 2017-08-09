@@ -10,6 +10,7 @@
 #import "AllOrderModel.h"
 #import "BusinessOrderModel.h"
 #import "SendServiceOrderModel.h"
+@class ZFFooterCell;
 @protocol ZFFooterCellDelegate <NSObject>
 
 ///取消订单   左边按钮
@@ -20,7 +21,6 @@
                         indexPath :(NSInteger )indexPath;
 ///派单 ----- 右边
 -(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice  indexPath :(NSInteger)indexPath;
-
 
 @end
 @interface ZFFooterCell : UITableViewCell
@@ -43,7 +43,8 @@
 
 
 
-@property (nonatomic, assign) NSInteger   indexPath;//当前的下标
+@property (nonatomic, assign) NSInteger   section;//当前的下标
+ 
 
 @property (nonatomic, copy) NSString  * orderId ;
 @property (nonatomic, copy) NSString  * totalPrice ;//总价

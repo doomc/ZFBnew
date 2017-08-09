@@ -29,6 +29,7 @@
 #import "BaseNavigationController.h"
 
 #import "BusinessServicerViewController.h"
+#import "PublishAppraiseViewController.h"
 
 typedef NS_ENUM(NSUInteger, TypeCell) {
     
@@ -291,6 +292,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         orderVC.orderType   = 1 ;
         orderVC.orderStatus =@"4";
         orderVC.buttonTitle = @"待付款";
+        
         [self.navigationController pushViewController:orderVC animated:YES];
     }else{
         [self isloginSuccess];
@@ -305,7 +307,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     if (BBUserDefault.isLogin == 1) {
         ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
         orderVC.orderType   = 4 ;
-        orderVC.orderStatus =@"2";
+        orderVC.orderStatus = @"2";
         orderVC.buttonTitle = @"已配送";
         [self.navigationController pushViewController:orderVC animated:YES];
     }else{
@@ -319,10 +321,13 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)didClickWaitForEvaluateAction:(UIButton *)button
 {
     if (BBUserDefault.isLogin == 1) {
+      
         ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
         orderVC.orderType   = 5 ;
-        orderVC.buttonTitle = @"待评价";
+        orderVC.orderStatus = @"3";
+        orderVC.buttonTitle = @"交易完成";
         [self.navigationController pushViewController:orderVC animated:YES];
+
   
     }else{
         [self isloginSuccess];
@@ -334,11 +339,17 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 ///退货
 -(void)didClickBacKgoodsAction:(UIButton *)button
 {
-
     NSLog(@" push 退货 页面");
     if (BBUserDefault.isLogin == 1) {
-        ZFAppySalesReturnViewController * saleVC = [[ZFAppySalesReturnViewController alloc]init];
-        [self.navigationController pushViewController:saleVC animated:YES];
+
+        ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
+        orderVC.orderType   = 7 ;
+        orderVC.orderStatus = @"2";
+        orderVC.buttonTitle = @"售后申请";
+        [self.navigationController pushViewController:orderVC animated:YES];
+            
+//        ZFAppySalesReturnViewController * saleVC = [[ZFAppySalesReturnViewController alloc]init];
+//        [self.navigationController pushViewController:saleVC animated:YES];
         
     }else{
         [self isloginSuccess];
@@ -422,6 +433,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             _courierFlag= [NSString stringWithFormat:@"%@",response[@"userInfo"][@"courierFlag"]];//是否是快递员
             _storeId = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"storeId"]];
             
+            BBUserDefault.shopFlag = _shopFlag;
+            BBUserDefault.courierFlag = _courierFlag;
+
             //赋值
             self.headview.lb_collectCount.text = _collectNum;
             self.headview.lb_historyCount.text = _foolnum;

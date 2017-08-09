@@ -99,6 +99,9 @@
         
         NSLog(@"可以跳转到全部订单列表");
         ZFAllOrderViewController * allorder = [[ZFAllOrderViewController alloc]init];
+        allorder.orderType   = 5 ;
+        allorder.orderStatus = @"3";
+        allorder.buttonTitle = @"交易完成";
         [self.navigationController pushViewController:allorder animated:NO];
     }
     [SVProgressHUD dismiss];
@@ -180,6 +183,7 @@
 -(void)getGoodsCostPayResulrUrlL
 {
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
+   
     NSString * listJsonString  =[NSString arrayToJSONString:_orderListArray];
  
     [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回

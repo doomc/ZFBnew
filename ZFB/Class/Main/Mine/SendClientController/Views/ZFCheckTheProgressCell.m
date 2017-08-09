@@ -15,6 +15,9 @@
     // Initialization code
     
     [self.checkProgress_btn addTarget:self action:@selector(actionTarget:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.checkProgress_btn.clipsToBounds = YES;
+    self.checkProgress_btn.layer.cornerRadius = 3;
 }
 -(void)actionTarget:(UIButton*)sender{
     

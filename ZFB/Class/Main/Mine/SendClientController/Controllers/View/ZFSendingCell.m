@@ -36,7 +36,7 @@
 {
     _goods = goods;
     
-    self.lb_num.text = [NSString stringWithFormat:@" 数量 x %@",goods.goodsCount];
+    self.lb_num.text = [NSString stringWithFormat:@" 数量 x %ld",goods.goodsCount];
     self.lb_sendListTitle.text =  _goods.goods_name;
     self.lb_Price.text =[NSString stringWithFormat:@"¥%@", goods.original_price];
     self.lb_detailTime.text = @"";

@@ -73,7 +73,7 @@
 
 @property (nonatomic, copy) NSString * payRelPrice;
 
-@property (nonatomic, assign) NSInteger payStatus;
+@property (nonatomic, copy) NSString * payStatus;
 
 @property (nonatomic, copy) NSString *orderStatusName;
 
@@ -107,7 +107,7 @@
 
 @interface Unpayorderinfo : NSObject
 
-@property (nonatomic, copy) NSString *orderNum;
+@property (nonatomic, copy) NSString *order_num;
 
 @property (nonatomic, copy) NSString *body;
 

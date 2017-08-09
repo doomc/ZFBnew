@@ -49,7 +49,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     // Do any additional setup after loading the view.
     
     //默认一个页码 和 页数
-    _pageCount = 8;
+    _pageCount = 15;
     _page = 1;
 
     //刷新定位
@@ -62,14 +62,18 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     //定位成功后请求
     [self PostRequst];
     
+}
+
+-(void)reloadDataRefrsh
+{
     weakSelf(weakSelf);
     _home_tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         
         if (self.storeListArr.count > _pageCount * _page) {
-
             _page ++ ;
-  
+            
         }else{
+            
             _page = 1;
         }
         [weakSelf PostRequst];
@@ -81,9 +85,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         //需要将页码设置为1
         _page = 1;
         [weakSelf PostRequst];
-    }];    
-}
+    }];
 
+}
 -(UIButton *)location_btn
 {
     if (!_location_btn) {
@@ -330,6 +334,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     BBUserDefault.longitude = longitudestr;
     BBUserDefault.latitude = latitudestr;
+    
+    NSLog(@"%ld ------ %ld",_page,_pageCount);
     
     NSDictionary * parma = @{
  

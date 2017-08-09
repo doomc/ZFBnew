@@ -55,7 +55,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _pageCount = 8;
+    _pageCount = 15;
     _page = 1;
     
     [self initWithFindGoodsTableView];
@@ -66,18 +66,23 @@ typedef NS_ENUM(NSUInteger, CellType) {
     
     [self guessYouLikePostRequst];
 
+    
+    
+}
+-(void)reloadDataRefrsh
+{
     weakSelf(weakSelf);
     //上拉加载
     _findGoods_TableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-       
+        
         if (self.likeListArray.count > _pageCount * _page) {
-            
             _page ++ ;
             
         }else{
+            
             _page = 1;
         }
- 
+        
         [weakSelf guessYouLikePostRequst];
         
     }];
@@ -88,8 +93,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
         _page = 1;
         [weakSelf guessYouLikePostRequst];
     }];
-    
-    
+
 }
 #pragma mark - FuncListTableViewCellDeleagte
 ///全部分类
@@ -333,7 +337,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
 {    
     NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageCount];
     NSString * pageIndex= [NSString stringWithFormat:@"%ld",_page];
-    
+    NSLog(@"%ld ------ %ld",_page,_pageCount);
+
     NSDictionary * parma = @{
                             
                              @"latitude" : BBUserDefault.latitude ,
