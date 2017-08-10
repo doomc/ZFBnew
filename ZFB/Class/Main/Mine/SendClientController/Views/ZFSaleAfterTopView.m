@@ -26,13 +26,13 @@
         for (int i = 0 ; i < arr.count; i++) {
             
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.frame = CGRectMake(i*(KScreenW*0.5), 0, (KScreenW*0.5), 40);
+            button.frame = CGRectMake(i*(KScreenW*0.5), 0, (KScreenW*0.5), 44);
             [button setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
             [button setTitle:arr[i] forState:UIControlStateNormal];
             button.titleLabel.font = [UIFont systemFontOfSize:14];
             
             [button addTarget:self action:@selector(didclickWithAction:) forControlEvents:UIControlEventTouchUpInside];
-            button.tag = i+1000;
+            button.tag = i + 666;
             [self addSubview:button];
             NSLog(@"%ld \n",button.tag);
             
@@ -65,7 +65,7 @@
 
     if ([_delegate respondsToSelector:@selector(sendAtagNum:)]) {
      
-        [_delegate sendAtagNum:selectTag -1000];
+        [_delegate sendAtagNum:selectTag - 666];
 
     }
     

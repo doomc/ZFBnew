@@ -9,7 +9,7 @@
 #import "ZFMainPayforViewController.h"
 #import "WebViewJavascriptBridge.h"
 #import <WebKit/WebKit.h>
-#import "ZFAllOrderViewController.h"
+#import "ZFDetailOrderViewController.h"
 @interface ZFMainPayforViewController ()<UIWebViewDelegate>
 
 @property (nonatomic,copy ) NSString * paySign;//获取签名
@@ -30,14 +30,11 @@
     [super viewWillAppear:animated];
     self.title = @"收银台";
     [self clearCache];//清除缓存
-    //    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    //    [self.navigationController setNavigationBarHidden:NO animated:YES];
     if ( [self.webView isLoading] ) {
         
         [self.webView stopLoading];
@@ -97,12 +94,17 @@
     NSLog(@"currentURL ===== %@",currentURL);
     if ([backUrl isEqualToString:currentURL]) {
         
-        NSLog(@"可以跳转到全部订单列表");
-        ZFAllOrderViewController * allorder = [[ZFAllOrderViewController alloc]init];
-        allorder.orderType   = 5 ;
-        allorder.orderStatus = @"3";
-        allorder.buttonTitle = @"交易完成";
-        [self.navigationController pushViewController:allorder animated:NO];
+        NSLog(@"全部跳转到订单详情");
+        
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:0] animated:YES];
+        for(UIViewController * controller in self.navigationController.viewControllers) {
+            
+            if([controller isKindOfClass:[ZFDetailOrderViewController class]]) {
+                
+                [self.navigationController popToViewController:controller animated:YES];
+                
+            }
+        }
     }
     [SVProgressHUD dismiss];
     

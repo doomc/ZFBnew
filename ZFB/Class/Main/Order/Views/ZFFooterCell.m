@@ -8,7 +8,15 @@
 
 #import "ZFFooterCell.h"
 @interface ZFFooterCell ()
-
+{
+    NSString * orderIdNormal ;
+    NSString * deliveryIdNormal ;
+    NSString * orderNumNormal ;
+    NSString * orderAllPrice ;
+    NSString * orderDetail ;
+    NSString * orderStoreName ;
+    
+}
 @end
 @implementation ZFFooterCell
 
@@ -35,6 +43,11 @@
     
     //订单金额
     self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",_orderlist.orderAmount];//订单价格
+    orderNumNormal =  orderlist.orderCode;
+    orderIdNormal = orderlist.order_id;
+    deliveryIdNormal = orderlist.deliveryId;
+    orderDetail = orderlist.orderDetail;
+    orderStoreName= orderlist.storeName;
     
 }
 
@@ -59,7 +72,7 @@
 {
     _sendOrder = sendOrder;
     self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%ld",sendOrder.orderAmmount];//订单价格
- 
+    
     
 }
 ///取消 所有指令
@@ -70,7 +83,7 @@
         
         [self.footDelegate  cancelOrderActionbyOrderNum:_orderNum orderStatus:_orderStatus payStatus:_payStatus deliveryId:_deliveryId indexPath:_section];
     }
- 
+    
 }
 
 ///派单 、、、确认支付 等所有指令
@@ -78,17 +91,21 @@
 {
     NSLog(@"parInnerSection-============%ld", _section);
     if ([self.footDelegate respondsToSelector:@selector(sendOrdersActionOrderId:totalPrice:indexPath:)]) {
-   
+        
         [self.footDelegate sendOrdersActionOrderId:_orderId totalPrice:_totalPrice indexPath:_section];
- 
     }
+
+    if ([self.footDelegate respondsToSelector:@selector(allOrdersActionOfindexPath:)]) {
+        [self.footDelegate allOrdersActionOfindexPath:_section];
+    }
+    
 }
 
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

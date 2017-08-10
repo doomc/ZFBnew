@@ -12,7 +12,7 @@
 #import "SendServiceOrderModel.h"
 @class ZFFooterCell;
 @protocol ZFFooterCellDelegate <NSObject>
-
+@optional
 ///取消订单   左边按钮
 -(void)cancelOrderActionbyOrderNum:(NSString *)orderNum
                        orderStatus:(NSString *)orderStatus
@@ -22,9 +22,9 @@
 ///派单 ----- 右边
 -(void)sendOrdersActionOrderId:(NSString*)orderId
                     totalPrice:(NSString *)totalPrice
-                   deliveryId :(NSString *)deliveryId
-
                     indexPath :(NSInteger)indexPath;
+///全部订单的代理右边
+-(void)allOrdersActionOfindexPath:(NSInteger)indexPath;
 
 @end
 @interface ZFFooterCell : UITableViewCell

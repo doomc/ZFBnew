@@ -120,8 +120,13 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="checkProgress_btn" destination="4Qg-jK-udE" id="ZS2-Eb-hI6"/>
+                <outlet property="img_progressView" destination="caJ-4H-0R3" id="tyy-Vg-q1N"/>
+                <outlet property="lb_applelyTime" destination="3Au-dj-Efx" id="AVt-7j-svM"/>
+                <outlet property="lb_checkStatus" destination="AaK-LW-lg1" id="eNt-fq-eIl"/>
+                <outlet property="lb_serviceNum" destination="390-gK-n6D" id="rxD-og-rHy"/>
+                <outlet property="lb_title" destination="WF8-PS-b1r" id="OB9-hS-ZZZ"/>
             </connections>
-            <point key="canvasLocation" x="-281" y="111"/>
+            <point key="canvasLocation" x="-279" y="92"/>
         </tableViewCell>
     </objects>
 </document>

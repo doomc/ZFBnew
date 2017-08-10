@@ -14,7 +14,12 @@
     [super awakeFromNib];
     // Initialization code
 }
-
+-(void)setList:(CheckList *)list
+{
+    _list = list;
+    self.lb_serviceNum.text = list.message;
+    self.lb_applyTime.text = [NSString stringWithFormat:@"申请时间:%@",list.time];
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

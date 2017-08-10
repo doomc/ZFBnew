@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,32 +15,36 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="62.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务单号：123010230123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDu-kL-Nkm">
-                        <rect key="frame" x="15" y="15" width="146" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务单号：123010230123" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDu-kL-Nkm">
+                        <rect key="frame" x="15" y="10" width="290" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="申请时间：2014-2-2 12：12：12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0g-KF-yRQ">
-                        <rect key="frame" x="15" y="35" width="182" height="15"/>
+                        <rect key="frame" x="15" y="34.5" width="290" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="T0g-KF-yRQ" secondAttribute="bottom" constant="4.5" id="7UN-AW-WaP"/>
-                    <constraint firstItem="T0g-KF-yRQ" firstAttribute="top" secondItem="bDu-kL-Nkm" secondAttribute="bottom" constant="5" id="Ck0-7C-0lh"/>
-                    <constraint firstItem="T0g-KF-yRQ" firstAttribute="leading" secondItem="bDu-kL-Nkm" secondAttribute="leading" id="EWJ-l6-FB2"/>
-                    <constraint firstItem="bDu-kL-Nkm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="OWK-XB-8Bi"/>
-                    <constraint firstItem="bDu-kL-Nkm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="VOA-Wv-BmU"/>
-                    <constraint firstItem="bDu-kL-Nkm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="l19-4V-429"/>
+                    <constraint firstAttribute="trailing" secondItem="T0g-KF-yRQ" secondAttribute="trailing" constant="15" id="6PG-fr-Aog"/>
+                    <constraint firstItem="T0g-KF-yRQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="KeE-k5-1ul"/>
+                    <constraint firstItem="T0g-KF-yRQ" firstAttribute="top" secondItem="bDu-kL-Nkm" secondAttribute="bottom" constant="10" id="g7x-bl-uzQ"/>
+                    <constraint firstItem="bDu-kL-Nkm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="jXH-3n-tg9"/>
+                    <constraint firstAttribute="trailing" secondItem="bDu-kL-Nkm" secondAttribute="trailing" constant="15" id="lp4-Zh-78d"/>
+                    <constraint firstItem="bDu-kL-Nkm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="vMo-Zf-1w5"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="-537" y="195.5"/>
+            <connections>
+                <outlet property="lb_applyTime" destination="T0g-KF-yRQ" id="uqr-fP-dH4"/>
+                <outlet property="lb_serviceNum" destination="bDu-kL-Nkm" id="wfi-VD-g7V"/>
+            </connections>
+            <point key="canvasLocation" x="-610" y="142.5"/>
         </tableViewCell>
     </objects>
 </document>

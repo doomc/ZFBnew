@@ -39,6 +39,11 @@
 			<key>orderHint</key>
 			<integer>17</integer>
 		</dict>
+		<key>MJRefresh.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>24</integer>
+		</dict>
 		<key>MWPhotoBrowser-MWPhotoBrowser.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -142,6 +147,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>0659B71386995AC7EE2A305F0A360EB1</key>
 		<dict>
 			<key>primary</key>
@@ -192,7 +202,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>20FF7E25C30D9640B74EF0E1712368D7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2596169E954907C07413FA0DF674480A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>27C82FCE1B13C04A7D1541824799C22C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -348,6 +368,11 @@
 			<true/>
 		</dict>
 		<key>A3C667CF6FAB7868D7AA91E25357095D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9E087A4B9164DEF1323E8660DBE167C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

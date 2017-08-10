@@ -343,7 +343,7 @@
      
         if ([response[@"resultCode"] intValue] == 0) {
             
-            NSArray   * orderArr = response[@"orderList"];
+            NSArray * orderArr = response[@"orderList"];
     
             NSMutableDictionary * mutOrderDic = [NSMutableDictionary dictionary];
             NSMutableArray * mutOrderArray  = [NSMutableArray array];

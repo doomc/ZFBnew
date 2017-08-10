@@ -114,6 +114,8 @@
     //待派单 。配送中。待付款、交易完成。待确认退回；
     [self.view addSubview:self.homeTableView];
     
+    self.zfb_tableView = self.homeTableView;
+    
     //register  nib
     [self.homeTableView registerNib:[UINib nibWithNibName:@"ZFTitleCell" bundle:nil]
              forCellReuseIdentifier:@"ZFTitleCell"];//商户首页头
@@ -131,107 +133,94 @@
     [self.homeTableView registerNib:[UINib nibWithNibName:@"ZFFooterCell" bundle:nil]
              forCellReuseIdentifier:@"ZFFooterCell"];
     
-
-    [self refreshData];
-}
-
--(void)refreshData
-{
-    //默认一个页码 和 页数
-    _pageCount = 20;
-    _page = 1;
-    
-    weakSelf(weakSelf);
-    weakSelf.homeTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        if (self.orderListArray.count > _pageCount * _page) {
-            
-            _page ++ ;
-            
-        }else{
-            _page = 1;
-        }
-       
-        switch (_servicType) {
-                
-            case BusinessServicTypeWaitSendlist://待派单
-                
-                [weakSelf businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
-                
-                break;
-            case BusinessServicTypeSending://配送中
-                
-                [weakSelf businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId] ;
-                
-                break;
-            case BusinessServicTypeWaitPay://待付款
-                
-                [weakSelf businessOrderListPostRequstpayStatus:@"" orderStatus:@"4" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
-
-                break;
-            case BusinessServicTypeDealComplete://交易完成
-                
-                [weakSelf businessOrderListPostRequstpayStatus:@"" orderStatus:@"3" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
-             
-                
-                break;
-            case BusinessServicTypeSureReturn://待确认退回
-                
-                [weakSelf businessOrderListPostRequstpayStatus:@"" orderStatus:@"6" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
  
-                
-                break;
-            case BusinessServicTypeSended://已配送
-                
-                [weakSelf businessOrderListPostRequstpayStatus:@"" orderStatus:@"2" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
-                
-                
-                break;
-
-        }
-        
-    }];
+    [self setupRefresh];
     
-    //下拉刷新
-    weakSelf.homeTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        //需要将页码设置为1
-        _page = 1;
-        switch (_servicType) {
-            case BusinessServicTypeWaitSendlist://待派单
-                
-                [weakSelf businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
-                
-                break;
-            case BusinessServicTypeSending://配送中
-                
-                [weakSelf businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId] ;
-                
-                break;
-            case BusinessServicTypeWaitPay://待付款
-                
-                [weakSelf businessOrderListPostRequstpayStatus:@"" orderStatus:@"4" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
-                
-                break;
-            case BusinessServicTypeDealComplete://交易完成
-                
-                [weakSelf businessOrderListPostRequstpayStatus:@"" orderStatus:@"3" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
-                
-                
-                break;
-            case BusinessServicTypeSureReturn://待确认退回
-                
-                [weakSelf businessOrderListPostRequstpayStatus:@"" orderStatus:@"6" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
-                break;
-            case BusinessServicTypeSended://已配送
-                
-                [weakSelf businessOrderListPostRequstpayStatus:@"" orderStatus:@"2" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
-                
-                
-                break;
-        }
-    }];
+}
+#pragma mark -数据请求
+-(void)headerRefresh {
+    
+    [super headerRefresh];
+    
+    switch (_servicType) {
+            
+        case BusinessServicTypeWaitSendlist://待派单
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" storeId:_storeId];
+            
+            break;
+        case BusinessServicTypeSending://配送中
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"  storeId:_storeId] ;
+            
+            break;
+        case BusinessServicTypeWaitPay://待付款
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"   storeId:_storeId];
+            
+            break;
+        case BusinessServicTypeDealComplete://交易完成
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"   storeId:_storeId];
+            
+            
+            break;
+        case BusinessServicTypeSureReturn://待确认退回
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"6" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" storeId:_storeId];
+            
+            
+            break;
+        case BusinessServicTypeSended://已配送
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"   storeId:_storeId];
+            
+            break;
+            
+    }
 
 }
+-(void)footerRefresh {
+    [super footerRefresh];
+    switch (_servicType) {
+            
+        case BusinessServicTypeWaitSendlist://待派单
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" storeId:_storeId];
+            
+            break;
+        case BusinessServicTypeSending://配送中
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"  storeId:_storeId] ;
+            
+            break;
+        case BusinessServicTypeWaitPay://待付款
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"   storeId:_storeId];
+            
+            break;
+        case BusinessServicTypeDealComplete://交易完成
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"   storeId:_storeId];
+            
+            
+            break;
+        case BusinessServicTypeSureReturn://待确认退回
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"6" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" storeId:_storeId];
+            
+            
+            break;
+        case BusinessServicTypeSended://已配送
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"   storeId:_storeId];
+            
+            break;
+            
+    }
+
+}
+
 -(UITableView *)homeTableView
 {
     if (!_homeTableView ) {
@@ -371,7 +360,7 @@
     self.navigationItem.titleView = self.navbar_btn;
     
     
-    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:@"1" size:@"6" storeId:_storeId];
+    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"  storeId:_storeId];
     
     [self.homeTableView reloadData];
 }
@@ -1084,37 +1073,37 @@
             
         case BusinessServicTypeWaitSendlist://待派单
             
-            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"  storeId:_storeId];
             
             [self.homeTableView reloadData];
             
             break;
         case BusinessServicTypeSending://配送中
             
-            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId] ;
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" storeId:_storeId] ;
             [self.homeTableView reloadData];
             
             break;
         case BusinessServicTypeWaitPay://待付款
             
-            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"  storeId:_storeId];
             [self.homeTableView reloadData];
             
             break;
         case BusinessServicTypeDealComplete://交易完成
             
-            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" storeId:_storeId];
             [self.homeTableView reloadData];
 
             break;
         case BusinessServicTypeSureReturn://待确认退回
             
-            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"6" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"6" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" storeId:_storeId];
             [self.homeTableView reloadData];
             
             break;
         case BusinessServicTypeSended://已配送
-            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"  storeId:_storeId];
             [self.homeTableView reloadData];
             
             break;
@@ -1176,8 +1165,9 @@
     _order_id = orderId;
     _order_amount  = totalPrice;//当前总价
 
+    NSLog(@"  currentSection ====%ld ",indexPath);
     
-    BusinessOrderlist * orderlist = self.orderListArray[_currentSection];
+    BusinessOrderlist * orderlist = self.orderListArray[indexPath];
     
     switch (_servicType) {
         case BusinessServicTypeWaitSendlist:
@@ -1314,13 +1304,11 @@
                                   startTime:(NSString *)startTime
                                     endTime:(NSString *)endTime
                                     payMode:(NSString *)payMode
-                                       page:(NSString *)page
-                                       size:(NSString *)size
                                     storeId:(NSString *)storeId
 {
     NSDictionary * param = @{
-                             @"page": page,
-                             @"size": size,
+                             @"page": [NSNumber numberWithInteger:self.currentPage],
+                             @"size": [NSNumber numberWithInteger:kPageCount],
                              @"orderStatus": orderStatus,
                              @"payStatus": payStatus,
                              @"searchWord":searchWord,
@@ -1328,19 +1316,20 @@
                              @"endTime": endTime,
                              @"payMode": payMode,
                              @"storeId": storeId,
-                             
+ 
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getStoreOrderList",zfb_baseUrl] params:param success:^(id response) {
       
         if ([response[@"resultCode"] intValue ] == 0) {
-            
-            BusinessOrderModel * orderModel = [BusinessOrderModel mj_objectWithKeyValues:response];
-            
-            if (self.orderListArray.count > 0) {
-                
-                [self.orderListArray removeAllObjects];
+            if (self.refreshType == RefreshTypeHeader) {
+               
+                if (self.orderListArray.count > 0) {
+                    
+                    [self.orderListArray removeAllObjects];
+                }
             }
+            BusinessOrderModel * orderModel = [BusinessOrderModel mj_objectWithKeyValues:response];
             for (BusinessOrderlist * orderlist in orderModel.orderList) {
                 
                 [self.orderListArray addObject:orderlist];
@@ -1349,15 +1338,14 @@
             NSLog(@"orderListArray = %@",self.orderListArray);
         }
         [self.homeTableView reloadData];
-        [self.homeTableView.mj_header endRefreshing];
-        [self.homeTableView.mj_footer endRefreshing];
+        [self endRefresh];
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
-        [self.homeTableView.mj_header endRefreshing];
-        [self.homeTableView.mj_footer endRefreshing];
+        [self endRefresh];
+
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
@@ -1379,7 +1367,7 @@
         
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         //成功后需要刷新列表
-        [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount] storeId:_storeId];
+        [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" storeId:_storeId];
        
 
     } progress:^(NSProgress *progeress) {
@@ -1447,14 +1435,12 @@
 {
     
     NSDictionary * param = @{
-//                             @"longitude":strlongitude,
-//                             @"latitude":strlatitude,
+                             @"longitude":strlongitude,
+                             @"latitude":strlatitude,
 
-                             @"longitude":@"106.502677",
-                             @"latitude":@"29.602122",
-
-                             //longitude = "106.498612";
-//                             latitude = "29.604819";
+//                             @"longitude":@"106.502677",
+//                             @"latitude":@"29.602122",
+ 
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/selectDeliveryList",zfb_baseUrl] params:param success:^(id response) {

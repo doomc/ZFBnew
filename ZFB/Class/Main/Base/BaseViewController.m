@@ -67,6 +67,8 @@
     [self rightButton];
     [self leftButton];
     
+    self.currentPage = 1;
+
 }
 #pragma mark - 集成刷新
 -(void)setupRefresh {
@@ -77,12 +79,12 @@
 -(void)headerRefresh {
 
     self.refreshType = RefreshTypeHeader;
-    self.currentPage=1;
+    self.currentPage = 1;
 }
 -(void)footerRefresh {
     
     self.refreshType = RefreshTypeFooter;
-    self.currentPage++;
+    self.currentPage ++;
 }
 
 -(void)endRefresh {
@@ -90,8 +92,10 @@
         if (self.refreshType == RefreshTypeHeader) {
             
             [self.zfb_tableView.mj_header endRefreshing];
+            
         }else {
-            [self.zfb_tableView.mj_footer endRefreshing];
+            [self.zfb_tableView.mj_footer endRefreshingWithNoMoreData];
+            
         }
 
     });

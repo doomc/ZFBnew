@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CheckModel.h"
 
 @interface ZFPregressCheckCell2 : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_serviceNum;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_applyTime;
+
+@property (strong, nonatomic) CheckList * list;
 
 @end

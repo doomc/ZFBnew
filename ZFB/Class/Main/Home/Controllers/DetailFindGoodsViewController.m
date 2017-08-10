@@ -856,7 +856,6 @@ WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler
             for (Productattribute * product in goodsmodel.data.productAttribute) {
                 
                 [self.productSkuArray addObject:product];
-                
     
             }
             //当规格为空的时候才组装下列数据

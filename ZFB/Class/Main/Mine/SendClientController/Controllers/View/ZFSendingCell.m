@@ -24,7 +24,7 @@
 -(void)setBusinesGoods:(BusinessOrdergoods *)businesGoods
 {
     _businesGoods = businesGoods;
-    self.lb_num.text = [NSString stringWithFormat:@"数量 x %@",businesGoods.goodsCount];
+    self.lb_num.text = [NSString stringWithFormat:@"数量 x %ld",businesGoods.goodsCount];
     self.lb_sendListTitle.text =  businesGoods.goods_name;
     self.lb_Price.text =[NSString stringWithFormat:@"¥%@", businesGoods.original_price];
     self.lb_detailTime.text = @"";

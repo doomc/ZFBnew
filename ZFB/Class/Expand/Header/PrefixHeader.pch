@@ -48,6 +48,7 @@
 #import "DWQRatingView.h"//五星评价
 #import "UILabel+LXAdd.h"//富文本
 #import "UIView+Extension.h"
+#import "Reachability.h"
 
 #import "Macros.h"
 #import "UIButton+EdgeInsets.h"

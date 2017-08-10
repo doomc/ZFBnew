@@ -9,15 +9,29 @@
 #import "ZFPregressCheckViewController.h"
 #import "ZFPregressCheckCell.h"
 #import "ZFPregressCheckCell2.h"
-@interface ZFPregressCheckViewController ()
-<UITableViewDelegate,UITableViewDataSource>
 
-@property(nonatomic,strong)UITableView * tableView;
+#import "CheckModel.h"
+
+@interface ZFPregressCheckViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    NSString * _status;
+    NSString * _serviceNum;
+    NSString * _createTime;
+}
+@property(nonatomic,strong) UITableView * tableView;
+@property(nonatomic,strong) NSMutableArray * listArray;
 
 @end
 
 @implementation ZFPregressCheckViewController
 
+-(NSMutableArray *)listArray
+{
+    if (!_listArray) {
+        _listArray = [NSMutableArray array];
+    }
+    return _listArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -27,9 +41,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFPregressCheckCell" bundle:nil] forCellReuseIdentifier:@"ZFPregressCheckCellid"];
  
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFPregressCheckCell2" bundle:nil] forCellReuseIdentifier:@"ZFPregressCheckCellid2"];
- 
-}
-
+ }
 
 -(UITableView *)tableView
 {
@@ -45,12 +57,14 @@
     return 2;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+ 
     if (section == 0) {
+       
         return 1;
     }
     else
     {
-        return 4;
+        return self.listArray.count;
     }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -58,14 +72,12 @@
     CGFloat height =  0;
     if (indexPath.section == 0) {
      
-        height  = [tableView fd_heightForCellWithIdentifier:@"ZFPregressCheckCellid" configuration:^(id cell) {
-            
-        }];
+        height  = 86;
         
+    }else{
+        
+        height  = 64;
     }
-    height  = [tableView fd_heightForCellWithIdentifier:@"ZFPregressCheckCellid" configuration:^(id cell) {
-        
-    }];
 
     return height;
 }
@@ -87,11 +99,24 @@
 
     if (indexPath.section == 0) {
         ZFPregressCheckCell * CheckCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFPregressCheckCellid" forIndexPath:indexPath];
+        
+        CheckCell.lb_status.text = [NSString stringWithFormat:@"当前状态:%@",_status];
+        CheckCell.lb_applyTime.text = [NSString stringWithFormat:@"申请时间:%@",_createTime];
+        CheckCell.lb_serviceNum.text = [NSString stringWithFormat:@"服务单号:%@",_serviceNum];
+        
         return CheckCell;
 
+    }else{
+       
+        ZFPregressCheckCell2 * CheckCell2 = [self.tableView dequeueReusableCellWithIdentifier:@"ZFPregressCheckCellid2" forIndexPath:indexPath];
+        
+        CheckList  * list = self.listArray[indexPath.row];
+        
+        CheckCell2.list = list;
+        
+        return CheckCell2;
+  
     }
-    ZFPregressCheckCell2 * CheckCell2 = [self.tableView dequeueReusableCellWithIdentifier:@"ZFPregressCheckCellid2" forIndexPath:indexPath];
-    return CheckCell2;
 
 }
 
@@ -101,4 +126,54 @@
  
 }
 
+
+#pragma mark - 进度查询列表     zfb/InterfaceServlet/afterSale/queryById
+-(void)salesAfterPostRequste
+{
+    NSDictionary * param = @{
+
+                             @"afterSaleId":_afterSaleId,
+                             
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/afterSale/queryById"] params:param success:^(id response) {
+ 
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            
+            if (self.listArray.count > 0 ) {
+                
+                [self.listArray removeAllObjects];
+            }
+            
+            CheckModel * check  = [CheckModel mj_objectWithKeyValues:response];
+            
+            _status =  check.data.info.status;
+            _serviceNum = check.data.info.serviceNum;
+            _createTime = check.data.info.createTime;
+            
+            for (CheckList * list in check.data.list) {
+                
+                [self.listArray addObject:list];
+            }
+            
+            NSLog(@" arr = ==== %@",self.listArray);
+            [self.tableView reloadData];
+
+        }
+        [SVProgressHUD dismiss];
+
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self salesAfterPostRequste];
+}
 @end

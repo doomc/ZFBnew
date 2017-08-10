@@ -35,6 +35,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
 @property (assign,nonatomic) indexType  indexType;
 
+@property (nonatomic, strong) Reachability * rech;
+
 @end
 
 @implementation LoginViewController
@@ -53,8 +55,40 @@ typedef NS_ENUM(NSUInteger, indexType) {
     [self set_leftButton];
     
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkStateChange) name:kReachabilityChangedNotification object:nil];
+    self.rech = [Reachability reachabilityForInternetConnection];
+    [self.rech startNotifier];
     
+}
+- (void)dealloc
+{
+    [self.rech stopNotifier];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+- (void)networkStateChange
+{
+    [self checkNetworkState];
+ 
+}
+- (void)checkNetworkState
+{
+    // 1.检测wifi状态
+    Reachability *wifi = [Reachability reachabilityForLocalWiFi];
     
+    // 2.检测手机是否能上网络(WIFI\3G\2.5G)
+    Reachability *conn = [Reachability reachabilityForInternetConnection];
+    
+    // 3.判断网络状态
+    if ([wifi currentReachabilityStatus] != NotReachable) { // 有wifi
+        NSLog(@"有wifi");
+        
+    } else if ([conn currentReachabilityStatus] != NotReachable) { // 没有使用wifi, 使用手机自带网络进行上网
+        NSLog(@"使用手机自带网络进行上网");
+        
+    } else { // 没有网络
+        
+        NSLog(@"没有网络");
+    }
 }
 #pragma mark - setter方法
 -(UIButton*)set_leftButton
@@ -425,10 +459,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
 #pragma mark -  PasswordLoginPostRequest 密码登录
 -(void)PasswordLoginPostRequest{
-    
- 
     //测试
-    
     NSDictionary * parma = @{
                              
                              @"mobilePhone":_tf_loginphone.text,
@@ -442,7 +473,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
  
         if ([response[@"resultCode"] intValue ] == 0) {
             //设置全局变量
-//            AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
             BBUserDefault.isLogin = 1;
             BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
             BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
@@ -451,10 +481,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
             [self left_button_event];
     
         }
-        
         NSLog(@" ======= userKeyMd5=======%@",BBUserDefault.userKeyMd5 );
         [self.view makeToast:response [@"resultMsg"] duration:2 position:@"center"];
-   
         
     } progress:^(NSProgress *progeress) {
         

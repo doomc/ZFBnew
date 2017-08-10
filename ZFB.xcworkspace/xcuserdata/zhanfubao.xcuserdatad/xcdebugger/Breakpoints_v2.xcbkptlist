@@ -36,12 +36,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-                  timestampString = "523977315.391656"
+                  timestampString = "524062809.146775"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "330"
                   endingLineNumber = "330"
-                  offsetFromSymbolStart = "728">
+                  offsetFromSymbolStart = "680">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -51,12 +51,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-                  timestampString = "523977315.393431"
+                  timestampString = "524062809.149974"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "330"
                   endingLineNumber = "330"
-                  offsetFromSymbolStart = "56">
+                  offsetFromSymbolStart = "52">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -66,12 +66,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-                  timestampString = "523977315.395151"
+                  timestampString = "524062809.15391"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "330"
                   endingLineNumber = "330"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -99,12 +99,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-                  timestampString = "523977315.40145"
+                  timestampString = "524062809.159496"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "209"
                   endingLineNumber = "209"
-                  offsetFromSymbolStart = "376">
+                  offsetFromSymbolStart = "355">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -114,7 +114,7 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-                  timestampString = "523977315.403757"
+                  timestampString = "524062809.161277"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "209"
@@ -146,22 +146,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Home/Controllers/ZFAllStoreViewController.m"
-            timestampString = "523270917.223358"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/CollectOrHistory/Controllers/ZFCollectViewController.m"
             timestampString = "523371832.642038"
             startingColumnNumber = "9223372036854775807"
@@ -179,12 +163,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/CollectOrHistory/Controllers/ZFCollectViewController.m"
-                  timestampString = "523977315.41814"
+                  timestampString = "524062809.168911"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "398"
                   endingLineNumber = "398"
-                  offsetFromSymbolStart = "340">
+                  offsetFromSymbolStart = "290">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -194,12 +178,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/CollectOrHistory/Controllers/ZFCollectViewController.m"
-                  timestampString = "523977315.420016"
+                  timestampString = "524062809.170849"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "398"
                   endingLineNumber = "398"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -243,12 +227,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/CollectOrHistory/Controllers/ZFCollectViewController.m"
-                  timestampString = "523977315.428036"
+                  timestampString = "524062809.178744"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "371"
                   endingLineNumber = "371"
-                  offsetFromSymbolStart = "196">
+                  offsetFromSymbolStart = "149">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -258,12 +242,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/CollectOrHistory/Controllers/ZFCollectViewController.m"
-                  timestampString = "523977315.430072"
+                  timestampString = "524062809.18051"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "371"
                   endingLineNumber = "371"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -354,70 +338,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Login/Controllers/LoginViewController.m"
-            timestampString = "523333737.729996"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "395"
-            endingLineNumber = "395"
-            landmarkName = "-QuickLoginPostRequest"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[LoginViewController QuickLoginPostRequest]"
-                  moduleName = "ZFB"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Login/Controllers/LoginViewController.m"
-                  timestampString = "523977315.454877"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "395"
-                  endingLineNumber = "395"
-                  offsetFromSymbolStart = "352">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__44-[LoginViewController QuickLoginPostRequest]_block_invoke"
-                  moduleName = "ZFB"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Login/Controllers/LoginViewController.m"
-                  timestampString = "523977315.45684"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "397"
-                  endingLineNumber = "397"
-                  offsetFromSymbolStart = "68">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Login/Controllers/LoginViewController.m"
-            timestampString = "523333737.729996"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407"
-            landmarkName = "-QuickLoginPostRequest"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/ShoppingCar/ZFShoppingCarViewController.m"
             timestampString = "523785913.053264"
             startingColumnNumber = "9223372036854775807"
@@ -451,12 +371,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/ShoppingCar/ZFShoppingCarViewController.m"
-                  timestampString = "523977315.469666"
+                  timestampString = "524062809.209045"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "114"
                   endingLineNumber = "114"
-                  offsetFromSymbolStart = "484">
+                  offsetFromSymbolStart = "440">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -466,12 +386,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/ShoppingCar/ZFShoppingCarViewController.m"
-                  timestampString = "523977315.471752"
+                  timestampString = "524062809.210817"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "114"
                   endingLineNumber = "114"
-                  offsetFromSymbolStart = "516">
+                  offsetFromSymbolStart = "464">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -547,12 +467,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/SendClientController/Controllers/ZFSendSerViceViewController.m"
-                  timestampString = "523977315.508869"
+                  timestampString = "524062809.229463"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1125"
                   endingLineNumber = "1125"
-                  offsetFromSymbolStart = "324">
+                  offsetFromSymbolStart = "287">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -562,12 +482,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/SendClientController/Controllers/ZFSendSerViceViewController.m"
-                  timestampString = "523977315.51063"
+                  timestampString = "524062809.231358"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1127"
                   endingLineNumber = "1127"
-                  offsetFromSymbolStart = "64">
+                  offsetFromSymbolStart = "54">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -595,12 +515,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/SendClientController/Controllers/ZFSendSerViceViewController.m"
-                  timestampString = "523977315.515408"
+                  timestampString = "524062809.235975"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1169"
                   endingLineNumber = "1169"
-                  offsetFromSymbolStart = "220">
+                  offsetFromSymbolStart = "169">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -610,12 +530,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/SendClientController/Controllers/ZFSendSerViceViewController.m"
-                  timestampString = "523977315.518217"
+                  timestampString = "524062809.237743"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1170"
                   endingLineNumber = "1170"
-                  offsetFromSymbolStart = "64">
+                  offsetFromSymbolStart = "54">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -633,70 +553,6 @@
             startingLineNumber = "960"
             endingLineNumber = "960"
             landmarkName = "-sendOrdersActionOrderId:totalPrice:indexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-            timestampString = "523973880.418212"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1091"
-            endingLineNumber = "1091"
-            landmarkName = "-sendTitle:businessServicType:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-            timestampString = "523973880.418212"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1084"
-            endingLineNumber = "1084"
-            landmarkName = "-sendTitle:businessServicType:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-            timestampString = "523973880.418212"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1103"
-            endingLineNumber = "1103"
-            landmarkName = "-sendTitle:businessServicType:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-            timestampString = "523973880.418212"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1109"
-            endingLineNumber = "1109"
-            landmarkName = "-sendTitle:businessServicType:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -755,11 +611,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/PayController/ZFMainPayforViewController.m"
-            timestampString = "523963688.44444"
+            timestampString = "524041201.732079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "-getGoodsCostPayResulrUrlL"
             landmarkType = "7">
          </BreakpointContent>
@@ -771,11 +627,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/PayController/ZFMainPayforViewController.m"
-            timestampString = "523963688.44444"
+            timestampString = "524041201.732079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "-getPaypaySignAccessTokenUrl"
             landmarkType = "7">
             <Locations>
@@ -787,12 +643,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/PayController/ZFMainPayforViewController.m"
-                  timestampString = "523977315.559815"
+                  timestampString = "524062809.260228"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "161"
-                  endingLineNumber = "161"
-                  offsetFromSymbolStart = "176">
+                  startingLineNumber = "163"
+                  endingLineNumber = "163"
+                  offsetFromSymbolStart = "138">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -802,12 +658,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/PayController/ZFMainPayforViewController.m"
-                  timestampString = "523977315.561567"
+                  timestampString = "524062809.262324"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "161"
-                  endingLineNumber = "161"
-                  offsetFromSymbolStart = "24">
+                  startingLineNumber = "163"
+                  endingLineNumber = "163"
+                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -851,28 +707,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/PayController/ZFMainPayforViewController.m"
-            timestampString = "523963688.44444"
+            timestampString = "524041201.732079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "-webView:didFailLoadWithError:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/PayController/ZFMainPayforViewController.m"
-            timestampString = "523963688.44444"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "-webViewDidFinishLoad:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -899,12 +739,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Order/ZFSureOrderViewController.m"
-                  timestampString = "523977315.582019"
+                  timestampString = "524062809.277366"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "341"
                   endingLineNumber = "341"
-                  offsetFromSymbolStart = "108">
+                  offsetFromSymbolStart = "86">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -914,12 +754,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Order/ZFSureOrderViewController.m"
-                  timestampString = "523977315.584599"
+                  timestampString = "524062809.27949"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "344"
                   endingLineNumber = "344"
-                  offsetFromSymbolStart = "100">
+                  offsetFromSymbolStart = "86">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1010,44 +850,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Home/Controllers/DetailFindGoodsViewController.m"
-            timestampString = "523878685.473915"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "865"
-            endingLineNumber = "865"
-            landmarkName = "-goodsDetailListPostRequset"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Home/Controllers/DetailFindGoodsViewController.m"
-            timestampString = "523878686.407634"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "869"
-            endingLineNumber = "869"
-            landmarkName = "-goodsDetailListPostRequset"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-            timestampString = "523976285.67733"
+            timestampString = "524055660.115381"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1421"
-            endingLineNumber = "1421"
+            startingLineNumber = "1409"
+            endingLineNumber = "1409"
             landmarkName = "-sendOrderPostRequstStoreID:deliveryId:orderId:postAddress:postName:orderAmount:deliveryName:deliveryPhone:postPhone:"
             landmarkType = "7">
             <Locations>
@@ -1059,12 +867,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-                  timestampString = "523977315.621134"
+                  timestampString = "524062809.296444"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1421"
-                  endingLineNumber = "1421"
-                  offsetFromSymbolStart = "664">
+                  startingLineNumber = "1409"
+                  endingLineNumber = "1409"
+                  offsetFromSymbolStart = "752">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -1074,12 +882,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-                  timestampString = "523977315.623126"
+                  timestampString = "524062809.298382"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1421"
-                  endingLineNumber = "1421"
-                  offsetFromSymbolStart = "24">
+                  startingLineNumber = "1409"
+                  endingLineNumber = "1409"
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1091,11 +899,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-            timestampString = "523976285.67733"
+            timestampString = "524055660.115381"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1238"
-            endingLineNumber = "1238"
+            startingLineNumber = "1228"
+            endingLineNumber = "1228"
             landmarkName = "-didClickPushdeliveryId:deliveryName:deliveryPhone:Index:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1107,59 +915,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-            timestampString = "523973880.418212"
+            timestampString = "524055660.115381"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1097"
-            endingLineNumber = "1097"
-            landmarkName = "-sendTitle:businessServicType:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Order/Views/ZFFooterCell.m"
-            timestampString = "523969535.562034"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "-cancel_buttonAction"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Order/Views/ZFFooterCell.m"
-            timestampString = "523973880.418212"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "-payfor_buttonAction"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-            timestampString = "523969594.716816"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "674"
-            endingLineNumber = "674"
+            startingLineNumber = "663"
+            endingLineNumber = "663"
             landmarkName = "-tableView:viewForFooterInSection:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1171,11 +931,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-            timestampString = "523974202.491406"
+            timestampString = "524055660.115381"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "679"
-            endingLineNumber = "679"
+            startingLineNumber = "668"
+            endingLineNumber = "668"
             landmarkName = "-tableView:viewForFooterInSection:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1187,11 +947,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-            timestampString = "523977649.163278"
+            timestampString = "524055660.115381"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1131"
-            endingLineNumber = "1131"
+            startingLineNumber = "1120"
+            endingLineNumber = "1120"
             landmarkName = "-cancelOrderActionbyOrderNum:orderStatus:payStatus:deliveryId:indexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1203,12 +963,284 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-            timestampString = "523977667.8521"
+            timestampString = "524055660.115381"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1181"
-            endingLineNumber = "1181"
+            startingLineNumber = "1171"
+            endingLineNumber = "1171"
             landmarkName = "-sendOrdersActionOrderId:totalPrice:indexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Mine/ZFDetailOrderViewController.m"
+            timestampString = "524037423.862851"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
+            landmarkName = "-getOrderDetailsInfoPostResquestcmOrderid:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ZFDetailOrderViewController getOrderDetailsInfoPostResquestcmOrderid:]"
+                  moduleName = "ZFB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/ZFDetailOrderViewController.m"
+                  timestampString = "524062809.334343"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "331"
+                  endingLineNumber = "331"
+                  offsetFromSymbolStart = "176">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__72-[ZFDetailOrderViewController getOrderDetailsInfoPostResquestcmOrderid:]_block_invoke"
+                  moduleName = "ZFB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/ZFDetailOrderViewController.m"
+                  timestampString = "524062809.336126"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "333"
+                  endingLineNumber = "333"
+                  offsetFromSymbolStart = "86">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/PayController/ZFMainPayforViewController.m"
+            timestampString = "524041201.732079"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "-getPaypaySignAccessTokenUrl"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Mine/ZFDetailOrderViewController.m"
+            timestampString = "524050847.150119"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
+            landmarkName = "-getOrderDetailsInfoPostResquestcmOrderid:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__72-[ZFDetailOrderViewController getOrderDetailsInfoPostResquestcmOrderid:]_block_invoke"
+                  moduleName = "ZFB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/ZFDetailOrderViewController.m"
+                  timestampString = "524062809.343891"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "350"
+                  endingLineNumber = "350"
+                  offsetFromSymbolStart = "1080">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__72-[ZFDetailOrderViewController getOrderDetailsInfoPostResquestcmOrderid:]_block_invoke"
+                  moduleName = "ZFB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/ZFDetailOrderViewController.m"
+                  timestampString = "524062809.345849"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "350"
+                  endingLineNumber = "350"
+                  offsetFromSymbolStart = "1088">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Mine/ZFDetailOrderViewController.m"
+            timestampString = "524050847.150119"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
+            landmarkName = "-getOrderDetailsInfoPostResquestcmOrderid:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Mine/ZFDetailOrderViewController.m"
+            timestampString = "524050847.150119"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
+            landmarkName = "-getOrderDetailsInfoPostResquestcmOrderid:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/PayController/ZFMainPayforViewController.m"
+            timestampString = "524041201.732079"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "-webViewDidFinishLoad:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/PayController/ZFMainPayforViewController.m"
+            timestampString = "524040405.464244"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "-webViewDidFinishLoad:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Home/Controllers/ZFAllStoreViewController.m"
+            timestampString = "524050847.150119"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "-allStorePostRequstAndbusinessType:orderBydisc:orderbylikeNum:nearBydisc:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ZFAllStoreViewController allStorePostRequstAndbusinessType:orderBydisc:orderbylikeNum:nearBydisc:]"
+                  moduleName = "ZFB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Home/Controllers/ZFAllStoreViewController.m"
+                  timestampString = "524062809.364978"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "237"
+                  endingLineNumber = "237"
+                  offsetFromSymbolStart = "886">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__100-[ZFAllStoreViewController allStorePostRequstAndbusinessType:orderBydisc:orderbylikeNum:nearBydisc:]_block_invoke"
+                  moduleName = "ZFB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Home/Controllers/ZFAllStoreViewController.m"
+                  timestampString = "524062809.366912"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "239"
+                  endingLineNumber = "239"
+                  offsetFromSymbolStart = "86">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Home/Controllers/ZFAllStoreViewController.m"
+            timestampString = "524050847.150119"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "-CDsyceleSettingRunningPaintWithArray:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Home/Controllers/DetailFindGoodsViewController.m"
+            timestampString = "524050847.150119"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "880"
+            endingLineNumber = "880"
+            landmarkName = "-goodsDetailListPostRequset"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Home/FindStoreViewController.m"
+            timestampString = "524052481.246335"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "-headerRefresh"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

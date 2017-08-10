@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 
 @property (nonatomic, assign) RefreshType refreshType;
 @property (nonatomic, assign) NSInteger currentPage;
-@property (nonatomic, strong) UITableView *zfb_tableView;
+@property (nonatomic, strong) UITableView * zfb_tableView;
 
 
 /**

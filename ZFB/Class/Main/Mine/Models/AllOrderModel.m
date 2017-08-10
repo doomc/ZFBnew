@@ -9,8 +9,6 @@
 #import "AllOrderModel.h"
 
 @implementation AllOrderModel
-
-
  
 
 + (NSDictionary *)objectClassInArray{
@@ -29,11 +27,6 @@
 
 
 @implementation Ordergoods
-
-@end
-
-
-@implementation Goods_Properties
 
 @end
 

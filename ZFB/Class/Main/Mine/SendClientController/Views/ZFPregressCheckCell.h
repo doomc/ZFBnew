@@ -10,5 +10,7 @@
 
 @interface ZFPregressCheckCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *lb_status;
+@property (weak, nonatomic) IBOutlet UILabel *lb_applyTime;
+@property (weak, nonatomic) IBOutlet UILabel *lb_serviceNum;
 
 @end

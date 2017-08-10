@@ -1,58 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="79" id="KGk-i7-Jjw" customClass="ZFPregressCheckCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="91" id="KGk-i7-Jjw" customClass="ZFPregressCheckCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务单号：123010230123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Tt-b8-fbD">
-                        <rect key="frame" x="15" y="10" width="146" height="18"/>
+                        <rect key="frame" x="15" y="10" width="290" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="申请时间：2014-2-2 12：12：12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrz-LA-JUX">
-                        <rect key="frame" x="15" y="33" width="182" height="17.5"/>
+                        <rect key="frame" x="15" y="35" width="290" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前状态：服务完成" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GG8-Ka-wCp">
-                        <rect key="frame" x="15" y="55.5" width="138" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="15" y="60" width="129" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="mrz-LA-JUX" secondAttribute="bottom" constant="20" id="0Zt-an-RNr"/>
-                    <constraint firstItem="GG8-Ka-wCp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="CHo-Zy-RTD"/>
-                    <constraint firstItem="0Tt-b8-fbD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Hyf-Z7-8ox"/>
-                    <constraint firstItem="GG8-Ka-wCp" firstAttribute="top" secondItem="mrz-LA-JUX" secondAttribute="bottom" constant="5" id="NQa-Hs-ZVU"/>
-                    <constraint firstItem="mrz-LA-JUX" firstAttribute="top" secondItem="0Tt-b8-fbD" secondAttribute="bottom" constant="5" id="Rro-9a-dkq"/>
-                    <constraint firstItem="0Tt-b8-fbD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="qqF-ao-wej"/>
-                    <constraint firstItem="mrz-LA-JUX" firstAttribute="height" secondItem="0Tt-b8-fbD" secondAttribute="height" id="s3w-qX-GWe"/>
-                    <constraint firstItem="mrz-LA-JUX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="yXE-a9-qkF"/>
+                    <constraint firstItem="mrz-LA-JUX" firstAttribute="top" secondItem="0Tt-b8-fbD" secondAttribute="bottom" constant="10" id="2GP-4h-atl"/>
+                    <constraint firstItem="GG8-Ka-wCp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="N61-C1-xZ3"/>
+                    <constraint firstItem="mrz-LA-JUX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="YZC-cH-8gc"/>
+                    <constraint firstItem="0Tt-b8-fbD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Ypf-BI-3Vk"/>
+                    <constraint firstItem="0Tt-b8-fbD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="gMf-fo-JCa"/>
+                    <constraint firstItem="GG8-Ka-wCp" firstAttribute="top" secondItem="mrz-LA-JUX" secondAttribute="bottom" constant="10" id="kkF-UA-q3E"/>
+                    <constraint firstAttribute="trailing" secondItem="mrz-LA-JUX" secondAttribute="trailing" constant="15" id="pPf-qA-woU"/>
+                    <constraint firstAttribute="trailing" secondItem="0Tt-b8-fbD" secondAttribute="trailing" constant="15" id="q0i-Ld-ZxR"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="lb_applyTime" destination="mrz-LA-JUX" id="EwJ-iP-UeO"/>
+                <outlet property="lb_serviceNum" destination="0Tt-b8-fbD" id="R6M-f1-zB1"/>
                 <outlet property="lb_status" destination="GG8-Ka-wCp" id="pOd-Qs-pGY"/>
             </connections>
-            <point key="canvasLocation" x="-360" y="77"/>
+            <point key="canvasLocation" x="-452" y="38.5"/>
         </tableViewCell>
     </objects>
 </document>

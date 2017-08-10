@@ -28,7 +28,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     NSString *latitudestr;//经度
     NSString *longitudestr;//纬度
     
-    
+    NSInteger totalCount;//总条数
 }
 @property (strong,nonatomic) UITableView * home_tableView;
 @property (strong,nonatomic) UIView * sectionView;
@@ -46,17 +46,27 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     // Do any additional setup after loading the view.
     
  
-    //刷新定位
-    [self LocationMapManagerInit];
- 
+
     [self initWithHome_Tableview];
     
     [self initInTerfaceView];
    
-    [self PostRequst];
-    //定位成功后请求
-    [self setupRefresh];
+    //主队列+异步任务
+    dispatch_queue_t queue = dispatch_get_main_queue();
+    //刷新定位
+    [self LocationMapManagerInit];
     
+    dispatch_async(queue,^{
+        
+        NSLog(@"%@ ",[NSThread currentThread]);
+            //定位成功后请求
+        [self PostRequst];
+        
+    });
+
+    [self setupRefresh];
+
+
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
@@ -333,6 +343,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         if ([response[@"resultCode"] intValue] == 0) {
             
             if (self.refreshType == RefreshTypeHeader) {
+             
                 if (self.storeListArr.count > 0) {
                     
                     [self.storeListArr removeAllObjects];
@@ -340,6 +351,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                 }
             }
             HomeStoreListModel * homeStore = [HomeStoreListModel mj_objectWithKeyValues:response];
+            totalCount = homeStore.totalCount;
             
             for (Findgoodslist  * goodlist in homeStore.storeInfoList.findGoodsList) {
       
@@ -353,7 +365,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         }
         
         [self endRefresh];
-        
+
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);

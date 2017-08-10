@@ -39,6 +39,7 @@
 @property (nonatomic,assign) id <BusinessSendOrderViewDelegate>delegate;
 
 @property (nonatomic,strong) NSMutableArray *deliveryArray;
+@property (nonatomic,assign) NSInteger section;
 
 
 

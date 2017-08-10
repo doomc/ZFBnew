@@ -65,11 +65,10 @@
 @property (nonatomic, copy) NSString *payStatusName;
 
 @property (nonatomic, copy) NSString *post_address;
+
 @property (nonatomic, copy) NSString *post_phone;
+
 @property (nonatomic, copy) NSString *post_name;
- 
-
-
 
 
 @end
@@ -84,7 +83,7 @@
 
 @property (nonatomic, copy) NSString *priceUnit;
 
-@property (nonatomic, copy) NSString *goodsCount;
+@property (nonatomic, assign) NSInteger  goodsCount;
 
 @property (nonatomic, copy) NSString *store_price;
 
