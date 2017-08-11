@@ -1,15 +1,15 @@
 //
-//  BusinessSendOrderView.m
+//  SalesAfterPopView.m
 //  ZFB
 //
 //  Created by 熊维东 on 2017/7/29.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //  自定义派单
 
-#import "BusinessSendOrderView.h"
+#import "SalesAfterPopView.h"
 #import "BusinessSendoOrderCell.h"
-#import "DeliveryModel.h"
-@interface BusinessSendOrderView ()<UITableViewDelegate,UITableViewDataSource>
+
+@interface SalesAfterPopView ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSInteger  indexpathRow;
 }
@@ -25,7 +25,7 @@
 @property (nonatomic , strong) UITableView * alertTableView;
 
 @end
-@implementation BusinessSendOrderView
+@implementation SalesAfterPopView
 
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -154,7 +154,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.deliveryArray.count;
+    return 4;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -182,7 +182,6 @@
     //需要配送员信息，姓名电话什么的
     Deliverylist * list = self.deliveryArray[indexPath.row];
     indexpathRow = indexPath.row;
-    
     self.lb_SendArea.text =[NSString stringWithFormat:@"派送区域:%@",list.deliveryArea];
 
 }
@@ -190,22 +189,12 @@
 -(void)closePopViewAction:(UIButton * )sender
 {
     NSLog(@"取消 ----");
-    if ([self.delegate respondsToSelector:@selector(cancelAction)]) {
-        [self.delegate cancelAction];
-    }
+
  
 }
-///确定派单
 -(void)didClickSureAction:(UIButton *)sender
 {
-    Deliverylist * list = self.deliveryArray[indexpathRow];
-    if ([self.delegate respondsToSelector:@selector(didClickPushdeliveryId:deliveryName:deliveryPhone:Index:)]) {
-            [self.delegate didClickPushdeliveryId:[NSString stringWithFormat:@"%ld",list.deliveryId]
-                                     deliveryName:list.deliveryName
-                                    deliveryPhone:list.deliveryPhone
-                                            Index:indexpathRow];
-        }
- 
+    
     NSLog(@"确定");
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

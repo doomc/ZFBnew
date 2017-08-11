@@ -72,11 +72,11 @@
     CGFloat height =  0;
     if (indexPath.section == 0) {
      
-        height  = 86;
+        height  = 92;
         
     }else{
         
-        height  = 64;
+        height  = 76;
     }
 
     return height;

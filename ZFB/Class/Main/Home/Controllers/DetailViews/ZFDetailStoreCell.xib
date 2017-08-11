@@ -1,52 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="gTV-IL-0wX" customClass="ZFDetailStoreCell">
-            <rect key="frame" x="0.0" y="0.0" width="137" height="156"/>
+            <rect key="frame" x="0.0" y="0.0" width="137" height="218"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="137" height="156"/>
+                <rect key="frame" x="0.0" y="0.0" width="137" height="218"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UR9-B3-O6m">
-                        <rect key="frame" x="0.0" y="0.0" width="137" height="156"/>
+                        <rect key="frame" x="0.0" y="0.0" width="137" height="218"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PTX-ba-b4h">
-                                <rect key="frame" x="8" y="8" width="121" height="100"/>
+                                <rect key="frame" x="8" y="8" width="121" height="140"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="z4F-TK-xu7"/>
+                                    <constraint firstAttribute="height" constant="140" id="z4F-TK-xu7"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="蜗牛多效" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ao0-jE-LpQ">
-                                <rect key="frame" x="8" y="116" width="49.5" height="14.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="蜗牛多效蜗牛多效蜗牛多效蜗牛多" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ao0-jE-LpQ">
+                                <rect key="frame" x="8" y="156" width="124" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="wIY-au-PoZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="129ml" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FE6-63-f9c">
-                                <rect key="frame" x="8" y="131.5" width="34" height="14.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="textColor"/>
+                                <rect key="frame" x="8" y="192" width="39" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.50553816559999998" green="0.81836944820000002" blue="0.93576711420000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="PTX-ba-b4h" firstAttribute="leading" secondItem="UR9-B3-O6m" secondAttribute="leading" constant="8" id="8rr-Pc-0V7"/>
                             <constraint firstAttribute="trailing" secondItem="PTX-ba-b4h" secondAttribute="trailing" constant="8" id="ASD-4S-ex8"/>
                             <constraint firstItem="ao0-jE-LpQ" firstAttribute="top" secondItem="PTX-ba-b4h" secondAttribute="bottom" constant="8" id="DCD-7Y-cZF"/>
                             <constraint firstItem="ao0-jE-LpQ" firstAttribute="leading" secondItem="UR9-B3-O6m" secondAttribute="leading" constant="8" id="OJE-hp-br6"/>
+                            <constraint firstAttribute="trailing" secondItem="ao0-jE-LpQ" secondAttribute="trailing" constant="5" id="eP9-oW-Fjb"/>
                             <constraint firstItem="FE6-63-f9c" firstAttribute="leading" secondItem="UR9-B3-O6m" secondAttribute="leading" constant="8" id="gfZ-oh-Sdg"/>
                             <constraint firstItem="PTX-ba-b4h" firstAttribute="top" secondItem="UR9-B3-O6m" secondAttribute="top" constant="8" id="rJL-dW-l37"/>
                             <constraint firstItem="FE6-63-f9c" firstAttribute="top" secondItem="ao0-jE-LpQ" secondAttribute="bottom" constant="1" id="xiP-tM-nlh"/>
@@ -60,14 +64,14 @@
                 <constraint firstItem="UR9-B3-O6m" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="AE9-sk-ufw"/>
                 <constraint firstItem="UR9-B3-O6m" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="GUP-fz-Lxq"/>
             </constraints>
-            <size key="customSize" width="137" height="156"/>
+            <size key="customSize" width="137" height="217"/>
             <connections>
                 <outlet property="Store_Bgview" destination="UR9-B3-O6m" id="ELt-xl-EHE"/>
                 <outlet property="img_storeImageView" destination="PTX-ba-b4h" id="JFK-2M-nZh"/>
                 <outlet property="lb_Storetitle" destination="ao0-jE-LpQ" id="HjR-fE-6gs"/>
                 <outlet property="lb_price" destination="FE6-63-f9c" id="HdL-dA-Scg"/>
             </connections>
-            <point key="canvasLocation" x="-279.5" y="-99"/>
+            <point key="canvasLocation" x="-279.5" y="-68.5"/>
         </collectionViewCell>
     </objects>
 </document>

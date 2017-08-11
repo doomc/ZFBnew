@@ -63,13 +63,19 @@
     
     CLLocationManager *locationmanager;//定位服务
     NSString *currentCity;//当前城市
-    NSString *strlatitude;//经度
-    NSString *strlongitude;//纬度
+    NSString *_strlatitude;//经度
+    NSString *_strlongitude;//纬度
     
     NSInteger _pageCount;//每页显示条数
     NSInteger _page;//当前页码;
     NSInteger _currentSection;//当前分区;
+    
+    NSString *currentCityAndStreet;//当前城市
+    NSString *latitudestr;//经度
+    NSString *longitudestr;//纬度
+
 }
+@property (nonatomic,strong) CLLocationManager * locationManager;
 
 @property (nonatomic , strong) UITableView * homeTableView;
 
@@ -1435,12 +1441,11 @@
 {
     
     NSDictionary * param = @{
-                             @"longitude":strlongitude,
-                             @"latitude":strlatitude,
+//                             @"longitude":_strlongitude,
+//                             @"latitude":_strlatitude,
 
-//                             @"longitude":@"106.502677",
-//                             @"latitude":@"29.602122",
- 
+                             @"longitude":@"106.496649",
+                             @"latitude":@"29.614969",
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/selectDeliveryList",zfb_baseUrl] params:param success:^(id response) {
@@ -1474,42 +1479,45 @@
 }
 
 
-#pragma mark - 获取经纬度
-//开始定位
-- (void)startLocation {
+#pragma mark  - 定位当前
+/**定位当前 */
+-(void)LocationMapManagerInit
+{
     //判断定位功能是否打开
     if ([CLLocationManager locationServicesEnabled]) {
-        locationmanager          = [[CLLocationManager alloc]init];
-        locationmanager.delegate = self;
-        currentCity = [NSString new];
-        [locationmanager requestWhenInUseAuthorization];
+        
+        _locationManager = [[CLLocationManager alloc]init];
+        _locationManager.distanceFilter = 200;
+        _locationManager.delegate = self;
+        [_locationManager requestWhenInUseAuthorization];
         
         //设置寻址精度
-        locationmanager.desiredAccuracy = kCLLocationAccuracyBest;
-        locationmanager.distanceFilter  = 5.0;
-        [locationmanager startUpdatingLocation];
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        _locationManager.distanceFilter = 5.0;
+        [_locationManager startUpdatingLocation];
     }
+    
+}
+#pragma mark CoreLocation delegate (定位失败)
+//定位失败后调用此代理方法
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    [self.view makeToast:[NSString stringWithFormat:@"%@",error] duration:2 position:@"center"];
+    
 }
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    //设置提示提醒用户打开定位服务
-    [self.view makeToast:[NSString stringWithFormat:@"%@",error] duration:2 position:@"center"];
- 
-}
-//定位代理经纬度回调
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+#pragma mark 定位成功后则执行此代理方法
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    [_locationManager stopUpdatingLocation];
     
     //旧址
     CLLocation *currentLocation = [locations lastObject];
-    
     //打印当前的经度与纬度
     NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
-    
-    strlatitude  = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
-    strlongitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
-    
-    //系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新
-    [manager stopUpdatingLocation];
+    latitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
+    longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
+ 
     
 }
 
@@ -1532,7 +1540,7 @@
     [self storeHomePagePostRequst];
     
     //获取定位
-    [self startLocation];
+    [self LocationMapManagerInit];
     
 }
 

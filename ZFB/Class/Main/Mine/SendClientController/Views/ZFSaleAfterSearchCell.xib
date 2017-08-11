@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,8 +18,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="318" height="55"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JZr-2G-KQc">
-                        <rect key="frame" x="20" y="9.5" width="278" height="36"/>
+                    <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JZr-2G-KQc">
+                        <rect key="frame" x="20" y="10" width="233" height="36"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="订单编号、商品名称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r37-7s-5pW">
                                 <rect key="frame" x="10" y="3" width="213" height="30"/>
@@ -30,37 +30,43 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="searchaa.png" translatesAutoresizingMaskIntoConstraints="NO" id="nls-Fn-Kir">
-                                <rect key="frame" x="233" y="3" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="GLT-I3-ZJO"/>
-                                    <constraint firstAttribute="height" constant="30" id="haY-Tv-Kca"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="height" constant="36" id="PN1-z4-nBN"/>
                             <constraint firstItem="r37-7s-5pW" firstAttribute="leading" secondItem="JZr-2G-KQc" secondAttribute="leading" constant="10" id="Ro1-lM-ZzJ"/>
-                            <constraint firstItem="nls-Fn-Kir" firstAttribute="leading" secondItem="r37-7s-5pW" secondAttribute="trailing" constant="10" id="j2Z-Pf-sb5"/>
                             <constraint firstItem="r37-7s-5pW" firstAttribute="centerY" secondItem="JZr-2G-KQc" secondAttribute="centerY" id="uAr-O7-Dpi"/>
-                            <constraint firstAttribute="trailing" secondItem="nls-Fn-Kir" secondAttribute="trailing" constant="15" id="uyH-TN-yD8"/>
-                            <constraint firstItem="nls-Fn-Kir" firstAttribute="centerY" secondItem="r37-7s-5pW" secondAttribute="centerY" id="vx5-2B-BJb"/>
+                            <constraint firstAttribute="trailing" secondItem="r37-7s-5pW" secondAttribute="trailing" constant="10" id="ylo-3R-Mjk"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8b-85-oeQ">
+                        <rect key="frame" x="263" y="8.5" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="Boz-RP-PVP"/>
+                            <constraint firstAttribute="height" constant="40" id="QGR-dD-P9A"/>
+                        </constraints>
+                        <state key="normal" image="searchaa.png"/>
+                        <connections>
+                            <action selector="searchBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="B7o-Xe-3Rb"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="JZr-2G-KQc" secondAttribute="trailing" constant="20" id="Dmv-J9-HD1"/>
+                    <constraint firstItem="c8b-85-oeQ" firstAttribute="leading" secondItem="JZr-2G-KQc" secondAttribute="trailing" constant="10" id="Ekn-VX-j4S"/>
+                    <constraint firstAttribute="trailing" secondItem="c8b-85-oeQ" secondAttribute="trailing" constant="15" id="Gvd-mC-bHa"/>
                     <constraint firstItem="JZr-2G-KQc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="My5-pJ-5cs"/>
                     <constraint firstItem="JZr-2G-KQc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="iqZ-DD-Be3"/>
+                    <constraint firstItem="c8b-85-oeQ" firstAttribute="centerY" secondItem="r37-7s-5pW" secondAttribute="centerY" id="kom-Ps-zaN"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="bgViewCorner" destination="JZr-2G-KQc" id="gNE-Sy-Q84"/>
+                <outlet property="searchBtn" destination="c8b-85-oeQ" id="U8J-S1-huD"/>
+                <outlet property="tf_search" destination="r37-7s-5pW" id="Hqf-hs-r46"/>
             </connections>
             <point key="canvasLocation" x="33" y="19.5"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="searchaa.png" width="16" height="16"/>
+        <image name="searchaa.png" width="29" height="29"/>
     </resources>
 </document>

@@ -11,6 +11,7 @@
 #import "FeedTextViewCell.h"
 #import "FeedPickerTableViewCell.h"
 #import "FeedTypeTableViewCell.h"
+
 @interface ZFCommitOpinionViewController () <UITableViewDataSource,UITableViewDelegate,FeedPickerTableViewCellDelegate,QBImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate,FeedTypeTableViewCellDelegate>
 
 @property (nonatomic,strong) UITableView  * tableView;
@@ -35,7 +36,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
     
     [self.tableView registerNib:[UINib nibWithNibName:@"FeedTypeTableViewCell" bundle:nil] forCellReuseIdentifier:@"FeedTypeTableViewCellid"];
 

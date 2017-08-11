@@ -1,55 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="48" id="KGk-i7-Jjw" customClass="ZFSaleAfterHeadCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="KGk-i7-Jjw" customClass="ZFSaleAfterHeadCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单编号：12314124124124124" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXq-ch-5Gy">
-                        <rect key="frame" x="15" y="5" width="177" height="19.5"/>
+                        <rect key="frame" x="15" y="10" width="203" height="19.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="5Vd-u3-Owi"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下单时间：2017-5-5 16：23：24：12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6wi-ht-dp0">
-                        <rect key="frame" x="15" y="24.5" width="211" height="20"/>
+                        <rect key="frame" x="15" y="34.5" width="243" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="m4f-EU-e8Z"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="完成" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1D-lN-TtK">
-                        <rect key="frame" x="280" y="7.5" width="25" height="14.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <rect key="frame" x="276" y="11.5" width="29" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.99607843137254903" green="0.42745098039215684" blue="0.41568627450980389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdo-g2-ERC">
+                        <rect key="frame" x="0.0" y="63.5" width="320" height="0.5"/>
+                        <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="Bt4-OM-fcF"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="6wi-ht-dp0" firstAttribute="top" secondItem="KXq-ch-5Gy" secondAttribute="bottom" id="PNj-UK-puQ"/>
+                    <constraint firstItem="6wi-ht-dp0" firstAttribute="top" secondItem="KXq-ch-5Gy" secondAttribute="bottom" constant="5" id="1uq-yA-oVR"/>
+                    <constraint firstAttribute="bottom" secondItem="kdo-g2-ERC" secondAttribute="bottom" id="2sy-cD-WK3"/>
+                    <constraint firstAttribute="trailing" secondItem="kdo-g2-ERC" secondAttribute="trailing" id="EKM-OI-xrw"/>
+                    <constraint firstItem="kdo-g2-ERC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="XBd-fB-NNW"/>
                     <constraint firstAttribute="trailing" secondItem="E1D-lN-TtK" secondAttribute="trailing" constant="15" id="bim-gJ-TZv"/>
                     <constraint firstItem="KXq-ch-5Gy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="mvY-8t-duO"/>
                     <constraint firstItem="6wi-ht-dp0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="qQX-Z9-PGZ"/>
                     <constraint firstItem="E1D-lN-TtK" firstAttribute="centerY" secondItem="KXq-ch-5Gy" secondAttribute="centerY" id="w5g-nB-cYU"/>
-                    <constraint firstItem="KXq-ch-5Gy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="zdc-le-wLH"/>
+                    <constraint firstItem="KXq-ch-5Gy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="zdc-le-wLH"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,7 +71,7 @@
                 <outlet property="lb_orderCode" destination="KXq-ch-5Gy" id="bfB-uT-8hG"/>
                 <outlet property="lb_status" destination="E1D-lN-TtK" id="6gz-xq-fAM"/>
             </connections>
-            <point key="canvasLocation" x="40" y="97"/>
+            <point key="canvasLocation" x="40" y="105.5"/>
         </tableViewCell>
     </objects>
 </document>

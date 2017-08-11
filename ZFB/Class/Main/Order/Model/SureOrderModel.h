@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) NSArray<Storedeliveryfeelist *> *storeDeliveryfeeList;
 
-@property (nonatomic, assign) NSInteger goodsCount;
+@property (nonatomic, assign) CGFloat goodsCount;
 
 @property (nonatomic, assign) CGFloat costNum;
 

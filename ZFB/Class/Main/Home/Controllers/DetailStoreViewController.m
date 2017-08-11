@@ -47,7 +47,7 @@
  
     
     [self CreatCollctionViewInterface];
-    
+    [self sd_HeadScrollViewInit];
 }
 
 /**
@@ -76,7 +76,6 @@
     _sd_HeadScrollView.pageDotImage = [UIImage imageNamed:@"dot_selected"];
     _sd_HeadScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
     _sd_HeadScrollView.placeholderImage = [UIImage imageNamed:@"placeholder"];
-    
     
 }
 
@@ -152,7 +151,7 @@
 //设置每个item的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake( (KScreenW -30-20-20)*0.5 , 150);
+    return CGSizeMake( (KScreenW -30-20-20)*0.5 , 218);
 }
 
 //设置每个item的UIEdgeInsets
@@ -226,7 +225,8 @@
 {
     NSDictionary * parma = @{
                              
-                              @"storeId":_storeId,//门店id
+                             @"storeId":_storeId,//门店id
+                             @"userId":BBUserDefault.cmUserId,//门店id
                              
                              };
     
@@ -262,12 +262,13 @@
 
             [SVProgressHUD dismiss];
             
-            [self sd_HeadScrollViewInit];
             
-            [self.main_ColletionView reloadData];
 
         }
-        
+        [self sd_HeadScrollViewInit];
+
+        [self.main_ColletionView reloadData];
+
 
     } progress:^(NSProgress *progeress) {
         

@@ -25,8 +25,8 @@
 ///申请售后
 -(void)saleAfter_btnAction:(UIButton *)sender
 {
-    if ([self.delegate respondsToSelector:@selector(salesAfterDetailPage)]) {
-        [self.delegate salesAfterDetailPage];
+    if ([self.delegate respondsToSelector:@selector(salesAfterDetailPageWithIndexPath:)]) {
+        [self.delegate salesAfterDetailPageWithIndexPath:_indexPath];
     }
 }
 //set
@@ -34,10 +34,11 @@
 {
     _goods = goods;
     
-    self.lb_goodcount.text = [NSString stringWithFormat:@"数量x%ld%@",_goods.goodsCount, _goods.goodsUnit];
-    self.lb_title.text =  _goods.goods_name;
+    self.lb_goodcount.text = [NSString stringWithFormat:@"数量x%ld",goods.goodsCount];
+    self.lb_title.text =  goods.goods_name;
+    [self.img_saleAfter sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:nil];
+    NSLog(@"图片地址 ====== %@",goods.coverImgUrl);
     
-    [self.img_saleAfter sd_setImageWithURL:[NSURL URLWithString:_goods.coverImgUrl] placeholderImage:nil];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

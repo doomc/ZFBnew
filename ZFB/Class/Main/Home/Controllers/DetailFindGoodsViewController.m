@@ -392,7 +392,7 @@ WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler
         UITableViewCell  * custopmCell = [self.list_tableView dequeueReusableCellWithIdentifier:custopmCellID];
         if (!custopmCell) {
             custopmCell                 = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:custopmCellID];
-            custopmCell.backgroundColor = randomColor;
+//            custopmCell.backgroundColor = randomColor;
         }
         UIWebView * webview = [[UIWebView alloc]initWithFrame:custopmCell.bounds];
         [webview loadHTMLString:_goodsDetail baseURL:nil];

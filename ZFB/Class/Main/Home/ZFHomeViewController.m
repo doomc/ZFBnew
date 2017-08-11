@@ -133,24 +133,7 @@
 
 
 }
-//-(void)DidClickSearchBarAction:(UIButton*)sender
-//{
-//
-//    
-// 
-//    ZFSearchBarViewController  * sVC = [ZFSearchBarViewController new];
-//        
-//    
-//    BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:sVC];
-//    
-//    [self.navigationController presentViewController:nav animated:NO completion:^{
-//            
-//        }];
-// 
-// 
-//    NSLog(@"clickAction2");
-//
-//}
+ 
 /**
  扫一扫事件 、  摇一摇  、
  */

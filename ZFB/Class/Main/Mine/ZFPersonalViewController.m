@@ -12,7 +12,7 @@
 #import "ZFMyProgressCell.h"
 #import "ZFMyOderCell.h"
 
-#import "ZFAppySalesReturnViewController.h"
+//VC
 #import "ZFSendSerViceViewController.h"
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
@@ -229,9 +229,18 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         ZFMyOderCell * orderCell           = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
         orderCell.selectionStyle           = UITableViewCellSelectionStyleNone;
         orderCell.order_imgicon.image =[UIImage imageNamed:@"switchover_icon"];
-        orderCell.order_title.text         = @"切换到配送端";
         orderCell.order_hiddenTitle.hidden = YES;
+
+        if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
+          orderCell.order_title.text         = @"切换到商户端";
+        
+        }
+        if ([_courierFlag isEqualToString:@"1"]) {//配送端
+            orderCell.order_title.text         = @"切换到配送端";
+
+        }
         return orderCell;
+
     }
     else{
         ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
@@ -266,7 +275,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 
 //
 
-        }if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
+        }
+        if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
 //            配送端
             ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
             [self.navigationController pushViewController:sendVC animated:YES];
@@ -347,9 +357,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         orderVC.buttonTitle = @"售后申请";
         [self.navigationController pushViewController:orderVC animated:YES];
             
-//        ZFAppySalesReturnViewController * saleVC = [[ZFAppySalesReturnViewController alloc]init];
-//        [self.navigationController pushViewController:saleVC animated:YES];
-        
+
     }else{
         [self isloginSuccess];
 

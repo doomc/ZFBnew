@@ -10,7 +10,7 @@
 #import "AllOrderModel.h"
 @protocol ZFSaleAfterContentCellDelegate <NSObject>
 
--(void)salesAfterDetailPage;
+-(void)salesAfterDetailPageWithIndexPath:(NSIndexPath* )indexPath;
 
 
 @end
@@ -23,7 +23,8 @@
 
 @property (nonatomic,assign) id <ZFSaleAfterContentCellDelegate> delegate;
 
-@property (strong,nonatomic) Orderlist * list ;
 @property (strong,nonatomic) Ordergoods * goods ;
+
+@property (strong,nonatomic) NSIndexPath * indexPath ;
 
 @end
