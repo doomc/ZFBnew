@@ -125,7 +125,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
  */
 -(void)initWithHome_Tableview
 {
-    
+
     self.home_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -49-64-44) style:UITableViewStylePlain];
     self.home_tableView.delegate = self;
     self.home_tableView.dataSource = self;
@@ -140,19 +140,19 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 {
     if (!_sectionView) {
         _sectionView =[[UIView alloc] initWithFrame:CGRectMake(30, 0,KScreenW, 40)];
-        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(35, 0, 100, 35)];
+        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 100, 35)];
         _sectionView.backgroundColor = HEXCOLOR(0xffcccc);
         labelTitle.textAlignment = NSTextAlignmentLeft;
         labelTitle.text = @"附近门店";
         labelTitle.textColor = HEXCOLOR(0x363636);
-        labelTitle.font =[ UIFont systemFontOfSize:12];
+        labelTitle.font =[ UIFont systemFontOfSize:14];
         [_sectionView addSubview:labelTitle];
         
         UIButton * more_btn = [UIButton buttonWithType:UIButtonTypeSystem];
         [more_btn addTarget:self action:@selector(more_btnAction:) forControlEvents:UIControlEventTouchUpInside];
         more_btn.frame =CGRectMake( KScreenW - 40 , 0, 40, 35);
         [more_btn setTitle:@"更多" forState:UIControlStateNormal];
-        more_btn.titleLabel.font = [UIFont systemFontOfSize:12];
+        more_btn.titleLabel.font = [UIFont systemFontOfSize:14];
         [more_btn setTitleColor: HEXCOLOR(0xfa6d6a) forState:UIControlStateNormal];
         [_sectionView addSubview:more_btn];
         

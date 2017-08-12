@@ -9,9 +9,13 @@
 #import "ZFApplyBackgoodsViewController.h"
 //vc
 #import "ZFBackWaysViewController.h"//确认退回的信息VC
+//view
+#import "SalesAfterPopView.h"//弹框选择退货原因
+#import "PlaceholderTextView.h"
 
-@interface ZFApplyBackgoodsViewController ()
+@interface ZFApplyBackgoodsViewController ()<SalesAfterPopViewDelegate,UIScrollViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *img_view;//商品图片
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;//商品名字
 @property (weak, nonatomic) IBOutlet UILabel *lb_goosPrice;//价格
@@ -21,25 +25,67 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_goodsReturnMoney;//返回原退款
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_chooseResult;//请选择结果
-@property (weak, nonatomic) IBOutlet UITextView *tv_descirption;//描述
+@property (weak, nonatomic) IBOutlet UIView * textBgView;//描述
 @property (weak, nonatomic) IBOutlet UIButton *didClickNextPage;//下一页
+
+@property (strong , nonatomic) SalesAfterPopView *selectReasonView;//选择原因
+@property (strong , nonatomic) UIView *popBackGView;//背景图
+@property (strong , nonatomic) PlaceholderTextView *textView;
+
 
 @end
 
 @implementation ZFApplyBackgoodsViewController
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
     [self initGoodsData];
+    [self InitPlaceholderTextView];
+}
+
+-(SalesAfterPopView *)selectReasonView
+{
+    if (!_selectReasonView) {
+        _selectReasonView = [[SalesAfterPopView alloc]initWithFrame:CGRectMake(20, 0, KScreenW - 40, 44 * 6 +40)];
+        _selectReasonView.center = self.view.center;
+        _selectReasonView.delegate = self;
+    }
+    return  _selectReasonView;
+}
+
+-(UIView *)popBackGView
+{
+    if (!_popBackGView) {
+        _popBackGView = [[UIView alloc]initWithFrame:self.view.bounds];
+        _popBackGView.backgroundColor = RGBA(0, 0, 0, 0.2);
+        [_popBackGView addSubview:self.selectReasonView];
+    }
+    return _popBackGView;
+}
+
+-(void)InitPlaceholderTextView
+{
+    _textView = [[PlaceholderTextView alloc]init];
+    _textView.frame = self.textBgView.bounds;
+    _textView.placeholderLabel.font = [UIFont systemFontOfSize:14];
+    _textView.placeholder = @"请输入文字...";
+    _textView.maxLength = 200;
+    _textView.font = [UIFont systemFontOfSize:14];
+    [self.textBgView  addSubview:_textView];
+    
+    [_textView didChangeText:^(PlaceholderTextView *textView) {
+        NSLog(@"%@",textView.text);
+    }];
+    
 
 }
 //初始化商品数据
 -(void)initGoodsData
 {
     self.title = @"申请退货";
+    self.mainScrollView.delegate = self;
     
     self.lb_title.text = _goodsName;
     self.lb_goosPrice.text = _price;
@@ -80,11 +126,35 @@
  @param sender 选择列表
  */
 - (IBAction)didClickChooseReason:(id)sender {
+    
+    [self.view addSubview:self.popBackGView];
+    
+}
+#pragma mark -  SalesAfterPopViewDelegate 选择原因
+//移除popView
+-(void)deletePopView
+{
+    [self.popBackGView removeFromSuperview];
+}
+-(void)getReasonString:(NSString *)reason{
+    
+    NSLog(@"%@",reason);
+    self.lb_chooseResult.text = reason;
+    [self.popBackGView removeFromSuperview];
+
+}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"取消隐藏");
+    [self setEditing:YES];
+    [self.popBackGView removeFromSuperview];
+//    [_textView resignFirstResponder];
+
 }
 
-
-
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

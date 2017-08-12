@@ -29,4 +29,5 @@
 @dynamic shopFlag;
 @dynamic courierFlag;
 
+@dynamic searchHistoryArray;
 @end

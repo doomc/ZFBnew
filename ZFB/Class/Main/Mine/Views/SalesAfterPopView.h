@@ -9,18 +9,19 @@
 #import <UIKit/UIKit.h>
 
 
-@protocol SalesAfterPopViewDelegate <NSObject>
+@protocol SalesAfterPopViewDelegate <NSObject> 
+@optional
+//移除popView
+-(void)deletePopView;
 
- 
+-(void)getReasonString:(NSString *)reason;
+
 
 @end
 @interface SalesAfterPopView : UIView
 
 @property (nonatomic,assign) id <SalesAfterPopViewDelegate> delegate;
 
-@property (nonatomic,strong) NSMutableArray *deliveryArray;
-
-@property (nonatomic,assign) NSInteger section;
 
 
 

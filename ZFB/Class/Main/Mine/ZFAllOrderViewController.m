@@ -15,8 +15,8 @@
 #import "ZFFooterCell.h"
 #import "ZFTitleCell.h"
 //view
-#import "ZFpopView.h"
-#import "ZFSaleAfterTopView.h"
+#import "ZFpopView.h"//选择类型弹框
+#import "ZFSaleAfterTopView.h"//选择售后类型
 //售后Cell
 #import "ZFSaleAfterHeadCell.h"
 #import "ZFSaleAfterContentCell.h"
@@ -333,8 +333,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
         case OrderTypeAfterSale:
             if (self.tagNum == 0) {
  
-            sectionNum = self.orderListArray.count + 1;
-                
+//            sectionNum = self.orderListArray.count + 1;
+                sectionNum = 2;
             }else{
                 
                 sectionNum = 1;
@@ -394,12 +394,13 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                     
                 }else{
                     
-                    Orderlist * orderlist       = self.orderListArray[section -1];
-                    NSMutableArray * saleArray = [NSMutableArray array];
-                    for (Ordergoods * goods in orderlist.orderGoods) {
-                        [saleArray addObject:goods];
-                    }
-                    rowNum = saleArray.count;
+//                    Orderlist * orderlist       = self.orderListArray[section -1];
+//                    NSMutableArray * saleArray = [NSMutableArray array];
+//                    for (Ordergoods * goods in orderlist.orderGoods) {
+//                        [saleArray addObject:goods];
+//                    }
+//                    rowNum = saleArray.count;
+                    rowNum = 3;
                     NSLog(@" ------rowNum-----%ld=========",rowNum);
                 }
                 
@@ -1600,6 +1601,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             if (self.tagNum == 0) {
                 
                 if (indexPath == 0) {
+                    
                 }
                 
             }else  if (self.tagNum == 1) {
@@ -1768,7 +1770,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGFloat sectionHeaderHeight = 80;
-    CGFloat sectionFooterHeight = 10;
+    CGFloat sectionFooterHeight = 50;
     CGFloat offsetY = scrollView.contentOffset.y;
     if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
     {

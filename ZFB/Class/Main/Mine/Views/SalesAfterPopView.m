@@ -12,17 +12,14 @@
 @interface SalesAfterPopView ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSInteger  indexpathRow;
+    NSString  * whichOneReason;
 }
 @property (nonatomic , strong) UIView * headerView;
-@property (nonatomic , strong) UIView * footerView;
-
-@property (nonatomic , strong) UILabel * lb_SendArea;
+@property (nonatomic , strong) UILabel * lb_reason;
 @property (nonatomic , strong) UIButton * headcloseButton;
-
-@property (nonatomic , strong) UIButton * footcancelButton;
-@property (nonatomic , strong) UIButton * footcloseButton;
-
 @property (nonatomic , strong) UITableView * alertTableView;
+@property (nonatomic , strong) NSArray * reasonArray;
+
 
 @end
 @implementation SalesAfterPopView
@@ -32,8 +29,6 @@
     if (self) {
         
         self.clipsToBounds = YES;
-        self.layer.borderWidth = 0.5;
-        self.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
         self.layer.cornerRadius = 4;
         [self initUI];
     }
@@ -42,8 +37,8 @@
 
 -(void)initUI{
  
+    _reasonArray = @[@"七天无理由退货",@"质量问题",@"商品与描述不符",@"买家发错货",@"发票问题",@"其他"];
     [self addSubview:self.alertTableView];//创建tableview
-    [self addSubview:self.footerView];
 
     self.alertTableView.tableHeaderView = self.headerView;
     self.alertTableView.tableHeaderView.height =  40;
@@ -51,18 +46,11 @@
     //nib
     [self.alertTableView registerNib:[UINib nibWithNibName:@"BusinessSendoOrderCell" bundle:nil] forCellReuseIdentifier:@"BusinessSendoOrderCell"];
 }
-//数据源
--(NSMutableArray *)deliveryArray
-{
-    if (!_deliveryArray) {
-        _deliveryArray= [NSMutableArray array];
-    }
-    return _deliveryArray;
-}
+
 -(UITableView *)alertTableView
 {
     if (!_alertTableView) {
-        _alertTableView =[[ UITableView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height-40) style:UITableViewStylePlain];
+        _alertTableView =[[ UITableView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) style:UITableViewStylePlain];
         _alertTableView.delegate = self;
         _alertTableView.dataSource =self;
         _alertTableView.separatorStyle = UITableViewScrollPositionNone;
@@ -78,73 +66,36 @@
 {
     if (!_headerView) {
         _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, 40)];
-        _headerView.backgroundColor = [UIColor lightGrayColor];
-        [_headerView addSubview:self.lb_SendArea];
+        UILabel * line = [[UILabel alloc]initWithFrame:CGRectMake(0, 39.5, self.frame.size.width, 0.5)];
+        line.backgroundColor = [UIColor lightGrayColor];
+        [_headerView addSubview:line];
+        [_headerView addSubview:self.lb_reason];
         [_headerView addSubview:self.headcloseButton];
         
     }
     return _headerView;
 }
--(UILabel *)lb_SendArea{
-    if (!_lb_SendArea) {
-        _lb_SendArea = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, self.frame.size.width - 15- 60, 30)];
-        _lb_SendArea.text = @"派送区域:";
-        _lb_SendArea.font = [UIFont systemFontOfSize: 15];
-        _lb_SendArea.textColor = HEXCOLOR(0x363636);
+-(UILabel *)lb_reason{
+    if (!_lb_reason) {
+        _lb_reason = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, self.frame.size.width -30, 40)];
+        _lb_reason.text = @"申请原因";
+        _lb_reason.textAlignment = NSTextAlignmentCenter;
+        _lb_reason.font = [UIFont systemFontOfSize: 15];
+        _lb_reason.textColor = HEXCOLOR(0x363636);
         
     }
-    return _lb_SendArea;
+    return _lb_reason;
 }
 -(UIButton *)headcloseButton
 {
     if (!_headcloseButton) {
         _headcloseButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _headcloseButton.frame = CGRectMake(self.frame.size.width -10 - 30, 10, 20, 20);
-        [_headcloseButton setImage:[UIImage imageNamed:@"delete_sku"] forState:UIControlStateNormal];
+        [_headcloseButton setImage:[UIImage imageNamed:@"delete_black"] forState:UIControlStateNormal];
+        [_headcloseButton bringSubviewToFront:self.lb_reason];
         [_headcloseButton addTarget:self action:@selector(closePopViewAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _headcloseButton;
-}
-/**
- *  footerview的视图
- *
- *  @return footerview
- */
--(UIView *)footerView
-{
-    if (!_footerView) {
-        _footerView = [[UIView alloc]initWithFrame:CGRectMake(0, self.frame.size.height - 40, self.frame.size.width, 40)];
-        [_footerView addSubview:self.footcloseButton];
-        [_footerView addSubview:self.footcancelButton];
-        _footerView.backgroundColor = HEXCOLOR(0xffcccc);
-    }
-    return _footerView;
-}
--(UIButton *)footcancelButton
-{
-    if (!_footcancelButton) {
-        _footcancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _footcancelButton.frame = CGRectMake(0, 1,self.frame.size.width/2-1 , 39);
-        [_footcancelButton setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal ];
-        [_footcancelButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-        _footcancelButton.backgroundColor = HEXCOLOR(0xffffff);
-        [_footcancelButton  setTitle:@"取消" forState:UIControlStateNormal];
-        [_footcancelButton addTarget:self action:@selector(closePopViewAction:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _footcancelButton;
-}
--(UIButton *)footcloseButton
-{
-    if (!_footcloseButton) {
-        _footcloseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_footcloseButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-        _footcloseButton.frame = CGRectMake(self.frame.size.width/2, 1,self.frame.size.width/2 , 39);
-        [_footcloseButton setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal ];
-        _footcloseButton.backgroundColor = HEXCOLOR(0xffffff);
-        [_footcloseButton  setTitle:@"确定" forState:UIControlStateNormal];
-        [_footcloseButton addTarget:self action:@selector(didClickSureAction:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _footcloseButton;
 }
 
 
@@ -154,7 +105,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return _reasonArray.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -162,45 +113,37 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Deliverylist * list = self.deliveryArray[indexPath.row];
-    
     BusinessSendoOrderCell * cell = [self.alertTableView dequeueReusableCellWithIdentifier:@"BusinessSendoOrderCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.lb_name.text = _reasonArray[indexPath.row];
+    cell.lb_distence.text = @"";
     
-    cell.listmodel = list;
-
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld ---- %ld",indexPath.section,indexPath.row);
+        
+    whichOneReason = _reasonArray[indexPath.row];
 
     //选择就直接消失？
-    //[self removeFromSuperview];
-
-    //需要配送员信息，姓名电话什么的
-    Deliverylist * list = self.deliveryArray[indexPath.row];
-    indexpathRow = indexPath.row;
-    self.lb_SendArea.text =[NSString stringWithFormat:@"派送区域:%@",list.deliveryArea];
+    
+    if ([self.delegate respondsToSelector:@selector(getReasonString:)]) {
+        [self.delegate getReasonString:whichOneReason];
+    }
 
 }
 
 -(void)closePopViewAction:(UIButton * )sender
 {
-    NSLog(@"取消 ----");
-
+    NSLog(@"删除 取消操作 ----");
+    if ([self.delegate respondsToSelector:@selector(deletePopView)]) {
+        [self.delegate deletePopView];
+    }
  
 }
--(void)didClickSureAction:(UIButton *)sender
-{
-    
-    NSLog(@"确定");
-}
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"取消隐藏");
-}
+
 
 
 @end

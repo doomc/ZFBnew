@@ -37,7 +37,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     typeCellrowOflocaCell,
 };
 @interface DetailFindGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate,
-WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler
+WKNavigationDelegate,WKUIDelegate
 >
 {
     NSString * _goodsName;
@@ -287,12 +287,11 @@ WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler
     }
     else if (indexPath.row == 1) {
         
-        return 40;
+        return 41;
     }
     else if (indexPath.row == 2) {
         
         return 40;
-        
         
     }
     else if (indexPath.row == 3) {

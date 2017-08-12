@@ -29,12 +29,10 @@
 @property (nonatomic,copy) NSString *shopFlag;///是否是商户  1是 0 不是
 @property (nonatomic,copy) NSString *courierFlag;///是否是配送员 1是 0不是
 
-
- 
-
 @property (nonatomic) BOOL boolValue;
 @property (nonatomic) float floatValue;
 
+@property (nonatomic,strong) NSMutableArray *searchHistoryArray;///搜索历史数组
 
 #pragma mark --是否是第一次启动APP程序
 @property (nonatomic,assign) BOOL isNoFirstLaunch;

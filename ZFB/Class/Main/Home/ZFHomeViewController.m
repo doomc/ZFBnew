@@ -10,62 +10,91 @@
 #import "FinGoodsViewController.h"
 #import "FindStoreViewController.h"
 #import "FindCircleViewController.h"
-
 #import "BaseNavigationController.h"
-#import "HomeSearchBarViewController.h"
 
+#import "HomeSearchBarViewController.h"//搜索跳转
+#import "SGPagingView.h"//控制自控制器
 
-@interface ZFHomeViewController ()<UISearchBarDelegate>
-{
-    NSInteger _pageSize;//每页显示条数
-    NSInteger _pageIndex;//当前页码;
-    
-}
+#import "QRCodeCreatViewController.h"
+#import "QRCodeSaoyiSaoViewController.h"
+#import <AVFoundation/AVFoundation.h>
+
+typedef NS_ENUM(NSUInteger, TypeVC) {
+    TypeVCSaoyiSao,
+    TypeVC2o,
+    TypeVC3,
+};
+@interface ZFHomeViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate,YBPopupMenuDelegate>
+
+@property (nonatomic, strong) SGPageTitleView *pageTitleView;
+@property (nonatomic, strong) SGPageContentView *pageContentView;
 
 @property(nonatomic,strong)UIButton * customLeft_btn;//扫一扫
 @property(nonatomic,strong)UIButton * navSearch_btn;//搜索
 @property(nonatomic,strong)UIButton * shakehanderRight_btn;//摇一摇
 
+@property(nonatomic,strong)NSArray * titlesArr; //右边按钮列表
+@property(nonatomic,strong)NSArray * iconArr;
 
+@property(nonatomic,assign)TypeVC psuhTypeVC;//选择跳转到哪个控制器
 @end
 
 @implementation ZFHomeViewController
+- (void)dealloc {
+    NSLog(@"DefaultVCOne - - dealloc");
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-
-    
- 
-    [self initMainController];
-    
+    _titlesArr = @[@"扫一扫",@"生成二维码",@"转账"];
+    _iconArr = @[@"saoyisao",@"saoyisao",@"saoyisao"];
     [self customButtonOfNav];
-    
- //   [self settingCustomSearchBar];
+ 
+    [self setupPageView];
 
 }
 
--(void)initMainController
-{
+- (void)setupPageView {
+    
     FindStoreViewController *findStoreVC = [[FindStoreViewController alloc]init];
-    findStoreVC.title = @"找 店";
-    
     FinGoodsViewController *findGoodsVC = [[FinGoodsViewController alloc]init];
-    findGoodsVC.title = @"找商品";
-
     FindCircleViewController *findCircleVC = [[FindCircleViewController alloc]init];
-    findCircleVC.title = @"找圈子";
     
-    NSArray *subViewControllers = @[findStoreVC,findGoodsVC,findCircleVC];
+    NSArray *childArr = @[findStoreVC, findGoodsVC, findCircleVC];
+    /// pageContentView
+    CGFloat contentViewHeight = self.view.frame.size.height - 108;
+    self.pageContentView = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 108, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
+    _pageContentView.delegatePageContentView = self;
+    [self.view addSubview:_pageContentView];
     
-    DCNavTabBarController *tabBarVC = [[DCNavTabBarController alloc]initWithSubViewControllers:subViewControllers];
-    tabBarVC.view.frame = CGRectMake(0,64, KScreenW, KScreenH - 64);
-    [self.view addSubview:tabBarVC.view];
-    [self addChildViewController:tabBarVC];
-    
-
+    NSArray *titleArr = @[@"找店", @"找商品", @"找圈子"];
+    /// pageTitleView
+    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44) delegate:self titleNames:titleArr];
+    [self.view addSubview:_pageTitleView];
+    _pageTitleView.isTitleGradientEffect = NO;
+    _pageTitleView.indicatorLengthStyle = SGIndicatorLengthStyleSpecial;
+    _pageTitleView.indicatorScrollStyle = SGIndicatorScrollStyleHalf;
+    _pageTitleView.selectedIndex = 0;
+    _pageTitleView.isShowBottomSeparator = NO;
+    _pageTitleView.isNeedBounces = NO;
+    _pageTitleView.titleColorStateSelected = HEXCOLOR(0xfe6d6a);
+    _pageTitleView.titleColorStateNormal = HEXCOLOR(0x363636);
+    _pageTitleView.indicatorColor = [UIColor colorWithRed:0.996 green:0.427 blue:0.416 alpha:1.000];
+    _pageTitleView.indicatorHeight = 1.0;
+    _pageTitleView.titleTextScaling = 0.3;
 }
+
+- (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex
+{
+    [self.pageContentView setPageCententViewCurrentIndex:selectedIndex];
+}
+
+- (void)pageContentView:(SGPageContentView *)pageContentView progress:(CGFloat)progress originalIndex:(NSInteger)originalIndex targetIndex:(NSInteger)targetIndex {
+    [self.pageTitleView setPageTitleViewWithProgress:progress originalIndex:originalIndex targetIndex:targetIndex];
+}
+
 -(void)customButtonOfNav
 {
 
@@ -79,7 +108,7 @@
     //设置文字图片的位置
     self.customLeft_btn.titleEdgeInsets = UIEdgeInsetsMake(0, -self.customLeft_btn.imageView.frame.size.width, -self.customLeft_btn.imageView.frame.size.height, 0);
     self.customLeft_btn.imageEdgeInsets = UIEdgeInsetsMake(-self.customLeft_btn.titleLabel.intrinsicContentSize.height, 0, 0, -self.customLeft_btn.titleLabel.intrinsicContentSize.width);
-    [self.customLeft_btn addTarget:self action:@selector(clickAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.customLeft_btn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
     //把button的视图交给Item
     UIBarButtonItem *saoItem = [[UIBarButtonItem alloc] initWithCustomView:self.customLeft_btn];
     //添加到导航项的左按钮
@@ -96,7 +125,7 @@
     //设置文字图片的位置
     self.shakehanderRight_btn.titleEdgeInsets = UIEdgeInsetsMake(0, -self.shakehanderRight_btn.imageView.frame.size.width, -self.shakehanderRight_btn.imageView.frame.size.height, 0);
     self.shakehanderRight_btn.imageEdgeInsets = UIEdgeInsetsMake(-self.shakehanderRight_btn.titleLabel.intrinsicContentSize.height, 0, 0, -self.shakehanderRight_btn.titleLabel.intrinsicContentSize.width);
-    [self.shakehanderRight_btn addTarget:self action:@selector(clickAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.shakehanderRight_btn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
     
     //把button的视图交给Item
     UIBarButtonItem * shakeItem = [[UIBarButtonItem alloc] initWithCustomView:self.shakehanderRight_btn];
@@ -130,31 +159,110 @@
         
     }];
     
-
-
 }
  
 /**
  扫一扫事件 、  摇一摇  、
  */
--(void)clickAction
+-(void)clickAction:(UIButton *)sender
 {
     NSLog(@"clickAction");
- 
-    JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示信息" message:@"功能暂未开放，敬请期待！" preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
- 
-        //添加一些扫码或相册结果处理
- 
+    [YBPopupMenu showRelyOnView:sender titles:_titlesArr icons:_iconArr menuWidth:120 otherSettings:^(YBPopupMenu *popupMenu) {
+        popupMenu.isShowShadow = YES;
+        popupMenu.delegate = self;
+        popupMenu.offset = 10;
+        popupMenu.type = YBPopupMenuTypeDark;
 
     }];
+    
 
-    [jxt addAction:right];
-    [self presentViewController:jxt animated:YES completion:^{  }];
  
 }
+#pragma mark - YBPopupMenu Delegate
+- (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu
+{
+    NSLog(@" %ld ",index);
+    _psuhTypeVC = index;
+    switch (_psuhTypeVC) {
+       
+        case 0:
+            NSLog(@"第一个扫一扫VC");
+            [self scanningQRCode];
 
+   
+            break;
 
+        case 1:
+            NSLog(@"第2个VC");
+            [self creatQRCode];
+
+            break;
+        case 2:
+            NSLog(@"第3 ge VC");
+
+            break;
+
+    }
+}
+
+/** 生成二维码方法 */
+- (void)creatQRCode {
+    
+    QRCodeCreatViewController *VC = [[QRCodeCreatViewController alloc] init];
+    [self.navigationController pushViewController:VC animated:NO];
+    
+}
+
+/** 扫描二维码方法 */
+- (void)scanningQRCode {
+    // 1、 获取摄像设备
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if (device) {
+        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if (status == AVAuthorizationStatusNotDetermined) {
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                if (granted) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        QRCodeSaoyiSaoViewController *vc = [[QRCodeSaoyiSaoViewController alloc] init];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    });
+                    
+                    NSLog(@"当前线程 - - %@", [NSThread currentThread]);
+                    // 用户第一次同意了访问相机权限
+                    NSLog(@"用户第一次同意了访问相机权限");
+                    
+                } else {
+                    
+                    // 用户第一次拒绝了访问相机权限
+                    NSLog(@"用户第一次拒绝了访问相机权限");
+                }
+            }];
+        } else if (status == AVAuthorizationStatusAuthorized) { // 用户允许当前应用访问相机
+            QRCodeSaoyiSaoViewController *vc = [[QRCodeSaoyiSaoViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        } else if (status == AVAuthorizationStatusDenied) { // 用户拒绝当前应用访问相机
+            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"请去-> [设置 - 隐私 - 相机 - SGQRCodeExample] 打开访问开关" preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            
+            [alertC addAction:alertA];
+            [self presentViewController:alertC animated:YES completion:nil];
+            
+        } else if (status == AVAuthorizationStatusRestricted) {
+            NSLog(@"因为系统原因, 无法访问相册");
+        }
+    } else {
+        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"未检测到您的摄像头" preferredStyle:(UIAlertControllerStyleAlert)];
+        UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertC addAction:alertA];
+        [self presentViewController:alertC animated:YES completion:nil];
+    } 
+    
+}
 
 @end
