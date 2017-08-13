@@ -30,11 +30,11 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *commitButton;
 
-@property (nonatomic,strong) NSMutableArray * imgArray;
-
 @property (copy, nonatomic) void(^addPicturesBlock)();
 
 @property (strong, nonatomic) MPUploadImageHelper *curUploadImageHelper;
 
 @property (copy, nonatomic) void (^deleteImageBlock)(MPImageItemModel *toDelete);
+
+
 @end

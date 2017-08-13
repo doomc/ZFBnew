@@ -668,6 +668,38 @@
 		49DA74AF1F25CFBB009F5577 /* SearchTypeFootReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74AD1F25CFBB009F5577 /* SearchTypeFootReusableView.m */; };
 		49DA74B01F25CFBB009F5577 /* SearchTypeFootReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DA74AE1F25CFBB009F5577 /* SearchTypeFootReusableView.xib */; };
 		49DA74B41F25F371009F5577 /* ZspMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74B31F25F371009F5577 /* ZspMenu.m */; };
+		503C7C641F40B56E009C0512 /* HXAlbumListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C261F40B56E009C0512 /* HXAlbumListView.m */; };
+		503C7C651F40B56E009C0512 /* HXAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C281F40B56E009C0512 /* HXAlbumModel.m */; };
+		503C7C661F40B56E009C0512 /* HXAlbumTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C2A1F40B56E009C0512 /* HXAlbumTitleButton.m */; };
+		503C7C671F40B56E009C0512 /* HXCameraPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C2C1F40B56E009C0512 /* HXCameraPreviewViewController.m */; };
+		503C7C681F40B56E009C0512 /* HXCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C2E1F40B56E009C0512 /* HXCameraViewController.m */; };
+		503C7C691F40B56E009C0512 /* HXCircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C301F40B56E009C0512 /* HXCircleProgressView.m */; };
+		503C7C6A1F40B56E009C0512 /* HXCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C321F40B56E009C0512 /* HXCollectionView.m */; };
+		503C7C6B1F40B56E009C0512 /* HXFullScreenCameraPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C341F40B56E009C0512 /* HXFullScreenCameraPlayView.m */; };
+		503C7C6C1F40B56E009C0512 /* HXFullScreenCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C361F40B56E009C0512 /* HXFullScreenCameraViewController.m */; };
+		503C7C6D1F40B56E009C0512 /* HXPhotoConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C381F40B56E009C0512 /* HXPhotoConst.m */; };
+		503C7C6E1F40B56E009C0512 /* HXPhotoEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C3A1F40B56E009C0512 /* HXPhotoEditView.m */; };
+		503C7C6F1F40B56E009C0512 /* HXPhotoEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C3C1F40B56E009C0512 /* HXPhotoEditViewController.m */; };
+		503C7C701F40B56E009C0512 /* HXPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C3E1F40B56E009C0512 /* HXPhotoManager.m */; };
+		503C7C711F40B56E009C0512 /* HXPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C401F40B56E009C0512 /* HXPhotoModel.m */; };
+		503C7C721F40B56E009C0512 /* HXPhotoPreviewViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C421F40B56E009C0512 /* HXPhotoPreviewViewCell.m */; };
+		503C7C731F40B56E009C0512 /* HXPhotoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C441F40B56E009C0512 /* HXPhotoPreviewViewController.m */; };
+		503C7C741F40B56E009C0512 /* HXPhotoResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C461F40B56E009C0512 /* HXPhotoResultModel.m */; };
+		503C7C751F40B56E009C0512 /* HXPhotoSubViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C481F40B56E009C0512 /* HXPhotoSubViewCell.m */; };
+		503C7C761F40B56E009C0512 /* HXPhotoTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C4A1F40B56E009C0512 /* HXPhotoTools.m */; };
+		503C7C771F40B56F009C0512 /* HXPhotoUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C4C1F40B56E009C0512 /* HXPhotoUIManager.m */; };
+		503C7C781F40B56F009C0512 /* HXPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C4E1F40B56E009C0512 /* HXPhotoView.m */; };
+		503C7C791F40B56F009C0512 /* HXPhotoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C501F40B56E009C0512 /* HXPhotoViewCell.m */; };
+		503C7C7A1F40B56F009C0512 /* HXPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C521F40B56E009C0512 /* HXPhotoViewController.m */; };
+		503C7C7B1F40B56F009C0512 /* HXPresentTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C541F40B56E009C0512 /* HXPresentTransition.m */; };
+		503C7C7C1F40B56F009C0512 /* HXTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C561F40B56E009C0512 /* HXTransition.m */; };
+		503C7C7D1F40B56F009C0512 /* HXVideoPresentTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C581F40B56E009C0512 /* HXVideoPresentTransition.m */; };
+		503C7C7E1F40B56F009C0512 /* HXVideoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C5A1F40B56E009C0512 /* HXVideoPreviewViewController.m */; };
+		503C7C7F1F40B56F009C0512 /* HXWeiboPhotoPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 503C7C5B1F40B56E009C0512 /* HXWeiboPhotoPicker.bundle */; };
+		503C7C801F40B56F009C0512 /* NSBundle+HXWeiboPhotoPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C5D1F40B56E009C0512 /* NSBundle+HXWeiboPhotoPicker.m */; };
+		503C7C811F40B56F009C0512 /* UIButton+HXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C5F1F40B56E009C0512 /* UIButton+HXExtension.m */; };
+		503C7C821F40B56F009C0512 /* UIImage+HXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C611F40B56E009C0512 /* UIImage+HXExtension.m */; };
+		503C7C831F40B56F009C0512 /* UIView+HXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C631F40B56E009C0512 /* UIView+HXExtension.m */; };
 		50424F171F30EB2E00A1689D /* head@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50424F151F30EB2E00A1689D /* head@3x.png */; };
 		50424F181F30EB2E00A1689D /* head@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50424F161F30EB2E00A1689D /* head@2x.png */; };
 		505A53C11F20FFDC002FB5CF /* ShopCarJsonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 505A53C01F20FFDC002FB5CF /* ShopCarJsonModel.m */; };
@@ -1732,6 +1764,69 @@
 		49DA74AE1F25CFBB009F5577 /* SearchTypeFootReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTypeFootReusableView.xib; sourceTree = "<group>"; };
 		49DA74B21F25F371009F5577 /* ZspMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZspMenu.h; sourceTree = "<group>"; };
 		49DA74B31F25F371009F5577 /* ZspMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZspMenu.m; sourceTree = "<group>"; };
+		503C7C251F40B56E009C0512 /* HXAlbumListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXAlbumListView.h; sourceTree = "<group>"; };
+		503C7C261F40B56E009C0512 /* HXAlbumListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXAlbumListView.m; sourceTree = "<group>"; };
+		503C7C271F40B56E009C0512 /* HXAlbumModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXAlbumModel.h; sourceTree = "<group>"; };
+		503C7C281F40B56E009C0512 /* HXAlbumModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXAlbumModel.m; sourceTree = "<group>"; };
+		503C7C291F40B56E009C0512 /* HXAlbumTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXAlbumTitleButton.h; sourceTree = "<group>"; };
+		503C7C2A1F40B56E009C0512 /* HXAlbumTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXAlbumTitleButton.m; sourceTree = "<group>"; };
+		503C7C2B1F40B56E009C0512 /* HXCameraPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXCameraPreviewViewController.h; sourceTree = "<group>"; };
+		503C7C2C1F40B56E009C0512 /* HXCameraPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXCameraPreviewViewController.m; sourceTree = "<group>"; };
+		503C7C2D1F40B56E009C0512 /* HXCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXCameraViewController.h; sourceTree = "<group>"; };
+		503C7C2E1F40B56E009C0512 /* HXCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXCameraViewController.m; sourceTree = "<group>"; };
+		503C7C2F1F40B56E009C0512 /* HXCircleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXCircleProgressView.h; sourceTree = "<group>"; };
+		503C7C301F40B56E009C0512 /* HXCircleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXCircleProgressView.m; sourceTree = "<group>"; };
+		503C7C311F40B56E009C0512 /* HXCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXCollectionView.h; sourceTree = "<group>"; };
+		503C7C321F40B56E009C0512 /* HXCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXCollectionView.m; sourceTree = "<group>"; };
+		503C7C331F40B56E009C0512 /* HXFullScreenCameraPlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXFullScreenCameraPlayView.h; sourceTree = "<group>"; };
+		503C7C341F40B56E009C0512 /* HXFullScreenCameraPlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXFullScreenCameraPlayView.m; sourceTree = "<group>"; };
+		503C7C351F40B56E009C0512 /* HXFullScreenCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXFullScreenCameraViewController.h; sourceTree = "<group>"; };
+		503C7C361F40B56E009C0512 /* HXFullScreenCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXFullScreenCameraViewController.m; sourceTree = "<group>"; };
+		503C7C371F40B56E009C0512 /* HXPhotoConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoConst.h; sourceTree = "<group>"; };
+		503C7C381F40B56E009C0512 /* HXPhotoConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoConst.m; sourceTree = "<group>"; };
+		503C7C391F40B56E009C0512 /* HXPhotoEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoEditView.h; sourceTree = "<group>"; };
+		503C7C3A1F40B56E009C0512 /* HXPhotoEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoEditView.m; sourceTree = "<group>"; };
+		503C7C3B1F40B56E009C0512 /* HXPhotoEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoEditViewController.h; sourceTree = "<group>"; };
+		503C7C3C1F40B56E009C0512 /* HXPhotoEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoEditViewController.m; sourceTree = "<group>"; };
+		503C7C3D1F40B56E009C0512 /* HXPhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoManager.h; sourceTree = "<group>"; };
+		503C7C3E1F40B56E009C0512 /* HXPhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoManager.m; sourceTree = "<group>"; };
+		503C7C3F1F40B56E009C0512 /* HXPhotoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoModel.h; sourceTree = "<group>"; };
+		503C7C401F40B56E009C0512 /* HXPhotoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoModel.m; sourceTree = "<group>"; };
+		503C7C411F40B56E009C0512 /* HXPhotoPreviewViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoPreviewViewCell.h; sourceTree = "<group>"; };
+		503C7C421F40B56E009C0512 /* HXPhotoPreviewViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoPreviewViewCell.m; sourceTree = "<group>"; };
+		503C7C431F40B56E009C0512 /* HXPhotoPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoPreviewViewController.h; sourceTree = "<group>"; };
+		503C7C441F40B56E009C0512 /* HXPhotoPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoPreviewViewController.m; sourceTree = "<group>"; };
+		503C7C451F40B56E009C0512 /* HXPhotoResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoResultModel.h; sourceTree = "<group>"; };
+		503C7C461F40B56E009C0512 /* HXPhotoResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoResultModel.m; sourceTree = "<group>"; };
+		503C7C471F40B56E009C0512 /* HXPhotoSubViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoSubViewCell.h; sourceTree = "<group>"; };
+		503C7C481F40B56E009C0512 /* HXPhotoSubViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoSubViewCell.m; sourceTree = "<group>"; };
+		503C7C491F40B56E009C0512 /* HXPhotoTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoTools.h; sourceTree = "<group>"; };
+		503C7C4A1F40B56E009C0512 /* HXPhotoTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoTools.m; sourceTree = "<group>"; };
+		503C7C4B1F40B56E009C0512 /* HXPhotoUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoUIManager.h; sourceTree = "<group>"; };
+		503C7C4C1F40B56E009C0512 /* HXPhotoUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoUIManager.m; sourceTree = "<group>"; };
+		503C7C4D1F40B56E009C0512 /* HXPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoView.h; sourceTree = "<group>"; };
+		503C7C4E1F40B56E009C0512 /* HXPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoView.m; sourceTree = "<group>"; };
+		503C7C4F1F40B56E009C0512 /* HXPhotoViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoViewCell.h; sourceTree = "<group>"; };
+		503C7C501F40B56E009C0512 /* HXPhotoViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoViewCell.m; sourceTree = "<group>"; };
+		503C7C511F40B56E009C0512 /* HXPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPhotoViewController.h; sourceTree = "<group>"; };
+		503C7C521F40B56E009C0512 /* HXPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPhotoViewController.m; sourceTree = "<group>"; };
+		503C7C531F40B56E009C0512 /* HXPresentTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPresentTransition.h; sourceTree = "<group>"; };
+		503C7C541F40B56E009C0512 /* HXPresentTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPresentTransition.m; sourceTree = "<group>"; };
+		503C7C551F40B56E009C0512 /* HXTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXTransition.h; sourceTree = "<group>"; };
+		503C7C561F40B56E009C0512 /* HXTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXTransition.m; sourceTree = "<group>"; };
+		503C7C571F40B56E009C0512 /* HXVideoPresentTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXVideoPresentTransition.h; sourceTree = "<group>"; };
+		503C7C581F40B56E009C0512 /* HXVideoPresentTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXVideoPresentTransition.m; sourceTree = "<group>"; };
+		503C7C591F40B56E009C0512 /* HXVideoPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXVideoPreviewViewController.h; sourceTree = "<group>"; };
+		503C7C5A1F40B56E009C0512 /* HXVideoPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXVideoPreviewViewController.m; sourceTree = "<group>"; };
+		503C7C5B1F40B56E009C0512 /* HXWeiboPhotoPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HXWeiboPhotoPicker.bundle; sourceTree = "<group>"; };
+		503C7C5C1F40B56E009C0512 /* NSBundle+HXWeiboPhotoPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+HXWeiboPhotoPicker.h"; sourceTree = "<group>"; };
+		503C7C5D1F40B56E009C0512 /* NSBundle+HXWeiboPhotoPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+HXWeiboPhotoPicker.m"; sourceTree = "<group>"; };
+		503C7C5E1F40B56E009C0512 /* UIButton+HXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+HXExtension.h"; sourceTree = "<group>"; };
+		503C7C5F1F40B56E009C0512 /* UIButton+HXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+HXExtension.m"; sourceTree = "<group>"; };
+		503C7C601F40B56E009C0512 /* UIImage+HXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+HXExtension.h"; sourceTree = "<group>"; };
+		503C7C611F40B56E009C0512 /* UIImage+HXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+HXExtension.m"; sourceTree = "<group>"; };
+		503C7C621F40B56E009C0512 /* UIView+HXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HXExtension.h"; sourceTree = "<group>"; };
+		503C7C631F40B56E009C0512 /* UIView+HXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HXExtension.m"; sourceTree = "<group>"; };
 		50424F151F30EB2E00A1689D /* head@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "head@3x.png"; sourceTree = "<group>"; };
 		50424F161F30EB2E00A1689D /* head@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "head@2x.png"; sourceTree = "<group>"; };
 		505A53BF1F20FFDC002FB5CF /* ShopCarJsonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarJsonModel.h; sourceTree = "<group>"; };
@@ -3808,6 +3903,7 @@
 		495EA6771F14B64C001FCB7E /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				503C7C241F40B56E009C0512 /* HXWeiboPhotoPicker(图片选择) */,
 				50B380F11F3EFF25001ED3BA /* SGQRCode(二维码) */,
 				50B380DD1F3EF0BF001ED3BA /* SGPagingView(滑动框架) */,
 				49555D621F32EA6B00C3C748 /* IQKeyboardManager */,
@@ -4079,6 +4175,77 @@
 			);
 			name = "ZspMenuFile(筛选工具)";
 			path = ZspMenuFile;
+			sourceTree = "<group>";
+		};
+		503C7C241F40B56E009C0512 /* HXWeiboPhotoPicker(图片选择) */ = {
+			isa = PBXGroup;
+			children = (
+				503C7C251F40B56E009C0512 /* HXAlbumListView.h */,
+				503C7C261F40B56E009C0512 /* HXAlbumListView.m */,
+				503C7C271F40B56E009C0512 /* HXAlbumModel.h */,
+				503C7C281F40B56E009C0512 /* HXAlbumModel.m */,
+				503C7C291F40B56E009C0512 /* HXAlbumTitleButton.h */,
+				503C7C2A1F40B56E009C0512 /* HXAlbumTitleButton.m */,
+				503C7C2B1F40B56E009C0512 /* HXCameraPreviewViewController.h */,
+				503C7C2C1F40B56E009C0512 /* HXCameraPreviewViewController.m */,
+				503C7C2D1F40B56E009C0512 /* HXCameraViewController.h */,
+				503C7C2E1F40B56E009C0512 /* HXCameraViewController.m */,
+				503C7C2F1F40B56E009C0512 /* HXCircleProgressView.h */,
+				503C7C301F40B56E009C0512 /* HXCircleProgressView.m */,
+				503C7C311F40B56E009C0512 /* HXCollectionView.h */,
+				503C7C321F40B56E009C0512 /* HXCollectionView.m */,
+				503C7C331F40B56E009C0512 /* HXFullScreenCameraPlayView.h */,
+				503C7C341F40B56E009C0512 /* HXFullScreenCameraPlayView.m */,
+				503C7C351F40B56E009C0512 /* HXFullScreenCameraViewController.h */,
+				503C7C361F40B56E009C0512 /* HXFullScreenCameraViewController.m */,
+				503C7C371F40B56E009C0512 /* HXPhotoConst.h */,
+				503C7C381F40B56E009C0512 /* HXPhotoConst.m */,
+				503C7C391F40B56E009C0512 /* HXPhotoEditView.h */,
+				503C7C3A1F40B56E009C0512 /* HXPhotoEditView.m */,
+				503C7C3B1F40B56E009C0512 /* HXPhotoEditViewController.h */,
+				503C7C3C1F40B56E009C0512 /* HXPhotoEditViewController.m */,
+				503C7C3D1F40B56E009C0512 /* HXPhotoManager.h */,
+				503C7C3E1F40B56E009C0512 /* HXPhotoManager.m */,
+				503C7C3F1F40B56E009C0512 /* HXPhotoModel.h */,
+				503C7C401F40B56E009C0512 /* HXPhotoModel.m */,
+				503C7C411F40B56E009C0512 /* HXPhotoPreviewViewCell.h */,
+				503C7C421F40B56E009C0512 /* HXPhotoPreviewViewCell.m */,
+				503C7C431F40B56E009C0512 /* HXPhotoPreviewViewController.h */,
+				503C7C441F40B56E009C0512 /* HXPhotoPreviewViewController.m */,
+				503C7C451F40B56E009C0512 /* HXPhotoResultModel.h */,
+				503C7C461F40B56E009C0512 /* HXPhotoResultModel.m */,
+				503C7C471F40B56E009C0512 /* HXPhotoSubViewCell.h */,
+				503C7C481F40B56E009C0512 /* HXPhotoSubViewCell.m */,
+				503C7C491F40B56E009C0512 /* HXPhotoTools.h */,
+				503C7C4A1F40B56E009C0512 /* HXPhotoTools.m */,
+				503C7C4B1F40B56E009C0512 /* HXPhotoUIManager.h */,
+				503C7C4C1F40B56E009C0512 /* HXPhotoUIManager.m */,
+				503C7C4D1F40B56E009C0512 /* HXPhotoView.h */,
+				503C7C4E1F40B56E009C0512 /* HXPhotoView.m */,
+				503C7C4F1F40B56E009C0512 /* HXPhotoViewCell.h */,
+				503C7C501F40B56E009C0512 /* HXPhotoViewCell.m */,
+				503C7C511F40B56E009C0512 /* HXPhotoViewController.h */,
+				503C7C521F40B56E009C0512 /* HXPhotoViewController.m */,
+				503C7C531F40B56E009C0512 /* HXPresentTransition.h */,
+				503C7C541F40B56E009C0512 /* HXPresentTransition.m */,
+				503C7C551F40B56E009C0512 /* HXTransition.h */,
+				503C7C561F40B56E009C0512 /* HXTransition.m */,
+				503C7C571F40B56E009C0512 /* HXVideoPresentTransition.h */,
+				503C7C581F40B56E009C0512 /* HXVideoPresentTransition.m */,
+				503C7C591F40B56E009C0512 /* HXVideoPreviewViewController.h */,
+				503C7C5A1F40B56E009C0512 /* HXVideoPreviewViewController.m */,
+				503C7C5B1F40B56E009C0512 /* HXWeiboPhotoPicker.bundle */,
+				503C7C5C1F40B56E009C0512 /* NSBundle+HXWeiboPhotoPicker.h */,
+				503C7C5D1F40B56E009C0512 /* NSBundle+HXWeiboPhotoPicker.m */,
+				503C7C5E1F40B56E009C0512 /* UIButton+HXExtension.h */,
+				503C7C5F1F40B56E009C0512 /* UIButton+HXExtension.m */,
+				503C7C601F40B56E009C0512 /* UIImage+HXExtension.h */,
+				503C7C611F40B56E009C0512 /* UIImage+HXExtension.m */,
+				503C7C621F40B56E009C0512 /* UIView+HXExtension.h */,
+				503C7C631F40B56E009C0512 /* UIView+HXExtension.m */,
+			);
+			name = "HXWeiboPhotoPicker(图片选择)";
+			path = HXWeiboPhotoPicker;
 			sourceTree = "<group>";
 		};
 		506745A01F1D0D39000CC722 /* DWQFivestarRating */ = {
@@ -4748,6 +4915,7 @@
 				495EA9301F14B64E001FCB7E /* washer@2x.png in Resources */,
 				495EA8A81F14B64D001FCB7E /* mine_selected@2x.png in Resources */,
 				498A33F31F3C0CED0057E2AE /* star_nor@3x.png in Resources */,
+				503C7C7F1F40B56F009C0512 /* HXWeiboPhotoPicker.bundle in Resources */,
 				495EA7901F14B64D001FCB7E /* ZFLoctionNavCell.xib in Resources */,
 				495EA92D1F14B64E001FCB7E /* manClothes@3x.png in Resources */,
 				495EA7B81F14B64D001FCB7E /* ForgetPSViewController.xib in Resources */,
@@ -4893,7 +5061,9 @@
 				495EA7D11F14B64D001FCB7E /* ZFMySendServiceCell.m in Sources */,
 				50E020091F2C38C6005AA31C /* BusinessServicPopView.m in Sources */,
 				49555EA11F1E0092002E5688 /* OrderPriceCell.m in Sources */,
+				503C7C741F40B56E009C0512 /* HXPhotoResultModel.m in Sources */,
 				49B3BCDB1F204FAC002A0FDC /* NSArray+SafeAccess.m in Sources */,
+				503C7C701F40B56E009C0512 /* HXPhotoManager.m in Sources */,
 				495EA9591F14B64E001FCB7E /* TAPageControl.m in Sources */,
 				49917B971F1C5723005790AF /* ClassLeftListModel.m in Sources */,
 				495EA7BB1F14B64D001FCB7E /* RegisterViewController.m in Sources */,
@@ -4902,6 +5072,7 @@
 				495EA77D1F14B64D001FCB7E /* SkuFooterReusableView.m in Sources */,
 				495EA7251F14B64D001FCB7E /* ZFEnum.m in Sources */,
 				495EA8351F14B64D001FCB7E /* ZFDetailOrderViewController.m in Sources */,
+				503C7C791F40B56F009C0512 /* HXPhotoViewCell.m in Sources */,
 				495EA7C91F14B64D001FCB7E /* ZFHistoryCell.m in Sources */,
 				495EA78F1F14B64D001FCB7E /* ZFLoctionNavCell.m in Sources */,
 				50D4D6811F1BB94D0073DBC1 /* QBAssetsCollectionVideoIndicatorView.m in Sources */,
@@ -4929,6 +5100,7 @@
 				495EA80E1F14B64D001FCB7E /* ZFPregressCheckCell.m in Sources */,
 				495EA78D1F14B64D001FCB7E /* ZFLocationGoToStoreCell.m in Sources */,
 				495EA7461F14B64D001FCB7E /* NSString+RegexCategory.m in Sources */,
+				503C7C6F1F40B56E009C0512 /* HXPhotoEditViewController.m in Sources */,
 				495EA7C11F14B64D001FCB7E /* ZFCollectViewController.m in Sources */,
 				49555EA31F1E0092002E5688 /* OrderWithAddressCell.m in Sources */,
 				498A33F71F3C0CED0057E2AE /* TggStarEvaluationView.m in Sources */,
@@ -4944,6 +5116,7 @@
 				495EA72D1F14B64D001FCB7E /* AddressPickerView.m in Sources */,
 				495EA7A01F14B64D001FCB7E /* HomeHotModel.m in Sources */,
 				495EA82C1F14B64D001FCB7E /* FeedTypeTableViewCell.m in Sources */,
+				503C7C821F40B56F009C0512 /* UIImage+HXExtension.m in Sources */,
 				49555EAA1F1E0092002E5688 /* ZFAddOfListCell.m in Sources */,
 				50D4D6671F1BB8C00073DBC1 /* UIView+Extension.m in Sources */,
 				495EA7A21F14B64D001FCB7E /* HomeSearchBarViewController.m in Sources */,
@@ -4959,6 +5132,7 @@
 				49DA74A71F25CB9C009F5577 /* SearchTypeCollectionCell.m in Sources */,
 				495EA78C1F14B64D001FCB7E /* ZFHeadViewCollectionReusableView.m in Sources */,
 				495EA9391F14B64E001FCB7E /* GVUserDefaults+BBProperties.m in Sources */,
+				503C7C651F40B56E009C0512 /* HXAlbumModel.m in Sources */,
 				495EA7C31F14B64D001FCB7E /* CollectModel.m in Sources */,
 				495EA9541F14B64E001FCB7E /* UIColor+PYExtension.m in Sources */,
 				4927189E1F1F5C6C002A7A54 /* WKWebViewJavascriptBridge.m in Sources */,
@@ -4997,6 +5171,7 @@
 				50B3810E1F3F010B001ED3BA /* QRCodeScanSuccessViewController.m in Sources */,
 				49555EA51F1E0092002E5688 /* SendServiceTitleCell.m in Sources */,
 				495EA7201F14B64D001FCB7E /* UIImageView+Extentsion.m in Sources */,
+				503C7C661F40B56E009C0512 /* HXAlbumTitleButton.m in Sources */,
 				49AD34581F28C4CC00DC8A8F /* SearchNoResultModel.m in Sources */,
 				495EA7CB1F14B64D001FCB7E /* ZFMyCashBagCell.m in Sources */,
 				49DA74AF1F25CFBB009F5577 /* SearchTypeFootReusableView.m in Sources */,
@@ -5032,8 +5207,10 @@
 				495EA9521F14B64E001FCB7E /* PYSearchSuggestionViewController.m in Sources */,
 				495EA8531F14B64D001FCB7E /* ZFShoppingCarViewController.m in Sources */,
 				495EA96E1F14B64E001FCB7E /* UITableView+FDIndexPathHeightCache.m in Sources */,
+				503C7C711F40B56E009C0512 /* HXPhotoModel.m in Sources */,
 				49555EA71F1E0092002E5688 /* ShopOrderStoreNameCell.m in Sources */,
 				495EA8441F14B64D001FCB7E /* ZFOrderDetailGoosContentCell.m in Sources */,
+				503C7C6C1F40B56E009C0512 /* HXFullScreenCameraViewController.m in Sources */,
 				492752191EC44DFC003C22D0 /* main.m in Sources */,
 				492141821F29FB0A00C44D10 /* OrderStatisticsViewController.m in Sources */,
 				495EA7591F14B64D001FCB7E /* CustomFooterView.m in Sources */,
@@ -5044,11 +5221,14 @@
 				495EA7FB1F14B64D001FCB7E /* ZFSendHomeListCell.m in Sources */,
 				495EA7941F14B64D001FCB7E /* ZFAllStoreViewController.m in Sources */,
 				49555E9B1F1E0092002E5688 /* ClearingStoreList.m in Sources */,
+				503C7C801F40B56F009C0512 /* NSBundle+HXWeiboPhotoPicker.m in Sources */,
+				503C7C7B1F40B56F009C0512 /* HXPresentTransition.m in Sources */,
 				495EA7AE1F14B64D001FCB7E /* HotCollectionViewCell.m in Sources */,
 				49D6952C1F318087000868A7 /* SendOrderStatisticsViewController.m in Sources */,
 				50D4D6871F1BB94D0073DBC1 /* QBImagePickerGroupCell.m in Sources */,
 				495EA73C1F14B64D001FCB7E /* EaseBlankPageView.m in Sources */,
 				497A8AC61F2ECC110003D7CB /* UICustomDatePicker.m in Sources */,
+				503C7C681F40B56E009C0512 /* HXCameraViewController.m in Sources */,
 				495EA7F71F14B64D001FCB7E /* ZFContactCell.m in Sources */,
 				495EA8321F14B64D001FCB7E /* ZFBackWaysViewController.m in Sources */,
 				495EA7A61F14B64D001FCB7E /* FindStoreCell.m in Sources */,
@@ -5063,15 +5243,20 @@
 				49DA748D1F2599FA009F5577 /* SearchResultTableVC.m in Sources */,
 				495EA82E1F14B64D001FCB7E /* ZFMyOpinionCell.m in Sources */,
 				497A8ACD1F2F3FFB0003D7CB /* SendServiceModel.m in Sources */,
+				503C7C721F40B56E009C0512 /* HXPhotoPreviewViewCell.m in Sources */,
+				503C7C731F40B56E009C0512 /* HXPhotoPreviewViewController.m in Sources */,
 				495EA7741F14B64D001FCB7E /* ZFCollectionViewFlowLayout.m in Sources */,
 				495EA7F91F14B64D001FCB7E /* ZFSendHomeCell.m in Sources */,
 				495EA84D1F14B64D001FCB7E /* ShoppingCarModel.m in Sources */,
+				503C7C761F40B56E009C0512 /* HXPhotoTools.m in Sources */,
 				495EA7571F14B64D001FCB7E /* UIImage+RoundedCorner.m in Sources */,
 				495EA7B21F14B64D001FCB7E /* HPLocationCell.m in Sources */,
+				503C7C7E1F40B56F009C0512 /* HXVideoPreviewViewController.m in Sources */,
 				4927189C1F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.m in Sources */,
 				495EA71E1F14B64D001FCB7E /* UIImage+ADCircleImage.m in Sources */,
 				495EA81A1F14B64D001FCB7E /* ZFSettingHeadViewController.m in Sources */,
 				495EA95A1F14B64E001FCB7E /* SDCollectionViewCell.m in Sources */,
+				503C7C751F40B56E009C0512 /* HXPhotoSubViewCell.m in Sources */,
 				495EA76B1F14B64D001FCB7E /* ZFCInterpersonalCircleViewController.m in Sources */,
 				49555EB61F1E0092002E5688 /* ZFSureOrderViewController.m in Sources */,
 				495EA74F1F14B64D001FCB7E /* NSDictionary+TJSafe.m in Sources */,
@@ -5092,6 +5277,7 @@
 				49B3BCE11F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m in Sources */,
 				495EA7AC1F14B64D001FCB7E /* GuessCell.m in Sources */,
 				49555E961F1E0092002E5688 /* AddressLocationMapViewController.m in Sources */,
+				503C7C691F40B56E009C0512 /* HXCircleProgressView.m in Sources */,
 				495EA76C1F14B64D001FCB7E /* CollectionCategoryModel.m in Sources */,
 				49B3BCD81F204F70002A0FDC /* SYSafeCategory.m in Sources */,
 				495EA73F1F14B64D001FCB7E /* introductoryPagesHelper.m in Sources */,
@@ -5102,7 +5288,9 @@
 				495EA81B1F14B64D001FCB7E /* ZFSettingViewController.m in Sources */,
 				495EA9781F14B64E001FCB7E /* YYMemoryCache.m in Sources */,
 				495EA7C41F14B64D001FCB7E /* HistoryFootModel.m in Sources */,
+				503C7C781F40B56F009C0512 /* HXPhotoView.m in Sources */,
 				4992D7201F26E14800FBF982 /* SkuMatchModel.m in Sources */,
+				503C7C771F40B56F009C0512 /* HXPhotoUIManager.m in Sources */,
 				49555D8E1F32EA6B00C3C748 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				497A8AD11F2F4F040003D7CB /* SendServiceFootCell.m in Sources */,
 				495EA7491F14B64D001FCB7E /* cameraHelper.m in Sources */,
@@ -5128,6 +5316,7 @@
 				495EA7761F14B64D001FCB7E /* DetailShareViewController.m in Sources */,
 				495EA79B1F14B64D001FCB7E /* DetailGoodsModel.m in Sources */,
 				4971FB841F3864A20012DF84 /* ShopCarSectionHeadViewCell.m in Sources */,
+				503C7C811F40B56F009C0512 /* UIButton+HXExtension.m in Sources */,
 				495EA7CD1F14B64D001FCB7E /* ZFMyOderCell.m in Sources */,
 				495EA7241F14B64D001FCB7E /* ZFCoverView.m in Sources */,
 				495EA7841F14B64D001FCB7E /* ZFAppraiseSectionCell.m in Sources */,
@@ -5154,13 +5343,16 @@
 				495EA9531F14B64E001FCB7E /* PYSearchViewController.m in Sources */,
 				495EA83A1F14B64D001FCB7E /* DetailPayCashViewController.m in Sources */,
 				495EA71B1F14B64D001FCB7E /* NSTimer+Blocks.m in Sources */,
+				503C7C641F40B56E009C0512 /* HXAlbumListView.m in Sources */,
 				495EA8381F14B64D001FCB7E /* ZFPersonalViewController.m in Sources */,
 				49555D941F32EA6B00C3C748 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				495EA81C1F14B64D001FCB7E /* ZFSettingCell.m in Sources */,
 				495EA7561F14B64D001FCB7E /* UIImage+Resize.m in Sources */,
+				503C7C7A1F40B56F009C0512 /* HXPhotoViewController.m in Sources */,
 				495EA76E1F14B64D001FCB7E /* LeftTableViewCell.m in Sources */,
 				495EA7401F14B64D001FCB7E /* introductoryPagesView.m in Sources */,
 				495EA7AA1F14B64D001FCB7E /* FuncListTableViewCell.m in Sources */,
+				503C7C6E1F40B56E009C0512 /* HXPhotoEditView.m in Sources */,
 				50CD44471F33706100B618D0 /* CLLocation+MPLocation.m in Sources */,
 				4927189B1F1F5C6C002A7A54 /* WebViewJavascriptBridge.m in Sources */,
 				49555D891F32EA6B00C3C748 /* IQUITextFieldView+Additions.m in Sources */,
@@ -5184,9 +5376,12 @@
 				495EA7A31F14B64D001FCB7E /* HomeSearchResultViewController.m in Sources */,
 				495EA7791F14B64D001FCB7E /* ApprariseCollectionViewCell.m in Sources */,
 				495EA83F1F14B64D001FCB7E /* CollectionViewCell.m in Sources */,
+				503C7C7C1F40B56F009C0512 /* HXTransition.m in Sources */,
+				503C7C671F40B56E009C0512 /* HXCameraPreviewViewController.m in Sources */,
 				495EA73E1F14B64D001FCB7E /* MPFileManager.m in Sources */,
 				50B380EC1F3EF0BF001ED3BA /* UIView+SGFrame.m in Sources */,
 				495EA95B1F14B64E001FCB7E /* SDCycleScrollView.m in Sources */,
+				503C7C6B1F40B56E009C0512 /* HXFullScreenCameraPlayView.m in Sources */,
 				495EA7661F14B64D001FCB7E /* BaseNavigationController.m in Sources */,
 				495EA8101F14B64D001FCB7E /* ZFPregressCheckCell2.m in Sources */,
 				4926DF081F1F4AA400E9060B /* JsonModel.m in Sources */,
@@ -5213,15 +5408,19 @@
 				495EA82A1F14B64D001FCB7E /* FeedTextViewCell.m in Sources */,
 				495EA7321F14B64D001FCB7E /* NSString+HDExtension.m in Sources */,
 				495EA7631F14B64D001FCB7E /* XHStarRateView.m in Sources */,
+				503C7C831F40B56F009C0512 /* UIView+HXExtension.m in Sources */,
 				495EA7B41F14B64D001FCB7E /* SearchCell.m in Sources */,
+				503C7C6A1F40B56E009C0512 /* HXCollectionView.m in Sources */,
 				495EA8401F14B64D001FCB7E /* ZFOrderDetailCell.m in Sources */,
 				495EA81E1F14B64D001FCB7E /* ZFSettingHeaderCell.m in Sources */,
 				49555E971F1E0092002E5688 /* EditAddressViewController.m in Sources */,
 				495EA9791F14B64E001FCB7E /* UITextView+ZWLimitCounter.m in Sources */,
+				503C7C6D1F40B56E009C0512 /* HXPhotoConst.m in Sources */,
 				495EA77B1F14B64D001FCB7E /* SelectTableviewCell.m in Sources */,
 				495EA7331F14B64D001FCB7E /* UIImage+HDExtension.m in Sources */,
 				505A53C11F20FFDC002FB5CF /* ShopCarJsonModel.m in Sources */,
 				50B380ED1F3EF0BF001ED3BA /* SGPageContentScrollView.m in Sources */,
+				503C7C7D1F40B56F009C0512 /* HXVideoPresentTransition.m in Sources */,
 				495EA72E1F14B64D001FCB7E /* AdvertiseHelper.m in Sources */,
 				495EA8391F14B64D001FCB7E /* ZFPregressCheckViewController.m in Sources */,
 				49555D931F32EA6B00C3C748 /* IQToolbar.m in Sources */,

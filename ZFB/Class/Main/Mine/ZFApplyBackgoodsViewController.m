@@ -12,8 +12,11 @@
 //view
 #import "SalesAfterPopView.h"//弹框选择退货原因
 #import "PlaceholderTextView.h"
+//图片选择器
+#import "HXPhotoViewController.h"
+#import "HXPhotoView.h"
 
-@interface ZFApplyBackgoodsViewController ()<SalesAfterPopViewDelegate,UIScrollViewDelegate>
+@interface ZFApplyBackgoodsViewController ()<SalesAfterPopViewDelegate,UIScrollViewDelegate,HXPhotoViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *img_view;//商品图片
@@ -31,7 +34,11 @@
 @property (strong , nonatomic) SalesAfterPopView *selectReasonView;//选择原因
 @property (strong , nonatomic) UIView *popBackGView;//背景图
 @property (strong , nonatomic) PlaceholderTextView *textView;
-
+//图片选择器
+@property (strong, nonatomic) HXPhotoManager *manager;
+@property (strong, nonatomic) HXPhotoView *photoView;
+//添加图片
+@property (weak, nonatomic) IBOutlet UIView *AddPickerView;
 
 @end
 
@@ -43,8 +50,64 @@
 
     [self initGoodsData];
     [self InitPlaceholderTextView];
+    [self initPickerView];
+}
+-(void)initPickerView
+{
+//    self.photoView = [HXPhotoView photoManager:self.manager];
+//    self.photoView.frame = self.AddPickerView.frame;
+//    self.photoView.delegate = self;
+//    self.AddPickerView = self.photoView;
+//    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"相册/相机" style:UIBarButtonItemStylePlain target:self action:@selector(didNavBtnClick)];
+    HXPhotoView *photoView = [HXPhotoView photoManager:self.manager];
+    photoView.frame = CGRectMake(0, 0, KScreenW, (KScreenW - 30-3*5)/4);
+    photoView.delegate = self;
+    photoView.backgroundColor = [UIColor whiteColor];
+    self.photoView = photoView;
+    [self.AddPickerView addSubview: self.photoView];
+
+}
+ 
+- (void)dealloc {
+    [self.manager clearSelectedList];
 }
 
+- (void)didNavBtnClick {
+    [self.photoView goPhotoViewController];
+}
+- (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {
+    
+    NSSLog(@"所有:%ld - 照片:%ld - 视频:%ld",allList.count,photos.count,videos.count);
+    //    将HXPhotoModel模型数组转化成HXPhotoResultModel模型数组  - 已按选择顺序排序
+    //    !!!!  必须是全部类型的那个数组 就是 allList 这个数组  !!!!
+    [HXPhotoTools getSelectedListResultModel:allList complete:^(NSArray<HXPhotoResultModel *> *alls, NSArray<HXPhotoResultModel *> *photos, NSArray<HXPhotoResultModel *> *videos) {
+        NSSLog(@"\n全部类型:%@\n照片:%@\n视频:%@",alls,photos,videos);
+    }];
+ 
+}
+- (void)photoView:(HXPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {
+    NSSLog(@"%@",networkPhotoUrl);
+}
+- (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
+    NSSLog(@"%@",NSStringFromCGRect(frame));
+}
+
+- (HXPhotoManager *)manager {
+    if (!_manager) {
+        _manager = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhotoAndVideo];
+        _manager.openCamera = YES;
+        _manager.cacheAlbum = YES;
+        _manager.lookLivePhoto = YES;
+        _manager.open3DTouchPreview = YES;
+        _manager.cameraType = HXPhotoManagerCameraTypeSystem;
+        _manager.photoMaxNum = 5;
+        _manager.videoMaxNum = 5;
+        _manager.maxNum = 8;
+        _manager.saveSystemAblum = NO;
+    }
+    return _manager;
+}
 -(SalesAfterPopView *)selectReasonView
 {
     if (!_selectReasonView) {

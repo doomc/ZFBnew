@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-            timestampString = "523297863.736465"
+            timestampString = "524327205.334609"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "-qb_imagePickerController:didSelectAssets:"
             landmarkType = "7">
             <Locations>
@@ -116,11 +116,11 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-                  timestampString = "524257230.561983"
+                  timestampString = "524361497.2473"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "242"
-                  endingLineNumber = "242"
+                  startingLineNumber = "240"
+                  endingLineNumber = "240"
                   offsetFromSymbolStart = "242">
                </Location>
                <Location
@@ -131,11 +131,11 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-                  timestampString = "524257230.565048"
+                  timestampString = "524361497.250655"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "242"
-                  endingLineNumber = "242"
+                  startingLineNumber = "240"
+                  endingLineNumber = "240"
                   offsetFromSymbolStart = "51">
                </Location>
                <Location
@@ -146,11 +146,11 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-                  timestampString = "524257230.568771"
+                  timestampString = "524361497.253235"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "242"
-                  endingLineNumber = "242"
+                  startingLineNumber = "240"
+                  endingLineNumber = "240"
                   offsetFromSymbolStart = "29">
                </Location>
             </Locations>
@@ -163,11 +163,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-            timestampString = "523297863.736465"
+            timestampString = "524327205.334609"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
             landmarkName = "-qb_imagePickerController:didSelectAssets:"
             landmarkType = "7">
          </BreakpointContent>
@@ -179,11 +179,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-            timestampString = "523297863.736465"
+            timestampString = "524327205.334609"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
             landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "7">
          </BreakpointContent>
@@ -195,11 +195,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/ZFCommitOpinionViewController.m"
-            timestampString = "523297863.736465"
+            timestampString = "524327205.334609"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "7">
          </BreakpointContent>
@@ -295,38 +295,6 @@
             startingLineNumber = "71"
             endingLineNumber = "71"
             landmarkName = "-setupLabel"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Mine/ZFApplyBackgoodsViewController.m"
-            timestampString = "524249618.746642"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "-initGoodsData"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Mine/ZFApplyBackgoodsViewController.m"
-            timestampString = "524249660.942574"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "-scrollViewDidScroll:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

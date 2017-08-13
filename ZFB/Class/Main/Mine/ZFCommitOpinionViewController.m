@@ -15,14 +15,13 @@
 @interface ZFCommitOpinionViewController () <UITableViewDataSource,UITableViewDelegate,FeedPickerTableViewCellDelegate,QBImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate,FeedTypeTableViewCellDelegate>
 
 @property (nonatomic,strong) UITableView  * tableView;
-
 @property (nonatomic,copy)   NSString  * phoneNum;//输入的手机号
 @property (nonatomic,copy)   NSString  * textViewText;//输入的手机号
 @property (nonatomic,copy)   NSString  * selectedTypeText;//输入的手机号
 
 //上传图片的图片数组
 @property (strong, nonatomic) MPUploadImageHelper *curUploadImageHelper;
-@property (nonatomic , strong) NSMutableArray<UIImage *> *uploadImageArray;
+@property (nonatomic , strong) NSMutableArray <UIImage *> *uploadImageArray;
 
 //类型
 @property (nonatomic , strong) NSArray * typeArray;
@@ -216,7 +215,6 @@
 
 
 #pragma mark UINavigationControllerDelegate, QBImagePickerControllerDelegate
-
 - (void)qb_imagePickerController:(QBImagePickerController *)imagePickerController didSelectAssets:(NSArray *)assets{
     NSMutableArray *selectedAssetURLs = [NSMutableArray new];
     [imagePickerController.selectedAssetURLs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

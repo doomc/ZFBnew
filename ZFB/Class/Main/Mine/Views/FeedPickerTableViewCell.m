@@ -41,6 +41,7 @@
     [self reloadCell];
     
 }
+
 -(void)reloadCell
 {
     [self.pickerCollectionView reloadData];
@@ -48,11 +49,7 @@
     [self updateConstraintsIfNeeded];
     
 }
--(void)setImgArray:(NSMutableArray *)imgArray
-{
-    _imgArray = [NSMutableArray array];
-    _imgArray = imgArray;
-}
+
 -(void)setCurUploadImageHelper:(MPUploadImageHelper *)curUploadImageHelper {
     if (_curUploadImageHelper!=curUploadImageHelper) {
         _curUploadImageHelper=curUploadImageHelper;
@@ -70,17 +67,19 @@
     }
     [self.pickerCollectionView reloadData];
 }
+
 #pragma  mark - UICollectionViewDelegate
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
     NSInteger num = self.curUploadImageHelper.imagesArray.count;
     //如果没有大于最大上传数 则显示增加图标
-    if (num<=kupdateMaximumNumberOfImage) {
+    if (num <= kupdateMaximumNumberOfImage) {
         return num+ 1;
     }
     return num;
