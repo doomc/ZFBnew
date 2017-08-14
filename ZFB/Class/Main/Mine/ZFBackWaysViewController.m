@@ -22,6 +22,31 @@
 
 
 #pragma mark - 服务名称 -----提交售后申请 zfb/InterfaceServlet/afterSale/afterSaleApply
+-(void)commitPostRequset
+{
+    NSDictionary * param = @{
+ 
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"orderNum":_orderNum,
+                             
+                             };
+    
+    [SVProgressHUD show];
+    
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/order/afterSaleApply"] params:param success:^(id response) {
+        
+        [SVProgressHUD dismiss];
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        [self endRefresh];
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
 
 
 - (void)didReceiveMemoryWarning {

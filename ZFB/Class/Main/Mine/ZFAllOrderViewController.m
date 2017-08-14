@@ -1263,6 +1263,21 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     saleAfterVC.price = [NSString stringWithFormat:@"价格:%@元",goods.original_price];
     saleAfterVC.goodCount = [NSString stringWithFormat:@"数量 x%ld",goods.goodsCount];
     saleAfterVC.img_urlStr = goods.coverImgUrl;
+    
+    ///需要发送到售后申请的数据
+    saleAfterVC.orderId = goods.order_id;
+    saleAfterVC.orderNum = orderlist.orderCode;
+    saleAfterVC.goodsId = goods.goodsId;
+    saleAfterVC.serviceType = @"0";///服务类型	否	 0 退货 1 换货
+    saleAfterVC.coverImgUrl = goods.coverImgUrl;
+    saleAfterVC.goodsCount = [NSString stringWithFormat:@"%ld",goods.goodsCount];
+    saleAfterVC.storeId = orderlist.storeId;
+    saleAfterVC.orderTime = orderlist.createTime;
+    saleAfterVC.storeName = orderlist.storeName;
+    saleAfterVC.userName = orderlist.post_name;
+    saleAfterVC.userPhone = orderlist.post_phone;
+    saleAfterVC.goodsProperties = goods.goods_properties;
+    
     [self.navigationController pushViewController: saleAfterVC animated:NO];
     
     
