@@ -14,7 +14,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
+    [_delete_button setImage:[UIImage imageNamed:@"closeRed"] forState:UIControlStateNormal];
     [_delete_button addTarget:self action:@selector(deleteImage) forControlEvents:UIControlEventTouchUpInside];
 }
 -(void)setCurImageItem:(MPImageItemModel *)curImageItem

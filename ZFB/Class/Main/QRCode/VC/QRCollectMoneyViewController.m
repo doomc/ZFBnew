@@ -1,48 +1,47 @@
 //
-//  QRCodeCreatViewController.m
+//  QRCollectMoneyViewController.m
 //  ZFB
 //
-//  Created by 熊维东 on 2017/8/12.
+//  Created by  展富宝  on 2017/8/14.
 //  Copyright © 2017年 com.zfb. All rights reserved.
-//
+//  收款
 
-#import "QRCodeCreatViewController.h"
+#import "QRCollectMoneyViewController.h"
 #import "SGQRCode.h"
-
-@interface QRCodeCreatViewController ()
-
+#import "QRCollectHistoryViewController.h"
+@interface QRCollectMoneyViewController ()
+///二维码
+@property (weak, nonatomic) IBOutlet UIImageView *sacnCodeView;
 @end
 
-@implementation QRCodeCreatViewController
+@implementation QRCollectMoneyViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    // 生成二维码(中间带有图标)
+    // Do any additional setup after loading the view from its nib.
+   
+    self.title = @"收款";
     [self setupGenerate_Icon_QRCode];
-    
-    
+
 }
 #pragma mark - - - 中间带有图标二维码生成
 - (void)setupGenerate_Icon_QRCode {
     
     // 1、借助UIImageView显示二维码
-    UIImageView *imageView = [[UIImageView alloc] init];
-    CGFloat imageViewW = 150;
-    CGFloat imageViewH = imageViewW;
-    CGFloat imageViewX = (self.view.frame.size.width - imageViewW) / 2;
-    CGFloat imageViewY = 240;
-    imageView.frame =CGRectMake(imageViewX, imageViewY, imageViewW, imageViewH);
-    [self.view addSubview:imageView];
-    
     CGFloat scale = 0.2;
     
     // 2、将最终合得的图片显示在UIImageView上
-    imageView.image = [SGQRCodeGenerateManager SG_generateWithLogoQRCodeData:@"https://github.com/kingsic" logoImageName:@"logo" logoScaleToSuperView:scale];
+    self.sacnCodeView.image = [SGQRCodeGenerateManager SG_generateWithLogoQRCodeData:@"https://github.com/kingsic" logoImageName:@"logo" logoScaleToSuperView:scale];
     
 }
 
+//收款账单
+- (IBAction)didClickCollectMoneyRecord:(id)sender {
+    
+    QRCollectHistoryViewController * QRVC  = [[QRCollectHistoryViewController alloc]init];
+    [self.navigationController pushViewController:QRVC animated:NO];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

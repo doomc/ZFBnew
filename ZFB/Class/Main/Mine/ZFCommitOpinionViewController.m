@@ -46,6 +46,8 @@
     
     //初始化
     _curUploadImageHelper = [MPUploadImageHelper MPUploadImageForSend:NO];
+  
+    [self getFeedbackTypePOSTRequste];
 
 }
 
@@ -79,7 +81,7 @@
     {
         height = 135;
     }else{
-        height = 220;
+        height = 170 + 80 +85 * (_uploadImageArray.count/4.0);
     }
     return height;
 }
@@ -109,6 +111,7 @@
         pickerCell.selectionStyle = UITableViewCellSelectionStyleNone;
         pickerCell.delegate = self;
         pickerCell.addPicturesBlock = ^(){
+            
             [weakself showActionForPhoto];
         };
         pickerCell.deleteImageBlock = ^(MPImageItemModel *toDelete){
@@ -145,9 +148,20 @@
 ///提交数据
 -(void)didClickCommit
 {
-    NSLog(@"请求----_phoneNum= %@",_phoneNum);
-    
-    [self getFeedbackINfoInsertPOSTRequste];
+    NSLog(@"反馈类型 ----%@",_typeName);
+    if ([_typeName isEqualToString:@""]|| _typeName == nil) {
+        JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"请选择一个反馈类型" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alert addAction:sure];
+        [self presentViewController:alert animated:YES completion:nil];
+        
+    }else{
+        
+        [self getFeedbackINfoInsertPOSTRequste];
+   
+    }
 }
 
 //弹出选择框
@@ -190,8 +204,8 @@
         [self presentViewController:navigationController animated:YES completion:NULL];
     }
 }
-#pragma mark UIImagePickerControllerDelegate
 
+#pragma mark UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     
     UIImage *pickerImage = [info objectForKey:UIImagePickerControllerOriginalImage];
@@ -235,7 +249,7 @@
             _pickerImgString = [NSString arrayToJSONString:names];
             NSLog(@" ---- names---%@", names);
             NSLog(@" ---- _pickerImgString---%@", _pickerImgString);
-            
+            [self partialTableViewRefresh];
         }];
     }];
  
@@ -264,12 +278,12 @@
     return _uploadImageArray;
 }
 
-
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self getFeedbackTypePOSTRequste];
-}
 
+}
 #pragma mark  - 平台意见类型网络请求 getFeedbackType
 -(void)getFeedbackTypePOSTRequste
 {

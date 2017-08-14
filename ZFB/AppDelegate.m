@@ -46,7 +46,7 @@ const static NSString *ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
     [[NSUserDefaults standardUserDefaults]registerDefaults:df];
     
     //登录状态默认
-    BBUserDefault.isLogin = 1;
+//    BBUserDefault.isLogin = 1;
     
     return YES;
 }

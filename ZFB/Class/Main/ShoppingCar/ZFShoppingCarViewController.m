@@ -378,13 +378,10 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.carListArray.count;
-//    return 2;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     Shoppcartlist * list = self.carListArray[section];
-
-//    return  3;
     return list.goodsList.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -403,7 +400,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     ShopCarSectionHeadViewCell *cell           = [tableView dequeueReusableCellWithIdentifier:@"ShopCarSectionHeadViewCell"];
     cell.chooseStore_btn.selected = list.leftShoppcartlistIsChoosed;//!<  是否需要勾选的字段
     cell.lb_storeName.text = list.storeName;
-//    [cell.enterStore_btn setTitle:[NSString stringWithFormat:@"%@",list.storeName] forState:UIControlStateNormal];
     cell.sectionIndex           = section;
     cell.editStore_btn.selected = list.ShoppcartlistIsEditing;//是否处于编辑
     cell.delegate         = self;

@@ -39,6 +39,8 @@
 @property (strong, nonatomic) HXPhotoView *photoView;
 //添加图片
 @property (weak, nonatomic) IBOutlet UIView *AddPickerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contraintHight;
+ 
 
 @end
 
@@ -54,27 +56,17 @@
 }
 -(void)initPickerView
 {
-//    self.photoView = [HXPhotoView photoManager:self.manager];
-//    self.photoView.frame = self.AddPickerView.frame;
-//    self.photoView.delegate = self;
-//    self.AddPickerView = self.photoView;
-//    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"相册/相机" style:UIBarButtonItemStylePlain target:self action:@selector(didNavBtnClick)];
-    HXPhotoView *photoView = [HXPhotoView photoManager:self.manager];
-    photoView.frame = CGRectMake(0, 0, KScreenW, (KScreenW - 30-3*5)/4);
-    photoView.delegate = self;
-    photoView.backgroundColor = [UIColor whiteColor];
-    self.photoView = photoView;
-    [self.AddPickerView addSubview: self.photoView];
+    self.photoView = [HXPhotoView photoManager:self.manager];
+    self.photoView.frame = CGRectMake(10, 0, KScreenW - 20 , (KScreenW - 30-3*5)/4);
+    self.photoView.delegate  = self;
+    self.photoView.backgroundColor = [UIColor whiteColor];
+    [self.AddPickerView addSubview:self.photoView];
 
 }
  
 - (void)dealloc {
+    
     [self.manager clearSelectedList];
-}
-
-- (void)didNavBtnClick {
-    [self.photoView goPhotoViewController];
 }
 - (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {
     
@@ -91,8 +83,12 @@
 }
 - (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
     NSSLog(@"%@",NSStringFromCGRect(frame));
+    NSLog(@"  我当前的高度是 ---%f" ,frame.size.height) ;
+ 
+    self.contraintHight.constant = frame.size.height;
+    self.AddPickerView.frame  = CGRectMake(10, 0, KScreenW - 20 , self.contraintHight.constant + 10);
 }
-
+//图片管理器
 - (HXPhotoManager *)manager {
     if (!_manager) {
         _manager = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhotoAndVideo];
@@ -108,6 +104,7 @@
     }
     return _manager;
 }
+
 -(SalesAfterPopView *)selectReasonView
 {
     if (!_selectReasonView) {

@@ -77,7 +77,7 @@
 -(UIView *)headerView
 {
     if (!_headerView) {
-        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, 40)];
+        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,0)];
         _headerView.backgroundColor = [UIColor lightGrayColor];
         [_headerView addSubview:self.lb_SendArea];
         [_headerView addSubview:self.headcloseButton];
@@ -100,7 +100,7 @@
     if (!_headcloseButton) {
         _headcloseButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _headcloseButton.frame = CGRectMake(self.frame.size.width -10 - 30, 10, 20, 20);
-        [_headcloseButton setImage:[UIImage imageNamed:@"delete_sku"] forState:UIControlStateNormal];
+        [_headcloseButton setImage:[UIImage imageNamed:@"delete_black"] forState:UIControlStateNormal];
         [_headcloseButton addTarget:self action:@selector(closePopViewAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _headcloseButton;

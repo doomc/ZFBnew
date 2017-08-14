@@ -102,6 +102,7 @@
 {
     if (!_all_tableview) {
         _all_tableview            = [[UITableView alloc]initWithFrame:CGRectMake(0, 64+150+44, KScreenW, KScreenH - 64-44-150) style:UITableViewStylePlain];
+        _all_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
         _all_tableview.delegate   = self;
         _all_tableview.dataSource = self;
     }

@@ -44,6 +44,8 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 
 @property (nonatomic, copy) NSString *goodsName;
 
+@property (nonatomic, copy) NSString *priceRange;//范围价格
+
 
 @property (nonatomic, copy) NSString *coverImgUrl;///商品封面
 

@@ -48,13 +48,14 @@ WKNavigationDelegate,WKUIDelegate
     NSString * _storeId;
     NSString * _coverImgUrl;
     NSString * _attachImgUrl;
-    NSString * _storePrice;
     NSString * _inStock;
     NSString * _commentNum;
     NSInteger  _isCollect;
     NSInteger  _goodsSales;
     NSString * _goodsDetail;
- 
+    NSString * _netPurchasePrice;//购买价格
+    NSString * _priceRange;//范围价格
+
     NSMutableDictionary *dictProductValue; //保存选择的数据
     NSMutableDictionary * ruleJsondic; //保存选择的sku
     NSMutableArray * addArr;
@@ -282,7 +283,7 @@ WKNavigationDelegate,WKUIDelegate
 {
     if (indexPath.row == 0) {
         
-        return 56;
+        return 68;
         
     }
     else if (indexPath.row == 1) {
@@ -327,7 +328,7 @@ WKNavigationDelegate,WKUIDelegate
         ZFTitleAndChooseListCell  * listCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFTitleAndChooseListCell" forIndexPath:indexPath];
         listCell.selectionStyle              = UITableViewCellSelectionStyleNone;
         listCell.lb_title.text               = _goodsName;
-        listCell.lb_price.text               = [NSString stringWithFormat:@"¥%@",_storePrice];
+        listCell.lb_price.text               = [NSString stringWithFormat:@"¥%@",_priceRange];
         listCell.lb_sales.text               = [NSString stringWithFormat:@"已售%ld件",_goodsSales];
         return listCell;
         
@@ -842,6 +843,7 @@ WKNavigationDelegate,WKUIDelegate
             
             //图片详情网址
             _goodsDetail    = goodsmodel.data.goodsInfo.goodsDetail;//网址
+            _priceRange    = goodsmodel.data.goodsInfo.priceRange;//范围价格
 
             if (_isCollect == 1) {///是否收藏	1.收藏 2.不是
                 
@@ -860,11 +862,11 @@ WKNavigationDelegate,WKUIDelegate
             //当规格为空的时候才组装下列数据
             if (self.productSkuArray != nil && ![self.productSkuArray isKindOfClass:[NSNull class]] && self.productSkuArray.count != 0){
                
-                _storePrice   = goodsmodel.data.goodsInfo.storePrice;//价格
+                _netPurchasePrice   = goodsmodel.data.goodsInfo.netPurchasePrice;//价格
 
             }else{
                  //没有规格的价格
-                _storePrice   = goodsmodel.data.goodsInfo.netPurchasePrice;//网店价格
+                _netPurchasePrice   = goodsmodel.data.goodsInfo.netPurchasePrice;//网店价格
 
                 //---------------没有规格的数据------------------
                 NSMutableArray * goodsListArray = [NSMutableArray array];
@@ -873,7 +875,7 @@ WKNavigationDelegate,WKUIDelegate
                 NSMutableDictionary * storeListDic = [NSMutableDictionary dictionary];
                 
                 [goodsListDic setValue:goodsmodel.data.storeInfo.storeName forKey:@"storeName"];
-                [goodsListDic setValue:_storePrice forKey:@"originalPrice"];
+                [goodsListDic setValue:_netPurchasePrice forKey:@"originalPrice"];
                 [goodsListDic setValue:@"0" forKey:@"concessionalPrice"];//优惠价
                 [goodsListDic setValue:goodsmodel.data.goodsInfo.coverImgUrl forKey:@"coverImgUrl"];//图片地址
                 [goodsListDic setValue:goodsmodel.data.goodsInfo.netPurchasePrice forKey:@"purchasePrice"];//网购价

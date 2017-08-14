@@ -26,7 +26,7 @@
    
     self.feedCollectionView.delegate = self;
     self.feedCollectionView.dataSource =self;
-    
+    self.lb_status.textColor = HEXCOLOR(0xfe6d6a);
     _imagerray = [NSMutableArray array];
  
 }
@@ -42,10 +42,9 @@
     NSString*  timeSt = [dateTimeHelper TimeToLocationStr:detaildate];
     self.lb_time.text = timeSt;
     
-  
-    
+
     NSArray * imgArray= [feedList.feedbackUrl componentsSeparatedByString:@","];//图片是多张
-//    NSLog(@"%@",imgArray);
+    NSLog(@"%@",imgArray);
     [_imagerray addObjectsFromArray:imgArray];
     
     //isTreat 处理状态	否	1.未采纳 2.已采纳 3.已处理

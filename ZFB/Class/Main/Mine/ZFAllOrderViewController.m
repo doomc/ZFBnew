@@ -333,8 +333,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
         case OrderTypeAfterSale:
             if (self.tagNum == 0) {
  
-//            sectionNum = self.orderListArray.count + 1;
-                sectionNum = 2;
+            sectionNum = self.orderListArray.count + 1;
+//                sectionNum = 2;
             }else{
                 
                 sectionNum = 1;
@@ -394,13 +394,13 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                     
                 }else{
                     
-//                    Orderlist * orderlist       = self.orderListArray[section -1];
-//                    NSMutableArray * saleArray = [NSMutableArray array];
-//                    for (Ordergoods * goods in orderlist.orderGoods) {
-//                        [saleArray addObject:goods];
-//                    }
-//                    rowNum = saleArray.count;
-                    rowNum = 3;
+                    Orderlist * orderlist       = self.orderListArray[section -1];
+                    NSMutableArray * saleArray = [NSMutableArray array];
+                    for (Ordergoods * goods in orderlist.orderGoods) {
+                        [saleArray addObject:goods];
+                    }
+                    rowNum = saleArray.count;
+//                    rowNum = 3;
                     NSLog(@" ------rowNum-----%ld=========",rowNum);
                 }
                 

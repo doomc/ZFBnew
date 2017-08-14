@@ -34,11 +34,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
     
 };
 @interface FinGoodsViewController ()<SDCycleScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,FuncListTableViewCellDeleagte>
-{
-    NSInteger _pageCount;//每页显示条数
-    NSInteger _page;//当前页码;
-    
-}
+
 @property(strong,nonatomic)UIView * CircleHeadView;
 @property(strong,nonatomic)UITableView * findGoods_TableView;
 @property(strong,nonatomic)SDCycleScrollView *cycleScrollView ;
@@ -55,9 +51,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _pageCount = 15;
-    _page = 1;
-    
+ 
     [self initWithFindGoodsTableView];
     
     [self ADpagePostRequst];
@@ -154,8 +148,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
         return self.hotArray.count > 0 ? 1 : 0;
     }
     if (section == 2 ) {
-        return 3;
-//        return self.likeListArray.count;
+//        return 3;
+        return self.likeListArray.count;
         
     }
     return 1;
@@ -315,17 +309,12 @@ typedef NS_ENUM(NSUInteger, CellType) {
 #pragma mark - 猜你喜欢- getYouWillLike网络请求
 -(void)guessYouLikePostRequst
 {    
-    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageCount];
-    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_page];
-    NSLog(@"%ld ------ %ld",_page,_pageCount);
-
     NSDictionary * parma = @{
                             
                              @"latitude" : BBUserDefault.latitude ,
                              @"longitude": BBUserDefault.longitude,
-                             @"svcName":@"",
-                             @"pageSize":pageSize,//每页显示条数
-                             @"pageIndex":pageIndex,//当前页码
+                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
+                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"cmUserId":BBUserDefault.cmUserId,
                              
                              };

@@ -50,6 +50,7 @@
     
 }
 
+
 -(void)setCurUploadImageHelper:(MPUploadImageHelper *)curUploadImageHelper {
     if (_curUploadImageHelper!=curUploadImageHelper) {
         _curUploadImageHelper=curUploadImageHelper;
@@ -115,7 +116,7 @@
 //每个cell的大小，因为有indexPath，所以可以判断哪一组，或者哪一个item，可一个给特定的大小，等同于layout的itemSize属性
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return  CGSizeMake( 50, 50);
+    return  CGSizeMake( KScreenW/4 - 5*5, KScreenW/4 - 5*5);
     
 }
 // 设置整个组的缩进量是多少

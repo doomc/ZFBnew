@@ -15,14 +15,15 @@
 #import "HomeSearchBarViewController.h"//搜索跳转
 #import "SGPagingView.h"//控制自控制器
 
-#import "QRCodeCreatViewController.h"
-#import "QRCodeSaoyiSaoViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "QRCodeSaoyiSaoViewController.h"//扫一扫
+#import "QRPayMoneyViewController.h"//付款
+#import "QRCollectMoneyViewController.h"//收款
 
 typedef NS_ENUM(NSUInteger, TypeVC) {
     TypeVCSaoyiSao,
-    TypeVC2o,
-    TypeVC3,
+    TypeVCAcceptMoney,
+    TypeVCPaymoney,
 };
 @interface ZFHomeViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate,YBPopupMenuDelegate>
 
@@ -48,8 +49,9 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _titlesArr = @[@"扫一扫",@"生成二维码",@"转账"];
+    _titlesArr = @[@"扫一扫",@"收款",@"付款"];
     _iconArr = @[@"saoyisao",@"saoyisao",@"saoyisao"];
+  
     [self customButtonOfNav];
  
     [self setupPageView];
@@ -186,31 +188,40 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     _psuhTypeVC = index;
     switch (_psuhTypeVC) {
        
-        case 0:
+        case TypeVCSaoyiSao:
             NSLog(@"第一个扫一扫VC");
             [self scanningQRCode];
 
    
             break;
 
-        case 1:
+        case TypeVCAcceptMoney://收款
             NSLog(@"第2个VC");
-            [self creatQRCode];
+            [self collectMoneyQRCode];
 
             break;
-        case 2:
+        case TypeVCPaymoney://付款
             NSLog(@"第3 ge VC");
+            [self PayMoneyQRCode];
 
             break;
 
     }
 }
 
-/** 生成二维码方法 */
-- (void)creatQRCode {
-    
-    QRCodeCreatViewController *VC = [[QRCodeCreatViewController alloc] init];
+/** 生成二维码方法 *///付款码
+- (void)PayMoneyQRCode {
+
+    QRPayMoneyViewController *VC = [[QRPayMoneyViewController alloc] init];
     [self.navigationController pushViewController:VC animated:NO];
+    
+}
+///收款码
+- (void)collectMoneyQRCode {
+    
+    QRCollectMoneyViewController * collctVC = [[QRCollectMoneyViewController alloc]init];
+    [self.navigationController pushViewController:collctVC animated:NO];
+
     
 }
 
