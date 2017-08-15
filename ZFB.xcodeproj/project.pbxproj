@@ -100,7 +100,6 @@
 		495EA7241F14B64D001FCB7E /* ZFCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA31F1F14B64B001FCB7E /* ZFCoverView.m */; };
 		495EA7251F14B64D001FCB7E /* ZFEnum.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA32D1F14B64B001FCB7E /* ZFEnum.m */; };
 		495EA7271F14B64D001FCB7E /* OSSImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3341F14B64B001FCB7E /* OSSImageUploader.m */; };
-		495EA7281F14B64D001FCB7E /* PPNetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3371F14B64B001FCB7E /* PPNetworkCache.m */; };
 		495EA72B1F14B64D001FCB7E /* ZFEncryptionKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA33D1F14B64B001FCB7E /* ZFEncryptionKey.m */; };
 		495EA72C1F14B64D001FCB7E /* addressData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 495EA3411F14B64B001FCB7E /* addressData.plist */; };
 		495EA72D1F14B64D001FCB7E /* AddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3431F14B64B001FCB7E /* AddressPickerView.m */; };
@@ -590,7 +589,6 @@
 		495EA9781F14B64E001FCB7E /* YYMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA7101F14B64D001FCB7E /* YYMemoryCache.m */; };
 		495EA9791F14B64E001FCB7E /* UITextView+ZWLimitCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA7131F14B64D001FCB7E /* UITextView+ZWLimitCounter.m */; };
 		49690CBB1F14C442004C501B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 49690CBA1F14C442004C501B /* Reachability.m */; };
-		49690CBD1F14D0CF004C501B /* PPNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 49690CBC1F14D0CF004C501B /* PPNetworkHelper.m */; };
 		49690CBF1F14EB3A004C501B /* MENetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49690CBE1F14EB3A004C501B /* MENetWorkManager.m */; };
 		4971FB841F3864A20012DF84 /* ShopCarSectionHeadViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4971FB831F3864A20012DF84 /* ShopCarSectionHeadViewCell.m */; };
 		49738A371F3D89530004657B /* ZFApplyBackgoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49738A351F3D89530004657B /* ZFApplyBackgoodsViewController.m */; };
@@ -971,9 +969,6 @@
 		495EA3301F14B64B001FCB7E /* MENetWorkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MENetWorkManager.h; sourceTree = "<group>"; };
 		495EA3331F14B64B001FCB7E /* OSSImageUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSSImageUploader.h; sourceTree = "<group>"; };
 		495EA3341F14B64B001FCB7E /* OSSImageUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSSImageUploader.m; sourceTree = "<group>"; };
-		495EA3361F14B64B001FCB7E /* PPNetworkCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNetworkCache.h; sourceTree = "<group>"; };
-		495EA3371F14B64B001FCB7E /* PPNetworkCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNetworkCache.m; sourceTree = "<group>"; };
-		495EA3381F14B64B001FCB7E /* PPNetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNetworkHelper.h; sourceTree = "<group>"; };
 		495EA33C1F14B64B001FCB7E /* ZFEncryptionKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFEncryptionKey.h; sourceTree = "<group>"; };
 		495EA33D1F14B64B001FCB7E /* ZFEncryptionKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFEncryptionKey.m; sourceTree = "<group>"; };
 		495EA3411F14B64B001FCB7E /* addressData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressData.plist; sourceTree = "<group>"; };
@@ -1656,7 +1651,6 @@
 		495EA7131F14B64D001FCB7E /* UITextView+ZWLimitCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+ZWLimitCounter.m"; sourceTree = "<group>"; };
 		49690CB91F14C442004C501B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		49690CBA1F14C442004C501B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		49690CBC1F14D0CF004C501B /* PPNetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNetworkHelper.m; sourceTree = "<group>"; };
 		49690CBE1F14EB3A004C501B /* MENetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MENetWorkManager.m; sourceTree = "<group>"; };
 		4971FB821F3864A20012DF84 /* ShopCarSectionHeadViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarSectionHeadViewCell.h; sourceTree = "<group>"; };
 		4971FB831F3864A20012DF84 /* ShopCarSectionHeadViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarSectionHeadViewCell.m; sourceTree = "<group>"; };
@@ -2493,7 +2487,6 @@
 				495EA3301F14B64B001FCB7E /* MENetWorkManager.h */,
 				49690CBE1F14EB3A004C501B /* MENetWorkManager.m */,
 				495EA3321F14B64B001FCB7E /* OSSImageUploader */,
-				495EA3351F14B64B001FCB7E /* PPNetworkHelper */,
 				495EA33C1F14B64B001FCB7E /* ZFEncryptionKey.h */,
 				495EA33D1F14B64B001FCB7E /* ZFEncryptionKey.m */,
 			);
@@ -2508,17 +2501,6 @@
 				495EA3341F14B64B001FCB7E /* OSSImageUploader.m */,
 			);
 			path = OSSImageUploader;
-			sourceTree = "<group>";
-		};
-		495EA3351F14B64B001FCB7E /* PPNetworkHelper */ = {
-			isa = PBXGroup;
-			children = (
-				495EA3361F14B64B001FCB7E /* PPNetworkCache.h */,
-				495EA3371F14B64B001FCB7E /* PPNetworkCache.m */,
-				495EA3381F14B64B001FCB7E /* PPNetworkHelper.h */,
-				49690CBC1F14D0CF004C501B /* PPNetworkHelper.m */,
-			);
-			path = PPNetworkHelper;
 			sourceTree = "<group>";
 		};
 		495EA33E1F14B64B001FCB7E /* Tool(工具类) */ = {
@@ -4171,6 +4153,7 @@
 		49B0E74E1F4176AA0032E72E /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				49B0E7591F417ACE0032E72E /* SubVC(子控制器) */,
 				49B0E74F1F4176E00032E72E /* QRPayMoneyViewController.h */,
 				49B0E7501F4176E00032E72E /* QRPayMoneyViewController.m */,
 				49B0E7511F4176E00032E72E /* QRPayMoneyViewController.xib */,
@@ -4198,7 +4181,7 @@
 				49B0E76F1F419CE60032E72E /* QRCollectHistoryViewController.m */,
 			);
 			name = "SubVC(子控制器)";
-			path = SubVC;
+			path = ../SubVC;
 			sourceTree = "<group>";
 		};
 		49B0E75D1F417B300032E72E /* Model */ = {
@@ -4421,7 +4404,6 @@
 		50B381051F3EFF94001ED3BA /* QRCode(二维码扫一扫) */ = {
 			isa = PBXGroup;
 			children = (
-				49B0E7591F417ACE0032E72E /* SubVC(子控制器) */,
 				49B0E74D1F4176AA0032E72E /* Model */,
 				49B0E74E1F4176AA0032E72E /* VC */,
 				50B3810F1F3F0B7A001ED3BA /* View */,
@@ -5298,7 +5280,6 @@
 				495EA96D1F14B64E001FCB7E /* UIPlaceHolderTextView.m in Sources */,
 				506745A81F1D0D39000CC722 /* DWQStarView.m in Sources */,
 				495EA7701F14B64D001FCB7E /* ZFClassifyCollectionViewController.m in Sources */,
-				49690CBD1F14D0CF004C501B /* PPNetworkHelper.m in Sources */,
 				495EA9741F14B64E001FCB7E /* YBRectConst.m in Sources */,
 				4956CEA81F16042A00DAD466 /* HotSearchCollectionViewCell.m in Sources */,
 				495EA9521F14B64E001FCB7E /* PYSearchSuggestionViewController.m in Sources */,
@@ -5473,7 +5454,6 @@
 				495EA73D1F14B64D001FCB7E /* UIView+EaseBlankPage.m in Sources */,
 				495EA7351F14B64D001FCB7E /* Toast+UIView.m in Sources */,
 				495EA8241F14B64D001FCB7E /* FeedCommitCollectionViewCell.m in Sources */,
-				495EA7281F14B64D001FCB7E /* PPNetworkCache.m in Sources */,
 				495EA8421F14B64D001FCB7E /* ZFOrderDetailCountCell.m in Sources */,
 				495EA7A31F14B64D001FCB7E /* HomeSearchResultViewController.m in Sources */,
 				495EA7791F14B64D001FCB7E /* ApprariseCollectionViewCell.m in Sources */,

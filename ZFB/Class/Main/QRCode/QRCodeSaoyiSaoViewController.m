@@ -96,7 +96,17 @@
 //扫描成功跳转
 - (void)QRCodeAlbumManager:(SGQRCodeAlbumManager *)albumManager didFinishPickingMediaWithResult:(NSString *)result {
     
-    //判断是web 还是 code码
+    //type
+    NSString * type = [result substringToIndex:1];//字符串开始
+    NSLog(@"type ==== %@",type);
+   
+    //verificationKey
+    NSRange  range  = [result rangeOfString:@"á"];
+    result = [result substringFromIndex:range.length+1];
+    NSLog(@"result:%@",result);
+    [self creatPayMoneyQRcodePostType:type verificationKey:result];
+    
+    //判断是条形码 还是 二维码
     if ([result hasPrefix:@"http"]) {
         QRCodeScanSuccessViewController *jumpVC = [[QRCodeScanSuccessViewController alloc] init];
         jumpVC.jump_URL = result;
@@ -107,27 +117,71 @@
         jumpVC.jump_bar_code = result;
         [self.navigationController pushViewController:jumpVC animated:YES];
     }
+
+
 }
 
 #pragma mark - - - SGQRCodeScanManagerDelegate  扫描当前
 - (void)QRCodeScanManager:(SGQRCodeScanManager *)scanManager didOutputMetadataObjects:(NSArray *)metadataObjects {
     NSLog(@"metadataObjects - - %@", metadataObjects);
+    
     if (metadataObjects != nil && metadataObjects.count > 0) {
         [scanManager SG_palySoundName:@"SGQRCode.bundle/sound.caf"];
         [scanManager SG_stopRunning];
         [scanManager SG_videoPreviewLayerRemoveFromSuperlayer];
         
         AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
-        QRCodeScanSuccessViewController * jumpVC = [[QRCodeScanSuccessViewController alloc] init];
-        jumpVC.jump_URL = [obj stringValue];
-        [self.navigationController pushViewController:jumpVC animated:YES];
+        NSString * verificationKey = [obj stringValue];
+        NSLog(@"verificationKey ===== %@",verificationKey);
+        NSRange  range  = [verificationKey rangeOfString:@"á"];
+        verificationKey = [verificationKey substringFromIndex:range.length+1];
+        
+        //type
+        NSString * type = [verificationKey substringToIndex:1];//字符串开始
+        NSLog(@"type ==== %@",type);
+        
+        [self creatPayMoneyQRcodePostType:type verificationKey:verificationKey];
+        //如果需要下一级就这里跳转
+        
+        QRCodeScanSuccessViewController *jumpVC = [[QRCodeScanSuccessViewController alloc] init];
+        jumpVC.jump_URL = verificationKey;
+        
     } else {
         NSLog(@"暂未识别出扫描的二维码");
+        JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"暂未识别出扫描的二维码" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alertVC addAction:sure];
+        [alertVC presentViewController:alertVC animated:YES completion:nil];
+        
     }
 }
 
 
+#pragma mark  -      QRCode/verificationUserQRcode校验用户二维码接口
 
+-(void)creatPayMoneyQRcodePostType:(NSString *)type verificationKey:(NSString *)verificationKey
+{
+    NSDictionary * param  = @{
+                              @"qrCodeType":type,
+                              @"verificationKey":verificationKey,///二维码唯一标示
+                              @"userKeyMd5":BBUserDefault.userKeyMd5,
+                              };
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/verificationUserQRcode",zfb_baseUrl] params:param success:^(id response) {
+        
+        if ([response[@"resultCode"] intValue] == 0) {
+            
+ 
+        }
+        
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

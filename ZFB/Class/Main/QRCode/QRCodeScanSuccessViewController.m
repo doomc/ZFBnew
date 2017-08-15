@@ -21,14 +21,17 @@
     
  
     [self setupNavigationItem];
+    
     if (self.jump_bar_code) {
+        
         [self setupLabel];
+        
     } else {
+        
         [self setupWebView];
     }
 
 }
-
 
 - (void)setupNavigationItem {
     UIButton *left_Button = [[UIButton alloc] init];

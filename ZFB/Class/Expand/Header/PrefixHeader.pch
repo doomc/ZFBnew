@@ -32,7 +32,6 @@
 #import <MBProgressHUD.h>
 #import "UIImageView+WebCache.h"
 #import "JXTAlertController.h"
-#import "PPNetworkHelper.h"
 #import "cameraHelper.h"
 #import "GVUserDefaults.h"
 #import "GVUserDefaults+BBProperties.h"

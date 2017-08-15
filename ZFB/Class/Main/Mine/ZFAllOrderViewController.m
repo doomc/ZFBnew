@@ -1270,13 +1270,15 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     saleAfterVC.goodsId = goods.goodsId;
     saleAfterVC.serviceType = @"0";///服务类型	否	 0 退货 1 换货
     saleAfterVC.coverImgUrl = goods.coverImgUrl;
-    saleAfterVC.goodsCount = [NSString stringWithFormat:@"%ld",goods.goodsCount];
     saleAfterVC.storeId = orderlist.storeId;
     saleAfterVC.orderTime = orderlist.createTime;
     saleAfterVC.storeName = orderlist.storeName;
     saleAfterVC.userName = orderlist.post_name;
     saleAfterVC.userPhone = orderlist.post_phone;
-    saleAfterVC.goodsProperties = goods.goods_properties;
+    
+    //规格转成json
+    NSString * jsonGoodsPro =[ NSString arrayToJSONString:goods.goods_properties];
+    saleAfterVC.goodsProperties = jsonGoodsPro;
     
     [self.navigationController pushViewController: saleAfterVC animated:NO];
     

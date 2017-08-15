@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+
 /**
  *  带默认提示的textView
  */
-
-
 @class PlaceholderTextView;
 
 @interface PlaceholderTextView : UITextView<UITextViewDelegate>

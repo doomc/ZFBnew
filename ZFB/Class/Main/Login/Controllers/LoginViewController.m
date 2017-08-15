@@ -433,7 +433,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             
             BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
             BBUserDefault.nickName = response[@"userInfo"][@"nickName"];
-            
+            BBUserDefault.userPhoneNumber = _tf_loginphone.text;
             BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
             NSLog(@" ======= signMD5Key=======%@", BBUserDefault.userKeyMd5 );
             
@@ -477,7 +477,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
             BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
             BBUserDefault.nickName = response[@"userInfo"][@"nickName"];
-            
+            BBUserDefault.userPhoneNumber = _tf_loginphone.text;
+
             [self left_button_event];
     
         }

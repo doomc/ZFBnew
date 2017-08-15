@@ -34,6 +34,7 @@
 /** 是否开启 log 打印，默认为 YES */
 @property (nonatomic, assign) BOOL isOpenLog;
 
+
 /** 从相册中读取二维码方法 */
 - (void)SG_readQRCodeFromAlbumWithCurrentController:(UIViewController *)currentController;
 

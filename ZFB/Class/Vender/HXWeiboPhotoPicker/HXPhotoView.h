@@ -42,6 +42,7 @@
 - (instancetype)initWithFrame:(CGRect)frame WithManager:(HXPhotoManager *)manager;
 - (instancetype)initWithManager:(HXPhotoManager *)manager;
 + (instancetype)photoManager:(HXPhotoManager *)manager;
+
 - (void)goPhotoViewController;
 /**  网络图片是否全部下载完成  */
 - (BOOL)networkingPhotoDownloadComplete;

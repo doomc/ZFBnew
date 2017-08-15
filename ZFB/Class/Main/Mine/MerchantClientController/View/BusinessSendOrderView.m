@@ -62,7 +62,7 @@
 -(UITableView *)alertTableView
 {
     if (!_alertTableView) {
-        _alertTableView =[[ UITableView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) style:UITableViewStylePlain];
+        _alertTableView =[[ UITableView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height -40) style:UITableViewStylePlain];
         _alertTableView.delegate = self;
         _alertTableView.dataSource =self;
         _alertTableView.separatorStyle = UITableViewScrollPositionNone;
@@ -77,7 +77,7 @@
 -(UIView *)headerView
 {
     if (!_headerView) {
-        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,0)];
+        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,40)];
         _headerView.backgroundColor = [UIColor lightGrayColor];
         [_headerView addSubview:self.lb_SendArea];
         [_headerView addSubview:self.headcloseButton];
@@ -150,6 +150,7 @@
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource;
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

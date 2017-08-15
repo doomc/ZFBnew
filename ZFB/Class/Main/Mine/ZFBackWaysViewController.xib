@@ -11,6 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZFBackWaysViewController">
             <connections>
+                <outlet property="commitBtn" destination="XQk-eC-lbT" id="w3G-Sf-R75"/>
+                <outlet property="tf_contactName" destination="qsS-GE-zwb" id="fR0-UE-YkM"/>
+                <outlet property="tf_contactPhone" destination="fSv-Y3-yce" id="IfZ-d4-SIE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -117,6 +120,9 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="提交"/>
+                    <connections>
+                        <action selector="didClickcommitAction:" destination="-1" eventType="touchUpInside" id="Mff-UI-dGp"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

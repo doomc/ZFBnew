@@ -30,7 +30,7 @@
 @property (nonatomic, copy) NSString * userId;///关联账号id
 @property (nonatomic, copy) NSString * userName;///联系人
 @property (nonatomic, copy) NSString * userPhone;///联系电话
-@property (nonatomic, strong) NSArray * goodsProperties;///商品规格
+@property (nonatomic, copy) NSString * goodsProperties;///商品规格
 
 @property (nonatomic, copy) NSString * problemDescr;///问题描述
 @property (nonatomic, copy) NSString * pic1;///反馈图片1 多张图片路径，已“，”分割，最多获取5张

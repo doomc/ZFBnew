@@ -40,11 +40,20 @@
 //添加图片
 @property (weak, nonatomic) IBOutlet UIView *AddPickerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contraintHight;
- 
+
+@property (nonatomic, strong) NSMutableArray * imgUrl_mutArray;//存放选取的图片数组
+
 
 @end
 
 @implementation ZFApplyBackgoodsViewController
+-(NSMutableArray *)imgUrl_mutArray
+{
+    if (!_imgUrl_mutArray) {
+        _imgUrl_mutArray = [NSMutableArray array];
+    }
+    return _imgUrl_mutArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -68,17 +77,37 @@
     
     [self.manager clearSelectedList];
 }
-- (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {
+
+- (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray <HXPhotoModel *> *)videos original:(BOOL)isOriginal {
     
-    NSSLog(@"所有:%ld - 照片:%ld - 视频:%ld",allList.count,photos.count,videos.count);
+//    NSSLog(@"所有:%ld - 照片:%ld - 视频:%ld",allList.count,photos.count,videos.count);
     //    将HXPhotoModel模型数组转化成HXPhotoResultModel模型数组  - 已按选择顺序排序
     //    !!!!  必须是全部类型的那个数组 就是 allList 这个数组  !!!!
+    NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
+
     [HXPhotoTools getSelectedListResultModel:allList complete:^(NSArray<HXPhotoResultModel *> *alls, NSArray<HXPhotoResultModel *> *photos, NSArray<HXPhotoResultModel *> *videos) {
-        NSSLog(@"\n全部类型:%@\n照片:%@\n视频:%@",alls,photos,videos);
+        //        NSSLog(@"\n全部类型:%@\n照片:%@\n视频:%@",alls,photos,videos);
+        if (self.imgUrl_mutArray.count > 0) {
+       
+        [self.imgUrl_mutArray  removeAllObjects];
+            
+        }
+        for (HXPhotoResultModel * photo in photos) {
+            
+            NSURL *url  = photo.fullSizeImageURL;
+            NSString * urlpath = url.path;
+            NSSLog(@"\n%@",urlpath);
+            [self.imgUrl_mutArray addObject:urlpath];
+        }
+        
+        NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
     }];
- 
+    
+    
+    
 }
 - (void)photoView:(HXPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {
+  
     NSSLog(@"%@",networkPhotoUrl);
 }
 - (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
@@ -137,6 +166,7 @@
     
     [_textView didChangeText:^(PlaceholderTextView *textView) {
         NSLog(@"%@",textView.text);
+        _problemDescr = textView.text;
     }];
     
 
@@ -177,7 +207,35 @@
  */
 - (IBAction)didClickNextPage:(id)sender {
     
+    /////***************提交之前暂时没有做处理
+    if ([_reason isEqualToString:@""] || _reason == nil) {
+        
+        //参数不能为空
+    }
     ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
+    
+    bcVC.goodsName = _goodsName;
+    bcVC.price =  _price ;
+    bcVC.goodCount = _goodsCount;
+    bcVC.img_urlStr = _coverImgUrl;
+    
+    ///需要发送到售后申请的数据
+    bcVC.orderId = _orderId;
+    bcVC.orderNum = _orderNum;
+    bcVC.goodsId =  _goodsId;
+    bcVC.serviceType = @"1";///服务类型	否	 0 退货 1 换货
+    bcVC.storeId = _storeId;
+    bcVC.orderTime = _orderTime;
+    bcVC.storeName = _storeName;
+    bcVC.userName = _postName;
+    bcVC.userPhone = _postPhone;
+
+    //
+    bcVC.reason = _reason;
+    bcVC.problemDescr = _problemDescr;
+    bcVC.pic1 = _pic1;
+    bcVC.goodsProperties = _goodsProperties;
+
     [self.navigationController pushViewController: bcVC animated:YES];
 }
 
@@ -199,7 +257,7 @@
 -(void)getReasonString:(NSString *)reason{
     
     NSLog(@"%@",reason);
-    self.lb_chooseResult.text = reason;
+    _reason = self.lb_chooseResult.text = reason;
     [self.popBackGView removeFromSuperview];
 
 }
@@ -212,9 +270,6 @@
 
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

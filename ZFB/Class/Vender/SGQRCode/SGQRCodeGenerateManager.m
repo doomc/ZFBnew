@@ -81,6 +81,7 @@
     
     // 2、设置数据
     NSString *string_data = data;
+    
     // 将字符串转换成 NSdata (虽然二维码本质上是字符串, 但是这里需要转换, 不转换就崩溃)
     NSData *qrImageData = [string_data dataUsingEncoding:NSUTF8StringEncoding];
     

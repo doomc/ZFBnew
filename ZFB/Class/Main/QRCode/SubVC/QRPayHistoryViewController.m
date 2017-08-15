@@ -78,6 +78,7 @@ static NSString * identiHisyCell = @"QRPayHistoryCell";
     UITableViewHeaderFooterView * headView = [[UITableViewHeaderFooterView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 44)];
     UILabel * month = [[UILabel alloc]initWithFrame:CGRectMake(15, 10, KScreenW, 22)];
     month.text = @"6月";
+    [headView addSubview:month];
     return headView;
 }
 
@@ -89,7 +90,7 @@ static NSString * identiHisyCell = @"QRPayHistoryCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DetailPayRecordViewController * detailVC = [ DetailPayRecordViewController new];
+    DetailPayRecordViewController * detailVC = [[ DetailPayRecordViewController alloc]init];
     [self.navigationController pushViewController:detailVC animated:NO];
 }
 
