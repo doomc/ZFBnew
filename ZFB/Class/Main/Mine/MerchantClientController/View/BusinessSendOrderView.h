@@ -11,7 +11,7 @@
 
 @protocol BusinessSendOrderViewDelegate <NSObject>
 
-
+@optional
 
 /**
  商户进行针对于距离选择配送员派单
@@ -41,6 +41,7 @@
 @property (nonatomic,strong) NSMutableArray *deliveryArray;
 @property (nonatomic,assign) NSInteger section;
 
-
+//刷新派单列表
+-(void)reloadDeliveryList;
 
 @end

@@ -12,6 +12,7 @@
 @interface BusinessSendOrderView ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSInteger  indexpathRow;
+    BOOL isSelectSender;//判断下是不是选择了一个配送员
 }
 @property (nonatomic , strong) UIView * headerView;
 @property (nonatomic , strong) UIView * footerView;
@@ -41,13 +42,10 @@
 }
 
 -(void)initUI{
- 
+    isSelectSender = NO;//默认未选择
     [self addSubview:self.alertTableView];//创建tableview
     [self addSubview:self.footerView];
 
-    self.alertTableView.tableHeaderView = self.headerView;
-    self.alertTableView.tableHeaderView.height =  40;
-    
     //nib
     [self.alertTableView registerNib:[UINib nibWithNibName:@"BusinessSendoOrderCell" bundle:nil] forCellReuseIdentifier:@"BusinessSendoOrderCell"];
 }
@@ -161,6 +159,14 @@
 {
     return 44;
 }
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return  self.headerView;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 40;
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Deliverylist * list = self.deliveryArray[indexPath.row];
@@ -182,10 +188,12 @@
 
     //需要配送员信息，姓名电话什么的
     Deliverylist * list = self.deliveryArray[indexPath.row];
+    
     indexpathRow = indexPath.row;
     
     self.lb_SendArea.text =[NSString stringWithFormat:@"派送区域:%@",list.deliveryArea];
-
+    
+    isSelectSender = YES;
 }
 
 -(void)closePopViewAction:(UIButton * )sender
@@ -195,18 +203,27 @@
         [self.delegate cancelAction];
     }
  
+
 }
 ///确定派单
 -(void)didClickSureAction:(UIButton *)sender
 {
     Deliverylist * list = self.deliveryArray[indexpathRow];
-    if ([self.delegate respondsToSelector:@selector(didClickPushdeliveryId:deliveryName:deliveryPhone:Index:)]) {
+    if (isSelectSender == YES) {
+        if ([self.delegate respondsToSelector:@selector(didClickPushdeliveryId:deliveryName:deliveryPhone:Index:)]) {
             [self.delegate didClickPushdeliveryId:[NSString stringWithFormat:@"%ld",list.deliveryId]
                                      deliveryName:list.deliveryName
                                     deliveryPhone:list.deliveryPhone
                                             Index:indexpathRow];
         }
- 
+    }else{
+        isSelectSender = NO;
+        [self makeToast:@"你还没选择配送员哦~" duration:2 position:@"center"];
+        NSLog(@"还没选择配送员");
+
+    }
+
+
     NSLog(@"确定");
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -214,5 +231,12 @@
     NSLog(@"取消隐藏");
 }
 
+-(void)reloadDeliveryList
+{
+    
+    [self.alertTableView reloadData];
+    isSelectSender = NO;
+
+}
 
 @end

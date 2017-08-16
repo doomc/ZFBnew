@@ -39,8 +39,25 @@
     [self.orderdTableView registerNib:[UINib nibWithNibName:@"ZFFooterCell" bundle:nil]
                   forCellReuseIdentifier:@"ZFFooterCell"];
     
+    [self storeHomePagePostRequst];
+    
+    [self setupRefresh];
+}
+#pragma mark -数据请求
+-(void)headerRefresh {
+    
+    [super headerRefresh];
+    [self storeHomePagePostRequst];
+
     
 }
+-(void)footerRefresh {
+    [super footerRefresh];
+    [self storeHomePagePostRequst];
+    
+}
+
+
 -(UIView *)headView
 {
     _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 80)];
@@ -170,24 +187,42 @@
 }
 
 
-#pragma mark -  获取统计列表    order/storeHomePage
+#pragma mark -  获取统计列表    order/getStoreOrderList
 -(void)storeHomePagePostRequst
 {
 
     NSDictionary * param = @{
-                             @"storeId": _storeId ,
-
+                             @"page": [NSNumber numberWithInteger:self.currentPage],
+                             @"size": [NSNumber numberWithInteger:kPageCount],
+                             @"orderStatus": @"3",
+                             @"payStatus": @"",
+                             @"searchWord":@"",
+                             @"startTime": _starTime,
+                             @"endTime": _endTime,
+                             @"payMode": @"1",
+                             @"storeId": _storeId,
+                             
                              };
-    
-    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/storeHomePage",zfb_baseUrl] params:param success:^(id response) {
+    [SVProgressHUD show];
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getStoreOrderList",zfb_baseUrl] params:param success:^(id response) {
        
         BusinessOrderModel * orderModel = [BusinessOrderModel mj_objectWithKeyValues:response];
-        
+       
+        if (self.refreshType == RefreshTypeHeader) {
+          
+            if (self.orderListArray.count > 0) {
+                
+                [self.orderListArray removeAllObjects];
+            }
+
+        }
         for (BusinessOrderlist * orderlist in orderModel.orderList) {
             
             [self.orderListArray addObject:orderlist];
             
         }
+        [self endRefresh];
+        [SVProgressHUD dismiss];
         [self.orderdTableView reloadData];
         
     } progress:^(NSProgress *progeress) {
@@ -195,7 +230,8 @@
         NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
-        
+        [self endRefresh];
+        [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
@@ -210,7 +246,29 @@
     }
     return _orderListArray;
 }
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [SVProgressHUD dismiss];
 
+}
+
+//既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat sectionHeaderHeight = 80;
+    CGFloat sectionFooterHeight = 50;
+    CGFloat offsetY = scrollView.contentOffset.y;
+    if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
+    {
+        scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
+    }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
+    {
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
+    }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
+    {
+        scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

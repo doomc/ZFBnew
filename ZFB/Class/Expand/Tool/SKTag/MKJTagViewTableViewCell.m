@@ -1,10 +1,9 @@
 //
 //  MKJTagViewTableViewCell.m
-//  TagListLayoutDemo
+//  ZFB
 //
-//  Created by 宓珂璟 on 16/6/20.
-//  Copyright © 2016年 宓珂璟. All rights reserved.
-//
+//  Created by 熊维东 on 2017/7/10.
+//  Copyright © 2017年 com.zfb. All rights reserved.
 
 #import "MKJTagViewTableViewCell.h"
 

@@ -18,14 +18,15 @@
 #import "SearchResultModel.h"//搜索商品model
 #import "SearchNoResultModel.h"//搜索无数据的模型
 #import "BrandListModel.h"//品牌模型
-
+//vc
+#import "DetailFindGoodsViewController.h"
 @interface HomeSearchResultViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate,SearchTypeCollectionViewDelegate,SearchTypeViewDelegate >
 
 {
     NSString * _brandId ;//获取品牌
     NSUInteger _priceSort ;//价格排序  价格排序  1升 0降
     NSUInteger _salesSort ;//销售排序     排序  1升 0降
-    
+ 
 }
 
 //返回结果无数据的view
@@ -76,6 +77,7 @@
     
 
     _resultView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH)];
+   
     [self.view addSubview:_resultView];
 
     //有数据的tableView
@@ -88,7 +90,37 @@
     
     [self addSelectedTpye];//选择分类类型（noResultArray = 0 的状态下显示）
     
+    [self setupRefresh];
 }
+#pragma mark -数据请求
+-(void)headerRefresh {
+    [super headerRefresh];
+ 
+ 
+    if ([self.selectbutton.titleLabel.text isEqualToString:@"商品"]) {
+        //商品搜索
+        [self SearchgoodsPOSTRequestAndsearchText:_resultsText brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
+        
+    }else{
+        
+        [self searchStorePOSTRequestAndbusinessType:@"" payType:@"1" latitude:@"" longitude:@"" orderBydisc:@"" orderbylikeNum:@"" nearBydisc:@""  sercahText:_searchBar.text];
+    }
+
+}
+-(void)footerRefresh {
+    
+    [super footerRefresh];
+    
+    if ([self.selectbutton.titleLabel.text isEqualToString:@"商品"]) {
+        //商品搜索
+        [self SearchgoodsPOSTRequestAndsearchText:_resultsText brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
+        
+    }else{
+        
+        [self searchStorePOSTRequestAndbusinessType:@"" payType:@"1" latitude:@"" longitude:@"" orderBydisc:@"" orderbylikeNum:@"" nearBydisc:@""  sercahText:_searchBar.text];
+    }
+}
+
 //////////////////////////////////无结果需要加载的视图///////////////////////////////////////
 //添加headview
 -(void)addtableViewHeadview
@@ -122,6 +154,8 @@
     self.navigationItem.titleView = _titleView;
     [_titleView addSubview:self.selectbutton];
     [_titleView addSubview:self.searchBar];
+    
+    self.zfb_tableView = self.tableView ;
     
 }
 //创建选择类型视图
@@ -275,7 +309,7 @@
     
     button.selected  =  _priceSort > 0 ?  1 : 0;
  
-   
+    [self SearchgoodsPOSTRequestAndsearchText:_searchBar.text brandId:_brandId orderByPrice:[NSString stringWithFormat:@"%ld",_priceSort] orderBySales:[NSString stringWithFormat:@"%ld",_salesSort] labelId:_labelId isFeatured:@""];
     
 }
 ///销量排序
@@ -286,7 +320,7 @@
     
     button.selected  = _salesSort > 0 ?  1 : 0;
     
-    [self SearchgoodsPOSTRequestAndsearchText:_searchBar.text brandId:_brandId orderByPrice:[NSString stringWithFormat:@"%ld",_priceSort] orderBySales:[NSString stringWithFormat:@"%ld",_salesSort] labelId:_labelId isFeatured:@"" page:@"" size:@""];
+    [self SearchgoodsPOSTRequestAndsearchText:_searchBar.text brandId:_brandId orderByPrice:[NSString stringWithFormat:@"%ld",_priceSort] orderBySales:[NSString stringWithFormat:@"%ld",_salesSort] labelId:_labelId isFeatured:@"" ];
 
 }
 ///距离排序
@@ -401,20 +435,33 @@
  
     return nil;
 }
+////////////////////////////////////////////////////////////////////////////////
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.searchBar resignFirstResponder];
+    
+    SearchFindgoodslist * goodlist = self.noResultArray[indexPath.row];//精选数据跳转
+    ResultFindgoodslist * findGoods = self.searchListArray[indexPath.row];//搜索到的商品数据跳转
+    
+    DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
 
-    if (self.tableView == tableView) {
+    if (_isFeatured == 1) {
+ 
         NSLog(@" sction1 == %ld  ---  row1 == %ld",indexPath.section ,indexPath.row);
-
+        detailVC.goodsId = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
+        [self.navigationController pushViewController:detailVC animated:NO];
+        
     }else{
-        NSLog(@" sction2 == %ld  ---  row2 == %ld",indexPath.section ,indexPath.row);
 
+        detailVC.goodsId = [NSString stringWithFormat:@"%ld",findGoods.goodsId];
+        [self.navigationController pushViewController:detailVC animated:NO];
+
+  
     }
+ 
 }
-
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark -  UISearchBarDelegate 搜索代理
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
@@ -429,19 +476,20 @@
     NSLog(@"------结束编辑");
     return YES;
 }
-
+#pragma mark - 点击搜索后的方法
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     NSLog(@"searchText ==== %@",searchText);
     if ([self.selectbutton.titleLabel.text isEqualToString:@"商品"]) {
         //商品搜索
-        [self SearchgoodsPOSTRequestAndsearchText:searchText brandId:@""orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"0" page:@"0" size:@"0"];
+        [self SearchgoodsPOSTRequestAndsearchText:searchText brandId:@""orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
    
     }else{
         
-        [self searchStorePOSTRequestAndbusinessType:@"" payType:@"1" latitude:@"" longitude:@"" orderBydisc:@"" orderbylikeNum:@"" nearBydisc:@"" page:@"" size:@"" sercahText:searchBar.text];
+        [self searchStorePOSTRequestAndbusinessType:@"" payType:@"1" latitude:@"" longitude:@"" orderBydisc:@"" orderbylikeNum:@"" nearBydisc:@"" sercahText:searchBar.text];
     }
-
+    _resultsText = searchText;
+    
 }
 
 //点击键盘搜索后的方法
@@ -451,29 +499,29 @@
     [searchBar resignFirstResponder];
     if ([self.selectbutton.titleLabel.text isEqualToString:@"商品"]) {
         //商品搜索
-        [self SearchgoodsPOSTRequestAndsearchText:searchBar.text brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"0" page:@"0" size:@"0"];
+        [self SearchgoodsPOSTRequestAndsearchText:searchBar.text brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" ];
         
     }else{
         
-        [self searchStorePOSTRequestAndbusinessType:@"" payType:@"1" latitude:@"" longitude:@"" orderBydisc:@"" orderbylikeNum:@"" nearBydisc:@"" page:@"1" size:@"6" sercahText:searchBar.text];
+        [self searchStorePOSTRequestAndbusinessType:@"" payType:@"1" latitude:@"" longitude:@"" orderBydisc:@"" orderbylikeNum:@"" nearBydisc:@"" sercahText:searchBar.text];
     }
 }
 
 
-#pragma mark - SearchTypeCollectionViewDelegate 自定义代理
+#pragma mark - SearchTypeCollectionViewDelegate 选择品牌
 -(void)didSelectedIndex:(NSInteger )index brandId :(NSString *)brandId brandName:(NSString *)brandName
 {
     [self.view endEditing:YES];
+
+    NSLog(@"品牌index === %ld   brandId == %@  brandName = %@",index,brandId,brandName);
+
     [_popBgView removeFromSuperview];
     [_searchCollectionView  removeFromSuperview];
     [self.searchBar resignFirstResponder];
     
-    self.searchBar.text = brandName;
-    
-    [self SearchgoodsPOSTRequestAndsearchText:brandName brandId:brandId orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" page:@"" size:@""];
-    NSLog(@"品牌index === %ld   brandId == %@  brandName = %@",index,brandId,brandName);
-    
-    
+    //不管精选不精选 都搜索
+    [self SearchgoodsPOSTRequestAndsearchText:@"" brandId:brandId orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
+   
 }
 
 
@@ -488,8 +536,6 @@
  @param orderBydisc 距离排序   1升   0降
  @param orderbylikeNum 人气排序   1升   0降
  @param nearBydisc 获取附近门店    1  获取10公里以内的门店
- @param page 页码
- @param size 大小
  @param sercahText 搜索关键字
  */
 -(void)searchStorePOSTRequestAndbusinessType:(NSString *)businessType
@@ -499,8 +545,6 @@
                                  orderBydisc:(NSString *)orderBydisc
                               orderbylikeNum:(NSString *)orderbylikeNum
                                   nearBydisc:(NSString *)nearBydisc
-                                        page:(NSString *)page
-                                        size:(NSString *)size
                                   sercahText:(NSString *)sercahText
 
 {
@@ -512,8 +556,8 @@
                              @"orderBydisc":orderBydisc,
                              @"orderbylikeNum":orderbylikeNum,
                              @"nearBydisc":nearBydisc,
-                             @"page":page,
-                             @"size":size,
+                             @"size":[NSNumber numberWithInteger:kPageCount],
+                             @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"sercahText":sercahText,
                              
                              
@@ -522,15 +566,18 @@
     [SVProgressHUD show];
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:param success:^(id response) {
-        
+        if (self.refreshType  == RefreshTypeHeader) {
+#warning  -- -门店搜锁没有
+        }
         [SVProgressHUD dismissWithDelay:1];
-        
+        [self endRefresh];
+
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
-        
+        [self endRefresh];
         [SVProgressHUD dismiss];
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         NSLog(@"error=====%@",error);
@@ -550,8 +597,7 @@
  @param orderBySales //商品售量排序	销量排序  1升0降
  @param labelId  //标签id
  @param isFeatured //是否精选	是否精选  1是 0 否
- @param page  // 	页码
- @param size   //默认是十条数据
+
  */
 -(void)SearchgoodsPOSTRequestAndsearchText:(NSString *)searchText
                                    brandId:(NSString *)brandId
@@ -559,8 +605,7 @@
                               orderBySales:(NSString *)orderBySales
                                    labelId:(NSString *)labelId
                                 isFeatured:(NSString *)isFeatured
-                                      page:(NSString *)page
-                                      size:(NSString *)size
+
 
 {
     NSDictionary * param = @{
@@ -571,19 +616,21 @@
                              @"orderBySales":orderBySales,
                              @"labelId":labelId,
                              @"isFeatured":isFeatured,
-                             @"page":page,
-                             @"size":size,
-                             
+                             @"size":[NSNumber numberWithInteger:kPageCount],
+                             @"page":[NSNumber numberWithInteger:self.currentPage],
                              };
     
     [SVProgressHUD show];
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getProSearch",zfb_baseUrl] params:param success:^(id response) {
         
         if ([response[@"resultCode"]  isEqualToString: @"0"]) {
-            if (self.searchListArray.count > 0) {
+            if (self.refreshType  == RefreshTypeHeader) {
                 
-                [self.searchListArray removeAllObjects];
+                if (self.searchListArray.count > 0) {
+                    
+                    [self.searchListArray removeAllObjects];
+                }
+  
             }
             SearchResultModel * result = [SearchResultModel mj_objectWithKeyValues:response];
             
@@ -592,31 +639,28 @@
                 [self.searchListArray addObject:goodlist];
             }
             
-            [self.resultTableView reloadData];
-            
-            [SVProgressHUD dismissWithDelay:1];
-            
+            [SVProgressHUD dismiss];
         }
+        [self.resultTableView reloadData];
+        [self endRefresh];
 
         if (self.searchListArray.count > 0) {
-            
+            _isFeatured = 0;//不用精选
             [self.view bringSubviewToFront:_resultView];//如果搜索有结果，_resultView在置顶
 
         }else{
-            
+            _isFeatured = 1;
             [self.view sendSubviewToBack:_resultView]; //如果无数据 在滞后 在精选列表
-            
             [self isFeaturePost];
  
         }
-
         
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
-        
+        [self endRefresh];
         [SVProgressHUD dismiss];
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         NSLog(@"error=====%@",error);
@@ -635,8 +679,8 @@
                              @"orderBySales":@"",
                              @"labelId":@"",
                              @"isFeatured":@"1",
-                             @"page":@"",
-                             @"size":@"",
+                             @"size":[NSNumber numberWithInteger:kPageCount],
+                             @"page":[NSNumber numberWithInteger:self.currentPage],
                              };
     
     [SVProgressHUD show];
@@ -644,10 +688,13 @@
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getProSearch",zfb_baseUrl] params:param success:^(id response) {
     
         if ([response[@"resultCode"]  isEqualToString: @"0"]) {
-            
-            if ( self.noResultArray.count > 0) {
+            if (self.refreshType  == RefreshTypeHeader) {
                 
-                [self.noResultArray removeAllObjects];
+                if ( self.noResultArray.count > 0) {
+                    
+                    [self.noResultArray removeAllObjects];
+                    
+                }
                 
             }
             SearchNoResultModel  * nodata = [SearchNoResultModel mj_objectWithKeyValues:response];
@@ -663,8 +710,8 @@
             }
             [self.tableView reloadData];
             
-            [SVProgressHUD dismissWithDelay:1];
-            
+            [SVProgressHUD dismiss];
+            [self endRefresh];
             
         }
     } progress:^(NSProgress *progeress) {
@@ -672,7 +719,8 @@
         NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
-        
+        [self endRefresh];
+
         [SVProgressHUD dismiss];
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         NSLog(@"error=====%@",error);
@@ -687,6 +735,10 @@
     
         BrandListModel  * brand = [BrandListModel mj_objectWithKeyValues:response];
         
+        if (self.brandListArray.count > 0) {
+            
+            [self.brandListArray removeAllObjects];
+        }
         for (BrandFindbrandlist * brandlist  in brand.data.findBrandList) {
             
             [self.brandListArray addObject:brandlist];
@@ -730,11 +782,11 @@
     
     if ([self.selectbutton.titleLabel.text isEqualToString:@"商品"]) {
         //商品搜索
-        [self SearchgoodsPOSTRequestAndsearchText:self.searchBar.text brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" page:@"" size:@""];
+        [self SearchgoodsPOSTRequestAndsearchText:_resultsText brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
         
     }else{
-        
-        [self searchStorePOSTRequestAndbusinessType:@"" payType:@"1" latitude:@"" longitude:@"" orderBydisc:@"" orderbylikeNum:@"" nearBydisc:@"" page:@"" size:@"" sercahText:_searchBar.text];
+        //门店搜索
+        [self searchStorePOSTRequestAndbusinessType:_resultsText payType:@"1" latitude:@"" longitude:@"" orderBydisc:@"" orderbylikeNum:@"" nearBydisc:@""  sercahText:_searchBar.text];
     }
     
 

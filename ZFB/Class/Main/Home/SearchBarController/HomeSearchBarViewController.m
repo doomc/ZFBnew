@@ -138,11 +138,11 @@ static NSString * identyhy = @"SearchHistoryCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         
-        return 50;
-        //        return [tableView fd_heightForCellWithIdentifier:identyfy configuration:^(id cell) {
-        //
-        //            [self configCell:cell indexpath:indexPath];
-        //        }];
+        //        return 50;
+        return [tableView fd_heightForCellWithIdentifier:identyfy configuration:^(id cell) {
+            
+            [self configCell:cell indexpath:indexPath];
+        }];
         
     }
     return 50;
@@ -208,10 +208,6 @@ static NSString * identyhy = @"SearchHistoryCell";
             view = footBtn;
         }
     }
-    
-    
-    
-    
     return view;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -234,7 +230,7 @@ static NSString * identyhy = @"SearchHistoryCell";
     if (indexPath.section == 0) {
         MKJTagViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identyfy forIndexPath:indexPath];
         
-        //        [self configCell:cell indexpath:indexPath];
+        [self configCell:cell indexpath:indexPath];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -254,9 +250,9 @@ static NSString * identyhy = @"SearchHistoryCell";
 {
     [cell.tagView removeAllTags];
     cell.tagView.preferredMaxLayoutWidth = [UIScreen mainScreen].bounds.size.width;
-    cell.tagView.padding = UIEdgeInsetsMake(20, 20, 20, 20);
-    cell.tagView.lineSpacing = 20;
-    cell.tagView.interitemSpacing = 30;
+    cell.tagView.padding = UIEdgeInsetsMake(15, 10, 10, 15);
+    cell.tagView.lineSpacing = 10;
+    cell.tagView.interitemSpacing = 20;
     cell.tagView.singleLine = NO;
     // 给出两个字段，如果给的是0，那么就是变化的,如果给的不是0，那么就是固定的
     //        cell.tagView.regularWidth = 80;
@@ -285,21 +281,26 @@ static NSString * identyhy = @"SearchHistoryCell";
         reslutVC.searchType = self.selectbutton.titleLabel.text;
         reslutVC.resultsText = _searchBar.text = _searchText;
         reslutVC.labelId = _tagId;
-        
+       
         [self.navigationController pushViewController:reslutVC animated:NO];
         NSLog(@"点击了%ld  === %@ =====%@id ",index,_searchText,_tagId);
+ 
+        [self.historyArray addObject:_searchText];
         
+        BBUserDefault.searchHistoryArray = self.historyArray;//存到本地
     };
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSLog(@"%ld  ---- %ld",indexPath.section ,indexPath.row);
+    
+    NSString * searchText = self.historyArray[indexPath.row];
     if (indexPath.section == 1) {
         //标签视图
         HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
         reslutVC.searchType = self.selectbutton.titleLabel.text;
-        reslutVC.resultsText = _searchBar.text;
+        reslutVC.resultsText = searchText;
         [self.navigationController pushViewController:reslutVC animated:NO];
         
     }
@@ -347,6 +348,7 @@ static NSString * identyhy = @"SearchHistoryCell";
         [self presentViewController:alertavc animated:YES completion:nil];
         
     }else{
+        
         //push操作
         HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
         reslutVC.searchType = self.selectbutton.titleLabel.text;

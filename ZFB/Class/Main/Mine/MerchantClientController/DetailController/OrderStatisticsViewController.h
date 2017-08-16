@@ -16,5 +16,9 @@
 
 @property (nonatomic , copy) NSString * storeId;
 
+@property (nonatomic , copy) NSString * starTime;
+
+@property (nonatomic , copy) NSString * endTime;
+
 
 @end
