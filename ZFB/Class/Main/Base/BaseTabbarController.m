@@ -15,6 +15,7 @@
 
 #import "BaseNavigationController.h"
 #import "UIImage+Extension.h"
+#import "AppDelegate.h"
 @interface BaseTabbarController ()
 
 @end
@@ -28,6 +29,15 @@
     [self customTabbarItem];
 }
 
++ (instancetype)instance{
+    AppDelegate *delegete = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UIViewController *vc = delegete.window.rootViewController;
+    if ([vc isKindOfClass:[BaseTabbarController class]]) {
+        return (BaseTabbarController *)vc;
+    }else{
+        return nil;
+    }
+}
 -(void)addSubViewsControllers{
     
     NSArray *classControllers = @[@"ZFHomeViewController",

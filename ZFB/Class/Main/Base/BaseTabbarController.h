@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NIMKit.h"
 
 @interface BaseTabbarController : UITabBarController
+
++ (instancetype)instance;
 
 @end

@@ -11,10 +11,12 @@
 #import "BaseTabbarController.h"
 #import "ZFbaseTabbarViewController.h"
 
+
+
 //高德
 #import <AMapFoundationKit/AMapFoundationKit.h>
-
-#import "SYSafeCategory.h"
+#import "SYSafeCategory.h"//安全操作
+//高德api
 const static NSString *ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
 
 @interface AppDelegate ()
@@ -44,6 +46,12 @@ const static NSString *ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
     //默认一个switch开关的状态 存储在NSUserDefaults
     NSDictionary * df = @{@"switchType":@YES};
     [[NSUserDefaults standardUserDefaults]registerDefaults:df];
+    
+    
+    // 网易云信IM
+    [[NIMSDK sharedSDK]registerWithAppID:Appkey cerName:@"wangyiyunPushID"];
+    
+    //这里的 NTESDataProvider 实现了 NIMKitDataProvider 协议
     
     //登录状态默认
 //    BBUserDefault.isLogin = 1;

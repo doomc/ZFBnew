@@ -65,6 +65,37 @@
 #import "imageCompressHelper.h"
  
 
+////////////// IM 网易云信 //////////////////
+#import <NIMSDK/NIMSDK.h>
+#import <NIMAVChat/NIMAVChat.h>
+#import "NTESGlobalMacro.h"
+#import "NIMKit.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "Macros.h"
+
+
+
+//这个宏加上后，可以去掉'mas_'这个前缀了
+#define MAS_SHORTHAND
+//这个宏加上后，可以去掉自动包装方法的'mas_'前缀
+#define MAS_SHORTHAND_GLOBALS
+//注意，这两个宏必须定义在这个头文件的上面，因为"Masonry.h"中要用到上面2个宏，如果已经定义过了的话
+
+#define  Appkey @"45c6af3c98409b18a84451215d0bdd6e"  //  //4d2a1f4cd4e5c9f955f677493cc7a950
+
+
+#ifdef DEBUG
+static DDLogLevel ddLogLevel = DDLogLevelVerbose;
+#else
+static DDLogLevel ddLogLevel = DDLogLevelInfo;
+#endif
+
+#define NTES_USE_CLEAR_BAR - (BOOL)useClearBar{return YES;}
+#define NTES_FORBID_INTERACTIVE_POP - (BOOL)forbidInteractivePop{return YES;}
+
+#define WIDTH [UIScreen mainScreen].bounds.size.width
+#define HEIGHT [UIScreen mainScreen].bounds.size.height
+#define AppThemeTraditionFont [UIFont systemFontOfSize:14]
 
 
 

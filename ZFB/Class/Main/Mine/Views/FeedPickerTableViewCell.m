@@ -7,170 +7,112 @@
 //
 
 #import "FeedPickerTableViewCell.h"
-#import "FeedPickerCollectionViewCell.h"
+//图片选择器
+#import "HXPhotoViewController.h"
+#import "HXPhotoView.h"
+@interface FeedPickerTableViewCell ()<HXPhotoViewDelegate>
 
-@interface FeedPickerTableViewCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UITextFieldDelegate>
+//图片选择器
+@property (strong, nonatomic) HXPhotoManager *manager;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionLayoutHeight;
-@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *collectionViewFlowLayout;
-@property (strong, nonatomic) NSMutableArray *imageViewsDict;
- 
+@property (strong, nonatomic) HXPhotoView *photoView;
+
+@property (nonatomic, strong) NSMutableArray * imgUrl_mutArray;//存放选取的图片数组
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightOfConstraint;
 
 @end
+
 @implementation FeedPickerTableViewCell
+-(NSMutableArray *)imgUrl_mutArray
+{
+    if (!_imgUrl_mutArray) {
+        _imgUrl_mutArray = [NSMutableArray array];
+    }
+    return _imgUrl_mutArray;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
     
-    self.bgView.layer.cornerRadius = 3;
-    self.bgView.layer.borderWidth = 0.5;
-    self.bgView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
-    self.bgView.clipsToBounds = YES;
-    
-    self.commitButton.layer.cornerRadius = 3;
-    self.commitButton.clipsToBounds = YES;
-    
-    self.tf_phoneNum.delegate = self;
-    [self.tf_phoneNum addTarget:self action:@selector(changeTextFiled:) forControlEvents:UIControlEventEditingChanged];
-
-    self.pickerCollectionView.delegate = self;
-    self.pickerCollectionView.dataSource = self;
-    
-    [self.pickerCollectionView registerNib:[UINib nibWithNibName:@"FeedPickerCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"FeedPickerCollectionViewCellid"];
-    [self reloadCell];
-    
+    [self initPickerView];
 }
-
--(void)reloadCell
+-(void)initPickerView
 {
-    [self.pickerCollectionView reloadData];
-    self.collectionLayoutHeight.constant = self.collectionViewFlowLayout.collectionViewContentSize.height;
-    [self updateConstraintsIfNeeded];
+    self.photoView                 = [HXPhotoView photoManager:self.manager];
+    self.photoView.frame           = CGRectMake(0, 0, KScreenW - 30 , (KScreenW - 30-3*5)/4);
+    self.photoView.delegate        = self;
+    self.photoView.backgroundColor = [UIColor whiteColor];
+    [self.pickerCollectionView addSubview:self.photoView];
     
 }
 
-
--(void)setCurUploadImageHelper:(MPUploadImageHelper *)curUploadImageHelper {
-    if (_curUploadImageHelper!=curUploadImageHelper) {
-        _curUploadImageHelper=curUploadImageHelper;
-    }
+- (void)dealloc {
     
-    //把为浏览大图做准备
-    if (_imageViewsDict) {
-        [_imageViewsDict removeAllObjects];
-        
-        for (NSURL *itemUrl in curUploadImageHelper.selectedAssetURLs) {
-            MWPhoto *mwphoto=[MWPhoto photoWithURL:itemUrl];
-            mwphoto.caption=nil;
-            [_imageViewsDict addObject:mwphoto];
+    [self.manager clearSelectedList];
+}
+
+- (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray <HXPhotoModel *> *)videos original:(BOOL)isOriginal {
+    
+    //    NSSLog(@"所有:%ld - 照片:%ld - 视频:%ld",allList.count,photos.count,videos.count);
+    //    将HXPhotoModel模型数组转化成HXPhotoResultModel模型数组  - 已按选择顺序排序
+    //    !!!!  必须是全部类型的那个数组 就是 allList 这个数组  !!!!
+    NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
+    
+    [HXPhotoTools getSelectedListResultModel:allList complete:^(NSArray<HXPhotoResultModel *> *alls, NSArray<HXPhotoResultModel *> *photos, NSArray<HXPhotoResultModel *> *videos) {
+        //        NSSLog(@"\n全部类型:%@\n照片:%@\n视频:%@",alls,photos,videos);
+        if (self.imgUrl_mutArray.count > 0) {
+            [self.imgUrl_mutArray  removeAllObjects];
         }
-    }
-    [self.pickerCollectionView reloadData];
-}
-
-#pragma  mark - UICollectionViewDelegate
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-}
-
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    
-    NSInteger num = self.curUploadImageHelper.imagesArray.count;
-    //如果没有大于最大上传数 则显示增加图标
-    if (num <= kupdateMaximumNumberOfImage) {
-        return num+ 1;
-    }
-    return num;
-    
-}
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    FeedPickerCollectionViewCell *cell = [self.pickerCollectionView dequeueReusableCellWithReuseIdentifier:@"FeedPickerCollectionViewCellid" forIndexPath:indexPath];
-    
-    if (indexPath.row < self.curUploadImageHelper.imagesArray.count) {
-        MPImageItemModel *curImage = [self.curUploadImageHelper.imagesArray objectAtIndex:indexPath.row];
-        cell.curImageItem = curImage;
-    }else{
-        cell.curImageItem = nil;
-    }
-    cell.deleteImageBlock = ^(MPImageItemModel *toDelete){
-        if (self.deleteImageBlock) {
-            self.deleteImageBlock(toDelete);
+        for (HXPhotoResultModel * photo in photos) {
+            
+            NSURL *url         = photo.fullSizeImageURL;
+            NSString * urlpath = url.path;
+            NSSLog(@"\n%@",urlpath);
+            [self.imgUrl_mutArray addObject:urlpath];
         }
-    };
-    
-    return cell;
+        //将数据传出去
+        [self.delegate uploadImageArray:[NSArray arrayWithArray:self.imgUrl_mutArray]];
+        NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
+    }];
     
 }
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+
+- (void)photoView:(HXPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {
     
-    if (_addPicturesBlock) {
-        _addPicturesBlock();
+    NSSLog(@"%@",networkPhotoUrl);
+}
+
+- (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
+    NSSLog(@"%@",NSStringFromCGRect(frame));
+    NSLog(@"  我当前的高度是 ---%f" ,frame.size.height) ;
+    
+    self.heightOfConstraint.constant = frame.size.height;
+    self.pickerCollectionView.frame  = CGRectMake(0, 0, KScreenW - 30 , self.heightOfConstraint.constant + 10);
+}
+
+//图片管理器
+- (HXPhotoManager *)manager {
+    if (!_manager) {
+        _manager                    = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhotoAndVideo];
+        _manager.openCamera         = YES;
+        _manager.cacheAlbum         = YES;
+        _manager.lookLivePhoto      = YES;
+        _manager.open3DTouchPreview = YES;
+        _manager.cameraType         = HXPhotoManagerCameraTypeSystem;
+        _manager.photoMaxNum        = 5;
+        _manager.videoMaxNum        = 5;
+        _manager.maxNum             = 8;
+        _manager.saveSystemAblum    = NO;
     }
-}
-
-#pragma mark - UICollectionViewDelegateFlowLayout
-//每个cell的大小，因为有indexPath，所以可以判断哪一组，或者哪一个item，可一个给特定的大小，等同于layout的itemSize属性
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return  CGSizeMake( KScreenW/4 - 5*5, KScreenW/4 - 5*5);
-    
-}
-// 设置整个组的缩进量是多少
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(5, 5, 5, 5);
-}
-
-// 设置最小行间距，也就是前一行与后一行的中间最小间隔
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 10;
-}
-
-// 设置最小列间距，也就是左行与右一行的中间最小间隔
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 10;
-}
-
-
-
-#pragma mark - changeTextFiled 手机号
-- (void)changeTextFiled:(UITextField *)textF {
-   
-    if ([self.delegate respondsToSelector:@selector(phoneNum:)]) {
-        
-        [self.delegate phoneNum:_tf_phoneNum.text];
-    }
-
-    NSLog(@"text = %@",_tf_phoneNum.text);
-}
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return YES;
-    
-}
-//收键盘
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [_tf_phoneNum resignFirstResponder];
-    [self endEditing:YES];
-}
-
-#pragma mark - didCommitAction 点击提交
-- (IBAction)didCommitAction:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(didClickCommit)]) {
-        
-        [self.delegate didClickCommit];
-    }
+    return _manager;
 }
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

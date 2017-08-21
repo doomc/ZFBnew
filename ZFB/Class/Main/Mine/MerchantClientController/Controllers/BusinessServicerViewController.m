@@ -1449,14 +1449,14 @@
 #pragma mark -  配送员列表接口    11111   order/selectDeliveryList
 -(void)selectDeliveryListPostRequst
 {
-    
+#pragma mark -  正式数据的时候 经纬度要修改成正常的
     NSDictionary * param = @{
                              
-                             @"longitude":longitudestr,
-                             @"latitude":latitudestr,
+//                             @"longitude":longitudestr,
+//                             @"latitude":latitudestr,
                              
-//                             @"longitude":@"106.496649",
-//                             @"latitude":@"29.614969",
+                             @"longitude":@"106.496649",
+                             @"latitude":@"29.614969",
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/selectDeliveryList",zfb_baseUrl] params:param success:^(id response) {

@@ -7,13 +7,13 @@
 //  ****人际圈
 
 #import "ZFCInterpersonalCircleViewController.h"
-
-#import <WebKit/WebKit.h>
-#import "WKWebViewJavascriptBridge.h"
-@interface ZFCInterpersonalCircleViewController ()<WKUIDelegate,WKNavigationDelegate>
-@property (nonatomic ,strong) WKWebView *               webView ;
-@property (nonatomic ,strong) WKWebViewJavascriptBridge * bridge  ;
-@property(nonatomic,strong)   UITextView  * textView;
+#import "SGPagingView.h"//控制自控制器
+#import "IMContactListViewController.h"//联系人通讯录
+#import "IMFriendsCircleViewController.h"//朋友圈
+#import "IMCurrentMessageListViewController.h"//当前会话列表
+@interface ZFCInterpersonalCircleViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate>
+@property (nonatomic, strong) SGPageTitleView   *pageTitleView;
+@property (nonatomic, strong) SGPageContentView *pageContentView;
 
 @end
 
@@ -22,51 +22,52 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor =  randomColor;
     self.title = @"人际圈";
     
-
-    //用UIWebView加载web
-    _webView    = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH)];
-//    _webView.allowsBackForwardNavigationGestures = YES;
-//    _webView.navigationDelegate = self;
-//    [self.view addSubview:_webView];
-//    
-//    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.tmall.com"]]];
-//    //    _webView.UIDelegate = self;
-//    //    _webView.navigationDelegate = self;
-//    _webView.backgroundColor = randomColor;
-
-    // 设置访问的URL
-    NSURL *url = [NSURL URLWithString:@"http://www.jianshu.com"];
-    // 根据URL创建请求
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    // WKWebView加载请求
-    [_webView loadRequest:request];
-    // 将WKWebView添加到视图
-    [self.view addSubview:_webView];
+    [self setupPageView];
     
- 
+    
 }
 
--(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+- (void)setupPageView {
+    
+    IMCurrentMessageListViewController *messageVC = [[IMCurrentMessageListViewController alloc]init];
+    IMContactListViewController *contactVC        = [[IMContactListViewController alloc]init];
+    IMFriendsCircleViewController *friendVC       = [[IMFriendsCircleViewController alloc]init];
+
+    NSArray *childArr = @[messageVC, contactVC, friendVC];
+   
+    /// pageContentView
+    CGFloat contentViewHeight                = self.view.frame.size.height - 108;
+    self.pageContentView                     = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 108, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
+    _pageContentView.delegatePageContentView = self;
+    [self.view addSubview:_pageContentView];
+    
+    NSArray *titleArr = @[@"消息", @"通讯录", @"朋友圈"];
+    /// pageTitleView
+    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44) delegate:self titleNames:titleArr];
+    [self.view addSubview:_pageTitleView];
+    _pageTitleView.isTitleGradientEffect   = NO;
+    _pageTitleView.indicatorLengthStyle    = SGIndicatorLengthStyleSpecial;
+    _pageTitleView.indicatorScrollStyle    = SGIndicatorScrollStyleHalf;
+    _pageTitleView.selectedIndex           = 0;
+    _pageTitleView.isShowBottomSeparator   = NO;
+    _pageTitleView.isNeedBounces           = NO;
+    _pageTitleView.titleColorStateSelected = HEXCOLOR(0xfe6d6a);
+    _pageTitleView.titleColorStateNormal   = HEXCOLOR(0x363636);
+    _pageTitleView.indicatorColor          = [UIColor colorWithRed:0.996 green:0.427 blue:0.416 alpha:1.000];
+    _pageTitleView.indicatorHeight         = 1.0;
+    _pageTitleView.titleTextScaling        = 0.3;
+}
+
+- (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex
 {
-    [webView evaluateJavaScript:@"showAlert('奏是一个弹框')" completionHandler:^(id item, NSError * _Nullable error) {
-        // Block中处理是否通过了或者执行JS错误的代码
-    }];
-
+    [self.pageContentView setPageCententViewCurrentIndex:selectedIndex];
 }
 
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)pageContentView:(SGPageContentView *)pageContentView progress:(CGFloat)progress originalIndex:(NSInteger)originalIndex targetIndex:(NSInteger)targetIndex {
+    [self.pageTitleView setPageTitleViewWithProgress:progress originalIndex:originalIndex targetIndex:targetIndex];
 }
-*/
+
 
 @end

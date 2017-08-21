@@ -11,8 +11,18 @@
 #import "FeedTextViewCell.h"
 #import "FeedPickerTableViewCell.h"
 #import "FeedTypeTableViewCell.h"
-
-@interface ZFCommitOpinionViewController () <UITableViewDataSource,UITableViewDelegate,FeedPickerTableViewCellDelegate,QBImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate,FeedTypeTableViewCellDelegate>
+#import "FeedCommitPhoneCell.h"
+@interface ZFCommitOpinionViewController ()
+<
+    UITableViewDataSource,UITableViewDelegate,
+    FeedPickerTableViewCellDelegate,
+    QBImagePickerControllerDelegate,
+    UIActionSheetDelegate,
+    UINavigationControllerDelegate,
+    UIImagePickerControllerDelegate,
+    FeedTypeTableViewCellDelegate,
+    FeedCommitPhoneCellDelegate
+>
 
 @property (nonatomic,strong) UITableView  * tableView;
 @property (nonatomic,copy)   NSString  * phoneNum;//输入的手机号
@@ -42,6 +52,8 @@
 
     [self.tableView registerNib:[UINib nibWithNibName:@"FeedPickerTableViewCell" bundle:nil] forCellReuseIdentifier:@"FeedPickerTableViewCellid"];
 
+    [self.tableView registerNib:[UINib nibWithNibName:@"FeedCommitPhoneCell" bundle:nil] forCellReuseIdentifier:@"FeedCommitPhoneCellid"];
+    
     [self.view addSubview:self.tableView];
     
     //初始化
@@ -64,7 +76,7 @@
 #pragma mark - datasoruce  代理实现
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 4;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -80,8 +92,12 @@
     }else if (indexPath.section == 1)
     {
         height = 135;
-    }else{
-        height = 170 + 80 +85 * (_uploadImageArray.count/4.0);
+    }else if (indexPath.section == 2){
+        height = 132 + 80 +85 * (_uploadImageArray.count/4.0);
+        
+    }
+    else{
+        height = 120;
     }
     return height;
 }
@@ -105,21 +121,17 @@
         
         return textViewCell;
     }
-    else {
-        MPWeakSelf(self);
+    else if (indexPath.section ==2){
         FeedPickerTableViewCell * pickerCell = [self.tableView dequeueReusableCellWithIdentifier:@"FeedPickerTableViewCellid" forIndexPath:indexPath];
         pickerCell.selectionStyle = UITableViewCellSelectionStyleNone;
         pickerCell.delegate = self;
-        pickerCell.addPicturesBlock = ^(){
-            
-            [weakself showActionForPhoto];
-        };
-        pickerCell.deleteImageBlock = ^(MPImageItemModel *toDelete){
-            [weakself.curUploadImageHelper deleteAImage:toDelete];
-            [weakself.tableView reloadData];
-        };
-        pickerCell.curUploadImageHelper=self.curUploadImageHelper;
+
         return pickerCell;
+    }
+    else{
+        FeedCommitPhoneCell * phoneCell = [self.tableView dequeueReusableCellWithIdentifier:@"FeedCommitPhoneCellid" forIndexPath:indexPath];
+        phoneCell.commitDelegate = self;
+        return phoneCell;
     }
  
 }
@@ -264,20 +276,13 @@
     [self.tableView reloadData];
 }
 
--(NSMutableArray<UIImage *> *)uploadImageArray {
+////内部的ucell 中的数组传出
+-(void)uploadImageArray:(NSArray *)uploadArr
+{
     
-    if (!_uploadImageArray) {
-        _uploadImageArray = [NSMutableArray<UIImage *> array];
-        MPWeakSelf(self);
-        [self.curUploadImageHelper.imagesArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            MPImageItemModel *itemModel = obj;
-            [weakself.uploadImageArray addObject:itemModel.image];
-
-        }];
-    }
-    return _uploadImageArray;
 }
 
+ 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -334,7 +339,7 @@
  
                              };
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getFeedbackINfoInsert"] params:parma success:^(id response) {
-        
+
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
 
     } progress:^(NSProgress *progeress) {

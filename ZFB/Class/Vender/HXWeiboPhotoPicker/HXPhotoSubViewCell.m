@@ -135,68 +135,38 @@
     self.model.downloadError = NO;
     self.model.downloadComplete = NO;
     __weak typeof(self) weakSelf = self;
-      [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.model.networkPhotoUrl]placeholderImage:self.model.thumbPhoto options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-          
-          weakSelf.model.receivedSize = receivedSize;
-          weakSelf.model.expectedSize = expectedSize;
-          CGFloat progress = (CGFloat)receivedSize / expectedSize;
-          dispatch_async(dispatch_get_main_queue(), ^{
-              weakSelf.progressView.progress = progress;
-          });
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.model.networkPhotoUrl] placeholderImage:self.model.thumbPhoto options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+       
+        weakSelf.model.receivedSize = receivedSize;
+        weakSelf.model.expectedSize = expectedSize;
+        CGFloat progress = (CGFloat)receivedSize / expectedSize;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.progressView.progress = progress;
+        });
 
-      } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-          if (error != nil) {
-              weakSelf.model.downloadError = YES;
-              weakSelf.model.downloadComplete = YES;
-              [weakSelf.progressView showError];
-          }else {
-              if (image) {
-                  weakSelf.progressView.progress = 1;
-                  weakSelf.progressView.hidden = YES;
-                  weakSelf.imageView.image = image;
-                  weakSelf.model.imageSize = image.size;
-                  weakSelf.model.thumbPhoto = image;
-                  weakSelf.model.previewPhoto = image;
-                  weakSelf.userInteractionEnabled = YES;
-                  weakSelf.model.downloadComplete = YES;
-                  weakSelf.model.downloadError = NO;
-                  if ([weakSelf.delegate respondsToSelector:@selector(cellNetworkingPhotoDownLoadComplete)]) {
-                      [weakSelf.delegate cellNetworkingPhotoDownLoadComplete];
-                  }
-              }
-          }
-
-      }];
-    
-//    [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.model.networkPhotoUrl] placeholderImage:self.model.thumbPhoto options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
-//        weakSelf.model.receivedSize = receivedSize;
-//        weakSelf.model.expectedSize = expectedSize;
-//        CGFloat progress = (CGFloat)receivedSize / expectedSize;
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            weakSelf.progressView.progress = progress;
-//        });
-//    } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-//        if (error != nil) {
-//            weakSelf.model.downloadError = YES;
-//            weakSelf.model.downloadComplete = YES;
-//            [weakSelf.progressView showError];
-//        }else {
-//            if (image) {
-//                weakSelf.progressView.progress = 1;
-//                weakSelf.progressView.hidden = YES;
-//                weakSelf.imageView.image = image;
-//                weakSelf.model.imageSize = image.size;
-//                weakSelf.model.thumbPhoto = image;
-//                weakSelf.model.previewPhoto = image;
-//                weakSelf.userInteractionEnabled = YES;
-//                weakSelf.model.downloadComplete = YES;
-//                weakSelf.model.downloadError = NO;
-//                if ([weakSelf.delegate respondsToSelector:@selector(cellNetworkingPhotoDownLoadComplete)]) {
-//                    [weakSelf.delegate cellNetworkingPhotoDownLoadComplete];
-//                }
-//            }
-//        }
-//    }];
+        
+    } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        if (error != nil) {
+            weakSelf.model.downloadError = YES;
+            weakSelf.model.downloadComplete = YES;
+            [weakSelf.progressView showError];
+        }else {
+            if (image) {
+                weakSelf.progressView.progress = 1;
+                weakSelf.progressView.hidden = YES;
+                weakSelf.imageView.image = image;
+                weakSelf.model.imageSize = image.size;
+                weakSelf.model.thumbPhoto = image;
+                weakSelf.model.previewPhoto = image;
+                weakSelf.userInteractionEnabled = YES;
+                weakSelf.model.downloadComplete = YES;
+                weakSelf.model.downloadError = NO;
+                if ([weakSelf.delegate respondsToSelector:@selector(cellNetworkingPhotoDownLoadComplete)]) {
+                    [weakSelf.delegate cellNetworkingPhotoDownLoadComplete];
+                }
+            }
+        }
+    }];
 }
 
 - (void)setModel:(HXPhotoModel *)model
@@ -222,14 +192,15 @@
 //        }
         __weak typeof(self) weakSelf = self;
         self.progressView.hidden = model.downloadComplete;
-        [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.networkPhotoUrl] placeholderImage:model.thumbPhoto options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.networkPhotoUrl] placeholderImage:model.thumbPhoto  options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
             model.receivedSize = receivedSize;
             model.expectedSize = expectedSize;
             CGFloat progress = (CGFloat)receivedSize / expectedSize;
             dispatch_async(dispatch_get_main_queue(), ^{
                 weakSelf.progressView.progress = progress;
             });
-        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+        } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             if (error != nil) {
                 model.downloadError = YES;
                 model.downloadComplete = YES;
@@ -252,36 +223,7 @@
             }
 
         }];
-        
-//        [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.networkPhotoUrl] placeholderImage:model.thumbPhoto options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
-//            model.receivedSize = receivedSize;
-//            model.expectedSize = expectedSize;
-//            CGFloat progress = (CGFloat)receivedSize / expectedSize;
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                weakSelf.progressView.progress = progress;
-//            });
-//        } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-//            if (error != nil) {
-//                model.downloadError = YES;
-//                model.downloadComplete = YES;
-//                [weakSelf.progressView showError];
-//            }else {
-//                if (image) {
-//                    weakSelf.progressView.progress = 1;
-//                    weakSelf.progressView.hidden = YES;
-////                    self.imageView.image = image;
-//                    model.imageSize = image.size;
-//                    model.thumbPhoto = image;
-//                    model.previewPhoto = image;
-//                    weakSelf.userInteractionEnabled = YES;
-//                    model.downloadComplete = YES;
-//                    model.downloadError = NO;
-//                    if ([weakSelf.delegate respondsToSelector:@selector(cellNetworkingPhotoDownLoadComplete)]) {
-//                        [weakSelf.delegate cellNetworkingPhotoDownLoadComplete];
-//                    }
-//                }
-//            }
-//        }];
+ 
     }else {
         self.progressView.hidden = YES;
     }
