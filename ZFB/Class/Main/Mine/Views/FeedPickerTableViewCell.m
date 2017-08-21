@@ -7,9 +7,11 @@
 //
 
 #import "FeedPickerTableViewCell.h"
+
 //图片选择器
 #import "HXPhotoViewController.h"
 #import "HXPhotoView.h"
+
 @interface FeedPickerTableViewCell ()<HXPhotoViewDelegate>
 
 //图片选择器
@@ -17,13 +19,12 @@
 
 @property (strong, nonatomic) HXPhotoView *photoView;
 
-@property (nonatomic, strong) NSMutableArray * imgUrl_mutArray;//存放选取的图片数组
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightOfConstraint;
 
 @end
 
 @implementation FeedPickerTableViewCell
+
 -(NSMutableArray *)imgUrl_mutArray
 {
     if (!_imgUrl_mutArray) {
@@ -73,7 +74,7 @@
             [self.imgUrl_mutArray addObject:urlpath];
         }
         //将数据传出去
-        [self.delegate uploadImageArray:[NSArray arrayWithArray:self.imgUrl_mutArray]];
+        [self.delegate uploadImageArray: self.imgUrl_mutArray ];
         NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
     }];
     
@@ -90,6 +91,8 @@
     
     self.heightOfConstraint.constant = frame.size.height;
     self.pickerCollectionView.frame  = CGRectMake(0, 0, KScreenW - 30 , self.heightOfConstraint.constant + 10);
+    [self.delegate reloadCellHeight:self.heightOfConstraint.constant + 10];
+ 
 }
 
 //图片管理器

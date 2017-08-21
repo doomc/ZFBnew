@@ -12,9 +12,9 @@
 @protocol FeedPickerTableViewCellDelegate <NSObject>
 @required
 
--(void)uploadImageArray:(NSArray *)uploadArr;
+-(void)uploadImageArray:(NSMutableArray *)uploadArr;
 
--(void)reloadCell;
+-(void)reloadCellHeight:(CGFloat)cellHeight;
 
 @end
 @interface FeedPickerTableViewCell : UITableViewCell
@@ -23,6 +23,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *pickerCollectionView;
 
+@property (nonatomic, strong) NSMutableArray * imgUrl_mutArray;//存放选取的图片数组
+
+@property (nonatomic, assign) CGFloat cellHight;
 
 
 @end

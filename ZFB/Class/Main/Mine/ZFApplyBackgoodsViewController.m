@@ -116,6 +116,9 @@
  
     self.contraintHight.constant = frame.size.height;
     self.AddPickerView.frame  = CGRectMake(10, 0, KScreenW - 20 , self.contraintHight.constant + 10);
+    self.mainScrollView.contentSize  =  CGSizeMake(KScreenW, 700 + self.contraintHight.constant +10);
+    
+    
 }
 //图片管理器
 - (HXPhotoManager *)manager {

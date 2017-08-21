@@ -16,7 +16,6 @@
 <
     UITableViewDataSource,UITableViewDelegate,
     FeedPickerTableViewCellDelegate,
-    QBImagePickerControllerDelegate,
     UIActionSheetDelegate,
     UINavigationControllerDelegate,
     UIImagePickerControllerDelegate,
@@ -30,13 +29,13 @@
 @property (nonatomic,copy)   NSString  * selectedTypeText;//输入的手机号
 
 //上传图片的图片数组
-@property (strong, nonatomic) MPUploadImageHelper *curUploadImageHelper;
-@property (nonatomic , strong) NSMutableArray <UIImage *> *uploadImageArray;
+@property (nonatomic , strong) NSMutableArray  *uploadImageArray;
 
 //类型
 @property (nonatomic , strong) NSArray * typeArray;
 @property (nonatomic , copy) NSString * typeName;
 @property (nonatomic , copy) NSString * pickerImgString;//图片数组的字符串用逗号隔开
+@property (nonatomic , assign) CGFloat cellHeight;//选择照片的高度
 
 @end
 
@@ -56,8 +55,7 @@
     
     [self.view addSubview:self.tableView];
     
-    //初始化
-    _curUploadImageHelper = [MPUploadImageHelper MPUploadImageForSend:NO];
+ 
   
     [self getFeedbackTypePOSTRequste];
 
@@ -93,8 +91,15 @@
     {
         height = 135;
     }else if (indexPath.section == 2){
-        height = 132 + 80 +85 * (_uploadImageArray.count/4.0);
-        
+       
+        if (self.uploadImageArray.count > 0) {
+            
+            height = _cellHeight + 40;
+            
+        }
+        else{
+            height = 132 ;
+        }
     }
     else{
         height = 120;
@@ -113,7 +118,7 @@
         return typeCell;
         
     }
-    else if (indexPath.section ==1)
+    else if (indexPath.section == 1)
     {
         FeedTextViewCell * textViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"FeedTextViewCellid" forIndexPath:indexPath];
         textViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -125,7 +130,7 @@
         FeedPickerTableViewCell * pickerCell = [self.tableView dequeueReusableCellWithIdentifier:@"FeedPickerTableViewCellid" forIndexPath:indexPath];
         pickerCell.selectionStyle = UITableViewCellSelectionStyleNone;
         pickerCell.delegate = self;
-
+ 
         return pickerCell;
     }
     else{
@@ -176,117 +181,31 @@
     }
 }
 
-//弹出选择框
--(void)showActionForPhoto
-{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]
-                                  initWithTitle:nil
-                                  delegate:self
-                                  cancelButtonTitle:@"取消"
-                                  destructiveButtonTitle:nil
-                                  otherButtonTitles:@"拍照",@"从相册选择",nil];
-    actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    [actionSheet showInView:self.view];
-}
-- (void)actionSheet:(UIActionSheet *)modalView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        //拍照
-        if (![cameraHelper checkCameraAuthorizationStatus]) {
-            return;
-        }
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-        picker.delegate = self;
-        picker.allowsEditing = NO;//设置可编辑
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:picker animated:YES completion:nil];//进入照相界面
-    }else if (buttonIndex == 1){
-        //相册
-        if (![cameraHelper checkPhotoLibraryAuthorizationStatus]) {
-            return;
-        }
-        QBImagePickerController *imagePickerController = [[QBImagePickerController alloc] init];
-        [imagePickerController.selectedAssetURLs removeAllObjects];
-        [imagePickerController.selectedAssetURLs addObjectsFromArray:self.curUploadImageHelper.selectedAssetURLs];
-        imagePickerController.filterType = QBImagePickerControllerFilterTypePhotos;
-        imagePickerController.delegate = self;
-        imagePickerController.maximumNumberOfSelection = kupdateMaximumNumberOfImage;
-        imagePickerController.allowsMultipleSelection = YES;
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:imagePickerController];
-        [self presentViewController:navigationController animated:YES completion:NULL];
-    }
-}
 
-#pragma mark UIImagePickerControllerDelegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    
-    UIImage *pickerImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-    
-    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
-   
-    [assetsLibrary writeImageToSavedPhotosAlbum:[pickerImage CGImage] orientation:(ALAssetOrientation)pickerImage.imageOrientation completionBlock:^(NSURL *assetURL, NSError *error) {
-        
-        [self.curUploadImageHelper addASelectedAssetURL:assetURL];
-        
-        //局部刷新 根据布局相应调整
-        [self partialTableViewRefresh];
-    }];
-    [picker dismissViewControllerAnimated:YES completion:^{}];
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
- 
-    [picker dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-#pragma mark UINavigationControllerDelegate, QBImagePickerControllerDelegate
-- (void)qb_imagePickerController:(QBImagePickerController *)imagePickerController didSelectAssets:(NSArray *)assets{
-    NSMutableArray *selectedAssetURLs = [NSMutableArray new];
-    [imagePickerController.selectedAssetURLs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [selectedAssetURLs addObject:obj];
-    }];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.curUploadImageHelper.selectedAssetURLs = selectedAssetURLs;
-    
-        //局部刷新 根据布局相应调整
-        [self partialTableViewRefresh];
-    });
- 
-    [self dismissViewControllerAnimated:YES completion:^{
-       
-        NSArray * imgArray = [NSArray arrayWithArray:self.uploadImageArray];
-        [OSSImageUploader asyncUploadImages:imgArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
-            
-            _pickerImgString = [NSString arrayToJSONString:names];
-            NSLog(@" ---- names---%@", names);
-            NSLog(@" ---- _pickerImgString---%@", _pickerImgString);
-            [self partialTableViewRefresh];
-        }];
-    }];
- 
-}
-- (void)qb_imagePickerControllerDidCancel:(QBImagePickerController *)imagePickerController{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 //上传图后局部刷新图片行 根据布局相应调整
--(void)partialTableViewRefresh
+-(void)reloadCellHeight:(CGFloat)cellHeight
 {
-    [self.tableView reloadData];
+    _cellHeight = cellHeight;
 }
-
 ////内部的ucell 中的数组传出
--(void)uploadImageArray:(NSArray *)uploadArr
+-(void)uploadImageArray:(NSMutableArray *)uploadArr
 {
-    
+    self.uploadImageArray =  uploadArr;
+    [self.tableView reloadData];
+
+}
+-(NSMutableArray *)uploadImageArray{
+    if (!_uploadImageArray) {
+        _uploadImageArray = [NSMutableArray array];
+    }
+    return _uploadImageArray;
 }
 
  
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self getFeedbackTypePOSTRequste];
 
 }
 #pragma mark  - 平台意见类型网络请求 getFeedbackType
