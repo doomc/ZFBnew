@@ -229,6 +229,8 @@ static NSString * settingCellid = @"ZFSettingCellid";
             [sender setTitle:@"登陆" forState:UIControlStateNormal ];
             [self clearingCache];//清除所有缓存;
             BBUserDefault.isLogin = 0;
+            BBUserDefault.token = @"";
+
         }];
         [jxt addAction:left];
         [jxt addAction:right];
@@ -244,7 +246,8 @@ static NSString * settingCellid = @"ZFSettingCellid";
             [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
             [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
             BBUserDefault.isLogin = 0;//登录状态为0
-            
+            BBUserDefault.token = @"";
+
         }];
         
     }

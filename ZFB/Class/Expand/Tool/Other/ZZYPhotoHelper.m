@@ -10,16 +10,19 @@
 
 @interface ZZYPhotoDelegateHelper: NSObject<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
+
 @property (nonatomic, copy) ZZYPhotoHelperBlock selectImageBlock;
 
 @end
 
 @interface ZZYPhotoHelper ()
+
 @property (nonatomic, strong) ZZYPhotoDelegateHelper *helper;
 
 @end
 
 static ZZYPhotoHelper *picker = nil;
+
 @implementation ZZYPhotoHelper
 
 
@@ -73,24 +76,58 @@ static ZZYPhotoHelper *picker = nil;
 
 -(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *theImage = nil;
+    
     // 判断，图片是否允许修改。默认是可以的
     if ([picker allowsEditing]){
+        
         theImage = [info objectForKey:UIImagePickerControllerEditedImage];
     }
     else {
         theImage = [info objectForKey:UIImagePickerControllerOriginalImage];
         
     }
+    CGSize imagesize = theImage.size;
+    imagesize.height = KScreenW*3/4;
+    imagesize.width  = KScreenW*3/4;
+    
     if (_selectImageBlock) {
+        //设置image的尺寸
+        theImage = [self imageWithImageSimple:theImage scaledToSize:imagesize];
         _selectImageBlock(theImage);
     }
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+        [OSSImageUploader asyncUploadImage:theImage complete:^(NSArray<NSString *> *names, UploadImageState state) {
+            
+            [ZZYPhotoHelper shareHelper].imgName = names[0];
+            NSLog(@"[ZZYPhotoHelper shareHelper].imgName  %@ ",names);
+        }];
+    }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-
+//压缩图片
+-(UIImage*)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize)newSize
+{
+    // Create a graphics image context
+    UIGraphicsBeginImageContext(newSize);
+    
+    // Tell the old image to draw in this new context, with the desired
+    // new size
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    
+    // Get the new image from the context
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // End the context
+    UIGraphicsEndImageContext();
+    
+    // Return the new image.
+    return newImage;
+}
 
 @end

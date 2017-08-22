@@ -14,29 +14,24 @@
 #import "ZZYPhotoHelper.h"
 #import "UICustomDatePicker.h"
 
-typedef NS_ENUM(NSUInteger, IndexType) {
-    IndexTypeMan,
-    IndexTypeWoman,
-};
 
 static NSString * settingheadid = @"ZFSettingHeaderCellid";
 static NSString * settingRowid = @"ZFSettingRowCellid";
 
 
-@interface ZFSettingHeadViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface ZFSettingHeadViewController ()<UITableViewDelegate,UITableViewDataSource,ZFSettingRowCellDelegate>
 {
     NSArray * _titleArr;
     BOOL _isSelectCount;
 
     NSString  * _nickName;
-    NSInteger * _sex;
+    NSInteger   _sex;//1. 男 2.女 3保密
     NSString  * _cmBirthday;
     NSString  * _userImgAttachUrl;
 
 }
 @property (nonatomic,strong) UITableView * tableView;
 @property (nonatomic,strong) NSArray *sexTitleArr;
-//@property (nonatomic,assign) IndexType indexType;
 
 @property (nonatomic, strong) NSDate *selectedDate; //代表dateButton上显示的时间。
 
@@ -54,6 +49,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     _titleArr  = @[@"昵称",@"性别",@"生日",@"地址管理"];
     _sexTitleArr = @[@"男",@"女"];
     _isSelectCount = NO;//默认选择一次
+    _sex = 3;//默认
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingHeaderCell" bundle:nil] forCellReuseIdentifier:settingheadid];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingRowCell" bundle:nil] forCellReuseIdentifier:settingRowid];
@@ -126,11 +122,23 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         if (indexPath.row == 0) {
             rowCell.lb_detailTitle.hidden = YES;
             rowCell.tf_contentTextfiled.placeholder = @"请输入昵称,该昵称填写后不可修改";
-
+            rowCell.delegate = self;
+            rowCell.isSaved = _isSelectCount;
+     
         }
         else if (indexPath.row == 1) {
             rowCell.tf_contentTextfiled.hidden = YES;
-            rowCell.lb_detailTitle.text= @"保密";
+            if (_sex == 1) {
+                rowCell.lb_detailTitle.text= @"男";
+
+            }
+            if (_sex == 2) {
+                rowCell.lb_detailTitle.text= @"女";
+  
+            }
+            if (_sex == 3) {
+                rowCell.lb_detailTitle.text= @"保密";
+            }
         }
         else if (indexPath.row == 2) {
             rowCell.tf_contentTextfiled.hidden = YES;
@@ -156,21 +164,21 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     
     ZFSettingRowCell *rowCell =(ZFSettingRowCell *)[tableView cellForRowAtIndexPath:indexPath];
     
-    [rowCell.tf_contentTextfiled resignFirstResponder];
-    
     if (indexPath.section == 0) {
     
         ZFSettingHeaderCell *cell = (ZFSettingHeaderCell *)[tableView cellForRowAtIndexPath:indexPath];
         [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data) {
  
             cell.img_headView.image = (UIImage *)data;
+            _userImgAttachUrl = [ZZYPhotoHelper shareHelper].imgName;
+            NSLog(@"[ZZYPhotoHelper shareHelper].imgName = = %@",[ZZYPhotoHelper shareHelper].imgName);
         }];
  
     }
     if (indexPath.section == 1){
         
-   
         if (indexPath.row == 0) {
+            
             
         }
         else if (indexPath.row == 1) {
@@ -178,19 +186,18 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             JXTAlertController * alertSheet  =[[ JXTAlertController alloc]init];
             UIAlertAction  * alertSeet1 = [UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 rowCell.lb_detailTitle.text = @"男";
- 
+                _sex = 1;
             }];
             UIAlertAction  * alertSeet2 = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                rowCell.lb_detailTitle.text = @"女";
+                rowCell.lb_detailTitle.text   = @"女";
+                _sex = 2;
 
             }];
             UIAlertAction  * alertSeet3 = [UIAlertAction actionWithTitle:@"保密" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                rowCell.lb_detailTitle.text = @"保密";
-
+                rowCell.lb_detailTitle.text  = @"保密";
+                _sex = 3;
             }];
             
-            
-    
             [alertSheet addAction:alertSeet1];
             [alertSheet addAction:alertSeet2];
             [alertSheet addAction:alertSeet3];
@@ -205,14 +212,12 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
                     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
                     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
                     NSString * dataStr =[dateFormatter stringFromDate:date];
-                    rowCell.lb_detailTitle.text = dataStr;
+                    rowCell.lb_detailTitle.text = _cmBirthday = dataStr;
                     NSLog(@"current Date:%@",dataStr);
     
                 } cancelBlock:^{
                     
                 }];
-                
-     
 
             }else{
                 
@@ -235,38 +240,46 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 //保存事件
 -(void)right_button_event:(UIButton*)sender{
     
-    NSLog(@"保存")
+    NSLog(@"保存");
     
-//    //保存成功后不可以修改
-//     _isSelectCount = YES;  //Yes 默认为只能执行一次
-//    //保存后的操作
-//    ZFSettingRowCell *rowCell  = [ZFSettingRowCell new];
-//    rowCell.tf_contentTextfiled.userInteractionEnabled = NO;
-//    rowCell.tf_contentTextfiled.delegate = nil;
-//    
-//    [self getUserInfoUpdate];
+    if ([ZZYPhotoHelper shareHelper].imgName == nil || _nickName == nil || _cmBirthday == nil) {
+        
+        NSLog(@"填写完才能提交");
+        
+    }else
+    {
+        [self getUserInfoUpdate];
+ 
+    }
 }
 
+#pragma mark  -  ZFSettingRowCellDelegate 
+-(void)getNickName:(NSString *)nickName
+{
+    _nickName = nickName;
+}
 #pragma mark -  保存用户信息getUserInfoUpdate  //1. 男 2.女 3保密
 -(void)getUserInfoUpdate
 {
     NSDictionary * param = @{
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"nickName":@"",
-                             @"sex":@"",
-                             @"cmBirthday":@"",
-                             @"userImgAttachUrl":@"",
+                             @"nickName":_nickName,
+                             @"sex":[NSString stringWithFormat:@"%ld",_sex],
+                             @"cmBirthday":_cmBirthday,
+                             @"userImgAttachUrl":[ZZYPhotoHelper shareHelper].imgName,
                              
                              };
     [SVProgressHUD show];
    
-    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getDistriInfo",zfb_baseUrl] params:param success:^(id response) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getUserInfoUpdate",zfb_baseUrl] params:param success:^(id response) {
         if ([response[@"resultCode"] intValue] == 0) {
             
-         
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+            //保存成功后不可以修改
+            _isSelectCount = YES;  //Yes 默认为只能执行一次
+ 
         }
-        
-        [SVProgressHUD dismissWithDelay:1];
+        [SVProgressHUD dismiss];
  
         
     } progress:^(NSProgress *progeress) {

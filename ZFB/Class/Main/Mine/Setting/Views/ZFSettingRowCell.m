@@ -15,13 +15,24 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
-    
-    self.tf_contentTextfiled.clearButtonMode = UITextFieldViewModeWhileEditing;
-    self.tf_contentTextfiled.delegate = self;
-    [self.tf_contentTextfiled addTarget:self action:@selector(textFieldEditing:) forControlEvents:UIControlEventEditingChanged];
- }
 
+}
+
+-(void)setIsSaved:(BOOL)isSaved
+{
+    _isSaved = isSaved;
+
+    if (isSaved == YES) {
+        self.tf_contentTextfiled.delegate = nil;
+        self.tf_contentTextfiled.userInteractionEnabled = NO;
+    }
+    else{
+        self.tf_contentTextfiled.delegate = self;
+        self.tf_contentTextfiled.clearButtonMode = UITextFieldViewModeWhileEditing;
+        [self.tf_contentTextfiled addTarget:self action:@selector(textFieldEditing:) forControlEvents:UIControlEventEditingChanged];
+    }
+    
+}
 
 //cell UITextField 的text
 -(void)textFieldEditing:(UITextField *)textField
@@ -32,8 +43,10 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     _nickName = textField.text;
-    NSLog(@"%@",textField.text);
-
+     NSLog(@"%@",textField.text);
+    
+    [self.delegate getNickName:_nickName];
+ 
 }
 
 //回收键盘

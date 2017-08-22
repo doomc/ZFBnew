@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ZFSettingRowCellDelegate  <NSObject>
+
+-(void )getNickName:(NSString *)nickName;
+
+@end
 @interface ZFSettingRowCell : UITableViewCell
+
+@property (assign ,nonatomic) id <ZFSettingRowCellDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 
@@ -18,5 +25,6 @@
 
 @property (copy, nonatomic) NSString * nickName;
 
+@property (assign, nonatomic) BOOL   isSaved;//判断是否保存过，保存了就不执行代理了
 
 @end

@@ -21,6 +21,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+ 
+//网易云信 appkey
+//#define  Appkey @"45c6af3c98409b18a84451215d0bdd6e"  //网易云信demokey
+#define  Appkey @"6bd36bd4bfadba812aff256259316848" //自己的key
+
+
 
 //第三方工具类
 #import <Masonry.h>
@@ -81,7 +87,6 @@
 #define MAS_SHORTHAND_GLOBALS
 //注意，这两个宏必须定义在这个头文件的上面，因为"Masonry.h"中要用到上面2个宏，如果已经定义过了的话
 
-#define  Appkey @"45c6af3c98409b18a84451215d0bdd6e"  //  //4d2a1f4cd4e5c9f955f677493cc7a950
 
 
 #ifdef DEBUG

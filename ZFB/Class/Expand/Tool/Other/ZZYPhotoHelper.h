@@ -12,9 +12,13 @@ typedef void (^ZZYPhotoHelperBlock) (id data);
 
 @interface ZZYPhotoHelper : UIImagePickerController
 
+@property (nonatomic, copy) NSString * imgName;
+
 
 + (instancetype)shareHelper;
 
+
 - (void)showImageViewSelcteWithResultBlock:(ZZYPhotoHelperBlock)selectImageBlock;
+
 
 @end

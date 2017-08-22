@@ -10,7 +10,10 @@
 #import "SGPagingView.h"//控制自控制器
 #import "IMContactListViewController.h"//联系人通讯录
 #import "IMFriendsCircleViewController.h"//朋友圈
-#import "IMCurrentMessageListViewController.h"//当前会话列表
+//#import "NTESSessionListViewController.h"//当前会话列表
+
+#import "LoginViewController.h"
+#import "BaseNavigationController.h"
 @interface ZFCInterpersonalCircleViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate>
 @property (nonatomic, strong) SGPageTitleView   *pageTitleView;
 @property (nonatomic, strong) SGPageContentView *pageContentView;
@@ -26,12 +29,12 @@
     
     [self setupPageView];
     
-    
 }
+
 
 - (void)setupPageView {
     
-    IMCurrentMessageListViewController *messageVC = [[IMCurrentMessageListViewController alloc]init];
+    NIMSessionListViewController  *messageVC      = [[NIMSessionListViewController alloc]init];
     IMContactListViewController *contactVC        = [[IMContactListViewController alloc]init];
     IMFriendsCircleViewController *friendVC       = [[IMFriendsCircleViewController alloc]init];
 
@@ -70,4 +73,22 @@
 }
 
 
+-(void)viewWillAppear:(BOOL)animated
+{
+ 
+    if (BBUserDefault.isLogin == 1) {
+        NSLog(@"已经登录了");
+    }else{
+        
+        NSLog(@"登录了");
+        LoginViewController * logvc    = [ LoginViewController new];
+        BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logvc];
+        
+        [self presentViewController:nav animated:NO completion:^{
+            
+            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+        }];
+    }
+}
 @end

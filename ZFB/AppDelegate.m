@@ -11,13 +11,11 @@
 #import "BaseTabbarController.h"
 #import "ZFbaseTabbarViewController.h"
 
-
-
 //高德
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "SYSafeCategory.h"//安全操作
 //高德api
-const static NSString *ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
+const static NSString * ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
 
 @interface AppDelegate ()
 
@@ -56,9 +54,29 @@ const static NSString *ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
     //登录状态默认
 //    BBUserDefault.isLogin = 1;
     
+    [self loginNIM];
     return YES;
 }
 
+-(void)loginNIM
+{
+
+    //手动登录，error为登录错误信息，成功则为nil。
+    //不要在登录完成的回调中直接获取 SDK 缓存数据，而应该在 同步完成的回调里获取数据 或者 监听相应的数据变动回调后获取
+    [[[NIMSDK sharedSDK] loginManager] login:@"13628311317"
+                                       token:BBUserDefault.token
+                                  completion:^(NSError *error) {
+                                      if (error == nil)
+                                      {
+                                          NSLog(@" login success");
+                                          
+                                      }
+                                      else
+                                      {
+                                          NSLog(@"%@",error);
+                                      }
+                                  }];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

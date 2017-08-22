@@ -56,7 +56,7 @@ static NSString *kstoreFolder = @"images/store";//门店图片
                 //任务执行
                 OSSPutObjectRequest * put = [OSSPutObjectRequest new];
                 put.bucketName = BucketName;
-                NSString *imageName = [kstoreFolder stringByAppendingPathComponent:[[NSUUID UUID].UUIDString stringByAppendingString:@".png"]];
+                NSString *imageName = [kimagesFolder stringByAppendingPathComponent:[[NSUUID UUID].UUIDString stringByAppendingString:@".png"]];
                 put.objectKey = imageName;
                 [callBackNames addObject:imageName];
                 NSData *data = UIImageJPEGRepresentation(image, 0.3);
