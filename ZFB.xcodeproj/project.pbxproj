@@ -633,7 +633,6 @@
 		49689D2D1F4C43FC0061A87E /* NTESTextHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49689CDD1F4C43FC0061A87E /* NTESTextHeaderView.m */; };
 		49689D2E1F4C43FC0061A87E /* NTESClientsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49689CE01F4C43FC0061A87E /* NTESClientsTableViewController.m */; };
 		49689D2F1F4C43FC0061A87E /* NTESSessionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49689CE21F4C43FC0061A87E /* NTESSessionListViewController.m */; };
-		49689D301F4C43FC0061A87E /* NTESBundleSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 49689CE51F4C43FC0061A87E /* NTESBundleSetting.m */; };
 		49689D311F4C43FC0061A87E /* NTESCADisplayLinkHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 49689CE71F4C43FC0061A87E /* NTESCADisplayLinkHolder.m */; };
 		49689D321F4C43FC0061A87E /* NTESClientUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 49689CE91F4C43FC0061A87E /* NTESClientUtil.m */; };
 		49689D331F4C43FC0061A87E /* NTESDemoConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 49689CEB1F4C43FC0061A87E /* NTESDemoConfig.m */; };
@@ -779,6 +778,8 @@
 		49689EED1F4C4D660061A87E /* libevent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49689E691F4C4D650061A87E /* libevent.a */; };
 		49689EEE1F4C4D660061A87E /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49689E6A1F4C4D650061A87E /* libssl.a */; };
 		49689EEF1F4C4D660061A87E /* NIMSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49689E6B1F4C4D650061A87E /* NIMSDK.framework */; };
+		49689EF41F4C52C20061A87E /* NTESCustomSysNotificationSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 49689EF31F4C52C20061A87E /* NTESCustomSysNotificationSender.m */; };
+		49689EF71F4C55FC0061A87E /* NTESBundleSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 49689EF61F4C55FC0061A87E /* NTESBundleSetting.m */; };
 		49690CBB1F14C442004C501B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 49690CBA1F14C442004C501B /* Reachability.m */; };
 		49690CBF1F14EB3A004C501B /* MENetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49690CBE1F14EB3A004C501B /* MENetWorkManager.m */; };
 		496C7E931F4AD09A0091C6B6 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 496C7E921F4AD09A0091C6B6 /* CoreMotion.framework */; };
@@ -1935,8 +1936,6 @@
 		49689CE01F4C43FC0061A87E /* NTESClientsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESClientsTableViewController.m; sourceTree = "<group>"; };
 		49689CE11F4C43FC0061A87E /* NTESSessionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESSessionListViewController.h; sourceTree = "<group>"; };
 		49689CE21F4C43FC0061A87E /* NTESSessionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSessionListViewController.m; sourceTree = "<group>"; };
-		49689CE41F4C43FC0061A87E /* NTESBundleSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESBundleSetting.h; sourceTree = "<group>"; };
-		49689CE51F4C43FC0061A87E /* NTESBundleSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESBundleSetting.m; sourceTree = "<group>"; };
 		49689CE61F4C43FC0061A87E /* NTESCADisplayLinkHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESCADisplayLinkHolder.h; sourceTree = "<group>"; };
 		49689CE71F4C43FC0061A87E /* NTESCADisplayLinkHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESCADisplayLinkHolder.m; sourceTree = "<group>"; };
 		49689CE81F4C43FC0061A87E /* NTESClientUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESClientUtil.h; sourceTree = "<group>"; };
@@ -2229,6 +2228,10 @@
 		49689E6A1F4C4D650061A87E /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		49689E6B1F4C4D650061A87E /* NIMSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NIMSDK.framework; sourceTree = "<group>"; };
 		49689EF01F4C4DC90061A87E /* NTESGlobalMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESGlobalMacro.h; sourceTree = "<group>"; };
+		49689EF21F4C52C20061A87E /* NTESCustomSysNotificationSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESCustomSysNotificationSender.h; sourceTree = "<group>"; };
+		49689EF31F4C52C20061A87E /* NTESCustomSysNotificationSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESCustomSysNotificationSender.m; sourceTree = "<group>"; };
+		49689EF51F4C55FC0061A87E /* NTESBundleSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESBundleSetting.h; sourceTree = "<group>"; };
+		49689EF61F4C55FC0061A87E /* NTESBundleSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESBundleSetting.m; sourceTree = "<group>"; };
 		49690CB91F14C442004C501B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		49690CBA1F14C442004C501B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		49690CBE1F14EB3A004C501B /* MENetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MENetWorkManager.m; sourceTree = "<group>"; };
@@ -4684,6 +4687,7 @@
 		49689C731F4C43FB0061A87E /* NIMClass */ = {
 			isa = PBXGroup;
 			children = (
+				49689EF11F4C52C20061A87E /* Helper */,
 				49689C741F4C43FB0061A87E /* Category */,
 				49689C8B1F4C43FC0061A87E /* Sections */,
 				49689CE31F4C43FC0061A87E /* Util */,
@@ -4943,8 +4947,8 @@
 		49689CE31F4C43FC0061A87E /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				49689CE41F4C43FC0061A87E /* NTESBundleSetting.h */,
-				49689CE51F4C43FC0061A87E /* NTESBundleSetting.m */,
+				49689EF51F4C55FC0061A87E /* NTESBundleSetting.h */,
+				49689EF61F4C55FC0061A87E /* NTESBundleSetting.m */,
 				49689CE61F4C43FC0061A87E /* NTESCADisplayLinkHolder.h */,
 				49689CE71F4C43FC0061A87E /* NTESCADisplayLinkHolder.m */,
 				49689CE81F4C43FC0061A87E /* NTESClientUtil.h */,
@@ -5541,6 +5545,15 @@
 				49689E6A1F4C4D650061A87E /* libssl.a */,
 			);
 			path = Libs;
+			sourceTree = "<group>";
+		};
+		49689EF11F4C52C20061A87E /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				49689EF21F4C52C20061A87E /* NTESCustomSysNotificationSender.h */,
+				49689EF31F4C52C20061A87E /* NTESCustomSysNotificationSender.m */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		497A8AB21F2B15ED0003D7CB /* AttributedString(富文本) */ = {
@@ -6937,7 +6950,9 @@
 				495EA81A1F14B64D001FCB7E /* ZFSettingHeadViewController.m in Sources */,
 				49689E9E1F4C4D650061A87E /* NIMBaseSessionContentConfig.m in Sources */,
 				495EA95A1F14B64E001FCB7E /* SDCollectionViewCell.m in Sources */,
+				49689EF41F4C52C20061A87E /* NTESCustomSysNotificationSender.m in Sources */,
 				503C7C751F40B56E009C0512 /* HXPhotoSubViewCell.m in Sources */,
+				49689EF71F4C55FC0061A87E /* NTESBundleSetting.m in Sources */,
 				49965B411F4B051D00B297C4 /* IMChatSessionViewController.m in Sources */,
 				495EA76B1F14B64D001FCB7E /* ZFCInterpersonalCircleViewController.m in Sources */,
 				49689EB01F4C4D650061A87E /* NIMSessionInteractorImpl.m in Sources */,
@@ -7058,7 +7073,6 @@
 				495EA7B71F14B64D001FCB7E /* ForgetPSViewController.m in Sources */,
 				495EA9731F14B64E001FCB7E /* YBPopupMenuPath.m in Sources */,
 				49689D071F4C43FC0061A87E /* UIImage+NTESColor.m in Sources */,
-				49689D301F4C43FC0061A87E /* NTESBundleSetting.m in Sources */,
 				49555D871F32EA6B00C3C748 /* IQNSArray+Sort.m in Sources */,
 				495EA7C71F14B64D001FCB7E /* ZFCollectEditCell.m in Sources */,
 				49689E921F4C4D650061A87E /* NIMInputEmoticonParser.m in Sources */,

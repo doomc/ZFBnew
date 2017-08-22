@@ -21,8 +21,14 @@
 }
 
 
-- (BOOL)removeSessionWheDeleteMessages{
+- (BOOL)removeSessionWhenDeleteMessages{
     return [[[NSUserDefaults standardUserDefaults] objectForKey:@"enabled_remove_recent_session"] boolValue];
+}
+
+- (BOOL)dropTableWhenDeleteMessages
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"enabled_drop_msg_table"] boolValue];
+    
 }
 
 - (BOOL)localSearchOrderByTimeDesc{
@@ -61,6 +67,11 @@
 - (BOOL)usingAmr
 {
     return [[[NSUserDefaults standardUserDefaults] objectForKey:@"using_amr"] boolValue];
+}
+
+- (BOOL)enableSyncWhenFetchRemoteMessages
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"sync_when_remote_fetch_messages"] boolValue];
 }
 
 - (NSArray *)ignoreTeamNotificationTypes
@@ -102,14 +113,30 @@
 }
 
 
-- (BOOL)videochatDisableAutoCropping
+- (NIMNetCallVideoCrop)videochatVideoCrop
 {
-    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_disable_auto_cropping"] boolValue];
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_video_crop"] integerValue];
 }
 
 - (BOOL)videochatAutoRotateRemoteVideo
 {
     return [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_auto_rotate_remote_video"] boolValue];
+}
+
+- (UIViewContentMode)videochatRemoteVideoContentMode
+{
+    NSInteger setting = [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_remote_video_content_mode"] integerValue];
+    return (setting == 0) ? UIViewContentModeScaleAspectFill : UIViewContentModeScaleAspectFit;
+}
+
+- (NIMNetCallVideoQuality)preferredVideoQuality
+{
+    NSInteger videoQualitySetting = [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_preferred_video_quality"] integerValue];
+    if ((videoQualitySetting >= NIMNetCallVideoQualityDefault) &&
+        (videoQualitySetting <= NIMNetCallVideoQuality720pLevel)) {
+        return (NIMNetCallVideoQuality)videoQualitySetting;
+    }
+    return NIMNetCallVideoQualityDefault;
 }
 
 
@@ -118,6 +145,28 @@
     return [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_start_with_back_camera"] boolValue];
 }
 
+- (NIMNetCallVideoCodec)perferredVideoEncoder
+{
+    NSInteger videoEncoderSetting = [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_preferred_video_encoder"] integerValue];
+
+    if ((videoEncoderSetting >= NIMNetCallVideoCodecDefault) &&
+        (videoEncoderSetting <= NIMNetCallVideoCodecHardware)) {
+        return (NIMNetCallVideoCodec)videoEncoderSetting;
+    }
+    return NIMNetCallVideoCodecDefault;
+}
+
+- (NIMNetCallVideoCodec)perferredVideoDecoder
+{
+    NSInteger videoDecoderSetting = [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_preferred_video_decoder"] integerValue];
+    
+    if ((videoDecoderSetting >= NIMNetCallVideoCodecDefault) &&
+        (videoDecoderSetting <= NIMNetCallVideoCodecHardware)) {
+        return (NIMNetCallVideoCodec)videoDecoderSetting;
+    }
+    return NIMNetCallVideoCodecDefault;
+
+}
 - (NSUInteger)videoMaxEncodeKbps
 {
     return [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_video_encode_max_kbps"] integerValue];
@@ -153,6 +202,19 @@
     
 }
 
+- (BOOL)audioHowlingSuppress
+{
+    id setting = [[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_audio_howling_suppress"];
+    
+    if (setting) {
+        return [setting boolValue];
+    }
+    else {
+        return NO;
+    }
+}
+
+
 - (BOOL)voiceDetect
 {
     id setting = [[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_voice_detect"];
@@ -178,6 +240,36 @@
     }
 }
 
+- (NIMAVChatScene)scene
+{
+    id setting = [[NSUserDefaults standardUserDefaults] objectForKey:@"avchat_scene"];
+    
+    if (setting) {
+        return [setting unsignedIntegerValue];
+    }
+    else {
+        return NIMAVChatSceneDefault;
+    }
+}
+
+- (NSInteger)chatroomRetryCount
+{
+    id count = [[NSUserDefaults standardUserDefaults] objectForKey:@"chatroom_enter_retry_count"];
+    return count == nil ? 3 : [count integerValue];
+}
+    
+- (BOOL)webrtcCompatible
+{
+    id setting = [[NSUserDefaults standardUserDefaults] objectForKey:@"webrtc_compatible"];
+    
+    if (setting) {
+        return [setting boolValue];
+    }
+    else {
+        return NO;
+    }
+}
+
 
 - (NSString *)description
 {
@@ -194,17 +286,25 @@
                 "server_record_audio %d\n" \
                 "server_record_video %d\n" \
                 "server_record_whiteboard_data %d\n" \
-                "videochat_disable_auto_cropping %d\n" \
+                "videochat_video_crop %zd\n" \
                 "videochat_auto_rotate_remote_video %d \n" \
+                "videochat_preferred_video_quality %zd\n" \
                 "videochat_start_with_back_camera %zd\n" \
+                "videochat_preferred_video_encoder %zd\n" \
+                "videochat_preferred_video_decoder %zd\n" \
                 "videochat_video_encode_max_kbps %zd\n" \
                 "videochat_local_record_video_kbps %zd\n" \
                 "videochat_auto_disable_audiosession %zd\n" \
                 "videochat_audio_denoise %zd\n" \
                 "videochat_voice_detect %zd\n" \
-                "videochat_prefer_hd_audio %zd\n" \
+                "videochat_audio_howling_suppress %zd\n" \
+                "videochat_prefer_hd_audio %zd\n"\
+                "avchat_scene %zd\n"\
+                "chatroom_retry_count %zd\n"\
+                "webrtc_compatible %zd\n" \
+                "sync_when_remote_fetch_messages %zd\n"\
                 "\n\n\n",
-                [self removeSessionWheDeleteMessages],
+                [self removeSessionWhenDeleteMessages],
                 [self localSearchOrderByTimeDesc],
                 [self autoRemoveRemoteSession],
                 [self autoRemoveSnapMessage],
@@ -215,15 +315,23 @@
                 [self serverRecordAudio],
                 [self serverRecordVideo],
                 [self serverRecordWhiteboardData],
-                [self videochatDisableAutoCropping],
+                [self videochatVideoCrop],
                 [self videochatAutoRotateRemoteVideo],
+                [self preferredVideoQuality],
                 [self startWithBackCamera],
+                [self perferredVideoEncoder],
+                [self perferredVideoDecoder],
                 [self videoMaxEncodeKbps],
                 [self localRecordVideoKbps],
                 [self autoDeactivateAudioSession],
                 [self audioDenoise],
                 [self voiceDetect],
-                [self preferHDAudio]
+                [self audioHowlingSuppress],
+                [self preferHDAudio],
+                [self scene],
+                [self chatroomRetryCount],
+                [self webrtcCompatible],
+                [self enableSyncWhenFetchRemoteMessages]
             ];
 }
 @end

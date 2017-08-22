@@ -12,6 +12,9 @@
 #import "QBAssetsCollectionViewCell.h"
 #import "QBAssetsCollectionFooterView.h"
 
+
+
+
 @interface QBAssetsCollectionViewController ()
 
 @property (nonatomic, strong) NSMutableArray *assets;
@@ -200,6 +203,7 @@
     if (minimumNumberOfSelection <= self.maximumNumberOfSelection) {
         if (numberOfSelections > self.maximumNumberOfSelection) {
             [MBProgressHUD showAutoMessage:[NSString stringWithFormat:@"最多只可选择%lu张照片", (unsigned long)self.maximumNumberOfSelection]];
+            
         }
         return (numberOfSelections <= self.maximumNumberOfSelection);
     }
