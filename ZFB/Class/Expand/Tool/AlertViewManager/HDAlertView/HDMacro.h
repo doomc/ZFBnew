@@ -64,22 +64,6 @@
 /******* APP_INFO *******/
 
 
-/******* 回到主线程 *******/
-#define dispatch_main_sync_safe(block)\
-if ([NSThread isMainThread]) {\
-block();\
-} else {\
-dispatch_sync(dispatch_get_main_queue(), block);\
-}
-
-#define dispatch_main_async_safe(block)             \
-if ([NSThread isMainThread]) {                      \
-block();                                            \
-} else {                                            \
-dispatch_async(dispatch_get_main_queue(), block);   \
-}
-/******* 回到主线程 *******/
-
 
 /******* RGB颜色 *******/
 #define HDColorAlpha(r, g, b, a) [UIColor colorWithRed:(r) / 255.0 green:(g) / 255.0  blue:(b) / 255.0  alpha:a]

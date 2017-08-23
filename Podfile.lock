@@ -27,6 +27,9 @@ PODS:
   - CocoaLumberjack/Default (3.2.0)
   - CocoaLumberjack/Extensions (3.2.0):
     - CocoaLumberjack/Default
+  - FMDB (2.7.2):
+    - FMDB/standard (= 2.7.2)
+  - FMDB/standard (2.7.2)
   - M80AttributedLabel (1.6.3)
   - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
@@ -53,6 +56,7 @@ DEPENDENCIES:
   - AMapLocation
   - AMapSearch
   - CocoaLumberjack (>= 3.2.0)
+  - FMDB (~> 2.5)
   - M80AttributedLabel (>= 1.6.3)
   - Masonry
   - MBProgressHUD
@@ -72,6 +76,7 @@ SPEC CHECKSUMS:
   AMapLocation: 47b62b5381a66e4d0c2931b70ffde72682427896
   AMapSearch: beb01c6b2e7be18fb4898e97162fedf144420c6f
   CocoaLumberjack: 9b4aed7073d242f29cc2f62068d995faf67f703a
+  FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
   M80AttributedLabel: d06543195d3e451d2ea62ad76d04aa9cea7661d4
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
@@ -84,6 +89,6 @@ SPEC CHECKSUMS:
   Toast: 14a93686d6c8bfe2727afd342414e35660a8a1f3
   TZImagePickerController: b44f4cfc6d320dab9a53adcdda725099be36dcda
 
-PODFILE CHECKSUM: ea7da59a59096e3c09e1b604face5debe7c40e83
+PODFILE CHECKSUM: 7fad32afe61c24780d573eeb1a0bb6d399b58c1f
 
 COCOAPODS: 1.2.0

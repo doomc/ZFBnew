@@ -170,14 +170,25 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
 {
     NSLog(@"clickAction");
     
-    [YBPopupMenu showRelyOnView:sender titles:_titlesArr icons:_iconArr menuWidth:120 otherSettings:^(YBPopupMenu *popupMenu) {
-        popupMenu.isShowShadow = YES;
-        popupMenu.delegate = self;
-        popupMenu.offset = 10;
-        popupMenu.type = YBPopupMenuTypeDark;
-
-    }];
-    
+    if ( KScreenW == Iphone6PlusWidth ) {
+        [YBPopupMenu showRelyOnView:sender titles:_titlesArr icons:_iconArr menuWidth:140 otherSettings:^(YBPopupMenu *popupMenu) {
+            popupMenu.isShowShadow = YES;
+            popupMenu.delegate = self;
+            popupMenu.offset = 10;
+            popupMenu.type = YBPopupMenuTypeDark;
+            
+        }];
+   
+    }
+    else{
+        [YBPopupMenu showRelyOnView:sender titles:_titlesArr icons:_iconArr menuWidth:120 otherSettings:^(YBPopupMenu *popupMenu) {
+            popupMenu.isShowShadow = YES;
+            popupMenu.delegate = self;
+            popupMenu.offset = 10;
+            popupMenu.type = YBPopupMenuTypeDark;
+            
+        }];
+    }
 
  
 }

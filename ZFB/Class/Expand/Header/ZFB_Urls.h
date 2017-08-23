@@ -9,13 +9,21 @@
 #ifndef ZFB_Urls_h
 #define ZFB_Urls_h
 
-#import "MENetWorkManager.h"//网络请求
+#import "MENetWorkManager.h"//加密网络请求
+#import "NoEncryptionManager.h"//非加密网络请求
 
 #import "MD5Tool.h"
 #import "dateTimeHelper.h"
 #import "NSString+Base64.h"
 #import "ZFEncryptionKey.h"//ZFEncryptionKey加密排序规则
 #import "NSString+JsonChange.h"//json的转换和MD5 base64加密
+
+
+//单聊
+#define  IMsingle_baseUrl @"http://192.168.1.113:8087/im/user"
+
+//群聊
+#define  IMGroup_baseUrl @"http://192.168.1.113:8087/group"
 
 
 //baseUrl

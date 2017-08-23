@@ -84,19 +84,45 @@ NSString *NTESCustomNotificationCountChanged = @"NTESCustomNotificationCountChan
                                                                error:nil];
         if ([dict isKindOfClass:[NSDictionary class]])
         {
-//            if ([dict jsonInteger:NTESNotifyID] == NTESCustom)
-//            {
-//                //SDK并不会存储自定义的系统通知，需要上层结合业务逻辑考虑是否做存储。这里给出一个存储的例子。
-//                NTESCustomNotificationObject *object = [[NTESCustomNotificationObject alloc] initWithNotification:notification];
-//                //这里只负责存储可离线的自定义通知，推荐上层应用也这么处理，需要持久化的通知都走可离线通知
-//                if (!notification.sendToOnlineUsersOnly) {
-//                    [[NTESCustomNotificationDB sharedInstance] saveNotification:object];
-//                }
-//                if (notification.setting.shouldBeCounted) {
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:NTESCustomNotificationCountChanged object:nil];
-//                }
-//                NSString *content  = [dict jsonString:NTESCustomContent];
+//            switch ([dict jsonInteger:NTESNotifyID]) {
+//                    case NTESCustom:{
+//                        //SDK并不会存储自定义的系统通知，需要上层结合业务逻辑考虑是否做存储。这里给出一个存储的例子。
+//                        NTESCustomNotificationObject *object = [[NTESCustomNotificationObject alloc] initWithNotification:notification];
+//                        //这里只负责存储可离线的自定义通知，推荐上层应用也这么处理，需要持久化的通知都走可离线通知
+//                        if (!notification.sendToOnlineUsersOnly) {
+//                            [[NTESCustomNotificationDB sharedInstance] saveNotification:object];
+//                        }
+//                        if (notification.setting.shouldBeCounted) {
+//                            [[NSNotificationCenter defaultCenter] postNotificationName:NTESCustomNotificationCountChanged object:nil];
+//                        }
+//                        NSString *content  = [dict jsonString:NTESCustomContent];
+//                        [[NTESMainTabController instance].selectedViewController.view makeToast:content duration:2.0 position:CSToastPositionCenter];
+//                    }
+//                    break;
+//                    case NTESTeamMeetingCall:{
+//                        if (![self shouldResponseBusy]) {
+//                            //繁忙的话，不回复任何信息，直接丢掉，让呼叫方直接走超时
+//                            NSTimeInterval sendTime = notification.timestamp;
+//                            NSTimeInterval nowTime  = [[NSDate date] timeIntervalSince1970];
+//                            if (nowTime - sendTime < 45)
+//                            {
+//                                //60 秒内，认为有效，否则丢弃
+//                                NTESTeamMeetingCalleeInfo *info = [[NTESTeamMeetingCalleeInfo alloc] init];
+//                                info.teamId  = [dict jsonString:NTESTeamMeetingTeamId];
+//                                info.members = [dict jsonArray:NTESTeamMeetingMembers];
+//                                info.meetingName = [dict jsonString:NTESTeamMeetingName];
+//                                info.teamName = [dict jsonString:NTESTeamMeetingTeamName];
+//                                
+//                                NTESTeamMeetingCallingViewController *vc = [[NTESTeamMeetingCallingViewController alloc] initWithCalleeInfo:info];
+//                                [self presentModelViewController:vc];
+//                            }
+//                        }
+//                    }
+//                    break;
+//                default:
+//                    break;
 //            }
+
         }
     }
 }

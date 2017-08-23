@@ -8,9 +8,12 @@
 
 #import "ZFCInterpersonalCircleViewController.h"
 #import "SGPagingView.h"//控制自控制器
-#import "IMContactListViewController.h"//联系人通讯录
-#import "IMFriendsCircleViewController.h"//朋友圈
-//#import "NTESSessionListViewController.h"//当前会话列表
+//#import "IMContactListViewController.h"//联系人通讯录
+//#import "IMFriendsCircleViewController.h"//朋友圈
+#import "IMChatSessionViewController.h"//会话列表
+
+#import "NTESSessionListViewController.h"//当前会话列表
+#import "NTESContactViewController.h"//联系人通讯录
 
 #import "LoginViewController.h"
 #import "BaseNavigationController.h"
@@ -34,9 +37,9 @@
 
 - (void)setupPageView {
     
-    NIMSessionListViewController  *messageVC      = [[NIMSessionListViewController alloc]init];
-    IMContactListViewController *contactVC        = [[IMContactListViewController alloc]init];
-    IMFriendsCircleViewController *friendVC       = [[IMFriendsCircleViewController alloc]init];
+    NTESSessionListViewController  *messageVC       = [[NTESSessionListViewController alloc]init];
+    NTESContactViewController *contactVC        = [[NTESContactViewController alloc]init];
+    IMChatSessionViewController *friendVC       = [[IMChatSessionViewController alloc]init];
 
     NSArray *childArr = @[messageVC, contactVC, friendVC];
    

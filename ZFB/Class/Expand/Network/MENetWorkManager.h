@@ -10,7 +10,7 @@
 
 @interface MENetWorkManager : NSObject
 /**
- *  post request
+ *  get request
  *
  *  @param url      url
  *  @param params   参数

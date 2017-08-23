@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface ZFCInterpersonalCircleViewController : BaseViewController
+@interface ZFCInterpersonalCircleViewController : UIViewController
 
 @end

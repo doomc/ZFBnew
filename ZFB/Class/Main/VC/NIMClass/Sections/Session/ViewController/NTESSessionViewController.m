@@ -35,7 +35,7 @@
 #import "NTESSessionLocalHistoryViewController.h"
 #import "NIMContactSelectViewController.h"
 #import "SVProgressHUD.h"
-//#import "NTESSessionCardViewController.h"
+#import "NTESSessionCardViewController.h"
 #import "UIAlertView+NTESBlock.h"
 #import "NIMKit.h"
 #import "NTESSessionUtil.h"
@@ -45,7 +45,7 @@
 #import "NIMKitInfoFetchOption.h"
 #import "NTESTimerHolder.h"
 #import "NTESBundleSetting.h"
-
+#import "NTESPersonalCardViewController.h"
 
 @interface NTESSessionViewController ()
 <UIImagePickerControllerDelegate,
@@ -72,7 +72,7 @@ NIMContactSelectDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     DDLogInfo(@"enter session, id = %@",self.session.sessionId);
-//    _notificaionSender  = [[NTESCustomSysNotificationSender alloc] init];
+    _notificaionSender  = [[NTESCustomSysNotificationSender alloc] init];
     [self setUpNav];
     BOOL disableCommandTyping = self.disableCommandTyping || (self.session.sessionType == NIMSessionTypeP2P &&[[NIMSDK sharedSDK].userManager isUserInBlackList:self.session.sessionId]);
     if (!disableCommandTyping) {
@@ -264,7 +264,7 @@ NIMContactSelectDelegate>
     }
     else if([eventName isEqualToString:NIMDemoEventNameOpenSnapPicture])
     {
-        NIMCustomObject *object = event.messageModel.message.messageObject;
+        NIMCustomObject *object = (NIMCustomObject *)event.messageModel.message.messageObject;
         NTESSnapchatAttachment *attachment = (NTESSnapchatAttachment *)object.attachment;
         if(attachment.isFired){
             return handled;
@@ -276,7 +276,7 @@ NIMContactSelectDelegate>
     else if([eventName isEqualToString:NIMDemoEventNameCloseSnapPicture])
     {
         //点击很快的时候可能会触发两次查看，所以这里不管有没有查看过 先强直销毁掉
-        NIMCustomObject *object = event.messageModel.message.messageObject;
+        NIMCustomObject *object = (NIMCustomObject *)event.messageModel.message.messageObject;
         UIView *senderView = event.data;
         [senderView dismissPresentedView:YES complete:nil];
         
@@ -326,8 +326,8 @@ NIMContactSelectDelegate>
 
 //点击头像
 - (BOOL)onTapAvatar:(NSString *)userId{
-//    UIViewController *vc = [[NTESPersonalCardViewController alloc] initWithUserId:userId];
-//    [self.navigationController pushViewController:vc animated:YES];
+    NTESPersonalCardViewController *vc = [[NTESPersonalCardViewController alloc] initWithUserId:userId];
+    [self.navigationController pushViewController:vc animated:YES];
     return YES;
 }
 //长按头像
@@ -371,7 +371,7 @@ NIMContactSelectDelegate>
 #pragma mark - Cell Actions
 - (void)showImage:(NIMMessage *)message
 {
-    NIMImageObject *object = message.messageObject;
+    NIMImageObject *object =(NIMImageObject *) message.messageObject;
     NTESGalleryItem *item = [[NTESGalleryItem alloc] init];
     item.thumbPath      = [object thumbPath];
     item.imageURL       = [object url];
@@ -391,7 +391,7 @@ NIMContactSelectDelegate>
 
 - (void)showVideo:(NIMMessage *)message
 {
-    NIMVideoObject *object = message.messageObject;
+    NIMVideoObject *object = (NIMVideoObject *) message.messageObject;
     NTESVideoViewController *playerViewController = [[NTESVideoViewController alloc] initWithVideoObject:object];
     [self.navigationController pushViewController:playerViewController animated:YES];
     if(![[NSFileManager defaultManager] fileExistsAtPath:object.coverPath]){
@@ -407,7 +407,7 @@ NIMContactSelectDelegate>
 
 - (void)showLocation:(NIMMessage *)message
 {
-    NIMLocationObject *object = message.messageObject;
+    NIMLocationObject *object = (NIMLocationObject *) message.messageObject;
     NIMKitLocationPoint *locationPoint = [[NIMKitLocationPoint alloc] initWithLocationObject:object];
     NIMLocationViewController *vc = [[NIMLocationViewController alloc] initWithLocationPoint:locationPoint];
     [self.navigationController pushViewController:vc animated:YES];
@@ -415,7 +415,7 @@ NIMContactSelectDelegate>
 
 - (void)showFile:(NIMMessage *)message
 {
-    NIMFileObject *object = message.messageObject;
+    NIMFileObject *object = (NIMFileObject *)message.messageObject;
     NTESFilePreViewController *vc = [[NTESFilePreViewController alloc] initWithFileObject:object];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -428,8 +428,8 @@ NIMContactSelectDelegate>
 
 #pragma mark - 导航按钮
 - (void)enterPersonInfoCard:(id)sender{
-//    NTESSessionCardViewController *vc = [[NTESSessionCardViewController alloc] initWithSession:self.session];
-//    [self.navigationController pushViewController:vc animated:YES];
+    NTESSessionCardViewController *vc = [[NTESSessionCardViewController alloc] initWithSession:self.session];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

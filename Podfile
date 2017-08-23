@@ -31,6 +31,7 @@ target 'ZFB' do
   pod 'Toast', '>= 3.0'
   pod 'M80AttributedLabel', '>= 1.6.3'
   pod 'CocoaLumberjack', '>= 3.2.0'
- 
+  pod 'FMDB', '~> 2.5'
+
   
 end

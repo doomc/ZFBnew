@@ -99,7 +99,6 @@
         dispatch_async_main_safe(^{
             wImageView.progress = (CGFloat)receivedSize / expectedSize;
         });
- 
     } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         if (error) {
             [wImageView makeToast:@"下载图片失败"
@@ -108,10 +107,9 @@
         }else{
             wImageView.progress = 1.0;
         }
-
     }];
-    
 }
+
 
 @end
 

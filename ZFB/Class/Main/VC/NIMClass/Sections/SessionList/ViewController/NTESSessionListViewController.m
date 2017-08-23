@@ -18,7 +18,7 @@
 #import "NTESChartletAttachment.h"
 #import "NTESWhiteboardAttachment.h"
 #import "NTESSessionUtil.h"
-//#import "NTESPersonalCardViewController.h"
+#import "NTESPersonalCardViewController.h"
 
 #define SessionListTitle @"云信 Demo"
 
@@ -73,7 +73,6 @@
 - (void)refresh:(BOOL)reload{
 //    [super refresh:reload];
     [super refresh];
-    
     self.emptyTipLabel.hidden = self.recentSessions.count;
 }
 
@@ -84,10 +83,10 @@
 
 - (void)onSelectedAvatar:(NIMRecentSession *)recent
              atIndexPath:(NSIndexPath *)indexPath{
-//    if (recent.session.sessionType == NIMSessionTypeP2P) {
-//       NTESPersonalCardViewController *vc = [[NTESPersonalCardViewController alloc] initWithUserId:recent.session.sessionId];
-//      [self.navigationController pushViewController:vc animated:YES];
-//    }
+    if (recent.session.sessionType == NIMSessionTypeP2P) {
+       NTESPersonalCardViewController *vc = [[NTESPersonalCardViewController alloc] initWithUserId:recent.session.sessionId];
+      [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 
@@ -238,7 +237,7 @@
     NSAttributedString *content;
     if (recent.lastMessage.messageType == NIMMessageTypeCustom)
     {
-        NIMCustomObject *object = recent.lastMessage.messageObject;
+        NIMCustomObject *object = (NIMCustomObject *)recent.lastMessage.messageObject;
         NSString *text = @"";
         if ([object.attachment isKindOfClass:[NTESSnapchatAttachment class]]) {
             text = @"[阅后即焚]";

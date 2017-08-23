@@ -19,6 +19,8 @@
 @property (nonatomic,copy) NSString *newPassWord;///修改的新密码保存
 
 @property (nonatomic,copy) NSString *cmUserId;
+@property (nonatomic,copy) NSString *accid;
+
 @property (nonatomic,copy) NSString *nickName;///默认用户昵称
 @property (nonatomic,copy) NSString *userKeyMd5;///默认用户昵称
 @property (nonatomic,copy) NSString *userStatus;///登录状态 1已在线  0下线

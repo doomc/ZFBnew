@@ -11,4 +11,5 @@
 @interface UIViewController (Unitil)
 
 +(UIViewController *)getCurrentVC;
+
 @end

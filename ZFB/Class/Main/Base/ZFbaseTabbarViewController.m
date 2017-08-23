@@ -13,13 +13,13 @@
 #import "ZFPersonalViewController.h"
 #import "ZFCInterpersonalCircleViewController.h"
 
- 
-
+#import "AppDelegate.h"
 @interface ZFbaseTabbarViewController ()
 
 @end
 
 @implementation ZFbaseTabbarViewController
+
 + (void)initialize {
     
     // 设置UITabBarItem主题

@@ -13,6 +13,8 @@
 #define Iphone6ScaleWidth KScreenWidth/375.0
 #define Iphone6ScaleHeight KScreenHeight/667.0
 
+#define Iphone6PlusWidth  414.0
+ 
 //根据ip6的屏幕来拉伸
 #define kRealValue(with)((with)*(KScreenWidth/375.0f))
 
