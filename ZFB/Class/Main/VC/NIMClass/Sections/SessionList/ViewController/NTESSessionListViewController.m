@@ -13,16 +13,13 @@
 #import "NTESBundleSetting.h"
 #import "NTESListHeader.h"
 #import "NTESClientsTableViewController.h"
-#import "NTESSnapchatAttachment.h"
-#import "NTESJanKenPonAttachment.h"
 #import "NTESChartletAttachment.h"
-#import "NTESWhiteboardAttachment.h"
 #import "NTESSessionUtil.h"
 #import "NTESPersonalCardViewController.h"
 
-#define SessionListTitle @"云信 Demo"
+#define SessionListTitle @"APP text"
 
-@interface NTESSessionListViewController ()<NIMLoginManagerDelegate,NTESListHeaderDelegate,UIViewControllerPreviewingDelegate>
+@interface NTESSessionListViewController ()<NIMLoginManagerDelegate,NTESListHeaderDelegate,NIMEventSubscribeManagerDelegate,UIViewControllerPreviewingDelegate>
 
 @property (nonatomic,strong) UILabel *titleLabel;
 
@@ -55,11 +52,13 @@
     self.supportsForceTouch = [self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
     
     [[NIMSDK sharedSDK].loginManager addDelegate:self];
+    [[NIMSDK sharedSDK].subscribeManager addDelegate:self];
+
     self.header = [[NTESListHeader alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 0)];
     self.header.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.header.delegate = self;
     [self.view addSubview:self.header];
-
+    
     self.emptyTipLabel = [[UILabel alloc] init];
     self.emptyTipLabel.text = @"还没有会话，在通讯录中找个人聊聊吧";
     [self.emptyTipLabel sizeToFit];
@@ -70,8 +69,7 @@
     self.navigationItem.titleView  = [self titleView:userID];
 }
 
-- (void)refresh:(BOOL)reload{
-//    [super refresh:reload];
+- (void)refresh{
     [super refresh];
     self.emptyTipLabel.hidden = self.recentSessions.count;
 }
@@ -198,6 +196,28 @@
     }
 }
 
+#pragma mark - NIMEventSubscribeManagerDelegate
+
+- (void)onRecvSubscribeEvents:(NSArray *)events
+{
+    NSMutableSet *ids = [[NSMutableSet alloc] init];
+    for (NIMSubscribeEvent *event in events) {
+        [ids addObject:event.from];
+    }
+    
+    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+    for (NSIndexPath *indexPath in self.tableView.indexPathsForVisibleRows) {
+        NIMRecentSession *recent = self.recentSessions[indexPath.row];
+        if (recent.session.sessionType == NIMSessionTypeP2P) {
+            NSString *from = recent.session.sessionId;
+            if ([ids containsObject:from]) {
+                [indexPaths addObject:indexPath];
+            }
+        }
+    }
+    
+    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+}
 
 #pragma mark - Private 
 - (void)refreshSubview{
@@ -239,17 +259,9 @@
     {
         NIMCustomObject *object = (NIMCustomObject *)recent.lastMessage.messageObject;
         NSString *text = @"";
-        if ([object.attachment isKindOfClass:[NTESSnapchatAttachment class]]) {
-            text = @"[阅后即焚]";
-        }
-        else if ([object.attachment isKindOfClass:[NTESJanKenPonAttachment class]]) {
-            text = @"[猜拳]";
-        }
-        else if ([object.attachment isKindOfClass:[NTESChartletAttachment class]]) {
+
+        if ([object.attachment isKindOfClass:[NTESChartletAttachment class]]) {
             text = @"[贴图]";
-        }
-        else if ([object.attachment isKindOfClass:[NTESWhiteboardAttachment class]]) {
-            text = @"[白板]";
         }else{
             text = @"[未知消息]";
         }
@@ -266,6 +278,8 @@
     }
     NSMutableAttributedString *attContent = [[NSMutableAttributedString alloc] initWithAttributedString:content];
     [self checkNeedAtTip:recent content:attContent];
+    [self checkOnlineState:recent content:attContent];
+
     return attContent;
 }
 
@@ -276,6 +290,18 @@
         NSAttributedString *atTip = [[NSAttributedString alloc] initWithString:@"[有人@你] " attributes:@{NSForegroundColorAttributeName:[UIColor redColor]}];
         [content insertAttributedString:atTip atIndex:0];
     }
+}
+- (void)checkOnlineState:(NIMRecentSession *)recent content:(NSMutableAttributedString *)content
+{
+    if (recent.session.sessionType == NIMSessionTypeP2P) {
+        NSString *state  = [NTESSessionUtil onlineState:recent.session.sessionId detail:NO];
+        if (state.length) {
+            NSString *format = [NSString stringWithFormat:@"[%@] ",state];
+            NSAttributedString *atTip = [[NSAttributedString alloc] initWithString:format attributes:nil];
+            [content insertAttributedString:atTip atIndex:0];
+        }
+    }
+    
 }
 
 @end

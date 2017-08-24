@@ -9,8 +9,6 @@
 #import "NTESSessionConfig.h"
 #import "NIMMediaItem.h"
 #import "NTESBundleSetting.h"
-#import "NTESSnapchatAttachment.h"
-#import "NTESWhiteboardAttachment.h"
 #import "NTESBundleSetting.h"
 #import "NIMKitUIConfig.h"
 
@@ -59,17 +57,24 @@
                                     selectedImage:[UIImage imageNamed:@"btn_whiteboard_invite_pressed"]
                                             title:@"白板"];
     
+    NIMMediaItem *redPacket  = [NIMMediaItem item:@"onTapMediaItemRedPacket:"
+                                      normalImage:[UIImage imageNamed:@"icon_redpacket_normal"]
+                                    selectedImage:[UIImage imageNamed:@"icon_redpacket_pressed"]
+                                            title:@"红包"];
     
     BOOL isMe   = _session.sessionType == NIMSessionTypeP2P
     && [_session.sessionId isEqualToString:[[NIMSDK sharedSDK].loginManager currentAccount]];
     NSArray *items = @[];
     if (_session.sessionType != NIMSessionTypeTeam && !isMe)
     {
-        items = @[janKenPon,audioChat,videoChat,fileTrans,snapChat,whiteBoard,tip];
+        items = @[audioChat];
+//        items = @[janKenPon,audioChat,videoChat,fileTrans,snapChat,whiteBoard,tip];
     }
     else
     {
-        items = @[janKenPon,fileTrans,tip];
+        items = @[audioChat];
+
+//        items = @[janKenPon,fileTrans,tip];
     }
 
     return [defaultMediaItems arrayByAddingObjectsFromArray:items];
@@ -77,6 +82,7 @@
 }
 
 - (BOOL)shouldHandleReceipt{
+    
     return YES;
 }
 
@@ -86,11 +92,11 @@
     NIMMessageType type = message.messageType;
     if (type == NIMMessageTypeCustom) {
         NIMCustomObject *object = (NIMCustomObject *)message.messageObject;
-        id attachment = object.attachment;
+//        id attachment = object.attachment;
         
-        if ([attachment isKindOfClass:[NTESWhiteboardAttachment class]]) {
-            return NO;
-        }
+//        if ([attachment isKindOfClass:[NTESWhiteboardAttachment class]]) {
+//            return NO;
+//        }
     }
     
     
@@ -105,6 +111,7 @@
 }
 
 - (BOOL)disableProximityMonitor{
+    
     return [[NTESBundleSetting sharedConfig] disableProximityMonitor];
 }
 

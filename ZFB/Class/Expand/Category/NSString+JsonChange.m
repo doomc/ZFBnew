@@ -61,7 +61,7 @@
     }
     return dic;
 }
-
+//数组转json
 + (NSString *)arrayToJSONString:(NSArray *)array
 {
     if (array.count > 0) {
@@ -79,18 +79,10 @@
 }
 
 +(NSString*)ObjectTojsonString:(id)object
-
 {
-    
-    NSString *jsonString = [[NSString alloc]init];
-    
+    NSString *jsonString = [[NSString   alloc]init];
     NSError *error;
-    
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
-                        
-                                                      options:NSJSONWritingPrettyPrinted
-                        
-                                                        error:&error];
+    NSData *jsonData = [NSJSONSerialization  dataWithJSONObject:object options:NSJSONWritingPrettyPrinted  error:&error];
     
     if (! jsonData) {
         
@@ -98,24 +90,28 @@
         
     } else {
         
-        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        jsonString = [[NSString  alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         
+        NSLog(@"jsonString === %@",jsonString);
+
     }
-    
     NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
     
     NSRange range = {0,jsonString.length};
-    
     [mutStr replaceOccurrencesOfString:@" "withString:@""options:NSLiteralSearch range:range];
     
     NSRange range2 = {0,mutStr.length};
+    [mutStr replaceOccurrencesOfString:@"\n"withString:@"" options:NSLiteralSearch range:range2];
     
-    [mutStr replaceOccurrencesOfString:@"\n"withString:@""options:NSLiteralSearch range:range2];
-  
- 
+    NSRange range3 = {0, mutStr.length};
+    [mutStr replaceOccurrencesOfString:@"\\" withString:@"" options:NSLiteralSearch range:range3];
+    
+    NSLog(@"mutStr ====%@",mutStr);
+    
     return mutStr;
     
 }
+
 +(NSString *)base64:(NSString *)dataStr;
 {
     NSData *strData = [dataStr dataUsingEncoding:NSUTF8StringEncoding];

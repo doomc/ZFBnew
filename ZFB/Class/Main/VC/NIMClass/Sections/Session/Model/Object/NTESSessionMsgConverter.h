@@ -13,6 +13,8 @@
 @class NTESSnapchatAttachment;
 @class NTESChartletAttachment;
 @class NTESWhiteboardAttachment;
+@class NTESRedPacketAttachment;
+@class NTESRedPacketTipAttachment;
 
 @interface NTESSessionMsgConverter : NSObject
 
@@ -26,9 +28,6 @@
 
 + (NIMMessage *)msgWithVideo:(NSString *)filePath;
 
-+ (NIMMessage *)msgWithJenKenPon:(NTESJanKenPonAttachment *)attachment;
-
-+ (NIMMessage *)msgWithSnapchatAttachment:(NTESSnapchatAttachment *)attachment;
 
 + (NIMMessage *)msgWithChartletAttachment:(NTESChartletAttachment *)attachment;
 
@@ -39,5 +38,7 @@
 + (NIMMessage *)msgWithFileData:(NSData *)data extension:(NSString *)extension;
 
 + (NIMMessage *)msgWithTip:(NSString *)tip;
+
+
 
 @end

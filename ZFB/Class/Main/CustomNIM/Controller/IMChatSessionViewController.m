@@ -27,17 +27,21 @@
     
     [super viewDidLoad];
     
-    [self friendListPostRequst];
-    [self argeeBecomeFriendPost];
-    [self deleteFriendFriendPost];
+//    [self friendListPostRequst];
+//    [self argeeBecomeFriendPost];
+//    [self deleteFriendFriendPost];
  
     //群列表
-    [self editGroupPost];
-    [self userinfoAddGroupPost];
-    [self pullFriendJoinGroupPost];
-    [self creatGroupPost];
-}
 
+//    [self editGroupPost];
+//    [self userinfoAddGroupPost];
+//    [self pullFriendJoinGroupPost];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self creatGroupPost];
+
+}
 #pragma mark - 好友列表 friendList
 -(void)friendListPostRequst
 {
@@ -128,34 +132,47 @@
 #pragma mark - ------------ 群模块 -----------  创建群
 -(void)creatGroupPost
 {
-    NSMutableDictionary * mutAcont = [NSMutableDictionary dictionary];
-    [mutAcont setObject:@"zfb_cs1" forKey:@"accId"];
-    [mutAcont setObject:@"1" forKey:@"userId"];
-    [mutAcont setObject:@"userName" forKey:@"立马"];
+    NSMutableDictionary * mutAcont1 = [NSMutableDictionary dictionary];
+    NSMutableDictionary * mutAcont2 = [NSMutableDictionary dictionary];
+    NSMutableArray * mutArr = [ NSMutableArray array];
+ 
+    [mutAcont1 setObject:@"123123" forKey:@"accId"];
+    [mutAcont1 setObject:@"8" forKey:@"userId"];
+    [mutAcont1 setObject:@"cainun" forKey:@"userName"];
     
-    NSString * jsonMeber = [NSString convertToJsonData:[NSDictionary dictionaryWithDictionary:mutAcont]] ;
+    [mutAcont2 setObject:@"123123" forKey:@"accId"];
+    [mutAcont2 setObject:@"8" forKey:@"userId"];
+    [mutAcont2 setObject:@"zfb_cs2" forKey:@"userName"];
+    
+    [mutArr addObject:mutAcont1];
+    [mutArr addObject:mutAcont2];
+    
+    NSString * jsonMeber = [NSString ObjectTojsonString:[NSArray arrayWithArray:mutArr]];
+    
+ 
+    NSLog(@"%@",jsonMeber);
 
-    NSDictionary * param = @{
-                             @"groupName":@"群名称",
-                             @"userAccId":@"13628311317",//群主id
-                             @"userId":BBUserDefault.cmUserId,//群主id	否	我们的用户id
-                             @"members":jsonMeber,//群成员
-                             @"groupMsg":@"一起开黑啊",//邀请发送的文字，最大长度150字符
-                             @"magree":@"0",//管理后台建群时，0不需要被邀请人同意加入群，1需要被邀请人同意才可以加入群。
-                             @"joinmode":@"0",//0不用验证，1需要验证,2不允许任何人加入
-                             @"icon":@"13628311317",//群头像 最大长度1024字符
-                             @"groupNotice":@"群公告",//群公告
-                             @"groupIntro":@"群描述",//群描述
-                             @"beinvitemode":@"1",//被邀请人同意方式，0-需要同意(默认),1-不需要同意
-                             @"invitemode":@"1",//谁可以邀请他人入群，0-管理员(默认),1-所有人
-                             @"uptinfomode":@"1",//谁可以修改群资料，0-管理员(默认),1-所有人
-                             @"upcustommode":@"1",//谁可以更新群自定义属性，0-管理员(默认),1-所有人
-                             @"groupQrcode":@"1",//群二维码
-                             @"orderNum":@"1",//1.排序 0.置顶
-                             
-                             
-                             };
-    [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/createGroup",IMGroup_baseUrl]  params:param success:^(id response) {
+    NSMutableDictionary  * param = [NSMutableDictionary dictionary];
+    [param setObject:@"groupName" forKey:@"groupName"];
+    [param setObject:@"13628311317" forKey:@"userAccId"];
+    [param setObject:jsonMeber forKey:@"members"];
+    [param setObject:@"0" forKey:@"magree"];
+    [param setObject:@"000000000" forKey:@"groupMsg"];
+    [param setObject:@"8" forKey:@"userId"];
+    [param setObject:@"0" forKey:@"joinmode"];
+//
+//    NSDictionary * param = @{
+//                             @"groupName":@"群名称",
+//                             @"userAccId":@"13628311317",//群主id
+//                             @"members":jsonMeber,//群成员
+//                             @"groupMsg":@"一起开黑啊",//邀请发送的文字，最大长度150字符
+//                             @"magree":@"0",//管理后台建群时，0不需要被邀请人同意加入群，1需要被邀请人同意才可以加入群。
+//                             @"joinmode":@"0",//0不用验证，1需要验证,2不允许任何人加入
+//                             @"userId":@"8",
+//
+//                             };
+    NSLog(@"%@",param);
+    [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/createGroup",IMGroup_baseUrl]  params:[NSDictionary dictionaryWithDictionary:param] success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
             
@@ -185,7 +202,10 @@
     [mutAcont setObject:@"1" forKey:@"userId"];
     [mutAcont setObject:@"userName" forKey:@"哎呀妈呀"];
     
-    NSString * jsonMeber = [NSString convertToJsonData:[NSDictionary dictionaryWithDictionary:mutAcont]] ;
+    NSMutableArray * mutArr =[ NSMutableArray array];
+    [mutArr addObject:mutAcont];
+    NSString * jsonMeber = [NSString arrayToJSONString:[NSArray arrayWithObject:mutArr]] ;
+
     
     NSDictionary * param = @{
                              @"tid":@"94667611",//网易云所用的群id
@@ -229,7 +249,9 @@
     [mutAcont setObject:@"1" forKey:@"userId"];
     [mutAcont setObject:@"userName" forKey:@"哎呀妈呀"];
     
-    NSString * jsonMeber = [NSString convertToJsonData:[NSDictionary dictionaryWithDictionary:mutAcont]] ;
+    NSMutableArray * mutArr =[ NSMutableArray array];
+    [mutArr addObject:mutAcont];
+    NSString * jsonMeber = [NSString arrayToJSONString:[NSArray arrayWithArray:mutArr]] ;
     
     NSDictionary * param = @{
                              @"userId":BBUserDefault.cmUserId,
@@ -278,7 +300,7 @@
                              @"invitemode":@"1",//谁可以邀请他人入群，0-管理员(默认),1-所有人
                              @"uptinfomode":@"1",//谁可以修改群资料，0-管理员(默认),1-所有人
                              @"upcustommode":@"1",//谁可以更新群自定义属性，0-管理员(默认),1-所有人
-                             @"groupQrcode":@"1",//群二维码
+                             @"groupQrcode":@"",//群二维码
                              @"order":@"1",//1.排序 0.置顶
                              
                              

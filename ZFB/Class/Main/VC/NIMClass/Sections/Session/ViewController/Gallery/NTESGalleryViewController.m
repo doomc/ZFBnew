@@ -9,7 +9,6 @@
 #import "NTESGalleryViewController.h"
 #import "UIImageView+WebCache.h"
 #import "UIView+NTES.h"
-#import "NTESSnapchatAttachment.h"
 #import "NTESSessionUtil.h"
 #import "UIView+Toast.h"
 
@@ -69,29 +68,6 @@
 
 
 @implementation  NTESGalleryViewController(SingleView)
-
-+ (UIView *)alertSingleSnapViewWithMessage:(NIMMessage *)message baseView:(UIView *)view{
-    NIMCustomObject *messageObject = (NIMCustomObject *)message.messageObject;
-    if (![messageObject isKindOfClass:[NIMCustomObject class]] || ![messageObject.attachment isKindOfClass:[NTESSnapchatAttachment class]]) {
-        return nil;
-    }
-    SingleSnapView *galleryImageView = [[SingleSnapView alloc] initWithFrame:[UIScreen mainScreen].bounds messageObject:messageObject];
-    galleryImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    galleryImageView.backgroundColor = [UIColor blackColor];
-    galleryImageView.contentMode  = UIViewContentModeScaleAspectFit;
-    
-    galleryImageView.userInteractionEnabled = NO;
-    [view presentView:galleryImageView animated:YES complete:^{
-        NTESSnapchatAttachment *attachment = (NTESSnapchatAttachment *)messageObject.attachment;
-        if ([[NSFileManager defaultManager] fileExistsAtPath:attachment.filepath isDirectory:nil]) {
-            galleryImageView.image = [UIImage imageWithContentsOfFile:attachment.filepath];
-            galleryImageView.progress = 1.0;
-        }else{
-            [NTESGalleryViewController downloadImage:attachment.url imageView:galleryImageView];
-        }
-    }];
-    return galleryImageView;
-}
 
 + (void)downloadImage:(NSString *)url imageView:(SingleSnapView *)imageView{
     __weak typeof(imageView) wImageView = imageView;

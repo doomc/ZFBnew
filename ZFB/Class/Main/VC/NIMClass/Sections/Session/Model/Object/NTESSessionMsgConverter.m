@@ -8,11 +8,7 @@
 
 #import "NTESSessionMsgConverter.h"
 #import "NSString+NTES.h"
-#import "NTESJanKenPonAttachment.h"
-#import "NTESSnapchatAttachment.h"
 #import "NTESChartletAttachment.h"
-#import "NTESWhiteboardAttachment.h"
-
 
 @implementation NTESSessionMsgConverter
 
@@ -75,33 +71,6 @@
 }
 
 
-+ (NIMMessage*)msgWithJenKenPon:(NTESJanKenPonAttachment *)attachment
-{
-    NIMMessage *message               = [[NIMMessage alloc] init];
-    NIMCustomObject *customObject     = [[NIMCustomObject alloc] init];
-    customObject.attachment           = attachment;
-    message.messageObject             = customObject;
-    message.apnsContent = @"发来了猜拳信息";
-    return message;
-}
-
-+ (NIMMessage*)msgWithSnapchatAttachment:(NTESSnapchatAttachment *)attachment
-{
-    NIMMessage *message               = [[NIMMessage alloc] init];
-    NIMCustomObject *customObject     = [[NIMCustomObject alloc] init];
-    customObject.attachment           = attachment;
-    message.messageObject             = customObject;
-    message.apnsContent = @"发来了阅后即焚";
-    
-    NIMMessageSetting *setting = [[NIMMessageSetting alloc] init];
-    setting.historyEnabled = NO;
-    setting.roamingEnabled = NO;
-    setting.syncEnabled    = NO;
-    message.setting = setting;
-    
-    return message;
-}
-
 
 + (NIMMessage*)msgWithFilePath:(NSString*)path{
     NIMFileObject *fileObject = [[NIMFileObject alloc] initWithSourcePath:path];
@@ -138,19 +107,6 @@
     return message;
 }
 
-+ (NIMMessage*)msgWithWhiteboardAttachment:(NTESWhiteboardAttachment *)attachment
-{
-    NIMMessage *message               = [[NIMMessage alloc] init];
-    NIMCustomObject *customObject     = [[NIMCustomObject alloc] init];
-    customObject.attachment           = attachment;
-    message.messageObject             = customObject;
-    
-    NIMMessageSetting *setting = [[NIMMessageSetting alloc] init];
-    setting.apnsEnabled        = NO;
-    message.setting            = setting;
-
-    return message;
-}
 
 
 + (NIMMessage *)msgWithTip:(NSString *)tip
@@ -165,6 +121,9 @@
     message.setting            = setting;
     return message;
 }
+
+
+
 
 
 @end

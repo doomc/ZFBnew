@@ -18,20 +18,15 @@
 #import "NTESFileLocationHelper.h"
 #import "NTESSessionMsgConverter.h"
 #import "UIView+Toast.h"
-#import "NTESSnapchatAttachment.h"
-#import "NTESJanKenPonAttachment.h"
-#import "NTESFileTransSelectViewController.h"
 #import "NTESChartletAttachment.h"
 #import "NTESGalleryViewController.h"
 #import "NTESVideoViewController.h"
-#import "NTESFilePreViewController.h"
 #import "NTESAudio2TextViewController.h"
 #import "NSDictionary+NTESJson.h"
 #import "NIMAdvancedTeamCardViewController.h"
 #import "NTESSessionRemoteHistoryViewController.h"
 #import "NIMNormalTeamCardViewController.h"
 #import "UIView+NTES.h"
-#import "NTESSessionSnapchatContentView.h"
 #import "NTESSessionLocalHistoryViewController.h"
 #import "NIMContactSelectViewController.h"
 #import "SVProgressHUD.h"
@@ -46,6 +41,8 @@
 #import "NTESTimerHolder.h"
 #import "NTESBundleSetting.h"
 #import "NTESPersonalCardViewController.h"
+#import "NIMInputAtCache.h"
+#import "NTESAudioChatViewController.h"
 
 @interface NTESSessionViewController ()
 <UIImagePickerControllerDelegate,
@@ -159,45 +156,6 @@ NIMContactSelectDelegate>
 }
 
 
-#pragma mark - 石头剪子布
-- (void)onTapMediaItemJanKenPon:(NIMMediaItem *)item
-{
-    NTESJanKenPonAttachment *attachment = [[NTESJanKenPonAttachment alloc] init];
-    attachment.value = arc4random() % 3 + 1;
-    [self sendMessage:[NTESSessionMsgConverter msgWithJenKenPon:attachment]];
-}
-
-#pragma mark - 文件传输
-- (void)onTapMediaItemFileTrans:(NIMMediaItem *)item
-{
-    NTESFileTransSelectViewController *vc = [[NTESFileTransSelectViewController alloc]
-                                             initWithNibName:nil bundle:nil];
-    __weak typeof(self) wself = self;
-    vc.completionBlock = ^void(id sender,NSString *ext){
-        if ([sender isKindOfClass:[NSString class]]) {
-            [wself sendMessage:[NTESSessionMsgConverter msgWithFilePath:sender]];
-        }else if ([sender isKindOfClass:[NSData class]]){
-            [wself sendMessage:[NTESSessionMsgConverter msgWithFileData:sender extension:ext]];
-        }
-    };
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-
-- (void)sendSnapchatMessagePath:(NSString *)path
-{
-    NTESSnapchatAttachment *attachment = [[NTESSnapchatAttachment alloc] init];
-    [attachment setImageFilePath:path];
-    [self sendMessage:[NTESSessionMsgConverter msgWithSnapchatAttachment:attachment]];
-}
-
-- (void)sendSnapchatMessage:(UIImage *)image
-{
-    NTESSnapchatAttachment *attachment = [[NTESSnapchatAttachment alloc] init];
-    [attachment setImage:image];
-    [self sendMessage:[NTESSessionMsgConverter msgWithSnapchatAttachment:attachment]];
-}
-
 #pragma mark - 提醒消息
 - (void)onTapMediaItemTip:(NIMMediaItem *)item
 {
@@ -238,6 +196,23 @@ NIMContactSelectDelegate>
     [self.view makeToast:@"录音时间太短" duration:0.2f position:CSToastPositionCenter];
 }
 
+#pragma mark - 实时语音
+- (void)onTapMediaItemAudioChat:(NIMMediaItem *)item
+{
+    if ([self checkRTSCondition]) {
+        //由于音视频聊天里头有音频和视频聊天界面的切换，直接用present的话页面过渡会不太自然，这里还是用push，然后做出present的效果
+        NTESAudioChatViewController *vc = [[NTESAudioChatViewController alloc] initWithCallee:self.session.sessionId];
+        CATransition *transition = [CATransition animation];
+        transition.duration = 0.25;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+        transition.type = kCATransitionPush;
+        transition.subtype = kCATransitionFromTop;
+        [self.navigationController.view.layer addAnimation:transition forKey:nil];
+        self.navigationController.navigationBarHidden = YES;
+        [self.navigationController pushViewController:vc animated:NO];
+    }
+}
+
 #pragma mark - Cell事件
 - (BOOL)onTapCell:(NIMKitEvent *)event
 {
@@ -262,61 +237,13 @@ NIMContactSelectDelegate>
         [self openSafari:link];
         handled = YES;
     }
-    else if([eventName isEqualToString:NIMDemoEventNameOpenSnapPicture])
-    {
-        NIMCustomObject *object = (NIMCustomObject *)event.messageModel.message.messageObject;
-        NTESSnapchatAttachment *attachment = (NTESSnapchatAttachment *)object.attachment;
-        if(attachment.isFired){
-            return handled;
-        }
-        UIView *sender = event.data;
-        self.currentSingleSnapView = [NTESGalleryViewController alertSingleSnapViewWithMessage:object.message baseView:sender];
-        handled = YES;
-    }
-    else if([eventName isEqualToString:NIMDemoEventNameCloseSnapPicture])
-    {
-        //点击很快的时候可能会触发两次查看，所以这里不管有没有查看过 先强直销毁掉
-        NIMCustomObject *object = (NIMCustomObject *)event.messageModel.message.messageObject;
-        UIView *senderView = event.data;
-        [senderView dismissPresentedView:YES complete:nil];
-        
-        NTESSnapchatAttachment *attachment = (NTESSnapchatAttachment *)object.attachment;
-        if(attachment.isFired){
-            return handled;
-        }
-        attachment.isFired  = YES;
-        NIMMessage *message = object.message;
-        if ([NTESBundleSetting sharedConfig].autoRemoveSnapMessage) {
-            [[NIMSDK sharedSDK].conversationManager deleteMessage:message];
-            [self uiDeleteMessage:message];
-        }else{
-            [[NIMSDK sharedSDK].conversationManager updateMessage:message forSession:message.session completion:nil];
-            [self uiUpdateMessage:message];
-        }
-        [[NSFileManager defaultManager] removeItemAtPath:attachment.filepath error:nil];
-        self.currentSingleSnapView = nil;
-        handled = YES;
-    }
+
     else if([eventName isEqualToString:NIMKitEventNameTapRobotLink])
     {
         NSString *link = event.data;
         [self openSafari:link];
         handled = YES;
     }
-//    else if([eventName isEqualToString:NIMDemoEventNameOpenRedPacket])
-//    {
-//        NIMCustomObject *object = event.messageModel.message.messageObject;
-//        NTESRedPacketAttachment *attachment = (NTESRedPacketAttachment *)object.attachment;
-//        [[NTESRedPacketManager sharedManager] openRedPacket:attachment.redPacketId from:event.messageModel.message.from session:self.session];
-//        handled = YES;
-//    }
-//    else if([eventName isEqualToString:NTESShowRedPacketDetailEvent])
-//    {
-//        NIMCustomObject *object = event.messageModel.message.messageObject;
-//        NTESRedPacketTipAttachment *attachment = (NTESRedPacketTipAttachment *)object.attachment;
-//        [[NTESRedPacketManager sharedManager] showRedPacketDetail:attachment.packetId];
-//        handled = YES;
-//    }
     if (!handled) {
         NSAssert(0, @"invalid event");
     }
@@ -413,13 +340,7 @@ NIMContactSelectDelegate>
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)showFile:(NIMMessage *)message
-{
-    NIMFileObject *object = (NIMFileObject *)message.messageObject;
-    NTESFilePreViewController *vc = [[NTESFilePreViewController alloc] initWithFileObject:object];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
+ 
 - (void)showCustom:(NIMMessage *)message
 {
    //普通的自定义消息点击事件可以在这里做哦~
@@ -622,12 +543,6 @@ NIMContactSelectDelegate>
     }];
 }
 
-#pragma mark - 辅助方法
-- (void)sendImageMessagePath:(NSString *)path
-{
-
-    [self sendSnapchatMessagePath:path];
-}
 
 
 - (BOOL)checkRTSCondition
