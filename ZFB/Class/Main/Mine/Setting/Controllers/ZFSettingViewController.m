@@ -13,6 +13,7 @@
 #import "LoginViewController.h"
 #import "BaseNavigationController.h"
 
+
 static NSString * settingCellid = @"ZFSettingCellid";
 @interface ZFSettingViewController ()<UITableViewDelegate,UITableViewDataSource,ZFSettingCellDelete>
 {
@@ -230,6 +231,8 @@ static NSString * settingCellid = @"ZFSettingCellid";
             [self clearingCache];//清除所有缓存;
             BBUserDefault.isLogin = 0;
             BBUserDefault.token = @"";
+            [self loginOutAction];
+            
 
         }];
         [jxt addAction:left];
@@ -245,8 +248,6 @@ static NSString * settingCellid = @"ZFSettingCellid";
             
             [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
             [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-            BBUserDefault.isLogin = 0;//登录状态为0
-            BBUserDefault.token = @"";
 
         }];
         
@@ -265,5 +266,17 @@ static NSString * settingCellid = @"ZFSettingCellid";
         [self.login_btn setTitle:@"登陆" forState:UIControlStateNormal ];
     }
     
+}
+
+
+///登出
+-(void)loginOutAction
+{
+    [[[NIMSDK sharedSDK] loginManager] logout:^(NSError *error) {
+      
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NTESNotificationLogout" object:nil];
+        NSLog(@"登出成功了 --  或者失败 %@== error",error);
+
+    }];
 }
 @end

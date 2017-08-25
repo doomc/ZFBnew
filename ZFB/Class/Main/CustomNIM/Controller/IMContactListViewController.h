@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 
-@interface IMContactListViewController : UIViewController
+@interface IMContactListViewController : BaseViewController
 
 
 

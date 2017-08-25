@@ -12,6 +12,7 @@
 
 @dynamic cmUserId;
 @dynamic accid;
+@dynamic token;
 
 @dynamic userPhoneNumber;
 @dynamic userPhonePassword;

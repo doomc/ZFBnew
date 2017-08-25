@@ -8,7 +8,7 @@
 
 #import "NTESFileLocationHelper.h"
 #import <sys/stat.h>
-#import "NTESDemoConfig.h"
+#import "ZFBCustomConfig.h"
 
 #define RDVideo    (@"video")
 #define RDImage    (@"image")
@@ -40,7 +40,7 @@
     static NSString *appDocumentPath = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *appKey = [[NTESDemoConfig sharedConfig] appKey];
+        NSString *appKey = [[ZFBCustomConfig sharedConfig] appKey];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         appDocumentPath= [[NSString alloc]initWithFormat:@"%@/%@/",[paths objectAtIndex:0],appKey];
         if (![[NSFileManager defaultManager] fileExistsAtPath:appDocumentPath])

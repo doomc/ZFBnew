@@ -11,18 +11,11 @@
 
 @interface IMChatSessionViewController ()
 
-@property (nonatomic , strong) NSMutableArray * friendsList;//好友列表
 
 @end
 
 @implementation IMChatSessionViewController
 
--(NSMutableArray *)friendsList{
-    if (!_friendsList) {
-        _friendsList = [NSMutableArray array];
-    }
-    return _friendsList;
-}
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -39,41 +32,9 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self creatGroupPost];
+//    [self creatGroupPost];
 
 }
-#pragma mark - 好友列表 friendList
--(void)friendListPostRequst
-{
-    
-    NSDictionary * param = @{
-                             @"friendUserId":BBUserDefault.cmUserId,
-                             
-                             };
-    [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/friendList",IMsingle_baseUrl]  params:param success:^(id response) {
-        
-        if ([response[@"resultCode"] isEqualToString:@"0"]) {
-            
-            FriendListModel * model = [FriendListModel mj_objectWithKeyValues:response];
-            
-            for (Userfeiendlist * list in model.data.userFeiendList) {
-                
-                [self.friendsList addObject:list];
-            }
-            
-        }
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-        NSLog(@" 获取好友列表成功");
-
-    } progress:^(NSProgress *progeress) {
-        
-    } failure:^(NSError *error) {
-        
-        NSLog(@"%@",error);
-    }];
-}
-
-
 #pragma mark - 用户同意添加好友接口  agreeAddFriend 1直接加好友，2请求加好友，3同意加好友，4拒绝加好友
 -(void)argeeBecomeFriendPost
 {
@@ -138,7 +99,7 @@
  
     [mutAcont1 setObject:@"123123" forKey:@"accId"];
     [mutAcont1 setObject:@"8" forKey:@"userId"];
-    [mutAcont1 setObject:@"cainun" forKey:@"userName"];
+    [mutAcont1 setObject:@"zfb_cs1" forKey:@"userName"];
     
     [mutAcont2 setObject:@"123123" forKey:@"accId"];
     [mutAcont2 setObject:@"8" forKey:@"userId"];
@@ -151,26 +112,26 @@
     
  
     NSLog(@"%@",jsonMeber);
+//
+//    NSMutableDictionary  * param = [NSMutableDictionary dictionary];
+//    [param setObject:@"groupName" forKey:@"groupName"];
+//    [param setObject:@"13628311317" forKey:@"userAccId"];
+//    [param setObject:jsonMeber forKey:@"members"];
+//    [param setObject:@"0" forKey:@"magree"];
+//    [param setObject:@"000000000" forKey:@"groupMsg"];
+//    [param setObject:@"8" forKey:@"userId"];
+//    [param setObject:@"0" forKey:@"joinmode"];
+//
+    NSDictionary * param = @{
+                             @"groupName":@"群名称",
+                             @"userAccId":@"13628311317",//群主id
+                             @"members":jsonMeber,//群成员
+                             @"groupMsg":@"一起开黑啊",//邀请发送的文字，最大长度150字符
+                             @"magree":@"0",//管理后台建群时，0不需要被邀请人同意加入群，1需要被邀请人同意才可以加入群。
+                             @"joinmode":@"0",//0不用验证，1需要验证,2不允许任何人加入
+                             @"userId":@"8",
 
-    NSMutableDictionary  * param = [NSMutableDictionary dictionary];
-    [param setObject:@"groupName" forKey:@"groupName"];
-    [param setObject:@"13628311317" forKey:@"userAccId"];
-    [param setObject:jsonMeber forKey:@"members"];
-    [param setObject:@"0" forKey:@"magree"];
-    [param setObject:@"000000000" forKey:@"groupMsg"];
-    [param setObject:@"8" forKey:@"userId"];
-    [param setObject:@"0" forKey:@"joinmode"];
-//
-//    NSDictionary * param = @{
-//                             @"groupName":@"群名称",
-//                             @"userAccId":@"13628311317",//群主id
-//                             @"members":jsonMeber,//群成员
-//                             @"groupMsg":@"一起开黑啊",//邀请发送的文字，最大长度150字符
-//                             @"magree":@"0",//管理后台建群时，0不需要被邀请人同意加入群，1需要被邀请人同意才可以加入群。
-//                             @"joinmode":@"0",//0不用验证，1需要验证,2不允许任何人加入
-//                             @"userId":@"8",
-//
-//                             };
+                             };
     NSLog(@"%@",param);
     [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/createGroup",IMGroup_baseUrl]  params:[NSDictionary dictionaryWithDictionary:param] success:^(id response) {
         

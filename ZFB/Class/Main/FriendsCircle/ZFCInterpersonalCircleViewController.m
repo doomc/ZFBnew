@@ -17,6 +17,8 @@
 
 #import "LoginViewController.h"
 #import "BaseNavigationController.h"
+#import "IMSearchFriendViewController.h"//添加好友
+
 @interface ZFCInterpersonalCircleViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate>
 @property (nonatomic, strong) SGPageTitleView   *pageTitleView;
 @property (nonatomic, strong) SGPageContentView *pageContentView;
@@ -34,7 +36,29 @@
     
 }
 
+//设置右边按键（如果没有右边 可以不重写）
+-(UIButton*)set_rightButton
+{
+    NSString * saveStr = @"+";
+    UIButton *right_button = [[UIButton alloc]init];
+    [right_button setTitle:saveStr forState:UIControlStateNormal];
+    right_button.titleLabel.font=SYSTEMFONT(14);
+    [right_button setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
+    right_button.titleLabel.textAlignment = NSTextAlignmentRight;
+    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
+    CGFloat width = size.width ;
+    right_button.frame =CGRectMake(0, 0, width+10, 22);
+    
+    return right_button;
+}
 
+//设置右边事件
+-(void)right_button_event:(UIButton*)sender{
+    IMSearchFriendViewController * searchvc = [[ IMSearchFriendViewController alloc]init];
+    [self.navigationController pushViewController:searchvc animated:NO];
+    
+    
+}
 - (void)setupPageView {
     
     NTESSessionListViewController  *messageVC       = [[NTESSessionListViewController alloc]init];
@@ -80,7 +104,8 @@
 {
  
     if (BBUserDefault.isLogin == 1) {
-        NSLog(@"已经登录了");
+        [self loginNIM];
+        
     }else{
         
         NSLog(@"登录了");
@@ -94,4 +119,27 @@
         }];
     }
 }
+
+
+#pragma mark - 登陆网易云信
+-(void)loginNIM
+{
+    
+    //手动登录，error为登录错误信息，成功则为nil。
+    //不要在登录完成的回调中直接获取 SDK 缓存数据，而应该在 同步完成的回调里获取数据 或者 监听相应的数据变动回调后获取
+    [[[NIMSDK sharedSDK] loginManager] login:BBUserDefault.userPhoneNumber
+                                       token:BBUserDefault.token
+                                  completion:^(NSError *error) {
+                                      if (error == nil)
+                                      {
+                                          NSLog(@" 已经 login success");
+                              
+                                      }
+                                      else
+                                      {
+                                          NSLog(@"登录失败 --- %@",error);
+                                      }
+                                  }];
+}
+
 @end

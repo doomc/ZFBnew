@@ -1,4 +1,4 @@
- //
+//
 //  NTESAudioChatViewController.m
 //  NIM
 //
@@ -323,6 +323,7 @@
 - (NSString*)durationDesc{
     if (!self.callInfo.startTime) {
         return @"";
+        
     }
     NSTimeInterval time = [NSDate date].timeIntervalSince1970;
     NSTimeInterval duration = time - self.callInfo.startTime;

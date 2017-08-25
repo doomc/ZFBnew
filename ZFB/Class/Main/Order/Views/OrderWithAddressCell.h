@@ -15,4 +15,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *defaultButton;
 
+@property (weak, nonatomic) IBOutlet UIImageView *img_arrow;
+
 @end

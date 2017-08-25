@@ -107,7 +107,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
     
     //    [self.navigationController popToRootViewControllerAnimated:NO];
     [self dismissViewControllerAnimated:NO completion:^{
-         
+
     }];
 }
 

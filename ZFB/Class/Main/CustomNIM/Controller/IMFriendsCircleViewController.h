@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface IMFriendsCircleViewController : UIViewController
+@interface IMFriendsCircleViewController : BaseViewController
 
 @end

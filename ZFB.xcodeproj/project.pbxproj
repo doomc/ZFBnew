@@ -802,7 +802,6 @@
 		4968A44B1F4DB5290061A87E /* NTESBundleSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A3D61F4DB5290061A87E /* NTESBundleSetting.m */; };
 		4968A44C1F4DB5290061A87E /* NTESCADisplayLinkHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A3D81F4DB5290061A87E /* NTESCADisplayLinkHolder.m */; };
 		4968A44D1F4DB5290061A87E /* NTESClientUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A3DA1F4DB5290061A87E /* NTESClientUtil.m */; };
-		4968A44E1F4DB5290061A87E /* NTESDemoConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A3DC1F4DB5290061A87E /* NTESDemoConfig.m */; };
 		4968A4501F4DB5290061A87E /* NTESFileLocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A3E01F4DB5290061A87E /* NTESFileLocationHelper.m */; };
 		4968A4521F4DB5290061A87E /* NTESSDKConfigDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A3E41F4DB5290061A87E /* NTESSDKConfigDelegate.m */; };
 		4968A4531F4DB5290061A87E /* NTESService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A3E61F4DB5290061A87E /* NTESService.m */; };
@@ -856,6 +855,14 @@
 		497EF7111F4EAA4400BFF1AF /* NTESChartletAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF7101F4EAA4400BFF1AF /* NTESChartletAttachment.m */; };
 		497EF7131F4EB58000BFF1AF /* NTESNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF7121F4EB58000BFF1AF /* NTESNotificationCenter.m */; };
 		497EF7161F4EB5C900BFF1AF /* NTESAVNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF7151F4EB5C900BFF1AF /* NTESAVNotifier.m */; };
+		497EF7191F4FF6C900BFF1AF /* ZFBCustomConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF7181F4FF6C900BFF1AF /* ZFBCustomConfig.m */; };
+		497EF71C1F502ECE00BFF1AF /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 497EF71B1F502ECD00BFF1AF /* PushKit.framework */; };
+		497EF71F1F50452600BFF1AF /* IMSearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF71E1F50452600BFF1AF /* IMSearchFriendViewController.m */; };
+		497EF7231F50465700BFF1AF /* IMSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF7211F50465700BFF1AF /* IMSearchCell.m */; };
+		497EF7241F50465700BFF1AF /* IMSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497EF7221F50465700BFF1AF /* IMSearchCell.xib */; };
+		497EF7281F50468700BFF1AF /* IMSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF7261F50468700BFF1AF /* IMSearchResultCell.m */; };
+		497EF7291F50468700BFF1AF /* IMSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497EF7271F50468700BFF1AF /* IMSearchResultCell.xib */; };
+		497EF72C1F50488D00BFF1AF /* IMSearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF72B1F50488D00BFF1AF /* IMSearchResultViewController.m */; };
 		498063B91F21A12800BA89AA /* CommitOrderlist.m in Sources */ = {isa = PBXBuildFile; fileRef = 498063B81F21A12800BA89AA /* CommitOrderlist.m */; };
 		498A33C41F39612F0057E2AE /* DDChangeBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 498A33C31F39612F0057E2AE /* DDChangeBtn.m */; };
 		498A33C71F398AC30057E2AE /* NSString+helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 498A33C61F398AC30057E2AE /* NSString+helper.m */; };
@@ -2322,8 +2329,6 @@
 		4968A3D81F4DB5290061A87E /* NTESCADisplayLinkHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESCADisplayLinkHolder.m; sourceTree = "<group>"; };
 		4968A3D91F4DB5290061A87E /* NTESClientUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESClientUtil.h; sourceTree = "<group>"; };
 		4968A3DA1F4DB5290061A87E /* NTESClientUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESClientUtil.m; sourceTree = "<group>"; };
-		4968A3DB1F4DB5290061A87E /* NTESDemoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESDemoConfig.h; sourceTree = "<group>"; };
-		4968A3DC1F4DB5290061A87E /* NTESDemoConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESDemoConfig.m; sourceTree = "<group>"; };
 		4968A3DF1F4DB5290061A87E /* NTESFileLocationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESFileLocationHelper.h; sourceTree = "<group>"; };
 		4968A3E01F4DB5290061A87E /* NTESFileLocationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESFileLocationHelper.m; sourceTree = "<group>"; };
 		4968A3E11F4DB5290061A87E /* NTESNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESNotificationCenter.h; sourceTree = "<group>"; };
@@ -2408,6 +2413,20 @@
 		497EF7121F4EB58000BFF1AF /* NTESNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESNotificationCenter.m; sourceTree = "<group>"; };
 		497EF7141F4EB5C900BFF1AF /* NTESAVNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESAVNotifier.h; sourceTree = "<group>"; };
 		497EF7151F4EB5C900BFF1AF /* NTESAVNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESAVNotifier.m; sourceTree = "<group>"; };
+		497EF7171F4FF6C900BFF1AF /* ZFBCustomConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFBCustomConfig.h; sourceTree = "<group>"; };
+		497EF7181F4FF6C900BFF1AF /* ZFBCustomConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFBCustomConfig.m; sourceTree = "<group>"; };
+		497EF71A1F4FFC3800BFF1AF /* ZFB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZFB.entitlements; sourceTree = "<group>"; };
+		497EF71B1F502ECD00BFF1AF /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
+		497EF71D1F50452600BFF1AF /* IMSearchFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMSearchFriendViewController.h; sourceTree = "<group>"; };
+		497EF71E1F50452600BFF1AF /* IMSearchFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMSearchFriendViewController.m; sourceTree = "<group>"; };
+		497EF7201F50465700BFF1AF /* IMSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMSearchCell.h; sourceTree = "<group>"; };
+		497EF7211F50465700BFF1AF /* IMSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMSearchCell.m; sourceTree = "<group>"; };
+		497EF7221F50465700BFF1AF /* IMSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IMSearchCell.xib; sourceTree = "<group>"; };
+		497EF7251F50468700BFF1AF /* IMSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMSearchResultCell.h; sourceTree = "<group>"; };
+		497EF7261F50468700BFF1AF /* IMSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMSearchResultCell.m; sourceTree = "<group>"; };
+		497EF7271F50468700BFF1AF /* IMSearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IMSearchResultCell.xib; sourceTree = "<group>"; };
+		497EF72A1F50488D00BFF1AF /* IMSearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMSearchResultViewController.h; sourceTree = "<group>"; };
+		497EF72B1F50488D00BFF1AF /* IMSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMSearchResultViewController.m; sourceTree = "<group>"; };
 		498063B71F21A12800BA89AA /* CommitOrderlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitOrderlist.h; sourceTree = "<group>"; };
 		498063B81F21A12800BA89AA /* CommitOrderlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitOrderlist.m; sourceTree = "<group>"; };
 		498A33C21F39612F0057E2AE /* DDChangeBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDChangeBtn.h; sourceTree = "<group>"; };
@@ -2703,6 +2722,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				497EF71C1F502ECE00BFF1AF /* PushKit.framework in Frameworks */,
 				496C7E931F4AD09A0091C6B6 /* CoreMotion.framework in Frameworks */,
 				4968A2F81F4DB5090061A87E /* libaacplus.a in Frameworks */,
 				4968A2FB1F4DB5090061A87E /* libssl.a in Frameworks */,
@@ -2835,6 +2855,7 @@
 		492752161EC44DFC003C22D0 /* ZFB */ = {
 			isa = PBXGroup;
 			children = (
+				497EF71A1F4FFC3800BFF1AF /* ZFB.entitlements */,
 				495EA2FB1F14B64B001FCB7E /* Class */,
 				4927521A1EC44DFC003C22D0 /* AppDelegate.h */,
 				4927521B1EC44DFC003C22D0 /* AppDelegate.m */,
@@ -4844,6 +4865,10 @@
 				4968A13F1F4D89B10061A87E /* IMContactListViewController.m */,
 				4968A1401F4D89B10061A87E /* IMFriendsCircleViewController.h */,
 				4968A1411F4D89B10061A87E /* IMFriendsCircleViewController.m */,
+				497EF71D1F50452600BFF1AF /* IMSearchFriendViewController.h */,
+				497EF71E1F50452600BFF1AF /* IMSearchFriendViewController.m */,
+				497EF72A1F50488D00BFF1AF /* IMSearchResultViewController.h */,
+				497EF72B1F50488D00BFF1AF /* IMSearchResultViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4860,6 +4885,12 @@
 		4968A1321F4D89690061A87E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				497EF7201F50465700BFF1AF /* IMSearchCell.h */,
+				497EF7211F50465700BFF1AF /* IMSearchCell.m */,
+				497EF7221F50465700BFF1AF /* IMSearchCell.xib */,
+				497EF7251F50468700BFF1AF /* IMSearchResultCell.h */,
+				497EF7261F50468700BFF1AF /* IMSearchResultCell.m */,
+				497EF7271F50468700BFF1AF /* IMSearchResultCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5959,8 +5990,6 @@
 				4968A3D81F4DB5290061A87E /* NTESCADisplayLinkHolder.m */,
 				4968A3D91F4DB5290061A87E /* NTESClientUtil.h */,
 				4968A3DA1F4DB5290061A87E /* NTESClientUtil.m */,
-				4968A3DB1F4DB5290061A87E /* NTESDemoConfig.h */,
-				4968A3DC1F4DB5290061A87E /* NTESDemoConfig.m */,
 				4968A3DF1F4DB5290061A87E /* NTESFileLocationHelper.h */,
 				4968A3E01F4DB5290061A87E /* NTESFileLocationHelper.m */,
 				4968A3E11F4DB5290061A87E /* NTESNotificationCenter.h */,
@@ -5974,6 +6003,8 @@
 				4968A3EB1F4DB5290061A87E /* NTESUserUtil.h */,
 				4968A3EC1F4DB5290061A87E /* NTESUserUtil.m */,
 				4968A3ED1F4DB5290061A87E /* Spelling */,
+				497EF7171F4FF6C900BFF1AF /* ZFBCustomConfig.h */,
+				497EF7181F4FF6C900BFF1AF /* ZFBCustomConfig.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -6542,6 +6573,7 @@
 		7CCC003E8E554BB3C17D907B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				497EF71B1F502ECD00BFF1AF /* PushKit.framework */,
 				496C7E921F4AD09A0091C6B6 /* CoreMotion.framework */,
 				49555D9F1F32F47900C3C748 /* QuartzCore.framework */,
 				49555D9D1F32F46C00C3C748 /* CoreGraphics.framework */,
@@ -6637,6 +6669,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -7005,6 +7040,7 @@
 				495EA8EE1F14B64E001FCB7E /* home_red@2x.png in Resources */,
 				495EA9301F14B64E001FCB7E /* washer@2x.png in Resources */,
 				4968A41C1F4DB5290061A87E /* NTESCustomSysNotificationViewController.xib in Resources */,
+				497EF7241F50465700BFF1AF /* IMSearchCell.xib in Resources */,
 				495EA8A81F14B64D001FCB7E /* mine_selected@2x.png in Resources */,
 				498A33F31F3C0CED0057E2AE /* star_nor@3x.png in Resources */,
 				49B0E7631F417B630032E72E /* QRPayHistoryCell.xib in Resources */,
@@ -7017,6 +7053,7 @@
 				495EA9031F14B64E001FCB7E /* dot_normal@3x.png in Resources */,
 				495EA8811F14B64D001FCB7E /* return_icon@3x.png in Resources */,
 				495EA7371F14B64D001FCB7E /* blankpage_button_reload@2x.png in Resources */,
+				497EF7291F50468700BFF1AF /* IMSearchResultCell.xib in Resources */,
 				495EA78E1F14B64D001FCB7E /* ZFLocationGoToStoreCell.xib in Resources */,
 				495EA8C51F14B64E001FCB7E /* navback_white@3x.png in Resources */,
 				50D61E951F1E5BAD00DBDA4D /* plus@3x.png in Resources */,
@@ -7469,7 +7506,6 @@
 				49555EB01F1E0092002E5688 /* ZFShopListCell.m in Sources */,
 				4968A4451F4DB5290061A87E /* NTESAliasSettingViewController.m in Sources */,
 				49DA748D1F2599FA009F5577 /* SearchResultTableVC.m in Sources */,
-				4968A44E1F4DB5290061A87E /* NTESDemoConfig.m in Sources */,
 				495EA82E1F14B64D001FCB7E /* ZFMyOpinionCell.m in Sources */,
 				497A8ACD1F2F3FFB0003D7CB /* SendServiceModel.m in Sources */,
 				503C7C721F40B56E009C0512 /* HXPhotoPreviewViewCell.m in Sources */,
@@ -7522,6 +7558,7 @@
 				49B3BCDE1F204FB5002A0FDC /* NSDictionary+SafeAccess.m in Sources */,
 				49555D8C1F32EA6B00C3C748 /* IQUIWindow+Hierarchy.m in Sources */,
 				4968A43A1F4DB5290061A87E /* NTESSessionRemoteHistoryViewController.m in Sources */,
+				497EF72C1F50488D00BFF1AF /* IMSearchResultViewController.m in Sources */,
 				49B3BCE11F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m in Sources */,
 				4968A2971F4DB5080061A87E /* NIMContactSelectViewController.m in Sources */,
 				4968A4091F4DB5290061A87E /* NTESFPSLabel.m in Sources */,
@@ -7542,6 +7579,7 @@
 				49AD34551F28BBA100DC8A8F /* SearchResultModel.m in Sources */,
 				495EA81B1F14B64D001FCB7E /* ZFSettingViewController.m in Sources */,
 				4968A2D61F4DB5090061A87E /* NIMTeamInfoData.m in Sources */,
+				497EF7231F50465700BFF1AF /* IMSearchCell.m in Sources */,
 				495EA9781F14B64E001FCB7E /* YYMemoryCache.m in Sources */,
 				495EA7C41F14B64D001FCB7E /* HistoryFootModel.m in Sources */,
 				4968A29B1F4DB5080061A87E /* NIMInputAudioRecordIndicatorView.m in Sources */,
@@ -7571,11 +7609,13 @@
 				495EA9571F14B64E001FCB7E /* TAAnimatedDotView.m in Sources */,
 				4968A43B1F4DB5290061A87E /* NTESSessionViewController.m in Sources */,
 				4968A2B21F4DB5080061A87E /* NIMTipContentConfig.m in Sources */,
+				497EF7281F50468700BFF1AF /* IMSearchResultCell.m in Sources */,
 				50D4D65A1F1BB6F70073DBC1 /* MPUploadImageHelper.m in Sources */,
 				4968A2831F4DB5080061A87E /* NIMKitDataProviderImpl.m in Sources */,
 				4968A27F1F4DB5080061A87E /* UIView+NIM.m in Sources */,
 				498A33C41F39612F0057E2AE /* DDChangeBtn.m in Sources */,
 				495EA7D41F14B64D001FCB7E /* AllOrderModel.m in Sources */,
+				497EF7191F4FF6C900BFF1AF /* ZFBCustomConfig.m in Sources */,
 				4968A4041F4DB5290061A87E /* UIScrollView+NTESDirection.m in Sources */,
 				4968A2DA1F4DB5090061A87E /* NIMNormalTeamCardViewController.m in Sources */,
 				495EA9511F14B64E001FCB7E /* PYSearchConst.m in Sources */,
@@ -7745,6 +7785,7 @@
 				4968A2E01F4DB5090061A87E /* NIMTeamCardHeaderCell.m in Sources */,
 				495EA9791F14B64E001FCB7E /* UITextView+ZWLimitCounter.m in Sources */,
 				503C7C6D1F40B56E009C0512 /* HXPhotoConst.m in Sources */,
+				497EF71F1F50452600BFF1AF /* IMSearchFriendViewController.m in Sources */,
 				4968A4131F4DB5290061A87E /* NTESUserListCell.m in Sources */,
 				495EA77B1F14B64D001FCB7E /* SelectTableviewCell.m in Sources */,
 				495EA7331F14B64D001FCB7E /* UIImage+HDExtension.m in Sources */,
@@ -7911,6 +7952,7 @@
 			baseConfigurationReference = 3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;
@@ -7951,6 +7993,7 @@
 			baseConfigurationReference = D23F8EC706787ADDD1999100 /* Pods-ZFB.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;

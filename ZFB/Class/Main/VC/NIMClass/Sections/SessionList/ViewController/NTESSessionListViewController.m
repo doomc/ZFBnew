@@ -106,7 +106,6 @@
 }
 
 #pragma mark - SessionListHeaderDelegate
-
 - (void)didSelectRowType:(NTESListHeaderType)type{
     //多人登录
     switch (type) {
