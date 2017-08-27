@@ -19,6 +19,8 @@
   
     self.guess_listView.layer.borderWidth = 0.5;
     self.guess_listView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
+    self.guess_listView.contentMode = UIViewContentModeScaleAspectFill;
+
 }
 
 //搜索有结果的模型

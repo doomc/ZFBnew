@@ -102,12 +102,14 @@
         
         NSLog(@"搜索好友");
         resultVC.searchResult = searchNum;
+        resultVC.friendType = 0;
         [self.navigationController pushViewController:resultVC animated:NO];
     }
     else if (indexPath.row == 1)
     {
         NSLog(@"搜索群号");
         resultVC.searchResult = searchNum;
+        resultVC.friendType = 1;
         [self.navigationController pushViewController:resultVC animated:NO];
 
         
@@ -139,6 +141,7 @@
     NSLog(@"searchText ==== %@",searchText);
  
     searchNum = searchText;
+
     [self.tableView reloadData];
     
     

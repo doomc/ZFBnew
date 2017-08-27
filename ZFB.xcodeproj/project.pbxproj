@@ -837,15 +837,6 @@
 		497EF6E11F4E9F6C00BFF1AF /* NTESAudioChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6DA1F4E9F6C00BFF1AF /* NTESAudioChatViewController.xib */; };
 		497EF6E21F4E9F6C00BFF1AF /* NTESNetChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF6DC1F4E9F6C00BFF1AF /* NTESNetChatViewController.m */; };
 		497EF6E31F4E9F6C00BFF1AF /* NTESRecordSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF6DF1F4E9F6C00BFF1AF /* NTESRecordSelectView.m */; };
-		497EF6EE1F4E9FB600BFF1AF /* message.wav in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6E41F4E9FB600BFF1AF /* message.wav */; };
-		497EF6EF1F4E9FB600BFF1AF /* video_chat_push.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6E51F4E9FB600BFF1AF /* video_chat_push.mp3 */; };
-		497EF6F01F4E9FB600BFF1AF /* video_chat_tip_HangUp.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6E61F4E9FB600BFF1AF /* video_chat_tip_HangUp.aac */; };
-		497EF6F11F4E9FB600BFF1AF /* video_chat_tip_OnCall.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6E71F4E9FB600BFF1AF /* video_chat_tip_OnCall.aac */; };
-		497EF6F21F4E9FB600BFF1AF /* video_chat_tip_onTimer.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6E81F4E9FB600BFF1AF /* video_chat_tip_onTimer.aac */; };
-		497EF6F31F4E9FB600BFF1AF /* video_chat_tip_receiver.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6E91F4E9FB600BFF1AF /* video_chat_tip_receiver.aac */; };
-		497EF6F41F4E9FB600BFF1AF /* video_chat_tip_sender.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6EA1F4E9FB600BFF1AF /* video_chat_tip_sender.aac */; };
-		497EF6F51F4E9FB600BFF1AF /* video_connect_chat_tip_sender.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6EB1F4E9FB600BFF1AF /* video_connect_chat_tip_sender.aac */; };
-		497EF6F61F4E9FB600BFF1AF /* NIMDemoChartlet.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6ED1F4E9FB600BFF1AF /* NIMDemoChartlet.bundle */; };
 		497EF6FB1F4EA1B200BFF1AF /* NTESNetCallChatInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF6FA1F4EA1B200BFF1AF /* NTESNetCallChatInfo.m */; };
 		497EF6FF1F4EA23400BFF1AF /* NTESVideoChatNetStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF6FE1F4EA23400BFF1AF /* NTESVideoChatNetStatusView.m */; };
 		497EF7021F4EA77A00BFF1AF /* NTESSessionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF7011F4EA77A00BFF1AF /* NTESSessionUtil.m */; };
@@ -1034,6 +1025,8 @@
 		50D61E951F1E5BAD00DBDA4D /* plus@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50D61E891F1E5BAD00DBDA4D /* plus@3x.png */; };
 		50E020091F2C38C6005AA31C /* BusinessServicPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E020081F2C38C6005AA31C /* BusinessServicPopView.m */; };
 		50E0200C1F2C3B61005AA31C /* BusinessSendOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E0200B1F2C3B61005AA31C /* BusinessSendOrderView.m */; };
+		50E2A3E01F51605600AF17F4 /* DetailWebViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E2A3DE1F51605600AF17F4 /* DetailWebViewCell.m */; };
+		50E2A3E11F51605600AF17F4 /* DetailWebViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50E2A3DF1F51605600AF17F4 /* DetailWebViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2385,15 +2378,6 @@
 		497EF6DC1F4E9F6C00BFF1AF /* NTESNetChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESNetChatViewController.m; sourceTree = "<group>"; };
 		497EF6DE1F4E9F6C00BFF1AF /* NTESRecordSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESRecordSelectView.h; sourceTree = "<group>"; };
 		497EF6DF1F4E9F6C00BFF1AF /* NTESRecordSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESRecordSelectView.m; sourceTree = "<group>"; };
-		497EF6E41F4E9FB600BFF1AF /* message.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = message.wav; sourceTree = "<group>"; };
-		497EF6E51F4E9FB600BFF1AF /* video_chat_push.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = video_chat_push.mp3; sourceTree = "<group>"; };
-		497EF6E61F4E9FB600BFF1AF /* video_chat_tip_HangUp.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_HangUp.aac; sourceTree = "<group>"; };
-		497EF6E71F4E9FB600BFF1AF /* video_chat_tip_OnCall.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_OnCall.aac; sourceTree = "<group>"; };
-		497EF6E81F4E9FB600BFF1AF /* video_chat_tip_onTimer.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_onTimer.aac; sourceTree = "<group>"; };
-		497EF6E91F4E9FB600BFF1AF /* video_chat_tip_receiver.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_receiver.aac; sourceTree = "<group>"; };
-		497EF6EA1F4E9FB600BFF1AF /* video_chat_tip_sender.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_sender.aac; sourceTree = "<group>"; };
-		497EF6EB1F4E9FB600BFF1AF /* video_connect_chat_tip_sender.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_connect_chat_tip_sender.aac; sourceTree = "<group>"; };
-		497EF6ED1F4E9FB600BFF1AF /* NIMDemoChartlet.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = NIMDemoChartlet.bundle; path = "../../NTES_IM_DEMO-master/NTES_IM_DEMO/Supporting Files/NIMDemoChartlet.bundle"; sourceTree = "<group>"; };
 		497EF6F91F4EA1B200BFF1AF /* NTESNetCallChatInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESNetCallChatInfo.h; sourceTree = "<group>"; };
 		497EF6FA1F4EA1B200BFF1AF /* NTESNetCallChatInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESNetCallChatInfo.m; sourceTree = "<group>"; };
 		497EF6FD1F4EA23400BFF1AF /* NTESVideoChatNetStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESVideoChatNetStatusView.h; sourceTree = "<group>"; };
@@ -2713,6 +2697,9 @@
 		50E020081F2C38C6005AA31C /* BusinessServicPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessServicPopView.m; sourceTree = "<group>"; };
 		50E0200A1F2C3B61005AA31C /* BusinessSendOrderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessSendOrderView.h; sourceTree = "<group>"; };
 		50E0200B1F2C3B61005AA31C /* BusinessSendOrderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessSendOrderView.m; sourceTree = "<group>"; };
+		50E2A3DD1F51605600AF17F4 /* DetailWebViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailWebViewCell.h; sourceTree = "<group>"; };
+		50E2A3DE1F51605600AF17F4 /* DetailWebViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailWebViewCell.m; sourceTree = "<group>"; };
+		50E2A3DF1F51605600AF17F4 /* DetailWebViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailWebViewCell.xib; sourceTree = "<group>"; };
 		B2E471759A11D3682520CF1E /* libPods-ZFB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZFB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D23F8EC706787ADDD1999100 /* Pods-ZFB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2871,8 +2858,6 @@
 		492752171EC44DFC003C22D0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				497EF6EC1F4E9FB600BFF1AF /* Sounds */,
-				497EF6ED1F4E9FB600BFF1AF /* NIMDemoChartlet.bundle */,
 				492752181EC44DFC003C22D0 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -3747,6 +3732,9 @@
 				49917B9B1F1C937A005790AF /* DetailgoodsSelectCell.h */,
 				49917B9C1F1C937A005790AF /* DetailgoodsSelectCell.m */,
 				49917B9D1F1C937A005790AF /* DetailgoodsSelectCell.xib */,
+				50E2A3DD1F51605600AF17F4 /* DetailWebViewCell.h */,
+				50E2A3DE1F51605600AF17F4 /* DetailWebViewCell.m */,
+				50E2A3DF1F51605600AF17F4 /* DetailWebViewCell.xib */,
 			);
 			path = DetailViews;
 			sourceTree = "<group>";
@@ -6059,22 +6047,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		497EF6EC1F4E9FB600BFF1AF /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				497EF6E41F4E9FB600BFF1AF /* message.wav */,
-				497EF6E51F4E9FB600BFF1AF /* video_chat_push.mp3 */,
-				497EF6E61F4E9FB600BFF1AF /* video_chat_tip_HangUp.aac */,
-				497EF6E71F4E9FB600BFF1AF /* video_chat_tip_OnCall.aac */,
-				497EF6E81F4E9FB600BFF1AF /* video_chat_tip_onTimer.aac */,
-				497EF6E91F4E9FB600BFF1AF /* video_chat_tip_receiver.aac */,
-				497EF6EA1F4E9FB600BFF1AF /* video_chat_tip_sender.aac */,
-				497EF6EB1F4E9FB600BFF1AF /* video_connect_chat_tip_sender.aac */,
-			);
-			name = Sounds;
-			path = "../../NTES_IM_DEMO-master/NTES_IM_DEMO/Supporting Files/Sounds";
-			sourceTree = "<group>";
-		};
 		497EF6F71F4EA18D00BFF1AF /* AudioChat */ = {
 			isa = PBXGroup;
 			children = (
@@ -6818,6 +6790,7 @@
 				495EA87E1F14B64D001FCB7E /* order_icon@2x.png in Resources */,
 				49DA74B01F25CFBB009F5577 /* SearchTypeFootReusableView.xib in Resources */,
 				495EA8C31F14B64E001FCB7E /* icon_location@3x.png in Resources */,
+				50E2A3E11F51605600AF17F4 /* DetailWebViewCell.xib in Resources */,
 				495EA9371F14B64E001FCB7E /* LOGO.png in Resources */,
 				495EA80F1F14B64D001FCB7E /* ZFPregressCheckCell.xib in Resources */,
 				495EA8E81F14B64E001FCB7E /* 删除@2x.png in Resources */,
@@ -6869,13 +6842,11 @@
 				50D61E8E1F1E5BAD00DBDA4D /* ico_check_nomal@2x.png in Resources */,
 				495EA8491F14B64D001FCB7E /* ZFOrderDetailSectionCell.xib in Resources */,
 				495EA9071F14B64E001FCB7E /* location_icon2@3x.png in Resources */,
-				497EF6F41F4E9FB600BFF1AF /* video_chat_tip_sender.aac in Resources */,
 				495EA8DF1F14B64E001FCB7E /* reduce@3x.png in Resources */,
 				495EA81D1F14B64D001FCB7E /* ZFSettingCell.xib in Resources */,
 				495EA9021F14B64E001FCB7E /* dot_normal@2x.png in Resources */,
 				495EA9091F14B64E001FCB7E /* more_icon@3x.png in Resources */,
 				495EA8881F14B64D001FCB7E /* wait_payfor@2x.png in Resources */,
-				497EF6F61F4E9FB600BFF1AF /* NIMDemoChartlet.bundle in Resources */,
 				495EA8BE1F14B64E001FCB7E /* gpsnormal@2x.png in Resources */,
 				495EA7921F14B64D001FCB7E /* ZFTitleAndChooseListCell.xib in Resources */,
 				495EA8A51F14B64D001FCB7E /* circle_selected@3x.png in Resources */,
@@ -6933,7 +6904,6 @@
 				495EA9261F14B64E001FCB7E /* fire@2x.png in Resources */,
 				495EA90C1F14B64E001FCB7E /* unCollected@2x.png in Resources */,
 				495EA9311F14B64E001FCB7E /* washer@3x.png in Resources */,
-				497EF6F21F4E9FB600BFF1AF /* video_chat_tip_onTimer.aac in Resources */,
 				495EA9131F14B64E001FCB7E /* location_find@3x.png in Resources */,
 				495EA90D1F14B64E001FCB7E /* unCollected@3x.png in Resources */,
 				49AD34401F28838300DC8A8F /* select_selected@3x.png in Resources */,
@@ -6949,7 +6919,6 @@
 				49555EA01F1E0092002E5688 /* GoodsitemCell.xib in Resources */,
 				495EA92E1F14B64E001FCB7E /* TV@2x.png in Resources */,
 				50D61E8F1F1E5BAD00DBDA4D /* ico_check_nomal@3x.png in Resources */,
-				497EF6F31F4E9FB600BFF1AF /* video_chat_tip_receiver.aac in Resources */,
 				495EA8B91F14B64D001FCB7E /* collectshopCar@3x.png in Resources */,
 				495EA8451F14B64D001FCB7E /* ZFOrderDetailGoosContentCell.xib in Resources */,
 				495EA8B51F14B64D001FCB7E /* choose_normal40@3x.png in Resources */,
@@ -6997,7 +6966,6 @@
 				49555EAD1F1E0092002E5688 /* ZFFooterCell.xib in Resources */,
 				495EA8681F14B64D001FCB7E /* bag_selected@2x.png in Resources */,
 				495EA8F81F14B64E001FCB7E /* sendcar_normal@2x.png in Resources */,
-				497EF6EF1F4E9FB600BFF1AF /* video_chat_push.mp3 in Resources */,
 				495EA8AC1F14B64D001FCB7E /* shopkeeper_selected@2x.png in Resources */,
 				495EA8331F14B64D001FCB7E /* ZFBackWaysViewController.xib in Resources */,
 				50B3812A1F3F729B001ED3BA /* time@2x.png in Resources */,
@@ -7025,7 +6993,6 @@
 				495EA8F21F14B64E001FCB7E /* Order_normal@2x.png in Resources */,
 				495EA77A1F14B64D001FCB7E /* ApprariseCollectionViewCell.xib in Resources */,
 				495EA8E41F14B64E001FCB7E /* success_order@2x.png in Resources */,
-				497EF6F51F4E9FB600BFF1AF /* video_connect_chat_tip_sender.aac in Resources */,
 				492141891F2A031A00C44D10 /* home_redSecond@3x.png in Resources */,
 				495EA88E1F14B64D001FCB7E /* placeholder@2x.png in Resources */,
 				498A33E61F3C09E30057E2AE /* ZFEvaluateGoodsViewController.xib in Resources */,
@@ -7089,7 +7056,6 @@
 				49738A381F3D89530004657B /* ZFApplyBackgoodsViewController.xib in Resources */,
 				495EA7B11F14B64D001FCB7E /* HotTableViewCell.xib in Resources */,
 				50B381281F3F729B001ED3BA /* compose_delete@2x.png in Resources */,
-				497EF6F01F4E9FB600BFF1AF /* video_chat_tip_HangUp.aac in Resources */,
 				498A33F51F3C0CED0057E2AE /* star_sel@2x.png in Resources */,
 				495EA88F1F14B64D001FCB7E /* placeholder@3x.png in Resources */,
 				495EA8781F14B64D001FCB7E /* evaluate_waitting@2x.png in Resources */,
@@ -7106,7 +7072,6 @@
 				495EA8A11F14B64D001FCB7E /* 共享资源@3x.png in Resources */,
 				4968A2EE1F4DB5090061A87E /* Info.plist in Resources */,
 				4968A3F81F4DB5290061A87E /* NTESSearchTeamViewController.xib in Resources */,
-				497EF6F11F4E9FB600BFF1AF /* video_chat_tip_OnCall.aac in Resources */,
 				50D61E8B1F1E5BAD00DBDA4D /* closeRed@2x.png in Resources */,
 				495EA9101F14B64E001FCB7E /* location_find2@2x.png in Resources */,
 				495EA72C1F14B64D001FCB7E /* addressData.plist in Resources */,
@@ -7114,7 +7079,6 @@
 				495EA8A91F14B64D001FCB7E /* mine_selected@3x.png in Resources */,
 				50D61E931F1E5BAD00DBDA4D /* plus.png in Resources */,
 				495EA7B51F14B64D001FCB7E /* SearchCell.xib in Resources */,
-				497EF6EE1F4E9FB600BFF1AF /* message.wav in Resources */,
 				495EA8711F14B64D001FCB7E /* people_icon@3x.png in Resources */,
 				495EA7A91F14B64D001FCB7E /* FuncListCollectionViewCell.xib in Resources */,
 				50B381161F3F5F92001ED3BA /* delete_black@3x.png in Resources */,
@@ -7332,6 +7296,7 @@
 				495EA7C31F14B64D001FCB7E /* CollectModel.m in Sources */,
 				495EA9541F14B64E001FCB7E /* UIColor+PYExtension.m in Sources */,
 				4927189E1F1F5C6C002A7A54 /* WKWebViewJavascriptBridge.m in Sources */,
+				50E2A3E01F51605600AF17F4 /* DetailWebViewCell.m in Sources */,
 				4968A3FF1F4DB5290061A87E /* UIActionSheet+NTESBlock.m in Sources */,
 				495EA7881F14B64D001FCB7E /* ZFDetailStoreCell.m in Sources */,
 				495EA74A1F14B64D001FCB7E /* dateTimeHelper.m in Sources */,

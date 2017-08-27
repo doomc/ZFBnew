@@ -112,16 +112,7 @@
     
  
     NSLog(@"%@",jsonMeber);
-//
-//    NSMutableDictionary  * param = [NSMutableDictionary dictionary];
-//    [param setObject:@"groupName" forKey:@"groupName"];
-//    [param setObject:@"13628311317" forKey:@"userAccId"];
-//    [param setObject:jsonMeber forKey:@"members"];
-//    [param setObject:@"0" forKey:@"magree"];
-//    [param setObject:@"000000000" forKey:@"groupMsg"];
-//    [param setObject:@"8" forKey:@"userId"];
-//    [param setObject:@"0" forKey:@"joinmode"];
-//
+ 
     NSDictionary * param = @{
                              @"groupName":@"群名称",
                              @"userAccId":@"13628311317",//群主id

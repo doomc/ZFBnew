@@ -272,11 +272,11 @@ static NSString * settingCellid = @"ZFSettingCellid";
 ///登出
 -(void)loginOutAction
 {
-    [[[NIMSDK sharedSDK] loginManager] logout:^(NSError *error) {
-      
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"NTESNotificationLogout" object:nil];
-        NSLog(@"登出成功了 --  或者失败 %@== error",error);
-
-    }];
+//    [[[NIMSDK sharedSDK] loginManager] logout:^(NSError *error) {
+//      
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"NTESNotificationLogout" object:nil];
+//        NSLog(@"登出成功了 --  或者失败 %@== error",error);
+//
+//    }];
 }
 @end

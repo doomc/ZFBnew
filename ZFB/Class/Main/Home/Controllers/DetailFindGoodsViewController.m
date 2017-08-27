@@ -14,6 +14,7 @@
 #import "ZFLocationGoToStoreCell.h"
 #import "ZFGoodsFooterView.h"
 #import "DetailgoodsSelectCell.h"
+#import "DetailWebViewCell.h"
 //controlller
 #import "ZFEvaluateViewController.h"
 #import "ZFSureOrderViewController.h"
@@ -36,8 +37,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     typeCellrowOfGoToStoreCell,
     typeCellrowOflocaCell,
 };
-@interface DetailFindGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate,
-WKNavigationDelegate,WKUIDelegate
+@interface DetailFindGoodsViewController ()
+<   UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate,DetailWebViewCellDelegate,
+    UIWebViewDelegate
 >
 {
     NSString * _goodsName;
@@ -68,7 +70,8 @@ WKNavigationDelegate,WKUIDelegate
     UIImageView * goodsImgaeView ;//视窗视图
     UIButton  * collectButton ;//collectButton收藏按钮
     
-    WKWebView * _webview;
+    UIWebView * _webview;
+    CGFloat _webViewHeight;
     
 }
 
@@ -99,6 +102,8 @@ WKNavigationDelegate,WKUIDelegate
 @property (nonatomic ,strong) NSMutableArray * skuMatch;//规格匹配数组
 //没有规格的立即购买数据
 @property (nonatomic ,strong) NSMutableArray * noReluArray;
+@property (nonatomic ,strong) DetailWebViewCell * webCell;
+
 
 @end
 
@@ -133,10 +138,13 @@ WKNavigationDelegate,WKUIDelegate
               forCellReuseIdentifier:@"ZFbabyEvaluateCell"];
     [self.list_tableView registerNib:[UINib nibWithNibName:@"ZFLoctionNavCell" bundle:nil]
               forCellReuseIdentifier:@"ZFLoctionNavCell"];
-    [self.list_tableView registerNib:[UINib nibWithNibName:@"ZFLocationGoToStoreCell" bundle:nil]
-              forCellReuseIdentifier:@"ZFLocationGoToStoreCell"];
-    [self.list_tableView registerNib:[UINib nibWithNibName:@"DetailgoodsSelectCell" bundle:nil]
-              forCellReuseIdentifier:@"DetailgoodsSelectCell"];
+    [self.list_tableView registerNib:[UINib nibWithNibName:@"ZFLocationGoToStoreCell" bundle:nil] forCellReuseIdentifier:@"ZFLocationGoToStoreCell"];
+    [self.list_tableView registerNib:[UINib nibWithNibName:@"DetailgoodsSelectCell" bundle:nil]forCellReuseIdentifier:@"DetailgoodsSelectCell"];
+    [self.list_tableView registerNib:[UINib nibWithNibName:@"DetailWebViewCell" bundle:nil]forCellReuseIdentifier:@"DetailWebViewCell"];
+    _webCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"DetailWebViewCell" ];
+    
+
+    
 }
 
 /**
@@ -173,13 +181,17 @@ WKNavigationDelegate,WKUIDelegate
 -(void)cycleScrollViewInit
 {
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
-    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, KScreenH/2) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, KScreenH/2) delegate:self placeholderImage:nil];
     _cycleScrollView.imageURLStringsGroup = _imagesURLStrings;
     _cycleScrollView.pageControlStyle     = SDCycleScrollViewPageContolStyleNone;
     _cycleScrollView.delegate             = self;
     _cycleScrollView.autoScroll           = NO;
     _cycleScrollView.infiniteLoop         = NO;
-    self.list_tableView.tableHeaderView   = _cycleScrollView;//加载轮播
+    _cycleScrollView.backgroundColor = [UIColor whiteColor];
+    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
+    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"dot_selected"];
+    _cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
+     self.list_tableView.tableHeaderView   = _cycleScrollView;//加载轮播
 }
 
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
@@ -269,6 +281,18 @@ WKNavigationDelegate,WKUIDelegate
     }
     
 }
+#pragma mark - DetailWebViewCellDelegate 获取webview高度
+-(void)getHeightForWebView:(CGFloat)Height
+{
+    NSLog(@" 前台获取到的度 =======  %f",Height);
+    _webViewHeight = Height;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self.list_tableView reloadData];
+    });
+    
+}
+
 #pragma mark  -tableView  delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -311,9 +335,10 @@ WKNavigationDelegate,WKUIDelegate
         
     }
     else{
-        
-        return 200;
-        
+        NSLog(@" 当前cell的高度 =======  %f",_webViewHeight);
+
+        return _webViewHeight;
+
     }
     
 }
@@ -321,7 +346,6 @@ WKNavigationDelegate,WKUIDelegate
 #pragma mark  - UITableViewDataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * custopmCellID =@"custopmCellID";
     
     if (indexPath.row == typeCellrowOftitleCell) {
         
@@ -388,27 +412,15 @@ WKNavigationDelegate,WKUIDelegate
         
     }
     else{
-        
-        UITableViewCell  * custopmCell = [self.list_tableView dequeueReusableCellWithIdentifier:custopmCellID];
-        if (!custopmCell) {
-            custopmCell                 = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:custopmCellID];
-//            custopmCell.backgroundColor = randomColor;
-        }
-        UIWebView * webview = [[UIWebView alloc]initWithFrame:custopmCell.bounds];
-        [webview loadHTMLString:_goodsDetail baseURL:nil];
-        [custopmCell.contentView addSubview:webview];
-        return custopmCell;
+        _webCell.HTMLString = _goodsDetail;//网址
+        _webCell.delegate = self;
+//        webCell.wbView = _webview;
+        return _webCell;
         
     }
     
 }
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
-    if (((NSHTTPURLResponse *)navigationResponse.response).statusCode == 200) {
-        decisionHandler (WKNavigationResponsePolicyAllow);
-    }else {
-        decisionHandler(WKNavigationResponsePolicyCancel);
-    }
-}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section = %ld,row == %ld",indexPath.section ,indexPath.row);
@@ -1198,12 +1210,7 @@ WKNavigationDelegate,WKUIDelegate
     
 }
 
-//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-//{
-//    [self setEditing:YES];
-//    [self.BgView removeFromSuperview];
-//    
-//}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -1344,34 +1351,12 @@ WKNavigationDelegate,WKUIDelegate
         [[NSURLCache sharedURLCache] removeAllCachedResponses];
     }
 }
+ 
 
-
-//- (void)webViewDidFinishLoad:(UIWebView *)webView
-//{
-//    //防止内存泄漏
-//    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
-//    //本地webkit硬盘图片的缓存；
-//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitDiskImageCacheEnabled"];//自己添加的，原文没有提到。
-//    //静止webkit离线缓存
-//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitOfflineWebApplicationCacheEnabled"];//自己添加的，，原文没有提到。
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//}
-//
-//- (void)dealloc
-//{
-//    [_webview loadHTMLString:@"" baseURL:nil];
-//    [_webview stopLoading];
-//    [_webview removeFromSuperview];
-//    _webview = nil;
-//    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-//    [[NSURLCache sharedURLCache] setDiskCapacity:0];
-//    [[NSURLCache sharedURLCache] setMemoryCapacity:0];
-//    NSLog(@"释放了webview");
-//}
-//-(void)viewWillDisappear:(BOOL)animated
-//{
-//    [self removeWebCache];
-//}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self removeWebCache];
+}
 
 /*
  #pragma mark - Navigation
