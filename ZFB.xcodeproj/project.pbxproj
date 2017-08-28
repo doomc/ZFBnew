@@ -845,7 +845,6 @@
 		497EF6F31F4E9FB600BFF1AF /* video_chat_tip_receiver.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6E91F4E9FB600BFF1AF /* video_chat_tip_receiver.aac */; };
 		497EF6F41F4E9FB600BFF1AF /* video_chat_tip_sender.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6EA1F4E9FB600BFF1AF /* video_chat_tip_sender.aac */; };
 		497EF6F51F4E9FB600BFF1AF /* video_connect_chat_tip_sender.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6EB1F4E9FB600BFF1AF /* video_connect_chat_tip_sender.aac */; };
-		497EF6F61F4E9FB600BFF1AF /* NIMDemoChartlet.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6ED1F4E9FB600BFF1AF /* NIMDemoChartlet.bundle */; };
 		497EF6FB1F4EA1B200BFF1AF /* NTESNetCallChatInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF6FA1F4EA1B200BFF1AF /* NTESNetCallChatInfo.m */; };
 		497EF6FF1F4EA23400BFF1AF /* NTESVideoChatNetStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF6FE1F4EA23400BFF1AF /* NTESVideoChatNetStatusView.m */; };
 		497EF7021F4EA77A00BFF1AF /* NTESSessionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF7011F4EA77A00BFF1AF /* NTESSessionUtil.m */; };
@@ -2393,7 +2392,6 @@
 		497EF6E91F4E9FB600BFF1AF /* video_chat_tip_receiver.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_receiver.aac; sourceTree = "<group>"; };
 		497EF6EA1F4E9FB600BFF1AF /* video_chat_tip_sender.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_sender.aac; sourceTree = "<group>"; };
 		497EF6EB1F4E9FB600BFF1AF /* video_connect_chat_tip_sender.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_connect_chat_tip_sender.aac; sourceTree = "<group>"; };
-		497EF6ED1F4E9FB600BFF1AF /* NIMDemoChartlet.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = NIMDemoChartlet.bundle; path = "../../NTES_IM_DEMO-master/NTES_IM_DEMO/Supporting Files/NIMDemoChartlet.bundle"; sourceTree = "<group>"; };
 		497EF6F91F4EA1B200BFF1AF /* NTESNetCallChatInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESNetCallChatInfo.h; sourceTree = "<group>"; };
 		497EF6FA1F4EA1B200BFF1AF /* NTESNetCallChatInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESNetCallChatInfo.m; sourceTree = "<group>"; };
 		497EF6FD1F4EA23400BFF1AF /* NTESVideoChatNetStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESVideoChatNetStatusView.h; sourceTree = "<group>"; };
@@ -2872,7 +2870,6 @@
 			isa = PBXGroup;
 			children = (
 				497EF6EC1F4E9FB600BFF1AF /* Sounds */,
-				497EF6ED1F4E9FB600BFF1AF /* NIMDemoChartlet.bundle */,
 				492752181EC44DFC003C22D0 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -6875,7 +6872,6 @@
 				495EA9021F14B64E001FCB7E /* dot_normal@2x.png in Resources */,
 				495EA9091F14B64E001FCB7E /* more_icon@3x.png in Resources */,
 				495EA8881F14B64D001FCB7E /* wait_payfor@2x.png in Resources */,
-				497EF6F61F4E9FB600BFF1AF /* NIMDemoChartlet.bundle in Resources */,
 				495EA8BE1F14B64E001FCB7E /* gpsnormal@2x.png in Resources */,
 				495EA7921F14B64D001FCB7E /* ZFTitleAndChooseListCell.xib in Resources */,
 				495EA8A51F14B64D001FCB7E /* circle_selected@3x.png in Resources */,

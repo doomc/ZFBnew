@@ -83,27 +83,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    IMSearchResultViewController * resultVC = [[IMSearchResultViewController alloc]init];
-    
-    if (indexPath.row ==  0 ) {
-        
-        NSLog(@"搜索好友");
-        resultVC.searchResult = searchNum;
-        [self.navigationController pushViewController:resultVC animated:NO];
-    }
-    else if (indexPath.row == 1)
-    {
-        NSLog(@"搜索群号");
-        resultVC.searchResult = searchNum;
-        [self.navigationController pushViewController:resultVC animated:NO];
-        
-        
-    }else{
-        
-        [self.navigationController pushViewController:resultVC animated:NO];
-        
-        
-    }
+ 
+ 
 }
 
 ////////////////////////////////////////////////////////////////////////////////
