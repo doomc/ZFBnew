@@ -414,7 +414,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     else{
         _webCell.HTMLString = _goodsDetail;//网址
         _webCell.delegate = self;
-//        webCell.wbView = _webview;
         return _webCell;
         
     }

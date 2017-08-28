@@ -18,8 +18,7 @@
 //controller
 #import "DetailFindGoodsViewController.h"
 #import "HomeSearchBarViewController.h"
-#import "BaseNavigationController.h"
-
+#import "ZFBaseNavigationViewController.h"
 
 @interface ZFClassifyCollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 
@@ -349,7 +348,7 @@
     NSLog(@"------开始编辑");
     [self.searchBar resignFirstResponder];
     HomeSearchBarViewController  * searVC  = [HomeSearchBarViewController new];
-    BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:searVC];
+    ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:searVC];
     [self.navigationController presentViewController:nav animated:NO completion:^{
         
     }];

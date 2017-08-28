@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "BaseNavigationController.h"
 #import "ZFbaseTabbarViewController.h"
 //云信
 #import "NTESClientUtil.h"

@@ -27,7 +27,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     NSString *currentCityAndStreet;//当前城市
     NSString *latitudestr;//经度
     NSString *longitudestr;//纬度
-    
     NSInteger totalCount;//总条数
 }
 @property (strong,nonatomic) UITableView * home_tableView;
@@ -44,8 +43,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
- 
 
     [self initWithHome_Tableview];
     
@@ -100,6 +97,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     return _location_btn;
 }
 -(void)initInTerfaceView{
+    
     //    NSString * LoactionAddress = @"龙湖水晶国际 >";
     UIView * loc_view =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];//背景图
     UIView * bg_view =[[UIView alloc]initWithFrame:CGRectMake(15, 5, KScreenW-15-15, 30)];
@@ -112,7 +110,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     //定位icon
     UIImageView * icon_locationView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 18, 20) ];
     icon_locationView.image =  [UIImage imageNamed:@"location_find2"];
-    
     
     [bg_view addSubview:self.location_btn];
     [bg_view addSubview: icon_locationView ];

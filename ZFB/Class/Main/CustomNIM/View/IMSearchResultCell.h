@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IMSearchResultModel.h"
 
 @protocol IMSearchResultCellDelegate <NSObject>
 
@@ -14,13 +15,17 @@
 
 @end
 @interface IMSearchResultCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UIImageView *headImg;
 @property (weak, nonatomic) IBOutlet UILabel *lb_nickName;
 @property (weak, nonatomic) IBOutlet UILabel *lb_sign;
+@property (weak, nonatomic) IBOutlet UIButton *addFriendBtn;
 
 @property (nonatomic ,assign) NSInteger rowIndex;
 
 @property (nonatomic ,assign) id <IMSearchResultCellDelegate> delegate;
+
+@property (nonatomic ,strong) IMSearchUserinfo * info ;
 
 
 

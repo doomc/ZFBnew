@@ -100,7 +100,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
     [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"HotTableViewCell" bundle:nil]forCellReuseIdentifier:cell_hotID];
 
     [self.view addSubview:_findGoods_TableView];
-
+    
     self.zfb_tableView = self.findGoods_TableView;
 
 }

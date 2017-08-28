@@ -1,5 +1,5 @@
 //
-//  FriendListModel.h
+//  IMFriendListModel.h
 //  ZFB
 //
 //  Created by  展富宝  on 2017/8/23.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class FriendsData,Userfeiendlist;
-@interface FriendListModel : NSObject
+@interface IMFriendListModel : NSObject
 
 
 @property (nonatomic, copy) NSString *resultCode;

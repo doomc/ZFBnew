@@ -8,17 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol ZFSettingCellDelete <NSObject>
-
+ 
+@interface ZFSettingCell : UITableViewCell
 
 ///清除缓存
 -(void)clearingCache;
+///获取大小
+-(float)readCacheSize;
 
 
-@end
-@interface ZFSettingCell : UITableViewCell
-
-@property (assign ,nonatomic) id <ZFSettingCellDelete> delegate;
 /* 头icon*/
 @property (weak, nonatomic) IBOutlet UIImageView *img_iconView;
 
@@ -31,5 +29,7 @@
 /** 后缀详情 */
 @property (weak, nonatomic) IBOutlet UILabel *lb_detailTitle;
 
+//获取当前缓存
+@property (nonatomic,copy) NSString * currenCacheSize;
 
 @end

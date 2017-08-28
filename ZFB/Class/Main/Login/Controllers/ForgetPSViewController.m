@@ -201,11 +201,9 @@
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/SendMessages",zfb_baseUrl] params:parma success:^(id response) {
         
-        NSLog(@"response ===== %@",response);
+ 
         _smsCode =  response[@"smsCode"];
         NSLog(@"_smsCode ===== %@",_smsCode);
-        
-        _tf_codeVerification.text = _smsCode;
         
         self.nextStep_btn.enabled = YES;
         self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);

@@ -15,7 +15,7 @@
 #import "ZFShopCarCell.h"
 #import "ShoppingCarModel.h"
 
-#import "BaseNavigationController.h"
+#import "ZFBaseNavigationViewController.h"
 #import "ShopCarSectionHeadViewCell.h"
 static NSString  * shopCarContenCellID = @"ZFShopCarCell";
 static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
@@ -75,7 +75,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         
         NSLog(@"登录了");
         LoginViewController * logvc    = [ LoginViewController new];
-        BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logvc];
+        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
         
         [self presentViewController:nav animated:NO completion:^{
             

@@ -116,6 +116,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
     if ([_tf_loginphone.text isMobileNumberClassification]) {
         // 网络请求
         [self ValidateCodePostRequset];
+        
         [dateTimeHelper verificationCode:^{
             //倒计时完毕
             sender.enabled = YES;
@@ -384,14 +385,12 @@ typedef NS_ENUM(NSUInteger, indexType) {
     NSDictionary * parma = @{
                              @"SmsLogo":@"1",
                              @"mobilePhone":_tf_loginphone.text,
-                             @"cmUserId":@"",
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/SendMessages",zfb_baseUrl] params:parma success:^(id response) {
         if ([response[@"resultCode"] intValue ] == 0) {
             
             _smsCode = response[@"smsCode" ];
-            _tf_verificationCodeOrPassWord.text = _smsCode;
             
             self.login_btn.enabled = YES;
             self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
@@ -423,12 +422,13 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              
                              @"mobilePhone":_tf_loginphone.text,
                              @"smsCheckCode":_smsCode,
-                             @"cmUserId":@"",
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/quickLogin",zfb_baseUrl] params:parma success:^(id response) {
- 
-        if ([response[@"resultCode"] intValue ] == 0) {
+      
+        //xuelian 17749920847
+
+        if ([response[@"resultCode"] isEqualToString:@"0" ]) {
             BBUserDefault.isLogin = 1;
             
             BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
@@ -451,6 +451,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
         
         
     } failure:^(NSError *error) {
+        
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
@@ -467,14 +468,11 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              
                              @"mobilePhone":_tf_loginphone.text,
                              @"loginPwd":_tf_verificationCodeOrPassWord.text,
-                             @"cmUserId":@"",
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/login",zfb_baseUrl] params:parma success:^(id response) {
         
-        NSLog(@"response ===== %@",response);
- 
-        if ([response[@"resultCode"] intValue ] == 0) {
+//        if ([response[@"resultCode"] isEqualToString:@"0" ]) {
             //设置全局变量
             BBUserDefault.isLogin = 1;
             BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
@@ -485,7 +483,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.accid = response[@"userInfo"][@"accid"];
             [self left_button_event];
     
-        }
+//        }
         NSLog(@" ======= userKeyMd5=======%@",BBUserDefault.userKeyMd5 );
         [self.view makeToast:response [@"resultMsg"] duration:2 position:@"center"];
         

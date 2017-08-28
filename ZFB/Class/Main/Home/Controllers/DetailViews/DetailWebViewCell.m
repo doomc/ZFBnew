@@ -59,6 +59,7 @@
      "}"
      "}\";"
      "document.getElementsByTagName('head')[0].appendChild(script);"];
+    
     [webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
     
     

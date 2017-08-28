@@ -207,7 +207,6 @@
         NSLog(@"response ===== %@",response);
         
         _smsCode = response[@"smsCode"];
-        _tf_verificationCode.text = _smsCode;
         [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
      
         [SVProgressHUD dismiss];

@@ -147,7 +147,6 @@
 		495EA7631F14B64D001FCB7E /* XHStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3BD1F14B64B001FCB7E /* XHStarRateView.m */; };
 		495EA7641F14B64D001FCB7E /* AliyunOSSiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 495EA3C01F14B64B001FCB7E /* AliyunOSSiOS.framework */; };
 		495EA7651F14B64D001FCB7E /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 495EA3C11F14B64B001FCB7E /* libsqlite3.0.tbd */; };
-		495EA7661F14B64D001FCB7E /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3C51F14B64B001FCB7E /* BaseNavigationController.m */; };
 		495EA7681F14B64D001FCB7E /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3C91F14B64B001FCB7E /* BaseViewController.m */; };
 		495EA7691F14B64D001FCB7E /* ZFBaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3CB1F14B64B001FCB7E /* ZFBaseNavigationViewController.m */; };
 		495EA76A1F14B64D001FCB7E /* ZFbaseTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA3CD1F14B64B001FCB7E /* ZFbaseTabbarViewController.m */; };
@@ -589,7 +588,7 @@
 		4968A1431F4D89B10061A87E /* IMContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A13F1F4D89B10061A87E /* IMContactListViewController.m */; };
 		4968A1441F4D89B10061A87E /* IMFriendsCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A1411F4D89B10061A87E /* IMFriendsCircleViewController.m */; };
 		4968A1471F4D8DE90061A87E /* NoEncryptionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A1461F4D8DE90061A87E /* NoEncryptionManager.m */; };
-		4968A14A1F4D974E0061A87E /* FriendListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A1491F4D974E0061A87E /* FriendListModel.m */; };
+		4968A14A1F4D974E0061A87E /* IMFriendListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A1491F4D974E0061A87E /* IMFriendListModel.m */; };
 		4968A2791F4DB5080061A87E /* M80AttributedLabel+NIMKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A14F1F4DB5080061A87E /* M80AttributedLabel+NIMKit.m */; };
 		4968A27A1F4DB5080061A87E /* NIMExtensionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A1511F4DB5080061A87E /* NIMExtensionHelper.m */; };
 		4968A27B1F4DB5080061A87E /* NSDictionary+NIMKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A1531F4DB5080061A87E /* NSDictionary+NIMKit.m */; };
@@ -837,16 +836,6 @@
 		497EF6E11F4E9F6C00BFF1AF /* NTESAudioChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6DA1F4E9F6C00BFF1AF /* NTESAudioChatViewController.xib */; };
 		497EF6E21F4E9F6C00BFF1AF /* NTESNetChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF6DC1F4E9F6C00BFF1AF /* NTESNetChatViewController.m */; };
 		497EF6E31F4E9F6C00BFF1AF /* NTESRecordSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF6DF1F4E9F6C00BFF1AF /* NTESRecordSelectView.m */; };
-
-		497EF6EE1F4E9FB600BFF1AF /* message.wav in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6E41F4E9FB600BFF1AF /* message.wav */; };
-		497EF6EF1F4E9FB600BFF1AF /* video_chat_push.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6E51F4E9FB600BFF1AF /* video_chat_push.mp3 */; };
-		497EF6F01F4E9FB600BFF1AF /* video_chat_tip_HangUp.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6E61F4E9FB600BFF1AF /* video_chat_tip_HangUp.aac */; };
-		497EF6F11F4E9FB600BFF1AF /* video_chat_tip_OnCall.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6E71F4E9FB600BFF1AF /* video_chat_tip_OnCall.aac */; };
-		497EF6F21F4E9FB600BFF1AF /* video_chat_tip_onTimer.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6E81F4E9FB600BFF1AF /* video_chat_tip_onTimer.aac */; };
-		497EF6F31F4E9FB600BFF1AF /* video_chat_tip_receiver.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6E91F4E9FB600BFF1AF /* video_chat_tip_receiver.aac */; };
-		497EF6F41F4E9FB600BFF1AF /* video_chat_tip_sender.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6EA1F4E9FB600BFF1AF /* video_chat_tip_sender.aac */; };
-		497EF6F51F4E9FB600BFF1AF /* video_connect_chat_tip_sender.aac in Resources */ = {isa = PBXBuildFile; fileRef = 497EF6EB1F4E9FB600BFF1AF /* video_connect_chat_tip_sender.aac */; };
- 
 		497EF6FB1F4EA1B200BFF1AF /* NTESNetCallChatInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF6FA1F4EA1B200BFF1AF /* NTESNetCallChatInfo.m */; };
 		497EF6FF1F4EA23400BFF1AF /* NTESVideoChatNetStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF6FE1F4EA23400BFF1AF /* NTESVideoChatNetStatusView.m */; };
 		497EF7021F4EA77A00BFF1AF /* NTESSessionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 497EF7011F4EA77A00BFF1AF /* NTESSessionUtil.m */; };
@@ -890,6 +879,10 @@
 		499659D91F4AF45E00B297C4 /* FeedCommitPhoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 499659D71F4AF45E00B297C4 /* FeedCommitPhoneCell.m */; };
 		499659DA1F4AF45E00B297C4 /* FeedCommitPhoneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499659D81F4AF45E00B297C4 /* FeedCommitPhoneCell.xib */; };
 		499745111EE6959B00DA273B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 498DE0C81EE63C8700F64A61 /* libsqlite3.0.tbd */; };
+		49AB0AE51F53F483004660B7 /* MineWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AB0AE41F53F483004660B7 /* MineWalletViewController.m */; };
+		49AB0AE91F53FB64004660B7 /* ZFCashCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AB0AE71F53FB64004660B7 /* ZFCashCell.m */; };
+		49AB0AEA1F53FB64004660B7 /* ZFCashCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AB0AE81F53FB64004660B7 /* ZFCashCell.xib */; };
+		49AB0AED1F5401B9004660B7 /* IMSearchResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AB0AEC1F5401B9004660B7 /* IMSearchResultModel.m */; };
 		49AC8FD21F276404005559A8 /* DetailOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AC8FD11F276404005559A8 /* DetailOrderModel.m */; };
 		49AD34401F28838300DC8A8F /* select_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AD343E1F28838300DC8A8F /* select_selected@3x.png */; };
 		49AD34411F28838300DC8A8F /* select_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AD343F1F28838300DC8A8F /* select_selected@2x.png */; };
@@ -1316,8 +1309,6 @@
 		495EA3BD1F14B64B001FCB7E /* XHStarRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHStarRateView.m; sourceTree = "<group>"; };
 		495EA3C01F14B64B001FCB7E /* AliyunOSSiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AliyunOSSiOS.framework; sourceTree = "<group>"; };
 		495EA3C11F14B64B001FCB7E /* libsqlite3.0.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = libsqlite3.0.tbd; sourceTree = "<group>"; };
-		495EA3C41F14B64B001FCB7E /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
-		495EA3C51F14B64B001FCB7E /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 		495EA3C81F14B64B001FCB7E /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		495EA3C91F14B64B001FCB7E /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		495EA3CA1F14B64B001FCB7E /* ZFBaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFBaseNavigationViewController.h; sourceTree = "<group>"; };
@@ -1913,8 +1904,8 @@
 		4968A1411F4D89B10061A87E /* IMFriendsCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMFriendsCircleViewController.m; sourceTree = "<group>"; };
 		4968A1451F4D8DE90061A87E /* NoEncryptionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoEncryptionManager.h; sourceTree = "<group>"; };
 		4968A1461F4D8DE90061A87E /* NoEncryptionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoEncryptionManager.m; sourceTree = "<group>"; };
-		4968A1481F4D974E0061A87E /* FriendListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListModel.h; sourceTree = "<group>"; };
-		4968A1491F4D974E0061A87E /* FriendListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendListModel.m; sourceTree = "<group>"; };
+		4968A1481F4D974E0061A87E /* IMFriendListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMFriendListModel.h; sourceTree = "<group>"; };
+		4968A1491F4D974E0061A87E /* IMFriendListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMFriendListModel.m; sourceTree = "<group>"; };
 		4968A14E1F4DB5080061A87E /* M80AttributedLabel+NIMKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M80AttributedLabel+NIMKit.h"; sourceTree = "<group>"; };
 		4968A14F1F4DB5080061A87E /* M80AttributedLabel+NIMKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "M80AttributedLabel+NIMKit.m"; sourceTree = "<group>"; };
 		4968A1501F4DB5080061A87E /* NIMExtensionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMExtensionHelper.h; sourceTree = "<group>"; };
@@ -2388,17 +2379,6 @@
 		497EF6DC1F4E9F6C00BFF1AF /* NTESNetChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESNetChatViewController.m; sourceTree = "<group>"; };
 		497EF6DE1F4E9F6C00BFF1AF /* NTESRecordSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESRecordSelectView.h; sourceTree = "<group>"; };
 		497EF6DF1F4E9F6C00BFF1AF /* NTESRecordSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESRecordSelectView.m; sourceTree = "<group>"; };
-
-
-        497EF6E41F4E9FB600BFF1AF /* message.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = message.wav; sourceTree = "<group>"; };
-		497EF6E51F4E9FB600BFF1AF /* video_chat_push.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = video_chat_push.mp3; sourceTree = "<group>"; };
-		497EF6E61F4E9FB600BFF1AF /* video_chat_tip_HangUp.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_HangUp.aac; sourceTree = "<group>"; };
-		497EF6E71F4E9FB600BFF1AF /* video_chat_tip_OnCall.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_OnCall.aac; sourceTree = "<group>"; };
-		497EF6E81F4E9FB600BFF1AF /* video_chat_tip_onTimer.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_onTimer.aac; sourceTree = "<group>"; };
-		497EF6E91F4E9FB600BFF1AF /* video_chat_tip_receiver.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_receiver.aac; sourceTree = "<group>"; };
-		497EF6EA1F4E9FB600BFF1AF /* video_chat_tip_sender.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_sender.aac; sourceTree = "<group>"; };
-		497EF6EB1F4E9FB600BFF1AF /* video_connect_chat_tip_sender.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_connect_chat_tip_sender.aac; sourceTree = "<group>"; };
-
 		497EF6F91F4EA1B200BFF1AF /* NTESNetCallChatInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESNetCallChatInfo.h; sourceTree = "<group>"; };
 		497EF6FA1F4EA1B200BFF1AF /* NTESNetCallChatInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESNetCallChatInfo.m; sourceTree = "<group>"; };
 		497EF6FD1F4EA23400BFF1AF /* NTESVideoChatNetStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESVideoChatNetStatusView.h; sourceTree = "<group>"; };
@@ -2431,7 +2411,7 @@
 		497EF7261F50468700BFF1AF /* IMSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMSearchResultCell.m; sourceTree = "<group>"; };
 		497EF7271F50468700BFF1AF /* IMSearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IMSearchResultCell.xib; sourceTree = "<group>"; };
 		497EF72A1F50488D00BFF1AF /* IMSearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMSearchResultViewController.h; sourceTree = "<group>"; };
-		497EF72B1F50488D00BFF1AF /* IMSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMSearchResultViewController.m; sourceTree = "<group>"; };
+		497EF72B1F50488D00BFF1AF /* IMSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 5; lastKnownFileType = sourcecode.c.objc; path = IMSearchResultViewController.m; sourceTree = "<group>"; };
 		498063B71F21A12800BA89AA /* CommitOrderlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitOrderlist.h; sourceTree = "<group>"; };
 		498063B81F21A12800BA89AA /* CommitOrderlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitOrderlist.m; sourceTree = "<group>"; };
 		498A33C21F39612F0057E2AE /* DDChangeBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDChangeBtn.h; sourceTree = "<group>"; };
@@ -2472,6 +2452,13 @@
 		499659D61F4AF45E00B297C4 /* FeedCommitPhoneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCommitPhoneCell.h; sourceTree = "<group>"; };
 		499659D71F4AF45E00B297C4 /* FeedCommitPhoneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedCommitPhoneCell.m; sourceTree = "<group>"; };
 		499659D81F4AF45E00B297C4 /* FeedCommitPhoneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCommitPhoneCell.xib; sourceTree = "<group>"; };
+		49AB0AE31F53F483004660B7 /* MineWalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineWalletViewController.h; sourceTree = "<group>"; };
+		49AB0AE41F53F483004660B7 /* MineWalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineWalletViewController.m; sourceTree = "<group>"; };
+		49AB0AE61F53FB64004660B7 /* ZFCashCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCashCell.h; sourceTree = "<group>"; };
+		49AB0AE71F53FB64004660B7 /* ZFCashCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCashCell.m; sourceTree = "<group>"; };
+		49AB0AE81F53FB64004660B7 /* ZFCashCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFCashCell.xib; sourceTree = "<group>"; };
+		49AB0AEB1F5401B9004660B7 /* IMSearchResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMSearchResultModel.h; sourceTree = "<group>"; };
+		49AB0AEC1F5401B9004660B7 /* IMSearchResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMSearchResultModel.m; sourceTree = "<group>"; };
 		49AC8FD01F276404005559A8 /* DetailOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailOrderModel.h; sourceTree = "<group>"; };
 		49AC8FD11F276404005559A8 /* DetailOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailOrderModel.m; sourceTree = "<group>"; };
 		49AD343E1F28838300DC8A8F /* select_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "select_selected@3x.png"; sourceTree = "<group>"; };
@@ -2879,7 +2866,6 @@
 		492752171EC44DFC003C22D0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-
 				492752181EC44DFC003C22D0 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -3575,8 +3561,6 @@
 		495EA3C31F14B64B001FCB7E /* Base(基类) */ = {
 			isa = PBXGroup;
 			children = (
-				495EA3C41F14B64B001FCB7E /* BaseNavigationController.h */,
-				495EA3C51F14B64B001FCB7E /* BaseNavigationController.m */,
 				495EA3C81F14B64B001FCB7E /* BaseViewController.h */,
 				495EA3C91F14B64B001FCB7E /* BaseViewController.m */,
 				495EA3CA1F14B64B001FCB7E /* ZFBaseNavigationViewController.h */,
@@ -3920,6 +3904,8 @@
 				495EA54C1F14B64C001FCB7E /* ZFPregressCheckViewController.m */,
 				495EA5491F14B64C001FCB7E /* ZFPersonalViewController.h */,
 				495EA54A1F14B64C001FCB7E /* ZFPersonalViewController.m */,
+				49AB0AE31F53F483004660B7 /* MineWalletViewController.h */,
+				49AB0AE41F53F483004660B7 /* MineWalletViewController.m */,
 			);
 			name = "Mine(个人中心)";
 			path = Mine;
@@ -4004,6 +3990,9 @@
 				495EA4941F14B64C001FCB7E /* ZFPersonalHeaderView.h */,
 				495EA4951F14B64C001FCB7E /* ZFPersonalHeaderView.m */,
 				495EA4961F14B64C001FCB7E /* ZFPersonalHeaderView.xib */,
+				49AB0AE61F53FB64004660B7 /* ZFCashCell.h */,
+				49AB0AE71F53FB64004660B7 /* ZFCashCell.m */,
+				49AB0AE81F53FB64004660B7 /* ZFCashCell.xib */,
 			);
 			path = MineViews;
 			sourceTree = "<group>";
@@ -4886,8 +4875,10 @@
 		4968A1311F4D89690061A87E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4968A1481F4D974E0061A87E /* FriendListModel.h */,
-				4968A1491F4D974E0061A87E /* FriendListModel.m */,
+				4968A1481F4D974E0061A87E /* IMFriendListModel.h */,
+				4968A1491F4D974E0061A87E /* IMFriendListModel.m */,
+				49AB0AEB1F5401B9004660B7 /* IMSearchResultModel.h */,
+				49AB0AEC1F5401B9004660B7 /* IMSearchResultModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -7093,6 +7084,7 @@
 				495EA8701F14B64D001FCB7E /* people_icon@2x.png in Resources */,
 				495EA8A11F14B64D001FCB7E /* 共享资源@3x.png in Resources */,
 				4968A2EE1F4DB5090061A87E /* Info.plist in Resources */,
+				49AB0AEA1F53FB64004660B7 /* ZFCashCell.xib in Resources */,
 				4968A3F81F4DB5290061A87E /* NTESSearchTeamViewController.xib in Resources */,
 				50D61E8B1F1E5BAD00DBDA4D /* closeRed@2x.png in Resources */,
 				495EA9101F14B64E001FCB7E /* location_find2@2x.png in Resources */,
@@ -7252,6 +7244,7 @@
 				4968A4551F4DB5290061A87E /* NTESTimerHolder.m in Sources */,
 				49AD344A1F28962E00DC8A8F /* SearchLanelModel.m in Sources */,
 				495EA8361F14B64D001FCB7E /* ZFFeedbackViewController.m in Sources */,
+				49AB0AED1F5401B9004660B7 /* IMSearchResultModel.m in Sources */,
 				4968A4431F4DB5290061A87E /* NTESClientsTableViewController.m in Sources */,
 				49738A3B1F3DB9B70004657B /* SalesAfterPopView.m in Sources */,
 				495EA80E1F14B64D001FCB7E /* ZFPregressCheckCell.m in Sources */,
@@ -7285,7 +7278,7 @@
 				4968A4581F4DB5290061A87E /* NTESSpellingCenter.m in Sources */,
 				4968A1421F4D89B10061A87E /* IMChatSessionViewController.m in Sources */,
 				495EA7A01F14B64D001FCB7E /* HomeHotModel.m in Sources */,
-				4968A14A1F4D974E0061A87E /* FriendListModel.m in Sources */,
+				4968A14A1F4D974E0061A87E /* IMFriendListModel.m in Sources */,
 				495EA82C1F14B64D001FCB7E /* FeedTypeTableViewCell.m in Sources */,
 				4968A4561F4DB5290061A87E /* NTESUserUtil.m in Sources */,
 				503C7C821F40B56F009C0512 /* UIImage+HXExtension.m in Sources */,
@@ -7363,6 +7356,7 @@
 				4968A41D1F4DB5290061A87E /* NTESSystemNotificationCell.m in Sources */,
 				4968A4051F4DB5290061A87E /* UIScrollView+NTESPullToRefresh.m in Sources */,
 				495EA7A81F14B64D001FCB7E /* FuncListCollectionViewCell.m in Sources */,
+				49AB0AE51F53F483004660B7 /* MineWalletViewController.m in Sources */,
 				49555D8F1F32EA6B00C3C748 /* IQTextView.m in Sources */,
 				4968A4021F4DB5290061A87E /* UIImage+NTESColor.m in Sources */,
 				4968A4391F4DB5290061A87E /* NTESSessionPeekViewController.m in Sources */,
@@ -7535,6 +7529,7 @@
 				49555D881F32EA6B00C3C748 /* IQUIScrollView+Additions.m in Sources */,
 				498063B91F21A12800BA89AA /* CommitOrderlist.m in Sources */,
 				49555E991F1E0092002E5688 /* AddressCommitOrderModel.m in Sources */,
+				49AB0AE91F53FB64004660B7 /* ZFCashCell.m in Sources */,
 				495EA7D21F14B64D001FCB7E /* ZFPersonalHeaderView.m in Sources */,
 				495EA7151F14B64D001FCB7E /* NSData+APNSToken.m in Sources */,
 				4968A29E1F4DB5080061A87E /* NIMInputEmoticonManager.m in Sources */,
@@ -7723,7 +7718,6 @@
 				4968A2CB1F4DB5090061A87E /* NIMSessionTextContentView.m in Sources */,
 				503C7C6B1F40B56E009C0512 /* HXFullScreenCameraPlayView.m in Sources */,
 				4968A2AC1F4DB5080061A87E /* NIMFileContentConfig.m in Sources */,
-				495EA7661F14B64D001FCB7E /* BaseNavigationController.m in Sources */,
 				495EA8101F14B64D001FCB7E /* ZFPregressCheckCell2.m in Sources */,
 				4926DF081F1F4AA400E9060B /* JsonModel.m in Sources */,
 				498A33FA1F3C76500057E2AE /* AllOrderProgress.m in Sources */,

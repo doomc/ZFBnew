@@ -8,12 +8,10 @@
 
 #import "IMSearchResultViewController.h"
 #import "IMSearchResultCell.h"
+#import "IMSearchResultModel.h"
 
-@interface IMSearchResultViewController ()<UITableViewDelegate ,UITableViewDataSource,UISearchBarDelegate>
 @interface IMSearchResultViewController ()<UITableViewDelegate ,UITableViewDataSource,IMSearchResultCellDelegate,UISearchBarDelegate>
-{
-    NSString * searchNum;
-}
+
 @property (nonatomic , strong) UITableView * tableView;
 @property (nonatomic , strong) UISearchBar * searchBar;
 @property (nonatomic , strong) NSMutableArray * searchArray;
@@ -45,10 +43,20 @@
         _searchBar.delegate        = self;
         _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
         _searchBar.placeholder     = @"搜索好友/群号";
-        _searchBar.text = searchNum;
     }
     return _searchBar;
 }
+
+#pragma mark -数据请求
+-(void)headerRefresh {
+    [super headerRefresh];
+    [self IMfindUserInfoListPostWithText:_searchResult];
+}
+-(void)footerRefresh {
+    [super footerRefresh];
+     [self IMfindUserInfoListPostWithText:_searchResult];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -57,21 +65,11 @@
     [self.view addSubview:self.tableView];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"IMSearchResultCell" bundle:nil] forCellReuseIdentifier:@"IMSearchResultCell"];
-    
     self.navigationItem.titleView = self.searchBar;
-    self.searchBar.text = searchNum;
-
-    switch (_friendType) {
-        case FriendTypeSingle:
-            [self addIMFriendPost];
-            break;
-        case FriendTypeGroup:
-            [self addIMGroupPost];
-            break;
-            
-        default:
-            break;
-    }
+     
+    self.searchBar.text = _searchResult;
+//    self.zfb_tableView = self.tableView;
+//    [self setupRefresh];
 }
 
 
@@ -81,7 +79,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return self.searchArray.count ;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -89,9 +87,13 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    IMSearchUserinfo * userinfo = self.searchArray[indexPath.row];
     IMSearchResultCell  * cell = [self.tableView dequeueReusableCellWithIdentifier:@"IMSearchResultCell" forIndexPath:indexPath];
+     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
     cell.delegate = self;
     cell.rowIndex = indexPath.row;
+    cell.info = userinfo;
+    
     return cell;
 }
 
@@ -119,43 +121,52 @@
 {
     NSLog(@"searchText ==== %@",searchText);
     
-    searchNum = searchText;
-    [self.tableView reloadData];
+     _searchResult = searchText;
     
-    
+     [self.tableView reloadData];
+
+     [self IMfindUserInfoListPostWithText:_searchResult];
+
 }
 
 //点击键盘搜索后的方法
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    NSLog(@"点击搜索方法");
-    [searchBar resignFirstResponder];
+
+     NSLog(@"点击搜索方法");
+     [self IMfindUserInfoListPostWithText:_searchResult];
+     [searchBar resignFirstResponder];
     
 }
 
 #pragma mark - IMSearchResultCellDelegate
 -(void)addFridendWithIndexPathRow :(NSInteger )indexPathRow
 {
+
+    NSLog(@" 我点击的当前 第%ld行的 添加好友",indexPathRow);
+     IMSearchUserinfo * info  = self.searchArray[indexPathRow];
+     [self addIMFriendPostWithAccid:info.accid];
+     
 }
 
 #pragma mark - 加好友网络请求
--(void)addIMFriendPost
+-(void)addIMFriendPostWithAccid:(NSString *)accid
 {
     NSDictionary * param = @{
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"accid":BBUserDefault.accid,//用户的accid
-                             @"mobilePhone":_searchBar.text,
+                             @"accid":accid,//用户的accid
+                             @"mobilePhone":BBUserDefault.userPhoneNumber,
                              @"type":@"2",//添加好友类型	否	1直接加好友，2请求加好友，3同意加好友，4拒绝加好友
-                             @"msg":@"我是你的陪朋友",
-                             
+                             @"msg":@"我是啊狗",
                              };
-    [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/agreeAddFriend",IMsingle_baseUrl]  params:param success:^(id response) {
+    [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/addFriend",IMsingle_baseUrl]  params:param success:^(id response) {
         
-        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+ 
+        if ([response[@"resultCode"]integerValue ] == 0) {
             
-            
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
         }
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         NSLog(@"添加成功");
         
     } progress:^(NSProgress *progeress) {
@@ -165,12 +176,71 @@
         NSLog(@"%@",error);
     }];
 }
+
+
 #pragma mark - 加群网络请求
 -(void)addIMGroupPost
 {
     
 }
 
+
+#pragma mark - 用户搜索好友时接口 findUserInfo
+-(void)IMfindUserInfoListPostWithText:(NSString *)searchText
+{
+    NSDictionary * param = @{
+                             @"findName":searchText,
+                             };
+    [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/findUserInfo",IMsingle_baseUrl]  params:param success:^(id response) {
+        
+        if ([response[@"resultCode"]integerValue ] == 0) {
+//            if (self.refreshType == RefreshTypeHeader) {
+//            
+//            }
+             if (self.searchArray.count > 0) {
+                  
+                  [self.searchArray removeAllObjects];
+             }
+             IMSearchResultModel * model= [IMSearchResultModel mj_objectWithKeyValues:response];
+    
+            for (IMSearchUserinfo * info in model.data.userInfo) {
+                
+                [self.searchArray addObject:info];
+            }
+            [self.tableView endUpdates];
+            [self.tableView reloadData];
+            
+        }
+        NSLog(@"添加成功");
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        [self.tableView endUpdates];
+
+        NSLog(@"%@",error);
+    }];
+}
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    switch (_friendType) {
+        case FriendTypeSingle:
+            
+            [self IMfindUserInfoListPostWithText:_searchResult];//获取搜索的好友列表
+            break;
+        case FriendTypeGroup:
+            
+            [self addIMGroupPost];
+            
+            break;
+            
+        default:
+            break;
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -69,10 +69,17 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             if (responseObject != nil) {
-
+                
+ 
                 NSString *result = [NSString convertToJsonData:responseObject];
                 NSLog(@"%@",result);
-//                NSLog(@"%@",responseObject);
+
+//                if ([responseObject[@"resultCode"]isEqualToString:@"2"] || [responseObject[@"resultCode"]isEqualToString:@"3"]) {
+//                    BBUserDefault.isLogin = 0;
+//                }
+//                if ([responseObject[@"resultCode"]isEqualToString:@"0"]) {
+//                    BBUserDefault.isLogin = 1;
+//                }
             }
             success(responseObject);
         }

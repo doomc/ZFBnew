@@ -7,7 +7,7 @@
 //
 
 #import "IMChatSessionViewController.h"
-#import "FriendListModel.h"
+ 
 
 @interface IMChatSessionViewController ()
 

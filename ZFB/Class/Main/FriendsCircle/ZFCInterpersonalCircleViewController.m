@@ -11,17 +11,21 @@
 //#import "IMContactListViewController.h"//联系人通讯录
 //#import "IMFriendsCircleViewController.h"//朋友圈
 #import "IMChatSessionViewController.h"//会话列表
+#import "NTESCustomNotificationDB.h"
 
 #import "NTESSessionListViewController.h"//当前会话列表
 #import "NTESContactViewController.h"//联系人通讯录
 
 #import "LoginViewController.h"
-#import "BaseNavigationController.h"
+#import "ZFBaseNavigationViewController.h"
 #import "IMSearchFriendViewController.h"//添加好友
 
-@interface ZFCInterpersonalCircleViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate>
+#import "ZFBaseNavigationViewController.h"
+@interface ZFCInterpersonalCircleViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate,NIMSystemNotificationManagerDelegate,NIMConversationManagerDelegate>
+
 @property (nonatomic, strong) SGPageTitleView   *pageTitleView;
 @property (nonatomic, strong) SGPageContentView *pageContentView;
+
 
 @end
 
@@ -34,31 +38,42 @@
     
     [self setupPageView];
     
+    [[NIMSDK sharedSDK].systemNotificationManager addDelegate:self];
+    [[NIMSDK sharedSDK].conversationManager addDelegate:self];
+  
+    
+}
+- (void)dealloc{
+    [[NIMSDK sharedSDK].systemNotificationManager removeDelegate:self];
+    [[NIMSDK sharedSDK].conversationManager removeDelegate:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-//设置右边按键（如果没有右边 可以不重写）
--(UIButton*)set_rightButton
-{
-    NSString * saveStr = @"+";
-    UIButton *right_button = [[UIButton alloc]init];
-    [right_button setTitle:saveStr forState:UIControlStateNormal];
-    right_button.titleLabel.font=SYSTEMFONT(14);
-    [right_button setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
-    right_button.titleLabel.textAlignment = NSTextAlignmentRight;
-    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
-    CGFloat width = size.width ;
-    right_button.frame =CGRectMake(0, 0, width+10, 22);
-    
-    return right_button;
-}
 
-//设置右边事件
--(void)right_button_event:(UIButton*)sender{
-    IMSearchFriendViewController * searchvc = [[ IMSearchFriendViewController alloc]init];
-    [self.navigationController pushViewController:searchvc animated:NO];
-    
-    
-}
+////设置右边按键（如果没有右边 可以不重写）
+//-(UIButton*)set_rightButton
+//{
+//    NSString * saveStr = @"+";
+//    UIButton *right_button = [[UIButton alloc]init];
+//    [right_button setTitle:saveStr forState:UIControlStateNormal];
+//    right_button.titleLabel.font=SYSTEMFONT(14);
+//    [right_button setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
+//    right_button.titleLabel.textAlignment = NSTextAlignmentRight;
+//    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
+//    CGFloat width = size.width ;
+//    right_button.frame =CGRectMake(0, 0, width+10, 22);
+//    
+//    return right_button;
+//}
+//
+////设置右边事件
+//-(void)right_button_event:(UIButton*)sender{
+//    IMSearchFriendViewController * searchvc = [[ IMSearchFriendViewController alloc]init];
+//    [self.navigationController pushViewController:searchvc animated:NO];
+//    
+//    
+//}
+
 - (void)setupPageView {
     
     NTESSessionListViewController  *messageVC       = [[NTESSessionListViewController alloc]init];
@@ -110,7 +125,7 @@
         
         NSLog(@"登录了");
         LoginViewController * logvc    = [ LoginViewController new];
-        BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logvc];
+        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
         
         [self presentViewController:nav animated:NO completion:^{
             
@@ -141,5 +156,9 @@
                                       }
                                   }];
 }
+
+ 
+
+
 
 @end

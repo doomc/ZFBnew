@@ -24,7 +24,7 @@
 #import "CommitOrderlist.h"
 
 #import "LoginViewController.h"
-#import "BaseNavigationController.h"
+#import "ZFBaseNavigationViewController.h"
 @interface ZFSureOrderViewController ()<UITableViewDelegate ,UITableViewDataSource>
 {
     NSString * _contactUserName;
@@ -459,7 +459,7 @@
     }else
     {
         LoginViewController * logVc = [[LoginViewController alloc]init];
-        BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logVc];
+        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc ]initWithRootViewController:logVc];
         [self.navigationController presentViewController:nav animated:NO completion:^{
             [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
             [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];

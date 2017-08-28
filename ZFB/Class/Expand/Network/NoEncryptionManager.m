@@ -41,13 +41,11 @@
     //选择请求方式
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.requestSerializer  = [AFJSONRequestSerializer serializer];
+    
     manager.requestSerializer.timeoutInterval = 20;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"text/html",@"text/plain",@"application/json", @"text/json", @"text/javascript"]];
 
-//        NSLog(@"已经加密的参数%@",parmaStr);
-//    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     [manager POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
         
         if (progeress) {
@@ -57,8 +55,12 @@
         if (success) {
             if (responseObject != nil) {
                 
-//                NSString *result = [NSString convertToJsonData:responseObject];
-//                NSLog(@"%@",result);
+                if ([responseObject[@"resultCode"]isEqualToString:@"2"] || [responseObject[@"resultCode"]isEqualToString:@"3"]) {
+                    BBUserDefault.isLogin = 0;
+                }
+                if ([responseObject[@"resultCode"]isEqualToString:@"0"]) {
+                    BBUserDefault.isLogin = 1;
+                }
                 NSLog(@"%@",responseObject);
                 
             }

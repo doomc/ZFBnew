@@ -10,7 +10,7 @@
 #import "FinGoodsViewController.h"
 #import "FindStoreViewController.h"
 #import "FindCircleViewController.h"
-#import "BaseNavigationController.h"
+#import "ZFBaseNavigationViewController.h"
 
 #import "HomeSearchBarViewController.h"//搜索跳转
 #import "SGPagingView.h"//控制自控制器
@@ -156,7 +156,7 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
 -(void)DidClickSearchBarAction:(UIButton*)sender
 {
     HomeSearchBarViewController  * sVC = [HomeSearchBarViewController new];
-    BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:sVC];
+    ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:sVC];
     [self.navigationController presentViewController:nav animated:NO completion:^{
         
     }];

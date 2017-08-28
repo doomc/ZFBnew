@@ -11,11 +11,11 @@
 #import "ForgetPSViewController.h"
 #import "ZFSettingCell.h"
 #import "LoginViewController.h"
-#import "BaseNavigationController.h"
+#import "ZFBaseNavigationViewController.h"
 
 
 static NSString * settingCellid = @"ZFSettingCellid";
-@interface ZFSettingViewController ()<UITableViewDelegate,UITableViewDataSource,ZFSettingCellDelete>
+@interface ZFSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray * _titleArr;
     NSArray * _imagesArr;
@@ -58,12 +58,9 @@ static NSString * settingCellid = @"ZFSettingCellid";
 -(UIButton*)set_rightButton
 {
     _login_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    [_login_btn setTitle:saveStr forState:UIControlStateNormal];
     _login_btn.titleLabel.font=SYSTEMFONT(14);
     [_login_btn setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
     _login_btn.titleLabel.textAlignment = NSTextAlignmentRight;
-    //    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
-    //    CGFloat width = size.width ;
     _login_btn.frame =CGRectMake(0, 0, 80, 22);
     
     return _login_btn;
@@ -98,16 +95,32 @@ static NSString * settingCellid = @"ZFSettingCellid";
     settcell.img_iconView.image = [UIImage imageNamed:_imagesArr[indexPath.row]];
     settcell.selectionStyle = UITableViewCellSelectionStyleNone;
     settcell.img_detailIcon.hidden = YES;
-    settcell.delegate = self;
+ 
     if (indexPath.row <2 ) {
         
         settcell.lb_detailTitle.text =@"";
         settcell.img_detailIcon.hidden = NO;
         
     }
-    
+    else if (indexPath.row == 2) {
+        settcell.lb_detailTitle.text = [NSString stringWithFormat:@"已绑定%@",BBUserDefault.userPhoneNumber];
+
+    }
+    else if (indexPath.row == 3) {
+         //读取缓存大小
+        settcell.lb_detailTitle.text = _cacheSize = settcell.currenCacheSize;
+    }
+    else if (indexPath.row == 4) {
+        //客服热线
+        settcell.lb_detailTitle.text = @"023-67685157-8005";
+    }
+    else if (indexPath.row == 5) {
+        //客服热线
+        settcell.lb_detailTitle.text =  @"400-666-2001";
+    }
     return settcell;
 }
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -126,15 +139,16 @@ static NSString * settingCellid = @"ZFSettingCellid";
         
     }else if (indexPath.row == 3) {
     
-        [self clearFile];//先计算
-    
-        JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"缓存%@,确认清除缓存 ",_cacheSize] preferredStyle:UIAlertControllerStyleAlert];
+        ZFSettingCell * settcell  = (ZFSettingCell*)[tableView cellForRowAtIndexPath:indexPath];
+        JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"%@,确认清除缓存吗",_cacheSize] preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction * left = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
         }];
         UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self clearingCache];//清除所有缓存;
+            [settcell clearingCache];//清除所有缓存;
+            [self.tableView reloadData];
+            
         }];
         [jxt addAction:left];
         [jxt addAction:right];
@@ -146,69 +160,8 @@ static NSString * settingCellid = @"ZFSettingCellid";
 {
     [SDCycleScrollView  clearImagesCache];//清除缓存
     //    [self clearAllUserDefaultsData];
-    [self clearFile];//清除文件
-    
 }
-//清除缓存
-- (void)clearFile
-{
-    NSString * cachePath = [NSSearchPathForDirectoriesInDomains (NSCachesDirectory , NSUserDomainMask , YES ) firstObject];
-    NSArray * files = [[NSFileManager defaultManager ] subpathsAtPath :cachePath];
-    //NSLog ( @"cachpath = %@" , cachePath);
-    for ( NSString * p in files) {
-        
-        NSError * error = nil ;
-        //获取文件全路径
-        NSString * fileAbsolutePath = [cachePath stringByAppendingPathComponent :p];
-        
-        if ([[NSFileManager defaultManager ] fileExistsAtPath :fileAbsolutePath]) {
-            [[NSFileManager defaultManager ] removeItemAtPath :fileAbsolutePath error :&error];
-        }
-    }
-    
-    //读取缓存大小
-    float cacheSize = [self readCacheSize] *1024 *1024;
-    _cacheSize = [NSString stringWithFormat:@"%.2fM",cacheSize];
-    
-    
-}
-///获取缓存文件的大小
--( float )readCacheSize
-{
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains (NSCachesDirectory , NSUserDomainMask , YES) firstObject];
-    return [ self folderSizeAtPath :cachePath];
-}
-
-
-///由于缓存文件存在沙箱中，我们可以通过NSFileManager API来实现对缓存文件大小的计算。
-// 遍历文件夹获得文件夹大小，返回多少 M
-- ( float ) folderSizeAtPath:( NSString *) folderPath{
-    
-    NSFileManager * manager = [NSFileManager defaultManager];
-    if (![manager fileExistsAtPath :folderPath]) return 0 ;
-    NSEnumerator *childFilesEnumerator = [[manager subpathsAtPath :folderPath] objectEnumerator];
-    NSString * fileName;
-    long long folderSize = 0 ;
-    while ((fileName = [childFilesEnumerator nextObject]) != nil ){
-        //获取文件全路径
-        NSString * fileAbsolutePath = [folderPath stringByAppendingPathComponent :fileName];
-        folderSize += [ self fileSizeAtPath :fileAbsolutePath];
-    }
-    
-    return folderSize/( 1024.0 * 1024.0);
-    
-}
-
-// 计算 单个文件的大小
-- ( long long ) fileSizeAtPath:( NSString *) filePath{
-    NSFileManager * manager = [NSFileManager defaultManager];
-    if ([manager fileExistsAtPath :filePath]){
-        return [[manager attributesOfItemAtPath :filePath error : nil] fileSize];
-    }
-    return 0;
-}
-
-
+ 
 - (void)clearAllUserDefaultsData
 {
     
@@ -231,6 +184,8 @@ static NSString * settingCellid = @"ZFSettingCellid";
             [self clearingCache];//清除所有缓存;
             BBUserDefault.isLogin = 0;
             BBUserDefault.token = @"";
+            BBUserDefault.cmUserId = @"";
+
             [self loginOutAction];
             
 
@@ -243,7 +198,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
     
     if ([sender.titleLabel.text isEqualToString:@"登陆"]) {
         LoginViewController * logVC = [[LoginViewController alloc]init ];
-        BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logVC];
+        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logVC];
         [self presentViewController:nav animated:NO completion:^{
             
             [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];

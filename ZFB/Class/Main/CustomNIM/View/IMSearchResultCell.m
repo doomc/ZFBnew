@@ -13,6 +13,23 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    self.headImg.clipsToBounds = YES;
+    self.headImg.layer.cornerRadius = self.headImg.width/2;
+    self.headImg.contentMode = UIViewContentModeScaleAspectFill;
+    
+    self.addFriendBtn.clipsToBounds = YES;
+    self.addFriendBtn.layer.cornerRadius = 4;
+    
+  
+}
+
+-(void)setInfo:(IMSearchUserinfo *)info
+{
+    _info = info;
+    self.lb_nickName.text = info.nickName;
+    [self.headImg sd_setImageWithURL:[NSURL URLWithString:info.userImgAttachUrl] placeholderImage:[UIImage imageNamed:@"avatar_user"]];
+    
 }
 //添加好友
 - (IBAction)addFriendsAction:(id)sender {

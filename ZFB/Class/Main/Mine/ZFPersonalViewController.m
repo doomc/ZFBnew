@@ -7,28 +7,35 @@
 //   **** 我的
 
 #import "ZFPersonalViewController.h"
-
+//cell
 #import "ZFMyCashBagCell.h"
 #import "ZFMyProgressCell.h"
 #import "ZFMyOderCell.h"
 
-//VC
-#import "ZFSendSerViceViewController.h"
+//配送端VC
+#import "ZFSendSerViceViewController.h"//配送
+#import "ZFHistoryViewController.h"//足记
+#import "ZFCollectViewController.h"//收藏
+
+//商户端VC
+#import "BusinessServicerViewController.h"
+
+//view
+#import "ZFPersonalHeaderView.h"
+#import "ZFPersonalHeaderView.h"
+
+//用户端VC
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
-#import "ZFAllOrderViewController.h"
 
-#import "ZFHistoryViewController.h"
-#import "ZFCollectViewController.h"
-#import "ZFSettingViewController.h"
-#import "ZFSettingHeadViewController.h"
-#import "ZFPersonalHeaderView.h"
-#import "ZFFeedbackViewController.h"
+#import "ZFAllOrderViewController.h"//全部订单
+#import "ZFSettingViewController.h"//个人设置
+#import "ZFSettingHeadViewController.h"//设置个人信息
+#import "ZFFeedbackViewController.h"//意见反馈
+#import "MineWalletViewController.h"//钱包
+//base
+#import "ZFBaseNavigationViewController.h"
 
-#import "ZFPersonalHeaderView.h"
-#import "BaseNavigationController.h"
-
-#import "BusinessServicerViewController.h"
 
 typedef NS_ENUM(NSUInteger, TypeCell) {
     
@@ -36,7 +43,11 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     TypeCellOfMyProgressCell,
     TypeCellOfMyOderCell,
 };
-@interface ZFPersonalViewController ()<UITableViewDelegate,UITableViewDataSource,ZFMyProgressCellDelegate,PersonalHeaderViewDelegate>
+@interface ZFPersonalViewController ()<UITableViewDelegate,UITableViewDataSource,ZFMyProgressCellDelegate,PersonalHeaderViewDelegate,
+    ZFMyCashBagCellDelegate
+
+
+>
 
 @property (nonatomic,strong) UITableView          * myTableView;
 @property (nonatomic,strong) ZFPersonalHeaderView * headview;
@@ -47,6 +58,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 @property (nonatomic,copy) NSString * shopFlag   ;//判断是否是商家 1/0
 @property (nonatomic,copy) NSString * courierFlag   ;//判断是否是快递员 1/0
 @property (nonatomic,copy) NSString * storeId   ;///*******重要     商户端配送端都要的**********
+@property (nonatomic,copy) NSString * balance   ;///余额
 
 
 
@@ -82,7 +94,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     NSLog(@"注册了");
     RegisterViewController * regiVC = [ RegisterViewController new];
-    BaseNavigationController * nav  = [[BaseNavigationController alloc]initWithRootViewController:regiVC];
+    ZFBaseNavigationViewController * nav  = [[ZFBaseNavigationViewController alloc]initWithRootViewController:regiVC];
     
     [self presentViewController:nav animated:NO completion:^{
         regiVC.mark = YES;
@@ -410,9 +422,34 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+#pragma  mark - ZFMyCashBagCellDelegate - 钱包
+///钱包
+-(void)didClickCashBag
+{
+    MineWalletViewController * walletVC = [[MineWalletViewController alloc]init];
+    [self.navigationController pushViewController:walletVC animated:NO];
+    
+}
+///余额
+-(void)didClickBalanceView
+{
+    
+}
+///提成金额
+-(void)didClickUnitView
+{
+    
+}
+///优惠券
+-(void)didClickDiscountCouponView
+{
+    
+}
+///富豆
+-(void)didClickFuBeanView
+{
+    
 }
 
 
@@ -438,7 +475,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             _collectNum = [NSString stringWithFormat:@"%@",response[@"collectNum"]];
             _shopFlag   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"shopFlag"]];//是否是商户
             _courierFlag= [NSString stringWithFormat:@"%@",response[@"userInfo"][@"courierFlag"]];//是否是快递员
-            _storeId = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"storeId"]];
+            _storeId    = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"storeId"]];
             
             BBUserDefault.shopFlag = _shopFlag;
             BBUserDefault.courierFlag = _courierFlag;
@@ -459,13 +496,44 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }];
     
 }
+
+
+#pragma mark  - 网络请求 查询展易付余额
+-(void)getThirdBalancePOSTRequste
+{
+ 
+    NSDictionary * parma = @{
+                             @"account":BBUserDefault.userPhoneNumber,
+                             };
+    
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/QRCode/getThirdBalance"] params:parma success:^(id response) {
+        
+        int resultCode = [response [@"resultCode"] intValue];
+        
+        if (resultCode == 0) {
+ 
+            _balance  = @"";
+            
+        }
+        [self.myTableView reloadData];
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
-    
     if (BBUserDefault.isLogin == 1) {
-        [self minePagePOSTRequste];//页面网络请求
-        //判断是否已经登录
         
+        [self minePagePOSTRequste];//页面网络请求
+        [self getThirdBalancePOSTRequste];//余额查询
+
         //移除登录视图
         _headview.loginView.hidden   = NO;
         _headview.unloginView.hidden = YES;
@@ -481,7 +549,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
 
     LoginViewController * logvc    = [ LoginViewController new];
-    BaseNavigationController * nav = [[BaseNavigationController alloc]initWithRootViewController:logvc];
+    ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
     [self presentViewController:nav animated:NO completion:^{
         
         [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
@@ -491,6 +559,10 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 //
 
 
