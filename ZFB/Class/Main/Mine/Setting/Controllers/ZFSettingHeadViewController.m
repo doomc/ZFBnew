@@ -244,7 +244,16 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     
     if ([ZZYPhotoHelper shareHelper].imgName == nil || _nickName == nil || _cmBirthday == nil) {
         
-        NSLog(@"填写完才能提交");
+        JXTAlertController *alertVC = [JXTAlertController alertControllerWithTitle:nil message:@"个人信息还没填写完" preferredStyle:UIAlertControllerStyleAlert];
+       
+        UIAlertAction * sure = [UIAlertAction actionWithTitle:@"知道了 " style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alertVC addAction: sure];
+        
+        [self presentViewController:alertVC animated:NO completion:^{
+            
+        }];
         
     }else
     {

@@ -109,7 +109,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
 /**初始化轮播 */
 -(void)CDsyceleSettingRunningPaint
 {
-    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 150) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 160) delegate:self placeholderImage:nil];
+    _cycleScrollView.backgroundColor = [UIColor whiteColor];
     _cycleScrollView.imageURLStringsGroup = self.adArray;
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
     _cycleScrollView.delegate = self;
@@ -117,10 +118,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
     //自定义dot 大小和图案pageControlCurrentDot
     _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
     _cycleScrollView.pageDotImage = [UIImage imageNamed:@"dot_selected"];
-    //    _cycleScrollView.titlesGroup = titles;
-    
     _cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
-    _cycleScrollView.placeholderImage = [UIImage imageNamed:@"placeholder"];
+ 
     self.findGoods_TableView.tableHeaderView = _cycleScrollView;
     
 }

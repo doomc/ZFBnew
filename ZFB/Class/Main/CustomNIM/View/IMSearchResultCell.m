@@ -14,6 +14,15 @@
     [super awakeFromNib];
     // Initialization code
 }
+//添加好友
+- (IBAction)addFriendsAction:(id)sender {
+    
+    NSLog(@" cell current ===== %ld ",_rowIndex);
+    
+    if ([self.delegate respondsToSelector:@selector(addFridendWithIndexPathRow:)]) {
+        [self.delegate addFridendWithIndexPathRow:_rowIndex];
+    }
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

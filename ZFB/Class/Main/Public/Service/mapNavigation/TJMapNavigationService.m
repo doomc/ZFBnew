@@ -107,7 +107,7 @@ static NSString* const sdkMap = @"内置高德地图";
             _baiduStartLocation = [self.startLocation locationBaiduFromMars];
         }
     }
-    return _marsStartLocation;
+    return _baiduStartLocation;
 }
 -(CLLocation *)baiduEndLocation {
     if (!_baiduEndLocation) {
@@ -117,7 +117,7 @@ static NSString* const sdkMap = @"内置高德地图";
             _baiduStartLocation = [self.endLocation locationBaiduFromMars];
         }
     }
-    return _marsEndLocation;
+    return _baiduEndLocation;
 }
 
 -(CGFloat)marsStartLat {

@@ -8,9 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol IMSearchResultCellDelegate <NSObject>
+
+-(void)addFridendWithIndexPathRow :(NSInteger )indexPathRow;
+
+@end
 @interface IMSearchResultCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImg;
 @property (weak, nonatomic) IBOutlet UILabel *lb_nickName;
 @property (weak, nonatomic) IBOutlet UILabel *lb_sign;
+
+@property (nonatomic ,assign) NSInteger rowIndex;
+
+@property (nonatomic ,assign) id <IMSearchResultCellDelegate> delegate;
+
+
+
 
 @end

@@ -10,13 +10,13 @@
 #import "IMSearchResultCell.h"
 
 @interface IMSearchResultViewController ()<UITableViewDelegate ,UITableViewDataSource,UISearchBarDelegate>
+@interface IMSearchResultViewController ()<UITableViewDelegate ,UITableViewDataSource,IMSearchResultCellDelegate,UISearchBarDelegate>
 {
     NSString * searchNum;
 }
 @property (nonatomic , strong) UITableView * tableView;
 @property (nonatomic , strong) UISearchBar * searchBar;
 @property (nonatomic , strong) NSMutableArray * searchArray;
-
 @end
 
 @implementation IMSearchResultViewController
@@ -59,8 +59,21 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"IMSearchResultCell" bundle:nil] forCellReuseIdentifier:@"IMSearchResultCell"];
     
     self.navigationItem.titleView = self.searchBar;
-    
+    self.searchBar.text = searchNum;
+
+    switch (_friendType) {
+        case FriendTypeSingle:
+            [self addIMFriendPost];
+            break;
+        case FriendTypeGroup:
+            [self addIMGroupPost];
+            break;
+            
+        default:
+            break;
+    }
 }
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -77,14 +90,14 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     IMSearchResultCell  * cell = [self.tableView dequeueReusableCellWithIdentifier:@"IMSearchResultCell" forIndexPath:indexPath];
- 
+    cell.delegate = self;
+    cell.rowIndex = indexPath.row;
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
- 
- 
+    NSLog(@"获取改好友的信息");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -120,7 +133,43 @@
     
 }
 
+#pragma mark - IMSearchResultCellDelegate
+-(void)addFridendWithIndexPathRow :(NSInteger )indexPathRow
+{
+}
 
+#pragma mark - 加好友网络请求
+-(void)addIMFriendPost
+{
+    NSDictionary * param = @{
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"accid":BBUserDefault.accid,//用户的accid
+                             @"mobilePhone":_searchBar.text,
+                             @"type":@"2",//添加好友类型	否	1直接加好友，2请求加好友，3同意加好友，4拒绝加好友
+                             @"msg":@"我是你的陪朋友",
+                             
+                             };
+    [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/agreeAddFriend",IMsingle_baseUrl]  params:param success:^(id response) {
+        
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            
+            
+        }
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        NSLog(@"添加成功");
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"%@",error);
+    }];
+}
+#pragma mark - 加群网络请求
+-(void)addIMGroupPost
+{
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

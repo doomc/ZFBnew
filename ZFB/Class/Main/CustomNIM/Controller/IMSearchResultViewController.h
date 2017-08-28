@@ -8,8 +8,16 @@
 
 #import "BaseViewController.h"
 
+typedef NS_ENUM(NSUInteger, FriendType) {
+    FriendTypeSingle,
+    FriendTypeGroup,
+
+};
+
 @interface IMSearchResultViewController : BaseViewController
 
+@property (nonatomic , assign) FriendType  friendType;
 
 @property (nonatomic , copy) NSString * searchResult;
+
 @end
