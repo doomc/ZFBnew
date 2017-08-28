@@ -9,73 +9,65 @@
 #import "DetailWebViewCell.h" 
 @interface DetailWebViewCell ()<UIWebViewDelegate>
 
-@property (nonatomic, strong) UIWebView *wbView;
+@property (nonatomic, strong) UILabel * labelhtml;
+
 @end
 @implementation DetailWebViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
-    self.wbView = [UIWebView new];
-    [self.contentView addSubview:self.wbView];
-    MPWeakSelf(self);
-    [self.wbView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(weakself.contentView);
-    }];
-    
-    self.wbView.scrollView.bounces = NO;
-    self.wbView.scrollView.showsHorizontalScrollIndicator = NO;
-    self.wbView.scrollView.scrollEnabled = NO;
-    self.wbView.delegate = self;
 
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    _labelhtml = [[UILabel alloc]init];
+    [self.contentView addSubview:_labelhtml];
 }
 
 -(void)setHTMLString:(NSString *)HTMLString
 {
     _HTMLString = HTMLString;
     NSLog(@"_HTMLString === %@",_HTMLString);
-    [self.wbView loadHTMLString:_HTMLString baseURL:nil];
+    
+    NSAttributedString * attrStr1 = [[NSAttributedString alloc] initWithData:[HTMLString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    
+    
+    [attrStr1 enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, attrStr1.length) options:0 usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+        if ([value isKindOfClass:[NSTextAttachment class]]) {
+            NSTextAttachment * attachment = value;
+            CGFloat height = attachment.bounds.size.height;
+            CGFloat width = attachment.bounds.size.width;
+            
+            CGFloat newheiht = height*(KScreenW-30)/width;
+            
+            attachment.bounds = CGRectMake(0, 0, KScreenW-30, newheiht);
+        }
+    }];
+    
+    self.labelhtml.attributedText  = attrStr1;
+    CGFloat webheight ;
+    
+    webheight  =  [self calculateMeaasgeHeightWithText:attrStr1 andWidth:KScreenW - 30 andFont:[UIFont systemFontOfSize:16]];
+    
+    self.labelhtml.frame = CGRectMake(15, 15, KScreenW - 30, webheight);
+    self.labelhtml.numberOfLines = 0;
+    
+    [self.delegate getHeightForWebView:webheight];
+
 
 }
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-
-    //图片适应宽高
-    [webView stringByEvaluatingJavaScriptFromString:
-     @"var script = document.createElement('script');"
-     "script.type = 'text/javascript';"
-     "script.text = \"function ResizeImages() { "
-     "var myimg,oldwidth;"
-     "var maxwidth=document.body.clientWidth;" //缩放系数</span>
-     "for(i=0;i <document.images.length;i++){"
-     "myimg = document.images[i];"
-     "if(myimg.width > maxwidth){"
-     "oldwidth = myimg.width;"
-     "myimg.width = maxwidth;"
-     "myimg.height = myimg.height * (maxwidth/oldwidth);"
-     "}"
-     "}"
-     "}\";"
-     "document.getElementsByTagName('head')[0].appendChild(script);"];
-    
-    [webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
-    
-    
-    NSString *curHeight = [webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"];//缩放后的内容高度
-    
-    //这两行是么可有缩放的情况下内容高度
-    UIScrollView *scrollView = (UIScrollView *)[[webView subviews] objectAtIndex:0];
-    CGFloat webViewHeight = [scrollView contentSize].height;
-    
-    CGRect newFrame = webView.frame;
-    newFrame.size.height = [curHeight floatValue];
-    webView.frame = newFrame;
-    NSLog(@"  里面的高度 %f",webViewHeight);
-    [self.delegate getHeightForWebView:webViewHeight];
-    
+- (CGFloat)calculateMeaasgeHeightWithText:(NSAttributedString *)string andWidth:(CGFloat)width andFont:(UIFont *)font {
+    static UILabel *stringLabel = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{//生成一个同于计算文本高度的label
+        stringLabel = [[UILabel alloc] init];
+        stringLabel.numberOfLines = 0;
+    });
+    stringLabel.font = font;
+    stringLabel.attributedText = string;
+    return [stringLabel sizeThatFits:CGSizeMake(width, MAXFLOAT)].height;
 }
+
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
