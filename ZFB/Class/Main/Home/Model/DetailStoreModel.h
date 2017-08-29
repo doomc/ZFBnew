@@ -46,7 +46,10 @@
 
 @interface DetailCmgoodslist : NSObject
 
+
 @property (nonatomic, copy) NSString *storePrice;
+
+@property (nonatomic, copy) NSString *netPurchasePrice;
 
 @property (nonatomic, assign) NSInteger goodsId;
 

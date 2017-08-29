@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 
-@interface IMChatSessionViewController : BaseViewController
+@interface IMChatSessionViewController : UIViewController
 
 
 

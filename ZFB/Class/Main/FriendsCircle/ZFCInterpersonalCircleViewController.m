@@ -21,7 +21,17 @@
 #import "IMSearchFriendViewController.h"//添加好友
 
 #import "ZFBaseNavigationViewController.h"
-@interface ZFCInterpersonalCircleViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate,NIMSystemNotificationManagerDelegate,NIMConversationManagerDelegate>
+#import "NTESSessionViewController.h"
+#import "UIActionSheet+NTESBlock.h"
+#import "Toast+UIView.h"
+#import "NIMContactSelectViewController.h"
+#import "NTESGroupedContacts.h"
+#import "NTESContactUtilItem.h"
+@interface ZFCInterpersonalCircleViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate,NIMUserManagerDelegate,NIMLoginManagerDelegate,NIMSystemNotificationManagerDelegate,NIMConversationManagerDelegate>
+{
+    UIRefreshControl *_refreshControl;
+    NTESGroupedContacts *_contacts;
+}
 
 @property (nonatomic, strong) SGPageTitleView   *pageTitleView;
 @property (nonatomic, strong) SGPageContentView *pageContentView;
@@ -34,45 +44,86 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"人际圈";
-    
+
     [self setupPageView];
     
     [[NIMSDK sharedSDK].systemNotificationManager addDelegate:self];
     [[NIMSDK sharedSDK].conversationManager addDelegate:self];
-  
-    
+    [[NIMSDK sharedSDK].loginManager addDelegate:self];
+    [[NIMSDK sharedSDK].userManager addDelegate:self];
+ 
 }
 - (void)dealloc{
     [[NIMSDK sharedSDK].systemNotificationManager removeDelegate:self];
     [[NIMSDK sharedSDK].conversationManager removeDelegate:self];
+    [[NIMSDK sharedSDK].loginManager removeDelegate:self];
+    [[NIMSDK sharedSDK].userManager removeDelegate:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - NIMSDK Delegate
+- (void)onSystemNotificationCountChanged:(NSInteger)unreadCount
+{
+    [self prepareData];
+ 
+}
 
-////设置右边按键（如果没有右边 可以不重写）
-//-(UIButton*)set_rightButton
-//{
-//    NSString * saveStr = @"+";
-//    UIButton *right_button = [[UIButton alloc]init];
-//    [right_button setTitle:saveStr forState:UIControlStateNormal];
-//    right_button.titleLabel.font=SYSTEMFONT(14);
-//    [right_button setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
-//    right_button.titleLabel.textAlignment = NSTextAlignmentRight;
-//    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
-//    CGFloat width = size.width ;
-//    right_button.frame =CGRectMake(0, 0, width+10, 22);
-//    
-//    return right_button;
-//}
-//
-////设置右边事件
-//-(void)right_button_event:(UIButton*)sender{
-//    IMSearchFriendViewController * searchvc = [[ IMSearchFriendViewController alloc]init];
-//    [self.navigationController pushViewController:searchvc animated:NO];
-//    
-//    
-//}
+- (void)onLogin:(NIMLoginStep)step
+{
+    if (step == NIMLoginStepSyncOK) {
+        if (self.isViewLoaded) {//没有加载view的话viewDidLoad里会走一遍prepareData
+            [self prepareData];
+        }
+    }
+}
+
+- (void)prepareData{
+    _contacts = [[NTESGroupedContacts alloc] init];
+    
+    NSString *contactCellUtilIcon   = @"icon";
+    NSString *contactCellUtilVC     = @"vc";
+    NSString *contactCellUtilBadge  = @"badge";
+    NSString *contactCellUtilTitle  = @"title";
+    NSString *contactCellUtilUid    = @"uid";
+    NSString *contactCellUtilSelectorName = @"selName";
+    //原始数据
+    
+    NSInteger systemCount = [[[NIMSDK sharedSDK] systemNotificationManager] allUnreadCount];
+    NSMutableArray *utils =
+    [@[
+       @{
+           contactCellUtilIcon:@"icon_notification_normal",
+           contactCellUtilTitle:@"验证消息",
+           contactCellUtilVC:@"NTESSystemNotificationViewController",
+           contactCellUtilBadge:@(systemCount)
+           },
+       @{
+           contactCellUtilIcon:@"icon_team_advance_normal",
+           contactCellUtilTitle:@"高级群",
+           contactCellUtilVC:@"NTESAdvancedTeamListViewController"
+           },
+
+       ] mutableCopy];
+    
+    
+    //构造显示的数据模型
+    NTESContactUtilItem *contactUtil = [[NTESContactUtilItem alloc] init];
+    NSMutableArray * members = [[NSMutableArray alloc] init];
+    for (NSDictionary *item in utils) {
+        NTESContactUtilMember *utilItem = [[NTESContactUtilMember alloc] init];
+        utilItem.nick              = item[contactCellUtilTitle];
+        utilItem.icon              = [UIImage imageNamed:item[contactCellUtilIcon]];
+        utilItem.vcName            = item[contactCellUtilVC];
+        utilItem.badge             = [item[contactCellUtilBadge] stringValue];
+        utilItem.userId            = item[contactCellUtilUid];
+        utilItem.selName           = item[contactCellUtilSelectorName];
+        [members addObject:utilItem];
+    }
+    contactUtil.members = members;
+    
+    [_contacts addGroupAboveWithTitle:@"" members:contactUtil.members];
+}
+
 
 - (void)setupPageView {
     
@@ -92,7 +143,7 @@
     /// pageTitleView
     self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44) delegate:self titleNames:titleArr];
     [self.view addSubview:_pageTitleView];
-    _pageTitleView.isTitleGradientEffect   = NO;
+    _pageTitleView.isTitleGradientEffect   = YES;
     _pageTitleView.indicatorLengthStyle    = SGIndicatorLengthStyleSpecial;
     _pageTitleView.indicatorScrollStyle    = SGIndicatorScrollStyleHalf;
     _pageTitleView.selectedIndex           = 0;
@@ -108,16 +159,29 @@
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex
 {
     [self.pageContentView setPageCententViewCurrentIndex:selectedIndex];
+    
+    if (selectedIndex == 0) {
+        self.navigationItem.title = @"消息";
+    }
+    else if (selectedIndex == 1) {
+        self.navigationItem.title = @"通讯录";
+    }
+    else {
+        self.navigationItem.title = @"朋友圈";
+    }
 }
 
 - (void)pageContentView:(SGPageContentView *)pageContentView progress:(CGFloat)progress originalIndex:(NSInteger)originalIndex targetIndex:(NSInteger)targetIndex {
     [self.pageTitleView setPageTitleViewWithProgress:progress originalIndex:originalIndex targetIndex:targetIndex];
+
+    
 }
 
 
 -(void)viewWillAppear:(BOOL)animated
 {
- 
+    [self setUpNavItem];
+
     if (BBUserDefault.isLogin == 1) {
         [self loginNIM];
         
@@ -157,8 +221,98 @@
                                   }];
 }
 
- 
+- (void)setUpNavItem{
+    // 设置导航栏颜色
+    [self.navigationController.navigationBar setBarTintColor:RGBA(244, 244, 244, 1.0)];    
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xfe6d6a),NSFontAttributeName:[UIFont systemFontOfSize:16.0]}];
+    
+    UIButton *teamBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [teamBtn addTarget:self action:@selector(onOpera:) forControlEvents:UIControlEventTouchUpInside];
+    [teamBtn setImage:[UIImage imageNamed:@"icon_tinfo_normal"] forState:UIControlStateNormal];
+    [teamBtn setImage:[UIImage imageNamed:@"icon_tinfo_pressed"] forState:UIControlStateHighlighted];
+    [teamBtn sizeToFit];
+    UIBarButtonItem *teamItem = [[UIBarButtonItem alloc] initWithCustomView:teamBtn];
+    self.navigationItem.rightBarButtonItem = teamItem;
+}
+
+#pragma mark - Action
+- (void)onEnterMyComputer{
+    NSString *uid = [[NIMSDK sharedSDK].loginManager currentAccount];
+    NIMSession *session = [NIMSession session:uid type:NIMSessionTypeP2P];
+    NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)onOpera:(id)sender{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择操作" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"添加好友/群",@"创建群", nil];
+    __weak typeof(self) wself = self;
+    NSString *currentUserId = [[NIMSDK sharedSDK].loginManager currentAccount];
+    [sheet showInView:self.view completionHandler:^(NSInteger index) {
+        UIViewController *vc;
+        switch (index) {
+            case 0:
+            {
+                IMSearchFriendViewController * serchVC = [[IMSearchFriendViewController alloc]init];
+                [wself.navigationController pushViewController:serchVC animated:YES];
+                
+            }
+                
+                break;
+            case 1:{  //创建高级群
+                [wself presentMemberSelector:^(NSArray *uids) {
+                    NSArray *members = [@[currentUserId] arrayByAddingObjectsFromArray:uids];
+                    NIMCreateTeamOption *option = [[NIMCreateTeamOption alloc] init];
+                    option.name       = @"高级群";
+                    option.type       = NIMTeamTypeAdvanced;
+                    option.joinMode   = NIMTeamJoinModeNoAuth;
+                    option.postscript = @"邀请你加入群组";
+                    [SVProgressHUD show];
+                    [[NIMSDK sharedSDK].teamManager createTeam:option users:members completion:^(NSError *error, NSString *teamId) {
+                        [SVProgressHUD dismiss];
+                        if (!error) {
+                            NIMSession *session = [NIMSession session:teamId type:NIMSessionTypeTeam];
+                            NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
+                            [wself.navigationController pushViewController:vc animated:YES];
+                        }else{
+                            [wself.view makeToast:@"创建失败" duration:2.0 position:@"CSToastPositionCenter"];
+                        }
+                    }];
+                }];
 
 
+                break;
+            }
+                
+            default:
+                
+                break;
+        }
+
+        if (vc) {
+            [wself.navigationController pushViewController:vc animated:YES];
+        }
+    }];
+    [SVProgressHUD dismiss];
+
+}
+
+
+- (void)presentMemberSelector:(ContactSelectFinishBlock) block{
+    NSMutableArray *users = [[NSMutableArray alloc] init];
+    //使用内置的好友选择器
+    NIMContactFriendSelectConfig *config = [[NIMContactFriendSelectConfig alloc] init];
+    //获取自己id
+    NSString *currentUserId = [[NIMSDK sharedSDK].loginManager currentAccount];
+    [users addObject:currentUserId];
+    //将自己的id过滤
+    config.filterIds = users;
+    //需要多选
+    config.needMutiSelected = YES;
+    //初始化联系人选择器
+    NIMContactSelectViewController *vc = [[NIMContactSelectViewController alloc] initWithConfig:config];
+    //回调处理
+    vc.finshBlock = block;
+    [vc show];
+}
 
 @end

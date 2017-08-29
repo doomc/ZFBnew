@@ -22,10 +22,7 @@
 #import <UIKit/UIKit.h>
 
  
-//网易云信 appkey
-//#define  Appkey @"45c6af3c98409b18a84451215d0bdd6e"  //网易云信demokey
-#define  Appkey @"6bd36bd4bfadba812aff256259316848" //自己的key
-
+ 
 
 
 //第三方工具类
@@ -79,7 +76,7 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import "Macros.h"
 
-
+#define  Appkey @"6bd36bd4bfadba812aff256259316848" //自己的key
 
 //这个宏加上后，可以去掉'mas_'这个前缀了
 #define MAS_SHORTHAND

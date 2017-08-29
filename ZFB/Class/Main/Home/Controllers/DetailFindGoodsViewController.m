@@ -18,6 +18,9 @@
 //controlller
 #import "ZFEvaluateViewController.h"
 #import "ZFSureOrderViewController.h"
+#import "ZFShoppingCarViewController.h"//购物车
+#import "DetailStoreViewController.h" //店铺
+
 //model
 #import "DetailGoodsModel.h"
 
@@ -29,17 +32,10 @@
 #import <WebKit/WebKit.h>
 #import "TJMapNavigationService.h"
 
-typedef NS_ENUM(NSUInteger, typeCell) {
-    
-    typeCellrowOftitleCell, //0 第一行cell
-    typeCellrowgoodsSelectedCell,
-    typeCellrowOfbabyCell,
-    typeCellrowOfGoToStoreCell,
-    typeCellrowOflocaCell,
-};
+ 
 @interface DetailFindGoodsViewController ()
 <   UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate,DetailWebViewCellDelegate,
-    UIWebViewDelegate
+    ZFGoodsFooterViewDelegate
 >
 {
     NSString * _goodsName;
@@ -77,7 +73,6 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 @property (nonatomic,strong) UITableView * list_tableView;
 @property (nonatomic,strong) UIView      * headerView;
-@property (nonatomic,strong) UIView      * footerView;
 @property (nonatomic,strong) UIView      * popView;
 @property (nonatomic,strong) UIView      * BgView;//背景view
 
@@ -96,6 +91,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 @property (nonatomic,strong) SkuFooterReusableView * skufooterView;
 @property (nonatomic,strong) NSIndexPath           * indexPath;//记录选择的index
+@property (nonatomic,strong) ZFGoodsFooterView     * tbFootView;
+
+
 
 //弹框地图指定到位置
 @property (nonatomic ,strong) NSMutableArray * typeCellArr;
@@ -126,7 +124,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 {
     self.title = @"商品详情";
     
-    self.list_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-49) style:UITableViewStylePlain];
+    self.list_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-50) style:UITableViewStylePlain];
     self.list_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.list_tableView];
     
@@ -152,11 +150,9 @@ typedef NS_ENUM(NSUInteger, typeCell) {
  */
 -(void)settingHeaderViewAndFooterView
 {
-    
-    UIView * tempView = [[NSBundle mainBundle]loadNibNamed:@"ZFGoodsFooterView" owner:self options:nil].lastObject;
-    self.footerView   = [[UIView alloc]initWithFrame:CGRectMake(0, KScreenH-49, KScreenW, 49)];
-    [self.footerView addSubview: tempView];
-    [self.view addSubview:self.footerView];
+    self.tbFootView = [[ZFGoodsFooterView alloc]initWithFootViewFrame:CGRectMake(0, KScreenH - 50, KScreenW, 50)];
+    self.tbFootView.delegate = self;
+    [self.view addSubview:self.tbFootView];
     
     //收藏按钮
     collectButton  =[ UIButton buttonWithType:UIButtonTypeCustom];
@@ -168,13 +164,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     //自定义button必须执行
     UIBarButtonItem *rightItem             = [[UIBarButtonItem alloc] initWithCustomView:collectButton];
     self.navigationItem.rightBarButtonItem = rightItem;
-    
-    self.contactService = [tempView viewWithTag:2001];//客服
-    self.addShopCar     = [tempView viewWithTag:2002];//加入购物车
-    self.rightNowGo     = [tempView viewWithTag:2003];//立即抢购
-    
-    [self.rightNowGo addTarget:self action:@selector(rightNowGo:) forControlEvents:UIControlEventTouchUpInside];
-    [self.addShopCar addTarget:self action:@selector(addShopCar:) forControlEvents:UIControlEventTouchUpInside];
+ 
     
 }
 #pragma mark - 轮播图
@@ -200,28 +190,29 @@ typedef NS_ENUM(NSUInteger, typeCell) {
     
 }
 
-#pragma mark - 立即抢购
--(void)rightNowGo:(UIButton *)sender
+#pragma mark - ZFGoodsFooterViewDelegate 底部的视图的dedegate
+//客服
+-(void)didClickContactRobotView
 {
-#warning  ----- 立即抢购 没传值
-    ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
-    
-    if (self.productSkuArray.count > 0) {
-        
-        //先选规格  在传值
-        [self popActionView];
-        
-    }else{
-        //没有规格 - 直接传值
-        
-        vc.userGoodsInfoJSON = _noReluArray;//没有规格的数组
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    
-    
+    NSLog(@"点击了客服");
+}
+#pragma mark - 店铺
+-(void)didClickStoreiew
+{
+    NSLog(@"进入店铺");
+    DetailStoreViewController * storeVC = [[DetailStoreViewController alloc]init];
+    storeVC.storeId = _storeId;
+    [self.navigationController pushViewController:storeVC animated:NO];
+}
+#pragma mark - 购物车
+-(void)didClickShoppingCariew
+{
+    ZFShoppingCarViewController * shopVC = [[ZFShoppingCarViewController alloc]init];
+    [self.navigationController pushViewController:shopVC animated:NO];
 }
 #pragma mark - 加入购物车- 不选择规格
--(void)addShopCar:(UIButton * )sender
+//加入购物车
+-(void)didClickAddShoppingCarView
 {
     //没有规格 - 直接加入购物车
     
@@ -235,8 +226,26 @@ typedef NS_ENUM(NSUInteger, typeCell) {
         
     }
     
-    
 }
+#pragma mark -  立即购买
+-(void)didClickBuyNowView
+{
+    ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
+    
+    if (self.productSkuArray.count > 0) {
+        
+        //先选规格  在传值
+        [self popActionView];
+        
+    }else{
+        //没有规格 - 直接传值
+        
+        vc.userGoodsInfoJSON = _noReluArray;//没有规格的数组
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+
 #pragma mark -SecondAddShopCar 加入购物车选择规格
 -(void)SecondAddShopCar:(UIButton *)button
 {
@@ -305,141 +314,190 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        
-        return 68;
-        
-    }
-    else if (indexPath.row == 1) {
-        
-        return 41;
-    }
-    else if (indexPath.row == 2) {
-        
-        return 40;
-        
-    }
-    else if (indexPath.row == 3) {
-        
-        return 44;
-        
-    }
-    else if (indexPath.row == 4) {
-        
-        return 56;
-        
-    }
-    else if (indexPath.row == 5)
-    {
-        return 44;
-        
-    }
-    else{
-        NSLog(@" 当前cell的高度 =======  %f",_webViewHeight);
+    CGFloat height = 0;
+    switch (indexPath.row) {
+        case 0:
+            height = 68;
+            break;
+       
+        case 1:
+            
+            
+            if (self.productSkuArray != nil && ![self.productSkuArray isKindOfClass:[NSNull class]] && self.productSkuArray.count != 0){
+                height = 41;
 
-        return _webViewHeight;
+            }else{
+                height = 0;
+ 
+            }
+            break;
+            
+        case 2:
+            height = 44;
+            break;
+            
+        case 3:
+            height = 44;
+            break;
+            
+        case 4:
+            height = 54;
+            break;
+            
+        case 5:
+            height = 44;
+            break;
+            
+        case 6:
+            NSLog(@" 当前cell的高度 =======  %f",_webViewHeight);
 
+            height = _webViewHeight;
+            break;
+            
+        default:
+            break;
     }
-    
+    return height;
 }
 
 #pragma mark  - UITableViewDataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if (indexPath.row == typeCellrowOftitleCell) {
-        
-        ZFTitleAndChooseListCell  * listCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFTitleAndChooseListCell" forIndexPath:indexPath];
-        listCell.selectionStyle              = UITableViewCellSelectionStyleNone;
-        listCell.lb_title.text               = _goodsName;
-        listCell.lb_price.text               = [NSString stringWithFormat:@"¥%@",_priceRange];
-        listCell.lb_sales.text               = [NSString stringWithFormat:@"已售%ld件",_goodsSales];
-        return listCell;
-        
-    }
-    else if (indexPath.row == typeCellrowgoodsSelectedCell) {
-        
-        
-        DetailgoodsSelectCell  *  selectCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"DetailgoodsSelectCell" forIndexPath:indexPath];
-        
+    switch (indexPath.row) {
+        case 0:
+        {
+            
+            ZFTitleAndChooseListCell  * listCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFTitleAndChooseListCell" forIndexPath:indexPath];
+            listCell.selectionStyle              = UITableViewCellSelectionStyleNone;
+            listCell.lb_title.text               = _goodsName;
+            listCell.lb_price.text               = [NSString stringWithFormat:@"¥%@",_priceRange];
+            listCell.lb_sales.text               = [NSString stringWithFormat:@"已售%ld件",_goodsSales];
+            return listCell;
+            
+        }
+
+            break;
+      
+        case 1:
+        {
+            DetailgoodsSelectCell  *  selectCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"DetailgoodsSelectCell" forIndexPath:indexPath];
+            
+            if (self.productSkuArray != nil && ![self.productSkuArray isKindOfClass:[NSNull class]] && self.productSkuArray.count != 0){
 #warning  -  暂时死数据
-        selectCell.lb_selectSUK.text = [NSString stringWithFormat:@"请选择规格"];
-        selectCell.selectionStyle    = UITableViewCellSelectionStyleNone;
-        
-        return selectCell;
+                selectCell.lb_selectSUK.text = [NSString stringWithFormat:@"请选择规格"];
+                selectCell.selectionStyle    = UITableViewCellSelectionStyleNone;
+                
+                selectCell.hidden = NO;
+            }else{
+                
+                selectCell.hidden = YES;
+            }
+            return selectCell;
+
+        }
+            break;
+        case 2:
+        {
+            ZFbabyEvaluateCell  *  babyCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
+            babyCell.lb_commonCount.text    = [NSString stringWithFormat:@"(%@)",_commentNum];
+            babyCell.selectionStyle         = UITableViewCellSelectionStyleNone;
+            
+            return babyCell;
+        }
+            break;
+        case 3:
+        {
+
+            ZFLoctionNavCell  *  locaCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFLoctionNavCell" forIndexPath:indexPath];
+            locaCell.selectionStyle       = UITableViewCellSelectionStyleNone;
+            [locaCell.whereTogo addTarget:self action:@selector(whereTogoMap:) forControlEvents:UIControlEventTouchUpInside];
+            [locaCell.contactPhone addTarget:self action:@selector(contactPhone:) forControlEvents:UIControlEventTouchUpInside];
+            
+            return locaCell;
+
+        }
+            break;
+        case 4:
+        {
+            ZFLocationGoToStoreCell  *  goToStoreCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFLocationGoToStoreCell" forIndexPath:indexPath];
+            goToStoreCell.selectionStyle              = UITableViewCellSelectionStyleNone;
+            CGFloat juli                              = [_juli floatValue]*0.001;
+            goToStoreCell.lb_address.text             = [NSString stringWithFormat:@"%@  %.2fkm",_address,juli];
+            goToStoreCell.lb_storeName.text           = _storeName;
+            
+            return goToStoreCell;
+            
+        }
+            break;
+        case 5:
+        {
+            ZFbabyEvaluateCell  *  goodsDetailCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
+            goodsDetailCell.selectionStyle         = UITableViewCellSelectionStyleNone;
+            goodsDetailCell.lb_title.text          = @"宝贝详情";
+            [goodsDetailCell.lb_commonCount removeFromSuperview];
+            [goodsDetailCell.img_arrowRight removeFromSuperview];
+            
+            return goodsDetailCell;
+
+        }
+            break;
+        case 6:
+        {
+            _webCell.HTMLString = _goodsDetail;//网址
+            _webCell.delegate = self;
+            return _webCell;
+        }
+            break;
+        default:
+            break;
     }
-    else if (indexPath.row == typeCellrowOfbabyCell) {
-        
-        ZFbabyEvaluateCell  *  babyCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
-        babyCell.lb_commonCount.text    = [NSString stringWithFormat:@"(%@)",_commentNum];
-        babyCell.selectionStyle         = UITableViewCellSelectionStyleNone;
-        
-        return babyCell;
-        
-        
-    }
-    else if (indexPath.row == typeCellrowOflocaCell) {
-        
-        ZFLocationGoToStoreCell  *  goToStoreCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFLocationGoToStoreCell" forIndexPath:indexPath];
-        goToStoreCell.selectionStyle              = UITableViewCellSelectionStyleNone;
-        CGFloat juli                              = [_juli floatValue]*0.001;
-        goToStoreCell.lb_address.text             = [NSString stringWithFormat:@"%@  %.2fkm",_address,juli];
-        goToStoreCell.lb_storeName.text           = _storeName;
-        
-        return goToStoreCell;
-        
-    }
-    else if (indexPath.row == typeCellrowOfGoToStoreCell) {
-        
-        ZFLoctionNavCell  *  locaCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFLoctionNavCell" forIndexPath:indexPath];
-        locaCell.selectionStyle       = UITableViewCellSelectionStyleNone;
-        [locaCell.whereTogo addTarget:self action:@selector(whereTogoMap:) forControlEvents:UIControlEventTouchUpInside];
-        [locaCell.contactPhone addTarget:self action:@selector(contactPhone:) forControlEvents:UIControlEventTouchUpInside];
-        
-        return locaCell;
-        
-    }
-    else if (indexPath.row == 5)
-    {
-        ZFbabyEvaluateCell  *  goodsDetailCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
-        goodsDetailCell.selectionStyle         = UITableViewCellSelectionStyleNone;
-        goodsDetailCell.lb_title.text          = @"宝贝详情";
-        [goodsDetailCell.lb_commonCount removeFromSuperview];
-        [goodsDetailCell.img_arrowRight removeFromSuperview];
-        
-        return goodsDetailCell;
-        
-        
-    }
-    else{
-        _webCell.HTMLString = _goodsDetail;//网址
-        _webCell.delegate = self;
-        return _webCell;
-        
-    }
-    
+ 
+ 
+    return  _webCell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section = %ld,row == %ld",indexPath.section ,indexPath.row);
-    
-    if (indexPath.row == 1) {
-        
-        if (self.productSkuArray.count > 0) {
+    switch (indexPath.row) {
+        case 0:
+            break;
             
-            [self popActionView];
+        case 1:
+            if (self.productSkuArray.count > 0) {
+                
+                [self popActionView];
+            }            break;
+            
+        case 2:
+            //评论列表
+        {
+            ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
+            evc.goodsId                    = _goodsId;
+            [self.navigationController pushViewController:evc animated:YES];
         }
+ 
+            break;
+            
+        case 3:
+
+            break;
+            
+        case 4:
+            break;
+            
+        case 5:
+            break;
+            
+        case 6:
+            
+            break;
+            
+        default:
+            break;
     }
-    
-    else if (indexPath.row == 2) {
-        
-        //评论列表
-        ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
-        evc.goodsId                    = _goodsId;
-        [self.navigationController pushViewController:evc animated:YES];
-        
-    }
+
+
 }
 
 
@@ -1354,7 +1412,7 @@ typedef NS_ENUM(NSUInteger, typeCell) {
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [self removeWebCache];
+
 }
 
 /*

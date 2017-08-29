@@ -29,7 +29,7 @@
         //self.navigationController.navigationBar.translucent = NO;
         self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
         
-        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xfe6d6a),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xfe6d6a),NSFontAttributeName:[UIFont systemFontOfSize:16.0]}];
         
     }
     self.view.backgroundColor = [UIColor  whiteColor];

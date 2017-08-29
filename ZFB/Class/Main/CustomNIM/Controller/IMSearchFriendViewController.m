@@ -49,6 +49,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    
     [self.view addSubview:self.tableView];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"IMSearchCell" bundle:nil] forCellReuseIdentifier:@"IMSearchCell"];
@@ -131,7 +132,15 @@
     NSLog(@"searchText ==== %@",searchText);
  
     searchNum = searchText;
-
+    
+    if (self.searchBar.text.length > 0) {
+        
+        [self.tableView setHidden:NO];
+    }
+    else{
+        [self.tableView setHidden:YES];
+        
+    }
     [self.tableView reloadData];
     
     
@@ -145,7 +154,12 @@
  
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController.navigationBar setBarTintColor:RGBA(244, 244, 244, 1.0)];
 
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

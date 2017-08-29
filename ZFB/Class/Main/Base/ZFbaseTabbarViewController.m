@@ -11,9 +11,9 @@
 #import "ZFHomeViewController.h"
 #import "ZFShoppingCarViewController.h"
 #import "ZFPersonalViewController.h"
-#import "ZFCInterpersonalCircleViewController.h"
+#import "ZFCInterpersonalCircleViewController.h"//消息总控制器
+#import "ShareCircleViewController.h" //分享圈
 
-#import "AppDelegate.h"
 @interface ZFbaseTabbarViewController ()
 
 @end
@@ -39,11 +39,7 @@
     // 选中状态
     [tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f],NSForegroundColorAttributeName : HEXCOLOR(0xfe6d6a)} forState:UIControlStateSelected];
     
-    // 高亮状态
-    //    [tabBarItem setTitleTextAttributes:@{} forState:UIControlStateHighlighted];
-    
-    // 不可用状态(disable)
-    //    [tabBarItem setTitleTextAttributes:@{} forState:UIControlStateDisabled];
+
 }
 
 + (void)setupTabBarTheme {
@@ -66,13 +62,13 @@
 
     
     ZFHomeViewController* homeVC = [ZFHomeViewController new];
-    [self addOneChildVc:homeVC title:@"零售商" imageName:@"shopkeeper" selectedImageName:@"shopkeeper_selected"];
+    [self addOneChildVc:homeVC title:@"新零售" imageName:@"shopkeeper" selectedImageName:@"shopkeeper_selected"];
     
     ZFCInterpersonalCircleViewController *circleVC = [ZFCInterpersonalCircleViewController new];
-    [self addOneChildVc:circleVC title:@"人际圈" imageName:@"circle" selectedImageName:@"circle_selected"];
+    [self addOneChildVc:circleVC title:@"消息" imageName:@"circle" selectedImageName:@"circle_selected"];
     
-    ZFShoppingCarViewController *shopVC = [ZFShoppingCarViewController new];
-    [self addOneChildVc:shopVC title:@"购物车" imageName:@"shoppingCar" selectedImageName:@"shoppingCar_selected"];
+    ShareCircleViewController *shopVC = [ShareCircleViewController new];
+    [self addOneChildVc:shopVC title:@"分享圈" imageName:@"shoppingCar" selectedImageName:@"shoppingCar_selected"];
     
     ZFPersonalViewController *meVc = [ZFPersonalViewController new];
     [self addOneChildVc:meVc title:@"我的" imageName:@"mine" selectedImageName:@"mine_selected"];

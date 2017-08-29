@@ -171,7 +171,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
  
             cell.img_headView.image = (UIImage *)data;
             _userImgAttachUrl = [ZZYPhotoHelper shareHelper].imgName;
-            NSLog(@"[ZZYPhotoHelper shareHelper].imgName = = %@",[ZZYPhotoHelper shareHelper].imgName);
+            NSLog(@" 222222222 [ZZYPhotoHelper shareHelper].imgName = = %@",[ZZYPhotoHelper shareHelper].imgName);
         }];
  
     }
@@ -283,13 +283,13 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getUserInfoUpdate",zfb_baseUrl] params:param success:^(id response) {
         if ([response[@"resultCode"] intValue] == 0) {
             
-            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
             //保存成功后不可以修改
             _isSelectCount = YES;  //Yes 默认为只能执行一次
  
         }
         [SVProgressHUD dismiss];
- 
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
         
     } progress:^(NSProgress *progeress) {
         
@@ -300,6 +300,11 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         NSLog(@"error=====%@",error);
     }];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.tableView reloadData];
 }
 
 @end

@@ -89,9 +89,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 -(void)viewWillDisappear:(BOOL)animated
 {
     [SVProgressHUD dismiss];
-    
 }
-
 
 
 #pragma mark - didClickClearingShoppingCar 购物车结算
@@ -546,7 +544,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 {
     if (!_shopCar_tableview) {
         self.title                        = @"购物车";
-        _shopCar_tableview =[[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-49*2) style:UITableViewStyleGrouped];
+        _shopCar_tableview =[[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-49) style:UITableViewStyleGrouped];
         _shopCar_tableview.delegate       = self;
         _shopCar_tableview.dataSource     = self;
         _shopCar_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -558,7 +556,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 -(UIView *)underFootView
 {
     if (!_underFootView) {
-        _underFootView                 = [[UIView alloc]initWithFrame:CGRectMake(0, KScreenH -49-49, KScreenW,  KScreenH -49-49-64)];
+        _underFootView                 = [[UIView alloc]initWithFrame:CGRectMake(0, KScreenH -49, KScreenW,  KScreenH -49-64)];
         _underFootView.backgroundColor = [UIColor whiteColor];
         
         NSString *caseOrder = @"合计:";
@@ -608,7 +606,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         _allSelectedButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_allSelectedButton addTarget:self action:@selector(clickAllGoodsSelected:) forControlEvents:UIControlEventTouchUpInside];
         [_allSelectedButton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
-        [_allSelectedButton setImage:[UIImage imageNamed:@"select_selected"] forState:UIControlStateSelected];
+        [_allSelectedButton setImage:[UIImage imageNamed:@"select_red"] forState:UIControlStateSelected];
         [_underFootView addSubview:_allSelectedButton];
         
         [_allSelectedButton mas_makeConstraints:^(MASConstraintMaker *make) {

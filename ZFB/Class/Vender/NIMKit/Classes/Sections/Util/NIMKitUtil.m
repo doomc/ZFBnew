@@ -152,7 +152,7 @@
 
 
 + (NSString *)notificationMessage:(NIMMessage *)message{
-    NIMNotificationObject *object = message.messageObject;
+    NIMNotificationObject *object = (NIMNotificationObject*) message.messageObject;
     switch (object.notificationType) {
         case NIMNotificationTypeTeam:{
             return [NIMKitUtil teamNotificationFormatedMessage:message];
@@ -171,7 +171,7 @@
 
 + (NSString*)teamNotificationFormatedMessage:(NIMMessage *)message{
     NSString *formatedMessage = @"";
-    NIMNotificationObject *object = message.messageObject;
+    NIMNotificationObject *object = (NIMNotificationObject *)message.messageObject;
     if (object.notificationType == NIMNotificationTypeTeam)
     {
         NIMTeamNotificationContent *content = (NIMTeamNotificationContent*)object.content;
@@ -301,7 +301,7 @@
 
 
 + (NSString *)netcallNotificationFormatedMessage:(NIMMessage *)message{
-    NIMNotificationObject *object = message.messageObject;
+    NIMNotificationObject *object = (NIMNotificationObject*) message.messageObject;
     NIMNetCallNotificationContent *content = (NIMNetCallNotificationContent *)object.content;
     NSString *text = @"";
     NSString *currentAccount = [[NIMSDK sharedSDK].loginManager currentAccount];
@@ -333,7 +333,7 @@
 
 
 + (NSString *)chatroomNotificationFormatedMessage:(NIMMessage *)message{
-    NIMNotificationObject *object = message.messageObject;
+    NIMNotificationObject *object = (NIMNotificationObject*)message.messageObject;
     NIMChatroomNotificationContent *content = (NIMChatroomNotificationContent *)object.content;
     NSMutableArray *targetNicks = [[NSMutableArray alloc] init];
     for (NIMChatroomNotificationMember *memebr in content.targets) {
@@ -442,7 +442,7 @@
 #pragma mark - Private
 + (NSString *)teamNotificationSourceName:(NIMMessage *)message{
     NSString *source;
-    NIMNotificationObject *object = message.messageObject;
+    NIMNotificationObject *object =(NIMNotificationObject*) message.messageObject;
     NIMTeamNotificationContent *content = (NIMTeamNotificationContent*)object.content;
     NSString *currentAccount = [[NIMSDK sharedSDK].loginManager currentAccount];
     if ([content.sourceID isEqualToString:currentAccount]) {
@@ -455,7 +455,7 @@
 
 + (NSArray *)teamNotificationTargetNames:(NIMMessage *)message{
     NSMutableArray *targets = [[NSMutableArray alloc] init];
-    NIMNotificationObject *object = message.messageObject;
+    NIMNotificationObject *object = (NIMNotificationObject*)message.messageObject;
     NIMTeamNotificationContent *content = (NIMTeamNotificationContent*)object.content;
     NSString *currentAccount = [[NIMSDK sharedSDK].loginManager currentAccount];
     for (NSString *item in content.targetIDs) {

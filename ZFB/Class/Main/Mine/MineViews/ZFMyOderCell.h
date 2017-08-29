@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface ZFMyOderCell : UITableViewCell
+
+
 @property (weak, nonatomic) IBOutlet UIImageView *order_imgicon;
 
 @property (weak, nonatomic) IBOutlet UILabel *order_title;
-
 
 @property (weak, nonatomic) IBOutlet UILabel *order_hiddenTitle;
 

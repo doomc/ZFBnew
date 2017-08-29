@@ -201,6 +201,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
         
         if (_tf_verificationCodeOrPassWord == textfiled) {
             
+            _smsCode = _tf_verificationCodeOrPassWord.text;
             //当账号与密码同时有值,登录按钮才能够点击
             if ( _tf_verificationCodeOrPassWord.text.length > 0) {
                 self.login_btn.enabled = YES;
@@ -427,7 +428,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/quickLogin",zfb_baseUrl] params:parma success:^(id response) {
       
         //xuelian 17749920847
-
+        //QUCNUKH6P8T2UAN4
         if ([response[@"resultCode"] isEqualToString:@"0" ]) {
             BBUserDefault.isLogin = 1;
             
@@ -439,7 +440,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.accid = response[@"userInfo"][@"accid"];
 
             NSLog(@" ======= signMD5Key=======%@", BBUserDefault.userKeyMd5 );
-            
             [self left_button_event];
         }
 
@@ -472,7 +472,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/login",zfb_baseUrl] params:parma success:^(id response) {
         
-//        if ([response[@"resultCode"] isEqualToString:@"0" ]) {
+        if ([response[@"resultCode"] isEqualToString:@"0" ]) {
             //设置全局变量
             BBUserDefault.isLogin = 1;
             BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
@@ -483,7 +483,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.accid = response[@"userInfo"][@"accid"];
             [self left_button_event];
     
-//        }
+        }
         NSLog(@" ======= userKeyMd5=======%@",BBUserDefault.userKeyMd5 );
         [self.view makeToast:response [@"resultMsg"] duration:2 position:@"center"];
         

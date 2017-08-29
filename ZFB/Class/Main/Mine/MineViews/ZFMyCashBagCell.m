@@ -15,7 +15,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-   
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
     // 点击账户余额
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBalanceView:)];
     tap.delegate = self;

@@ -40,7 +40,6 @@
     }];
 }
 
-
 +(void)post:(NSString *)url params:(NSDictionary *)params
                             success:(void (^)(id response))success
                             progress:(void (^)(NSProgress * progeress))progeress
@@ -73,8 +72,8 @@
  
                 NSString *result = [NSString convertToJsonData:responseObject];
                 NSLog(@"%@",result);
-
-//                if ([responseObject[@"resultCode"]isEqualToString:@"2"] || [responseObject[@"resultCode"]isEqualToString:@"3"]) {
+//
+//                if ([responseObject[@"resultCode"]isEqualToString:@"3"] ||[responseObject[@"resultCode"] intValue] == 3 ) {
 //                    BBUserDefault.isLogin = 0;
 //                }
 //                if ([responseObject[@"resultCode"]isEqualToString:@"0"]) {

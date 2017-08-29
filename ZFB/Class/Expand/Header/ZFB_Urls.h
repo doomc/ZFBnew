@@ -22,21 +22,29 @@
 
 
 #pragma mark -------------正式服务器--------------------
-//baseURL
-#define  zfb_baseUrl @"http://14.29.47.144:8087/zfb/InterfaceServlet"
-//单聊
-#define  IMsingle_baseUrl @"http://14.29.47.144:8087/im/user"
-//群聊
-#define  IMGroup_baseUrl @"http://14.29.47.144:8087/group"
+////baseURL
+//#define  zfb_baseUrl @"http://14.29.47.144:8087/zfb/InterfaceServlet"
+////单聊
+//#define  IMsingle_baseUrl @"http://14.29.47.144:8087/im/user"
+////群聊
+//#define  IMGroup_baseUrl @"http://14.29.47.144:8087/group"
+//
 
- 
-#pragma mark -------------测试服务器数--------------------
+#pragma mark -------------CQD测试服务器数--------------------
 ////baseURL
 //#define  zfb_baseUrl @"http://192.168.1.107:8087/zfb/InterfaceServlet"
 ////单聊
 //#define  IMsingle_baseUrl @"http://192.168.1.107:8087/im/user"
 ////群聊
 //#define  IMGroup_baseUrl @"http://192.168.1.107:8087/group"
+
+#pragma mark -------------测试服务器数--------------------
+//baseURL
+#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
+//单聊
+#define  IMsingle_baseUrl @"http://192.168.1.113:8087/im/user"
+//群聊
+#define  IMGroup_baseUrl @"http://192.168.1.113:8087/group"
 
 
 

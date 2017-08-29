@@ -223,6 +223,9 @@
 #pragma mark - 门店详情网络商品列表 getGoodsDetailsInfo用于门店详情的接口
 -(void)detailListStorePostRequst
 {
+    if (BBUserDefault.cmUserId == nil || BBUserDefault.cmUserId == NULL ||[BBUserDefault.cmUserId  isKindOfClass:[NSNull class]]) {
+        BBUserDefault.cmUserId = @"";
+    }
     NSDictionary * parma = @{
                              
                              @"storeId":_storeId,//门店id

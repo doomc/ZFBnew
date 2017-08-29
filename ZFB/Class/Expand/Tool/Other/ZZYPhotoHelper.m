@@ -101,7 +101,7 @@ static ZZYPhotoHelper *picker = nil;
         [OSSImageUploader asyncUploadImage:theImage complete:^(NSArray<NSString *> *names, UploadImageState state) {
             
             [ZZYPhotoHelper shareHelper].imgName = names[0];
-            NSLog(@"[ZZYPhotoHelper shareHelper].imgName  %@ ",names);
+            NSLog(@" 11111 [ZZYPhotoHelper shareHelper].imgName  %@ ",names);
         }];
     }];
 }

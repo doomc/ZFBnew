@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="53.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BLACK MONDAY龙湖旗舰店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YG1-C0-LQx">
@@ -34,10 +34,10 @@
                         <rect key="frame" x="293" y="21" width="12" height="12"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGM-PI-Pne">
-                        <rect key="frame" x="0.0" y="51.5" width="320" height="1"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                         <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="z9w-Lk-j2g"/>
+                            <constraint firstAttribute="height" constant="1" id="STE-iR-O0M"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -45,15 +45,15 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="oGM-PI-Pne" secondAttribute="bottom" constant="1" id="4Pw-aZ-He8"/>
+                    <constraint firstItem="oGM-PI-Pne" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2od-bL-mte"/>
                     <constraint firstItem="Ic6-0K-g6m" firstAttribute="leading" secondItem="YG1-C0-LQx" secondAttribute="leading" id="5wK-e0-R9O"/>
                     <constraint firstAttribute="trailing" secondItem="zEw-Pf-aCh" secondAttribute="trailing" constant="15" id="F6K-aQ-fax"/>
                     <constraint firstAttribute="trailing" secondItem="YG1-C0-LQx" secondAttribute="trailing" constant="30" id="ISw-XD-c1O"/>
-                    <constraint firstAttribute="trailing" secondItem="oGM-PI-Pne" secondAttribute="trailing" id="PBk-Lo-nS1"/>
                     <constraint firstItem="zEw-Pf-aCh" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ZU9-SV-4rc"/>
+                    <constraint firstAttribute="trailing" secondItem="oGM-PI-Pne" secondAttribute="trailing" id="bEk-XT-3YQ"/>
                     <constraint firstItem="YG1-C0-LQx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="hMP-qd-W1f"/>
                     <constraint firstItem="Ic6-0K-g6m" firstAttribute="top" secondItem="YG1-C0-LQx" secondAttribute="bottom" constant="5" id="hsm-Tp-Qgs"/>
-                    <constraint firstItem="oGM-PI-Pne" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lLA-R2-YEi"/>
+                    <constraint firstItem="oGM-PI-Pne" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="iyK-Ef-ayf"/>
                     <constraint firstItem="YG1-C0-LQx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="rbd-RZ-pgR"/>
                 </constraints>
             </tableViewCellContentView>
@@ -61,7 +61,7 @@
                 <outlet property="lb_address" destination="Ic6-0K-g6m" id="3xM-Jy-Pnv"/>
                 <outlet property="lb_storeName" destination="YG1-C0-LQx" id="nvO-6g-XyF"/>
             </connections>
-            <point key="canvasLocation" x="-54" y="-3"/>
+            <point key="canvasLocation" x="-55" y="10"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -33,6 +33,7 @@
 #import "ZFSettingHeadViewController.h"//设置个人信息
 #import "ZFFeedbackViewController.h"//意见反馈
 #import "MineWalletViewController.h"//钱包
+#import "ZFShoppingCarViewController.h"//购物车
 //base
 #import "ZFBaseNavigationViewController.h"
 
@@ -44,7 +45,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     TypeCellOfMyOderCell,
 };
 @interface ZFPersonalViewController ()<UITableViewDelegate,UITableViewDataSource,ZFMyProgressCellDelegate,PersonalHeaderViewDelegate,
-    ZFMyCashBagCellDelegate
+ZFMyCashBagCellDelegate
 
 
 >
@@ -59,6 +60,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 @property (nonatomic,copy) NSString * courierFlag   ;//判断是否是快递员 1/0
 @property (nonatomic,copy) NSString * storeId   ;///*******重要     商户端配送端都要的**********
 @property (nonatomic,copy) NSString * balance   ;///余额
+@property (nonatomic,copy) NSString * userImgAttachUrl   ;///头像URL
 
 
 
@@ -84,7 +86,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     self.headview.delegate           = self;
     self.headview.unloginView        = [self.headview viewWithTag:911];//没登录之前的图
     self.headview.loginView          = [self.headview viewWithTag:912];//登录后的图
-
+    
     [self initmyTableViewInterface];
     
 }
@@ -112,7 +114,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(UITableView *)myTableView
 {
     if (!_myTableView) {
-        _myTableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH) style:UITableViewStylePlain];
+        _myTableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -64) style:UITableViewStylePlain];
         _myTableView.delegate       = self;
         _myTableView.dataSource     = self;
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -122,16 +124,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 
 -(void)initmyTableViewInterface
 {
-    
- 
-    //自定义导航按钮
-    UIButton  * right_btn  =[ UIButton buttonWithType:UIButtonTypeCustom];
-    right_btn.frame = CGRectMake(0, 0, 30, 30);
-    [right_btn setBackgroundImage:[UIImage imageNamed:@"im_massage"] forState:UIControlStateNormal];
-    [right_btn addTarget:self action:@selector(im_messageTag:) forControlEvents:UIControlEventTouchUpInside];
-    //自定义button必须执行
-    UIBarButtonItem *rightItem             = [[UIBarButtonItem alloc] initWithCustomView:right_btn];
-    self.navigationItem.rightBarButtonItem = rightItem;
     
     UIButton  * left_btn  =[ UIButton buttonWithType:UIButtonTypeCustom];
     left_btn.frame = CGRectMake(0, 0, 30, 30);
@@ -144,21 +136,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 }
 
 
-/**
- 消息列表
- 
- @param sender 消息列表
- */
--(void)im_messageTag:(UIButton*)sender
-{
-    NSLog(@"消息列表");
-    if (BBUserDefault.isLogin == 1) {
-        
-    }else{
-        
-//        [self isloginSuccess];
-    }
-}
 
 /**
  设置
@@ -168,15 +145,15 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)im_SettingTag:(UIButton *)sender{
     NSLog(@"设置");
     if (BBUserDefault.isLogin == 1) {
-       
+        
         ZFSettingViewController * settingVC = [[ZFSettingViewController alloc]init];
         [self.navigationController pushViewController:settingVC animated:YES];
         
     }else{
-
+        
         [self isloginSuccess];
     }
-
+    
     
 }
 
@@ -188,122 +165,190 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 6;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ( indexPath.row ==0) {
-        
-        return 111;
-        
+    CGFloat height = 0;
+    switch (indexPath.row) {
+        case 0:
+            height = 112;
+            
+            break;
+        case 1:
+            height =  100;
+            
+            break;
+            
+        case 2:
+            height = 50;
+            
+            break;
+            
+        case 3:
+            height = 50;
+            
+            break;
+            
+        case 4:
+            if ([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) {
+                
+                height = 0;
+            }else{
+                height = 50;
+            }
+            break;
+            
+        case 5:
+            height = 50;
+            
+            break;
+
     }
-    else if ( indexPath.row == 1 ) {
-        
-        return 100;
-        
-    }else{
-        
-        return 50;
-    }
+    return height;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if (indexPath.row == 0 ) {
-        ZFMyCashBagCell  * cashCell = [ self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyCashBagCell" forIndexPath:indexPath];
-        cashCell.selectionStyle     = UITableViewCellSelectionStyleNone;
-        
-        return cashCell;
-        
-    }
-    
-    else if (indexPath.row == 1) {
-        ZFMyProgressCell * pressCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyProgressCell" forIndexPath:indexPath];
-        
-        pressCell.delegate       = self;
-        pressCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return pressCell;
-        
-    }
-    
-    else if (indexPath.row == 2) {
-        
-        ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
-        
-        orderCell.order_imgicon.image =[UIImage imageNamed:@"order_icon"];
-        orderCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return orderCell;
-    }
-    else if (indexPath.row ==3) {
-        
-        ZFMyOderCell * orderCell           = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
-        orderCell.selectionStyle           = UITableViewCellSelectionStyleNone;
-        orderCell.order_imgicon.image =[UIImage imageNamed:@"switchover_icon"];
-        orderCell.order_hiddenTitle.hidden = YES;
-
-        if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
-          orderCell.order_title.text         = @"切换到商户端";
-        
+     switch (indexPath.row) {
+        case 0:
+        {
+            ZFMyCashBagCell  * cashCell = [ self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyCashBagCell" forIndexPath:indexPath];
+            return cashCell;
         }
-        if ([_courierFlag isEqualToString:@"1"]) {//配送端
-            orderCell.order_title.text         = @"切换到配送端";
-
+            break;
+        case 1:
+        {
+            ZFMyProgressCell * pressCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyProgressCell" forIndexPath:indexPath];
+            pressCell.delegate    = self;
+            return pressCell;
         }
-        return orderCell;
+            break;
+            
+        case 2:
+        {
+            ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
+            
+            orderCell.order_imgicon.image =[UIImage imageNamed:@"order_icon"];
+            orderCell.order_title.text = @"全部订单";
+            
+            return orderCell;
+        }
+            break;
+            
+        case 3:
+        {
+            ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
+            
+            orderCell.order_imgicon.image =[UIImage imageNamed:@"settingShopCar"];
+            orderCell.order_title.text = @"购物车";
+            orderCell.order_hiddenTitle.text = @"";
+            
+        }
+            break;
+            
+        case 4:
+        {
+            ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
+            
+            orderCell.order_imgicon.image =[UIImage imageNamed:@"switchover_icon"];
+            orderCell.order_hiddenTitle.hidden = YES;
+            
+            if ([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) {
+                NSLog(@"我是普通用户");
+                [orderCell setHidden:YES];
+            }else{
+                
+                [orderCell setHidden:NO];
+                if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
+                    orderCell.order_title.text         = @"切换到商户端";
+                    
+                }
+                if ([_courierFlag isEqualToString:@"1"]) {//配送端
+                    orderCell.order_title.text         = @"切换到配送端";
+                    
+                }
+            }
+            return orderCell;
+            
+        }
+            break;
+            
+        case 5:
+        {
+            ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
+            
+            orderCell.order_imgicon.image =[UIImage imageNamed:@"write"];
+            orderCell.order_title.text         = @"意见反馈";
+            orderCell.order_hiddenTitle.hidden = YES;
+            return orderCell;
+        }
+            break;
+            
+    }
+    ZFMyOderCell * cell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
+    return cell;
 
-    }
-    else{
-        ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
-        
-        orderCell.selectionStyle           = UITableViewCellSelectionStyleNone;
-        orderCell.order_imgicon.image =[UIImage imageNamed:@"write"];
-        orderCell.order_title.text         = @"意见反馈";
-        orderCell.order_hiddenTitle.hidden = YES;
-        return orderCell;
-    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section = %ld , row = %ld",indexPath.section,indexPath.row);
-    
-    if (indexPath.row == 2) {//全部订单
-        
-        ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
-        orderVC.buttonTitle =@"全部订单";
-        orderVC.orderStatus = @"";//默认状态
-        [self.navigationController pushViewController:orderVC animated:YES];
-        
-    }
-    if (indexPath.row == 3) {//切换到配送端
-        if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
-
-            //商户端
-            BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
-            businessVC.storeId = _storeId;
-            [self.navigationController pushViewController:businessVC animated:YES];
-
-//
-
+    switch (indexPath.row) {
+        case 0:
+            
+            break;
+        case 1:
+            
+            break;
+        case 2:             //全部订单
+        {
+            ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
+            orderVC.buttonTitle =@"全部订单";
+            orderVC.orderStatus = @"";//默认状态
+            [self.navigationController pushViewController:orderVC animated:NO];
+            
         }
-        if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
-//            配送端
-            ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
-            [self.navigationController pushViewController:sendVC animated:YES];
-//
+            break;
+        case 3:            //购物车
+        {
+            
+            ZFShoppingCarViewController * shopcarVC =[[ZFShoppingCarViewController alloc]init];
+            [self.navigationController pushViewController:shopcarVC animated:NO];
+            
         }
-    
-    }  if (indexPath.row == 4) {//意见反馈
-        
-     
-        ZFFeedbackViewController * feedVC = [[ZFFeedbackViewController alloc]init];
-        [self.navigationController pushViewController:feedVC animated:YES];
-        
+            break;
+        case 4:             //切换到配送端
+        {
+            if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
+                
+                //商户端
+                BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
+                businessVC.storeId = _storeId;
+                [self.navigationController pushViewController:businessVC animated:NO];
+                
+            }
+            if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
+                // 配送端
+                ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
+                [self.navigationController pushViewController:sendVC animated:NO];
+            }
+            
+        }
+            break;
+        case 5: {//意见反馈
+            
+            ZFFeedbackViewController * feedVC = [[ZFFeedbackViewController alloc]init];
+            [self.navigationController pushViewController:feedVC animated:NO];
+            
+        }
+            
+            break;
+        default:
+            break;
     }
+    
+    
 }
-
 #pragma mark - 待付款didClickWaitForPayAction
 ///待付款
 -(void)didClickWaitForPayAction:(UIButton *)button
@@ -319,7 +364,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         [self isloginSuccess];
         
     }
-
+    
 }
 #pragma mark - 已配送didClickSendedAction
 ///已配送
@@ -335,21 +380,21 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         [self isloginSuccess];
         
     }
-   
+    
 }
 #pragma mark - 待评价didClickWaitForEvaluateAction
 ///待评价
 -(void)didClickWaitForEvaluateAction:(UIButton *)button
 {
     if (BBUserDefault.isLogin == 1) {
-      
+        
         ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
         orderVC.orderType   = 5 ;
         orderVC.orderStatus = @"3";
         orderVC.buttonTitle = @"交易完成";
         [self.navigationController pushViewController:orderVC animated:YES];
-
-  
+        
+        
     }else{
         [self isloginSuccess];
         
@@ -362,19 +407,19 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     NSLog(@" push 退货 页面");
     if (BBUserDefault.isLogin == 1) {
-
+        
         ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
         orderVC.orderType   = 7 ;
         orderVC.orderStatus = @"2";
         orderVC.buttonTitle = @"售后申请";
         [self.navigationController pushViewController:orderVC animated:YES];
-            
-
+        
+        
     }else{
         [self isloginSuccess];
-
+        
     }
-
+    
 }
 
 #pragma mark - 收藏
@@ -388,7 +433,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
         NSLog(@" cmUserId  === %@", BBUserDefault.cmUserId);
         [self.navigationController pushViewController:collecVC animated:NO];
- 
+        
     }else{
         
         [self isloginSuccess];
@@ -456,13 +501,13 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 #pragma mark  - 网络请求 getUserInfo
 -(void)minePagePOSTRequste
 {
-    if (BBUserDefault.cmUserId == nil) {
+    if (BBUserDefault.cmUserId == nil || BBUserDefault.cmUserId == NULL) {
         BBUserDefault.cmUserId = @"";
     }
     NSDictionary * parma = @{
                              
                              @"cmUserId":BBUserDefault.cmUserId,
-                              };
+                             };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getUserInfo"] params:parma success:^(id response) {
         
@@ -476,15 +521,16 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             _shopFlag   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"shopFlag"]];//是否是商户
             _courierFlag= [NSString stringWithFormat:@"%@",response[@"userInfo"][@"courierFlag"]];//是否是快递员
             _storeId    = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"storeId"]];
+            _userImgAttachUrl    = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"userImgAttachUrl"]];
             
             BBUserDefault.shopFlag = _shopFlag;
             BBUserDefault.courierFlag = _courierFlag;
-
+            
             //赋值
             self.headview.lb_collectCount.text = _collectNum;
             self.headview.lb_historyCount.text = _foolnum;
             self.headview.lb_userNickname.text = _nickName;
-            
+            [self.headview.img_headview sd_setImageWithURL:[NSURL URLWithString:_userImgAttachUrl] placeholderImage:[UIImage imageNamed:@"avatar_user"]];
         }
         [self.myTableView reloadData];
         
@@ -501,9 +547,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 #pragma mark  - 网络请求 查询展易付余额
 -(void)getThirdBalancePOSTRequste
 {
- 
     NSDictionary * parma = @{
-                             @"account":BBUserDefault.userPhoneNumber,
+                             @"account":@"18602343931",
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/QRCode/getThirdBalance"] params:parma success:^(id response) {
@@ -511,8 +556,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         int resultCode = [response [@"resultCode"] intValue];
         
         if (resultCode == 0) {
- 
-            _balance  = @"";
+            
+            //            _balance  = @"";
             
         }
         [self.myTableView reloadData];
@@ -533,7 +578,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
         [self minePagePOSTRequste];//页面网络请求
         [self getThirdBalancePOSTRequste];//余额查询
-
+        
         //移除登录视图
         _headview.loginView.hidden   = NO;
         _headview.unloginView.hidden = YES;
@@ -547,7 +592,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 //判断是否登录了
 -(void)isloginSuccess
 {
-
+    
     LoginViewController * logvc    = [ LoginViewController new];
     ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
     [self presentViewController:nav animated:NO completion:^{

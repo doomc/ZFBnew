@@ -103,7 +103,11 @@ static NSString * settingCellid = @"ZFSettingCellid";
         
     }
     else if (indexPath.row == 2) {
-        settcell.lb_detailTitle.text = [NSString stringWithFormat:@"已绑定%@",BBUserDefault.userPhoneNumber];
+        if (BBUserDefault.isLogin == 1) {
+            settcell.lb_detailTitle.text = [NSString stringWithFormat:@"已绑定%@",BBUserDefault.userPhoneNumber];
+        }else{
+             settcell.lb_detailTitle.text = @"";
+        }
 
     }
     else if (indexPath.row == 3) {
@@ -185,9 +189,9 @@ static NSString * settingCellid = @"ZFSettingCellid";
             BBUserDefault.isLogin = 0;
             BBUserDefault.token = @"";
             BBUserDefault.cmUserId = @"";
-
             [self loginOutAction];
-            
+            [self.tableView reloadData];
+
 
         }];
         [jxt addAction:left];
@@ -213,6 +217,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    [self.tableView reloadData];
     //默认为登录状态后面根据后台数据返回
     if (BBUserDefault.isLogin == 1) {
         [self.login_btn setTitle:@"退出登录" forState:UIControlStateNormal];
