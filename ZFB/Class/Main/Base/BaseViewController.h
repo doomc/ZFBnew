@@ -51,7 +51,6 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 
 
 -(void)backAction;
--(void)popToViewControllerWithName:(NSString *)name ;
 
 -(UIButton*)set_rightButton;
 -(UIButton*)set_leftButton;
@@ -71,6 +70,9 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 
 /** 取消searchBar背景色 */
 - (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
+
+/** pop到指定页面 */
+-(void)poptoUIViewControllerNibName:(NSString *)controllerName AndObjectIndex:(NSInteger)objectIndex;
 
 
 @end

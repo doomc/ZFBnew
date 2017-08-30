@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ZFbaseTabbarViewController.h"
+
 //云信
 #import "NTESClientUtil.h"
 #import "NTESSessionUtil.h"
@@ -16,7 +17,7 @@
 #import "NTESCustomAttachmentDecoder.h"
 #import "NTESNotificationCenter.h"
 #import "NTESSubscribeManager.h"
-
+#import "NTESSessionListViewController.h"
 //高德
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "SYSafeCategory.h"//安全操作
@@ -252,6 +253,8 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     DDLogInfo(@"receive remote notification:  %@", userInfo);
+    ZFbaseTabbarViewController * tabBar = [[ZFbaseTabbarViewController alloc]initWithNibName:@"NTESSessionListViewController" bundle:nil];
+    tabBar.selectedIndex = 1;
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

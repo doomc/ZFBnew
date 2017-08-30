@@ -17,7 +17,7 @@
 #import "NTESSessionUtil.h"
 #import "NTESPersonalCardViewController.h"
 
-#define SessionListTitle @"APP text"
+#define SessionListTitle @"展富宝"
 
 @interface NTESSessionListViewController ()<NIMLoginManagerDelegate,NTESListHeaderDelegate,NIMEventSubscribeManagerDelegate,UIViewControllerPreviewingDelegate>
 
@@ -45,6 +45,7 @@
 - (void)dealloc{
     [[NIMSDK sharedSDK].loginManager removeDelegate:self];
 }
+
 
 
 - (void)viewDidLoad{

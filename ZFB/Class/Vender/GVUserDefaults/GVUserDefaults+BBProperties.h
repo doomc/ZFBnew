@@ -21,16 +21,27 @@
 @property (nonatomic,copy) NSString *cmUserId;
 @property (nonatomic,copy) NSString *accid;
 
+//登录的
 @property (nonatomic,copy) NSString *nickName;///默认用户昵称
 @property (nonatomic,copy) NSString *userKeyMd5;///默认用户昵称
 //@property (nonatomic,copy) NSString *userStatus;///登录状态 1已在线  0下线
+
+//云信
 @property (nonatomic,copy) NSString *token;/// 网易云信的token
 
+//首页
 @property (nonatomic,copy) NSString *latitude;///纬度
 @property (nonatomic,copy) NSString *longitude;///经度
 
+//个人中心
 @property (nonatomic,copy) NSString *shopFlag;///是否是商户  1是 0 不是
 @property (nonatomic,copy) NSString *courierFlag;///是否是配送员 1是 0不是
+
+//个人资料资料
+@property (nonatomic,copy) NSString * uploadImgName;///个人资料头像路径
+@property (nonatomic,copy) NSString * birthDay;///个人生日日期
+@property (nonatomic,assign) NSInteger sexType;///性别类型 //1. 男 2.女 3保密
+
 
 @property (nonatomic) BOOL boolValue;
 @property (nonatomic) float floatValue;

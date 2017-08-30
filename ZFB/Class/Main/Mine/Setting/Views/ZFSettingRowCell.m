@@ -15,14 +15,15 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 
 }
 
--(void)setIsSaved:(BOOL)isSaved
-{
-    _isSaved = isSaved;
+-(void)setIsEdited:(BOOL)isEdited{
 
-    if (isSaved == YES) {
+    _isEdited = isEdited;
+
+    if (isEdited == NO) {
         self.tf_contentTextfiled.delegate = nil;
         self.tf_contentTextfiled.userInteractionEnabled = NO;
     }

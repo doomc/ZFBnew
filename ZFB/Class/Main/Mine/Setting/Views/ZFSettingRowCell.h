@@ -25,6 +25,6 @@
 
 @property (copy, nonatomic) NSString * nickName;
 
-@property (assign, nonatomic) BOOL   isSaved;//判断是否保存过，保存了就不执行代理了
+@property (assign, nonatomic) BOOL   isEdited;//已经编辑过了
 
 @end

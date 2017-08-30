@@ -1,4 +1,4 @@
-//
+  //
 //  ZZYPhotoHelper.m
 //  dd
 //
@@ -93,16 +93,18 @@ static ZZYPhotoHelper *picker = nil;
     if (_selectImageBlock) {
         //设置image的尺寸
         theImage = [self imageWithImageSimple:theImage scaledToSize:imagesize];
-        _selectImageBlock(theImage);
-    }
-    
-    [picker dismissViewControllerAnimated:YES completion:^{
         
         [OSSImageUploader asyncUploadImage:theImage complete:^(NSArray<NSString *> *names, UploadImageState state) {
             
-            [ZZYPhotoHelper shareHelper].imgName = names[0];
-            NSLog(@" 11111 [ZZYPhotoHelper shareHelper].imgName  %@ ",names);
+            NSString * imgPath =  names[0];
+            NSLog(@" 11111 uploadImgName =====  %@ ",names[0]);
+            _selectImageBlock(theImage,imgPath);
+
         }];
+
+    }
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
     }];
 }
 
@@ -113,6 +115,8 @@ static ZZYPhotoHelper *picker = nil;
 //压缩图片
 -(UIImage*)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize)newSize
 {
+
+    
     // Create a graphics image context
     UIGraphicsBeginImageContext(newSize);
     

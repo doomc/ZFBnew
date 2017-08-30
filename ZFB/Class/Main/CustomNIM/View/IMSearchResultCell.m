@@ -28,6 +28,7 @@
 {
     _info = info;
     self.lb_nickName.text = info.nickName;
+    self.lb_sign.text = info.mobilePhone;
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:info.userImgAttachUrl] placeholderImage:[UIImage imageNamed:@"avatar_user"]];
     
 }

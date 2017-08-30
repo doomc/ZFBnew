@@ -102,16 +102,13 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
 
     self.customLeft_btn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.customLeft_btn.frame = CGRectMake(20, 0, 40, 40);
-    [self.customLeft_btn setImage :[UIImage imageNamed:@"saoyisao"]  forState:UIControlStateNormal];
-    [self.customLeft_btn setTitle:@"扫一扫" forState:UIControlStateNormal];
-    self.customLeft_btn.titleLabel.font = [UIFont systemFontOfSize:12];//title字体大小
-    [self.customLeft_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
+    [self.customLeft_btn setImage :[UIImage imageNamed:@"add_red"]  forState:UIControlStateNormal];
     
     //设置文字图片的位置
-    self.customLeft_btn.titleEdgeInsets = UIEdgeInsetsMake(0, -self.customLeft_btn.imageView.frame.size.width, -self.customLeft_btn.imageView.frame.size.height, 0);
-    self.customLeft_btn.imageEdgeInsets = UIEdgeInsetsMake(-self.customLeft_btn.titleLabel.intrinsicContentSize.height, 0, 0, -self.customLeft_btn.titleLabel.intrinsicContentSize.width);
-    [self.customLeft_btn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-    //把button的视图交给Item
+//    self.customLeft_btn.titleEdgeInsets = UIEdgeInsetsMake(0, -self.customLeft_btn.imageView.frame.size.width, -self.customLeft_btn.imageView.frame.size.height, 0);
+//    self.customLeft_btn.imageEdgeInsets = UIEdgeInsetsMake(-self.customLeft_btn.titleLabel.intrinsicContentSize.height, 0, 0, -self.customLeft_btn.titleLabel.intrinsicContentSize.width);
+//    [self.customLeft_btn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+//    //把button的视图交给Item
     UIBarButtonItem *saoItem = [[UIBarButtonItem alloc] initWithCustomView:self.customLeft_btn];
     //添加到导航项的左按钮
     self.navigationItem.leftBarButtonItem = saoItem;
@@ -119,16 +116,8 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     
     self.shakehanderRight_btn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.shakehanderRight_btn.frame = CGRectMake(KScreenW - 50 -40, 0, 40, 40);
-    [self.shakehanderRight_btn setImage :[UIImage imageNamed:@"shakehand"]  forState:UIControlStateNormal];
-    [self.shakehanderRight_btn setTitle:@"摇一摇" forState:UIControlStateNormal];
-    self.shakehanderRight_btn.titleLabel.font = [UIFont systemFontOfSize:12];//title字体大小
-    [self.shakehanderRight_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
-    
-    //设置文字图片的位置
-    self.shakehanderRight_btn.titleEdgeInsets = UIEdgeInsetsMake(0, -self.shakehanderRight_btn.imageView.frame.size.width, -self.shakehanderRight_btn.imageView.frame.size.height, 0);
-    self.shakehanderRight_btn.imageEdgeInsets = UIEdgeInsetsMake(-self.shakehanderRight_btn.titleLabel.intrinsicContentSize.height, 0, 0, -self.shakehanderRight_btn.titleLabel.intrinsicContentSize.width);
+    [self.shakehanderRight_btn setImage :[UIImage imageNamed:@"add_red"]  forState:UIControlStateNormal];
     [self.shakehanderRight_btn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-    
     //把button的视图交给Item
     UIBarButtonItem * shakeItem = [[UIBarButtonItem alloc] initWithCustomView:self.shakehanderRight_btn];
     //添加到导航项的左按钮

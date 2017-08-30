@@ -27,10 +27,9 @@
 {
     _Storelist = Storelist;
     
-    CGFloat juli = [_Storelist.storeDist floatValue]*0.001;
-    self.lb_distance.text = [NSString stringWithFormat:@"%.2fkm",juli];
-    self.lb_title.text = _Storelist.storeName;
-    [self.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:_Storelist.coverUrl] placeholderImage:nil];
+    self.lb_distance.text = [NSString stringWithFormat:@"%@km",Storelist.storeDist];
+    self.lb_title.text = Storelist.storeName;
+    [self.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:Storelist.coverUrl] placeholderImage:nil];
     
 }
 

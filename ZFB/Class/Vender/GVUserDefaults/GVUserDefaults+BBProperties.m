@@ -26,6 +26,11 @@
 @dynamic isLogin;
 @dynamic isCollect;
 
+//个人资料资料
+@dynamic uploadImgName;
+@dynamic sexType;
+@dynamic birthDay;
+
 @dynamic latitude;
 @dynamic longitude;
 

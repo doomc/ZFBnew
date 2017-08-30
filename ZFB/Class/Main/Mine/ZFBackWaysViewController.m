@@ -7,6 +7,7 @@
 //
 
 #import "ZFBackWaysViewController.h"
+#import "ZFAllOrderViewController.h"
 
 @interface ZFBackWaysViewController ()<UITextFieldDelegate>
 
@@ -27,6 +28,11 @@
     [self setupUI];
     
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.tf_contactPhone.text = _postPhone;
+    self.tf_contactName.text = _postName;
+}
 
 -(void)setupUI{
     self.title =@"商品退回方式";
@@ -36,10 +42,6 @@
     
     self.tf_contactName.delegate= self;
     self.tf_contactPhone.delegate = self;
-    
-    
-    self.tf_contactPhone.text = _postPhone;
-    self.tf_contactName.text = _postName;
     
     [self.tf_contactName addTarget:self action:@selector(textFieldChangeValue:) forControlEvents:UIControlEventEditingChanged];
     [self.tf_contactPhone addTarget:self action:@selector(textFieldChangeValue:) forControlEvents:UIControlEventEditingChanged];
@@ -65,13 +67,18 @@
         
     }
     [self commitPostRequsetWithParam];
+    
+    if (_imgArr == nil ) {
+        _imgArr = @"";
+    }
+    
 }
 
 #pragma mark - 服务名称 -----提交售后申请 zfb/InterfaceServlet/afterSale/afterSaleApply
 -(void)commitPostRequsetWithParam
 {
     
-    [SVProgressHUD show];
+    [SVProgressHUD showWithStatus:@"正在上传"];
     NSDictionary * param = @{
                              @"orderId":_orderId,
                              @"orderNum":_orderNum,
@@ -85,22 +92,27 @@
                              @"storeId":_storeId,
                              @"orderTime":_orderTime,
                              @"problemDescr":_problemDescr,
-                             @"pic1":@"",
+                             @"pic1":_imgArr,
                              @"storeName":_storeName,
                              @"userId":BBUserDefault.cmUserId,
                              @"userName":self.tf_contactName.text ,
                              @"userPhone":self.tf_contactPhone.text ,
                              @"goodsProperties":_goodsProperties,
-                             
+                             //afterSort ,orderSort
                              
                              };
     
-    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/order/afterSaleApply"] params:param success:^(id response) {
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/afterSale/afterSaleApply"] params:param success:^(id response) {
         
-        [SVProgressHUD dismiss];
-        
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
 
+            ZFAllOrderViewController * vc = [ZFAllOrderViewController new];
+            vc.orderType = OrderTypeAfterSale;
+            [self poptoUIViewControllerNibName:@"ZFAllOrderViewController" AndObjectIndex:1];
+            [SVProgressHUD dismiss];
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        }
+        
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {

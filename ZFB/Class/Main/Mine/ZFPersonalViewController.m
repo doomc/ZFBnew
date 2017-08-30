@@ -55,12 +55,12 @@ ZFMyCashBagCellDelegate
 
 @property (nonatomic,copy) NSString * foolnum    ;//足记数量
 @property (nonatomic,copy) NSString * collectNum ;//收藏数量
-@property (nonatomic,copy) NSString * nickName   ;//用户
+
 @property (nonatomic,copy) NSString * shopFlag   ;//判断是否是商家 1/0
 @property (nonatomic,copy) NSString * courierFlag   ;//判断是否是快递员 1/0
-@property (nonatomic,copy) NSString * storeId   ;///*******重要     商户端配送端都要的**********
-@property (nonatomic,copy) NSString * balance   ;///余额
-@property (nonatomic,copy) NSString * userImgAttachUrl   ;///头像URL
+@property (nonatomic,copy) NSString * storeId   ;
+@property (nonatomic,copy) NSString * balance   ;//余额
+@property (nonatomic,copy) NSString * userImgAttachUrl  ;//头像URL
 
 
 
@@ -114,7 +114,7 @@ ZFMyCashBagCellDelegate
 -(UITableView *)myTableView
 {
     if (!_myTableView) {
-        _myTableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -64) style:UITableViewStylePlain];
+        _myTableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -64 - 49) style:UITableViewStylePlain];
         _myTableView.delegate       = self;
         _myTableView.dataSource     = self;
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -147,6 +147,7 @@ ZFMyCashBagCellDelegate
     if (BBUserDefault.isLogin == 1) {
         
         ZFSettingViewController * settingVC = [[ZFSettingViewController alloc]init];
+        settingVC.userImgAttachUrl = _userImgAttachUrl;
         [self.navigationController pushViewController:settingVC animated:YES];
         
     }else{
@@ -213,6 +214,7 @@ ZFMyCashBagCellDelegate
         case 0:
         {
             ZFMyCashBagCell  * cashCell = [ self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyCashBagCell" forIndexPath:indexPath];
+            cashCell.lb_balance.text = _balance;
             return cashCell;
         }
             break;
@@ -463,6 +465,7 @@ ZFMyCashBagCellDelegate
     
     NSLog(@"点击了头像");
     ZFSettingHeadViewController *headVC = [[ZFSettingHeadViewController alloc]init];
+    headVC.userImgAttachUrl = _userImgAttachUrl;
     [self.navigationController pushViewController:headVC animated:NO];
     
 }
@@ -515,21 +518,26 @@ ZFMyCashBagCellDelegate
         
         if (resultCode == 0) {
             
-            _nickName   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"nickName"]];
             _foolnum    = [NSString stringWithFormat:@"%@",response[@"foolNum"] ];
             _collectNum = [NSString stringWithFormat:@"%@",response[@"collectNum"]];
             _shopFlag   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"shopFlag"]];//是否是商户
             _courierFlag= [NSString stringWithFormat:@"%@",response[@"userInfo"][@"courierFlag"]];//是否是快递员
             _storeId    = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"storeId"]];
-            _userImgAttachUrl    = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"userImgAttachUrl"]];
+
             
             BBUserDefault.shopFlag = _shopFlag;
             BBUserDefault.courierFlag = _courierFlag;
             
+            BBUserDefault.nickName   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"nickName"]];
+            BBUserDefault.sexType    = [response[@"userInfo"][@"sex"] integerValue];
+            BBUserDefault.birthDay   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"cmBirthday"]];
+            _userImgAttachUrl = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"userImgAttachUrl"]];
+            
             //赋值
             self.headview.lb_collectCount.text = _collectNum;
             self.headview.lb_historyCount.text = _foolnum;
-            self.headview.lb_userNickname.text = _nickName;
+            self.headview.lb_userNickname.text = BBUserDefault.nickName;
+            
             [self.headview.img_headview sd_setImageWithURL:[NSURL URLWithString:_userImgAttachUrl] placeholderImage:[UIImage imageNamed:@"avatar_user"]];
         }
         [self.myTableView reloadData];
@@ -543,7 +551,6 @@ ZFMyCashBagCellDelegate
     
 }
 
-
 #pragma mark  - 网络请求 查询展易付余额
 -(void)getThirdBalancePOSTRequste
 {
@@ -553,11 +560,9 @@ ZFMyCashBagCellDelegate
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/QRCode/getThirdBalance"] params:parma success:^(id response) {
         
-        int resultCode = [response [@"resultCode"] intValue];
-        
-        if (resultCode == 0) {
+        if ([response [@"resultCode"] intValue] == 0) {
             
-            //            _balance  = @"";
+            _balance = response[@"balance"];
             
         }
         [self.myTableView reloadData];

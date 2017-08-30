@@ -60,22 +60,59 @@
     [[NIMSDK sharedSDK].userManager removeDelegate:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-#pragma mark - NIMSDK Delegate
-- (void)onSystemNotificationCountChanged:(NSInteger)unreadCount
-{
-    [self prepareData];
- 
+- (void)setupPageView {
+    
+    NTESSessionListViewController  *messageVC       = [[NTESSessionListViewController alloc]init];
+    NTESContactViewController *contactVC        = [[NTESContactViewController alloc]init];
+    IMChatSessionViewController *friendVC       = [[IMChatSessionViewController alloc]init];
+    
+    NSArray *childArr = @[messageVC, contactVC, friendVC];
+    
+    /// pageContentView
+    CGFloat contentViewHeight                = self.view.frame.size.height - 108;
+    self.pageContentView                     = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 108, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
+    _pageContentView.delegatePageContentView = self;
+    [self.view addSubview:_pageContentView];
+    
+    NSArray *titleArr = @[@"消息", @"通讯录", @"朋友圈"];
+    /// pageTitleView
+    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44) delegate:self titleNames:titleArr];
+    [self.view addSubview:_pageTitleView];
+    _pageTitleView.isTitleGradientEffect   = YES;
+    _pageTitleView.indicatorLengthStyle    = SGIndicatorLengthStyleSpecial;
+    _pageTitleView.indicatorScrollStyle    = SGIndicatorScrollStyleHalf;
+    _pageTitleView.selectedIndex           = 0;
+    _pageTitleView.isShowBottomSeparator   = NO;
+    _pageTitleView.isNeedBounces           = NO;
+    _pageTitleView.titleColorStateSelected = HEXCOLOR(0xfe6d6a);
+    _pageTitleView.titleColorStateNormal   = HEXCOLOR(0x363636);
+    _pageTitleView.indicatorColor          = [UIColor colorWithRed:0.996 green:0.427 blue:0.416 alpha:1.000];
+    _pageTitleView.indicatorHeight         = 1.0;
+    _pageTitleView.titleTextScaling        = 0.3;
 }
 
-- (void)onLogin:(NIMLoginStep)step
+- (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex
 {
-    if (step == NIMLoginStepSyncOK) {
-        if (self.isViewLoaded) {//没有加载view的话viewDidLoad里会走一遍prepareData
-            [self prepareData];
-        }
+    [self.pageContentView setPageCententViewCurrentIndex:selectedIndex];
+    
+    if (selectedIndex == 0) {
+        self.navigationItem.title = @"消息";
+    }
+    else if (selectedIndex == 1) {
+        self.navigationItem.title = @"通讯录";
+    }
+    else {
+        self.navigationItem.title = @"朋友圈";
     }
 }
+
+- (void)pageContentView:(SGPageContentView *)pageContentView progress:(CGFloat)progress originalIndex:(NSInteger)originalIndex targetIndex:(NSInteger)targetIndex {
+    [self.pageTitleView setPageTitleViewWithProgress:progress originalIndex:originalIndex targetIndex:targetIndex];
+    
+    
+}
+
+
 
 - (void)prepareData{
     _contacts = [[NTESGroupedContacts alloc] init];
@@ -122,103 +159,6 @@
     contactUtil.members = members;
     
     [_contacts addGroupAboveWithTitle:@"" members:contactUtil.members];
-}
-
-
-- (void)setupPageView {
-    
-    NTESSessionListViewController  *messageVC       = [[NTESSessionListViewController alloc]init];
-    NTESContactViewController *contactVC        = [[NTESContactViewController alloc]init];
-    IMChatSessionViewController *friendVC       = [[IMChatSessionViewController alloc]init];
-
-    NSArray *childArr = @[messageVC, contactVC, friendVC];
-   
-    /// pageContentView
-    CGFloat contentViewHeight                = self.view.frame.size.height - 108;
-    self.pageContentView                     = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 108, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
-    _pageContentView.delegatePageContentView = self;
-    [self.view addSubview:_pageContentView];
-    
-    NSArray *titleArr = @[@"消息", @"通讯录", @"朋友圈"];
-    /// pageTitleView
-    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44) delegate:self titleNames:titleArr];
-    [self.view addSubview:_pageTitleView];
-    _pageTitleView.isTitleGradientEffect   = YES;
-    _pageTitleView.indicatorLengthStyle    = SGIndicatorLengthStyleSpecial;
-    _pageTitleView.indicatorScrollStyle    = SGIndicatorScrollStyleHalf;
-    _pageTitleView.selectedIndex           = 0;
-    _pageTitleView.isShowBottomSeparator   = NO;
-    _pageTitleView.isNeedBounces           = NO;
-    _pageTitleView.titleColorStateSelected = HEXCOLOR(0xfe6d6a);
-    _pageTitleView.titleColorStateNormal   = HEXCOLOR(0x363636);
-    _pageTitleView.indicatorColor          = [UIColor colorWithRed:0.996 green:0.427 blue:0.416 alpha:1.000];
-    _pageTitleView.indicatorHeight         = 1.0;
-    _pageTitleView.titleTextScaling        = 0.3;
-}
-
-- (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex
-{
-    [self.pageContentView setPageCententViewCurrentIndex:selectedIndex];
-    
-    if (selectedIndex == 0) {
-        self.navigationItem.title = @"消息";
-    }
-    else if (selectedIndex == 1) {
-        self.navigationItem.title = @"通讯录";
-    }
-    else {
-        self.navigationItem.title = @"朋友圈";
-    }
-}
-
-- (void)pageContentView:(SGPageContentView *)pageContentView progress:(CGFloat)progress originalIndex:(NSInteger)originalIndex targetIndex:(NSInteger)targetIndex {
-    [self.pageTitleView setPageTitleViewWithProgress:progress originalIndex:originalIndex targetIndex:targetIndex];
-
-    
-}
-
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [self setUpNavItem];
-
-    if (BBUserDefault.isLogin == 1) {
-        [self loginNIM];
-        
-    }else{
-        
-        NSLog(@"登录了");
-        LoginViewController * logvc    = [ LoginViewController new];
-        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
-        
-        [self presentViewController:nav animated:NO completion:^{
-            
-            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
-            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-        }];
-    }
-}
-
-
-#pragma mark - 登陆网易云信
--(void)loginNIM
-{
-    
-    //手动登录，error为登录错误信息，成功则为nil。
-    //不要在登录完成的回调中直接获取 SDK 缓存数据，而应该在 同步完成的回调里获取数据 或者 监听相应的数据变动回调后获取
-    [[[NIMSDK sharedSDK] loginManager] login:BBUserDefault.userPhoneNumber
-                                       token:BBUserDefault.token
-                                  completion:^(NSError *error) {
-                                      if (error == nil)
-                                      {
-                                          NSLog(@" 已经 login success");
-                              
-                                      }
-                                      else
-                                      {
-                                          NSLog(@"登录失败 --- %@",error);
-                                      }
-                                  }];
 }
 
 - (void)setUpNavItem{
@@ -278,8 +218,6 @@
                         }
                     }];
                 }];
-
-
                 break;
             }
                 
@@ -292,10 +230,56 @@
             [wself.navigationController pushViewController:vc animated:YES];
         }
     }];
-    [SVProgressHUD dismiss];
 
 }
 
+#pragma mark - NIMSDK Delegate
+- (void)onSystemNotificationCountChanged:(NSInteger)unreadCount
+{
+    [self prepareData];
+    NTESContactViewController * contactVC= [NTESContactViewController new];
+    [contactVC.tableView reloadData];
+}
+
+- (void)onLogin:(NIMLoginStep)step
+{
+    NTESContactViewController * contactVC= [NTESContactViewController new];
+    
+    if (step == NIMLoginStepSyncOK) {
+        if (self.isViewLoaded) {//没有加载view的话viewDidLoad里会走一遍prepareData
+            [self prepareData];
+            [contactVC.tableView reloadData];
+            
+        }
+    }
+}
+
+- (void)onUserInfoChanged:(NIMUser *)user
+{
+    [self refresh];
+}
+
+- (void)onFriendChanged:(NIMUser *)user{
+    [self refresh];
+}
+
+- (void)onBlackListChanged
+{
+    [self refresh];
+}
+
+- (void)onMuteListChanged
+{
+    [self refresh];
+}
+
+- (void)refresh
+{
+    [self prepareData];
+    
+    NTESContactViewController * contactVC= [NTESContactViewController new];
+    [contactVC.tableView reloadData];
+}
 
 - (void)presentMemberSelector:(ContactSelectFinishBlock) block{
     NSMutableArray *users = [[NSMutableArray alloc] init];
@@ -314,5 +298,51 @@
     vc.finshBlock = block;
     [vc show];
 }
+
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self setUpNavItem];
+    
+    if (BBUserDefault.isLogin == 1) {
+        [self loginNIM];
+        
+    }else{
+        
+        NSLog(@"登录了");
+        LoginViewController * logvc    = [ LoginViewController new];
+        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
+        
+        [self presentViewController:nav animated:NO completion:^{
+            
+            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+        }];
+    }
+}
+
+
+#pragma mark - 登陆网易云信
+-(void)loginNIM
+{
+    
+    //手动登录，error为登录错误信息，成功则为nil。
+    //不要在登录完成的回调中直接获取 SDK 缓存数据，而应该在 同步完成的回调里获取数据 或者 监听相应的数据变动回调后获取
+    [[[NIMSDK sharedSDK] loginManager] login:BBUserDefault.userPhoneNumber
+                                       token:BBUserDefault.token
+                                  completion:^(NSError *error) {
+                                      if (error == nil)
+                                      {
+                                          NSLog(@" 已经 login success");
+                                          
+                                      }
+                                      else
+                                      {
+                                          NSLog(@"登录失败 --- %@",error);
+                                      }
+                                  }];
+}
+
 
 @end

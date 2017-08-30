@@ -26,18 +26,12 @@
 #import "NIMContactSelectViewController.h"
 #import "NTESUserUtil.h"
 
-/////==========自己的VC===========//////
-#import "IMSearchFriendViewController.h"
-
-@interface NTESContactViewController ()
-<
-    NIMUserManagerDelegate,
-    NIMSystemNotificationManagerDelegate,
-    NTESContactUtilCellDelegate,
-    NIMContactDataCellDelegate,
-    NIMLoginManagerDelegate,
-    NIMEventSubscribeManagerDelegate
-> {
+@interface NTESContactViewController ()<NIMUserManagerDelegate,
+NIMSystemNotificationManagerDelegate,
+NTESContactUtilCellDelegate,
+NIMContactDataCellDelegate,
+NIMLoginManagerDelegate,
+NIMEventSubscribeManagerDelegate> {
     UIRefreshControl *_refreshControl;
     NTESGroupedContacts *_contacts;
 }
@@ -61,7 +55,6 @@
     [[NIMSDK sharedSDK].loginManager removeDelegate:self];
     [[NIMSDK sharedSDK].userManager removeDelegate:self];
     [[NIMSDK sharedSDK].subscribeManager removeDelegate:self];
-
 }
 
 - (void)viewDidLoad {
@@ -80,7 +73,6 @@
     [[NIMSDK sharedSDK].loginManager addDelegate:self];
     [[NIMSDK sharedSDK].userManager addDelegate:self];
     [[NIMSDK sharedSDK].subscribeManager addDelegate:self];
-
 }
 
 - (void)setUpNavItem{
@@ -124,10 +116,20 @@
 //                  contactCellUtilVC:@"NTESNormalTeamListViewController"
 //                },
 //              @{
+//                  contactCellUtilIcon:@"icon_robot_normal",
+//                  contactCellUtilTitle:@"智能机器人",
+//                  contactCellUtilVC:@"NTESRobotListViewController"
+//                  },
+//              @{
 //                  contactCellUtilIcon:@"icon_blacklist_normal",
 //                  contactCellUtilTitle:@"黑名单",
 //                  contactCellUtilVC:@"NTESBlackListViewController"
 //                  },
+//              @{
+//                  contactCellUtilIcon:@"icon_computer_normal",
+//                  contactCellUtilTitle:@"我的电脑",
+//                  contactCellUtilSelectorName:@"onEnterMyComputer"
+//                },
               ] mutableCopy];
     
     self.navigationItem.title = @"通讯录";
@@ -160,20 +162,14 @@
 }
 
 - (void)onOpera:(id)sender{
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择操作" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"添加好友/群",@"创建群", nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择操作" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"添加好友",@"创建高级群",@"创建讨论组",@"搜索高级群", nil];
     __weak typeof(self) wself = self;
     NSString *currentUserId = [[NIMSDK sharedSDK].loginManager currentAccount];
     [sheet showInView:self.view completionHandler:^(NSInteger index) {
         UIViewController *vc;
         switch (index) {
             case 0:
-            {
-                //                vc = [[NTESContactAddFriendViewController alloc] initWithNibName:nil bundle:nil];
-                IMSearchFriendViewController * serchVC = [[IMSearchFriendViewController alloc]init];
-                [wself.navigationController pushViewController:serchVC animated:YES];
-
-            }
-                
+                vc = [[NTESContactAddFriendViewController alloc] initWithNibName:nil bundle:nil];
                 break;
             case 1:{  //创建高级群
                 [wself presentMemberSelector:^(NSArray *uids) {
@@ -197,32 +193,32 @@
                 }];
                 break;
             }
-//            case 2:{ //创建讨论组
-//                [wself presentMemberSelector:^(NSArray *uids) {
-//                    if (!uids.count) {
-//                        return; //讨论组必须除自己外必须要有一个群成员
-//                    }
-//                    NSArray *members = [@[currentUserId] arrayByAddingObjectsFromArray:uids];
-//                    NIMCreateTeamOption *option = [[NIMCreateTeamOption alloc] init];
-//                    option.name       = @"讨论组";
-//                    option.type       = NIMTeamTypeNormal;
-//                    [SVProgressHUD show];
-//                    [[NIMSDK sharedSDK].teamManager createTeam:option users:members completion:^(NSError *error, NSString *teamId) {
-//                        [SVProgressHUD dismiss];
-//                        if (!error) {
-//                            NIMSession *session = [NIMSession session:teamId type:NIMSessionTypeTeam];
-//                            NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
-//                            [wself.navigationController pushViewController:vc animated:YES];
-//                        }else{
-//                            [wself.view makeToast:@"创建失败" duration:2.0 position:CSToastPositionCenter];
-//                        }
-//                    }];
-//                }];
-//                break;
-//            }
-//            case 3:
-//                vc = [[NTESSearchTeamViewController alloc] initWithNibName:nil bundle:nil];
-//                break;
+            case 2:{ //创建讨论组
+                [wself presentMemberSelector:^(NSArray *uids) {
+                    if (!uids.count) {
+                        return; //讨论组必须除自己外必须要有一个群成员
+                    }
+                    NSArray *members = [@[currentUserId] arrayByAddingObjectsFromArray:uids];
+                    NIMCreateTeamOption *option = [[NIMCreateTeamOption alloc] init];
+                    option.name       = @"讨论组";
+                    option.type       = NIMTeamTypeNormal;
+                    [SVProgressHUD show];
+                    [[NIMSDK sharedSDK].teamManager createTeam:option users:members completion:^(NSError *error, NSString *teamId) {
+                        [SVProgressHUD dismiss];
+                        if (!error) {
+                            NIMSession *session = [NIMSession session:teamId type:NIMSessionTypeTeam];
+                            NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
+                            [wself.navigationController pushViewController:vc animated:YES];
+                        }else{
+                            [wself.view makeToast:@"创建失败" duration:2.0 position:CSToastPositionCenter];
+                        }
+                    }];
+                }];
+                break;
+            }
+            case 3:
+                vc = [[NTESSearchTeamViewController alloc] initWithNibName:nil bundle:nil];
+                break;
             default:
                 break;
         }
@@ -387,6 +383,30 @@
     [self.tableView reloadData];
 }
 
+
+#pragma mark - NIMEventSubscribeManagerDelegate
+
+- (void)onRecvSubscribeEvents:(NSArray *)events
+{
+    NSMutableSet *ids = [[NSMutableSet alloc] init];
+    for (NIMSubscribeEvent *event in events) {
+        [ids addObject:event.from];
+    }
+    
+    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+    for (NSIndexPath *indexPath in self.tableView.indexPathsForVisibleRows) {
+        
+        id<NTESContactItem> contactItem = (id<NTESContactItem>)[_contacts memberOfIndex:indexPath];
+        if([contactItem respondsToSelector:@selector(userId)]){
+            NSString * friendId   = contactItem.userId;
+            if ([ids containsObject:friendId]) {
+                [indexPaths addObject:indexPath];
+            }
+        }
+    }
+    
+    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+}
 
 
 

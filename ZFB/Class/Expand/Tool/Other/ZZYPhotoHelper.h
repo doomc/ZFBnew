@@ -8,15 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^ZZYPhotoHelperBlock) (id data);
+typedef void (^ZZYPhotoHelperBlock) (id data, NSString *imgPath);
 
 @interface ZZYPhotoHelper : UIImagePickerController
 
-@property (nonatomic, copy) NSString * imgName;
-
+ 
 
 + (instancetype)shareHelper;
-
 
 - (void)showImageViewSelcteWithResultBlock:(ZZYPhotoHelperBlock)selectImageBlock;
 

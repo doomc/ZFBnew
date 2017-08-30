@@ -124,18 +124,6 @@
     
 }
 
--(void)popToViewControllerWithName:(NSString *)name {
-    
-    for (UIViewController *vc in self.navigationController.viewControllers) {
-        NSString *vcString = NSStringFromClass([vc class]);
-        if ([vcString isEqualToString:name]) {
-            
-            [self.navigationController popToViewController:vc animated:YES];
-        }
-    }
-}
-
-
 
 
 /**
@@ -206,5 +194,21 @@
     
     return image;
 }
+
+//重写返回方法
+-(void)poptoUIViewControllerNibName:(NSString *)controllerName AndObjectIndex:(NSInteger)objectIndex{
+    
+    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:objectIndex] animated:YES];
+    for(UIViewController * controller in self.navigationController.viewControllers) {
+        
+        if([controller isKindOfClass:[controllerName class]]) {
+            
+            [self.navigationController popToViewController:controller animated:YES];
+        }
+    }
+}
+
+ 
+
 @end
 

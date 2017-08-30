@@ -10,4 +10,5 @@
 
 @interface ZFSettingViewController : BaseViewController
 
+@property (nonatomic ,copy) NSString  * userImgAttachUrl;
 @end

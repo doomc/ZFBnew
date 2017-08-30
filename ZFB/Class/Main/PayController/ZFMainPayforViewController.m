@@ -96,15 +96,8 @@
         
         NSLog(@"全部跳转到订单详情");
         
-        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:0] animated:YES];
-        for(UIViewController * controller in self.navigationController.viewControllers) {
-            
-            if([controller isKindOfClass:[ZFDetailOrderViewController class]]) {
-                
-                [self.navigationController popToViewController:controller animated:YES];
-                
-            }
-        }
+        [self poptoUIViewControllerNibName:@"ZFDetailOrderViewController" AndObjectIndex:1];
+  
     }
     [SVProgressHUD dismiss];
     

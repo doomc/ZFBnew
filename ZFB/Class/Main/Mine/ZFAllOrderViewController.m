@@ -1259,17 +1259,19 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     
     saleAfterVC.postPhone = orderlist.post_phone;
     saleAfterVC.postName = orderlist.post_name;
+    
     saleAfterVC.goodsName = goods.goods_name;
-    saleAfterVC.price = [NSString stringWithFormat:@"价格:%@元",goods.original_price];
-    saleAfterVC.goodCount = [NSString stringWithFormat:@"数量 x%ld",goods.goodsCount];
+    saleAfterVC.price = [NSString stringWithFormat:@"%@",goods.original_price];
+    saleAfterVC.goodCount = [NSString stringWithFormat:@"%ld",goods.goodsCount];
     saleAfterVC.img_urlStr = goods.coverImgUrl;
     
     ///需要发送到售后申请的数据
     saleAfterVC.orderId = goods.order_id;
-    saleAfterVC.orderNum = orderlist.orderCode;
     saleAfterVC.goodsId = goods.goodsId;
-    saleAfterVC.serviceType = @"0";///服务类型	否	 0 退货 1 换货
     saleAfterVC.coverImgUrl = goods.coverImgUrl;
+    
+    saleAfterVC.serviceType = @"0";///服务类型	否	 0 退货 1 换货
+    saleAfterVC.orderNum = orderlist.orderCode;
     saleAfterVC.storeId = orderlist.storeId;
     saleAfterVC.orderTime = orderlist.createTime;
     saleAfterVC.storeName = orderlist.storeName;
@@ -1278,6 +1280,9 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     
     //规格转成json
     NSString * jsonGoodsPro =[ NSString arrayToJSONString:goods.goods_properties];
+    if (jsonGoodsPro == nil) {
+        jsonGoodsPro = @"[]";
+    }
     saleAfterVC.goodsProperties = jsonGoodsPro;
     
     [self.navigationController pushViewController: saleAfterVC animated:NO];
@@ -1776,11 +1781,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
         if([controller isKindOfClass:[ZFPersonalViewController class]]) {
             
             [self.navigationController popToViewController:controller animated:YES];
-            
         }
-        
     }
-    
 }
 
 //既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。

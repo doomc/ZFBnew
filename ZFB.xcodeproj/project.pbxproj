@@ -33,6 +33,9 @@
 		4939E6711F2AC3EE00ECD0B7 /* SKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 4939E66A1F2AC3EE00ECD0B7 /* SKTag.m */; };
 		4939E6721F2AC3EE00ECD0B7 /* SKTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4939E66C1F2AC3EE00ECD0B7 /* SKTagButton.m */; };
 		4939E6731F2AC3EE00ECD0B7 /* SKTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4939E66E1F2AC3EE00ECD0B7 /* SKTagView.m */; };
+		494E5A141F56A111007FEC02 /* NTESContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494E5A131F56A111007FEC02 /* NTESContactViewController.m */; };
+		494E5A171F56D0C3007FEC02 /* add_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494E5A151F56D0C3007FEC02 /* add_red@2x.png */; };
+		494E5A181F56D0C3007FEC02 /* add_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 494E5A161F56D0C3007FEC02 /* add_red@3x.png */; };
 		49555D871F32EA6B00C3C748 /* IQNSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555D651F32EA6B00C3C748 /* IQNSArray+Sort.m */; };
 		49555D881F32EA6B00C3C748 /* IQUIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555D671F32EA6B00C3C748 /* IQUIScrollView+Additions.m */; };
 		49555D891F32EA6B00C3C748 /* IQUITextFieldView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555D691F32EA6B00C3C748 /* IQUITextFieldView+Additions.m */; };
@@ -753,7 +756,6 @@
 		4968A4131F4DB5290061A87E /* NTESUserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A34C1F4DB5290061A87E /* NTESUserListCell.m */; };
 		4968A4141F4DB5290061A87E /* NTESBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A3501F4DB5290061A87E /* NTESBlackListViewController.m */; };
 		4968A4151F4DB5290061A87E /* NTESContactAddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A3521F4DB5290061A87E /* NTESContactAddFriendViewController.m */; };
-		4968A4161F4DB5290061A87E /* NTESContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A3541F4DB5290061A87E /* NTESContactViewController.m */; };
 		4968A4171F4DB5290061A87E /* NTESContactViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4968A3551F4DB5290061A87E /* NTESContactViewController.xib */; };
 		4968A4181F4DB5290061A87E /* NTESCustomSysNotificationSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A3581F4DB5290061A87E /* NTESCustomSysNotificationSender.m */; };
 		4968A4191F4DB5290061A87E /* NTESCustomNotificationDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A35C1F4DB5290061A87E /* NTESCustomNotificationDB.m */; };
@@ -1107,6 +1109,9 @@
 		4939E66C1F2AC3EE00ECD0B7 /* SKTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTagButton.m; sourceTree = "<group>"; };
 		4939E66D1F2AC3EE00ECD0B7 /* SKTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTagView.h; sourceTree = "<group>"; };
 		4939E66E1F2AC3EE00ECD0B7 /* SKTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTagView.m; sourceTree = "<group>"; };
+		494E5A131F56A111007FEC02 /* NTESContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESContactViewController.m; sourceTree = "<group>"; };
+		494E5A151F56D0C3007FEC02 /* add_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_red@2x.png"; sourceTree = "<group>"; };
+		494E5A161F56D0C3007FEC02 /* add_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_red@3x.png"; sourceTree = "<group>"; };
 		49555D641F32EA6B00C3C748 /* IQNSArray+Sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQNSArray+Sort.h"; sourceTree = "<group>"; };
 		49555D651F32EA6B00C3C748 /* IQNSArray+Sort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQNSArray+Sort.m"; sourceTree = "<group>"; };
 		49555D661F32EA6B00C3C748 /* IQUIScrollView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIScrollView+Additions.h"; sourceTree = "<group>"; };
@@ -2250,7 +2255,6 @@
 		4968A3511F4DB5290061A87E /* NTESContactAddFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESContactAddFriendViewController.h; sourceTree = "<group>"; };
 		4968A3521F4DB5290061A87E /* NTESContactAddFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESContactAddFriendViewController.m; sourceTree = "<group>"; };
 		4968A3531F4DB5290061A87E /* NTESContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESContactViewController.h; sourceTree = "<group>"; };
-		4968A3541F4DB5290061A87E /* NTESContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESContactViewController.m; sourceTree = "<group>"; };
 		4968A3551F4DB5290061A87E /* NTESContactViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NTESContactViewController.xib; sourceTree = "<group>"; };
 		4968A3571F4DB5290061A87E /* NTESCustomSysNotificationSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESCustomSysNotificationSender.h; sourceTree = "<group>"; };
 		4968A3581F4DB5290061A87E /* NTESCustomSysNotificationSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESCustomSysNotificationSender.m; sourceTree = "<group>"; };
@@ -4662,6 +4666,8 @@
 		495EA64A1F14B64C001FCB7E /* 首页1 */ = {
 			isa = PBXGroup;
 			children = (
+				494E5A151F56D0C3007FEC02 /* add_red@2x.png */,
+				494E5A161F56D0C3007FEC02 /* add_red@3x.png */,
 				495EA64B1F14B64C001FCB7E /* loca_small@2x.png */,
 				495EA64C1F14B64C001FCB7E /* loca_small@3x.png */,
 				495EA64D1F14B64C001FCB7E /* location_find2@2x.png */,
@@ -5693,7 +5699,7 @@
 				4968A3511F4DB5290061A87E /* NTESContactAddFriendViewController.h */,
 				4968A3521F4DB5290061A87E /* NTESContactAddFriendViewController.m */,
 				4968A3531F4DB5290061A87E /* NTESContactViewController.h */,
-				4968A3541F4DB5290061A87E /* NTESContactViewController.m */,
+				494E5A131F56A111007FEC02 /* NTESContactViewController.m */,
 				4968A3551F4DB5290061A87E /* NTESContactViewController.xib */,
 			);
 			path = Contact;
@@ -6943,6 +6949,7 @@
 				4968A43D1F4DB5290061A87E /* NTESVideoViewController.xib in Resources */,
 				495EA8771F14B64D001FCB7E /* nav_back@3x.png in Resources */,
 				495EA7BC1F14B64D001FCB7E /* RegisterViewController.xib in Resources */,
+				494E5A171F56D0C3007FEC02 /* add_red@2x.png in Resources */,
 				497A8AAC1F2AECAA0003D7CB /* 30@2x.png in Resources */,
 				495EA9221F14B64E001FCB7E /* cases@2x.png in Resources */,
 				495EA9191F14B64E001FCB7E /* searchBar@3x.png in Resources */,
@@ -6952,6 +6959,7 @@
 				495EA8731F14B64D001FCB7E /* shoppingCar_normal@3x.png in Resources */,
 				49DA74931F259BED009F5577 /* SearchTypeView.xib in Resources */,
 				495EA8CE1F14B64E001FCB7E /* setting_message@2x.png in Resources */,
+				494E5A181F56D0C3007FEC02 /* add_red@3x.png in Resources */,
 				49C33E4F1F558D9D00BC2254 /* kefu_black@2x.png in Resources */,
 				495EA86C1F14B64D001FCB7E /* flying_local@2x.png in Resources */,
 				498A33F61F3C0CED0057E2AE /* star_sel@3x.png in Resources */,
@@ -7327,6 +7335,7 @@
 				49AD344A1F28962E00DC8A8F /* SearchLanelModel.m in Sources */,
 				495EA8361F14B64D001FCB7E /* ZFFeedbackViewController.m in Sources */,
 				49AB0AED1F5401B9004660B7 /* IMSearchResultModel.m in Sources */,
+				494E5A141F56A111007FEC02 /* NTESContactViewController.m in Sources */,
 				4968A4431F4DB5290061A87E /* NTESClientsTableViewController.m in Sources */,
 				49738A3B1F3DB9B70004657B /* SalesAfterPopView.m in Sources */,
 				495EA80E1F14B64D001FCB7E /* ZFPregressCheckCell.m in Sources */,
@@ -7535,7 +7544,6 @@
 				49B0E76C1F418A680032E72E /* DetailCollectMoneyViewController.m in Sources */,
 				495EA7271F14B64D001FCB7E /* OSSImageUploader.m in Sources */,
 				4968A4571F4DB5290061A87E /* NTESPinyinConverter.m in Sources */,
-				4968A4161F4DB5290061A87E /* NTESContactViewController.m in Sources */,
 				495EA7FB1F14B64D001FCB7E /* ZFSendHomeListCell.m in Sources */,
 				495EA7941F14B64D001FCB7E /* ZFAllStoreViewController.m in Sources */,
 				4968A2911F4DB5080061A87E /* NIMGroupedData.m in Sources */,

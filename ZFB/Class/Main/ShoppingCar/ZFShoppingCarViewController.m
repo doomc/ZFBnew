@@ -395,7 +395,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     Shoppcartlist * list          = self.carListArray[section];
-    ShopCarSectionHeadViewCell *cell           = [tableView dequeueReusableCellWithIdentifier:@"ShopCarSectionHeadViewCell"];
+    ShopCarSectionHeadViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopCarSectionHeadViewCell"];
     cell.chooseStore_btn.selected = list.leftShoppcartlistIsChoosed;//!<  是否需要勾选的字段
     cell.lb_storeName.text = list.storeName;
     cell.sectionIndex           = section;

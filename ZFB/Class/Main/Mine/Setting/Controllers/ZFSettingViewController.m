@@ -13,9 +13,10 @@
 #import "LoginViewController.h"
 #import "ZFBaseNavigationViewController.h"
 
+ 
 
 static NSString * settingCellid = @"ZFSettingCellid";
-@interface ZFSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ZFSettingViewController ()<UITableViewDelegate,UITableViewDataSource,NIMLoginManagerDelegate>
 {
     NSArray * _titleArr;
     NSArray * _imagesArr;
@@ -132,6 +133,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
     
     if (indexPath.row == 0  ) {
         ZFSettingHeadViewController * settingVC = [[ZFSettingHeadViewController alloc]init];
+        settingVC.userImgAttachUrl = _userImgAttachUrl;
         [self.navigationController pushViewController:settingVC animated:YES];
         
     }else if (indexPath.row == 1) {
@@ -232,11 +234,8 @@ static NSString * settingCellid = @"ZFSettingCellid";
 ///登出
 -(void)loginOutAction
 {
-//    [[[NIMSDK sharedSDK] loginManager] logout:^(NSError *error) {
-//      
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"NTESNotificationLogout" object:nil];
-//        NSLog(@"登出成功了 --  或者失败 %@== error",error);
-//
-//    }];
+    [[[NIMSDK sharedSDK]loginManager]logout:^(NSError * _Nullable error) {
+        NSLog(@" %@ = error",error);
+    }];
 }
 @end

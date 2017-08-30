@@ -35,18 +35,18 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qsS-GE-zwb">
-                            <rect key="frame" x="67.5" y="4" width="257.5" height="33"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入联系人" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qsS-GE-zwb">
+                            <rect key="frame" x="81.5" y="4" width="243.5" height="33"/>
                             <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系人：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdY-EI-OcW">
-                            <rect key="frame" x="0.0" y="10" width="57.5" height="21"/>
+                            <rect key="frame" x="0.0" y="10" width="61.5" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="SnO-eq-F8M"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -55,7 +55,7 @@
                         <constraint firstItem="pdY-EI-OcW" firstAttribute="leading" secondItem="NCt-WD-SsI" secondAttribute="leading" id="GdX-6o-eWZ"/>
                         <constraint firstItem="Kyn-lC-pmo" firstAttribute="leading" secondItem="NCt-WD-SsI" secondAttribute="leading" id="LlP-UU-y49"/>
                         <constraint firstItem="qsS-GE-zwb" firstAttribute="centerY" secondItem="pdY-EI-OcW" secondAttribute="centerY" id="Oas-6e-HGq"/>
-                        <constraint firstItem="qsS-GE-zwb" firstAttribute="leading" secondItem="pdY-EI-OcW" secondAttribute="trailing" constant="10" id="Tth-NA-7B5"/>
+                        <constraint firstItem="qsS-GE-zwb" firstAttribute="leading" secondItem="pdY-EI-OcW" secondAttribute="trailing" constant="20" id="Tth-NA-7B5"/>
                         <constraint firstItem="qsS-GE-zwb" firstAttribute="top" secondItem="NCt-WD-SsI" secondAttribute="top" constant="4" id="WMl-eQ-5f1"/>
                         <constraint firstAttribute="trailing" secondItem="qsS-GE-zwb" secondAttribute="trailing" constant="10" id="dNK-VP-Nmh"/>
                         <constraint firstItem="pdY-EI-OcW" firstAttribute="top" secondItem="NCt-WD-SsI" secondAttribute="top" constant="10" id="h0A-FS-Bu4"/>
@@ -77,18 +77,18 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fSv-Y3-yce">
-                            <rect key="frame" x="81.5" y="4" width="243.5" height="33"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入联系电话" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fSv-Y3-yce">
+                            <rect key="frame" x="86.5" y="4" width="238.5" height="33"/>
                             <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系电话：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpb-9h-a8s">
-                            <rect key="frame" x="0.0" y="10" width="71.5" height="21"/>
+                            <rect key="frame" x="0.0" y="10" width="76.5" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="hE9-HR-JSL"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
