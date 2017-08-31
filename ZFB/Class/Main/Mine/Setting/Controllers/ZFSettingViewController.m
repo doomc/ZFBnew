@@ -222,6 +222,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
     [self.tableView reloadData];
     //默认为登录状态后面根据后台数据返回
     if (BBUserDefault.isLogin == 1) {
+        
         [self.login_btn setTitle:@"退出登录" forState:UIControlStateNormal];
         
     }else{

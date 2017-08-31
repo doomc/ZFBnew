@@ -28,6 +28,10 @@
 		492752271EC44DFD003C22D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 492752251EC44DFD003C22D0 /* LaunchScreen.storyboard */; };
 		492752321EC44DFD003C22D0 /* ZFBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 492752311EC44DFD003C22D0 /* ZFBTests.m */; };
 		4927523D1EC44DFD003C22D0 /* ZFBUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4927523C1EC44DFD003C22D0 /* ZFBUITests.m */; };
+		493675DB1F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493675D91F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.m */; };
+		493675DC1F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493675DA1F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.xib */; };
+		493675E01F57D8FE001EDEC2 /* ZFServiceEvaluteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493675DE1F57D8FE001EDEC2 /* ZFServiceEvaluteCell.m */; };
+		493675E11F57D8FE001EDEC2 /* ZFServiceEvaluteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493675DF1F57D8FE001EDEC2 /* ZFServiceEvaluteCell.xib */; };
 		4939E66F1F2AC3EE00ECD0B7 /* MKJTagViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4939E6671F2AC3EE00ECD0B7 /* MKJTagViewTableViewCell.m */; };
 		4939E6701F2AC3EE00ECD0B7 /* MKJTagViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4939E6681F2AC3EE00ECD0B7 /* MKJTagViewTableViewCell.xib */; };
 		4939E6711F2AC3EE00ECD0B7 /* SKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 4939E66A1F2AC3EE00ECD0B7 /* SKTag.m */; };
@@ -430,8 +434,6 @@
 		495EA8B11F14B64D001FCB7E /* shoppingCar_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495EA5E81F14B64C001FCB7E /* shoppingCar_selected@3x.png */; };
 		495EA8B21F14B64D001FCB7E /* addphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495EA5EA1F14B64C001FCB7E /* addphone@2x.png */; };
 		495EA8B31F14B64D001FCB7E /* addphone@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495EA5EB1F14B64C001FCB7E /* addphone@3x.png */; };
-		495EA8B41F14B64D001FCB7E /* choose_normal40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495EA5EC1F14B64C001FCB7E /* choose_normal40@2x.png */; };
-		495EA8B51F14B64D001FCB7E /* choose_normal40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495EA5ED1F14B64C001FCB7E /* choose_normal40@3x.png */; };
 		495EA8B81F14B64D001FCB7E /* collectshopCar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495EA5F01F14B64C001FCB7E /* collectshopCar@2x.png */; };
 		495EA8B91F14B64D001FCB7E /* collectshopCar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495EA5F11F14B64C001FCB7E /* collectshopCar@3x.png */; };
 		495EA8BA1F14B64D001FCB7E /* editDelete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495EA5F21F14B64C001FCB7E /* editDelete@2x.png */; };
@@ -856,7 +858,6 @@
 		498A33C71F398AC30057E2AE /* NSString+helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 498A33C61F398AC30057E2AE /* NSString+helper.m */; };
 		498A33CD1F3ADF7F0057E2AE /* SalesAfterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 498A33CC1F3ADF7F0057E2AE /* SalesAfterModel.m */; };
 		498A33E51F3C09E30057E2AE /* ZFEvaluateGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 498A33E31F3C09E30057E2AE /* ZFEvaluateGoodsViewController.m */; };
-		498A33E61F3C09E30057E2AE /* ZFEvaluateGoodsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 498A33E41F3C09E30057E2AE /* ZFEvaluateGoodsViewController.xib */; };
 		498A33F11F3C0CED0057E2AE /* star_nor.png in Resources */ = {isa = PBXBuildFile; fileRef = 498A33E91F3C0CED0057E2AE /* star_nor.png */; };
 		498A33F21F3C0CED0057E2AE /* star_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 498A33EA1F3C0CED0057E2AE /* star_nor@2x.png */; };
 		498A33F31F3C0CED0057E2AE /* star_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 498A33EB1F3C0CED0057E2AE /* star_nor@3x.png */; };
@@ -1100,6 +1101,12 @@
 		492752381EC44DFD003C22D0 /* ZFBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZFBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4927523C1EC44DFD003C22D0 /* ZFBUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZFBUITests.m; sourceTree = "<group>"; };
 		4927523E1EC44DFD003C22D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		493675D81F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFEvaluateGoodsCell.h; sourceTree = "<group>"; };
+		493675D91F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFEvaluateGoodsCell.m; sourceTree = "<group>"; };
+		493675DA1F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFEvaluateGoodsCell.xib; sourceTree = "<group>"; };
+		493675DD1F57D8FE001EDEC2 /* ZFServiceEvaluteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFServiceEvaluteCell.h; sourceTree = "<group>"; };
+		493675DE1F57D8FE001EDEC2 /* ZFServiceEvaluteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFServiceEvaluteCell.m; sourceTree = "<group>"; };
+		493675DF1F57D8FE001EDEC2 /* ZFServiceEvaluteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFServiceEvaluteCell.xib; sourceTree = "<group>"; };
 		4939E6661F2AC3EE00ECD0B7 /* MKJTagViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKJTagViewTableViewCell.h; sourceTree = "<group>"; };
 		4939E6671F2AC3EE00ECD0B7 /* MKJTagViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKJTagViewTableViewCell.m; sourceTree = "<group>"; };
 		4939E6681F2AC3EE00ECD0B7 /* MKJTagViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MKJTagViewTableViewCell.xib; sourceTree = "<group>"; };
@@ -1726,8 +1733,6 @@
 		495EA5E81F14B64C001FCB7E /* shoppingCar_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoppingCar_selected@3x.png"; sourceTree = "<group>"; };
 		495EA5EA1F14B64C001FCB7E /* addphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addphone@2x.png"; sourceTree = "<group>"; };
 		495EA5EB1F14B64C001FCB7E /* addphone@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addphone@3x.png"; sourceTree = "<group>"; };
-		495EA5EC1F14B64C001FCB7E /* choose_normal40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "choose_normal40@2x.png"; sourceTree = "<group>"; };
-		495EA5ED1F14B64C001FCB7E /* choose_normal40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "choose_normal40@3x.png"; sourceTree = "<group>"; };
 		495EA5F01F14B64C001FCB7E /* collectshopCar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collectshopCar@2x.png"; sourceTree = "<group>"; };
 		495EA5F11F14B64C001FCB7E /* collectshopCar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collectshopCar@3x.png"; sourceTree = "<group>"; };
 		495EA5F21F14B64C001FCB7E /* editDelete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "editDelete@2x.png"; sourceTree = "<group>"; };
@@ -2434,7 +2439,6 @@
 		498A33CC1F3ADF7F0057E2AE /* SalesAfterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesAfterModel.m; sourceTree = "<group>"; };
 		498A33E21F3C09E30057E2AE /* ZFEvaluateGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFEvaluateGoodsViewController.h; sourceTree = "<group>"; };
 		498A33E31F3C09E30057E2AE /* ZFEvaluateGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFEvaluateGoodsViewController.m; sourceTree = "<group>"; };
-		498A33E41F3C09E30057E2AE /* ZFEvaluateGoodsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFEvaluateGoodsViewController.xib; sourceTree = "<group>"; };
 		498A33E91F3C0CED0057E2AE /* star_nor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_nor.png; sourceTree = "<group>"; };
 		498A33EA1F3C0CED0057E2AE /* star_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_nor@2x.png"; sourceTree = "<group>"; };
 		498A33EB1F3C0CED0057E2AE /* star_nor@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_nor@3x.png"; sourceTree = "<group>"; };
@@ -4225,7 +4229,6 @@
 				495EA56A1F14B64C001FCB7E /* ZFpopView.m */,
 				498A33E21F3C09E30057E2AE /* ZFEvaluateGoodsViewController.h */,
 				498A33E31F3C09E30057E2AE /* ZFEvaluateGoodsViewController.m */,
-				498A33E41F3C09E30057E2AE /* ZFEvaluateGoodsViewController.xib */,
 			);
 			name = "Public(公共)";
 			path = Public;
@@ -4253,6 +4256,12 @@
 				495EA5661F14B64C001FCB7E /* ZFOrderDetailSectionCell.h */,
 				495EA5671F14B64C001FCB7E /* ZFOrderDetailSectionCell.m */,
 				495EA5681F14B64C001FCB7E /* ZFOrderDetailSectionCell.xib */,
+				493675D81F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.h */,
+				493675D91F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.m */,
+				493675DA1F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.xib */,
+				493675DD1F57D8FE001EDEC2 /* ZFServiceEvaluteCell.h */,
+				493675DE1F57D8FE001EDEC2 /* ZFServiceEvaluteCell.m */,
+				493675DF1F57D8FE001EDEC2 /* ZFServiceEvaluteCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4545,8 +4554,6 @@
 				50424F161F30EB2E00A1689D /* head@2x.png */,
 				495EA5EA1F14B64C001FCB7E /* addphone@2x.png */,
 				495EA5EB1F14B64C001FCB7E /* addphone@3x.png */,
-				495EA5EC1F14B64C001FCB7E /* choose_normal40@2x.png */,
-				495EA5ED1F14B64C001FCB7E /* choose_normal40@3x.png */,
 				495EA5F01F14B64C001FCB7E /* collectshopCar@2x.png */,
 				495EA5F11F14B64C001FCB7E /* collectshopCar@3x.png */,
 				495EA5F21F14B64C001FCB7E /* editDelete@2x.png */,
@@ -6898,7 +6905,6 @@
 				495EA8F51F14B64E001FCB7E /* send_normal@3x.png in Resources */,
 				495EA91C1F14B64E001FCB7E /* zan@2x.png in Resources */,
 				492141881F2A031A00C44D10 /* home_redSecond@2x.png in Resources */,
-				495EA8B41F14B64D001FCB7E /* choose_normal40@2x.png in Resources */,
 				495EA7C01F14B64D001FCB7E /* VerificationCodeViewController.xib in Resources */,
 				495EA85D1F14B64D001FCB7E /* qq@3x.png in Resources */,
 				495EA8D91F14B64E001FCB7E /* star_normal@3x.png in Resources */,
@@ -6963,6 +6969,7 @@
 				49C33E4F1F558D9D00BC2254 /* kefu_black@2x.png in Resources */,
 				495EA86C1F14B64D001FCB7E /* flying_local@2x.png in Resources */,
 				498A33F61F3C0CED0057E2AE /* star_sel@3x.png in Resources */,
+				493675DC1F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.xib in Resources */,
 				4968A5DD1F4DB83E0061A87E /* NIMKitSettings.bundle in Resources */,
 				495EA7CC1F14B64D001FCB7E /* ZFMyCashBagCell.xib in Resources */,
 				49C33E4B1F558D3700BC2254 /* store_black@2x.png in Resources */,
@@ -7019,7 +7026,6 @@
 				495EA8B91F14B64D001FCB7E /* collectshopCar@3x.png in Resources */,
 				49C33E481F558C5900BC2254 /* addShopCar_white@3x.png in Resources */,
 				495EA8451F14B64D001FCB7E /* ZFOrderDetailGoosContentCell.xib in Resources */,
-				495EA8B51F14B64D001FCB7E /* choose_normal40@3x.png in Resources */,
 				495EA9001F14B64E001FCB7E /* comment_white@2x.png in Resources */,
 				49555EA61F1E0092002E5688 /* SendServiceTitleCell.xib in Resources */,
 				495EA7771F14B64D001FCB7E /* DetailShareViewController.xib in Resources */,
@@ -7095,7 +7101,6 @@
 				495EA8E41F14B64E001FCB7E /* success_order@2x.png in Resources */,
 				492141891F2A031A00C44D10 /* home_redSecond@3x.png in Resources */,
 				495EA88E1F14B64D001FCB7E /* placeholder@2x.png in Resources */,
-				498A33E61F3C09E30057E2AE /* ZFEvaluateGoodsViewController.xib in Resources */,
 				49AD34461F2883BA00DC8A8F /* storeimg@3x.png in Resources */,
 				4968A4311F4DB5290061A87E /* NTESAudio2TextViewController.xib in Resources */,
 				495EA8571F14B64D001FCB7E /* arrows_down_black@3x.png in Resources */,
@@ -7162,6 +7167,7 @@
 				495EA8781F14B64D001FCB7E /* evaluate_waitting@2x.png in Resources */,
 				495EA8B31F14B64D001FCB7E /* addphone@3x.png in Resources */,
 				495EA8EA1F14B64E001FCB7E /* 省略@2x.png in Resources */,
+				493675E11F57D8FE001EDEC2 /* ZFServiceEvaluteCell.xib in Resources */,
 				495EA90F1F14B64E001FCB7E /* loca_small@3x.png in Resources */,
 				495EA8671F14B64D001FCB7E /* bag_normal@3x.png in Resources */,
 				495EA73B1F14B64D001FCB7E /* blankpage_image_Sleep@3x.png in Resources */,
@@ -7561,6 +7567,7 @@
 				4968A2A21F4DB5080061A87E /* NIMInputToolBar.m in Sources */,
 				495EA8321F14B64D001FCB7E /* ZFBackWaysViewController.m in Sources */,
 				495EA7A61F14B64D001FCB7E /* FindStoreCell.m in Sources */,
+				493675DB1F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.m in Sources */,
 				495EA7971F14B64D001FCB7E /* FindStoreViewController.m in Sources */,
 				49690CBF1F14EB3A004C501B /* MENetWorkManager.m in Sources */,
 				4968A2CC1F4DB5090061A87E /* NIMSessionUnknowContentView.m in Sources */,
@@ -7576,6 +7583,7 @@
 				495EA7861F14B64D001FCB7E /* ZFbabyEvaluateCell.m in Sources */,
 				497EF6FB1F4EA1B200BFF1AF /* NTESNetCallChatInfo.m in Sources */,
 				49555EB01F1E0092002E5688 /* ZFShopListCell.m in Sources */,
+				493675E01F57D8FE001EDEC2 /* ZFServiceEvaluteCell.m in Sources */,
 				4968A4451F4DB5290061A87E /* NTESAliasSettingViewController.m in Sources */,
 				49DA748D1F2599FA009F5577 /* SearchResultTableVC.m in Sources */,
 				495EA82E1F14B64D001FCB7E /* ZFMyOpinionCell.m in Sources */,

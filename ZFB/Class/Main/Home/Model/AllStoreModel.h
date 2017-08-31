@@ -68,7 +68,7 @@
 
 @property (nonatomic, assign) NSInteger storeId;
 
-@property (nonatomic, assign) CGFloat starLevel;
+@property (nonatomic, assign) NSInteger starLevel;
 
 @property (nonatomic, assign) NSInteger storekeeperUserId;
 

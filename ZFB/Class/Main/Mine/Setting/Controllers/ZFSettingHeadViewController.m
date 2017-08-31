@@ -184,9 +184,13 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         ZFSettingHeaderCell *cell = (ZFSettingHeaderCell *)[tableView cellForRowAtIndexPath:indexPath];
         [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data, NSString *imgPath) {
            
-            cell.img_headView.image = (UIImage *)data;
-            _imagePath = imgPath;
-            _userImgAttachUrl =  [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,imgPath ];
+            dispatch_async(dispatch_get_main_queue(), ^{
+              
+                cell.img_headView.image = (UIImage *)data;
+                _imagePath = imgPath;
+                _userImgAttachUrl =  [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,imgPath ];
+            });
+
             NSLog(@" 222222222 _userImgAttachUrl = = = = %@  ", imgPath );
 
         }];
@@ -247,9 +251,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             ZFAddressListViewController  * addVC = [[ZFAddressListViewController alloc]init];
             [self.navigationController pushViewController:addVC animated:YES];
         }
-        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-
+        [self.tableView reloadData];
     }
 }
 

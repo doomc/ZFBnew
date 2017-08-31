@@ -44,18 +44,25 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 //////////////////////-- 保存为json回传后台--//////////////////////
 @property (nonatomic,strong) NSMutableArray * jsonGoodArray;
 @property (nonatomic,strong) NSMutableDictionary   * jsonDict;
-@property (nonatomic,strong) NSString       * jsonString;
 
+//需要传到确认订单的数组
+@property (nonatomic,strong) NSMutableArray * mutJsonArray;
 
 @end
 
 @implementation ZFShoppingCarViewController
-
+-(NSMutableArray *)mutJsonArray
+{
+    if (!_mutJsonArray) {
+        _mutJsonArray = [NSMutableArray array];
+    }
+    return _mutJsonArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
- 
+    
     [self.shopCar_tableview registerNib:[UINib nibWithNibName:shopCarContenCellID bundle:nil]
                  forCellReuseIdentifier:shopCarContenCellID];
     [self.shopCar_tableview registerNib:[UINib nibWithNibName:shoppingHeaderID bundle:nil]
@@ -64,13 +71,13 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     [self.view addSubview:self.underFootView];
     self.allSelectedButton.selected = NO;
     self.complete_Btn.selected      = NO;
-
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     if (BBUserDefault.isLogin == 1) {
         [self shoppingCarPostRequst];
- 
+        
     }else{
         
         NSLog(@"登录了");
@@ -83,7 +90,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
         }];
     }
-
+    
 }
 #pragma mark -当购物车页面消失后   取消选中
 -(void)viewWillDisappear:(BOOL)animated
@@ -96,31 +103,24 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 -(void)didClickClearingShoppingCar:(UIButton *)sender
 {
     NSLog(@" 结算");
-
+    
 #warning  ----- 进入到结算前提是要选择一个商品 暂时没有处理
     ZFSureOrderViewController * orderVC = [[ZFSureOrderViewController alloc]init];
-
-    if (  _jsonString  == nil  ) {
-   
+    if (self.mutJsonArray != nil && ![self.mutJsonArray isKindOfClass:[NSNull class]] && self.mutJsonArray.count != 0)
+    {
+        
+        orderVC.cartItemId = @"";
+        [self.navigationController pushViewController:orderVC animated:YES];
+        
+    }
+    else{
         JXTAlertController * alert =  [JXTAlertController alertControllerWithTitle:nil message:@"您还没有选择商品" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             
         }];
         [alert addAction:action];
         [self presentViewController:alert animated:YES completion:nil];
-
     }
-    else{
-       
-        orderVC.cartItemId = @"";
-        orderVC.jsonString = _jsonString;
-        NSLog(@"提交成功了 ----------- %@ ",_jsonString);
-        [SVProgressHUD dismissWithDelay:1];
-        [self.navigationController pushViewController:orderVC animated:YES];
-    }
-
-   
-    
 }
 
 #pragma mark - ShoppingSelectedDelegate  自定义代理
@@ -139,47 +139,47 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     NSLog(@"单个选择");
     
     NSIndexPath *indexPath   = [self.shopCar_tableview indexPathForCell:cell];
-    Shoppcartlist * list     = self.carListArray[indexPath.section];
+    Shoppcartlist *list     = self.carListArray[indexPath.section];
     ShopGoodslist *goods         = list.goodsList[indexPath.row];
     goods.goodslistIsChoosed = !goods.goodslistIsChoosed;
-  
+    
     //////////////////////////////////////////////////////////////////////////
     NSMutableArray * mArray = [NSMutableArray array];
-//    NSMutableArray *  InfojsonArray = [NSMutableArray array];
-//    NSMutableDictionary * dict  = [NSMutableDictionary dictionary];
-//    NSMutableDictionary * jsonDict  = [NSMutableDictionary dictionary];
+    //    NSMutableArray *  InfojsonArray = [NSMutableArray array];
+    //    NSMutableDictionary * dict  = [NSMutableDictionary dictionary];
+    //    NSMutableDictionary * jsonDict  = [NSMutableDictionary dictionary];
     
     // 当点击单个的时候，判断是否该买手下面的商品是否全部选中
     __block NSInteger count = 0;
     [list.goodsList enumerateObjectsUsingBlock:^(ShopGoodslist *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-    
+        
         if (obj.goodslistIsChoosed)
         {
             count ++;
-
+            
             NSMutableDictionary *goodDic = obj.mj_keyValues;
             [mArray addObject:goodDic];
             
-//            [dict setValue: [NSArray arrayWithArray:mArray]  forKey:@"goodsList"];
-//            [dict setValue:list.storeName forKey:@"storeName"];
-//            [dict setValue:list.storeId forKey:@"storeId"];
-//    
-//            NSLog(@"dict = %@",dict);
-//            
-//            [InfojsonArray addObject:dict];
-//            
-//            [jsonDict setValue:[NSArray arrayWithArray:InfojsonArray]  forKey:@"userGoodsInfoJSON"];
-//            
-//            NSLog(@"jsonDict = %@",jsonDict);
-//    
-//            _jsonString = [NSString convertToJsonData:self.jsonDict];
-//            
-//            NSLog(@"_jsonString = %@",_jsonString);
+            //            [dict setValue: [NSArray arrayWithArray:mArray]  forKey:@"goodsList"];
+            //            [dict setValue:list.storeName forKey:@"storeName"];
+            //            [dict setValue:list.storeId forKey:@"storeId"];
+            //
+            //            NSLog(@"dict = %@",dict);
+            //
+            //            [InfojsonArray addObject:dict];
+            //
+            //            [jsonDict setValue:[NSArray arrayWithArray:InfojsonArray]  forKey:@"userGoodsInfoJSON"];
+            //
+            //            NSLog(@"jsonDict = %@",jsonDict);
+            //
+            //            _jsonString = [NSString convertToJsonData:self.jsonDict];
+            //
+            //            NSLog(@"_jsonString = %@",_jsonString);
         }
- 
+        
         
     }];
- 
+    
     if (count == list.goodsList.count){
         
         list.leftShoppcartlistIsChoosed = YES;
@@ -187,7 +187,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     else
     {
         list.leftShoppcartlistIsChoosed = NO;
-
+        
     }
     
     [self.shopCar_tableview reloadData];
@@ -219,19 +219,19 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             
             [self.jsonGoodArray removeAllObjects];
         }
-//        //模型转字典
-//        NSDictionary * dic = list.mj_keyValues;
-//      
-//        [self.jsonGoodArray addObject:dic];
-//        
-//        NSLog(@"dic = %@",dic);
-//        self.jsonDict = [NSMutableDictionary dictionary];
-//        
-//        [self.jsonDict setValue:[NSArray arrayWithArray:self.jsonGoodArray] forKey:@"userGoodsInfoJSON"];
-//
-//        _jsonString = [NSString convertToJsonData:self.jsonDict];
-//        
-//        NSLog(@"_jsonString = %@",_jsonString);
+        //        //模型转字典
+        //        NSDictionary * dic = list.mj_keyValues;
+        //
+        //        [self.jsonGoodArray addObject:dic];
+        //
+        //        NSLog(@"dic = %@",dic);
+        //        self.jsonDict = [NSMutableDictionary dictionary];
+        //
+        //        [self.jsonDict setValue:[NSArray arrayWithArray:self.jsonGoodArray] forKey:@"userGoodsInfoJSON"];
+        //
+        //        _jsonString = [NSString convertToJsonData:self.jsonDict];
+        //
+        //        NSLog(@"_jsonString = %@",_jsonString);
     }
     
     
@@ -262,18 +262,18 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         }
     }
     
-//    if (sender.selected) {
-//        
-//        //模型数组转字典数组
-//        NSArray *dictArray    = [Shoppcartlist mj_keyValuesArrayWithObjectArray:self.carListArray];
-//        NSLog(@"mo xingshuszu = %@",dictArray);
-//
-//        self.jsonDict   = [NSMutableDictionary dictionaryWithObject:dictArray forKey:@"userGoodsInfoJSON"];
-//        NSLog(@"添加选中的 商品  到数组中  ----jsonDict  = %@",self.jsonDict);
-//        
-//        _jsonString  = [NSString convertToJsonData:self.jsonDict];
-//    }
-
+    //    if (sender.selected) {
+    //
+    //        //模型数组转字典数组
+    //        NSArray *dictArray    = [Shoppcartlist mj_keyValuesArrayWithObjectArray:self.carListArray];
+    //        NSLog(@"mo xingshuszu = %@",dictArray);
+    //
+    //        self.jsonDict   = [NSMutableDictionary dictionaryWithObject:dictArray forKey:@"userGoodsInfoJSON"];
+    //        NSLog(@"添加选中的 商品  到数组中  ----jsonDict  = %@",self.jsonDict);
+    //
+    //        _jsonString  = [NSString convertToJsonData:self.jsonDict];
+    //    }
+    
     [self.shopCar_tableview reloadData];
     
     CGFloat totalPrice = [self countTotalPrice];
@@ -348,14 +348,14 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     NSIndexPath *indexpath = [self.shopCar_tableview indexPathForCell:cell];
     Shoppcartlist *list    = self.carListArray[indexpath.section];
     ShopGoodslist * goods      = list.goodsList[indexpath.row];
-//    goods.goodsCount = 1;
-  
+    //    goods.goodsCount = 1;
+    
     if (tag == 555)
     {
         if (goods.goodsCount <= 1) {
             
-       
-
+            
+            
         }
         else
         {
@@ -470,15 +470,15 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 #pragma mark - tableView datasource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    DetailFindGoodsViewController *deatilGoods =[[DetailFindGoodsViewController alloc]init];
-//    NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
-//    if (self.carListArray.count > 0 ) {
-//        Goodslist * goodlist = self.carListArray[indexPath.row];
-//        deatilGoods.goodsId  = goodlist.goodsId;
-//
-//    }
-//    [self.navigationController pushViewController:deatilGoods animated:YES];
-
+    //    DetailFindGoodsViewController *deatilGoods =[[DetailFindGoodsViewController alloc]init];
+    //    NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
+    //    if (self.carListArray.count > 0 ) {
+    //        Goodslist * goodlist = self.carListArray[indexPath.row];
+    //        deatilGoods.goodsId  = goodlist.goodsId;
+    //
+    //    }
+    //    [self.navigationController pushViewController:deatilGoods animated:YES];
+    
 }
 
 #pragma mark - 计算商品被选择了数量
@@ -662,7 +662,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
                              @"cmUserId":BBUserDefault.cmUserId,
                              
                              };
-
+    
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getShoppCartList"] params:parma success:^(id response) {
         
@@ -673,16 +673,16 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
                 [self.carListArray  removeAllObjects];
             }
             ShoppingCarModel * shopModel = [ShoppingCarModel mj_objectWithKeyValues:response];
-                
+            
             for (Shoppcartlist * list in shopModel.shoppCartList) {
                 [self.carListArray addObject:list];
-               
+                
             }
             
             [SVProgressHUD dismiss];
             
             [self.shopCar_tableview reloadData];
-  
+            
         }
         
     } progress:^(NSProgress *progeress) {

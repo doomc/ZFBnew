@@ -152,9 +152,10 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             
             break;
         case OrderTypeAfterSale://售后
-            
-            [self allOrderPostRequsetWithOrderStatus:@"2"   orderNum:@""];
-            
+           
+            //            [self allOrderPostRequsetWithOrderStatus:@"2"  orderNum:@""];
+            [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:self.searchBar.text];
+
             break;
     }
     
@@ -198,8 +199,9 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             break;
         case OrderTypeAfterSale://售后
             
-            [self allOrderPostRequsetWithOrderStatus:@"2"  orderNum:@""];
-            
+//            [self allOrderPostRequsetWithOrderStatus:@"2"  orderNum:@""];
+            [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:self.searchBar.text];
+
             break;
     }
     
@@ -1749,6 +1751,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     }else{
         //开始搜索
         [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:searchText];
+        self.searchBar.text = searchText;
+        
     }
 }
 

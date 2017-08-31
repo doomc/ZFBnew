@@ -20,19 +20,17 @@
     self.img_allStoreView.layer.borderWidth = 0.5;
     self.img_allStoreView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
 
-//    self.starView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 120, 40) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self];
+ 
  
 }
--(void)setStorelist:(Findgoodslists *)Storelist
+-(void)setStorelist:(Findgoodslists *)storelist
 {
-    _Storelist = Storelist;
-    
-    self.lb_distance.text = [NSString stringWithFormat:@"%@km",Storelist.storeDist];
-    self.lb_title.text = Storelist.storeName;
-    [self.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:Storelist.coverUrl] placeholderImage:nil];
-    
-}
 
+    self.lb_distance.text = [NSString stringWithFormat:@"%@km",storelist.storeDist];
+    self.lb_title.text = storelist.storeName;
+    [self.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:storelist.coverUrl] placeholderImage:nil];
+
+}
 
 
 

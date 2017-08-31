@@ -18,37 +18,35 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务单号：123010230123服务单号：123010230123服务单号： " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDu-kL-Nkm">
-                        <rect key="frame" x="15" y="10" width="290" height="29.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDu-kL-Nkm">
+                        <rect key="frame" x="15" y="10" width="290" height="33.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="申请时间：2014-2-2 12：12：12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0g-KF-yRQ">
-                        <rect key="frame" x="15" y="44.5" width="290" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="F4S-6V-0Xy"/>
-                        </constraints>
+                        <rect key="frame" x="15" y="48.5" width="290" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="T0g-KF-yRQ" secondAttribute="trailing" constant="15" id="6PG-fr-Aog"/>
-                    <constraint firstItem="T0g-KF-yRQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="KeE-k5-1ul"/>
-                    <constraint firstAttribute="bottom" secondItem="T0g-KF-yRQ" secondAttribute="bottom" constant="10" id="NYO-iL-2Pk"/>
-                    <constraint firstItem="T0g-KF-yRQ" firstAttribute="top" secondItem="bDu-kL-Nkm" secondAttribute="bottom" constant="5" id="g7x-bl-uzQ"/>
-                    <constraint firstItem="bDu-kL-Nkm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="jXH-3n-tg9"/>
-                    <constraint firstAttribute="trailing" secondItem="bDu-kL-Nkm" secondAttribute="trailing" constant="15" id="lp4-Zh-78d"/>
-                    <constraint firstItem="bDu-kL-Nkm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="vMo-Zf-1w5"/>
+                    <constraint firstItem="T0g-KF-yRQ" firstAttribute="top" secondItem="bDu-kL-Nkm" secondAttribute="bottom" constant="5" id="PqM-s3-mEo"/>
+                    <constraint firstItem="bDu-kL-Nkm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="PtZ-yo-lYw"/>
+                    <constraint firstItem="bDu-kL-Nkm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="aM7-d0-6FO"/>
+                    <constraint firstItem="T0g-KF-yRQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="d5Z-sF-ArB"/>
+                    <constraint firstAttribute="trailing" secondItem="bDu-kL-Nkm" secondAttribute="trailing" constant="15" id="lFL-Bz-ZYV"/>
+                    <constraint firstAttribute="trailing" secondItem="T0g-KF-yRQ" secondAttribute="trailing" constant="15" id="xb1-0e-Wa3"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="lb_applyTime" destination="T0g-KF-yRQ" id="uqr-fP-dH4"/>
                 <outlet property="lb_serviceNum" destination="bDu-kL-Nkm" id="wfi-VD-g7V"/>
             </connections>
-            <point key="canvasLocation" x="-609" y="143"/>
+            <point key="canvasLocation" x="-763" y="142"/>
         </tableViewCell>
     </objects>
 </document>

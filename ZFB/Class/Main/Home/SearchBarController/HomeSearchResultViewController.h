@@ -9,10 +9,15 @@
 #import "BaseViewController.h"
 
 @interface HomeSearchResultViewController : BaseViewController
-
-@property (nonatomic , copy) NSString * searchType;//门店或者商品
+///搜索类型
+@property (nonatomic , copy) NSString * searchType;
+///门店或者商品
 @property (nonatomic , copy) NSString * number;
-@property (nonatomic , copy) NSString * resultsText;///搜索类型
-@property (nonatomic , copy) NSString * labelId;///标签id
+///搜索类型
+@property (nonatomic , copy) NSString * resultsText;
+///标签id
+@property (nonatomic , copy) NSString * labelId;
+///商品类别
+@property (nonatomic , copy) NSString * goodsType;
 
 @end

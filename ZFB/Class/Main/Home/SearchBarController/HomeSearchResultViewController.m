@@ -20,7 +20,7 @@
 #import "BrandListModel.h"//品牌模型
 //vc
 #import "DetailFindGoodsViewController.h"
-@interface HomeSearchResultViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate,SearchTypeCollectionViewDelegate,SearchTypeViewDelegate >
+@interface HomeSearchResultViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,SearchTypeCollectionViewDelegate,SearchTypeViewDelegate >
 
 {
     NSString * _brandId ;//获取品牌
@@ -45,7 +45,6 @@
 @property (nonatomic ,strong) UIView                   * popBgView;//品牌弹框
 
 //公共
-@property (nonatomic ,strong) UIButton                 * selectbutton;//搜索选择方式
 @property (nonatomic ,strong) UIView                   * titleView;//导航视图
 
 @property (nonatomic, strong) NSArray *distenceList;
@@ -97,7 +96,7 @@
     [super headerRefresh];
  
  
-    if ([self.selectbutton.titleLabel.text isEqualToString:@"商品"]) {
+    if ([self.searchType isEqualToString:@"商品"]) {
         //商品搜索
         [self SearchgoodsPOSTRequestAndsearchText:_resultsText brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
         
@@ -111,7 +110,7 @@
     
     [super footerRefresh];
     
-    if ([self.selectbutton.titleLabel.text isEqualToString:@"商品"]) {
+    if ([self.searchType  isEqualToString:@"商品"]) {
         //商品搜索
         [self SearchgoodsPOSTRequestAndsearchText:_resultsText brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
         
@@ -152,7 +151,6 @@
     //创建titleView
     _titleView                    = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
     self.navigationItem.titleView = _titleView;
-    [_titleView addSubview:self.selectbutton];
     [_titleView addSubview:self.searchBar];
     
     self.zfb_tableView = self.tableView ;
@@ -198,7 +196,7 @@
 -(UISearchBar *)searchBar
 {
     if (!_searchBar) {
-        _searchBar                 = [[UISearchBar alloc]initWithFrame:CGRectMake(50, 0, KScreenW - 2*50, 44)];
+        _searchBar                 = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 50, 44)];
         _searchBar.delegate        = self;
         _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
         _searchBar.placeholder     = @"搜索";
@@ -231,22 +229,7 @@
     }
     return _tableView;
 }
--(UIButton *)selectbutton
-{
-    if (!_selectbutton) {
-        _selectbutton                 = [UIButton buttonWithType:UIButtonTypeCustom];
-        _selectbutton.backgroundColor = HEXCOLOR(0xfe6d6a);
-        
-        //默认值
-        [_selectbutton setTitle:@"商品" forState:UIControlStateNormal];
-        _selectbutton.frame              = CGRectMake(5, 7, 40, 30);
-        _selectbutton.titleLabel.font    = [UIFont systemFontOfSize:14];
-        _selectbutton.layer.cornerRadius = 4;
-        _selectbutton.clipsToBounds      = YES;
-        [_selectbutton addTarget:self action:@selector(selectTypeAction:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _selectbutton;
-}
+
 -(NSMutableArray *)noResultArray
 {
     if (!_noResultArray) {
@@ -268,30 +251,6 @@
     }
     return _searchListArray;
 }
-#pragma mark -  选择搜索类型
--(void)selectTypeAction :(UIButton *)sender
-{
-    [sender setTag:1001];
-    
-    [YBPopupMenu showRelyOnView:sender titles:TITLES  icons:nil menuWidth:60 otherSettings:^(YBPopupMenu *popupMenu) {
-        popupMenu.priorityDirection = YBPopupMenuPriorityDirectionBottom;
-        popupMenu.borderWidth       = 0.5;
-        popupMenu.arrowHeight       = 5;
-        popupMenu.arrowWidth        = 10;
-        popupMenu.fontSize          = 14;
-        popupMenu.delegate          = self;
-        popupMenu.borderColor       = HEXCOLOR(0xfe6d6a);
-    }];
-}
-#pragma mark - YBPopupMenuDelegate
-- (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu
-{
-    NSLog(@" %@ 1001",TITLES[index]);
-    
-    [self.selectbutton setTitle:TITLES[index] forState:UIControlStateNormal];
-    
-}
-
 
 #pragma mark - SearchTypeViewDelegate
 ///品牌选择
@@ -480,7 +439,7 @@
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     NSLog(@"searchText ==== %@",searchText);
-    if ([self.selectbutton.titleLabel.text isEqualToString:@"商品"]) {
+    if ([self.searchType isEqualToString:@"商品"]) {
         //商品搜索
         [self SearchgoodsPOSTRequestAndsearchText:searchText brandId:@""orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
    
@@ -497,7 +456,7 @@
 {
     NSLog(@"点击搜索方法");
     [searchBar resignFirstResponder];
-    if ([self.selectbutton.titleLabel.text isEqualToString:@"商品"]) {
+    if ([self.searchType  isEqualToString:@"商品"]) {
         //商品搜索
         [self SearchgoodsPOSTRequestAndsearchText:searchBar.text brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" ];
         
@@ -608,6 +567,9 @@
 
 
 {
+    if (_goodsType == nil) {
+        _goodsType = @"";
+    }
     NSDictionary * param = @{
                              
                              @"sercahText":searchText,
@@ -618,6 +580,7 @@
                              @"isFeatured":isFeatured,
                              @"size":[NSNumber numberWithInteger:kPageCount],
                              @"page":[NSNumber numberWithInteger:self.currentPage],
+                             @"goodsType":_goodsType
                              };
     
     [SVProgressHUD show];
@@ -780,7 +743,7 @@
 {
     [self getFindbrandListPost];
     
-    if ([self.selectbutton.titleLabel.text isEqualToString:@"商品"]) {
+    if ([self.searchType  isEqualToString:@"商品"]) {
         //商品搜索
         [self SearchgoodsPOSTRequestAndsearchText:_resultsText brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
         

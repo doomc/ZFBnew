@@ -75,8 +75,13 @@
         height  = 92;
         
     }else{
+        height = 76;
         
-        height  = 76;
+//        height = [tableView fd_heightForCellWithIdentifier:@"ZFPregressCheckCellid2" cacheByIndexPath:indexPath configuration:^(ZFPregressCheckCell2 * cell) {
+//            
+//            [self configCell:cell withIndexPath:indexPath];
+//          }];
+        
     }
 
     return height;
@@ -109,17 +114,21 @@
     }else{
        
         ZFPregressCheckCell2 * CheckCell2 = [self.tableView dequeueReusableCellWithIdentifier:@"ZFPregressCheckCellid2" forIndexPath:indexPath];
-        
-        CheckList  * list = self.listArray[indexPath.row];
-        
-        CheckCell2.list = list;
-        
+        [self configCell:CheckCell2 withIndexPath:indexPath];
         return CheckCell2;
   
     }
 
 }
 
+-(void)configCell:(ZFPregressCheckCell2 *)Cell withIndexPath :(NSIndexPath*)indexPath
+{
+    CheckList  * list = self.listArray[indexPath.row];
+    Cell.list = list;
+    Cell.fd_isTemplateLayoutCell = YES;
+ 
+
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld == section ，%ld == row",indexPath.section,indexPath.row);

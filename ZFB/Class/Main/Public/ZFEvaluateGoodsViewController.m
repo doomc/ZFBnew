@@ -6,60 +6,108 @@
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
+
 #import "ZFEvaluateGoodsViewController.h"
-#import "TggStarEvaluationView.h"
+#import "ZFServiceEvaluteCell.h"
+#import "ZFEvaluateGoodsCell.h"
 
-@interface ZFEvaluateGoodsViewController ()
+@interface ZFEvaluateGoodsViewController () <UITableViewDelegate,UITableViewDataSource ,ZFEvaluateGoodsCellDelegate,ZFServiceEvaluteCellDelegate>
 
-@property (weak, nonatomic) IBOutlet TggStarEvaluationView *goodsAppraiseView;
-@property (weak, nonatomic) IBOutlet TggStarEvaluationView *sendSpeedAppraiseView;
-@property (weak, nonatomic) IBOutlet TggStarEvaluationView *serviceAppraiseView;
+@property (nonatomic,strong) UITableView * tableview;
 
-@property (weak, nonatomic) IBOutlet UILabel *lb_goodsScore;
-@property (weak, nonatomic) IBOutlet UILabel *lb_sendSpeedScore;
-@property (weak, nonatomic) IBOutlet UILabel *lb_serviceScore;
-
-@property (weak, nonatomic) IBOutlet UIButton *commitBtn;
 @end
 
 @implementation ZFEvaluateGoodsViewController
 
-- (IBAction)commitAction:(id)sender {
-    
-    //提交
+-(UITableView *)tableview
+{
+    if (!_tableview ) {
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH - 64) style:UITableViewStylePlain];
+        _tableview.delegate = self;
+        _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableview.dataSource = self;
+    }
+    return _tableview;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.commitBtn.layer.cornerRadius = 4;
-    self.commitBtn.clipsToBounds = YES;
+ 
+    self.title = @"晒单";
     
-    [self starViewInit];
+    [self.view addSubview:self.tableview];
+    
+    [self.tableview registerNib:[UINib nibWithNibName:@"ZFServiceEvaluteCell" bundle:nil] forCellReuseIdentifier:@"ZFServiceEvaluteCell"];
+    [self.tableview registerNib:[UINib nibWithNibName:@"ZFEvaluateGoodsCell" bundle:nil] forCellReuseIdentifier:@"ZFEvaluateGoodsCell"];
+    
 }
--(void)starViewInit
+
+#pragma mark - UITableViewDataSource
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    weakSelf(weakSelf);
-     _goodsAppraiseView = [TggStarEvaluationView evaluationViewWithChooseStarBlock:^(NSUInteger count) {
+    return 2;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
+    if (section == 0) {
+    
+        return 2;
+    
+    }
+    
+    return 1;
+
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
         
-         weakSelf.lb_goodsScore.text = [NSString stringWithFormat:@"%ld分",count];
-         
-     }];
+        return 360;
+    }
 
-
-    _sendSpeedAppraiseView = [TggStarEvaluationView evaluationViewWithChooseStarBlock:^(NSUInteger count) {
+    return  208;
+  
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        
+        ZFEvaluateGoodsCell * goodsCell = [self.tableview dequeueReusableCellWithIdentifier:@"ZFEvaluateGoodsCell" forIndexPath:indexPath];
+        goodsCell.delegate = self;
+        return goodsCell;
+        
+    }else{
+        
+        ZFServiceEvaluteCell * serviceCell = [self.tableview dequeueReusableCellWithIdentifier:@"ZFServiceEvaluteCell" forIndexPath:indexPath];
+        
+        serviceCell.delegate = self;
+        return serviceCell;
         
     
-        weakSelf.lb_sendSpeedScore.text = [NSString stringWithFormat:@"%ld分",count];
-    }];
-   
-    _serviceAppraiseView = [TggStarEvaluationView evaluationViewWithChooseStarBlock:^(NSUInteger count) {
-        
-        NSLog(@"\n\n给了铁哥哥：%ld星好评！！!\n\n",count);
-        weakSelf.lb_sendSpeedScore.text = [NSString stringWithFormat:@"%ld分",count];
-    }];
+    }
+}
+
+#pragma mark - ZFEvaluateGoodsCellDelegate
+//传入选择的图片
+-(void)uploadImageArray:(NSMutableArray *)uploadArr
+{
     
 }
+//刷新高度
+-(void)reloadCellHeight:(CGFloat)cellHeight
+{
+    
+}
+#pragma mark - ZFServiceEvaluteCellDelegate
+
+//提交
+-(void)didClickCommit
+{
+    
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

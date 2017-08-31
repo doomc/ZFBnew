@@ -63,6 +63,9 @@ typedef NS_ENUM(NSUInteger, indexType) {
 - (void)dealloc
 {
     [self.rech stopNotifier];
+    
+    [SVProgressHUD dismiss];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)networkStateChange
@@ -427,8 +430,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/quickLogin",zfb_baseUrl] params:parma success:^(id response) {
       
-        //xuelian 17749920847
-        //QUCNUKH6P8T2UAN4
+        [SVProgressHUD showWithStatus:@"登陆中..."];
         if ([response[@"resultCode"] isEqualToString:@"0" ]) {
             BBUserDefault.isLogin = 1;
             
@@ -441,11 +443,12 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
             NSLog(@" ======= signMD5Key=======%@", BBUserDefault.userKeyMd5 );
             [self left_button_event];
+            [SVProgressHUD dismiss];
+            [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
+
         }
 
-        [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
         
-        [SVProgressHUD dismiss];
         
     } progress:^(NSProgress *progeress) {
         
@@ -470,6 +473,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              @"loginPwd":_tf_verificationCodeOrPassWord.text,
                              };
     
+    [SVProgressHUD showWithStatus:@"登陆中..."];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/login",zfb_baseUrl] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0" ]) {
@@ -482,7 +486,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.token = response[@"userInfo"][@"token"];
             BBUserDefault.accid = response[@"userInfo"][@"accid"];
             [self left_button_event];
-    
+            [SVProgressHUD dismiss];
+
         }
         NSLog(@" ======= userKeyMd5=======%@",BBUserDefault.userKeyMd5 );
         [self.view makeToast:response [@"resultMsg"] duration:2 position:@"center"];
@@ -499,6 +504,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
    
 
 }
+
 
 
 @end

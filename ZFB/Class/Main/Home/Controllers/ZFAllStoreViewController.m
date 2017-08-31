@@ -180,9 +180,8 @@
     all_cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     Findgoodslists * goodlist = [self.allStoreArray objectAtIndex:indexPath.row];
-    all_cell.Storelist        = goodlist;
-    
-    
+    all_cell.storelist        = goodlist;
+
     //初始化五星好评控件
     all_cell.starView .needIntValue = NO;//是否整数显示，默认整数显示
     all_cell.starView .canTouch     = NO;//是否可以点击，默认为NO

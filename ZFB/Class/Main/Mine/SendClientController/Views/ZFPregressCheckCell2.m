@@ -13,13 +13,28 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    
 }
 -(void)setList:(CheckList *)list
 {
     _list = list;
     self.lb_serviceNum.text = list.message;
     self.lb_applyTime.text = [NSString stringWithFormat:@"申请时间:%@",list.time];
+ 
 }
+
+
+//-(CGSize)sizeThatFits:(CGSize)size
+//{
+//    CGFloat cellHeight = 0;
+//    cellHeight  += [self.lb_applyTime sizeThatFits:size].height;
+//    cellHeight  += [self.lb_serviceNum sizeThatFits:size].height;
+//    cellHeight  += 40;
+//    return CGSizeMake(size.width, size.height);
+//}
+
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
