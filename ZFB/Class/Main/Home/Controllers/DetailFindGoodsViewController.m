@@ -69,6 +69,7 @@
     UIWebView * _webview;
     CGFloat _webViewHeight;
     
+    Valuelist* _currentSku;
 }
 
 @property (nonatomic,strong) UITableView * list_tableView;
@@ -76,9 +77,6 @@
 @property (nonatomic,strong) UIView      * popView;
 @property (nonatomic,strong) UIView      * BgView;//背景view
 
-@property (nonatomic,strong) UIButton * contactService;//客服
-@property (nonatomic,strong) UIButton * addShopCar;//加入购物车
-@property (nonatomic,strong) UIButton * rightNowGo;//立即购买
 
 @property (nonatomic,strong) SDCycleScrollView * cycleScrollView;//轮播图
 
@@ -567,14 +565,15 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     Productattribute *product = self.productSkuArray[indexPath.section];
-    
     Valuelist *value = product.valueList[indexPath.item];
-    
     if (!(value.selectType == ValueSelectType_enable)) {
         
         for (Valuelist *valueItem in product.valueList) {
             
             if ([value isEqual:valueItem]) {
+                
+                _currentSku = valueItem;
+                
                 //判断选择的类型
                 if (valueItem.selectType == ValueSelectType_normal) {
                     
@@ -583,19 +582,22 @@
                 }else {
                     
                     valueItem.selectType = ValueSelectType_normal;
-                }
-                if (value.selectType == ValueSelectType_selected) {
-                    
-                    [dictProductValue setValue:_goodsId forKey:@"goodsId"];
-                    [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.nameId] forKey:@"nameId"];
-                    [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.valueId]  forKey:@"valueId"];
-                    
-                    [ruleJsondic setValue:product.name forKey:@"name"];
-                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",product.nameId] forKey:@"nameId"];
-                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",valueItem.valueId] forKey:@"valueId"];
-                    [ruleJsondic setValue:valueItem.name forKey:@"value"];
                     
                 }
+//                if (value.selectType == ValueSelectType_selected) {
+//                    
+//                    [dictProductValue setValue:_goodsId forKey:@"goodsId"];
+//                    [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.nameId] forKey:@"nameId"];
+//                    [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.valueId]  forKey:@"valueId"];
+//                    
+//                    [ruleJsondic setValue:product.name forKey:@"name"];
+//                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",product.nameId] forKey:@"nameId"];
+//                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",valueItem.valueId] forKey:@"valueId"];
+//                    [ruleJsondic setValue:valueItem.name forKey:@"value"];
+//                    
+//                }else {
+//                    
+//                }
             }else {
                 if (!(valueItem.selectType == ValueSelectType_enable)) {
                     valueItem.selectType = ValueSelectType_normal;
@@ -604,17 +606,13 @@
             }
             
         }
-        if ([self isSKuAllSelect]) {  //规则全部选完，请求价格
+        if ([self isSKuAllNoSelect]) {
             
-            [self skuMatchPricePostRequset];
-            
-        }else {  //匹配其他规格
-            
-            //            [self textData];
-            [self skuMatchPostRequsetWithParam:[NSDictionary dictionaryWithDictionary:dictProductValue]];
-            
+            [self skuDefalultSelect];
+            [self.list_tableView reloadData];
         }
-        
+        [self getPramats];
+        [self skuMatchPostRequsetWithParam:[NSDictionary dictionaryWithDictionary:dictProductValue]];
         [self.SkuColletionView reloadData];
     }
     
@@ -1095,10 +1093,14 @@
 #pragma mark - skuMatch 规格匹配 ////第2步
 -(void)skuMatchPostRequsetWithParam :(NSDictionary *) parma
 {
+    
+    
+//    NSLog(@"=======选择1========%@", dictProductValue);
+//    NSLog(@"=======选择2========%@", ruleJsondic);
+    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/skuMatch",zfb_baseUrl] params:parma success:^(id response) {
         
         SkuMatchModel * sku = [SkuMatchModel mj_objectWithKeyValues:response];
-        
         for (Skumatch *skumatch in sku.data.skuMatch) {
             
             NSInteger nameId = skumatch.nameId;
@@ -1110,22 +1112,28 @@
                     for (Valuelist *valueItem in attribute.valueList) {
                         
                         BOOL flag = NO;//查找正常的状态
-                        
+                       
                         for (SkuValulist *skulist in skumatch.valuList) {
                             
                             if (valueItem.valueId == skulist.valueId) {
                                 
                                 flag = YES;
                             }
+                            if (!(skulist.valueId == _currentSku.valueId)) {
+                                if (_currentSku.selectType == ValueSelectType_normal && valueItem.selectType == ValueSelectType_enable) {
+                                    valueItem.selectType = ValueSelectType_normal;
+                                }
+                            }
                         }
                         if (flag) {
-                            
-                            valueItem.selectType = ValueSelectType_normal;
-                            
+                            if (!(valueItem.selectType == ValueSelectType_selected)) {
+                                valueItem.selectType = ValueSelectType_normal;
+                            }
                         }else {
                             
                             valueItem.selectType = ValueSelectType_enable;
                         }
+                        
                         
                     }
                     
@@ -1296,8 +1304,47 @@
     NSLog(@"==========isSelect==========%d", isAllSelect);
     return isAllSelect;
 }
-
-
+-(BOOL)isSKuAllNoSelect {
+    
+    BOOL isNoSelect = YES;
+    for (Productattribute *attribute in self.productSkuArray) {
+        
+        for (Valuelist *value in attribute.valueList) {
+            
+            if (value.selectType == ValueSelectType_selected) {
+                
+                isNoSelect = NO;
+                break;
+            }
+        }
+    }
+    return isNoSelect;
+}
+-(void)skuDefalultSelect {
+    for (Productattribute *attribute in self.productSkuArray) {
+        
+        for (Valuelist *value in attribute.valueList) {
+            
+            value.selectType = ValueSelectType_normal;
+        }
+    }
+}
+-(void)getPramats {
+    for (Productattribute *attribute in self.productSkuArray) {
+        
+        for (Valuelist *value in attribute.valueList) {
+            
+            if (value.selectType == ValueSelectType_selected) {
+                [dictProductValue setValue:_goodsId forKey:@"goodsId"];
+                [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.nameId] forKey:@"nameId"];
+                [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.valueId]  forKey:@"valueId"];
+                
+                break;
+            }
+        }
+    }
+   
+}
 //测试数据
 -(void)deathdata
 {

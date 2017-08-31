@@ -355,7 +355,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         if (goods.goodsCount <= 1) {
             
             
-            
         }
         else
         {
@@ -580,6 +579,8 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         _totalPriceLabel.textColor     = HEXCOLOR(0xfe6d6a);
         CGSize lb_priceSize            = [_totalPriceLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
         CGFloat lb_priceSizeW          = lb_priceSize.width;
+        
+        NSLog(@"%f",lb_priceSizeW);
         [_underFootView addSubview: _totalPriceLabel];
         
         [_totalPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
