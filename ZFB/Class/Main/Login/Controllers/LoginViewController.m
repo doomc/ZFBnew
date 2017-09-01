@@ -427,10 +427,10 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              @"mobilePhone":_tf_loginphone.text,
                              @"smsCheckCode":_smsCode,
                              };
-    
+
+    [SVProgressHUD showWithStatus:@"登陆中..."];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/quickLogin",zfb_baseUrl] params:parma success:^(id response) {
       
-        [SVProgressHUD showWithStatus:@"登陆中..."];
         if ([response[@"resultCode"] isEqualToString:@"0" ]) {
             BBUserDefault.isLogin = 1;
             
@@ -443,12 +443,12 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
             NSLog(@" ======= signMD5Key=======%@", BBUserDefault.userKeyMd5 );
             [self left_button_event];
-            [SVProgressHUD dismiss];
-            [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
 
         }
+        [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
 
-        
+        [SVProgressHUD dismiss];
+
         
     } progress:^(NSProgress *progeress) {
         
@@ -486,22 +486,23 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.token = response[@"userInfo"][@"token"];
             BBUserDefault.accid = response[@"userInfo"][@"accid"];
             [self left_button_event];
-            [SVProgressHUD dismiss];
+
 
         }
+        [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
+        [ SVProgressHUD dismiss];
+
         NSLog(@" ======= userKeyMd5=======%@",BBUserDefault.userKeyMd5 );
-        [self.view makeToast:response [@"resultMsg"] duration:2 position:@"center"];
-        
+ 
     } progress:^(NSProgress *progeress) {
         
         
     } failure:^(NSError *error) {
-        [SVProgressHUD dismiss];
+        [SVProgressHUD showErrorWithStatus:@"登录失败"];
         NSLog(@"error=====%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [ SVProgressHUD dismiss];
 
     }];
-   
 
 }
 

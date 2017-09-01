@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,7 +17,7 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4O3-QZ-Rbs">
                     <rect key="frame" x="0.0" y="2" width="375" height="170"/>
-                    <color key="backgroundColor" red="0.99291080239999996" green="0.82506024840000003" blue="0.17741984129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </imageView>
                 <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UTP-Op-V33">
                     <rect key="frame" x="0.0" y="152" width="375" height="20"/>
@@ -91,11 +91,11 @@
                 <outlet property="store_listTitle" destination="8yY-5g-5MR" id="cKO-gh-Mlp"/>
                 <outlet property="store_listView" destination="4O3-QZ-Rbs" id="ROF-pf-10F"/>
             </connections>
-            <point key="canvasLocation" x="-671" y="239"/>
+            <point key="canvasLocation" x="-671.5" y="239"/>
         </view>
     </objects>
     <resources>
         <image name="loca_small.png" width="12" height="12"/>
-        <image name="评分.png" width="12" height="12"/>
+        <image name="评分.png" width="18" height="18"/>
     </resources>
 </document>

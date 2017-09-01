@@ -42,6 +42,9 @@
 @property (nonatomic,copy) NSString * birthDay;///个人生日日期
 @property (nonatomic,assign) NSInteger sexType;///性别类型 //1. 男 2.女 3保密
 
+//售后申请记录下当前输入的关键字
+@property (nonatomic,copy) NSString * keyWord;
+
 
 @property (nonatomic) BOOL boolValue;
 @property (nonatomic) float floatValue;

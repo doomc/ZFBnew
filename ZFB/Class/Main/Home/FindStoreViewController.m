@@ -19,10 +19,11 @@
 //map
 #import <CoreLocation/CoreLocation.h>
 
+ 
 
 static NSString *CellIdentifier = @"FindStoreCellid";
 
-@interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,CLLocationManagerDelegate>
+@interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,CLLocationManagerDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
 {
     NSString *currentCityAndStreet;//当前城市
     NSString *latitudestr;//经度
@@ -40,6 +41,14 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 @end
 @implementation FindStoreViewController
 
+-(NSMutableArray *)storeListArr
+{
+    if (!_storeListArr) {
+        _storeListArr = [NSMutableArray array];
+    }
+    return _storeListArr;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -50,10 +59,12 @@ static NSString *CellIdentifier = @"FindStoreCellid";
    
     //主队列+异步任务
     dispatch_queue_t queue = dispatch_get_main_queue();
+
     //刷新定位
     [self LocationMapManagerInit];
     
     dispatch_async(queue,^{
+   
         
         NSLog(@"%@ ",[NSThread currentThread]);
             //定位成功后请求
@@ -62,8 +73,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     });
 
     [self setupRefresh];
-
-
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
@@ -169,11 +178,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.storeListArr.count > 0) {
-        
-        return self.storeListArr.count;
-    }
-    return 3;
+    return self.storeListArr.count;
+
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -320,6 +326,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     BBUserDefault.longitude = longitudestr;
     BBUserDefault.latitude = latitudestr;
     
+ 
     NSDictionary * parma = @{
  
                              @"longitude":longitudestr,//经度
@@ -334,17 +341,16 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                              @"sercahText":@"",
                              
                              };
-  
+
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
-        
+ 
         if ([response[@"resultCode"] intValue] == 0) {
             
             if (self.refreshType == RefreshTypeHeader) {
              
                 if (self.storeListArr.count > 0) {
                     
-                    [self.storeListArr removeAllObjects];
-                    
+                    [self.storeListArr  removeAllObjects];
                 }
             }
             HomeStoreListModel * homeStore = [HomeStoreListModel mj_objectWithKeyValues:response];
@@ -353,14 +359,17 @@ static NSString *CellIdentifier = @"FindStoreCellid";
             for (Findgoodslist  * goodlist in homeStore.storeInfoList.findGoodsList) {
       
                 [self.storeListArr addObject:goodlist];
-
+            }
+            [self.home_tableView reloadData];
+            
+            if (self.storeListArr.count == 0 || self.storeListArr == nil) {
+                
+                [self.home_tableView cyl_reloadData];
             }
 
-            [self.home_tableView reloadData];
-            NSLog(@"门店列表 = %@",   self.storeListArr);
- 
         }
-        
+
+        NSLog(@"门店列表 = %@",   self.storeListArr);
         [self endRefresh];
 
     } progress:^(NSProgress *progeress) {
@@ -378,13 +387,38 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 
 
--(NSMutableArray *)storeListArr
-{
-    if (!_storeListArr) {
-        _storeListArr = [NSMutableArray array];
-    }
-    return _storeListArr;
+
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+
+- (UIView *)makePlaceHolderView {
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    UIView *taobaoStyle = [self taoBaoStylePlaceHolder];
+
+    return weChatStyle;
 }
+
+- (UIView *)taoBaoStylePlaceHolder {
+    __block XTNetReloader *netReloader = [[XTNetReloader alloc] initWithFrame:CGRectMake(0, 0, 0, 0)
+                                                                  reloadBlock:^{
+                                                                      [self headerRefresh];
+                                                                  }] ;
+    return netReloader;
+}
+
+- (UIView *)weChatStylePlaceHolder {
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.home_tableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+ 
+    [self PostRequst];
+    
+
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

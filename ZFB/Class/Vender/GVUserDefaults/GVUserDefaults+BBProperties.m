@@ -31,6 +31,9 @@
 @dynamic sexType;
 @dynamic birthDay;
 
+//关键字
+@dynamic keyWord;
+
 @dynamic latitude;
 @dynamic longitude;
 

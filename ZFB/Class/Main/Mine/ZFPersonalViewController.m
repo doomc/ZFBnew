@@ -244,7 +244,8 @@ ZFMyCashBagCellDelegate
             orderCell.order_imgicon.image =[UIImage imageNamed:@"settingShopCar"];
             orderCell.order_title.text = @"购物车";
             orderCell.order_hiddenTitle.text = @"";
-            
+            return orderCell;
+
         }
             break;
             
@@ -288,6 +289,7 @@ ZFMyCashBagCellDelegate
             
     }
     ZFMyOderCell * cell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
+    cell.order_title.text         = @"切换到配送端";
     return cell;
 
 }
@@ -321,19 +323,23 @@ ZFMyCashBagCellDelegate
             break;
         case 4:             //切换到配送端
         {
-            if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
-                
-                //商户端
-                BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
-                businessVC.storeId = _storeId;
-                [self.navigationController pushViewController:businessVC animated:NO];
-                
-            }
-            if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
-                // 配送端
-                ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
-                [self.navigationController pushViewController:sendVC animated:NO];
-            }
+            BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
+            businessVC.storeId = _storeId;
+            [self.navigationController pushViewController:businessVC animated:NO];
+            
+//            if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
+//                
+//                //商户端
+//                BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
+//                businessVC.storeId = _storeId;
+//                [self.navigationController pushViewController:businessVC animated:NO];
+//                
+//            }
+//            if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
+//                // 配送端
+//                ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
+//                [self.navigationController pushViewController:sendVC animated:NO];
+//            }
             
         }
             break;

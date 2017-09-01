@@ -66,7 +66,12 @@
 #import "NSString+Base64.h"
 #import "NSString+RegexCategory.h"
 #import "imageCompressHelper.h"
- 
+
+//无数据占位图工具
+#import "UIView+EaseBlankPage.h"
+#import "CYLTableViewPlaceHolder.h"
+#import "XTNetReloader.h"
+#import "WeChatStylePlaceHolder.h"
 
 ////////////// IM 网易云信 //////////////////
 #import <NIMSDK/NIMSDK.h>

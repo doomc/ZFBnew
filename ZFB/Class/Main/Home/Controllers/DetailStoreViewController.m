@@ -16,7 +16,7 @@
 #import "ZFHeadViewCollectionReusableView.h"
 #import "DetailStoreModel.h"
 #import "DetailFindGoodsViewController.h"
-@interface DetailStoreViewController ()<SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface DetailStoreViewController ()<SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout >
 {
     
     NSString * _storeName;
@@ -48,6 +48,8 @@
     
     [self CreatCollctionViewInterface];
     [self sd_HeadScrollViewInit];
+    
+
 }
 
 /**
@@ -264,8 +266,6 @@
             NSLog(@"图片地址 = %@",imgArray);
 
             [SVProgressHUD dismiss];
-            
-            
 
         }
         [self sd_HeadScrollViewInit];
@@ -289,7 +289,10 @@
 {
     
     [self detailListStorePostRequst];
+    
 }
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

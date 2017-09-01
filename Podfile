@@ -15,6 +15,9 @@ target 'ZFB' do
   pod 'SDWebImage' , '>= 4.0.0'
   pod 'MJRefresh'
   pod 'MBProgressHUD'
+  #无数据占位图工具
+  pod 'CYLTableViewPlaceHolder'
+
   # 第三方库
   #高德地图定位
   pod 'AMapLocation'

@@ -88,12 +88,14 @@
 }
 
 -(void)endRefresh {
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self.refreshType == RefreshTypeHeader) {
             
             [self.zfb_tableView.mj_header endRefreshing];
             
         }else {
+            
             [self.zfb_tableView.mj_footer endRefreshingWithNoMoreData];
             
         }
@@ -108,7 +110,6 @@
 }
 #pragma mark Action
 - (void)backAction{
-    
     
     // [self dismissViewControllerAnimated:YES completion:nil];
     [self.navigationController popViewControllerAnimated:YES];

@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		287E1D51FE976BE2DCE0A71B /* libPods-ZFB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2E471759A11D3682520CF1E /* libPods-ZFB.a */; };
+		49183EA21F5941CD00879E42 /* PlaceholderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 49183EA01F5941CD00879E42 /* PlaceholderBackground.png */; };
+		49183EA31F5941CD00879E42 /* nodataPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 49183EA11F5941CD00879E42 /* nodataPlaceholder.png */; };
+		49183EB21F5954D900879E42 /* WeChatStylePlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 49183EAE1F5954D900879E42 /* WeChatStylePlaceHolder.m */; };
+		49183EB31F5954D900879E42 /* XTNetReloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 49183EB11F5954D900879E42 /* XTNetReloader.m */; };
+		49183F3D1F59637000879E42 /* error_NoData.png in Resources */ = {isa = PBXBuildFile; fileRef = 49183F3C1F59637000879E42 /* error_NoData.png */; };
 		4921415E1F298DA800C44D10 /* BrandListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921415D1F298DA800C44D10 /* BrandListModel.m */; };
 		492141741F29E62300C44D10 /* delete_sku.png in Resources */ = {isa = PBXBuildFile; fileRef = 492141731F29E62300C44D10 /* delete_sku.png */; };
 		492141821F29FB0A00C44D10 /* OrderStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492141811F29FB0A00C44D10 /* OrderStatisticsViewController.m */; };
@@ -1066,6 +1071,13 @@
 
 /* Begin PBXFileReference section */
 		3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.debug.xcconfig"; sourceTree = "<group>"; };
+		49183EA01F5941CD00879E42 /* PlaceholderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceholderBackground.png; sourceTree = "<group>"; };
+		49183EA11F5941CD00879E42 /* nodataPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nodataPlaceholder.png; sourceTree = "<group>"; };
+		49183EAD1F5954D900879E42 /* WeChatStylePlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChatStylePlaceHolder.h; sourceTree = "<group>"; };
+		49183EAE1F5954D900879E42 /* WeChatStylePlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeChatStylePlaceHolder.m; sourceTree = "<group>"; };
+		49183EB01F5954D900879E42 /* XTNetReloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTNetReloader.h; sourceTree = "<group>"; };
+		49183EB11F5954D900879E42 /* XTNetReloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTNetReloader.m; sourceTree = "<group>"; };
+		49183F3C1F59637000879E42 /* error_NoData.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error_NoData.png; sourceTree = "<group>"; };
 		4921415C1F298DA800C44D10 /* BrandListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandListModel.h; sourceTree = "<group>"; };
 		4921415D1F298DA800C44D10 /* BrandListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandListModel.m; sourceTree = "<group>"; };
 		492141731F29E62300C44D10 /* delete_sku.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_sku.png; sourceTree = "<group>"; };
@@ -2793,6 +2805,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49183EAC1F5954D900879E42 /* WeChatStyle */ = {
+			isa = PBXGroup;
+			children = (
+				49183EAD1F5954D900879E42 /* WeChatStylePlaceHolder.h */,
+				49183EAE1F5954D900879E42 /* WeChatStylePlaceHolder.m */,
+			);
+			path = WeChatStyle;
+			sourceTree = "<group>";
+		};
+		49183EAF1F5954D900879E42 /* XTNetReloader */ = {
+			isa = PBXGroup;
+			children = (
+				49183EB01F5954D900879E42 /* XTNetReloader.h */,
+				49183EB11F5954D900879E42 /* XTNetReloader.m */,
+			);
+			path = XTNetReloader;
+			sourceTree = "<group>";
+		};
 		492141751F29E6B700C44D10 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3304,6 +3334,8 @@
 		495EA33E1F14B64B001FCB7E /* Tool(工具类) */ = {
 			isa = PBXGroup;
 			children = (
+				49183EAC1F5954D900879E42 /* WeChatStyle */,
+				49183EAF1F5954D900879E42 /* XTNetReloader */,
 				50B3811B1F3F62E4001ED3BA /* PlaceholderTextView */,
 				498A33E71F3C0CED0057E2AE /* TggStarEvaluationView */,
 				497A8AC21F2ECC110003D7CB /* UICustomDatePicker */,
@@ -4316,6 +4348,9 @@
 		495EA57E1F14B64C001FCB7E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				49183F3C1F59637000879E42 /* error_NoData.png */,
+				49183EA01F5941CD00879E42 /* PlaceholderBackground.png */,
+				49183EA11F5941CD00879E42 /* nodataPlaceholder.png */,
 				50D61E7D1F1E5BAD00DBDA4D /* addres */,
 				495EA57F1F14B64C001FCB7E /* 11.jpg */,
 				495EA5801F14B64C001FCB7E /* 11.png */,
@@ -6876,6 +6911,7 @@
 				495EA89F1F14B64D001FCB7E /* 共享梦想@3x.png in Resources */,
 				492752271EC44DFD003C22D0 /* LaunchScreen.storyboard in Resources */,
 				495EA92F1F14B64E001FCB7E /* TV@3x.png in Resources */,
+				49183EA21F5941CD00879E42 /* PlaceholderBackground.png in Resources */,
 				495EA8921F14B64D001FCB7E /* arrows_down_red@2x.png in Resources */,
 				495EA9321F14B64E001FCB7E /* womanClothes@2x.png in Resources */,
 				495EA7A51F14B64D001FCB7E /* AllStoreCell.xib in Resources */,
@@ -6959,6 +6995,7 @@
 				497A8AAC1F2AECAA0003D7CB /* 30@2x.png in Resources */,
 				495EA9221F14B64E001FCB7E /* cases@2x.png in Resources */,
 				495EA9191F14B64E001FCB7E /* searchBar@3x.png in Resources */,
+				49183EA31F5941CD00879E42 /* nodataPlaceholder.png in Resources */,
 				495EA8951F14B64D001FCB7E /* ipone@3x.png in Resources */,
 				495EA8A71F14B64D001FCB7E /* mine@3x.png in Resources */,
 				49C33E2D1F5561F800BC2254 /* settingShopCar@2x.png in Resources */,
@@ -7033,6 +7070,7 @@
 				495EA90A1F14B64E001FCB7E /* share_icon@2x.png in Resources */,
 				495EA8871F14B64D001FCB7E /* switchover_icon@3x.png in Resources */,
 				495EA8EB1F14B64E001FCB7E /* 省略@3x.png in Resources */,
+				49183F3D1F59637000879E42 /* error_NoData.png in Resources */,
 				495EA8AA1F14B64D001FCB7E /* shopkeeper@2x.png in Resources */,
 				495EA86A1F14B64D001FCB7E /* cellphone_normal@2x.png in Resources */,
 				495EA8131F14B64D001FCB7E /* ZFSaleAfterContentCell.xib in Resources */,
@@ -7553,6 +7591,7 @@
 				495EA7FB1F14B64D001FCB7E /* ZFSendHomeListCell.m in Sources */,
 				495EA7941F14B64D001FCB7E /* ZFAllStoreViewController.m in Sources */,
 				4968A2911F4DB5080061A87E /* NIMGroupedData.m in Sources */,
+				49183EB21F5954D900879E42 /* WeChatStylePlaceHolder.m in Sources */,
 				49555E9B1F1E0092002E5688 /* ClearingStoreList.m in Sources */,
 				503C7C801F40B56F009C0512 /* NSBundle+HXWeiboPhotoPicker.m in Sources */,
 				503C7C7B1F40B56F009C0512 /* HXPresentTransition.m in Sources */,
@@ -7779,6 +7818,7 @@
 				49555D891F32EA6B00C3C748 /* IQUITextFieldView+Additions.m in Sources */,
 				4968A2A61F4DB5080061A87E /* NIMKitInfoFetchOption.m in Sources */,
 				4968A2941F4DB5080061A87E /* NIMContactPickedView.m in Sources */,
+				49183EB31F5954D900879E42 /* XTNetReloader.m in Sources */,
 				495EA7341F14B64D001FCB7E /* UIView+HDExtension.m in Sources */,
 				4968A4471F4DB5290061A87E /* NTESSettingCheckCell.m in Sources */,
 				4968A4411F4DB5290061A87E /* NTESMutiClientsHeaderView.m in Sources */,
@@ -8048,7 +8088,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/ZFB/Class/Expand/Header/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/ZFB/Class/Expand/Header/PrefixHeader.pch";
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -8089,7 +8129,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/ZFB/Class/Expand/Header/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/ZFB/Class/Expand/Header/PrefixHeader.pch";
 				INFOPLIST_FILE = ZFB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
