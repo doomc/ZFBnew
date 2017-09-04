@@ -21,8 +21,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sBA-Cj-ZKZ">
                         <rect key="frame" x="0.0" y="0.0" width="132" height="32"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登录注册" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67C-e6-owe">
-                                <rect key="frame" x="39.5" y="8.5" width="53.5" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登录注册" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67C-e6-owe">
+                                <rect key="frame" x="0.0" y="0.0" width="132" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -31,8 +31,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="67C-e6-owe" firstAttribute="top" secondItem="sBA-Cj-ZKZ" secondAttribute="top" id="IaO-o5-Dta"/>
                             <constraint firstItem="67C-e6-owe" firstAttribute="centerY" secondItem="sBA-Cj-ZKZ" secondAttribute="centerY" id="QBM-he-Zvo"/>
+                            <constraint firstAttribute="trailing" secondItem="67C-e6-owe" secondAttribute="trailing" id="W7a-5D-At7"/>
+                            <constraint firstItem="67C-e6-owe" firstAttribute="leading" secondItem="sBA-Cj-ZKZ" secondAttribute="leading" id="hKT-Bb-hry"/>
                             <constraint firstItem="67C-e6-owe" firstAttribute="centerX" secondItem="sBA-Cj-ZKZ" secondAttribute="centerX" id="j1O-rC-fJE"/>
+                            <constraint firstAttribute="bottom" secondItem="67C-e6-owe" secondAttribute="bottom" id="oHf-Rt-uR0"/>
                         </constraints>
                     </view>
                 </subviews>

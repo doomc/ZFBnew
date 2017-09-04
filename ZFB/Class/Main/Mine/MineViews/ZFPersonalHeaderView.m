@@ -27,7 +27,10 @@
     [self.img_headview setImage:[UIImage  circleImage:@"avatar_user"]];
     [self.img_headview.image circleImage];
     
-    
+    self.loginBackgroudView.clipsToBounds = YES;
+    self.loginBackgroudView.layer.cornerRadius = 8;
+   
+ 
     
 
     //点击头像

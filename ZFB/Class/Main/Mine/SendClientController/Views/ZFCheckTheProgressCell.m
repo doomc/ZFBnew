@@ -15,7 +15,8 @@
     // Initialization code
     
     [self.checkProgress_btn addTarget:self action:@selector(actionTarget:) forControlEvents:UIControlEventTouchUpInside];
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
     self.checkProgress_btn.clipsToBounds = YES;
     self.checkProgress_btn.layer.cornerRadius = 3;
 }
@@ -37,7 +38,7 @@
     self.lb_checkStatus.text =  progressList.status ;
     self.lb_title.text =  progressList.goodsName ;
     self.lb_applelyTime.text = [NSString stringWithFormat:@"申请时间:%@",progressList.createTime];
-    [self.img_progressView sd_setImageWithURL:[NSURL URLWithString:progressList.coverImgUrl] placeholderImage:[UIImage imageNamed:@""]];
+    [self.img_progressView sd_setImageWithURL:[NSURL URLWithString:progressList.coverImgUrl] placeholderImage:[UIImage imageNamed:@"errorImage"]];
     
 }
 

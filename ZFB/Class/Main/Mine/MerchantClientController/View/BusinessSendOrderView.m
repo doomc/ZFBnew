@@ -172,6 +172,7 @@
     Deliverylist * list = self.deliveryArray[indexPath.row];
     
     BusinessSendoOrderCell * cell = [self.alertTableView dequeueReusableCellWithIdentifier:@"BusinessSendoOrderCell" forIndexPath:indexPath];
+   
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.listmodel = list;

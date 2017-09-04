@@ -73,6 +73,7 @@
 @property (nonatomic, copy) NSString *latitude;
 
 
+
 @property (nonatomic, assign) NSInteger cmUserId;
 
 @property (nonatomic, copy) NSString *mobilePhone;

@@ -10,7 +10,7 @@
 
 @interface FeedCommitCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet UIView  *bgView;
 @property (weak, nonatomic) IBOutlet UILabel *lb_type;
 
 

@@ -192,7 +192,7 @@ ZFMyCashBagCellDelegate
             break;
             
         case 4:
-            if ([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) {
+            if (([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) || _courierFlag == nil ||  _shopFlag == nil ) {
                 
                 height = 0;
             }else{
@@ -256,7 +256,8 @@ ZFMyCashBagCellDelegate
             orderCell.order_imgicon.image =[UIImage imageNamed:@"switchover_icon"];
             orderCell.order_hiddenTitle.hidden = YES;
             
-            if ([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) {
+            if (([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) || _courierFlag == nil ||  _shopFlag == nil ) {
+                
                 NSLog(@"我是普通用户");
                 [orderCell setHidden:YES];
             }else{
@@ -323,23 +324,20 @@ ZFMyCashBagCellDelegate
             break;
         case 4:             //切换到配送端
         {
-            BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
-            businessVC.storeId = _storeId;
-            [self.navigationController pushViewController:businessVC animated:NO];
-            
-//            if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
-//                
-//                //商户端
-//                BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
-//                businessVC.storeId = _storeId;
-//                [self.navigationController pushViewController:businessVC animated:NO];
-//                
-//            }
-//            if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
-//                // 配送端
-//                ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
-//                [self.navigationController pushViewController:sendVC animated:NO];
-//            }
+ 
+            if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
+                
+                //商户端
+                BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
+                businessVC.storeId = _storeId;
+                [self.navigationController pushViewController:businessVC animated:NO];
+                
+            }
+            if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
+                // 配送端
+                ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
+                [self.navigationController pushViewController:sendVC animated:NO];
+            }
             
         }
             break;
@@ -363,7 +361,9 @@ ZFMyCashBagCellDelegate
 {
     if (BBUserDefault.isLogin == 1) {
         ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
-        orderVC.orderType   = 1 ;
+        
+        [orderVC sendTitle:@"待付款" orderType:OrderTypeWaitPay];
+//        orderVC.orderType   = 1 ;
         orderVC.orderStatus =@"4";
         orderVC.buttonTitle = @"待付款";
         
@@ -514,15 +514,12 @@ ZFMyCashBagCellDelegate
         BBUserDefault.cmUserId = @"";
     }
     NSDictionary * parma = @{
-                             
                              @"cmUserId":BBUserDefault.cmUserId,
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getUserInfo"] params:parma success:^(id response) {
         
-        int resultCode = [response [@"resultCode"] intValue];
-        
-        if (resultCode == 0) {
+        if ([response [@"resultCode"] intValue]== 0) {
             
             _foolnum    = [NSString stringWithFormat:@"%@",response[@"foolNum"] ];
             _collectNum = [NSString stringWithFormat:@"%@",response[@"collectNum"]];
@@ -552,7 +549,7 @@ ZFMyCashBagCellDelegate
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+        [self.view makeToast:@"网络出差了~" duration:2 position:@"center"];
     }];
     
 }

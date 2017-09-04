@@ -182,6 +182,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             [self allOrderPostRequsetWithOrderStatus:@"-1"  orderNum:@""];
             
             break;
+        
         case OrderTypeAfterSale://售后
             
 //            [self allOrderPostRequsetWithOrderStatus:@"2"  orderNum:@""];
@@ -658,7 +659,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             ZFFooterCell * cell = [self.zfb_tableView
                                    dequeueReusableCellWithIdentifier:footerCellid];
             cell.footDelegate = self;
-#warning -----没获取 当前的 indexPath
             Orderlist  * orderlist = self.orderListArray[section];
             cell.orderlist         = orderlist;
             cell.section           = section;
@@ -873,8 +873,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             
             Orderlist * list = self.orderListArray[indexPath.section];
             
-            
             NSMutableArray * goodArray = [NSMutableArray array];
+            
             for (Ordergoods * ordergoods in list.orderGoods) {
                 
                 [goodArray addObject:ordergoods];
@@ -923,6 +923,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             Ordergoods * goods = goodArray[indexPath.row];
             
             sendCell.goods = goods;
+            
             return sendCell;
         }
             break;
@@ -1013,13 +1014,11 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                     
                     ZFSaleAfterSearchCell* searchCell = [self.zfb_tableView dequeueReusableCellWithIdentifier:saleAfterSearchCellid forIndexPath:indexPath];
                     searchCell.delegate = self;
-                    searchCell.selectionStyle         = UITableViewCellSelectionStyleNone;
                     return  searchCell;
                     
                 }else{
                     
                     ZFSaleAfterContentCell* contentell = [self.zfb_tableView dequeueReusableCellWithIdentifier:saleAfterContentCellid forIndexPath:indexPath];
-                    contentell.selectionStyle          = UITableViewCellSelectionStyleNone;
                     contentell.delegate                = self;
                     
                     Orderlist * list           = self.orderListArray[indexPath.section -1];
@@ -1039,7 +1038,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                 checkCell.deldegate      = self;
                 checkCell.progressList   = progress;
                 checkCell.indexpath      = indexPath.row;
-                checkCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
                 return  checkCell;
                 
@@ -1163,51 +1161,45 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             
         case OrderTypeAllOrder://全部订单
             
-            [self allOrderPostRequsetWithOrderStatus:@""orderNum:@""];
-//            [self.zfb_tableView reloadData];
+            [self allOrderPostRequsetWithOrderStatus:@"" orderNum:@""];
             break;
         case OrderTypeWaitPay://待付款
             
             [self allOrderPostRequsetWithOrderStatus:@"4" orderNum:@""];
-//            [self.zfb_tableView reloadData];
             
             break;
         case OrderTypeWaitSend://待配送
             
             [self allOrderPostRequsetWithOrderStatus:@"0"  orderNum:@""];
-//            [self.zfb_tableView reloadData];
             
             break;
         case OrderTypeSending://配送中
             [self allOrderPostRequsetWithOrderStatus:@"1"  orderNum:@""];
-//            [self.zfb_tableView reloadData];
             
             break;
         case OrderTypeSended://已配送
             
             [self allOrderPostRequsetWithOrderStatus:@"2"  orderNum:@""];
-//            [self.zfb_tableView reloadData];
             
             break;
         case OrderTypeDealSuccess://交易成功
             
             [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
-//            [self.zfb_tableView reloadData];
             
             break;
         case OrderTypeCancelSuccess://取消交易
             
             [self allOrderPostRequsetWithOrderStatus:@"-1" orderNum:@""];
-//            [self.zfb_tableView reloadData];
             
             break;
         case OrderTypeAfterSale://售后
             
             
             [self allOrderPostRequsetWithOrderStatus:@"2" orderNum:@""];
+            
             BBUserDefault.keyWord = @"";
+            
             self.searchBar.text = @"";
-//            [self.zfb_tableView reloadData];
             
             break;
             
@@ -1510,12 +1502,14 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
             if (self.refreshType == RefreshTypeHeader) {
+               
                 if (self.progressArray.count > 0) {
                     
                     [self.progressArray removeAllObjects];
                 }
             }
             AllOrderProgress * progressModel = [AllOrderProgress mj_objectWithKeyValues:response];
+            
             for (List * cheakList in progressModel.data.list) {
                 
                 [self.progressArray addObject:cheakList];
@@ -1599,6 +1593,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                 
             }];
             UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                
                 //确认收货 - 成功后跳转交易完成 - 晒单
                 [self receiveUserConfirmReceiptPostDeliveryId:orderlist.deliveryId storeId:orderlist.storeId deliveryFee:[NSString stringWithFormat:@"%.2f",orderlist.orderDeliveryFee] orderNum:orderlist.orderCode userId:@"" orderAmount:orderlist.orderAmount storeName:orderlist.storeName orderDetail:orderlist.orderDetail];
                 
@@ -1663,7 +1658,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                     //取消交易  - 取消后跳转到交易取消
                     [self cancleOrderPostWithOrderNum:orderlist.orderCode orderStatus:@"-1"];
                     
-                    
                 }];
                 [alertavc addAction:cancelAction];
                 [alertavc addAction:sureAction];
@@ -1671,13 +1665,9 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                 [self presentViewController:alertavc animated:YES completion:nil];
                 
             }
-            
             else if ([orderlist.orderStatusName isEqualToString:@"交易完成"]) {
                 
             }
-            
-            
-            
         }
             break;
             
@@ -1696,6 +1686,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
                     [self cancleOrderPostWithOrderNum:orderlist.orderCode orderStatus:@"-1"];
                     
                 }];
+                
                 [alertavc addAction:cancelAction];
                 [alertavc addAction:sureAction];
                 
@@ -1725,11 +1716,10 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             if (self.tagNum == 0) {
                 
                 if (indexPath == 0) {
-                    
+               
                 }
                 
             }else  if (self.tagNum == 1) {
-                
                 
             }
             

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface OrderWithAddressCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *lb_nameAndPhone;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_address;
@@ -17,4 +18,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_arrow;
 
+//无数据背景图
+@property (weak, nonatomic) IBOutlet UIImageView *image_noData;
 @end

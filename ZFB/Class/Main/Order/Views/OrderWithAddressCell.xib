@@ -63,19 +63,27 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="kHG-sO-vLK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="k9T-sj-ttS" firstAttribute="leading" secondItem="4c6-I6-893" secondAttribute="trailing" constant="15" id="154-lw-4Zg"/>
                     <constraint firstItem="k9T-sj-ttS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="8mI-i6-fRW"/>
                     <constraint firstAttribute="trailing" secondItem="wnB-yD-x1A" secondAttribute="trailing" constant="30" id="ArA-wd-Om7"/>
                     <constraint firstItem="KEQ-pp-tjr" firstAttribute="centerY" secondItem="k9T-sj-ttS" secondAttribute="centerY" id="DAy-Tf-LOZ"/>
+                    <constraint firstAttribute="trailing" secondItem="kHG-sO-vLK" secondAttribute="trailing" id="DYD-nO-iIF"/>
                     <constraint firstItem="jyG-EL-2z6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="IxF-8j-apb"/>
                     <constraint firstAttribute="bottom" secondItem="jyG-EL-2z6" secondAttribute="bottom" id="KI6-Jg-OfC"/>
                     <constraint firstItem="wnB-yD-x1A" firstAttribute="top" secondItem="k9T-sj-ttS" secondAttribute="bottom" constant="10" id="NpT-At-dWT"/>
+                    <constraint firstItem="kHG-sO-vLK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="O1T-cO-kFr"/>
                     <constraint firstAttribute="trailing" secondItem="DSQ-xQ-ge1" secondAttribute="trailing" constant="15" id="Pbs-zW-MTb"/>
                     <constraint firstItem="4c6-I6-893" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="dw4-j8-X2l"/>
+                    <constraint firstItem="kHG-sO-vLK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="kMd-b1-W0L"/>
                     <constraint firstItem="k9T-sj-ttS" firstAttribute="leading" secondItem="wnB-yD-x1A" secondAttribute="leading" id="lQJ-QX-cXY"/>
                     <constraint firstItem="KEQ-pp-tjr" firstAttribute="leading" secondItem="k9T-sj-ttS" secondAttribute="trailing" constant="20" id="lTE-Pa-3dc"/>
+                    <constraint firstItem="jyG-EL-2z6" firstAttribute="top" secondItem="kHG-sO-vLK" secondAttribute="bottom" id="nnz-0l-jWa"/>
                     <constraint firstItem="4c6-I6-893" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="non-wI-Lgt"/>
                     <constraint firstAttribute="trailing" secondItem="jyG-EL-2z6" secondAttribute="trailing" id="sBa-3c-U6D"/>
                     <constraint firstItem="DSQ-xQ-ge1" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="tu9-1A-qJO"/>
@@ -83,6 +91,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="defaultButton" destination="KEQ-pp-tjr" id="5fY-00-Hlm"/>
+                <outlet property="image_noData" destination="kHG-sO-vLK" id="WHN-g5-2Bw"/>
                 <outlet property="img_arrow" destination="DSQ-xQ-ge1" id="d4u-Sa-QTJ"/>
                 <outlet property="lb_address" destination="wnB-yD-x1A" id="X7I-g8-fWa"/>
                 <outlet property="lb_nameAndPhone" destination="k9T-sj-ttS" id="tYZ-aa-ggQ"/>
@@ -91,6 +100,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="PlaceholderBackground.png" width="401" height="214"/>
         <image name="arrows_Right_black.png" width="12" height="12"/>
         <image name="location_find2.png" width="16" height="16"/>
     </resources>

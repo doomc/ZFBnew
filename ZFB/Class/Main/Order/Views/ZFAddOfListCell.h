@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddressListModel.h"
+
 @class ZFAddOfListCell;
 @protocol AddressCellDelegate <NSObject>
 
@@ -15,10 +17,14 @@
 ///编辑操作
 -(void)editAction :(NSIndexPath *)indexPath ;
 
+//选择状态
+-(void)selecteStatus :(BOOL)isSelected;
+
 @end
 
 @interface ZFAddOfListCell : UITableViewCell
 
+@property (nonatomic, strong) Useraddresslist  * list ;
 
 @property (assign, nonatomic)  id <AddressCellDelegate> delegate;
 

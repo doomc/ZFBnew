@@ -11,7 +11,7 @@
 
 @required
 
--(void)didClickTypeName:(NSString *)typeName Index :(NSInteger)index;
+-(void)didClickTypeName:(NSString *)typeName Index :(NSInteger)index isSelected :(BOOL) isSelected;
 
 @end
 
@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *typeCollectionView;
 
 @property (strong,nonatomic) NSArray * nameArray;
- 
+
+@property (assign,nonatomic) BOOL isSelectedBackGround;
 
 @end

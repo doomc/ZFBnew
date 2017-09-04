@@ -672,7 +672,8 @@
                 _currentSection                = section;
                 //默认值
                 [cell.cancel_button setTitle:@"取消订单" forState:UIControlStateNormal];
-                [cell.payfor_button setTitle:@"派单" forState:UIControlStateNormal];
+//                [cell.payfor_button setTitle:@"派单" forState:UIControlStateNormal];
+                [cell.payfor_button  setHidden:YES];
                 NSLog(@"cell.orderId  === %@",cell.orderId );
                 
                 footerView = cell;
@@ -934,7 +935,7 @@
                 
                 return contentCell;
                 
-            }
+            } 
                 break;
             case BusinessServicTypeWaitPay://待付款
             {

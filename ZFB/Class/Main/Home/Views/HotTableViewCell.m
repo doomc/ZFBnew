@@ -10,11 +10,7 @@
 #import "HotCollectionViewCell.h"
 #import "HomeHotModel.h"
 @interface HotTableViewCell ()
-{
-    NSInteger _pageSize;//每页显示条数
-    NSInteger _pageIndex;//当前页码;
-    
-}
+ 
 @end
 @implementation HotTableViewCell
 
@@ -63,6 +59,12 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld  = item" ,indexPath.item);
+   
+    hotFindgoodslist * hotlist =  _hotArray[indexPath.item];
+
+    if ([self.delegate respondsToSelector:@selector(pushToDetailVCWithGoodsID:)]) {
+        [self.delegate pushToDetailVCWithGoodsID:[NSString stringWithFormat:@"%ld",hotlist.goodsId]  ];
+    }
     
 }
 #pragma mark - UICollectionViewDelegateFlowLayout

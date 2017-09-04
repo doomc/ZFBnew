@@ -11,7 +11,6 @@
 
 @protocol ZFpopViewDelegate <NSObject>
 
-
 -(void)sendTitle:(NSString *)title orderType:(OrderType)type;
 
 @end
@@ -21,7 +20,6 @@
 -(instancetype)initWithFrame:(CGRect)frame titleArray:(NSArray *)titleArray;
 
 @property (nonatomic, strong) NSArray *titleArray;
-
 
 @property (nonatomic, assign) id<ZFpopViewDelegate> delegate;
 

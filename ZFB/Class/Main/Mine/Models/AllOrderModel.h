@@ -84,6 +84,10 @@
 
 @property (nonatomic, copy) NSString *goodsUnit;
 
+@property (nonatomic, assign) NSInteger status;
+
+@property (nonatomic, copy) NSString *statusName;
+
 @property (nonatomic, copy) NSString *goods_name;
 
 @property (nonatomic, copy) NSString *concessional_price;

@@ -254,7 +254,9 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     DDLogInfo(@"receive remote notification:  %@", userInfo);
     ZFbaseTabbarViewController * tabBar = [[ZFbaseTabbarViewController alloc]initWithNibName:@"NTESSessionListViewController" bundle:nil];
+    [self.window.rootViewController presentViewController:tabBar animated:YES completion:nil];
     tabBar.selectedIndex = 1;
+
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

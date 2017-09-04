@@ -31,10 +31,43 @@
     }
 }
 
+
+-(void)setList:(Useraddresslist *)list
+{
+    _list = list;
+    self.lb_detailArress.text = list.postAddress;
+    self.lb_nameAndphoneNum.text = [NSString stringWithFormat:@"%@  %@",list.contactUserName,list.contactMobilePhone];
+    
+    if ( list.defaultFlag == 1) {
+        //设置默认
+        self.defaultButton.hidden = NO;
+    }else{
+        //隐藏默认按钮
+        self.defaultButton.hidden = YES;
+        
+    }
+    
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+
+ 
+    if (selected) {
+        self.selectedButton.selected = YES;
+    }
+    else{
+        self.selectedButton.selected = NO;
+
+    }
+
+    if ([self.delegate respondsToSelector:@selector(selecteStatus:)]) {
+        
+        [self.delegate selecteStatus:selected];
+        
+    }
+ 
 }
 
 @end

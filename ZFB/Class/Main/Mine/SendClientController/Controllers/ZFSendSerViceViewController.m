@@ -65,9 +65,7 @@
     NSString * msg_postAddress;
     NSString * msg_orderDeliveryFee ;
     NSString * msg_contactPhone;
-
-    NSInteger _pageCount;//每页显示条数
-    NSInteger _page;//当前页码;
+ 
     
 }
 @property (strong, nonatomic) UITableView *send_tableView;
@@ -106,20 +104,22 @@
     // Do any additional setup after loading the view from its nib.
     
     _isSelectPage = YES;
-    //默认一个页码 和 页数
-    _pageCount = 8;
-    _page = 1;
+ 
     
     self.title = @"配送端";
     _titles = @[@"待配送",@"配送中",@"已配送"];
+    
+    _servicType = SendServicTypeWaitSend;//默认一个type
 
     [self initButtonWithInterface];
 
     [self.view addSubview:self.send_tableView];
     
-    self.send_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.zfb_tableView =  self.send_tableView;
+
     
-    [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFTitleCell" bundle:nil] forCellReuseIdentifier:@"ZFTitleCellid"];
+    [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFTitleCell" bundle:nil]
+        forCellReuseIdentifier:@"ZFTitleCellid"];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendingCell" bundle:nil] forCellReuseIdentifier:@"ZFSendingCellid"];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFFooterCell" bundle:nil] forCellReuseIdentifier:@"ZFFooterCellid"];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFContactCell" bundle:nil] forCellReuseIdentifier:@"ZFContactCellid"];
@@ -129,79 +129,63 @@
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendHomeListCell" bundle:nil] forCellReuseIdentifier:@"ZFSendHomeListCellid"];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"OrderPriceCell" bundle:nil] forCellReuseIdentifier:@"OrderPriceCellid"];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"SendServiceFootCell" bundle:nil]
-              forCellReuseIdentifier:@"SendServiceFootCellid"];
+        forCellReuseIdentifier:@"SendServiceFootCellid"];
+   
+
+    [self setupRefresh];
     
-    _titles = @[@"待配送",@"配送中",@"已配送"];
-    
-    [self refreshData];
 }
 
+-(void)headerRefresh
+{
+    [super headerRefresh];
+     switch (_servicType) {
+            
+        case SendServicTypeWaitSend://待派单
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"1"   ];
+            
+            break;
+        case SendServicTypeSending://配送中
+            
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"2" ] ;
+            
+            
+            break;
+        case SendServicTypeSended://已配送
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"3"  ];
+            
+            break;
+    }
+ 
+}
+
+-(void)footerRefresh
+{
+    [super footerRefresh];
+    switch (_servicType) {
+            
+        case SendServicTypeWaitSend://待派单
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"1"  ];
+            
+            break;
+        case SendServicTypeSending://配送中
+            
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"2"  ] ;
+            
+            break;
+            
+        case SendServicTypeSended://已配送
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"3" ];
+            
+            break;
+    }
+}
 #pragma mark - 创建视图
 -(void)initButtonWithInterface
 {
     [self.Home_btn  addTarget:self action:@selector(Home_btnaTargetAction) forControlEvents:UIControlEventTouchUpInside];
     [self.Order_btn  addTarget:self action:@selector(Order_btnaTargetAction) forControlEvents:UIControlEventTouchUpInside];
 
-}
--(void)refreshData
-{
-
-    
-    weakSelf(weakSelf);
-    weakSelf.send_tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        if (self.orderListArray.count > _pageCount * _page) {
-            
-            _page ++ ;
-            
-        }else{
-            _page = 1;
-        }
-        
-        switch (_servicType) {
-                
-            case SendServicTypeWaitSend://待派单
-                [weakSelf orderlistDeliveryID:@"" OrderStatus:@"1" orderStartTime:@"" orderEndTime:@"" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount]];
-                
-                break;
-            case SendServicTypeSending://配送中
-                
-                [weakSelf orderlistDeliveryID:@"" OrderStatus:@"2" orderStartTime:@"" orderEndTime:@"" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount]] ;
-
-                
-                break;
-            case SendServicTypeSended://已配送
-                [weakSelf orderlistDeliveryID:@"" OrderStatus:@"3" orderStartTime:@"" orderEndTime:@"" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount]];
-
-                break;
-        }
-        
-    }];
-    
-    //下拉刷新
-    weakSelf.send_tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        //需要将页码设置为1
-        _page = 1;
-        switch (_servicType) {
-    
-            case SendServicTypeWaitSend://待派单
-                [weakSelf orderlistDeliveryID:@"" OrderStatus:@"" orderStartTime:@"" orderEndTime:@"" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount]];
-                
-                break;
-            case SendServicTypeSending://配送中
-                
-                [weakSelf orderlistDeliveryID:@"" OrderStatus:@"" orderStartTime:@"" orderEndTime:@"" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount]] ;
-                
-                
-                break;
-            case SendServicTypeSended://已配送
-                [weakSelf orderlistDeliveryID:@"" OrderStatus:@"" orderStartTime:@"" orderEndTime:@"" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount]];
-                
-                
-                break;
-        }
-    }];
-    
 }
 
 #pragma mark - 懒加载
@@ -372,7 +356,8 @@
                     [goodsArr addObject:goods ];
                 }
                 sectionRow =  goodsArr.count;
-            }                break;
+            }
+                break;
                 
                 
         }
@@ -802,7 +787,7 @@
     self.navigationItem.titleView = self.navbar_btn;
     
     //订单列表
-    [self orderlistDeliveryID:_deliveryId OrderStatus:@"1" orderStartTime:@"" orderEndTime:@"" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount]];
+    [self orderlistDeliveryID:_deliveryId OrderStatus:@"1"  ];
     
     [self.send_tableView reloadData];
     
@@ -835,20 +820,25 @@
     switch (_servicType) {
             
         case SendServicTypeWaitSend:
-            [self orderlistDeliveryID:_deliveryId OrderStatus:@"1" orderStartTime:@"" orderEndTime:@"" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount]];
             
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"1"  ];
+            [self.send_tableView reloadData];
+
             break;
         case SendServicTypeSending:
-            [self orderlistDeliveryID:_deliveryId OrderStatus:@"2" orderStartTime:@"" orderEndTime:@"" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount]];
             
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"2"  ];
+            [self.send_tableView reloadData];
+
             break;
         case SendServicTypeSended:
-            [self orderlistDeliveryID:_deliveryId OrderStatus:@"3" orderStartTime:@"" orderEndTime:@"" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount]];
             
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"3"  ];
+            [self.send_tableView reloadData];
+
             break;
             
     }
-    [self.send_tableView reloadData];
     
 }
 #pragma mark - ZFSendHomeListCellDelegate 订单详情页事件
@@ -1026,7 +1016,7 @@
         
         
         [self.send_tableView reloadData];
-        [SVProgressHUD dismissWithDelay:1];
+        [SVProgressHUD dismiss];
         
     } progress:^(NSProgress *progeress) {
         
@@ -1045,59 +1035,56 @@
  
  @param deliveryID 配送员id
  @param orderStatus  1.待接单 2.已接单 3.已配送
- @param orderStartTime 配送开始的结束订单时间
- @param orderEndTime 配送结束的结束订单时间
+ @ orderStartTime 配送开始的结束订单时间
+ @ orderEndTime 配送结束的结束订单时间
  */
 -(void)orderlistDeliveryID:(NSString *)deliveryID
                OrderStatus:(NSString *)orderStatus
-            orderStartTime:(NSString *)orderStartTime
-              orderEndTime:(NSString *)orderEndTime
-              page:(NSString *)page
-              size:(NSString *)size
 {
     
     NSDictionary * param = @{
                              @"deliveryId":deliveryID,
-                             @"orderStartTime":orderStartTime,
-                             @"orderEndTime":orderEndTime,
+                             @"orderStartTime":@"",
+                             @"orderEndTime":@"",
                              @"status":orderStatus,
-                             @"page":page,
-                             @"size":size,
-                             
+                             @"page":[NSNumber numberWithInteger:self.currentPage],
+                             @"size":[NSNumber numberWithInteger:kPageCount],
+
                              };
     [SVProgressHUD show];
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderDeliveryByDeliveryId",zfb_baseUrl] params:param success:^(id response) {
         
         if ([response[@"resultCode"] intValue] == 0) {
-            if (self.orderListArray.count > 0) {
-                
-                [self.orderListArray removeAllObjects];
-                
-            }
-            SendServiceOrderModel * order = [SendServiceOrderModel mj_objectWithKeyValues:response];
             
+//            if (self.refreshType == RefreshTypeHeader) {
+            
+                if (self.orderListArray.count > 0) {
+                    
+                    [self.orderListArray removeAllObjects];
+                }
+//            }
+            SendServiceOrderModel * order = [SendServiceOrderModel mj_objectWithKeyValues:response];
             for (SendServiceStoreinfomap * infoStore in order.storeInfoMap) {
                 
                 [self.orderListArray addObject:infoStore];
             }
-            
             NSLog(@"%@ ====orderListArray ",self.orderListArray);
       
+            [SVProgressHUD dismiss];
             [self.send_tableView reloadData];
-            [SVProgressHUD dismissWithDelay:1];
+            
         }
-        [self.send_tableView.mj_header endRefreshing];
-        [self.send_tableView.mj_footer endRefreshing];
-        
+
+        [self endRefresh];
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
-        [self.send_tableView.mj_header endRefreshing];
-        [self.send_tableView.mj_footer endRefreshing];
+        [self endRefresh];
+
         NSLog(@"error=====%@",error);
     }];
     
@@ -1127,19 +1114,19 @@
         if ([response[@"resultCode"] intValue] == 0) {
             
             
-            [SVProgressHUD dismissWithDelay:1];
+            [SVProgressHUD dismiss];
             
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
             
         }
         if ([status isEqualToString:@"2"]) {
             
-            [self orderlistDeliveryID:_deliveryId OrderStatus:@"1" orderStartTime:@"" orderEndTime:@"" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount]];
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"1"  ];
             
         }
         if ([status isEqualToString:@"3"]) {
             
-            [self orderlistDeliveryID:_deliveryId OrderStatus:@"2" orderStartTime:@"" orderEndTime:@"" page:[NSString stringWithFormat:@"%ld",_page] size:[NSString stringWithFormat:@"%ld",_pageCount]];
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"2" ];
             
         }
 
@@ -1189,7 +1176,7 @@
             [self.msgArray addObject:msg_postAddress];
 
         }
-        [SVProgressHUD dismissWithDelay:1];
+        [SVProgressHUD dismiss];
 
         //弹出 配送信息----当前视图
         [self.view addSubview:self.messagebgview];
@@ -1212,6 +1199,7 @@
 {
     [self selectDeliveryListPostRequst];
 }
+
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];

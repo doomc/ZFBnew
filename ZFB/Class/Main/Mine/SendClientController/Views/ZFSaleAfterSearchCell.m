@@ -18,6 +18,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    self.selectionStyle          = UITableViewCellSelectionStyleNone;
+    
     self.bgViewCorner.clipsToBounds = YES;
     self.bgViewCorner.layer.cornerRadius = 8;
     self.bgViewCorner.layer.borderWidth =1;
@@ -40,25 +43,24 @@
 {
     searchText = self.tf_search.text;
     NSLog(@"searchText ==  %@",searchText);
-    
- 
-
 }
+
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     return  YES;
 }
+
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     NSLog(@"开始编辑");
 }
+
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     searchText = textField.text;
 
     NSLog(@"编辑结束 ---- %@",textField.text);
 }
-
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {

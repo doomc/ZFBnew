@@ -234,9 +234,12 @@
  
  
 #pragma mark -  FeedTypeTableViewCellDelegate
--(void)didClickTypeName:(NSString *)typeName Index :(NSInteger)index
+-(void)didClickTypeName:(NSString *)typeName Index :(NSInteger)index isSelected:(BOOL)isSelected
 {
     _typeName = typeName;
+    if (isSelected == YES) {
+        
+    }
     // 此处获取类型
     NSLog(@"_typeName = %@",_typeName);
 }

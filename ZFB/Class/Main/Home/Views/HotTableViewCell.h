@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol HotTableViewCellDelegate <NSObject>
 
+-(void)pushToDetailVCWithGoodsID :(NSString *) goodsId;
+
+@end
 @interface HotTableViewCell : UITableViewCell<UICollectionViewDelegate,UICollectionViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UICollectionView *HotcollectionView;
-@property (strong,nonatomic)NSMutableArray * hotArray;//热卖
+@property (assign, nonatomic) id <HotTableViewCellDelegate> delegate;
+@property (weak  , nonatomic) IBOutlet UICollectionView *HotcollectionView;
+@property (strong, nonatomic )NSMutableArray * hotArray;//热卖
 
 
 

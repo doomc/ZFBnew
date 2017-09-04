@@ -113,7 +113,8 @@ static NSString * settingCellid = @"ZFSettingCellid";
     }
     else if (indexPath.row == 3) {
          //读取缓存大小
-        settcell.lb_detailTitle.text = _cacheSize = settcell.currenCacheSize;
+        settcell.lb_detailTitle.text = _cacheSize = [NSString stringWithFormat:@"%.2fM",[settcell readCacheSize]];
+        NSLog(@"当前显示的 缓存 = %@ = %.f",_cacheSize,[settcell readCacheSize]);
     }
     else if (indexPath.row == 4) {
         //客服热线
@@ -159,7 +160,9 @@ static NSString * settingCellid = @"ZFSettingCellid";
         [jxt addAction:left];
         [jxt addAction:right];
         [self presentViewController:jxt animated:YES completion:^{  }];
+  
     }
+    
 }
 ///清除缓存
 -(void)clearingCache

@@ -65,17 +65,29 @@
     return cell;
     
 }
+//点击选定
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    NSLog(@"%ld ==== section =%ld ==== item",indexPath.section,indexPath.item);
+    FeedCommitCollectionViewCell *cell = (FeedCommitCollectionViewCell *)[self.typeCollectionView cellForItemAtIndexPath:indexPath];
+
     if (_nameArray.count > 0 ) {
+        cell.lb_type.backgroundColor = HEXCOLOR(0xfe6d6a);
+        cell.lb_type.textColor =  HEXCOLOR(0xffffff);
+
+ 
         NSString * name = _nameArray[indexPath.item];
-        if ([self.delegate respondsToSelector:@selector(didClickTypeName:Index:)]) {
-            [self.delegate didClickTypeName:name Index:indexPath.item];
+        if ([self.delegate respondsToSelector:@selector(didClickTypeName:Index:isSelected:)]) {
+            [self.delegate didClickTypeName:name Index:indexPath.item isSelected:_isSelectedBackGround];
+            
         }
         
     }
-    
+}
+//取消选定
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    FeedCommitCollectionViewCell *cell = (FeedCommitCollectionViewCell *)[self.typeCollectionView cellForItemAtIndexPath:indexPath];
+    cell.lb_type.backgroundColor = HEXCOLOR(0xffffff);
+    cell.lb_type.textColor =  HEXCOLOR(0x363636);
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout

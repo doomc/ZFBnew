@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="95"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="95"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="94.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Dv-QH-3jR">
@@ -52,15 +52,15 @@
                         <state key="normal" title="默认"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4BY-IC-DRc">
-                        <rect key="frame" x="185" y="66" width="60" height="20"/>
+                        <rect key="frame" x="175" y="66" width="60" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="ivR-CM-ac6"/>
                             <constraint firstAttribute="width" constant="60" id="nS2-Be-RxP"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <inset key="titleEdgeInsets" minX="-30" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <inset key="imageEdgeInsets" minX="45" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="50" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="编辑" image="editting.png">
                             <color key="titleColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
@@ -74,10 +74,10 @@
                             <constraint firstAttribute="height" constant="20" id="bwU-D0-IlK"/>
                             <constraint firstAttribute="width" constant="60" id="fDN-JG-ANT"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <inset key="titleEdgeInsets" minX="-45" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <inset key="imageEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="删除" image="editDelete.png">
                             <color key="titleColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
@@ -108,7 +108,7 @@
                     <constraint firstAttribute="trailing" secondItem="lEm-n7-KNx" secondAttribute="trailing" constant="15" id="Qy6-Ln-wiI"/>
                     <constraint firstAttribute="trailing" secondItem="TN9-8P-Jck" secondAttribute="trailing" constant="15" id="XYd-bd-p9D"/>
                     <constraint firstItem="lEm-n7-KNx" firstAttribute="leading" secondItem="JTK-OJ-MR0" secondAttribute="trailing" constant="10" id="aep-l0-pF5"/>
-                    <constraint firstItem="TN9-8P-Jck" firstAttribute="leading" secondItem="4BY-IC-DRc" secondAttribute="trailing" id="d1Q-E9-97z"/>
+                    <constraint firstItem="TN9-8P-Jck" firstAttribute="leading" secondItem="4BY-IC-DRc" secondAttribute="trailing" constant="10" id="d1Q-E9-97z"/>
                     <constraint firstItem="Xuf-EH-19f" firstAttribute="leading" secondItem="l0E-00-KcE" secondAttribute="trailing" constant="20" id="h6V-Bf-JkW"/>
                     <constraint firstAttribute="bottomMargin" secondItem="TN9-8P-Jck" secondAttribute="bottom" constant="0.5" id="lbG-uy-eCt"/>
                     <constraint firstItem="4BY-IC-DRc" firstAttribute="bottom" secondItem="TN9-8P-Jck" secondAttribute="bottom" id="ld0-Vb-UdO"/>
@@ -124,7 +124,7 @@
                 <outlet property="lb_nameAndphoneNum" destination="l0E-00-KcE" id="Iyj-oy-YRr"/>
                 <outlet property="selectedButton" destination="JTK-OJ-MR0" id="y3b-Ji-qym"/>
             </connections>
-            <point key="canvasLocation" x="3" y="21"/>
+            <point key="canvasLocation" x="3" y="20.5"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -214,9 +214,17 @@
         
         OrderWithAddressCell * addCell = [self.mytableView
                                           dequeueReusableCellWithIdentifier:@"OrderWithAddressCellid" forIndexPath:indexPath];
-        addCell.lb_address.text      = _postAddress;
-        addCell.lb_nameAndPhone.text = [NSString stringWithFormat:@"收货人: %@  %@",_contactUserName,_contactMobilePhone];
-        addCell.selectionStyle       = UITableViewCellSelectionStyleNone;
+        if (_postAddress == nil  && _contactUserName == nil && _contactMobilePhone == nil) {
+           
+            [addCell.image_noData setHidden:NO];
+            
+        }else{
+            [addCell.image_noData setHidden:YES];
+
+            addCell.lb_address.text      = _postAddress;
+            addCell.lb_nameAndPhone.text = [NSString stringWithFormat:@"收货人: %@  %@",_contactUserName,_contactMobilePhone];
+        }
+
         return addCell;
     }
     
@@ -253,8 +261,16 @@
     
     if (indexPath.row == 0) {
         ZFAddressListViewController * listVC =[[ ZFAddressListViewController alloc]init];
+        listVC.callBackBlock = ^(NSString *PossName, NSString *PossAddress, NSString *PossPhone) {
+
+            _contactUserName =  PossName ;
+            _contactMobilePhone = PossPhone;
+            _postAddress = PossAddress;
+            NSLog(@"编辑地址  PossName =%@  PossAddress = %@ PossPhone = %@",PossName,PossAddress,PossPhone);
+            [self.mytableView reloadData];
+
+        };
         [self.navigationController pushViewController:listVC animated:YES];
-        NSLog(@"编辑地址");
     }
     if (indexPath.row == 1) {
         
@@ -284,6 +300,8 @@
             _postAddress        = addressModel.userAddressMap.postAddress;
             _contactMobilePhone = addressModel.userAddressMap.mobilePhone;
             _postAddressId      = addressModel.userAddressMap.postAddressId;
+            
+            
             
             //解析json在重新组装新的json
             [self userGoodsInfoJSONanalysis];
@@ -425,7 +443,7 @@
 #pragma mark - 提交订单 didCleckClearing
 -(void)didCleckClearing:(UIButton *)sender
 {
-    NSLog(@" 确认订单 ");
+    NSLog(@" 提交订单 ");
     
     //还原成字典数组
     NSArray * cmgoodsList = [NSArray arrayWithArray:self.cmGoodsListArray];
@@ -450,8 +468,6 @@
     
     NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
 //    NSLog(@"提交订单 -----------%@",successDic);
-    
-    
     if (BBUserDefault.isLogin == 1) {
      
         [self commitOrder:successDic];

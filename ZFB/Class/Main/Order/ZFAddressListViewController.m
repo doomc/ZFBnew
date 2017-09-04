@@ -26,7 +26,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title =@"选择收货地址";
-
+ 
+    
     self.mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-49) style:UITableViewStylePlain];
     self.mytableView.delegate= self;
     self.mytableView.dataSource = self;
@@ -113,17 +114,15 @@
 - (void)configCell:(ZFAddOfListCell *)cell indexPath:(NSIndexPath *)indexPath
 {
     Useraddresslist * info = self.listArray[indexPath.row];
-    cell.lb_detailArress.text = info.postAddress;
-    cell.lb_nameAndphoneNum.text = [NSString stringWithFormat:@"%@  %@",info.contactUserName,info.contactMobilePhone];
-   
-    if ( info.defaultFlag == 1) {
-        //设置默认
-        cell.defaultButton.hidden = NO;
-    }else{
-        //隐藏默认按钮
-        cell.defaultButton.hidden = YES;
 
-    }
+    cell.list = info;
+    
+}
+//当前选中的状态 暂时没有用到
+-(void)selecteStatus :(BOOL)isSelected
+{
+    //更改了状态的回调数据
+    
 }
 #pragma mark - AddressCellDelegate
 ///删除操作
@@ -173,33 +172,18 @@
     [self.navigationController pushViewController:VC animated:NO];
 
 }
-//更新数据
-- (void)updateInfomation
-{
-    //删除对应的model 再请求服务器
- 
 
-}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#warning  ========== 问题！！！ indexPath 获取不到
+    Useraddresslist * info = self.listArray[indexPath.row];
 
-    ZFAddOfListCell  *cell = (ZFAddOfListCell *) [self.mytableView cellForRowAtIndexPath:indexPath];
-    
     NSLog(@"%ld- %ld",indexPath.section,indexPath.row);
 
-    cell.selected = !cell.selected;
-    
-    if (cell.selected) {
-        
-        cell.selectedButton.selected = YES;
-        
-    }else{
-        
-        cell.selectedButton.selected = NO;
-    }
-    
+    [self backAction];
+
+    self.callBackBlock(info.contactUserName, info.postAddress, info.contactMobilePhone);
+
 }
 
 #pragma mark -    收货地址列表getCmUserAdderss
@@ -253,11 +237,13 @@
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getDelUserAddressInfo",zfb_baseUrl] params:parma success:^(id response) {
         
-        
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-        
-        [self.mytableView reloadData];
-        
+        if ([response[@"resultCode"] intValue ]== 0) {
+          
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+           
+            [self getuserInfoMessagePostRequst];
+
+        }
         
     } progress:^(NSProgress *progeress) {
         

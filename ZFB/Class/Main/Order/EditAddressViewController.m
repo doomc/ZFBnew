@@ -24,7 +24,7 @@
 @property (weak, nonatomic ) IBOutlet UITextField * tf_cellphone;
 @property (weak, nonatomic ) IBOutlet UITextField * tf_detailAddress;
 @property (weak, nonatomic ) IBOutlet UISwitch    * isDefaultSwitch;
-@property (weak, nonatomic ) IBOutlet UIButton    *SaveAndbackAction;
+@property (weak, nonatomic ) IBOutlet UIButton    * SaveAndbackAction;
 
 @end
 
@@ -165,7 +165,7 @@
 - (IBAction)saveActionAndBack:(id)sender {
     
     NSLog(@"saved！@@！！@！！！");
-    if (_tf_name.text.length > 0 && ![_tf_cellphone.text isEqualToString:@""] && ![_tf_detailAddress.text isEqualToString:@""] ) {
+    if (_tf_name.text.length > 0 && ![_tf_cellphone.text isEqualToString:@""] && ![_tf_detailAddress.text isEqualToString:@""] && ![_locationButton.titleLabel.text isEqualToString:@""]) {
         
         [self savedInfoMessagePostRequst];
     }

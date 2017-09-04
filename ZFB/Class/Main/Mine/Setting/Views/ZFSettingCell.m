@@ -17,7 +17,7 @@
     [super awakeFromNib];
     // Initialization code
     
-     _currenCacheSize = [NSString stringWithFormat:@"当前缓存为%.2fM",[self readCacheSize]];
+      //= [NSString stringWithFormat:@"当前缓存为%.2fM",[self readCacheSize]];
  
 }
 
@@ -71,9 +71,9 @@
         }
     }
     
-    //    //读取缓存大小
-    //    float cacheSize = [self readCacheSize] *1024 ;
-    //    self.lb_detailTitle.text = [NSString stringWithFormat:@"%.2fM",cacheSize];
+    //读取缓存大小
+    float cacheSize = [self readCacheSize] *1024 ;
+    self.lb_detailTitle.text = _currenCacheSize = [NSString stringWithFormat:@"%.2fM",cacheSize];
     
 }
 

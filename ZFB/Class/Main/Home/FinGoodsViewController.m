@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
     CellTypeWithGuessCell,
     
 };
-@interface FinGoodsViewController ()<SDCycleScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,FuncListTableViewCellDeleagte>
+@interface FinGoodsViewController ()<SDCycleScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,FuncListTableViewCellDeleagte,HotTableViewCellDelegate>
 
 @property(strong,nonatomic)UIView * CircleHeadView;
 @property(strong,nonatomic)UITableView * findGoods_TableView;
@@ -238,6 +238,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
     {
         HotTableViewCell * hotCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_hotID forIndexPath:indexPath];
         hotCell.hotArray = self.hotArray;
+        hotCell.delegate = self;
         return hotCell;
     }else{
 
@@ -254,17 +255,23 @@ typedef NS_ENUM(NSUInteger, CellType) {
     
 }
 
+#pragma mark - HotTableViewCellDelegate
+-(void)pushToDetailVCWithGoodsID :(NSString *) goodsId
+{
+    DetailFindGoodsViewController *detailVCgoods = [[DetailFindGoodsViewController alloc]init];
+    detailVCgoods.goodsId = goodsId;
+    [self.navigationController pushViewController:detailVCgoods animated:NO];
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);
-   
     DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
 
     if (self.likeListArray.count > 0) {
 
         Guessgoodslist *goodlist  = self.likeListArray[indexPath.row];
         findVCgoods.goodsId  = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
-        NSLog(@" push goodsId  = %@",findVCgoods.goodsId);
         
     }
 

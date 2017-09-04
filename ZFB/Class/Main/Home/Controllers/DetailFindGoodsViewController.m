@@ -44,6 +44,7 @@
     NSString * _juli;
     NSString * _address;
     NSString * _storeId;
+    NSString * _inventory;
     NSString * _coverImgUrl;
     NSString * _attachImgUrl;
     NSString * _inStock;
@@ -238,8 +239,19 @@
     }else{
         //没有规格 - 直接传值
         
-        vc.userGoodsInfoJSON = _noReluArray;//没有规格的数组
-        [self.navigationController pushViewController:vc animated:YES];
+        if ([_inventory intValue] > 0) {
+            vc.userGoodsInfoJSON = _noReluArray;//没有规格的数组
+            [self.navigationController pushViewController:vc animated:YES];
+ 
+        }else{
+            JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"这个商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            [alertVC addAction:sure];
+            [alertVC presentViewController:alertVC animated:YES completion:nil];
+ 
+        }
     }
 }
 
@@ -901,17 +913,17 @@
             _commentNum   = goodsmodel.data.goodsInfo.commentNum;//评论数
             _isCollect    = [goodsmodel.data.goodsInfo.isCollect integerValue];//是否收藏
             _storeId      = [NSString stringWithFormat:@"%ld",goodsmodel.data.goodsInfo.storeId];//店铺id
-            
+            _inventory =  goodsmodel.data.goodsInfo.inventory;//库存
+
             //store信息 ----storeInfo
             _storeName    = goodsmodel.data.storeInfo.storeName;//店名
             _contactPhone = goodsmodel.data.storeInfo.contactPhone;//联系手机号
             _address      = goodsmodel.data.storeInfo.address;//门店地址
             _juli         = goodsmodel.data.storeInfo.storeDist;//门店距离
-            
+
             //图片详情网址
             _goodsDetail    = goodsmodel.data.goodsInfo.goodsDetail;//网址
             _priceRange    = goodsmodel.data.goodsInfo.priceRange;//范围价格
-
             if (_isCollect == 1) {///是否收藏	1.收藏 2.不是
                 
                 [collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateNormal];

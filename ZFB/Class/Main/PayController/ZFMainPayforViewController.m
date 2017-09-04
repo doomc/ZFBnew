@@ -10,6 +10,8 @@
 #import "WebViewJavascriptBridge.h"
 #import <WebKit/WebKit.h>
 #import "ZFDetailOrderViewController.h"
+#import "ZFAllOrderViewController.h"
+#import "ZFBaseNavigationViewController.h"
 @interface ZFMainPayforViewController ()<UIWebViewDelegate>
 
 @property (nonatomic,copy ) NSString * paySign;//获取签名
@@ -94,10 +96,15 @@
     NSLog(@"currentURL ===== %@",currentURL);
     if ([backUrl isEqualToString:currentURL]) {
         
-        NSLog(@"全部跳转到订单详情");
-        
-        [self poptoUIViewControllerNibName:@"ZFDetailOrderViewController" AndObjectIndex:1];
-  
+        NSLog(@"全部跳转到订单列表");
+        ZFAllOrderViewController * allVC  = [[ZFAllOrderViewController alloc]init];
+ 
+        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:allVC];
+        [self presentViewController:nav animated:NO completion:^{
+            
+            [nav.navigationBar setBarTintColor:HEXCOLOR(0xffcccc)];
+            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+        }];
     }
     [SVProgressHUD dismiss];
     

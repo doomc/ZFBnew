@@ -19,7 +19,7 @@
     [self.saleAfter_btn addTarget:self action:@selector(saleAfter_btnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.saleAfter_btn.clipsToBounds = YES;
     self.saleAfter_btn.layer.cornerRadius = 4;
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 ///申请售后
@@ -36,7 +36,25 @@
     
     self.lb_goodcount.text = [NSString stringWithFormat:@"数量x%ld",goods.goodsCount];
     self.lb_title.text =  goods.goods_name;
-    [self.img_saleAfter sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:nil];
+    [self.img_saleAfter sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"errorImage"]];
+    ///status 0 未操作 1 退货中 2 服务完成
+    if (goods.status == 0) {
+        
+        
+    }else if (goods.status == 1)
+    {
+        [self.saleAfter_btn setTitle:@"退货中" forState:UIControlStateNormal];
+        self.saleAfter_btn.backgroundColor = [UIColor whiteColor];
+        [self.saleAfter_btn setTitleColor: HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
+        self.saleAfter_btn.enabled = NO;
+    }
+    else{
+        self.saleAfter_btn.backgroundColor = [UIColor whiteColor];
+        [self.saleAfter_btn setTitleColor: HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
+        self.saleAfter_btn.enabled = NO;
+        [self.saleAfter_btn setTitle:@"服务完成" forState:UIControlStateNormal];
+
+    }
     NSLog(@"图片地址 ====== %@",goods.coverImgUrl);
     
 }
