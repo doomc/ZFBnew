@@ -143,8 +143,9 @@
   
     SendServiceStoreinfomap* storeInfo = self.orderListArray[section];
     titleCell.storlist = storeInfo ;
-    
- 
+    if ( storeInfo.orderStatus == 3) {
+        [titleCell.statusButton setTitle:@"交易完成" forState:UIControlStateNormal];
+    }
     return titleCell;
 }
 

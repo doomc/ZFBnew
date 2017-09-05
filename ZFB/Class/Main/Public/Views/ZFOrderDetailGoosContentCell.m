@@ -16,6 +16,8 @@
     self.img_orderDetailView.clipsToBounds = YES;
     self.img_orderDetailView.layer.borderWidth = 0.5;
     self.img_orderDetailView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
+    self.selectionStyle       = UITableViewCellSelectionStyleNone;
+
 }
 
 -(void)setGoodlist:(DetailGoodslist *)goodlist

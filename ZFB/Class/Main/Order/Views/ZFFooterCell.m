@@ -25,10 +25,10 @@
     // Initialization code
     
     _cancel_button.layer.cornerRadius = 4;
-    _cancel_button.clipsToBounds = YES;
+    _cancel_button.clipsToBounds      = YES;
     
     _payfor_button.layer.cornerRadius = 4;
-    _payfor_button.clipsToBounds = YES;
+    _payfor_button.clipsToBounds      = YES;
     
     [self.cancel_button addTarget:self action:@selector(cancel_buttonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.payfor_button addTarget:self action:@selector(payfor_buttonAction) forControlEvents:UIControlEventTouchUpInside];
@@ -43,11 +43,11 @@
     
     //订单金额
     self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",_orderlist.orderAmount];//订单价格
-    orderNumNormal =  orderlist.orderCode;
-    orderIdNormal = orderlist.order_id;
-    deliveryIdNormal = orderlist.deliveryId;
-    orderDetail = orderlist.orderDetail;
-    orderStoreName= orderlist.storeName;
+    orderNumNormal          = orderlist.orderCode;
+    orderIdNormal           = orderlist.order_id;
+    deliveryIdNormal        = orderlist.deliveryId;
+    orderDetail             = orderlist.orderDetail;
+    orderStoreName          = orderlist.storeName;
     
 }
 
@@ -57,21 +57,21 @@
     _businessOrder = businessOrder;
     //订单金额
     self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",businessOrder.orderAmount];//订单价格
-    _payStatus = businessOrder.payStatus;
-    _orderStatus = businessOrder.orderStatus;
-    _orderNum = businessOrder.orderCode;
-    _deliveryId = businessOrder.deliveryId;
+    _payStatus              = businessOrder.payStatus;
+    _orderStatus            = businessOrder.orderStatus;
+    _orderNum               = businessOrder.orderCode;
+    _deliveryId             = businessOrder.deliveryId;
     
     //通过传值把这个id传出去
-    _orderId = businessOrder.order_id;
-    _totalPrice  = businessOrder.orderAmount;//总价
+    _orderId    = businessOrder.order_id;
+    _totalPrice = businessOrder.orderAmount;//总价
 }
 
 //配送端订单
 -(void)setSendOrder:(SendServiceStoreinfomap *)sendOrder
 {
-    _sendOrder = sendOrder;
-    self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%ld",sendOrder.orderAmmount];//订单价格
+    _sendOrder              = sendOrder;
+    self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",sendOrder.orderAmmount];//订单价格
     
     
 }
@@ -94,7 +94,7 @@
         
         [self.footDelegate sendOrdersActionOrderId:_orderId totalPrice:_totalPrice indexPath:_section];
     }
-
+    
     if ([self.footDelegate respondsToSelector:@selector(allOrdersActionOfindexPath:)]) {
         [self.footDelegate allOrdersActionOfindexPath:_section];
     }

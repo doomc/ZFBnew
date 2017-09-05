@@ -20,6 +20,8 @@
 #import "ZFSureOrderViewController.h"
 #import "ZFShoppingCarViewController.h"//购物车
 #import "DetailStoreViewController.h" //店铺
+#import "ZFBaseNavigationViewController.h"
+#import "LoginViewController.h"
 
 //model
 #import "DetailGoodsModel.h"
@@ -31,13 +33,18 @@
 //view
 #import <WebKit/WebKit.h>
 #import "TJMapNavigationService.h"
+//map
+#import <CoreLocation/CoreLocation.h>
 
- 
+
 @interface DetailFindGoodsViewController ()
 <   UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate,DetailWebViewCellDelegate,
-    ZFGoodsFooterViewDelegate
+    ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
 >
 {
+    NSString *latitudestr;//经度
+    NSString *longitudestr;//纬度
+    
     NSString * _goodsName;
     NSString * _storeName;
     NSString * _contactPhone;
@@ -91,8 +98,8 @@
 @property (nonatomic,strong) SkuFooterReusableView * skufooterView;
 @property (nonatomic,strong) NSIndexPath           * indexPath;//记录选择的index
 @property (nonatomic,strong) ZFGoodsFooterView     * tbFootView;
-
-
+//map
+@property (nonatomic,strong) CLLocationManager * locationManager;
 
 //弹框地图指定到位置
 @property (nonatomic ,strong) NSMutableArray * typeCellArr;
@@ -189,6 +196,72 @@
     
 }
 
+#pragma mark  - 定位当前
+/**定位当前 */
+-(void)LocationMapManagerInit
+{
+    //判断定位功能是否打开
+    if ([CLLocationManager locationServicesEnabled]) {
+        
+        _locationManager = [[CLLocationManager alloc]init];
+        _locationManager.distanceFilter = 200;
+        _locationManager.delegate = self;
+        [_locationManager requestWhenInUseAuthorization];
+        
+        //设置寻址精度
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        _locationManager.distanceFilter = 5.0;
+        [_locationManager startUpdatingLocation];
+    }
+    
+}
+#pragma mark CoreLocation delegate (定位失败)
+//定位失败后调用此代理方法
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    [self.view makeToast:[NSString stringWithFormat:@"%@",error] duration:2 position:@"center"];
+    
+}
+
+#pragma mark 定位成功后则执行此代理方法
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    [_locationManager stopUpdatingLocation];
+    
+    //旧址
+    CLLocation *currentLocation = [locations lastObject];
+    CLGeocoder *geoCoder = [[CLGeocoder alloc]init];
+    //打印当前的经度与纬度
+    NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
+    latitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
+    longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
+    
+    
+    BBUserDefault.latitude = latitudestr;
+    BBUserDefault.longitude = longitudestr;
+    
+    //反地理编码
+    [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (placemarks.count > 0) {
+            CLPlacemark *placeMark = placemarks[0];
+         NSString * currentCityAndStreet = placeMark.locality;
+            if (!currentCityAndStreet) {
+                currentCityAndStreet = @"无法定位当前城市";
+            }
+            /*看需求定义一个全局变量来接收赋值*/
+            //            NSLog(@"----%@",placeMark.country);//当前国家
+            NSLog(@"%@",currentCityAndStreet);//当前的城市
+            NSLog(@"%@",placeMark.subLocality);//当前的位置
+            NSLog(@"%@",placeMark.thoroughfare);//当前街道
+            NSLog(@"%@",placeMark.name);//具体地址
+            
+            currentCityAndStreet = [NSString stringWithFormat:@"%@%@",placeMark.subLocality,placeMark.name];
+            
+        }
+    }];
+    
+    
+}
 #pragma mark - ZFGoodsFooterViewDelegate 底部的视图的dedegate
 //客服
 -(void)didClickContactRobotView
@@ -882,13 +955,12 @@
 #pragma mark  - 商品详情 网络请求getGoodsDetailsInfo
 -(void)goodsDetailListPostRequset{
     
-    NSLog(@" 经度 %@ ----- 纬度 %@",BBUserDefault.latitude,BBUserDefault.longitude);
+    NSLog(@" 经度 %@ ----- 纬度 %@",latitudestr,longitudestr);
     NSDictionary * parma = @{
                              
-                             @"latitude":BBUserDefault.latitude,
-                             @"longitude":BBUserDefault.longitude,
+                             @"latitude":latitudestr,
+                             @"longitude":longitudestr,
                              @"goodsId":_goodsId,//商品id
-                             
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsDetailsInfo",zfb_baseUrl] params:parma success:^(id response) {
@@ -903,7 +975,7 @@
                 
                 [self.noReluArray removeAllObjects ];
             }
-            
+ 
             DetailGoodsModel * goodsmodel = [DetailGoodsModel mj_objectWithKeyValues:response];
             //goods信息 ----goodsInfo
             _goodsName    = goodsmodel.data.goodsInfo.goodsName;//商品名
@@ -1281,10 +1353,39 @@
     }
     return _noReluArray;
 }
+-(void)viewWillDisappear:(BOOL)animated
+{
+    NSLog(@"viewWillDisappear  消失了 这个方法走了吗");
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"viewDidAppear 这个方法走了吗");
+//    [self goodsDetailListPostRequset];//网络请求、
+
+    
+    if (BBUserDefault.isLogin == 1) {
+        
+        [self goodsDetailListPostRequset];//网络请求
+        
+    }else{
+        
+        NSLog(@"登录了");
+        LoginViewController * logvc    = [ LoginViewController new];
+        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
+        
+        [self presentViewController:nav animated:NO completion:^{
+            
+            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+        }];
+    }
+
+
+}
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self goodsDetailListPostRequset];//网络请求
-    
+    NSLog(@"viewWillAppear 这个方法走了吗");
+    [self LocationMapManagerInit];
 }
 
 
@@ -1357,117 +1458,7 @@
     }
    
 }
-//测试数据
--(void)deathdata
-{
-    //复杂的字典[模型中有个数组属性，数组里面又要装着其他模型的字典]
-    NSDictionary *dict_m8m = @{
-                               
-                               };
-    
-    DetailGoodsModel * detailModel = [DetailGoodsModel mj_objectWithKeyValues:dict_m8m];
-    
-    
-    for (Productattribute * product in detailModel.data.productAttribute) {
-        
-        [self.productSkuArray addObject:product];
-        
-    }
-    [self.SkuColletionView reloadData];
-    
-}
 
--(void)textData{
-    
-    NSDictionary * dic = @{
-                           
-                           };
-    
-    SkuMatchModel * sku = [SkuMatchModel mj_objectWithKeyValues:dic];
-    
-    for (Skumatch *skumatch in sku.data.skuMatch) {
-        
-        NSInteger nameId = skumatch.nameId;
-        
-        for (Productattribute *attribute in self.productSkuArray) {
-            
-            if (nameId == attribute.nameId) {
-                
-                for (Valuelist *valueItem in attribute.valueList) {
-                    
-                    BOOL flag = NO;
-                    for (SkuValulist *skulist in skumatch.valuList) {
-                        
-                        if (valueItem.valueId == skulist.valueId) {
-                            flag = YES;
-                        }
-                    }
-                    if (flag) {
-                        valueItem.selectType = ValueSelectType_normal;
-                    }else {
-                        valueItem.selectType = ValueSelectType_enable;
-                    }
-                }
-                
-            }
-            
-        }
-    }
-    
-    [self.SkuColletionView reloadData];
-}
-
-
-- (void)removeWebCache{
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 9.0) {
-        NSSet *websiteDataTypes= [NSSet setWithArray:@[
-                                                       WKWebsiteDataTypeDiskCache,
-                                                       //WKWebsiteDataTypeOfflineWebApplication
-                                                       WKWebsiteDataTypeMemoryCache,
-                                                       //WKWebsiteDataTypeLocal
-                                                       WKWebsiteDataTypeCookies,
-                                                       //WKWebsiteDataTypeSessionStorage,
-                                                       //WKWebsiteDataTypeIndexedDBDatabases,
-                                                       //WKWebsiteDataTypeWebSQLDatabases
-                                                       ]];
-        
-        // All kinds of data
-        //NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
-        NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
-        [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
-            
-        }];
-        [[NSURLCache sharedURLCache] removeAllCachedResponses];
-        
-    } else {
-        //先删除cookie
-        NSHTTPCookie *cookie;
-        NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-        for (cookie in [storage cookies])
-        {
-            [storage deleteCookie:cookie];
-        }
-        
-        NSString *libraryDir = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *bundleId  =  [[[NSBundle mainBundle] infoDictionary]
-                                objectForKey:@"CFBundleIdentifier"];
-        NSString *webkitFolderInLib = [NSString stringWithFormat:@"%@/WebKit",libraryDir];
-        NSString *webKitFolderInCaches = [NSString
-                                          stringWithFormat:@"%@/Caches/%@/WebKit",libraryDir,bundleId];
-        NSString *webKitFolderInCachesfs = [NSString
-                                            stringWithFormat:@"%@/Caches/%@/fsCachedData",libraryDir,bundleId];
-        NSError *error;
-        /* iOS8.0 WebView Cache的存放路径 */
-        [[NSFileManager defaultManager] removeItemAtPath:webKitFolderInCaches error:&error];
-        [[NSFileManager defaultManager] removeItemAtPath:webkitFolderInLib error:nil];
-        /* iOS7.0 WebView Cache的存放路径 */
-        [[NSFileManager defaultManager] removeItemAtPath:webKitFolderInCachesfs error:&error];
-        NSString *cookiesFolderPath = [libraryDir stringByAppendingString:@"/Cookies"];
-        [[NSFileManager defaultManager] removeItemAtPath:cookiesFolderPath error:&error];
-        [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    }
-}
- 
 
  
 

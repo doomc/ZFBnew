@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		287E1D51FE976BE2DCE0A71B /* libPods-ZFB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2E471759A11D3682520CF1E /* libPods-ZFB.a */; };
-		49183EA21F5941CD00879E42 /* PlaceholderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 49183EA01F5941CD00879E42 /* PlaceholderBackground.png */; };
 		49183EA31F5941CD00879E42 /* nodataPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 49183EA11F5941CD00879E42 /* nodataPlaceholder.png */; };
 		49183EB21F5954D900879E42 /* WeChatStylePlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 49183EAE1F5954D900879E42 /* WeChatStylePlaceHolder.m */; };
 		49183EB31F5954D900879E42 /* XTNetReloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 49183EB11F5954D900879E42 /* XTNetReloader.m */; };
@@ -21,6 +20,8 @@
 		492141891F2A031A00C44D10 /* home_redSecond@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 492141851F2A031A00C44D10 /* home_redSecond@3x.png */; };
 		4921418A1F2A031A00C44D10 /* home_whiteSecond@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 492141861F2A031A00C44D10 /* home_whiteSecond@2x.png */; };
 		4921418B1F2A031A00C44D10 /* home_whiteSecond@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 492141871F2A031A00C44D10 /* home_whiteSecond@3x.png */; };
+		4921E30E1F5EA7E10017AA66 /* PlaceholderBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4921E30C1F5EA7E10017AA66 /* PlaceholderBackground@2x.png */; };
+		4921E30F1F5EA7E10017AA66 /* PlaceholderBackground@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4921E30D1F5EA7E10017AA66 /* PlaceholderBackground@3x.png */; };
 		4926DF081F1F4AA400E9060B /* JsonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4926DF071F1F4AA400E9060B /* JsonModel.m */; };
 		4927189B1F1F5C6C002A7A54 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 492718941F1F5C6C002A7A54 /* WebViewJavascriptBridge.m */; };
 		4927189C1F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 492718961F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.m */; };
@@ -1072,7 +1073,6 @@
 
 /* Begin PBXFileReference section */
 		3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.debug.xcconfig"; sourceTree = "<group>"; };
-		49183EA01F5941CD00879E42 /* PlaceholderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceholderBackground.png; sourceTree = "<group>"; };
 		49183EA11F5941CD00879E42 /* nodataPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nodataPlaceholder.png; sourceTree = "<group>"; };
 		49183EAD1F5954D900879E42 /* WeChatStylePlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChatStylePlaceHolder.h; sourceTree = "<group>"; };
 		49183EAE1F5954D900879E42 /* WeChatStylePlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeChatStylePlaceHolder.m; sourceTree = "<group>"; };
@@ -1089,6 +1089,8 @@
 		492141851F2A031A00C44D10 /* home_redSecond@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_redSecond@3x.png"; sourceTree = "<group>"; };
 		492141861F2A031A00C44D10 /* home_whiteSecond@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_whiteSecond@2x.png"; sourceTree = "<group>"; };
 		492141871F2A031A00C44D10 /* home_whiteSecond@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_whiteSecond@3x.png"; sourceTree = "<group>"; };
+		4921E30C1F5EA7E10017AA66 /* PlaceholderBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlaceholderBackground@2x.png"; sourceTree = "<group>"; };
+		4921E30D1F5EA7E10017AA66 /* PlaceholderBackground@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlaceholderBackground@3x.png"; sourceTree = "<group>"; };
 		4926DF061F1F4AA400E9060B /* JsonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonModel.h; sourceTree = "<group>"; };
 		4926DF071F1F4AA400E9060B /* JsonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonModel.m; sourceTree = "<group>"; };
 		492718931F1F5C6C002A7A54 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
@@ -4352,8 +4354,9 @@
 			children = (
 				49183F3E1F5CE7A800879E42 /* errorImage.png */,
 				49183F3C1F59637000879E42 /* error_NoData.png */,
-				49183EA01F5941CD00879E42 /* PlaceholderBackground.png */,
 				49183EA11F5941CD00879E42 /* nodataPlaceholder.png */,
+				4921E30C1F5EA7E10017AA66 /* PlaceholderBackground@2x.png */,
+				4921E30D1F5EA7E10017AA66 /* PlaceholderBackground@3x.png */,
 				50D61E7D1F1E5BAD00DBDA4D /* addres */,
 				495EA57F1F14B64C001FCB7E /* 11.jpg */,
 				495EA5801F14B64C001FCB7E /* 11.png */,
@@ -6914,7 +6917,6 @@
 				495EA89F1F14B64D001FCB7E /* 共享梦想@3x.png in Resources */,
 				492752271EC44DFD003C22D0 /* LaunchScreen.storyboard in Resources */,
 				495EA92F1F14B64E001FCB7E /* TV@3x.png in Resources */,
-				49183EA21F5941CD00879E42 /* PlaceholderBackground.png in Resources */,
 				495EA8921F14B64D001FCB7E /* arrows_down_red@2x.png in Resources */,
 				495EA9321F14B64E001FCB7E /* womanClothes@2x.png in Resources */,
 				495EA7A51F14B64D001FCB7E /* AllStoreCell.xib in Resources */,
@@ -6969,6 +6971,7 @@
 				495EA9051F14B64E001FCB7E /* dot_selected@3x.png in Resources */,
 				495EA8651F14B64D001FCB7E /* arrows_Right_black@3x.png in Resources */,
 				495EA8EC1F14B64E001FCB7E /* home_normal@2x.png in Resources */,
+				4921E30F1F5EA7E10017AA66 /* PlaceholderBackground@3x.png in Resources */,
 				49555EAB1F1E0092002E5688 /* ZFAddOfListCell.xib in Resources */,
 				4968A3F51F4DB5290061A87E /* NTESJionTeamViewController.xib in Resources */,
 				495EA8641F14B64D001FCB7E /* arrows_Right_black@2x.png in Resources */,
@@ -7169,6 +7172,7 @@
 				495EA8811F14B64D001FCB7E /* return_icon@3x.png in Resources */,
 				495EA7371F14B64D001FCB7E /* blankpage_button_reload@2x.png in Resources */,
 				497EF7291F50468700BFF1AF /* IMSearchResultCell.xib in Resources */,
+				4921E30E1F5EA7E10017AA66 /* PlaceholderBackground@2x.png in Resources */,
 				495EA78E1F14B64D001FCB7E /* ZFLocationGoToStoreCell.xib in Resources */,
 				495EA8C51F14B64E001FCB7E /* navback_white@3x.png in Resources */,
 				50D61E951F1E5BAD00DBDA4D /* plus@3x.png in Resources */,

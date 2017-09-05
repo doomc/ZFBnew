@@ -56,12 +56,11 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 @property (nonatomic ,strong) NSArray   * saleTitles;//售后选择
 @property (nonatomic ,assign) NSInteger tagNum;//售后选择
 
-
-//@property (nonatomic ,strong) UITableView * allOrder_tableView;//全部订单
 @property (nonatomic ,strong) ZFpopView   * popView;
 
 //售后搜索
 @property (nonatomic ,strong) UISearchBar        * searchBar;
+
 @property (nonatomic ,strong) ZFSaleAfterTopView * topView;
 
 ///全部订单-数据源
@@ -70,7 +69,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 @property (nonatomic ,strong) NSMutableArray * salesAfterArray;//售后数组
 
 @property (nonatomic ,strong) NSMutableArray * progressArray;//售后数组
-
 
 @end
 
@@ -869,7 +867,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
         {
             ZFSendingCell * sendCell = [self.zfb_tableView
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
-            sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             Orderlist * list = self.orderListArray[indexPath.section];
             
@@ -882,6 +879,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             Ordergoods * goods = goodArray[indexPath.row];
             
             sendCell.goods = goods;
+            
             return sendCell;
         }
             break;
@@ -891,7 +889,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             
             ZFSendingCell * sendCell = [self.zfb_tableView
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
-            sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             Orderlist * list           = self.orderListArray[indexPath.section];
             NSMutableArray * goodArray = [NSMutableArray array];
@@ -1143,7 +1140,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 #pragma mark - ZFpopViewDelegate 选择一个type
 -(void)sendTitle:(NSString *)title orderType:(OrderType)type
 {
-    
+    self.titles =@[@"全部订单",@"待付款",@"待配送",@"配送中",@"已配送",@"交易完成",@"交易取消",@"售后申请",];
+
     [UIView animateWithDuration:0.3 animations:^{
         if (self.bgview.superview) {
             [self.bgview removeFromSuperview];

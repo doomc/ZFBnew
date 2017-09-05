@@ -82,6 +82,7 @@
 
 @interface Ordergoods : NSObject
 
+
 @property (nonatomic, copy) NSString *goodsUnit;
 
 @property (nonatomic, assign) NSInteger status;
@@ -100,7 +101,7 @@
 
 @property (nonatomic, copy) NSString *order_id;
 
-@property (nonatomic, copy) NSString *purchase_price;
+@property (nonatomic, copy) NSString *purchase_price;//网购价
 
 @property (nonatomic, copy) NSString *coverImgUrl;
 

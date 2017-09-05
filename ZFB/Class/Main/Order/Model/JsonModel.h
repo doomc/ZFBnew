@@ -45,7 +45,9 @@
 
 @property (nonatomic, assign) CGFloat storePrice;//门店价
 @property (nonatomic, copy) NSString *concessionalPrice;//优惠价
+
 @property (nonatomic, copy) NSString *purchasePrice;//价格
+
 @property (nonatomic, copy) NSString *originalPrice;//原价格
 
 

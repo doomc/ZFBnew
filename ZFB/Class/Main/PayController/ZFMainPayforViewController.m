@@ -49,6 +49,19 @@
  
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    self.view.backgroundColor = HEXCOLOR(0xffcccc);
+    
+    [self getPaypaySignAccessTokenUrl];
+    
+    [self.view addSubview:self.webView];
+    
+}
+
+
 -(UIWebView *)webView
 {
     if (!_webView ) {
@@ -93,7 +106,7 @@
     NSString * backUrl = @"http://192.168.1.115:8080/cashier_zavfpay/standard/goback.html";//返回地址
     NSString * currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
     
-    NSLog(@"currentURL ===== %@",currentURL);
+//    NSLog(@"当前的currentURL ===== %@",currentURL);
     if ([backUrl isEqualToString:currentURL]) {
         
         NSLog(@"全部跳转到订单列表");
@@ -122,26 +135,13 @@
 }
 
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    self.view.backgroundColor = HEXCOLOR(0xffcccc);
-    
-    [self getPaypaySignAccessTokenUrl];
-    
-    [self.view addSubview:self.webView];
-    
-}
-
-
 
 
 #pragma mark - 获取支付paySign值，进行传值到支付参数222222
 -(void)getPaypaySignAccessTokenUrl
 {
     [SVProgressHUD show];
-    NSString * listJsonString  =[NSString arrayToJSONString:_orderListArray];
+    NSString * listJsonString  =  [NSString arrayToJSONString:_orderListArray];
     
 #warning -- 此账号为测试时账号  正式时 需要修改成正式账号
     
@@ -212,16 +212,17 @@
  
     for (int i = 0; i < sortArray.count; i++) {
         
-  
         NSString *keyValueStr = [NSString stringWithFormat:@"%@=%@",sortArray[i],valueArray[i]];
         [signArray addObject:keyValueStr];
 
     }
     
-    _signString =[NSString stringWithFormat:@"%@", [signArray componentsJoinedByString:@"&"]];
+    _signString = [NSString stringWithFormat:@"%@", [signArray componentsJoinedByString:@"&"]];
     NSLog(@"_signString========%@",_signString);
  
     //5.设置请求体
+//    NSString * texturl = @"http://192.168.1.188:8080/cashier_zavfpay/cashier/gateway.do";
+    
     NSMutableURLRequest * request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:_gateWay_url]];
     [request setHTTPMethod: @"POST"];
     [request setHTTPBody: [_signString dataUsingEncoding: NSUTF8StringEncoding]];

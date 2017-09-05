@@ -11,6 +11,7 @@
 #import "BusinessOrderModel.h"
 #import "SendServiceOrderModel.h"
 @class ZFFooterCell;
+
 @protocol ZFFooterCellDelegate <NSObject>
 @optional
 ///取消订单   左边按钮
@@ -23,6 +24,7 @@
 -(void)sendOrdersActionOrderId:(NSString*)orderId
                     totalPrice:(NSString *)totalPrice
                     indexPath :(NSInteger)indexPath;
+
 ///全部订单的代理右边
 -(void)allOrdersActionOfindexPath:(NSInteger)indexPath;
 
@@ -32,24 +34,17 @@
 @property (nonatomic, strong) id <ZFFooterCellDelegate> footDelegate ;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_plachorer;
-
 @property (weak, nonatomic) IBOutlet UILabel *lb_totalPrice;
-
 @property (weak, nonatomic) IBOutlet UIButton *cancel_button;
-
 @property (weak, nonatomic) IBOutlet UIButton *payfor_button;
 
+
 @property (nonatomic, strong) Orderlist * orderlist ;
-
 @property (nonatomic, strong) BusinessOrderlist * businessOrder ;
-
 @property (nonatomic, strong) SendServiceStoreinfomap * sendOrder ;
 
 
-
 @property (nonatomic, assign) NSInteger   section;//当前的下标
- 
-
 @property (nonatomic, copy) NSString  * orderId ;
 @property (nonatomic, copy) NSString  * totalPrice ;//总价
 

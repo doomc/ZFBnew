@@ -26,6 +26,8 @@
 @end
 @interface BusinessOrderlist : NSObject
 
+@property (nonatomic, copy) NSString *netPurchasePrice;
+
 @property (nonatomic, copy) NSString *orderAmount;
 
 @property (nonatomic, copy) NSString *deliveryId;
@@ -74,6 +76,8 @@
 @end
 
 @interface BusinessOrdergoods : NSObject
+
+@property (nonatomic, copy) NSString *netPurchasePrice;//网购价格
 
 @property (nonatomic, copy) NSString *goodsUnit;
 

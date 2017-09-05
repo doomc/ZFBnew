@@ -363,7 +363,7 @@ ZFMyCashBagCellDelegate
         ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
         
         [orderVC sendTitle:@"待付款" orderType:OrderTypeWaitPay];
-//        orderVC.orderType   = 1 ;
+        orderVC.orderType   = 1 ;
         orderVC.orderStatus =@"4";
         orderVC.buttonTitle = @"待付款";
         

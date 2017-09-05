@@ -276,7 +276,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
     }
 
     [self.navigationController pushViewController:findVCgoods animated:YES];
-
+ 
 }
 
 #pragma mark - 广告轮播-getAdImageInfo网络请求
@@ -285,7 +285,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getAdImageInfo",zfb_baseUrl] params:nil success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
+           
             if (self.adArray.count >0) {
+                
                 [self.adArray  removeAllObjects];
                 
             }else{
@@ -319,7 +321,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
                             
                              @"latitude" : BBUserDefault.latitude ,
                              @"longitude": BBUserDefault.longitude,
-                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
+                             @"pageSize": [NSNumber numberWithInteger:kPageCount],
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"cmUserId":BBUserDefault.cmUserId,
                              
