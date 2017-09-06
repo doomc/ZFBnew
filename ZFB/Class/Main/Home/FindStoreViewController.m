@@ -73,6 +73,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     });
 
     [self setupRefresh];
+    
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
@@ -346,13 +347,13 @@ static NSString *CellIdentifier = @"FindStoreCellid";
  
         if ([response[@"resultCode"] intValue] == 0) {
             
-//            if (self.refreshType == RefreshTypeHeader) {
+            if (self.refreshType == RefreshTypeHeader) {
             
                 if (self.storeListArr.count > 0) {
                     
                     [self.storeListArr  removeAllObjects];
                 }
-//            }
+            }
             HomeStoreListModel * homeStore = [HomeStoreListModel mj_objectWithKeyValues:response];
             totalCount = homeStore.totalCount;
             
