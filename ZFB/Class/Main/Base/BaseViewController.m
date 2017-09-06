@@ -208,8 +208,11 @@
         }
     }
 }
-
- 
+#pragma mark - 判断是不是空数组
+- (BOOL)isEmptyArray:(NSMutableArray *)array
+{
+    return (array.count == 0 || array == nil || [array isKindOfClass:[NSNull class]]);
+}
 
 @end
 

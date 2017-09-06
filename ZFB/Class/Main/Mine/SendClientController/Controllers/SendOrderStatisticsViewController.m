@@ -17,7 +17,7 @@
 #import "SendServiceOrderModel.h"
 
 
-@interface SendOrderStatisticsViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface SendOrderStatisticsViewController ()<UITableViewDelegate,UITableViewDataSource,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
 
 @property (nonatomic ,strong) UITableView * orderdTableView ;
 @property (nonatomic ,strong) UIView *  headView ;
@@ -143,8 +143,9 @@
   
     SendServiceStoreinfomap* storeInfo = self.orderListArray[section];
     titleCell.storlist = storeInfo ;
-    
- 
+    if ( storeInfo.orderStatus == 3) {
+        [titleCell.statusButton setTitle:@"交易完成" forState:UIControlStateNormal];
+    }
     return titleCell;
 }
 
@@ -201,9 +202,13 @@
             
             [self.orderListArray addObject:orderlist];
  
-            
         }
         [self.orderdTableView reloadData];
+        
+        if ([self isEmptyArray:self.orderListArray]) {
+            
+            [self.orderdTableView cyl_reloadData];
+        }
         
     } progress:^(NSProgress *progeress) {
         
@@ -220,6 +225,27 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {   //网络请求
+    [self getOrderPostRequst];
+    
+}
+
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+    
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.orderdTableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+    
     [self getOrderPostRequst];
 }
 

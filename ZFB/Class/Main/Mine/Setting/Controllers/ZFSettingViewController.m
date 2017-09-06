@@ -168,7 +168,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
 -(void)clearingCache
 {
     [SDCycleScrollView  clearImagesCache];//清除缓存
-    //    [self clearAllUserDefaultsData];
+    [self clearAllUserDefaultsData];
 }
  
 - (void)clearAllUserDefaultsData

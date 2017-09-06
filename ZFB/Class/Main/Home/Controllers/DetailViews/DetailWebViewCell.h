@@ -15,7 +15,6 @@
 @interface DetailWebViewCell : UITableViewCell
 
 @property (nonatomic , assign) id <DetailWebViewCellDelegate> delegate;
-
  
 
 @property (nonatomic ,copy) NSString * HTMLString;

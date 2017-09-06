@@ -10,6 +10,11 @@
 
 @interface SendMessageView : UIView
 
+ 
 @property (nonatomic , strong) NSArray *  detailTitleArray;
+
+@property (nonatomic , strong) UITableView * tableView;
+
+
 
 @end

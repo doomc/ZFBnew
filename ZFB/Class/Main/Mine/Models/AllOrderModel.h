@@ -81,6 +81,8 @@
 @end
 
 @interface Ordergoods : NSObject
+///商品唯一编号
+@property (nonatomic, copy) NSString *orderGoodsId;
 
 @property (nonatomic, copy) NSString *goodsUnit;
 
@@ -100,7 +102,7 @@
 
 @property (nonatomic, copy) NSString *order_id;
 
-@property (nonatomic, copy) NSString *purchase_price;
+@property (nonatomic, copy) NSString *purchase_price;//网购价
 
 @property (nonatomic, copy) NSString *coverImgUrl;
 

@@ -15,7 +15,6 @@
 
 @property (strong, nonatomic) SkuValulist * skuValueoObj;
 
-@property (assign, nonatomic) BOOL isSelecteditems;
 
 @property (weak, nonatomic) IBOutlet UIButton *selectItemColor;
 

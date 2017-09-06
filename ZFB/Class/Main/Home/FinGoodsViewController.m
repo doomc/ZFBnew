@@ -240,16 +240,14 @@ typedef NS_ENUM(NSUInteger, CellType) {
         hotCell.hotArray = self.hotArray;
         hotCell.delegate = self;
         return hotCell;
+        
     }else{
 
         GuessCell *guessCell = [self.findGoods_TableView  dequeueReusableCellWithIdentifier:cell_guessID forIndexPath:indexPath];
         if (self.likeListArray.count > 0 ) {
-            
             Guessgoodslist *goodlist  = self.likeListArray[indexPath.row];
-            
             guessCell.goodlist = goodlist;
         }
-        
         return guessCell;
     }
     
@@ -272,11 +270,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
 
         Guessgoodslist *goodlist  = self.likeListArray[indexPath.row];
         findVCgoods.goodsId  = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
-        
     }
-
     [self.navigationController pushViewController:findVCgoods animated:YES];
-
+ 
 }
 
 #pragma mark - 广告轮播-getAdImageInfo网络请求
@@ -285,7 +281,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getAdImageInfo",zfb_baseUrl] params:nil success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
+           
             if (self.adArray.count >0) {
+                
                 [self.adArray  removeAllObjects];
                 
             }else{
@@ -319,7 +317,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
                             
                              @"latitude" : BBUserDefault.latitude ,
                              @"longitude": BBUserDefault.longitude,
-                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
+                             @"pageSize": [NSNumber numberWithInteger:kPageCount],
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"cmUserId":BBUserDefault.cmUserId,
                              

@@ -95,7 +95,7 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 
 @property (nonatomic, assign) NSInteger originalGoodsId;
 
-@property (nonatomic, copy) NSString *netPurchasePrice;///int(11)	网购价	用户售卖时的价格
+@property (nonatomic, copy) NSString *netPurchasePrice;///	网购价	用户售卖时的价格
 
 @property (nonatomic, assign) NSInteger goodsSales;
 

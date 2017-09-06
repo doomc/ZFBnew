@@ -138,7 +138,7 @@
                         <rect key="frame" x="130" y="2" width="221" height="96.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥ 199.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btS-ce-M5a">
-                                <rect key="frame" x="10" y="72" width="50" height="20"/>
+                                <rect key="frame" x="10" y="63.5" width="50" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="aEr-Oh-VfC"/>
                                 </constraints>
@@ -156,7 +156,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9A9-j2-bxg">
-                                <rect key="frame" x="71" y="67" width="90" height="25"/>
+                                <rect key="frame" x="71" y="58.5" width="90" height="25"/>
                                 <subviews>
                                     <button opaque="NO" tag="666" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Txc-m1-QhI">
                                         <rect key="frame" x="66" y="0.0" width="24" height="24"/>
@@ -207,23 +207,11 @@
                                     <action selector="deleteGoodsAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NhC-Sf-OWT"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="颜色:红色 尺寸：xl" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejI-g3-P6S">
-                                <rect key="frame" x="10" y="49" width="110.5" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="G0U-ia-8hD"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9A9-j2-bxg" firstAttribute="bottom" secondItem="btS-ce-M5a" secondAttribute="bottom" id="7rG-ZR-z0F"/>
-                            <constraint firstItem="ejI-g3-P6S" firstAttribute="top" secondItem="wvs-dU-flC" secondAttribute="bottom" constant="5" id="Ch1-p5-WlN"/>
                             <constraint firstItem="wvs-dU-flC" firstAttribute="top" secondItem="XHD-6i-etg" secondAttribute="top" constant="8" id="CzW-FV-yrw"/>
-                            <constraint firstItem="ejI-g3-P6S" firstAttribute="leading" secondItem="XHD-6i-etg" secondAttribute="leading" constant="10" id="Ery-86-teC"/>
-                            <constraint firstItem="btS-ce-M5a" firstAttribute="top" secondItem="ejI-g3-P6S" secondAttribute="bottom" constant="5" id="HYN-G7-IOC"/>
                             <constraint firstItem="btS-ce-M5a" firstAttribute="leading" secondItem="XHD-6i-etg" secondAttribute="leading" constant="10" id="Ihf-Bc-Igp"/>
                             <constraint firstAttribute="bottom" secondItem="t82-LG-Jze" secondAttribute="bottom" id="Lzw-sB-AfD"/>
                             <constraint firstItem="t82-LG-Jze" firstAttribute="top" secondItem="XHD-6i-etg" secondAttribute="top" id="ctv-jE-ckY"/>
@@ -248,6 +236,7 @@
                     <constraint firstItem="80B-wr-2zz" firstAttribute="centerY" secondItem="1DU-qC-ImR" secondAttribute="centerY" id="YqS-i0-yGZ"/>
                     <constraint firstItem="XHD-6i-etg" firstAttribute="top" secondItem="T1a-Vi-ip7" secondAttribute="bottom" constant="1" id="ZtH-HJ-6Sd"/>
                     <constraint firstAttribute="trailing" secondItem="mzC-Go-sDf" secondAttribute="trailing" constant="15" id="cpQ-id-dXB"/>
+                    <constraint firstItem="btS-ce-M5a" firstAttribute="bottom" secondItem="80B-wr-2zz" secondAttribute="bottom" id="f3C-dW-FUJ"/>
                     <constraint firstItem="80B-wr-2zz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="nAl-vw-Zr1"/>
                     <constraint firstAttribute="trailing" secondItem="T1a-Vi-ip7" secondAttribute="trailing" constant="15" id="peR-iY-9B5"/>
                     <constraint firstItem="Vb1-Fa-b2C" firstAttribute="centerY" secondItem="80B-wr-2zz" secondAttribute="centerY" id="qQO-mH-OGi"/>

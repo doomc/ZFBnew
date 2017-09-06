@@ -39,15 +39,22 @@
 ////群聊
 //#define  IMGroup_baseUrl @"http://192.168.1.107:8087/group"
 
-#pragma mark ------------- 测试服务器数--------------------
+#pragma mark ------------- tfy测试服务器数--------------------
+////baseURL
+//#define  zfb_baseUrl @"http://192.168.1.222:8087/zfb/InterfaceServlet"
+////单聊
+//#define  IMsingle_baseUrl @"http://192.168.1.222:8087/im/user"
+////群聊
+//#define  IMGroup_baseUrl @"http://192.168.1.222:8087/group"
+
+
+//#pragma mark ------------- 测试服务器数--------------------
 ////baseURL
 //#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
 ////单聊
 //#define  IMsingle_baseUrl @"http://192.168.1.113:8087/im/user"
 ////群聊
 //#define  IMGroup_baseUrl @"http://192.168.1.113:8087/group"
-//
-
 
 #pragma mark -------------支付服务 -------------------
 

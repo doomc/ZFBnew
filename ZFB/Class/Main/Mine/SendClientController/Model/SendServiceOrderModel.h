@@ -28,9 +28,11 @@
 
 @property (nonatomic, assign) NSInteger storeId;
 
-@property (nonatomic, assign) NSInteger orderAmmount;
+@property (nonatomic, copy) NSString* orderAmmount;
 
 @property (nonatomic, assign) NSInteger orderId;
+
+@property (nonatomic, assign) NSInteger orderStatus;
 
 
 @property (nonatomic, strong) NSArray<SendServiceOrdergoodslist *> *orderGoodsList;
@@ -40,6 +42,8 @@
 @end
 
 @interface SendServiceOrdergoodslist : NSObject
+
+@property (nonatomic, copy) NSString *netPurchasePrice;//网购价格
 
 @property (nonatomic, copy) NSString *goodsUnit;
 
@@ -55,7 +59,7 @@
 
 @property (nonatomic, assign) NSInteger originalPrice;
 
-@property (nonatomic, assign) NSInteger purchasePrice;
+@property (nonatomic, copy) NSString * purchasePrice;//网购价格
 
 @property (nonatomic, assign) NSInteger orderId;
 

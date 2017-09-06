@@ -51,7 +51,7 @@
 
 @property (nonatomic, assign) CGFloat storePrice;
 
-@property (nonatomic, assign) CGFloat *netPurchasePrice;
+@property (nonatomic, copy) NSString  *netPurchasePrice;
 
 @property (nonatomic, copy) NSString *goodsUnit;
 

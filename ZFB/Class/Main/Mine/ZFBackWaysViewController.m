@@ -98,7 +98,7 @@
                              @"userName":self.tf_contactName.text ,
                              @"userPhone":self.tf_contactPhone.text ,
                              @"goodsProperties":_goodsProperties,
-                            
+                             @"orderGoodsId":_orderGoodsId,
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/afterSale/afterSaleApply"] params:param success:^(id response) {

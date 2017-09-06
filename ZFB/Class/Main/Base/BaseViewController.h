@@ -74,5 +74,13 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 /** pop到指定页面 */
 -(void)poptoUIViewControllerNibName:(NSString *)controllerName AndObjectIndex:(NSInteger)objectIndex;
 
+///判断是不是空数组
+/**
+ 判断是不是空数组
+ 
+ @param array 传入数组
+ @return 1是空 0不是
+ */
+- (BOOL)isEmptyArray:(NSMutableArray *)array;
 
 @end

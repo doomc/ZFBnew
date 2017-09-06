@@ -37,8 +37,7 @@
     NSMutableDictionary *dataParam = [NSMutableDictionary dictionaryWithDictionary:param];
     NSString * jsonStr = [NSString convertToJsonData:dataParam];
     NSString * data = [NSString base64:jsonStr];
-    
-    NSLog(@"data ====%@",data);
+
     if (BBUserDefault.cmUserId == nil) {
         BBUserDefault.cmUserId = @"";
     }

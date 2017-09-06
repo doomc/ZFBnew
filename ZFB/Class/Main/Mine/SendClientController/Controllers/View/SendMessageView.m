@@ -12,7 +12,6 @@
 
 @property (nonatomic , strong) NSArray *  titleArray;
 
-@property (nonatomic , strong) UITableView * tableView;
 
 @end
 @implementation SendMessageView
@@ -35,7 +34,6 @@
     self.layer.borderWidth = 0.5;
     
     _titleArray = @[@"收货人:",@"收货人电话:",@"收货地址:",@"配送费:",@"商家电话:",@"商家地址:",];
-//    _detailTitleArray = @[@"随便写的:",@"没有数据",@"没有数据",@"没有数据",@"没有数据:",@"没有数据",];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFContactCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     [self addSubview:self.tableView];
@@ -81,6 +79,5 @@
     return cell;
 }
 
-
-
+ 
 @end

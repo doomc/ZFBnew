@@ -11,7 +11,7 @@
 
 @class ZFCollectEditCell;
 @protocol ZFCollectEditCellDelegate <NSObject>
-
+@optional
 ///选择单个商品
 - (void)goodsSelected:(ZFCollectEditCell *)cell isSelected:(BOOL)choosed;
 ///删除cell

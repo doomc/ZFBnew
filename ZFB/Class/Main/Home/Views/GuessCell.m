@@ -14,13 +14,11 @@
     [super awakeFromNib];
     // Initialization code
     
-    self.guess_listView.clipsToBounds = YES;
-//    [self.guess_listView CreateImageViewWithFrame:self.frame andBackground:[UIColor redColor].CGColor andRadius:10];
-  
+    self.guess_listView.clipsToBounds = YES;  
     self.guess_listView.layer.borderWidth = 0.5;
     self.guess_listView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
     self.guess_listView.contentMode = UIViewContentModeScaleAspectFill;
-
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 //搜索有结果的模型
@@ -57,7 +55,7 @@
     [self.guess_listView sd_setImageWithURL:img_url placeholderImage:nil];
     
     self.lb_goodsName.text = _goodlist.goodsName;
-    self.lb_price.text = [NSString stringWithFormat:@"¥%@",_goodlist.netPurchasePrice];
+    self.lb_price.text = [NSString stringWithFormat:@"¥%@",_goodlist.priceTostr];
     self.lb_storeName.text = _goodlist.storeName;
     self.lb_collectNum.text = [NSString stringWithFormat:@"%ld",_goodlist.goodsPv];
     CGFloat dictence  = _goodlist.storeDist/1000;

@@ -12,7 +12,7 @@
 #import "ZFCollectBarView.h"
 #import "ZFHistoryCell.h"
 #import "CollectModel.h"
-@interface ZFCollectViewController ()<UITableViewDelegate,UITableViewDataSource,ZFCollectBarViewDelegate,ZFCollectEditCellDelegate>
+@interface ZFCollectViewController ()<UITableViewDelegate,UITableViewDataSource,ZFCollectBarViewDelegate,ZFCollectEditCellDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
 {
     BOOL _isEdit;
 }
@@ -411,12 +411,32 @@
     
     
 }
-///判断是不是空数组
-- (BOOL)isEmptyArray:(NSArray *)array
+-(void)viewWillAppear:(BOOL)animated
 {
-    return (array.count ==0 || array == nil);
+    if ([self isEmptyArray:self.listArray]) {
+        [self.tableView cyl_reloadData];
+    }
 }
 
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+    
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.tableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+    
+    [self showCollectListPOSTRequest];
+    
+}
 /*
  #pragma mark - Navigation
  

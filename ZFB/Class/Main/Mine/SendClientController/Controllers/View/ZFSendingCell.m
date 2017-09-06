@@ -17,6 +17,7 @@
     self.img_SenlistView.clipsToBounds = YES;
     self.img_SenlistView.layer.borderWidth = 0.5;
     self.img_SenlistView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 
  
 }
@@ -24,9 +25,9 @@
 -(void)setBusinesGoods:(BusinessOrdergoods *)businesGoods
 {
     _businesGoods = businesGoods;
-    self.lb_num.text = [NSString stringWithFormat:@"数量 x %ld",businesGoods.goodsCount];
+    self.lb_num.text = [NSString stringWithFormat:@" x %ld",businesGoods.goodsCount];
     self.lb_sendListTitle.text =  businesGoods.goods_name;
-    self.lb_Price.text =[NSString stringWithFormat:@"¥%@", businesGoods.original_price];
+    self.lb_Price.text =[NSString stringWithFormat:@"这个还没有修改价格¥%@", businesGoods.original_price];
     self.lb_detailTime.text = @"";
     [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:businesGoods.coverImgUrl] placeholderImage:nil];
     
@@ -36,9 +37,9 @@
 {
     _goods = goods;
     
-    self.lb_num.text = [NSString stringWithFormat:@" 数量 x %ld",goods.goodsCount];
+    self.lb_num.text = [NSString stringWithFormat:@"x %ld",goods.goodsCount];
     self.lb_sendListTitle.text =  _goods.goods_name;
-    self.lb_Price.text =[NSString stringWithFormat:@"¥%@", goods.original_price];
+    self.lb_Price.text =[NSString stringWithFormat:@"¥%@", goods.purchase_price];
     self.lb_detailTime.text = @"";
     [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:nil];
 }
@@ -47,9 +48,9 @@
 {
     _sendGoods = sendGoods;
     
-    self.lb_num.text = [NSString stringWithFormat:@" 数量 x %ld",sendGoods.goodsCount];
+    self.lb_num.text = [NSString stringWithFormat:@"x %ld",sendGoods.goodsCount];
     self.lb_sendListTitle.text =  sendGoods.goodsName;
-    self.lb_Price.text =[NSString stringWithFormat:@"¥%ld", sendGoods.originalPrice];
+    self.lb_Price.text =[NSString stringWithFormat:@"¥%@", sendGoods.purchasePrice];
     self.lb_detailTime.text = @"";
     [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:sendGoods.coverImgUrl] placeholderImage:nil];
     

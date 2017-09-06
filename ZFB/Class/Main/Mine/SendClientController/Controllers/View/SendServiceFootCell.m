@@ -20,7 +20,7 @@
 -(void)setStoreList:(SendServiceStoreinfomap *)storeList
 {
     _storeList = storeList;
-    self.lb_orderPrice.text = [NSString stringWithFormat:@"%ld",storeList.orderAmmount];
+    self.lb_orderPrice.text = [NSString stringWithFormat:@"%@",storeList.orderAmmount];
     self.lb_freePrice.text = [NSString stringWithFormat:@"%ld",storeList.orderDeliveryFee];
     
 }

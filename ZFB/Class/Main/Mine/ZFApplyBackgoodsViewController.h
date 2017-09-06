@@ -22,6 +22,7 @@
 @property (nonatomic, copy) NSString * goodsId;
 @property (nonatomic, copy) NSString * serviceType;///服务类型	否	 0 退货 1 换货
 @property (nonatomic, copy) NSString * coverImgUrl;//	商品图片	否
+@property (nonatomic, copy) NSString * orderGoodsId;///商品唯一编号
 
 @property (nonatomic, copy) NSString * reason;///退货原因
 @property (nonatomic, copy) NSString * storeId;

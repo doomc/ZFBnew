@@ -10,7 +10,7 @@
 #import "ZFMyOpinionCell.h"
 #import "UserFeedbackModel.h"
 
-@interface ZFMyOpinionViewController () <UITableViewDataSource,UITableViewDelegate>
+@interface ZFMyOpinionViewController () <UITableViewDataSource,UITableViewDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
 {
     NSInteger  _page;
     NSInteger  _pageCount;
@@ -133,6 +133,9 @@
             
             [self.tableView reloadData];
  
+            if ([self isEmptyArray:self.listArray]) {
+                [self.tableView cyl_reloadData];
+            }
         }
        
         
@@ -150,6 +153,24 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self feedOpinionPostRequst];
+
+}
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+    
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.zfb_tableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+
     [self feedOpinionPostRequst];
 
 }
