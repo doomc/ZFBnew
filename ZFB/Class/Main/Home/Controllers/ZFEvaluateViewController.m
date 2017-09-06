@@ -15,8 +15,7 @@
 
 @interface ZFEvaluateViewController ()<UITableViewDelegate,UITableViewDataSource,AppraiseSectionCellDelegate,ZFAppraiseCellDelegate>
 {
-    NSInteger _pageSize;//每页显示条数
-    NSInteger _pageIndex;//当前页码;
+
     NSString * _commentNum;
     NSString * _goodCommentNum;
     NSString * _lackCommentNum;
@@ -40,30 +39,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //默认一个页码 和 页数
-    _pageSize = 8;
  
     [self initWithEvaluate_tableView];
-    
-    weakSelf(weakSelf);
-    //上拉加载
-    _evaluate_tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        _pageIndex ++ ;
-        [weakSelf appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
-        
-    }];
-    
-    //下拉刷新
-    _evaluate_tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        //需要将页码设置为1
-        _pageIndex = 1;
-        [weakSelf appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
-    }];
-
-    
+    [self setupRefresh];
+    [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
     
 }
+#pragma mark -数据请求
+-(void)headerRefresh {
+    [super headerRefresh];
+    weakSelf(weakSelf);
+    [weakSelf appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
+}
+-(void)footerRefresh {
+    [super footerRefresh];
+    weakSelf(weakSelf);
+    [weakSelf appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
+    
+}
+
 -(NSMutableArray *)appraiseListArray{
     if (!_appraiseListArray) {
         _appraiseListArray = [NSMutableArray array];
@@ -77,7 +71,9 @@
     self.title = @"评论";
     
     self.evaluate_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -64) style:UITableViewStylePlain];
-    [self.view addSubview:_evaluate_tableView];
+    self.evaluate_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.evaluate_tableView];
+    self.zfb_tableView = self.evaluate_tableView;
     
     self.evaluate_tableView.delegate = self;
     self.evaluate_tableView.dataSource = self;
@@ -108,8 +104,7 @@
 {
     
     return self.appraiseListArray.count;
-    
-//    return 1;
+ 
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -190,16 +185,12 @@
 #pragma mark - 评论的网络请求 getGoodsCommentInfo
 -(void)appriaseToPostRequestWithgoodsComment:(NSString * )goodsComment AndimgComment:(NSString *)imgComment
 {
-    
-    NSString * pageSize= [NSString stringWithFormat:@"%ld",_pageSize];
-    NSString * pageIndex= [NSString stringWithFormat:@"%ld",_pageIndex];
- 
     NSDictionary * parma = @{
-                             @"goodsId":_goodsId, //_goodsId = 3 有数据
+                             @"goodsId":_goodsId,  
                              @"goodsComment":goodsComment,
                              @"imgComment":imgComment,
-                             @"pageSize":pageSize,//每页显示条数
-                             @"pageIndex":pageIndex,//当前页码
+                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
+                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              
                              };
     
@@ -208,7 +199,7 @@
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
             
-            if (_pageIndex == 1) {
+            if (self.refreshType == RefreshTypeHeader) {
                 
                 if (self.appraiseListArray.count >0) {
                     
@@ -228,18 +219,18 @@
             _lackCommentNum = [NSString stringWithFormat:@"%ld",appraise.data.goodsCommentList.lackCommentNum ];  //差评数
             _imgCommentNum = [NSString stringWithFormat:@"%ld",appraise.data.goodsCommentList.imgCommentNum ];    //有图数
             
+            [SVProgressHUD dismiss];
             [self shouldReloadData];
-            
-            [SVProgressHUD dismissWithDelay:1];
+
         }
-        
-        [self.evaluate_tableView.mj_header endRefreshing];
-        [self.evaluate_tableView.mj_footer endRefreshing];
+
+        [self endRefresh];
         
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
+        [self endRefresh];
 
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
@@ -248,14 +239,8 @@
   
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [self.evaluate_tableView.mj_header beginRefreshing];
-    
-}
 -(void)viewWillDisappear:(BOOL)animated
 {
     [SVProgressHUD dismiss];
-
 }
 @end

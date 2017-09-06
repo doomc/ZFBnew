@@ -81,7 +81,8 @@
 @end
 
 @interface Ordergoods : NSObject
-
+///商品唯一编号
+@property (nonatomic, copy) NSString *orderGoodsId;
 
 @property (nonatomic, copy) NSString *goodsUnit;
 

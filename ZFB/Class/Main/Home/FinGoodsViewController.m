@@ -240,16 +240,14 @@ typedef NS_ENUM(NSUInteger, CellType) {
         hotCell.hotArray = self.hotArray;
         hotCell.delegate = self;
         return hotCell;
+        
     }else{
 
         GuessCell *guessCell = [self.findGoods_TableView  dequeueReusableCellWithIdentifier:cell_guessID forIndexPath:indexPath];
         if (self.likeListArray.count > 0 ) {
-            
             Guessgoodslist *goodlist  = self.likeListArray[indexPath.row];
-            
             guessCell.goodlist = goodlist;
         }
-        
         return guessCell;
     }
     
@@ -272,9 +270,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 
         Guessgoodslist *goodlist  = self.likeListArray[indexPath.row];
         findVCgoods.goodsId  = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
-        
     }
-
     [self.navigationController pushViewController:findVCgoods animated:YES];
  
 }

@@ -137,7 +137,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     self.home_tableView.dataSource = self;
     [self.view addSubview:_home_tableView];
     self.home_tableView.separatorStyle =UITableViewCellSeparatorStyleNone;
-    
     [self.home_tableView registerNib:[UINib nibWithNibName:@"FindStoreCell" bundle:nil] forCellReuseIdentifier:CellIdentifier];
     
     self.zfb_tableView = self.home_tableView;
@@ -346,13 +345,13 @@ static NSString *CellIdentifier = @"FindStoreCellid";
  
         if ([response[@"resultCode"] intValue] == 0) {
             
-//            if (self.refreshType == RefreshTypeHeader) {
+            if (self.refreshType == RefreshTypeHeader) {
             
                 if (self.storeListArr.count > 0) {
                     
                     [self.storeListArr  removeAllObjects];
                 }
-//            }
+            }
             HomeStoreListModel * homeStore = [HomeStoreListModel mj_objectWithKeyValues:response];
             totalCount = homeStore.totalCount;
             
@@ -389,7 +388,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 
 
 #pragma mark - CYLTableViewPlaceHolderDelegate Method
-
 - (UIView *)makePlaceHolderView {
     UIView *weChatStyle = [self weChatStylePlaceHolder];
     UIView *taobaoStyle = [self taoBaoStylePlaceHolder];
@@ -397,6 +395,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     return weChatStyle;
 }
 
+//暂无网络
 - (UIView *)taoBaoStylePlaceHolder {
     __block XTNetReloader *netReloader = [[XTNetReloader alloc] initWithFrame:CGRectMake(0, 0, 0, 0)
                                                                   reloadBlock:^{
@@ -405,18 +404,17 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     return netReloader;
 }
 
+//暂无数据
 - (UIView *)weChatStylePlaceHolder {
     WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.home_tableView.frame];
     weChatStylePlaceHolder.delegate = self;
     return weChatStylePlaceHolder;
 }
-
 #pragma mark - WeChatStylePlaceHolderDelegate Method
 - (void)emptyOverlayClicked:(id)sender {
  
     [self PostRequst];
     
-
 }
 
 

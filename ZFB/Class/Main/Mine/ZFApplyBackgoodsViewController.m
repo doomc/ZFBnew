@@ -240,7 +240,7 @@
         bcVC.storeName   = _storeName;
         bcVC.postName    = _postName;
         bcVC.postPhone   = _postPhone;
-        
+        bcVC.orderGoodsId= _orderGoodsId;
         //原因
         bcVC.reason          = _reason;
         bcVC.problemDescr    = _problemDescr;

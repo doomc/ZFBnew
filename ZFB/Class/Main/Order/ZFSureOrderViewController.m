@@ -459,7 +459,7 @@
     [jsondic setValue:_contactMobilePhone forKey:@"contactMobilePhone"];
     [jsondic setValue:_contactMobilePhone forKey:@"mobilePhone"];
     [jsondic setValue:_postAddress forKey:@"postAddress"];
-    [jsondic setValue:@"1" forKey:@"payMode" ];
+    [jsondic setValue:@"4" forKey:@"payMode" ];//1.支付宝  2.微信支付 3.线下,4.展易付
     [jsondic setValue:@"" forKey:@"cartItemId"];//立即购买不传，购物车加入的订单需要传
     
     [jsondic setValue: cmgoodsList forKey:@"cmGoodsList"];

@@ -29,7 +29,7 @@
 //vc
 #import "SendOrderStatisticsViewController.h"
 
-@interface ZFSendSerViceViewController ()<UITableViewDelegate,UITableViewDataSource,ZFSendPopViewDelegate,ZFFooterCellDelegate,ZFSendHomeListCellDelegate>
+@interface ZFSendSerViceViewController ()<UITableViewDelegate,UITableViewDataSource,ZFSendPopViewDelegate,ZFFooterCellDelegate,ZFSendHomeListCellDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
 {
     //day
     NSString * _daydistriCount;
@@ -747,6 +747,13 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
+    if (_isSelectPage == YES) {
+        
+        if (indexPath.section ==0 ) {
+            //点击切换到订单页
+            [self Order_btnaTargetAction];
+        }
+    }
     NSLog(@"section  =%ld , row = %ld",indexPath.section ,indexPath.row);
     
 }
@@ -1123,9 +1130,13 @@
             [SVProgressHUD dismiss];
             [self.send_tableView reloadData];
             
+//            if ([self isEmptyArray:self.orderListArray]) {
+//                
+//                [self.send_tableView cyl_reloadData];
+//            }
         }
-
         [self endRefresh];
+        
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
@@ -1259,5 +1270,42 @@
     [self.messagebgview removeFromSuperview];
     
 }
+
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+    
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.send_tableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+    
+    switch (_servicType) {
+            
+        case SendServicTypeWaitSend://待派单
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"1"   ];
+            
+            break;
+        case SendServicTypeSending://配送中
+            
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"2" ] ;
+            
+            break;
+        case SendServicTypeSended://已配送
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"3"  ];
+            
+            break;
+    }
+    
+}
+
+
 
 @end

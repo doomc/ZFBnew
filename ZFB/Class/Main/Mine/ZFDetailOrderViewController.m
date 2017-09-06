@@ -278,7 +278,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             
             ZFOrderDetailCell* detailCell = [self.tableView dequeueReusableCellWithIdentifier:commonDetailCellid forIndexPath:indexPath];
             detailCell.lb_detailtitle.text = @"支付方式";
-            detailCell.lb_detaileFootTitle.text =payMethodName;
+            detailCell.lb_detaileFootTitle.text = payMethodName;
             cell  = detailCell;
             
         }
@@ -358,9 +358,12 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             orderStatusName = orderModel.orderDetails.orderStatusName ;//配送状态
             payMethodName   = orderModel.orderDetails.payMethodName;
             createTime      = [NSString stringWithFormat:@"下单时间:%@",orderModel.orderDetails.createTime] ;//订单时间
-
-            _payStatus = orderModel.orderDetails.payStatus;//支付状态
+            
             //0.未支付的初始状态  1.支付成功 -1.支付失败  3.付款发起   4.付款取消 (待付款) 5.退款成功（支付成功的）6.退款发起(支付成功) 7.退款失败(支付成功)
+            _payStatus = orderModel.orderDetails.payStatus;//支付状态
+        
+            //1.支付宝  2.微信支付 3.线下,4.展易付
+            NSInteger payMethod = orderModel.orderDetails.payMethod;
             
             //配送信息
             deliveryName  = orderModel.deliveryInfo.deliveryName;
@@ -374,8 +377,9 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             //店铺名称
             storeName = orderModel.shoppCartList.storeName;
  
+            
             NSLog(@"我当前是 属于商户端还是配送端 %@",BBUserDefault.shopFlag);
-            if ([BBUserDefault.shopFlag isEqualToString:@"1"] && [orderStatusName isEqualToString:@"待付款"] && [payMethodName isEqualToString:@"线下支付"]) {
+            if ([BBUserDefault.shopFlag isEqualToString:@"1"] && [orderStatusName isEqualToString:@"待付款"] &&  payMethod == 3  ) {
             
                     [self.sure_payfor setTitle:@"确认取货" forState:UIControlStateNormal];
                     [self.sure_payfor setHidden:NO];
@@ -397,7 +401,6 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
                     
                 }
             }
- 
             [SVProgressHUD dismiss];
         }
         [self.tableView reloadData];
@@ -505,17 +508,20 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     NSMutableArray * mutOrderArray  = [NSMutableArray array];
     for (NSDictionary * orderdic in _unpayOrderInfoArray) {
         
+        NSString *body =   [orderdic objectForKey:@"body"];
+        body=[body stringByReplacingOccurrencesOfString:@"\\"withString:@""];
         [mutOrderDic setValue:[orderdic objectForKey:@"order_num"] forKey:@"order_num"];
-        [mutOrderDic setValue:[orderdic objectForKey:@"body"]forKey:@"body"];
+        [mutOrderDic setValue:body forKey:@"body"];
         [mutOrderDic setValue:[orderdic objectForKey:@"pay_money"] forKey:@"pay_money"];
         [mutOrderDic setValue:[orderdic objectForKey:@"title"] forKey:@"title"];
-
+        
         [mutOrderArray addObject:mutOrderDic];
     }
     
     //跳转到webview
     ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
     //支付的回调地址
+    
     payVC.notify_url    = _thirdUrlDic[@"notify_url"];
     payVC.return_url    = _thirdUrlDic[@"return_url"];
     payVC.gateWay_url   = _thirdUrlDic[@"gateWay_url"];

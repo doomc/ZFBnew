@@ -13,7 +13,7 @@
 #import "ZFFooterCell.h"//尾部
 //model
 #import "BusinessOrderModel.h"
-@interface OrderStatisticsViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface OrderStatisticsViewController ()<UITableViewDelegate,UITableViewDataSource,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
 
 @property (nonatomic ,strong) UITableView * orderdTableView ;
 @property (nonatomic ,strong) UIView *  headView ;
@@ -269,6 +269,32 @@
         scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
     }
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    if ([self isEmptyArray:self.orderListArray]) {
+        [self.orderdTableView cyl_reloadData];
+    }
+}
+
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+    
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.orderdTableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+    
+    [self storeHomePagePostRequst];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

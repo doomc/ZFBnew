@@ -62,7 +62,7 @@
     NSString * _netPurchasePrice;//购买价格
     NSString * _priceRange;//范围价格
 
-    NSMutableDictionary *dictProductValue; //保存选择的数据
+    NSMutableDictionary * dictProductValue; //保存选择的数据
     NSMutableDictionary * ruleJsondic; //保存选择的sku
     NSMutableArray * addArr;
     
@@ -108,6 +108,11 @@
 @property (nonatomic ,strong) NSMutableArray * noReluArray;
 @property (nonatomic ,strong) DetailWebViewCell * webCell;
 
+//新的规格匹配
+@property (nonatomic ,strong) NSMutableArray * valueNameArray; //保存选择的数据
+@property (nonatomic ,strong) NSMutableDictionary * valueIdAndGoodsIdDic; //保存选择的数据
+
+
 
 @end
 
@@ -120,6 +125,8 @@
     _goodsCount      = 1;//默认商品数量
     dictProductValue = [NSMutableDictionary dictionary];//用来保存 new 、old的index
     ruleJsondic      = [NSMutableDictionary dictionary];
+    _valueIdAndGoodsIdDic      = [NSMutableDictionary dictionary];
+    _valueNameArray = [NSMutableArray array];
     
     [self creatInterfaceDetailTableView];//初始化控件tableview
     [self settingHeaderViewAndFooterView];//初始化footerview
@@ -303,7 +310,6 @@
 -(void)didClickBuyNowView
 {
     ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
-    
     if (self.productSkuArray.count > 0) {
         
         //先选规格  在传值
@@ -333,7 +339,7 @@
 -(void)SecondAddShopCar:(UIButton *)button
 {
     if ([self isSKuAllSelect]) {
-        
+        //如果全选
         _sizeOrColorStr = [NSString convertToJsonData:ruleJsondic];
         
         [self addToshoppingCarPostsizeWithColor:_sizeOrColorStr];
@@ -376,7 +382,7 @@
 #pragma mark - DetailWebViewCellDelegate 获取webview高度
 -(void)getHeightForWebView:(CGFloat)Height
 {
-    NSLog(@" 前台获取到的度 =======  %f",Height);
+//    NSLog(@" 前台获取到的度 =======  %f",Height);
     _webViewHeight = Height;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -405,7 +411,6 @@
        
         case 1:
             
-            
             if (self.productSkuArray != nil && ![self.productSkuArray isKindOfClass:[NSNull class]] && self.productSkuArray.count != 0){
                 height = 41;
 
@@ -432,8 +437,7 @@
             break;
             
         case 6:
-            NSLog(@" 当前cell的高度 =======  %f",_webViewHeight);
-
+            
             height = _webViewHeight;
             break;
             
@@ -469,8 +473,8 @@
 #warning  -  暂时死数据
                 selectCell.lb_selectSUK.text = [NSString stringWithFormat:@"请选择规格"];
                 selectCell.selectionStyle    = UITableViewCellSelectionStyleNone;
-                
                 selectCell.hidden = NO;
+                
             }else{
                 
                 selectCell.hidden = YES;
@@ -635,7 +639,6 @@
         
         Productattribute *product = self.productSkuArray[indexPath.section];
         Valuelist *value          = product.valueList[indexPath.item];
-        
         //        NSLog(@"------------%ld------------",product.nameId);
         cell.valueObj = value;
         
@@ -651,6 +654,7 @@
 {
     Productattribute *product = self.productSkuArray[indexPath.section];
     Valuelist *value = product.valueList[indexPath.item];
+  
     if (!(value.selectType == ValueSelectType_enable)) {
         
         for (Valuelist *valueItem in product.valueList) {
@@ -663,26 +667,19 @@
                 if (valueItem.selectType == ValueSelectType_normal) {
                     
                     valueItem.selectType = ValueSelectType_selected;
-                    
+ //插入选中id
+                    [_valueIdAndGoodsIdDic setValue:[NSString stringWithFormat:@"%ld",value.nameId] forKey:@"nameId"];
+                    [_valueIdAndGoodsIdDic setValue:[NSString stringWithFormat:@"%ld",value.valueId]  forKey:@"valueId"];
+                    [_valueNameArray addObject:_valueIdAndGoodsIdDic];
+                  
+                    NSLog(@"%@",_valueNameArray);
+
                 }else {
                     
                     valueItem.selectType = ValueSelectType_normal;
                     
                 }
-//                if (value.selectType == ValueSelectType_selected) {
-//                    
-//                    [dictProductValue setValue:_goodsId forKey:@"goodsId"];
-//                    [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.nameId] forKey:@"nameId"];
-//                    [dictProductValue setValue:[NSString stringWithFormat:@"%ld",value.valueId]  forKey:@"valueId"];
-//                    
-//                    [ruleJsondic setValue:product.name forKey:@"name"];
-//                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",product.nameId] forKey:@"nameId"];
-//                    [ruleJsondic setValue:[NSString stringWithFormat:@"%ld",valueItem.valueId] forKey:@"valueId"];
-//                    [ruleJsondic setValue:valueItem.name forKey:@"value"];
-//                    
-//                }else {
-//                    
-//                }
+ 
             }else {
                 if (!(valueItem.selectType == ValueSelectType_enable)) {
                     valueItem.selectType = ValueSelectType_normal;
@@ -691,13 +688,17 @@
             }
             
         }
-        if ([self isSKuAllNoSelect]) {
-            
-            [self skuDefalultSelect];
-            [self.list_tableView reloadData];
-        }
+ 
         [self getPramats];
+        [dictProductValue setObject:_valueNameArray forKey:@"attr"];
+        [dictProductValue setObject:_goodsId forKey:@"goodsId"];
         [self skuMatchPostRequsetWithParam:[NSDictionary dictionaryWithDictionary:dictProductValue]];
+        
+        
+        [ruleJsondic setObject:_goodsId forKey:@"goodsId"];
+        [ruleJsondic setObject:_valueNameArray forKey:@"reluJson"];
+        [self skuMatchPricePostRequsetParam:[NSDictionary dictionaryWithDictionary:ruleJsondic]];
+        
         [self.SkuColletionView reloadData];
     }
     
@@ -760,8 +761,6 @@
     _goodsCount = count;
     
 }
-
-
 
 #pragma mark -  弹框选择规格 popActionView ----------
 -(void)popActionView
@@ -951,6 +950,20 @@
     
 }
 
+//判断是否收藏了
+-(void)iscollect
+{
+    if (_isCollect == 1) {///是否收藏	1.收藏 2.不是
+        
+        [collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateNormal];
+        
+    }else
+    {
+        
+        [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
+    }
+}
+
 
 #pragma mark  - 商品详情 网络请求getGoodsDetailsInfo
 -(void)goodsDetailListPostRequset{
@@ -1085,17 +1098,12 @@
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getKeepGoodInfo",zfb_baseUrl] params:parma success:^(id response) {
-        
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-        
         _isCollect = 1;
         
         [self iscollect];
-        
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
-        
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
@@ -1114,16 +1122,9 @@
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/cancalGoodsCollect",zfb_baseUrl] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
-            
-            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-            
             _isCollect = 0;
-            
             [self iscollect];
-            
         }
-        
-        
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
@@ -1133,20 +1134,6 @@
     }];
     
 }
-//判断是否收藏了
--(void)iscollect
-{
-    if (_isCollect == 1) {///是否收藏	1.收藏 2.不是
-        
-        [collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateNormal];
-        
-    }else
-    {
-        
-        [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
-    }
-}
-
 
 #pragma mark - 浏览足记 getSkimFootprintsSave
 -(void)getSkimFootprintsSavePostRequst
@@ -1161,14 +1148,10 @@
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getSkimFootprintsSave",zfb_baseUrl] params:parma success:^(id response) {
         
-        //        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-        
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
-        
         NSLog(@"error=====%@",error);
-        //        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
 }
@@ -1177,10 +1160,8 @@
 #pragma mark - skuMatch 规格匹配 ////第2步
 -(void)skuMatchPostRequsetWithParam :(NSDictionary *) parma
 {
-    
-    
-//    NSLog(@"=======选择1========%@", dictProductValue);
-//    NSLog(@"=======选择2========%@", ruleJsondic);
+    //    NSLog(@"=======选择1========%@", dictProductValue);
+    //    NSLog(@"=======选择2========%@", ruleJsondic);
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/skuMatch",zfb_baseUrl] params:parma success:^(id response) {
         
@@ -1242,29 +1223,28 @@
 }
 
 #pragma mark - skuMatchPrice 规格匹配价格库存数量信息////第3步
--(void)skuMatchPricePostRequset
+-(void)skuMatchPricePostRequsetParam:(NSDictionary*)parma
 {
     
-    [self.reluJsonKeyArray addObject:ruleJsondic];
-    NSArray * arr = [NSArray arrayWithArray:self.reluJsonKeyArray];
-    
-    NSMutableDictionary * dic = [NSMutableDictionary dictionary];
-    [dic setValue:arr forKey:@"reluJson"];
-    NSString * reluJson = [NSString convertToJsonData:[NSDictionary dictionaryWithDictionary:dic]];
-    //"reluJson":[{"name":"颜色","nameId":"1","valueId":"1","value":"红色"}]
-    
-    NSDictionary * parma = @{
-                             
-                             @"goodsId":_goodsId,
-                             @"reluJson":reluJson,
-                             
-                             };
-    
+
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/skuMatchPrice",zfb_baseUrl] params:parma success:^(id response) {
         
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            //更新价格和数据
+            lb_price.text = response[@"data"][@"originalPriceStr"];
+            lb_inShock.text = response[@"data"][@"amount"];
+            NSArray * relujsonArr = response[@"data"][@"reluJson"];
+            
+            for (NSDictionary * sukDic in relujsonArr) {
+                NSString * name = [sukDic objectForKey:@"name"];
+                NSString * value = [sukDic objectForKey:@"value"];
+                NSLog(@" %@ == name \n  %@ == value",name,value);
+            }
+            lb_Sku.text =[NSString stringWithFormat:@"已选择："];
+            [self.SkuColletionView reloadData];
+        }
         
-        //更新价格和数据
+
         
     } progress:^(NSProgress *progeress) {
         
@@ -1360,8 +1340,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     NSLog(@"viewDidAppear 这个方法走了吗");
-//    [self goodsDetailListPostRequset];//网络请求、
-
     
     if (BBUserDefault.isLogin == 1) {
         

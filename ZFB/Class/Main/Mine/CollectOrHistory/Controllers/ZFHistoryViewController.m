@@ -10,7 +10,7 @@
 #import "ZFHistoryCell.h"
 #import "HistoryFootModel.h"
 
-@interface ZFHistoryViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ZFHistoryViewController ()<UITableViewDelegate,UITableViewDataSource,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
 @property (nonatomic , strong) UITableView * tableView;
 @property (nonatomic , strong) NSMutableArray * listArray;
 
@@ -134,6 +134,11 @@
             }
             
             [self.tableView reloadData];
+            
+            if ([self isEmptyArray:self.listArray]) {
+             
+                [self.tableView cyl_reloadData];
+            }
         }
         
     } progress:^(NSProgress *progeress) {
@@ -146,7 +151,7 @@
        
 }
 
-#pragma mark - 足记列表 -getSkimFootRemove
+#pragma mark - 清空历史足迹 -getSkimFootRemove
 
 -(void)deletFootRemovePOSTRequest
 {
@@ -162,10 +167,9 @@
         if ([response[@"resultCode"]isEqualToString:@"0"]) {
             
             [self.view makeToast:@"清空成功" duration:2 position:@"center"];
+            [self.tableView reloadData];
 
             }
-            
-            [self.tableView reloadData];
         }
         
         progress:^(NSProgress *progeress) {
@@ -187,4 +191,26 @@
     }
     return _listArray;
 }
+
+
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.tableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+    
+    [self showhistoryListPOSTRequest];
+    
+}
+
 @end

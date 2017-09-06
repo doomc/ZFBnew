@@ -21,7 +21,7 @@
 static NSString  * shopCarContenCellID = @"ZFShopCarCell";
 static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 
-@interface ZFShoppingCarViewController ()<UITableViewDelegate,UITableViewDataSource,ShoppingSelectedDelegate,ShopCarSectionHeadViewDelegate>
+@interface ZFShoppingCarViewController ()<UITableViewDelegate,UITableViewDataSource,ShoppingSelectedDelegate,ShopCarSectionHeadViewDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
 {
     NSString * _cartItemId ;//
     NSString * _goodsCount; //商品数量
@@ -624,12 +624,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     return _tempCellArray;
 }
 
-//判断是不是空数组
-- (BOOL)isEmptyArray:(NSArray *)array
-{
-    return (array.count ==0 || array == nil);
-}
-
 #pragma mark - 购物车列表网络请求 getShoppCartList
 -(void)shoppingCarPostRequst
 {
@@ -657,8 +651,10 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             }
             
             [SVProgressHUD dismiss];
-            
             [self.shopCar_tableview reloadData];
+            if ([self isEmptyArray:self.carListArray]) {
+                [self.shopCar_tableview cyl_reloadData];
+            }
         }
         
     } progress:^(NSProgress *progeress) {
@@ -707,6 +703,24 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     return _jsonGoodArray;
 }
 
+
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+    
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.shopCar_tableview.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+    
+    [self shoppingCarPostRequst];
+}
 
 /*
  #pragma mark - Navigation

@@ -45,7 +45,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 
 
 
-@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate>
+@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
 
 
 @property (nonatomic ,strong) UIView *  titleView ;
@@ -1262,6 +1262,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     saleAfterVC.orderId = goods.order_id;
     saleAfterVC.goodsId = goods.goodsId;
     saleAfterVC.coverImgUrl = goods.coverImgUrl;
+    saleAfterVC.orderGoodsId = goods.orderGoodsId;//商品唯一编号
     
     saleAfterVC.serviceType = @"0";///服务类型	否	 0 退货 1 换货
     saleAfterVC.orderNum = orderlist.orderCode;
@@ -1320,7 +1321,11 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             }
             [SVProgressHUD dismiss];
             [self.zfb_tableView reloadData];
-
+            
+            if ([self isEmptyArray:self.orderListArray]) {
+                
+                [self.zfb_tableView cyl_reloadData];
+            }
         }
         NSLog(@"orderListArray ====%@",self.orderListArray);
         [self endRefresh];
@@ -1760,11 +1765,6 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     [SVProgressHUD dismiss];
     
 }
-//判断是不是空数组
-- (BOOL)isEmptyArray:(NSArray *)array
-{
-    return (array.count ==0 || array == nil);
-}
 
 //重写返回方法
 -(void)backAction{
@@ -1787,6 +1787,65 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
     }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
     {
         scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+    }
+}
+
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+   
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.zfb_tableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+
+    switch (_orderType) {//-1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成
+            
+        case OrderTypeAllOrder://全部订单
+            
+            [self allOrderPostRequsetWithOrderStatus:@"" orderNum:@""];
+            break;
+        case OrderTypeWaitPay://待付款
+            
+            [self allOrderPostRequsetWithOrderStatus:@"4"  orderNum:@""];
+            
+            break;
+        case OrderTypeWaitSend://待配送
+            
+            [self allOrderPostRequsetWithOrderStatus:@"0" orderNum:@""];
+            
+            break;
+        case OrderTypeSending://配送中
+            [self allOrderPostRequsetWithOrderStatus:@"1" orderNum:@""];
+            
+            break;
+        case OrderTypeSended://已配送
+            
+            [self allOrderPostRequsetWithOrderStatus:@"2" orderNum:@""];
+            
+            break;
+        case OrderTypeDealSuccess://交易成功
+            
+            [self allOrderPostRequsetWithOrderStatus:@"3"  orderNum:@""];
+            
+            break;
+        case OrderTypeCancelSuccess://取消交易
+            
+            [self allOrderPostRequsetWithOrderStatus:@"-1"  orderNum:@""];
+            
+            break;
+        case OrderTypeAfterSale://售后
+            
+            //            [self allOrderPostRequsetWithOrderStatus:@"2"  orderNum:@""];
+            [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:BBUserDefault.keyWord ];
+            
+            break;
     }
 }
 

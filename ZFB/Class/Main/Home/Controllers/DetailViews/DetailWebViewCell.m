@@ -26,8 +26,7 @@
 -(void)setHTMLString:(NSString *)HTMLString
 {
     _HTMLString = HTMLString;
-    NSLog(@"_HTMLString === %@",_HTMLString);
-    
+     
     NSAttributedString * attrStr1 = [[NSAttributedString alloc] initWithData:[HTMLString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
     
     

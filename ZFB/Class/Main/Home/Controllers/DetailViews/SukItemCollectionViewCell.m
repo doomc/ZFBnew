@@ -48,15 +48,6 @@
     }
 }
 
-- (void)setIsSelecteditems:(BOOL)isSelecteditems
-{
-    _isSelecteditems = isSelecteditems;
-    if (_isSelecteditems) {
-        
-        
-    }else{
-        
-    }
-}
+ 
 
 @end

@@ -3746,8 +3746,8 @@
 			children = (
 				495EA3EA1F14B64B001FCB7E /* DetailFindGoodsViewController.h */,
 				495EA3EB1F14B64B001FCB7E /* DetailFindGoodsViewController.m */,
-				495EA3EC1F14B64B001FCB7E /* DetailShareViewController.h */,
 				495EA3ED1F14B64B001FCB7E /* DetailShareViewController.m */,
+				495EA3EC1F14B64B001FCB7E /* DetailShareViewController.h */,
 				495EA3EF1F14B64B001FCB7E /* DetailStoreViewController.h */,
 				495EA3F01F14B64B001FCB7E /* DetailStoreViewController.m */,
 				495EA3EE1F14B64B001FCB7E /* DetailShareViewController.xib */,

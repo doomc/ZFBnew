@@ -106,7 +106,6 @@
     NSString * backUrl = @"http://192.168.1.115:8080/cashier_zavfpay/standard/goback.html";//返回地址
     NSString * currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
     
-//    NSLog(@"当前的currentURL ===== %@",currentURL);
     if ([backUrl isEqualToString:currentURL]) {
         
         NSLog(@"全部跳转到订单列表");
@@ -142,10 +141,8 @@
 {
     [SVProgressHUD show];
     NSString * listJsonString  =  [NSString arrayToJSONString:_orderListArray];
-    
+    listJsonString = [listJsonString stringByReplacingOccurrencesOfString:@"\\"withString:@""];
 #warning -- 此账号为测试时账号  正式时 需要修改成正式账号
-    
-//    NSLog(@"=======%@_access_token",_access_token);
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     
     [params setValue:_access_token forKey:@"access_token"];
@@ -187,7 +184,8 @@
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
    
     NSString * listJsonString  =[NSString arrayToJSONString:_orderListArray];
- 
+    listJsonString=[listJsonString stringByReplacingOccurrencesOfString:@"\\"withString:@""];
+    
     [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
     [params setValue:_access_token forKey:@"access_token"];
     [params setValue:@"18602343931" forKey:@"account"];
@@ -219,11 +217,11 @@
     
     _signString = [NSString stringWithFormat:@"%@", [signArray componentsJoinedByString:@"&"]];
     NSLog(@"_signString========%@",_signString);
- 
+
     //5.设置请求体
-//    NSString * texturl = @"http://192.168.1.188:8080/cashier_zavfpay/cashier/gateway.do";
+    NSString * texturl = @"http://192.168.1.188:8080/cashier/gateway.do";//_gateWay_url
     
-    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:_gateWay_url]];
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:texturl]];
     [request setHTTPMethod: @"POST"];
     [request setHTTPBody: [_signString dataUsingEncoding: NSUTF8StringEncoding]];
     [self.webView loadRequest:request];

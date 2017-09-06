@@ -44,10 +44,13 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     TypeCellOfMyProgressCell,
     TypeCellOfMyOderCell,
 };
-@interface ZFPersonalViewController ()<UITableViewDelegate,UITableViewDataSource,ZFMyProgressCellDelegate,PersonalHeaderViewDelegate,
-ZFMyCashBagCellDelegate
-
-
+@interface ZFPersonalViewController ()
+<
+    UITableViewDelegate,
+    UITableViewDataSource,
+    ZFMyProgressCellDelegate,
+    PersonalHeaderViewDelegate,
+    ZFMyCashBagCellDelegate
 >
 
 @property (nonatomic,strong) UITableView          * myTableView;
@@ -61,8 +64,6 @@ ZFMyCashBagCellDelegate
 @property (nonatomic,copy) NSString * storeId   ;
 @property (nonatomic,copy) NSString * balance   ;//余额
 @property (nonatomic,copy) NSString * userImgAttachUrl  ;//头像URL
-
-
 
 
 @end
@@ -192,9 +193,11 @@ ZFMyCashBagCellDelegate
             break;
             
         case 4:
+#warning -------------------------总觉得这句话有问题-=------------=-
             if (([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) || _courierFlag == nil ||  _shopFlag == nil ) {
                 
                 height = 0;
+                
             }else{
                 height = 50;
             }
@@ -214,7 +217,12 @@ ZFMyCashBagCellDelegate
         case 0:
         {
             ZFMyCashBagCell  * cashCell = [ self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyCashBagCell" forIndexPath:indexPath];
-            cashCell.lb_balance.text = _balance;
+            if (BBUserDefault.isLogin == 1) {
+                cashCell.lb_balance.text = _balance;
+            }else{
+                cashCell.lb_balance.text = @"0.00";
+ 
+            }
             return cashCell;
         }
             break;
@@ -476,7 +484,6 @@ ZFMyCashBagCellDelegate
     
 }
 
-
 #pragma  mark - ZFMyCashBagCellDelegate - 钱包
 ///钱包
 -(void)didClickCashBag
@@ -535,15 +542,16 @@ ZFMyCashBagCellDelegate
             BBUserDefault.sexType    = [response[@"userInfo"][@"sex"] integerValue];
             BBUserDefault.birthDay   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"cmBirthday"]];
             _userImgAttachUrl = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"userImgAttachUrl"]];
-            
+        
             //赋值
             self.headview.lb_collectCount.text = _collectNum;
             self.headview.lb_historyCount.text = _foolnum;
             self.headview.lb_userNickname.text = BBUserDefault.nickName;
             
             [self.headview.img_headview sd_setImageWithURL:[NSURL URLWithString:_userImgAttachUrl] placeholderImage:[UIImage imageNamed:@"avatar_user"]];
+            
+            [self.myTableView reloadData];
         }
-        [self.myTableView reloadData];
         
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
@@ -580,21 +588,43 @@ ZFMyCashBagCellDelegate
     
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"已经加载了");
+    if (BBUserDefault.isLogin == 1) {
+
+    }
+    else{
+        //赋值
+        self.headview.lb_collectCount.text = @"0";
+        self.headview.lb_historyCount.text = @"0";
+        [self.myTableView reloadData];
+
+    }
+
+    NSLog(@"%@ ---- %@",_shopFlag,_courierFlag);
+}
 -(void)viewWillAppear:(BOOL)animated
 {
     if (BBUserDefault.isLogin == 1) {
         
-        [self minePagePOSTRequste];//页面网络请求
         [self getThirdBalancePOSTRequste];//余额查询
+        [self minePagePOSTRequste];//页面网络请求
         
         //移除登录视图
         _headview.loginView.hidden   = NO;
         _headview.unloginView.hidden = YES;
-    }
-    else{
+    
+    }else{
+        _shopFlag = nil;
+        _courierFlag = nil;
         _headview.loginView.hidden   = YES;
         _headview.unloginView.hidden = NO;
+        
     }
+    NSLog(@"%@ ---- %@",_shopFlag,_courierFlag);
+
+    [self.myTableView reloadData];
 }
 
 //判断是否登录了

@@ -32,7 +32,7 @@
 //获取经纬度
 #import <CoreLocation/CoreLocation.h>
 
-@interface BusinessServicerViewController ()<ZFFooterCellDelegate, BusinessServicPopViewDelegate,UITableViewDelegate,UITableViewDataSource,ZFSendHomeListCellDelegate,BusinessSendOrderViewDelegate,CLLocationManagerDelegate>
+@interface BusinessServicerViewController ()<ZFFooterCellDelegate, BusinessServicPopViewDelegate,UITableViewDelegate,UITableViewDataSource,ZFSendHomeListCellDelegate,BusinessSendOrderViewDelegate,CLLocationManagerDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
 
 {
     //day
@@ -365,6 +365,10 @@
     
     
     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"  storeId:_storeId];
+    
+    if ([self isEmptyArray:self.orderListArray]) {
+        [self.homeTableView cyl_reloadData];
+    }
     
     [self.homeTableView reloadData];
 }
@@ -1281,7 +1285,7 @@
         _monthodate_time   = homeModel.monthOrderInfo.date_time;
         _monthstart_time   = homeModel.monthOrderInfo.start_time;
         _monthend_time     = homeModel.monthOrderInfo.end_time;
-        
+
         [self.homeTableView reloadData];
         
     } progress:^(NSProgress *progeress) {
@@ -1549,6 +1553,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+
     //获取商户端数据列表
     [self storeHomePagePostRequst];
     
@@ -1573,6 +1578,62 @@
         scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
     }
 }
+
+
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.homeTableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+    
+    switch (_servicType) {
+            
+        case BusinessServicTypeWaitSendlist://待派单
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" storeId:_storeId];
+            
+            break;
+        case BusinessServicTypeSending://配送中
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"  storeId:_storeId] ;
+            
+            break;
+        case BusinessServicTypeWaitPay://待付款
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"   storeId:_storeId];
+            
+            break;
+        case BusinessServicTypeDealComplete://交易完成
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"   storeId:_storeId];
+            
+            
+            break;
+        case BusinessServicTypeSureReturn://待确认退回
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"6" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" storeId:_storeId];
+            
+            
+            break;
+        case BusinessServicTypeSended://已配送
+            
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"   storeId:_storeId];
+            
+            break;
+            
+    }
+
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
