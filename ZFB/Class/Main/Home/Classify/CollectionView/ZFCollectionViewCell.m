@@ -37,8 +37,8 @@
 - (void)setGoodlist:(Nexttypelist *)goodlist
 {
     _goodlist = goodlist;
-    [self.imageV sd_setImageWithURL:[NSURL URLWithString:_goodlist.iconUrl] placeholderImage:nil];
-    self.name.text = _goodlist.name;
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:goodlist.iconUrl] placeholderImage:nil];
+    self.name.text = goodlist.name;
 }
 
 @end

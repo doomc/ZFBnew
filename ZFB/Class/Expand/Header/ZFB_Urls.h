@@ -56,12 +56,11 @@
 ////群聊
 //#define  IMGroup_baseUrl @"http://192.168.1.113:8087/group"
 
-#pragma mark -------------支付服务 -------------------
 
+#pragma mark -------------支付服务 -------------------
 #define PayResulrUrl @"http://192.168.1.115:8080/cashier_zavfpay/cashier/gateway.do"//支付页面地址
 //#define notify_url   @"http://192.168.1.104:8087/notify/order/getOrderNotify"//支付异步回调地址
 //#define return_url   @"http://localhost:8080/return"//支付同步回调地址
-
 
 
 

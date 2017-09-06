@@ -34,8 +34,6 @@
 
 @interface SkuValulist : NSObject
 
-@property (nonatomic, assign) BOOL isSelect;//用来判断记录选择
-
 @property (nonatomic, assign) NSInteger valueId;
 
 @property (nonatomic, copy) NSString *createTime;

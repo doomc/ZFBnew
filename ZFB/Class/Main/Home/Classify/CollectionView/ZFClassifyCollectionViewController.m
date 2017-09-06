@@ -20,6 +20,9 @@
 #import "HomeSearchBarViewController.h"
 #import "ZFBaseNavigationViewController.h"
 
+static float kCollectionViewMargin = 3.f;
+static float kLeftTableViewWidth = 80.f;
+
 @interface ZFClassifyCollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -82,6 +85,19 @@
     [self.view addSubview:self.collectionView];
     
     [self classListTableVieWithGoodTypePostRequset];//一级
+    
+ 
+}
+-(void)viewDidAppear:(BOOL)animated{
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+
+    [self.tableView selectRowAtIndexPath :indexPath animated:YES
+                           scrollPosition: UITableViewScrollPositionNone];
+    if ([self.tableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+        
+        [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+    }
 }
 -(UISearchBar *)searchBar
 {
@@ -112,7 +128,7 @@
 {
     if (!_tableView)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 80, KScreenH-64)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kLeftTableViewWidth, KScreenH-64)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [UIView new];
@@ -140,7 +156,7 @@
 {
     if (!_collectionView)
     {
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(2 + 80, 2 + 64, KScreenW - 80 - 4, KScreenH - 64 - 4) collectionViewLayout:self.flowLayout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(kCollectionViewMargin + kLeftTableViewWidth, kCollectionViewMargin+64, KScreenW - kLeftTableViewWidth - 2 * kCollectionViewMargin, KScreenH - 2 * kCollectionViewMargin - 64) collectionViewLayout:self.flowLayout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.showsVerticalScrollIndicator = NO;
@@ -165,40 +181,26 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     LeftTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Left forIndexPath:indexPath];
+    CmgoodsClasstypelist *list = self.dataSource[indexPath.row];
+    cell.name.text =list.name;
     
-    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
-    
-    if (self.dataSource.count > 0) {
-      
-        CmgoodsClasstypelist *list = self.dataSource[indexPath.row];
-        cell.name.text =list.name;
-        
-        if (indexPath.row == 0) {
-            
-            [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
-        }
-    }
-   
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.dataSource.count > 0) {
-        
-        _selectIndex = indexPath.row;
-        // 解决点击 TableView 后 CollectionView 的 Header 遮挡问题。
-        [self scrollToTopOfSection:_selectIndex animated:YES];
-        
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_selectIndex inSection:0]
-                              atScrollPosition:UITableViewScrollPositionTop animated:YES];
-        
-        CmgoodsClasstypelist * list  =  _dataSource[_selectIndex];
-        _typeId  = [NSString stringWithFormat:@"%ld",list.typeId];
-        
-        [self secondClassListWithGoodTypePostRequsetTypeid:_typeId];
+    _selectIndex = indexPath.row;
+    // 解决点击 TableView 后 CollectionView 的 Header 遮挡问题。
+    [self scrollToTopOfSection:_selectIndex animated:YES];
+    
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_selectIndex inSection:0]atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
+    CmgoodsClasstypelist * list  =  _dataSource[_selectIndex];
+    _typeId  = [NSString stringWithFormat:@"%ld",list.typeId];
+    
+    [self secondClassListWithGoodTypePostRequsetTypeid:_typeId];
+    
 
-    }
 }
 
 #pragma mark - 解决点击 TableView 后 CollectionView 的 Header 遮挡问题
@@ -219,7 +221,7 @@
 #pragma mark - UICollectionView DataSource Delegate
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return self.dataSource.count;
+    return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -240,8 +242,8 @@
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake((KScreenW - 80 - 4 - 4) / 3,
-                      (KScreenW - 80 - 4 - 4) / 3 + 30);
+    return CGSizeMake((KScreenW - kLeftTableViewWidth - 4 * kCollectionViewMargin) / 3,
+                      (KScreenW - kLeftTableViewWidth - 4 * kCollectionViewMargin) / 3 + 30);
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
@@ -299,7 +301,7 @@
 // 标记一下CollectionView的滚动方向，是向上还是向下
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    static float lastOffsetY = 0;
+    static float lastOffsetY = 64;
     
     if (self.collectionView == scrollView)
     {
@@ -384,7 +386,6 @@
                 [self.dataSource removeAllObjects];
                 
             }
-            
             ClassLeftListModel * list = [ClassLeftListModel mj_objectWithKeyValues:response];
            
             for (CmgoodsClasstypelist * Typelist in list.data.CmGoodsTypeList) {
@@ -392,12 +393,10 @@
                 [self.dataSource addObject:Typelist];
                 
             }
-  
+            NSLog(@"%@",self.dataSource);
             [self.tableView reloadData];
             
         }
-
-
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
@@ -432,7 +431,8 @@
                 
                 [self.collectionDatas addObject:list];
             }
-         
+            NSLog(@"%@",self.collectionDatas);
+
             [self.collectionView reloadData];
 
         }
