@@ -102,7 +102,7 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 
 @property (nonatomic, copy) NSString *brandName;
 
-@property (nonatomic, copy) NSString *productSkuId;
+@property (nonatomic, copy) NSString *productSkuId;///没有规格的时候取这个id，有规格取 sukid
 
 @property (nonatomic, assign) NSInteger isRecommened;
 
@@ -121,7 +121,6 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 @property (nonatomic, assign) NSInteger lockFlag;
 
 @end
-
 
 
 @interface Storeinfo : NSObject
@@ -155,9 +154,11 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 @property (nonatomic, copy) NSString *name;///尺寸：颜色：类型
 
 
+
 @end
 
 @interface Valuelist : NSObject
+
 @property (nonatomic, assign) ValueSelectType selectType;  //根据枚举类型显示
 
 @property (nonatomic, strong) SkuMatchModel *skuMatchModel;  //改规格匹配规格

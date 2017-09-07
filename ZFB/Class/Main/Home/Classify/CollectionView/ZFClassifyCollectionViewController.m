@@ -72,7 +72,7 @@ static float kLeftTableViewWidth = 80.f;
     //创建titleView
     _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
     self.navigationItem.titleView = _titleView;
-    [_titleView addSubview:self.selectbutton];
+//    [_titleView addSubview:self.selectbutton];
     [_titleView addSubview:self.searchBar];
     
     
@@ -301,7 +301,7 @@ static float kLeftTableViewWidth = 80.f;
 // 标记一下CollectionView的滚动方向，是向上还是向下
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    static float lastOffsetY = 64;
+    static float lastOffsetY = 0;
     
     if (self.collectionView == scrollView)
     {

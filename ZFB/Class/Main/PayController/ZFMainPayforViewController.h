@@ -18,6 +18,7 @@
 @property (nonatomic,copy ) NSString  * notify_url;
 @property (nonatomic,copy ) NSString  * return_url;
 @property (nonatomic,copy ) NSString  * gateWay_url;
+@property (nonatomic,copy ) NSString  * goback_url;
 
 
 

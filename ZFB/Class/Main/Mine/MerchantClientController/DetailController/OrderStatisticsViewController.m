@@ -271,6 +271,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    
     if ([self isEmptyArray:self.orderListArray]) {
         [self.orderdTableView cyl_reloadData];
     }

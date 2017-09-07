@@ -52,6 +52,7 @@
     NSString * _address;
     NSString * _storeId;
     NSString * _inventory;
+    NSString * _productSkuId;//传到购物车
     NSString * _coverImgUrl;
     NSString * _attachImgUrl;
     NSString * _inStock;
@@ -655,6 +656,7 @@
     Productattribute *product = self.productSkuArray[indexPath.section];
     Valuelist *value = product.valueList[indexPath.item];
   
+    
     if (!(value.selectType == ValueSelectType_enable)) {
         
         for (Valuelist *valueItem in product.valueList) {
@@ -671,9 +673,7 @@
                     [_valueIdAndGoodsIdDic setValue:[NSString stringWithFormat:@"%ld",value.nameId] forKey:@"nameId"];
                     [_valueIdAndGoodsIdDic setValue:[NSString stringWithFormat:@"%ld",value.valueId]  forKey:@"valueId"];
                     [_valueNameArray addObject:_valueIdAndGoodsIdDic];
-                  
-                    NSLog(@"%@",_valueNameArray);
-
+                    
                 }else {
                     
                     valueItem.selectType = ValueSelectType_normal;
@@ -690,6 +690,7 @@
         [self getPramats];
         [dictProductValue setObject:_valueNameArray forKey:@"attr"];
         [dictProductValue setObject:_goodsId forKey:@"goodsId"];
+        
         [self skuMatchPostRequsetWithParam:[NSDictionary dictionaryWithDictionary:dictProductValue]];
         
         
@@ -996,8 +997,9 @@
             _commentNum   = goodsmodel.data.goodsInfo.commentNum;//评论数
             _isCollect    = [goodsmodel.data.goodsInfo.isCollect integerValue];//是否收藏
             _storeId      = [NSString stringWithFormat:@"%ld",goodsmodel.data.goodsInfo.storeId];//店铺id
-            _inventory =  goodsmodel.data.goodsInfo.inventory;//库存
-
+            _inventory    =  goodsmodel.data.goodsInfo.inventory;//库存
+            BBUserDefault.productSkuId = _productSkuId =  goodsmodel.data.goodsInfo.productSkuId;//没有规格的用改字段，用来请求购物车列表
+    
             //store信息 ----storeInfo
             _storeName    = goodsmodel.data.storeInfo.storeName;//店名
             _contactPhone = goodsmodel.data.storeInfo.contactPhone;//联系手机号

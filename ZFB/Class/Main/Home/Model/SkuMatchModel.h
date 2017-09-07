@@ -44,7 +44,9 @@
 
 @property (nonatomic, assign) NSInteger typeId;
 
-@property (nonatomic, assign) NSInteger skuId;
+@property (nonatomic, assign) NSInteger skuId;//有规格取值这个取值
+
+
 
 @end
 

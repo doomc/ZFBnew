@@ -1770,8 +1770,9 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 -(void)backAction{
     
     [self poptoUIViewControllerNibName:@"ZFPersonalViewController" AndObjectIndex:0];
+    
 }
-
+ 
 //既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     

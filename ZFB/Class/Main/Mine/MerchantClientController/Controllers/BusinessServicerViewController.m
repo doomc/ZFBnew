@@ -1520,7 +1520,6 @@
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     [self.view makeToast:[NSString stringWithFormat:@"%@",error] duration:2 position:@"center"];
-    
 }
 
 #pragma mark 定位成功后则执行此代理方法
@@ -1532,8 +1531,8 @@
     CLLocation *currentLocation = [locations lastObject];
     //打印当前的经度与纬度
     NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
-    latitudestr  = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
-    longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
+    latitudestr  = [NSString stringWithFormat:@"%.6f",currentLocation.coordinate.latitude];
+    longitudestr = [NSString stringWithFormat:@"%.6f",currentLocation.coordinate.longitude];
     
     
 }
@@ -1553,7 +1552,6 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-
     //获取商户端数据列表
     [self storeHomePagePostRequst];
     

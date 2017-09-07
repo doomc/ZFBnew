@@ -384,10 +384,12 @@
             NSString  * notify_url = response[@"thirdURI"][@"notify_url"];
             NSString  * return_url = response[@"thirdURI"][@"return_url"];
             NSString  * gateWay_url = response[@"thirdURI"][@"gateWay_url"];
+            NSString  * goback_url  = response[@"thirdURI"][@"goback_url"];
             
             payVC.notify_url    = notify_url;
             payVC.return_url    = return_url;
             payVC.gateWay_url   = gateWay_url;
+            payVC.goback_url   = goback_url;
             [self.navigationController pushViewController:payVC animated:YES];
             
             [SVProgressHUD dismiss];
@@ -460,7 +462,7 @@
     [jsondic setValue:_contactMobilePhone forKey:@"mobilePhone"];
     [jsondic setValue:_postAddress forKey:@"postAddress"];
     [jsondic setValue:@"4" forKey:@"payMode" ];//1.支付宝  2.微信支付 3.线下,4.展易付
-    [jsondic setValue:@"" forKey:@"cartItemId"];//立即购买不传，购物车加入的订单需要传
+    [jsondic setValue:_cartItemId forKey:@"cartItemId"];//立即购买不传，购物车加入的订单需要传
     
     [jsondic setValue: cmgoodsList forKey:@"cmGoodsList"];
     [jsondic setValue: storeDeliveryfeeList forKey:@"storeDeliveryfeeList"];

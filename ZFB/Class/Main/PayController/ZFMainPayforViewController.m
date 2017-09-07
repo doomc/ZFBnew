@@ -102,11 +102,12 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     //完成加载
+ 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    NSString * backUrl = @"http://192.168.1.115:8080/cashier_zavfpay/standard/goback.html";//返回地址
+    //返回地址
     NSString * currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
     
-    if ([backUrl isEqualToString:currentURL]) {
+    if ([_goback_url isEqualToString:currentURL]) {
         
         NSLog(@"全部跳转到订单列表");
         ZFAllOrderViewController * allVC  = [[ZFAllOrderViewController alloc]init];
@@ -144,7 +145,6 @@
     listJsonString = [listJsonString stringByReplacingOccurrencesOfString:@"\\"withString:@""];
 #warning -- 此账号为测试时账号  正式时 需要修改成正式账号
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
-    
     [params setValue:_access_token forKey:@"access_token"];
     [params setValue:@"18602343931" forKey:@"account"];
     [params setValue:_datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
@@ -219,9 +219,9 @@
     NSLog(@"_signString========%@",_signString);
 
     //5.设置请求体
-    NSString * texturl = @"http://192.168.1.188:8080/cashier/gateway.do";//_gateWay_url
+//    NSString * texturl = @"http://192.168.1.188:8080/cashier/gateway.do";//
     
-    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:texturl]];
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:_gateWay_url]];
     [request setHTTPMethod: @"POST"];
     [request setHTTPBody: [_signString dataUsingEncoding: NSUTF8StringEncoding]];
     [self.webView loadRequest:request];
