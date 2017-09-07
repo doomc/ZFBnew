@@ -684,9 +684,7 @@
                 if (!(valueItem.selectType == ValueSelectType_enable)) {
                     valueItem.selectType = ValueSelectType_normal;
                 }
-                
             }
-            
         }
  
         [self getPramats];
@@ -695,9 +693,9 @@
         [self skuMatchPostRequsetWithParam:[NSDictionary dictionaryWithDictionary:dictProductValue]];
         
         
-        [ruleJsondic setObject:_goodsId forKey:@"goodsId"];
-        [ruleJsondic setObject:_valueNameArray forKey:@"reluJson"];
-        [self skuMatchPricePostRequsetParam:[NSDictionary dictionaryWithDictionary:ruleJsondic]];
+//        [ruleJsondic setObject:_goodsId forKey:@"goodsId"];
+//        [ruleJsondic setObject:_valueNameArray forKey:@"reluJson"];
+//        [self skuMatchPricePostRequsetParam:[NSDictionary dictionaryWithDictionary:ruleJsondic]];
         
         [self.SkuColletionView reloadData];
     }

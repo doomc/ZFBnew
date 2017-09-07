@@ -73,6 +73,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     });
 
     [self setupRefresh];
+    
 }
 #pragma mark -数据请求
 -(void)headerRefresh {

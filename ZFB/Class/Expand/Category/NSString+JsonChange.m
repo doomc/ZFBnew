@@ -106,7 +106,7 @@
     NSRange range3 = {0, mutStr.length};
     [mutStr replaceOccurrencesOfString:@"\\" withString:@"" options:NSLiteralSearch range:range3];
     
-    NSLog(@"mutStr ====%@",mutStr);
+//    NSLog(@"mutStr ====%@",mutStr);
     
     return mutStr;
     

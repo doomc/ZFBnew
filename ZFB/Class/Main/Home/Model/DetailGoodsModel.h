@@ -8,6 +8,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import "SkuMatchModel.h"
 
 typedef NS_ENUM(NSUInteger, ValueSelectType) {
   
@@ -157,10 +158,9 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 @end
 
 @interface Valuelist : NSObject
+@property (nonatomic, assign) ValueSelectType selectType;  //根据枚举类型显示
 
-@property (nonatomic, assign) BOOL isSelect;
-
-@property (nonatomic, assign) ValueSelectType selectType;//根据枚举类型显示
+@property (nonatomic, strong) SkuMatchModel *skuMatchModel;  //改规格匹配规格
 
 @property (nonatomic, assign) NSInteger nameId;
 
@@ -172,8 +172,9 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 
 @property (nonatomic, assign) NSInteger orderNum;
 
-@property (nonatomic, copy) NSString * name;///value：尺寸：颜色：类型
+@property (nonatomic, copy) NSString * name;  //value：尺寸：颜色：类型
 
+ 
 
 
 @end

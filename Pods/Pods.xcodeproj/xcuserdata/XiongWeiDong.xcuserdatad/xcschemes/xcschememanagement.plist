@@ -11,6 +11,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>CYLTableViewPlaceHolder.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>19</integer>
+		</dict>
 		<key>CocoaLumberjack.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -134,7 +139,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>0DF62840AB7666115AA83722466AA239</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>175B076ED45EB1A3E40F58BA14036467</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1B402874FBFB9DBA0EAB98F7A0757E70</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -160,6 +175,16 @@
 			<true/>
 		</dict>
 		<key>2B8BE6A03BB415E32BDD1066D6CE2330</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>35CA556AD03AE6CBE2B6931926AE92E7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3CAF99E525444760E4006B7C19E0D5E3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -229,6 +254,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A9337900927DF6E668B17688DB8656B6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>A9B29F73708D4C87A32D033098BCCCEE</key>
 		<dict>
 			<key>primary</key>
@@ -269,12 +299,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>E04BDBD146EE26B9EC2E3E5560271412</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E89E978E7B5ED01A95274E57296EFD78</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>EDE4487DF180295776D2B15B44CE54CD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F3EAB4F181632290C9B938482D897F1B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

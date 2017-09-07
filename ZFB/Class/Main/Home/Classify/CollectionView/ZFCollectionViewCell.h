@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CollectionCategoryModel.h"
-#define kCellIdentifier_CollectionView @"ZFCollectionViewCell"
 
- 
+#define kCellIdentifier_CollectionView @"ZFCollectionViewCell"
 
 @interface ZFCollectionViewCell : UICollectionViewCell
 
