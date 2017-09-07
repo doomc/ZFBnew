@@ -78,7 +78,7 @@
     UIWebView * _webview;
     CGFloat _webViewHeight;
     
-    Valuelist* _currentSku;
+    SkuMatchModel *_currentSkuMatchModel;
 }
 
 @property (nonatomic,strong) UITableView * list_tableView;
@@ -91,6 +91,7 @@
 
 @property (nonatomic,strong) NSMutableArray * productSkuArray;//sku个数
 @property (nonatomic,strong) NSMutableArray * reluJsonKeyArray;//列表个数
+@property (nonatomic, strong) NSMutableArray<SkuValulist *> *skuValueListArray;
 
 @property (nonatomic,strong) NSArray * relujsonValueArray ;//色值个数
 @property (nonatomic,strong) NSArray            * imagesURLStrings;//轮播数组
@@ -655,55 +656,76 @@
 {
     Productattribute *product = self.productSkuArray[indexPath.section];
     Valuelist *value = product.valueList[indexPath.item];
-  
-    
     if (!(value.selectType == ValueSelectType_enable)) {
-        
-        for (Valuelist *valueItem in product.valueList) {
-            
-            if ([value isEqual:valueItem]) {
-                
-                _currentSku = valueItem;
-                
-                //判断选择的类型
-                if (valueItem.selectType == ValueSelectType_normal) {
-                    
-                    valueItem.selectType = ValueSelectType_selected;
- //插入选中id
-                    [_valueIdAndGoodsIdDic setValue:[NSString stringWithFormat:@"%ld",value.nameId] forKey:@"nameId"];
-                    [_valueIdAndGoodsIdDic setValue:[NSString stringWithFormat:@"%ld",value.valueId]  forKey:@"valueId"];
-                    [_valueNameArray addObject:_valueIdAndGoodsIdDic];
-                    
+        if (value.selectType == ValueSelectType_normal) {
+            for (Valuelist *valueItem in product.valueList) {
+                if (value.valueId == valueItem.valueId) {
+                    value.selectType = ValueSelectType_selected;
                 }else {
-                    
-                    valueItem.selectType = ValueSelectType_normal;
-                    
-                }
- 
-            }else {
-                if (!(valueItem.selectType == ValueSelectType_enable)) {
                     valueItem.selectType = ValueSelectType_normal;
                 }
             }
+        }else {
+            value.selectType = ValueSelectType_normal;
         }
- 
-        [self getPramats];
-        [dictProductValue setObject:_valueNameArray forKey:@"attr"];
-        [dictProductValue setObject:_goodsId forKey:@"goodsId"];
-        
-        [self skuMatchPostRequsetWithParam:[NSDictionary dictionaryWithDictionary:dictProductValue]];
-        
-        
-//        [ruleJsondic setObject:_goodsId forKey:@"goodsId"];
-//        [ruleJsondic setObject:_valueNameArray forKey:@"reluJson"];
-//        [self skuMatchPricePostRequsetParam:[NSDictionary dictionaryWithDictionary:ruleJsondic]];
-        
+    }
+    if (!(value.selectType == ValueSelectType_enable)) {
+        [self getSkuMatchParamts];
+    }
+}
+#pragma mark - 规格问题
+-(void)getSkuMatchParamts {
+    
+    NSMutableDictionary *skuMatchParamts = [NSMutableDictionary dictionary];
+    [skuMatchParamts setObject:_goodsId forKey:@"goodsId"];
+    NSMutableArray *selectValueArray = [NSMutableArray array];
+    for (Productattribute *product in self.productSkuArray) {
+        for (Valuelist *value in product.valueList) {
+            if (value.selectType == ValueSelectType_selected) {
+                NSDictionary *selectValueDict = @{@"nameId": [NSString stringWithFormat:@"%ld", value.nameId], @"valueId": [NSString stringWithFormat:@"%ld", value.valueId]};
+                [selectValueArray addObject:selectValueDict];
+            }
+        }
+    }
+    [skuMatchParamts setObject:selectValueArray forKey:@"attr"];
+    
+    if (selectValueArray.count > 0) {
+        [self skuMatchPostRequsetWithParam:skuMatchParamts];
+    }else {
         [self.SkuColletionView reloadData];
     }
-    
 }
-
-
+//取消上次规格
+-(void)resetSkuMatch {
+  
+    for (Productattribute *product in self.productSkuArray) {
+        for (Valuelist *value in product.valueList) {
+            if (value.selectType == ValueSelectType_enable) {
+                value.selectType = ValueSelectType_normal;
+            }
+        }
+    }
+}
+//匹配规格
+-(void)matchSku {
+    for (Productattribute *product in self.productSkuArray) {
+        for (Valuelist *value in product.valueList) {
+            BOOL isEnable = YES;  //用来标记不可选
+            for (SkuValulist *skuValue in self.skuValueListArray) {
+                if (skuValue.valueId == value.valueId) {  //找到当前规格
+                    if (!(value.selectType == ValueSelectType_selected)) {  //如果当前选中就还是选中
+                        value.selectType = ValueSelectType_normal;
+                    }
+                    isEnable = NO;  //可选
+                    break;
+                }
+            }
+            if (isEnable) { //找到不可选
+                value.selectType = ValueSelectType_enable;
+            }
+        }
+    }
+}
 #pragma mark - 到这去 唤醒地图
 -(void)whereTogoMap:(UIButton *)sender
 {
@@ -1158,54 +1180,28 @@
 
 
 #pragma mark - skuMatch 规格匹配 ////第2步
+-(NSMutableArray<SkuValulist *> *)skuValueListArray {
+    if (!_skuValueListArray) {
+        _skuValueListArray = [NSMutableArray array];
+    }
+    return _skuValueListArray;
+}
 -(void)skuMatchPostRequsetWithParam :(NSDictionary *) parma
 {
-    //    NSLog(@"=======选择1========%@", dictProductValue);
-    //    NSLog(@"=======选择2========%@", ruleJsondic);
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/skuMatch",zfb_baseUrl] params:parma success:^(id response) {
         
-        SkuMatchModel * sku = [SkuMatchModel mj_objectWithKeyValues:response];
-        for (Skumatch *skumatch in sku.data.skuMatch) {
-            
-            NSInteger nameId = skumatch.nameId;
-            
-            for (Productattribute *attribute in self.productSkuArray) {
-                
-                if (nameId == attribute.nameId) {
-                    
-                    for (Valuelist *valueItem in attribute.valueList) {
-                        
-                        BOOL flag = NO;//查找正常的状态
-                       
-                        for (SkuValulist *skulist in skumatch.valuList) {
-                            
-                            if (valueItem.valueId == skulist.valueId) {
-                                
-                                flag = YES;
-                            }
-                            if (!(skulist.valueId == _currentSku.valueId)) {
-                                if (_currentSku.selectType == ValueSelectType_normal && valueItem.selectType == ValueSelectType_enable) {
-                                    valueItem.selectType = ValueSelectType_normal;
-                                }
-                            }
-                        }
-                        if (flag) {
-                            if (!(valueItem.selectType == ValueSelectType_selected)) {
-                                valueItem.selectType = ValueSelectType_normal;
-                            }
-                        }else {
-                            
-                            valueItem.selectType = ValueSelectType_enable;
-                        }
-                        
-                        
-                    }
-                    
-                }
-                
+        
+        _currentSkuMatchModel = [SkuMatchModel mj_objectWithKeyValues:response];
+        [self.skuValueListArray removeAllObjects];
+        for (Skumatch *skumatch in _currentSkuMatchModel.data.skuMatch) {
+            for (SkuValulist *skuValue in skumatch.valuList) {
+                [self.skuValueListArray addObject:skuValue];
             }
         }
+        //先取消上次匹配
+        [self resetSkuMatch];
+        //再匹配规格
+        [self matchSku];
         
         [self.SkuColletionView reloadData];
         
@@ -1376,23 +1372,19 @@
 //判断规格是否全部选取
 -(BOOL)isSKuAllSelect {
     
-    BOOL isAllSelect      = NO;
+    BOOL isAllSelect      = YES;
     NSInteger selectCount = 0;
     for (Productattribute *attribute in self.productSkuArray) {
         
         for (Valuelist *value in attribute.valueList) {
             
-            if (value.selectType == ValueSelectType_selected) {
+            if (!(value.selectType == ValueSelectType_selected)) {
                 
-                selectCount++;
+                isAllSelect = NO;
                 break;
             }
         }
     }
-    if (selectCount == self.productSkuArray.count) {
-        isAllSelect = YES;
-    }
-    NSLog(@"==========isSelect==========%d", isAllSelect);
     return isAllSelect;
 }
 -(BOOL)isSKuAllNoSelect {

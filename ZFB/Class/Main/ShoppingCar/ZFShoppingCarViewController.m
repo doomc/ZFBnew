@@ -74,25 +74,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     self.complete_Btn.selected      = NO;
     
 }
--(void)viewWillAppear:(BOOL)animated
-{
-    if (BBUserDefault.isLogin == 1) {
-        [self shoppingCarPostRequst];
-        
-    }else{
-        
-        NSLog(@"登录了");
-        LoginViewController * logvc          = [ LoginViewController new];
-        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
-        
-        [self presentViewController:nav animated:NO completion:^{
-            
-            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
-            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-        }];
-    }
-    
-}
 #pragma mark - ShoppingSelectedDelegate  自定义代理
 #pragma mark - 商品编辑状态回调 shopCarEditingSelected
 - (void)shopCarEditingSelected:(NSInteger)sectionIdx
@@ -129,51 +110,10 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         list.leftShoppcartlistIsChoosed = NO;
         
     }
-    //保存当前section选中的数据
-    NSMutableArray * goodsChoosedArray = [NSMutableArray array];
-    for (ShopGoodslist * goodsChoosed in list.goodsList) {
-        //如果选中单个商品了
-        if (goodsChoosed.goodslistIsChoosed) {
-            
-            NSMutableDictionary * tempDic = [NSMutableDictionary dictionary];
-            NSString * goodsId = [NSString stringWithFormat:@"%ld",goodsChoosed.goodsId];
-            NSString * storeId = [NSString stringWithFormat:@"%ld",list.storeId];
-            NSString * goodsCount = [NSString stringWithFormat:@"%ld",goodsChoosed.goodsCount];
-            
-            [tempDic setValue:storeId forKey:@"storeId"];
-            [tempDic setValue:goodsId forKey:@"goodsId"];
-            [tempDic setValue:goodsChoosed.goodsName forKey:@"goodsName"];
-            [tempDic setValue:goodsChoosed.coverImgUrl forKey:@"coverImgUrl"];
-            [tempDic setValue:goodsChoosed.goodsProp forKey:@"goodsProp"];
-            [tempDic setValue:goodsCount forKey:@"goodsCount"];
-            [tempDic setValue:goodsChoosed.netPurchasePrice forKey:@"purchasePrice"];
-            [tempDic setValue:@"0" forKey:@"concessionalPrice"];
-            [tempDic setValue:@"0" forKey:@"originalPrice"];
-            [tempDic setValue:goodsChoosed.goodsUnit forKey:@"goodsUnit"];
-            [tempDic setValue:goodsChoosed.cartItemId forKey:@"cartItemId"];
-            
-            [goodsChoosedArray addObject:tempDic];
-        }
-//
-//                    NSLog(@"我选中了吗啊 ---------%d --- %d",goodsChoosed.goodslistIsChoosed,list.leftShoppcartlistIsChoosed);
-//            if (list.leftShoppcartlistIsChoosed == NO) {
-//                NSIndexSet * indexSet = [self.mutJsonArray indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                    
-//                    return idx;
-//                }];
-//                [self.mutJsonArray removeObjectsAtIndexes:indexSet];
-//                NSLog(@"%@",indexSet);
-//            }
-//            
-//        }
-    }
-    NSLog(@"========选中单个商品的数据%@",goodsChoosedArray);
-    [self.shopCar_tableview reloadData];
-    
-    
-    
     // 每次点击都要统计底部的按钮是否全选
     self.allSelectedButton.selected = [self isAllProcductChoosed];
+    [self.shopCar_tableview reloadData];
+
     [self.complete_Btn setTitle:[NSString stringWithFormat:@"结算"] forState:UIControlStateNormal];
     self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[self countTotalPrice]];
     
@@ -192,42 +132,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         obj.goodslistIsChoosed = list.leftShoppcartlistIsChoosed;
         
     }];
-    
 
-    for (ShopGoodslist * goods in list.goodsList) {
-        
-        //如果选中了所有 并且选中了全部
-        if (list.leftShoppcartlistIsChoosed) {
-            
-            NSMutableDictionary * tempDic = [NSMutableDictionary dictionary];
-            NSString * goodsId = [NSString stringWithFormat:@"%ld",goods.goodsId];
-            NSString * storeId = [NSString stringWithFormat:@"%ld",list.storeId];
-            NSString * goodsCount = [NSString stringWithFormat:@"%ld",goods.goodsCount];
-            
-            [tempDic setValue:storeId forKey:@"storeId"];
-            [tempDic setValue:goodsId forKey:@"goodsId"];
-            [tempDic setValue:goods.goodsName forKey:@"goodsName"];
-            [tempDic setValue:goods.coverImgUrl forKey:@"coverImgUrl"];
-            [tempDic setValue:goods.goodsProp forKey:@"goodsProp"];
-            [tempDic setValue:goodsCount forKey:@"goodsCount"];
-            [tempDic setValue:goods.netPurchasePrice forKey:@"purchasePrice"];
-            [tempDic setValue:@"0" forKey:@"concessionalPrice"];
-            [tempDic setValue:@"0" forKey:@"originalPrice"];
-            [tempDic setValue:goods.goodsUnit forKey:@"goodsUnit"];
-            [tempDic setValue:goods.cartItemId forKey:@"cartItemId"];
-
-            [self.mutJsonArray addObject:tempDic];
-            
-        }else{
-            if (  list.leftShoppcartlistIsChoosed == NO && goods.goodslistIsChoosed == NO) {
-              
-                NSLog(@"========取消当前选中的Sction 所有数据 %@",self.mutJsonArray);
-                [self.mutJsonArray removeAllObjects];
-            }
-
-        }
-    }
-    NSLog(@"========选中整个Sction 的商品的数据%@",self.mutJsonArray);
     // 每次点击都要统计底部的按钮是否全选
     self.allSelectedButton.selected = [self isAllProcductChoosed];
     [self.shopCar_tableview reloadData];
@@ -242,12 +147,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     
     NSLog(@"所有全选");
     sender.selected = !sender.selected;
-    
-    if (self.mutJsonArray.count > 0) {
-        
-        [self.mutJsonArray removeAllObjects];
-    }
-    
+
     for (Shoppcartlist *list in self.carListArray) {
         
         list.leftShoppcartlistIsChoosed = sender.selected;
@@ -255,36 +155,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         for (ShopGoodslist * goods in list.goodsList) {
             
             goods.goodslistIsChoosed = list.leftShoppcartlistIsChoosed;
-
-            if (list.leftShoppcartlistIsChoosed == YES) {
-                
-                NSMutableDictionary * tempDic = [NSMutableDictionary dictionary];
-                NSString * goodsId = [NSString stringWithFormat:@"%ld",goods.goodsId];
-                NSString * storeId = [NSString stringWithFormat:@"%ld",list.storeId];
-                NSString * goodsCount = [NSString stringWithFormat:@"%ld",goods.goodsCount];
-                
-                [tempDic setValue:storeId forKey:@"storeId"];
-                [tempDic setValue:goodsId forKey:@"goodsId"];
-                [tempDic setValue:goods.goodsName forKey:@"goodsName"];
-                [tempDic setValue:goods.coverImgUrl forKey:@"coverImgUrl"];
-                [tempDic setValue:goods.goodsProp forKey:@"goodsProp"];
-                [tempDic setValue:goodsCount forKey:@"goodsCount"];
-                [tempDic setValue:goods.netPurchasePrice forKey:@"purchasePrice"];
-                [tempDic setValue:@"0" forKey:@"concessionalPrice"];
-                [tempDic setValue:@"0" forKey:@"originalPrice"];
-                [tempDic setValue:goods.goodsUnit forKey:@"goodsUnit"];
-                [tempDic setValue:goods.cartItemId forKey:@"cartItemId"];
-
-                [self.mutJsonArray addObject:tempDic];
-                
-            }
-            if (![self isAllProcductChoosed] && list.leftShoppcartlistIsChoosed == NO && goods.goodslistIsChoosed == NO) {
-                //如没有没有选择取消全部
-                if (self.mutJsonArray.count > 0) {
-                    
-                    [self.mutJsonArray removeAllObjects];
-                }
-            }
         }
     }
     NSLog(@"========选中all所有 的商品的数据%@",self.mutJsonArray);
@@ -545,10 +415,21 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(NSMutableArray *)carListArray
+{
+    if (!_carListArray) {
+        _carListArray = [NSMutableArray array];
+    }
+    return _carListArray;
 }
+- (NSMutableArray *)tempCellArray
+{
+    if (_tempCellArray == nil) {
+        _tempCellArray = [[NSMutableArray alloc] init];
+    }
+    return _tempCellArray;
+}
+
 
 -(UITableView *)shopCar_tableview
 {
@@ -645,21 +526,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 }
 
 
--(NSMutableArray *)carListArray
-{
-    if (!_carListArray) {
-        _carListArray = [NSMutableArray array];
-    }
-    return _carListArray;
-}
-- (NSMutableArray *)tempCellArray
-{
-    if (_tempCellArray == nil) {
-        _tempCellArray = [[NSMutableArray alloc] init];
-    }
-    return _tempCellArray;
-}
-
 #pragma mark - 购物车列表网络请求 getShoppCartList
 -(void)shoppingCarPostRequst
 {
@@ -680,6 +546,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             
             ShoppingCarModel * shopModel = [ShoppingCarModel mj_objectWithKeyValues:response];
             for (Shoppcartlist * list in shopModel.shoppCartList) {
+                
                 [self.carListArray addObject:list];
             }
             [SVProgressHUD dismiss];
@@ -760,6 +627,11 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 -(void)viewWillDisappear:(BOOL)animated
 {
     [SVProgressHUD dismiss];
+
+    self.allSelectedButton.selected = NO;
+    self.totalPriceLabel.text = @"¥0.00元";
+    [self.shopCar_tableview reloadData];
+    
 }
 
 
@@ -770,6 +642,37 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     
 #warning  ----- 进入到结算前提是要选择一个商品 暂时没有处理
     ZFSureOrderViewController * orderVC = [[ZFSureOrderViewController alloc]init];
+    
+    for (Shoppcartlist *list in self.carListArray) {
+        
+        for (ShopGoodslist * goods in list.goodsList) {
+            
+            if (goods.goodslistIsChoosed) {
+                
+                NSMutableDictionary * tempDic = [NSMutableDictionary dictionary];
+                NSString * goodsId = [NSString stringWithFormat:@"%ld",goods.goodsId];
+                NSString * storeId = [NSString stringWithFormat:@"%ld",list.storeId];
+                NSString * goodsCount = [NSString stringWithFormat:@"%ld",goods.goodsCount];
+                
+                [tempDic setValue:storeId forKey:@"storeId"];
+                [tempDic setValue:goodsId forKey:@"goodsId"];
+                [tempDic setValue:goods.goodsName forKey:@"goodsName"];
+                [tempDic setValue:goods.coverImgUrl forKey:@"coverImgUrl"];
+                [tempDic setValue:goods.goodsProp forKey:@"goodsProp"];
+                [tempDic setValue:goodsCount forKey:@"goodsCount"];
+                [tempDic setValue:goods.netPurchasePrice forKey:@"purchasePrice"];
+                [tempDic setValue:@"0" forKey:@"concessionalPrice"];
+                [tempDic setValue:@"0" forKey:@"originalPrice"];
+                [tempDic setValue:goods.goodsUnit forKey:@"goodsUnit"];
+                [tempDic setValue:goods.cartItemId forKey:@"cartItemId"];
+                
+                [self.mutJsonArray addObject:tempDic];
+                
+            }
+        }
+    }
+    NSLog(@"我最后选中的数组 %@",self.mutJsonArray);
+    
     if (![self isEmptyArray:self.mutJsonArray])
     {
         //便利出所有的 cartItemId , 隔开
@@ -790,6 +693,36 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         [alert addAction:action];
         [self presentViewController:alert animated:YES completion:nil];
     }
+}
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    if (BBUserDefault.isLogin == 1) {
+        
+        [self shoppingCarPostRequst];
+        
+    }else{
+        
+        NSLog(@"登录了");
+        LoginViewController * logvc          = [ LoginViewController new];
+        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
+        
+        [self presentViewController:nav animated:NO completion:^{
+            
+            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+        }];
+    }
+    
+}
+
+
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 
