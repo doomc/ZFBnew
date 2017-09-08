@@ -82,6 +82,7 @@
     
     [self getPayAccessTokenUrl];
     
+    NSLog(@"userGoodsInfoJSON === %@",_userGoodsInfoJSON);
     
 }
 //拿到商品详情无规格的_userGoodsInfoJSON数组
@@ -95,18 +96,18 @@
  */
 -(void)userGoodsInfoJSONanalysis
 {
+    NSLog(@"%@",_userGoodsInfoJSON);
+    NSMutableDictionary * storeDic     = [NSMutableDictionary dictionary];
+    NSMutableDictionary * storeAttachListDic = [NSMutableDictionary dictionary];
     
-    for (NSDictionary * adic in _userGoodsInfoJSON) {
-        
-        NSMutableDictionary * storeDic     = [NSMutableDictionary dictionary];
-        NSMutableDictionary * storeAttachListDic = [NSMutableDictionary dictionary];
+    for (NSDictionary * tempdic in _userGoodsInfoJSON) {
         
         //===================cmGoodsList字段===================//
-        self.cmGoodsListArray = [adic objectForKey:@"goodsList"];
+        self.cmGoodsListArray = [tempdic objectForKey:@"goodsList"];
        
         //===================storeAttachList字段===================//
-        [storeAttachListDic setValue:[adic objectForKey:@"storeId"] forKey:@"storeId"];
-        [storeAttachListDic setValue:[adic objectForKey:@"storeName"] forKey:@"storeName"];
+        [storeAttachListDic setValue:[tempdic objectForKey:@"storeId"] forKey:@"storeId"];
+        [storeAttachListDic setValue:[tempdic objectForKey:@"storeName"] forKey:@"storeName"];
         [storeAttachListDic setValue:@"暂无备注" forKey:@"comment"];
         [self.storeAttachListArr addObject:storeAttachListDic];
         
@@ -121,7 +122,7 @@
             NSLog(@"goodsListArray = %@",self.goodsListArray);
         }
     
-        [storeDic setValue:[adic objectForKey:@"storeId"]  forKey:@"storeId"];
+        [storeDic setValue:[tempdic objectForKey:@"storeId"]  forKey:@"storeId"];
         [storeDic setValue:self.goodsListArray  forKey:@"goodsList"];
         [self.storelistArry addObject:storeDic];
         
@@ -275,6 +276,7 @@
     if (indexPath.row == 1) {
         
         ZFShopListViewController * shoplistVc =[[ZFShopListViewController alloc]init];
+        shoplistVc.storeListArray = _userGoodsInfoJSON;
         [self.navigationController pushViewController:shoplistVc animated:YES];
     }
 }
@@ -300,8 +302,6 @@
             _postAddress        = addressModel.userAddressMap.postAddress;
             _contactMobilePhone = addressModel.userAddressMap.mobilePhone;
             _postAddressId      = addressModel.userAddressMap.postAddressId;
-            
-            
             
             //解析json在重新组装新的json
             [self userGoodsInfoJSONanalysis];
@@ -461,7 +461,8 @@
     [jsondic setValue:_contactMobilePhone forKey:@"contactMobilePhone"];
     [jsondic setValue:_contactMobilePhone forKey:@"mobilePhone"];
     [jsondic setValue:_postAddress forKey:@"postAddress"];
-    [jsondic setValue:@"4" forKey:@"payMode" ];//1.支付宝  2.微信支付 3.线下,4.展易付
+//    [jsondic setValue:@"" forKey:@"payMode" ];//1.支付宝  2.微信支付 3.线下,4.展易付
+    [jsondic setValue:@"1" forKey:@"payType" ];//支付类型 0 线下 1 线上
     [jsondic setValue:_cartItemId forKey:@"cartItemId"];//立即购买不传，购物车加入的订单需要传
     
     [jsondic setValue: cmgoodsList forKey:@"cmGoodsList"];

@@ -170,12 +170,15 @@ static NSString * settingCellid = @"ZFSettingCellid";
     [SDCycleScrollView  clearImagesCache];//清除缓存
     [self clearAllUserDefaultsData];
 }
- 
+
+//移除所有本地数据
 - (void)clearAllUserDefaultsData
 {
     
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"key"];
+
 }
 
 #pragma mark - didClickChangeLoginStatus 切换登录状态

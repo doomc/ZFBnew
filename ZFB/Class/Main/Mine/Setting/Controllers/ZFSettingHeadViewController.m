@@ -152,11 +152,11 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             
             if (_isSavedBirthDay == NO) {
             
-                rowCell.lb_detailTitle.text= BBUserDefault.birthDay;
+                rowCell.lb_detailTitle.text = BBUserDefault.birthDay;
             
             }else{
                 
-                rowCell.lb_detailTitle.text = @"";
+                rowCell.lb_detailTitle.text = nil;
             }
 
         }
@@ -241,6 +241,17 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 
             }else{
                 
+                JXTAlertController *alertVC = [JXTAlertController alertControllerWithTitle:nil message:@"你已经修改过生日信息，不能二次修改了" preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction * sure = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }];
+                [alertVC addAction: sure];
+                
+                [self presentViewController:alertVC animated:NO completion:^{
+                    
+                }];
+
                 NSLog(@"不做操作");
             }
          
@@ -256,7 +267,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             [self.navigationController pushViewController:addVC animated:YES];
             
         }
-        [self.tableView reloadData];
+ 
     }
 }
 
@@ -265,7 +276,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     
     NSLog(@"保存");
     
-    if ( _imagePath == nil || BBUserDefault.birthDay == nil || BBUserDefault.nickName == nil) {
+    if ( _imagePath == nil || (BBUserDefault.birthDay == nil && [BBUserDefault.birthDay isEqualToString:@""] )|| (BBUserDefault.nickName == nil  && [BBUserDefault.nickName isEqualToString:@""])) {
         
         JXTAlertController *alertVC = [JXTAlertController alertControllerWithTitle:nil message:@"请填写完个人信息后再保存" preferredStyle:UIAlertControllerStyleAlert];
        
@@ -273,15 +284,11 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             
         }];
         [alertVC addAction: sure];
-        
         [self presentViewController:alertVC animated:NO completion:^{
-            
         }];
         
-    }else
-    {
+    }else{
         [self getUserInfoUpdate];
- 
     }
 }
 
@@ -302,6 +309,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
                              
                              };
     [SVProgressHUD showWithStatus:@"正在上传..."];
+    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getUserInfoUpdate",zfb_baseUrl] params:param success:^(id response) {
         if ([response[@"resultCode"] intValue] == 0) {
             
@@ -337,7 +345,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         _isSavedNickName =  NO;
 
     }
-    if (BBUserDefault.birthDay == nil) {
+    if (BBUserDefault.birthDay == nil && [BBUserDefault.birthDay isEqualToString:@""]) {
         _isSavedBirthDay = YES;//可编辑状态
     }
     else{

@@ -33,7 +33,7 @@
 
 //关键字
 @dynamic keyWord;
-@dynamic productSkuId;
+ 
 
 @dynamic latitude;
 @dynamic longitude;

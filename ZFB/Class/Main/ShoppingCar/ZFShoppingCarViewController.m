@@ -48,6 +48,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 
 //需要传到确认订单的数组
 @property (nonatomic,strong) NSMutableArray * mutJsonArray;
+@property (nonatomic,strong) NSMutableArray * allJsonArray;
 
 @end
 
@@ -58,6 +59,13 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         _mutJsonArray = [NSMutableArray array];
     }
     return _mutJsonArray;
+}
+-(NSMutableArray *)allJsonArray
+{
+    if (!_allJsonArray) {
+        _allJsonArray = [NSMutableArray array];
+    }
+    return _allJsonArray;
 }
 
 - (void)viewDidLoad {
@@ -630,6 +638,8 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 
     self.allSelectedButton.selected = NO;
     self.totalPriceLabel.text = @"¥0.00元";
+    self.allJsonArray = nil;
+    self.mutJsonArray = nil;
     [self.shopCar_tableview reloadData];
     
 }
@@ -638,41 +648,56 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 #pragma mark - didClickClearingShoppingCar 购物车结算
 -(void)didClickClearingShoppingCar:(UIButton *)sender
 {
-    NSLog(@" 结算");
-    
-#warning  ----- 进入到结算前提是要选择一个商品 暂时没有处理
+    NSLog(@"选择好了 ------- 结算");
     ZFSureOrderViewController * orderVC = [[ZFSureOrderViewController alloc]init];
+    
+
     
     for (Shoppcartlist *list in self.carListArray) {
         
+//        [self.mutJsonArray removeAllObjects];
+        
         for (ShopGoodslist * goods in list.goodsList) {
+
+            NSMutableDictionary * storeDic = [NSMutableDictionary dictionary];
+            NSMutableDictionary * goodDic = [NSMutableDictionary dictionary];
             
-            if (goods.goodslistIsChoosed) {
+            if (goods.goodslistIsChoosed && list.leftShoppcartlistIsChoosed) {
                 
-                NSMutableDictionary * tempDic = [NSMutableDictionary dictionary];
-                NSString * goodsId = [NSString stringWithFormat:@"%ld",goods.goodsId];
+                NSMutableArray * groupArray = [NSMutableArray array];
+                for (ShopGoodsprop * group in goods.goodsProp) {
+
+                    NSDictionary * groupDic = @{@"name": group.name,@"value":group.value};
+                    [groupArray addObject:groupDic];
+                }
                 NSString * storeId = [NSString stringWithFormat:@"%ld",list.storeId];
+                NSString * goodsId = [NSString stringWithFormat:@"%ld",goods.goodsId];
                 NSString * goodsCount = [NSString stringWithFormat:@"%ld",goods.goodsCount];
+
+                [goodDic setValue:storeId forKey:@"storeId"];
+                [goodDic setValue:goodsId forKey:@"goodsId"];
+                [goodDic setValue:goods.goodsName forKey:@"goodsName"];
+                [goodDic setValue:goods.coverImgUrl forKey:@"coverImgUrl"];
+                [goodDic setValue:groupArray forKey:@"goodsProp"];
+                [goodDic setValue:goodsCount forKey:@"goodsCount"];
+                [goodDic setValue:goods.netPurchasePrice forKey:@"purchasePrice"];
+                [goodDic setValue:@"0" forKey:@"concessionalPrice"];
+                [goodDic setValue:@"0" forKey:@"originalPrice"];
+                [goodDic setValue:goods.goodsUnit forKey:@"goodsUnit"];
+                [goodDic setValue:goods.cartItemId forKey:@"cartItemId"];
+                [self.mutJsonArray addObject:goodDic];
                 
-                [tempDic setValue:storeId forKey:@"storeId"];
-                [tempDic setValue:goodsId forKey:@"goodsId"];
-                [tempDic setValue:goods.goodsName forKey:@"goodsName"];
-                [tempDic setValue:goods.coverImgUrl forKey:@"coverImgUrl"];
-                [tempDic setValue:goods.goodsProp forKey:@"goodsProp"];
-                [tempDic setValue:goodsCount forKey:@"goodsCount"];
-                [tempDic setValue:goods.netPurchasePrice forKey:@"purchasePrice"];
-                [tempDic setValue:@"0" forKey:@"concessionalPrice"];
-                [tempDic setValue:@"0" forKey:@"originalPrice"];
-                [tempDic setValue:goods.goodsUnit forKey:@"goodsUnit"];
-                [tempDic setValue:goods.cartItemId forKey:@"cartItemId"];
-                
-                [self.mutJsonArray addObject:tempDic];
-                
+                [storeDic setValue:self.mutJsonArray forKey:@"goodsList"];
+                [storeDic setValue:list.storeName forKey:@"storeName"];
+                [storeDic setValue:[NSString stringWithFormat:@"%ld",list.storeId ]forKey:@"storeId"];
+                [self.allJsonArray addObject:storeDic];
             }
         }
     }
-    NSLog(@"我最后选中的数组 %@",self.mutJsonArray);
     
+ 
+    NSLog(@"我最后选中的数组 %@",self.allJsonArray );
+
     if (![self isEmptyArray:self.mutJsonArray])
     {
         //便利出所有的 cartItemId , 隔开
@@ -681,8 +706,8 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             [cartArray addObject:dict[@"cartItemId"]];
         }
         orderVC.cartItemId = [cartArray componentsJoinedByString:@","];
-        orderVC.userGoodsInfoJSON =  self.mutJsonArray;
-        [self.navigationController pushViewController:orderVC animated:YES];
+        orderVC.userGoodsInfoJSON =  self.allJsonArray;
+//        [self.navigationController pushViewController:orderVC animated:YES];
         
     }
     else{

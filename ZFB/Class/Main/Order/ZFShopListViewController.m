@@ -9,14 +9,13 @@
 #import "ZFShopListViewController.h"
 #import "ZFShopListCell.h"
 #import "ShopOrderStoreNameCell.h"
-#import "ClearingStoreList.h"
 
 @interface ZFShopListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong) UITableView    * mytableView;
-@property (nonatomic,strong) NSMutableArray * goodsListArray;///商品列表
-@property (nonatomic,strong) NSMutableArray * goodsPropArray;///商品规格
-@property (nonatomic,strong) NSMutableArray * productlistArray;///门店商品
+@property (nonatomic,strong) UITableView  * mytableView;
+@property (nonatomic,strong) NSMutableArray  * goodsArray;
+@property (nonatomic,strong) NSMutableArray  * storeArray;
+
 
 
 @end
@@ -29,8 +28,22 @@
     
     self.title =@"商家清单";
     
+ 
+
+ //    [self goodslistDetailPostRequst];
     
-    self.mytableView            = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64) style:UITableViewStyleGrouped];
+     [self tableViewInterFaceView];
+
+}
+-(void)setStoreListArray:(NSMutableArray *)storeListArray{
+    
+    _storeListArray = storeListArray;
+    
+}
+-(void)tableViewInterFaceView
+{
+    
+    self.mytableView            = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64) style:UITableViewStylePlain];
     self.mytableView.delegate   = self;
     self.mytableView.dataSource = self;
     [self.view addSubview:self.mytableView];
@@ -41,30 +54,20 @@
     [self.mytableView registerNib:[UINib nibWithNibName:@"ShopOrderStoreNameCell" bundle:nil]
            forCellReuseIdentifier:@"ShopOrderStoreNameCellid"];
     
-    _goodsListArray =[NSMutableArray array];
-
-//    [self goodslistDetailPostRequst];
-    
 }
-
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.productlistArray.count;
+ 
+    return self.storeArray.count;
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    Productlist * product = self.productlistArray[section];
- 
-    NSLog(@"product.cmGoodsList == ==== %@",  product.cmGoodsList);
-   return  product.cmGoodsList.count;
-    
+    return self.goodsArray.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    return 118;
+    return 135;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -72,46 +75,30 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-
     ShopOrderStoreNameCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopOrderStoreNameCellid"];
-    
-    if (self.productlistArray.count > 0) {
+    for (NSDictionary * storedic in self.storeArray) {
         
-        Productlist * list = self.productlistArray[section];
-        cell.lb_storeName.text = list.storeName;
-    }
+        cell.lb_storeName.text =  [storedic objectForKey:@"storeName"];
 
+    }
     return cell;
     
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+ 
     ZFShopListCell * listCell = [self.mytableView dequeueReusableCellWithIdentifier:@"ZFShopListCellid" forIndexPath:indexPath];
-    
-    if (self.productlistArray.count > 0) {
-        Productlist * product = _productlistArray[indexPath.section];
-        Cmmgoodslist * goods  = product.cmGoodsList[indexPath.row];
-
-        listCell.lb_title.text = goods.goodsName;
-        listCell.lb_count.text = goods.goodsCount;
-        listCell.lb_price.text = [NSString stringWithFormat:@"¥%@",goods.storePrice];
-        [listCell.img_shopView sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:nil];
+ 
+    for (NSDictionary * goodsDic in self.goodsArray) {
         
-        NSString *str = @"";
-        
-        for (Goodsprop * sku in goods.goodsProp) {
-            
-            [self.goodsPropArray addObject:sku];
-            NSLog(@"%@ --:--%@",sku.name ,sku.value);
-            NSString * goodstr = [NSString stringWithFormat:@"%@:%@ ",sku.name,sku.value];
-            str = [str stringByAppendingString:goodstr];
-        }
-        
-        listCell.lb_detailTitle.text = str;
-
+      [listCell.img_shopView sd_setImageWithURL:[NSURL URLWithString:[goodsDic objectForKey:@"coverImgUrl"]] placeholderImage:[UIImage imageNamed:@""]];
+        listCell.lb_count.text = [NSString stringWithFormat:@"x%@",[goodsDic objectForKey:@"goodsCount"]];
+        listCell.lb_title.text = [NSString stringWithFormat:@"%@",[goodsDic objectForKey:@"goodsName"]];
+        listCell.lb_detailTitle.text = [NSString stringWithFormat:@"%@",[goodsDic objectForKey:@"goodsProp"]];
+        listCell.lb_price.text = [NSString stringWithFormat:@"¥%@",[goodsDic objectForKey:@"purchasePrice"]];
+        listCell.section = indexPath.section;
     }
-    
+  
     return listCell;
 }
 
@@ -140,10 +127,6 @@
         
     [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         
- 
-        
-    
-        
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
@@ -151,57 +134,35 @@
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-//    [PPNetworkHelper POST:zfb_baseUrl parameters:parma responseCache:^(id responseCache) {
-//        
-//    } success:^(id responseObject) {
-//    
-//         if ([responseObject[@"resultCode"] isEqualToString:@"0"]) {
-//            if (self.productlistArray.count >0) {
-//                
-//                [self.productlistArray removeAllObjects];
-//
-//            }
-//        
-//            NSString  * dataStr    = [responseObject[@"data"] base64DecodedString];
-//            NSDictionary * jsondic = [NSString dictionaryWithJsonString:dataStr];
-//            
-// 
-//             ClearingStoreList * storeList = [ClearingStoreList mj_objectWithKeyValues:jsondic];
-//            
-//             for (Productlist * product in storeList.productList) {
-//                 
-//                 [self.productlistArray addObject:product];
-// 
-//             }
-//     
-//             NSLog(@"%@ ==== productlistArray", self.productlistArray);
-//             [self.mytableView reloadData];
-//            
-//        }
-//        
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
-//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-//        
-//    }];
+
 }
 
-
--(NSMutableArray *)goodsPropArray
+-(void)viewWillAppear:(BOOL)animated
 {
-    if (!_goodsPropArray) {
-        _goodsPropArray =[NSMutableArray array];
+    for (NSDictionary * storeDic in  self.storeListArray) {
         
+        [self.storeArray addObject: storeDic];
+        
+        for (NSDictionary * goodsDic  in storeDic[@"goodsList"]) {
+            
+            [self.goodsArray addObject:goodsDic];
+        }
     }
-    return _goodsPropArray;
+    
+    [self.mytableView reloadData];
 }
--(NSMutableArray *)productlistArray
+-(NSMutableArray *)goodsArray
 {
-    if (!_productlistArray) {
-        _productlistArray =[NSMutableArray array];
-        
+    if (!_goodsArray) {
+        _goodsArray =[NSMutableArray array];
     }
-    return _productlistArray;
+    return _goodsArray;
 }
-
+-(NSMutableArray *)storeArray
+{
+    if (!_storeArray) {
+        _storeArray =[NSMutableArray array];
+    }
+    return _storeArray;
+}
 @end

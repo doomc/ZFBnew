@@ -44,7 +44,7 @@
 
 //售后申请记录下当前输入的关键字
 @property (nonatomic,copy) NSString * keyWord;
-@property (nonatomic,copy) NSString * productSkuId;
+ 
 
 
 @property (nonatomic) BOOL boolValue;

@@ -154,7 +154,6 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 @property (nonatomic, copy) NSString *name;///尺寸：颜色：类型
 
 
-
 @end
 
 @interface Valuelist : NSObject

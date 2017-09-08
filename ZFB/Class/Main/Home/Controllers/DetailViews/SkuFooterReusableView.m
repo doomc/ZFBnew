@@ -24,8 +24,8 @@
  */
 - (IBAction)addAction:(id)sender {
  
-    
-    num  = num + 1 ;
+
+    num ++ ;
     
     _lb_count.text = [NSString stringWithFormat:@"%ld",(long)num];
     [self.countDelegate addCount:num];
@@ -43,7 +43,7 @@
         
     }else{
         
-        num  = num -1;
+        num --;
     }
     _lb_count.text = [NSString stringWithFormat:@"%ld",(long)num];
     

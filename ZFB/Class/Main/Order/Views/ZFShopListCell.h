@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+ 
 
 @interface ZFShopListCell : UITableViewCell
 
@@ -21,6 +22,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_count;
 
 @property (weak, nonatomic) IBOutlet UITextField *tf_message;
+
+@property (weak, nonatomic) IBOutlet UIView *backGroundView;
+
+@property (assign, nonatomic) NSInteger  section;
 
 
 @end

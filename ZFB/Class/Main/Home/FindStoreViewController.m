@@ -362,10 +362,10 @@ static NSString *CellIdentifier = @"FindStoreCellid";
             }
             [self.home_tableView reloadData];
             
-            if (self.storeListArr.count == 0 || self.storeListArr == nil) {
-                
-                [self.home_tableView cyl_reloadData];
-            }
+//            if (self.storeListArr.count == 0 || self.storeListArr == nil) {
+//                
+//                [self.home_tableView cyl_reloadData];
+//            }
 
         }
 

@@ -71,7 +71,6 @@
 		49555E981F1E0092002E5688 /* EditAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49555E5E1F1E0092002E5688 /* EditAddressViewController.xib */; };
 		49555E991F1E0092002E5688 /* AddressCommitOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E611F1E0092002E5688 /* AddressCommitOrderModel.m */; };
 		49555E9A1F1E0092002E5688 /* AddressListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E631F1E0092002E5688 /* AddressListModel.m */; };
-		49555E9B1F1E0092002E5688 /* ClearingStoreList.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E651F1E0092002E5688 /* ClearingStoreList.m */; };
 		49555E9F1F1E0092002E5688 /* GoodsitemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E701F1E0092002E5688 /* GoodsitemCell.m */; };
 		49555EA01F1E0092002E5688 /* GoodsitemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49555E711F1E0092002E5688 /* GoodsitemCell.xib */; };
 		49555EA11F1E0092002E5688 /* OrderPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49555E731F1E0092002E5688 /* OrderPriceCell.m */; };
@@ -1179,8 +1178,6 @@
 		49555E611F1E0092002E5688 /* AddressCommitOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCommitOrderModel.m; sourceTree = "<group>"; };
 		49555E621F1E0092002E5688 /* AddressListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListModel.h; sourceTree = "<group>"; };
 		49555E631F1E0092002E5688 /* AddressListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListModel.m; sourceTree = "<group>"; };
-		49555E641F1E0092002E5688 /* ClearingStoreList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearingStoreList.h; sourceTree = "<group>"; };
-		49555E651F1E0092002E5688 /* ClearingStoreList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearingStoreList.m; sourceTree = "<group>"; };
 		49555E6F1F1E0092002E5688 /* GoodsitemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsitemCell.h; sourceTree = "<group>"; };
 		49555E701F1E0092002E5688 /* GoodsitemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsitemCell.m; sourceTree = "<group>"; };
 		49555E711F1E0092002E5688 /* GoodsitemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsitemCell.xib; sourceTree = "<group>"; };
@@ -3080,8 +3077,6 @@
 				49555E611F1E0092002E5688 /* AddressCommitOrderModel.m */,
 				49555E621F1E0092002E5688 /* AddressListModel.h */,
 				49555E631F1E0092002E5688 /* AddressListModel.m */,
-				49555E641F1E0092002E5688 /* ClearingStoreList.h */,
-				49555E651F1E0092002E5688 /* ClearingStoreList.m */,
 				4926DF061F1F4AA400E9060B /* JsonModel.h */,
 				4926DF071F1F4AA400E9060B /* JsonModel.m */,
 				492718A71F1F767D002A7A54 /* SureOrderModel.h */,
@@ -7600,7 +7595,6 @@
 				495EA7941F14B64D001FCB7E /* ZFAllStoreViewController.m in Sources */,
 				4968A2911F4DB5080061A87E /* NIMGroupedData.m in Sources */,
 				49183EB21F5954D900879E42 /* WeChatStylePlaceHolder.m in Sources */,
-				49555E9B1F1E0092002E5688 /* ClearingStoreList.m in Sources */,
 				503C7C801F40B56F009C0512 /* NSBundle+HXWeiboPhotoPicker.m in Sources */,
 				503C7C7B1F40B56F009C0512 /* HXPresentTransition.m in Sources */,
 				495EA7AE1F14B64D001FCB7E /* HotCollectionViewCell.m in Sources */,
