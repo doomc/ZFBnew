@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		149EBBB71F6523E000BA3FA7 /* DealSucessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 149EBBB51F6523E000BA3FA7 /* DealSucessCell.m */; };
+		149EBBB81F6523E000BA3FA7 /* DealSucessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 149EBBB61F6523E000BA3FA7 /* DealSucessCell.xib */; };
 		287E1D51FE976BE2DCE0A71B /* libPods-ZFB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2E471759A11D3682520CF1E /* libPods-ZFB.a */; };
 		49183EA31F5941CD00879E42 /* nodataPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 49183EA11F5941CD00879E42 /* nodataPlaceholder.png */; };
 		49183EB21F5954D900879E42 /* WeChatStylePlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 49183EAE1F5954D900879E42 /* WeChatStylePlaceHolder.m */; };
@@ -1071,6 +1073,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		149EBBB41F6523E000BA3FA7 /* DealSucessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealSucessCell.h; sourceTree = "<group>"; };
+		149EBBB51F6523E000BA3FA7 /* DealSucessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealSucessCell.m; sourceTree = "<group>"; };
+		149EBBB61F6523E000BA3FA7 /* DealSucessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DealSucessCell.xib; sourceTree = "<group>"; };
 		3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.debug.xcconfig"; sourceTree = "<group>"; };
 		49183EA11F5941CD00879E42 /* nodataPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nodataPlaceholder.png; sourceTree = "<group>"; };
 		49183EAD1F5954D900879E42 /* WeChatStylePlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChatStylePlaceHolder.h; sourceTree = "<group>"; };
@@ -4232,6 +4237,9 @@
 				499659D61F4AF45E00B297C4 /* FeedCommitPhoneCell.h */,
 				499659D71F4AF45E00B297C4 /* FeedCommitPhoneCell.m */,
 				499659D81F4AF45E00B297C4 /* FeedCommitPhoneCell.xib */,
+				149EBBB41F6523E000BA3FA7 /* DealSucessCell.h */,
+				149EBBB51F6523E000BA3FA7 /* DealSucessCell.m */,
+				149EBBB61F6523E000BA3FA7 /* DealSucessCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -7045,6 +7053,7 @@
 				495EA92B1F14B64E001FCB7E /* love@3x.png in Resources */,
 				495EA9261F14B64E001FCB7E /* fire@2x.png in Resources */,
 				495EA90C1F14B64E001FCB7E /* unCollected@2x.png in Resources */,
+				149EBBB81F6523E000BA3FA7 /* DealSucessCell.xib in Resources */,
 				495EA9311F14B64E001FCB7E /* washer@3x.png in Resources */,
 				495EA9131F14B64E001FCB7E /* location_find@3x.png in Resources */,
 				495EA90D1F14B64E001FCB7E /* unCollected@3x.png in Resources */,
@@ -7454,6 +7463,7 @@
 				4968A3FF1F4DB5290061A87E /* UIActionSheet+NTESBlock.m in Sources */,
 				495EA7881F14B64D001FCB7E /* ZFDetailStoreCell.m in Sources */,
 				495EA74A1F14B64D001FCB7E /* dateTimeHelper.m in Sources */,
+				149EBBB71F6523E000BA3FA7 /* DealSucessCell.m in Sources */,
 				4968A4381F4DB5290061A87E /* NTESSessionLocalHistoryViewController.m in Sources */,
 				50D4D67F1F1BB94D0073DBC1 /* QBAssetsCollectionFooterView.m in Sources */,
 				495EA7991F14B64D001FCB7E /* HP_LocationViewController.m in Sources */,

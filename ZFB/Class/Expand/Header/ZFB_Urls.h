@@ -22,12 +22,14 @@
 #pragma mark ------------- OSSUrl 阿里云图片服务器-------------
 #define  aliOSS_baseUrl @"http://zavfb.oss-cn-shenzhen.aliyuncs.com/"
 
-//#pragma mark ------------- 正式服务器--------------------
-//#define  zfb_baseUrl @"http://14.29.47.144:8087/zfb/InterfaceServlet"
-////单聊
-//#define  IMsingle_baseUrl @"http://14.29.47.144:8087/im/user"
-////群聊
-//#define  IMGroup_baseUrl @"http://14.29.47.144:8087/group"
+
+#pragma mark ------------- 正式服务器--------------------
+//基类
+#define  zfb_baseUrl @"http://14.29.47.144:8087/zfb/InterfaceServlet"
+//单聊
+#define  IMsingle_baseUrl @"http://14.29.47.144:8087/im/user"
+//群聊
+#define  IMGroup_baseUrl @"http://14.29.47.144:8087/group"
 
 
 #pragma mark ------------- CQD测试服务器数--------------------
@@ -48,12 +50,12 @@
 
 
 #pragma mark ------------- 测试服务器数--------------------
-//baseURL
-#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
-//单聊
-#define  IMsingle_baseUrl @"http://192.168.1.113:8087/im/user"
-//群聊
-#define  IMGroup_baseUrl @"http://192.168.1.113:8087/group"
+////baseURL
+//#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
+////单聊
+//#define  IMsingle_baseUrl @"http://192.168.1.113:8087/im/user"
+////群聊
+//#define  IMGroup_baseUrl @"http://192.168.1.113:8087/group"
 
 
 #pragma mark -------------支付服务 -------------------

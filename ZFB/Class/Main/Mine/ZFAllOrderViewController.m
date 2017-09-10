@@ -14,6 +14,8 @@
 #import "ZFSendingCell.h"
 #import "ZFFooterCell.h"
 #import "ZFTitleCell.h"
+#import "DealSucessCell.h"//交易完成cell
+
 //view
 #import "ZFpopView.h"//选择类型弹框
 #import "ZFSaleAfterTopView.h"//选择售后类型
@@ -42,10 +44,11 @@ static  NSString * saleAfterHeadCellid =@"ZFSaleAfterHeadCellid";//头id
 static  NSString * saleAfterContentCellid =@"saleAfterContentCellid";//内容id
 static  NSString * saleAfterSearchCellid =@"ZFSaleAfterSearchCellid";//搜索cell
 static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度查询
+static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 
 
 
-@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
+@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate,DealSucessCellDelegate>
 
 
 @property (nonatomic ,strong) UIView *  titleView ;
@@ -235,6 +238,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
              forCellReuseIdentifier:saleAfterSearchCellid];
     [self.zfb_tableView registerNib:[UINib nibWithNibName:@"ZFCheckTheProgressCell" bundle:nil]
              forCellReuseIdentifier:saleAfterProgressCellid];
+    
+    [self.zfb_tableView registerNib:[UINib nibWithNibName:@"DealSucessCell" bundle:nil] forCellReuseIdentifier:dealSucessCellid];
     
     [self.view addSubview:self.zfb_tableView];
 
@@ -771,7 +776,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
             cell.section          = section;
             
             [cell.cancel_button setHidden:YES];
-            [cell.payfor_button setTitle:@"晒单" forState:UIControlStateNormal];
+            [cell.payfor_button setHidden: YES];
+//            [cell.payfor_button setTitle:@"晒单" forState:UIControlStateNormal];
             view = cell;
             
         }
@@ -967,20 +973,19 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
         case OrderTypeDealSuccess:
         {
             
-            ZFSendingCell * sendCell = [self.zfb_tableView
-                                        dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
-            sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            DealSucessCell * successCell = [self.zfb_tableView
+                                        dequeueReusableCellWithIdentifier:dealSucessCellid forIndexPath:indexPath];
             
             Orderlist * list           = self.orderListArray[indexPath.section];
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {
-                
                 [goodArray addObject:ordergoods];
             }
             Ordergoods * goods = goodArray[indexPath.row];
-            
-            sendCell.goods = goods;
-            return sendCell;
+            successCell.indexRow = indexPath.row;
+            successCell.orderGoods = goods;
+            successCell.delegate = self;
+            return successCell;
         }
             break;
             
@@ -1533,6 +1538,18 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
+}
+#pragma mark - DealSucessCellDelegate 晒单代理
+/**
+ 晒单代理
+ @param indexForRow 当前下标
+ @param orderId 订单id
+ */
+-(void)shareOrderWithIndex:(NSInteger)indexForRow AndOrderId:(NSString *)orderId
+{
+    //去晒单
+    ZFEvaluateGoodsViewController * vc = [ZFEvaluateGoodsViewController new];
+    [self.navigationController pushViewController:vc animated:NO];
 }
 #pragma mark - ZFFooterCellDelegate footer代理
 -(void)allOrdersActionOfindexPath:(NSInteger)indexPath

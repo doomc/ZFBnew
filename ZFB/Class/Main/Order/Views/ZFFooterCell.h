@@ -20,7 +20,7 @@
                         payStatus :(NSString *)payStatus
                        deliveryId :(NSString *)deliveryId
                         indexPath :(NSInteger )indexPath;
-///派单 ----- 右边
+///派单 ----- 右边//全部订单的晒单
 -(void)sendOrdersActionOrderId:(NSString*)orderId
                     totalPrice:(NSString *)totalPrice
                     indexPath :(NSInteger)indexPath;

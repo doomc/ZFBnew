@@ -4,7 +4,7 @@
 //
 //  Created by  展富宝  on 2017/8/10.
 //  Copyright © 2017年 com.zfb. All rights reserved.
-//
+//  新评价晒单（单个商品）
 
 
 #import "ZFEvaluateGoodsViewController.h"
@@ -51,11 +51,8 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
     if (section == 0) {
-    
         return 2;
-    
     }
-    
     return 1;
 
 }
