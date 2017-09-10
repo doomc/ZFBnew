@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -26,8 +26,32 @@
                             <constraint firstAttribute="width" constant="60" id="vdk-tm-qAH"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xDx-Pc-wnr">
-                        <rect key="frame" x="228" y="52" width="82" height="28"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥ 88.00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xW-0D-Lyi">
+                        <rect key="frame" x="85" y="52" width="51" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="kSd-lJ-ymL"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="深林西浅色碎花连衣裙深林西浅色碎花连衣裙" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTF-if-pLq">
+                        <rect key="frame" x="85" y="12" width="220" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="wzg-3G-DM7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idI-Tk-QdZ">
+                        <rect key="frame" x="156" y="53.5" width="14" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xDx-Pc-wnr">
+                        <rect key="frame" x="228" y="49" width="82" height="28"/>
                         <color key="backgroundColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="82" id="8xY-Wc-5uE"/>
@@ -41,48 +65,24 @@
                             <action selector="shareOrderAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MHV-hZ-liS"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥ 88.00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xW-0D-Lyi">
-                        <rect key="frame" x="85" y="52" width="51" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="kSd-lJ-ymL"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNA-8h-50K">
-                        <rect key="frame" x="296" y="18" width="14" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="深林西浅色碎花连衣裙深林西浅色碎花连衣裙" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTF-if-pLq">
-                        <rect key="frame" x="85" y="12" width="165" height="29"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="165" id="0tp-uX-ZDX"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="MFv-M9-aQp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="03q-71-uma"/>
                     <constraint firstItem="pTF-if-pLq" firstAttribute="top" secondItem="MFv-M9-aQp" secondAttribute="top" id="49E-CF-8Qn"/>
                     <constraint firstAttribute="trailing" secondItem="xDx-Pc-wnr" secondAttribute="trailing" constant="10" id="4lc-Bm-GU1"/>
                     <constraint firstItem="5xW-0D-Lyi" firstAttribute="bottom" secondItem="MFv-M9-aQp" secondAttribute="bottom" id="JOs-rA-gYP"/>
+                    <constraint firstItem="idI-Tk-QdZ" firstAttribute="leading" secondItem="5xW-0D-Lyi" secondAttribute="trailing" constant="20" id="JwS-wq-7w3"/>
                     <constraint firstItem="pTF-if-pLq" firstAttribute="leading" secondItem="MFv-M9-aQp" secondAttribute="trailing" constant="10" id="NVt-vN-Xhw"/>
                     <constraint firstItem="5xW-0D-Lyi" firstAttribute="leading" secondItem="pTF-if-pLq" secondAttribute="leading" id="TWV-pG-q5T"/>
                     <constraint firstItem="MFv-M9-aQp" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ajX-53-kNx"/>
-                    <constraint firstItem="xDx-Pc-wnr" firstAttribute="top" secondItem="pTF-if-pLq" secondAttribute="bottom" constant="10" id="jKz-WH-Zmv"/>
-                    <constraint firstAttribute="trailing" secondItem="FNA-8h-50K" secondAttribute="trailing" constant="10" id="mW4-0F-Ley"/>
-                    <constraint firstItem="FNA-8h-50K" firstAttribute="centerY" secondItem="pTF-if-pLq" secondAttribute="centerY" id="sKT-pc-ksi"/>
+                    <constraint firstAttribute="bottom" secondItem="xDx-Pc-wnr" secondAttribute="bottom" constant="6.5" id="fTH-wa-hiN"/>
+                    <constraint firstItem="idI-Tk-QdZ" firstAttribute="centerY" secondItem="5xW-0D-Lyi" secondAttribute="centerY" id="hZs-3Z-6fn"/>
+                    <constraint firstAttribute="trailing" secondItem="pTF-if-pLq" secondAttribute="trailing" constant="15" id="v9T-aO-fdE"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="btn_shareOrder" destination="xDx-Pc-wnr" id="7sX-zj-hCi"/>
                 <outlet property="dealImageView" destination="MFv-M9-aQp" id="NME-Ln-tfN"/>
-                <outlet property="lb_goodsCount" destination="FNA-8h-50K" id="jIm-aT-bqq"/>
                 <outlet property="lb_price" destination="5xW-0D-Lyi" id="WUl-xB-uYx"/>
                 <outlet property="lb_title" destination="pTF-if-pLq" id="G8G-Sl-ZEQ"/>
             </connections>

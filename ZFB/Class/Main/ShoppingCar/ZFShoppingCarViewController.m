@@ -655,14 +655,14 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     
     for (Shoppcartlist *list in self.carListArray) {
         
-//        [self.mutJsonArray removeAllObjects];
+        [self.mutJsonArray removeAllObjects];
         
         for (ShopGoodslist * goods in list.goodsList) {
 
             NSMutableDictionary * storeDic = [NSMutableDictionary dictionary];
             NSMutableDictionary * goodDic = [NSMutableDictionary dictionary];
             
-            if (goods.goodslistIsChoosed && list.leftShoppcartlistIsChoosed) {
+            if (goods.goodslistIsChoosed) {
                 
                 NSMutableArray * groupArray = [NSMutableArray array];
                 for (ShopGoodsprop * group in goods.goodsProp) {

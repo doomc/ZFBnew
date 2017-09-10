@@ -459,25 +459,18 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             break;
         case OrderTypeAfterSale:
             if (self.tagNum == 0) {
-                
                 if (section == 0) {
-                    
                     height = 55;
                     
                 }else{
-                   
                     height = 64;
- 
                 }
-    
             }else{
                 
                 height = 50;
-                
             }
             break;
     }
-    
     return height;
     
 }
@@ -814,32 +807,31 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     switch (_orderType) {
         case OrderTypeAllOrder:
             
-            height = 82;
+            height = 84;
             
             break;
         case OrderTypeWaitPay:
-            height = 82;
+            height = 84;
             
             break;
         case OrderTypeWaitSend:
-            height = 82;
+            height = 84;
             
             break;
         case OrderTypeSending:
-            height = 82;
+            height = 84;
             
             break;
         case OrderTypeSended:
-            height = 82;
+            height = 84;
             
             break;
         case OrderTypeDealSuccess:
-            height = 82;
-            
+            height = 84;
             break;
-        case OrderTypeCancelSuccess:
-            height = 82;
             
+        case OrderTypeCancelSuccess:
+            height = 84;
             break;
         case OrderTypeAfterSale:
             if (self.tagNum == 0) {
@@ -851,15 +843,12 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                     
                     height = 100;
                 }
-                
             }
             else{
                 height = 180;
             }
-            
             break;
     }
-    
     return height;
 }
 
@@ -875,35 +864,28 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
             
             Orderlist * list = self.orderListArray[indexPath.section];
-            
             NSMutableArray * goodArray = [NSMutableArray array];
-            
             for (Ordergoods * ordergoods in list.orderGoods) {
                 
                 [goodArray addObject:ordergoods];
             }
             Ordergoods * goods = goodArray[indexPath.row];
-            
             sendCell.goods = goods;
-            
             return sendCell;
         }
             break;
             
         case OrderTypeWaitPay:
         {
-            
             ZFSendingCell * sendCell = [self.zfb_tableView
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
             
             Orderlist * list           = self.orderListArray[indexPath.section];
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {
-                
                 [goodArray addObject:ordergoods];
             }
             Ordergoods * goods = goodArray[indexPath.row];
-            
             sendCell.goods = goods;
             return sendCell;
         }
@@ -912,11 +894,9 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             
         case OrderTypeWaitSend:
         {
-            
             ZFSendingCell * sendCell = [self.zfb_tableView
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
             sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
             Orderlist * list           = self.orderListArray[indexPath.section];
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {
@@ -924,9 +904,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 [goodArray addObject:ordergoods];
             }
             Ordergoods * goods = goodArray[indexPath.row];
-            
             sendCell.goods = goods;
-            
             return sendCell;
         }
             break;
@@ -937,15 +915,12 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             ZFSendingCell * sendCell = [self.zfb_tableView
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
             sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
             Orderlist * list           = self.orderListArray[indexPath.section];
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {
-                
                 [goodArray addObject:ordergoods];
             }
             Ordergoods * goods = goodArray[indexPath.row];
-            
             sendCell.goods = goods;
             return sendCell;
         }
@@ -953,7 +928,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             
         case OrderTypeSended:
         {
-            
             ZFSendingCell * sendCell = [self.zfb_tableView
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
             sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -965,7 +939,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 [goodArray addObject:ordergoods];
             }
             Ordergoods * goods = goodArray[indexPath.row];
-            
             sendCell.goods = goods;
             return sendCell;
         }
@@ -995,7 +968,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             ZFSendingCell * sendCell = [self.zfb_tableView
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
             sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
             Orderlist * list           = self.orderListArray[indexPath.section];
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {
@@ -1003,7 +975,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 [goodArray addObject:ordergoods];
             }
             Ordergoods * goods = goodArray[indexPath.row];
-            
             sendCell.goods = goods;
             return sendCell;
         }

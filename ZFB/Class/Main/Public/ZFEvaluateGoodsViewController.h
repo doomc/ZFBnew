@@ -10,4 +10,8 @@
 
 @interface ZFEvaluateGoodsViewController : BaseViewController
 
+/**
+ 可能会用到OrderID 没有接口暂时
+ */
+@property (nonatomic , copy) NSString * orderId;
 @end

@@ -50,9 +50,6 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
-    if (section == 0) {
-        return 2;
-    }
     return 1;
 
 }
@@ -96,8 +93,8 @@
 {
     
 }
-#pragma mark - ZFServiceEvaluteCellDelegate
 
+#pragma mark - ZFServiceEvaluteCellDelegate
 //提交
 -(void)didClickCommit
 {

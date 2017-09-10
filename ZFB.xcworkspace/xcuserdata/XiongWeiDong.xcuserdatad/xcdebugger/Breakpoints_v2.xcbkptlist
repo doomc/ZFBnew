@@ -162,11 +162,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/ZFAllOrderViewController.m"
-            timestampString = "525019007.469941"
+            timestampString = "526730168.001511"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1359"
-            endingLineNumber = "1359"
+            startingLineNumber = "1330"
+            endingLineNumber = "1330"
             landmarkName = "-cancleOrderPostWithOrderNum:orderStatus:"
             landmarkType = "7">
          </BreakpointContent>
@@ -216,6 +216,22 @@
             startingLineNumber = "212"
             endingLineNumber = "212"
             landmarkName = "-scrollToTopOfSection:animated:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/ShoppingCar/ZFShoppingCarViewController.m"
+            timestampString = "526744564.800986"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "699"
+            endingLineNumber = "699"
+            landmarkName = "-didClickClearingShoppingCar:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

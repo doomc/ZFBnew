@@ -1002,27 +1002,21 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
 //判断规格是否全部选取
 -(BOOL)isSKuAllSelect {
     
-    BOOL isAllSelect = NO;
-    
+    NSInteger selectCount = 0;
     for (Productattribute *attribute in self.productSkuArray) {
         
         for (Valuelist *value in attribute.valueList) {
-            for (SkuValulist *skuValue in self.skuValueListArray) {
-                if (skuValue.valueId == value.valueId) {  //找到当前规格
-                    if (!(value.selectType == ValueSelectType_selected)) {  //如果当前选中就还是选中
-                        value.selectType = ValueSelectType_normal;
-                    }else{
-                        
-                        isAllSelect = YES;
-                        break;
-
-                    }
-                }
+            
+            if (value.selectType == ValueSelectType_selected) {
+                selectCount++;
             }
-    
         }
     }
-    return isAllSelect;
+    if (selectCount == self.productSkuArray.count) {
+        return YES;
+    }else {
+        return NO;
+    }
 }
 
 
