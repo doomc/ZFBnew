@@ -17,7 +17,7 @@
 #import "MJRefresh.h"
 //高德api
 #import <AMapLocationKit/AMapLocationKit.h>
-
+#import "CLLocation+MPLocation.h"
 @interface HP_LocationViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,AMapLocationManagerDelegate,AMapSearchDelegate>
 {
     NSIndexPath *  _selectedIndexPath;
@@ -247,7 +247,7 @@
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode
 {
     // 赋值给全局变量
-    _currentLocation = location;
+    _currentLocation = location = [_currentLocation locationMarsFromEarth];
 
     NSLog(@" lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
     

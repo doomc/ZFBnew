@@ -580,13 +580,9 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 -(void)deleteShoppingCarPostRequst
 {
     NSDictionary * parma = @{
-                             
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"cartItemId":_cartItemId,
-                             
                              };
-    
-    
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/delShoppingCart"] params:parma success:^(id response) {
         
         
@@ -648,56 +644,46 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 #pragma mark - didClickClearingShoppingCar 购物车结算
 -(void)didClickClearingShoppingCar:(UIButton *)sender
 {
-    NSLog(@"选择好了 ------- 结算");
-    ZFSureOrderViewController * orderVC = [[ZFSureOrderViewController alloc]init];
-    
+    [self.allJsonArray removeAllObjects];
 
-    
+    ZFSureOrderViewController * orderVC = [[ZFSureOrderViewController alloc]init];
+
     for (Shoppcartlist *list in self.carListArray) {
-        
-        [self.mutJsonArray removeAllObjects];
+//        NSMutableDictionary * storeDic = [NSMutableDictionary dictionary];
+//        [storeDic setValue:self.mutJsonArray forKey:@"goodsList"];
+//        [storeDic setValue:list.storeName forKey:@"storeName"];
+//        [storeDic setValue:[NSString stringWithFormat:@"%ld",list.storeId ]forKey:@"storeId"];
+//        [self.allJsonArray addObject:storeDic];
         
         for (ShopGoodslist * goods in list.goodsList) {
-
-            NSMutableDictionary * storeDic = [NSMutableDictionary dictionary];
-            NSMutableDictionary * goodDic = [NSMutableDictionary dictionary];
             
+            NSMutableDictionary * goodDic = [NSMutableDictionary dictionary];
             if (goods.goodslistIsChoosed) {
-                
-                NSMutableArray * groupArray = [NSMutableArray array];
-                for (ShopGoodsprop * group in goods.goodsProp) {
-
-                    NSDictionary * groupDic = @{@"name": group.name,@"value":group.value};
-                    [groupArray addObject:groupDic];
-                }
+  
                 NSString * storeId = [NSString stringWithFormat:@"%ld",list.storeId];
                 NSString * goodsId = [NSString stringWithFormat:@"%ld",goods.goodsId];
                 NSString * goodsCount = [NSString stringWithFormat:@"%ld",goods.goodsCount];
-
+                
                 [goodDic setValue:storeId forKey:@"storeId"];
                 [goodDic setValue:goodsId forKey:@"goodsId"];
                 [goodDic setValue:goods.goodsName forKey:@"goodsName"];
                 [goodDic setValue:goods.coverImgUrl forKey:@"coverImgUrl"];
-                [goodDic setValue:groupArray forKey:@"goodsProp"];
+                [goodDic setValue:goods.productId forKey:@"productId"];
                 [goodDic setValue:goodsCount forKey:@"goodsCount"];
                 [goodDic setValue:goods.netPurchasePrice forKey:@"purchasePrice"];
-                [goodDic setValue:@"0" forKey:@"concessionalPrice"];
-                [goodDic setValue:@"0" forKey:@"originalPrice"];
-                [goodDic setValue:goods.goodsUnit forKey:@"goodsUnit"];
+                //                [goodDic setValue:@"0" forKey:@"concessionalPrice"];
+                //                [goodDic setValue:@"0" forKey:@"originalPrice"];
+                //                [goodDic setValue:goods.goodsUnit forKey:@"goodsUnit"];
                 [goodDic setValue:goods.cartItemId forKey:@"cartItemId"];
-                [self.mutJsonArray addObject:goodDic];
                 
-                [storeDic setValue:self.mutJsonArray forKey:@"goodsList"];
-                [storeDic setValue:list.storeName forKey:@"storeName"];
-                [storeDic setValue:[NSString stringWithFormat:@"%ld",list.storeId ]forKey:@"storeId"];
-                [self.allJsonArray addObject:storeDic];
             }
+            [self.mutJsonArray addObject:goodDic];
         }
-    }
-    
- 
-    NSLog(@"我最后选中的数组 %@",self.allJsonArray );
 
+    }
+ 
+    NSLog(@"我最后选中的数组222 %@",self.mutJsonArray );
+    
     if (![self isEmptyArray:self.mutJsonArray])
     {
         //便利出所有的 cartItemId , 隔开

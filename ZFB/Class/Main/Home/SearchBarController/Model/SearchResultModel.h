@@ -28,6 +28,9 @@
 
 @interface ResultFindgoodslist : NSObject
 
+@property (nonatomic, copy) NSString *priceTostr;
+
+
 @property (nonatomic, copy) NSString *goodsTypeName;
 
 @property (nonatomic, copy) NSString *goodsCode;

@@ -15,7 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *zan_Image;
 
 @property (weak, nonatomic) IBOutlet UIImageView *loca_img;
-
 /** 视图URL */
 @property (weak, nonatomic) IBOutlet UIImageView *guess_listView;
 /** 商品名字 */
@@ -24,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 /** 门店名称 */
 @property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
-
 //距离
 @property (weak, nonatomic) IBOutlet UILabel *lb_distence;
 //收藏个数

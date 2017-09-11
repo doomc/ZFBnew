@@ -61,6 +61,7 @@
 
 @property (nonatomic, copy) NSString *consessionalPrice;
 
+@property (nonatomic, copy) NSString *productId;
 
 @end
 

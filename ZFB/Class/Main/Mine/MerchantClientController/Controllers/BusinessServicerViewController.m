@@ -31,7 +31,7 @@
 
 //获取经纬度
 #import <CoreLocation/CoreLocation.h>
-
+#import "CLLocation+MPLocation.h"
 @interface BusinessServicerViewController ()<ZFFooterCellDelegate, BusinessServicPopViewDelegate,UITableViewDelegate,UITableViewDataSource,ZFSendHomeListCellDelegate,BusinessSendOrderViewDelegate,CLLocationManagerDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
 
 {
@@ -1530,6 +1530,7 @@
     //旧址
     CLLocation *currentLocation = [locations lastObject];
     //打印当前的经度与纬度
+    currentLocation  = [currentLocation locationMarsFromEarth];
     NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
     latitudestr  = [NSString stringWithFormat:@"%.6f",currentLocation.coordinate.latitude];
     longitudestr = [NSString stringWithFormat:@"%.6f",currentLocation.coordinate.longitude];

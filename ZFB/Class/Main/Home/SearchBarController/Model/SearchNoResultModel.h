@@ -27,6 +27,8 @@
 
 @interface SearchFindgoodslist : NSObject
 
+@property (nonatomic, copy) NSString *priceTostr;
+
 @property (nonatomic, copy) NSString *goodsType;
 
 @property (nonatomic, copy) NSString *offlineDate;

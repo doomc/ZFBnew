@@ -19,5 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *img_arrow;
 
 //无数据背景图
-@property (weak, nonatomic) IBOutlet UIImageView *image_noData;
+ 
+@property (weak, nonatomic) IBOutlet UIView *nodataView;
 @end

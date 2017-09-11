@@ -29,7 +29,7 @@
     [self.guess_listView sd_setImageWithURL:img_url placeholderImage:nil];
     
     self.lb_goodsName.text = resultgGoodslist.goodsName;
-    self.lb_price.text = [NSString stringWithFormat:@"¥%@",resultgGoodslist.netPurchasePrice];
+    self.lb_price.text = [NSString stringWithFormat:@"¥%@",resultgGoodslist.priceTostr];
     self.lb_storeName.text = resultgGoodslist.storeName;
 
 }
@@ -42,7 +42,7 @@
     [self.guess_listView sd_setImageWithURL:img_url placeholderImage:nil];
     
     self.lb_goodsName.text = sgoodlist.goodsName;
-    self.lb_price.text = [NSString stringWithFormat:@"¥%@",sgoodlist.netPurchasePrice];
+    self.lb_price.text = [NSString stringWithFormat:@"¥%@",sgoodlist.priceTostr];
     self.lb_storeName.text = sgoodlist.storeName;
 
 }

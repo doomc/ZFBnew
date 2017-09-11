@@ -207,9 +207,9 @@
 //点击item方法
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    DetailFindGoodsViewController * detailGoodVC = [[DetailFindGoodsViewController alloc]init];
     
     if (self.storeListArray.count > 0) {
+        DetailFindGoodsViewController * detailGoodVC = [[DetailFindGoodsViewController alloc]init];
 
         DetailCmgoodslist * goodlist = self.storeListArray[indexPath.item];
         detailGoodVC.goodsId = [NSString  stringWithFormat:@"%ld",goodlist.goodsId] ;

@@ -75,12 +75,11 @@
     [self.mytableView registerNib:[UINib nibWithNibName:@"OrderWithAddressCell" bundle:nil] forCellReuseIdentifier:@"OrderWithAddressCellid"];
     [self.mytableView registerNib:[UINib nibWithNibName:@"OrderPriceCell" bundle:nil] forCellReuseIdentifier:@"OrderPriceCellid"];
     
+    [self creatCustomfooterView];
+
     ///网络请求
     [self addresslistPostRequst];//收货地址
-    
-    [self creatCustomfooterView];
-    
-    [self getPayAccessTokenUrl];
+    [self getPayAccessTokenUrl]; //支付获取token
     
     NSLog(@"userGoodsInfoJSON === %@",_userGoodsInfoJSON);
     
@@ -96,7 +95,7 @@
  */
 -(void)userGoodsInfoJSONanalysis
 {
-    NSLog(@"%@",_userGoodsInfoJSON);
+
     NSMutableDictionary * storeDic     = [NSMutableDictionary dictionary];
     NSMutableDictionary * storeAttachListDic = [NSMutableDictionary dictionary];
     
@@ -117,7 +116,8 @@
  
             [mutGoodsDic setValue:[goodsDic objectForKey:@"goodsId"] forKey:@"goodsId"];
             [mutGoodsDic setValue:[goodsDic objectForKey:@"goodsCount"] forKey:@"goodsCount"];
- 
+            [mutGoodsDic setValue:[goodsDic objectForKey:@"productId"] forKey:@"productId"];
+  
             [self.goodsListArray addObject:mutGoodsDic];
             NSLog(@"goodsListArray = %@",self.goodsListArray);
         }
@@ -217,10 +217,10 @@
                                           dequeueReusableCellWithIdentifier:@"OrderWithAddressCellid" forIndexPath:indexPath];
         if (_postAddress == nil  && _contactUserName == nil && _contactMobilePhone == nil) {
            
-            [addCell.image_noData setHidden:NO];
+            [addCell.nodataView setHidden:NO];
             
         }else{
-            [addCell.image_noData setHidden:YES];
+            [addCell.nodataView setHidden:YES];
 
             addCell.lb_address.text      = _postAddress;
             addCell.lb_nameAndPhone.text = [NSString stringWithFormat:@"收货人: %@  %@",_contactUserName,_contactMobilePhone];
@@ -268,6 +268,7 @@
             _contactMobilePhone = PossPhone;
             _postAddress = PossAddress;
             NSLog(@"编辑地址  PossName =%@  PossAddress = %@ PossPhone = %@",PossName,PossAddress,PossPhone);
+            [self userGoodsInfoJSONanalysis];
             [self.mytableView reloadData];
 
         };
@@ -308,9 +309,6 @@
         }
         
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);
@@ -338,9 +336,6 @@
         [self.mytableView reloadData];
         
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);
@@ -358,7 +353,6 @@
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/generateOrderNumber",zfb_baseUrl] params:jsondic success:^(id response) {
 
-     
         if ([response[@"resultCode"] intValue] == 0) {
             
             NSArray * orderArr = response[@"orderList"];
@@ -366,9 +360,9 @@
             NSMutableDictionary * mutOrderDic = [NSMutableDictionary dictionary];
             NSMutableArray * mutOrderArray  = [NSMutableArray array];
             for (NSDictionary * orderdic in orderArr) {
-               
+
                 [mutOrderDic setValue:[orderdic objectForKey:@"order_num"] forKey:@"order_num"];
-                [mutOrderDic setValue:[orderdic objectForKey:@"body"]forKey:@"body"];
+                [mutOrderDic setValue:[orderdic objectForKey:@"body"] forKey:@"body"];
                 [mutOrderDic setValue:[orderdic objectForKey:@"title"] forKey:@"title"];
                 [mutOrderDic setValue:[orderdic objectForKey:@"pay_money"] forKey:@"pay_money"];
                 [mutOrderArray addObject:mutOrderDic];
@@ -396,9 +390,6 @@
         }
 
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         
         [SVProgressHUD dismiss];

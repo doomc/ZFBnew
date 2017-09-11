@@ -33,8 +33,6 @@
 //view
 #import <WebKit/WebKit.h>
 #import "TJMapNavigationService.h"
-//map
-#import <CoreLocation/CoreLocation.h>
 
 
 @interface DetailFindGoodsViewController ()
@@ -63,6 +61,7 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
     NSString * _netPurchasePrice;//购买价格
     NSString * _priceRange;//范围价格
     NSInteger _goodsCount;//添加的商品个数
+    NSString *_goodsUnit;
     //UI控件
     UILabel * lb_Sku;//弹框上视图的选择的sku
     UILabel * lb_inShock ;//库存
@@ -84,10 +83,12 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
 @property (nonatomic,strong) UIView            * BgView;//背景view
 @property (nonatomic,strong) SDCycleScrollView * cycleScrollView;//轮播图
 
-//记录规格数组
+//记录规格数组的模型
 @property (nonatomic, strong) NSMutableArray<SkuValulist *> *skuValueListArray;
 //第一次请求是否存在规格的数组
 @property (nonatomic, strong) NSMutableArray *productSkuArray;
+//记录选择的值
+@property (nonatomic, strong) NSMutableArray *selectedSkuArray;
 
 @property (nonatomic,strong) NSArray * relujsonValueArray ;//色值个数
 @property (nonatomic,strong) NSArray            * imagesURLStrings;//轮播数组
@@ -105,10 +106,6 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
 //没有规格的立即购买数据
 @property (nonatomic ,strong) NSMutableArray    * noReluArray;
 @property (nonatomic ,strong) DetailWebViewCell * webCell;
-
-//新的规格匹配
-@property (nonatomic ,strong) NSMutableArray      * valueNameArray;//保存选择的数据
-@property (nonatomic ,strong) NSMutableDictionary * valueIdAndGoodsIdDic;//保存选择的数据
 
 
 
@@ -232,6 +229,8 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
     //旧址
     CLLocation *currentLocation = [locations lastObject];
     CLGeocoder *geoCoder        = [[CLGeocoder alloc]init];
+    currentLocation = [currentLocation locationMarsFromEarth ];
+    
     //打印当前的经度与纬度
     NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
     latitudestr  = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
@@ -299,18 +298,18 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
     }
     
 }
-#pragma mark -  立即购买
+#pragma mark -  立即购买无规格
 -(void)didClickBuyNowView
 {
-    ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
     if (self.productSkuArray.count > 0) {
-        
+
         //先选规格  在传值
         [self popActionView];
         
     }else{
         //没有规格 - 直接传值
         if ([_inventory intValue] > 0) {
+            ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
             vc.userGoodsInfoJSON = _noReluArray;//没有规格的数组
             [self.navigationController pushViewController:vc animated:YES];
             
@@ -320,7 +319,7 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
                 
             }];
             [alertVC addAction:sure];
-            [alertVC presentViewController:alertVC animated:YES completion:nil];
+            [self presentViewController:alertVC animated:YES completion:nil];
             
         }
     }
@@ -348,7 +347,56 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
     }
     
 }
-
+//立即购买 有规格的
+-(void)SecondBuyNowAction:(UIButton *)button
+{
+    //如果规格全选了
+    if ([self isSKuAllSelect]) {
+        
+        ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
+        
+        NSMutableArray * userGoodsInfoJSON  =[ NSMutableArray array];
+        NSMutableArray * goodslistArray  =[ NSMutableArray array];
+        NSMutableDictionary * storedic = [NSMutableDictionary dictionary];
+        NSMutableDictionary * goodsdic = [NSMutableDictionary dictionary];
+    
+        [userGoodsInfoJSON removeAllObjects];
+  
+ 
+        [goodsdic setObject:self.selectedSkuArray forKey:@"goodsProp"];
+        [goodsdic setObject:_coverImgUrl forKey:@"coverImgUrl"];
+        [goodsdic setObject:_goodsName forKey:@"goodsName"];
+        [goodsdic setObject:_goodsId forKey:@"goodsId"];
+        [goodsdic setObject:_netPurchasePrice forKey:@"purchasePrice"];
+        [goodsdic setObject:_productSkuId forKey:@"productId"];
+        [goodsdic setObject:[NSString stringWithFormat:@"%ld",_goodsCount] forKey:@"goodsCount"];
+        [goodsdic setValue:@"0" forKey:@"concessionalPrice"];//优惠价
+        [goodsdic setObject:_storeId forKey:@"storeId"];
+        [goodsdic setObject:_storeName forKey:@"storeName"];
+        [goodsdic setValue:_goodsUnit forKey:@"goodsUnit"];
+        [goodsdic setValue:_netPurchasePrice forKey:@"originalPrice"];
+        [goodslistArray addObject:goodsdic];
+        
+        [storedic setObject:_storeId forKey:@"storeId"];
+        [storedic setObject:_storeName forKey:@"storeName"];
+        [storedic setObject:goodslistArray forKey:@"goodsList"];
+        [userGoodsInfoJSON addObject:storedic];
+       
+        NSLog(@"商品详情有规格的数组 userGoodsInfoJSON === %@",userGoodsInfoJSON);
+        vc.userGoodsInfoJSON = userGoodsInfoJSON ;
+        
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }else{
+        
+        JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"请选择好规格再加入购物车" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alertVC addAction:sure];
+        [self presentViewController:alertVC animated:NO completion:nil];
+    }
+}
 
 /**
  点爱心
@@ -630,7 +678,6 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
         
         Productattribute *product = self.productSkuArray[indexPath.section];
         Valuelist *value          = product.valueList[indexPath.item];
-        //        NSLog(@"------------%ld------------",product.nameId);
         cell.valueObj = value;
         
         return cell;
@@ -680,10 +727,11 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
                 //保存匹配规格的数据
                 NSDictionary *selectValueDict = @{@"nameId": [NSString stringWithFormat:@"%ld", value.nameId], @"valueId": [NSString stringWithFormat:@"%ld", value.valueId]};
                 [selectValueArray addObject:selectValueDict];
-                
+
                 //保存匹配价格的数据
                 NSDictionary * priceDict = @{@"name":product.name,@"nameId": [NSString stringWithFormat:@"%ld", value.nameId], @"valueId": [NSString stringWithFormat:@"%ld", value.valueId],@"value":value.name};
                 [selectReluJsonArray addObject:priceDict];
+ 
             }
         }
     }
@@ -693,8 +741,9 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
     
     [skuMatchPrice setObject:_goodsId forKey:@"goodsId"];
     [skuMatchPrice setObject:selectReluJsonArray forKey:@"reluJson"];
+    self.selectedSkuArray = selectReluJsonArray;
     
-    
+    NSLog(@"selectReluJsonArray = %@",selectReluJsonArray);
     if (selectValueArray.count > 0) {
         //匹配规格
         [self skuMatchPostRequsetWithParam:skuMatchParamts];
@@ -903,6 +952,7 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
     buyNow.titleLabel.font    = [UIFont systemFontOfSize:14];
     buyNow.backgroundColor    = HEXCOLOR(0xfe6d6a);
     [buyNow setTitle:@"立即抢购"forState:UIControlStateNormal];
+    [buyNow addTarget: self action:@selector(SecondBuyNowAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.popView addSubview:buyNow];
     
     //添加约束
@@ -1102,9 +1152,11 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
                 [goodsListDic setValue:goodsmodel.data.goodsInfo.netPurchasePrice forKey:@"purchasePrice"];//网购价
                 [goodsListDic setValue:_goodsId forKey:@"goodsId"];
                 [goodsListDic setValue:_storeId forKey:@"storeId"];
-#warning ------ 修改了无规格的_productSkuId
-                [goodsListDic setValue:_productSkuId forKey:@"productId"];//规格
-                [goodsListDic setValue:goodsmodel.data.goodsInfo.goodsUnit forKey:@"goodsUnit"];
+                [goodsListDic setObject:@"[]" forKey:@"goodsProp"];
+                [goodsListDic setValue:_productSkuId forKey:@"productId"];//无规格
+                _goodsUnit = goodsmodel.data.goodsInfo.goodsUnit ;
+                
+                [goodsListDic setValue:_goodsUnit forKey:@"goodsUnit"];
                 [goodsListDic setValue:goodsmodel.data.goodsInfo.goodsName forKey:@"goodsName"];
                 [goodsListDic setValue:[NSString stringWithFormat:@"%ld",_goodsCount] forKey:@"goodsCount"];
                 [goodsListArray addObject:goodsListDic];
@@ -1261,7 +1313,7 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
             //更新价格和数据
             NSMutableArray * chooseArray = [NSMutableArray array];
             
-            NSString * originalPriceStr = response[@"data"][@"originalPriceStr"];
+            NSString * originalPriceStr = _netPurchasePrice = response[@"data"][@"originalPriceStr"];
             NSNumber * amount           = response[@"data"][@"amount"];
             NSArray * relujsonArr       = response[@"data"][@"reluJson"];
             
@@ -1322,9 +1374,6 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
         }
         
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);
@@ -1335,7 +1384,12 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
     
 }
 
-
+-(NSMutableArray *)selectedSkuArray{
+    if (!_selectedSkuArray) {
+        _selectedSkuArray = [NSMutableArray array];
+    }
+    return _selectedSkuArray;
+}
 
 -(NSMutableArray *)typeCellArr
 {

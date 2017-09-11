@@ -937,6 +937,7 @@
 		49CE2EE51F2ACB81007B80AB /* BusinessServicerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CE2EE31F2ACB81007B80AB /* BusinessServicerViewController.m */; };
 		49CE2EE61F2ACB81007B80AB /* BusinessServicerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49CE2EE41F2ACB81007B80AB /* BusinessServicerViewController.xib */; };
 		49D6952C1F318087000868A7 /* SendOrderStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D6952B1F318087000868A7 /* SendOrderStatisticsViewController.m */; };
+		49D92DF61F6661E200E925BF /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D92DF51F6661E200E925BF /* UserProtocolViewController.m */; };
 		49DA748B1F2599FA009F5577 /* LocationDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74831F2599FA009F5577 /* LocationDetailVC.m */; };
 		49DA748C1F2599FA009F5577 /* MapPoiTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74851F2599FA009F5577 /* MapPoiTableView.m */; };
 		49DA748D1F2599FA009F5577 /* SearchResultTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74871F2599FA009F5577 /* SearchResultTableVC.m */; };
@@ -2560,6 +2561,8 @@
 		49CE2EE41F2ACB81007B80AB /* BusinessServicerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessServicerViewController.xib; sourceTree = "<group>"; };
 		49D6952A1F318087000868A7 /* SendOrderStatisticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendOrderStatisticsViewController.h; sourceTree = "<group>"; };
 		49D6952B1F318087000868A7 /* SendOrderStatisticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendOrderStatisticsViewController.m; sourceTree = "<group>"; };
+		49D92DF41F6661E200E925BF /* UserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
+		49D92DF51F6661E200E925BF /* UserProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProtocolViewController.m; sourceTree = "<group>"; };
 		49DA74821F2599FA009F5577 /* LocationDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailVC.h; sourceTree = "<group>"; };
 		49DA74831F2599FA009F5577 /* LocationDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailVC.m; sourceTree = "<group>"; };
 		49DA74841F2599FA009F5577 /* MapPoiTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoiTableView.h; sourceTree = "<group>"; };
@@ -3926,6 +3929,8 @@
 				495EA46B1F14B64B001FCB7E /* VerificationCodeViewController.h */,
 				495EA46C1F14B64B001FCB7E /* VerificationCodeViewController.m */,
 				495EA46D1F14B64B001FCB7E /* VerificationCodeViewController.xib */,
+				49D92DF41F6661E200E925BF /* UserProtocolViewController.h */,
+				49D92DF51F6661E200E925BF /* UserProtocolViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -7597,6 +7602,7 @@
 				4968A2791F4DB5080061A87E /* M80AttributedLabel+NIMKit.m in Sources */,
 				495EA7711F14B64D001FCB7E /* ZFCollectionViewCell.m in Sources */,
 				4968A2E41F4DB5090061A87E /* NIMKitDevice.m in Sources */,
+				49D92DF61F6661E200E925BF /* UserProtocolViewController.m in Sources */,
 				4968A2C11F4DB5090061A87E /* NIMMessageCell.m in Sources */,
 				49B0E76C1F418A680032E72E /* DetailCollectMoneyViewController.m in Sources */,
 				495EA7271F14B64D001FCB7E /* OSSImageUploader.m in Sources */,

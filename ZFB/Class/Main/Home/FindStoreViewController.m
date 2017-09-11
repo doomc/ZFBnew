@@ -17,9 +17,7 @@
 //model
 #import "HomeStoreListModel.h"
 //map
-#import <CoreLocation/CoreLocation.h>
-
- 
+#import "CLLocation+MPLocation.h"//火星坐标
 
 static NSString *CellIdentifier = @"FindStoreCellid";
 
@@ -204,7 +202,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 {
   
     FindStoreCell *storeCell = [self.home_tableView  dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    storeCell.selectionStyle = UITableViewCellSelectionStyleNone;
    
     if (self.storeListArr.count > 0) {
         
@@ -258,14 +255,15 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     if ([CLLocationManager locationServicesEnabled]) {
         
         _locationManager = [[CLLocationManager alloc]init];
-        _locationManager.distanceFilter = 200;
+        _locationManager.distanceFilter = 100;
+        [_locationManager setDistanceFilter:kCLDistanceFilterNone];
         _locationManager.delegate = self;
+
         currentCityAndStreet = [NSString new];
         [_locationManager requestWhenInUseAuthorization];
         
         //设置寻址精度
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        _locationManager.distanceFilter = 5.0;
         [_locationManager startUpdatingLocation];
     }
     
@@ -282,15 +280,16 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
     [_locationManager stopUpdatingLocation];
-
+ 
     //旧址
     CLLocation *currentLocation = [locations lastObject];
     CLGeocoder *geoCoder = [[CLGeocoder alloc]init];
+    
+    currentLocation  = [currentLocation locationMarsFromEarth];
     //打印当前的经度与纬度
-    NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
     latitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
     longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
-    
+    NSLog(@"  %@  --- long%@",latitudestr,longitudestr);
     
     BBUserDefault.latitude = latitudestr;
     BBUserDefault.longitude = longitudestr;
@@ -303,7 +302,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
             if (!currentCityAndStreet) {
                 currentCityAndStreet = @"无法定位当前城市";
             }
-            
             /*看需求定义一个全局变量来接收赋值*/
 //            NSLog(@"----%@",placeMark.country);//当前国家
             NSLog(@"%@",currentCityAndStreet);//当前的城市
@@ -323,19 +321,16 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 #pragma mark - 首页网络请求 getCmStoreInfo
 -(void)PostRequst
 {
-    BBUserDefault.longitude = longitudestr;
-    BBUserDefault.latitude = latitudestr;
-    
  
     NSDictionary * parma = @{
  
                              @"longitude":longitudestr,//经度
                              @"latitude":latitudestr ,//纬度
-                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
-                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
+                             @"size":[NSNumber numberWithInteger:kPageCount],
+                             @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"businessType":@"",
                              @"payType":@"",
-                             @"orderBydisc":@"",
+                             @"orderBydisc":@"1",
                              @"orderbylikeNum":@"",
                              @"nearBydisc":@"",
                              @"sercahText":@"",
@@ -360,13 +355,13 @@ static NSString *CellIdentifier = @"FindStoreCellid";
       
                 [self.storeListArr addObject:goodlist];
             }
+            
             [self.home_tableView reloadData];
             
 //            if (self.storeListArr.count == 0 || self.storeListArr == nil) {
 //                
 //                [self.home_tableView cyl_reloadData];
 //            }
-
         }
 
         NSLog(@"门店列表 = %@",   self.storeListArr);

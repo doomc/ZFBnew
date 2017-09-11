@@ -249,7 +249,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             OrderWithAddressCell* addressCell = [self.tableView dequeueReusableCellWithIdentifier:addressCellid forIndexPath:indexPath];
             [addressCell.defaultButton setHidden:YES];
             [addressCell.img_arrow setHidden:YES];
-            [addressCell.image_noData setHidden:YES];
+            [addressCell.nodataView setHidden:YES];
             addressCell.lb_nameAndPhone.text = [NSString stringWithFormat:@"%@ %@",nickName,mobilePhone];
             addressCell.lb_address.text =  postAddress;
             cell                              = addressCell;
