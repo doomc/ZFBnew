@@ -954,6 +954,12 @@
 		49DA74AF1F25CFBB009F5577 /* SearchTypeFootReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74AD1F25CFBB009F5577 /* SearchTypeFootReusableView.m */; };
 		49DA74B01F25CFBB009F5577 /* SearchTypeFootReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DA74AE1F25CFBB009F5577 /* SearchTypeFootReusableView.xib */; };
 		49DA74B41F25F371009F5577 /* ZspMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74B31F25F371009F5577 /* ZspMenu.m */; };
+		50099B8D1F66C74800B348FD /* PayPassWordSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B8C1F66C74800B348FD /* PayPassWordSettingViewController.m */; };
+		50099B901F66CB5800B348FD /* SettingPayPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B8F1F66CB5800B348FD /* SettingPayPasswordViewController.m */; };
+		50099B941F66CB7600B348FD /* TPPasswordTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B931F66CB7600B348FD /* TPPasswordTextView.m */; };
+		50099B971F66DE8A00B348FD /* VerificatePayPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B961F66DE8A00B348FD /* VerificatePayPassWordViewController.m */; };
+		50099B9B1F66E2F800B348FD /* FindPayPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B991F66E2F800B348FD /* FindPayPassWordViewController.m */; };
+		50099B9C1F66E2F800B348FD /* FindPayPassWordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50099B9A1F66E2F800B348FD /* FindPayPassWordViewController.xib */; };
 		503C7C641F40B56E009C0512 /* HXAlbumListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C261F40B56E009C0512 /* HXAlbumListView.m */; };
 		503C7C651F40B56E009C0512 /* HXAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C281F40B56E009C0512 /* HXAlbumModel.m */; };
 		503C7C661F40B56E009C0512 /* HXAlbumTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7C2A1F40B56E009C0512 /* HXAlbumTitleButton.m */; };
@@ -2588,6 +2594,17 @@
 		49DA74AE1F25CFBB009F5577 /* SearchTypeFootReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTypeFootReusableView.xib; sourceTree = "<group>"; };
 		49DA74B21F25F371009F5577 /* ZspMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZspMenu.h; sourceTree = "<group>"; };
 		49DA74B31F25F371009F5577 /* ZspMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZspMenu.m; sourceTree = "<group>"; };
+		50099B8B1F66C74800B348FD /* PayPassWordSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPassWordSettingViewController.h; sourceTree = "<group>"; };
+		50099B8C1F66C74800B348FD /* PayPassWordSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayPassWordSettingViewController.m; sourceTree = "<group>"; };
+		50099B8E1F66CB5800B348FD /* SettingPayPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingPayPasswordViewController.h; sourceTree = "<group>"; };
+		50099B8F1F66CB5800B348FD /* SettingPayPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingPayPasswordViewController.m; sourceTree = "<group>"; };
+		50099B921F66CB7600B348FD /* TPPasswordTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPPasswordTextView.h; sourceTree = "<group>"; };
+		50099B931F66CB7600B348FD /* TPPasswordTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPPasswordTextView.m; sourceTree = "<group>"; };
+		50099B951F66DE8A00B348FD /* VerificatePayPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificatePayPassWordViewController.h; sourceTree = "<group>"; };
+		50099B961F66DE8A00B348FD /* VerificatePayPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificatePayPassWordViewController.m; sourceTree = "<group>"; };
+		50099B981F66E2F800B348FD /* FindPayPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPayPassWordViewController.h; sourceTree = "<group>"; };
+		50099B991F66E2F800B348FD /* FindPayPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPayPassWordViewController.m; sourceTree = "<group>"; };
+		50099B9A1F66E2F800B348FD /* FindPayPassWordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindPayPassWordViewController.xib; sourceTree = "<group>"; };
 		503C7C251F40B56E009C0512 /* HXAlbumListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXAlbumListView.h; sourceTree = "<group>"; };
 		503C7C261F40B56E009C0512 /* HXAlbumListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXAlbumListView.m; sourceTree = "<group>"; };
 		503C7C271F40B56E009C0512 /* HXAlbumModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXAlbumModel.h; sourceTree = "<group>"; };
@@ -4196,6 +4213,15 @@
 				495EA5171F14B64C001FCB7E /* ZFSettingHeadViewController.m */,
 				495EA5181F14B64C001FCB7E /* ZFSettingViewController.h */,
 				495EA5191F14B64C001FCB7E /* ZFSettingViewController.m */,
+				50099B8B1F66C74800B348FD /* PayPassWordSettingViewController.h */,
+				50099B8C1F66C74800B348FD /* PayPassWordSettingViewController.m */,
+				50099B8E1F66CB5800B348FD /* SettingPayPasswordViewController.h */,
+				50099B8F1F66CB5800B348FD /* SettingPayPasswordViewController.m */,
+				50099B951F66DE8A00B348FD /* VerificatePayPassWordViewController.h */,
+				50099B961F66DE8A00B348FD /* VerificatePayPassWordViewController.m */,
+				50099B981F66E2F800B348FD /* FindPayPassWordViewController.h */,
+				50099B991F66E2F800B348FD /* FindPayPassWordViewController.m */,
+				50099B9A1F66E2F800B348FD /* FindPayPassWordViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4203,6 +4229,7 @@
 		495EA51A1F14B64C001FCB7E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				50099B911F66CB7600B348FD /* TPPasswordTextView */,
 				495EA51B1F14B64C001FCB7E /* ZFSettingCell.h */,
 				495EA51C1F14B64C001FCB7E /* ZFSettingCell.m */,
 				495EA51D1F14B64C001FCB7E /* ZFSettingCell.xib */,
@@ -6395,6 +6422,15 @@
 			path = ZspMenuFile;
 			sourceTree = "<group>";
 		};
+		50099B911F66CB7600B348FD /* TPPasswordTextView */ = {
+			isa = PBXGroup;
+			children = (
+				50099B921F66CB7600B348FD /* TPPasswordTextView.h */,
+				50099B931F66CB7600B348FD /* TPPasswordTextView.m */,
+			);
+			path = TPPasswordTextView;
+			sourceTree = "<group>";
+		};
 		503C7C241F40B56E009C0512 /* HXWeiboPhotoPicker(图片选择) */ = {
 			isa = PBXGroup;
 			children = (
@@ -7017,6 +7053,7 @@
 				49DA74931F259BED009F5577 /* SearchTypeView.xib in Resources */,
 				495EA8CE1F14B64E001FCB7E /* setting_message@2x.png in Resources */,
 				494E5A181F56D0C3007FEC02 /* add_red@3x.png in Resources */,
+				50099B9C1F66E2F800B348FD /* FindPayPassWordViewController.xib in Resources */,
 				49C33E4F1F558D9D00BC2254 /* kefu_black@2x.png in Resources */,
 				495EA86C1F14B64D001FCB7E /* flying_local@2x.png in Resources */,
 				498A33F61F3C0CED0057E2AE /* star_sel@3x.png in Resources */,
@@ -7648,6 +7685,7 @@
 				503C7C721F40B56E009C0512 /* HXPhotoPreviewViewCell.m in Sources */,
 				503C7C731F40B56E009C0512 /* HXPhotoPreviewViewController.m in Sources */,
 				4968A28C1F4DB5080061A87E /* NIMKitNotificationFirer.m in Sources */,
+				50099B941F66CB7600B348FD /* TPPasswordTextView.m in Sources */,
 				495EA7741F14B64D001FCB7E /* ZFCollectionViewFlowLayout.m in Sources */,
 				495EA7F91F14B64D001FCB7E /* ZFSendHomeCell.m in Sources */,
 				495EA84D1F14B64D001FCB7E /* ShoppingCarModel.m in Sources */,
@@ -7677,6 +7715,7 @@
 				50D4D67E1F1BB94D0073DBC1 /* QBAssetsCollectionCheckmarkView.m in Sources */,
 				4968A4501F4DB5290061A87E /* NTESFileLocationHelper.m in Sources */,
 				495EA7441F14B64D001FCB7E /* NSData+Base64.m in Sources */,
+				50099B8D1F66C74800B348FD /* PayPassWordSettingViewController.m in Sources */,
 				4968A2821F4DB5080061A87E /* NIMKitColorButtonCell.m in Sources */,
 				49555EB41F1E0092002E5688 /* ZFAddressListViewController.m in Sources */,
 				495EA9761F14B64E001FCB7E /* YYDiskCache.m in Sources */,
@@ -7759,6 +7798,7 @@
 				495EA9511F14B64E001FCB7E /* PYSearchConst.m in Sources */,
 				495EA95C1F14B64E001FCB7E /* UIView+SDExtension.m in Sources */,
 				50D4D6821F1BB94D0073DBC1 /* QBAssetsCollectionViewCell.m in Sources */,
+				50099B971F66DE8A00B348FD /* VerificatePayPassWordViewController.m in Sources */,
 				497EF7161F4EB5C900BFF1AF /* NTESAVNotifier.m in Sources */,
 				4968A41B1F4DB5290061A87E /* NTESCustomSysNotificationViewController.m in Sources */,
 				49DA748E1F2599FA009F5577 /* OldMainViewController.m in Sources */,
@@ -7766,6 +7806,7 @@
 				50777C2A1F2DBA170067B295 /* BusinessSendoOrderCell.m in Sources */,
 				4968A41A1F4DB5290061A87E /* NTESCustomNotificationObject.m in Sources */,
 				495EA7761F14B64D001FCB7E /* DetailShareViewController.m in Sources */,
+				50099B9B1F66E2F800B348FD /* FindPayPassWordViewController.m in Sources */,
 				495EA79B1F14B64D001FCB7E /* DetailGoodsModel.m in Sources */,
 				4968A2E91F4DB5090061A87E /* NIMKitRobotDefaultTemplateParser.m in Sources */,
 				4968A40C1F4DB5290061A87E /* NTESContactDataMember.m in Sources */,
@@ -7863,6 +7904,7 @@
 				495EA8241F14B64D001FCB7E /* FeedCommitCollectionViewCell.m in Sources */,
 				4968A2991F4DB5080061A87E /* NIMGrowingTextView.m in Sources */,
 				4968A2ED1F4DB5090061A87E /* NIMSpellingCenter.m in Sources */,
+				50099B901F66CB5800B348FD /* SettingPayPasswordViewController.m in Sources */,
 				495EA8421F14B64D001FCB7E /* ZFOrderDetailCountCell.m in Sources */,
 				495EA7A31F14B64D001FCB7E /* HomeSearchResultViewController.m in Sources */,
 				495EA7791F14B64D001FCB7E /* ApprariseCollectionViewCell.m in Sources */,

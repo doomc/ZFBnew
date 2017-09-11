@@ -214,5 +214,36 @@
     return (array.count == 0 || array == nil || [array isKindOfClass:[NSNull class]]);
 }
 
+#pragma mark - 检查密码是不是太简单了
+//判断密码 不能太简单了
+- (BOOL)checkPassWordIsNotEasy:(NSMutableString *)oldPassword {
+    NSInteger passWord = [oldPassword integerValue];
+    NSMutableArray *passWordArr = [NSMutableArray array];
+    for (int i = 6; i > 0; i --) {
+        int result = pow(10, i-1);
+        NSString *num = [NSString stringWithFormat:@"%ld",passWord/result];
+        passWord -= result*(passWord/result);
+        [passWordArr addObject:num];
+    }
+    NSLog(@"%@",passWordArr);
+    int num1,num2,num3,num4,num5;
+    int str1 = [passWordArr[0] intValue];
+    int str2 = [passWordArr[1] intValue];
+    int str3 = [passWordArr[2] intValue];
+    int str4 = [passWordArr[3] intValue];
+    int str5 = [passWordArr[4] intValue];
+    int str6 = [passWordArr[5] intValue];
+    num1 = str1 - str2;
+    num2 = str2 - str3;
+    num3 = str3 - str4;
+    num4 = str4 - str5;
+    num5 = str5 - str6;
+    if (num1 == num2 && num2 == num3 && num3 == num4 && num4 == num5) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
 @end
 

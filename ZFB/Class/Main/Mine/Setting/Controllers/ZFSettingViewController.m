@@ -12,8 +12,7 @@
 #import "ZFSettingCell.h"
 #import "LoginViewController.h"
 #import "ZFBaseNavigationViewController.h"
-
- 
+#import "PayPassWordSettingViewController.h"
 
 static NSString * settingCellid = @"ZFSettingCellid";
 @interface ZFSettingViewController ()<UITableViewDelegate,UITableViewDataSource,NIMLoginManagerDelegate>
@@ -34,11 +33,10 @@ static NSString * settingCellid = @"ZFSettingCellid";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
  
     self.title = @"设置";
-    _titleArr  = @[@"我的信息",@"修改密码",@"手机号码",@"清楚缓存",@"客服热线",@"招商入驻"];
-    _imagesArr = @[@"setting_message",@"setting_ps",@"setting_phone",@"setting_cache",@"setting_calling",@"setting_shakehand",];
+    _titleArr  = @[@"我的信息",@"修改密码",@"支付设置",@"手机号码",@"清楚缓存",@"客服热线",@"招商入驻"];
+    _imagesArr = @[@"setting_message",@"setting_ps",@"setting_ps",@"setting_phone",@"setting_cache",@"setting_calling",@"setting_shakehand",];
     
     [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingCell" bundle:nil] forCellReuseIdentifier:settingCellid];
@@ -97,13 +95,13 @@ static NSString * settingCellid = @"ZFSettingCellid";
     settcell.selectionStyle = UITableViewCellSelectionStyleNone;
     settcell.img_detailIcon.hidden = YES;
  
-    if (indexPath.row <2 ) {
+    if (indexPath.row <3 ) {
         
         settcell.lb_detailTitle.text =@"";
         settcell.img_detailIcon.hidden = NO;
         
     }
-    else if (indexPath.row == 2) {
+    else if (indexPath.row == 3) {
         if (BBUserDefault.isLogin == 1) {
             settcell.lb_detailTitle.text = [NSString stringWithFormat:@"已绑定%@",BBUserDefault.userPhoneNumber];
         }else{
@@ -111,16 +109,16 @@ static NSString * settingCellid = @"ZFSettingCellid";
         }
 
     }
-    else if (indexPath.row == 3) {
+    else if (indexPath.row == 4) {
          //读取缓存大小
         settcell.lb_detailTitle.text = _cacheSize = [NSString stringWithFormat:@"%.2fM",[settcell readCacheSize]];
         NSLog(@"当前显示的 缓存 = %@ = %.f",_cacheSize,[settcell readCacheSize]);
     }
-    else if (indexPath.row == 4) {
+    else if (indexPath.row == 5) {
         //客服热线
         settcell.lb_detailTitle.text = @"023-67685157-8005";
     }
-    else if (indexPath.row == 5) {
+    else if (indexPath.row == 6) {
         //客服热线
         settcell.lb_detailTitle.text =  @"400-666-2001";
     }
@@ -132,19 +130,24 @@ static NSString * settingCellid = @"ZFSettingCellid";
 {
     NSLog(@"sectin = %ld,row = %ld",indexPath.section ,indexPath.row);
     
-    if (indexPath.row == 0  ) {
+    if (indexPath.row == 0  ) {//我的信息
         ZFSettingHeadViewController * settingVC = [[ZFSettingHeadViewController alloc]init];
         settingVC.userImgAttachUrl = _userImgAttachUrl;
         [self.navigationController pushViewController:settingVC animated:YES];
         
-    }else if (indexPath.row == 1) {
+    }else if (indexPath.row == 1) {//登录密码
         ForgetPSViewController *chagePSVC =[[ForgetPSViewController alloc]init];
         [self.navigationController pushViewController:chagePSVC animated:YES];
         
-    }else if (indexPath.row == 2) {
+    }else if (indexPath.row == 2) {//支付设置
         
+        PayPassWordSettingViewController * payVC =[[ PayPassWordSettingViewController alloc]init];
+        [self.navigationController pushViewController:payVC animated:NO];
         
-    }else if (indexPath.row == 3) {
+    }
+    else if (indexPath.row == 3) {
+        
+    }else if (indexPath.row == 4) {
     
         ZFSettingCell * settcell  = (ZFSettingCell*)[tableView cellForRowAtIndexPath:indexPath];
         JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"%@,确认清除缓存吗",_cacheSize] preferredStyle:UIAlertControllerStyleAlert];
