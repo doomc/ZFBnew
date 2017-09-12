@@ -33,7 +33,9 @@
 
 //关键字
 @dynamic keyWord;
- 
+
+//支付密码
+@dynamic isSetPassword;
 
 @dynamic latitude;
 @dynamic longitude;

@@ -96,6 +96,10 @@
 -(void)userGoodsInfoJSONanalysis
 {
 
+    [self.storelistArry  removeAllObjects];
+    [self.goodsListArray removeAllObjects];
+    [self.storeAttachListArr removeAllObjects];
+    
     NSMutableDictionary * storeDic     = [NSMutableDictionary dictionary];
     NSMutableDictionary * storeAttachListDic = [NSMutableDictionary dictionary];
     
@@ -463,7 +467,6 @@
     NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
 //    NSLog(@"提交订单 -----------%@",successDic);
     if (BBUserDefault.isLogin == 1) {
-     
         [self commitOrder:successDic];
 
     }else
@@ -485,7 +488,6 @@
 {
     if (!_storeDeliveryfeeListArr) {
         _storeDeliveryfeeListArr =[NSMutableArray array];
-        
     }
     return _storeDeliveryfeeListArr;
 }

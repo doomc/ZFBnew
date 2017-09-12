@@ -1130,10 +1130,10 @@
             [SVProgressHUD dismiss];
             [self.send_tableView reloadData];
             
-//            if ([self isEmptyArray:self.orderListArray]) {
-//                
-//                [self.send_tableView cyl_reloadData];
-//            }
+            if ([self isEmptyArray:self.orderListArray]) {
+                
+                [self.send_tableView cyl_reloadData];
+            }
         }
         [self endRefresh];
         

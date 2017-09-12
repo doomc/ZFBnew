@@ -534,9 +534,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             _courierFlag= [NSString stringWithFormat:@"%@",response[@"userInfo"][@"courierFlag"]];//是否是快递员
             _storeId    = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"storeId"]];
 
-            
             BBUserDefault.shopFlag = _shopFlag;
             BBUserDefault.courierFlag = _courierFlag;
+            BBUserDefault.isSetPassword = response[@"userInfo"][@"isSetPassword"];
             
             BBUserDefault.nickName   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"nickName"]];
             BBUserDefault.sexType    = [response[@"userInfo"][@"sex"] integerValue];

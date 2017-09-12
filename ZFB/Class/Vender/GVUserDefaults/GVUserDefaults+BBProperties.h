@@ -17,7 +17,7 @@
 @property (nonatomic,copy) NSString *userPhonePassword;///第一次注册的密码
 @property (nonatomic,copy) NSString *smsCode;///有效时间30分钟
 @property (nonatomic,copy) NSString *newPassWord;///修改的新密码保存
-
+ 
 @property (nonatomic,copy) NSString *cmUserId;
 @property (nonatomic,copy) NSString *accid;
 
@@ -36,6 +36,7 @@
 //个人中心
 @property (nonatomic,copy) NSString *shopFlag;///是否是商户  1是 0 不是
 @property (nonatomic,copy) NSString *courierFlag;///是否是配送员 1是 0不是
+@property (nonatomic,copy) NSString *isSetPassword;///密码是否重置 1 修改过了，0没有修改
 
 //个人资料资料
 @property (nonatomic,copy) NSString * uploadImgName;///个人资料头像路径

@@ -26,7 +26,7 @@
     paView.elementCount = 6;
     CGPoint center = self.view.center;
     paView.center = CGPointMake(center.x, 120);
-    paView.elementBorderColor = HEXCOLOR(0xfe6d6a);
+    paView.elementBorderColor = [UIColor grayColor];
     paView.elementMargin = 5;
     [self.view addSubview:paView];
     
@@ -79,13 +79,42 @@
 {
     if ([self checkPassWordIsNotEasy:newPassword]) {
         
-        VerificatePayPassWordViewController * vc = [VerificatePayPassWordViewController new];
-        vc.checkPassword = newPassword;
-        [self.navigationController pushViewController:vc animated:NO];
+        [self commitPasswordPostRequset];
+        
     }else{
         
         [self.view makeToast:@"您的支付密码太过简单" duration:2 position:@"center"];
     }
+}
+
+
+#pragma mark - 提交密码 请求
+-(void)commitPasswordPostRequset
+{
+    
+    NSDictionary * param = @{
+                             @"payPassword":newPassword,
+                             @"account":BBUserDefault.userPhoneNumber,
+                             
+                             };
+
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/sitePayPassword"] params:param success:^(id response) {
+        
+        if ([response[@"resultCode"] intValue] == 0) {
+            [SVProgressHUD dismiss];
+            VerificatePayPassWordViewController * vc = [VerificatePayPassWordViewController new];
+            [self.navigationController pushViewController:vc animated:NO];
+
+        }
+        
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
 }
 
 

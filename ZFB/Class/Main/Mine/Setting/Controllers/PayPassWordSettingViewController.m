@@ -9,11 +9,9 @@
 #import "PayPassWordSettingViewController.h"
 #import "SettingPayPasswordViewController.h"
 #import "FindPayPassWordViewController.h"
-
+#import "ChangePasswordViewController.h"
 @interface PayPassWordSettingViewController ()<UITableViewDelegate ,UITableViewDataSource>
-{
-    NSArray  * titles;
-}
+
 @property (nonatomic , strong) UITableView  * tableView;
 
 @end
@@ -26,7 +24,7 @@
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64,KScreenW , KScreenH-64) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
 }
@@ -35,7 +33,6 @@
     // Do any additional setup after loading the view.
 
     self.title = @"支付设置";
-    titles = @[@"设置支付密码",@"修改密码",@"找回密码"];
     [self.view addSubview:self.tableView];
     
 }
@@ -46,7 +43,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return titles.count;
+    return 2;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -55,28 +52,61 @@
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
     }
-    cell.textLabel.text = titles[indexPath.row];
+ 
+    cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.textColor = HEXCOLOR(0x363636);
+    
+    if ([BBUserDefault.isSetPassword isEqualToString:@"1"]) {
+        if (indexPath.row == 0) {
+            cell.textLabel.text =  @"修改支付密码";
+        }else{
+            cell.textLabel.text =  @"找回支付密码";
+
+        }
+    }else{
+        if (indexPath.row == 0) {
+            cell.textLabel.text =  @"设置支付密码";
+        }else{
+            cell.textLabel.text =  @"找回支付密码";
+            
+        }
+    }
+    
     return cell;
 }
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        
-        SettingPayPasswordViewController * vc = [SettingPayPasswordViewController new];
-        [self.navigationController pushViewController:vc animated:NO];
-    
-    }else if (indexPath.row == 1)
-    {
+    if ([BBUserDefault.isSetPassword isEqualToString:@"1"]) {
+        if (indexPath.row == 0) {
+            //修改支付密码
+            ChangePasswordViewController * changevc = [ChangePasswordViewController new];
+            [self.navigationController pushViewController:changevc animated:NO];
+            
+        }else
+        {
+            //找回密码
+            FindPayPassWordViewController * findVC = [FindPayPassWordViewController new];
+            [self.navigationController pushViewController:findVC animated:NO];
+        }
 
-    }
-    else{
+    }else{
         
-        FindPayPassWordViewController * findVC= [ FindPayPassWordViewController new];
-        [self.navigationController pushViewController:findVC animated:NO];
-        
+        if (indexPath.row == 0) {
+            //设置支付密码
+            SettingPayPasswordViewController * vc = [SettingPayPasswordViewController new];
+            [self.navigationController pushViewController:vc animated:NO];
+
+        }else
+        {
+            //找回密码
+            FindPayPassWordViewController * findVC = [FindPayPassWordViewController new];
+            [self.navigationController pushViewController:findVC animated:NO];
+        }
+ 
     }
+    
 }
 
 

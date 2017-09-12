@@ -366,9 +366,7 @@
     
     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"  storeId:_storeId];
     
-    if ([self isEmptyArray:self.orderListArray]) {
-        [self.homeTableView cyl_reloadData];
-    }
+    
     
     [self.homeTableView reloadData];
 }
@@ -676,8 +674,7 @@
                 _currentSection                = section;
                 //默认值
                 [cell.cancel_button setTitle:@"取消订单" forState:UIControlStateNormal];
-//                [cell.payfor_button setTitle:@"派单" forState:UIControlStateNormal];
-                [cell.payfor_button  setHidden:YES];
+                [cell.payfor_button setTitle:@"派单" forState:UIControlStateNormal];
                 NSLog(@"cell.orderId  === %@",cell.orderId );
                 
                 footerView = cell;
@@ -1353,9 +1350,20 @@
                 
             }
             NSLog(@"orderListArray = %@",self.orderListArray);
+            
+            [self.homeTableView reloadData];
+            [self endRefresh];
+            
+            if ([self isEmptyArray:self.orderListArray]) {
+                
+                [self.homeTableView cyl_reloadData];
+            }
         }
-        [self.homeTableView reloadData];
-        [self endRefresh];
+
+
+
+ 
+        
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
@@ -1457,11 +1465,10 @@
 #pragma mark -  正式数据的时候 经纬度要修改成正常的
     NSDictionary * param = @{
                              
-//                             @"longitude":longitudestr,
-//                             @"latitude":latitudestr,
+                             @"longitude":longitudestr,
+                             @"latitude":latitudestr,
                              
-                             @"longitude":@"106.496649",
-                             @"latitude":@"29.614969",
+ 
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/selectDeliveryList",zfb_baseUrl] params:param success:^(id response) {
@@ -1541,7 +1548,6 @@
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
-    
     [self.bgview removeFromSuperview];
     [self.orderBgview removeFromSuperview];
     

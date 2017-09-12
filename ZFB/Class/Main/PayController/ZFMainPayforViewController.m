@@ -110,14 +110,16 @@
     if ([_goback_url isEqualToString:currentURL]) {
         
         NSLog(@"全部跳转到订单列表");
-        ZFAllOrderViewController * allVC  = [[ZFAllOrderViewController alloc]init];
  
-        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:allVC];
-        [self presentViewController:nav animated:NO completion:^{
-            
-            [nav.navigationBar setBarTintColor:HEXCOLOR(0xffcccc)];
-            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-        }];
+        [self poptoUIViewControllerNibName:@"ZFAllOrderViewController" AndObjectIndex:2];
+//        ZFAllOrderViewController * allVC  = [[ZFAllOrderViewController alloc]init];
+//
+//        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:allVC];
+//        [self presentViewController:nav animated:NO completion:^{
+//            
+//            [nav.navigationBar setBarTintColor:HEXCOLOR(0xffcccc)];
+//            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+//        }];
     }
     [SVProgressHUD dismiss];
     

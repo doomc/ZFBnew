@@ -1,28 +1,22 @@
 //
-//  FindPayPassWordViewController.m
+//  ShareGoodsSubDetailViewController.m
 //  ZFB
 //
-//  Created by 熊维东 on 2017/9/11.
+//  Created by  展富宝  on 2017/9/12.
 //  Copyright © 2017年 com.zfb. All rights reserved.
-//
+//  好货共享详情
 
-#import "FindPayPassWordViewController.h"
-@interface FindPayPassWordViewController ()
+#import "ShareGoodsSubDetailViewController.h"
+
+@interface ShareGoodsSubDetailViewController ()
 
 @end
 
-@implementation FindPayPassWordViewController
+@implementation ShareGoodsSubDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"找回密码申诉";
-
-}
-
--(void)backAction
-{
-    [self poptoUIViewControllerNibName:@"PayPassWordSettingViewController" AndObjectIndex:1];
 }
 
 - (void)didReceiveMemoryWarning {

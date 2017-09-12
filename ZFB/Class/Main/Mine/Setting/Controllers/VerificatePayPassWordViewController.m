@@ -8,13 +8,12 @@
 
 #import "VerificatePayPassWordViewController.h"
 #import "TPPasswordTextView.h"
-#import "VerificatePayPassWordViewController.h"
+
 @interface VerificatePayPassWordViewController ()
 {
-    NSMutableString * newPassword ;
+    NSMutableString * oldPassword ;
 }
 @end
-
 @implementation VerificatePayPassWordViewController
 
 - (void)viewDidLoad {
@@ -26,7 +25,7 @@
     paView.elementCount = 6;
     CGPoint center = self.view.center;
     paView.center = CGPointMake(center.x, 120);
-    paView.elementBorderColor = HEXCOLOR(0xfe6d6a);
+    paView.elementBorderColor = [UIColor grayColor];
     paView.elementMargin = 5;
     [self.view addSubview:paView];
     
@@ -34,10 +33,11 @@
         NSLog(@"%@",password);
         
         if (password.length == 6) {
-            newPassword  = [NSMutableString stringWithFormat:@"%@",password];
-            if ([self checkPassWordIsNotEasy:newPassword] && [_checkPassword isEqualToString:newPassword]) {
+            
+            oldPassword  = [NSMutableString stringWithFormat:@"%@",password];
+            if ([self checkPassWordIsNotEasy:oldPassword] && [_checkPassword isEqualToString:oldPassword]) {
                 NSLog(@"成功  --可以调 接口");
-                [self checkCommitAction];
+                [self commitPasswordPostRequset];
                 
             }else{
                 [self.view makeToast:@"确认密码错误,请核对后重新输入" duration:2 position:@"center"];
@@ -58,34 +58,42 @@
         make.top.equalTo(paView).with.offset(60);
     }];
     
-    
-    UIButton * next_btn =[ UIButton buttonWithType:UIButtonTypeCustom];
-    [next_btn setTitle:@"完成" forState:UIControlStateNormal];
-    next_btn.titleLabel.font = [UIFont systemFontOfSize:15];
-    next_btn.backgroundColor = RGBA(254,109,106,1);
-    next_btn.layer.cornerRadius = 5;
-    next_btn.clipsToBounds = YES;
-    [next_btn addTarget:self action:@selector(checkCommitAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:next_btn];
-    
-    [next_btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).with.offset(50);
-        make.right.equalTo(self.view).with.offset(-50);
-        make.top.equalTo(tag).with.offset(50);
-        make.height.mas_equalTo(44);
-    }];
-    
 }
 
-#pragma mark - 确认提交
--(void)checkCommitAction
-{
-    [self commitPasswordPostRequset];
-}
-#pragma mark - 提交密码 请求
+
+#pragma mark - 验证密码
 -(void)commitPasswordPostRequset
 {
     
+    NSDictionary * param = @{
+                             @"payPassword":oldPassword,
+                             @"account":BBUserDefault.userPhoneNumber,
+                             
+                             };
+    
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/validatePayPassword"] params:param success:^(id response) {
+        
+        if ([response[@"resultCode"] intValue] == 0) {
+ 
+            JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"支付密码设置成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self poptoUIViewControllerNibName:@"SettingPayPasswordViewController" AndObjectIndex:1];
+            }];
+ 
+            [alertvc addAction:sure];
+            [self presentViewController:alertvc animated:YES completion:^{
+                
+            }];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
