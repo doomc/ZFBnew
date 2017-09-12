@@ -649,14 +649,10 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     ZFSureOrderViewController * orderVC = [[ZFSureOrderViewController alloc]init];
 
     for (Shoppcartlist *list in self.carListArray) {
-//        NSMutableDictionary * storeDic = [NSMutableDictionary dictionary];
-//        [storeDic setValue:self.mutJsonArray forKey:@"goodsList"];
-//        [storeDic setValue:list.storeName forKey:@"storeName"];
-//        [storeDic setValue:[NSString stringWithFormat:@"%ld",list.storeId ]forKey:@"storeId"];
-//        [self.allJsonArray addObject:storeDic];
-        
+     
+        [self.mutJsonArray removeAllObjects];
+      
         for (ShopGoodslist * goods in list.goodsList) {
-            
             NSMutableDictionary * goodDic = [NSMutableDictionary dictionary];
             if (goods.goodslistIsChoosed) {
   
@@ -671,15 +667,19 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
                 [goodDic setValue:goods.productId forKey:@"productId"];
                 [goodDic setValue:goodsCount forKey:@"goodsCount"];
                 [goodDic setValue:goods.netPurchasePrice forKey:@"purchasePrice"];
+                [goodDic setValue:goods.cartItemId forKey:@"cartItemId"];
                 //                [goodDic setValue:@"0" forKey:@"concessionalPrice"];
                 //                [goodDic setValue:@"0" forKey:@"originalPrice"];
                 //                [goodDic setValue:goods.goodsUnit forKey:@"goodsUnit"];
-                [goodDic setValue:goods.cartItemId forKey:@"cartItemId"];
                 
             }
             [self.mutJsonArray addObject:goodDic];
         }
-
+        NSMutableDictionary * storeDic = [NSMutableDictionary dictionary];
+        [storeDic setValue:self.mutJsonArray forKey:@"goodsList"];
+        [storeDic setValue:list.storeName forKey:@"storeName"];
+        [storeDic setValue:[NSString stringWithFormat:@"%ld",list.storeId ]forKey:@"storeId"];
+        [self.allJsonArray addObject:storeDic];
     }
  
     NSLog(@"我最后选中的数组222 %@",self.mutJsonArray );
@@ -688,8 +688,11 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     {
         //便利出所有的 cartItemId , 隔开
         NSMutableArray * cartArray = [NSMutableArray array];
-        for (NSDictionary * dict in self.mutJsonArray) {
-            [cartArray addObject:dict[@"cartItemId"]];
+        for (NSDictionary * dict in self.allJsonArray) {
+            for (NSDictionary * gooddic in dict[@"goodsList"]) {
+                
+                [cartArray addObject:gooddic[@"cartItemId"]];
+            }
         }
         orderVC.cartItemId = [cartArray componentsJoinedByString:@","];
         orderVC.userGoodsInfoJSON =  self.allJsonArray;

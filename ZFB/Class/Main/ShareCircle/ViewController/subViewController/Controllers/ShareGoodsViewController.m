@@ -75,7 +75,7 @@
     
     NSLog(@"当前 ---高度 %f",itemWidth * fullmodel.h / fullmodel.w);
     
-    return itemWidth * fullmodel.h / fullmodel.w;
+    return itemWidth * fullmodel.h / fullmodel.w + 150;
 }
 
 - (CGFloat)rowMarginInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout{

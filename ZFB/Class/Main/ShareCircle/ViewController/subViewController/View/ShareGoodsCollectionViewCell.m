@@ -8,12 +8,18 @@
 //
 
 #import "ShareGoodsCollectionViewCell.h"
-
+#import "UIImageView+ZFCornerRadius.h"
 @implementation ShareGoodsCollectionViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    _waterPullImageView.clipsToBounds = YES;
+    _waterPullImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+
+    _headImg.layer.masksToBounds = YES;    
+    _headImg.layer.cornerRadius = 22;
 }
 
 

@@ -18,14 +18,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="215" height="306"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P2Q-JS-ZA8">
-                        <rect key="frame" x="5" y="5" width="205" height="180"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="180" id="5Cm-0G-T3x"/>
-                        </constraints>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nodataPlaceholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="P2Q-JS-ZA8">
+                        <rect key="frame" x="5" y="5" width="205" height="178"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ccz-Ld-jCQ">
-                        <rect key="frame" x="5" y="190" width="205" height="20"/>
+                        <rect key="frame" x="5" y="188" width="205" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="H1o-01-6lk"/>
                         </constraints>
@@ -34,20 +31,20 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMA-6U-Aga">
-                        <rect key="frame" x="5" y="215" width="205" height="20"/>
+                        <rect key="frame" x="5" y="213" width="205" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AhP-CX-r4T">
-                        <rect key="frame" x="5" y="245" width="44" height="44"/>
+                        <rect key="frame" x="5" y="243" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="SGF-vq-iHL"/>
                             <constraint firstAttribute="height" constant="44" id="bDO-2l-IsW"/>
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfz-Je-lNU">
-                        <rect key="frame" x="168" y="257" width="20" height="20"/>
+                        <rect key="frame" x="168" y="255" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="FRk-yK-De5"/>
                             <constraint firstAttribute="height" constant="20" id="XSK-bI-q3T"/>
@@ -56,7 +53,7 @@
                         <state key="selected" image="sharezan_selected.png"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEe-OB-KOe">
-                        <rect key="frame" x="54" y="257" width="35.5" height="20"/>
+                        <rect key="frame" x="54" y="255" width="35.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="DRA-87-dne"/>
                         </constraints>
@@ -65,7 +62,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Exr-Qe-Cbn">
-                        <rect key="frame" x="193" y="260" width="17" height="17"/>
+                        <rect key="frame" x="193" y="258" width="17" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -106,6 +103,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="nodataPlaceholder.png" width="362" height="178"/>
         <image name="sharezan_normal.png" width="24" height="24"/>
         <image name="sharezan_selected.png" width="24" height="24"/>
     </resources>
