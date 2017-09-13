@@ -9,6 +9,10 @@
 #import "ZFOrderListCell.h"
 #import "GoodsitemCell.h"
 #import "JsonModel.h"
+@interface ZFOrderListCell ()
+
+@property (nonatomic , strong) NSMutableArray * images;
+@end
 @implementation ZFOrderListCell
 
 - (void)awakeFromNib {
@@ -19,20 +23,27 @@
     self.order_collectionCell.dataSource = self;
     
     [self.order_collectionCell registerNib:[UINib nibWithNibName:@"GoodsitemCell" bundle:nil] forCellWithReuseIdentifier:@"GoodsitemCellid"];
+    
    
 }
 -(void)setListArray:(NSMutableArray *)listArray
 {
-    _listArray = [NSMutableArray array];
     _listArray = listArray;
-
+    _images = [NSMutableArray array];
+    
+    for (NSDictionary * imgDic in listArray) {
+        
+        NSString * imgUrl = imgDic[@"coverImgUrl"];
+        [_images addObject:imgUrl];
+    }
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    
     return 1;
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return  _listArray.count;
+    return  _images.count;
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -51,24 +62,9 @@
 {
     GoodsitemCell * cell = [self.order_collectionCell
                             dequeueReusableCellWithReuseIdentifier:@"GoodsitemCellid" forIndexPath:indexPath];
-    
+
     self.img_shenglve.hidden = NO;
-    
-    for (NSDictionary * imgDic in _listArray) {
-      
-        NSString *coverImgUrl  = [imgDic objectForKey:@"coverImgUrl"];
-        [cell.img_listImgView sd_setImageWithURL:[NSURL URLWithString:coverImgUrl] placeholderImage:nil];
-
-    }
-
-//    if (_listArray.count > 3) {
-//        self.img_shenglve.hidden = NO;
-//
-//    }
-//    else{
-//        self.img_shenglve.hidden = YES;
-//    }
-    
+    [cell.img_listImgView sd_setImageWithURL:[NSURL URLWithString:_images[indexPath.item] ] placeholderImage:nil];
     
     return cell;
 }

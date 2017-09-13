@@ -42,6 +42,9 @@
     [self initWithInterFace];
     
     [self CDsyceleSettingRunningPaint];
+    
+    
+    [self footViewInterface];
 }
 /**初始化轮播 */
 -(void)CDsyceleSettingRunningPaint
@@ -50,6 +53,7 @@
     _cycleScrollView.backgroundColor = [UIColor whiteColor];
     _cycleScrollView.imageURLStringsGroup = self.adArray;
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
+    _cycleScrollView.placeholderImage = [UIImage imageNamed:@"nodataPlaceholder"];
     _cycleScrollView.delegate = self;
     
     //自定义dot 大小和图案pageControlCurrentDot
@@ -69,19 +73,24 @@
 
 -(void)initWithInterFace
 {
-    _lb_titile = [[UILabel alloc]initWithFrame:CGRectMake(15, 10 + _cycleScrollView.height, KScreenW- 30, 25)];
+    _lb_titile = [[UILabel alloc]initWithFrame:CGRectMake(15, 10 + 160 +64, KScreenW - 30, 25)];
     _lb_titile.font = [UIFont systemFontOfSize:16];
     _lb_titile.textColor =  HEXCOLOR(0x363636);
+    _lb_titile.text = @"标题";
     [self.view addSubview:_lb_titile];
     
     _lb_conent = [[UILabel alloc]init];
     _lb_conent.font = [UIFont systemFontOfSize:14];
+    _lb_conent.numberOfLines = 0;
+    _lb_conent.text = @"在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容";
     _lb_conent.textColor =  HEXCOLOR(0x363636);
     [self.view addSubview:_lb_conent];
+    
     [_lb_conent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).with.offset(15);
         make.right.equalTo(self.view).with.offset(-15);
         make.top.equalTo(_lb_titile).with.offset(20);
+        make.bottom.equalTo(_footerView).with.offset(-20);
         
     }];
 }
@@ -105,7 +114,7 @@
         make.left.equalTo(_footerView).with.offset(0);
         make.top.equalTo(_footerView).with.offset(0);
         make.height.mas_equalTo(50);
-        make.width.mas_equalTo(100);
+        make.width.mas_equalTo(180);
     }];
     
     
@@ -116,7 +125,7 @@
     [_checkBuy_btn addTarget:self action:@selector(didClicklookDetail:) forControlEvents:UIControlEventTouchUpInside];
     [_footerView addSubview:_checkBuy_btn];
     [_checkBuy_btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_footerView).with.offset(0);
+        make.left.equalTo(_zan_btn.mas_right).with.offset(0);
         make.top.equalTo(_footerView).with.offset(0);
         make.right.equalTo(_footerView).with.offset(0);
         make.height.mas_equalTo(50);

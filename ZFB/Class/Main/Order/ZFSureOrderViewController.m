@@ -81,7 +81,6 @@
     [self addresslistPostRequst];//收货地址
     [self getPayAccessTokenUrl]; //支付获取token
     
-    NSLog(@"userGoodsInfoJSON === %@",_userGoodsInfoJSON);
     
 }
 //拿到商品详情无规格的_userGoodsInfoJSON数组
@@ -95,52 +94,59 @@
  */
 -(void)userGoodsInfoJSONanalysis
 {
-
-    [self.storelistArry  removeAllObjects];
-    [self.goodsListArray removeAllObjects];
-    [self.storeAttachListArr removeAllObjects];
     
-    NSMutableDictionary * storeDic     = [NSMutableDictionary dictionary];
-    NSMutableDictionary * storeAttachListDic = [NSMutableDictionary dictionary];
+    NSMutableArray * storeArray = [NSMutableArray array];
+    NSMutableDictionary * param = [NSMutableDictionary dictionary];
     
-    for (NSDictionary * tempdic in _userGoodsInfoJSON) {
+    for (NSDictionary * storeDic in _userGoodsInfoJSON) {
+        NSMutableArray  * goodsList = [NSMutableArray array];
         
-        //===================cmGoodsList字段===================//
-        self.cmGoodsListArray = [tempdic objectForKey:@"goodsList"];
-       
-        //===================storeAttachList字段===================//
-        [storeAttachListDic setValue:[tempdic objectForKey:@"storeId"] forKey:@"storeId"];
-        [storeAttachListDic setValue:[tempdic objectForKey:@"storeName"] forKey:@"storeName"];
-        [storeAttachListDic setValue:@"暂无备注" forKey:@"comment"];
-        [self.storeAttachListArr addObject:storeAttachListDic];
-        
-        //获取配送费需要的数据结构
-        NSMutableDictionary * mutGoodsDic = [ NSMutableDictionary dictionary];
-        for (NSDictionary * goodsDic in self.cmGoodsListArray) {
- 
-            [mutGoodsDic setValue:[goodsDic objectForKey:@"goodsId"] forKey:@"goodsId"];
-            [mutGoodsDic setValue:[goodsDic objectForKey:@"goodsCount"] forKey:@"goodsCount"];
-            [mutGoodsDic setValue:[goodsDic objectForKey:@"productId"] forKey:@"productId"];
-  
-            [self.goodsListArray addObject:mutGoodsDic];
-            NSLog(@"goodsListArray = %@",self.goodsListArray);
+        for (NSDictionary * goodsDic in [storeDic objectForKey:@"goodsList"]) {
+            
+            NSDictionary * goodlistDic = @{
+                                           @"goodsId":goodsDic[@"goodsId"],
+                                           @"goodsCount":goodsDic[@"goodsCount"],
+                                           @"productId":goodsDic[@"productId"]
+                                           };
+            
+            [goodsList addObject:goodlistDic];
         }
-    
-        [storeDic setValue:[tempdic objectForKey:@"storeId"]  forKey:@"storeId"];
-        [storeDic setValue:self.goodsListArray  forKey:@"goodsList"];
-        [self.storelistArry addObject:storeDic];
+        NSMutableDictionary * storeListdic = [NSMutableDictionary dictionary];
+        [storeListdic setObject:goodsList forKey:@"goodsList"];
+        [storeListdic setObject:storeDic[@"storeId"] forKey:@"storeId"];
+        [storeArray addObject:storeListdic];
         
     }
+    [param setObject:storeArray forKey:@"storeList"];
+    [param setValue:_postAddressId forKey:@"postAddressId"];
     
-    //用来接收立即购买的dic
-    NSMutableDictionary * dic = [NSMutableDictionary dictionary];
-    [dic setValue:self.storelistArry forKey:@"storeList"];
-    [dic setValue:_postAddressId forKey:@"postAddressId"];
+    //获取配送配送费
+    [self getGoodsCostInfoListPostRequstWithJsonString:[NSDictionary dictionaryWithDictionary:param]];
+    NSLog(@"%@",param);
     
-    //获取配送费数据
-    [self getGoodsCostInfoListPostRequstWithJsonString:[NSDictionary dictionaryWithDictionary:dic]];
-    
+ 
+    if (self.storelistArry.count > 0 ) {
+        
+        [self.storelistArry removeAllObjects];
 
+    }
+    NSMutableDictionary * storeAttachListDic = [NSMutableDictionary dictionary];
+    for (NSDictionary * storeListDic  in _userGoodsInfoJSON) {
+        
+        for (NSDictionary * goodsListDic in storeListDic[@"goodsList"]) {
+            
+            [self.cmGoodsListArray addObject:goodsListDic];
+            
+        }
+        [self.storelistArry addObject:storeListDic];
+
+        //===================storeAttachList字段===================//
+        [storeAttachListDic setValue:[storeListDic objectForKey:@"storeId"] forKey:@"storeId"];
+        [storeAttachListDic setValue:[storeListDic objectForKey:@"storeName"] forKey:@"storeName"];
+        [storeAttachListDic setValue:@"暂无备注" forKey:@"comment"];
+        [self.storeAttachListArr addObject:storeAttachListDic];
+    }
+    NSLog(@"cmGoodsListArray = %@",self.cmGoodsListArray )
 }
 
 
@@ -324,12 +330,15 @@
 #pragma mark -  getGoodsCostInfo 用户订单确定费用信息接口
 -(void)getGoodsCostInfoListPostRequstWithJsonString:(NSDictionary *) jsondic
 {
+    _storeDeliveryfeeListArr =[NSMutableArray array];
+    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsCostInfo",zfb_baseUrl] params:jsondic success:^(id response) {
         
         if ([response[@"resultCode"] intValue ] == 0) {
+            
             SureOrderModel * suremodel = [SureOrderModel mj_objectWithKeyValues:response];
           
-            self.storeDeliveryfeeListArr = response[@"storeDeliveryfeeList"];
+            _storeDeliveryfeeListArr = response[@"storeDeliveryfeeList"];
             _goodsCount   = [NSString stringWithFormat:@"¥%.2f",suremodel.goodsCount]  ;//商品总金额
             _costNum      = [NSString stringWithFormat:@"+ ¥%.2f",suremodel.costNum]  ;//配送费总金额
             _userCostNum  = [NSString stringWithFormat:@"¥%.2f",suremodel.userCostNum]  ;//支付总金额
@@ -484,13 +493,6 @@
 }
 #pragma mark - 懒加载
 
--(NSMutableArray *)storeDeliveryfeeListArr
-{
-    if (!_storeDeliveryfeeListArr) {
-        _storeDeliveryfeeListArr =[NSMutableArray array];
-    }
-    return _storeDeliveryfeeListArr;
-}
 -(NSMutableArray *)storeAttachListArr
 {
     if (!_storeAttachListArr) {

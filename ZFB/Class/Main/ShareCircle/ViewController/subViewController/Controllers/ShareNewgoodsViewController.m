@@ -8,6 +8,9 @@
 
 #import "ShareNewgoodsViewController.h"
 #import "ShareNewGoodsCell.h"
+#import "ShareCommendModel.h"
+
+#import "ShareNewGoodsDetailViewController.h"
 @interface ShareNewgoodsViewController ()<UITableViewDelegate,UITableViewDataSource>
 @end
 
@@ -18,6 +21,8 @@
     // Do any additional setup after loading the view.
     
     [self initTableView];
+
+    [self recommentPostRequst];
 }
 
 -(void)initTableView
@@ -50,13 +55,45 @@
     ShareNewGoodsCell * goodCell = [self.zfb_tableView dequeueReusableCellWithIdentifier:@"ShareNewGoodsCellid" forIndexPath:indexPath];
     return goodCell;
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%ld", indexPath.row);
+    NSLog(@" ------%ld----", indexPath.row);
+    
+    ShareNewGoodsDetailViewController * detailVC = [ShareNewGoodsDetailViewController new];
+    [self.navigationController pushViewController:detailVC animated:NO];
 }
 
 
-
+#pragma mark -  获取新品推荐列表  recomment/recommentList
+-(void)recommentPostRequst
+{
+    NSDictionary * parma = @{
+                             @"pageIndex":@"1",
+                             @"pageSize":@"10",
+                             };
+    
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/recommentList"] params:parma success:^(id response) {
+        
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+            
+            
+            
+            [SVProgressHUD dismiss];
+ 
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
 
 
 - (void)didReceiveMemoryWarning {

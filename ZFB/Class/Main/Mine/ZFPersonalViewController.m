@@ -34,8 +34,11 @@
 #import "ZFFeedbackViewController.h"//意见反馈
 #import "MineWalletViewController.h"//钱包
 #import "ZFShoppingCarViewController.h"//购物车
+#import "CouponViewController.h"//优惠券
+
 //base
 #import "ZFBaseNavigationViewController.h"
+
 
 
 typedef NS_ENUM(NSUInteger, TypeCell) {
@@ -217,6 +220,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         case 0:
         {
             ZFMyCashBagCell  * cashCell = [ self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyCashBagCell" forIndexPath:indexPath];
+            cashCell.delegate = self;
             if (BBUserDefault.isLogin == 1) {
                 cashCell.lb_balance.text = _balance;
             }else{
@@ -505,7 +509,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 ///优惠券
 -(void)didClickDiscountCouponView
 {
-    
+    CouponViewController * couponVC = [CouponViewController new];
+    [self.navigationController pushViewController:couponVC animated:NO];
 }
 ///富豆
 -(void)didClickFuBeanView

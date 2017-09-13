@@ -10,6 +10,8 @@
 #import "ShareGoodsCollectionViewCell.h"
 #import "LMHWaterFallLayout.h"
 #import "ShareWaterFullModel.h"
+#import "ShareGoodsSubDetailViewController.h"
+
 @interface ShareGoodsViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,LMHWaterFallLayoutDeleaget>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -72,10 +74,9 @@
 - (CGFloat)waterFallLayout:(LMHWaterFallLayout *)waterFallLayout heightForItemAtIndexPath:(NSUInteger)indexPath itemWidth:(CGFloat)itemWidth{
     
     ShareWaterFullModel * fullmodel = self.shareArray[indexPath];
+//    NSLog(@"当前 ---高度 %f",itemWidth * fullmodel.h / fullmodel.w);
     
-    NSLog(@"当前 ---高度 %f",itemWidth * fullmodel.h / fullmodel.w);
-    
-    return itemWidth * fullmodel.h / fullmodel.w + 150;
+    return itemWidth * fullmodel.h / fullmodel.w + 160;
 }
 
 - (CGFloat)rowMarginInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout{
@@ -104,9 +105,45 @@
     return cell;
 }
 
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%ld",indexPath.item);
+    NSLog(@"section---- %ld ====== item----%ld",indexPath.section,indexPath.item);
+    
+    ShareGoodsSubDetailViewController * detailVC = [ShareGoodsSubDetailViewController new];
+    [self.navigationController pushViewController:detailVC animated:NO];
+
+}
+
+
+#pragma mark -  获取新品推荐列表  recomment/recommentList
+-(void)shareGoodsPost
+{
+    NSDictionary * parma = @{
+                             @"pageIndex":@"1",
+                             @"pageSize":@"10",
+                             };
+    
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/recommentList"] params:parma success:^(id response) {
+        
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+ 
+            
+            
+            [SVProgressHUD dismiss];
+ 
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
 }
 
 

@@ -10,4 +10,15 @@
 
 @interface ShareGoodsSubDetailViewController : BaseViewController
 
+/** 头像 */
+@property (weak, nonatomic) IBOutlet UIImageView *headerImg;
+
+@property (weak, nonatomic) IBOutlet UIImageView *contentImg;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_title;
+/** 描述 */
+@property (weak, nonatomic) IBOutlet UILabel *lb_describe;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_time;
+
 @end

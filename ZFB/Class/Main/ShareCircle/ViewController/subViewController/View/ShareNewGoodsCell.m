@@ -13,10 +13,18 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.headImage.clipsToBounds = YES;
-    [self.headImage CreateImageViewWithFrame:_headImage.frame andBackground:nil andRadius:_headImage.width/2];
-    
- 
+    self.headImage.layer.masksToBounds = YES;
+    self.headImage.layer.cornerRadius = 25;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
+}
+
+-(void)setRecommend:(Recommentlist *)recommend
+{
+    _recommend = recommend;
+    _lb_zanNum.text = [NSString stringWithFormat:@"%ld",recommend.thumbs];
+    _lb_goodsName.text = recommend.title;
+    _lb_description.text = recommend.describe;
     
 }
 

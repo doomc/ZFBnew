@@ -46,27 +46,13 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 @property (nonatomic,strong) NSMutableArray      * jsonGoodArray;
 @property (nonatomic,strong) NSMutableDictionary * jsonDict;
 
-//需要传到确认订单的数组
-@property (nonatomic,strong) NSMutableArray * mutJsonArray;
-@property (nonatomic,strong) NSMutableArray * allJsonArray;
+
+
 
 @end
 
 @implementation ZFShoppingCarViewController
--(NSMutableArray *)mutJsonArray
-{
-    if (!_mutJsonArray) {
-        _mutJsonArray = [NSMutableArray array];
-    }
-    return _mutJsonArray;
-}
--(NSMutableArray *)allJsonArray
-{
-    if (!_allJsonArray) {
-        _allJsonArray = [NSMutableArray array];
-    }
-    return _allJsonArray;
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -145,7 +131,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     self.allSelectedButton.selected = [self isAllProcductChoosed];
     [self.shopCar_tableview reloadData];
     [self.complete_Btn setTitle:[NSString stringWithFormat:@"结算"] forState:UIControlStateNormal];
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f元",[self countTotalPrice]];
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[self countTotalPrice]];
     
 }
 
@@ -165,12 +151,11 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             goods.goodslistIsChoosed = list.leftShoppcartlistIsChoosed;
         }
     }
-    NSLog(@"========选中all所有 的商品的数据%@",self.mutJsonArray);
     
     [self.shopCar_tableview reloadData];
     CGFloat totalPrice = [self countTotalPrice];
     [self.complete_Btn setTitle:[NSString stringWithFormat:@"结算"] forState:UIControlStateNormal];
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f元",totalPrice];
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",totalPrice];
     
 }
 
@@ -225,7 +210,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     }
     // 再次影响到全部选择按钮
     self.allSelectedButton.selected = [self isAllProcductChoosed];
-    self.totalPriceLabel.text       = [NSString stringWithFormat:@"￥%.2f元",[self countTotalPrice]];
+    self.totalPriceLabel.text       = [NSString stringWithFormat:@"￥%.2f",[self countTotalPrice]];
     [self.complete_Btn setTitle:[NSString stringWithFormat:@"结算"] forState:UIControlStateNormal];
     [self.shopCar_tableview reloadData];
     
@@ -255,7 +240,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         goods.goodsCount ++;
     }
     
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f元",[self countTotalPrice]];
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[self countTotalPrice]];
     [self.shopCar_tableview reloadData];
     
 }
@@ -457,10 +442,8 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     if (!_underFootView) {
         _underFootView                 = [[UIView alloc]initWithFrame:CGRectMake(0, KScreenH -49, KScreenW,  KScreenH -49-64)];
         _underFootView.backgroundColor = [UIColor whiteColor];
-        
-        NSString *caseOrder = @"合计:";
-        UIFont * font  =[UIFont systemFontOfSize:12];
-        
+        UIFont * font  =[UIFont systemFontOfSize:14];
+
         //结算按钮
         _complete_Btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_complete_Btn setTitle:@"结算" forState:UIControlStateNormal];
@@ -470,45 +453,13 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         [_complete_Btn addTarget:self action:@selector(didClickClearingShoppingCar:) forControlEvents:UIControlEventTouchUpInside];
         [_underFootView addSubview:_complete_Btn];
         
-        
-        //价格
-        _totalPriceLabel               = [[UILabel alloc]init];
-        _totalPriceLabel.text          = @"￥0.00";
-        _totalPriceLabel.textAlignment = NSTextAlignmentLeft;
-        _totalPriceLabel.font          = font;
-        _totalPriceLabel.textColor     = HEXCOLOR(0xfe6d6a);
-        CGSize lb_priceSize            = [_totalPriceLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
-        CGFloat lb_priceSizeW          = lb_priceSize.width;
-        
-        NSLog(@"%f",lb_priceSizeW);
-        [_underFootView addSubview: _totalPriceLabel];
-        
-        [_totalPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(_complete_Btn.mas_left).with.offset(-10);
-            make.centerY.equalTo(_complete_Btn.mas_centerY);
-            make.size.mas_equalTo(CGSizeMake(lb_priceSizeW+30, 20));
-        }];
-        
-        //合计
-        UILabel * lb_order  = [[UILabel alloc]init];
-        lb_order.text       = caseOrder;
-        lb_order.font       = font;
-        lb_order.textColor  = HEXCOLOR(0x363636);
-        CGSize lb_orderSiez = [caseOrder sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
-        CGFloat lb_orderW   = lb_orderSiez.width;
-        [_underFootView addSubview:lb_order];
-        
-        [lb_order mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(_totalPriceLabel.mas_left).with.offset(-5);
-            make.centerY.equalTo(_complete_Btn.mas_centerY);
-            make.size.mas_equalTo(CGSizeMake(lb_orderW+10, 20));
-        }];
-        
+        //全选按钮
         _allSelectedButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_allSelectedButton addTarget:self action:@selector(clickAllGoodsSelected:) forControlEvents:UIControlEventTouchUpInside];
         [_allSelectedButton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
         [_allSelectedButton setImage:[UIImage imageNamed:@"select_red"] forState:UIControlStateSelected];
         [_underFootView addSubview:_allSelectedButton];
+        
         
         [_allSelectedButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(_underFootView).with.offset(15);
@@ -516,7 +467,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             make.size.mas_equalTo(CGSizeMake(24, 24));
             
         }];
-        
+
         //全选
         UILabel * lb_chooseAll = [UILabel new];
         lb_chooseAll.text      = @"全选";
@@ -528,8 +479,44 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             make.centerY.equalTo(_complete_Btn.mas_centerY);
             make.size.mas_equalTo(CGSizeMake(30, 20));
         }];
+
+        
+        
+        //合计
+        UILabel * lb_order  = [[UILabel alloc]init];
+        lb_order.text       = @"合计:";
+        lb_order.font       = font;
+        lb_order.textColor  = HEXCOLOR(0x363636);
+        [_underFootView addSubview:lb_order];
+        
+        [lb_order mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(lb_chooseAll.mas_right).with.offset(20);
+            make.centerY.equalTo(_complete_Btn.mas_centerY);
+            make.size.mas_equalTo(CGSizeMake(40, 20));
+        }];
+        
+        //价格
+        _totalPriceLabel               = [[UILabel alloc]init];
+        _totalPriceLabel.text          = @"￥0.00";
+        _totalPriceLabel.textAlignment = NSTextAlignmentLeft;
+        _totalPriceLabel.font          = font;
+        _totalPriceLabel.textColor     = HEXCOLOR(0xfe6d6a);
+        CGSize lb_priceSize            = [_totalPriceLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
+        CGFloat lb_priceSizeW          = lb_priceSize.width;
+        [_underFootView addSubview: _totalPriceLabel];
+        
+        [_totalPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(lb_order.mas_right).with.offset(10);
+            make.right.equalTo(_complete_Btn.mas_left).with.offset(-10);
+            make.centerY.equalTo(_complete_Btn.mas_centerY);
+            make.size.mas_equalTo(CGSizeMake(lb_priceSizeW+30, 20));
+        }];
+
+        
+
+        
+        
     }
-    
     return _underFootView;
 }
 
@@ -634,8 +621,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 
     self.allSelectedButton.selected = NO;
     self.totalPriceLabel.text = @"¥0.00元";
-    self.allJsonArray = nil;
-    self.mutJsonArray = nil;
     [self.shopCar_tableview reloadData];
     
 }
@@ -644,22 +629,31 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 #pragma mark - didClickClearingShoppingCar 购物车结算
 -(void)didClickClearingShoppingCar:(UIButton *)sender
 {
-    [self.allJsonArray removeAllObjects];
 
     ZFSureOrderViewController * orderVC = [[ZFSureOrderViewController alloc]init];
-
+    NSMutableArray * allJsonArray = [NSMutableArray array];
+    [allJsonArray removeAllObjects];
+    
     for (Shoppcartlist *list in self.carListArray) {
-     
-        [self.mutJsonArray removeAllObjects];
       
+        NSMutableArray * mutGoodsArr = [NSMutableArray array];
+        NSMutableDictionary * goodDic = [NSMutableDictionary dictionary];
+
+        [mutGoodsArr removeAllObjects];
         for (ShopGoodslist * goods in list.goodsList) {
-            NSMutableDictionary * goodDic = [NSMutableDictionary dictionary];
             if (goods.goodslistIsChoosed) {
-  
+               
+                NSMutableArray  * goodsPropArr = [NSMutableArray array] ;
+                NSArray *dictArray = [ShopGoodslist mj_keyValuesArrayWithObjectArray:goods.goodsProp];
+                for (NSDictionary * value in dictArray) {
+        
+                    [goodsPropArr addObject:value];
+                }
+
                 NSString * storeId = [NSString stringWithFormat:@"%ld",list.storeId];
                 NSString * goodsId = [NSString stringWithFormat:@"%ld",goods.goodsId];
                 NSString * goodsCount = [NSString stringWithFormat:@"%ld",goods.goodsCount];
-                
+               
                 [goodDic setValue:storeId forKey:@"storeId"];
                 [goodDic setValue:goodsId forKey:@"goodsId"];
                 [goodDic setValue:goods.goodsName forKey:@"goodsName"];
@@ -668,35 +662,35 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
                 [goodDic setValue:goodsCount forKey:@"goodsCount"];
                 [goodDic setValue:goods.netPurchasePrice forKey:@"purchasePrice"];
                 [goodDic setValue:goods.cartItemId forKey:@"cartItemId"];
-                //                [goodDic setValue:@"0" forKey:@"concessionalPrice"];
-                //                [goodDic setValue:@"0" forKey:@"originalPrice"];
-                //                [goodDic setValue:goods.goodsUnit forKey:@"goodsUnit"];
+                [goodDic setValue:@"0" forKey:@"concessionalPrice"];
+                [goodDic setValue:@"0" forKey:@"originalPrice"];
+                [goodDic setValue:goods.goodsUnit forKey:@"goodsUnit"];
+                [goodDic setValue:goodsPropArr forKey:@"goodsProp"];
                 
+                [mutGoodsArr addObject:goodDic];
             }
-            [self.mutJsonArray addObject:goodDic];
         }
         NSMutableDictionary * storeDic = [NSMutableDictionary dictionary];
-        [storeDic setValue:self.mutJsonArray forKey:@"goodsList"];
+        [storeDic setValue:mutGoodsArr forKey:@"goodsList"];
         [storeDic setValue:list.storeName forKey:@"storeName"];
         [storeDic setValue:[NSString stringWithFormat:@"%ld",list.storeId ]forKey:@"storeId"];
-        [self.allJsonArray addObject:storeDic];
+        [allJsonArray addObject:storeDic];
     }
  
-    NSLog(@"我最后选中的数组222 %@",self.mutJsonArray );
-    
-    if (![self isEmptyArray:self.mutJsonArray])
+    NSLog(@"我最后选中的数组222 %@",allJsonArray );
+    if (![self isEmptyArray:allJsonArray])
     {
         //便利出所有的 cartItemId , 隔开
         NSMutableArray * cartArray = [NSMutableArray array];
-        for (NSDictionary * dict in self.allJsonArray) {
-            for (NSDictionary * gooddic in dict[@"goodsList"]) {
+        for (NSDictionary * storedict in allJsonArray) {
+            for (NSDictionary * gooddic in storedict[@"goodsList"]) {
                 
                 [cartArray addObject:gooddic[@"cartItemId"]];
             }
         }
         orderVC.cartItemId = [cartArray componentsJoinedByString:@","];
-        orderVC.userGoodsInfoJSON =  self.allJsonArray;
-//        [self.navigationController pushViewController:orderVC animated:YES];
+        orderVC.userGoodsInfoJSON = allJsonArray;
+        [self.navigationController pushViewController:orderVC animated:YES];
         
     }
     else{
