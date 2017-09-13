@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class ZFCollectEditCell;
+
 @protocol ZFCollectBarViewDelegate <NSObject>
 
 -(void)didClickCancelCollect:(ZFCollectEditCell *)cell;

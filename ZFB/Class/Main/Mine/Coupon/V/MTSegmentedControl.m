@@ -47,7 +47,7 @@
     self.bottomColor = HEXCOLOR(0xfe6d6a);
     
     self.titleColor = HEXCOLOR(0x363636);
-    self.titleFont = [UIFont systemFontOfSize:16.0f];
+    self.titleFont = [UIFont systemFontOfSize:15.0f];
     self.selectColor = HEXCOLOR(0xfe6d6a);
     self.isAnimated = YES;
     

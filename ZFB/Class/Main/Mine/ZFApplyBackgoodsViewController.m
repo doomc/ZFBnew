@@ -278,10 +278,9 @@
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"取消隐藏");
-    [self setEditing:YES];
+    [self.view endEditing:YES];
     [self.popBackGView removeFromSuperview];
-    //    [_textView resignFirstResponder];
-    
+     
 }
 
 

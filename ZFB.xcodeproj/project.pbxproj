@@ -955,9 +955,6 @@
 		49BA48901F67EDAB006B5F60 /* ShareGoodsSubDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49BA488E1F67EDAB006B5F60 /* ShareGoodsSubDetailViewController.xib */; };
 		49BA48931F68FEA0006B5F60 /* ShareCommendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BA48921F68FEA0006B5F60 /* ShareCommendModel.m */; };
 		49BA489A1F691074006B5F60 /* CouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BA48991F691074006B5F60 /* CouponViewController.m */; };
-		49BA489D1F6913FB006B5F60 /* UnUsedCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BA489C1F6913FB006B5F60 /* UnUsedCouponViewController.m */; };
-		49BA48A01F69140F006B5F60 /* UsedCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BA489F1F69140F006B5F60 /* UsedCouponViewController.m */; };
-		49BA48A31F691473006B5F60 /* OverdueCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BA48A21F691473006B5F60 /* OverdueCouponViewController.m */; };
 		49BA48A71F69154D006B5F60 /* CouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BA48A51F69154D006B5F60 /* CouponCell.m */; };
 		49BA48A81F69154D006B5F60 /* CouponCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49BA48A61F69154D006B5F60 /* CouponCell.xib */; };
 		49BA48AF1F69157B006B5F60 /* SectionCouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BA48AD1F69157B006B5F60 /* SectionCouponCell.m */; };
@@ -2645,12 +2642,6 @@
 		49BA48921F68FEA0006B5F60 /* ShareCommendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareCommendModel.m; sourceTree = "<group>"; };
 		49BA48981F691074006B5F60 /* CouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponViewController.h; sourceTree = "<group>"; };
 		49BA48991F691074006B5F60 /* CouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponViewController.m; sourceTree = "<group>"; };
-		49BA489B1F6913FB006B5F60 /* UnUsedCouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnUsedCouponViewController.h; sourceTree = "<group>"; };
-		49BA489C1F6913FB006B5F60 /* UnUsedCouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnUsedCouponViewController.m; sourceTree = "<group>"; };
-		49BA489E1F69140F006B5F60 /* UsedCouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsedCouponViewController.h; sourceTree = "<group>"; };
-		49BA489F1F69140F006B5F60 /* UsedCouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsedCouponViewController.m; sourceTree = "<group>"; };
-		49BA48A11F691473006B5F60 /* OverdueCouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverdueCouponViewController.h; sourceTree = "<group>"; };
-		49BA48A21F691473006B5F60 /* OverdueCouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverdueCouponViewController.m; sourceTree = "<group>"; };
 		49BA48A41F69154C006B5F60 /* CouponCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponCell.h; sourceTree = "<group>"; };
 		49BA48A51F69154D006B5F60 /* CouponCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCell.m; sourceTree = "<group>"; };
 		49BA48A61F69154D006B5F60 /* CouponCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponCell.xib; sourceTree = "<group>"; };
@@ -6612,12 +6603,6 @@
 			children = (
 				49BA48981F691074006B5F60 /* CouponViewController.h */,
 				49BA48991F691074006B5F60 /* CouponViewController.m */,
-				49BA489B1F6913FB006B5F60 /* UnUsedCouponViewController.h */,
-				49BA489C1F6913FB006B5F60 /* UnUsedCouponViewController.m */,
-				49BA489E1F69140F006B5F60 /* UsedCouponViewController.h */,
-				49BA489F1F69140F006B5F60 /* UsedCouponViewController.m */,
-				49BA48A11F691473006B5F60 /* OverdueCouponViewController.h */,
-				49BA48A21F691473006B5F60 /* OverdueCouponViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -7972,7 +7957,6 @@
 				495EA7941F14B64D001FCB7E /* ZFAllStoreViewController.m in Sources */,
 				4968A2911F4DB5080061A87E /* NIMGroupedData.m in Sources */,
 				49183EB21F5954D900879E42 /* WeChatStylePlaceHolder.m in Sources */,
-				49BA48A01F69140F006B5F60 /* UsedCouponViewController.m in Sources */,
 				503C7C801F40B56F009C0512 /* NSBundle+HXWeiboPhotoPicker.m in Sources */,
 				503C7C7B1F40B56F009C0512 /* HXPresentTransition.m in Sources */,
 				495EA7AE1F14B64D001FCB7E /* HotCollectionViewCell.m in Sources */,
@@ -8071,7 +8055,6 @@
 				49555E961F1E0092002E5688 /* AddressLocationMapViewController.m in Sources */,
 				503C7C691F40B56E009C0512 /* HXCircleProgressView.m in Sources */,
 				495EA76C1F14B64D001FCB7E /* CollectionCategoryModel.m in Sources */,
-				49BA489D1F6913FB006B5F60 /* UnUsedCouponViewController.m in Sources */,
 				499D150F1F67754300EB705B /* ChangePasswordViewController.m in Sources */,
 				49B3BCD81F204F70002A0FDC /* SYSafeCategory.m in Sources */,
 				495EA73F1F14B64D001FCB7E /* introductoryPagesHelper.m in Sources */,
@@ -8276,7 +8259,6 @@
 				495EA8281F14B64D001FCB7E /* FeedPickerTableViewCell.m in Sources */,
 				497A8ABB1F2B230B0003D7CB /* UILabel+LXAdd.m in Sources */,
 				495EA7511F14B64D001FCB7E /* ResponseObject.m in Sources */,
-				49BA48A31F691473006B5F60 /* OverdueCouponViewController.m in Sources */,
 				495EA7961F14B64D001FCB7E /* FindCircleViewController.m in Sources */,
 				4968A2CF1F4DB5090061A87E /* NIMSessionViewController.m in Sources */,
 				495EA7581F14B64D001FCB7E /* UIImageView+ZFCornerRadius.m in Sources */,

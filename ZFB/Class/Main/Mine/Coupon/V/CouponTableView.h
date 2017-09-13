@@ -8,8 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CouponTableViewDelegate <NSObject>
+@required
+/**
+ *  关闭弹框
+ */
+-(void)didClickCloseCouponView;
+
+
+
+@end
 @interface CouponTableView : UITableView <UITableViewDelegate,UITableViewDataSource>
 
- 
+@property (assign , nonatomic) id <CouponTableViewDelegate> popDelegate;
+
 
 @end
