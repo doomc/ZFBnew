@@ -15,12 +15,20 @@
  */
 -(void)didClickCloseCouponView;
 
-
+ 
+-(void)selectCouponWithIndex:(NSInteger)indexRow withResult:(NSString *)result;
 
 @end
 @interface CouponTableView : UITableView <UITableViewDelegate,UITableViewDataSource>
 
 @property (assign , nonatomic) id <CouponTableViewDelegate> popDelegate;
+
+@property (strong , nonatomic) NSMutableArray * couponesList;
+
+/**
+ 选择的优惠券抛到控制器中
+ */
+@property (copy   , nonatomic) NSString * couponeMessage;
 
 
 @end

@@ -66,7 +66,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 {
     if (!_popCouponBackgroundView) {
         _popCouponBackgroundView = [[UIView alloc]initWithFrame:self.view.bounds];
-        _popCouponBackgroundView.backgroundColor = RGBA(0, 0, 0,  0.2);
+        _popCouponBackgroundView.backgroundColor = RGBA(0, 0, 0, 0.2);
         [_popCouponBackgroundView addSubview:self.popCouponView];
     }
     return _popCouponBackgroundView;
@@ -74,13 +74,12 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 
 -(CouponTableView *)popCouponView{
     if (!_popCouponView) {
-        _popCouponView  = [[CouponTableView alloc]initWithFrame:CGRectMake(0, 200, KScreenW, KScreenH - 200) style:UITableViewStylePlain];
+        _popCouponView  = [[CouponTableView alloc]initWithFrame:CGRectMake(0, 200, KScreenW, KScreenH - 200 ) style:UITableViewStylePlain];
         _popCouponView.popDelegate = self;
     }
     return _popCouponView;
 }
 
- 
 //设置右边按键（如果没有右边 可以不重写）
 -(UIButton*)set_rightButton
 {
@@ -270,6 +269,11 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 {
     [self.popCouponBackgroundView removeFromSuperview];
     [self.popCouponView  reloadData];
+}
+
+-(void)selectCouponWithIndex:(NSInteger)indexRow withResult:(NSString *)result
+{
+    NSLog(@" 优惠券列表 ---外部 %ld ------ %@",indexRow,result);
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

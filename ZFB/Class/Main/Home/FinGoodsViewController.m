@@ -22,8 +22,8 @@
 #import "HomeHotModel.h"
 
 static NSString * cell_guessID = @"GuessCellid";
-static NSString * cell_listID = @"FuncListTableViewCellid";
-static NSString * cell_hotID = @"HotTableViewCellid";
+static NSString * cell_listID  = @"FuncListTableViewCellid";
+static NSString * cell_hotID   = @"HotTableViewCellid";
 
 
 typedef NS_ENUM(NSUInteger, CellType) {
@@ -35,13 +35,13 @@ typedef NS_ENUM(NSUInteger, CellType) {
 };
 @interface FinGoodsViewController ()<SDCycleScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,FuncListTableViewCellDeleagte,HotTableViewCellDelegate>
 
-@property(strong,nonatomic)UIView * CircleHeadView;
-@property(strong,nonatomic)UITableView * findGoods_TableView;
-@property(strong,nonatomic)SDCycleScrollView *cycleScrollView ;
+@property (strong,nonatomic) UIView          * CircleHeadView;
+@property (strong,nonatomic) UITableView     * findGoods_TableView;
+@property (strong,nonatomic) SDCycleScrollView *cycleScrollView ;
 
-@property(strong,nonatomic)NSMutableArray * adArray;//广告轮播
-@property(strong,nonatomic)NSMutableArray * likeListArray;//喜欢列表
-@property(strong,nonatomic)NSMutableArray * hotArray;//热卖
+@property (strong,nonatomic) NSMutableArray * adArray;//广告轮播
+@property (strong,nonatomic) NSMutableArray * likeListArray;//喜欢列表
+@property (strong,nonatomic) NSMutableArray * hotArray;//热卖
 
 
 @end
@@ -51,7 +51,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
- 
+    
     [self initWithFindGoodsTableView];
     
     [self ADpagePostRequst];
@@ -59,17 +59,21 @@ typedef NS_ENUM(NSUInteger, CellType) {
     [self HotsalesPostRequst];
     
     [self guessYouLikePostRequst];
-
+    
     [self setupRefresh];
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
     [super headerRefresh];
     [self guessYouLikePostRequst];
+    [self ADpagePostRequst];
+    [self HotsalesPostRequst];
 }
 -(void)footerRefresh {
     [super footerRefresh];
     [self guessYouLikePostRequst];
+    [self ADpagePostRequst];
+    [self HotsalesPostRequst];
 }
 
 
@@ -77,7 +81,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 ///全部分类
 -(void)seleteItemCell:(FuncListTableViewCell *)cell withIndex:(NSIndexPath *)indexPath
 {
-     
+    
     NSLog(@"全部分类全部分类");
     ZFClassifyCollectionViewController * classifyVC = [[ZFClassifyCollectionViewController alloc]init];
     [self.navigationController pushViewController:classifyVC animated:NO];
@@ -89,37 +93,36 @@ typedef NS_ENUM(NSUInteger, CellType) {
  */
 -(void)initWithFindGoodsTableView
 {
-    
     self.findGoods_TableView = [[UITableView alloc]initWithFrame:
                                 CGRectMake(0, 0, KScreenW, KScreenH -48-64-44) style:UITableViewStylePlain];
-    self.findGoods_TableView.delegate = self;
+    self.findGoods_TableView.delegate   = self;
     self.findGoods_TableView.dataSource = self;
-    
-    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil]forCellReuseIdentifier:cell_guessID];
-    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"FuncListTableViewCell" bundle:nil]forCellReuseIdentifier:cell_listID];
-    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"HotTableViewCell" bundle:nil]forCellReuseIdentifier:cell_hotID];
-
+    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil]
+                   forCellReuseIdentifier:cell_guessID];
+    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"FuncListTableViewCell" bundle:nil]
+                   forCellReuseIdentifier:cell_listID];
+    [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"HotTableViewCell" bundle:nil]
+                   forCellReuseIdentifier:cell_hotID];
     [self.view addSubview:_findGoods_TableView];
-    
     self.zfb_tableView = self.findGoods_TableView;
-
+    
 }
 
 
 /**初始化轮播 */
 -(void)CDsyceleSettingRunningPaint
 {
-    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 160) delegate:self placeholderImage:nil];
-    _cycleScrollView.backgroundColor = [UIColor whiteColor];
+    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 160) delegate:self placeholderImage:nil];
+    _cycleScrollView.backgroundColor      = [UIColor whiteColor];
     _cycleScrollView.imageURLStringsGroup = self.adArray;
-    _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
-    _cycleScrollView.delegate = self;
+    _cycleScrollView.pageControlAliment   = SDCycleScrollViewPageContolAlimentCenter;
+    _cycleScrollView.delegate             = self;
     
     //自定义dot 大小和图案pageControlCurrentDot
     _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
-    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"dot_selected"];
-    _cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
- 
+    _cycleScrollView.pageDotImage        = [UIImage imageNamed:@"dot_selected"];
+    _cycleScrollView.currentPageDotColor = [UIColor whiteColor];// 自定义分页控件小圆标颜色
+    
     self.findGoods_TableView.tableHeaderView = _cycleScrollView;
     
 }
@@ -147,7 +150,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
         return self.hotArray.count > 0 ? 1 : 0;
     }
     if (section == 2 ) {
-//        return 3;
+        //        return 3;
         return self.likeListArray.count;
         
     }
@@ -160,53 +163,53 @@ typedef NS_ENUM(NSUInteger, CellType) {
     }
     if (section == 1) {
         
-        
         return self.hotArray.count > 0 ? 40 : 0;
-
     }
     return 35;
 }
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView = nil;
-    UIFont *font = [UIFont systemFontOfSize:14];
-    if (section == 1) {
-        headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
-        [headView setBackgroundColor:HEXCOLOR(0xffcccc)];
-        
-        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 3, 200.0f, 30.0f)];
-        labelTitle.textColor =HEXCOLOR(0x363636);
-        labelTitle.textAlignment = NSTextAlignmentLeft;
-        labelTitle.text = @"热卖推荐";
-        labelTitle.font = font;
-        [headView addSubview:labelTitle];
-        
-        
-        UIImageView * logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fire"] ];//定位icon
-        logo.frame =CGRectMake(5, 5, 25, 25);
-        [headView addSubview:logo];
-        
-        return headView;
-        
+    UIFont *font     = [UIFont systemFontOfSize:14];
+    if (headView == nil) {
+        if (section == 1) {
+          
+            headView         = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
+            [headView setBackgroundColor:HEXCOLOR(0xffcccc)];
+            
+            UILabel *labelTitle      = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 3, 200.0f, 30.0f)];
+            labelTitle.textColor     = HEXCOLOR(0x363636);
+            labelTitle.textAlignment = NSTextAlignmentLeft;
+            labelTitle.text          = @"热卖推荐";
+            labelTitle.font          = font;
+            [headView addSubview:labelTitle];
+            
+            UIImageView * logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fire"] ];//定位icon
+            logo.frame         = CGRectMake(5, 5, 25, 25);
+            [headView addSubview:logo];
+            
+            return headView;
+            
+        }
+        else  if (section== 2) {
+            headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
+            [headView setBackgroundColor:HEXCOLOR(0xffcccc)];
+            
+            UILabel * title     = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 3.0f, 200.0f, 30.0f)];
+            title.textColor     = HEXCOLOR(0x363636);
+            title.textAlignment = NSTextAlignmentLeft;
+            title.text          = @"猜你喜欢";
+            title.font          = font;
+            [headView addSubview:title];
+            
+            UIImageView * logo2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"love"] ];//定位icon
+            logo2.frame         = CGRectMake(5, 5, 25, 25);
+            [headView addSubview:logo2];
+            return headView;
+            
+        }
+ 
     }
-    else  if (section== 2) {
-        headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
-        [headView setBackgroundColor:HEXCOLOR(0xffcccc)];
-        
-        UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 3.0f, 200.0f, 30.0f)];
-        title.textColor =HEXCOLOR(0x363636);
-        title.textAlignment = NSTextAlignmentLeft;
-        title.text = @"猜你喜欢";
-        title.font = font;
-        [headView addSubview:title];
-        
-        UIImageView * logo2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"love"] ];//定位icon
-        logo2.frame =CGRectMake(5, 5, 25, 25);
-        [headView addSubview:logo2];
-        return headView;
-        
-    }
-    
     return headView;
 }
 
@@ -228,8 +231,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
     if (indexPath.section == CellTypeWithMainListCell ) {
         
         FuncListTableViewCell * listCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_listID forIndexPath:indexPath];
-        listCell.indexPath = indexPath;
-        listCell.funcDelegate = self;
+        listCell.indexPath               = indexPath;
+        listCell.funcDelegate            = self;
         
         return listCell;
         
@@ -237,27 +240,27 @@ typedef NS_ENUM(NSUInteger, CellType) {
     }else if(indexPath.section == CellTypeWithHotTableViewCell )
     {
         HotTableViewCell * hotCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_hotID forIndexPath:indexPath];
-        hotCell.hotArray = self.hotArray;
-        hotCell.delegate = self;
+        hotCell.hotArray           = self.hotArray;
+        hotCell.delegate           = self;
         return hotCell;
         
     }else{
-
+        
         GuessCell *guessCell = [self.findGoods_TableView  dequeueReusableCellWithIdentifier:cell_guessID forIndexPath:indexPath];
         if (self.likeListArray.count > 0 ) {
-            Guessgoodslist *goodlist  = self.likeListArray[indexPath.row];
-            guessCell.goodlist = goodlist;
+            Guessgoodslist *goodlist = self.likeListArray[indexPath.row];
+            guessCell.goodlist       = goodlist;
         }
         return guessCell;
     }
     
 }
 
-#pragma mark - HotTableViewCellDelegate
+#pragma mark - HotTableViewCellDelegate  根据ID跳转
 -(void)pushToDetailVCWithGoodsID :(NSString *) goodsId
 {
     DetailFindGoodsViewController *detailVCgoods = [[DetailFindGoodsViewController alloc]init];
-    detailVCgoods.goodsId = goodsId;
+    detailVCgoods.goodsId                        = goodsId;
     [self.navigationController pushViewController:detailVCgoods animated:NO];
 }
 
@@ -265,14 +268,14 @@ typedef NS_ENUM(NSUInteger, CellType) {
 {
     NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);
     DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
-
+    
     if (self.likeListArray.count > 0) {
-
-        Guessgoodslist *goodlist  = self.likeListArray[indexPath.row];
-        findVCgoods.goodsId  = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
+        
+        Guessgoodslist *goodlist = self.likeListArray[indexPath.row];
+        findVCgoods.goodsId      = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
     }
     [self.navigationController pushViewController:findVCgoods animated:YES];
- 
+    
 }
 
 #pragma mark - 广告轮播-getAdImageInfo网络请求
@@ -281,21 +284,21 @@ typedef NS_ENUM(NSUInteger, CellType) {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getAdImageInfo",zfb_baseUrl] params:nil success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
-           
+            
             if (self.adArray.count >0) {
                 
                 [self.adArray  removeAllObjects];
                 
             }else{
-            
+                
                 HomeADModel * homeAd = [HomeADModel mj_objectWithKeyValues:response];
-               
+                
                 for (Cmadvertimglist * adList in homeAd.data.cmAdvertImgList) {
                     
                     [self.adArray addObject:adList.imgUrl];
                 }
             }
-            NSLog(@"广告页 =adArray = %@",self.adArray);
+            NSLog(@"广告页       = adArray = %@",self.adArray);
             [self.findGoods_TableView reloadData];
             [self CDsyceleSettingRunningPaint];
         }
@@ -312,9 +315,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
 
 #pragma mark - 猜你喜欢- getYouWillLike网络请求
 -(void)guessYouLikePostRequst
-{    
+{
     NSDictionary * parma = @{
-                            
+                             
                              @"latitude" : BBUserDefault.latitude ,
                              @"longitude": BBUserDefault.longitude,
                              @"pageSize": [NSNumber numberWithInteger:kPageCount],
@@ -334,15 +337,15 @@ typedef NS_ENUM(NSUInteger, CellType) {
                     
                 }
             }
-
-            HomeGuessModel * guess  = [HomeGuessModel  mj_objectWithKeyValues:response];
+            
+            HomeGuessModel * guess = [HomeGuessModel  mj_objectWithKeyValues:response];
             
             for (Cmgoodsbrowselist * guesslist in guess.data.cmGoodsBrowseList.findGoodsList) {
-             
+                
                 [self.likeListArray addObject:guesslist];
                 
             }
-            NSLog(@"猜你喜欢 =likeListArray = %@",  self.likeListArray);
+            NSLog(@"猜你喜欢         = likeListArray = %@",  self.likeListArray);
             [self.findGoods_TableView reloadData];
         }
         [self endRefresh];
@@ -378,7 +381,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
         }
         NSLog(@"%@ ==== hote 热手",self.hotArray );
         [self.findGoods_TableView reloadData];
-     
+        
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
@@ -389,7 +392,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
         
     }];
     
-
+    
 }
 
 

@@ -35,6 +35,7 @@
 #import "MineWalletViewController.h"//钱包
 #import "ZFShoppingCarViewController.h"//购物车
 #import "CouponViewController.h"//优惠券
+#import "MineShareViewController.h"//我的共享
 
 //base
 #import "ZFBaseNavigationViewController.h"
@@ -170,7 +171,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 7;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -210,7 +211,10 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             height = 50;
             
             break;
-
+        case 6:
+            height = 50;
+            
+            break;
     }
     return height;
 }
@@ -288,8 +292,17 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             
         }
             break;
-            
-        case 5:
+         case 5://我的共享
+         {
+             ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
+             
+             orderCell.order_imgicon.image =[UIImage imageNamed:@"settingShopCar"];
+             orderCell.order_title.text = @"我的共享";
+             orderCell.order_hiddenTitle.text = @"";
+             return orderCell;
+         }
+             break;
+        case 6://意见反馈
         {
             ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
             
@@ -299,10 +312,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             return orderCell;
         }
             break;
-            
     }
+    
     ZFMyOderCell * cell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
-    cell.order_title.text         = @"切换到配送端";
     return cell;
 
 }
@@ -317,7 +329,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         case 1:
             
             break;
-        case 2:             //全部订单
+        case 2:            //全部订单
         {
             ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
             orderVC.buttonTitle =@"全部订单";
@@ -338,7 +350,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         {
  
             if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
-                
                 //商户端
                 BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
                 businessVC.storeId = _storeId;
@@ -353,7 +364,15 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             
         }
             break;
-        case 5: {//意见反馈
+        case 5://我的共享
+
+        {
+            MineShareViewController * shareVC = [MineShareViewController new];
+            [self.navigationController pushViewController:shareVC animated:NO];
+
+        }
+            break;
+        case 6: {//意见反馈
             
             ZFFeedbackViewController * feedVC = [[ZFFeedbackViewController alloc]init];
             [self.navigationController pushViewController:feedVC animated:NO];

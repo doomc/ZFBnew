@@ -193,14 +193,12 @@ static float kLeftTableViewWidth = 80.f;
     // 解决点击 TableView 后 CollectionView 的 Header 遮挡问题。
     [self scrollToTopOfSection:_selectIndex animated:YES];
     
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_selectIndex inSection:0]atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    
-    CmgoodsClasstypelist * list  =  _dataSource[_selectIndex];
-    _typeId  = [NSString stringWithFormat:@"%ld",list.typeId];
-    
-    [self secondClassListWithGoodTypePostRequsetTypeid:_typeId];
-    
-
+    if (self.dataSource.count > 0) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_selectIndex inSection:0]atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        CmgoodsClasstypelist * list  =  _dataSource[_selectIndex];
+        _typeId  = [NSString stringWithFormat:@"%ld",list.typeId];
+        [self secondClassListWithGoodTypePostRequsetTypeid:_typeId];
+    }
 }
 
 #pragma mark - 解决点击 TableView 后 CollectionView 的 Header 遮挡问题

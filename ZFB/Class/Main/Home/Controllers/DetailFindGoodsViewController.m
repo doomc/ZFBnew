@@ -15,6 +15,8 @@
 #import "ZFGoodsFooterView.h"
 #import "DetailgoodsSelectCell.h"
 #import "DetailWebViewCell.h"
+#import "SectionCouponCell.h"
+
 //controlller
 #import "ZFEvaluateViewController.h"
 #import "ZFSureOrderViewController.h"
@@ -33,11 +35,11 @@
 //view
 #import <WebKit/WebKit.h>
 #import "TJMapNavigationService.h"
-
+#import "CouponTableView.h"
 
 @interface DetailFindGoodsViewController ()
 <   UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate,DetailWebViewCellDelegate,
-ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
+ZFGoodsFooterViewDelegate,CLLocationManagerDelegate,CouponTableViewDelegate
 >
 {
     NSString *latitudestr;//经度
@@ -82,6 +84,9 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
 @property (nonatomic,strong) UIView            * popView;
 @property (nonatomic,strong) UIView            * BgView;//背景view
 @property (nonatomic,strong) SDCycleScrollView * cycleScrollView;//轮播图
+@property (nonatomic,strong) CouponTableView   * couponTableView;//优惠券列表
+@property (nonatomic,strong) UIView            * couponBgView;//背景视图
+
 
 //记录规格数组的模型
 @property (nonatomic, strong) NSMutableArray<SkuValulist *> *skuValueListArray;
@@ -143,6 +148,8 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
     [self.list_tableView registerNib:[UINib nibWithNibName:@"ZFLocationGoToStoreCell" bundle:nil] forCellReuseIdentifier:@"ZFLocationGoToStoreCell"];
     [self.list_tableView registerNib:[UINib nibWithNibName:@"DetailgoodsSelectCell" bundle:nil]forCellReuseIdentifier:@"DetailgoodsSelectCell"];
     [self.list_tableView registerNib:[UINib nibWithNibName:@"DetailWebViewCell" bundle:nil]forCellReuseIdentifier:@"DetailWebViewCell"];
+    [self.list_tableView registerNib:[UINib nibWithNibName:@"SectionCouponCell" bundle:nil]forCellReuseIdentifier:@"SectionCouponCell"];
+    
     _webCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"DetailWebViewCell" ];
     
     
@@ -193,6 +200,26 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
     NSLog(@"%ld",index);
     
 }
+
+#pragma mark - 优惠券列表懒加载
+-(CouponTableView *)couponTableView
+{
+    if (!_couponTableView ) {
+        _couponTableView = [[CouponTableView alloc]initWithFrame:CGRectMake(0, 200, KScreenW, KScreenH - 200)style:UITableViewStylePlain];
+        _couponTableView.popDelegate = self;
+    }
+    return _couponTableView;
+}
+//背景图
+-(UIView *)couponBgView{
+    if (!_couponBgView) {
+        _couponBgView = [[UIView alloc]initWithFrame:self.view.bounds];
+        _couponBgView.backgroundColor = RGBA(0, 0, 0,  0.2);
+        [_couponBgView addSubview:self.couponTableView];
+    }
+    return _couponBgView;
+}
+
 
 #pragma mark  - 定位当前
 /**定位当前 */
@@ -437,7 +464,7 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return 8;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -468,18 +495,22 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
             break;
             
         case 4:
-            height = 54;
+            height = 44;
             break;
             
         case 5:
-            height = 44;
+            height = 54;
             break;
             
         case 6:
             
+            height = 44;
+
+            break;
+        case 7:
+            
             height = _webViewHeight;
             break;
-            
         default:
             break;
     }
@@ -490,7 +521,7 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.row) {
-        case 0:
+        case 0://商品名
         {
             
             ZFTitleAndChooseListCell  * listCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFTitleAndChooseListCell" forIndexPath:indexPath];
@@ -504,7 +535,7 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
             
             break;
             
-        case 1:
+        case 1://选项规格
         {
             DetailgoodsSelectCell  *  selectCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"DetailgoodsSelectCell" forIndexPath:indexPath];
             
@@ -522,7 +553,14 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
             
         }
             break;
-        case 2:
+        case 2://领取优惠券
+        {
+            SectionCouponCell * couponCell =  [self.list_tableView dequeueReusableCellWithIdentifier:@"SectionCouponCell" forIndexPath:indexPath];
+            return couponCell;
+        }
+            break;
+            
+        case 3://评论
         {
             ZFbabyEvaluateCell  *  babyCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
             babyCell.lb_commonCount.text    = [NSString stringWithFormat:@"(%@)",_commentNum];
@@ -531,7 +569,7 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
             return babyCell;
         }
             break;
-        case 3:
+        case 4://定位
         {
             
             ZFLoctionNavCell  *  locaCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFLoctionNavCell" forIndexPath:indexPath];
@@ -543,7 +581,7 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
             
         }
             break;
-        case 4:
+        case 5:
         {
             ZFLocationGoToStoreCell  *  goToStoreCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFLocationGoToStoreCell" forIndexPath:indexPath];
             goToStoreCell.selectionStyle              = UITableViewCellSelectionStyleNone;
@@ -555,7 +593,7 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
             
         }
             break;
-        case 5:
+        case 6://宝贝详情
         {
             ZFbabyEvaluateCell  *  goodsDetailCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
             goodsDetailCell.selectionStyle         = UITableViewCellSelectionStyleNone;
@@ -567,7 +605,7 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
             
         }
             break;
-        case 6:
+        case 7://web
         {
             _webCell.HTMLString = _goodsDetail;//网址
             _webCell.delegate   = self;
@@ -591,44 +629,47 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
             
         case 1:
             if (self.productSkuArray.count > 0) {
-                
+               
                 [self popActionView];
-            }            break;
-            
-        case 2:
+                
+            }
+            break;
+        case 2://获取优惠券列表
+        {
+            [self.view addSubview:self.couponBgView];
+            [self.list_tableView bringSubviewToFront:self.couponBgView];
+        }
+            break;
+
+        case 3:
             //评论列表
         {
             ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
             evc.goodsId                    = _goodsId;
             [self.navigationController pushViewController:evc animated:YES];
         }
-            
-            break;
-            
-        case 3:
-            
             break;
             
         case 4:
+            
             break;
             
         case 5:
             break;
             
         case 6:
-            
             break;
             
-        default:
+        case 7:
+            
             break;
+
     }
-    
-    
 }
 
 
 
-#pragma mark - SKUColleView -UICollectionViewDataSource
+#pragma mark - SKUColleView - UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return self.productSkuArray.count;
@@ -636,7 +677,6 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     Productattribute * product = self.productSkuArray[section];
-    
     return   product.valueList.count;
 }
 //设置每个item的尺寸
@@ -1070,7 +1110,25 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
 }
 
 
+#pragma mark - < CouponTableViewDelegate > 领取优惠券代理
+//关闭弹框
+-(void)didClickCloseCouponView
+{
+    [self.couponBgView removeFromSuperview];
+    [self.couponTableView  reloadData];
+}
 
+-(void)selectCouponWithIndex:(NSInteger)indexRow withResult:(NSString *)result
+{
+    NSLog(@"  %ld ------ %@",indexRow,result);
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+    [self.couponBgView removeFromSuperview];
+    
+}
 
 #pragma mark  - 商品详情 网络请求getGoodsDetailsInfo
 -(void)goodsDetailListPostRequset{
@@ -1421,10 +1479,12 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate
     }
     return _noReluArray;
 }
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     NSLog(@"viewWillDisappear  消失了 这个方法走了吗");
 }
+
 -(void)viewDidAppear:(BOOL)animated
 {
     NSLog(@"viewDidAppear 这个方法走了吗");

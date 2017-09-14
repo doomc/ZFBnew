@@ -31,6 +31,7 @@
 #import "ZFPersonalViewController.h"
 #import "ZFEvaluateGoodsViewController.h"//评价
 #import "ZFApplyBackgoodsViewController.h"//申请售后
+#import "PublishShareViewController.h"//发布共享
 //model
 #import "AllOrderModel.h"
 #import "AllOrderProgress.h"
@@ -1510,7 +1511,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     }];
     
 }
-#pragma mark - DealSucessCellDelegate 晒单代理
+#pragma mark - DealSucessCellDelegate 晒单、共享代理
 /**
  晒单代理
  @param indexForRow 当前下标
@@ -1521,6 +1522,12 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     //去晒单
     ZFEvaluateGoodsViewController * vc = [ZFEvaluateGoodsViewController new];
     [self.navigationController pushViewController:vc animated:NO];
+}
+//共享
+-(void)didclickShareToFriend:(NSInteger)indexForRow AndOrderId:(NSString *)orderId
+{
+    PublishShareViewController *  publishvc = [PublishShareViewController new];
+    [self.navigationController pushViewController:publishvc animated:NO];
 }
 #pragma mark - ZFFooterCellDelegate footer代理
 -(void)allOrdersActionOfindexPath:(NSInteger)indexPath

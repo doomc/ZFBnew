@@ -22,6 +22,9 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.btn_shareOrder.layer.cornerRadius = 4;
     self.btn_shareOrder.clipsToBounds      = YES;
+    
+    self.btn_shareComment.layer.cornerRadius = 4;
+    self.btn_shareComment.clipsToBounds      = YES;
 }
 
 -(void)setOrderGoods:(Ordergoods *)orderGoods
@@ -34,6 +37,7 @@
     _orderId = orderGoods.order_id;
     
 }
+//晒单
 - (IBAction)shareOrderAction:(id)sender {
 
     if ([self.delegate respondsToSelector:@selector(shareOrderWithIndex:AndOrderId:)]) {
@@ -41,6 +45,12 @@
         
     }
 
+}
+//共享
+- (IBAction)commentShareAction:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(didclickShareToFriend:AndOrderId:)]) {
+        [self.delegate didclickShareToFriend:_indexRow AndOrderId:_orderId];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

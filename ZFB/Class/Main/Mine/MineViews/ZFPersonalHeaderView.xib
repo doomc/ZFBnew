@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="11.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="WF6-zv-21a">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="WF6-zv-21a">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fzD-gE-ju7">
@@ -241,7 +241,7 @@
         </view>
     </objects>
     <resources>
-        <image name="11.jpg" width="1920" height="1080"/>
         <image name="avatar_user" width="108" height="108"/>
+        <image name="background.png" width="720" height="300"/>
     </resources>
 </document>

@@ -18,6 +18,7 @@
         self.delegate = self;
         self.dataSource = self;
         [self creatUI];
+        
     }
     return self;
 }
@@ -28,8 +29,7 @@
     self.backgroundColor = RGBA(244, 244, 244, 1);
     
 }
-#pragma mark - UITableViewDataSource
-
+#pragma mark - UITableViewDelegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -39,33 +39,45 @@
 {
     return 3;
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 100;
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return  44+40;
+}
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView * headerView = nil;
     
     if (headerView == nil) {
         
-        headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 44)];
-        headerView.backgroundColor = [UIColor cyanColor];
-        
+        headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 84)];
+        headerView.backgroundColor = RGBA(244, 244, 244, 1);
+
         UILabel * title = [[UILabel alloc]init];
         title.text  = @"领取优惠券";
-        title.font = [UIFont systemFontOfSize:15];
+        title.font = [UIFont systemFontOfSize:16];
         title.textAlignment = NSTextAlignmentCenter;
         title.textColor = [UIColor darkGrayColor];
         [headerView addSubview:title];
-        
         [title mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(headerView);
-            make.centerY.equalTo(headerView);
+            make.top.equalTo(headerView).with.offset(12);
         }];
+
+        
+        //线
+        UILabel * line = [[UILabel alloc]initWithFrame:CGRectMake(0, 44, KScreenW, 0.5)];
+        line.backgroundColor = [UIColor whiteColor];
+        [headerView addSubview:line];
         
         UIButton * close = [UIButton buttonWithType:UIButtonTypeCustom];
-        [close setImage:[UIImage imageNamed:@"closeRed"] forState:UIControlStateNormal];
+        [close setImage:[UIImage imageNamed:@"compose_delete"] forState:UIControlStateNormal];
         [close addTarget:self action:@selector(didClickClosed:) forControlEvents:UIControlEventTouchUpInside];
         [headerView addSubview:close];
         
@@ -75,13 +87,17 @@
             make.size.mas_offset(CGSizeMake(32, 32));
         }];
         
+        UILabel * tag = [[UILabel alloc]initWithFrame:CGRectMake(15, 54, KScreenW, 20)];
+        tag.text  = @"可领优惠券";
+        tag.font = [UIFont systemFontOfSize:15];
+        tag.textAlignment = NSTextAlignmentLeft;
+        tag.textColor = [UIColor darkGrayColor];
+        [headerView addSubview:tag];
+        
     }
     return headerView;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return  44;
-}
+#pragma mark - UITableViewDataSource
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CouponCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
@@ -91,7 +107,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%ld ==== row",indexPath.row);
+    NSLog(@"内容 _couponeMessage =%@  , row = %ld ",_couponeMessage,indexPath.row);
+    
+    if ([self.popDelegate respondsToSelector:@selector(selectCouponWithIndex:withResult:)]) {
+        [self.popDelegate selectCouponWithIndex:indexPath.row withResult:_couponeMessage];
+    }
 }
 
 

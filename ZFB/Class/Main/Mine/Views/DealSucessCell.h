@@ -21,6 +21,15 @@
 -(void)shareOrderWithIndex:(NSInteger)indexForRow AndOrderId:(NSString *)orderId;
 
 
+/**
+ 共享到自己的朋友圈
+
+ @param indexForRow 当前index
+ @param orderId 当前id
+ */
+-(void)didclickShareToFriend:(NSInteger)indexForRow AndOrderId:(NSString *)orderId;
+
+
 @end
 @interface DealSucessCell : UITableViewCell
 
@@ -36,6 +45,11 @@
  晒单
  */
 @property (weak, nonatomic) IBOutlet UIButton *btn_shareOrder;
+
+/**
+ 共享
+ */
+@property (weak, nonatomic) IBOutlet UIButton *btn_shareComment;
 
 @property (strong , nonatomic) Ordergoods * orderGoods;
 

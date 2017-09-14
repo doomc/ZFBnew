@@ -13,8 +13,19 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    //按钮
+    _didClickget_btn.layer.cornerRadius = 4;
+    _didClickget_btn.layer.masksToBounds = YES;
+    _didClickget_btn.layer.borderWidth = 1;
+    _didClickget_btn.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
+    
+    //背景图
+    
+    //快过期
+    
+    //已使用
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
