@@ -149,7 +149,7 @@
 //返回section个数
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 3;
+    return 2;
 }
 
 //每个section的item个数

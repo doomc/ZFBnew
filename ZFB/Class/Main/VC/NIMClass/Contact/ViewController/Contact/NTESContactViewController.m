@@ -180,7 +180,8 @@ NIMEventSubscribeManagerDelegate> {
                     option.joinMode   = NIMTeamJoinModeNoAuth;
                     option.postscript = @"邀请你加入群组";
                     [SVProgressHUD show];
-                    [[NIMSDK sharedSDK].teamManager createTeam:option users:members completion:^(NSError *error, NSString *teamId) {
+                    [[NIMSDK sharedSDK].teamManager createTeam:option users:members completion:^(NSError * _Nullable error, NSString * _Nullable teamId, NSArray<NSString *> * _Nullable failedUserIds) {
+                      
                         [SVProgressHUD dismiss];
                         if (!error) {
                             NIMSession *session = [NIMSession session:teamId type:NIMSessionTypeTeam];
@@ -189,7 +190,9 @@ NIMEventSubscribeManagerDelegate> {
                         }else{
                             [wself.view makeToast:@"创建失败" duration:2.0 position:CSToastPositionCenter];
                         }
+  
                     }];
+            
                 }];
                 break;
             }
@@ -203,7 +206,7 @@ NIMEventSubscribeManagerDelegate> {
                     option.name       = @"讨论组";
                     option.type       = NIMTeamTypeNormal;
                     [SVProgressHUD show];
-                    [[NIMSDK sharedSDK].teamManager createTeam:option users:members completion:^(NSError *error, NSString *teamId) {
+                    [[NIMSDK sharedSDK].teamManager createTeam:option users:members completion:^(NSError * _Nullable error, NSString * _Nullable teamId, NSArray<NSString *> * _Nullable failedUserIds) {
                         [SVProgressHUD dismiss];
                         if (!error) {
                             NIMSession *session = [NIMSession session:teamId type:NIMSessionTypeTeam];

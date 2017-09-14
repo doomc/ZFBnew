@@ -42,7 +42,7 @@ typedef void(^NIMNetCallResponseHandler)(NSError * __nullable error, UInt64 call
  *  @param meeting 预订或者加入的多人会议
  *  @param error   预订或者加入多人会议请求结果, 如果成功 error 为 nil
  */
-typedef void(^NIMNetCallMeetingHandler)(NIMNetCallMeeting *meeting, NSError *error);
+typedef void(^NIMNetCallMeetingHandler)(NIMNetCallMeeting *meeting, NSError * __nullable error);
 
 /**
  *  网络通话状态
@@ -361,6 +361,11 @@ typedef NS_ENUM(NSInteger, NIMNetCallCamera){
  当前语音文件混音任务完成回调
  */
 - (void)onAudioMixTaskCompleted;
+
+/**
+ 当前音效播放完成回调
+ */
+- (void)onSoundEffectPlayCompleted;
 
 /**
  互动直播状态回调
@@ -691,6 +696,16 @@ typedef NS_ENUM(NSInteger, NIMNetCallCamera){
  @return 混音任务. 如果没有当前任务则返回 nil
  */
 - (nullable NIMNetCallAudioFileMixTask *)currentAudioMixTask;
+
+
+/**
+ 播放音效，用于在混音时播放短暂的音效
+ 
+ @param task 音效任务。其中的 sendVolume 参数在播放音效中无效
+ 
+ @return 结果, 如果成功开始了, 返回 nil
+ */
+- (nullable NSError *)playSoundEffect:(NIMNetCallAudioFileMixTask *)task;
 
 /**
  *  获得当前视频通话的本地预览层

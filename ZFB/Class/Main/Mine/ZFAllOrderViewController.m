@@ -333,7 +333,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             sectionNum = self.orderListArray.count;
             break;
         case OrderTypeDealSuccess:
-            sectionNum = self.orderListArray.count;
+            sectionNum = 2;// self.orderListArray.count;
             break;
         case OrderTypeCancelSuccess:
             sectionNum = self.orderListArray.count;
@@ -358,10 +358,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     
     Orderlist * orderlist       = self.orderListArray[section];
     NSMutableArray * goodsArray = [NSMutableArray array];
-    for (Ordergoods * goods in orderlist.orderGoods) {
-        [goodsArray addObject:goods];
-    }
-    
+//    for (Ordergoods * goods in orderlist.orderGoods) {
+//        [goodsArray addObject:goods];
+//    }
+//    
     switch (_orderType) {
         case OrderTypeAllOrder:
             
@@ -386,7 +386,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             break;
         case OrderTypeDealSuccess:
             
-            rowNum = goodsArray.count;
+            rowNum = 2;// goodsArray.count;
             break;
         case OrderTypeCancelSuccess:
             
@@ -1159,8 +1159,8 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             break;
         case OrderTypeDealSuccess://交易成功
             
-            [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
-            
+//            [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
+            [self.zfb_tableView reloadData];
             break;
         case OrderTypeCancelSuccess://取消交易
             
@@ -1838,7 +1838,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             break;
         case OrderTypeAfterSale://售后
             
-            //            [self allOrderPostRequsetWithOrderStatus:@"2"  orderNum:@""];
             [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:BBUserDefault.keyWord ];
             
             break;

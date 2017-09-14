@@ -78,6 +78,7 @@ EOM
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "AMap2DMap/MAMapKit.framework/AMap.bundle"
+  install_resource "HXWeiboPhotoPicker/微博照片选择/HXWeiboPhotoPicker/HXWeiboPhotoPicker.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "NIMSDK/NIMAVChat/Resources/NMCVideoFilter.bundle"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
@@ -85,6 +86,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "AMap2DMap/MAMapKit.framework/AMap.bundle"
+  install_resource "HXWeiboPhotoPicker/微博照片选择/HXWeiboPhotoPicker/HXWeiboPhotoPicker.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "NIMSDK/NIMAVChat/Resources/NMCVideoFilter.bundle"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"

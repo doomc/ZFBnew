@@ -34,7 +34,7 @@
 		</data>
 		<key>Headers/NIMNetCallManagerProtocol.h</key>
 		<data>
-		dyehURqH8F9UVvL7Rgt66nl77Iw=
+		l2UvYRle9NB+gONbY5BT9+g2Kn0=
 		</data>
 		<key>Headers/NIMNetCallMeeting.h</key>
 		<data>
@@ -82,7 +82,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		3mmUyeH74FHNrMeT1vT/uLRTuLE=
+		rSMFUETzDLa4e9vTGgCRFmmuxeA=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -172,11 +172,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			dyehURqH8F9UVvL7Rgt66nl77Iw=
+			l2UvYRle9NB+gONbY5BT9+g2Kn0=
 			</data>
 			<key>hash2</key>
 			<data>
-			IiDPEs1sqbVG+3hBP6MP8Dq7+EkyOGoMMtstC34ize8=
+			/iCnPxqzDPcUzmajTa/19Uap955h1devYjEJ4HQY0EI=
 			</data>
 		</dict>
 		<key>Headers/NIMNetCallMeeting.h</key>

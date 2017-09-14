@@ -48,7 +48,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 330;
+    return 290;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -77,9 +77,7 @@
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/recommentList"] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
-            
-            
-            
+                        
             [SVProgressHUD dismiss];
  
         }

@@ -140,9 +140,7 @@
     option.type = NIMTeamTypeNormal;
     __weak typeof(self) wself = self;
     [SVProgressHUD show];
-    [[NIMSDK sharedSDK].teamManager createTeam:option
-                                         users:users
-                                    completion:^(NSError *error, NSString *teamId) {
+    [[NIMSDK sharedSDK].teamManager createTeam:option users:users completion:^(NSError * _Nullable error, NSString * _Nullable teamId, NSArray<NSString *> * _Nullable failedUserIds) {
                                         [SVProgressHUD dismiss];
                                         if (!error) {
                                             NIMSession *session = [NIMSession session:teamId type:NIMSessionTypeTeam];

@@ -196,7 +196,6 @@
                 [wself.navigationController pushViewController:serchVC animated:YES];
                 
             }
-                
                 break;
             case 1:{  //创建高级群
                 [wself presentMemberSelector:^(NSArray *uids) {
@@ -207,7 +206,7 @@
                     option.joinMode   = NIMTeamJoinModeNoAuth;
                     option.postscript = @"邀请你加入群组";
                     [SVProgressHUD show];
-                    [[NIMSDK sharedSDK].teamManager createTeam:option users:members completion:^(NSError *error, NSString *teamId) {
+                    [[NIMSDK sharedSDK].teamManager createTeam:option users:members completion:^(NSError * _Nullable error, NSString * _Nullable teamId, NSArray<NSString *> * _Nullable failedUserIds) {
                         [SVProgressHUD dismiss];
                         if (!error) {
                             NIMSession *session = [NIMSession session:teamId type:NIMSessionTypeTeam];

@@ -21,22 +21,24 @@ PODS:
     - AMapFoundation (~> 1.4)
   - AMapSearch (5.3.0):
     - AMapFoundation (~> 1.2)
-  - CocoaLumberjack (3.2.0):
-    - CocoaLumberjack/Default (= 3.2.0)
-    - CocoaLumberjack/Extensions (= 3.2.0)
-  - CocoaLumberjack/Default (3.2.0)
-  - CocoaLumberjack/Extensions (3.2.0):
+  - CocoaLumberjack (3.2.1):
+    - CocoaLumberjack/Default (= 3.2.1)
+    - CocoaLumberjack/Extensions (= 3.2.1)
+  - CocoaLumberjack/Default (3.2.1)
+  - CocoaLumberjack/Extensions (3.2.1):
     - CocoaLumberjack/Default
   - CYLTableViewPlaceHolder (1.0.8)
   - FMDB (2.7.2):
     - FMDB/standard (= 2.7.2)
   - FMDB/standard (2.7.2)
+  - HXWeiboPhotoPicker (2.0.9):
+    - SDWebImage (~> 4.0)
   - M80AttributedLabel (1.6.3)
   - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
   - MJExtension (3.0.13)
   - MJRefresh (3.1.12)
-  - NIMSDK (4.1.0)
+  - NIMSDK (4.2.0)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
   - ReactiveCocoa/Core (2.5):
@@ -47,9 +49,9 @@ PODS:
   - SDWebImage (4.1.0):
     - SDWebImage/Core (= 4.1.0)
   - SDWebImage/Core (4.1.0)
-  - SVProgressHUD (2.1.2)
+  - SVProgressHUD (2.2.1)
   - Toast (3.1.0)
-  - TZImagePickerController (1.8.9)
+  - TZImagePickerController (1.9.3)
 
 DEPENDENCIES:
   - AFNetworking
@@ -59,6 +61,7 @@ DEPENDENCIES:
   - CocoaLumberjack (>= 3.2.0)
   - CYLTableViewPlaceHolder
   - FMDB (~> 2.5)
+  - HXWeiboPhotoPicker
   - M80AttributedLabel (>= 1.6.3)
   - Masonry
   - MBProgressHUD
@@ -77,21 +80,22 @@ SPEC CHECKSUMS:
   AMapFoundation: 6c0471c9a6a0ad17dad46e3d800ad56ca170f82a
   AMapLocation: 47b62b5381a66e4d0c2931b70ffde72682427896
   AMapSearch: beb01c6b2e7be18fb4898e97162fedf144420c6f
-  CocoaLumberjack: 9b4aed7073d242f29cc2f62068d995faf67f703a
+  CocoaLumberjack: 2800c03334042fe80589423c8d80e582dcaec482
   CYLTableViewPlaceHolder: 44075c119aab78bbc514c75d771d6565e19938e8
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
+  HXWeiboPhotoPicker: e395ed32275b05f6c90822ffca1275522f32000c
   M80AttributedLabel: d06543195d3e451d2ea62ad76d04aa9cea7661d4
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
-  NIMSDK: aa7c00ddc66181f75d8d970f7f5ab00ca95dd374
+  NIMSDK: 97a1920e36b6fa59316848a273866b92e28b7e8b
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
-  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
   Toast: 14a93686d6c8bfe2727afd342414e35660a8a1f3
-  TZImagePickerController: b44f4cfc6d320dab9a53adcdda725099be36dcda
+  TZImagePickerController: 079ab986018c22793462e531045a75e366b18252
 
-PODFILE CHECKSUM: 30b68c6801684c5813f0fc3f306cc273f8538753
+PODFILE CHECKSUM: 763b469ffd7f1c7d1ecc3efa7ca1c44cdb19fbd1
 
 COCOAPODS: 1.2.0

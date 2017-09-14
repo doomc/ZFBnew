@@ -41,10 +41,10 @@
     
     [self initWithInterFace];
     
-    [self CDsyceleSettingRunningPaint];
-    
-    
     [self footViewInterface];
+    
+    [self CDsyceleSettingRunningPaint];
+
 }
 /**初始化轮播 */
 -(void)CDsyceleSettingRunningPaint
@@ -73,30 +73,6 @@
 
 -(void)initWithInterFace
 {
-    _lb_titile = [[UILabel alloc]initWithFrame:CGRectMake(15, 10 + 160 +64, KScreenW - 30, 25)];
-    _lb_titile.font = [UIFont systemFontOfSize:16];
-    _lb_titile.textColor =  HEXCOLOR(0x363636);
-    _lb_titile.text = @"标题";
-    [self.view addSubview:_lb_titile];
-    
-    _lb_conent = [[UILabel alloc]init];
-    _lb_conent.font = [UIFont systemFontOfSize:14];
-    _lb_conent.numberOfLines = 0;
-    _lb_conent.text = @"在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容";
-    _lb_conent.textColor =  HEXCOLOR(0x363636);
-    [self.view addSubview:_lb_conent];
-    
-    [_lb_conent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).with.offset(15);
-        make.right.equalTo(self.view).with.offset(-15);
-        make.top.equalTo(_lb_titile).with.offset(20);
-        make.bottom.equalTo(_footerView).with.offset(-20);
-        
-    }];
-}
-
--(void)footViewInterface
-{
     _footerView = [[UIView alloc]initWithFrame:CGRectMake(0, KScreenH - 50, KScreenW, 50)];
     [self.view addSubview:_footerView];
     
@@ -109,12 +85,12 @@
     _zan_btn.backgroundColor = [UIColor whiteColor];
     [_zan_btn addTarget:self action:@selector(didClickZan:) forControlEvents:UIControlEventTouchUpInside];
     [_footerView addSubview:_zan_btn];
-
+    
     [_zan_btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_footerView).with.offset(0);
         make.top.equalTo(_footerView).with.offset(0);
         make.height.mas_equalTo(50);
-        make.width.mas_equalTo(180);
+        make.width.mas_equalTo(140);
     }];
     
     
@@ -129,8 +105,37 @@
         make.top.equalTo(_footerView).with.offset(0);
         make.right.equalTo(_footerView).with.offset(0);
         make.height.mas_equalTo(50);
- 
+        
     }];
+    
+    
+    _lb_titile = [[UILabel alloc]initWithFrame:CGRectMake(15, 10 + 160 +64, KScreenW - 30, 25)];
+    _lb_titile.font = [UIFont systemFontOfSize:16];
+    _lb_titile.textColor =  HEXCOLOR(0x363636);
+    _lb_titile.text = @"标题";
+    [self.view addSubview:_lb_titile];
+    
+    _lb_conent = [[UILabel alloc]init];
+    _lb_conent.font = [UIFont systemFontOfSize:14];
+    _lb_conent.numberOfLines = 0;
+    
+
+ 
+    _lb_conent.text = @"在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容";
+    _lb_conent.textColor =  HEXCOLOR(0x363636);
+    [self.view addSubview:_lb_conent];
+    
+    [_lb_conent mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_lb_titile.mas_bottom).with.offset(15);
+        make.left.equalTo(self.view).with.offset(15);
+        make.right.equalTo(self.view).with.offset(-15);
+        make.bottom.equalTo(_footerView.mas_top).with.offset(-20);
+     }];
+}
+
+-(void)footViewInterface
+{
+
 }
 
 #pragma mark -点赞数

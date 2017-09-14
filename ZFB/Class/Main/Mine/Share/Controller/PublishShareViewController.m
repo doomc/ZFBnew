@@ -14,6 +14,7 @@
 
 @interface PublishShareViewController ()<HXPhotoViewDelegate>
 @property (strong, nonatomic) HXPhotoManager *manager;
+@property (strong, nonatomic) NSMutableArray *imgUrl_mutArray;
 @property (weak, nonatomic) IBOutlet UIView *photoView;
 
 
@@ -21,7 +22,13 @@
 @end
 
 @implementation PublishShareViewController
-
+-(NSMutableArray *)imgUrl_mutArray
+{
+    if (!_imgUrl_mutArray) {
+        _imgUrl_mutArray = [NSMutableArray array];
+    }
+    return _imgUrl_mutArray;
+}
 - (HXPhotoManager *)manager {
     if (!_manager) {
         _manager = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhotoAndVideo];
@@ -31,9 +38,10 @@
         //        _manager.outerCamera = YES;
         _manager.open3DTouchPreview = YES;
         _manager.cameraType = HXPhotoManagerCameraTypeSystem;
-        _manager.photoMaxNum = 4;
-        _manager.videoMaxNum = 4;
-        _manager.maxNum = 8;
+        _manager.photoMaxNum = 5;
+        _manager.videoMaxNum = 5;
+        _manager.maxNum = 5;
+        _manager.rowCount = 3;
         _manager.saveSystemAblum = NO;
     }
     return _manager;
@@ -45,36 +53,32 @@
     
     self.title = @"共享资源 共享梦想";
     
-    self.navigationController.navigationBar.translucent = NO;
-    self.automaticallyAdjustsScrollViewInsets = YES;
-    CGFloat width = self.view.frame.size.width;
     HXPhotoView *photoView = [HXPhotoView photoManager:self.manager];
-    photoView.frame = CGRectMake(12, 100, width - 24, 0);
+    photoView.frame = CGRectMake(15, 10, KScreenW - 30, 0);
     photoView.delegate = self;
-    photoView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:photoView];
-    self.photoView = photoView;
-    
-
+    photoView.backgroundColor = [UIColor clearColor];
+    [self.photoView  addSubview:photoView];
     
 }
 
 
 - (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {
-    NSSLog(@"所有:%ld - 照片:%ld - 视频:%ld",allList.count,photos.count,videos.count);
-    //    [HXPhotoTools getImageForSelectedPhoto:photos type:HXPhotoToolsFetchHDImageType completion:^(NSArray<UIImage *> *images) {
-    //        NSSLog(@"%@",images);
-    //        for (UIImage *image in images) {
-    //            if (image.images.count > 0) {
-    //                // 到这里了说明这个image  是个gif图
-    //            }
-    //        }
-    //    }];
-    
-    //    将HXPhotoModel模型数组转化成HXPhotoResultModel模型数组  - 已按选择顺序排序
+
     //    !!!!  必须是全部类型的那个数组 就是 allList 这个数组  !!!!
     [HXPhotoTools getSelectedListResultModel:allList complete:^(NSArray<HXPhotoResultModel *> *alls, NSArray<HXPhotoResultModel *> *photos, NSArray<HXPhotoResultModel *> *videos) {
-        NSSLog(@"\n全部类型:%@\n照片:%@\n视频:%@",alls,photos,videos);
+
+        if (self.imgUrl_mutArray.count > 0) {
+            [self.imgUrl_mutArray  removeAllObjects];
+        }
+        for (HXPhotoResultModel * photo in photos) {
+            
+            NSURL *url         = photo.fullSizeImageURL;
+            NSString * urlpath = url.path;
+            NSSLog(@"\n%@",urlpath);
+            [self.imgUrl_mutArray addObject:urlpath];
+        }
+        //将数据传出去
+        NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
     }];
  
 }
@@ -83,6 +87,10 @@
 }
 - (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
     NSSLog(@"%@",NSStringFromCGRect(frame));
+    
+    self.photoView.height = frame.size.height + 20;
+//    self.photoView.frame = CGRectMake(0, 284, KScreenW, frame.size.height + 20);
+  
 }
 
 
