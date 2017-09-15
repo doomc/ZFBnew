@@ -10,4 +10,6 @@
 
 @interface SectionCouponCell : UITableViewCell
 
+
+
 @end

@@ -8,10 +8,12 @@
 
 #import "MineShareAllIncomeViewController.h"
 #import "MineShareIncomeCell.h"
+#import "ReviewingModel.h"
 @interface MineShareAllIncomeViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic)  UITableView * tableView;
 @property (strong, nonatomic)  UIButton * edit_btn;
+@property (strong, nonatomic)  NSMutableArray * orderList;
 
 @end
 
@@ -24,10 +26,31 @@
     self.title = @"我的共享";
 
     [self.view addSubview:self.tableView];
+    self.zfb_tableView = self.tableView;
     [self.tableView registerNib:[UINib nibWithNibName:@"MineShareIncomeCell" bundle:nil] forCellReuseIdentifier:@"MineShareIncomeCellid"];
     
+    [self setupRefresh];
+    [self allOrderListGoodsPost];
 }
 
+-(void)footerRefresh
+{
+    [super footerRefresh];
+    [self allOrderListGoodsPost];
+
+}
+-(void)headerRefresh
+{
+    [super headerRefresh];
+    [self allOrderListGoodsPost];
+
+}
+-(NSMutableArray *)orderList{
+    if (!_orderList) {
+        _orderList = [NSMutableArray array];
+    }
+    return _orderList;
+}
 //设置右边按键（如果没有右边 可以不重写）
 -(UIButton*)set_rightButton
 {
@@ -63,7 +86,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return self.orderList.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -71,8 +94,10 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MineShareIncomeCell * cell = [self.tableView dequeueReusableCellWithIdentifier:@"MineShareIncomeCellid" forIndexPath:indexPath];
+    ReViewData * data  = self.orderList[indexPath.row];
     
+    MineShareIncomeCell * cell = [self.tableView dequeueReusableCellWithIdentifier:@"MineShareIncomeCellid" forIndexPath:indexPath];
+    cell.reviewData = data;
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -80,11 +105,52 @@
     
 }
 
-#pragma mark - 编辑/完成
+#pragma mark -筛选时间
 -(void)didClickEditing:(UIButton *) editing
 {
     NSLog(@"%@",editing);
 }
+
+
+
+
+
+#pragma mark  - 我的共享列表    myShare/allShareOrderList
+-(void)allOrderListGoodsPost
+{
+    NSDictionary * parma = @{
+                             @"userId":BBUserDefault.cmUserId,
+                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
+                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/myShare/allShareOrderList"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+            
+            if (self.refreshType == RefreshTypeHeader) {
+                if (self.orderList.count > 0) {
+                    [self.orderList removeAllObjects];
+                }
+            }
+            ReviewingModel * review =[ ReviewingModel mj_objectWithKeyValues:response];
+            for (ReViewData * reviewData in review.data) {
+                
+                [self.orderList addObject:reviewData];
+            }
+            [self endRefresh];
+            [self.tableView reloadData];
+            [SVProgressHUD dismiss];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

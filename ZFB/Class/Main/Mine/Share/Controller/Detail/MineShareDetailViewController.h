@@ -10,4 +10,7 @@
 
 @interface MineShareDetailViewController : BaseViewController
 
+@property (nonatomic , copy) NSString * goodsId;
+
+
 @end

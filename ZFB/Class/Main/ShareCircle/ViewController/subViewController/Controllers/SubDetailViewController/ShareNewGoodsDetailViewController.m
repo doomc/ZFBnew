@@ -9,7 +9,9 @@
 #import "ShareNewGoodsDetailViewController.h"
 #import "DetailFindGoodsViewController.h"
 @interface ShareNewGoodsDetailViewController ()<SDCycleScrollViewDelegate>
-
+{
+    NSString * _goodsId;
+}
 @property (strong, nonatomic) SDCycleScrollView *cycleScrollView ;
 @property (strong, nonatomic) NSMutableArray *adArray ;
 @property (strong, nonatomic) UILabel * lb_titile;
@@ -43,26 +45,29 @@
     
     [self footViewInterface];
     
-    [self CDsyceleSettingRunningPaint];
+    [self.view addSubview:self.cycleScrollView];
+
 
 }
 /**初始化轮播 */
--(void)CDsyceleSettingRunningPaint
-{
-    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, KScreenW, 160) delegate:self placeholderImage:nil];
-    _cycleScrollView.backgroundColor = [UIColor whiteColor];
-    _cycleScrollView.imageURLStringsGroup = self.adArray;
-    _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
-    _cycleScrollView.placeholderImage = [UIImage imageNamed:@"nodataPlaceholder"];
-    _cycleScrollView.delegate = self;
-    
-    //自定义dot 大小和图案pageControlCurrentDot
-    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
-    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"dot_selected"];
-    _cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
-    [self.view addSubview:_cycleScrollView];
-    
+-(SDCycleScrollView *)cycleScrollView{
+    if (!_cycleScrollView) {
+        
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, KScreenW, 160) delegate:self placeholderImage:nil];
+        _cycleScrollView.backgroundColor = [UIColor whiteColor];
+        _cycleScrollView.imageURLStringsGroup = self.adArray;
+        _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
+        _cycleScrollView.placeholderImage = [UIImage imageNamed:@"nodataPlaceholder"];
+        _cycleScrollView.delegate = self;
+        
+        //自定义dot 大小和图案pageControlCurrentDot
+        _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
+        _cycleScrollView.pageDotImage = [UIImage imageNamed:@"dot_selected"];
+        _cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
+    }
+    return _cycleScrollView;
 }
+
 
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
@@ -119,9 +124,7 @@
     _lb_conent.font = [UIFont systemFontOfSize:14];
     _lb_conent.numberOfLines = 0;
     
-
- 
-    _lb_conent.text = @"在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容在哪无内容";
+    _lb_conent.text = @" ";
     _lb_conent.textColor =  HEXCOLOR(0x363636);
     [self.view addSubview:_lb_conent];
     
@@ -147,9 +150,46 @@
 #pragma mark - 查看详情
 -(void)didClicklookDetail:(UIButton *)sender
 {
+    if (![_goodsId isEqualToString:@""] || _goodsId ==nil) {
 
-//    DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
-//    [self.navigationController pushViewController:detailVC animated:NO];
+        DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
+        detailVC.goodsId = _goodsId;
+        [self.navigationController pushViewController:detailVC animated:NO];
+    }
+
+}
+
+
+
+#pragma mark -  获取新品推荐详情信息 recomment/recommentDetailInfo
+-(void)recommentDetailPostRequst
+{
+    NSDictionary * parma = @{
+                             @"recommentId":_recommentId,
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/recommentDetailInfo"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+            
+            _lb_titile.text = response[@"recommentInfo"][@"title"];
+            _lb_conent.text = response[@"recommentInfo"][@"describe"];
+            [_zan_btn setTitle:response[@"recommentInfo"][@"thumbs"] forState:UIControlStateNormal] ;
+            _goodsId = response[@"recommentInfo"][@"goodsId"];
+            self.adArray = response[@"recommentInfo"][@"goodsImgUrlList"];
+            
+            [self.view addSubview:self.cycleScrollView];
+            [SVProgressHUD dismiss];
+         }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        [self endRefresh];
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
 }
 
 

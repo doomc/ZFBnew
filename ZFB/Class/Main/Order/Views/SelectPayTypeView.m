@@ -18,7 +18,7 @@
         
         self.delegate = self;
         self.dataSource = self;
-        
+        self.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self registerNib:[UINib nibWithNibName:@"SelectPayTypeCell" bundle:nil] forCellReuseIdentifier:@"SelectPayTypeCell"];
     }
     return self;

@@ -12,6 +12,11 @@
 
 #import "ShareNewGoodsDetailViewController.h"
 @interface ShareNewgoodsViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic , strong) NSMutableArray * commendList;
+@property (nonatomic , copy) NSString * isThumbed;
+@property (nonatomic , copy) NSString * recommentId;
+
 @end
 
 @implementation ShareNewgoodsViewController
@@ -22,6 +27,20 @@
     
     [self initTableView];
 
+    [self setupRefresh];
+    
+    [self recommentPostRequst];
+    
+    
+}
+-(void)headerRefresh{
+    [super headerRefresh];
+    [self recommentPostRequst];
+    
+}
+-(void)footerRefresh
+{
+    [super footerRefresh];
     [self recommentPostRequst];
 }
 
@@ -32,10 +51,16 @@
     self.zfb_tableView.dataSource = self;
     self.zfb_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.zfb_tableView];
-    
+
     [self.zfb_tableView registerNib:[UINib nibWithNibName:@"ShareNewGoodsCell" bundle:nil] forCellReuseIdentifier:@"ShareNewGoodsCellid"];
 }
 
+-(NSMutableArray *)commendList{
+    if (!_commendList) {
+        _commendList  = [NSMutableArray array];
+    }
+    return _commendList;
+}
 
 #pragma mark - UITableViewDataSource ,UITableViewDelegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -44,22 +69,24 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return self.commendList.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 290;
+    return 258;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ShareNewGoodsCell * goodCell = [self.zfb_tableView dequeueReusableCellWithIdentifier:@"ShareNewGoodsCellid" forIndexPath:indexPath];
+    Recommentlist * list = self.commendList[indexPath.row];
+    goodCell.recommend = list;
+    _isThumbed = goodCell.isThumbed;
     return goodCell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@" ------%ld----", indexPath.row);
-    
     ShareNewGoodsDetailViewController * detailVC = [ShareNewGoodsDetailViewController new];
     [self.navigationController pushViewController:detailVC animated:NO];
 }
@@ -69,23 +96,32 @@
 -(void)recommentPostRequst
 {
     NSDictionary * parma = @{
-                             @"pageIndex":@"1",
-                             @"pageSize":@"10",
+                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
+                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
                              };
-    
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/recommentList"] params:parma success:^(id response) {
-        
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
-                        
+            if (self.refreshType == RefreshTypeHeader) {
+                if (self.commendList.count > 0) {
+                    [self.commendList removeAllObjects];
+                }
+            }
+            ShareCommendModel * commend = [ShareCommendModel mj_objectWithKeyValues:response];
+            for (Recommentlist * list in commend.recommentList) {
+    
+                [self.commendList addObject:list];
+            }
             [SVProgressHUD dismiss];
- 
+            [self endRefresh];
+            [self.zfb_tableView reloadData];
+
         }
         
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
-        
+        [self endRefresh];
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
@@ -93,7 +129,11 @@
     
 }
 
-
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [SVProgressHUD dismiss];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

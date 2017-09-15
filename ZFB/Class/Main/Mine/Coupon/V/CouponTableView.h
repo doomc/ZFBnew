@@ -15,7 +15,8 @@
  */
 -(void)didClickCloseCouponView;
 
- 
+
+//获取当前的优惠券
 -(void)selectCouponWithIndex:(NSInteger)indexRow withResult:(NSString *)result;
 
 @end

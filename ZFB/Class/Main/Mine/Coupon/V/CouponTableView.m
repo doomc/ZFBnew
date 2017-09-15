@@ -8,7 +8,9 @@
 
 #import "CouponTableView.h"
 #import "CouponCell.h"
+@interface CouponTableView ()<CouponCellDelegate>
 
+@end
 @implementation CouponTableView
 
 -(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
@@ -25,9 +27,15 @@
 
 -(void)creatUI{
 
+    self.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self registerNib:[UINib nibWithNibName:@"CouponCell" bundle:nil] forCellReuseIdentifier:@"CouponCellid"];
     self.backgroundColor = RGBA(244, 244, 244, 1);
     
+}
+-(void)setCouponesList:(NSMutableArray *)couponesList
+{
+    _couponesList = couponesList;
+    NSLog(@"%@",couponesList);
 }
 #pragma mark - UITableViewDelegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -37,7 +45,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return _couponesList.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -97,17 +105,28 @@
     }
     return headerView;
 }
+
+
 #pragma mark - UITableViewDataSource
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    Couponlist  * list = _couponesList[indexPath.row];
+    
     CouponCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
+   
+    cell.couponDelegate = self;
+    
+    cell.indexRow = indexPath.row;
+    
+    cell.couponlist = list;
+    
     return cell;
 }
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"内容 _couponeMessage =%@  , row = %ld ",_couponeMessage,indexPath.row);
+    NSLog(@"我点的是整个优惠券内部 _couponeMessage =%@  , row = %ld ",_couponeMessage,indexPath.row);
     
     if ([self.popDelegate respondsToSelector:@selector(selectCouponWithIndex:withResult:)]) {
         [self.popDelegate selectCouponWithIndex:indexPath.row withResult:_couponeMessage];
@@ -122,7 +141,12 @@
         [self.popDelegate didClickCloseCouponView];
     }
 }
- 
+
+#pragma mark - CouponCellDelegate 领取优惠券代理
+-(void)didClickGetCouponWithIndexRow :(NSInteger)indexRow
+{
+    NSLog(@"我领取了第---%ld---券",indexRow);
+}
 
 
 

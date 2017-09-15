@@ -10,4 +10,17 @@
 
 @implementation ShareWaterFullModel
 
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"data" : [ShareGoodsData class]};
+}
 @end
+@implementation ShareGoodsData
+
++(NSDictionary *)mj_replacedKeyFromPropertyName
+{
+  return @{@"shareId": @"id"};}
+
+@end
+
+

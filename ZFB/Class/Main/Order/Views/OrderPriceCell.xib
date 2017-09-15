@@ -54,27 +54,14 @@
                         <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evK-6d-4Bd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
-                        <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="0.5" id="9EX-Eo-Drd"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="VQ9-E4-9za" firstAttribute="centerY" secondItem="GmA-fP-J9v" secondAttribute="centerY" id="6FE-su-XnP"/>
                     <constraint firstAttribute="trailing" secondItem="VQ9-E4-9za" secondAttribute="trailing" constant="15" id="AzA-cD-TEs"/>
                     <constraint firstItem="Bc0-rj-kIK" firstAttribute="leading" secondItem="GmA-fP-J9v" secondAttribute="leading" id="DGO-XS-WsV"/>
-                    <constraint firstAttribute="trailing" secondItem="evK-6d-4Bd" secondAttribute="trailing" id="GEk-iq-z5W"/>
                     <constraint firstItem="GmA-fP-J9v" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="NYf-ll-CjC"/>
                     <constraint firstItem="Qqi-QW-3ie" firstAttribute="trailing" secondItem="VQ9-E4-9za" secondAttribute="trailing" id="YKH-YI-ETF"/>
                     <constraint firstItem="Bc0-rj-kIK" firstAttribute="top" secondItem="GmA-fP-J9v" secondAttribute="bottom" constant="5" id="akt-T7-oHf"/>
-                    <constraint firstItem="evK-6d-4Bd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="h4P-Lp-BwI"/>
-                    <constraint firstItem="evK-6d-4Bd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hJU-wf-xvt"/>
                     <constraint firstItem="Qqi-QW-3ie" firstAttribute="centerY" secondItem="Bc0-rj-kIK" secondAttribute="centerY" id="hbk-ck-rWx"/>
                     <constraint firstItem="GmA-fP-J9v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="r16-eE-gWl"/>
                 </constraints>

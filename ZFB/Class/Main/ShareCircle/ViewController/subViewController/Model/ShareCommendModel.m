@@ -10,7 +10,6 @@
 
 @implementation ShareCommendModel
 
-
 + (NSDictionary *)objectClassInArray{
     return @{@"recommentList" : [Recommentlist class]};
 }

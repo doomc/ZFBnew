@@ -10,10 +10,17 @@
 #import "SDCycleScrollView.h"
 
 @interface MineShareDetailViewController () <SDCycleScrollViewDelegate>
+{
+    NSString * _title;
+    NSString * _describe;
+    NSString * _status;
 
+}
 @property (strong, nonatomic)  UIButton * edit_btn;
-
+@property (strong, nonatomic)  NSArray * imgUrls;
+@property (weak, nonatomic) IBOutlet UILabel *lb_title;
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *cycleView;
+@property (weak, nonatomic) IBOutlet UILabel *lb_descirbe;
 
 @end
 
@@ -23,7 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"我的共享";
-
+    _imgUrls =[ NSArray array];
     [self sd_HeadScrollViewInit];
 }
 
@@ -32,7 +39,7 @@
     _cycleView.imageURLStringsGroup = @[@"placeholder"];
     _cycleView.pageControlAliment   = SDCycleScrollViewPageContolAlimentCenter;
     _cycleView.delegate             = self;
-    
+    _cycleView.imageURLStringsGroup = _imgUrls;
     //自定义dot 大小和图案
     _cycleView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
     _cycleView.pageDotImage        = [UIImage imageNamed:@"dot_selected"];
@@ -63,6 +70,37 @@
     return _edit_btn;
 }
 
+#pragma mark  - 审核详情   myShare/unCheckedDetail
+-(void)detailShareListGoodsPost
+{
+    NSDictionary * parma = @{
+                             @"id":_goodsId,
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/myShare/unCheckedList"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+            for (NSDictionary * dic in response[@"data"]) {
+                _title = [dic objectForKey:@"title"];
+                _describe = [dic objectForKey:@"describe"];
+                _status = [dic objectForKey:@"status"];
+                _imgUrls= [dic objectForKey:@"imgUrls"];
+            }
+
+            _lb_title.text = _title;
+            _lb_descirbe.text = _describe;
+            [self sd_HeadScrollViewInit];
+            [SVProgressHUD dismiss];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
 
 
 - (void)didReceiveMemoryWarning {

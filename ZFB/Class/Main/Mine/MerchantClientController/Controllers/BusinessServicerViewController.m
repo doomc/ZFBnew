@@ -1517,7 +1517,6 @@
         
         //设置寻址精度
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        _locationManager.distanceFilter  = 5.0;
         [_locationManager startUpdatingLocation];
     }
     

@@ -333,7 +333,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             sectionNum = self.orderListArray.count;
             break;
         case OrderTypeDealSuccess:
-            sectionNum = 2;// self.orderListArray.count;
+            sectionNum =  self.orderListArray.count;
             break;
         case OrderTypeCancelSuccess:
             sectionNum = self.orderListArray.count;
@@ -358,10 +358,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     
     Orderlist * orderlist       = self.orderListArray[section];
     NSMutableArray * goodsArray = [NSMutableArray array];
-//    for (Ordergoods * goods in orderlist.orderGoods) {
-//        [goodsArray addObject:goods];
-//    }
-//    
+    for (Ordergoods * goods in orderlist.orderGoods) {
+        [goodsArray addObject:goods];
+    }
+    
     switch (_orderType) {
         case OrderTypeAllOrder:
             
@@ -386,7 +386,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             break;
         case OrderTypeDealSuccess:
             
-            rowNum = 2;// goodsArray.count;
+            rowNum =  goodsArray.count;
             break;
         case OrderTypeCancelSuccess:
             
@@ -798,7 +798,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             return view;
             break;
     }
-    //
+ 
     return view;
 }
 

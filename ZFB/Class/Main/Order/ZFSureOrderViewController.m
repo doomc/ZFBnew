@@ -457,27 +457,25 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 -(void)commitOrder:(NSDictionary *) jsondic
 {
     [SVProgressHUD show];
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/generateOrderNumber",zfb_baseUrl] params:jsondic success:^(id response) {
-        
         if ([response[@"resultCode"] intValue] == 0) {
             
             NSArray * orderArr = response[@"orderList"];
             
-            NSMutableDictionary * mutOrderDic = [NSMutableDictionary dictionary];
-            NSMutableArray * mutOrderArray    = [NSMutableArray array];
-            for (NSDictionary * orderdic in orderArr) {
-                
-                [mutOrderDic setValue:[orderdic objectForKey:@"order_num"] forKey:@"order_num"];
-                [mutOrderDic setValue:[orderdic objectForKey:@"body"] forKey:@"body"];
-                [mutOrderDic setValue:[orderdic objectForKey:@"title"] forKey:@"title"];
-                [mutOrderDic setValue:[orderdic objectForKey:@"pay_money"] forKey:@"pay_money"];
-                [mutOrderArray addObject:mutOrderDic];
-            }
-            
+//            NSMutableDictionary * mutOrderDic = [NSMutableDictionary dictionary];
+//            NSMutableArray * mutOrderArray    = [NSMutableArray array];
+//            for (NSDictionary * orderdic in orderArr) {
+//
+//                [mutOrderDic setValue:[orderdic objectForKey:@"order_num"] forKey:@"order_num"];
+//                [mutOrderDic setValue:[orderdic objectForKey:@"body"] forKey:@"body"];
+//                [mutOrderDic setValue:[orderdic objectForKey:@"title"] forKey:@"title"];
+//                [mutOrderDic setValue:[orderdic objectForKey:@"pay_money"] forKey:@"pay_money"];
+//                [mutOrderArray addObject:mutOrderDic];
+//            }
+//            
             //跳转到webview
             ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
-            payVC.orderListArray               = [NSArray arrayWithArray:mutOrderArray];
+            payVC.orderListArray               = orderArr;//[NSArray arrayWithArray:mutOrderArray];
             payVC.datetime                     = _datetime;
             payVC.access_token                 = _access_token;
             
@@ -495,15 +493,15 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             
             [SVProgressHUD dismiss];
         }
-        
     } progress:^(NSProgress *progeress) {
-    } failure:^(NSError *error) {
         
+    } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+
     }];
-    
+ 
     
 }
 
@@ -582,9 +580,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             BBUserDefault.isLogin = 0;//登录状态为0
         }];
     }
-    
-    
 }
+
+
 #pragma mark - 懒加载
 -(NSMutableArray *)storeAttachListArr
 {
@@ -620,7 +618,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 -(SelectPayTypeView *)selectPayView
 {
     if (!_selectPayView) {
-        _selectPayView                 = [[SelectPayTypeView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 210) style:UITableViewStylePlain];
+        _selectPayView                 = [[SelectPayTypeView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 184) style:UITableViewStylePlain];
+        
+        _selectPayView.center = self.popCouponBackgroundView.center;
         _selectPayView.PayTypeDelegate = self;
     }
     return _selectPayView;

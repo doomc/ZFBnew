@@ -11,24 +11,30 @@
 
 @interface ShareNewGoodsCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *headImage;
-@property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
-@property (weak, nonatomic) IBOutlet UILabel *lb_creattime;
-
 @property (weak, nonatomic) IBOutlet UIImageView *contentImgView;
 @property (weak, nonatomic) IBOutlet UILabel *lb_goodsName;
+
 ///标签
 @property (weak, nonatomic) IBOutlet UILabel *lb_tags;
 ///描述
 @property (weak, nonatomic) IBOutlet UILabel *lb_description;
-///活动时间
-@property (weak, nonatomic) IBOutlet UILabel *lb_activeTime;
 
-@property (weak, nonatomic) IBOutlet UIButton *zan_btn;
 ///点赞数量
+@property (weak, nonatomic) IBOutlet UIButton *zan_btn;
 @property (weak, nonatomic) IBOutlet UILabel *lb_zanNum;
+@property (weak, nonatomic) IBOutlet UILabel *lb_buyNum;
+
 
 @property (strong,nonatomic) Recommentlist * recommend;
+/**
+ 0未点赞 1已点赞
+ */
+@property (copy,nonatomic) NSString * isThumbed;
+
+/**
+ 推荐新品编号
+ */
+@property (copy,nonatomic) NSString * recommentId;
 
 
 @end

@@ -93,9 +93,11 @@
   
 }
 
-
-
-
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [SVProgressHUD dismiss];
+    
+}
 
 
 

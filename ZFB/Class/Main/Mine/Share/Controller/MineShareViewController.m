@@ -18,16 +18,27 @@
 //sub  VC
 #import "MineShareDetailViewController.h"
 
+//model
+#import "ReviewingModel.h"
+
 typedef NS_ENUM(NSUInteger, SelectType) {
     SelectTypeDefault,//未使用
     SelectTypeAlready,//已使用
-
+    
 };
 @interface MineShareViewController () <UITableViewDelegate,UITableViewDataSource,MineShareStatisticsCellDelegate>
-
+{
+    NSString * _generalIncome;//总收入
+    NSString * _goodsCount;
+    NSString * _todayIncome;//今日收入
+    
+}
 @property (strong, nonatomic)  MTSegmentedControl *segumentView;
 @property (strong, nonatomic)  UITableView * tableView;
 @property (assign, nonatomic)  SelectType selectType;
+@property (strong, nonatomic)  NSMutableArray * reviewingList;//审核中表数组
+@property (strong, nonatomic)  NSMutableArray * reviewedList;//已审核表数组
+;
 
 @end
 
@@ -36,14 +47,45 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-   self.title = @"我的共享";
+    self.title = @"我的共享";
     [self setupPageView];
+    
+    self.zfb_tableView = self.tableView;
     [self.view addSubview:self.tableView];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"MineShareContentCell" bundle:nil] forCellReuseIdentifier:@"MineShareContentCellid"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"MineShareStatisticsCell" bundle:nil] forCellReuseIdentifier:@"MineShareStatisticsCellid"];
+    [self setupRefresh];
+    [self mineShareListGoodsPost];
 }
 
+-(void)headerRefresh
+{
+    [super headerRefresh];
+    switch (_selectType) {
+        case SelectTypeDefault://未审核
+            
+            [self mineShareListGoodsPost];
+            break;
+        case SelectTypeAlready://已审核
+            [self alreadlymineCheckedListPost];
+            
+            break;
+    }
+
+}
+-(void)footerRefresh
+{
+    [super footerRefresh];
+    switch (_selectType) {
+        case SelectTypeDefault://未审核
+            
+            [self mineShareListGoodsPost];
+            break;
+        case SelectTypeAlready://已审核
+            [self alreadlymineCheckedListPost];
+            
+            break;
+    }
+}
 #pragma mark - 懒加载
 -(UITableView *)tableView
 {
@@ -57,13 +99,28 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     return _tableView;
 }
 
+-(NSMutableArray *)reviewingList{
+    if (!_reviewingList) {
+        _reviewingList =[NSMutableArray array];
+    }
+    return _reviewingList;
+}
 
+-(NSMutableArray *)reviewedList{
+    if (!_reviewedList) {
+        _reviewedList =[NSMutableArray array];
+    }
+    return _reviewedList;
+}
 - (void)setupPageView {
- 
+    
     NSArray *titleArr = @[@"审核中",@"已审核"];
     _segumentView = [[MTSegmentedControl alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 44)];
     [self.segumentView segmentedControl:titleArr Delegate:self];
     [self.view addSubview:_segumentView];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"MineShareContentCell" bundle:nil] forCellReuseIdentifier:@"MineShareContentCellid"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"MineShareStatisticsCell" bundle:nil] forCellReuseIdentifier:@"MineShareStatisticsCellid"];
 }
 
 #pragma mark - <MTSegmentedControlDelegate>
@@ -73,14 +130,17 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     
     switch (_selectType) {
         case SelectTypeDefault://未审核
-            
+            [self mineShareListGoodsPost];
+
             [self.tableView reloadData];
             break;
         case SelectTypeAlready://已审核
+            
+            [self alreadlymineCheckedListPost];
             [self.tableView reloadData];
             
             break;
- 
+            
     }
 }
 
@@ -93,11 +153,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             numSection = 1;
             break;
         case SelectTypeAlready://已审核
-           
+            
             numSection = 2;
             break;
     }
-
+    
     return numSection;
     
 }
@@ -107,14 +167,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     NSInteger numRow = 0;
     switch (_selectType) {
         case SelectTypeDefault://未审核
-            numRow = 2;
+            numRow = self.reviewingList.count;
             break;
         case SelectTypeAlready://已审核
             if (section == 0) {
-              
+                
                 return 1;
             }
-            numRow = 2;
+            numRow = self.reviewedList.count;
             break;
     }
     return numRow;
@@ -139,11 +199,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView * headerView = nil;
-
+    
     switch (_selectType) {
         case SelectTypeDefault://未审核
             
-             break;
+            break;
         case SelectTypeAlready://已审核
         {
             if (section == 1) {
@@ -173,18 +233,26 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeDefault://未审核
         {
             MineShareContentCell * contextCell =[self.tableView dequeueReusableCellWithIdentifier:@"MineShareContentCellid" forIndexPath:indexPath];
+            ReViewData * data = self.reviewingList[indexPath.row];
+            contextCell.reviewList = data;
             return contextCell;
         }
-             break;
+            break;
         case SelectTypeAlready://已审核
             if (indexPath.section == 0) {
                 
                 MineShareStatisticsCell * statcisCell = [self.tableView dequeueReusableCellWithIdentifier:@"MineShareStatisticsCellid" forIndexPath:indexPath];
                 statcisCell.shareDelegate = self;
+                statcisCell.lb_goodsnum.text = _goodsCount;
+                statcisCell.lb_todayIncome.text = _todayIncome;
+                statcisCell.lb_allIncome.text = _generalIncome;
                 return statcisCell;
                 
             }
             MineShareContentCell * contextCell = [self.tableView dequeueReusableCellWithIdentifier:@"MineShareContentCellid" forIndexPath:indexPath];
+            ReViewData * data = self.reviewedList[indexPath.row];
+            contextCell.reviewData = data;
+            
             return contextCell;
             break;
     }
@@ -194,18 +262,18 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld -  %ld",indexPath.section,indexPath.row);
-    
-    MineShareDetailViewController * detailVC = [MineShareDetailViewController new];
-    [self.navigationController pushViewController:detailVC animated:NO];
-    
+
     switch (_selectType) {
         case SelectTypeDefault://未审核
-            
-            
+        {
+            ReViewData * data = self.reviewingList[indexPath.row];
+            MineShareDetailViewController * detailVC = [MineShareDetailViewController new];
+            detailVC.goodsId = data.goodsId;
+            [self.navigationController pushViewController:detailVC animated:NO];
+        }
             break;
         case SelectTypeAlready://已审核
             if (indexPath.section == 0) {
-                
                 
             }
             break;
@@ -235,19 +303,98 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
 
 
+#pragma mark  - 我的共享列表    myShare/unCheckedList
+-(void)mineShareListGoodsPost
+{
+    NSDictionary * parma = @{
+                             @"userId":BBUserDefault.cmUserId,
+                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
+                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/myShare/unCheckedList"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+            
+            if (self.refreshType == RefreshTypeHeader) {
+                if (self.reviewingList.count > 0) {
+                    [self.reviewingList removeAllObjects];
+                }
+            }
+            ReviewingModel * review =[ ReviewingModel mj_objectWithKeyValues:response];
+            for (ReViewData * reviewData in review.data) {
+                
+                [self.reviewingList addObject:reviewData];
+            }
+            [self endRefresh];
+            [self.tableView reloadData];
+            [SVProgressHUD dismiss];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
+
+
+#pragma mark  - 已审核列表   myShare/checkedList
+-(void)alreadlymineCheckedListPost
+{
+    NSDictionary * parma = @{
+                             @"userId":BBUserDefault.cmUserId,
+                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
+                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/myShare/checkedList"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+            
+            if (self.refreshType == RefreshTypeHeader) {
+                if (self.reviewedList.count > 0) {
+                    [self.reviewedList removeAllObjects];
+                }
+            }
+            ReviewingModel * review =[ ReviewingModel mj_objectWithKeyValues:response];
+            for (ReViewData * reviewData in review.data) {
+                
+                [self.reviewedList addObject:reviewData];
+            }
+            [self endRefresh];
+            [self.tableView reloadData];
+            [SVProgressHUD dismiss];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [SVProgressHUD dismiss];
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

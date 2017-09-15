@@ -8,103 +8,84 @@
 
 #import "ShareGoodsViewController.h"
 #import "ShareGoodsCollectionViewCell.h"
-#import "LMHWaterFallLayout.h"
+#import "WaterFlowLayout.h"
 #import "ShareWaterFullModel.h"
 #import "ShareGoodsSubDetailViewController.h"
 
-@interface ShareGoodsViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,LMHWaterFallLayoutDeleaget>
+@interface ShareGoodsViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,WaterFlowLayoutDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 /** 所有的商品数据 */
 @property (nonatomic, strong) NSMutableArray  * shareArray;
-/** 列数 */
-@property (nonatomic, assign) NSUInteger columnCount;
+
 
 @end
 
 @implementation ShareGoodsViewController
-#pragma mark - 懒加载
-- (NSMutableArray *)shareArray{
-    if (!_shareArray) {
-        _shareArray = [NSMutableArray array];
-    }
-    return _shareArray;
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    // 创建布局
-    LMHWaterFallLayout * waterFallLayout = [[LMHWaterFallLayout alloc]init];
-    waterFallLayout.delegate = self;
+    [self initCollectionView];
+    [self setupRefresh];
     
-    // 创建collectionView
-    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -64-50 -44) collectionViewLayout:waterFallLayout];
-    self.collectionView.backgroundColor = RGBA(244, 244, 244, 1);
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    [self.view addSubview:self.collectionView];
+    // 第一次刷新手动调用
+    [self.collectionView.mj_header beginRefreshing];
+}
 
+-(void)initCollectionView{
+  
+    //设置瀑布流布局
+    WaterFlowLayout *layout = [WaterFlowLayout new];
+    layout.columnCount = 2;
+    layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);;
+    layout.rowMargin = 10;
+    layout.columnMargin = 10;
+    layout.delegate = self;
+    
+    
+    self.collectionView = [[UICollectionView alloc]initWithFrame: CGRectMake(0, 0, KScreenW, KScreenH -64-50 -44) collectionViewLayout:layout];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    [self.view addSubview:self.collectionView];
     // 注册
     [self.collectionView registerNib:[UINib nibWithNibName:@"ShareGoodsCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"ShareGoodsCollectionViewCellid"];
- 
-    [self loadDatas];
 }
 
-/**
- * 加载新的商品
- */
-- (void)loadDatas{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+#pragma mark - 懒加载
+- (NSMutableArray *)shareArray{
+    if (!_shareArray) {
         
-        NSArray * shops = [ShareWaterFullModel mj_objectArrayWithFilename:@"shop.plist"];
-        
-        [self.shareArray removeAllObjects];
-        
-        [self.shareArray addObjectsFromArray:shops];
-        
-        // 刷新表格
-        [self.collectionView reloadData];
-        
-        [self.collectionView.mj_header endRefreshing];
-    });
+        _shareArray = [NSMutableArray array];
+    }
+    return _shareArray;
 }
 
-#pragma mark  - <LMHWaterFallLayoutDeleaget>
-- (CGFloat)waterFallLayout:(LMHWaterFallLayout *)waterFallLayout heightForItemAtIndexPath:(NSUInteger)indexPath itemWidth:(CGFloat)itemWidth{
-    
-    ShareWaterFullModel * fullmodel = self.shareArray[indexPath];
-//    NSLog(@"当前 ---高度 %f",itemWidth * fullmodel.h / fullmodel.w);
-    
-    return itemWidth * fullmodel.h / fullmodel.w + 160;
+/// 刷新加载数据
+- (void)setupRefresh{
+    [self.collectionView.mj_footer endRefreshing];
+    [self.collectionView.mj_header endRefreshing];
 }
-
-- (CGFloat)rowMarginInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout{
-    
-    return 10;
-}
-
-- (NSUInteger)columnCountInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout{
-    return 2;
-}
-
 
 #pragma mark  - <UICollectionViewDataSource>
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    
+   
+    self.collectionView.mj_footer.hidden = self.shareArray.count == 0;
     return self.shareArray.count;
 }
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+   
     ShareGoodsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ShareGoodsCollectionViewCellid" forIndexPath:indexPath];
-    cell.fullModel = self.shareArray[indexPath.item];
+    ShareGoodsData * data  = self.shareArray[indexPath.item];
+    cell.fullList = data;
     return cell;
 }
-
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -115,38 +96,54 @@
 
 }
 
+#pragma mark - <WaterFlowLayoutDelegate>
+-(CGFloat)waterFlowLayout:(WaterFlowLayout *) WaterFlowLayout heightForWidth:(CGFloat)width andIndexPath:(NSIndexPath *)indexPath
+{
+    ShareGoodsData * goodsData = self.shareArray[indexPath.row];
+ 
+    CGFloat imgH = goodsData.height * ((KScreenW-30)/2) / goodsData.width;
+    
+    return imgH + 160;
 
-#pragma mark -  获取新品推荐列表  recomment/recommentList
+}
+#pragma mark - 获取新品推荐列表    toShareGoods/shareGoodsList
 -(void)shareGoodsPost
 {
     NSDictionary * parma = @{
+                             @"userId":BBUserDefault.cmUserId,
                              @"pageIndex":@"1",
                              @"pageSize":@"10",
                              };
-    
     [SVProgressHUD show];
-    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/recommentList"] params:parma success:^(id response) {
-        
-        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
- 
-            
-            
-            [SVProgressHUD dismiss];
- 
-        }
-        
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/toShareGoods/shareGoodsList"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {//
+            if ( self.shareArray.count > 0) {
+                [ self.shareArray removeAllObjects];
+            }
+            ShareWaterFullModel * waterfull = [ShareWaterFullModel mj_objectWithKeyValues:response];
+            for (ShareGoodsData * goodslist in waterfull.data) {
+                [self.shareArray addObject:goodslist];
+            }
+  
+        [self.collectionView reloadData];
+      }
+    [self.collectionView.mj_header endRefreshing];
+
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
-        
+        [self.collectionView.mj_header endRefreshing];
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
 }
-
-
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [SVProgressHUD dismiss];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

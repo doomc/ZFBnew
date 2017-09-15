@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Km8-dn-bfg" id="OvB-UO-Ws1">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="couponGray.png" translatesAutoresizingMaskIntoConstraints="NO" id="dnV-Tx-RoQ">
@@ -92,11 +92,20 @@
                     <constraint firstItem="dnV-Tx-RoQ" firstAttribute="leading" secondItem="OvB-UO-Ws1" secondAttribute="leading" constant="10" id="zkD-v8-ARg"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="img_CouponStutus" destination="i6s-qy-aJT" id="CGv-Tj-XSC"/>
+                <outlet property="img_couponType" destination="dnV-Tx-RoQ" id="7ah-Kh-ya9"/>
+                <outlet property="img_isUsed" destination="B6N-Sc-6mk" id="vbn-nf-Un8"/>
+                <outlet property="lb_CouponType" destination="vYu-Rm-LKR" id="GqD-nO-Z94"/>
+                <outlet property="lb_activeTime" destination="WkL-Pj-k5O" id="JqY-tp-0dY"/>
+                <outlet property="lb_conditionOfprice" destination="Aqx-Sv-T40" id="22A-QK-eqY"/>
+                <outlet property="lb_ticketMaxPrice" destination="9wf-mg-xxb" id="ujX-Wt-gGs"/>
+            </connections>
             <point key="canvasLocation" x="-136" y="89"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="couponGray.png" width="1020" height="267"/>
-        <image name="overtime.png" width="16" height="16"/>
+        <image name="overtime.png" width="128" height="128"/>
     </resources>
 </document>

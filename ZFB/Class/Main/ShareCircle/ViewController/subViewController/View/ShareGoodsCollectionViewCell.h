@@ -10,8 +10,7 @@
 #import "ShareWaterFullModel.h"
 
 @interface ShareGoodsCollectionViewCell : UICollectionViewCell
-/** 商品模型 */
-@property (nonatomic, strong) ShareWaterFullModel * fullModel;
+
 
 @property (weak, nonatomic) IBOutlet UIImageView *waterPullImageView;
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
@@ -23,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_zanNum;
 @property (weak, nonatomic) IBOutlet UIButton *zan_btn;//点赞
 
+/** 0点赞 1.未点赞 */
+@property (copy,nonatomic) NSString * isThumbsStatus;
+@property (nonatomic, strong) ShareGoodsData * fullList;
 
 
 @end

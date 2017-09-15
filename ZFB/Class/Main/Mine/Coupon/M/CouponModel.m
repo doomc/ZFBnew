@@ -10,4 +10,13 @@
 
 @implementation CouponModel
 
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"couponList" : [Couponlist class]};
+}
 @end
+@implementation Couponlist
+
+@end
+
+

@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CouponModel.h"
+@protocol CouponCellDelegate <NSObject>
+@optional
+/**
+ 点击领取优惠券
 
+ @param indexRow 当前下标
+ */
+-(void)didClickGetCouponWithIndexRow :(NSInteger)indexRow;
+
+
+@end
 @interface CouponCell : UITableViewCell
 
 /** 优惠最大价格  */
@@ -16,7 +27,7 @@
 /** 减满价格  */
 @property (weak, nonatomic) IBOutlet UILabel *lb_conditionOfprice;
 
-/** 优惠券类型  */
+/** 优惠券名字  */
 @property (weak, nonatomic) IBOutlet UILabel *lb_CouponType;
 
 /** 优惠券背景类型  */
@@ -34,5 +45,11 @@
 /** 判断 优惠券状态 是否过期  */
 @property (weak, nonatomic) IBOutlet UIImageView *img_CouponStutus;
 
+@property (assign , nonatomic) id <CouponCellDelegate> couponDelegate;
+
+//当前下标
+@property (assign , nonatomic) NSInteger indexRow;
+@property (strong , nonatomic) Couponlist * couponlist;
+@property (strong , nonatomic) NSString   * couponId;// 	优惠券唯一编号
 
 @end

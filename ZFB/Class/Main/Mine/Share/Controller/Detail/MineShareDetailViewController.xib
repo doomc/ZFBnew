@@ -12,6 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MineShareDetailViewController">
             <connections>
                 <outlet property="cycleView" destination="7Q4-BL-wmf" id="Dib-6e-1zY"/>
+                <outlet property="lb_descirbe" destination="UgS-Qt-s4Q" id="1Ow-Iz-aFV"/>
+                <outlet property="lb_title" destination="aN7-N4-F99" id="hA3-lJ-s15"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+#import "ReviewingModel.h"
+
 @interface MineShareIncomeCell : UITableViewCell
+
+@property (strong , nonatomic) ReViewData * reviewData;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_orderNum;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_time;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_title;
+
+@property (weak, nonatomic) IBOutlet UIImageView *headImg;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_reword;
 
 @end

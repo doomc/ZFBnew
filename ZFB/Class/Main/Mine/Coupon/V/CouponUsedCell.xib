@@ -92,11 +92,20 @@
                     <constraint firstItem="NOR-ZS-kjb" firstAttribute="leading" secondItem="ZkY-v6-PiQ" secondAttribute="leading" id="n9f-7j-1YL"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="-165" y="-4"/>
+            <connections>
+                <outlet property="img_CouponStutus" destination="V9c-YD-l1W" id="JmI-Z9-6I1"/>
+                <outlet property="img_couponType" destination="V0w-rS-1XK" id="AY7-N9-r0h"/>
+                <outlet property="img_isUsed" destination="yNw-X4-MKh" id="32e-HZ-eWe"/>
+                <outlet property="lb_CouponType" destination="ZkY-v6-PiQ" id="sWf-pz-zKf"/>
+                <outlet property="lb_activeTime" destination="NOR-ZS-kjb" id="i9T-8J-eRa"/>
+                <outlet property="lb_conditionOfprice" destination="8at-ch-Mzm" id="bE0-lP-xOD"/>
+                <outlet property="lb_ticketMaxPrice" destination="qvl-gR-dhD" id="M1n-dn-p4Z"/>
+            </connections>
+            <point key="canvasLocation" x="-221" y="19"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="couponGray.png" width="1020" height="267"/>
-        <image name="used.png" width="16" height="16"/>
+        <image name="used.png" width="128" height="128"/>
     </resources>
 </document>

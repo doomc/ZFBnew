@@ -8,15 +8,43 @@
 
 #import <Foundation/Foundation.h>
 
+@class ShareGoodsData;
 @interface ShareWaterFullModel : NSObject
 
-/** 宽度  */
-@property (nonatomic, assign) CGFloat w;
-/** 高度  */
-@property (nonatomic, assign) CGFloat h;
-/** 图片  */
-@property (nonatomic, copy) NSString *img;
-/** 价格  */
-@property (nonatomic, copy) NSString *price;
+@property (nonatomic, copy) NSString *resultCode;
+
+@property (nonatomic, copy) NSString *total;
+
+@property (nonatomic, copy) NSString *resultMsg;
+
+@property (nonatomic, strong) NSArray <ShareGoodsData *> *data;
 
 @end
+
+@interface ShareGoodsData : NSObject
+
+/** 宽度  */
+@property (nonatomic, assign) CGFloat width;
+/** 高度  */
+@property (nonatomic, assign) CGFloat height;
+
+@property (nonatomic, copy) NSString *thumbs;//点赞数
+
+@property (nonatomic, copy) NSString *share_num;//分享编号
+
+@property (nonatomic, copy) NSString *userLogo;//图片URL
+
+@property (nonatomic, copy) NSString *shareId;//分享id
+
+@property (nonatomic, copy) NSString *nickname;
+
+@property (nonatomic, copy) NSString *title;
+
+@property (nonatomic, copy) NSString *describe;
+
+@property (nonatomic, copy) NSString *thumbsStatus;//点赞状态	0点赞 1.未点赞
+
+@property (nonatomic, copy) NSString *imgUrl;
+
+@end
+

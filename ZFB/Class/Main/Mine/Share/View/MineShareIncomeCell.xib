@@ -40,12 +40,6 @@
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="奖励：1.23元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHU-3H-JrD">
-                        <rect key="frame" x="85" y="78" width="84" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mss-qI-BAO">
                         <rect key="frame" x="0.0" y="102.5" width="320" height="1"/>
                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -63,6 +57,12 @@
                             <constraint firstAttribute="height" constant="20" id="KBz-eH-8V4"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="奖励：1.23元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHU-3H-JrD">
+                        <rect key="frame" x="85" y="78" width="84" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -85,6 +85,13 @@
                     <constraint firstAttribute="bottom" secondItem="mss-qI-BAO" secondAttribute="bottom" id="voD-Jx-ggA"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="headImg" destination="5yi-Mt-K0z" id="gaN-tU-SFT"/>
+                <outlet property="lb_orderNum" destination="dmS-xG-BYe" id="STP-0f-jJh"/>
+                <outlet property="lb_reword" destination="lHU-3H-JrD" id="ceK-rg-45i"/>
+                <outlet property="lb_time" destination="jOC-SG-He8" id="EEC-uo-hsK"/>
+                <outlet property="lb_title" destination="dJa-Zt-Pnh" id="eXV-2x-6Tk"/>
+            </connections>
             <point key="canvasLocation" x="-172" y="88"/>
         </tableViewCell>
     </objects>

@@ -81,6 +81,8 @@
 		493BDE591F6A88C100CF31D0 /* MineShareGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 493BDE581F6A88C100CF31D0 /* MineShareGoodsViewController.m */; };
 		493BDE601F6A901200CF31D0 /* PublishShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 493BDE5E1F6A901200CF31D0 /* PublishShareViewController.m */; };
 		493BDE611F6A901200CF31D0 /* PublishShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493BDE5F1F6A901200CF31D0 /* PublishShareViewController.xib */; };
+		493BDE681F6BC26B00CF31D0 /* WaterFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 493BDE671F6BC26B00CF31D0 /* WaterFlowLayout.m */; };
+		493BDE6B1F6BCC5F00CF31D0 /* ReviewingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 493BDE6A1F6BCC5F00CF31D0 /* ReviewingModel.m */; };
 		49411E1B1F67AA8F00344731 /* ShareNewgoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49411E1A1F67AA8F00344731 /* ShareNewgoodsViewController.m */; };
 		49411E1E1F67AAC000344731 /* ShareFriendStautusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49411E1D1F67AAC000344731 /* ShareFriendStautusViewController.m */; };
 		49411E211F67AAF900344731 /* ShareGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49411E201F67AAF900344731 /* ShareGoodsViewController.m */; };
@@ -980,9 +982,7 @@
 		49B3BCDB1F204FAC002A0FDC /* NSArray+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3BCDA1F204FAC002A0FDC /* NSArray+SafeAccess.m */; };
 		49B3BCDE1F204FB5002A0FDC /* NSDictionary+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3BCDD1F204FB5002A0FDC /* NSDictionary+SafeAccess.m */; };
 		49B3BCE11F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B3BCE01F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m */; };
-		49BA48861F67E05C006B5F60 /* LMHWaterFallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BA48851F67E05C006B5F60 /* LMHWaterFallLayout.m */; };
 		49BA48891F67E0C2006B5F60 /* ShareWaterFullModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BA48881F67E0C2006B5F60 /* ShareWaterFullModel.m */; };
-		49BA488B1F67E340006B5F60 /* shop.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49BA488A1F67E340006B5F60 /* shop.plist */; };
 		49BA488F1F67EDAB006B5F60 /* ShareGoodsSubDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BA488D1F67EDAB006B5F60 /* ShareGoodsSubDetailViewController.m */; };
 		49BA48901F67EDAB006B5F60 /* ShareGoodsSubDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49BA488E1F67EDAB006B5F60 /* ShareGoodsSubDetailViewController.xib */; };
 		49BA48931F68FEA0006B5F60 /* ShareCommendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BA48921F68FEA0006B5F60 /* ShareCommendModel.m */; };
@@ -1267,6 +1267,10 @@
 		493BDE5D1F6A901200CF31D0 /* PublishShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishShareViewController.h; sourceTree = "<group>"; };
 		493BDE5E1F6A901200CF31D0 /* PublishShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishShareViewController.m; sourceTree = "<group>"; };
 		493BDE5F1F6A901200CF31D0 /* PublishShareViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublishShareViewController.xib; sourceTree = "<group>"; };
+		493BDE661F6BC26B00CF31D0 /* WaterFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterFlowLayout.h; sourceTree = "<group>"; };
+		493BDE671F6BC26B00CF31D0 /* WaterFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterFlowLayout.m; sourceTree = "<group>"; };
+		493BDE691F6BCC5F00CF31D0 /* ReviewingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewingModel.h; sourceTree = "<group>"; };
+		493BDE6A1F6BCC5F00CF31D0 /* ReviewingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewingModel.m; sourceTree = "<group>"; };
 		49411E191F67AA8F00344731 /* ShareNewgoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareNewgoodsViewController.h; sourceTree = "<group>"; };
 		49411E1A1F67AA8F00344731 /* ShareNewgoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareNewgoodsViewController.m; sourceTree = "<group>"; };
 		49411E1C1F67AAC000344731 /* ShareFriendStautusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareFriendStautusViewController.h; sourceTree = "<group>"; };
@@ -2707,11 +2711,8 @@
 		49B3BCDD1F204FB5002A0FDC /* NSDictionary+SafeAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+SafeAccess.m"; sourceTree = "<group>"; };
 		49B3BCDF1F204FBA002A0FDC /* NSUserDefaults+SafeAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+SafeAccess.h"; sourceTree = "<group>"; };
 		49B3BCE01F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+SafeAccess.m"; sourceTree = "<group>"; };
-		49BA48841F67E05C006B5F60 /* LMHWaterFallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMHWaterFallLayout.h; sourceTree = "<group>"; };
-		49BA48851F67E05C006B5F60 /* LMHWaterFallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMHWaterFallLayout.m; sourceTree = "<group>"; };
 		49BA48871F67E0C2006B5F60 /* ShareWaterFullModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareWaterFullModel.h; sourceTree = "<group>"; };
 		49BA48881F67E0C2006B5F60 /* ShareWaterFullModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareWaterFullModel.m; sourceTree = "<group>"; };
-		49BA488A1F67E340006B5F60 /* shop.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = shop.plist; sourceTree = "<group>"; };
 		49BA488C1F67EDAB006B5F60 /* ShareGoodsSubDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareGoodsSubDetailViewController.h; sourceTree = "<group>"; };
 		49BA488D1F67EDAB006B5F60 /* ShareGoodsSubDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareGoodsSubDetailViewController.m; sourceTree = "<group>"; };
 		49BA488E1F67EDAB006B5F60 /* ShareGoodsSubDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareGoodsSubDetailViewController.xib; sourceTree = "<group>"; };
@@ -3174,14 +3175,14 @@
 			path = SKTag;
 			sourceTree = "<group>";
 		};
-		493BDE1E1F6A74E500CF31D0 /* Share(共享) */ = {
+		493BDE1E1F6A74E500CF31D0 /* Share(我的共享) */ = {
 			isa = PBXGroup;
 			children = (
 				493BDE1F1F6A75D300CF31D0 /* Controller */,
 				493BDE201F6A75D300CF31D0 /* Model */,
 				493BDE211F6A75D300CF31D0 /* View */,
 			);
-			name = "Share(共享)";
+			name = "Share(我的共享)";
 			path = Share;
 			sourceTree = "<group>";
 		};
@@ -3201,6 +3202,8 @@
 		493BDE201F6A75D300CF31D0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				493BDE691F6BCC5F00CF31D0 /* ReviewingModel.h */,
+				493BDE6A1F6BCC5F00CF31D0 /* ReviewingModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3238,6 +3241,15 @@
 			path = Detail;
 			sourceTree = "<group>";
 		};
+		493BDE621F6BBAAE00CF31D0 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				493BDE661F6BC26B00CF31D0 /* WaterFlowLayout.h */,
+				493BDE671F6BC26B00CF31D0 /* WaterFlowLayout.m */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
 		49411E151F67AA7300344731 /* subViewController(子控制器) */ = {
 			isa = PBXGroup;
 			children = (
@@ -3266,7 +3278,6 @@
 		49411E171F67AA7300344731 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				49BA488A1F67E340006B5F60 /* shop.plist */,
 				49BA48871F67E0C2006B5F60 /* ShareWaterFullModel.h */,
 				49BA48881F67E0C2006B5F60 /* ShareWaterFullModel.m */,
 				49BA48911F68FEA0006B5F60 /* ShareCommendModel.h */,
@@ -3278,7 +3289,7 @@
 		49411E181F67AA7300344731 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				49BA48831F67E05C006B5F60 /* WaterFallLayout */,
+				493BDE621F6BBAAE00CF31D0 /* Layout */,
 				49411E221F67AD1E00344731 /* ShareNewGoodsCell.h */,
 				49411E231F67AD1E00344731 /* ShareNewGoodsCell.m */,
 				49411E241F67AD1E00344731 /* ShareNewGoodsCell.xib */,
@@ -4018,7 +4029,6 @@
 				495EA4701F14B64B001FCB7E /* Mine(个人中心) */,
 				495EA54D1F14B64C001FCB7E /* PayController(收银台) */,
 				495EA5531F14B64C001FCB7E /* Public(公共) */,
-				495EA56B1F14B64C001FCB7E /* Search(搜索) */,
 				495EA5701F14B64C001FCB7E /* ShoppingCar(购物车) */,
 			);
 			path = Main;
@@ -4337,7 +4347,7 @@
 		495EA4701F14B64B001FCB7E /* Mine(个人中心) */ = {
 			isa = PBXGroup;
 			children = (
-				493BDE1E1F6A74E500CF31D0 /* Share(共享) */,
+				493BDE1E1F6A74E500CF31D0 /* Share(我的共享) */,
 				49BA48941F691050006B5F60 /* Coupon(优惠券) */,
 				495EA4711F14B64B001FCB7E /* CollectOrHistory(历史收藏) */,
 				495EA4861F14B64C001FCB7E /* MerchantClientController(商户端) */,
@@ -4711,14 +4721,6 @@
 				493675DF1F57D8FE001EDEC2 /* ZFServiceEvaluteCell.xib */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		495EA56B1F14B64C001FCB7E /* Search(搜索) */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Search(搜索)";
-			path = Search;
 			sourceTree = "<group>";
 		};
 		495EA5701F14B64C001FCB7E /* ShoppingCar(购物车) */ = {
@@ -6734,15 +6736,6 @@
 			path = SySafeCategory;
 			sourceTree = "<group>";
 		};
-		49BA48831F67E05C006B5F60 /* WaterFallLayout */ = {
-			isa = PBXGroup;
-			children = (
-				49BA48841F67E05C006B5F60 /* LMHWaterFallLayout.h */,
-				49BA48851F67E05C006B5F60 /* LMHWaterFallLayout.m */,
-			);
-			path = WaterFallLayout;
-			sourceTree = "<group>";
-		};
 		49BA48941F691050006B5F60 /* Coupon(优惠券) */ = {
 			isa = PBXGroup;
 			children = (
@@ -7503,7 +7496,6 @@
 				495EA8641F14B64D001FCB7E /* arrows_Right_black@2x.png in Resources */,
 				50D61E8D1F1E5BAD00DBDA4D /* ico_check_nomal.png in Resources */,
 				495EA88B1F14B64D001FCB7E /* write@3x.png in Resources */,
-				49BA488B1F67E340006B5F60 /* shop.plist in Resources */,
 				50B381191F3F605F001ED3BA /* addCamera@2x.png in Resources */,
 				495EA8AB1F14B64D001FCB7E /* shopkeeper@3x.png in Resources */,
 				50D61E8E1F1E5BAD00DBDA4D /* ico_check_nomal@2x.png in Resources */,
@@ -8246,7 +8238,6 @@
 				49555E991F1E0092002E5688 /* AddressCommitOrderModel.m in Sources */,
 				49AB0AE91F53FB64004660B7 /* ZFCashCell.m in Sources */,
 				495EA7D21F14B64D001FCB7E /* ZFPersonalHeaderView.m in Sources */,
-				49BA48861F67E05C006B5F60 /* LMHWaterFallLayout.m in Sources */,
 				495EA7151F14B64D001FCB7E /* NSData+APNSToken.m in Sources */,
 				4968A29E1F4DB5080061A87E /* NIMInputEmoticonManager.m in Sources */,
 				49B0E7731F41AAC60032E72E /* RQcodePopView.m in Sources */,
@@ -8507,6 +8498,7 @@
 				495EA7331F14B64D001FCB7E /* UIImage+HDExtension.m in Sources */,
 				504A76181F6ADD9D00B61CE3 /* YYTextSelectionView.m in Sources */,
 				505A53C11F20FFDC002FB5CF /* ShopCarJsonModel.m in Sources */,
+				493BDE6B1F6BCC5F00CF31D0 /* ReviewingModel.m in Sources */,
 				50B380ED1F3EF0BF001ED3BA /* SGPageContentScrollView.m in Sources */,
 				495EA72E1F14B64D001FCB7E /* AdvertiseHelper.m in Sources */,
 				495EA8391F14B64D001FCB7E /* ZFPregressCheckViewController.m in Sources */,
@@ -8517,6 +8509,7 @@
 				495EA9581F14B64E001FCB7E /* TADotView.m in Sources */,
 				4968A3F41F4DB5290061A87E /* NTESJionTeamViewController.m in Sources */,
 				495EA9551F14B64E001FCB7E /* UIView+PYExtension.m in Sources */,
+				493BDE681F6BC26B00CF31D0 /* WaterFlowLayout.m in Sources */,
 				49690CBB1F14C442004C501B /* Reachability.m in Sources */,
 				49555E9F1F1E0092002E5688 /* GoodsitemCell.m in Sources */,
 			);

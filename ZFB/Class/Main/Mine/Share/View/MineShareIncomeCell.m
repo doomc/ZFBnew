@@ -17,6 +17,17 @@
 
 }
 
+
+-(void)setReviewData:(ReViewData *)reviewData
+{
+    _reviewData = reviewData;
+    _lb_time.text =reviewData.createTime;
+    _lb_title.text = reviewData.title;
+    _lb_reword.text = reviewData.reward;
+    [_headImg sd_setImageWithURL:[NSURL URLWithString:reviewData.goodsLogo] placeholderImage:[UIImage imageNamed:@""]];
+    
+    
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

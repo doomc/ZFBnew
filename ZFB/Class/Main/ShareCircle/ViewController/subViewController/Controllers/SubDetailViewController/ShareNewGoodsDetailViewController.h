@@ -10,4 +10,6 @@
 
 @interface ShareNewGoodsDetailViewController : BaseViewController
 
+@property (nonatomic , copy) NSString * recommentId;
+
 @end

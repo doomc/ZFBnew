@@ -504,19 +504,19 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 -(void)paysignData
 {
     NSLog(@"_unpayOrderInfoArray === %@",_unpayOrderInfoArray);
-    NSMutableDictionary * mutOrderDic = [NSMutableDictionary dictionary];
-    NSMutableArray * mutOrderArray  = [NSMutableArray array];
-    for (NSDictionary * orderdic in _unpayOrderInfoArray) {
-        
-        NSString *body =   [orderdic objectForKey:@"body"];
-        body=[body stringByReplacingOccurrencesOfString:@"\\"withString:@""];
-        [mutOrderDic setValue:[orderdic objectForKey:@"order_num"] forKey:@"order_num"];
-        [mutOrderDic setValue:body forKey:@"body"];
-        [mutOrderDic setValue:[orderdic objectForKey:@"pay_money"] forKey:@"pay_money"];
-        [mutOrderDic setValue:[orderdic objectForKey:@"title"] forKey:@"title"];
-        
-        [mutOrderArray addObject:mutOrderDic];
-    }
+//    NSMutableDictionary * mutOrderDic = [NSMutableDictionary dictionary];
+//    NSMutableArray * mutOrderArray  = [NSMutableArray array];
+//    for (NSDictionary * orderdic in _unpayOrderInfoArray) {
+//        
+//        NSString *body =   [orderdic objectForKey:@"body"];
+//        body=[body stringByReplacingOccurrencesOfString:@"\\"withString:@""];
+//        [mutOrderDic setValue:[orderdic objectForKey:@"order_num"] forKey:@"order_num"];
+//        [mutOrderDic setValue:body forKey:@"body"];
+//        [mutOrderDic setValue:[orderdic objectForKey:@"pay_money"] forKey:@"pay_money"];
+//        [mutOrderDic setValue:[orderdic objectForKey:@"title"] forKey:@"title"];
+//        
+//        [mutOrderArray addObject:mutOrderDic];
+//    }
     
     //跳转到webview
     ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
@@ -526,7 +526,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     payVC.return_url    = _thirdUrlDic[@"return_url"];
     payVC.gateWay_url   = _thirdUrlDic[@"gateWay_url"];
     
-    payVC.orderListArray  = [NSArray arrayWithArray:mutOrderArray];
+    payVC.orderListArray  = _unpayOrderInfoArray;//[NSArray arrayWithArray:mutOrderArray];
     payVC.datetime        = _datetime;
     payVC.access_token    = _access_token;
     [self.navigationController pushViewController:payVC animated:YES];

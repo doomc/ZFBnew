@@ -146,6 +146,7 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) UIImage *tempImage;
 @property (assign, nonatomic) NSInteger rowCount;
 @property (assign, nonatomic) CGSize requestSize;
+
 - (void)prefetchThumbImage;
 - (void)cancelImageRequest;
 

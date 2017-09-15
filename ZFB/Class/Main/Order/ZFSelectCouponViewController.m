@@ -71,6 +71,48 @@
 }
 
 
+#pragma mark - 获取用户未使用优惠券列表   recomment/getUserNotUseCouponList
+-(void)recommentPostRequst:(NSString *)status
+{
+    NSDictionary * parma = @{
+                             @"goodsAmount":@"3",//商品价格
+                             @"goodsCount":@"",//数量
+                             @"goodsId":@"",
+                             @"storeId":@"",
+                             @"userId":BBUserDefault.cmUserId,
+                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
+                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserNotUseCouponList"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+            
+            if (self.refreshType == RefreshTypeHeader) {
+                if (self.couponList.count > 0) {
+                    [self.couponList removeAllObjects];
+                }
+            }
+            CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
+            for (Couponlist * list in coupon.couponList) {
+                [self.couponList addObject:list];
+            }
+
+            [self.tableView reloadData];
+            [SVProgressHUD dismiss];
+            [self endRefresh];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        [self endRefresh];
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

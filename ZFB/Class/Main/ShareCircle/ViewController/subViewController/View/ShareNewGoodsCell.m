@@ -8,13 +8,14 @@
 
 #import "ShareNewGoodsCell.h"
 #import "UIImageView+ZFCornerRadius.h"
+
 @implementation ShareNewGoodsCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
     // Initialization code
-    self.headImage.layer.masksToBounds = YES;
-    self.headImage.layer.cornerRadius = 25;
+ 
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 
 }
@@ -22,9 +23,16 @@
 -(void)setRecommend:(Recommentlist *)recommend
 {
     _recommend = recommend;
+    
     _lb_zanNum.text = [NSString stringWithFormat:@"%ld",recommend.thumbs];
+    _lb_buyNum.text = [NSString stringWithFormat:@"%ld",recommend.saleCount];
+
     _lb_goodsName.text = recommend.title;
     _lb_description.text = recommend.describe;
+    
+    //0未点赞 1已点赞
+    _isThumbed = [NSString stringWithFormat:@"%ld",recommend.isThumbed];
+    [_contentImgView sd_setImageWithURL:[NSURL URLWithString:recommend.goodsImgUrl] placeholderImage:[UIImage imageNamed:@""]];
     
 }
 
