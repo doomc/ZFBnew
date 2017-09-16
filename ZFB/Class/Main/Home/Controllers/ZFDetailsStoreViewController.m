@@ -160,10 +160,10 @@
         NSInteger cout =  self.storeList.count;
         if (cout % 2 == 0 ) {
             
-            return (itemHeight +10) * cout/2  ;
+            return (itemHeight +10) * cout/2 +10  ;
         }else{
             
-            return (itemHeight +10) * (cout/2 +1);
+            return (itemHeight +10) * (cout/2 +1) +10;
         }
      }
 }
