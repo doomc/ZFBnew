@@ -47,7 +47,9 @@
 @property (nonatomic, copy) NSString *createTime;
 @property (nonatomic, copy) NSString *price;
 @property (nonatomic, copy) NSString *goodsLogo;
+@property (nonatomic, copy) NSString *orderNum;
 
+//今日收入字段
 
 
 @end

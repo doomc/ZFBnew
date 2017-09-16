@@ -94,12 +94,13 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ReViewData * data  = self.orderList[indexPath.row];
+    ReViewData * alldata  = self.orderList[indexPath.row];
     
     MineShareIncomeCell * cell = [self.tableView dequeueReusableCellWithIdentifier:@"MineShareIncomeCellid" forIndexPath:indexPath];
-    cell.reviewData = data;
+    cell.allReviewData = alldata;
     return cell;
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -110,10 +111,6 @@
 {
     NSLog(@"%@",editing);
 }
-
-
-
-
 
 #pragma mark  - 我的共享列表    myShare/allShareOrderList
 -(void)allOrderListGoodsPost
@@ -145,6 +142,7 @@
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
+        [self endRefresh];
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];

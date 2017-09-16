@@ -9,21 +9,13 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MineShareContentCell">
-            <connections>
-                <outlet property="headimg" destination="P8x-wN-ulL" id="gTG-HK-9T2"/>
-                <outlet property="lb_descirbe" destination="Y4l-Fd-nEm" id="gmr-GU-KRE"/>
-                <outlet property="lb_detail" destination="LPc-V0-7tJ" id="PeP-eY-TpO"/>
-                <outlet property="lb_reviewStatus" destination="D9H-8W-wIg" id="9zo-Jw-yUX"/>
-                <outlet property="lb_title" destination="H6w-5I-Yi6" id="Xew-Sp-6bw"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="83" id="KGk-i7-Jjw" customClass="MineShareContentCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="83"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="83"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="82.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P8x-wN-ulL">
@@ -48,8 +40,8 @@
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="奖励：1.23元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPc-V0-7tJ">
-                        <rect key="frame" x="85" y="34.5" width="72.5" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPc-V0-7tJ">
+                        <rect key="frame" x="85" y="34.5" width="27" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -88,6 +80,13 @@
                     <constraint firstItem="LFe-aE-HUx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="xqa-Tz-qWa"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="headimg" destination="P8x-wN-ulL" id="vBG-dy-vlW"/>
+                <outlet property="lb_descirbe" destination="Y4l-Fd-nEm" id="k8b-Tf-Yjc"/>
+                <outlet property="lb_detail" destination="LPc-V0-7tJ" id="YEg-kW-cky"/>
+                <outlet property="lb_reviewStatus" destination="D9H-8W-wIg" id="jAU-Az-Suf"/>
+                <outlet property="lb_title" destination="H6w-5I-Yi6" id="CEK-2R-vih"/>
+            </connections>
             <point key="canvasLocation" x="34" y="73.5"/>
         </tableViewCell>
     </objects>

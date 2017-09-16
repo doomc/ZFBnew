@@ -10,7 +10,7 @@
 #import "AllStoreCell.h"
 #import "SDCycleScrollView.h"
 
-#import "DetailStoreViewController.h"
+#import "ZFDetailsStoreViewController.h"
 #import "AllStoreModel.h"
 //map
 #import <CoreLocation/CoreLocation.h>
@@ -200,7 +200,7 @@
     
     NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
     
-    DetailStoreViewController * detailStroeVC =[[ DetailStoreViewController alloc]init];
+    ZFDetailsStoreViewController * detailStroeVC =[[ ZFDetailsStoreViewController alloc]init];
     Findgoodslists * goodlist    = self.allStoreArray[indexPath.row];
     
     detailStroeVC.storeId = [NSString stringWithFormat:@"%ld",goodlist.storeId];

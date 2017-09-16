@@ -64,6 +64,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeDefault://未审核
             
             [self mineShareListGoodsPost];
+            
             break;
         case SelectTypeAlready://已审核
             [self alreadlymineCheckedListPost];
@@ -114,7 +115,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 }
 - (void)setupPageView {
     
-    NSArray *titleArr = @[@"审核中",@"已审核"];
+    NSArray *titleArr = @[@"未审核",@"已审核"];
     _segumentView = [[MTSegmentedControl alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 44)];
     [self.segumentView segmentedControl:titleArr Delegate:self];
     [self.view addSubview:_segumentView];
@@ -196,6 +197,25 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     }
     return height;
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    CGFloat sectionRow = 0.0;
+    switch (_selectType) {
+        case SelectTypeDefault://未审核
+            sectionRow = 0;
+            break;
+        case SelectTypeAlready://已审核
+            if (section == 1) {
+                sectionRow = 40;
+            }
+            else{
+                sectionRow = 0.0;
+            }
+            break;
+    }
+    return sectionRow;
+}
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView * headerView = nil;
@@ -207,7 +227,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeAlready://已审核
         {
             if (section == 1) {
-                if (headerView == nil) {
                     headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
                     headerView.backgroundColor = [UIColor whiteColor];
                     
@@ -220,7 +239,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     UILabel * line = [[UILabel alloc]initWithFrame:CGRectMake(0, 39.5, KScreenW, 0.5)];
                     line.backgroundColor = RGBA(244, 244, 244, 1);
                     [headerView addSubview:line];
-                }
             }
         }
             break;
@@ -234,7 +252,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         {
             MineShareContentCell * contextCell =[self.tableView dequeueReusableCellWithIdentifier:@"MineShareContentCellid" forIndexPath:indexPath];
             ReViewData * data = self.reviewingList[indexPath.row];
-            contextCell.reviewList = data;
+            contextCell.reviewingList = data;
             return contextCell;
         }
             break;
@@ -243,15 +261,15 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 
                 MineShareStatisticsCell * statcisCell = [self.tableView dequeueReusableCellWithIdentifier:@"MineShareStatisticsCellid" forIndexPath:indexPath];
                 statcisCell.shareDelegate = self;
-                statcisCell.lb_goodsnum.text = _goodsCount;
-                statcisCell.lb_todayIncome.text = _todayIncome;
-                statcisCell.lb_allIncome.text = _generalIncome;
+                statcisCell.lb_goodsnum.text = [NSString stringWithFormat:@"商品数:%@",_goodsCount];
+                statcisCell.lb_todayIncome.text = [NSString stringWithFormat:@"今日收入:%@元", _todayIncome];
+                statcisCell.lb_allIncome.text = [NSString stringWithFormat:@"总收入:%@元",_generalIncome];
                 return statcisCell;
                 
             }
             MineShareContentCell * contextCell = [self.tableView dequeueReusableCellWithIdentifier:@"MineShareContentCellid" forIndexPath:indexPath];
             ReViewData * data = self.reviewedList[indexPath.row];
-            contextCell.reviewData = data;
+            contextCell.reviewedData = data;
             
             return contextCell;
             break;
@@ -263,18 +281,22 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 {
     NSLog(@"%ld -  %ld",indexPath.section,indexPath.row);
 
+    ReViewData * data = self.reviewingList[indexPath.row];
+    MineShareDetailViewController * detailVC = [MineShareDetailViewController new];
+
     switch (_selectType) {
         case SelectTypeDefault://未审核
         {
-            ReViewData * data = self.reviewingList[indexPath.row];
-            MineShareDetailViewController * detailVC = [MineShareDetailViewController new];
             detailVC.goodsId = data.goodsId;
             [self.navigationController pushViewController:detailVC animated:NO];
         }
             break;
         case SelectTypeAlready://已审核
-            if (indexPath.section == 0) {
+            if (indexPath.section == 1) {
                 
+                detailVC.goodsId = data.goodsId;
+                [self.navigationController pushViewController:detailVC animated:NO];
+
             }
             break;
     }
@@ -303,7 +325,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
 
 
-#pragma mark  - 我的共享列表    myShare/unCheckedList
+#pragma mark  - 审核中   myShare/unCheckedList
 -(void)mineShareListGoodsPost
 {
     NSDictionary * parma = @{
@@ -326,13 +348,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 [self.reviewingList addObject:reviewData];
             }
             [self endRefresh];
-            [self.tableView reloadData];
             [SVProgressHUD dismiss];
+            [self.tableView reloadData];
         }
         
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
+        [self endRefresh];
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
@@ -358,6 +381,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 }
             }
             ReviewingModel * review =[ ReviewingModel mj_objectWithKeyValues:response];
+            _generalIncome = review.generalIncome;
+            _goodsCount = review.goodsCount;
+            _todayIncome = review.todayIncome;
             for (ReViewData * reviewData in review.data) {
                 
                 [self.reviewedList addObject:reviewData];

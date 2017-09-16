@@ -10,7 +10,7 @@
 
 #import "FindStoreViewController.h"
 #import "HP_LocationViewController.h"
-#import "DetailStoreViewController.h"
+#import "ZFDetailsStoreViewController.h"
 #import "ZFAllStoreViewController.h"
 //cell
 #import "FindStoreCell.h"
@@ -218,7 +218,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     NSLog(@" section --- %ld ,row -----%ld",indexPath.section ,indexPath.row);    
     if (self.storeListArr.count > 0) {
         
-        DetailStoreViewController * vc = [[DetailStoreViewController alloc]init];
+        ZFDetailsStoreViewController * vc = [[ZFDetailsStoreViewController alloc]init];
         Findgoodslist * listModel = self.storeListArr[indexPath.row];
         vc.storeId =[NSString stringWithFormat:@"%ld",listModel.storeId];
         [self.navigationController pushViewController:vc animated:YES];

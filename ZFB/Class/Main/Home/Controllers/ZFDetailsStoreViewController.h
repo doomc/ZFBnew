@@ -1,17 +1,17 @@
 //
-//  DetailStoreViewController.h
+//  ZFDetailsStoreViewController.h
 //  ZFB
 //
-//  Created by  展富宝  on 2017/5/17.
+//  Created by 熊维东 on 2017/9/16.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
 #import "BaseViewController.h"
 
-@interface DetailStoreViewController : BaseViewController
-
-
-/** 门店id */
+@interface ZFDetailsStoreViewController : BaseViewController
+/** 
+ 门店id
+ */
 @property(nonatomic,copy)NSString *storeId;
 
 @end

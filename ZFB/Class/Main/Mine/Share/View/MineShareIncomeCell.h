@@ -11,8 +11,11 @@
 #import "ReviewingModel.h"
 
 @interface MineShareIncomeCell : UITableViewCell
+//总收入的
+@property (strong , nonatomic) ReViewData * allReviewData;
+//今日收入的
+@property (strong , nonatomic) ReViewData * todayReviewData;
 
-@property (strong , nonatomic) ReViewData * reviewData;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_orderNum;
 

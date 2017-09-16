@@ -29,13 +29,13 @@
     
     [self initCollectionView];
     [self setupRefresh];
-    
+    [self shareGoodsPost];
     // 第一次刷新手动调用
     [self.collectionView.mj_header beginRefreshing];
 }
 
 -(void)initCollectionView{
-  
+    
     //设置瀑布流布局
     WaterFlowLayout *layout = [WaterFlowLayout new];
     layout.columnCount = 2;
@@ -74,14 +74,15 @@
     return 1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-   
+    
     self.collectionView.mj_footer.hidden = self.shareArray.count == 0;
     return self.shareArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-   
+    
     ShareGoodsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ShareGoodsCollectionViewCellid" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor redColor];
     ShareGoodsData * data  = self.shareArray[indexPath.item];
     cell.fullList = data;
     return cell;
@@ -93,18 +94,18 @@
     
     ShareGoodsSubDetailViewController * detailVC = [ShareGoodsSubDetailViewController new];
     [self.navigationController pushViewController:detailVC animated:NO];
-
+    
 }
 
 #pragma mark - <WaterFlowLayoutDelegate>
 -(CGFloat)waterFlowLayout:(WaterFlowLayout *) WaterFlowLayout heightForWidth:(CGFloat)width andIndexPath:(NSIndexPath *)indexPath
 {
-    ShareGoodsData * goodsData = self.shareArray[indexPath.row];
+ //   ShareGoodsData * goodsData = self.shareArray[indexPath.row];
  
-    CGFloat imgH = goodsData.height * ((KScreenW-30)/2) / goodsData.width;
+//    CGFloat imgH = goodsData.height * ((KScreenW-30)/2) / goodsData.width;
+//    
+  return 3000 + 160;
     
-    return imgH + 160;
-
 }
 #pragma mark - 获取新品推荐列表    toShareGoods/shareGoodsList
 -(void)shareGoodsPost
@@ -124,11 +125,12 @@
             for (ShareGoodsData * goodslist in waterfull.data) {
                 [self.shareArray addObject:goodslist];
             }
-  
-        [self.collectionView reloadData];
-      }
-    [self.collectionView.mj_header endRefreshing];
-
+            [SVProgressHUD dismiss];
+            [self.collectionView reloadData];
+        }
+        
+        [self.collectionView.mj_header endRefreshing];
+        
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
@@ -150,13 +152,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

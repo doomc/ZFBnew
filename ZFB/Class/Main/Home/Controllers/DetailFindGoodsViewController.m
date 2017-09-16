@@ -21,7 +21,7 @@
 #import "ZFEvaluateViewController.h"
 #import "ZFSureOrderViewController.h"
 #import "ZFShoppingCarViewController.h"//购物车
-#import "DetailStoreViewController.h" //店铺
+#import "ZFDetailsStoreViewController.h" //店铺
 #import "ZFBaseNavigationViewController.h"
 #import "LoginViewController.h"
 
@@ -38,8 +38,8 @@
 #import "CouponTableView.h"
 
 @interface DetailFindGoodsViewController ()
-<   UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate,DetailWebViewCellDelegate,
-ZFGoodsFooterViewDelegate,CLLocationManagerDelegate,CouponTableViewDelegate
+<
+    UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate,DetailWebViewCellDelegate,ZFGoodsFooterViewDelegate,CLLocationManagerDelegate,CouponTableViewDelegate
 >
 {
     NSString *latitudestr;//经度
@@ -299,7 +299,7 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate,CouponTableViewDelegate
 -(void)didClickStoreiew
 {
     NSLog(@"进入店铺");
-    DetailStoreViewController * storeVC = [[DetailStoreViewController alloc]init];
+    ZFDetailsStoreViewController * storeVC = [[ZFDetailsStoreViewController alloc]init];
     storeVC.storeId                     = _storeId;
     [self.navigationController pushViewController:storeVC animated:NO];
 }
@@ -336,6 +336,7 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate,CouponTableViewDelegate
     }else{
         //没有规格 - 直接传值
         if ([_inventory intValue] > 0) {
+            
             ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
             vc.userGoodsInfoJSON = _noReluArray;//没有规格的数组
             [self.navigationController pushViewController:vc animated:YES];
@@ -361,7 +362,6 @@ ZFGoodsFooterViewDelegate,CLLocationManagerDelegate,CouponTableViewDelegate
         
         //添加有规格的数据进入购物车  传入有规格的json数据
         [self addToshoppingCarPostproductId:_productSkuId];
-        
         
     }else{
         

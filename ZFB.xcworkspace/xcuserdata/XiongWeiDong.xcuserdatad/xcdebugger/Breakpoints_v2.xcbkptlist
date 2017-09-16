@@ -19,22 +19,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Order/ZFSureOrderViewController.m"
-            timestampString = "522514971.498507"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "425"
-            endingLineNumber = "425"
-            landmarkName = "-didCleckClearing:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/PayController/ZFMainPayforViewController.m"
             timestampString = "522515083.306197"
             startingColumnNumber = "9223372036854775807"
@@ -178,12 +162,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Main/Mine/ZFAllOrderViewController.m"
-                  timestampString = "527093150.97616"
+                  timestampString = "527262048.494034"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1330"
                   endingLineNumber = "1330"
-                  offsetFromSymbolStart = "213">
+                  offsetFromSymbolStart = "248">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -193,12 +177,12 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/XiongWeiDong/Desktop/zfb222/ZFB/Class/Main/Mine/ZFAllOrderViewController.m"
-                  timestampString = "527093150.979058"
+                  timestampString = "527262048.496048"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1330"
                   endingLineNumber = "1330"
-                  offsetFromSymbolStart = "12">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -248,6 +232,22 @@
             startingLineNumber = "389"
             endingLineNumber = "389"
             landmarkName = "-tableView:numberOfRowsInSection:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/ShareCircle/ViewController/subViewController/Controllers/ShareGoodsViewController.m"
+            timestampString = "527240098.364873"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "-waterFlowLayout:heightForWidth:andIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

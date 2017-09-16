@@ -26,6 +26,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     SelectCouponTypeUsed,//已使用
     SelectCouponTypeOverDate,//已过期
 };
+
 @interface CouponViewController ()<MTSegmentedControlDelegate,UITableViewDataSource,UITableViewDelegate,CouponTableViewDelegate>
 
 @property (strong, nonatomic) MTSegmentedControl *segumentView;
@@ -38,9 +39,6 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 
 
 
-+ (NSDictionary *)objectClassInArray{
-    return @{@"data" : [ReviewData class]};
-}
 @end
 
 @implementation CouponViewController
@@ -532,9 +530,6 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
  // Pass the selected object to the new view controller.
  }
  */
-
-@end
-@implementation ReviewData
 
 @end
 

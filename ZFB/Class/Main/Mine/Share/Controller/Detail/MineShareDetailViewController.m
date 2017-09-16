@@ -31,7 +31,10 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"我的共享";
     _imgUrls =[ NSArray array];
+
+    [self detailShareListGoodsPost];
     [self sd_HeadScrollViewInit];
+
 }
 
 -(void)sd_HeadScrollViewInit
@@ -78,6 +81,7 @@
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/myShare/unCheckedList"] params:parma success:^(id response) {
+        
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
             for (NSDictionary * dic in response[@"data"]) {
                 _title = [dic objectForKey:@"title"];
