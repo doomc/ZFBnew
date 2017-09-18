@@ -14,9 +14,22 @@
 
 @required
 
+/**
+ 上传图片数组
+
+ @param uploadArr 图片数组
+ */
 -(void)uploadImageArray:(NSMutableArray *)uploadArr;
 
+/**
+ 获取动态高度
+
+ @param cellHeight cell高度
+ */
 -(void)reloadCellHeight:(CGFloat)cellHeight;
+
+//获取textView中的值
+-(void)getTextViewValues:(NSString *)textViewValues;
 
 @end
 @interface ZFEvaluateGoodsCell : UITableViewCell
@@ -26,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_score;
 
 @property (weak, nonatomic) IBOutlet TggStarEvaluationView *starView;
+
 @property (weak, nonatomic) IBOutlet UIImageView *headImg;
 
 @property (weak, nonatomic) IBOutlet FSTextView *textView;
@@ -37,5 +51,6 @@
 @property (nonatomic, strong) NSMutableArray * imgUrl_mutArray;
 
 @property (nonatomic, assign) CGFloat cellHight;
+
 
 @end

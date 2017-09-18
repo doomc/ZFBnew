@@ -73,10 +73,10 @@
 //点击item方法
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@" item === %ld xxxxxxx section = %ld",indexPath.item,indexPath.section);
+    NSLog(@" item === %ld xxxxxxx _indexItem = %ld",indexPath.item,_indexItem);
     
     DetailCmgoodslist * goodlist                 = _storeListArray[indexPath.item];
-    
+    _indexItem = indexPath.item;
     if ([self.collectionDelegate respondsToSelector:@selector(didClickCollectionCellGoodId:withIndexItem:)]) {
         [self.collectionDelegate didClickCollectionCellGoodId:[NSString stringWithFormat:@"%ld",goodlist.goodsId] withIndexItem:_indexItem];
     }

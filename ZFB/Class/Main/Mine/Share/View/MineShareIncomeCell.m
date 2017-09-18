@@ -23,7 +23,7 @@
     _allReviewData = allReviewData;
     _lb_orderNum.text = allReviewData.orderNum;
     _lb_time.text = allReviewData.createTime;
-    _lb_title.text = allReviewData.googsName;
+    _lb_title.text = allReviewData.goodsName;
     _lb_reword.text = [NSString stringWithFormat:@"奖励:%@元",allReviewData.reward];
     [_headImg sd_setImageWithURL:[NSURL URLWithString:allReviewData.goodsLogo] placeholderImage:[UIImage imageNamed:@""]];
     
@@ -35,7 +35,7 @@
     _todayReviewData = todayReviewData;
     _lb_orderNum.text = todayReviewData.orderNum;
     _lb_time.text = todayReviewData.createTime;
-    _lb_title.text = todayReviewData.googsName;
+    _lb_title.text = todayReviewData.goodsName;
     _lb_reword.text = [NSString stringWithFormat:@"商品金额:%@元  奖励:%@元",todayReviewData.price,todayReviewData.reward];
     [_headImg sd_setImageWithURL:[NSURL URLWithString:todayReviewData.goodsLogo] placeholderImage:[UIImage imageNamed:@""]];
     

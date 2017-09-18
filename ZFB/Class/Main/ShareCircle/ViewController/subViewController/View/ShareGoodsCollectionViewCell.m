@@ -9,6 +9,8 @@
 
 #import "ShareGoodsCollectionViewCell.h"
 #import "UIImageView+ZFCornerRadius.h"
+#import "UIImage+ImageSize.h"
+static const CGSize NilCacheSize ={-1,-1};
 @implementation ShareGoodsCollectionViewCell
 
 - (void)awakeFromNib {
@@ -19,7 +21,7 @@
     _waterPullImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
     _headImg.layer.masksToBounds = YES;    
-    _headImg.layer.cornerRadius = 22;
+    _headImg.layer.cornerRadius = 20;
 }
 
 
@@ -27,7 +29,7 @@
 {
     _fullList = fullList;
     // 图片
-    [self.waterPullImageView sd_setImageWithURL:[NSURL URLWithString:fullList.imgUrl] placeholderImage:[UIImage imageNamed:@"nodataPlaceholder"]];
+    [self.waterPullImageView sd_setImageWithURL:[NSURL URLWithString:fullList.imgUrls] placeholderImage:[UIImage imageNamed:@"nodataPlaceholder"]];
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:fullList.userLogo] placeholderImage:[UIImage imageNamed:@"head"]];
     self.lb_title.text = fullList.title;
     self.lb_zanNum.text = fullList.thumbs;
@@ -35,7 +37,11 @@
     self.lb_description.text = fullList.describe;
     _isThumbsStatus = fullList.thumbsStatus;
     
-
+    
 }
+
+
+
+
 
 @end

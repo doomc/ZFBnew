@@ -7,9 +7,11 @@
 //
 
 #import "ZFDetailsStoreViewController.h"
-#import "DetailStoreModel.h"
 #import "DetailFindGoodsViewController.h"
 
+//model
+#import "CouponModel.h"
+#import "DetailStoreModel.h"
 //cell
 #import "DetailStoreTitleCell.h"//头
 #import "SectionCouponCell.h"//优惠券
@@ -34,6 +36,7 @@
 }
 @property (nonatomic , strong) UITableView * tableView;
 @property (nonatomic , strong) NSMutableArray * storeList;
+@property (nonatomic , strong) NSMutableArray * couponList;
 @property (nonatomic , strong) SDCycleScrollView * cycleScrollView;
 @property (nonatomic , strong) CouponTableView *  couponTableView;
 @property (nonatomic , strong) UIView          *  couponBackgroundView;
@@ -58,7 +61,8 @@
 
     _isCalling = NO;//默认没打电话
     
-    
+    [self recommentPostRequst:@"0"];
+
 }
 
 #pragma mark - 懒加载
@@ -80,10 +84,17 @@
     }
     return _storeList;
 }
+-(NSMutableArray *)couponList{
+    if (!_couponList) {
+        _couponList = [NSMutableArray array];
+    }
+    return _couponList;
+}
 -(CouponTableView *)couponTableView
 {
     if (!_couponTableView) {
         _couponTableView = [[CouponTableView alloc]initWithFrame:CGRectMake(0, 200, KScreenW, KScreenH -200) style:UITableViewStylePlain];
+        _couponTableView.couponesList = self.couponList;
         _couponTableView.popDelegate = self;
     }
     return _couponTableView;
@@ -153,7 +164,12 @@
     }
     else if (indexPath.section == 1)
     {
-        return 44;
+        if (![self isEmptyArray:self.couponList]) {
+            return 44;
+        }
+        else{
+            return 0;
+        }
     }
     else{
         
@@ -212,8 +228,27 @@
         
     }else if (indexPath.section == 1)
     {
+ 
+        NSInteger count = self.couponList.count;
         SectionCouponCell * couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"SectionCouponCell" forIndexPath:indexPath];
-        return couponCell;
+        
+        //关键字
+        couponCell.lb_title.text = [NSString stringWithFormat:@"您有 %ld 张待领取的优惠券",count];
+        couponCell.lb_title.keywords      = [NSString stringWithFormat:@"%ld",count];
+        couponCell.lb_title.keywordsColor = HEXCOLOR(0xfe6d6a);
+        couponCell.lb_title.keywordsFont  = [UIFont systemFontOfSize:18];
+        ///必须设置计算宽高
+        CGRect dealNumh              = [couponCell.lb_title getLableHeightWithMaxWidth:300];
+        couponCell.lb_title.frame = CGRectMake(15, 10, dealNumh.size.width, dealNumh.size.height);
+        
+        if (![self isEmptyArray:self.couponList]) {
+
+            return couponCell;
+
+        } else{
+            couponCell.hidden = YES;
+            return couponCell;
+        }
     }
     else{
         StoreListTableViewCell * listCell = [self.tableView dequeueReusableCellWithIdentifier:@"StoreListTableViewCell" forIndexPath:indexPath];
@@ -229,14 +264,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 ) {
+    NSLog(@"section == %ld   ,row == %ld",indexPath.section,indexPath.row);
+    if (indexPath.section == 1){//点击优惠券
         
-    }
-    else if (indexPath.section == 1){
- 
-    }
-    else{
- 
+        //列表请求到了才能添加视图
+        if (![self isEmptyArray:self.couponList]) {
+            
+            [self.tableView bringSubviewToFront:self.couponBackgroundView];
+            [self.view addSubview:self.couponBackgroundView];
+        }
     }
 }
 
@@ -265,9 +301,17 @@
     [self.couponBackgroundView removeFromSuperview];
 }
 
--(void)selectCouponWithIndex:(NSInteger)indexRow withResult:(NSString *)result
+/**
+ 获取到当前的优惠券信息
+ 
+ @param indexRow 下标
+ @param couponId id
+ @param result 返回值
+ */
+-(void)selectCouponWithIndex:(NSInteger)indexRow AndCouponId :(NSString *)couponId withResult:(NSString *)result
 {
-    [self.couponBackgroundView removeFromSuperview];
+    //领取优惠券  接口
+    [self getCouponesPostRequst:couponId];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -282,7 +326,6 @@
 -(void)didClickCollectionCellGoodId:(NSString *)goodId withIndexItem:(NSInteger )indexItem
 {
     DetailCmgoodslist * goodlist = self.storeList[indexItem];
-    
     DetailFindGoodsViewController * goodVC = [DetailFindGoodsViewController new];
     goodVC.goodsId = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
     [self.navigationController pushViewController:goodVC animated:NO];
@@ -343,7 +386,76 @@
     
 }
 
+#pragma mark - 点击领取优惠券    recomment/receiveCoupon
+-(void)getCouponesPostRequst:(NSString *)couponId
+{
+    NSDictionary * parma = @{
+                             
+                             @"couponId":couponId,
+                             @"userId":BBUserDefault.cmUserId,
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/receiveCoupon"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+            
+            [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
+            //领取成功后移除
+            [self.couponBackgroundView removeFromSuperview];
 
+            [SVProgressHUD dismiss];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
+
+#pragma mark - 获取用户优惠券列表   recomment/getUserCouponList
+-(void)recommentPostRequst:(NSString *)status
+{
+    //idType	number	0 平台 1 商家 2 商品 3 所有	否
+    //resultId	number	平台编号/商店编号/商品编号	是
+    // userId	number	领优惠券用户编号	否
+    // status	number	0 未领取 1 未使用 2 已使用 3 已失效	否
+    
+    NSDictionary * parma = @{
+                             @"idType":@"3",
+                             @"resultId":@"",
+                             @"userId":BBUserDefault.cmUserId,
+                             @"status":status,
+                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
+                             @"pageSize":@"1000",
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserCouponList"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+            
+            if (self.couponList.count > 0) {
+                [self.couponList removeAllObjects];
+            }
+            CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
+            for (Couponlist * list in coupon.couponList) {
+                [self.couponList addObject:list];
+            }
+            
+            [self.couponTableView reloadData];
+            [SVProgressHUD dismiss];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

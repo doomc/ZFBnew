@@ -19,7 +19,6 @@
 
 @property (strong, nonatomic) HXPhotoView *photoView;
 
-@property (copy, nonatomic) NSString *textViewValues;
 
 @end
 @implementation ZFEvaluateGoodsCell
@@ -42,8 +41,8 @@
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-//    self.headImg.clipsToBounds = YES;
-//    self.headImg.layer.cornerRadius = self.headImg.width/2;
+    self.headImg.clipsToBounds = YES;
+    self.headImg.layer.cornerRadius =  35;
     
 }
 
@@ -69,12 +68,17 @@
     // 添加输入改变Block回调.
     [self.textView addTextDidChangeHandler:^(FSTextView *textView) {
         // 文本改变后的相应操作.
-        self.textViewValues = textView.text;
-        NSLog(@"----%@-----",textView.text);
+ 
+//        NSLog(@"----%@-----",textView.text);
+    
+        if ([self.delegate respondsToSelector:@selector(getTextViewValues:)]) {
+            [self.delegate getTextViewValues:textView.text];
+        }
     }];
+    
     // 添加到达最大限制Block回调.
     [self.textView addTextLengthDidMaxHandler:^(FSTextView *textView) {
-        // 达到最大限制数后的相应操作.
+    // 达到最大限制数后的相应操作.
     }];
     
 }
@@ -135,7 +139,10 @@
             [self.imgUrl_mutArray addObject:urlpath];
         }
         //将数据传出去
-        [self.delegate uploadImageArray: self.imgUrl_mutArray ];
+        if ([self.delegate respondsToSelector:@selector(uploadImageArray:)]) {
+            
+            [self.delegate uploadImageArray: self.imgUrl_mutArray ];
+        }
         NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
     }];
     
@@ -147,13 +154,15 @@
 }
 
 - (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
-    NSSLog(@"%@",NSStringFromCGRect(frame));
-    NSLog(@"  我当前的高度是 ---%f" ,frame.size.height) ;
+//    NSSLog(@"%@",NSStringFromCGRect(frame));
+//    NSLog(@"  我当前的高度是 ---%f" ,frame.size.height) ;
     
     self.heightOfConstraint.constant = frame.size.height;
     self.pickerView.frame  = CGRectMake(0, 0, KScreenW - 30 , self.heightOfConstraint.constant + 10);
-    [self.delegate reloadCellHeight:self.heightOfConstraint.constant + 10];
-    
+    if ([self.delegate respondsToSelector:@selector(reloadCellHeight:)]) {
+      
+        [self.delegate reloadCellHeight:self.heightOfConstraint.constant + 10];
+    }
 }
 
 //图片管理器

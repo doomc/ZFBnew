@@ -29,4 +29,5 @@
 
 @property (strong , nonatomic) Couponlist * couponlist;
 @property (strong , nonatomic) NSString   * couponId;// 	优惠券唯一编号
+
 @end

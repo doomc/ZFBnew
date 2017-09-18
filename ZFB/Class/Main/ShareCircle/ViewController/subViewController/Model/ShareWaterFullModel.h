@@ -23,10 +23,7 @@
 
 @interface ShareGoodsData : NSObject
 
-/** 宽度  */
-@property (nonatomic, assign) CGFloat width;
-/** 高度  */
-@property (nonatomic, assign) CGFloat height;
+@property (nonatomic, copy) NSString *imgUrls;
 
 @property (nonatomic, copy) NSString *thumbs;//点赞数
 
@@ -44,7 +41,7 @@
 
 @property (nonatomic, copy) NSString *thumbsStatus;//点赞状态	0点赞 1.未点赞
 
-@property (nonatomic, copy) NSString *imgUrl;
+ 
 
 @end
 

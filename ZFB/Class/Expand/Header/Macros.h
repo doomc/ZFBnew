@@ -8,6 +8,15 @@
 
 #define TITLES @[@"门店",@"商品"]
 
+#define isiPhoe5AutoSizeScaleX  1
+#define isiPhoe5AutoSizeScaleY  1
+
+#define isiPhoe6AutoSizeScaleX  1.171875
+#define isiPhoe6AutoSizeScaleY  1.171875
+
+#define isiPhoe6pAutoSizeScaleX  1.29375
+#define isiPhoe6pAutoSizeScaleY  1.29570
+
 #define isNotVersion84                  ([[[UIDevice currentDevice] systemVersion] floatValue] > 8.4)
 //获取屏幕宽高
 #define Iphone6ScaleWidth KScreenWidth/375.0

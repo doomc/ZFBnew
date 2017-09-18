@@ -65,6 +65,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             
             [self mineShareListGoodsPost];
             
+            
             break;
         case SelectTypeAlready://已审核
             [self alreadlymineCheckedListPost];

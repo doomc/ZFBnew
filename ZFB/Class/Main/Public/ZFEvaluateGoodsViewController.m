@@ -12,8 +12,13 @@
 #import "ZFEvaluateGoodsCell.h"
 
 @interface ZFEvaluateGoodsViewController () <UITableViewDelegate,UITableViewDataSource ,ZFEvaluateGoodsCellDelegate,ZFServiceEvaluteCellDelegate>
-
+{
+    CGFloat _cellHeight;
+    NSString * _textViewValues;
+    
+}
 @property (nonatomic,strong) UITableView * tableview;
+@property (nonatomic,strong) NSArray     * upImgArray;
 
 @end
 
@@ -56,12 +61,13 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        
-        return 360;
+        if (_upImgArray.count > 0) {
+            return _cellHeight + 240 + 50 ;
+        }
+        return 113 + 240 + 50;
+    }else{
+        return 210 ;
     }
-
-    return  208;
-  
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -86,19 +92,28 @@
 //传入选择的图片
 -(void)uploadImageArray:(NSMutableArray *)uploadArr
 {
+    _upImgArray = uploadArr;
+    [self.tableview reloadData];
     
+    NSLog(@"%@",_upImgArray);
 }
 //刷新高度
 -(void)reloadCellHeight:(CGFloat)cellHeight
 {
+    _cellHeight = cellHeight;
     
 }
-
+//获取textview的内容
+-(void)getTextViewValues:(NSString *)textViewValues
+{
+    NSLog(@" 外部的 %@",textViewValues);
+    _textViewValues = textViewValues;
+}
 #pragma mark - ZFServiceEvaluteCellDelegate
 //提交
 -(void)didClickCommit
 {
-    
+    NSLog(@"点击提交了");
 }
 
 

@@ -38,12 +38,12 @@
 {
     _reviewedData = reviewedData;
     
-    _lb_title.text = reviewedData.googsName;
+    _lb_title.text = reviewedData.goodsName;
     _lb_reviewStatus.hidden = YES;
     _lb_detail.text = @"   ";
     _lb_descirbe.text = [NSString stringWithFormat:@"奖励:%@元",reviewedData.reward];//鼓励金
     
-    [_headimg sd_setImageWithURL:[NSURL URLWithString:reviewedData.imgUrl] placeholderImage:[UIImage imageNamed:@""]];
+    [_headimg sd_setImageWithURL:[NSURL URLWithString:reviewedData.imgUrls] placeholderImage:[UIImage imageNamed:@""]];
     
 }
 
@@ -54,7 +54,7 @@
     _lb_reviewStatus.hidden = YES;
     _lb_detail.text = @"   ";
     _lb_descirbe.text = goodsReviewData.describe;//描述
-    [_headimg sd_setImageWithURL:[NSURL URLWithString:goodsReviewData.imgUrl] placeholderImage:[UIImage imageNamed:@""]];
+    [_headimg sd_setImageWithURL:[NSURL URLWithString:goodsReviewData.imgUrls] placeholderImage:[UIImage imageNamed:@""]];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

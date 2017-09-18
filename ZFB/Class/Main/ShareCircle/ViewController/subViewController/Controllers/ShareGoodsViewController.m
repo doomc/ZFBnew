@@ -11,8 +11,8 @@
 #import "WaterFlowLayout.h"
 #import "ShareWaterFullModel.h"
 #import "ShareGoodsSubDetailViewController.h"
-
-@interface ShareGoodsViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,WaterFlowLayoutDelegate>
+#import "UIImage+ImageSize.h"
+@interface ShareGoodsViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 /** 所有的商品数据 */
@@ -37,15 +37,14 @@
 -(void)initCollectionView{
     
     //设置瀑布流布局
-    WaterFlowLayout *layout = [WaterFlowLayout new];
-    layout.columnCount = 2;
-    layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);;
-    layout.rowMargin = 10;
-    layout.columnMargin = 10;
-    layout.delegate = self;
+    UICollectionViewFlowLayout *flowLayout = [UICollectionViewFlowLayout new];
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    //最小行间距(默认为10)
+    flowLayout.minimumLineSpacing = 10;
+    //最小item间距（默认为10）
+    flowLayout.minimumInteritemSpacing = 10;
     
-    
-    self.collectionView = [[UICollectionView alloc]initWithFrame: CGRectMake(0, 0, KScreenW, KScreenH -64-50 -44) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc]initWithFrame: CGRectMake(0, 0, KScreenW, KScreenH -64- 49 -44) collectionViewLayout:flowLayout];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -71,6 +70,7 @@
 
 #pragma mark  - <UICollectionViewDataSource>
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    
     return 1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -82,7 +82,6 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     ShareGoodsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ShareGoodsCollectionViewCellid" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor redColor];
     ShareGoodsData * data  = self.shareArray[indexPath.item];
     cell.fullList = data;
     return cell;
@@ -97,15 +96,11 @@
     
 }
 
-#pragma mark - <WaterFlowLayoutDelegate>
--(CGFloat)waterFlowLayout:(WaterFlowLayout *) WaterFlowLayout heightForWidth:(CGFloat)width andIndexPath:(NSIndexPath *)indexPath
+//设置每个item的尺寸
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
- //   ShareGoodsData * goodsData = self.shareArray[indexPath.row];
- 
-//    CGFloat imgH = goodsData.height * ((KScreenW-30)/2) / goodsData.width;
-//    
-  return 3000 + 160;
-    
+    CGFloat itemHeight =  ((KScreenW -30 - 10 )*0.5 - 10 ) * 6/5 + 110;
+    return CGSizeMake( (KScreenW -30 -10 )*0.5 , itemHeight);
 }
 #pragma mark - 获取新品推荐列表    toShareGoods/shareGoodsList
 -(void)shareGoodsPost

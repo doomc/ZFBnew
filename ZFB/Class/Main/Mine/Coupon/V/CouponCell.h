@@ -15,7 +15,7 @@
 
  @param indexRow 当前下标
  */
--(void)didClickGetCouponWithIndexRow :(NSInteger)indexRow;
+-(void)didClickGetCouponWithIndexRow :(NSInteger)indexRow AndCouponId:(NSString *)couponId;
 
 
 @end
@@ -51,5 +51,6 @@
 @property (assign , nonatomic) NSInteger indexRow;
 @property (strong , nonatomic) Couponlist * couponlist;
 @property (strong , nonatomic) NSString   * couponId;// 	优惠券唯一编号
+@property (strong , nonatomic) NSString   * message;// 	需要传出去当前选中的优惠券
 
 @end

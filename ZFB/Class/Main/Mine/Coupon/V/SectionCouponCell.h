@@ -11,5 +11,6 @@
 @interface SectionCouponCell : UITableViewCell
 
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_title;
 
 @end

@@ -47,8 +47,24 @@
     self.title = @"使用优惠券";
     self.view.backgroundColor = RGBA(244, 244, 244, 1);
     [self.view addSubview:self.tableView];
+    self.zfb_tableView = self.tableView;
     [self.tableView registerNib:[UINib nibWithNibName:@"CouponCell" bundle:nil] forCellReuseIdentifier:@"CouponCell"];
     
+    [self setupRefresh];
+    [self getUserNotUseCouponListPostRequset];
+}
+
+-(void)footerRefresh
+{
+    [super footerRefresh];
+    [self getUserNotUseCouponListPostRequset];
+
+}
+-(void)headerRefresh
+{
+    [super headerRefresh];
+    [self getUserNotUseCouponListPostRequset];
+
 }
 
 
@@ -58,7 +74,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return self.couponList.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -67,13 +83,17 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CouponCell * couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"CouponCell" forIndexPath:indexPath];
+    Couponlist  * list  = self.couponList [indexPath.row];
+    couponCell.couponlist = list;
     return couponCell;
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
 
 #pragma mark - 获取用户未使用优惠券列表   recomment/getUserNotUseCouponList
--(void)recommentPostRequst:(NSString *)status
-{
+-(void)getUserNotUseCouponListPostRequset{
     NSDictionary * parma = @{
                              @"goodsAmount":@"3",//商品价格
                              @"goodsCount":@"",//数量

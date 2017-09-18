@@ -14,7 +14,8 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle       = UITableViewCellSelectionStyleNone;
-
+    self.lb_address.preferredMaxLayoutWidth = KScreenW - 30 - 46;
+ 
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

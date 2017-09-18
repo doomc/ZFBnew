@@ -58,7 +58,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     NSString * _datetime;
     NSString * _access_token;
     
-    NSInteger _payType;// 0 在线支付，1 门店支付
+    NSString * _payType;// 0 在线支付，1 门店支付
     
 }
 
@@ -89,7 +89,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     // Do any additional setup after loading the view.
     self.title = @"确认订单";
     
-    
+    _payType = @"0";//默认为线上支付
     self.mytableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -49-64) style:UITableViewStylePlain];
     self.mytableView.delegate       = self;
     self.mytableView.dataSource     = self;
@@ -107,7 +107,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     ///网络请求
     [self addresslistPostRequst];//收货地址
     [self getPayAccessTokenUrl]; //支付获取token
-    
+
     
 }
 
@@ -116,7 +116,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 {
     NSMutableArray * storeArray = [NSMutableArray array];
     NSMutableDictionary * param = [NSMutableDictionary dictionary];
-    
+
     for (NSDictionary * storeDic in _userGoodsInfoJSON) {
         NSMutableArray  * goodsList = [NSMutableArray array];
         
@@ -139,16 +139,19 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [param setObject:storeArray forKey:@"storeList"];
     [param setValue:_postAddressId forKey:@"postAddressId"];
     
+    NSLog(@" 请求的参数 === %@",param);
+
     //获取配送配送费网络求情
     [self getGoodsCostInfoListPostRequstWithJsonString:[NSDictionary dictionaryWithDictionary:param]];
-    NSLog(@"%@",param);
     
     if (self.storelistArry.count > 0 ) {
         
         [self.storelistArry removeAllObjects];
         
     }
-    
+    if (self.cmGoodsListArray.count > 0) {
+        [self.cmGoodsListArray removeAllObjects];
+    }
     //组装cmGoodsListArray
     NSMutableDictionary * storeAttachListDic = [NSMutableDictionary dictionary];
     for (NSDictionary * storeListDic  in _userGoodsInfoJSON) {
@@ -225,7 +228,14 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     CGFloat height = 0;
     switch (_orderCellType) {
         case SureOrderCellTypeAddressCell://收货地址
-            height = 60;
+        {
+            height =  [tableView fd_heightForCellWithIdentifier:@"OrderWithAddressCellid" configuration:^(OrderWithAddressCell * cell) {
+                [self configCell:cell indexpath:indexPath];
+
+            }];
+            NSLog(@" %f ===== height",height);
+        }
+//            height = 60;
             
             break;
         case SureOrderCellTypeGoodsListCell://商品类型
@@ -259,18 +269,10 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     switch (_orderCellType) {
         case SureOrderCellTypeAddressCell://收货地址
         {
+            
             OrderWithAddressCell * addCell = [self.mytableView
                                               dequeueReusableCellWithIdentifier:@"OrderWithAddressCellid" forIndexPath:indexPath];
-            if (_postAddress == nil  && _contactUserName == nil && _contactMobilePhone == nil) {
-                
-                [addCell.nodataView setHidden:NO];
-                
-            }else{
-                
-                [addCell.nodataView setHidden:YES];
-                addCell.lb_address.text      = _postAddress;
-                addCell.lb_nameAndPhone.text = [NSString stringWithFormat:@"收货人: %@  %@",_contactUserName,_contactMobilePhone];
-            }
+            [self configCell:addCell indexpath:indexPath];
             
             return addCell;
         }
@@ -295,7 +297,13 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             SureOrderCommonCell * payCell = [self.mytableView dequeueReusableCellWithIdentifier:@"SureOrderCommonCellid" forIndexPath:indexPath];
             
             payCell.lb_title.text       = @"支付类型";
-            payCell.lb_detailTitle.text = @"在线支付";
+            if ([_payType isEqualToString:@"0"]) {
+                payCell.lb_detailTitle.text = @"在线支付";
+            }
+            else{
+                payCell.lb_detailTitle.text = @"线下支付";
+
+            }
             return payCell;
         }
             break;
@@ -331,7 +339,20 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     }
     
 }
-
+- (void)configCell:(OrderWithAddressCell *)cell indexpath:(NSIndexPath *)indexpath
+{
+    if (_postAddressId == nil || [_postAddressId isEqualToString:@""]) {
+        
+        [cell.nodataView setHidden:NO];
+        
+    }else{
+        
+        [cell.nodataView setHidden:YES];
+        cell.lb_address.text      = _postAddress;
+        cell.lb_nameAndPhone.text = [NSString stringWithFormat:@"收货人: %@  %@",_contactUserName,_contactMobilePhone];
+    }
+    
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section = %ld ,row =%ld ",indexPath.section ,indexPath.row);
@@ -340,12 +361,14 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         case SureOrderCellTypeAddressCell://收货地址
         {
             ZFAddressListViewController * listVC =[[ ZFAddressListViewController alloc]init];
-            listVC.callBackBlock = ^(NSString *PossName, NSString *PossAddress, NSString *PossPhone) {
+            listVC.orderBackBlock = ^(NSString *PossName, NSString *PossAddress, NSString *PossPhone, NSString *PossAddressId) {
                 
                 _contactUserName                                = PossName ;
                 _contactMobilePhone                             = PossPhone;
                 _postAddress                                    = PossAddress;
-                NSLog(@"编辑地址  PossName =%@  PossAddress         = %@ PossPhone = %@",PossName,PossAddress,PossPhone);
+                _postAddressId                                  = PossAddressId;
+                
+                NSLog(@"编辑地址  PossName =%@  PossAddress         = %@ PossPhone = %@ -- possid",PossName,PossAddress,PossPhone);
                 [self userGoodsInfoJSONanalysis];
                 [self.mytableView reloadData];
                 
@@ -380,14 +403,12 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         case SureOrderCellTypeMoneyOrFreeCell://商品金额
             
             break;
-            
     }
-    
 }
 
 
 
-#pragma mark -  getOrderFix 用户订单确定地址接口
+#pragma mark -  getOrderFix 用户地址接口
 -(void)addresslistPostRequst
 {
     NSDictionary * parma = @{
@@ -558,7 +579,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [jsondic setValue:_contactMobilePhone forKey:@"mobilePhone"];
     [jsondic setValue:_postAddress forKey:@"postAddress"];
     //    [jsondic setValue:@"" forKey:@"payMode" ];//1.支付宝  2.微信支付 3.线下,4.展易付
-    [jsondic setValue:@"1" forKey:@"payType" ];//支付类型 0 线下 1 线上
+    [jsondic setValue:_payType forKey:@"payType" ];//支付类型 0 线下 1 线上
     [jsondic setValue:_cartItemId forKey:@"cartItemId"];//立即购买不传，购物车加入的订单需要传
     
     [jsondic setValue: cmgoodsList forKey:@"cmGoodsList"];
@@ -567,18 +588,34 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     
     NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
     //    NSLog(@"提交订单 -----------%@",successDic);
-    if (BBUserDefault.isLogin == 1) {
-        [self commitOrder:successDic];
-        
-    }else
-    {
-        LoginViewController * logVc          = [[LoginViewController alloc]init];
-        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc ]initWithRootViewController:logVc];
-        [self.navigationController presentViewController:nav animated:NO completion:^{
-            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
-            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-            BBUserDefault.isLogin = 0;//登录状态为0
+    if (_postAddress == nil  && _contactUserName == nil && _contactMobilePhone == nil) {
+        JXTAlertController * alertavc = [JXTAlertController alertControllerWithTitle:@"提示" message:@"您现在还没有默认地址，马上添加默认地址" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
         }];
+        UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            ZFAddressListViewController * listVC =[[ZFAddressListViewController alloc]init];
+            [self.navigationController pushViewController:listVC animated:YES];
+        }];
+        [alertavc addAction:cancelAction];
+        [alertavc addAction:sureAction];
+        [self presentViewController:alertavc animated:YES completion:nil];
+        
+    }else{
+        if (BBUserDefault.isLogin == 1 && [_payType isEqualToString:@"0"]) {
+            [self commitOrder:successDic];
+            
+        }else
+        {
+            LoginViewController * logVc          = [[LoginViewController alloc]init];
+            ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc ]initWithRootViewController:logVc];
+            [self.navigationController presentViewController:nav animated:NO completion:^{
+                [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+                [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+                BBUserDefault.isLogin = 0;//登录状态为0
+            }];
+        }
+ 
     }
 }
 
@@ -657,9 +694,10 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
  */
 -(void)didClickWithIndex:(NSInteger)index
 {
-    _payType    = index;
+    _payType    = [NSString stringWithFormat:@"%ld",index];
     NSLog(@"%ld = index",index);
-    
+    [self.popCouponBackgroundView removeFromSuperview];
+    [self.mytableView reloadData];
 }
 
 /**

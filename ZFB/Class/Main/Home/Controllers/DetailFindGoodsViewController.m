@@ -27,6 +27,7 @@
 
 //model
 #import "DetailGoodsModel.h"
+#import "CouponModel.h"
 
 //sku - view
 #import "SukItemCollectionViewCell.h"
@@ -111,6 +112,8 @@
 //没有规格的立即购买数据
 @property (nonatomic ,strong) NSMutableArray    * noReluArray;
 @property (nonatomic ,strong) DetailWebViewCell * webCell;
+//优惠券列表
+@property (nonatomic , strong) NSMutableArray * couponList;
 
 
 
@@ -207,6 +210,7 @@
     if (!_couponTableView ) {
         _couponTableView = [[CouponTableView alloc]initWithFrame:CGRectMake(0, 200, KScreenW, KScreenH - 200)style:UITableViewStylePlain];
         _couponTableView.popDelegate = self;
+        _couponTableView.couponesList = self.couponList;
     }
     return _couponTableView;
 }
@@ -487,7 +491,11 @@
             break;
             
         case 2:
-            height = 44;
+            if (![self isEmptyArray:self.couponList]) {
+                height = 44;
+            }else{
+                height = 0;
+            }
             break;
             
         case 3:
@@ -556,7 +564,25 @@
         case 2://领取优惠券
         {
             SectionCouponCell * couponCell =  [self.list_tableView dequeueReusableCellWithIdentifier:@"SectionCouponCell" forIndexPath:indexPath];
-            return couponCell;
+            if (![self isEmptyArray:self.couponList]) {
+                //关键字
+                NSInteger count = self.couponList.count;
+                couponCell.lb_title.text = [NSString stringWithFormat:@"您有 %ld 张可使用的的优惠券",count];
+                couponCell.lb_title.keywords      = [NSString stringWithFormat:@"%ld",count];
+                couponCell.lb_title.keywordsColor = HEXCOLOR(0xfe6d6a);
+                couponCell.lb_title.keywordsFont  = [UIFont systemFontOfSize:18];
+                ///必须设置计算宽高
+                CGRect dealNumh              = [couponCell.lb_title getLableHeightWithMaxWidth:300];
+                couponCell.lb_title.frame = CGRectMake(15, 10, dealNumh.size.width, dealNumh.size.height);
+                
+                return couponCell;
+
+             }else{
+                 couponCell.hidden = YES;
+                 return couponCell;
+
+             }
+            
         }
             break;
             
@@ -636,8 +662,12 @@
             break;
         case 2://获取优惠券列表
         {
-            [self.view addSubview:self.couponBgView];
-            [self.list_tableView bringSubviewToFront:self.couponBgView];
+            if (![self isEmptyArray:self.couponList]) {
+                
+                [self.view addSubview:self.couponBgView];
+                [self.list_tableView bringSubviewToFront:self.couponBgView];
+            }
+
         }
             break;
 
@@ -1073,8 +1103,7 @@
     
     
 }
-
-//判断是否收藏了
+#pragma mark - 判断是否收藏了
 -(void)iscollect
 {
     if (_isCollect == 1) {///是否收藏	1.收藏 2.不是
@@ -1087,8 +1116,7 @@
         [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
     }
 }
-
-#warning  -------------- 全选判断有问题
+#pragma mark - 判断规格是否全部选取
 //判断规格是否全部选取
 -(BOOL)isSKuAllSelect {
     
@@ -1117,10 +1145,12 @@
     [self.couponBgView removeFromSuperview];
     [self.couponTableView  reloadData];
 }
-
--(void)selectCouponWithIndex:(NSInteger)indexRow withResult:(NSString *)result
-{
+//领取优惠券接口
+-(void)selectCouponWithIndex:(NSInteger)indexRow AndCouponId :(NSString *)couponId withResult:(NSString *)result{
     NSLog(@"  %ld ------ %@",indexRow,result);
+    
+    //领取优惠券  接口
+    [self getCouponesPostRequst:couponId];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -1231,9 +1261,9 @@
             _imagesURLStrings = [[NSArray alloc]init];
             _imagesURLStrings = [_attachImgUrl componentsSeparatedByString:@","];
             [self cycleScrollViewInit];
-            
             [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
-            
+            [self getUserNotUseCouponListPostRequset];//获取优惠券
+
         }
         [self.list_tableView reloadData];
         
@@ -1441,6 +1471,68 @@
     
     
 }
+#pragma mark - 获取用户未使用优惠券列表   recomment/getUserNotUseCouponList
+-(void)getUserNotUseCouponListPostRequset{
+    NSDictionary * parma = @{
+                             @"goodsAmount":_netPurchasePrice,//商品价格
+                             @"goodsCount":[NSString stringWithFormat:@"%ld",_goodsCount],//数量
+                             @"goodsId":_goodsId,
+                             @"storeId":_storeId,
+                             @"userId":BBUserDefault.cmUserId,
+                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
+                             @"pageSize":@"100",
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserNotUseCouponList"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+        
+            if (self.couponList.count > 0) {
+                [self.couponList removeAllObjects];
+            }
+            CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
+            for (Couponlist * list in coupon.couponList) {
+                [self.couponList addObject:list];
+            }
+            [self.couponTableView reloadData];
+            [SVProgressHUD dismiss];
+        }
+        [self.list_tableView reloadData];
+        
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+    }];
+    
+}
+#pragma mark - 点击领取优惠券    recomment/receiveCoupon
+-(void)getCouponesPostRequst:(NSString *)couponId
+{
+    NSDictionary * parma = @{
+                             
+                             @"couponId":couponId,
+                             @"userId":BBUserDefault.cmUserId,
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/receiveCoupon"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+            
+            [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
+            //领取成功后移除
+            [self.couponBgView removeFromSuperview];
+            [SVProgressHUD dismiss];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
 
 -(NSMutableArray *)selectedSkuArray{
     if (!_selectedSkuArray) {
@@ -1480,6 +1572,12 @@
     return _noReluArray;
 }
 
+-(NSMutableArray *)couponList{
+    if (!_couponList) {
+        _couponList = [NSMutableArray array];
+    }
+    return _couponList;
+}
 -(void)viewWillDisappear:(BOOL)animated
 {
     NSLog(@"viewWillDisappear  消失了 这个方法走了吗");
@@ -1491,8 +1589,8 @@
     
     if (BBUserDefault.isLogin == 1) {
         
-        [self goodsDetailListPostRequset];//网络请求
-        
+        [self goodsDetailListPostRequset];//详情网络请求
+
     }else{
         
         NSLog(@"登录了");
@@ -1505,15 +1603,12 @@
             [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
         }];
     }
-    
-    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     NSLog(@"viewWillAppear 这个方法走了吗");
     [self LocationMapManagerInit];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -6,45 +6,46 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ShareGoodsCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="173" height="291"/>
+            <rect key="frame" x="0.0" y="0.0" width="160" height="291"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="173" height="291"/>
+                <rect key="frame" x="0.0" y="0.0" width="160" height="291"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nodataPlaceholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="P2Q-JS-ZA8">
-                        <rect key="frame" x="5" y="5" width="163" height="178"/>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ccz-Ld-jCQ">
-                        <rect key="frame" x="5" y="188" width="163" height="20"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nodataPlaceholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="P2Q-JS-ZA8">
+                        <rect key="frame" x="5" y="5" width="150" height="180"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="H1o-01-6lk"/>
+                            <constraint firstAttribute="width" secondItem="P2Q-JS-ZA8" secondAttribute="height" multiplier="5:6" id="ipz-A3-ygL"/>
                         </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ccz-Ld-jCQ">
+                        <rect key="frame" x="5" y="190" width="150" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMA-6U-Aga">
-                        <rect key="frame" x="5" y="213" width="163" height="20"/>
+                        <rect key="frame" x="5" y="215" width="150" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AhP-CX-r4T">
-                        <rect key="frame" x="5" y="243" width="40" height="40"/>
+                        <rect key="frame" x="5" y="245" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="SGF-vq-iHL"/>
                             <constraint firstAttribute="height" constant="40" id="bDO-2l-IsW"/>
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfz-Je-lNU">
-                        <rect key="frame" x="126" y="253" width="20" height="20"/>
+                        <rect key="frame" x="113" y="255" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="FRk-yK-De5"/>
                             <constraint firstAttribute="height" constant="20" id="XSK-bI-q3T"/>
@@ -53,7 +54,7 @@
                         <state key="selected" image="sharezan_selected.png"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEe-OB-KOe">
-                        <rect key="frame" x="50" y="253" width="35.5" height="20"/>
+                        <rect key="frame" x="50" y="255" width="35.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="DRA-87-dne"/>
                         </constraints>
@@ -62,7 +63,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Exr-Qe-Cbn">
-                        <rect key="frame" x="151" y="256" width="17" height="17"/>
+                        <rect key="frame" x="138" y="258" width="17" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -89,7 +90,7 @@
                 <constraint firstItem="Ccz-Ld-jCQ" firstAttribute="trailing" secondItem="P2Q-JS-ZA8" secondAttribute="trailing" id="sT2-Aa-Ypl"/>
                 <constraint firstItem="AhP-CX-r4T" firstAttribute="leading" secondItem="hMA-6U-Aga" secondAttribute="leading" id="wJy-Az-7j1"/>
             </constraints>
-            <size key="customSize" width="173" height="291"/>
+            <size key="customSize" width="158" height="291"/>
             <connections>
                 <outlet property="headImg" destination="AhP-CX-r4T" id="doo-FQ-ueL"/>
                 <outlet property="lb_description" destination="hMA-6U-Aga" id="4Eh-p6-wAX"/>
@@ -99,7 +100,7 @@
                 <outlet property="waterPullImageView" destination="P2Q-JS-ZA8" id="LZj-QU-r7s"/>
                 <outlet property="zan_btn" destination="yfz-Je-lNU" id="gS4-Rh-u2F"/>
             </connections>
-            <point key="canvasLocation" x="-361.5" y="129.5"/>
+            <point key="canvasLocation" x="-369" y="129.5"/>
         </collectionViewCell>
     </objects>
     <resources>

@@ -38,9 +38,8 @@
 @property (nonatomic, copy) NSString *describe;
 
 //已审核的字段
-@property (nonatomic, copy) NSString *googsName;
+@property (nonatomic, copy) NSString *goodsName;
 @property (nonatomic, copy) NSString *reward;//奖励金
-@property (nonatomic, copy) NSString *imgUrl;
 
 //总收入的字段
 @property (nonatomic, copy) NSString *goodsNum;

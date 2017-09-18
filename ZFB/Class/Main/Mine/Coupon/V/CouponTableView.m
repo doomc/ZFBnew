@@ -9,7 +9,9 @@
 #import "CouponTableView.h"
 #import "CouponCell.h"
 @interface CouponTableView ()<CouponCellDelegate>
-
+{
+    NSInteger indexPathRow;
+}
 @end
 @implementation CouponTableView
 
@@ -116,21 +118,26 @@
    
     cell.couponDelegate = self;
     
-    cell.indexRow = indexPath.row;
+    cell.indexRow = indexPathRow = indexPath.row;
     
     cell.couponlist = list;
     
+    _couponeMessage = [NSString stringWithFormat:@"当前选中了第-%ld-个优惠券的信息",indexPathRow];
+  
     return cell;
 }
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"我点的是整个优惠券内部 _couponeMessage =%@  , row = %ld ",_couponeMessage,indexPath.row);
+    NSLog(@"我点的是整个优惠券内部 _couponeMessage =%@  , row = %ld ",_couponeMessage,indexPathRow);
+    Couponlist  * list = _couponesList[indexPath.row];
+    _couponeId = [NSString stringWithFormat:@"%ld",list.couponId];
     
-    if ([self.popDelegate respondsToSelector:@selector(selectCouponWithIndex:withResult:)]) {
-        [self.popDelegate selectCouponWithIndex:indexPath.row withResult:_couponeMessage];
+    if ([self.popDelegate respondsToSelector:@selector(selectCouponWithIndex:AndCouponId:withResult:)]) {
+        [self.popDelegate selectCouponWithIndex:indexPathRow AndCouponId:_couponeId withResult:_couponeMessage];
     }
+ 
 }
 
 
@@ -143,9 +150,16 @@
 }
 
 #pragma mark - CouponCellDelegate 领取优惠券代理
--(void)didClickGetCouponWithIndexRow :(NSInteger)indexRow
+-(void)didClickGetCouponWithIndexRow:(NSInteger)indexRow AndCouponId:(NSString *)couponId
 {
-    NSLog(@"我领取了第---%ld---券",indexRow);
+    Couponlist  * list = _couponesList[indexRow];
+    _couponeId = [NSString stringWithFormat:@"%ld",list.couponId];
+    
+    NSLog(@"我领取了第--couponId==%@---券",_couponeId);
+    
+    if ([self.popDelegate respondsToSelector:@selector(selectCouponWithIndex:AndCouponId:withResult:)]) {
+        [self.popDelegate selectCouponWithIndex:indexPathRow AndCouponId:_couponeId withResult:_couponeMessage];
+    }
 }
 
 

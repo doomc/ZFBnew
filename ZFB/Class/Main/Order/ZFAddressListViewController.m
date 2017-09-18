@@ -181,9 +181,11 @@
     NSLog(@"%ld- %ld",indexPath.section,indexPath.row);
 
     [self backAction];
-
-    self.callBackBlock(info.contactUserName, info.postAddress, info.contactMobilePhone);
-
+    if (_orderBackBlock) {
+        NSString * possId = [NSString stringWithFormat:@"%ld",info.postAddressId];
+        _orderBackBlock(info.contactUserName, info.postAddress, info.contactMobilePhone,possId);
+  
+    }
 }
 
 #pragma mark -    收货地址列表getCmUserAdderss

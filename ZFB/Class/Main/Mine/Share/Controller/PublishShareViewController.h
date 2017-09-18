@@ -10,4 +10,12 @@
 
 @interface PublishShareViewController : BaseViewController
 
+@property (weak, nonatomic) IBOutlet UIButton *commitBtn;
+
+@property (weak, nonatomic) IBOutlet UITextField *tf_title;
+
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+
+- (IBAction)commitAction:(id)sender;
+
 @end

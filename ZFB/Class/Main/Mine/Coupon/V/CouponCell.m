@@ -24,12 +24,7 @@
     _didClickget_btn.layer.masksToBounds = YES;
     _didClickget_btn.layer.borderWidth = 1;
     _didClickget_btn.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
-    
-    
-    
-    //快过期
-    
-    //已使用
+   
 }
 
 -(void)setCouponlist:(Couponlist *)couponlist
@@ -166,8 +161,9 @@
  */
 - (IBAction)didclickGetCouponAction:(UIButton *)sender {
  
-    if ([self.couponDelegate respondsToSelector:@selector(didClickGetCouponWithIndexRow:)]) {
-        [self.couponDelegate didClickGetCouponWithIndexRow:_indexRow];
+    NSLog(@"CouponCell 的_couponId ==== %@",_couponId);
+    if ([self.couponDelegate respondsToSelector:@selector(didClickGetCouponWithIndexRow:AndCouponId:)]) {
+        [self.couponDelegate didClickGetCouponWithIndexRow:_indexRow AndCouponId:_couponId];
     }
     
 }

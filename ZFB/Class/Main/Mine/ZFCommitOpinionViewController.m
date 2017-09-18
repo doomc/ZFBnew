@@ -94,11 +94,11 @@
        
         if (self.uploadImageArray.count > 0) {
             
-            height = _cellHeight + 40;
+            height = _cellHeight + 50;
             
         }
         else{
-            height = 132 ;
+            height = 160 ;
         }
     }
     else{

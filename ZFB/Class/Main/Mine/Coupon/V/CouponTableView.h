@@ -15,9 +15,8 @@
  */
 -(void)didClickCloseCouponView;
 
-
 //获取当前的优惠券
--(void)selectCouponWithIndex:(NSInteger)indexRow withResult:(NSString *)result;
+-(void)selectCouponWithIndex:(NSInteger)indexRow AndCouponId :(NSString *)couponId withResult:(NSString *)result;
 
 @end
 @interface CouponTableView : UITableView <UITableViewDelegate,UITableViewDataSource>
@@ -30,6 +29,8 @@
  选择的优惠券抛到控制器中
  */
 @property (copy   , nonatomic) NSString * couponeMessage;
+//唯一id
+@property (copy   , nonatomic) NSString * couponeId;
 
 
 @end

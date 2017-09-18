@@ -10,6 +10,7 @@
 		149EBBB71F6523E000BA3FA7 /* DealSucessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 149EBBB51F6523E000BA3FA7 /* DealSucessCell.m */; };
 		149EBBB81F6523E000BA3FA7 /* DealSucessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 149EBBB61F6523E000BA3FA7 /* DealSucessCell.xib */; };
 		287E1D51FE976BE2DCE0A71B /* libPods-ZFB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2E471759A11D3682520CF1E /* libPods-ZFB.a */; };
+		49182B6C1F6F5BB5003D6C47 /* UIImage+ImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 49182B6B1F6F5BB5003D6C47 /* UIImage+ImageSize.m */; };
 		49183EA31F5941CD00879E42 /* nodataPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 49183EA11F5941CD00879E42 /* nodataPlaceholder.png */; };
 		49183EB21F5954D900879E42 /* WeChatStylePlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 49183EAE1F5954D900879E42 /* WeChatStylePlaceHolder.m */; };
 		49183EB31F5954D900879E42 /* XTNetReloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 49183EB11F5954D900879E42 /* XTNetReloader.m */; };
@@ -1160,6 +1161,8 @@
 		149EBBB51F6523E000BA3FA7 /* DealSucessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealSucessCell.m; sourceTree = "<group>"; };
 		149EBBB61F6523E000BA3FA7 /* DealSucessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DealSucessCell.xib; sourceTree = "<group>"; };
 		3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.debug.xcconfig"; sourceTree = "<group>"; };
+		49182B6A1F6F5BB5003D6C47 /* UIImage+ImageSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageSize.h"; sourceTree = "<group>"; };
+		49182B6B1F6F5BB5003D6C47 /* UIImage+ImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageSize.m"; sourceTree = "<group>"; };
 		49183EA11F5941CD00879E42 /* nodataPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nodataPlaceholder.png; sourceTree = "<group>"; };
 		49183EAD1F5954D900879E42 /* WeChatStylePlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChatStylePlaceHolder.h; sourceTree = "<group>"; };
 		49183EAE1F5954D900879E42 /* WeChatStylePlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeChatStylePlaceHolder.m; sourceTree = "<group>"; };
@@ -3975,6 +3978,8 @@
 				495EA3A51F14B64B001FCB7E /* UIImage+Resize.m */,
 				495EA3A61F14B64B001FCB7E /* UIImage+RoundedCorner.h */,
 				495EA3A71F14B64B001FCB7E /* UIImage+RoundedCorner.m */,
+				49182B6A1F6F5BB5003D6C47 /* UIImage+ImageSize.h */,
+				49182B6B1F6F5BB5003D6C47 /* UIImage+ImageSize.m */,
 			);
 			path = UIImage;
 			sourceTree = "<group>";
@@ -7983,6 +7988,7 @@
 				497EF7111F4EAA4400BFF1AF /* NTESChartletAttachment.m in Sources */,
 				497EF6E31F4E9F6C00BFF1AF /* NTESRecordSelectView.m in Sources */,
 				49B0E75C1F417AEB0032E72E /* QRPayHistoryViewController.m in Sources */,
+				49182B6C1F6F5BB5003D6C47 /* UIImage+ImageSize.m in Sources */,
 				495EA72D1F14B64D001FCB7E /* AddressPickerView.m in Sources */,
 				4968A4581F4DB5290061A87E /* NTESSpellingCenter.m in Sources */,
 				4968A1421F4D89B10061A87E /* IMChatSessionViewController.m in Sources */,
