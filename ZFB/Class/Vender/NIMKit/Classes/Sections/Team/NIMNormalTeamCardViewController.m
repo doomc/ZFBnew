@@ -192,7 +192,7 @@
                         if (self.team.type == NIMTeamTypeNormal) {
                             [wself addHeaderDatas:members];
                         }else{
-                            [wself.view makeToast:@"邀请成功，等待验证" duration:2.0 position:CSToastPositionCenter];
+                            [wself.view makeToast:@"邀请成功，等待验证" duration:2.0 position:@"center"];
                         }
                         [wself refreshTableHeader:self.view.nim_width];
                     }else{

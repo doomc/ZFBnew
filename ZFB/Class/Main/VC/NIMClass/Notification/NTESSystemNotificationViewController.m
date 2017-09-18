@@ -8,7 +8,6 @@
 
 #import "NTESSystemNotificationViewController.h"
 #import "NTESSystemNotificationCell.h"
-#import "UIView+Toast.h"
 
 static const NSInteger MaxNotificationCount = 20;
 static NSString *reuseIdentifier = @"reuseIdentifier";
@@ -157,14 +156,14 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
                 if (!error) {
                     [wself.navigationController.view makeToast:@"同意成功"
                                                       duration:2
-                                                      position:CSToastPositionCenter];
+                                                      position:@"center"];
                     notification.handleStatus = NotificationHandleTypeOk;
                     [wself.tableView reloadData];
                 }else {
                     if(error.code == NIMRemoteErrorCodeTimeoutError) {
                         [wself.navigationController.view makeToast:@"网络问题，请重试"
                                                           duration:2
-                                                          position:CSToastPositionCenter];
+                                                          position:@"center"];
                     } else {
                         notification.handleStatus = NotificationHandleTypeOutOfDate;
                     }
@@ -179,19 +178,19 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
                 if (!error) {
                     [wself.navigationController.view makeToast:@"接受成功"
                                                       duration:2
-                                                      position:CSToastPositionCenter];
+                                                      position:@"center"];
                     notification.handleStatus = NotificationHandleTypeOk;
                     [wself.tableView reloadData];
                 }else {
                     if(error.code == NIMRemoteErrorCodeTimeoutError) {
                         [wself.navigationController.view makeToast:@"网络问题，请重试"
                                                           duration:2
-                                                          position:CSToastPositionCenter];
+                                                          position:@"center"];
                     }
                     else if (error.code == NIMRemoteErrorCodeTeamNotExists) {
                         [wself.navigationController.view makeToast:@"群不存在"
                                                           duration:2
-                                                          position:CSToastPositionCenter];
+                                                          position:@"center"];
                     }
                     else {
                         notification.handleStatus = NotificationHandleTypeOutOfDate;
@@ -213,14 +212,14 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
                                                      if (!error) {
                                                          [wself.navigationController.view makeToast:@"验证成功"
                                                                                            duration:2
-                                                                                           position:CSToastPositionCenter];
+                                                                                           position:@"center"];
                                                          notification.handleStatus = NotificationHandleTypeOk;
                                                      }
                                                      else
                                                      {
                                                          [wself.navigationController.view makeToast:@"验证失败,请重试"
                                                                                            duration:2
-                                                                                           position:CSToastPositionCenter];
+                                                                                           position:@"center"];
                                                      }
                                                      [wself.tableView reloadData];
                                                      DDLogDebug(@"%@",error.localizedDescription);
@@ -241,14 +240,14 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
                 if (!error) {
                     [wself.navigationController.view makeToast:@"拒绝成功"
                                                       duration:2
-                                                      position:CSToastPositionCenter];
+                                                      position:@"center"];
                     notification.handleStatus = NotificationHandleTypeNo;
                     [wself.tableView reloadData];
                 }else {
                     if(error.code == NIMRemoteErrorCodeTimeoutError) {
                         [wself.navigationController.view makeToast:@"网络问题，请重试"
                                                           duration:2
-                                                          position:CSToastPositionCenter];
+                                                          position:@"center"];
                     } else {
                         notification.handleStatus = NotificationHandleTypeOutOfDate;
                     }
@@ -264,19 +263,19 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
                 if (!error) {
                     [wself.navigationController.view makeToast:@"拒绝成功"
                                                       duration:2
-                                                      position:CSToastPositionCenter];
+                                                      position:@"center"];
                     notification.handleStatus = NotificationHandleTypeNo;
                     [wself.tableView reloadData];
                 }else {
                     if(error.code == NIMRemoteErrorCodeTimeoutError) {
                         [wself.navigationController.view makeToast:@"网络问题，请重试"
                                                           duration:2
-                                                          position:CSToastPositionCenter];
+                                                          position:@"center"];
                     }
                     else if (error.code == NIMRemoteErrorCodeTeamNotExists) {
                         [wself.navigationController.view makeToast:@"群不存在"
                                                           duration:2
-                                                          position:CSToastPositionCenter];
+                                                          position:@"center"];
                     }
                     else {
                         notification.handleStatus = NotificationHandleTypeOutOfDate;
@@ -299,14 +298,14 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
                                                      if (!error) {
                                                          [wself.navigationController.view makeToast:@"拒绝成功"
                                                                                            duration:2
-                                                                                           position:CSToastPositionCenter];
+                                                                                           position:@"center"];
                                                          notification.handleStatus = NotificationHandleTypeNo;
                                                      }
                                                      else
                                                      {
                                                          [wself.navigationController.view makeToast:@"拒绝失败,请重试"
                                                                                            duration:2
-                                                                                           position:CSToastPositionCenter];
+                                                                                           position:@"center"];
                                                      }
                                                      [wself.tableView reloadData];
                                                      DDLogDebug(@"%@",error.localizedDescription);

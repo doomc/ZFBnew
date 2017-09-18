@@ -12,14 +12,18 @@
 #import "HXPhotoViewController.h"
 #import "HXPhotoView.h"
 
-//yykit
-#import "YYTextView.h"
-@interface PublishShareViewController ()<HXPhotoViewDelegate,UITextFieldDelegate,YYTextViewDelegate>
+@interface PublishShareViewController ()<HXPhotoViewDelegate,UITextFieldDelegate,UITextViewDelegate>
+{
+    NSString * _imgUrlStr;
+    NSString * _title;
+    NSString * _describe;
+}
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintHeight;
 @property (strong, nonatomic) HXPhotoManager *manager;
 @property (strong, nonatomic) NSMutableArray *imgUrl_mutArray;
 @property (weak, nonatomic) IBOutlet UIView *photoView;
-@property (strong, nonatomic) YYTextView * yytextView;
+
 
 @end
 
@@ -59,7 +63,7 @@
 
     [self settingPhotoView];
     
-    [self settingYYTextView];
+    [self settingTextView];
 }
 -(void)settingPhotoView
 {
@@ -72,26 +76,59 @@
 -(void)settingBtnBoarder
 {
     self.tf_title.delegate = self;
+    [self.tf_title addTarget:self action:@selector(textfieldChangetext:) forControlEvents:UIControlEventEditingChanged];
     self.commitBtn.layer.cornerRadius = 4;
     self.commitBtn.clipsToBounds = YES;
     
 }
--(void)settingYYTextView
+-(void)settingTextView
 {
-    _yytextView = [[YYTextView alloc]initWithFrame:self.yytextView.frame];
-    _yytextView.userInteractionEnabled = YES;
-    _yytextView.textVerticalAlignment = YYTextVerticalAlignmentTop;
-    _yytextView.delegate = self;
+    self.textView.zw_limitCount = 150;//个数显示
+    self.textView.zw_labHeight = 20;//高度
+    self.textView.placeholder = @"字数在150字以内哦~";
+    self.textView.delegate = self;
+    // 添加输入改变Block回调.
+    [self.textView addTextDidChangeHandler:^(FSTextView *textView) {
+        // 文本改变后的相应操作.
+        _describe = textView.text;
+        NSLog(@"----%@-----",textView.text);
+    }];
+    // 添加到达最大限制Block回调.
+    [self.textView addTextLengthDidMaxHandler:^(FSTextView *textView) {
+        // 达到最大限制数后的相应操作.
+    }];
      
 }
-#pragma mark - YYTextViewDelegate 文本编辑器
-- (BOOL)textViewShouldBeginEditing:(YYTextView *)textView
+#pragma mark - UITextFieldDelegate 文本编辑器
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    return  YES;
+    return YES;
 }
--(void)textViewDidChange:(YYTextView *)textView
+
+-(void)textfieldChangetext:(UITextField *)tf{
+    NSLog(@"%@",tf.text);
+    _title = tf.text;
+}
+
+#pragma mark - UITextViewDelegate 文本编辑器
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    NSLog(@"%@ === text", textView.text);
+    NSLog(@"开始编辑");
+    return YES;
+}
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView;
+{
+    return YES;
+    NSLog(@"结束编辑");
+}
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    return YES;
+}
+- (void)textViewDidChange:(UITextView *)textView
+{
+    _describe = textView.text;
+    NSLog(@"结束编辑 ------%@",textView.text);
 }
 #pragma mark - HXPhotoViewDelegate 相册选择器
 - (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {
@@ -112,14 +149,20 @@
         //将数据传出去
         NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
     }];
+    
+    _imgUrlStr = [self.imgUrl_mutArray componentsJoinedByString:@","];
  
 }
+
 - (void)photoView:(HXPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {
+
     NSSLog(@"%@",networkPhotoUrl);
+
 }
 - (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
-    NSSLog(@"%@",NSStringFromCGRect(frame));
-    
+//    NSSLog(@"%@",NSStringFromCGRect(frame));
+
+    self.constraintHeight.constant = frame.size.height + 20;
     self.photoView.height = frame.size.height + 20;
 }
 
@@ -127,7 +170,15 @@
 #pragma  mark  - 发布共享 
 - (IBAction)commitAction:(id)sender {
     
-    [self publicMessagePostRequset];
+    if (_title == nil || [_title isEqualToString:@""] || _describe == nil) {
+        NSLog(@"数据没有完");
+       
+        [self.view makeToast:@"请填写完标题和评语后再提交" duration:2 position:@"center"];
+    
+    }else{
+        //网络请求
+        [self publicMessagePostRequset];
+    }
 }
 
 
@@ -135,14 +186,14 @@
 -(void)publicMessagePostRequset{
     
     NSDictionary * parma = @{
-                             @"title":self.tf_title.text,
-                             @"describe":@"",
+                             @"title":_title,
+                             @"describe":_describe,
                              @"userId":BBUserDefault.cmUserId,
-                             @"imgUrls":BBUserDefault.cmUserId,
-                             @"goodsId":BBUserDefault.cmUserId,
-                             @"userAccount":BBUserDefault.cmUserId,
-                             @"userLogo":BBUserDefault.cmUserId,
-                             @"userNickname":BBUserDefault.cmUserId,
+                             @"imgUrls":_imgUrlStr,
+                             @"goodsId":_goodId,
+                             @"userAccount":@"13628311317",
+                             @"userLogo":BBUserDefault.uploadImgName,
+                             @"userNickname":BBUserDefault.nickName,
  
                              };
     [SVProgressHUD show];
@@ -150,6 +201,8 @@
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
 
             [self.view makeToast:@"发布成功" duration:2 position:@"center"];
+            [SVProgressHUD dismiss];
+
         }
         
     } progress:^(NSProgress *progeress) {

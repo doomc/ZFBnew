@@ -8,7 +8,6 @@
 
 #import "NTESJionTeamViewController.h"
 #import "SVProgressHUD.h"
-#import "UIView+Toast.h"
 #import "NTESSessionViewController.h"
 #import "UIAlertView+NTESBlock.h"
 
@@ -63,7 +62,7 @@
                     break;
                 }
                 case NIMTeamApplyStatusWaitForPass:
-                    [self.view makeToast:@"申请成功，等待验证" duration:2.0 position:CSToastPositionCenter];
+                    [self.view makeToast:@"申请成功，等待验证" duration:2.0 position:@"center"];
                 default:
                     break;
             }
@@ -71,10 +70,10 @@
             DDLogDebug(@"Jion team failed: %@", error.localizedDescription);
             switch (error.code) {
                 case NIMRemoteErrorCodeTeamAlreadyIn:
-                    [self.view makeToast:@"已经在群里" duration:2.0 position:CSToastPositionCenter];
+                    [self.view makeToast:@"已经在群里" duration:2.0 position:@"center"];
                     break;
                 default:
-                    [self.view makeToast:@"群申请失败" duration:2.0 position:CSToastPositionCenter];
+                    [self.view makeToast:@"群申请失败" duration:2.0 position:@"center"];
                     break;
             }
         }

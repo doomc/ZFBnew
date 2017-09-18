@@ -10,7 +10,6 @@
 #import "UIImageView+WebCache.h"
 #import "UIView+NTES.h"
 #import "NTESSessionUtil.h"
-#import "UIView+Toast.h"
 
 @implementation NTESGalleryItem
 @end
@@ -79,7 +78,7 @@
         if (error) {
             [wImageView makeToast:@"下载图片失败"
                          duration:2
-                         position:CSToastPositionCenter];
+                         position:@"center"];
         }else{
             wImageView.progress = 1.0;
         }

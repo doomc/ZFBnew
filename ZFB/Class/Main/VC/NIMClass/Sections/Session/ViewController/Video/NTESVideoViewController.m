@@ -7,7 +7,6 @@
 //
 
 #import "NTESVideoViewController.h"
-#import "UIView+Toast.h"
 #import "Reachability.h"
 #import "UIAlertView+NTESBlock.h"
 #import "SVProgressHUD.h"
@@ -48,7 +47,7 @@
             }else{
                 [wself.view makeToast:@"下载失败，请检查网络"
                              duration:2
-                             position:CSToastPositionCenter];
+                             position:@"center"];
             }
         }];
     }
@@ -141,7 +140,7 @@
             NSString *errorTip = [NSString stringWithFormat:@"播放失败: %@", [mediaPlayerError localizedDescription]];
             [self.view makeToast:errorTip
                         duration:2
-                        position:CSToastPositionCenter];
+                        position:@"center"];
         }
     }
     

@@ -12,8 +12,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PublishShareViewController">
             <connections>
                 <outlet property="commitBtn" destination="Nco-lR-lx5" id="DOj-ko-wez"/>
+                <outlet property="constraintHeight" destination="CVz-4F-0K7" id="dw6-83-2Y9"/>
                 <outlet property="photoView" destination="hJ1-Ya-YiH" id="hu0-ew-oGE"/>
-                <outlet property="textView" destination="sMt-ms-C4c" id="QbW-yi-CJ3"/>
+                <outlet property="textView" destination="sMt-ms-C4c" id="cpw-Pq-KzN"/>
                 <outlet property="tf_title" destination="Erv-kX-rmL" id="miv-kg-gtJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -51,7 +52,7 @@
                             <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="我能默认添加的一些内容" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sMt-ms-C4c">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="我能默认添加的一些内容" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sMt-ms-C4c" customClass="FSTextView">
                             <rect key="frame" x="96" y="63" width="264" height="120"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>

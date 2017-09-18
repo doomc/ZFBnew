@@ -10,7 +10,6 @@
 #import "NIMCommonTableDelegate.h"
 #import "NIMCommonTableData.h"
 #import "SVProgressHUD.h"
-#import "UIView+Toast.h"
 #import "NIMMemberGroupView.h"
 #import "UIView+NTES.h"
 #import "NIMContactSelectConfig.h"
@@ -103,7 +102,7 @@
     [[NIMSDK sharedSDK].userManager updateNotifyState:switcher.on forUser:self.session.sessionId completion:^(NSError *error) {
         [SVProgressHUD dismiss];
         if (error) {
-            [wself.view makeToast:@"操作失败"duration:2.0f position:CSToastPositionCenter];
+            [wself.view makeToast:@"操作失败"duration:2.0f position:@"center"];
             [wself refresh];
         }
     }];
@@ -149,7 +148,7 @@
                                             NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
                                             [nav pushViewController:vc animated:YES];
                                         }else{
-                                            [wself.view makeToast:@"创建讨论组失败" duration:2.0 position:CSToastPositionCenter];
+                                            [wself.view makeToast:@"创建讨论组失败" duration:2.0 position:@"center"];
                                         }
                                     }];
 }

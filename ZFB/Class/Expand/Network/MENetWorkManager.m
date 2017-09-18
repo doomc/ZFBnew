@@ -66,16 +66,15 @@
         if (success) {
             if (responseObject != nil) {
                 
- 
+                NSString *resultCode = [NSString stringWithFormat:@"%@", responseObject[@"resultCode"]];
+                if ([resultCode isEqualToString:@"3"]) {
+                    BBUserDefault.isLogin = 0;
+                }
+                
+                
                 NSString *result = [NSString convertToJsonData:responseObject];
                 NSLog(@"%@",result);
-//
-//                if ([responseObject[@"resultCode"]isEqualToString:@"3"] ||[responseObject[@"resultCode"] intValue] == 3 ) {
-//                    BBUserDefault.isLogin = 0;
-//                }
-//                if ([responseObject[@"resultCode"]isEqualToString:@"0"]) {
-//                    BBUserDefault.isLogin = 1;
-//                }
+                
             }
             success(responseObject);
         }

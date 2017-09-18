@@ -12,7 +12,6 @@
 #import "NTESContactUtilItem.h"
 #import "NTESContactDefines.h"
 #import "NTESGroupedContacts.h"
-#import "UIView+Toast.h"
 #import "NTESCustomNotificationDB.h"
 #import "NTESNotificationCenter.h"
 #import "UIActionSheet+NTESBlock.h"
@@ -188,7 +187,7 @@ NIMEventSubscribeManagerDelegate> {
                             NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
                             [wself.navigationController pushViewController:vc animated:YES];
                         }else{
-                            [wself.view makeToast:@"创建失败" duration:2.0 position:CSToastPositionCenter];
+                            [wself.view makeToast:@"创建失败" duration:2.0 position:@"center"];
                         }
   
                     }];
@@ -213,7 +212,7 @@ NIMEventSubscribeManagerDelegate> {
                             NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
                             [wself.navigationController pushViewController:vc animated:YES];
                         }else{
-                            [wself.view makeToast:@"创建失败" duration:2.0 position:CSToastPositionCenter];
+                            [wself.view makeToast:@"创建失败" duration:2.0 position:@"center"];
                         }
                     }];
                 }];
@@ -321,7 +320,7 @@ NIMEventSubscribeManagerDelegate> {
                     if (!error) {
                         [_contacts removeGroupMember:contactItem];
                     }else{
-                        [wself.view makeToast:@"删除失败"duration:2.0f position:CSToastPositionCenter];
+                        [wself.view makeToast:@"删除失败"duration:2.0f position:@"center"];
                     }
                 }];
             }
@@ -336,7 +335,7 @@ NIMEventSubscribeManagerDelegate> {
 
 #pragma mark - NTESContactUtilCellDelegate
 - (void)onPressUtilImage:(NSString *)content{
-    [self.view makeToast:[NSString stringWithFormat:@"点我干嘛 我是<%@>",content] duration:2.0 position:CSToastPositionCenter];
+    [self.view makeToast:[NSString stringWithFormat:@"点我干嘛 我是<%@>",content] duration:2.0 position:@"center"];
 }
 
 #pragma mark - NIMContactSelectDelegate

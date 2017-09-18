@@ -344,6 +344,10 @@
                         [self.listArray addObject:list];
                     }
             NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",_listArray);
+            if ([self isEmptyArray:self.listArray]) {
+                
+                [self.tableView cyl_reloadData];
+            }
         }
   
         [self.tableView reloadData];
@@ -401,6 +405,8 @@
         
         [self updateInfomation];
         
+        
+        
     } progress:^(NSProgress *progeress) {
     
     } failure:^(NSError *error) {
@@ -410,12 +416,6 @@
     }];
     
     
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    if ([self isEmptyArray:self.listArray]) {
-        [self.tableView cyl_reloadData];
-    }
 }
 
 #pragma mark - CYLTableViewPlaceHolderDelegate Method

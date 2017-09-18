@@ -9,7 +9,6 @@
 #import "NTESContactAddFriendViewController.h"
 #import "NIMCommonTableDelegate.h"
 #import "NIMCommonTableData.h"
-#import "UIView+Toast.h"
 #import "SVProgressHUD.h"
 #import "NTESPersonalCardViewController.h"
 

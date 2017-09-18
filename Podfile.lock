@@ -50,7 +50,6 @@ PODS:
     - SDWebImage/Core (= 4.1.0)
   - SDWebImage/Core (4.1.0)
   - SVProgressHUD (2.2.1)
-  - Toast (3.1.0)
   - TZImagePickerController (1.9.3)
 
 DEPENDENCIES:
@@ -71,7 +70,6 @@ DEPENDENCIES:
   - ReactiveCocoa (= 2.5)
   - SDWebImage (>= 4.0.0)
   - SVProgressHUD (>= 2.1.2)
-  - Toast (>= 3.0)
   - TZImagePickerController (>= 1.7.7)
 
 SPEC CHECKSUMS:
@@ -93,9 +91,8 @@ SPEC CHECKSUMS:
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
   SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
-  Toast: 14a93686d6c8bfe2727afd342414e35660a8a1f3
   TZImagePickerController: 079ab986018c22793462e531045a75e366b18252
 
-PODFILE CHECKSUM: 763b469ffd7f1c7d1ecc3efa7ca1c44cdb19fbd1
+PODFILE CHECKSUM: 42e033768733d8cc721ef60138aa70d45a898553
 
 COCOAPODS: 1.2.0

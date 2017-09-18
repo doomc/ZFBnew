@@ -47,6 +47,12 @@
 
 @property (assign , nonatomic) id <CouponCellDelegate> couponDelegate;
 
+
+/**
+ 左边距
+ */
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftPadingConstraint;
+
 //当前下标
 @property (assign , nonatomic) NSInteger indexRow;
 @property (strong , nonatomic) Couponlist * couponlist;

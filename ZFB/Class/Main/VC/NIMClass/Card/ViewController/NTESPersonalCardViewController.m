@@ -9,7 +9,6 @@
 #import "NTESPersonalCardViewController.h"
 #import "NIMCommonTableDelegate.h"
 #import "NIMCommonTableData.h"
-#import "UIView+Toast.h"
 #import "SVProgressHUD.h"
 #import "NTESColorButtonCell.h"
 #import "UIView+NTES.h"
@@ -229,9 +228,9 @@
         [[NIMSDK sharedSDK].userManager addToBlackList:self.userId completion:^(NSError *error) {
             [SVProgressHUD dismiss];
             if (!error) {
-                [wself.view makeToast:@"拉黑成功"duration:2.0f position:CSToastPositionCenter];
+                [wself.view makeToast:@"拉黑成功"duration:2.0f position:@"center"];
             }else{
-                [wself.view makeToast:@"拉黑失败"duration:2.0f position:CSToastPositionCenter];
+                [wself.view makeToast:@"拉黑失败"duration:2.0f position:@"center"];
                 [wself refresh];
             }
         }];
@@ -239,9 +238,9 @@
         [[NIMSDK sharedSDK].userManager removeFromBlackBlackList:self.userId completion:^(NSError *error) {
             [SVProgressHUD dismiss];
             if (!error) {
-                [wself.view makeToast:@"移除黑名单成功"duration:2.0f position:CSToastPositionCenter];
+                [wself.view makeToast:@"移除黑名单成功"duration:2.0f position:@"center"];
             }else{
-                [wself.view makeToast:@"移除黑名单失败"duration:2.0f position:CSToastPositionCenter];
+                [wself.view makeToast:@"移除黑名单失败"duration:2.0f position:@"center"];
                 [wself refresh];
             }
         }];
@@ -254,7 +253,7 @@
     __weak typeof(self) wself = self;
     [[NIMSDK sharedSDK].userManager updateNotifyState:switcher.on forUser:self.userId completion:^(NSError *error) {            [SVProgressHUD dismiss];
         if (error) {
-            [wself.view makeToast:@"操作失败"duration:2.0f position:CSToastPositionCenter];
+            [wself.view makeToast:@"操作失败"duration:2.0f position:@"center"];
             [wself refresh];
         }
     }];
@@ -288,12 +287,12 @@
         if (!error) {
             [wself.view makeToast:successText
                          duration:2.0f
-                         position:CSToastPositionCenter];
+                         position:@"center"];
             [wself refresh];
         }else{
             [wself.view makeToast:failedText
                          duration:2.0f
-                         position:CSToastPositionCenter];
+                         position:@"center"];
         }
     }];
 }
@@ -307,10 +306,10 @@
             [[NIMSDK sharedSDK].userManager deleteFriend:wself.userId completion:^(NSError *error) {
                 [SVProgressHUD dismiss];
                 if (!error) {
-                    [wself.view makeToast:@"删除成功"duration:2.0f position:CSToastPositionCenter];
+                    [wself.view makeToast:@"删除成功"duration:2.0f position:@"center"];
                     [wself refresh];
                 }else{
-                    [wself.view makeToast:@"删除失败"duration:2.0f position:CSToastPositionCenter];
+                    [wself.view makeToast:@"删除失败"duration:2.0f position:@"center"];
                 }
             }];
         }

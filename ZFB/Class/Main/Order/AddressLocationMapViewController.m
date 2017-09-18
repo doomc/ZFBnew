@@ -462,7 +462,6 @@ UISearchBarDelegate>
     if (self.block != nil) {
         self.block(addressPoi);
 
-        
     }
 }
 

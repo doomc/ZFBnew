@@ -11,7 +11,6 @@
 #import "NTESTimerHolder.h"
 #import "NTESNetCallChatInfo.h"
 #import "NTESSessionUtil.h"
-#import "UIView+Toast.h"
 #import "UIAlertView+NTESBlock.h"
 #import "NTESRecordSelectView.h"
 #import "UIView+NTES.h"
@@ -195,7 +194,7 @@
 - (IBAction)switchToVideoMode:(id)sender {
     [self.view makeToast:@"已发送转换请求，请等待对方应答..."
                 duration:2
-                position:CSToastPositionCenter];
+                position:@"center"];
 //    [[NIMAVChatSDK sharedSDK].netCallManager control:self.callInfo.callID type:NIMNetCallControlTypeToVideo];
 }
 
@@ -251,7 +250,7 @@
         case NIMNetCallControlTypeRejectToVideo:
             [self.view makeToast:@"对方拒绝切换到视频模式"
                         duration:2
-                        position:CSToastPositionCenter];
+                        position:@"center"];
             break;
         default:
             break;
@@ -339,7 +338,7 @@
                 [[NIMAVChatSDK sharedSDK].netCallManager control:self.callInfo.callID type:NIMNetCallControlTypeRejectToVideo];
                 [self.view makeToast:@"已拒绝"
                             duration:2
-                            position:CSToastPositionCenter];
+                            position:@"center"];
                 break;
             case 1:
                 [[NIMAVChatSDK sharedSDK].netCallManager control:self.callInfo.callID type:NIMNetCallControlTypeAgreeToVideo];

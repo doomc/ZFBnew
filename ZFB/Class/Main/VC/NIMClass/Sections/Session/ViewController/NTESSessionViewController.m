@@ -17,7 +17,6 @@
 #import "NTESSessionMsgConverter.h"
 #import "NTESFileLocationHelper.h"
 #import "NTESSessionMsgConverter.h"
-#import "UIView+Toast.h"
 #import "NTESChartletAttachment.h"
 #import "NTESGalleryViewController.h"
 #import "NTESVideoViewController.h"
@@ -179,7 +178,7 @@ NIMContactSelectDelegate>
 #pragma mark - 录音事件
 - (void)onRecordFailed:(NSError *)error
 {
-    [self.view makeToast:@"录音失败" duration:2 position:CSToastPositionCenter];
+    [self.view makeToast:@"录音失败" duration:2 position:@"center"];
 }
 
 - (BOOL)recordFileCanBeSend:(NSString *)filepath
@@ -193,7 +192,7 @@ NIMContactSelectDelegate>
 
 - (void)showRecordFileNotSendReason
 {
-    [self.view makeToast:@"录音时间太短" duration:0.2f position:CSToastPositionCenter];
+    [self.view makeToast:@"录音时间太短" duration:0.2f position:@"center"];
 }
 
 #pragma mark - 实时语音
@@ -492,7 +491,7 @@ NIMContactSelectDelegate>
                 [alert show];
             }else{
                 DDLogError(@"revoke message eror code %zd",error.code);
-                [weakSelf.view makeToast:@"消息撤回失败，请重试" duration:2.0 position:CSToastPositionCenter];
+                [weakSelf.view makeToast:@"消息撤回失败，请重试" duration:2.0 position:@"center"];
             }
         }
         else
@@ -538,7 +537,7 @@ NIMContactSelectDelegate>
             {
                 [[NIMSDK sharedSDK].chatManager forwardMessage:message toSession:session error:nil];
             }
-            [weakSelf.view makeToast:@"已发送" duration:2.0 position:CSToastPositionCenter];
+            [weakSelf.view makeToast:@"已发送" duration:2.0 position:@"center"];
         }
     }];
 }
@@ -551,13 +550,13 @@ NIMContactSelectDelegate>
     
     if (![[Reachability reachabilityForInternetConnection] isReachable])
     {
-        [self.view makeToast:@"请检查网络" duration:2.0 position:CSToastPositionCenter];
+        [self.view makeToast:@"请检查网络" duration:2.0 position:@"center"];
         result = NO;
     }
     NSString *currentAccount = [[NIMSDK sharedSDK].loginManager currentAccount];
     if (self.session.sessionType == NIMSessionTypeP2P && [currentAccount isEqualToString:self.session.sessionId])
     {
-        [self.view makeToast:@"不能和自己通话哦" duration:2.0 position:CSToastPositionCenter];
+        [self.view makeToast:@"不能和自己通话哦" duration:2.0 position:@"center"];
         result = NO;
     }
     if (self.session.sessionType == NIMSessionTypeTeam)
@@ -566,7 +565,7 @@ NIMContactSelectDelegate>
         NSInteger memberNumber = team.memberNumber;
         if (memberNumber < 2)
         {
-            [self.view makeToast:@"无法发起，群人数少于2人" duration:2.0 position:CSToastPositionCenter];
+            [self.view makeToast:@"无法发起，群人数少于2人" duration:2.0 position:@"center"];
             result = NO;
         }
     }

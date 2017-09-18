@@ -8,7 +8,6 @@
 
 #import "NTESSearchTeamViewController.h"
 #import "SVProgressHUD.h"
-#import "UIView+Toast.h"
 #import "NTESJionTeamViewController.h"
 
 @interface NTESSearchTeamViewController () <UITextFieldDelegate>
@@ -45,7 +44,7 @@
         } else {
             [self.view makeToast:error.localizedDescription
                         duration:2
-                        position:CSToastPositionCenter];
+                        position:@"center"];
             DDLogDebug(@"Fetch team info failed: %@", error.localizedDescription);
         }
     }];

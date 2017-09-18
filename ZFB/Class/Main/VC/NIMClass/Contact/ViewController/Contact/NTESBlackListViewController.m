@@ -8,7 +8,6 @@
 
 #import "NTESBlackListViewController.h"
 #import "NTESUserListCell.h"
-#import "UIView+Toast.h"
 #import "NIMContactSelectViewController.h"
 #import "NTESListHeader.h"
 #import "UIView+NTES.h"
@@ -104,7 +103,7 @@
                     [wself.data removeObjectAtIndex:indexPath.row];
                     [wself.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 }else{
-                    [wself.view makeToast:@"删除失败"duration:2.0f position:CSToastPositionCenter];
+                    [wself.view makeToast:@"删除失败"duration:2.0f position:@"center"];
                 }
             }];
         }
@@ -131,11 +130,11 @@
         __weak typeof(self) wself = self;
         [[NIMSDK sharedSDK].userManager addToBlackList:selectedContacts.firstObject completion:^(NSError *error) {
             if (!error) {
-                [wself.view makeToast:@"操作成功！" duration:2.0 position:CSToastPositionCenter];
+                [wself.view makeToast:@"操作成功！" duration:2.0 position:@"center"];
                 wself.data = wself.myBlackListUser;
                 [wself.tableView reloadData];
             }else{
-                [wself.view makeToast:@"操作失败！" duration:2.0 position:CSToastPositionCenter];
+                [wself.view makeToast:@"操作失败！" duration:2.0 position:@"center"];
             }
         }];
     }

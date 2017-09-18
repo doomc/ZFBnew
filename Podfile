@@ -31,7 +31,7 @@ target 'ZFB' do
   #网易云信IM
   pod 'NIMSDK'
   pod 'TZImagePickerController', '>= 1.7.7'
-  pod 'Toast', '>= 3.0'
+#   pod 'Toast', '>= 3.0'
   pod 'M80AttributedLabel', '>= 1.6.3'
   pod 'CocoaLumberjack', '>= 3.2.0'
   pod 'FMDB', '~> 2.5'

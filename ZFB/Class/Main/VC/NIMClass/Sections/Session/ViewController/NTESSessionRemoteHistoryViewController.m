@@ -7,7 +7,6 @@
 //
 
 #import "NTESSessionRemoteHistoryViewController.h"
-#import "UIView+Toast.h"
 #import "SVProgressHUD.h"
 #import "NIMCellLayoutConfig.h"
 #import "NTESBundleSetting.h"
@@ -61,7 +60,7 @@
 #pragma mark - NTESRemoteSessionDelegate
 - (void)fetchRemoteDataError:(NSError *)error{
     if (error) {
-        [self.view makeToast:@"获取消息失败" duration:2.0 position:CSToastPositionCenter];
+        [self.view makeToast:@"获取消息失败" duration:2.0 position:@"center"];
     }
 }
 

@@ -10,7 +10,6 @@
 #import "NTESSessionUtil.h"
 #import "UIView+NTES.h"
 #import "NTESMutiClientsCell.h"
-#import "UIView+Toast.h"
 
 NSString *Identifier = @"client_cell";
 
@@ -111,7 +110,7 @@ NSString *Identifier = @"client_cell";
         if (error) {
             [wself.view makeToast:@"踢出失败"
                          duration:2
-                         position:CSToastPositionCenter];
+                         position:@"center"];
         }
         [wself reload];
     }];
@@ -126,7 +125,7 @@ NSString *Identifier = @"client_cell";
     }else{
         [self.navigationController.view makeToast:@"已没有其他设备连接"
                                          duration:2
-                                         position:CSToastPositionCenter];
+                                         position:@"center"];
         [self.navigationController popViewControllerAnimated:YES];
 
     }

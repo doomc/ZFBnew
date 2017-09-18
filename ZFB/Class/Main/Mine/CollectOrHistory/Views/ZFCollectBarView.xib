@@ -38,7 +38,7 @@
                             <state key="normal" title="全选" image="select_normal.png">
                                 <color key="titleColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
-                            <state key="selected" title="全选" image="select_selected.png"/>
+                            <state key="selected" title="全选" image="select_red.png"/>
                             <connections>
                                 <action selector="selectedAllaction:" destination="4IW-td-iWI" eventType="touchUpInside" id="o5y-Nd-OmV"/>
                             </connections>
@@ -97,6 +97,6 @@
     </objects>
     <resources>
         <image name="select_normal.png" width="24" height="24"/>
-        <image name="select_selected.png" width="16" height="16"/>
+        <image name="select_red.png" width="24" height="24"/>
     </resources>
 </document>

@@ -10,7 +10,6 @@
 #import "NIMCommonTableDelegate.h"
 #import "NIMCommonTableData.h"
 #import "SVProgressHUD.h"
-#import "UIView+Toast.h"
 
 @interface NTESAliasSettingViewController()
 
@@ -84,7 +83,7 @@
 - (void)onDone:(id)sender{
     [self.view endEditing:YES];
     if (self.alias.length > self.inputLimit) {
-        [self.view makeToast:@"备注名过长" duration:2.0 position:CSToastPositionCenter];
+        [self.view makeToast:@"备注名过长" duration:2.0 position:@"center"];
         return;
     }
     [SVProgressHUD show];
@@ -95,12 +94,12 @@
         if (!error) {
             [wself.navigationController.view makeToast:@"备注名设置成功"
                          duration:2
-                         position:CSToastPositionCenter];
+                         position:@"center"];
             [wself.navigationController popViewControllerAnimated:YES];
         }else{
             [wself.view makeToast:@"备注名设置失败，请重试"
                          duration:2
-                         position:CSToastPositionCenter];
+                         position:@"center"];
         }
     }];
 }

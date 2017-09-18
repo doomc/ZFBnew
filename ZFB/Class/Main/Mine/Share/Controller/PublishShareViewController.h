@@ -7,14 +7,20 @@
 //
 
 #import "BaseViewController.h"
+#import "FSTextView.h"
+#import "UITextView+ZWLimitCounter.h"
+
 
 @interface PublishShareViewController : BaseViewController
+
+@property (weak, nonatomic) IBOutlet FSTextView *textView;
+
+@property (copy, nonatomic) NSString * goodId;
 
 @property (weak, nonatomic) IBOutlet UIButton *commitBtn;
 
 @property (weak, nonatomic) IBOutlet UITextField *tf_title;
 
-@property (weak, nonatomic) IBOutlet UITextView *textView;
 
 - (IBAction)commitAction:(id)sender;
 

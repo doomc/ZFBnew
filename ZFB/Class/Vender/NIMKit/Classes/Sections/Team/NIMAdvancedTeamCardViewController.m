@@ -252,10 +252,10 @@
             wself.memberData = members;
         }else if(error.code == NIMRemoteErrorCodeTeamNotMember){
             [wself.view makeToast:@"你已经不在群里" duration:2
-                                position:CSToastPositionCenter];
+                                position:@"center"];
         }else{
             [wself.view makeToast:[NSString stringWithFormat:@"拉好友失败 error: %zd",error.code] duration:2
-                                position:CSToastPositionCenter];
+                                position:@"center"];
         }
         handler(error);
     }];
@@ -677,7 +677,7 @@
                                                  if (error) {
                                                      [weakSelf.view makeToast:[NSString stringWithFormat:@"修改失败  error:%zd",error.code]
                                                                             duration:2
-                                                                            position:CSToastPositionCenter];
+                                                                            position:@"center"];
                                                  }
                                                  [weakSelf reloadData];
                                              }];
@@ -713,11 +713,11 @@
         if (!error) {
             [self.view makeToast:@"邀请成功"
                                duration:2
-                               position:CSToastPositionCenter];
+                               position:@"center"];
         }else{
             [self.view makeToast:[NSString stringWithFormat:@"邀请失败 code:%zd",error.code]
                                duration:2
-                               position:CSToastPositionCenter];
+                               position:@"center"];
         }
     }];
 }
@@ -758,11 +758,11 @@
                     if (!error) {
                         self.team.teamName = name;
                         [self.view makeToast:@"修改成功" duration:2
-                                           position:CSToastPositionCenter];
+                                           position:@"center"];
                         [self reloadData];
                     }else{
                         [self.view makeToast:[NSString stringWithFormat:@"修改失败 code:%zd",error.code] duration:2
-                                           position:CSToastPositionCenter];
+                                           position:@"center"];
                     }
                 }];
             }
@@ -922,14 +922,14 @@
     __block ContactSelectFinishBlock finishBlock =  ^(NSArray * memeber){
         [[NIMSDK sharedSDK].teamManager transferManagerWithTeam:wself.team.teamId newOwnerId:memeber.firstObject isLeave:isLeave completion:^(NSError *error) {
             if (!error) {
-                [wself.view makeToast:@"转移成功！" duration:2.0 position:CSToastPositionCenter];
+                [wself.view makeToast:@"转移成功！" duration:2.0 position:@"center"];
                 if (isLeave) {
                     [wself.navigationController popToRootViewControllerAnimated:YES];
                 }else{
                     [wself reloadData];
                 }
             }else{
-                [wself.view makeToast:[NSString stringWithFormat:@"转移失败！code:%zd",error.code] duration:2.0 position:CSToastPositionCenter];
+                [wself.view makeToast:[NSString stringWithFormat:@"转移失败！code:%zd",error.code] duration:2.0 position:@"center"];
             }
         }];
     };
@@ -1066,20 +1066,20 @@
                     }else{
                         [wself.view makeToast:@"设置头像失败，请重试"
                                      duration:2
-                                     position:CSToastPositionCenter];
+                                     position:@"center"];
                     }
                 }];
                 
             }else{
                 [wself.view makeToast:@"图片上传失败，请重试"
                              duration:2
-                             position:CSToastPositionCenter];
+                             position:@"center"];
             }
         }];
     }else{
         [self.view makeToast:@"图片保存失败，请重试"
                     duration:2
-                    position:CSToastPositionCenter];
+                    position:@"center"];
     }
 }
 

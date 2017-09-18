@@ -22,6 +22,7 @@
 
 //文字输入
 @property (copy, nonatomic) void(^didChangeText)(PlaceholderTextView *textView);
+
 - (void)didChangeText:(void(^)(PlaceholderTextView *textView))block;
 
 @end

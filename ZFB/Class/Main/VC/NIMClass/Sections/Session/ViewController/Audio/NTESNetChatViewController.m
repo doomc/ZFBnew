@@ -8,7 +8,6 @@
 
 #import "NTESNetChatViewController.h"
 #import "UIAlertView+NTESBlock.h"
-#import "UIView+Toast.h"
 #import "NTESTimerHolder.h"
 #import "NTESNetCallChatInfo.h"
 #import "NTESBundleSetting.h"
@@ -199,7 +198,7 @@ NTES_FORBID_INTERACTIVE_POP
             if (error) {
                 [wself.navigationController.view makeToast:@"连接失败"
                                                   duration:2
-                                                  position:CSToastPositionCenter];
+                                                  position:@"center"];
             }else{
                 //说明在start的过程中把页面关了。。
                 [[NIMAVChatSDK sharedSDK].netCallManager hangup:callID];
@@ -258,7 +257,7 @@ NTES_FORBID_INTERACTIVE_POP
                     if (wself.chatRoom.count == 1) {
                         [wself.navigationController.view makeToast:@"通话失败"
                                                           duration:2
-                                                          position:CSToastPositionCenter];
+                                                          position:@"center"];
                         [wself hangup];
                     }
                 });
@@ -266,7 +265,7 @@ NTES_FORBID_INTERACTIVE_POP
             wself.chatRoom = nil;
             [wself.navigationController.view makeToast:@"连接失败"
                                               duration:2
-                                              position:CSToastPositionCenter];
+                                              position:@"center"];
             [wself dismiss:nil];
         }
     }];
@@ -420,13 +419,13 @@ NTES_FORBID_INTERACTIVE_POP
         if ([toastText componentsSeparatedByString:@","].count == records) {
             [self.view makeToast:@"开始录制失败"
                         duration:2
-                        position:CSToastPositionCenter];
+                        position:@"center"];
         }
         else
         {
             [self.view makeToast:toastText
                         duration:2
-                        position:CSToastPositionCenter];
+                        position:@"center"];
         }
     }
 
@@ -470,13 +469,13 @@ NTES_FORBID_INTERACTIVE_POP
         if ([toastText componentsSeparatedByString:@","].count == records) {
             [self.view makeToast:@"结束录制失败"
                         duration:3
-                        position:CSToastPositionCenter];
+                        position:@"center"];
         }
         else
         {
             [self.view makeToast:toastText
                         duration:3
-                        position:CSToastPositionCenter];
+                        position:@"center"];
         }
     }
 
@@ -569,7 +568,7 @@ NTES_FORBID_INTERACTIVE_POP
                         [wself playTimeoutRing];
                         [wself.navigationController.view makeToast:@"无人接听"
                                                           duration:2
-                                                          position:CSToastPositionCenter];
+                                                          position:@"center"];
                         [wself dismiss:nil];
                     }
                 });
@@ -590,12 +589,12 @@ NTES_FORBID_INTERACTIVE_POP
         case NIMNetCallControlTypeStartRecord:
             [self.view makeToast:@"对方开始了录制"
                         duration:1
-                        position:CSToastPositionCenter];
+                        position:@"center"];
             break;
         case NIMNetCallControlTypeStopRecord:
             [self.view makeToast:@"对方结束了录制"
                         duration:1
-                        position:CSToastPositionCenter];
+                        position:@"center"];
             break;
         default:
             break;
@@ -608,7 +607,7 @@ NTES_FORBID_INTERACTIVE_POP
             self.chatRoom = nil;
             [self.navigationController.view makeToast:@"对方拒绝接听"
                                              duration:2
-                                             position:CSToastPositionCenter];
+                                             position:@"center"];
             [self playHangUpRing];
             __weak typeof(self) wself = self;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -645,7 +644,7 @@ NTES_FORBID_INTERACTIVE_POP
                   accepted:(BOOL)accepted{
     [self.view.window makeToast:@"已在其他端处理"
                        duration:2
-                       position:CSToastPositionCenter];
+                       position:@"center"];
     [self dismiss:nil];
 }
 
@@ -688,7 +687,7 @@ NTES_FORBID_INTERACTIVE_POP
         
         [self.view makeToast:[NSString stringWithFormat:@"录制发生错误: %zd", error.code]
                     duration:2
-                    position:CSToastPositionCenter];
+                    position:@"center"];
 
         if ([userId isEqualToString:[[NIMSDK sharedSDK].loginManager currentAccount]]) {
             self.callInfo.localRecording = NO;
@@ -736,7 +735,7 @@ NTES_FORBID_INTERACTIVE_POP
         if (!_calleeResponsed) {
             [self.navigationController.view makeToast:@"接听超时"
                                               duration:2
-                                              position:CSToastPositionCenter];
+                                              position:@"center"];
             [self response:NO];
         }
     }
@@ -802,7 +801,7 @@ NTES_FORBID_INTERACTIVE_POP
                 dispatch_async_main_safe(^{
                                              [wself.navigationController.view makeToast:@"保存失败,没有相册权限"
                                                                                duration:3
-                                                                               position:CSToastPositionCenter];
+                                                                               position:@"center"];
                                          });
             }
             else if (status == PHAuthorizationStatusAuthorized)
@@ -858,7 +857,7 @@ NTES_FORBID_INTERACTIVE_POP
     if (!self.callInfo.localRecording&&!self.callInfo.otherSideRecording&&_successRecords==1) {
         [self.navigationController.view makeToast:toast
                                           duration:3
-                                          position:CSToastPositionCenter];
+                                          position:@"center"];
     }
     _successRecords--;
 }

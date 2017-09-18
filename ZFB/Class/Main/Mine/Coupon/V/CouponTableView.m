@@ -118,11 +118,10 @@
    
     cell.couponDelegate = self;
     
-    cell.indexRow = indexPathRow = indexPath.row;
+    cell.indexRow = indexPath.row;
     
     cell.couponlist = list;
     
-    _couponeMessage = [NSString stringWithFormat:@"当前选中了第-%ld-个优惠券的信息",indexPathRow];
   
     return cell;
 }
@@ -130,14 +129,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"我点的是整个优惠券内部 _couponeMessage =%@  , row = %ld ",_couponeMessage,indexPathRow);
     Couponlist  * list = _couponesList[indexPath.row];
+    indexPathRow = indexPath.row;
     _couponeId = [NSString stringWithFormat:@"%ld",list.couponId];
     
     if ([self.popDelegate respondsToSelector:@selector(selectCouponWithIndex:AndCouponId:withResult:)]) {
         [self.popDelegate selectCouponWithIndex:indexPathRow AndCouponId:_couponeId withResult:_couponeMessage];
     }
- 
+    NSLog(@"我点的是整个优惠券内部 _couponeMessage =%@  , row = %ld ",_couponeMessage,indexPathRow);
+
 }
 
 

@@ -12,7 +12,6 @@
 #import "NSDictionary+NTESJson.h"
 #import "NTESCustomNotificationDB.h"
 #import "NTESCustomNotificationObject.h"
-#import "UIView+Toast.h"
 #import "NTESCustomSysNotificationSender.h"
 #import "NTESGlobalMacro.h"
 #import <AVFoundation/AVFoundation.h>

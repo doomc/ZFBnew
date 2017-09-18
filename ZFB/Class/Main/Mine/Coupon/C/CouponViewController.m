@@ -11,6 +11,7 @@
 
 //cell
 #import "CouponCell.h"
+#import "EditCouponCell.h"
 #import "SectionCouponCell.h"
 #import "CouponUsedCell.h"
 #import "CouponOverDateCell.h"
@@ -22,6 +23,7 @@
 #import "CouponModel.h"
 
 typedef NS_ENUM(NSUInteger, SelectCouponType) {
+    
     SelectCouponTypeDefault,//未使用
     SelectCouponTypeUsed,//已使用
     SelectCouponTypeOverDate,//已过期
@@ -36,8 +38,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 @property (strong, nonatomic) UIView             * popCouponBackgroundView;//背景图
 @property (strong, nonatomic) UIButton           * edit_btn;
 @property (strong, nonatomic) NSMutableArray     * couponList;
-
-
+@property (assign, nonatomic) BOOL  isEditing;//编辑状态
 
 @end
 
@@ -57,10 +58,13 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     [self.tableView registerNib:[UINib nibWithNibName:@"CouponCell" bundle:nil] forCellReuseIdentifier:@"CouponCellid"];
     [self.tableView registerNib:[UINib nibWithNibName:@"CouponUsedCell" bundle:nil] forCellReuseIdentifier:@"CouponUsedCellid"];
     [self.tableView registerNib:[UINib nibWithNibName:@"CouponOverDateCell" bundle:nil] forCellReuseIdentifier:@"CouponOverDateCellid"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"EditCouponCell" bundle:nil] forCellReuseIdentifier:@"EditCouponCellid"];
     
     [self setupRefresh];
     //默认0 未领取  1 未使用  2 已使用 3 已失效
     [self recommentPostRequst:@"1"];
+    
+    _isEditing = NO; //默认未编辑状态
     
 }
 -(void)headerRefresh
@@ -268,39 +272,79 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (_couponType) {
-        case SelectCouponTypeDefault:
-        {
-            if (indexPath.section == 0) {
+    //编辑状态
+    if (_isEditing == YES) {
+        switch (_couponType) {
+            case SelectCouponTypeDefault:
+            {
+                if (indexPath.section == 0) {
+                    
+                    SectionCouponCell * sectionCell = [ self.tableView dequeueReusableCellWithIdentifier:@"SectionCouponCellid" forIndexPath:indexPath];
+                    return sectionCell;
+                }
                 
-                SectionCouponCell * sectionCell = [ self.tableView dequeueReusableCellWithIdentifier:@"SectionCouponCellid" forIndexPath:indexPath];
-                return sectionCell;
+                EditCouponCell * editCell = [ self.tableView dequeueReusableCellWithIdentifier:@"EditCouponCellid" forIndexPath:indexPath];
+                Couponlist * list       = self.couponList[indexPath.row];
+                editCell.couponList     = list;
+                
+                return  editCell;
             }
-            
-            CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
-            Couponlist * list       = self.couponList[indexPath.row];
-            couponCell.couponlist   = list;
-            
-            return couponCell;
+                break;
+            case SelectCouponTypeUsed:{
+                
+                CouponUsedCell * cell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponUsedCellid" forIndexPath:indexPath];
+                Couponlist * list     = self.couponList[indexPath.row];
+                cell.couponlist       = list;
+                return cell;
+            }
+                break;
+            case SelectCouponTypeOverDate:
+            {
+                CouponOverDateCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponOverDateCellid" forIndexPath:indexPath];
+                Couponlist * list               = self.couponList[indexPath.row];
+                couponCell.couponlist           = list;
+                return couponCell;
+            }
+                break;
         }
-            break;
-        case SelectCouponTypeUsed:{
-            
-            CouponUsedCell * cell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponUsedCellid" forIndexPath:indexPath];
-            Couponlist * list     = self.couponList[indexPath.row];
-            cell.couponlist       = list;
-            return cell;
+
+    }else{
+        
+        switch (_couponType) {
+            case SelectCouponTypeDefault:
+            {
+                if (indexPath.section == 0) {
+                    
+                    SectionCouponCell * sectionCell = [ self.tableView dequeueReusableCellWithIdentifier:@"SectionCouponCellid" forIndexPath:indexPath];
+                    return sectionCell;
+                }
+                
+                CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
+                Couponlist * list       = self.couponList[indexPath.row];
+                couponCell.couponlist   = list;
+                
+                return couponCell;
+            }
+                break;
+            case SelectCouponTypeUsed:{
+                
+                CouponUsedCell * cell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponUsedCellid" forIndexPath:indexPath];
+                Couponlist * list     = self.couponList[indexPath.row];
+                cell.couponlist       = list;
+                return cell;
+            }
+                break;
+            case SelectCouponTypeOverDate:
+            {
+                CouponOverDateCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponOverDateCellid" forIndexPath:indexPath];
+                Couponlist * list               = self.couponList[indexPath.row];
+                couponCell.couponlist           = list;
+                return couponCell;
+            }
+                break;
         }
-            break;
-        case SelectCouponTypeOverDate:
-        {
-            CouponOverDateCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponOverDateCellid" forIndexPath:indexPath];
-            Couponlist * list               = self.couponList[indexPath.row];
-            couponCell.couponlist           = list;
-            return couponCell;
-        }
-            break;
     }
+    
     
 }
 
@@ -339,14 +383,11 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     [self.popCouponView  reloadData];
 }
 // 点击领取优惠券 (或 点击获取到改优惠券的信息)
--(void)selectCouponWithIndex:(NSInteger)indexRow withResult:(NSString *)result
+-(void)selectCouponWithIndex:(NSInteger)indexRow AndCouponId :(NSString *)couponId withResult:(NSString *)result
 {
     Couponlist * list = self.couponList[indexRow];
     [self getCouponesPostRequst:[NSString stringWithFormat:@"%ld",list.couponId]];
-    
     NSLog(@" 优惠券列表 ---外部 couponId=%ld ------ %@",list.couponId,result);
-
-    
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

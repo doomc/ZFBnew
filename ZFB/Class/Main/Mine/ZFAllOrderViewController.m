@@ -1794,6 +1794,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 }
 //暂无数据
 - (UIView *)weChatStylePlaceHolder {
+    
     WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.zfb_tableView.frame];
     weChatStylePlaceHolder.delegate = self;
     return weChatStylePlaceHolder;

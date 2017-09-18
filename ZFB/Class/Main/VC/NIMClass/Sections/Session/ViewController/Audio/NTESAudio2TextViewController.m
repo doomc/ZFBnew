@@ -7,7 +7,6 @@
 //
 
 #import "NTESAudio2TextViewController.h"
-#import "UIView+Toast.h"
 #import "SVProgressHUD.h"
 #import "UIView+NTES.h"
 #import "NTESSessionViewController.h"
@@ -73,7 +72,7 @@
     if (error) {
         [self.view makeToast:NSLocalizedString(@"转换失败", nil)
                     duration:2
-                    position:CSToastPositionCenter];
+                    position:@"center"];
     }
     else
     {
