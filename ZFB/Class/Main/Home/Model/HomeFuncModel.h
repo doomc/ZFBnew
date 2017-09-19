@@ -27,7 +27,7 @@
 
 @interface CMgoodstypelist : NSObject
 
-@property (nonatomic, assign) NSInteger id;
+@property (nonatomic, assign) NSInteger typeId;
 
 @property (nonatomic, copy) NSString *name;
 
@@ -40,15 +40,9 @@
 
 @property (nonatomic, copy) NSString *updateBy;
 
-
-
-
 @property (nonatomic, assign) NSInteger typeLevel;
 
 @property (nonatomic, copy) NSString *parentIds;
-
-
-
 
 @property (nonatomic, copy) NSString *remarks;
 

@@ -76,15 +76,22 @@
 -(void)settingBtnBoarder
 {
     self.tf_title.delegate = self;
+    self.tf_title.clipsToBounds = YES;
+    self.tf_title.layer.cornerRadius = 4;
+    self.tf_title.layer.borderWidth = 1;
+    self.tf_title.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
     [self.tf_title addTarget:self action:@selector(textfieldChangetext:) forControlEvents:UIControlEventEditingChanged];
     self.commitBtn.layer.cornerRadius = 4;
     self.commitBtn.clipsToBounds = YES;
-    
 }
 -(void)settingTextView
 {
     self.textView.zw_limitCount = 150;//个数显示
     self.textView.zw_labHeight = 20;//高度
+    self.textView.layer.cornerRadius = 4;
+    self.textView.clipsToBounds = YES;
+    self.textView.layer.borderWidth = 1;
+    self.textView.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
     self.textView.placeholder = @"字数在150字以内哦~";
     self.textView.delegate = self;
     // 添加输入改变Block回调.
@@ -147,32 +154,29 @@
             [self.imgUrl_mutArray addObject:urlpath];
         }
         //将数据传出去
-        NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
     }];
     
     _imgUrlStr = [self.imgUrl_mutArray componentsJoinedByString:@","];
- 
+    NSLog(@"_imgUrlStr === %@",_imgUrlStr);
+
 }
 
 - (void)photoView:(HXPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {
 
     NSSLog(@"%@",networkPhotoUrl);
-
 }
 - (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
+    
 //    NSSLog(@"%@",NSStringFromCGRect(frame));
-
     self.constraintHeight.constant = frame.size.height + 20;
     self.photoView.height = frame.size.height + 20;
 }
-
 
 #pragma  mark  - 发布共享 
 - (IBAction)commitAction:(id)sender {
     
     if (_title == nil || [_title isEqualToString:@""] || _describe == nil) {
         NSLog(@"数据没有完");
-       
         [self.view makeToast:@"请填写完标题和评语后再提交" duration:2 position:@"center"];
     
     }else{
@@ -191,18 +195,17 @@
                              @"userId":BBUserDefault.cmUserId,
                              @"imgUrls":_imgUrlStr,
                              @"goodsId":_goodId,
-                             @"userAccount":@"13628311317",
+                             @"userAccount":BBUserDefault.userPhoneNumber,
                              @"userLogo":BBUserDefault.uploadImgName,
                              @"userNickname":BBUserDefault.nickName,
- 
                              };
+    
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/toShareGoods/goodsShareIssue"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
 
             [self.view makeToast:@"发布成功" duration:2 position:@"center"];
             [SVProgressHUD dismiss];
-
         }
         
     } progress:^(NSProgress *progeress) {

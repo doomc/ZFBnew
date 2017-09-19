@@ -10,7 +10,6 @@
 #import "ZFShoppingCarViewController.h"
 #import "ZFSureOrderViewController.h"
 #import "DetailFindGoodsViewController.h"
-#import "LoginViewController.h"
 
 #import "ZFShopCarCell.h"
 #import "ShoppingCarModel.h"
@@ -639,16 +638,17 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         NSMutableArray * mutGoodsArr = [NSMutableArray array];
         NSMutableDictionary * goodDic = [NSMutableDictionary dictionary];
 
-        [mutGoodsArr removeAllObjects];
+//        [mutGoodsArr removeAllObjects];
         for (ShopGoodslist * goods in list.goodsList) {
+            
             if (goods.goodslistIsChoosed) {
-               
-                NSMutableArray  * goodsPropArr = [NSMutableArray array] ;
-                NSArray *dictArray = [ShopGoodslist mj_keyValuesArrayWithObjectArray:goods.goodsProp];
-                for (NSDictionary * value in dictArray) {
-        
-                    [goodsPropArr addObject:value];
-                }
+
+//                NSMutableArray  * goodsPropArr = [NSMutableArray array] ;
+//                NSArray *dictArray = [ShopGoodslist mj_keyValuesArrayWithObjectArray:goods.goodsProp];
+//                for (NSDictionary * value in dictArray) {
+//        
+//                    [goodsPropArr addObject:value];
+//                }
 
                 NSString * storeId = [NSString stringWithFormat:@"%ld",list.storeId];
                 NSString * goodsId = [NSString stringWithFormat:@"%ld",goods.goodsId];
@@ -665,7 +665,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
                 [goodDic setValue:@"0" forKey:@"concessionalPrice"];
                 [goodDic setValue:@"0" forKey:@"originalPrice"];
                 [goodDic setValue:goods.goodsUnit forKey:@"goodsUnit"];
-                [goodDic setValue:goodsPropArr forKey:@"goodsProp"];
+//                [goodDic setValue:goodsPropArr forKey:@"goodsProp"];
                 
                 [mutGoodsArr addObject:goodDic];
             }
@@ -712,15 +712,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         
     }else{
         
-        NSLog(@"登录了");
-        LoginViewController * logvc          = [ LoginViewController new];
-        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
-        
-        [self presentViewController:nav animated:NO completion:^{
-            
-            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
-            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-        }];
+        [self isIfNotSignIn];
     }
     
 }

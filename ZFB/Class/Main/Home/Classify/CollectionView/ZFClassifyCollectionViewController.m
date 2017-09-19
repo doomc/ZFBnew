@@ -16,9 +16,9 @@
 #import "CollectionViewHeaderView.h"
 #import "ZFCollectionViewFlowLayout.h"
 //controller
-#import "DetailFindGoodsViewController.h"
 #import "HomeSearchBarViewController.h"
 #import "ZFBaseNavigationViewController.h"
+#import "HomeSearchResultViewController.h"
 
 static float kCollectionViewMargin = 3.f;
 static float kLeftTableViewWidth = 80.f;
@@ -315,10 +315,12 @@ static float kLeftTableViewWidth = 80.f;
     Nexttypelist * goodlist = self.collectionDatas[indexPath.item];
     
     NSLog(@"section = %ld,  item = %ld", indexPath.section,indexPath.item);
-    DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
-    detailVC.goodsId = [NSString stringWithFormat:@"%ld",goodlist.goodId];
-    [self.navigationController pushViewController:detailVC animated:NO];
-    
+
+    HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
+    reslutVC.searchType = @"商品";
+    reslutVC.goodsType = [NSString stringWithFormat:@"%ld",goodlist.goodId] ;//商品类别
+    [self.navigationController pushViewController:reslutVC animated:NO];
+
 }
 
 

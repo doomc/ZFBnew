@@ -1028,6 +1028,7 @@
 		49DA74AF1F25CFBB009F5577 /* SearchTypeFootReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74AD1F25CFBB009F5577 /* SearchTypeFootReusableView.m */; };
 		49DA74B01F25CFBB009F5577 /* SearchTypeFootReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DA74AE1F25CFBB009F5577 /* SearchTypeFootReusableView.xib */; };
 		49DA74B41F25F371009F5577 /* ZspMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74B31F25F371009F5577 /* ZspMenu.m */; };
+		49FCF8F41F70B6FF0001802D /* app.api.zavfb.com.cer in Resources */ = {isa = PBXBuildFile; fileRef = 49FCF8F31F70B6FF0001802D /* app.api.zavfb.com.cer */; };
 		50099B8D1F66C74800B348FD /* PayPassWordSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B8C1F66C74800B348FD /* PayPassWordSettingViewController.m */; };
 		50099B901F66CB5800B348FD /* SettingPayPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B8F1F66CB5800B348FD /* SettingPayPasswordViewController.m */; };
 		50099B941F66CB7600B348FD /* TPPasswordTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B931F66CB7600B348FD /* TPPasswordTextView.m */; };
@@ -2779,6 +2780,7 @@
 		49DA74AE1F25CFBB009F5577 /* SearchTypeFootReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTypeFootReusableView.xib; sourceTree = "<group>"; };
 		49DA74B21F25F371009F5577 /* ZspMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZspMenu.h; sourceTree = "<group>"; };
 		49DA74B31F25F371009F5577 /* ZspMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZspMenu.m; sourceTree = "<group>"; };
+		49FCF8F31F70B6FF0001802D /* app.api.zavfb.com.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = app.api.zavfb.com.cer; sourceTree = "<group>"; };
 		50099B8B1F66C74800B348FD /* PayPassWordSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPassWordSettingViewController.h; sourceTree = "<group>"; };
 		50099B8C1F66C74800B348FD /* PayPassWordSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayPassWordSettingViewController.m; sourceTree = "<group>"; };
 		50099B8E1F66CB5800B348FD /* SettingPayPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingPayPasswordViewController.h; sourceTree = "<group>"; };
@@ -3145,6 +3147,7 @@
 		492752171EC44DFC003C22D0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				49FCF8F21F70B6FF0001802D /* ServerHTTPS */,
 				492752181EC44DFC003C22D0 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -4799,7 +4802,6 @@
 				49AD34421F2883B600DC8A8F /* 订单页 */,
 				495EA5821F14B64C001FCB7E /* 全部门店 */,
 				495EA5891F14B64C001FCB7E /* 分享 */,
-				495EA5921F14B64C001FCB7E /* 商品 */,
 				495EA5931F14B64C001FCB7E /* 商品详情1 */,
 				495EA5A41F14B64C001FCB7E /* 商品详情2 */,
 				495EA5A51F14B64C001FCB7E /* 定位 */,
@@ -4845,13 +4847,6 @@
 				495EA5911F14B64C001FCB7E /* wx_share@3x.png */,
 			);
 			path = "分享";
-			sourceTree = "<group>";
-		};
-		495EA5921F14B64C001FCB7E /* 商品 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "商品";
 			sourceTree = "<group>";
 		};
 		495EA5931F14B64C001FCB7E /* 商品详情1 */ = {
@@ -6864,6 +6859,14 @@
 			path = ZspMenuFile;
 			sourceTree = "<group>";
 		};
+		49FCF8F21F70B6FF0001802D /* ServerHTTPS */ = {
+			isa = PBXGroup;
+			children = (
+				49FCF8F31F70B6FF0001802D /* app.api.zavfb.com.cer */,
+			);
+			path = ServerHTTPS;
+			sourceTree = "<group>";
+		};
 		50099B911F66CB7600B348FD /* TPPasswordTextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -7411,6 +7414,7 @@
 				495EA8CB1F14B64E001FCB7E /* setting_calling@3x.png in Resources */,
 				495EA84F1F14B64D001FCB7E /* PayforCell.xib in Resources */,
 				4968A41E1F4DB5290061A87E /* NTESSystemNotificationCell.xib in Resources */,
+				49FCF8F41F70B6FF0001802D /* app.api.zavfb.com.cer in Resources */,
 				495EA8DD1F14B64E001FCB7E /* add@3x.png in Resources */,
 				495EA8D71F14B64E001FCB7E /* wateRedBlank@3x.png in Resources */,
 				495EA7851F14B64D001FCB7E /* ZFAppraiseSectionCell.xib in Resources */,

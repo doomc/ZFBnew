@@ -32,14 +32,15 @@
     NSArray  * _imgArray;
     BOOL _isCalling;
     CGFloat   _itemHeight;
-
+    NSInteger _isCollect;
 }
-@property (nonatomic , strong) UITableView * tableView;
+@property (nonatomic , strong) UITableView    * tableView;
 @property (nonatomic , strong) NSMutableArray * storeList;
 @property (nonatomic , strong) NSMutableArray * couponList;
 @property (nonatomic , strong) SDCycleScrollView * cycleScrollView;
 @property (nonatomic , strong) CouponTableView *  couponTableView;
 @property (nonatomic , strong) UIView          *  couponBackgroundView;
+@property (nonatomic , strong) UIButton        *  collectButton;
 
 
 @end
@@ -63,6 +64,7 @@
     
     [self recommentPostRequst:@"0"];
 
+ 
 }
 
 #pragma mark - 懒加载
@@ -117,6 +119,18 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"SectionCouponCell" bundle:nil] forCellReuseIdentifier:@"SectionCouponCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"StoreListTableViewCell" bundle:nil] forCellReuseIdentifier:@"StoreListTableViewCell"];
     
+    //收藏按钮
+    _collectButton  =[ UIButton buttonWithType:UIButtonTypeCustom];
+    _collectButton.frame = CGRectMake(0, 0, 20, 20);
+    [_collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
+    [_collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateSelected];
+    [_collectButton addTarget:self action:@selector(didclickLove:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //自定义button必须执行
+    UIBarButtonItem *rightItem             = [[UIBarButtonItem alloc] initWithCustomView:_collectButton];
+    self.navigationItem.rightBarButtonItem = rightItem;
+ 
+    _imgArray = [ NSArray array];
 }
 /**
  初始化轮播
@@ -133,6 +147,7 @@
     _cycleScrollView.currentPageDotColor = [UIColor whiteColor];// 自定义分页控件小圆标颜色
     _cycleScrollView.placeholderImage    = [UIImage imageNamed:@"placeholder"];
     self.tableView.tableHeaderView = _cycleScrollView;
+    
 }
 
 #pragma mark - SDCycleScrollViewDelegate 轮播图代理
@@ -232,17 +247,17 @@
         NSInteger count = self.couponList.count;
         SectionCouponCell * couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"SectionCouponCell" forIndexPath:indexPath];
         
-        //关键字
-        couponCell.lb_title.text = [NSString stringWithFormat:@"您有 %ld 张待领取的优惠券",count];
-        couponCell.lb_title.keywords      = [NSString stringWithFormat:@"%ld",count];
-        couponCell.lb_title.keywordsColor = HEXCOLOR(0xfe6d6a);
-        couponCell.lb_title.keywordsFont  = [UIFont systemFontOfSize:18];
-        ///必须设置计算宽高
-        CGRect dealNumh              = [couponCell.lb_title getLableHeightWithMaxWidth:300];
-        couponCell.lb_title.frame = CGRectMake(15, 10, dealNumh.size.width, dealNumh.size.height);
+
         
         if (![self isEmptyArray:self.couponList]) {
-
+            //关键字
+            couponCell.lb_title.text = [NSString stringWithFormat:@"您有 %ld 张待领取的优惠券",count];
+            couponCell.lb_title.keywords      = [NSString stringWithFormat:@"%ld",count];
+            couponCell.lb_title.keywordsColor = HEXCOLOR(0xfe6d6a);
+            couponCell.lb_title.keywordsFont  = [UIFont systemFontOfSize:18];
+            ///必须设置计算宽高
+            CGRect dealNumh              = [couponCell.lb_title getLableHeightWithMaxWidth:300];
+            couponCell.lb_title.frame = CGRectMake(15, 10, dealNumh.size.width, dealNumh.size.height);
             return couponCell;
 
         } else{
@@ -292,6 +307,38 @@
     }];
 
 }
+/**
+ 点爱心
+ 
+ @param sender 收藏/取消收藏
+ */
+-(void )didclickLove:(UIButton *)sender
+{
+    sender.selected = !sender.selected ;
+    ///是否收藏	1.收藏成功 0.取消收藏
+    if (_isCollect == 1) {
+        
+        [self cancelCollectedPostRequest];//取消收藏
+        
+    }else{
+        
+        [self addCollectedPostRequest]; //添加收藏
+    }
+    
+}
+#pragma mark - 判断是否收藏了
+-(void)iscollect
+{
+    if (_isCollect == 1) {///是否收藏	1.收藏 0.不
+        
+        [_collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateNormal];
+        
+    }else
+    {
+        [_collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
+    }
+}
+
 #pragma mark - <CouponTableViewDelegate> 优惠券代理
 /**
  *  关闭弹框
@@ -353,25 +400,24 @@
                 
             }
             DetailStoreModel * detailModel = [DetailStoreModel  mj_objectWithKeyValues:response];
-            
             for (DetailCmgoodslist * goodlist in detailModel.cmGoodsList) {
-                
                 [self.storeList addObject:goodlist];
             }
-            NSLog(@"门店详情         = storeListArray = %@",  self.storeList);
-            
+//            NSLog(@"门店详情         = storeListArray = %@",  self.storeList);
+            //是否收藏
+            _isCollect    = detailModel.cmStoreDetailsList.isCollect;
             _storeName    = detailModel.cmStoreDetailsList.storeName;
             _address      = detailModel.cmStoreDetailsList.address;
             _contactPhone = detailModel.cmStoreDetailsList.contactPhone;
             _payType      = [NSString stringWithFormat:@"%ld", detailModel.cmStoreDetailsList.payType];
-            
             _imgArray             = [detailModel.cmStoreDetailsList.attachUrl componentsSeparatedByString:@","];
-            _imgArray             = [NSArray array];
-            NSLog(@"图片地址         = %@",_imgArray);
-            [SVProgressHUD dismiss];
+         
+            [self iscollect];
             
+            [self cycleScrollViewWithImgArr:_imgArray];
+            NSLog(@"图片地址        = %@",_imgArray);
+            [SVProgressHUD dismiss];
         }
-        [self cycleScrollViewWithImgArr:_imgArray];
         [self.tableView reloadData];
         
         
@@ -445,6 +491,7 @@
             }
             
             [self.couponTableView reloadData];
+            [self.tableView reloadData];
             [SVProgressHUD dismiss];
         }
         
@@ -456,6 +503,64 @@
     }];
     
 }
+
+
+
+#pragma mark - 添加收藏 getKeepGoodInfo
+-(void)addCollectedPostRequest
+{
+    NSDictionary * parma = @{
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"goodId":_storeId,//1收藏商品 2收藏门店
+                             @"goodName":_storeName,//门店名称
+                             @"collectType":@"2",//1收藏商品 2收藏门店
+                             
+                             };
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getKeepGoodInfo",zfb_baseUrl] params:parma success:^(id response) {
+      
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            
+            _isCollect = 1;
+            [self iscollect];
+
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
+#pragma mark - 取消收藏 cancalGoodsCollect
+-(void)cancelCollectedPostRequest
+{
+    NSDictionary * parma = @{
+                             
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"goodId":_storeId,
+                             @"collectType":@"2",//1收藏商品 2收藏门店
+                             };
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/cancalGoodsCollect",zfb_baseUrl] params:parma success:^(id response) {
+        
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+        
+            _isCollect = 0;
+            [self iscollect];
+        }
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

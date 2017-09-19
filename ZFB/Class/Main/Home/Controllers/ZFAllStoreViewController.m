@@ -12,6 +12,7 @@
 
 #import "ZFDetailsStoreViewController.h"
 #import "AllStoreModel.h"
+#import "HomeADModel.h"
 //map
 #import <CoreLocation/CoreLocation.h>
 
@@ -19,11 +20,8 @@
 #import "ZspMenu.h"
 @interface ZFAllStoreViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,CLLocationManagerDelegate,ZspMenuDataSource, ZspMenuDelegate>
 {
-
-    NSInteger _starNum;//星星个数;
     NSString * _storeTypeInfo;//门店类型
     BOOL _isChanged;//切换距离最近
- 
     
     NSString *currentCityAndStreet;//当前城市
     NSString *latitudestr;//经度
@@ -35,10 +33,9 @@
     
 }
 @property (nonatomic,strong) NSMutableArray * allStoreArray;//全部门店数据源
-
 @property (nonatomic,strong) NSMutableArray * listArray;//弹框数据源
-@property (nonatomic,strong) NSArray        * imgArray;//轮播图
-@property (nonatomic,strong) NSMutableArray  * titlelistArray;//门店列表选项
+@property (nonatomic,strong) NSMutableArray * imgArray;//轮播图
+@property (nonatomic,strong) NSMutableArray * titlelistArray;//门店列表选项
 
 @property (nonatomic,strong) UITableView * all_tableview;
 @property (nonatomic,strong) UITableView * select_tableview;
@@ -54,6 +51,7 @@
 @property (nonatomic, strong) NSArray *sort;
 @property (nonatomic, strong) NSArray *choose;
 
+
 @end
 
 @implementation ZFAllStoreViewController
@@ -66,27 +64,25 @@
     _sort = @[@"距离最近", @"人气最高"];
     
     [self.titlelistArray insertObject:@"全部" atIndex:0];
-   
+    
     _isChanged = YES;//默认切换全部 （No?yes : 距离最近 /全部）
     
-//    [self LocationMapManagerInit];
-    
-    
-    self.zfb_tableView  = self.all_tableview;
+    self.zfb_tableView = self.all_tableview;
     
     [self.view addSubview:self.all_tableview];
-
+    
     [self.all_tableview registerNib:[UINib nibWithNibName:@"AllStoreCell" bundle:nil]
              forCellReuseIdentifier:@"AllStoreCell"];
-  
     [self.select_tableview registerNib:[UINib nibWithNibName:@"SelectTableviewCell" bundle:nil]forCellReuseIdentifier:@"SelectTableviewCell"];
     
-    [self CDsyceleSettingRunningPaintWithArray:self.imgArray];//轮播图
-   
     [self setupRefresh];
- 
-    [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@""];//距离最近
 
+    [self CDsyceleSettingRunningPaintWithArray:self.imgArray];//轮播图
+    
+    [self ADpagePostRequst];
+    
+    [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@""];//距离最近
+    
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
@@ -101,10 +97,10 @@
 -(UITableView *)all_tableview
 {
     if (!_all_tableview) {
-        _all_tableview            = [[UITableView alloc]initWithFrame:CGRectMake(0, 64+150+44, KScreenW, KScreenH - 64-44-150) style:UITableViewStylePlain];
+        _all_tableview                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64+150+44, KScreenW, KScreenH - 64-44-150) style:UITableViewStylePlain];
         _all_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _all_tableview.delegate   = self;
-        _all_tableview.dataSource = self;
+        _all_tableview.delegate       = self;
+        _all_tableview.dataSource     = self;
     }
     return _all_tableview;
 }
@@ -122,6 +118,14 @@
     }
     return _titlelistArray;
 }
+-(NSMutableArray *)imgArray
+{
+    if (!_imgArray) {
+        _imgArray =[NSMutableArray array];
+    }
+    return _imgArray;
+}
+
 /**初始化轮播 */
 -(void)CDsyceleSettingRunningPaintWithArray:(NSArray *)imgArray
 {
@@ -137,12 +141,12 @@
     _cycleScrollView.currentPageDotColor = [UIColor whiteColor];// 自定义分页控件小圆标颜色
     [self.view addSubview:_cycleScrollView];
     
-    _menu = [[ZspMenu alloc] initWithOrigin:CGPointMake(0, 64+150) andHeight:44];
-    _menu.delegate = self;
+    _menu            = [[ZspMenu alloc] initWithOrigin:CGPointMake(0, 64+150) andHeight:44];
+    _menu.delegate   = self;
     _menu.dataSource = self;
     [_menu selectDeafultIndexPath];
     [self.view addSubview:_menu];
-
+    
     
 }
 
@@ -163,7 +167,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.allStoreArray.count;
-
+    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -181,7 +185,7 @@
     
     Findgoodslists * goodlist = [self.allStoreArray objectAtIndex:indexPath.row];
     all_cell.storelist        = goodlist;
-
+    
     //初始化五星好评控件
     all_cell.starView .needIntValue = NO;//是否整数显示，默认整数显示
     all_cell.starView .canTouch     = NO;//是否可以点击，默认为NO
@@ -201,12 +205,12 @@
     NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
     
     ZFDetailsStoreViewController * detailStroeVC =[[ ZFDetailsStoreViewController alloc]init];
-    Findgoodslists * goodlist    = self.allStoreArray[indexPath.row];
+    Findgoodslists * goodlist = self.allStoreArray[indexPath.row];
     
     detailStroeVC.storeId = [NSString stringWithFormat:@"%ld",goodlist.storeId];
     [self.navigationController pushViewController:detailStroeVC animated:YES];
     [self.all_tableview reloadData];
- 
+    
     
 }
 
@@ -248,20 +252,20 @@
             }
             AllStoreModel  * homeStore = [AllStoreModel mj_objectWithKeyValues:response];
             
- 
+            
             for (Findgoodslists * goodlist in homeStore.storeInfoList.findGoodsList) {
                 
                 [self.allStoreArray addObject:goodlist];
                 //无轮播图
-             }
+            }
             
-            NSLog(@"门店列表 = %@",   self.allStoreArray);
-
+            NSLog(@"门店列表         = %@",   self.allStoreArray);
+            
         }
-          [self.all_tableview reloadData];
-
+        [self.all_tableview reloadData];
+        
         //            [self CDsyceleSettingRunningPaintWithArray:self.imgArray];//轮播图
-
+        
         [self endRefresh];
         
         
@@ -270,9 +274,9 @@
         NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
-     
+        
         [self endRefresh];
-
+        
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         NSLog(@"error=====%@",error);
         
@@ -287,8 +291,8 @@
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getStoreTypeInfo",zfb_baseUrl] params:nil success:^(id response) {
         
         NSString * storeTypeInfo = response[@"storeTypeInfo"];
-        NSArray * titlearr  = [storeTypeInfo componentsSeparatedByString:@","];
-        self.titlelistArray = [NSMutableArray arrayWithObject:@"全部"];
+        NSArray * titlearr       = [storeTypeInfo componentsSeparatedByString:@","];
+        self.titlelistArray      = [NSMutableArray arrayWithObject:@"全部"];
         [self.titlelistArray  insertObjects:titlearr atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange([self.titlelistArray count], [titlearr count])]];
         
         NSLog(@"_titlelistArray  ==  %@",_titlelistArray);
@@ -315,13 +319,13 @@
 }
 
 - (NSInteger)menu:(ZspMenu *)menu numberOfRowsInColumn:(NSInteger)column {
-   
+    
     currentlist = column;
     
     if (column == 0) {
         
         return _sort.count;
-   
+        
     }
     else {
         return _titlelistArray.count;
@@ -330,7 +334,7 @@
 
 - (NSString *)menu:(ZspMenu *)menu titleForRowAtIndexPath:(ZspIndexPath *)indexPath {
     if (indexPath.column == 0) {
-       
+        
         return _sort[indexPath.row];
         
     }else{
@@ -347,7 +351,7 @@
         NSLog(@"点击了 %ld - %ld",indexPath.column,indexPath.row);
         if (indexPath.column  == 0) {
             _currentName = _sort[indexPath.row];
-
+            
             if (indexPath.row == 0) {
                 //距离最近
                 [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@""];
@@ -356,7 +360,7 @@
                 //人气最高
                 [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"" orderbylikeNum:@"0" nearBydisc:@""];
                 [self.all_tableview reloadData];
-
+                
             }
             
         }else{
@@ -364,16 +368,52 @@
             if (indexPath.row == 0) {
                 [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@""];
                 [self.all_tableview reloadData];
-
+                
             }else{
                 [self allStorePostRequstAndbusinessType:_currentName orderBydisc:@"" orderbylikeNum:@"0" nearBydisc:@""];
                 [self.all_tableview reloadData];
-
- 
+                
+                
             }
         }
         
     }
+}
+
+
+#pragma mark - 广告轮播-getAdImageInfo网络请求
+-(void)ADpagePostRequst
+{
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getAdImageInfo",zfb_baseUrl] params:nil success:^(id response) {
+        
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            
+            if (self.imgArray.count >0) {
+                
+                [self.imgArray  removeAllObjects];
+                
+            }else{
+                
+                HomeADModel * homeAd = [HomeADModel mj_objectWithKeyValues:response];
+                
+                for (Cmadvertimglist * adList in homeAd.data.cmAdvertImgList) {
+                    
+                    [self.imgArray addObject:adList.imgUrl];
+                }
+            }
+            [self CDsyceleSettingRunningPaintWithArray:self.imgArray];//轮播图
+            [self.all_tableview reloadData];
+
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
 }
 
 -(void)viewDidDisappear:(BOOL)animated

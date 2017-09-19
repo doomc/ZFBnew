@@ -28,16 +28,11 @@
     [self.funcCollectionView registerNib:[UINib nibWithNibName:@"FuncListCollectionViewCell" bundle:nil]
               forCellWithReuseIdentifier:@"FuncListCollectionViewCellid"];
 
-    [self FuncListPostRequst];
 }
--(NSMutableArray *)dataArray
+-(void)setDataArray:(NSMutableArray *)dataArray
 {
-    if (!_dataArray) {
-        _dataArray =[NSMutableArray array];
-    }
-    return _dataArray;
+    _dataArray = dataArray;
 }
-
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
@@ -49,15 +44,15 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CMgoodstypelist * type=  [CMgoodstypelist new];
-    if (indexPath.item < [self.dataArray count]) {
-        
-       type  = [self.dataArray objectAtIndex:indexPath.row];
-    }
+    
     FuncListCollectionViewCell * cell = [self.funcCollectionView dequeueReusableCellWithReuseIdentifier:@"FuncListCollectionViewCellid" forIndexPath:indexPath];
+
+    CMgoodstypelist * type=  self.dataArray[indexPath.item];
+
     cell.lb_listName.text = type.name;
  
     NSURL * img_url = [NSURL URLWithString:type.iconUrl];
+    
     [cell.img_listView sd_setImageWithURL:img_url placeholderImage:nil];
     
     if (indexPath.item == 7) {
@@ -71,9 +66,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld  = item" ,indexPath.item);
-
-     if ([self.funcDelegate respondsToSelector:@selector(seleteItemCell:withIndex:)]) {
-         [self.funcDelegate seleteItemCell:self withIndex:self.indexPath ];
+    CMgoodstypelist * type = _dataArray[indexPath.item];
+     if ([self.funcDelegate respondsToSelector:@selector(seleteItemGoodsTypeId:withIndexrow:)]) {
+         [self.funcDelegate seleteItemGoodsTypeId:[NSString stringWithFormat:@"%ld",type.typeId] withIndexrow:indexPath.item ];
     }
     
     
@@ -100,38 +95,10 @@
 }
 
 
-#pragma mark - funcList-getGoodsTypeInfo 按钮图片和状态
--(void)FuncListPostRequst
+-(void)reloadColltionView
 {
-    
-    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsTypeInfo",zfb_baseUrl] params:nil success:^(id response) {
-        
-        NSLog(@"getGoodsTypeInfo====  =%@",response);
-        if ([response[@"resultCode"] isEqualToString:@"0"]) {
-            //mjextention 数组转模型
-            HomeFuncModel *functype =[HomeFuncModel mj_objectWithKeyValues:response];
-            
-            for (CMgoodstypelist * typeList in functype.data.CmGoodsTypeList) {
-                
-                [self.dataArray addObject:typeList];
-
-            }
-            [self.funcCollectionView reloadData];
-
-        }
-        
-    } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
-    } failure:^(NSError *error) {
-        
-        NSLog(@"error=====%@",error);
-        
-    }];
-
+    [self.funcCollectionView reloadData];
 }
-
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

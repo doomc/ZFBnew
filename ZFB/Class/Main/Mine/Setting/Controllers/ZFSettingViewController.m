@@ -10,15 +10,17 @@
 #import "ZFSettingHeadViewController.h"
 #import "ForgetPSViewController.h"
 #import "ZFSettingCell.h"
-#import "LoginViewController.h"
-#import "ZFBaseNavigationViewController.h"
 #import "PayPassWordSettingViewController.h"
 
 static NSString * settingCellid = @"ZFSettingCellid";
 @interface ZFSettingViewController ()<UITableViewDelegate,UITableViewDataSource,NIMLoginManagerDelegate>
 {
-    NSArray * _titleArr;
-    NSArray * _imagesArr;
+    NSArray * _titleArr1;
+    NSArray * _titleArr2;
+    NSArray * _titleArr3;
+    NSArray * _imagesArr1;
+    NSArray * _imagesArr2;
+    NSArray * _imagesArr3;
     NSString  * _cacheSize;
     
     
@@ -35,9 +37,14 @@ static NSString * settingCellid = @"ZFSettingCellid";
     [super viewDidLoad];
  
     self.title = @"设置";
-    _titleArr  = @[@"我的信息",@"修改密码",@"支付设置",@"手机号码",@"清楚缓存",@"客服热线",@"招商入驻"];
-    _imagesArr = @[@"setting_message",@"setting_ps",@"setting_ps",@"setting_phone",@"setting_cache",@"setting_calling",@"setting_shakehand",];
-    
+    _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置",@"分享圈"];
+    _titleArr2  = @[@"手机号码",@"清楚缓存"];
+    _titleArr3  = @[@"客服热线",@"招商入驻"];
+
+    _imagesArr1 = @[@"setting_message",@"setting_ps",@"setting_ps",@"setting_phone"];
+    _imagesArr2 = @[@"setting_phone",@"setting_cache"];
+    _imagesArr3 = @[@"setting_calling",@"setting_shakehand",];
+
     [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingCell" bundle:nil] forCellReuseIdentifier:settingCellid];
     
@@ -78,7 +85,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _titleArr.count;
+    return _titleArr1.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -89,9 +96,9 @@ static NSString * settingCellid = @"ZFSettingCellid";
     
     ZFSettingCell * settcell = [self.tableView dequeueReusableCellWithIdentifier:settingCellid forIndexPath:indexPath];
     
-    settcell.lb_detailTitle.text = _titleArr[indexPath.row];
-    settcell.lb_title.text = _titleArr[indexPath.row];
-    settcell.img_iconView.image = [UIImage imageNamed:_imagesArr[indexPath.row]];
+//    settcell.lb_detailTitle.text = _titleArr[indexPath.row];
+//    settcell.lb_title.text = _titleArr[indexPath.row];
+//    settcell.img_iconView.image = [UIImage imageNamed:_imagesArr[indexPath.row]];
     settcell.selectionStyle = UITableViewCellSelectionStyleNone;
     settcell.img_detailIcon.hidden = YES;
  
@@ -212,14 +219,8 @@ static NSString * settingCellid = @"ZFSettingCellid";
     }
     
     if ([sender.titleLabel.text isEqualToString:@"登陆"]) {
-        LoginViewController * logVC = [[LoginViewController alloc]init ];
-        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logVC];
-        [self presentViewController:nav animated:NO completion:^{
-            
-            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
-            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-
-        }];
+        
+        [self isIfNotSignIn];
         
     }
     

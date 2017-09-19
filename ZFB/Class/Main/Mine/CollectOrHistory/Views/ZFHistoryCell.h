@@ -9,14 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "CollectModel.h"
 #import "HistoryFootModel.h"
+
 @interface ZFHistoryCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_collctView;
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 
+@property (weak, nonatomic) IBOutlet DWQRatingView *starView;
 
 @property (strong, nonatomic) Cmkeepgoodslist * goodslist;
+
+@property (strong, nonatomic) Cmkeepgoodslist * storeslist;
 
 @property (strong, nonatomic) Cmscanfoolprintslist * scanfool;
 

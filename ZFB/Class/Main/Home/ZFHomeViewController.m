@@ -104,10 +104,7 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     self.customLeft_btn.frame = CGRectMake(20, 0, 40, 40);
     [self.customLeft_btn setImage :[UIImage imageNamed:@"add_red"]  forState:UIControlStateNormal];
     
-    //设置文字图片的位置
-//    self.customLeft_btn.titleEdgeInsets = UIEdgeInsetsMake(0, -self.customLeft_btn.imageView.frame.size.width, -self.customLeft_btn.imageView.frame.size.height, 0);
-//    self.customLeft_btn.imageEdgeInsets = UIEdgeInsetsMake(-self.customLeft_btn.titleLabel.intrinsicContentSize.height, 0, 0, -self.customLeft_btn.titleLabel.intrinsicContentSize.width);
-//    [self.customLeft_btn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+ 
 //    //把button的视图交给Item
     UIBarButtonItem *saoItem = [[UIBarButtonItem alloc] initWithCustomView:self.customLeft_btn];
     //添加到导航项的左按钮
@@ -178,8 +175,6 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
             
         }];
     }
-
- 
 }
 #pragma mark - YBPopupMenu Delegate
 - (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu
@@ -191,7 +186,6 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
         case TypeVCSaoyiSao:
             NSLog(@"第一个扫一扫VC");
             [self scanningQRCode];
-
    
             break;
 

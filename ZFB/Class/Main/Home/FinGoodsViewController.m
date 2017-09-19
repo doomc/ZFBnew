@@ -9,6 +9,7 @@
 #import "FinGoodsViewController.h"
 #import "DetailFindGoodsViewController.h"
 #import "ZFClassifyCollectionViewController.h"
+#import "HomeSearchResultViewController.h"
 
 #import "FindStoreCell.h"
 #import "FuncListTableViewCell.h"
@@ -18,7 +19,7 @@
 
 #import "HomeADModel.h"
 #import "HomeGuessModel.h"
-
+#import "HomeFuncModel.h"
 #import "HomeHotModel.h"
 
 static NSString * cell_guessID = @"GuessCellid";
@@ -42,6 +43,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 @property (strong,nonatomic) NSMutableArray * adArray;//广告轮播
 @property (strong,nonatomic) NSMutableArray * likeListArray;//喜欢列表
 @property (strong,nonatomic) NSMutableArray * hotArray;//热卖
+@property (strong,nonatomic) NSMutableArray * funcArray;//功能
 
 
 @end
@@ -61,30 +63,46 @@ typedef NS_ENUM(NSUInteger, CellType) {
     [self guessYouLikePostRequst];
     
     [self setupRefresh];
+    
+    [self FuncListPostRequst];
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
+   
     [super headerRefresh];
     [self guessYouLikePostRequst];
     [self ADpagePostRequst];
     [self HotsalesPostRequst];
+    [self FuncListPostRequst];
+
 }
 -(void)footerRefresh {
+
     [super footerRefresh];
     [self guessYouLikePostRequst];
     [self ADpagePostRequst];
     [self HotsalesPostRequst];
+    [self FuncListPostRequst];
 }
 
 
-#pragma mark - FuncListTableViewCellDeleagte
+#pragma mark - FuncListTableViewCellDeleagte 功能
 ///全部分类
--(void)seleteItemCell:(FuncListTableViewCell *)cell withIndex:(NSIndexPath *)indexPath
+-(void)seleteItemGoodsTypeId: (NSString *)goodsTypeId withIndexrow:(NSInteger )indexPathRow
 {
+    CMgoodstypelist * typeList  = self.funcArray[indexPathRow];
+    if (indexPathRow == 7) {
+        NSLog(@"全部分类全部分类");
+        ZFClassifyCollectionViewController * classifyVC = [[ZFClassifyCollectionViewController alloc]init];
+        [self.navigationController pushViewController:classifyVC animated:NO];
     
-    NSLog(@"全部分类全部分类");
-    ZFClassifyCollectionViewController * classifyVC = [[ZFClassifyCollectionViewController alloc]init];
-    [self.navigationController pushViewController:classifyVC animated:NO];
+    }else{
+        
+        HomeSearchResultViewController * searchVC= [HomeSearchResultViewController new];
+        searchVC.goodsType = [NSString stringWithFormat:@"%ld",typeList.typeId];//id传给type
+        [self.navigationController pushViewController:searchVC animated:NO];
+    }
+
     
     
 }
@@ -231,9 +249,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
     if (indexPath.section == CellTypeWithMainListCell ) {
         
         FuncListTableViewCell * listCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_listID forIndexPath:indexPath];
-        listCell.indexPath               = indexPath;
         listCell.funcDelegate            = self;
-        
+        listCell.dataArray               = self.funcArray;
+        [listCell reloadColltionView];
         return listCell;
         
         
@@ -391,10 +409,34 @@ typedef NS_ENUM(NSUInteger, CellType) {
         NSLog(@"error=====%@",error);
         
     }];
-    
-    
 }
 
+#pragma mark - funcList-getGoodsTypeInfo 按钮图片和状态
+-(void)FuncListPostRequst
+{
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsTypeInfo",zfb_baseUrl] params:nil success:^(id response) {
+
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            if (self.funcArray.count > 0) {
+                [self.funcArray removeAllObjects];
+            }
+            //mjextention 数组转模型
+            HomeFuncModel *functype = [HomeFuncModel mj_objectWithKeyValues:response];
+            
+            for (CMgoodstypelist * typeList in functype.data.CmGoodsTypeList) {
+                
+                [self.funcArray addObject:typeList];
+            }
+            [self.findGoods_TableView reloadData];
+        }
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        
+    }];
+    
+}
 
 -(NSMutableArray *)hotArray
 {
@@ -417,6 +459,13 @@ typedef NS_ENUM(NSUInteger, CellType) {
         _likeListArray =[ NSMutableArray array];
     }
     return _likeListArray;
+}
+
+-(NSMutableArray *)funcArray{
+    if (!_funcArray) {
+        _funcArray =[ NSMutableArray array];
+    }
+    return _funcArray;
 }
 
 - (void)didReceiveMemoryWarning {

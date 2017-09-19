@@ -23,7 +23,6 @@
 #import "AddressCommitOrderModel.h"
 #import "ZFMainPayforViewController.h"
 #import "ZFSelectCouponViewController.h"
-#import "LoginViewController.h"
 #import "ZFBaseNavigationViewController.h"
 
 //model
@@ -167,6 +166,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         [self.storeAttachListArr addObject:storeAttachListDic];
     }
     NSLog(@"cmGoodsListArray = %@",self.cmGoodsListArray )
+    [self.mytableView reloadData];
 }
 //创建UI
 -(void)creatCustomfooterView
@@ -235,7 +235,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             }];
             NSLog(@" %f ===== height",height);
         }
-//            height = 60;
             
             break;
         case SureOrderCellTypeGoodsListCell://商品类型
@@ -607,13 +606,10 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             
         }else
         {
-            LoginViewController * logVc          = [[LoginViewController alloc]init];
-            ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc ]initWithRootViewController:logVc];
-            [self.navigationController presentViewController:nav animated:NO completion:^{
-                [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
-                [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-                BBUserDefault.isLogin = 0;//登录状态为0
-            }];
+            
+            [self isIfNotSignIn];
+            BBUserDefault.isLogin = 0;//登录状态为0
+
         }
  
     }

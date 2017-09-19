@@ -64,7 +64,6 @@
             [_img_CouponStutus setHidden:YES];
             _img_couponType.image = [UIImage imageNamed:@"couponRed"];
         }
-        
     }else if (couponlist.couponKind == 2)
     {
         //status = 0 未领取 1 未使用 2 已使用 3 已失效

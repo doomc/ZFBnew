@@ -12,7 +12,15 @@
 #import "ZFCollectBarView.h"
 #import "ZFHistoryCell.h"
 #import "CollectModel.h"
-@interface ZFCollectViewController ()<UITableViewDelegate,UITableViewDataSource,ZFCollectBarViewDelegate,ZFCollectEditCellDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
+#import "MTSegmentedControl.h"
+
+typedef NS_ENUM(NSUInteger, CollectType) {
+    
+    CollectTypeGoods,
+    CollectTypeStores,
+ 
+};
+@interface ZFCollectViewController ()<UITableViewDelegate,UITableViewDataSource,ZFCollectBarViewDelegate,ZFCollectEditCellDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate,MTSegmentedControlDelegate>
 {
     BOOL _isEdit;
 }
@@ -24,7 +32,9 @@
 //拿到商品id 和收藏id
 @property (nonatomic , copy) NSString * collectId;
 @property (nonatomic , copy) NSString * goodId;
-
+//控制2中收藏
+@property (strong, nonatomic) MTSegmentedControl *segumentView;
+@property (assign, nonatomic) CollectType collectType;//收藏类型
 
 @end
 
@@ -32,25 +42,98 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _isEdit = NO;//默认编辑状态为NO
-    
     self.title = @"商品收藏";
+
+    _isEdit = NO;//默认编辑状态为NO
+    _collectType = CollectTypeGoods;//默认为商品收藏
+
     [self.view addSubview:self.tableView];
-    
+    self.zfb_tableView = self.tableView;
+
     self.view.backgroundColor = RGB(239, 239, 244);
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFCollectEditCell" bundle:nil]
          forCellReuseIdentifier:@"ZFCollectEditCellid"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFHistoryCell" bundle:nil] forCellReuseIdentifier:@"ZFHistoryCellid"];
     
-    [self showCollectListPOSTRequest];
+    //默认请求门店
+    [self showCollectListPOSTRequestCollectType:@"1"];
+    
+    [self setupPageView];
+    
+    [self setupRefresh];
+
+}
+-(void)footerRefresh{
+    
+    [super footerRefresh];
+    switch (_collectType) {
+        case CollectTypeGoods: //1商品 2门店
+            [self showCollectListPOSTRequestCollectType:@"1"];
+
+            break;
+            
+        case CollectTypeStores:
+            [self showCollectListPOSTRequestCollectType:@"2"];
+
+            break;
+            
+        default:
+            break;
+    }
+
+}
+-(void)headerRefresh
+{
+    [super headerRefresh];
+    switch (_collectType) {
+        case CollectTypeGoods: //1商品 2门店
+            [self showCollectListPOSTRequestCollectType:@"1"];
+            
+            break;
+            
+        case CollectTypeStores:
+            [self showCollectListPOSTRequestCollectType:@"2"];
+            
+            break;
+            
+        default:
+            break;
+    }
+}
+- (void)setupPageView {
+ 
+    NSArray *titleArr   = @[@"商品收藏",@"门店收藏"];
+    _segumentView       = [[MTSegmentedControl alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 44)];
+    [self.segumentView segmentedControl:titleArr Delegate:self];
+    [self.view addSubview:_segumentView];
+}
+
+#pragma mark - <MTSegmentedControlDelegate>
+- (void)segumentSelectionChange:(NSInteger)selection
+{
+    _collectType = selection ;
+    
+    switch (_collectType) {
+        case CollectTypeGoods: //1商品 2门店
+            [self showCollectListPOSTRequestCollectType:@"1"];
+            [self.tableView reloadData];
+
+            break;
+            
+        case CollectTypeStores:
+            [self showCollectListPOSTRequestCollectType:@"2"];
+            [self.tableView reloadData];
+            break;
+            
+        default:
+            break;
+    }
     
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
     return self.listArray.count;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -59,7 +142,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 74;
+    return 80;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -75,24 +158,57 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Cmkeepgoodslist * list = self.listArray[indexPath.section];
-    
-    if (_isEdit == NO)
-    {
-        ZFHistoryCell * normalCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFHistoryCellid" forIndexPath:indexPath];
-        normalCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        normalCell.goodslist = list;
-        
-        return normalCell;
-    }else{
-        
-        ZFCollectEditCell *editCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFCollectEditCellid" forIndexPath:indexPath];
-        editCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        editCell.collectID = list.cartItemId;//收藏id
-        editCell.goodlist = list;
-        editCell.delegate = self;
-        
-        return editCell;
+    switch (_collectType) {
+        case CollectTypeGoods:              //商品收藏列表
+            if (_isEdit == NO)
+            {
+
+                ZFHistoryCell * normalCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFHistoryCellid" forIndexPath:indexPath];
+                normalCell.starView.hidden = YES;
+                normalCell.goodslist = list;
+                
+                return normalCell;
+            }else{
+                
+                ZFCollectEditCell *editCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFCollectEditCellid" forIndexPath:indexPath];
+                editCell.starView.hidden = YES;
+                editCell.collectID = list.cartItemId;//收藏id
+                editCell.goodlist = list;
+                editCell.delegate = self;
+                
+                return editCell;
+            }
+            break;
+        case CollectTypeStores://  门店收藏列表
+            
+            if (_isEdit == NO)
+            {
+                ZFHistoryCell * normalCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFHistoryCellid" forIndexPath:indexPath];
+                normalCell.starView.hidden = NO;
+                normalCell.lb_price.hidden = YES;
+                normalCell.storeslist = list;
+
+                return normalCell;
+            }else{
+                
+                ZFCollectEditCell *editCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFCollectEditCellid" forIndexPath:indexPath];
+                editCell.starView.hidden = NO;
+                editCell.lb_price.hidden = YES;
+
+                editCell.collectID = list.cartItemId;//收藏id
+                editCell.storeList = list;
+                editCell.delegate = self;
+                
+                return editCell;
+            }
+
+            break;
+            
+        default:
+            break;
+
     }
+    
     
 }
 
@@ -125,7 +241,6 @@
     // 每次点击都要统计底部的按钮是否全选
     self.footView.allChoose_btn.selected = [self isAllProcductChoosed];
     
-
 }
 
 ///全选
@@ -207,35 +322,52 @@
     UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
         //重点 --------- //
-        if ([self isAllProcductChoosed] == YES) {
-            
-            [self cancelCollectListPOSTRequest];//取消全部收藏
-            
-        }else{
-            
-            [self cancalsingleGoodsCollectPOSTRequest];//单个商品收藏
-        }
-        
-        for (Cmkeepgoodslist * list in self.listArray)
-        {
-            if (list.isCollectSelected)
+        switch (_collectType) {
+            case CollectTypeGoods:
             {
-                [self.tempCellArray addObject:list];
+                if ([self isAllProcductChoosed] == YES) {
+                    [self cancelCollectListPOSTRequest];//取消全部收藏
+                }else{
+                    [self cancalsingleGoodsCollectPOSTRequestCollectType:@"1"];//单个商品收藏
+                }
+                
+                for (Cmkeepgoodslist * list in self.listArray)
+                {
+                    if (list.isCollectSelected)
+                    {
+                        [self.tempCellArray addObject:list];
+                    }
+                }
+                [self.listArray removeObjectsInArray:self.tempCellArray];
             }
-            
+                break;
+                
+            case CollectTypeStores:
+            {
+                if ([self isAllProcductChoosed] == YES) {
+                    [self cancelCollectListPOSTRequest];//取消全部收藏
+                }else{
+                    [self cancalsingleGoodsCollectPOSTRequestCollectType:@"2"];//单个商品收藏
+                }
+                
+                for (Cmkeepgoodslist * list in self.listArray)
+                {
+                    if (list.isCollectSelected)
+                    {
+                        [self.tempCellArray addObject:list];
+                    }
+                }
+                [self.listArray removeObjectsInArray:self.tempCellArray];
+            }
+                break;
+            default:
+                break;
         }
-        [self.listArray removeObjectsInArray:self.tempCellArray];
-        
- 
-        
     }];
     
     [alertVC addAction:cancel];
     [alertVC addAction:sure];
     [self presentViewController:alertVC animated:YES completion:nil];
-
-
- 
 }
 
 #pragma mark -  点击编辑
@@ -294,7 +426,7 @@
 }
 -(UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH - 64 - 49) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64 +44, KScreenW, KScreenH - 64 - 49-44) style:UITableViewStyleGrouped];
         _tableView.delegate =self;
         _tableView.dataSource = self;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
@@ -318,43 +450,52 @@
 }
 
 #pragma mark - 收藏列表 -getKeepGoodList
--(void)showCollectListPOSTRequest
+-(void)showCollectListPOSTRequestCollectType:(NSString *)collectType
 {
  
     NSLog(@" user id = ==== %@",BBUserDefault.cmUserId)
     NSDictionary * parma = @{
                  
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"page":@"1",
-                             @"size":@"6",
-                             @"collectType":@"1",//1商品 2门店
+                             @"page":[NSNumber numberWithInteger:self.currentPage],
+                             @"size":[NSNumber numberWithInteger:kPageCount],
+                             @"collectType":collectType,//1商品 2门店
                              @"latitude":BBUserDefault.latitude,
                              @"longitude":BBUserDefault.longitude,
 
                              };
     
+    [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getKeepGoodList"] params:parma success:^(id response) {
         
         if ([response[@"resultCode"]isEqualToString:@"0"]) {
-    
+            if (self.refreshType == RefreshTypeHeader) {
+              
+                if (self.listArray.count > 0) {
+                    
+                    [self.listArray  removeAllObjects];
+                }
+            }
             CollectModel * collect = [CollectModel mj_objectWithKeyValues:response];
             
-                    for (Cmkeepgoodslist * list in collect.data.cmKeepGoodsList) {
-            
-                        [self.listArray addObject:list];
-                    }
+            for (Cmkeepgoodslist * list in collect.data.cmKeepGoodsList) {
+                
+                [self.listArray addObject:list];
+            }
             NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",_listArray);
             if ([self isEmptyArray:self.listArray]) {
                 
                 [self.tableView cyl_reloadData];
             }
         }
-  
+        [SVProgressHUD dismiss];
+        [self endRefresh];
         [self.tableView reloadData];
-    
+
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
-        
+        [self endRefresh];
+        [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
@@ -389,13 +530,13 @@
 }
 
 #pragma mark - 单个取消收藏列表 -cancalGoodsCollect
--(void)cancalsingleGoodsCollectPOSTRequest
+-(void)cancalsingleGoodsCollectPOSTRequestCollectType:(NSString *)collectType;
 {
     NSDictionary * parma = @{
                              
                              @"goodId":_goodId,
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"collectType":@"1",//1商品 2门店
+                             @"collectType":collectType,//1商品 2门店
                              
                              };
     
@@ -404,8 +545,6 @@
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         
         [self updateInfomation];
-        
-        
         
     } progress:^(NSProgress *progeress) {
     
@@ -434,7 +573,20 @@
 #pragma mark - WeChatStylePlaceHolderDelegate Method
 - (void)emptyOverlayClicked:(id)sender {
     
-    [self showCollectListPOSTRequest];
+    switch (_collectType) {
+        case CollectTypeGoods: //1商品 2门店
+            [self showCollectListPOSTRequestCollectType:@"1"];
+            
+            break;
+            
+        case CollectTypeStores:
+            [self showCollectListPOSTRequestCollectType:@"2"];
+            
+            break;
+            
+        default:
+            break;
+    }
     
 }
 /*

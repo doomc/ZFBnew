@@ -22,8 +22,7 @@
 #import "ZFSureOrderViewController.h"
 #import "ZFShoppingCarViewController.h"//购物车
 #import "ZFDetailsStoreViewController.h" //店铺
-#import "ZFBaseNavigationViewController.h"
-#import "LoginViewController.h"
+
 
 //model
 #import "DetailGoodsModel.h"
@@ -907,7 +906,6 @@
     }
 }
 
-
 #pragma mark  - 选择商品数量
 -(void)addCount:(NSInteger)count
 {
@@ -1112,7 +1110,6 @@
         
     }else
     {
-        
         [collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
     }
 }
@@ -1169,6 +1166,7 @@
                              @"latitude":latitudestr,
                              @"longitude":longitudestr,
                              @"goodsId":_goodsId,//商品id
+                             @"userId":BBUserDefault.cmUserId,//商品id
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsDetailsInfo",zfb_baseUrl] params:parma success:^(id response) {
@@ -1291,9 +1289,10 @@
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getKeepGoodInfo",zfb_baseUrl] params:parma success:^(id response) {
+      
         _isCollect = 1;
-        
         [self iscollect];
+   
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
@@ -1593,15 +1592,7 @@
 
     }else{
         
-        NSLog(@"登录了");
-        LoginViewController * logvc          = [ LoginViewController new];
-        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
-        
-        [self presentViewController:nav animated:NO completion:^{
-            
-            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
-            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-        }];
+        [self isIfNotSignIn];
     }
 }
 -(void)viewWillAppear:(BOOL)animated

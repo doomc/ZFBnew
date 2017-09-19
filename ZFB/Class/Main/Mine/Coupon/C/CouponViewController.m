@@ -11,7 +11,6 @@
 
 //cell
 #import "CouponCell.h"
-#import "EditCouponCell.h"
 #import "SectionCouponCell.h"
 #import "CouponUsedCell.h"
 #import "CouponOverDateCell.h"
@@ -273,43 +272,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //编辑状态
-    if (_isEditing == YES) {
-        switch (_couponType) {
-            case SelectCouponTypeDefault:
-            {
-                if (indexPath.section == 0) {
-                    
-                    SectionCouponCell * sectionCell = [ self.tableView dequeueReusableCellWithIdentifier:@"SectionCouponCellid" forIndexPath:indexPath];
-                    return sectionCell;
-                }
-                
-                EditCouponCell * editCell = [ self.tableView dequeueReusableCellWithIdentifier:@"EditCouponCellid" forIndexPath:indexPath];
-                Couponlist * list       = self.couponList[indexPath.row];
-                editCell.couponList     = list;
-                
-                return  editCell;
-            }
-                break;
-            case SelectCouponTypeUsed:{
-                
-                CouponUsedCell * cell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponUsedCellid" forIndexPath:indexPath];
-                Couponlist * list     = self.couponList[indexPath.row];
-                cell.couponlist       = list;
-                return cell;
-            }
-                break;
-            case SelectCouponTypeOverDate:
-            {
-                CouponOverDateCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponOverDateCellid" forIndexPath:indexPath];
-                Couponlist * list               = self.couponList[indexPath.row];
-                couponCell.couponlist           = list;
-                return couponCell;
-            }
-                break;
-        }
-
-    }else{
-        
+    if (_isEditing == NO) {
         switch (_couponType) {
             case SelectCouponTypeDefault:
             {
@@ -344,8 +307,10 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 break;
         }
     }
-    
-    
+    else{//如果为编辑状态
+        
+        return nil;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

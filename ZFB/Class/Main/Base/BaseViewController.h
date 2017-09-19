@@ -88,5 +88,8 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 //判断密码 不能太简单了
 - (BOOL)checkPassWordIsNotEasy:(NSMutableString *)oldPassword;
 
+//如果没有登录
+-(void)isIfNotSignIn;
+
 
 @end

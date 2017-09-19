@@ -26,7 +26,7 @@
     }
     return self;
 }
-
+//创建UI
 -(void)creatUI{
 
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -121,7 +121,6 @@
     cell.indexRow = indexPath.row;
     
     cell.couponlist = list;
-    
   
     return cell;
 }
@@ -137,7 +136,6 @@
         [self.popDelegate selectCouponWithIndex:indexPathRow AndCouponId:_couponeId withResult:_couponeMessage];
     }
     NSLog(@"我点的是整个优惠券内部 _couponeMessage =%@  , row = %ld ",_couponeMessage,indexPathRow);
-
 }
 
 

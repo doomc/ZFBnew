@@ -25,7 +25,6 @@
 #import "ZFPersonalHeaderView.h"
 
 //用户端VC
-#import "LoginViewController.h"
 #import "RegisterViewController.h"
 
 #import "ZFAllOrderViewController.h"//全部订单
@@ -655,13 +654,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)isloginSuccess
 {
     
-    LoginViewController * logvc    = [ LoginViewController new];
-    ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
-    [self presentViewController:nav animated:NO completion:^{
-        
-        [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
-        [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
-    }];
+    [self isIfNotSignIn];
     
     
 }

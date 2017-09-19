@@ -90,6 +90,9 @@
     [self addSelectedTpye];//选择分类类型（noResultArray = 0 的状态下显示）
     
     [self setupRefresh];
+    
+ 
+
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
@@ -98,7 +101,7 @@
  
     if ([self.searchType isEqualToString:@"商品"]) {
         //商品搜索
-        [self SearchgoodsPOSTRequestAndsearchText:_resultsText brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
+        [self SearchgoodsPOSTRequestAndsearchText:_resultsText brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" goodsType:_goodsType];
         
     }else{
         
@@ -112,7 +115,7 @@
     
     if ([self.searchType  isEqualToString:@"商品"]) {
         //商品搜索
-        [self SearchgoodsPOSTRequestAndsearchText:_resultsText brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
+        [self SearchgoodsPOSTRequestAndsearchText:_resultsText brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" goodsType:_goodsType];
         
     }else{
         
@@ -152,7 +155,6 @@
     _titleView                    = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
     self.navigationItem.titleView = _titleView;
     [_titleView addSubview:self.searchBar];
-    
     self.zfb_tableView = self.tableView ;
     
 }
@@ -268,7 +270,7 @@
     
     button.selected  =  _priceSort > 0 ?  1 : 0;
  
-    [self SearchgoodsPOSTRequestAndsearchText:_searchBar.text brandId:_brandId orderByPrice:[NSString stringWithFormat:@"%ld",_priceSort] orderBySales:[NSString stringWithFormat:@"%ld",_salesSort] labelId:_labelId isFeatured:@""];
+    [self SearchgoodsPOSTRequestAndsearchText:_searchBar.text brandId:_brandId orderByPrice:[NSString stringWithFormat:@"%ld",_priceSort] orderBySales:[NSString stringWithFormat:@"%ld",_salesSort] labelId:_labelId isFeatured:@"" goodsType:_goodsType];
     
 }
 ///销量排序
@@ -279,7 +281,7 @@
     
     button.selected  = _salesSort > 0 ?  1 : 0;
     
-    [self SearchgoodsPOSTRequestAndsearchText:_searchBar.text brandId:_brandId orderByPrice:[NSString stringWithFormat:@"%ld",_priceSort] orderBySales:[NSString stringWithFormat:@"%ld",_salesSort] labelId:_labelId isFeatured:@"" ];
+    [self SearchgoodsPOSTRequestAndsearchText:_searchBar.text brandId:_brandId orderByPrice:[NSString stringWithFormat:@"%ld",_priceSort] orderBySales:[NSString stringWithFormat:@"%ld",_salesSort] labelId:_labelId isFeatured:@"" goodsType:_goodsType ];
 
 }
 ///距离排序
@@ -441,7 +443,7 @@
     NSLog(@"searchText ==== %@",searchText);
     if ([self.searchType isEqualToString:@"商品"]) {
         //商品搜索
-        [self SearchgoodsPOSTRequestAndsearchText:searchText brandId:@""orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
+        [self SearchgoodsPOSTRequestAndsearchText:searchText brandId:@""orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" goodsType:_goodsType];
    
     }else{
         
@@ -458,7 +460,7 @@
     [searchBar resignFirstResponder];
     if ([self.searchType  isEqualToString:@"商品"]) {
         //商品搜索
-        [self SearchgoodsPOSTRequestAndsearchText:searchBar.text brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" ];
+        [self SearchgoodsPOSTRequestAndsearchText:searchBar.text brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" goodsType:_goodsType];
         
     }else{
         
@@ -479,7 +481,7 @@
     [self.searchBar resignFirstResponder];
     
     //不管精选不精选 都搜索
-    [self SearchgoodsPOSTRequestAndsearchText:@"" brandId:brandId orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
+    [self SearchgoodsPOSTRequestAndsearchText:@"" brandId:brandId orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" goodsType:_goodsType];
    
 }
 
@@ -523,7 +525,6 @@
                              };
     
     [SVProgressHUD show];
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:param success:^(id response) {
         if (self.refreshType  == RefreshTypeHeader) {
 #warning  -- -门店搜锁没有
@@ -564,11 +565,12 @@
                               orderBySales:(NSString *)orderBySales
                                    labelId:(NSString *)labelId
                                 isFeatured:(NSString *)isFeatured
+                                goodsType:(NSString *)goodsType
 
 
 {
-    if (_goodsType == nil) {
-        _goodsType = @"";
+    if (goodsType == nil) {
+        goodsType = @"";
     }
     NSDictionary * param = @{
                              
@@ -580,7 +582,7 @@
                              @"isFeatured":isFeatured,
                              @"size":[NSNumber numberWithInteger:kPageCount],
                              @"page":[NSNumber numberWithInteger:self.currentPage],
-                             @"goodsType":_goodsType
+                             @"goodsType":goodsType
                              };
     
     [SVProgressHUD show];
@@ -744,8 +746,9 @@
     [self getFindbrandListPost];
     
     if ([self.searchType  isEqualToString:@"商品"]) {
+      
         //商品搜索
-        [self SearchgoodsPOSTRequestAndsearchText:_resultsText brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@""];
+        [self SearchgoodsPOSTRequestAndsearchText:_resultsText brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" goodsType:_goodsType];
         
     }else{
         //门店搜索

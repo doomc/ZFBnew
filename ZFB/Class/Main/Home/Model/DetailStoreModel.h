@@ -32,6 +32,8 @@
 
 @property (nonatomic, assign) NSInteger typeId;//id
 
+@property (nonatomic, assign) NSInteger isCollect;//收藏 0 ,1,
+
 @property (nonatomic, copy) NSString *longitude;
 
 @property (nonatomic, copy) NSString *latitude;

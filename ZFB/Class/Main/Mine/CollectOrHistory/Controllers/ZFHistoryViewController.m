@@ -70,7 +70,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 74;
+    return 80;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -86,6 +86,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZFHistoryCell * historyCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFHistoryCellid" forIndexPath:indexPath] ;
+    historyCell.starView.hidden = YES;
     Cmscanfoolprintslist * info =self.listArray[indexPath.section];
     historyCell.scanfool = info;
 

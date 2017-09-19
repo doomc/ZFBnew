@@ -30,8 +30,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title = @"收银台";
-    [self clearCache];//清除缓存
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -41,10 +39,11 @@
         
         [self.webView stopLoading];
     }
-    self.webView.delegate = nil;
     // disconnect the delegate as the webview is hidden
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
+    self.webView.delegate = nil;
+
     _orderListArray = nil;
  
 }
@@ -52,12 +51,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.title = @"收银台";
+
     self.view.backgroundColor = HEXCOLOR(0xffcccc);
     
     [self getPaypaySignAccessTokenUrl];
     
     [self.view addSubview:self.webView];
+    
+    [self clearCache];//清除缓存
+
     
 }
 
@@ -86,14 +89,11 @@
      UIWebViewNavigationTypeFormResubmitted，用户重复提交表单
      UIWebViewNavigationTypeOther，发生其它行为。
      */
-    
-    
     return YES;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    //开始加载，可以加上风火轮（也叫菊花）
     [SVProgressHUD show];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
  
@@ -106,7 +106,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     //返回地址
     NSString * currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
-    
+    NSLog(@"返回链接 === %@",_goback_url);
     if ([_goback_url isEqualToString:currentURL]) {
         
         NSLog(@"全部跳转到订单列表");
@@ -120,6 +120,8 @@
 //            [nav.navigationBar setBarTintColor:HEXCOLOR(0xffcccc)];
 //            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
 //        }];
+        
+    
     }
     [SVProgressHUD dismiss];
     
@@ -161,7 +163,6 @@
         [SVProgressHUD dismissWithCompletion:^{
            
             [self getGoodsCostPayResulrUrlL];
-
         }];
         
     } progress:^(NSProgress *progeress) {
@@ -174,7 +175,6 @@
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-    
     
 }
 
@@ -220,13 +220,11 @@
     NSLog(@"_signString========%@",_signString);
 
     //5.设置请求体
-//    NSString * texturl = @"http://192.168.1.188:8080/cashier/gateway.do";//
-    
     NSMutableURLRequest * request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:_gateWay_url]];
     [request setHTTPMethod: @"POST"];
     [request setHTTPBody: [_signString dataUsingEncoding: NSUTF8StringEncoding]];
     [self.webView loadRequest:request];
-    
+
 }
 
 /** 清理缓存的方法，这个方法会清除缓存类型为HTML类型的文件*/

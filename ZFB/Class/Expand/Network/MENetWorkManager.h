@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AFNetworking.h"
 
 @interface MENetWorkManager : NSObject
 /**
@@ -31,6 +32,14 @@
  */
 + (void)post:(NSString *)url params:(NSDictionary *)params success:(void(^)(id response)) success progress:(void(^)(NSProgress * progeress))progeress failure:(void(^)(NSError * error))failure;
 
+
+
+/**
+ 配置HTTPS
+
+ @return 返回验证
+ */
++ (AFSecurityPolicy*)customSecurityPolicy;
 
 
 @end

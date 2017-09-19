@@ -29,11 +29,17 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *selecet_btn;
 
+@property (weak, nonatomic) IBOutlet DWQRatingView *starView;
+
 @property (strong, nonatomic) Cmkeepgoodslist *goodlist;
 ///收藏id
 @property (assign, nonatomic) NSInteger  collectID;
 ///商品id
 @property (copy, nonatomic) NSString * goodsID;
+
+//门店收藏
+@property (strong, nonatomic) Cmkeepgoodslist *storeList;
+@property (copy, nonatomic) NSString * storeID;
 
 
 

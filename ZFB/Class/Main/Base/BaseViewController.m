@@ -7,6 +7,8 @@
 //
 
 #import "BaseViewController.h"
+#import "ZFBaseNavigationViewController.h"
+#import "LoginViewController.h"
 
 @interface BaseViewController ()
 
@@ -207,6 +209,32 @@
             [self.navigationController popToViewController:controller animated:YES];
         }
     }
+}
+
+//如果没有登录
+-(void)isIfNotSignIn
+{
+    JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"您还没登录,是否马上去登录" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        LoginViewController * logvc    = [ LoginViewController new];
+        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
+        
+        [self presentViewController:nav animated:NO completion:^{
+            
+            [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+        }];
+        
+    }];
+    UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertvc addAction:sure];
+    [alertvc addAction:cancle];
+    [self presentViewController:alertvc animated:YES completion:^{
+        
+    }];
 }
 #pragma mark - 判断是不是空数组
 - (BOOL)isEmptyArray:(NSMutableArray *)array

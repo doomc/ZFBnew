@@ -20,4 +20,5 @@
 ///商品类别
 @property (nonatomic , copy) NSString * goodsType;
 
+ 
 @end

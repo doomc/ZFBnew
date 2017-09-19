@@ -35,6 +35,10 @@
 
 @property (nonatomic, copy) NSString *goodName;
 
+@property (nonatomic, copy) NSString *starLevel;
+
+@property (nonatomic, copy) NSString *storeName;
+
 @property (nonatomic, assign) NSInteger goodId;
 
 @property (nonatomic, assign) NSInteger userId;

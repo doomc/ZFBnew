@@ -12,12 +12,14 @@
 #import "HP_LocationViewController.h"
 #import "ZFDetailsStoreViewController.h"
 #import "ZFAllStoreViewController.h"
+
 //cell
 #import "FindStoreCell.h"
 //model
 #import "HomeStoreListModel.h"
 //map
 #import "CLLocation+MPLocation.h"//火星坐标
+
 
 static NSString *CellIdentifier = @"FindStoreCellid";
 
@@ -216,13 +218,19 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@" section --- %ld ,row -----%ld",indexPath.section ,indexPath.row);    
-    if (self.storeListArr.count > 0) {
+ 
+    if (BBUserDefault.cmUserId == nil || BBUserDefault.isLogin ==0 || [BBUserDefault.cmUserId isEqualToString:@""]) {
         
+        [self isIfNotSignIn];
+        
+    }else{
         ZFDetailsStoreViewController * vc = [[ZFDetailsStoreViewController alloc]init];
         Findgoodslist * listModel = self.storeListArr[indexPath.row];
         vc.storeId =[NSString stringWithFormat:@"%ld",listModel.storeId];
         [self.navigationController pushViewController:vc animated:YES];
     }
+ 
+    
 }
 
 /**
