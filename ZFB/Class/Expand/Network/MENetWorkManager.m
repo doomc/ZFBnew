@@ -71,9 +71,7 @@
                 if ([resultCode isEqualToString:@"3"]) {
                     BBUserDefault.isLogin = 0;
                     BBUserDefault.cmUserId = @"";
-                }
-                
-                
+                }                
                 NSString *result = [NSString convertToJsonData:responseObject];
                 NSLog(@"%@",result);
                 

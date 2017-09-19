@@ -15,7 +15,7 @@
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <MAMapKit/MAMapKit.h>
 //自定义View
-#import "MapPoiTableView.h"
+
 #import "SearchResultTableVC.h"
 
 #import "Reachability.h"
@@ -25,11 +25,12 @@
 MAMapViewDelegate,
 AMapSearchDelegate,
 AMapLocationManagerDelegate,//定位代理
-MapPoiTableViewDelegate,//自定义代理
 SearchResultTableVCDelegate,//搜索代理
-UISearchBarDelegate>
+UISearchBarDelegate,
+UITableViewDataSource,
+UITableViewDelegate>
 {
-    AMapSearchAPI * _searchAPI;//获取周边api
+    AMapSearchAPI * _search;  //获取周边api
     UIImageView   * _centerMaker;//固定中间的图
     // 第一次定位标记
     BOOL isFirstLocated;
@@ -42,7 +43,6 @@ UISearchBarDelegate>
     UIImage  * _imageLocated;
     UIImage  * _imageNotLocate;
     //地图中心点POI列表
-    MapPoiTableView *_tableView;
     MBProgressHUD * _HUD;
     NSString * addressPoi ;
 }
@@ -54,9 +54,7 @@ UISearchBarDelegate>
 @property (nonatomic, strong) SearchResultTableVC *searchResultTableVC;
 @property (nonatomic, strong) UISearchController  *searchController       ;
 
-
-
-
+@property (nonatomic, strong) NSMutableArray<AMapPOI *> *dataList;
 @end
 
 @implementation AddressLocationMapViewController
@@ -73,6 +71,7 @@ UISearchBarDelegate>
     [self initSearchBar]; //搜索框
     
  
+    [self searchAround];
 }
 
 //初始化地图
@@ -96,16 +95,6 @@ UISearchBarDelegate>
     
 }
 
-- (void)initSearch
-{
-    searchPage          = 1;
-    _searchAPI          = [[AMapSearchAPI alloc] init];
-    _searchAPI.delegate = _tableView;
-    
-    //    _searchResultTableVC = [[SearchResultTableVC alloc] init];
-    //    _searchResultTableVC.delegate = self;
-    //    _searchController = [[UISearchController alloc] initWithSearchResultsController:_searchResultTableVC];
-}
 //mark 图标 固定位置
 - (void)initCenterMarker
 {
@@ -119,181 +108,16 @@ UISearchBarDelegate>
 //初始化atableview
 - (void)initTableView
 {
-    _tableView          = [[MapPoiTableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_mapView.frame)-64 , KScreenW, 6 * 55 + 64)];
-    _tableView.delegate = self;
-    [self.view addSubview:_tableView];
-}
-
-#pragma mark - MapPoiTableViewDelegate 搜索列表代理
--(void)backviewWithpossCode:(NSString *)possCode
-{
-    NSLog(@"返回传回 经纬度   ===== %f======邮编 ==%@",_mapView.centerCoordinate.latitude,possCode);
-    [self.navigationController popViewControllerAnimated:NO];
-    self.latitudeBlock([NSString stringWithFormat:@"%f",_mapView.centerCoordinate.latitude]);
-    self.longitudeBlock([NSString stringWithFormat:@"%f",_mapView.centerCoordinate.longitude]);
-    self.possidBlock(possCode);
-    NSLog(@"    possCode ======= %@ ",possCode);
-
-}
-
-// 加载更多列表数据
-- (void)loadMorePOI
-{
-    searchPage ++;
-    AMapGeoPoint *point = [AMapGeoPoint locationWithLatitude:_mapView.centerCoordinate.latitude longitude:_mapView.centerCoordinate.longitude];
-   
-    [self searchPoiByAMapGeoPoint:point];
-}
-// 将地图中心移到所选的POI位置上
-- (void)setMapCenterWithPOI:(AMapPOI *)point isLocateImageShouldChange:(BOOL)isLocateImageShouldChange
-{
-    //    if (_isMapViewRegionChangedFromTableView) {
-    //        return;
-    //    }
+    self.zfb_tableView          = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_mapView.frame)-64 , KScreenW, 6 * 55 + 64) style:UITableViewStylePlain];
+    self.zfb_tableView.delegate = self;
+    self.zfb_tableView.dataSource = self;
+    [self.view addSubview:self.zfb_tableView];
     
-
-    addressPoi = [NSString stringWithFormat:@"%@%@",_tableView.poiaddress,_tableView.poiName];
-    NSLog(@"addressPoi ======= %@    point.postcode======%@",addressPoi,_tableView.postcode);
-    // 切换定位图标
-    if (isLocateImageShouldChange) {
-        
-        [_locationBtn setImage:_imageNotLocate forState:UIControlStateNormal];
-        
-    }
-    _isMapViewRegionChangedFromTableView = YES;
-    CLLocationCoordinate2D location      = CLLocationCoordinate2DMake(point.location.latitude, point.location.longitude);
-    [_mapView setCenterCoordinate:location animated:YES];
+    [self.zfb_tableView registerNib:[UINib nibWithNibName:@"HPLocationCell" bundle:nil] forCellReuseIdentifier:@"HPLocationCellId"];
 }
 
 
-#pragma mark -  开始定位
-- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views
-{
-    MAAnnotationView *view = views[0];
-    
-    // 放到该方法中用以保证userlocation的annotationView已经添加到地图上了。
-    if ([view.annotation isKindOfClass:[MAUserLocation class]])
-    {
-        MAUserLocationRepresentation *pre = [[MAUserLocationRepresentation alloc] init];
-        pre.showsAccuracyRing             = NO;
-        //        pre.fillColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.1 alpha:0.3];
-        //        pre.strokeColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.9 alpha:1.0];
-        //        pre.image = [UIImage imageNamed:@"location.png"];
-        //        pre.lineWidth = 3;
-        //        pre.lineDashPattern = @[@6, @3];
-        [_mapView updateUserLocationRepresentation:pre];
-        
-        view.calloutOffset = CGPointMake(0, 0);
-    }
-}
-
-#pragma mark - MAMapViewDelegate
-- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
-{
-    // 首次定位
-    if (updatingLocation && !isFirstLocated) {
-        [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude)];
-        
-        isFirstLocated = YES;
-    }
-}
-///地图区域改变完成后会调用此接口
-- (void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated
-{
-    if (!_isMapViewRegionChangedFromTableView && isFirstLocated) {
-        AMapGeoPoint *point = [AMapGeoPoint locationWithLatitude:_mapView.centerCoordinate.latitude longitude:_mapView.centerCoordinate.longitude];
-        [self searchReGeocodeWithAMapGeoPoint:point];
-        [self searchPoiByAMapGeoPoint:point];
-        // 范围移动时当前页面数重置
-        searchPage = 1;
-        
-        NSLog(@"%lf,%lf",_mapView.centerCoordinate.latitude,_mapView.centerCoordinate.longitude);
-        NSLog(@"%lf,%lf",_mapView.userLocation.coordinate.latitude,_mapView.userLocation.coordinate.longitude);
-        
-        
-        // 设置定位图标
-        //        if (fabs(_mapView.centerCoordinate.latitude-_mapView.userLocation.coordinate.latitude) < 0.0001f && fabs(_mapView.centerCoordinate.longitude - _mapView.userLocation.coordinate.longitude) < 0.0001f) {
-        //            [_locationBtn setImage:_imageLocated forState:UIControlStateNormal];
-        //        }
-        //        else {
-        //            [_locationBtn setImage:_imageNotLocate forState:UIControlStateNormal];
-        //        }
-    }
-    _isMapViewRegionChangedFromTableView = NO;
-}
-// 搜索逆向地理编码-AMapGeoPoint
-- (void)searchReGeocodeWithAMapGeoPoint:(AMapGeoPoint *)location
-{
-    AMapReGeocodeSearchRequest *regeo = [[AMapReGeocodeSearchRequest alloc] init];
-    regeo.location                    = location;
-    // 返回扩展信息
-    regeo.requireExtension = YES;
-    
-    [_searchAPI AMapReGoecodeSearch:regeo];
-}
-
-// 搜索中心点坐标周围的POI-AMapGeoPoint
-- (void)searchPoiByAMapGeoPoint:(AMapGeoPoint *)location
-{
-    AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
-    request.location                    = location;
-    // 搜索半径
-    request.radius = 200;
-    // 搜索结果排序
-    request.sortrule = 0;
-    //搜索类型
-    request.types = @"汽车服务|汽车销售|汽车维修|摩托车服务|餐饮服务|购物服务|生活服务|体育休闲服务|医疗保健服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|交通设施服务|金融保险服务|公司企业|道路附属设施|地名地址信息|公共设施";
-    
-    // 当前页数
-    request.page = searchPage;
-    [_searchAPI AMapPOIAroundSearch:request];
-}
- 
-#pragma mark - MAMapView Delegate
-// 自定义Marker
-- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
-{
-    if ([annotation isKindOfClass:[MAPointAnnotation class]]) {
-        static NSString *reuseIndetifier = @"anntationReuseIndetifier";
-        MAAnnotationView *annotationView = (MAAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
-        if (!annotationView) {
-            annotationView              = [[MAAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier];
-            annotationView.image        = [UIImage imageNamed:@"location_find"];
-            annotationView.centerOffset = CGPointMake(0, -18);
-            annotationView.highlighted  = YES;
-        }
-        return annotationView;
-    }
-    return nil;
-}
-
-#pragma mark - AMapLocationManager Delegate
-- (void)amapLocationManager:(AMapLocationManager *)manager didFailWithError:(NSError *)error
-{
-    NSLog(@"%s, amapLocationManager = %@, error = %@", __func__, [manager class], error);
-}
-
-- (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode
-{
-    
-    NSLog(@"location:{lat:%f; lon:%f; accuracy:%f; reGeocode:%@}", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy, reGeocode.formattedAddress);
-    
-    //获取到定位信息，更新annotation
-    if (self.pointAnnotaiton == nil)
-    {
-        self.pointAnnotaiton = [[MAPointAnnotation alloc] init];
-        [self.pointAnnotaiton setCoordinate:location.coordinate];
-        
-        [self.mapView addAnnotation:self.pointAnnotaiton];
-    }
-    
-    [self.pointAnnotaiton setCoordinate:location.coordinate];
-    
-    [self.mapView setCenterCoordinate:location.coordinate];
-    [self.mapView setZoomLevel:15.1 animated:NO];
-}
-
-#pragma mark - 自定义定位按钮
+ #pragma mark - 自定义定位按钮
 - (void)initLocationButton
 {
     _imageLocated                   = [UIImage imageNamed:@"gpsselected"];
@@ -320,63 +144,11 @@ UISearchBarDelegate>
     [self.locationManager startUpdatingLocation];
 }
 
--(void)AMapSearchAPIIint
-{
-    _searchAPI.delegate = self;
-    
-}
-
-#pragma mark - 网络环境监听
-- (void)reachabilityChanged:(NSNotification *)note{
-    // 通过通知对象获取被监听的Reachability对象
-    Reachability *curReach = [note object];
-    // 获取Reachability对象的网络状态
-    NetworkStatus status = [curReach currentReachabilityStatus];
-    if (status == ReachableViaWWAN || status == ReachableViaWiFi){
-        NSLog(@"Reachable");
-        if (isFirstLocated) {
-            AMapGeoPoint *point = [AMapGeoPoint locationWithLatitude:_mapView.centerCoordinate.latitude longitude:_mapView.centerCoordinate.longitude];
-            [self searchReGeocodeWithAMapGeoPoint:point];
-            [self searchPoiByAMapGeoPoint:point];
-            searchPage = 1;
-        }
-    }
-    else if (status == NotReachable){
-        NSLog(@"notReachable");
-        [self showAllTextDialog:@"网络错误，请检查网络设置"];
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-    }
-}
-
-// 显示文本对话框
--(void)showAllTextDialog:(NSString *)str
-{
-    _HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:_HUD];
-    _HUD.labelText = str;
-    _HUD.mode       = MBProgressHUDModeText;
-    
-    //指定距离中心点的X轴和Y轴的位置，不指定则在屏幕中间显示
-    _HUD.yOffset = 100.0f;
-    //    _HUD.xOffset = 100.0f;
-    
-    [_HUD showAnimated:YES whileExecutingBlock:^{
-        sleep(1);
-    } completionBlock:^{
-        [_HUD removeFromSuperview];
-        _HUD = nil;
-    }];
-    
-}
-
-
 
 #pragma mark - 搜索框------
 -(void)initSearchBar
 {
     searchPage          = 1;
-    _searchAPI          = [[AMapSearchAPI alloc] init];
-    _searchAPI.delegate = _tableView;
     
     _searchResultTableVC                   = [[SearchResultTableVC alloc] init];
     _searchResultTableVC.delegate          = self;
@@ -447,23 +219,101 @@ UISearchBarDelegate>
     }
     return YES;
 }
-
-#pragma - mark  传值到上级页面
--(void)addressName:(newBlock)block
-{
-    _block = block;
+#pragma - mark - 搜索
+-(void)searchAround {
+    //初始化检索对象
+    _search = [[AMapSearchAPI alloc] init];
+    _search.delegate = self;
     
+    //构造AMapPOIAroundSearchRequest对象，设置周边请求参数
+    AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
+    
+    //当前位置
+    request.location = [AMapGeoPoint locationWithLatitude:[BBUserDefault.latitude floatValue]longitude:[BBUserDefault.longitude floatValue]];
+
+    //关键字
+    request.keywords = _searchController.searchBar.text;
+    NSLog(@"%@",_searchController.searchBar.text);
+    // types属性表示限定搜索POI的类别，默认为：餐饮服务|商务住宅|生活服务
+    // POI的类型共分为20种大类别，分别为：
+//     汽车服务|汽车销售|汽车维修|摩托车服务|餐饮服务|购物服务|生活服务|体育休闲服务|
+//     医疗保健服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|
+//     交通设施服务|金融保险服务|公司企业|道路附属设施|地名地址信息|公共设施
+    request.types = @"汽车服务|汽车销售|汽车维修|摩托车服务|餐饮服务|购物服务|生活服务|体育休闲服务|医疗保健服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|交通设施服务|金融保险服务|公司企业|道路附属设施|地名地址信息|公共设施";
+    request.radius =  500;//<! 查询半径，范围：0-50000，单位：米 [default = 3000]
+    request.sortrule = 0;
+    request.requireExtension = YES;
+    
+    //发起周边搜索
+    [_search AMapPOIAroundSearch:request];
 }
-
-
-- (void)viewWillDisappear:(BOOL)animated
+//实现POI搜索对应的回调函数
+- (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response
 {
-    [super viewWillDisappear:YES];
-    if (self.block != nil) {
-        self.block(addressPoi);
-
+    if(response.pois.count == 0)
+    {
+        return;
     }
+    
+    //通过 AMapPOISearchResponse 对象处理搜索结果
+    
+    [self.dataList removeAllObjects];
+    for (AMapPOI *p in response.pois) {
+        NSLog(@"%@",[NSString stringWithFormat:@"%@\nPOI: %@,%@", p.description,p.name,p.address]);
+        
+        //搜索结果存在数组
+        [self.dataList addObject:p];
+    }
+ 
+    [self.zfb_tableView reloadData];
 }
+- (NSMutableArray<AMapPOI *> *)dataList
+{
+    if (!_dataList) {
+        _dataList = [NSMutableArray<AMapPOI *> array];
+    }
+    return _dataList;
+}
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+ 
+    return [self.dataList count];
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    HPLocationCell *locationCell = [tableView dequeueReusableCellWithIdentifier:@"HPLocationCellId" forIndexPath:indexPath];
+    AMapPOI *poi = _dataList[indexPath.row];
+    
+    locationCell.lb_title.text = poi.name;
+    locationCell.lb_detail.text = poi.address;
+    return locationCell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 50.0;
+}
+//点击cell
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AMapPOI *poi = self.dataList[indexPath.row];
+    NSString * address =[NSString stringWithFormat:@"%@%@%@",poi.city,poi.district,poi.name];
+  
+    if (_searchReturnBlock) {
+        _searchReturnBlock(address, poi.location.latitude, poi.location.longitude, poi.postcode);
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 
 @end

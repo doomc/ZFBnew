@@ -94,21 +94,17 @@
 - (IBAction)didClickCityList:(id)sender {
     
     AddressLocationMapViewController * locaVC = [AddressLocationMapViewController new];
-    locaVC.block                              = ^(NSString * address) {
-        //        NSLog(@"-----%@------",address);
-        [self.locationButton setTitle:address forState:UIControlStateNormal];
-    };
-    locaVC.longitudeBlock = ^(NSString * longitude) {
-        _longitudeSTR         = longitude;
-    };
-    locaVC.latitudeBlock = ^(NSString * latitude) {
-        _latitudeSTR         = latitude;
-    };
-    locaVC.possidBlock = ^(NSString * possid) {
-        _possid            = possid;
-    };
     
-    NSLog(@"%@ ------ %@------%@",_longitudeSTR,_latitudeSTR ,_possid)
+    locaVC.searchReturnBlock = ^(NSString *name, CGFloat longitude, CGFloat latitude, NSString *postCode) {
+      
+        NSLog(@"name=%@, longitude=%f, latitude=%f, postCode=%@", name, longitude, latitude, postCode);
+    
+        
+        [_locationButton setTitle:name forState:UIControlStateNormal];
+        _longitudeSTR =[NSString stringWithFormat:@"%.6f",longitude];
+        _latitudeSTR = [NSString stringWithFormat:@"%.6f",latitude];
+        _possid = postCode;
+    };
     [self.navigationController pushViewController:locaVC animated:NO];
     
 }

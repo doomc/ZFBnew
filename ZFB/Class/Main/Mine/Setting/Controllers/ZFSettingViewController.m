@@ -80,12 +80,40 @@ static NSString * settingCellid = @"ZFSettingCellid";
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 3;
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _titleArr1.count;
+    if (section == 0) {
+       
+        return _titleArr1.count;
+ 
+    }else if (section ==1)
+    {
+        return _titleArr2.count;
+
+    }
+    return _titleArr3.count;
+
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 0;
+    }
+    return 10;
+    
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView  * headview = nil;
+    if (headview == nil) {
+        if (section > 0) {
+            headview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 10)];
+            headview.backgroundColor = RGBA(244, 244, 244, 1);
+        }
+    }
+    return headview;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -94,85 +122,108 @@ static NSString * settingCellid = @"ZFSettingCellid";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    ZFSettingCell * settcell = [self.tableView dequeueReusableCellWithIdentifier:settingCellid forIndexPath:indexPath];
+    ZFSettingCell * settingcell = [self.tableView dequeueReusableCellWithIdentifier:settingCellid forIndexPath:indexPath];
     
-//    settcell.lb_detailTitle.text = _titleArr[indexPath.row];
-//    settcell.lb_title.text = _titleArr[indexPath.row];
-//    settcell.img_iconView.image = [UIImage imageNamed:_imagesArr[indexPath.row]];
-    settcell.selectionStyle = UITableViewCellSelectionStyleNone;
-    settcell.img_detailIcon.hidden = YES;
- 
-    if (indexPath.row <3 ) {
-        
-        settcell.lb_detailTitle.text =@"";
-        settcell.img_detailIcon.hidden = NO;
-        
-    }
-    else if (indexPath.row == 3) {
-        if (BBUserDefault.isLogin == 1) {
-            settcell.lb_detailTitle.text = [NSString stringWithFormat:@"已绑定%@",BBUserDefault.userPhoneNumber];
-        }else{
-             settcell.lb_detailTitle.text = @"";
+    if (indexPath.section == 0) {
+        if (indexPath.row <3 ) {
+            
+            settingcell.lb_detailTitle.text =@"";
+            settingcell.img_detailIcon.hidden = NO;
+            
         }
+        settingcell.lb_title.text = _titleArr1[indexPath.row];
+        settingcell.lb_detailTitle.text =@"";
+        settingcell.img_iconView.image = [UIImage imageNamed:_imagesArr1[indexPath.row]];
+        
+        return settingcell;
+    }else if (indexPath.section ==1)
+    {
+        settingcell.img_detailIcon.hidden = YES;
+        settingcell.lb_title.text = _titleArr2[indexPath.row];
+        settingcell.img_iconView.image = [UIImage imageNamed:_imagesArr2[indexPath.row]];
+        if (indexPath.row == 0)
+        {
+            if (BBUserDefault.isLogin == 1) {
+                settingcell.lb_detailTitle.text = [NSString stringWithFormat:@"已绑定%@",BBUserDefault.userPhoneNumber];
+            }else{
+                settingcell.lb_detailTitle.text = @"";
+            }
+        }else {
+            //读取缓存大小
+            settingcell.lb_detailTitle.text = _cacheSize = [NSString stringWithFormat:@"%.2fM",[settingcell readCacheSize]];
+            NSLog(@"当前显示的 缓存 = %@ = %.f",_cacheSize,[settingcell readCacheSize]);
+        }
+        return settingcell;
 
-    }
-    else if (indexPath.row == 4) {
-         //读取缓存大小
-        settcell.lb_detailTitle.text = _cacheSize = [NSString stringWithFormat:@"%.2fM",[settcell readCacheSize]];
-        NSLog(@"当前显示的 缓存 = %@ = %.f",_cacheSize,[settcell readCacheSize]);
-    }
-    else if (indexPath.row == 5) {
+    }else{
+        settingcell.img_detailIcon.hidden = YES;
+        settingcell.lb_title.text = _titleArr3[indexPath.row];
+        settingcell.img_iconView.image = [UIImage imageNamed:_imagesArr3[indexPath.row]];
+        if (indexPath.row == 0) {
+            //客服热线
+            settingcell.lb_detailTitle.text = @"023-67685157-8005";
+ 
+        }else{
         //客服热线
-        settcell.lb_detailTitle.text = @"023-67685157-8005";
+        settingcell.lb_detailTitle.text =  @"400-666-2001";
+
+        return settingcell;
+        }
+   
     }
-    else if (indexPath.row == 6) {
-        //客服热线
-        settcell.lb_detailTitle.text =  @"400-666-2001";
-    }
-    return settcell;
+
+    return settingcell;
 }
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"sectin = %ld,row = %ld",indexPath.section ,indexPath.row);
-    
-    if (indexPath.row == 0  ) {//我的信息
-        ZFSettingHeadViewController * settingVC = [[ZFSettingHeadViewController alloc]init];
-        settingVC.userImgAttachUrl = _userImgAttachUrl;
-        [self.navigationController pushViewController:settingVC animated:YES];
-        
-    }else if (indexPath.row == 1) {//登录密码
-        ForgetPSViewController *chagePSVC =[[ForgetPSViewController alloc]init];
-        [self.navigationController pushViewController:chagePSVC animated:YES];
-        
-    }else if (indexPath.row == 2) {//支付设置
-        
-        PayPassWordSettingViewController * payVC =[[ PayPassWordSettingViewController alloc]init];
-        [self.navigationController pushViewController:payVC animated:NO];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0  ) {//我的信息
+            ZFSettingHeadViewController * settingVC = [[ZFSettingHeadViewController alloc]init];
+            settingVC.userImgAttachUrl = _userImgAttachUrl;
+            [self.navigationController pushViewController:settingVC animated:YES];
+            
+        }else if (indexPath.row == 1) {//登录密码
+            ForgetPSViewController *chagePSVC =[[ForgetPSViewController alloc]init];
+            [self.navigationController pushViewController:chagePSVC animated:YES];
+            
+        }else if (indexPath.row == 2) {//支付设置
+            
+            PayPassWordSettingViewController * payVC =[[ PayPassWordSettingViewController alloc]init];
+            [self.navigationController pushViewController:payVC animated:NO];
+            
+        }
+
+    }
+    else if (indexPath.section == 1)
+    {
+        if (indexPath.row == 1) {
+            
+            ZFSettingCell * settcell  = (ZFSettingCell*)[tableView cellForRowAtIndexPath:indexPath];
+            JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"%@,确认清除缓存吗",_cacheSize] preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction * left = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [settcell clearingCache];//清除所有缓存;
+                [self.tableView reloadData];
+                
+            }];
+            [jxt addAction:left];
+            [jxt addAction:right];
+            [self presentViewController:jxt animated:YES completion:^{  }];
+            
+        }
+
+    }
+    else{
         
     }
-    else if (indexPath.row == 3) {
-        
-    }else if (indexPath.row == 4) {
     
-        ZFSettingCell * settcell  = (ZFSettingCell*)[tableView cellForRowAtIndexPath:indexPath];
-        JXTAlertController * jxt = [JXTAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"%@,确认清除缓存吗",_cacheSize] preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction * left = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [settcell clearingCache];//清除所有缓存;
-            [self.tableView reloadData];
-            
-        }];
-        [jxt addAction:left];
-        [jxt addAction:right];
-        [self presentViewController:jxt animated:YES completion:^{  }];
-  
-    }
-    
+
 }
 ///清除缓存
 -(void)clearingCache

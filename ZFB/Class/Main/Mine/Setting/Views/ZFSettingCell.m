@@ -17,6 +17,8 @@
     [super awakeFromNib];
     // Initialization code
     
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
       //= [NSString stringWithFormat:@"当前缓存为%.2fM",[self readCacheSize]];
  
 }

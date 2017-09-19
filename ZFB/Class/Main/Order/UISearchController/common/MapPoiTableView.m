@@ -93,8 +93,8 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
         HPLocationCell *lastCell = [tableView cellForRowAtIndexPath:_selectedIndexPath];
         lastCell.accessoryType = UITableViewCellAccessoryNone;
  
-        _poiName =currentCell.lb_title.text;
-        _poiaddress =currentCell.lb_detail.text;
+        _poiName = currentCell.lb_title.text;
+        _poiaddress = currentCell.lb_detail.text;
         NSLog(@"%@=====%@", currentCell.lb_title.text,currentCell.lb_detail.text );
         NSLog(@" section----%ld,row----%ld,",indexPath.section ,indexPath.row);
         
@@ -106,7 +106,7 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
     // 将地图中心移到选中的位置
     _selectedPoi = _searchPoiArray[indexPath.row];
     
-    //获取邮编
+    //地址
     _postcode = _selectedPoi.postcode;
     NSLog(@"  ---------  %@--------", _postcode);
 
@@ -117,7 +117,7 @@ static NSString *reuseIdentifier = @"reuseIdentifier";
     
     if ([self.delegate respondsToSelector:@selector(backviewWithpossCode:)]) {
         
-        [self.delegate backviewWithpossCode:_postcode];//定位邮编地址
+        [self.delegate backviewWithpossCode:_postcode];//地址
     }
 }
 

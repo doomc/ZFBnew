@@ -317,7 +317,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         {
             SureOrderCommonCell * couponCell    = [self.mytableView dequeueReusableCellWithIdentifier:@"SureOrderCommonCellid" forIndexPath:indexPath];
             couponCell.lb_title.text            = @"优惠券";
-            couponCell.lb_detailTitle.text      = @"";
+            couponCell.lb_detailTitle.text      = @"您有2张优惠券可用";
             couponCell.lb_detailTitle.textColor = HEXCOLOR(0xfe6d6a);
             return couponCell;
         }
@@ -379,7 +379,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         {
             
             ZFShopListViewController * shoplistVc =[[ZFShopListViewController alloc]init];
-            shoplistVc.storeListArray = _userGoodsInfoJSON;
+            NSMutableDictionary * storeDic = [NSMutableDictionary dictionary];
+            [storeDic setValue:_userGoodsInfoJSON forKey:@"storeList"];
+            shoplistVc.storeParam = [NSDictionary dictionaryWithDictionary:storeDic];
             [self.navigationController pushViewController:shoplistVc animated:YES];
         }
             

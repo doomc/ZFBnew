@@ -8,43 +8,60 @@
 
 #import <Foundation/Foundation.h>
 
-@class UserGoodsInfoJSON,JsonGoodslist;
 
+@class StoreList,UserJsonGoodslist,UserJsonGoodsprop;
 @interface ShopCarJsonModel : NSObject
 
-@property (nonatomic, strong) NSArray <UserGoodsInfoJSON *> *userGoodsInfoJSON;
-
+@property (nonatomic, strong) NSArray<StoreList *> *storeList;
 
 @end
+@interface StoreList : NSObject
 
-@interface UserGoodsInfoJSON : NSObject
-
-
-@property (nonatomic, copy) NSString *storeId;
+@property (nonatomic, strong) NSArray<UserJsonGoodslist *> *goodsList;
 
 @property (nonatomic, copy) NSString *storeName;
 
-@property (nonatomic, strong) NSMutableArray <JsonGoodslist *> *goodsList;
+@property (nonatomic, copy) NSString *storeId;
 
 @end
 
-@interface JsonGoodslist : NSObject
+@interface UserJsonGoodslist : NSObject
+
+@property (nonatomic, copy) NSString *productId;
+
+@property (nonatomic, copy) NSString *goodsUnit;
 
 @property (nonatomic, copy) NSString *storeId;
 
+@property (nonatomic, strong) NSArray<UserJsonGoodsprop *> *goodsProp;
+
+@property (nonatomic, copy) NSString *goodsCount;
+
 @property (nonatomic, copy) NSString *cartItemId;
 
-@property (nonatomic, assign) CGFloat storePrice;
+@property (nonatomic, copy) NSString *concessionalPrice;
 
-@property (nonatomic, assign) NSInteger  goodsCount;
+@property (nonatomic, copy) NSString *originalPrice;
 
-@property (nonatomic, copy) NSString *goodsId;
-
-@property (nonatomic, copy) NSString *coverImgUrl;///图片地址
-
-@property (nonatomic, copy) NSString *goodsProp;//规格
+@property (nonatomic, copy) NSString *purchasePrice;
 
 @property (nonatomic, copy) NSString *goodsName;
 
+@property (nonatomic, copy) NSString *coverImgUrl;
+
+@property (nonatomic, copy) NSString *goodsId;
 
 @end
+
+@interface UserJsonGoodsprop : NSObject
+
+@property (nonatomic, assign) NSInteger nameId;
+
+@property (nonatomic, assign) NSInteger valueId;
+
+@property (nonatomic, copy) NSString *value;
+
+@property (nonatomic, copy) NSString *name;
+
+@end
+
