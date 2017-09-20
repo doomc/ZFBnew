@@ -1103,6 +1103,11 @@
 		50B381291F3F729B001ED3BA /* compose_delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B381251F3F729B001ED3BA /* compose_delete@3x.png */; };
 		50B3812A1F3F729B001ED3BA /* time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B381261F3F729B001ED3BA /* time@2x.png */; };
 		50B3812B1F3F729B001ED3BA /* time@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B381271F3F729B001ED3BA /* time@3x.png */; };
+		50CA6C311F72C4200077231B /* UIViewController+XLSlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CA6C2E1F72C4200077231B /* UIViewController+XLSlideMenu.m */; };
+		50CA6C321F72C4200077231B /* XLSlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CA6C301F72C4200077231B /* XLSlideMenu.m */; };
+		50CA6C351F72C8620077231B /* RightNavPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CA6C341F72C8620077231B /* RightNavPopViewController.m */; };
+		50CA6C391F72CD630077231B /* SelectTimeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CA6C371F72CD630077231B /* SelectTimeCollectionCell.m */; };
+		50CA6C3A1F72CD630077231B /* SelectTimeCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50CA6C381F72CD630077231B /* SelectTimeCollectionCell.xib */; };
 		50CD44471F33706100B618D0 /* CLLocation+MPLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CD44441F33706100B618D0 /* CLLocation+MPLocation.m */; };
 		50CD44481F33706100B618D0 /* TJMapNavigationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CD44461F33706100B618D0 /* TJMapNavigationService.m */; };
 		50D4D65A1F1BB6F70073DBC1 /* MPUploadImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D4D6591F1BB6F70073DBC1 /* MPUploadImageHelper.m */; };
@@ -2915,6 +2920,15 @@
 		50B381251F3F729B001ED3BA /* compose_delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "compose_delete@3x.png"; path = "../搜索（无数据）/compose_delete@3x.png"; sourceTree = "<group>"; };
 		50B381261F3F729B001ED3BA /* time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@2x.png"; sourceTree = "<group>"; };
 		50B381271F3F729B001ED3BA /* time@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@3x.png"; sourceTree = "<group>"; };
+		50CA6C2D1F72C4200077231B /* UIViewController+XLSlideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+XLSlideMenu.h"; sourceTree = "<group>"; };
+		50CA6C2E1F72C4200077231B /* UIViewController+XLSlideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+XLSlideMenu.m"; sourceTree = "<group>"; };
+		50CA6C2F1F72C4200077231B /* XLSlideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLSlideMenu.h; sourceTree = "<group>"; };
+		50CA6C301F72C4200077231B /* XLSlideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLSlideMenu.m; sourceTree = "<group>"; };
+		50CA6C331F72C8620077231B /* RightNavPopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightNavPopViewController.h; sourceTree = "<group>"; };
+		50CA6C341F72C8620077231B /* RightNavPopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightNavPopViewController.m; sourceTree = "<group>"; };
+		50CA6C361F72CD630077231B /* SelectTimeCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTimeCollectionCell.h; sourceTree = "<group>"; };
+		50CA6C371F72CD630077231B /* SelectTimeCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTimeCollectionCell.m; sourceTree = "<group>"; };
+		50CA6C381F72CD630077231B /* SelectTimeCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectTimeCollectionCell.xib; sourceTree = "<group>"; };
 		50CD44431F33706100B618D0 /* CLLocation+MPLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+MPLocation.h"; sourceTree = "<group>"; };
 		50CD44441F33706100B618D0 /* CLLocation+MPLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+MPLocation.m"; sourceTree = "<group>"; };
 		50CD44451F33706100B618D0 /* TJMapNavigationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJMapNavigationService.h; sourceTree = "<group>"; };
@@ -3023,12 +3037,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		49183EAC1F5954D900879E42 /* WeChatStyle */ = {
+		49183EAC1F5954D900879E42 /* WeChatStyle(无数据占位) */ = {
 			isa = PBXGroup;
 			children = (
 				49183EAD1F5954D900879E42 /* WeChatStylePlaceHolder.h */,
 				49183EAE1F5954D900879E42 /* WeChatStylePlaceHolder.m */,
 			);
+			name = "WeChatStyle(无数据占位)";
 			path = WeChatStyle;
 			sourceTree = "<group>";
 		};
@@ -3233,6 +3248,9 @@
 				493BDE3B1F6A821100CF31D0 /* MineShareIncomeCell.h */,
 				493BDE3C1F6A821100CF31D0 /* MineShareIncomeCell.m */,
 				493BDE3D1F6A821100CF31D0 /* MineShareIncomeCell.xib */,
+				50CA6C361F72CD630077231B /* SelectTimeCollectionCell.h */,
+				50CA6C371F72CD630077231B /* SelectTimeCollectionCell.m */,
+				50CA6C381F72CD630077231B /* SelectTimeCollectionCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3249,6 +3267,8 @@
 				493BDE521F6A889000CF31D0 /* MineShareTodayincomeViewController.m */,
 				493BDE571F6A88C100CF31D0 /* MineShareGoodsViewController.h */,
 				493BDE581F6A88C100CF31D0 /* MineShareGoodsViewController.m */,
+				50CA6C331F72C8620077231B /* RightNavPopViewController.h */,
+				50CA6C341F72C8620077231B /* RightNavPopViewController.m */,
 			);
 			name = DetailVC;
 			path = Detail;
@@ -3758,7 +3778,8 @@
 		495EA33E1F14B64B001FCB7E /* Tool(工具类) */ = {
 			isa = PBXGroup;
 			children = (
-				49183EAC1F5954D900879E42 /* WeChatStyle */,
+				50CA6C2C1F72C4200077231B /* XLSlideMenu(侧滑) */,
+				49183EAC1F5954D900879E42 /* WeChatStyle(无数据占位) */,
 				49183EAF1F5954D900879E42 /* XTNetReloader */,
 				50B3811B1F3F62E4001ED3BA /* PlaceholderTextView */,
 				498A33E71F3C0CED0057E2AE /* TggStarEvaluationView */,
@@ -7104,6 +7125,18 @@
 			path = PlaceholderTextView;
 			sourceTree = "<group>";
 		};
+		50CA6C2C1F72C4200077231B /* XLSlideMenu(侧滑) */ = {
+			isa = PBXGroup;
+			children = (
+				50CA6C2D1F72C4200077231B /* UIViewController+XLSlideMenu.h */,
+				50CA6C2E1F72C4200077231B /* UIViewController+XLSlideMenu.m */,
+				50CA6C2F1F72C4200077231B /* XLSlideMenu.h */,
+				50CA6C301F72C4200077231B /* XLSlideMenu.m */,
+			);
+			name = "XLSlideMenu(侧滑)";
+			path = XLSlideMenu;
+			sourceTree = "<group>";
+		};
 		50CD44411F33704B00B618D0 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -7609,6 +7642,7 @@
 				495EA92B1F14B64E001FCB7E /* love@3x.png in Resources */,
 				495EA9261F14B64E001FCB7E /* fire@2x.png in Resources */,
 				493BDE2D1F6A773F00CF31D0 /* 订单数量@3x.png in Resources */,
+				50CA6C3A1F72CD630077231B /* SelectTimeCollectionCell.xib in Resources */,
 				495EA90C1F14B64E001FCB7E /* unCollected@2x.png in Resources */,
 				149EBBB81F6523E000BA3FA7 /* DealSucessCell.xib in Resources */,
 				495EA9311F14B64E001FCB7E /* washer@3x.png in Resources */,
@@ -8084,6 +8118,7 @@
 				495EA8461F14B64D001FCB7E /* ZFOrderDetailPaycashCell.m in Sources */,
 				4968A41D1F4DB5290061A87E /* NTESSystemNotificationCell.m in Sources */,
 				4968A4051F4DB5290061A87E /* UIScrollView+NTESPullToRefresh.m in Sources */,
+				50CA6C351F72C8620077231B /* RightNavPopViewController.m in Sources */,
 				495EA7A81F14B64D001FCB7E /* FuncListCollectionViewCell.m in Sources */,
 				49AB0AE51F53F483004660B7 /* MineWalletViewController.m in Sources */,
 				49555D8F1F32EA6B00C3C748 /* IQTextView.m in Sources */,
@@ -8114,6 +8149,7 @@
 				497A8AC11F2B4C390003D7CB /* BusinessOrderModel.m in Sources */,
 				4968A2C01F4DB5090061A87E /* NIMSessionTableAdapter.m in Sources */,
 				499216211F302E8000E7B2D3 /* SendMessageView.m in Sources */,
+				50CA6C311F72C4200077231B /* UIViewController+XLSlideMenu.m in Sources */,
 				4968A40D1F4DB5290061A87E /* NTESGroupedContacts.m in Sources */,
 				504A76211F6ADD9D00B61CE3 /* UIView+YYText.m in Sources */,
 				49CE2EE51F2ACB81007B80AB /* BusinessServicerViewController.m in Sources */,
@@ -8306,6 +8342,7 @@
 				495EA9781F14B64E001FCB7E /* YYMemoryCache.m in Sources */,
 				495EA7C41F14B64D001FCB7E /* HistoryFootModel.m in Sources */,
 				4968A29B1F4DB5080061A87E /* NIMInputAudioRecordIndicatorView.m in Sources */,
+				50CA6C391F72CD630077231B /* SelectTimeCollectionCell.m in Sources */,
 				4968A4361F4DB5290061A87E /* NTESGalleryViewController.m in Sources */,
 				4992D7201F26E14800FBF982 /* SkuMatchModel.m in Sources */,
 				4968A29D1F4DB5080061A87E /* NIMInputEmoticonContainerView.m in Sources */,
@@ -8381,6 +8418,7 @@
 				495EA7731F14B64D001FCB7E /* UIViewController+Dealloc.m in Sources */,
 				495EA78A1F14B64D001FCB7E /* ZFGoodsFooterView.m in Sources */,
 				504A761D1F6ADD9D00B61CE3 /* YYTextRunDelegate.m in Sources */,
+				50CA6C321F72C4200077231B /* XLSlideMenu.m in Sources */,
 				495EA79D1F14B64D001FCB7E /* HomeADModel.m in Sources */,
 				4968A27D1F4DB5080061A87E /* UIImage+NIMKit.m in Sources */,
 				4968A27B1F4DB5080061A87E /* NSDictionary+NIMKit.m in Sources */,

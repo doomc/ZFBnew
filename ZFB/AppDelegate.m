@@ -8,7 +8,8 @@
 
 #import "AppDelegate.h"
 #import "ZFbaseTabbarViewController.h"
-
+#import "XLSlideMenu.h"
+#import "RightNavPopViewController.h"
 //云信
 #import "NTESClientUtil.h"
 #import "NTESSessionUtil.h"
@@ -44,9 +45,16 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     ZFbaseTabbarViewController *tabbarVC = [[ZFbaseTabbarViewController alloc] init];
-    self.window.rootViewController = tabbarVC;
-    [self.window makeKeyAndVisible];
+//    self.window.rootViewController = tabbarVC;
+//    [self.window makeKeyAndVisible];
     
+    XLSlideMenu *slideMenu = [[XLSlideMenu alloc] initWithRootViewController:tabbarVC];
+    RightNavPopViewController * menuVC = [RightNavPopViewController new];
+    //设置左右菜单
+    slideMenu.rightViewController = menuVC;
+    self.window.rootViewController = slideMenu;
+    [self.window makeKeyAndVisible];
+
     //统一处理一些为数组、集合等对nil插入会引起闪退
     [SYSafeCategory callSafeCategory];
     
@@ -75,6 +83,11 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     [self setupServices];
     
     return YES;
+}
+#pragma mark - 设置导航栏抽屉
+-(void)navSetting
+{
+
 }
 #pragma mark - logic impl
 - (void)setupServices

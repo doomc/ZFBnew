@@ -9,6 +9,8 @@
 #import "MineShareAllIncomeViewController.h"
 #import "MineShareIncomeCell.h"
 #import "ReviewingModel.h"
+#import "XLSlideMenu.h"
+
 @interface MineShareAllIncomeViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic)  UITableView * tableView;
@@ -106,10 +108,13 @@
     
 }
 
-#pragma mark -筛选时间
+#pragma mark - 筛选时间
 -(void)didClickEditing:(UIButton *) editing
 {
     NSLog(@"%@",editing);
+    
+    [self.xl_sldeMenu showRightViewControllerAnimated:true];
+
 }
 
 #pragma mark  - 我的共享列表    myShare/allShareOrderList
