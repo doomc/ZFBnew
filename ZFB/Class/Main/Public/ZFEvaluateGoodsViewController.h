@@ -15,5 +15,9 @@
  */
 @property (nonatomic , copy) NSString * orderId;
 @property (nonatomic , copy) NSString * goodId;
+@property (nonatomic , copy) NSString * storeId;
+@property (nonatomic , copy) NSString * orderNum;
+@property (nonatomic , copy) NSString * storeName;
+
 
 @end

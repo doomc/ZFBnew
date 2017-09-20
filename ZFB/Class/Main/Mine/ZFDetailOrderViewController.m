@@ -14,6 +14,7 @@
 #import "ZFOrderDetailPaycashCell.h"//付款
 #import "ZFOrderDetailSectionCell.h" //店铺名称
 #import "ZFOrderDetailGoosContentCell.h"//商品简要
+#import "ZFDetailsStoreViewController.h"//门店详情
 
 #import "ZFMainPayforViewController.h"
 #import "DetailOrderModel.h"//模型
@@ -316,6 +317,13 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld = section ,%ld = row ",indexPath.section,indexPath.row);
+    
+    if (indexPath.section == 1) {
+        
+        ZFDetailsStoreViewController * storeVC= [ZFDetailsStoreViewController new];
+        storeVC.storeId = _storeId;
+        [self.navigationController pushViewController:storeVC animated:NO];
+    }
 }
 
 #pragma mark  - 网络请求 getUserInfo
@@ -495,6 +503,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 
     }else{
         
+        //签名数据
         [self paysignData];
         
     }

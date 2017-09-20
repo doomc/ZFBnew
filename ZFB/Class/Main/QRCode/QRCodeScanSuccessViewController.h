@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface QRCodeScanSuccessViewController : UIViewController
+#import "BaseViewController.h"
+@interface QRCodeScanSuccessViewController : BaseViewController
 
 /** 接收扫描的二维码信息 */
 @property (nonatomic, copy) NSString *jump_URL;

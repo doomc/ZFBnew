@@ -97,9 +97,10 @@ typedef NS_ENUM(NSUInteger, CellType) {
         [self.navigationController pushViewController:classifyVC animated:NO];
     
     }else{
-        
+
         HomeSearchResultViewController * searchVC= [HomeSearchResultViewController new];
-        searchVC.goodsType = [NSString stringWithFormat:@"%ld",typeList.typeId];//id传给type
+        searchVC.goodsType = [NSString stringWithFormat:@"%ld",typeList.goodId];///商品类别
+        searchVC.searchType = @"商品";
         [self.navigationController pushViewController:searchVC animated:NO];
     }
 
@@ -114,7 +115,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
     self.findGoods_TableView = [[UITableView alloc]initWithFrame:
                                 CGRectMake(0, 0, KScreenW, KScreenH -48-64-44) style:UITableViewStylePlain];
     self.findGoods_TableView.delegate   = self;
+    
     self.findGoods_TableView.dataSource = self;
+    
     [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil]
                    forCellReuseIdentifier:cell_guessID];
     [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"FuncListTableViewCell" bundle:nil]

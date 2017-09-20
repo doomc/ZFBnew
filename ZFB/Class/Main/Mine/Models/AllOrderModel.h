@@ -46,6 +46,8 @@
 
 @property (nonatomic, copy) NSString *payModeName;
 
+@property (nonatomic, assign) NSInteger payType;//线上线下
+
 @property (nonatomic, copy) NSString *orderNum;
 
 @property (nonatomic, copy) NSString *order_id;

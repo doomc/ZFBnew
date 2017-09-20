@@ -686,7 +686,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         for (NSDictionary * gooddic in storedict[@"goodsList"]) {
             
             [cartArray addObject:gooddic[@"cartItemId"]];
-        }
+        } 
     }
     if (![self isEmptyArray:cartArray])
     {

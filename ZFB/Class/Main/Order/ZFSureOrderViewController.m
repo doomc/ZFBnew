@@ -24,6 +24,7 @@
 #import "ZFMainPayforViewController.h"
 #import "ZFSelectCouponViewController.h"
 #import "ZFBaseNavigationViewController.h"
+#import "ZFAllOrderViewController.h"
 
 //model
 #import "AddressListModel.h"
@@ -87,8 +88,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"确认订单";
+    _payType = @"1";//默认为线上支付
     
-    _payType = @"0";//默认为线上支付
     self.mytableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -49-64) style:UITableViewStylePlain];
     self.mytableView.delegate       = self;
     self.mytableView.dataSource     = self;
@@ -284,7 +285,13 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             
             if (self.cmGoodsListArray.count > 0) {
                 listCell.listArray        = self.cmGoodsListArray;
-                listCell.lb_totalNum.text = [NSString stringWithFormat:@"一共%ld件",self.cmGoodsListArray.count] ;
+                NSMutableArray * goodsCountArray = [NSMutableArray array];
+                
+                for (NSDictionary * goodDic in self.cmGoodsListArray) {
+                   [goodsCountArray addObject:goodDic[@"goodsCount"]];
+                }
+                NSInteger sum = [[[NSArray arrayWithArray:goodsCountArray] valueForKeyPath:@"@sum.integerValue"] integerValue];
+                listCell.lb_totalNum.text = [NSString stringWithFormat:@"一共%ld件",sum] ;
                 [listCell.order_collectionCell reloadData];
                 
             }
@@ -296,12 +303,11 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             SureOrderCommonCell * payCell = [self.mytableView dequeueReusableCellWithIdentifier:@"SureOrderCommonCellid" forIndexPath:indexPath];
             
             payCell.lb_title.text       = @"支付类型";
-            if ([_payType isEqualToString:@"0"]) {
+            if ([_payType isEqualToString:@"1"]) {
                 payCell.lb_detailTitle.text = @"在线支付";
             }
             else{
-                payCell.lb_detailTitle.text = @"线下支付";
-
+                payCell.lb_detailTitle.text = @"门店支付";
             }
             return payCell;
         }
@@ -370,21 +376,16 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                 NSLog(@"编辑地址  PossName =%@  PossAddress         = %@ PossPhone = %@ -- possid",PossName,PossAddress,PossPhone);
                 [self userGoodsInfoJSONanalysis];
                 [self.mytableView reloadData];
-                
             };
             [self.navigationController pushViewController:listVC animated:YES];
         }
             break;
-        case SureOrderCellTypeGoodsListCell://商品类型
+        case SureOrderCellTypeGoodsListCell://商品清单
         {
-            
             ZFShopListViewController * shoplistVc =[[ZFShopListViewController alloc]init];
-            NSMutableDictionary * storeDic = [NSMutableDictionary dictionary];
-            [storeDic setValue:_userGoodsInfoJSON forKey:@"storeList"];
-            shoplistVc.storeParam = [NSDictionary dictionaryWithDictionary:storeDic];
+            shoplistVc.userGoodsArray = self.cmGoodsListArray;
             [self.navigationController pushViewController:shoplistVc animated:YES];
         }
-            
             break;
         case SureOrderCellTypePayTypeCell://支付方式
         {
@@ -458,7 +459,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             _costNum                 = [NSString stringWithFormat:@"+ ¥%.2f",suremodel.costNum]  ;//配送费总金额
             _userCostNum             = [NSString stringWithFormat:@"¥%.2f",suremodel.userCostNum]  ;//支付总金额
             _lb_price.text           = _userCostNum;//支付总金额
-            
         }
         
         [self.mytableView reloadData];
@@ -481,38 +481,34 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/generateOrderNumber",zfb_baseUrl] params:jsondic success:^(id response) {
         if ([response[@"resultCode"] intValue] == 0) {
-            
-            NSArray * orderArr = response[@"orderList"];
-            
-//            NSMutableDictionary * mutOrderDic = [NSMutableDictionary dictionary];
-//            NSMutableArray * mutOrderArray    = [NSMutableArray array];
-//            for (NSDictionary * orderdic in orderArr) {
-//
-//                [mutOrderDic setValue:[orderdic objectForKey:@"order_num"] forKey:@"order_num"];
-//                [mutOrderDic setValue:[orderdic objectForKey:@"body"] forKey:@"body"];
-//                [mutOrderDic setValue:[orderdic objectForKey:@"title"] forKey:@"title"];
-//                [mutOrderDic setValue:[orderdic objectForKey:@"pay_money"] forKey:@"pay_money"];
-//                [mutOrderArray addObject:mutOrderDic];
-//            }
-//            
-            //跳转到webview
-            ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
-            payVC.orderListArray               = orderArr;//[NSArray arrayWithArray:mutOrderArray];
-            payVC.datetime                     = _datetime;
-            payVC.access_token                 = _access_token;
-            
-            //支付的回调地址
-            NSString  * notify_url  = response[@"thirdURI"][@"notify_url"];
-            NSString  * return_url  = response[@"thirdURI"][@"return_url"];
-            NSString  * gateWay_url = response[@"thirdURI"][@"gateWay_url"];
-            NSString  * goback_url  = response[@"thirdURI"][@"goback_url"];
-            
-            payVC.notify_url  = notify_url;
-            payVC.return_url  = return_url;
-            payVC.gateWay_url = gateWay_url;
-            payVC.goback_url  = goback_url;
-            [self.navigationController pushViewController:payVC animated:YES];
-            
+            //paytype 支付类型 0 线下 1 线上
+            if ([_payType isEqualToString:@"0"]) {
+                //选择线下
+                ZFAllOrderViewController * allVC = [ZFAllOrderViewController new];
+                allVC.orderType = OrderTypeAllOrder;
+                allVC.buttonTitle = @"全部订单";
+                [self.navigationController pushViewController:allVC animated:NO];
+          
+            }else{ //跳转到收银台
+                NSArray * orderArr = response[@"orderList"];
+                //跳转到webview
+                ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
+                payVC.orderListArray               = orderArr;//[NSArray arrayWithArray:mutOrderArray];
+                payVC.datetime                     = _datetime;
+                payVC.access_token                 = _access_token;
+                
+                //支付的回调地址
+                NSString  * notify_url  = response[@"thirdURI"][@"notify_url"];
+                NSString  * return_url  = response[@"thirdURI"][@"return_url"];
+                NSString  * gateWay_url = response[@"thirdURI"][@"gateWay_url"];
+                NSString  * goback_url  = response[@"thirdURI"][@"goback_url"];
+                
+                payVC.notify_url  = notify_url;
+                payVC.return_url  = return_url;
+                payVC.gateWay_url = gateWay_url;
+                payVC.goback_url  = goback_url;
+                [self.navigationController pushViewController:payVC animated:YES];
+            }
             [SVProgressHUD dismiss];
         }
     } progress:^(NSProgress *progeress) {
@@ -603,16 +599,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         [self presentViewController:alertavc animated:YES completion:nil];
         
     }else{
-        if (BBUserDefault.isLogin == 1 && [_payType isEqualToString:@"0"]) {
-            [self commitOrder:successDic];
-            
-        }else
-        {
-            
-            [self isIfNotSignIn];
-            BBUserDefault.isLogin = 0;//登录状态为0
-
-        }
+ 
+        //进入请求
+        [self commitOrder:successDic];
  
     }
 }
@@ -654,7 +643,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 {
     if (!_selectPayView) {
         _selectPayView                 = [[SelectPayTypeView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 184) style:UITableViewStylePlain];
-        
         _selectPayView.center = self.popCouponBackgroundView.center;
         _selectPayView.PayTypeDelegate = self;
     }
@@ -684,11 +672,11 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 }
 
 
-#pragma mark - SelectPayTypeViewDelegate
+#pragma mark - SelectPayTypeViewDelegate 选择支付类型
 /**
  选择支付类型
  
- @param index  0 在线支付，1 门店支付
+ @param index  0 线下支付，1 线上支付
  */
 -(void)didClickWithIndex:(NSInteger)index
 {
@@ -696,6 +684,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     NSLog(@"%ld = index",index);
     [self.popCouponBackgroundView removeFromSuperview];
     [self.mytableView reloadData];
+    [self.selectPayView reloadData];
 }
 
 /**

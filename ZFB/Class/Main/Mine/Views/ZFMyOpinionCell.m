@@ -8,9 +8,8 @@
 
 #import "ZFMyOpinionCell.h"
 #import "FeedCollectionViewCell.h"
-@interface ZFMyOpinionCell ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
-
+@interface ZFMyOpinionCell ()< UICollectionViewDelegate,UICollectionViewDataSource >
 
 @end
 
@@ -19,6 +18,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
     //多行必须写
     [self.lb_title setPreferredMaxLayoutWidth:(KScreenW - 30)];
     
@@ -27,6 +28,7 @@
     self.feedCollectionView.delegate = self;
     self.feedCollectionView.dataSource =self;
     self.lb_status.textColor = HEXCOLOR(0xfe6d6a);
+    
     _imagerray = [NSMutableArray array];
  
 }
@@ -99,7 +101,7 @@
 //每个cell的大小，因为有indexPath，所以可以判断哪一组，或者哪一个item，可一个给特定的大小，等同于layout的itemSize属性
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return  CGSizeMake( 50, 50);
+    return  CGSizeMake( (KScreenW - 5* 5)/4, (KScreenW - 5* 5)/4);
     
 }
 // 设置整个组的缩进量是多少

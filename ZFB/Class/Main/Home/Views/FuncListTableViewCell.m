@@ -68,7 +68,7 @@
     NSLog(@"%ld  = item" ,indexPath.item);
     CMgoodstypelist * type = _dataArray[indexPath.item];
      if ([self.funcDelegate respondsToSelector:@selector(seleteItemGoodsTypeId:withIndexrow:)]) {
-         [self.funcDelegate seleteItemGoodsTypeId:[NSString stringWithFormat:@"%ld",type.typeId] withIndexrow:indexPath.item ];
+         [self.funcDelegate seleteItemGoodsTypeId:[NSString stringWithFormat:@"%ld",type.goodId] withIndexrow:indexPath.item ];
     }
     
     

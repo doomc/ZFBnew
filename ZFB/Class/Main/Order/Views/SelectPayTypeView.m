@@ -8,8 +8,15 @@
 
 #import "SelectPayTypeView.h"
 #import "SelectPayTypeCell.h"
+@interface SelectPayTypeView ()
+{
+    NSArray * _titles;
+    NSArray * _images;
+    NSArray * _detailtext;
+    
+}
+@end
 @implementation SelectPayTypeView
-
 
 -(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
 {
@@ -18,6 +25,9 @@
         
         self.delegate = self;
         self.dataSource = self;
+        _titles = @[@"门店支付",@"在线支付"];
+        _images = @[@"线下支付",@"在线支付"];
+        _detailtext = @[@"提交订单后24小时内前往门店付款",@"支付快捷、网银、余额等多种方式"];
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self registerNib:[UINib nibWithNibName:@"SelectPayTypeCell" bundle:nil] forCellReuseIdentifier:@"SelectPayTypeCell"];
     }
@@ -79,7 +89,12 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SelectPayTypeCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SelectPayTypeCell" forIndexPath:indexPath];
+    cell.lb_type.text = _titles[indexPath.row];
+    cell.lb_describe.text = _detailtext[indexPath.row];
+    cell.imgtype.image = [UIImage imageNamed:_images[indexPath.row]];
     return cell;
+    
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -12,6 +12,7 @@
 
 //约束
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *colletionviewLayoutFlow;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *feedcollectViewLayoutheight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collcetionlayoutTop;
 

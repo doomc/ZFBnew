@@ -10,4 +10,10 @@
 
 @interface SelectPayTypeCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *imgtype;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_type;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_describe;
+
 @end

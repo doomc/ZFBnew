@@ -30,16 +30,18 @@
     self.title =@"商家清单";
     
     [self tableViewInterFaceView];
-    
-    ShopCarJsonModel * jsonmodel = [ShopCarJsonModel mj_objectWithKeyValues:_storeParam];
-    
-    for (StoreList * storeList in jsonmodel.storeList) {
-        
-        [self.storeArray addObject:storeList];
-    
-    }
-    NSLog(@"storeArray= %@",self.storeArray);
+ 
+    NSLog(@"storeArray= %@",_userGoodsArray);
+ 
+}
 
+-(void)setUserGoodsArray:(NSMutableArray *)userGoodsArray
+{
+    _userGoodsArray  = userGoodsArray;
+    for (NSDictionary * dic in _userGoodsArray) {
+        [dic objectForKey:@""];
+        
+    }
 }
 
 -(void)tableViewInterFaceView
@@ -67,10 +69,9 @@
 {
     StoreList * storeModel  = self.storeArray[section];
     NSMutableArray *goodsArr = [NSMutableArray array];
-    for (UserJsonGoodslist * goods in storeModel.goodsList) {
-        [goodsArr addObject:goods];
-    }
-    return goodsArr.count;
+    
+    NSLog(@"%@",storeModel.goodsList);
+    return storeModel.goodsList.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

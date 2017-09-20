@@ -48,10 +48,8 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 
 
-
 @interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate,DealSucessCellDelegate>
-
-
+ 
 @property (nonatomic ,strong) UIView *  titleView ;
 @property (nonatomic ,strong) UIButton  *navbar_btn;//导航按钮
 @property (nonatomic ,strong) UIView    * bgview;//蒙板
@@ -660,13 +658,21 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             cell.orderlist         = orderlist;
             cell.section           = section;
             //默认值
+            
             if ([orderlist.orderStatusName isEqualToString:@"配送完成"]) {
                 [cell.payfor_button  setTitle:@"确认收货" forState:UIControlStateNormal];
                 [cell.cancel_button  setHidden:YES];
             }
             else if ([orderlist.orderStatusName isEqualToString:@"待付款"]) {
-                [cell.cancel_button  setTitle:@"取消" forState:UIControlStateNormal];
-                [cell.payfor_button  setTitle:@"去付款" forState:UIControlStateNormal];
+                if (orderlist.payType == 0) {
+                    
+                    [cell.cancel_button  setHidden:YES];
+                    [cell.payfor_button  setTitle:@"取消" forState:UIControlStateNormal];
+
+                }else{
+                    [cell.cancel_button  setTitle:@"取消" forState:UIControlStateNormal];
+                    [cell.payfor_button  setTitle:@"去付款" forState:UIControlStateNormal];
+                }
             }
             else if ([orderlist.orderStatusName isEqualToString:@"待配送"] ||[orderlist.orderStatusName isEqualToString:@"交易取消"] ||[orderlist.orderStatusName isEqualToString:@"配送中"]) {
                 [cell.cancel_button  setHidden:YES];
@@ -680,7 +686,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 [cell.cancel_button  setHidden:YES];
                 [cell.payfor_button  setHidden:YES];
             }
-            
             view = cell;
             
         }
@@ -694,9 +699,14 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             Orderlist  * orderlist = self.orderListArray[section];
             cell.orderlist         = orderlist;
             cell.section           = section;
-            [cell.payfor_button  setTitle:@"去付款" forState:UIControlStateNormal];
-            [cell.cancel_button  setTitle:@"取消" forState:UIControlStateNormal];
             
+            if (orderlist.payType == 0) {
+                [cell.payfor_button  setTitle:@"取消" forState:UIControlStateNormal];
+            }else{
+                [cell.cancel_button  setTitle:@"取消" forState:UIControlStateNormal];
+                [cell.payfor_button  setTitle:@"去付款" forState:UIControlStateNormal];
+            }
+
             view = cell;
             
         }
@@ -949,16 +959,18 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             
             DealSucessCell * successCell = [self.zfb_tableView
                                         dequeueReusableCellWithIdentifier:dealSucessCellid forIndexPath:indexPath];
-            
+            successCell.indexRow = indexPath.row;
+            successCell.indexPath = indexPath;
+
             Orderlist * list           = self.orderListArray[indexPath.section];
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {
                 [goodArray addObject:ordergoods];
             }
             Ordergoods * goods = goodArray[indexPath.row];
-            successCell.indexRow = indexPath.row;
             successCell.orderGoods = goods;
             successCell.delegate = self;
+
             return successCell;
         }
             break;
@@ -1030,7 +1042,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
     
     ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-    
     Orderlist * orderlist    = self.orderListArray [indexPath.section];
     NSMutableArray * goodarr = [NSMutableArray array];
     
@@ -1041,6 +1052,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     Ordergoods * goods = goodarr[indexPath.row];
     
     detailVc.cmOrderid = goods.order_id;
+    detailVc.storeId = orderlist.storeId;
     
     switch (_orderType) {
         case OrderTypeAllOrder:
@@ -1514,22 +1526,35 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 #pragma mark - DealSucessCellDelegate 晒单、共享代理
 /**
  晒单代理
- @param indexForRow 当前下标
+ @param indexPath 当前下标
  @param orderId 订单id
  */
--(void)shareOrderWithIndex:(NSInteger)indexForRow AndOrderId:(NSString *)orderId
+-(void)shareOrderWithIndexPath:(NSIndexPath*)indexPath AndOrderId:(NSString *)orderId
 {
+    NSLog(@"indexPath ==%@,orderId== %@",indexPath,orderId);
+    Orderlist * list           = self.orderListArray[indexPath.section];
+    NSMutableArray * goodArray = [NSMutableArray array];
+    for (Ordergoods * ordergoods in list.orderGoods) {
+        [goodArray addObject:ordergoods];
+    }
+    Ordergoods * goods = goodArray[indexPath.row];
     //去晒单
     ZFEvaluateGoodsViewController * vc = [ZFEvaluateGoodsViewController new];
+    vc.goodId = goods.goodsId;
+    vc.storeId = list.storeId;
+    vc.storeName = list.storeName;
+    vc.orderId = list.order_id;
+    vc.orderNum = list.orderNum;
     [self.navigationController pushViewController:vc animated:NO];
 }
+
 //共享
 -(void)didclickShareToFriend:(NSInteger)indexForRow AndOrderId:(NSString *)orderId
 {
     PublishShareViewController *  publishvc = [PublishShareViewController new];
     [self.navigationController pushViewController:publishvc animated:NO];
 }
-#pragma mark - ZFFooterCellDelegate footer代理
+#pragma mark - ZFFooterCellDelegate footer跳转的代理
 -(void)allOrdersActionOfindexPath:(NSInteger)indexPath
 {
     ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
@@ -1556,9 +1581,26 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 
             }
             else if ([orderlist.orderStatusName isEqualToString:@"待付款"]) {
-                //马上去付款页面
-                detailVc.cmOrderid = orderlist.order_id;
-                [self.navigationController pushViewController:detailVc animated:YES];
+                if ( orderlist.payType == 0) {//如果 支付类型为线下则不跳转
+                    //取消交易  - 取消后跳转到交易取消
+                    JXTAlertController * alertavc =[JXTAlertController alertControllerWithTitle:@"提示" message:@"亲,是否取消该交易！" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                        //取消交易  - 取消后跳转到交易取消
+                        [self cancleOrderPostWithOrderNum:orderlist.orderCode orderStatus:@"-1"];
+                    }];
+                    
+                    [alertavc addAction:cancelAction];
+                    [alertavc addAction:sureAction];
+                    
+                    [self presentViewController:alertavc animated:YES completion:nil];
+                }else{
+                    //马上去付款页面
+                    detailVc.cmOrderid = orderlist.order_id;
+                    [self.navigationController pushViewController:detailVc animated:YES];
+                }
             }
             
             else if ([orderlist.orderStatusName isEqualToString:@"交易完成"]) {

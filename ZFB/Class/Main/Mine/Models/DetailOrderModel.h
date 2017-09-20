@@ -67,6 +67,8 @@
 
 @property (nonatomic, copy) NSString *goodsName;
 
+@property (nonatomic, copy) NSString *purchasePrice;
+
 @end
 
 @interface Orderdetails : NSObject

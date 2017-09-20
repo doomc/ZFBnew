@@ -17,7 +17,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
     self.typeCollectionView.delegate = self;
     self.typeCollectionView.dataSource =self;
 

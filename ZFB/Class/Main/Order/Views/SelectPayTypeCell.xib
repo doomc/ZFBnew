@@ -58,6 +58,11 @@
                     <constraint firstItem="DJl-IA-XGe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="ep9-Uo-LTf"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="imgtype" destination="nQY-ud-eh4" id="9XB-Ur-X13"/>
+                <outlet property="lb_describe" destination="Rdx-sn-x9s" id="xFX-tI-rtU"/>
+                <outlet property="lb_type" destination="DJl-IA-XGe" id="p1A-3D-Oeo"/>
+            </connections>
             <point key="canvasLocation" x="-131" y="71"/>
         </tableViewCell>
     </objects>

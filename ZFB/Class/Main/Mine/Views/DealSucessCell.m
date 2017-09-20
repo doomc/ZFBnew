@@ -40,9 +40,9 @@
 //晒单
 - (IBAction)shareOrderAction:(id)sender {
 
-    if ([self.delegate respondsToSelector:@selector(shareOrderWithIndex:AndOrderId:)]) {
-        [self.delegate shareOrderWithIndex:_indexRow AndOrderId:_orderId];
-        
+    if ([self.delegate respondsToSelector:@selector(shareOrderWithIndexPath:AndOrderId:)]) {
+
+        [self.delegate shareOrderWithIndexPath:_indexPath AndOrderId:_orderId];
     }
 
 }

@@ -27,7 +27,7 @@
 
 @interface CMgoodstypelist : NSObject
 
-@property (nonatomic, assign) NSInteger typeId;
+@property (nonatomic, assign) NSInteger goodId;
 
 @property (nonatomic, copy) NSString *name;
 

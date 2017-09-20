@@ -57,6 +57,7 @@
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/generateAllKindsQRCode",zfb_baseUrl] params:param success:^(id response) {
      
         if ([response[@"resultCode"] intValue] == 0) {
+            
             _QRCode = response[@"result"][@"QRCode"];
             
             [self interfaceOfRQcodeView];

@@ -15,10 +15,10 @@
 /**
  晒单代理
 
- @param indexForRow 当前下标
+ @param indexPath 当前下标
  @param orderId 订单id
  */
--(void)shareOrderWithIndex:(NSInteger)indexForRow AndOrderId:(NSString *)orderId;
+-(void)shareOrderWithIndexPath:(NSIndexPath *)indexPath AndOrderId:(NSString *)orderId;
 
 
 /**
@@ -35,6 +35,7 @@
 
 @property (nonatomic , assign) id <DealSucessCellDelegate> delegate;
 @property (nonatomic , assign) NSInteger indexRow;
+@property (nonatomic , strong) NSIndexPath * indexPath;
 
 @property (weak, nonatomic) IBOutlet UIImageView *dealImageView;
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;

@@ -7,7 +7,8 @@
 //  扫描二维码scan
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface QRCodeSaoyiSaoViewController : UIViewController
+@interface QRCodeSaoyiSaoViewController : BaseViewController
 
 @end

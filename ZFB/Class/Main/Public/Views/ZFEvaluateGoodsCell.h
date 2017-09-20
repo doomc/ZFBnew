@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TggStarEvaluationView.h"
 #import "FSTextView.h"
 
 @protocol ZFEvaluateGoodsCellDelegate <NSObject>
@@ -19,7 +18,7 @@
 
  @param uploadArr 图片数组
  */
--(void)uploadImageArray:(NSMutableArray *)uploadArr;
+-(void)uploadImageArray:(NSArray *)uploadArr;
 
 /**
  获取动态高度
@@ -31,6 +30,8 @@
 //获取textView中的值
 -(void)getTextViewValues:(NSString *)textViewValues;
 
+
+
 @end
 @interface ZFEvaluateGoodsCell : UITableViewCell
 
@@ -38,7 +39,7 @@
 //评分数
 @property (weak, nonatomic) IBOutlet UILabel *lb_score;
 
-@property (weak, nonatomic) IBOutlet TggStarEvaluationView *starView;
+@property (weak, nonatomic) IBOutlet DWQRatingView *starView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *headImg;
 
@@ -48,7 +49,7 @@
 //当前view的高度
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightOfConstraint;
 //存放选取的图片数组
-@property (nonatomic, strong) NSMutableArray * imgUrl_mutArray;
+@property (nonatomic, strong) NSArray * imgUrl_mutArray;
 
 @property (nonatomic, assign) CGFloat cellHight;
 

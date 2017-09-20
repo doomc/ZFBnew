@@ -27,7 +27,7 @@
     _businesGoods = businesGoods;
     self.lb_num.text = [NSString stringWithFormat:@" x %ld",businesGoods.goodsCount];
     self.lb_sendListTitle.text =  businesGoods.goods_name;
-    self.lb_Price.text =[NSString stringWithFormat:@"这个还没有修改价格¥%@", businesGoods.original_price];
+    self.lb_Price.text =[NSString stringWithFormat:@"¥%@", businesGoods.purchase_price];
     self.lb_detailTime.text = @"";
     [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:businesGoods.coverImgUrl] placeholderImage:nil];
     

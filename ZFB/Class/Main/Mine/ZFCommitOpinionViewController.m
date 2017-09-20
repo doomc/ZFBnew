@@ -20,22 +20,27 @@
     UINavigationControllerDelegate,
     UIImagePickerControllerDelegate,
     FeedTypeTableViewCellDelegate,
-    FeedCommitPhoneCellDelegate
+    FeedCommitPhoneCellDelegate,
+    FeedTextViewCellDelegate
 >
 
+{
+    BOOL _isCommited ;//提交
+    CGFloat _cellHeight;//选择照片的高度
+    NSString * _pickerImgString;//图片数组的字符串用逗号隔开
+    NSString * _typeName;
+    NSString * _textViewText;
+
+}
 @property (nonatomic,strong) UITableView  * tableView;
 @property (nonatomic,copy)   NSString  * phoneNum;//输入的手机号
-@property (nonatomic,copy)   NSString  * textViewText;//输入的手机号
-@property (nonatomic,copy)   NSString  * selectedTypeText;//输入的手机号
+@property (nonatomic,copy)   NSString  * selectedTypeText;
 
 //上传图片的图片数组
-@property (nonatomic , strong) NSMutableArray  *uploadImageArray;
+@property (nonatomic , strong) NSArray  *uploadImageArray;
 
 //类型
 @property (nonatomic , strong) NSArray * typeArray;
-@property (nonatomic , copy) NSString * typeName;
-@property (nonatomic , copy) NSString * pickerImgString;//图片数组的字符串用逗号隔开
-@property (nonatomic , assign) CGFloat cellHeight;//选择照片的高度
 
 @end
 
@@ -44,6 +49,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _isCommited = NO;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"FeedTypeTableViewCell" bundle:nil] forCellReuseIdentifier:@"FeedTypeTableViewCellid"];
 
@@ -55,8 +61,6 @@
     
     [self.view addSubview:self.tableView];
     
- 
-  
     [self getFeedbackTypePOSTRequste];
 
 }
@@ -92,7 +96,7 @@
         height = 135;
     }else if (indexPath.section == 2){
        
-        if (self.uploadImageArray.count > 0) {
+        if (_uploadImageArray.count > 0) {
             
             height = _cellHeight + 50;
             
@@ -110,7 +114,6 @@
 {
     if (indexPath.section == 0) {
         FeedTypeTableViewCell * typeCell = [self.tableView dequeueReusableCellWithIdentifier:@"FeedTypeTableViewCellid" forIndexPath:indexPath];
-        typeCell.selectionStyle = UITableViewCellSelectionStyleNone;
         typeCell.delegate = self;
         typeCell.nameArray = _typeArray;
         typeCell.collectionViewLayoutHeight.constant =  40 * (_typeArray.count/4.0);
@@ -121,14 +124,12 @@
     else if (indexPath.section == 1)
     {
         FeedTextViewCell * textViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"FeedTextViewCellid" forIndexPath:indexPath];
-        textViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        _textViewText  = textViewCell.textView.text;
+        textViewCell.delegate = self;
         
         return textViewCell;
     }
     else if (indexPath.section ==2){
         FeedPickerTableViewCell * pickerCell = [self.tableView dequeueReusableCellWithIdentifier:@"FeedPickerTableViewCellid" forIndexPath:indexPath];
-        pickerCell.selectionStyle = UITableViewCellSelectionStyleNone;
         pickerCell.delegate = self;
  
         return pickerCell;
@@ -166,6 +167,12 @@
 -(void)didClickCommit
 {
     NSLog(@"反馈类型 ----%@",_typeName);
+    
+    if (_isCommited == YES) {//如果还没有提交
+        return;
+    }
+    _isCommited = YES;
+
     if ([_typeName isEqualToString:@""]|| _typeName == nil) {
         JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"请选择一个反馈类型" message:nil preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -176,33 +183,35 @@
         
     }else{
         
-        [self getFeedbackINfoInsertPOSTRequste];
-   
+        [OSSImageUploader asyncUploadImages:_uploadImageArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
+            if (state == 1) {
+                NSLog(@"点击提交了 _images = %@",names);
+                NSString * imgUrlString = [names componentsJoinedByString:@","];
+                [self getFeedbackINfoInsertPOSTRequste:imgUrlString];
+            }
+        }];
     }
 }
 
 
-
+#pragma mark  - FeedPickerTableViewCellDelegate 图片上传代理
 //上传图后局部刷新图片行 根据布局相应调整
 -(void)reloadCellHeight:(CGFloat)cellHeight
 {
     _cellHeight = cellHeight;
 }
 ////内部的ucell 中的数组传出
--(void)uploadImageArray:(NSMutableArray *)uploadArr
+-(void)uploadImageArray:(NSArray *)uploadArr
 {
-    self.uploadImageArray =  uploadArr;
+    _uploadImageArray =  uploadArr;
     [self.tableView reloadData];
 
 }
--(NSMutableArray *)uploadImageArray{
-    if (!_uploadImageArray) {
-        _uploadImageArray = [NSMutableArray array];
-    }
-    return _uploadImageArray;
+-(void)textView:(NSString *)textValue
+{
+    _textViewText = textValue;
 }
 
- 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -212,7 +221,7 @@
 -(void)getFeedbackTypePOSTRequste
 {
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getFeedbackType"] params:nil success:^(id response) {
-        
+
         NSString * typestr = response[@"feedbackType"];
         
         _typeArray = [NSArray array];
@@ -245,23 +254,23 @@
 }
 
 #pragma mark  - 保存用户反馈意见（针对平台反馈的意见)getFeedbackINfoInsert
--(void)getFeedbackINfoInsertPOSTRequste
+-(void)getFeedbackINfoInsertPOSTRequste:(NSString *)imgURL
 {
-    if (_phoneNum == nil || _pickerImgString == nil  ) {
+    if (_phoneNum == nil ) {
         _phoneNum = @"";
-        _pickerImgString = @"";
     }
     
     NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"feedbackType":_typeName,//反馈类型
                              @"feedbackContent":_textViewText,//反馈意见
-                             @"feedbackUrl":_pickerImgString,//图片评论
+                             @"feedbackUrl":imgURL,//图片评论
                              @"feedbackUserPhone":_phoneNum,//用户预留电话
  
                              };
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getFeedbackINfoInsert"] params:parma success:^(id response) {
 
+        _isCommited = NO;
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
 
     } progress:^(NSProgress *progeress) {

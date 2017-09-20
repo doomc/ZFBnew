@@ -24,7 +24,7 @@
 @implementation CMgoodstypelist
 +(NSDictionary *)mj_replacedKeyFromPropertyName
 {
-    return @{@"typeId":@"id"};
+    return @{@"goodId":@"id"};
 }
 @end
 

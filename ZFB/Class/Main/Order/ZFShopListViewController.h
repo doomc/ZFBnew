@@ -12,6 +12,10 @@
 
 @property (nonatomic , copy) NSString * storeId;
 
-@property (nonatomic,strong) NSDictionary * storeParam;///商品列表
+ 
 
+@property (nonatomic,strong) NSMutableArray * userGoodsArray;///商品列表
+
+
+ 
 @end

@@ -706,10 +706,13 @@
                 cell.businessOrder             = orderlist;
                 //没获取 当前的 indexPath
                 _currentSection = section;
-                [cell.cancel_button setHidden: YES];
                 if ([orderlist.payModeName isEqualToString:@"线下支付"]) {
                     
+                    [cell.cancel_button setHidden: YES];
                     [cell.payfor_button setTitle:@"确认取货" forState:UIControlStateNormal];
+                }else{
+                    [cell.cancel_button setHidden: YES];
+                    [cell.payfor_button setHidden: YES];
                 }
                 
                 footerView = cell;
@@ -840,8 +843,6 @@
     
     [self.navigationController pushViewController:orderDatil animated:NO];
     
-    
-    
 }
 
 ///月统计
@@ -857,6 +858,7 @@
     
     NSLog(@"--a--3");
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -1334,8 +1336,8 @@
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getStoreOrderList",zfb_baseUrl] params:param success:^(id response) {
-        
         if ([response[@"resultCode"] intValue ] == 0) {
+            
             if (self.refreshType == RefreshTypeHeader) {
                 
                 if (self.orderListArray.count > 0) {
@@ -1347,27 +1349,19 @@
             for (BusinessOrderlist * orderlist in orderModel.orderList) {
                 
                 [self.orderListArray addObject:orderlist];
-                
             }
             NSLog(@"orderListArray = %@",self.orderListArray);
             
             [self.homeTableView reloadData];
-            [self endRefresh];
+ 
             
             if ([self isEmptyArray:self.orderListArray]) {
                 
                 [self.homeTableView cyl_reloadData];
             }
         }
-
-
-
- 
-        
+        [self endRefresh];
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         [self endRefresh];
         

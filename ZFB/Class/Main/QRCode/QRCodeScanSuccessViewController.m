@@ -34,14 +34,14 @@
 }
 
 - (void)setupNavigationItem {
-    UIButton *left_Button = [[UIButton alloc] init];
-    [left_Button setTitle:@"back" forState:UIControlStateNormal];
-    [left_Button setTitleColor:[UIColor colorWithRed: 21/ 255.0f green: 126/ 255.0f blue: 251/ 255.0f alpha:1.0] forState:(UIControlStateNormal)];
-    [left_Button sizeToFit];
-    [left_Button addTarget:self action:@selector(left_BarButtonItemAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *left_BarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:left_Button];
-    self.navigationItem.leftBarButtonItem = left_BarButtonItem;
-    
+//    UIButton *left_Button = [[UIButton alloc] init];
+//    [left_Button setTitle:@"back" forState:UIControlStateNormal];
+//    [left_Button setTitleColor:[UIColor colorWithRed: 21/ 255.0f green: 126/ 255.0f blue: 251/ 255.0f alpha:1.0] forState:(UIControlStateNormal)];
+//    [left_Button sizeToFit];
+//    [left_Button addTarget:self action:@selector(left_BarButtonItemAction) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *left_BarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:left_Button];
+//    self.navigationItem.leftBarButtonItem = left_BarButtonItem;
+//    
     //刷新webview
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(UIBarButtonSystemItemRefresh) target:self action:@selector(right_BarButtonItemAction)];
 }

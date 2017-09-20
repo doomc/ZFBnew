@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="391"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="390.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="391"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xga-MB-Inn">
@@ -56,7 +56,7 @@
                                     <constraint firstAttribute="height" constant="70" id="yfZ-4l-sfg"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KGX-Qo-Jmh" customClass="TggStarEvaluationView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KGX-Qo-Jmh" customClass="DWQRatingView">
                                 <rect key="frame" x="100" y="75.5" width="150" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -160,7 +160,7 @@
                 <outlet property="heightOfConstraint" destination="mEY-B1-Q0B" id="1CS-93-ltA"/>
                 <outlet property="lb_score" destination="2ba-O0-gcj" id="a63-KM-a5y"/>
                 <outlet property="pickerView" destination="cIq-gk-jD4" id="XeF-v3-1lZ"/>
-                <outlet property="starView" destination="KGX-Qo-Jmh" id="Dvg-HO-sYt"/>
+                <outlet property="starView" destination="KGX-Qo-Jmh" id="Uam-kE-d0H"/>
                 <outlet property="textView" destination="Nwu-Fo-Uc0" id="bMz-lY-Vay"/>
             </connections>
             <point key="canvasLocation" x="-15" y="150.5"/>

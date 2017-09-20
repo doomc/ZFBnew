@@ -10,9 +10,15 @@
 #import "FSTextView.h"
 #import "UITextView+ZWLimitCounter.h"
 
+@protocol FeedTextViewCellDelegate <NSObject>
+
+-(void)textView:(NSString *)textValue;
 
 
+@end
 @interface FeedTextViewCell : UITableViewCell
+
+@property (assign,nonatomic) id <FeedTextViewCellDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet FSTextView *textView;
 

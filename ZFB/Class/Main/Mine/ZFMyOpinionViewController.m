@@ -83,7 +83,6 @@
 {
     ZFMyOpinionCell *opinionCell = [self.tableView  dequeueReusableCellWithIdentifier:@"ZFMyOpinionCellid" forIndexPath:indexPath];
    
-    opinionCell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     [self configCell:opinionCell indexPath:indexPath];
 

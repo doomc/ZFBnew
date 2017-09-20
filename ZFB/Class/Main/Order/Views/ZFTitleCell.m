@@ -35,6 +35,11 @@
 //    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[_orderlist.createTime doubleValue] / 1000];
 //    self.lb_nameOrTime.text = [dateTimeHelper TimeToLocationStr:date];
     
+    if (orderlist.payType == 0) {
+        self.lb_payMethod.text = @"线下订单";
+    }else{
+        self.lb_payMethod.text = @"";
+    }
     self.lb_nameOrTime.text = _orderlist.createTime;
     self.lb_storeName.text =_orderlist.storeName;
     [self.statusButton setTitle:_orderlist.orderStatusName forState:UIControlStateNormal];

@@ -15,7 +15,7 @@
 /**
  选择支付类型
 
- @param index  0 在线支付，1 门店支付
+ @param index  1 在线支付，0 门店支付
  */
 -(void)didClickWithIndex:(NSInteger)index;
 
@@ -30,6 +30,9 @@
 @interface SelectPayTypeView : UITableView<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic ,assign) id <SelectPayTypeViewDelegate> PayTypeDelegate;
+
+
+
 
 
 @end

@@ -296,9 +296,8 @@
 -(void)callingBack
 {
     if (_isCalling == YES) {
-        
         return;
-        }
+    }
     _isCalling = YES;
     NSMutableString * str= [[NSMutableString alloc] initWithFormat:@"telprompt://%@",_contactPhone];
     NSDictionary * dic = @{@"":@""} ;
