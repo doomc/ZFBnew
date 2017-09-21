@@ -15,17 +15,20 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mmf-M3-xfr" id="gOA-te-yBu">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="67.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="春夏衬衫男生长袖青少年纯棉复古休闲学生工装打底韩版修身潮流" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgP-Sw-3W9">
-                        <rect key="frame" x="15" y="10" width="290" height="29"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <rect key="frame" x="15" y="5" width="290" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="36" id="Cxz-OM-qUu"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥ 89.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZk-OU-hEb">
-                        <rect key="frame" x="15" y="49" width="54" height="18"/>
+                        <rect key="frame" x="15" y="46" width="54" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="cKE-rK-w0r"/>
                         </constraints>
@@ -34,7 +37,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已售112件" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2h-tR-VYs">
-                        <rect key="frame" x="249.5" y="51" width="55.5" height="14.5"/>
+                        <rect key="frame" x="249.5" y="48" width="55.5" height="14.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="3qa-xP-J8c"/>
                         </constraints>
@@ -46,8 +49,8 @@
                 <constraints>
                     <constraint firstItem="qZk-OU-hEb" firstAttribute="leading" secondItem="wgP-Sw-3W9" secondAttribute="leading" id="WQ5-fN-34h"/>
                     <constraint firstAttribute="trailing" secondItem="wgP-Sw-3W9" secondAttribute="trailing" constant="15" id="Yal-dh-FbT"/>
-                    <constraint firstItem="wgP-Sw-3W9" firstAttribute="top" secondItem="gOA-te-yBu" secondAttribute="top" constant="10" id="aDG-1Q-aQe"/>
-                    <constraint firstItem="qZk-OU-hEb" firstAttribute="top" secondItem="wgP-Sw-3W9" secondAttribute="bottom" constant="10" id="b3K-Ro-Igb"/>
+                    <constraint firstItem="wgP-Sw-3W9" firstAttribute="top" secondItem="gOA-te-yBu" secondAttribute="top" constant="5" id="aDG-1Q-aQe"/>
+                    <constraint firstItem="qZk-OU-hEb" firstAttribute="top" secondItem="wgP-Sw-3W9" secondAttribute="bottom" constant="5" id="b3K-Ro-Igb"/>
                     <constraint firstItem="wgP-Sw-3W9" firstAttribute="leading" secondItem="gOA-te-yBu" secondAttribute="leading" constant="15" id="b9B-6H-5RT"/>
                     <constraint firstItem="v2h-tR-VYs" firstAttribute="trailing" secondItem="wgP-Sw-3W9" secondAttribute="trailing" id="kf6-8j-dm4"/>
                     <constraint firstItem="v2h-tR-VYs" firstAttribute="centerY" secondItem="qZk-OU-hEb" secondAttribute="centerY" id="zGU-8h-Lad"/>

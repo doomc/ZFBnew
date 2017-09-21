@@ -130,7 +130,7 @@
 -(void)CDsyceleSettingRunningPaintWithArray:(NSArray *)imgArray
 {
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
-    SDCycleScrollView *  _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, KScreenW, 150) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    SDCycleScrollView *  _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, KScreenW, 160.0/375*KScreenW) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     _cycleScrollView.imageURLStringsGroup = imgArray;
     _cycleScrollView.pageControlAliment   = SDCycleScrollViewPageContolAlimentCenter;
     _cycleScrollView.delegate             = self;

@@ -12,8 +12,15 @@
 #import "ZFAppraiseSectionCell.h"
 #import "AppraiseModel.h"
 
+#import "MTSegmentedControl.h"
 
-@interface ZFEvaluateViewController ()<UITableViewDelegate,UITableViewDataSource,AppraiseSectionCellDelegate,ZFAppraiseCellDelegate>
+typedef NS_ENUM(NSUInteger, EvaluateType) {
+    EvaluateTypeAllDefault,
+    EvaluateTypeGood,
+    EvaluateTypeBad,
+    EvaluateTypeHavePicture,
+};
+@interface ZFEvaluateViewController ()<UITableViewDelegate,UITableViewDataSource,MTSegmentedControlDelegate>
 {
 
     NSString * _commentNum;
@@ -30,6 +37,8 @@
 }
 @property (nonatomic ,strong) UITableView* evaluate_tableView;
 @property (nonatomic ,strong) NSMutableArray * appraiseListArray;
+@property (strong, nonatomic) MTSegmentedControl *segumentView;
+@property (assign, nonatomic) EvaluateType  evaluateType;
 
 
 @end
@@ -39,23 +48,78 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
- 
     [self initWithEvaluate_tableView];
-    [self setupRefresh];
     [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
+    //设置title
+    [self setupPageView];
+    [self setupRefresh];
+
     
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
     [super headerRefresh];
-    weakSelf(weakSelf);
-    [weakSelf appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
+    switch (_evaluateType) {
+        case EvaluateTypeAllDefault://全部
+            
+            [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
+
+            break;
+        case EvaluateTypeGood://好评
+            [self appriaseToPostRequestWithgoodsComment:@"1" AndimgComment:@"2"];
+
+            
+            break;
+        case EvaluateTypeBad://差评
+            [self appriaseToPostRequestWithgoodsComment:@"0" AndimgComment:@"2"];
+
+            
+            break;
+        case EvaluateTypeHavePicture://有图
+            [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@"1"];
+
+            
+            break;
+        default:
+            break;
+    }
+    
 }
 -(void)footerRefresh {
     [super footerRefresh];
-    weakSelf(weakSelf);
-    [weakSelf appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
-    
+    switch (_evaluateType) {
+        case EvaluateTypeAllDefault://全部
+            
+            [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
+            
+            break;
+        case EvaluateTypeGood://好评
+            [self appriaseToPostRequestWithgoodsComment:@"1" AndimgComment:@"2"];
+            
+            
+            break;
+        case EvaluateTypeBad://差评
+            [self appriaseToPostRequestWithgoodsComment:@"0" AndimgComment:@"2"];
+            
+            
+            break;
+        case EvaluateTypeHavePicture://有图
+            [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@"1"];
+            
+            
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)setupPageView {
+
+    NSArray *titleArr   = @[@"xxx",@"sss",@"aa",@"dd"];
+//    NSArray *titleArr   = @[_commentNum,_goodCommentNum,_lackCommentNum,_imgCommentNum];
+    _segumentView       = [[MTSegmentedControl alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 44)];
+    [self.segumentView segmentedControl:titleArr Delegate:self];
+    [self.view addSubview:_segumentView];
 }
 
 -(NSMutableArray *)appraiseListArray{
@@ -70,28 +134,20 @@
 {
     self.title = @"评论";
     
-    self.evaluate_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -64) style:UITableViewStylePlain];
+    self.evaluate_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64+44, KScreenW, KScreenH -64 - 44) style:UITableViewStylePlain];
     self.evaluate_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:self.evaluate_tableView];
-    self.zfb_tableView = self.evaluate_tableView;
     
     self.evaluate_tableView.delegate = self;
     self.evaluate_tableView.dataSource = self;
     
-    self.evaluate_tableView.estimatedRowHeight = 300.f;
-    self.evaluate_tableView.rowHeight = UITableViewAutomaticDimension;
+    self.zfb_tableView = self.evaluate_tableView;
+    [self.view addSubview:self.evaluate_tableView];
+
     
     [self.evaluate_tableView registerNib:[UINib nibWithNibName:@"ZFAppraiseCell" bundle:nil] forCellReuseIdentifier:@"ZFAppraiseCell"];
-    
     [self.evaluate_tableView registerNib:[UINib nibWithNibName:@"ZFAppraiseSectionCell" bundle:nil]forCellReuseIdentifier:@"ZFAppraiseSectionCell"];
     
     
-}
-
-
-- (void)shouldReloadData{
-    
-    [self.evaluate_tableView reloadData];
 }
 
 
@@ -106,50 +162,57 @@
     return self.appraiseListArray.count;
  
 }
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
-}
--(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    ZFAppraiseSectionCell  * sectionCell = [tableView dequeueReusableCellWithIdentifier:@"ZFAppraiseSectionCell"];
-    
-    [sectionCell.all_btn setTitle:[NSString stringWithFormat:@"全部(%@)",_commentNum]
-                         forState:UIControlStateNormal];
-    [sectionCell.goodAppraise_btn setTitle:[NSString stringWithFormat:@"好评(%@)",_goodCommentNum]
-                                  forState:UIControlStateNormal];
-    [sectionCell.bad_btn setTitle:[NSString stringWithFormat:@"差评(%@)",_lackCommentNum]
-                         forState:UIControlStateNormal];
-    [sectionCell.haveImage_btn setTitle:[NSString stringWithFormat:@"有图(%@)",_imgCommentNum]
-                               forState:UIControlStateNormal];
-    sectionCell.delegate = self;
-    
-    return sectionCell;
-    
+    return [tableView fd_heightForCellWithIdentifier:@"ZFAppraiseCell" configuration:^(id cell) {
+        [self setupCell:cell AtIndexPath:indexPath];
+    }];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZFAppraiseCell *appraiseCell = [self.evaluate_tableView  dequeueReusableCellWithIdentifier:@"ZFAppraiseCell" forIndexPath:indexPath];
-    appraiseCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    appraiseCell.Adelegate = self;
  
-
-    if (self.appraiseListArray.count > 0) {
-        Findlistreviews * info = self.appraiseListArray[indexPath.row];
-        appraiseCell.infoList = info;
-       
-        //初始化五星好评控件
-        appraiseCell.starView.needIntValue = YES;   //是否整数显示，默认整数显示
-        appraiseCell.starView.canTouch = NO;//是否可以点击，默认为NO
-        NSNumber *number = [NSNumber numberWithInteger:info.goodsComment];
-        appraiseCell.starView.scoreNum = number;//星星显示个数
-        appraiseCell.starView.normalColorChain(HEXCOLOR(0xdedede));
-        appraiseCell.starView.highlightColorChian(HEXCOLOR(0xfe6d6a));
-        
-    }
+    [self setupCell:appraiseCell AtIndexPath:indexPath];
+    
     return appraiseCell;
 
+}
+-(void)setupCell:(ZFAppraiseCell *)cell AtIndexPath :(NSIndexPath*)indexPath
+{
+    Findlistreviews * info = self.appraiseListArray[indexPath.row];
+    cell.infoList = info;
+    if (self.appraiseListArray.count > 0) {
+        
+        //初始化五星好评控件
+        cell.starView.needIntValue = YES;   //是否整数显示，默认整数显示
+        cell.starView.canTouch = NO;//是否可以点击，默认为NO
+        NSNumber *number = [NSNumber numberWithInteger:info.goodsComment];
+        cell.starView.scoreNum = number;//星星显示个数
+        cell.starView.normalColorChain(HEXCOLOR(0xdedede));
+        cell.starView.highlightColorChian(HEXCOLOR(0xfe6d6a));
+        
+    }
+
+//    switch (_evaluateType) {
+//        case EvaluateTypeAllDefault://全部
+//            
+//            break;
+//        case EvaluateTypeGood://好评
+//            
+//            break;
+//        case EvaluateTypeBad://差评
+//            
+//            break;
+//        case EvaluateTypeHavePicture://有图
+//            
+//            break;
+//        default:
+//            break;
+//    }
+    
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -158,30 +221,35 @@
     
 }
 #pragma mark - 查看评价列表 AppraiseSectionCellDelegate
--(void)allbuttonSelect:(UIButton *)button
+
+#pragma mark - <MTSegmentedControlDelegate>
+- (void)segumentSelectionChange:(NSInteger)selection
 {
-    NSLog(@"全部评价");
-    [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
+    _evaluateType = selection ;
     
+    switch (_evaluateType) {
+        case EvaluateTypeAllDefault://全部
+            
+            [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
+            
+            break;
+        case EvaluateTypeGood://好评
+            [self appriaseToPostRequestWithgoodsComment:@"1" AndimgComment:@"2"];
+            
+            break;
+        case EvaluateTypeBad://差评
+            [self appriaseToPostRequestWithgoodsComment:@"0" AndimgComment:@"2"];
+            
+            break;
+        case EvaluateTypeHavePicture://有图
+            [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@"1"];
+            
+            break;
+        default:
+            break;
+    }
 }
--(void)goodPrisebuttonSelect:(UIButton *)button
-{
-    NSLog(@"好评");
-    [self appriaseToPostRequestWithgoodsComment:@"1" AndimgComment:@"2"];
 
-}
--(void)badPrisebuttonSelect:(UIButton *)button
-{
-    NSLog(@"差评");
-    [self appriaseToPostRequestWithgoodsComment:@"0" AndimgComment:@"2"];
-
-}
--(void)haveImgbuttonSelect:(UIButton *)button
-{
-    NSLog(@"哟图");
-    [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@"1"];
-
-}
 #pragma mark - 评论的网络请求 getGoodsCommentInfo
 -(void)appriaseToPostRequestWithgoodsComment:(NSString * )goodsComment AndimgComment:(NSString *)imgComment
 {
@@ -214,16 +282,19 @@
                 
             }
             NSLog(@" ===============appraiseListArray ========== %@",  self.appraiseListArray);
-            _commentNum = [NSString stringWithFormat:@"%ld",appraise.data.goodsCommentList.commentNum];   //全部评论数
-            _goodCommentNum = [NSString stringWithFormat:@"%ld",appraise.data.goodsCommentList.goodCommentNum ];  //好评数
-            _lackCommentNum = [NSString stringWithFormat:@"%ld",appraise.data.goodsCommentList.lackCommentNum ];  //差评数
-            _imgCommentNum = [NSString stringWithFormat:@"%ld",appraise.data.goodsCommentList.imgCommentNum ];    //有图数
-            
+            _commentNum = [NSString stringWithFormat:@"全部(%ld)",appraise.data.goodsCommentList.commentNum];   //全部评论数
+            _goodCommentNum = [NSString stringWithFormat:@"好评(%ld)",appraise.data.goodsCommentList.goodCommentNum ];  //好评数
+            _lackCommentNum = [NSString stringWithFormat:@"差评(%ld)",appraise.data.goodsCommentList.lackCommentNum ];  //差评数
+            _imgCommentNum = [NSString stringWithFormat:@"有图(%ld)",appraise.data.goodsCommentList.imgCommentNum ];    //有图数
+         
             [SVProgressHUD dismiss];
-            [self shouldReloadData];
-
+            [self.evaluate_tableView reloadData];
         }
+        
 
+
+//        [self setupPageView];
+        
         [self endRefresh];
         
     } progress:^(NSProgress *progeress) {
@@ -231,7 +302,6 @@
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
         [self endRefresh];
-
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];

@@ -11,15 +11,12 @@
 #import "WaterFlowLayout.h"
 #import "ShareWaterFullModel.h"
 #import "ShareGoodsSubDetailViewController.h"
-#import "UIImage+ImageSize.h"
 #import "NSString+YYAdd.h"
 
 #define itemWidth ((KScreenW-30)/2)
+
 @interface ShareGoodsViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,WaterFlowLayoutDelegate,ShareGoodsCollectionViewCellDelegate>
 
-{
-    CGFloat _lbHeight;
-}
 @property (nonatomic, strong) UICollectionView *collectionView;
 /** 所有的商品数据 */
 @property (nonatomic, strong) NSMutableArray  * shareArray;
@@ -151,7 +148,6 @@
 }
 
 
-
 #pragma mark - 好货共享列表    toShareGoods/shareGoodsList
 -(void)shareGoodsPost
 {
@@ -214,17 +210,15 @@
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
 }
--(void)viewWillAppear:(BOOL)animated{
 
+-(void)viewWillAppear:(BOOL)animated{
     [self shareGoodsPost];
 
 }
 -(void)viewWillDisappear:(BOOL)animated{
-    
     [SVProgressHUD dismiss];
     
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

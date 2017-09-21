@@ -113,7 +113,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
     self.findGoods_TableView = [[UITableView alloc]initWithFrame:
                                 CGRectMake(0, 0, KScreenW, KScreenH -48-64-44) style:UITableViewStylePlain];
     self.findGoods_TableView.delegate   = self;
-    
     self.findGoods_TableView.dataSource = self;
     
     [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil]
@@ -122,6 +121,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
                    forCellReuseIdentifier:cell_listID];
     [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"HotTableViewCell" bundle:nil]
                    forCellReuseIdentifier:cell_hotID];
+    
     [self.view addSubview:_findGoods_TableView];
     self.zfb_tableView = self.findGoods_TableView;
     
@@ -131,7 +131,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 /**初始化轮播 */
 -(void)CDsyceleSettingRunningPaint
 {
-    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 160) delegate:self placeholderImage:nil];
+    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 160.0/375.0 * KScreenW) delegate:self placeholderImage:nil];
     _cycleScrollView.backgroundColor      = [UIColor whiteColor];
     _cycleScrollView.imageURLStringsGroup = self.adArray;
     _cycleScrollView.pageControlAliment   = SDCycleScrollViewPageContolAlimentCenter;
@@ -236,11 +236,11 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 ) {
-        return 180;
+        return 180 / 375.0 *KScreenW ;
     }
     if (indexPath.section == 1 ) {
         
-        return 140;
+        return 140 / 375.0 *KScreenW ;
     }
     return  90;
 }

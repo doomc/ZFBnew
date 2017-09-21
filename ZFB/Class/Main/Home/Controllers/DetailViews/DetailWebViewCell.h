@@ -7,16 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol DetailWebViewCellDelegate <NSObject>
 
--(void)getHeightForWebView:(CGFloat)Height;
-
-@end
 @interface DetailWebViewCell : UITableViewCell
 
-@property (nonatomic , assign) id <DetailWebViewCellDelegate> delegate;
- 
 
-@property (nonatomic ,copy) NSString * HTMLString;
+@property (nonatomic, strong) UILabel * labelhtml;
+
 
 @end

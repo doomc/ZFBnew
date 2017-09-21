@@ -39,7 +39,7 @@
 
 @interface DetailFindGoodsViewController ()
 <
-    UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate,DetailWebViewCellDelegate,ZFGoodsFooterViewDelegate,CLLocationManagerDelegate,CouponTableViewDelegate
+    UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate,ZFGoodsFooterViewDelegate,CLLocationManagerDelegate,CouponTableViewDelegate
 >
 {
     NSString *latitudestr;//经度
@@ -59,7 +59,7 @@
     NSString * _commentNum;
     NSInteger  _isCollect;
     NSInteger  _goodsSales;
-    NSString * _goodsDetail;
+    NSString * _htmlDivString;
     NSString * _netPurchasePrice;//购买价格
     NSString * _priceRange;//范围价格
     NSInteger _goodsCount;//添加的商品个数
@@ -110,6 +110,7 @@
 @property (nonatomic ,strong) NSMutableArray * skuMatch;//规格匹配数组
 //没有规格的立即购买数据
 @property (nonatomic ,strong) NSMutableArray    * noReluArray;
+
 @property (nonatomic ,strong) DetailWebViewCell * webCell;
 //优惠券列表
 @property (nonatomic , strong) NSMutableArray * couponList;
@@ -128,7 +129,9 @@
     
     [self creatInterfaceDetailTableView];//初始化控件tableview
     [self settingHeaderViewAndFooterView];//初始化footerview
-    
+    [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
+    [self goodsDetailListPostRequset];//详情网络请求
+
 }
 
 -(void)creatInterfaceDetailTableView
@@ -184,7 +187,7 @@
 -(void)cycleScrollViewInit
 {
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
-    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, KScreenH/2) delegate:self placeholderImage:nil];
+    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, KScreenH/2.0) delegate:self placeholderImage:nil];
     _cycleScrollView.imageURLStringsGroup = _imagesURLStrings;
     _cycleScrollView.pageControlStyle     = SDCycleScrollViewPageContolStyleNone;
     _cycleScrollView.delegate             = self;
@@ -224,74 +227,6 @@
 }
 
 
-#pragma mark  - 定位当前
-/**定位当前 */
--(void)LocationMapManagerInit
-{
-    //判断定位功能是否打开
-    if ([CLLocationManager locationServicesEnabled]) {
-        
-        _locationManager                = [[CLLocationManager alloc]init];
-        _locationManager.distanceFilter = 200;
-        _locationManager.delegate       = self;
-        [_locationManager requestWhenInUseAuthorization];
-        
-        //设置寻址精度
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        _locationManager.distanceFilter  = 5.0;
-        [_locationManager startUpdatingLocation];
-    }
-    
-}
-#pragma mark CoreLocation delegate (定位失败)
-//定位失败后调用此代理方法
--(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    [self.view makeToast:[NSString stringWithFormat:@"%@",error] duration:2 position:@"center"];
-    
-}
-
-#pragma mark 定位成功后则执行此代理方法
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
-{
-    [_locationManager stopUpdatingLocation];
-    
-    //旧址
-    CLLocation *currentLocation = [locations lastObject];
-    CLGeocoder *geoCoder        = [[CLGeocoder alloc]init];
-    currentLocation = [currentLocation locationMarsFromEarth ];
-    
-    //打印当前的经度与纬度
-    NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
-    latitudestr  = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
-    longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
-    
-    
-    BBUserDefault.latitude  = latitudestr;
-    BBUserDefault.longitude = longitudestr;
-    
-    //反地理编码
-    [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-        if (placemarks.count > 0) {
-            CLPlacemark *placeMark          = placemarks[0];
-            NSString * currentCityAndStreet = placeMark.locality;
-            if (!currentCityAndStreet) {
-                currentCityAndStreet = @"无法定位当前城市";
-            }
-            /*看需求定义一个全局变量来接收赋值*/
-            //            NSLog(@"----%@",placeMark.country);//当前国家
-            NSLog(@"%@",currentCityAndStreet);//当前的城市
-            NSLog(@"%@",placeMark.subLocality);//当前的位置
-            NSLog(@"%@",placeMark.thoroughfare);//当前街道
-            NSLog(@"%@",placeMark.name);//具体地址
-            
-            currentCityAndStreet = [NSString stringWithFormat:@"%@%@",placeMark.subLocality,placeMark.name];
-            
-        }
-    }];
-    
-    
-}
 #pragma mark - ZFGoodsFooterViewDelegate 底部的视图的dedegate
 //客服
 -(void)didClickContactRobotView
@@ -590,7 +525,7 @@
             ZFbabyEvaluateCell  *  babyCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
             babyCell.lb_commonCount.text    = [NSString stringWithFormat:@"(%@)",_commentNum];
             babyCell.selectionStyle         = UITableViewCellSelectionStyleNone;
-            
+            babyCell.lb_title.text          = @"宝贝评价";
             return babyCell;
         }
             break;
@@ -632,8 +567,7 @@
             break;
         case 7://web
         {
-            _webCell.HTMLString = _goodsDetail;//网址
-            _webCell.delegate   = self;
+
             return _webCell;
         }
             break;
@@ -1163,12 +1097,12 @@
     NSLog(@" 经度 %@ ----- 纬度 %@",latitudestr,longitudestr);
     NSDictionary * parma = @{
                              
-                             @"latitude":latitudestr,
-                             @"longitude":longitudestr,
+                             @"latitude":BBUserDefault.latitude,
+                             @"longitude":BBUserDefault.longitude,
                              @"goodsId":_goodsId,//商品id
                              @"userId":BBUserDefault.cmUserId,//商品id
                              };
-    
+    [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsDetailsInfo",zfb_baseUrl] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
@@ -1201,8 +1135,11 @@
             _juli         = goodsmodel.data.storeInfo.storeDist;//门店距离
             
             //图片详情网址
-            _goodsDetail = goodsmodel.data.goodsInfo.goodsDetail;//网址
+            _htmlDivString = goodsmodel.data.goodsInfo.goodsDetail;//网址
             _priceRange  = goodsmodel.data.goodsInfo.priceRange;//范围价格
+            
+            //获取到H5的标签
+            [self mas_MutableStringWithHTMLString:_htmlDivString];
             if (_isCollect == 1) {///是否收藏	1.收藏 2.不是
                 
                 [collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateNormal];
@@ -1259,10 +1196,11 @@
             _imagesURLStrings = [[NSArray alloc]init];
             _imagesURLStrings = [_attachImgUrl componentsSeparatedByString:@","];
             [self cycleScrollViewInit];
-            [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
+
             [self getUserNotUseCouponListPostRequset];//获取优惠券
 
         }
+        [SVProgressHUD dismiss];
         [self.list_tableView reloadData];
         
     } progress:^(NSProgress *progeress) {
@@ -1274,6 +1212,45 @@
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
+}
+
+-(void)mas_MutableStringWithHTMLString:(NSString *)HTMLString
+{
+    NSAttributedString * attrStr1 = [[NSAttributedString alloc] initWithData:[HTMLString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    
+    
+    [attrStr1 enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, attrStr1.length) options:0 usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+        if ([value isKindOfClass:[NSTextAttachment class]]) {
+            NSTextAttachment * attachment = value;
+            CGFloat height = attachment.bounds.size.height;
+            CGFloat width = attachment.bounds.size.width;
+            
+            CGFloat newheiht = height*(KScreenW-30)/width;
+            
+            attachment.bounds = CGRectMake(0, 0, KScreenW-30, newheiht);
+        }
+    }];
+    
+    _webCell.labelhtml.attributedText = attrStr1;
+    CGFloat webheight ;
+    webheight  =  [self calculateMeaasgeHeightWithText:attrStr1 andWidth:KScreenW - 30 andFont:[UIFont systemFontOfSize:16]];
+    
+    _webCell.labelhtml.frame = CGRectMake(15, 15, KScreenW - 30, webheight);
+    _webCell.labelhtml.numberOfLines = 0;
+    _webViewHeight = webheight;
+    
+}
+- (CGFloat)calculateMeaasgeHeightWithText:(NSAttributedString *)string andWidth:(CGFloat)width andFont:(UIFont *)font {
+    static UILabel *stringLabel = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{//生成一个同于计算文本高度的label
+        stringLabel = [[UILabel alloc] init];
+        stringLabel.numberOfLines = 0;
+    });
+    stringLabel.font = font;
+    stringLabel.attributedText = string;
+    return [stringLabel sizeThatFits:CGSizeMake(width, MAXFLOAT)].height;
+
 }
 
 
@@ -1580,21 +1557,9 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     NSLog(@"viewWillDisappear  消失了 这个方法走了吗");
+    [SVProgressHUD dismiss];
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    NSLog(@"viewDidAppear 这个方法走了吗");
-
-    [self goodsDetailListPostRequset];//详情网络请求
-
- 
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    NSLog(@"viewWillAppear 这个方法走了吗");
-    [self LocationMapManagerInit];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

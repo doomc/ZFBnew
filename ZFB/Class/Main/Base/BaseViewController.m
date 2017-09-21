@@ -76,7 +76,7 @@
 -(void)setupRefresh {
   
     self.zfb_tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
-    self.zfb_tableView.mj_footer = [MJRefreshBackStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
+    self.zfb_tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
 }
 -(void)headerRefresh {
 
@@ -98,7 +98,7 @@
             
         }else {
             
-            [self.zfb_tableView.mj_footer endRefreshingWithNoMoreData];
+            [self.zfb_tableView.mj_footer endRefreshing];
         }
     });
 }

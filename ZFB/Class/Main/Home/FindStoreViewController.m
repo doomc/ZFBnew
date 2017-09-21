@@ -187,7 +187,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    return 35;
+    return 40;
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -201,7 +201,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 145;
+    return 200/375.0 *KScreenW;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -361,7 +361,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
             HomeStoreListModel * homeStore = [HomeStoreListModel mj_objectWithKeyValues:response];
             
             totalCount = homeStore.storeInfoList.totalCount;
-            
+            NSLog(@"%ld -----page = %ld",totalCount,self.currentPage);
             for (Findgoodslist  * goodlist in homeStore.storeInfoList.findGoodsList) {
       
                 [self.storeListArr addObject:goodlist];

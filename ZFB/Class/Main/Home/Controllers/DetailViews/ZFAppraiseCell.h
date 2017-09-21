@@ -9,19 +9,10 @@
 #import <UIKit/UIKit.h>
 
 #import "AppraiseModel.h"
-@protocol ZFAppraiseCellDelegate <NSObject>
-
-@optional
-
-- (void)shouldReloadData;
-
-@end
 
 @interface ZFAppraiseCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet DWQRatingView *starView;
-
-@property (nonatomic,assign) id<ZFAppraiseCellDelegate> Adelegate;
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_appraiseView;
 

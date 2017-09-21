@@ -137,7 +137,7 @@
  */
 -(void)cycleScrollViewWithImgArr:(NSArray*)imgArr;
 {
-    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 310*0.5) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 160.0/375*KScreenW) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     _cycleScrollView.pageControlAliment   = SDCycleScrollViewPageContolAlimentCenter;
     _cycleScrollView.imageURLStringsGroup = imgArr;
     

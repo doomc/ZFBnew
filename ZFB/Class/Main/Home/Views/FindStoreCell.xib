@@ -6,69 +6,73 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="9eX-Qb-uZJ" customClass="FindStoreCell">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="174"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4O3-QZ-Rbs">
-                    <rect key="frame" x="0.0" y="2" width="375" height="170"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4O3-QZ-Rbs">
+                    <rect key="frame" x="0.0" y="2" width="375" height="196"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="4O3-QZ-Rbs" secondAttribute="height" multiplier="375:196" id="GRO-5D-N7Z"/>
+                    </constraints>
                 </imageView>
                 <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UTP-Op-V33">
-                    <rect key="frame" x="0.0" y="152" width="375" height="20"/>
+                    <rect key="frame" x="0.0" y="174" width="375" height="24"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="茜茜服装店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yY-5g-5MR">
-                            <rect key="frame" x="15" y="5" width="61.5" height="10"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <rect key="frame" x="10" y="5" width="76.5" height="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.3公里" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7tf-fA-jbn">
-                            <rect key="frame" x="317.5" y="5" width="42.5" height="10"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <rect key="frame" x="316" y="5" width="49" height="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMJ-kx-CgD">
-                            <rect key="frame" x="247.5" y="5" width="20" height="10"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <rect key="frame" x="248" y="5" width="23" height="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loca_small.png" translatesAutoresizingMaskIntoConstraints="NO" id="yZc-ep-Tng">
-                            <rect key="frame" x="297.5" y="3" width="15" height="15"/>
+                            <rect key="frame" x="291" y="2.5" width="20" height="20"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="15" id="diD-jp-t48"/>
-                                <constraint firstAttribute="height" constant="15" id="nza-3a-he1"/>
+                                <constraint firstAttribute="width" constant="20" id="diD-jp-t48"/>
+                                <constraint firstAttribute="height" constant="20" id="nza-3a-he1"/>
                             </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="评分.png" translatesAutoresizingMaskIntoConstraints="NO" id="0pQ-sa-KjU">
-                            <rect key="frame" x="227.5" y="3" width="15" height="15"/>
+                            <rect key="frame" x="223" y="2.5" width="20" height="20"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="15" id="CRN-bd-Fjz"/>
-                                <constraint firstAttribute="width" constant="15" id="dNh-Sx-Ith"/>
+                                <constraint firstAttribute="height" constant="20" id="CRN-bd-Fjz"/>
+                                <constraint firstAttribute="width" constant="20" id="dNh-Sx-Ith"/>
                             </constraints>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="7tf-fA-jbn" secondAttribute="trailing" constant="15" id="1hM-b8-lss"/>
+                        <constraint firstAttribute="trailing" secondItem="7tf-fA-jbn" secondAttribute="trailing" constant="10" id="1hM-b8-lss"/>
                         <constraint firstItem="sMJ-kx-CgD" firstAttribute="leading" secondItem="0pQ-sa-KjU" secondAttribute="trailing" constant="5" id="5ro-hh-aFR"/>
                         <constraint firstItem="sMJ-kx-CgD" firstAttribute="top" secondItem="UTP-Op-V33" secondAttribute="top" constant="5" id="6Fl-3b-qjv"/>
                         <constraint firstItem="yZc-ep-Tng" firstAttribute="centerY" secondItem="7tf-fA-jbn" secondAttribute="centerY" id="Iga-7N-VpM"/>
-                        <constraint firstItem="yZc-ep-Tng" firstAttribute="leading" secondItem="sMJ-kx-CgD" secondAttribute="trailing" constant="30" id="RYH-o7-pSg"/>
-                        <constraint firstAttribute="height" constant="20" id="Rkh-NE-iVz"/>
+                        <constraint firstItem="yZc-ep-Tng" firstAttribute="leading" secondItem="sMJ-kx-CgD" secondAttribute="trailing" constant="20" id="RYH-o7-pSg"/>
+                        <constraint firstAttribute="height" constant="24" id="Rkh-NE-iVz"/>
                         <constraint firstAttribute="bottom" secondItem="8yY-5g-5MR" secondAttribute="bottom" constant="5" id="TWm-sp-10b"/>
                         <constraint firstItem="8yY-5g-5MR" firstAttribute="top" secondItem="UTP-Op-V33" secondAttribute="top" constant="5" id="WrL-MX-FBJ"/>
                         <constraint firstAttribute="bottom" secondItem="sMJ-kx-CgD" secondAttribute="bottom" constant="5" id="eWM-xP-BYU"/>
                         <constraint firstItem="7tf-fA-jbn" firstAttribute="leading" secondItem="yZc-ep-Tng" secondAttribute="trailing" constant="5" id="fce-7X-s2z"/>
                         <constraint firstItem="0pQ-sa-KjU" firstAttribute="centerY" secondItem="sMJ-kx-CgD" secondAttribute="centerY" id="jyX-Ra-Wwf"/>
-                        <constraint firstItem="8yY-5g-5MR" firstAttribute="leading" secondItem="UTP-Op-V33" secondAttribute="leading" constant="15" id="o3n-QO-Fb1"/>
+                        <constraint firstItem="8yY-5g-5MR" firstAttribute="leading" secondItem="UTP-Op-V33" secondAttribute="leading" constant="10" id="o3n-QO-Fb1"/>
                         <constraint firstAttribute="bottom" secondItem="7tf-fA-jbn" secondAttribute="bottom" constant="5" id="rr2-Ek-eMB"/>
                         <constraint firstItem="7tf-fA-jbn" firstAttribute="top" secondItem="UTP-Op-V33" secondAttribute="top" constant="5" id="sFf-VV-9FM"/>
                     </constraints>
@@ -91,7 +95,7 @@
                 <outlet property="store_listTitle" destination="8yY-5g-5MR" id="cKO-gh-Mlp"/>
                 <outlet property="store_listView" destination="4O3-QZ-Rbs" id="ROF-pf-10F"/>
             </connections>
-            <point key="canvasLocation" x="-671.5" y="239"/>
+            <point key="canvasLocation" x="-671.5" y="251"/>
         </view>
     </objects>
     <resources>
