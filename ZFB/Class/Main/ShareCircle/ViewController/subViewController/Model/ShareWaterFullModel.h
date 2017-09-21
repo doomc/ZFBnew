@@ -31,15 +31,19 @@
 
 @property (nonatomic, copy) NSString *userLogo;//图片URL
 
-@property (nonatomic, copy) NSString *shareId;//分享id
+@property (nonatomic, copy) NSString *thumsId;//分享id
 
 @property (nonatomic, copy) NSString *nickname;
 
 @property (nonatomic, copy) NSString *title;
 
+@property (nonatomic, assign) CGFloat  titleHeight;//文字高度
+
 @property (nonatomic, copy) NSString *describe;
 
-@property (nonatomic, copy) NSString *thumbsStatus;//点赞状态	0点赞 1.未点赞
+@property (nonatomic, assign) CGFloat  describeHeight;//文字高度
+
+@property (nonatomic, copy) NSString *thumbsStatus;//点赞状态	0为点赞 1.已点赞
 
  
 

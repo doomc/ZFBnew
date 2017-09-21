@@ -61,23 +61,6 @@
         }
     }];
     
-//    [HXPhotoTools getSelectedListResultModel:allList complete:^(NSArray<HXPhotoResultModel *> *alls, NSArray<HXPhotoResultModel *> *photos, NSArray<HXPhotoResultModel *> *videos) {
-//        //        NSSLog(@"\n全部类型:%@\n照片:%@\n视频:%@",alls,photos,videos);
-//        if (self.imgUrl_mutArray.count > 0) {
-//            [self.imgUrl_mutArray  removeAllObjects];
-//        }
-//        for (HXPhotoResultModel * photo in photos) {
-//            
-//            NSURL *url         = photo.fullSizeImageURL;
-//            NSString * urlpath = url.path;
-//            NSSLog(@"\n%@",urlpath);
-//            [self.imgUrl_mutArray addObject:urlpath];
-//        }
-//        //将数据传出去
-//        [self.delegate uploadImageArray: self.imgUrl_mutArray ];
-//        NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
-//    }];
-    
 }
 
 - (void)photoView:(HXPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {

@@ -73,16 +73,29 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 258;
+    
+    return [tableView fd_heightForCellWithIdentifier:@"ShareNewGoodsCellid" configuration:^(id cell) {
+        
+        [self configCell:cell indexPath:indexPath];
+
+    }];
+ 
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ShareNewGoodsCell * goodCell = [self.zfb_tableView dequeueReusableCellWithIdentifier:@"ShareNewGoodsCellid" forIndexPath:indexPath];
-    Recommentlist * list = self.commendList[indexPath.row];
-    goodCell.recommend = list;
-    _isThumbed = goodCell.isThumbed;
+    [self configCell:goodCell indexPath:indexPath];
+    
     return goodCell;
 }
+//组装cell
+-(void)configCell:(ShareNewGoodsCell *)cell indexPath:(NSIndexPath *)indexPath
+{
+    Recommentlist * list = self.commendList[indexPath.row];
+    cell.recommend = list;
+    _isThumbed = cell.isThumbed;
+}
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -96,6 +109,7 @@
 -(void)recommentPostRequst
 {
     NSDictionary * parma = @{
+                             @"userId":BBUserDefault.cmUserId,
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"pageSize":[NSNumber numberWithInteger:kPageCount],
                              };
@@ -115,7 +129,6 @@
             [SVProgressHUD dismiss];
             [self endRefresh];
             [self.zfb_tableView reloadData];
-
         }
         
     } progress:^(NSProgress *progeress) {

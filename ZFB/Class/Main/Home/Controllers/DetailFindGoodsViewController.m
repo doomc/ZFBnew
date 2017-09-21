@@ -936,7 +936,7 @@
     
     goodsImgaeView               = [[UIImageView alloc]init];
     goodsImgaeView.clipsToBounds = YES;
-    goodsImgaeView.image =[UIImage imageNamed:@"11.png"];
+    [goodsImgaeView sd_setImageWithURL:[NSURL URLWithString:_headerImage] placeholderImage:[UIImage imageNamed:@""]];
     [headView addSubview:goodsImgaeView];
     
     
@@ -1493,8 +1493,8 @@
                 [self.couponList addObject:list];
             }
             [self.couponTableView reloadData];
-            [SVProgressHUD dismiss];
         }
+        [SVProgressHUD dismiss];
         [self.list_tableView reloadData];
         
     } progress:^(NSProgress *progeress) {
@@ -1585,15 +1585,10 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     NSLog(@"viewDidAppear 这个方法走了吗");
-    
-    if (BBUserDefault.isLogin == 1) {
-        
-        [self goodsDetailListPostRequset];//详情网络请求
 
-    }else{
-        
-        [self isIfNotSignIn];
-    }
+    [self goodsDetailListPostRequset];//详情网络请求
+
+ 
 }
 -(void)viewWillAppear:(BOOL)animated
 {

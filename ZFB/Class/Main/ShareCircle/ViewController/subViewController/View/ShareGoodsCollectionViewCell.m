@@ -9,8 +9,11 @@
 
 #import "ShareGoodsCollectionViewCell.h"
 #import "UIImageView+ZFCornerRadius.h"
-#import "UIImage+ImageSize.h"
-static const CGSize NilCacheSize ={-1,-1};
+#import "UIView+YYAdd.h"
+
+@interface ShareGoodsCollectionViewCell ()<UIGestureRecognizerDelegate>
+
+@end
 @implementation ShareGoodsCollectionViewCell
 
 - (void)awakeFromNib {
@@ -19,9 +22,14 @@ static const CGSize NilCacheSize ={-1,-1};
     
     _waterPullImageView.clipsToBounds = YES;
     _waterPullImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-
-    _headImg.layer.masksToBounds = YES;    
+    
+    _headImg.layer.masksToBounds = YES;
     _headImg.layer.cornerRadius = 20;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapContenImgView)];
+    tap.delegate = self;
+    _waterPullImageView.userInteractionEnabled = YES;
+    [_waterPullImageView addGestureRecognizer:tap];
 }
 
 
@@ -36,12 +44,24 @@ static const CGSize NilCacheSize ={-1,-1};
     self.lb_nickname.text = fullList.nickname;
     self.lb_description.text = fullList.describe;
     _isThumbsStatus = fullList.thumbsStatus;
-    
+
     
 }
 
+//点击图片
+-(void)tapContenImgView
+{
+    if ([self.shareDelegate respondsToSelector:@selector(didClickgGoodsImageViewAtIndexItem:)]) {
+        [self.shareDelegate didClickgGoodsImageViewAtIndexItem:_indexItem];
+    }
+}
+//点赞
+- (IBAction)didClickZanAcion:(id)sender {
 
-
+    if ([self.shareDelegate respondsToSelector:@selector(didClickZanAtIndexItem:AndisThumbsStatus:)]) {
+        [self.shareDelegate didClickZanAtIndexItem:_indexItem AndisThumbsStatus:_isThumbsStatus];
+    }
+}
 
 
 @end

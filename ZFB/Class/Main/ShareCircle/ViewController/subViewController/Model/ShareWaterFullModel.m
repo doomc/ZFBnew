@@ -19,7 +19,7 @@
 
 +(NSDictionary *)mj_replacedKeyFromPropertyName
 {
-  return @{@"shareId": @"id"};}
+  return @{@"thumsId": @"id"};}
 
 @end
 

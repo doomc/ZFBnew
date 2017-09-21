@@ -106,12 +106,13 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     //返回地址
     NSString * currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
+    NSLog(@"加载完后当前的链接 ====%@",currentURL);
     NSLog(@"返回链接 === %@",_goback_url);
     if ([_goback_url isEqualToString:currentURL]) {
         
         NSLog(@"全部跳转到订单列表");
  
-        [self poptoUIViewControllerNibName:@"ZFAllOrderViewController" AndObjectIndex:2];
+        [self poptoUIViewControllerNibName:@"ZFAllOrderViewController" AndObjectIndex:1];
 //        ZFAllOrderViewController * allVC  = [[ZFAllOrderViewController alloc]init];
 //
 //        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:allVC];

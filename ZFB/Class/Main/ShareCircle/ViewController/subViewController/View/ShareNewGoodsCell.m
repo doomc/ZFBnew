@@ -17,7 +17,7 @@
     // Initialization code
  
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-
+    _lb_tags.preferredMaxLayoutWidth = KScreenW - 30;
 }
 
 -(void)setRecommend:(Recommentlist *)recommend
@@ -28,11 +28,14 @@
     _lb_buyNum.text = [NSString stringWithFormat:@"%ld",recommend.saleCount];
 
     _lb_goodsName.text = recommend.title;
-    _lb_description.text = recommend.describe;
+    _lb_tags.text = recommend.describe;
     
     //0未点赞 1已点赞
     _isThumbed = [NSString stringWithFormat:@"%ld",recommend.isThumbed];
     [_contentImgView sd_setImageWithURL:[NSURL URLWithString:recommend.goodsImgUrl] placeholderImage:[UIImage imageNamed:@""]];
+    
+}
+- (IBAction)didClickZan:(id)sender {
     
 }
 

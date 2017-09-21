@@ -137,8 +137,14 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             break;
         case OrderTypeAfterSale://售后
            
-            //            [self allOrderPostRequsetWithOrderStatus:@"2"  orderNum:@""];
-            [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:BBUserDefault.keyWord ];
+            if (_tagNum == 0) {
+            
+                [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:@"" ];
+                
+            }else{
+                [self salesAfterPostRequste];
+
+            }
 
             break;
     }
@@ -185,9 +191,12 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         
         case OrderTypeAfterSale://售后
             
-//            [self allOrderPostRequsetWithOrderStatus:@"2"  orderNum:@""];
-            [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:BBUserDefault.keyWord];
-
+            if (_tagNum == 0) {
+                [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:@"" ];
+                
+            }else{
+                [self salesAfterPostRequste];
+            }
             break;
     }
     
@@ -1239,11 +1248,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     Ordergoods * goods = goodArray[indexPath.row];
     ZFApplyBackgoodsViewController * saleAfterVC  = [ZFApplyBackgoodsViewController new];
     
-    saleAfterVC.postPhone = orderlist.post_phone;
-    saleAfterVC.postName = orderlist.post_name;
+
     
     saleAfterVC.goodsName = goods.goods_name;
-    saleAfterVC.price = [NSString stringWithFormat:@"%@",goods.original_price];
+    saleAfterVC.price = [NSString stringWithFormat:@"%@",goods.purchase_price];
     saleAfterVC.goodCount = [NSString stringWithFormat:@"%ld",goods.goodsCount];
     saleAfterVC.img_urlStr = goods.coverImgUrl;
     
@@ -1258,9 +1266,8 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     saleAfterVC.storeId = orderlist.storeId;
     saleAfterVC.orderTime = orderlist.createTime;
     saleAfterVC.storeName = orderlist.storeName;
-    saleAfterVC.userName = orderlist.post_name;
-    saleAfterVC.userPhone = orderlist.post_phone;
-    
+    saleAfterVC.postPhone = orderlist.post_phone;
+    saleAfterVC.postName = orderlist.post_name;
     //规格转成json
     NSString * jsonGoodsPro =[ NSString arrayToJSONString:goods.goods_properties];
     if (jsonGoodsPro == nil) {
@@ -1428,7 +1435,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     }];
     
 }
-#pragma mark - 售后申请 ------ 查询订单列表 getOrderListBystatus
+#pragma mark - 售后申请 ------  列表 getOrderListBystatus
 -(void)saleAfterCheckOrderlistPostwithOrderStatus :(NSString *)orderStatus
                                     SearchWord :(NSString *)searchWord
 {
@@ -1478,7 +1485,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     }];
 }
 
-#pragma mark - 申请售后 进度查询列表     zfb/InterfaceServlet/afterSale/afterSaleList
+#pragma mark - 查询进度 列表     zfb/InterfaceServlet/afterSale/afterSaleList
 -(void)salesAfterPostRequste
 {
     NSDictionary * param = @{
@@ -1880,8 +1887,13 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             
             break;
         case OrderTypeAfterSale://售后
-            
-            [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:BBUserDefault.keyWord ];
+            if (_tagNum == 0) {
+                [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:BBUserDefault.keyWord ];
+
+            }else{
+                [self salesAfterPostRequste];
+
+            }
             
             break;
     }

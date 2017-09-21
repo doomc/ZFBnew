@@ -122,7 +122,7 @@
 // 是否大于IOS9
 #define isIOS9                  ([[[UIDevice currentDevice]systemVersion]floatValue] >=9.0)
 // 是否iPad
-#define isPad                   (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+//#define isPad                   (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
 // 是否空对象
 #define IS_NULL_CLASS(OBJECT) [OBJECT isKindOfClass:[NSNull class]]

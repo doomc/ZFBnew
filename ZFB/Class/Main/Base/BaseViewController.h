@@ -49,7 +49,6 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 -(void)endRefresh;
 
 
-
 -(void)backAction;
 
 -(UIButton*)set_rightButton;
@@ -71,6 +70,7 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 /** 取消searchBar背景色 */
 - (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 
+
 /** pop到指定页面 */
 -(void)poptoUIViewControllerNibName:(NSString *)controllerName AndObjectIndex:(NSInteger)objectIndex;
 
@@ -82,8 +82,6 @@ typedef NS_ENUM(NSInteger, RefreshType) {
  @return 1是空 0不是
  */
 - (BOOL)isEmptyArray:(NSMutableArray *)array;
-
-
 
 //判断密码 不能太简单了
 - (BOOL)checkPassWordIsNotEasy:(NSMutableString *)oldPassword;

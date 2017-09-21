@@ -260,10 +260,6 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         {
             //收货地址
             ZFAddressListViewController  * addVC = [[ZFAddressListViewController alloc]init];
-//            addVC.orderBackBlock = ^(NSString *PossName, NSString *PossAddress, NSString *PossPhone) {
-// 
-//                NSLog(@"%@",PossAddress); 
-//            };
 
             [self.navigationController pushViewController:addVC animated:YES];
             

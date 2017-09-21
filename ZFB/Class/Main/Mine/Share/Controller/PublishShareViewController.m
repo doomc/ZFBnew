@@ -14,27 +14,20 @@
 
 @interface PublishShareViewController ()<HXPhotoViewDelegate,UITextFieldDelegate,UITextViewDelegate>
 {
-    NSString * _imgUrlStr;
     NSString * _title;
     NSString * _describe;
 }
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintHeight;
 @property (strong, nonatomic) HXPhotoManager *manager;
-@property (strong, nonatomic) NSMutableArray *imgUrl_mutArray;
+@property (strong, nonatomic) NSArray *imgUrlArray;
 @property (weak, nonatomic) IBOutlet UIView *photoView;
 
 
 @end
 
 @implementation PublishShareViewController
--(NSMutableArray *)imgUrl_mutArray
-{
-    if (!_imgUrl_mutArray) {
-        _imgUrl_mutArray = [NSMutableArray array];
-    }
-    return _imgUrl_mutArray;
-}
+
 
 - (HXPhotoManager *)manager {
     if (!_manager) {
@@ -140,24 +133,13 @@
 #pragma mark - HXPhotoViewDelegate 相册选择器
 - (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {
 
-    //    !!!!  必须是全部类型的那个数组 就是 allList 这个数组  !!!!
-    [HXPhotoTools getSelectedListResultModel:allList complete:^(NSArray<HXPhotoResultModel *> *alls, NSArray<HXPhotoResultModel *> *photos, NSArray<HXPhotoResultModel *> *videos) {
-
-        if (self.imgUrl_mutArray.count > 0) {
-            [self.imgUrl_mutArray  removeAllObjects];
-        }
-        for (HXPhotoResultModel * photo in photos) {
-            
-            NSURL *url         = photo.fullSizeImageURL;
-            NSString * urlpath = url.path;
-            NSSLog(@"\n%@",urlpath);
-            [self.imgUrl_mutArray addObject:urlpath];
-        }
-        //将数据传出去
+    [HXPhotoTools getImageForSelectedPhoto:photos type:HXPhotoToolsFetchHDImageType completion:^(NSArray<UIImage *> *images) {
+        NSSLog(@"%@",images);
+   
+        _imgUrlArray = images;
     }];
-    
-    _imgUrlStr = [self.imgUrl_mutArray componentsJoinedByString:@","];
-    NSLog(@"_imgUrlStr === %@",_imgUrlStr);
+ 
+    NSLog(@"_imgUrlArray === %@",_imgUrlArray);
 
 }
 
@@ -180,20 +162,32 @@
         [self.view makeToast:@"请填写完标题和评语后再提交" duration:2 position:@"center"];
     
     }else{
-        //网络请求
-        [self publicMessagePostRequset];
+        if (_imgUrlArray.count>0) {
+            [OSSImageUploader asyncUploadImages:_imgUrlArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
+                if (state == 1) {
+                    NSString * nameURL  = [names componentsJoinedByString:@","];
+                    //网络请求
+                    [self publicMessagePostRequset:nameURL];
+                }
+            }];
+
+        }else{
+            [self publicMessagePostRequset:@""];
+
+        }
+       
     }
 }
 
 
 #pragma  mark  - 发布共享内容请求
--(void)publicMessagePostRequset{
+-(void)publicMessagePostRequset:(NSString*)nameURL{
     
     NSDictionary * parma = @{
                              @"title":_title,
                              @"describe":_describe,
                              @"userId":BBUserDefault.cmUserId,
-                             @"imgUrls":_imgUrlStr,
+                             @"imgUrls":nameURL,
                              @"goodsId":_goodId,
                              @"userAccount":BBUserDefault.userPhoneNumber,
                              @"userLogo":BBUserDefault.uploadImgName,

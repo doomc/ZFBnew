@@ -16,8 +16,6 @@
 
 @property (nonatomic, assign) NSInteger resultCode;
 
-@property (nonatomic, assign) NSInteger totalCount;
-
 @property (nonatomic, strong) Storeinfolist *storeInfoList;
 
 

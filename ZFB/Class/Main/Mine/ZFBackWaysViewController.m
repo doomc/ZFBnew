@@ -83,7 +83,7 @@
                              @"orderId":_orderId,
                              @"orderNum":_orderNum,
                              @"goodsId":_goodsId,
-                             @"goodsName":_orderId,
+                             @"goodsName":_goodsName,
                              @"serviceType":_serviceType,
                              @"coverImgUrl":_coverImgUrl,
                              @"price":_price,

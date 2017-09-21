@@ -13,7 +13,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
+    self.selectionStyle =  UITableViewCellSelectionStyleNone;
+
     self.headImg.clipsToBounds = YES;
     self.headImg.layer.cornerRadius = self.headImg.width/2;
     self.headImg.contentMode = UIViewContentModeScaleAspectFill;
@@ -32,6 +33,7 @@
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:info.userImgAttachUrl] placeholderImage:[UIImage imageNamed:@"avatar_user"]];
     
 }
+
 //添加好友
 - (IBAction)addFriendsAction:(id)sender {
     

@@ -130,6 +130,8 @@
         return;
     }
     _isCommited = YES;
+
+    [SVProgressHUD show];
     [OSSImageUploader asyncUploadImages:_upImgArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
         if (state == 1) {
             NSLog(@"点击提交了 _images = %@",names);
@@ -173,7 +175,6 @@
                              @"storeId":_storeId,
                              @"orderNum":_orderNum,
                              };
-    [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/insertGoodsComment"] params:parma success:^(id response) {
         
         if ([response [@"resultCode"] isEqualToString:@"0"]) {
@@ -181,7 +182,7 @@
             [SVProgressHUD dismiss];
             _isCommited = NO;//提交成功后返回默认
 
-            JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"评价成功~,马上返回" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"评价成功,马上返回？" message:nil preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction * sure = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 [self backAction];

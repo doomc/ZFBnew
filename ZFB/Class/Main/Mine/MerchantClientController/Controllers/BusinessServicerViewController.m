@@ -353,7 +353,7 @@
     
     self.isSelectPage      = NO;
     self.navbar_btn.hidden = NO;
-    [self.navbar_btn setTitle:@"待配送" forState:UIControlStateNormal];
+    [self.navbar_btn setTitle:@"待派单" forState:UIControlStateNormal];
     
     self.img_sendHome.image         = [UIImage imageNamed:@"home_normal"];
     self.lb_sendHomeTitle.textColor = [UIColor whiteColor];

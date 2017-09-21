@@ -47,12 +47,9 @@
     
     FuncListCollectionViewCell * cell = [self.funcCollectionView dequeueReusableCellWithReuseIdentifier:@"FuncListCollectionViewCellid" forIndexPath:indexPath];
 
-    CMgoodstypelist * type=  self.dataArray[indexPath.item];
-
+    CMgoodstypelist * type=  self.dataArray[indexPath.item ];
     cell.lb_listName.text = type.name;
- 
     NSURL * img_url = [NSURL URLWithString:type.iconUrl];
-    
     [cell.img_listView sd_setImageWithURL:img_url placeholderImage:nil];
     
     if (indexPath.item == 7) {

@@ -10,6 +10,11 @@
 		149EBBB71F6523E000BA3FA7 /* DealSucessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 149EBBB51F6523E000BA3FA7 /* DealSucessCell.m */; };
 		149EBBB81F6523E000BA3FA7 /* DealSucessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 149EBBB61F6523E000BA3FA7 /* DealSucessCell.xib */; };
 		287E1D51FE976BE2DCE0A71B /* libPods-ZFB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2E471759A11D3682520CF1E /* libPods-ZFB.a */; };
+		4906D1271F739ADA00B327ED /* NSData+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 4906D11F1F739ADA00B327ED /* NSData+YYAdd.m */; };
+		4906D1281F739ADA00B327ED /* NSNumber+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 4906D1211F739ADA00B327ED /* NSNumber+YYAdd.m */; };
+		4906D1291F739ADA00B327ED /* NSString+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 4906D1231F739ADA00B327ED /* NSString+YYAdd.m */; };
+		4906D12A1F739ADA00B327ED /* UIDevice+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 4906D1251F739ADA00B327ED /* UIDevice+YYAdd.m */; };
+		4906D12D1F739D9800B327ED /* UIView+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 4906D12C1F739D9800B327ED /* UIView+YYAdd.m */; };
 		49182B6C1F6F5BB5003D6C47 /* UIImage+ImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 49182B6B1F6F5BB5003D6C47 /* UIImage+ImageSize.m */; };
 		49183EA31F5941CD00879E42 /* nodataPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 49183EA11F5941CD00879E42 /* nodataPlaceholder.png */; };
 		49183EB21F5954D900879E42 /* WeChatStylePlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 49183EAE1F5954D900879E42 /* WeChatStylePlaceHolder.m */; };
@@ -1167,6 +1172,17 @@
 		149EBBB51F6523E000BA3FA7 /* DealSucessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealSucessCell.m; sourceTree = "<group>"; };
 		149EBBB61F6523E000BA3FA7 /* DealSucessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DealSucessCell.xib; sourceTree = "<group>"; };
 		3A79B43F929C7E0B2428F0CB /* Pods-ZFB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFB/Pods-ZFB.debug.xcconfig"; sourceTree = "<group>"; };
+		4906D11E1F739ADA00B327ED /* NSData+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+YYAdd.h"; sourceTree = "<group>"; };
+		4906D11F1F739ADA00B327ED /* NSData+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+YYAdd.m"; sourceTree = "<group>"; };
+		4906D1201F739ADA00B327ED /* NSNumber+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+YYAdd.h"; sourceTree = "<group>"; };
+		4906D1211F739ADA00B327ED /* NSNumber+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+YYAdd.m"; sourceTree = "<group>"; };
+		4906D1221F739ADA00B327ED /* NSString+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+YYAdd.h"; sourceTree = "<group>"; };
+		4906D1231F739ADA00B327ED /* NSString+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+YYAdd.m"; sourceTree = "<group>"; };
+		4906D1241F739ADA00B327ED /* UIDevice+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+YYAdd.h"; sourceTree = "<group>"; };
+		4906D1251F739ADA00B327ED /* UIDevice+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+YYAdd.m"; sourceTree = "<group>"; };
+		4906D1261F739ADA00B327ED /* YYKitMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYKitMacro.h; sourceTree = "<group>"; };
+		4906D12B1F739D9800B327ED /* UIView+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+YYAdd.h"; sourceTree = "<group>"; };
+		4906D12C1F739D9800B327ED /* UIView+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+YYAdd.m"; sourceTree = "<group>"; };
 		49182B6A1F6F5BB5003D6C47 /* UIImage+ImageSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageSize.h"; sourceTree = "<group>"; };
 		49182B6B1F6F5BB5003D6C47 /* UIImage+ImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageSize.m"; sourceTree = "<group>"; };
 		49183EA11F5941CD00879E42 /* nodataPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nodataPlaceholder.png; sourceTree = "<group>"; };
@@ -3037,6 +3053,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4906D11D1F739ADA00B327ED /* YYkit */ = {
+			isa = PBXGroup;
+			children = (
+				4906D12B1F739D9800B327ED /* UIView+YYAdd.h */,
+				4906D12C1F739D9800B327ED /* UIView+YYAdd.m */,
+				4906D11E1F739ADA00B327ED /* NSData+YYAdd.h */,
+				4906D11F1F739ADA00B327ED /* NSData+YYAdd.m */,
+				4906D1201F739ADA00B327ED /* NSNumber+YYAdd.h */,
+				4906D1211F739ADA00B327ED /* NSNumber+YYAdd.m */,
+				4906D1221F739ADA00B327ED /* NSString+YYAdd.h */,
+				4906D1231F739ADA00B327ED /* NSString+YYAdd.m */,
+				4906D1241F739ADA00B327ED /* UIDevice+YYAdd.h */,
+				4906D1251F739ADA00B327ED /* UIDevice+YYAdd.m */,
+				4906D1261F739ADA00B327ED /* YYKitMacro.h */,
+			);
+			path = YYkit;
+			sourceTree = "<group>";
+		};
 		49183EAC1F5954D900879E42 /* WeChatStyle(无数据占位) */ = {
 			isa = PBXGroup;
 			children = (
@@ -3778,6 +3812,7 @@
 		495EA33E1F14B64B001FCB7E /* Tool(工具类) */ = {
 			isa = PBXGroup;
 			children = (
+				4906D11D1F739ADA00B327ED /* YYkit */,
 				50CA6C2C1F72C4200077231B /* XLSlideMenu(侧滑) */,
 				49183EAC1F5954D900879E42 /* WeChatStyle(无数据占位) */,
 				49183EAF1F5954D900879E42 /* XTNetReloader */,
@@ -8138,6 +8173,7 @@
 				4968A2B51F4DB5080061A87E /* NIMCellLayoutConfig.m in Sources */,
 				4968A2B01F4DB5080061A87E /* NIMRobotContentConfig.m in Sources */,
 				49AD34581F28C4CC00DC8A8F /* SearchNoResultModel.m in Sources */,
+				4906D12D1F739D9800B327ED /* UIView+YYAdd.m in Sources */,
 				495EA7CB1F14B64D001FCB7E /* ZFMyCashBagCell.m in Sources */,
 				49DA74AF1F25CFBB009F5577 /* SearchTypeFootReusableView.m in Sources */,
 				495EA76D1F14B64D001FCB7E /* CollectionViewHeaderView.m in Sources */,
@@ -8148,6 +8184,7 @@
 				49555D911F32EA6B00C3C748 /* IQPreviousNextView.m in Sources */,
 				497A8AC11F2B4C390003D7CB /* BusinessOrderModel.m in Sources */,
 				4968A2C01F4DB5090061A87E /* NIMSessionTableAdapter.m in Sources */,
+				4906D1291F739ADA00B327ED /* NSString+YYAdd.m in Sources */,
 				499216211F302E8000E7B2D3 /* SendMessageView.m in Sources */,
 				50CA6C311F72C4200077231B /* UIViewController+XLSlideMenu.m in Sources */,
 				4968A40D1F4DB5290061A87E /* NTESGroupedContacts.m in Sources */,
@@ -8392,6 +8429,7 @@
 				495EA7761F14B64D001FCB7E /* DetailShareViewController.m in Sources */,
 				50099B9B1F66E2F800B348FD /* FindPayPassWordViewController.m in Sources */,
 				495EA79B1F14B64D001FCB7E /* DetailGoodsModel.m in Sources */,
+				4906D12A1F739ADA00B327ED /* UIDevice+YYAdd.m in Sources */,
 				493BDDFF1F6A202400CF31D0 /* SureOrderChooseTypeCell.m in Sources */,
 				4968A2E91F4DB5090061A87E /* NIMKitRobotDefaultTemplateParser.m in Sources */,
 				4968A40C1F4DB5290061A87E /* NTESContactDataMember.m in Sources */,
@@ -8468,6 +8506,7 @@
 				4968A2941F4DB5080061A87E /* NIMContactPickedView.m in Sources */,
 				49183EB31F5954D900879E42 /* XTNetReloader.m in Sources */,
 				495EA7341F14B64D001FCB7E /* UIView+HDExtension.m in Sources */,
+				4906D1271F739ADA00B327ED /* NSData+YYAdd.m in Sources */,
 				4968A4471F4DB5290061A87E /* NTESSettingCheckCell.m in Sources */,
 				4968A4411F4DB5290061A87E /* NTESMutiClientsHeaderView.m in Sources */,
 				495EA7821F14B64D001FCB7E /* ZFAppraiseCell.m in Sources */,
@@ -8528,6 +8567,7 @@
 				495EA7691F14B64D001FCB7E /* ZFBaseNavigationViewController.m in Sources */,
 				495EA8201F14B64D001FCB7E /* ZFSettingRowCell.m in Sources */,
 				495EA8281F14B64D001FCB7E /* FeedPickerTableViewCell.m in Sources */,
+				4906D1281F739ADA00B327ED /* NSNumber+YYAdd.m in Sources */,
 				493BDE3E1F6A821100CF31D0 /* MineShareIncomeCell.m in Sources */,
 				497A8ABB1F2B230B0003D7CB /* UILabel+LXAdd.m in Sources */,
 				495EA7511F14B64D001FCB7E /* ResponseObject.m in Sources */,

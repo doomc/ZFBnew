@@ -17,7 +17,9 @@
 #import "HXPhotoView.h"
 
 @interface ZFApplyBackgoodsViewController ()<SalesAfterPopViewDelegate,UIScrollViewDelegate,HXPhotoViewDelegate>
-
+{
+    BOOL  _isCommited;
+}
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView  *img_view;//商品图片
 @property (weak, nonatomic) IBOutlet UILabel      *lb_title;//商品名字
@@ -41,24 +43,18 @@
 @property (weak, nonatomic) IBOutlet UIView             *AddPickerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contraintHight;
 
-@property (nonatomic, strong) NSMutableArray * imgUrl_mutArray;//存放选取的图片数组
+@property (nonatomic, strong) NSArray * imgUrl_mutArray;//存放选取的图片数组
 
 
 @end
 
 @implementation ZFApplyBackgoodsViewController
--(NSMutableArray *)imgUrl_mutArray
-{
-    if (!_imgUrl_mutArray) {
-        _imgUrl_mutArray = [NSMutableArray array];
-    }
-    return _imgUrl_mutArray;
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    _isCommited = NO;
     [self initGoodsData];
     [self InitPlaceholderTextView];
     [self initPickerView];
@@ -80,36 +76,18 @@
 
 - (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray <HXPhotoModel *> *)videos original:(BOOL)isOriginal {
     
-    //    NSSLog(@"所有:%ld - 照片:%ld - 视频:%ld",allList.count,photos.count,videos.count);
-    //    将HXPhotoModel模型数组转化成HXPhotoResultModel模型数组  - 已按选择顺序排序
-    //    !!!!  必须是全部类型的那个数组 就是 allList 这个数组  !!!!
-    NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
-    
-    [HXPhotoTools getSelectedListResultModel:allList complete:^(NSArray<HXPhotoResultModel *> *alls, NSArray<HXPhotoResultModel *> *photos, NSArray<HXPhotoResultModel *> *videos) {
-        //        NSSLog(@"\n全部类型:%@\n照片:%@\n视频:%@",alls,photos,videos);
-        if (self.imgUrl_mutArray.count > 0) {
-            
-            [self.imgUrl_mutArray  removeAllObjects];
-            
-        }
-        for (HXPhotoResultModel * photo in photos) {
-            
-            NSURL *url         = photo.fullSizeImageURL;
-            NSString * urlpath = url.path;
-            NSSLog(@"\n%@",urlpath);
-            [self.imgUrl_mutArray addObject:urlpath];
-        }
-        
-        NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
+    [HXPhotoTools getImageForSelectedPhoto:photos type:HXPhotoToolsFetchHDImageType completion:^(NSArray<UIImage *> *images) {
+        NSSLog(@"%@",images);
+        _imgUrl_mutArray = images;
     }];
-    
-    
+    NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
     
 }
 - (void)photoView:(HXPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {
     
     NSSLog(@"%@",networkPhotoUrl);
 }
+
 - (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
     NSSLog(@"%@",NSStringFromCGRect(frame));
     NSLog(@"  我当前的高度是 ---%f" ,frame.size.height) ;
@@ -223,35 +201,53 @@
         //参数不能为空
     }else
     {
-        ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
         
-        bcVC.goodsName  = _goodsName;
-        bcVC.price      = _price ;
-        bcVC.goodCount  = _goodCount;
-        bcVC.coverImgUrl = _coverImgUrl;
-        
-        ///需要发送到售后申请的数据
-        bcVC.orderId     = _orderId;
-        bcVC.orderNum    = _orderNum;
-        bcVC.goodsId     = _goodsId;
-        bcVC.serviceType = @"0";///服务类型	否	 0 退货 1 换货
-        bcVC.storeId     = _storeId;
-        bcVC.orderTime   = _orderTime;
-        bcVC.storeName   = _storeName;
-        bcVC.postName    = _postName;
-        bcVC.postPhone   = _postPhone;
-        bcVC.orderGoodsId= _orderGoodsId;
-        //原因
-        bcVC.reason          = _reason;
-        bcVC.problemDescr    = _problemDescr;
-        bcVC.imgArr          = [[NSArray arrayWithArray:self.imgUrl_mutArray] componentsJoinedByString:@","];
-        bcVC.goodsProperties = _goodsProperties;
-        
-        [self.navigationController pushViewController: bcVC animated:YES];
-        
-    }
-    
-}
+        if (_isCommited == YES) {
+            
+            [self.view makeToast:@"您的手速太快了,营养跟不上啊..." duration:2 position:@"center"];
+            
+            return;
+        }else{
+            
+            _isCommited = YES;
+            
+            [SVProgressHUD show];
+            [OSSImageUploader asyncUploadImages:_imgUrl_mutArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
+                NSLog(@"%@",names);
+                if (state == 1) {
+                    ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
+                    
+                    bcVC.goodsName  = _goodsName;
+                    bcVC.price      = _price ;
+                    bcVC.goodCount  = _goodCount;
+                    bcVC.coverImgUrl = _coverImgUrl;
+                    
+                    ///需要发送到售后申请的数据
+                    bcVC.orderId     = _orderId;
+                    bcVC.orderNum    = _orderNum;
+                    bcVC.goodsId     = _goodsId;
+                    bcVC.serviceType = @"0";///服务类型	否	 0 退货 1 换货
+                    bcVC.storeId     = _storeId;
+                    bcVC.orderTime   = _orderTime;
+                    bcVC.storeName   = _storeName;
+                    bcVC.postName    = _postName;
+                    bcVC.postPhone   = _postPhone;
+                    bcVC.orderGoodsId= _orderGoodsId;
+                    //原因
+                    bcVC.reason          = _reason;
+                    bcVC.problemDescr    = _problemDescr;
+                    bcVC.imgArr          = [names componentsJoinedByString:@","];//图片字符串
+                    bcVC.goodsProperties = _goodsProperties;
+                    [SVProgressHUD dismiss];
+                    [self.navigationController pushViewController: bcVC animated:YES];
+                    
+                    _isCommited = NO;
+                }
+            }];
+            
+        }
+        }
+      }
 
 /**
  申请原因

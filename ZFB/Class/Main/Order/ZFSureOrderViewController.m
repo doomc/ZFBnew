@@ -498,15 +498,11 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                 payVC.access_token                 = _access_token;
                 
                 //支付的回调地址
-                NSString  * notify_url  = response[@"thirdURI"][@"notify_url"];
-                NSString  * return_url  = response[@"thirdURI"][@"return_url"];
-                NSString  * gateWay_url = response[@"thirdURI"][@"gateWay_url"];
-                NSString  * goback_url  = response[@"thirdURI"][@"goback_url"];
-                
-                payVC.notify_url  = notify_url;
-                payVC.return_url  = return_url;
-                payVC.gateWay_url = gateWay_url;
-                payVC.goback_url  = goback_url;
+                payVC.notify_url  = response[@"thirdURI"][@"notify_url"];
+                payVC.return_url  = response[@"thirdURI"][@"return_url"];
+                payVC.gateWay_url  = response[@"thirdURI"][@"gateWay_url"];
+                payVC.goback_url   = response[@"thirdURI"][@"goback_url"];
+ 
                 [self.navigationController pushViewController:payVC animated:YES];
             }
             [SVProgressHUD dismiss];

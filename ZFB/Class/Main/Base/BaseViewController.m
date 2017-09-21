@@ -99,9 +99,7 @@
         }else {
             
             [self.zfb_tableView.mj_footer endRefreshingWithNoMoreData];
-            
         }
-
     });
 }
 

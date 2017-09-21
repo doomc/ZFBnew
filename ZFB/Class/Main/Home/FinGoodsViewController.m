@@ -62,16 +62,17 @@ typedef NS_ENUM(NSUInteger, CellType) {
     
     [self guessYouLikePostRequst];
     
-    [self setupRefresh];
-    
     [self FuncListPostRequst];
+
+    [self setupRefresh];
+
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
    
     [super headerRefresh];
+//    [self ADpagePostRequst];
     [self guessYouLikePostRequst];
-    [self ADpagePostRequst];
     [self HotsalesPostRequst];
     [self FuncListPostRequst];
 
@@ -79,8 +80,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(void)footerRefresh {
 
     [super footerRefresh];
+//    [self ADpagePostRequst];
     [self guessYouLikePostRequst];
-    [self ADpagePostRequst];
     [self HotsalesPostRequst];
     [self FuncListPostRequst];
 }
@@ -103,9 +104,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
         searchVC.searchType = @"商品";
         [self.navigationController pushViewController:searchVC animated:NO];
     }
-
-    
-    
 }
 /**
  初始化home_tableView
@@ -145,7 +143,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
     _cycleScrollView.currentPageDotColor = [UIColor whiteColor];// 自定义分页控件小圆标颜色
     
     self.findGoods_TableView.tableHeaderView = _cycleScrollView;
-    
+    [self.findGoods_TableView reloadData];
+
 }
 
 
@@ -171,7 +170,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
         return self.hotArray.count > 0 ? 1 : 0;
     }
     if (section == 2 ) {
-        //        return 3;
+
         return self.likeListArray.count;
         
     }
@@ -280,22 +279,38 @@ typedef NS_ENUM(NSUInteger, CellType) {
 #pragma mark - HotTableViewCellDelegate  根据ID跳转
 -(void)pushToDetailVCWithGoodsID :(NSString *) goodsId
 {
-    DetailFindGoodsViewController *detailVCgoods = [[DetailFindGoodsViewController alloc]init];
-    detailVCgoods.goodsId                        = goodsId;
-    [self.navigationController pushViewController:detailVCgoods animated:NO];
+    if (BBUserDefault.isLogin == 1) {
+        DetailFindGoodsViewController *detailVCgoods = [[DetailFindGoodsViewController alloc]init];
+        detailVCgoods.goodsId                        = goodsId;
+        [self.navigationController pushViewController:detailVCgoods animated:NO];
+        
+    }else{
+        
+        [self isIfNotSignIn];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);
-    DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
     
-    if (self.likeListArray.count > 0) {
+    if (BBUserDefault.isLogin == 1) {
+        DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
         
-        Guessgoodslist *goodlist = self.likeListArray[indexPath.row];
-        findVCgoods.goodsId      = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
+        if (self.likeListArray.count > 0) {
+            
+            Guessgoodslist *goodlist = self.likeListArray[indexPath.row];
+            findVCgoods.headerImage = goodlist.coverImgUrl ;
+            findVCgoods.goodsId      = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
+        }
+        [self.navigationController pushViewController:findVCgoods animated:YES];
+        
+    }else{
+        
+        [self isIfNotSignIn];
     }
-    [self.navigationController pushViewController:findVCgoods animated:YES];
+    
+
     
 }
 
@@ -320,10 +335,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
                 }
             }
             NSLog(@"广告页       = adArray = %@",self.adArray);
-            [self.findGoods_TableView reloadData];
             [self CDsyceleSettingRunningPaint];
         }
-        
+
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {

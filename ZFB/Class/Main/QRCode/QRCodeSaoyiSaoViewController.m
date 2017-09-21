@@ -11,13 +11,7 @@
 #import "QRCodeScanSuccessViewController.h"
 #import "ZFMainPayforViewController.h"
 @interface QRCodeSaoyiSaoViewController ()<SGQRCodeScanManagerDelegate, SGQRCodeAlbumManagerDelegate>
-{
-    NSString * _gateWay_url;
-    NSString * _notify_url;
-    NSString * _goback_url;
-    NSString * _return_url;
-    NSArray * _orderListArray;
-}
+
 @property (nonatomic, strong) SGQRCodeScanningView *scanningView;
 
 @end
@@ -180,11 +174,11 @@
         if ( [code isEqualToString:@"0"]) {
             
             ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
-            _gateWay_url     = response[@"thirdURI"][@"gateWay_url"];
-            _notify_url      = response[@"thirdURI"][@"notify_url"];
-            _goback_url      = response[@"thirdURI"][@"goback_url"];
-            _return_url      = response[@"thirdURI"][@"return_url"];
-            _orderListArray  = response[@"result"];
+            payVC.gateWay_url     = response[@"thirdURI"][@"gateWay_url"];
+            payVC.notify_url      = response[@"thirdURI"][@"notify_url"];
+            payVC.goback_url      = response[@"thirdURI"][@"goback_url"];
+            payVC.return_url      = response[@"thirdURI"][@"return_url"];
+            payVC.orderListArray  = response[@"result"];
             [self.navigationController pushViewController:payVC animated:NO];
         }
         

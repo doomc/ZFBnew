@@ -12,4 +12,6 @@
 
 @property (nonatomic , copy) NSString *goodsId;
 
+@property (nonatomic , copy) NSString *headerImage;
+
 @end

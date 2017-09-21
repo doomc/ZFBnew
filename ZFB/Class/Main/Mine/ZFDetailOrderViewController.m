@@ -295,8 +295,8 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         else if (indexPath.row == 2) {
             
             ZFOrderDetailCountCell* countCell = [self.tableView dequeueReusableCellWithIdentifier:kcountDetailCellid forIndexPath:indexPath];
-            countCell.lb_freeSendPrice.text = deliveryFee;
-            countCell.lb_goodsAllPrice .text = goodsAmount;
+            countCell.lb_freeSendPrice.text = [NSString stringWithFormat:@"¥%@",deliveryFee]  ;
+            countCell.lb_goodsAllPrice .text = [NSString stringWithFormat:@"¥%@",goodsAmount] ;
             
             cell                              = countCell;
             
@@ -304,7 +304,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         else  {
             
             ZFOrderDetailPaycashCell* payCell = [self.tableView dequeueReusableCellWithIdentifier:payCashDetailCellid forIndexPath:indexPath];
-            payCell.lb_realPay.text = payRelPrice;
+            payCell.lb_realPay.text = [NSString stringWithFormat:@"¥%@",payRelPrice] ;
             payCell.lb_orderCreatTime.text = createTime;
             cell                              = payCell;
             
@@ -534,7 +534,8 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     payVC.notify_url    = _thirdUrlDic[@"notify_url"];
     payVC.return_url    = _thirdUrlDic[@"return_url"];
     payVC.gateWay_url   = _thirdUrlDic[@"gateWay_url"];
-    
+    payVC.goback_url   = _thirdUrlDic[@"goback_url"];
+
     payVC.orderListArray  = _unpayOrderInfoArray;//[NSArray arrayWithArray:mutOrderArray];
     payVC.datetime        = _datetime;
     payVC.access_token    = _access_token;

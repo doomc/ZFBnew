@@ -81,8 +81,11 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     [self PostRequst];
 }
 -(void)footerRefresh {
+    
     [super footerRefresh];
     [self PostRequst];
+  
+  
 }
 
 -(UIButton *)location_btn
@@ -230,7 +233,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         [self.navigationController pushViewController:vc animated:YES];
     }
  
-    
 }
 
 /**
@@ -357,23 +359,23 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                 }
             }
             HomeStoreListModel * homeStore = [HomeStoreListModel mj_objectWithKeyValues:response];
-            totalCount = homeStore.totalCount;
+            
+            totalCount = homeStore.storeInfoList.totalCount;
             
             for (Findgoodslist  * goodlist in homeStore.storeInfoList.findGoodsList) {
       
                 [self.storeListArr addObject:goodlist];
             }
             
-            [self.home_tableView reloadData];
-            
-//            if (self.storeListArr.count == 0 || self.storeListArr == nil) {
-//                
-//                [self.home_tableView cyl_reloadData];
-//            }
+            if (self.storeListArr.count == 0 || self.storeListArr == nil) {
+                
+                [self.home_tableView cyl_reloadData];
+            }
         }
+        [self endRefresh];
+        [self.home_tableView reloadData];
 
         NSLog(@"门店列表 = %@",   self.storeListArr);
-        [self endRefresh];
 
     } progress:^(NSProgress *progeress) {
         

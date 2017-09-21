@@ -78,7 +78,6 @@
 {
      IMSearchUserinfo * userinfo = self.searchArray[indexPath.row];
      IMSearchResultCell  * cell = [self.tableView dequeueReusableCellWithIdentifier:@"IMSearchResultCell" forIndexPath:indexPath];
-     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
      cell.delegate = self;
      cell.rowIndex = indexPath.row;
      cell.info = userinfo;
