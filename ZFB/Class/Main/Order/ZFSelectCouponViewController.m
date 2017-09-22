@@ -95,10 +95,9 @@
 #pragma mark - 获取用户未使用优惠券列表   recomment/getUserNotUseCouponList
 -(void)getUserNotUseCouponListPostRequset{
     NSDictionary * parma = @{
-                             @"goodsAmount":@"3",//商品价格
-                             @"goodsCount":@"",//数量
-                             @"goodsId":@"",
-                             @"storeId":@"",
+                             @"goodsAmount":_goodsAmount,//商品价格
+                             @"goodsId":_goodsIdJson,
+                             @"storeId":_storeIdjosn,
                              @"userId":BBUserDefault.cmUserId,
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"pageSize":[NSNumber numberWithInteger:kPageCount],

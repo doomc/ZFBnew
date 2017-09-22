@@ -37,7 +37,7 @@
 {
     _fullList = fullList;
     // 图片
-    [self.waterPullImageView sd_setImageWithURL:[NSURL URLWithString:fullList.imgUrls] placeholderImage:[UIImage imageNamed:@"nodataPlaceholder"]];
+    [self.waterPullImageView sd_setImageWithURL:[NSURL URLWithString:fullList.imgUrls] placeholderImage:[UIImage imageNamed:@"240x260"]];
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:fullList.userLogo] placeholderImage:[UIImage imageNamed:@"head"]];
     self.lb_title.text = fullList.title;
     self.lb_zanNum.text = fullList.thumbs;

@@ -48,9 +48,10 @@ static float const kUIemptyOverlayLabelHeight    = 20;
 
 - (void)addUIemptyOverlayImageView {
    
-    self.emptyOverlayImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
+    self.emptyOverlayImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    self.emptyOverlayImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.emptyOverlayImageView.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2 - 100);
-    self.emptyOverlayImageView.image = [UIImage imageNamed:@"error_NoData"];
+    self.emptyOverlayImageView.image = [UIImage imageNamed:@"nomoreData"];
     [self addSubview:self.emptyOverlayImageView];
     
 }
@@ -62,7 +63,7 @@ static float const kUIemptyOverlayLabelHeight    = 20;
     emptyOverlayLabel.textAlignment = NSTextAlignmentCenter;
     emptyOverlayLabel.numberOfLines = 0;
     emptyOverlayLabel.backgroundColor = [UIColor clearColor];
-    emptyOverlayLabel.text = @"暂无数据,轻触屏幕重新加载";
+    emptyOverlayLabel.text = @"空空如也~";
     emptyOverlayLabel.font = [UIFont boldSystemFontOfSize:15];
     emptyOverlayLabel.frame = ({
         CGRect frame = emptyOverlayLabel.frame;

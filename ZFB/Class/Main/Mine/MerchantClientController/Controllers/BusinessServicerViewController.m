@@ -1232,9 +1232,10 @@
 }
 
 #pragma mark - BusinessSendOrderViewDelegate 3333 选择派单给谁 派单之前的操作
--(void)didClickPushdeliveryId:(NSString *)deliveryId
+-(void)didClickPushdeliveryId:(NSString*)deliveryId
                  deliveryName:(NSString *)deliveryName
                 deliveryPhone:(NSString *)deliveryPhone
+             orderDeliveryFee:(NSString *)orderDeliveryFee
                         Index:(NSInteger)index
 {
     
@@ -1248,7 +1249,8 @@
                          orderAmount:orderlist.orderAmount
                         deliveryName:deliveryName
                        deliveryPhone:deliveryPhone
-                           postPhone:orderlist.post_phone];
+                           postPhone:orderlist.post_phone
+                    orderDeliveryFee:orderDeliveryFee];
     
     
 }
@@ -1411,6 +1413,7 @@
                      deliveryName:(NSString *)deliveryName
                     deliveryPhone:(NSString *)deliveryPhone
                         postPhone:(NSString *)postPhone
+                 orderDeliveryFee:(NSString *)orderDeliveryFee
 {
     NSDictionary * param = @{
                              @"storeId":_storeId,
@@ -1421,7 +1424,8 @@
                              @"orderAmount":orderAmount,//订单金额
                              @"deliveryName": deliveryName,
                              @"deliveryPhone":deliveryPhone,//配送员电话
-                             @"deliveryPhone":postPhone,//配送员电话
+                             @"postPhone":postPhone,//配送员电话
+                             @"orderDeliveryFee":orderDeliveryFee,//配送费
                              };
     
     

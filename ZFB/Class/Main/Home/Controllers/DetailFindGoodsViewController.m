@@ -129,8 +129,9 @@
     
     [self creatInterfaceDetailTableView];//初始化控件tableview
     [self settingHeaderViewAndFooterView];//初始化footerview
-    [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
     [self goodsDetailListPostRequset];//详情网络请求
+    [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
+
 
 }
 
@@ -1197,7 +1198,7 @@
             _imagesURLStrings = [_attachImgUrl componentsSeparatedByString:@","];
             [self cycleScrollViewInit];
 
-            [self getUserNotUseCouponListPostRequset];//获取优惠券
+            [self recommentPostRequstCouponList];//获取优惠券
 
         }
         [SVProgressHUD dismiss];
@@ -1447,26 +1448,37 @@
     
     
 }
-#pragma mark - 获取用户未使用优惠券列表   recomment/getUserNotUseCouponList
--(void)getUserNotUseCouponListPostRequset{
+#pragma mark - 获取用户优惠券列表   recomment/getUserCouponList
+-(void)recommentPostRequstCouponList
+{
+    //idType	number	0 平台 1 商家 2 商品 3 所有	否
+    //resultId	number	平台编号/商店编号/商品编号	是
+    // userId	number	领优惠券用户编号	否
+    // status	number	0 未领取 1 未使用 2 已使用 3 已失效	否
+    
     NSDictionary * parma = @{
-                             @"goodsAmount":_netPurchasePrice,//商品价格
-                             @"goodsCount":[NSString stringWithFormat:@"%ld",_goodsCount],//数量
-                             @"goodsId":_goodsId,
-                             @"storeId":_storeId,
+                             @"idType":@"3",
+                             @"resultId":@"",
                              @"userId":BBUserDefault.cmUserId,
+                             @"status":@"0",
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
-                             @"pageSize":@"100",
+                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
+                             @"storeId":_storeId,
+                             @"goodsId":_goodsId,
+                             
                              };
     [SVProgressHUD show];
-    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserNotUseCouponList"] params:parma success:^(id response) {
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserCouponList"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
-        
+            
             if (self.couponList.count > 0) {
+                
                 [self.couponList removeAllObjects];
             }
+            
             CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
             for (Couponlist * list in coupon.couponList) {
+              
                 [self.couponList addObject:list];
             }
             [self.couponTableView reloadData];
@@ -1475,17 +1487,21 @@
         [self.list_tableView reloadData];
         
     } progress:^(NSProgress *progeress) {
+        
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
 }
+
 #pragma mark - 点击领取优惠券    recomment/receiveCoupon
 -(void)getCouponesPostRequst:(NSString *)couponId
 {
     NSDictionary * parma = @{
-                             
+                             @"userName":BBUserDefault.nickName,
+                             @"userPhone":BBUserDefault.userPhoneNumber,
                              @"couponId":couponId,
                              @"userId":BBUserDefault.cmUserId,
                              };
@@ -1495,8 +1511,14 @@
             
             [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
             //领取成功后移除
-            [self.couponBgView removeFromSuperview];
+            [self didClickCloseCouponView];
             [SVProgressHUD dismiss];
+
+        }else{
+            
+            [SVProgressHUD dismiss];
+            [self.view makeToast:@"让小宝要休息一下！" duration:2 position:@"center"];
+
         }
         
     } progress:^(NSProgress *progeress) {

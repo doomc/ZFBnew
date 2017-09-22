@@ -10,4 +10,8 @@
 
 @interface ZFSelectCouponViewController : BaseViewController
 
+@property (nonatomic , copy) NSString * goodsIdJson;
+@property (nonatomic , copy) NSString * storeIdjosn;
+@property (nonatomic , copy) NSString * goodsAmount;
+
 @end

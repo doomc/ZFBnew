@@ -36,7 +36,7 @@
     
     self.lb_goodcount.text = [NSString stringWithFormat:@"数量x%ld",goods.goodsCount];
     self.lb_title.text =  goods.goods_name;
-    [self.img_saleAfter sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"errorImage"]];
+    [self.img_saleAfter sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     ///status 0 未操作 1 退货中 2 服务完成
     if (goods.status == 0) {
         

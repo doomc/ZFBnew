@@ -20,6 +20,7 @@
 #import "QRPayMoneyViewController.h"//付款
 #import "QRCollectMoneyViewController.h"//收款
 
+
 typedef NS_ENUM(NSUInteger, TypeVC) {
     TypeVCSaoyiSao,
     TypeVCAcceptMoney,
@@ -29,6 +30,7 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
 
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
 @property (nonatomic, strong) SGPageContentView *pageContentView;
+
 
 @property(nonatomic,strong)UIButton * customLeft_btn;//扫一扫
 @property(nonatomic,strong)UIButton * navSearch_btn;//搜索

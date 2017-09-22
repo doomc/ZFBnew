@@ -423,7 +423,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     }];
     
 }
-#pragma mark -商户端确认收货   userConfirmReceipt
+#pragma mark - 商户端确认收货   userConfirmReceipt 用户确认取货
 -(void)bussniessAcceptgoodsPost
 {
     NSDictionary * param = @{

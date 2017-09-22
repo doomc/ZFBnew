@@ -20,11 +20,13 @@
  @param deliveryId 配送员
  @param deliveryName 配送员名称
  @param deliveryPhone 配送手机号
+ @param orderDeliveryFee 配送费
  @param index 选择当前位置
  */
 -(void)didClickPushdeliveryId:(NSString*)deliveryId
                  deliveryName:(NSString *)deliveryName
                 deliveryPhone:(NSString *)deliveryPhone
+             orderDeliveryFee:(NSString *)orderDeliveryFee
                         Index:(NSInteger)index;
 
 //取消操作

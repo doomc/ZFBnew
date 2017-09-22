@@ -210,11 +210,14 @@
 -(void)didClickSureAction:(UIButton *)sender
 {
     Deliverylist * list = self.deliveryArray[indexpathRow];
+    NSString *orderDeliveryFee = [NSString stringWithFormat:@"%.2f",list.orderDeliveryFee];
+    
     if (isSelectSender == YES) {
-        if ([self.delegate respondsToSelector:@selector(didClickPushdeliveryId:deliveryName:deliveryPhone:Index:)]) {
+        if ([self.delegate respondsToSelector:@selector(didClickPushdeliveryId:deliveryName:deliveryPhone:orderDeliveryFee:Index:)]) {
             [self.delegate didClickPushdeliveryId:[NSString stringWithFormat:@"%ld",list.deliveryId]
                                      deliveryName:list.deliveryName
                                     deliveryPhone:list.deliveryPhone
+                                    orderDeliveryFee:orderDeliveryFee
                                             Index:indexpathRow];
         }
     }else{

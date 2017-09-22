@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4O3-QZ-Rbs">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="720x300.png" translatesAutoresizingMaskIntoConstraints="NO" id="4O3-QZ-Rbs">
                     <rect key="frame" x="0.0" y="2" width="375" height="196"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -99,6 +99,7 @@
         </view>
     </objects>
     <resources>
+        <image name="720x300.png" width="720" height="300"/>
         <image name="loca_small.png" width="12" height="12"/>
         <image name="评分.png" width="18" height="18"/>
     </resources>

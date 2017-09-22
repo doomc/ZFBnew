@@ -36,7 +36,7 @@
 /**
  左间距ContentView
  */
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *padLeftConstrainWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonWidthConstrainWidth;
 
 @property (strong , nonatomic) Couponlist * couponlist;
 

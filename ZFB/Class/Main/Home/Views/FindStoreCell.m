@@ -28,7 +28,7 @@
     self.lb_distence.text = [NSString stringWithFormat:@"%.2f公里",juli];
     self.lb_collectNum.text = [NSString stringWithFormat:@"%ld",_findgoodslist.likeNum];
     self.store_listTitle.text = _findgoodslist.storeName;
-    [self.store_listView sd_setImageWithURL:[NSURL URLWithString:_findgoodslist.coverUrl] placeholderImage:[UIImage imageNamed:@"nodataPlaceholder"]];
+    [self.store_listView sd_setImageWithURL:[NSURL URLWithString:_findgoodslist.coverUrl] placeholderImage:[UIImage imageNamed:@"720x300"]];
     
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

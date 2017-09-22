@@ -17,7 +17,7 @@
 @interface MTSegmentedControl : UIView
 
 @property (nonatomic, strong) id <MTSegmentedControlDelegate> delegate;
-
+ 
 /**
  标题集合
  */

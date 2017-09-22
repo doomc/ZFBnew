@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "ZFbaseTabbarViewController.h"
 #import "XLSlideMenu.h"
-#import "RightNavPopViewController.h"
+#import "RightNavPopViewController.h"//查询订单时间
 //云信
 #import "NTESClientUtil.h"
 #import "NTESSessionUtil.h"
@@ -22,6 +22,7 @@
 //高德
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "SYSafeCategory.h"//安全操作
+#import "JhtGradientGuidePageVC.h"
 
 //高德api
 const static NSString * ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
@@ -32,6 +33,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 @interface AppDelegate ()<NIMLoginManagerDelegate,PKPushRegistryDelegate>
 
 @property (nonatomic,strong) NTESSDKConfigDelegate *sdkConfigDelegate;
+@property (nonatomic, strong) JhtGradientGuidePageVC *guidePage;
 
 @end
 
@@ -42,18 +44,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
-    ZFbaseTabbarViewController *tabbarVC = [[ZFbaseTabbarViewController alloc] init];
-//    self.window.rootViewController = tabbarVC;
-//    [self.window makeKeyAndVisible];
-    
-    XLSlideMenu *slideMenu = [[XLSlideMenu alloc] initWithRootViewController:tabbarVC];
-    RightNavPopViewController * menuVC = [RightNavPopViewController new];
-    //设置左右菜单
-    slideMenu.rightViewController = menuVC;
-    self.window.rootViewController = slideMenu;
-    [self.window makeKeyAndVisible];
+    [self setupGuidePageView];
 
     //统一处理一些为数组、集合等对nil插入会引起闪退
     [SYSafeCategory callSafeCategory];
@@ -352,4 +343,60 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 {
     
 }
+
+
+//guide引导页
+-(void)setupGuidePageView
+{
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    ZFbaseTabbarViewController *tabbarVC = [[ZFbaseTabbarViewController alloc] init];
+    
+    //会崩溃
+//    XLSlideMenu *slideMenu = [[XLSlideMenu alloc] initWithRootViewController:tabbarVC];
+//    RightNavPopViewController * menuVC = [RightNavPopViewController new];
+//    //设置左右菜单
+//    slideMenu.rightViewController = menuVC;
+//    self.window.rootViewController = slideMenu;
+    
+    [self.window makeKeyAndVisible];
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *firstKey = [NSString stringWithFormat:@"isFirst%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    NSString *isFirst = [defaults objectForKey:firstKey];
+    if (!isFirst.length) {
+      
+        NSArray * images = @[@"引导页1",@"引导页2",@"引导页3",@"引导页4"];
+        UIButton *enterButton = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetWidth([UIScreen mainScreen].bounds) - 100) / 2, CGRectGetHeight([UIScreen mainScreen].bounds) - 30 - 50, 100, 30)];
+        
+        [enterButton setBackgroundImage:[UIImage imageNamed:@"立即体验"] forState:UIControlStateNormal];
+        self.guidePage = [[JhtGradientGuidePageVC alloc] initWithGuideImageNames:images withLastRootViewController:tabbarVC];
+        self.guidePage.enterButton = enterButton;
+        
+        // 添加《跳过》按钮
+        self.guidePage.isNeedSkipButton = YES;
+        self.window.rootViewController = self.guidePage;
+        
+        __weak AppDelegate *weakSelf = self;
+        self.guidePage.didClickedEnter = ^() {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSString *firstKey = [NSString stringWithFormat:@"isFirst%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+            NSString *isFirst = [defaults objectForKey:firstKey];
+            if (!isFirst) {
+                [defaults setObject:@"notFirst" forKey:firstKey];
+                [defaults synchronize];
+            }
+            
+            weakSelf.guidePage = nil;
+        };
+    } else {
+        self.window.rootViewController = tabbarVC;
+    }
+
+
+
+}
+
+
 @end

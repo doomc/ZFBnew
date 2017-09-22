@@ -53,5 +53,9 @@
 
 @property (nonatomic, copy) NSString *deliveryNum;
 
+@property (nonatomic, assign) CGFloat orderDeliveryFee;
+
+
+
 @end
 

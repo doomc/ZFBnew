@@ -435,7 +435,8 @@
 -(void)getCouponesPostRequst:(NSString *)couponId
 {
     NSDictionary * parma = @{
-                             
+                             @"userName":BBUserDefault.nickName,
+                             @"userPhone":BBUserDefault.userPhoneNumber,
                              @"couponId":couponId,
                              @"userId":BBUserDefault.cmUserId,
                              };
@@ -446,8 +447,15 @@
             [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
             //领取成功后移除
             [self.couponBackgroundView removeFromSuperview];
-
             [SVProgressHUD dismiss];
+            
+        }else{
+
+            //领取成功后移除
+            [self.couponBackgroundView removeFromSuperview];
+            [SVProgressHUD dismiss];
+            [self.view makeToast:@"领取失败" duration:2 position:@"center"];
+
         }
         
     } progress:^(NSProgress *progeress) {
@@ -475,7 +483,9 @@
                              @"userId":BBUserDefault.cmUserId,
                              @"status":status,
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
-                             @"pageSize":@"1000",
+                             @"pageSize":@"100",
+                             @"storeId":_storeId,
+                             @"goodsId":@"",
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserCouponList"] params:parma success:^(id response) {
@@ -490,6 +500,10 @@
             }
             
             [self.couponTableView reloadData];
+            [self.tableView reloadData];
+            [SVProgressHUD dismiss];
+        }else{
+            
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
         }

@@ -59,6 +59,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     NSString * _access_token;
     
     NSString * _payType;// 0 在线支付，1 门店支付
+    NSString * _storeIdAppding;
+    NSString * _goodsIdAppding;
     
 }
 
@@ -114,6 +116,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 //拿到商品详情无规格的_userGoodsInfoJSON数组
 -(void)userGoodsInfoJSONanalysis
 {
+    
+    ///////////////////////获取所有请求配送费用的参数/////////////////////////////////////////////
+
     NSMutableArray * storeArray = [NSMutableArray array];
     NSMutableDictionary * param = [NSMutableDictionary dictionary];
 
@@ -139,8 +144,26 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [param setObject:storeArray forKey:@"storeList"];
     [param setValue:_postAddressId forKey:@"postAddressId"];
     
-    NSLog(@" 请求的参数 === %@",param);
+///////////////////////获取所有的goodID和storeID/////////////////////////////////////////////
+    NSMutableArray * goodsIdArr = [NSMutableArray array];
+    NSMutableArray * storeIdArr = [NSMutableArray array];
+    for (NSDictionary * storedic in storeArray) {
+        NSString * stordID  = [storedic objectForKey:@"storedic"];
+        [storeArray addObject:stordID];
+        
+        for (NSDictionary * goodsDic in storedic[@"goodsList"]) {
+        
+            NSString * goodId= [goodsDic objectForKey:@"goodsId"];
+            
+            [goodsIdArr addObject:goodId];
+        }
+    }
+    _goodsIdAppding = [goodsIdArr componentsJoinedByString:@","];
+    _storeIdAppding = [storeIdArr componentsJoinedByString:@","];
+    NSLog(@" 请求的参数 === %@ --%@",_storeIdAppding,_goodsIdAppding);
 
+    
+    /////////////////////// 发起请求/////////////////////////////////////////////
     //获取配送配送费网络求情
     [self getGoodsCostInfoListPostRequstWithJsonString:[NSDictionary dictionaryWithDictionary:param]];
     
@@ -152,6 +175,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     if (self.cmGoodsListArray.count > 0) {
         [self.cmGoodsListArray removeAllObjects];
     }
+    
+    /////////////////////// 组装当前列表的数据/////////////////////////////////////////////
+
     //组装cmGoodsListArray
     NSMutableDictionary * storeAttachListDic = [NSMutableDictionary dictionary];
     for (NSDictionary * storeListDic  in _userGoodsInfoJSON) {
@@ -398,7 +424,12 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             break;
         case SureOrderCellTypeCouponCell://优惠券
         {
+       
             ZFSelectCouponViewController * couponVC =[ZFSelectCouponViewController new];
+            couponVC.goodsAmount= _userCostNum; //订单总额
+            couponVC.goodsIdJson = _goodsIdAppding;//商品id，
+            couponVC.storeIdjosn = _storeIdAppding;//门店id，
+            
             [self.navigationController pushViewController:couponVC animated:NO];
         }
             break;

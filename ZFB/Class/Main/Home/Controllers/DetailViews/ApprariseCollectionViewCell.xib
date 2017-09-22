@@ -36,7 +36,7 @@
             <connections>
                 <outlet property="img_CollectionView" destination="lAA-M3-ajR" id="Kzs-Ck-IPM"/>
             </connections>
-            <point key="canvasLocation" x="-260" y="28"/>
+            <point key="canvasLocation" x="-501" y="-40"/>
         </collectionViewCell>
     </objects>
 </document>

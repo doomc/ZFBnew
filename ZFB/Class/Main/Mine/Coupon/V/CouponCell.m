@@ -25,6 +25,9 @@
     _didClickget_btn.layer.borderWidth = 1;
     _didClickget_btn.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
    
+#warning  ------------暂时没有做编辑删除 为了隐藏button
+    _buttonWidthConstraint.constant = 0.0;
+    
 }
 
 -(void)setCouponlist:(Couponlist *)couponlist

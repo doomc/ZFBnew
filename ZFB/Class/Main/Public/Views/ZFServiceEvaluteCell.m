@@ -18,18 +18,18 @@
     self.commitBtn.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 
-    //TggStarEvaluationView
-    weakSelf(weakSelf);
-    //发货速度
-    _sendSpeedAppraiseView = [TggStarEvaluationView evaluationViewWithChooseStarBlock:^(NSUInteger count) {
-        
-        weakSelf.lb_sendSpeedScore.text = [NSString stringWithFormat:@"%ld分",count];
-    }];
-    //服务态度
-    _serviceAppraiseView = [TggStarEvaluationView evaluationViewWithChooseStarBlock:^(NSUInteger count) {
-        
-        weakSelf.lb_serviceScore.text = [NSString stringWithFormat:@"%ld分",count];
-    }];
+//    //TggStarEvaluationView
+//    weakSelf(weakSelf);
+//    //发货速度
+//    _sendSpeedAppraiseView = [TggStarEvaluationView evaluationViewWithChooseStarBlock:^(NSUInteger count) {
+//        
+//        weakSelf.lb_sendSpeedScore.text = [NSString stringWithFormat:@"%ld分",count];
+//    }];
+//    //服务态度
+//    _serviceAppraiseView = [TggStarEvaluationView evaluationViewWithChooseStarBlock:^(NSUInteger count) {
+//        
+//        weakSelf.lb_serviceScore.text = [NSString stringWithFormat:@"%ld分",count];
+//    }];
 
 }
 

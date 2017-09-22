@@ -26,6 +26,8 @@
     // Do any additional setup after loading the view.
     _titles = @[@"全部",@"一个月内",@"一个月至三个月",@"三个月至六个月",@"六个月至一年",@"一年以上"];
     [self buildTable];
+    
+ 
 }
 
 -(void)buildTable

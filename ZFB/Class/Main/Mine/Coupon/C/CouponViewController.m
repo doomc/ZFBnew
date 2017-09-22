@@ -162,9 +162,9 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 }
 
 - (void)setupPageView {
-    NSString * unuserd  = @"未使用(0)";
-    NSString * used     = @"已使用(0)";
-    NSString * overdate = @"已过期(0)";
+    NSString * unuserd  = @"未使用";
+    NSString * used     = @"已使用";
+    NSString * overdate = @"已过期";
     NSArray *titleArr   = @[unuserd,used,overdate];
     _segumentView       = [[MTSegmentedControl alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 44)];
     [self.segumentView segmentedControl:titleArr Delegate:self];
@@ -180,13 +180,21 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     switch (_couponType) {
         case SelectCouponTypeDefault://未使用
             
+            //获取用户优惠券列表
+            [self recommentPostRequst:@"1"];
             [self.tableView reloadData];
+            
             break;
         case SelectCouponTypeUsed://已使用
+            
+            //获取用户优惠券列表
+            [self recommentPostRequst:@"2"];
             [self.tableView reloadData];
             
             break;
         case SelectCouponTypeOverDate://已过期
+            
+            [self recommentPostRequst:@"3"];
             [self.tableView reloadData];
             
             break;
@@ -321,18 +329,19 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
         case SelectCouponTypeDefault://未使用
             if (indexPath.section == 0) {
                 
+                //获取用户优惠券列表
                 [self recommentPostRequst:@"0"];
-                
+                [self.tableView reloadData];
+
             }
-            [self.tableView reloadData];
             break;
         case SelectCouponTypeUsed://已使用
-            [self.tableView reloadData];
+            
             
             break;
         case SelectCouponTypeOverDate://已过期
-            [self.tableView reloadData];
             
+
             break;
         default:
             break;
@@ -389,6 +398,9 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                              @"status":status,
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"pageSize":[NSNumber numberWithInteger:kPageCount],
+                             @"storeId":@"",
+                             @"goodsId":@"",
+
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserCouponList"] params:parma success:^(id response) {
@@ -408,6 +420,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 
                 [self.view addSubview:self.popCouponBackgroundView];
                 [self.tableView bringSubviewToFront:self.popCouponBackgroundView];
+                [self didClickCloseCouponView];
                 [self.popCouponView reloadData];
                 
             }else{//如果不为0只刷新外部
@@ -433,7 +446,8 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 -(void)getCouponesPostRequst:(NSString *)couponId
 {
     NSDictionary * parma = @{
- 
+                             @"userName":BBUserDefault.nickName,
+                             @"userPhone":BBUserDefault.userPhoneNumber,
                              @"couponId":couponId,
                              @"userId":BBUserDefault.cmUserId,
                              };
@@ -442,7 +456,11 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
             
             [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
-
+            
+            [self.popCouponView reloadData];
+            //成功后请求下未使用列表
+            [self recommentPostRequst:@"1"];
+            
             [SVProgressHUD dismiss];
         }
         

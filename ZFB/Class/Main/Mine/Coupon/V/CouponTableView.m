@@ -153,7 +153,7 @@
     Couponlist  * list = _couponesList[indexRow];
     _couponeId = [NSString stringWithFormat:@"%ld",list.couponId];
     
-    NSLog(@"我领取了第--couponId==%@---券",_couponeId);
+    NSLog(@"我领取了第-indexRow%ld-couponId==%@---券",indexRow,_couponeId);
     
     if ([self.popDelegate respondsToSelector:@selector(selectCouponWithIndex:AndCouponId:withResult:)]) {
         [self.popDelegate selectCouponWithIndex:indexPathRow AndCouponId:_couponeId withResult:_couponeMessage];

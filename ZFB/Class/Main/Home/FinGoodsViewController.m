@@ -71,7 +71,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(void)headerRefresh {
    
     [super headerRefresh];
-//    [self ADpagePostRequst];
+    [self ADpagePostRequst];
     [self guessYouLikePostRequst];
     [self HotsalesPostRequst];
     [self FuncListPostRequst];
@@ -80,7 +80,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(void)footerRefresh {
 
     [super footerRefresh];
-//    [self ADpagePostRequst];
     [self guessYouLikePostRequst];
     [self HotsalesPostRequst];
     [self FuncListPostRequst];
@@ -122,8 +121,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
     [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"HotTableViewCell" bundle:nil]
                    forCellReuseIdentifier:cell_hotID];
     
-    [self.view addSubview:_findGoods_TableView];
     self.zfb_tableView = self.findGoods_TableView;
+    [self.view addSubview:self.findGoods_TableView];
     
 }
 
@@ -403,7 +402,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getBestSellInfo",zfb_baseUrl] params:nil success:^(id response) {
         
-        if (self.hotArray.count >0) {
+        if (self.hotArray.count > 0) {
             
             [self.hotArray removeAllObjects];
             

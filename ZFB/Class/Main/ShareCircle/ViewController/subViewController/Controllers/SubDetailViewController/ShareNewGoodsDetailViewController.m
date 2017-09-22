@@ -57,7 +57,7 @@
         _cycleScrollView.backgroundColor = [UIColor whiteColor];
         _cycleScrollView.imageURLStringsGroup = self.adArray;
         _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
-        _cycleScrollView.placeholderImage = [UIImage imageNamed:@"nodataPlaceholder"];
+        _cycleScrollView.placeholderImage = [UIImage imageNamed:@"720x330"];
         _cycleScrollView.delegate = self;
         
         //自定义dot 大小和图案pageControlCurrentDot

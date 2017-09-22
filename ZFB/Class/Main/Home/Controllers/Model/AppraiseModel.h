@@ -81,5 +81,8 @@
 
 @property (nonatomic, copy) NSString *userAvatarImg;
 
+@property (nonatomic, copy) NSString *attachImgUrl;
+
+
 @end
 

@@ -38,7 +38,7 @@
     self.lb_checkStatus.text =  progressList.status ;
     self.lb_title.text =  progressList.goodsName ;
     self.lb_applelyTime.text = [NSString stringWithFormat:@"申请时间:%@",progressList.createTime];
-    [self.img_progressView sd_setImageWithURL:[NSURL URLWithString:progressList.coverImgUrl] placeholderImage:[UIImage imageNamed:@"errorImage"]];
+    [self.img_progressView sd_setImageWithURL:[NSURL URLWithString:progressList.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     
 }
 

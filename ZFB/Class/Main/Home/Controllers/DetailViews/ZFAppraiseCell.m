@@ -11,8 +11,8 @@
 
 @interface ZFAppraiseCell ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionLayoutHeight;
+
 @end
 @implementation ZFAppraiseCell
 
@@ -27,7 +27,7 @@
     self.img_appraiseView.layer.cornerRadius =  25;
 
     self.lb_message.preferredMaxLayoutWidth = KScreenW - 30 - 60;
-    self.lb_detailtext.preferredMaxLayoutWidth = KScreenW - 30 - 60;
+    self.lb_detailtext.preferredMaxLayoutWidth = 120;
     
     [self setup];
    
@@ -37,8 +37,7 @@
 -(void)setInfoList:(Findlistreviews *)infoList
 {
     _infoList = infoList;
-    
-    self.imgurl = _infoList.reviewsImgUrl;
+//    self.imgurl = _infoList.attachImgUrl;
     self.lb_nickName.text = _infoList.userName;
     self.lb_message.text = _infoList.reviewsText;
     self.lb_detailtext.text = [NSString stringWithFormat:@"%@之前,来自%@",_infoList.createDate,_infoList.equip];
@@ -56,20 +55,35 @@
 
 }
 
+-(void)setMutImgArray:(NSMutableArray *)mutImgArray{
+    
+    _mutImgArray  = mutImgArray;
+    
+
+}
 -(void)reloadlayout{
     
-    NSArray * imgArr = [_imgurl componentsSeparatedByString:@","];
-    
-    if (imgArr.count == 0 || imgArr== nil) {
-        _collectionLayoutHeight.constant  = 0.0;
+//    if (_mutImgArray.count == 0 || _mutImgArray== nil) {
+//        _collectionLayoutHeight.constant  = 0.0;
+//    }
+
+    NSMutableArray * urlArr =[NSMutableArray array];
+    for (NSString * BigjsonUrl in _mutImgArray) {
+        NSArray * tempImgArray = [BigjsonUrl componentsSeparatedByString:@","];
+        for (NSString * url in tempImgArray) {
+            
+            [urlArr addObject:url];
+        }
     }
-    else if (imgArr.count > 3) {
-        
+    if (urlArr.count > 3) {
+       
         _collectionLayoutHeight.constant = (((KScreenW - 90 )/3.0 )*2 );
     }
     else{
         _collectionLayoutHeight.constant = ((KScreenW - 90 )/3.0 );
     }
+    [self.appriseCollectionView reloadData];
+
 }
 #pragma  mark - UICollectionViewDelegate
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -78,19 +92,40 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSArray * imgArr = [_imgurl componentsSeparatedByString:@","];
-    return imgArr.count;
+    NSMutableArray * urlArr =[NSMutableArray array];
     
+    for (NSString * BigjsonUrl in _mutImgArray) {
+        NSArray * tempImgArray = [BigjsonUrl componentsSeparatedByString:@","];
+        for (NSString * url in tempImgArray) {
+          
+            [urlArr addObject:url];
+        }
+    }
+    NSLog(@"urlArr ------- %@",urlArr);
+
+    return urlArr.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
    
     ApprariseCollectionViewCell *cell = [self.appriseCollectionView dequeueReusableCellWithReuseIdentifier:@"ApprariseCollectionViewCellid" forIndexPath:indexPath];
-   
-    NSArray * imgArr = [_imgurl componentsSeparatedByString:@","];
-    for (NSString * urlStr in imgArr) {
     
-         [cell.img_CollectionView  sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:nil ];
-     }
+    for (NSString * BigjsonUrl in _mutImgArray) {
+        NSLog(@"jsonUrl ------- %@",BigjsonUrl);
+        NSArray * tempImgArray = [BigjsonUrl componentsSeparatedByString:@","];
+        NSLog(@"tempImgArray ------- %@",tempImgArray);
+        for (NSString * url in tempImgArray) {
+            NSLog(@"最后的URL ------- %@",url);
+            [cell.img_CollectionView  sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"170x170"]];
+ 
+        }
+    }
+    
+//    NSString * url = _mutImgArray[indexPath.row];
+//    NSArray * urlArr = [url componentsSeparatedByString:@","];
+//    for (NSString  * imgUrl in urlArr) {
+//        [cell.img_CollectionView  sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"170x170"]];
+//    }
+// 
     
     return cell;
     
@@ -102,7 +137,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     CGFloat itemH = ((KScreenW - 90 )/3.0 - 10);
-    return  CGSizeMake(itemH,itemH );
+    return  CGSizeMake(itemH,itemH);
     
 }
 // 设置整个组的缩进量是多少
@@ -113,8 +148,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-   
-    NSLog(@"------%ld-------",indexPath.item);
+    NSLog(@"%ld",indexPath.item);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

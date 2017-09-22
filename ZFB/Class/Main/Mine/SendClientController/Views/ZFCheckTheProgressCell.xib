@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="173"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="173"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="172.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务单号：124124125125" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="390-gK-n6D">
@@ -52,7 +52,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="caJ-4H-0R3">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="230x235.png" translatesAutoresizingMaskIntoConstraints="NO" id="caJ-4H-0R3">
                         <rect key="frame" x="15" y="51" width="60" height="60"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="60" id="33W-av-jRs"/>
@@ -133,4 +133,7 @@
             <point key="canvasLocation" x="-279" y="101.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="230x235.png" width="230" height="235"/>
+    </resources>
 </document>

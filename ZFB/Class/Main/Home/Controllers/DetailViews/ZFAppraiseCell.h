@@ -28,6 +28,7 @@
  
 @property (nonatomic ,strong) Findlistreviews * infoList ;
 
+@property (nonatomic ,strong) NSMutableArray  * mutImgArray;
 
 
 

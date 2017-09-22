@@ -49,9 +49,9 @@
 
 
 /**
- 左边距
+  选择按钮的宽度
  */
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftPadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonWidthConstraint;
 
 //当前下标
 @property (assign , nonatomic) NSInteger indexRow;

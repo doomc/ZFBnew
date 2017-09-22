@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="160" height="291"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nodataPlaceholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="P2Q-JS-ZA8">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="240x260.png" translatesAutoresizingMaskIntoConstraints="NO" id="P2Q-JS-ZA8">
                         <rect key="frame" x="5" y="5" width="150" height="180"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="P2Q-JS-ZA8" secondAttribute="height" multiplier="5:6" id="Gbb-Vw-dpb"/>
@@ -37,7 +37,7 @@
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AhP-CX-r4T">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="head.png" translatesAutoresizingMaskIntoConstraints="NO" id="AhP-CX-r4T">
                         <rect key="frame" x="5" y="245" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="SGF-vq-iHL"/>
@@ -107,7 +107,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="nodataPlaceholder.png" width="362" height="178"/>
+        <image name="240x260.png" width="240" height="260"/>
+        <image name="head.png" width="32" height="32"/>
         <image name="sharezan_normal.png" width="24" height="24"/>
         <image name="sharezan_selected.png" width="24" height="24"/>
     </resources>

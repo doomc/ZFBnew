@@ -25,7 +25,7 @@
 /**
  已使用优惠券，左间距ContentView
  */
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *padLeftConstrainWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonWidthConstrainWidth;
 /** 判断 是否使用  */
 @property (weak, nonatomic) IBOutlet UIImageView *img_isUsed;
 /** 判断 优惠券状态 是否过期  */

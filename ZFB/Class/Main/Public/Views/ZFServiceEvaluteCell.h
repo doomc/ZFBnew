@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TggStarEvaluationView.h"
 
 
 @protocol ZFServiceEvaluteCellDelegate <NSObject>
@@ -21,9 +20,9 @@
 
 @property (assign, nonatomic)  id <ZFServiceEvaluteCellDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet TggStarEvaluationView *sendSpeedAppraiseView;
+@property (weak, nonatomic) IBOutlet UIView *sendSpeedAppraiseView;
 
-@property (weak, nonatomic) IBOutlet TggStarEvaluationView *serviceAppraiseView;
+@property (weak, nonatomic) IBOutlet UIView *serviceAppraiseView;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_sendSpeedScore;
 
