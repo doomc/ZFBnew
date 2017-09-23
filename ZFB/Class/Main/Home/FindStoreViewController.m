@@ -29,6 +29,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     NSString *latitudestr;//经度
     NSString *longitudestr;//纬度
     NSInteger totalCount;//总条数
+    NSString * _currentCity;//当前城市
+    MAUserLocation * _currentLocation;
+    
 }
 @property (strong,nonatomic) UITableView * home_tableView;
 @property (strong,nonatomic) UIView * sectionView;
@@ -253,7 +256,16 @@ static NSString *CellIdentifier = @"FindStoreCellid";
  */
 -(void)pushToLocationView:(UIButton *)sender
 {
+    
     HP_LocationViewController * locationVC =[[ HP_LocationViewController alloc]init];
+    
+    locationVC.currentCity = _currentCity;
+    locationVC.currentLocation = _currentLocation;
+    locationVC.searchStr = currentCityAndStreet;
+    locationVC.moveBlock = ^(AMapPOI *poi) {
+
+        [self.location_btn setTitle:poi.name forState:UIControlStateNormal];
+    };
     [self.navigationController pushViewController: locationVC animated:YES];
     
 }
@@ -268,8 +280,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         _locationManager.distanceFilter = 100;
         [_locationManager setDistanceFilter:kCLDistanceFilterNone];
         _locationManager.delegate = self;
-
-        currentCityAndStreet = [NSString new];
         [_locationManager requestWhenInUseAuthorization];
         
         //设置寻址精度
@@ -282,7 +292,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 //定位失败后调用此代理方法
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    [self.view makeToast:[NSString stringWithFormat:@"%@",error] duration:2 position:@"center"];
+    [self.view makeToast:@"定位失败" duration:2 position:@"center"];
 
 }
 
@@ -296,28 +306,28 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     CLGeocoder *geoCoder = [[CLGeocoder alloc]init];
     
     currentLocation  = [currentLocation locationMarsFromEarth];
+    _currentLocation =(MAUserLocation *) currentLocation  ;
+    NSLog(@"%@",_currentLocation);
     //打印当前的经度与纬度
     latitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
     longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
-    NSLog(@"  %@  --- long%@",latitudestr,longitudestr);
-    
-    BBUserDefault.latitude = latitudestr;
-    BBUserDefault.longitude = longitudestr;
+//    NSLog(@"  %@  --- long%@",latitudestr,longitudestr);
     
     //反地理编码
     [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         if (placemarks.count > 0) {
             CLPlacemark *placeMark = placemarks[0];
-            currentCityAndStreet = placeMark.locality;
+            _currentCity =   placeMark.locality ;
+            
             if (!currentCityAndStreet) {
                 currentCityAndStreet = @"无法定位当前城市";
             }
             /*看需求定义一个全局变量来接收赋值*/
 //            NSLog(@"----%@",placeMark.country);//当前国家
             NSLog(@"%@",currentCityAndStreet);//当前的城市
-            NSLog(@"%@",placeMark.subLocality);//当前的位置
-            NSLog(@"%@",placeMark.thoroughfare);//当前街道
-            NSLog(@"%@",placeMark.name);//具体地址
+//            NSLog(@"%@",placeMark.subLocality);//当前的位置
+//            NSLog(@"%@",placeMark.thoroughfare);//当前街道
+//            NSLog(@"%@",placeMark.name);//具体地址
 
             currentCityAndStreet = [NSString stringWithFormat:@"%@%@",placeMark.subLocality,placeMark.name];
             [self.location_btn setTitle:currentCityAndStreet forState:UIControlStateNormal];
@@ -348,7 +358,10 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                              };
 
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
- 
+        
+        BBUserDefault.latitude = latitudestr;
+        BBUserDefault.longitude = longitudestr;
+        
         if ([response[@"resultCode"] intValue] == 0) {
             
             if (self.refreshType == RefreshTypeHeader) {
@@ -361,7 +374,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
             HomeStoreListModel * homeStore = [HomeStoreListModel mj_objectWithKeyValues:response];
             
             totalCount = homeStore.storeInfoList.totalCount;
+            
             NSLog(@"%ld -----page = %ld",totalCount,self.currentPage);
+    
             for (Findgoodslist  * goodlist in homeStore.storeInfoList.findGoodsList) {
       
                 [self.storeListArr addObject:goodlist];
@@ -371,6 +386,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                 
                 [self.home_tableView cyl_reloadData];
             }
+        
         }
         [self endRefresh];
         [self.home_tableView reloadData];
@@ -395,19 +411,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 
 #pragma mark - CYLTableViewPlaceHolderDelegate Method
 - (UIView *)makePlaceHolderView {
+    
     UIView *weChatStyle = [self weChatStylePlaceHolder];
-    UIView *taobaoStyle = [self taoBaoStylePlaceHolder];
-
     return weChatStyle;
-}
-
-//暂无网络
-- (UIView *)taoBaoStylePlaceHolder {
-    __block XTNetReloader *netReloader = [[XTNetReloader alloc] initWithFrame:CGRectMake(0, 0, 0, 0)
-                                                                  reloadBlock:^{
-                                                                      [self headerRefresh];
-                                                                  }] ;
-    return netReloader;
 }
 
 //暂无数据

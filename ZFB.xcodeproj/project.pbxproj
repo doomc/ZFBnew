@@ -3726,7 +3726,6 @@
 				495EA3BF1F14B64B001FCB7E /* Frameworks */,
 				495EA3C21F14B64B001FCB7E /* Main */,
 				495EA57E1F14B64C001FCB7E /* Resource */,
-				495EA6761F14B64C001FCB7E /* SDKFile */,
 				495EA6771F14B64C001FCB7E /* Vender */,
 			);
 			path = Class;
@@ -3737,9 +3736,7 @@
 			children = (
 				495EA2FD1F14B64B001FCB7E /* Category */,
 				495EA3201F14B64B001FCB7E /* Const */,
-				495EA3251F14B64B001FCB7E /* Controls */,
 				495EA3281F14B64B001FCB7E /* Header(头文件) */,
-				495EA32E1F14B64B001FCB7E /* Macros */,
 				495EA32F1F14B64B001FCB7E /* Network(网络请求) */,
 				495EA33E1F14B64B001FCB7E /* Tool(工具类) */,
 			);
@@ -3821,29 +3818,6 @@
 			path = Const;
 			sourceTree = "<group>";
 		};
-		495EA3251F14B64B001FCB7E /* Controls */ = {
-			isa = PBXGroup;
-			children = (
-				495EA3261F14B64B001FCB7E /* CustomButton */,
-				495EA3271F14B64B001FCB7E /* CustomCell */,
-			);
-			path = Controls;
-			sourceTree = "<group>";
-		};
-		495EA3261F14B64B001FCB7E /* CustomButton */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CustomButton;
-			sourceTree = "<group>";
-		};
-		495EA3271F14B64B001FCB7E /* CustomCell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CustomCell;
-			sourceTree = "<group>";
-		};
 		495EA3281F14B64B001FCB7E /* Header(头文件) */ = {
 			isa = PBXGroup;
 			children = (
@@ -3856,13 +3830,6 @@
 			);
 			name = "Header(头文件)";
 			path = Header;
-			sourceTree = "<group>";
-		};
-		495EA32E1F14B64B001FCB7E /* Macros */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Macros;
 			sourceTree = "<group>";
 		};
 		495EA32F1F14B64B001FCB7E /* Network(网络请求) */ = {
@@ -5311,13 +5278,6 @@
 				495EA6741F14B64C001FCB7E /* 距离@3x.png */,
 			);
 			path = "首页2";
-			sourceTree = "<group>";
-		};
-		495EA6761F14B64C001FCB7E /* SDKFile */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SDKFile;
 			sourceTree = "<group>";
 		};
 		495EA6771F14B64C001FCB7E /* Vender */ = {

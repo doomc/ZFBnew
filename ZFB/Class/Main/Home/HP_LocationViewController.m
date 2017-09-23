@@ -13,24 +13,22 @@
 #import "HPLocationCell.h"
 //view
 #import "MapPoiTableView.h"
-
-#import "MJRefresh.h"
 //高德api
 #import <AMapLocationKit/AMapLocationKit.h>
 #import "CLLocation+MPLocation.h"
+
 @interface HP_LocationViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,AMapLocationManagerDelegate,AMapSearchDelegate>
 {
     NSIndexPath *  _selectedIndexPath;
     NSInteger      _pageIndex;
+    BOOL _isFirst;
 }
 
 //poi
-@property (nonatomic,strong) AMapSearchAPI *  searchAPI;
-@property (nonatomic,strong) NSMutableArray *  addressList;
-@property (nonatomic,strong) NSMutableArray *  searchPoiArray;
-
-@property (nonatomic,assign) BOOL           needInsertOldAddress;
-@property (nonatomic,assign) BOOL           isSelectCity;
+@property (nonatomic,strong) AMapSearchAPI *  search;
+@property (nonatomic,retain) NSMutableArray * dataList;
+@property (strong,nonatomic) NSMutableArray * searchList;
+@property (nonatomic,assign) BOOL isSelected;//是否点击了搜索，点击之前都是只能匹配
 
 //end
 @property (nonatomic,strong) UITableView * location_TableView;
@@ -38,47 +36,52 @@
 @property (nonatomic,strong) UIView * bgView;
 
 //高德api
-@property (nonatomic,strong) AMapLocationManager * locationManager;
-@property (nonatomic,strong) AMapLocationReGeocode * reGeocode;//地理编码
-@property (nonatomic,strong) CLLocation *  currentLocation;
 
-/**
- *  持续定位是否返回逆地理信息，默认NO。
- */
-@property (nonatomic, assign) BOOL locatingWithReGeocode;
 
 @end
 
 @implementation HP_LocationViewController
 
+-(NSMutableArray *)dataList
+{
+    if (!_dataList) {
+        _dataList = [NSMutableArray array];
+    }
+    return _dataList;
+}
+-(NSMutableArray *)searchList
+{
+    if (!_searchList) {
+        _searchList = [NSMutableArray array];
+    }
+    return _searchList;
+}
+
+-(UISearchBar *)searchBar
+{
+    if (!_searchBar) {
+        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, KScreenW , 50)];
+        _searchBar.delegate = self;
+        _searchBar.backgroundImage = [self imageWithColor:HEXCOLOR(0xf2f2f2) size:_searchBar.bounds.size];
+        _searchBar.placeholder = @"搜索商品或门店";
+    }
+    return _searchBar;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [self creatTableViewInterface];
-   
-    [self LocationMapManagerInit];
-
-    UIView *superView = self.searchBar.subviews.lastObject;
-    for (UIView *view in superView.subviews) {
-        if ([view isKindOfClass:[UITextField class]]) {
-            view.backgroundColor = HEXCOLOR(0xdedede);
-        }else if ([NSStringFromClass([view class]) isEqualToString:@"UISearchBarBackground"]) {
-            [view removeFromSuperview];
-        }
-    }
-
 
 }
 -(void)creatTableViewInterface
 {
     self.title = @"选择地址";
-    
+    _isFirst  = YES;//默认第一次进来
     //创建bgView
     self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW,50 )];
     [self.view addSubview:_bgView];
-
     [_bgView addSubview:self.searchBar];
     
     
@@ -89,175 +92,22 @@
     self.location_TableView.dataSource = self;
     self.location_TableView.delegate = self;
     
-
- 
     [self.location_TableView registerNib:[UINib nibWithNibName:@"SearchCell" bundle:nil] forCellReuseIdentifier:@"SearchCellid"];
     [self.location_TableView registerNib:[UINib nibWithNibName:@"HPLocationCell" bundle:nil] forCellReuseIdentifier:@"HPLocationCellid"];
- 
-    
 
-    weakSelf(weakSelf);
-    //上拉加载
-    _location_TableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        [weakSelf loadMorePOI];
-        
-    }];
     
-    //下拉刷新
-    _location_TableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        //需要将页码设置为1
-        _pageIndex = 1;
-        
-        //        [weakSelf PostRequst];
-    }];
+    _search = [[AMapSearchAPI alloc] init];
+    _search.delegate = self;
     
-    
+    //设置搜索内容
+    self.searchBar.text = _searchStr;
+    NSLog(@"搜索界面%@,%@",_currentLocation,_currentCity);
+
 }
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [self.location_TableView.mj_header beginRefreshing];
-    
-}
-#pragma mark  - 高德POI设置  搜索
--(void)settingPOI{
- 
-    if (self.oldPoi) {
-        AMapPOI *poi                = self.oldPoi;
-        self.needInsertOldAddress   = poi.address.length > 0;
-        self.isSelectCity           = poi.address.length == 0;
-    }
-    
-    [self headRefreshing];
-}
-#pragma mark - getData
-- (void)headRefreshing{
-    _pageIndex = 0;
- 
-    [self footRefreshing];
-}
-
-- (void)footRefreshing{
-    [self searchApISetting];
-}
-#pragma mark  - 高德POI设置 AMapSearchDelegate
--(void)searchApISetting
-{
-    _pageIndex += 1;
-
-    self.searchAPI = [[AMapSearchAPI alloc] init];
-    self.searchAPI.delegate = self;
-    
-    AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
-    request.location = [AMapGeoPoint locationWithLatitude:_currentLocation.coordinate.latitude longitude:_currentLocation.coordinate.longitude];
-    NSLog(@" lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
-    request.requireExtension = YES;
-    request.requireSubPOIs  = YES;
-    request.keywords = @"";
-    request.radius   = 1000;
-    request.sortrule   = 0;///排序规则, 0-距离排序；1-综合排序, 默认1
-    request.page     = _pageIndex;//页数
-    request.types    = @"050000|060000|070000|080000|090000|100000|110000|120000|130000|140000|150000|160000|170000";
-    [self.searchAPI AMapPOIAroundSearch:request];
-    
-}
-#pragma mark - AMapSearchDelegate
-//检索失败
--(void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error{
-   
-    NSLog(@"%@",error);
-}
-/* POI 搜索回调. */
-- (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response{
-   
-    if (response.pois.count == 0){
-        return;
-    }
-    [self.addressList removeAllObjects];
-    
-    [SVProgressHUD showWithStatus:@"检索成功"];
-  
-
-    for(AMapPOI *poi in response.pois){
-        
-        NSLog(@"%@",[NSString stringWithFormat:@"%@\nPOI: %@,%@", poi.description,poi.name,poi.address]);
-     
-        [self.addressList addObject:poi];
-    }
-
-    // 刷新POI后默认第一行为打勾状态
-    _selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    // 刷新完成,没有数据时不显示footer
-    self.location_TableView.mj_footer.hidden = response.pois.count != _pageIndex;
-    
-    [self.location_TableView.mj_footer endRefreshing];
-    [self.location_TableView.mj_header endRefreshing];
-    
-    [SVProgressHUD  dismiss];
-    
-    [self.location_TableView reloadData];
- 
-    
-}
-#pragma mark - MapPoiTableViewDelegate
-- (void)loadMorePOI
-{
-    _pageIndex++;
-    AMapGeoPoint *point = [AMapGeoPoint locationWithLatitude:_currentLocation.coordinate.latitude longitude:_currentLocation.coordinate.longitude];
-    [self searchPoiByAMapGeoPoint:point];
-}
-// 搜索中心点坐标周围的POI-AMapGeoPoint
-- (void)searchPoiByAMapGeoPoint:(AMapGeoPoint *)location
-{
-    AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
-    request.location = location;
-    // 搜索半径
-    request.radius = 1000;
-    // 搜索结果排序
-    request.sortrule = 1;
-    // 当前页数
-    request.page = _pageIndex;
-    [_searchAPI AMapPOIAroundSearch:request];
-}
-
-
-#pragma mark  - 高德定位
--(void)LocationMapManagerInit{
-    
-    self.locationManager = [[AMapLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    
-    // 带逆地理信息的一次定位（返回坐标和地址信息）
-    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
-
-    self.locationManager.distanceFilter = 200;
-    
-    //   定位超时时间，最低2s，此处设置为2s
-    self.locationManager.locationTimeout =10;
-    
-    //   逆地理请求超时时间，最低2s，此处设置为2s
-    self.locationManager.reGeocodeTimeout = 10;
-    
-    //开始定位
-    [self.locationManager setLocatingWithReGeocode:YES];
-    [self.locationManager startUpdatingLocation];
-}
-
-#pragma mark  -AMapLocationManagerDelegate
-- (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode
-{
-    // 赋值给全局变量
-    _currentLocation = location = [_currentLocation locationMarsFromEarth];
-
-    NSLog(@" lat:%f; lon:%f ",_currentLocation.coordinate.latitude,_currentLocation.coordinate.longitude);
-    
-    // 发起周边搜索
-    [self settingPOI];
-    
-    // 停止定位
-    [self.locationManager stopUpdatingLocation];
-    
-
+    [super viewWillAppear:animated];
+    [self.searchBar becomeFirstResponder];
 }
 
 
@@ -270,7 +120,11 @@
 {
     if (section == 1) {
         
-        return  self.addressList.count;
+        if (!_isSelected) {
+            return [self.searchList count];
+        }else{
+            return [self.dataList count];
+        }
     }
     return 1;
     
@@ -281,13 +135,17 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    CGFloat height = 0.001;
     if (section == 1) {
-        return 40;
+        height = 40;
     }
-    return 5;
+    return height;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 5;
+    if (section == 0) {
+        return 5;
+    }
+    return 0.00;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -316,90 +174,53 @@
                                    dequeueReusableCellWithIdentifier:@"SearchCellid" forIndexPath:indexPath];
         return searchCell;
     }
-    if (indexPath.section == 1 ) {
-        
+   else {
         HPLocationCell * cell = [self.location_TableView
                                  dequeueReusableCellWithIdentifier:@"HPLocationCellid" forIndexPath:indexPath];
-        AMapPOI *info         = self.addressList[indexPath.row];
-        cell.lb_title.text    = info.name.length > 0 ? info.name : info.city;
-        cell.lb_detail.text   = info.address;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.accessoryType = (_selectedIndexPath.row == indexPath.row) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-
+        //如果搜索框激活
+        if (!_isSelected) {
+            AMapPOI *poi = _searchList[indexPath.row];
+            [cell.lb_title setText:poi.name];
+            [cell.lb_detail setText:poi.address];
+        }
+        else{
+            AMapPOI *poi = _dataList[indexPath.row];
+            [cell.lb_title setText:poi.name];
+            [cell.lb_detail setText:poi.address];
+        }
         return cell;
-        
     }
-    return nil;
-    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        
-        [self LocationMapManagerInit];
-
-    }
-    if (indexPath.section == 1) {
-        // 单选打勾
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        NSInteger newRow = indexPath.row;
-        NSInteger oldRow = _selectedIndexPath != nil ? _selectedIndexPath.row : -1;
-        if (newRow != oldRow) {
-            UITableViewCell *currentCell = [tableView cellForRowAtIndexPath:indexPath];
-            currentCell.accessoryType = UITableViewCellAccessoryCheckmark;
-            UITableViewCell *lastCell = [tableView cellForRowAtIndexPath:_selectedIndexPath];
-            lastCell.accessoryType = UITableViewCellAccessoryNone;
+        [self searchPoiText:_searchStr];
+    }else{
+        [self.searchBar resignFirstResponder];
+        AMapPOI *poi = [[AMapPOI alloc]init];
+        //如果搜索框激活
+        if (!_isSelected) {
+            poi = _searchList[indexPath.row];
+            
         }
-        _selectedIndexPath = indexPath;
-        
-        AMapPOI *info = self.addressList[indexPath.row];
-        NSLog(@"%@",info.city);
-        if (self.successBlock) {
-            [self.navigationController popViewControllerAnimated:YES];
+        else{
+            poi = _dataList[indexPath.row];
         }
- 
+        NSLog(@"%@,%f,%f",poi.name,poi.location.latitude,poi.location.longitude);
+        self.moveBlock(poi);
+        [self.navigationController popViewControllerAnimated:YES];
     }
-   
 }
-
-
-- (void)setSuccessBlock:(SelectLocationSuccessBlock)successBlock{
-    
-    _successBlock = successBlock;
-    
-}
-
--(NSMutableArray *)addressList
-{
-    if (!_addressList) {
-        _addressList = [NSMutableArray array];
-    }
-    return _addressList;
-}
--(NSMutableArray *)searchPoiArray
-{
-    if (!_searchPoiArray) {
-        _searchPoiArray = [NSMutableArray array];
-    }
-    return _searchPoiArray;
-}
-
--(UISearchBar *)searchBar
-{
-    if (!_searchBar) {
-        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(10, 0, KScreenW - 2*10, 44)];
-        _searchBar.delegate = self;
-        _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
-        _searchBar.placeholder = @"搜索商品或门店";
-    }
-    return _searchBar;
-}
-
 
 //以下的两个方法必须设置.searchBar.delegate 才可以
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     NSLog(@"开始编辑");
+    if (_isFirst == YES) {
+        [self searchPoiText:_searchStr];
+    }
+    _isFirst = NO;
+
     return YES;
 }
 
@@ -410,24 +231,75 @@
 //当搜索框中的内容发生改变时会自动进行搜索,这个是经常用的
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    NSLog(@"结束编辑 %@",searchText);
-    
+    NSLog(@"正在编辑--- %@",searchText);
+    [self searchPoiText:searchText];
 }
--(BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    
-    NSLog(@"正在编辑--- %@",text);
-    
-    return YES;
-}
-
 
 //在键盘中的搜索按钮的点击事件
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     NSLog(@"点击了搜索");
-
+    [self searchPoiText:searchBar.text];
+}
+#pragma mark - 公共方法
+-(void)searchPoiText:(NSString * )searchText
+{
+    //发起输入提示搜索
+    AMapInputTipsSearchRequest *tipsRequest = [[AMapInputTipsSearchRequest alloc] init];
+    tipsRequest.keywords = searchText;
+    tipsRequest.city = _currentCity;
+    [_search AMapInputTipsSearch: tipsRequest];
+}
+//实现POI搜索对应的回调函数
+- (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response
+{
+    if(response.pois.count == 0)
+    {
+        return;
+    }
+    
+    //通过 AMapPOISearchResponse 对象处理搜索结果
+    
+    [self.dataList removeAllObjects];
+    for (AMapPOI *poi in response.pois) {
+        NSLog(@"%@",[NSString stringWithFormat:@"%@\nPOI: %@,%@", poi.description,poi.name,poi.address]);
+        //搜索结果存在数组
+        [self.dataList addObject:poi];
+    }
+    _isSelected = YES;
+    [self.location_TableView reloadData];
+    
 }
 
+//实现输入提示的回调函数
+-(void)onInputTipsSearchDone:(AMapInputTipsSearchRequest*)request response:(AMapInputTipsSearchResponse *)response
+{
+    if(response.tips.count == 0)
+    {
+        return;
+    }
+    //通过AMapInputTipsSearchResponse对象处理搜索结果
+    //先清空数组
+    [self.searchList removeAllObjects];
+    for (AMapTip *p in response.tips) {
+
+        //把搜索结果存在数组
+        [self.searchList addObject:p];
+    }
+    _isSelected = NO;
+    //刷新表格
+    [self.location_TableView reloadData];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.searchBar resignFirstResponder];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self.searchBar resignFirstResponder];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -23,19 +23,19 @@
 #define  aliOSS_baseUrl @"http://zavfb.oss-cn-shenzhen.aliyuncs.com/"
 
 #pragma mark ------------- 线上测试服务器--------------------
-////基类
-//#define  zfb_baseUrl @"https://app.api.zavfb.com/zfb/InterfaceServlet"
-////单聊
-//#define  IMsingle_baseUrl @"https://app.api.zavfb.com/im/user"
-////群聊
-//#define  IMGroup_baseUrl @"https://app.api.zavfb.com/group"
+//基类
+#define  zfb_baseUrl @"https://app.api.zavfb.com/zfb/InterfaceServlet"
+//单聊
+#define  IMsingle_baseUrl @"https://app.api.zavfb.com/im/user"
+//群聊
+#define  IMGroup_baseUrl @"https://app.api.zavfb.com/group"
 
 #pragma mark ------------- xd测试服务器数--------------------
-#define  zfb_baseUrl @"http://192.168.1.104:8087/zfb/InterfaceServlet"
-//单聊
-#define  IMsingle_baseUrl @"http://192.168.1.104:8087/im/user"
-//群聊
-#define  IMGroup_baseUrl @"http://192.168.1.104:8087/group"
+//#define  zfb_baseUrl @"http://192.168.1.104:8087/zfb/InterfaceServlet"
+////单聊
+//#define  IMsingle_baseUrl @"http://192.168.1.104:8087/im/user"
+////群聊
+//#define  IMGroup_baseUrl @"http://192.168.1.104:8087/group"
 
 //#pragma mark ------------- tfy测试服务器数--------------------
 //baseURL
@@ -56,7 +56,7 @@
 
 
 #pragma mark -------------支付服务 -------------------
-#define PayResulrUrl @"http://192.168.1.115:8080/cashier_zavfpay/cashier/gateway.do"//支付页面地址
+//#define PayResulrUrl @"http://192.168.1.115:8080/cashier_zavfpay/cashier/gateway.do"//支付页面地址
 //#define notify_url   @"http://192.168.1.104:8087/notify/order/getOrderNotify"//支付异步回调地址
 //#define return_url   @"http://localhost:8080/return"//支付同步回调地址
 

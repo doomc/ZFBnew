@@ -47,17 +47,19 @@
     
     FuncListCollectionViewCell * cell = [self.funcCollectionView dequeueReusableCellWithReuseIdentifier:@"FuncListCollectionViewCellid" forIndexPath:indexPath];
 
-    CMgoodstypelist * type=  self.dataArray[indexPath.item ];
-    cell.lb_listName.text = type.name;
-    NSURL * img_url = [NSURL URLWithString:type.iconUrl];
-    [cell.img_listView sd_setImageWithURL:img_url placeholderImage:nil];
-    
-    if (indexPath.item == 7) {
-        cell.lb_listName.text = @"全部分类";
-        cell.img_listView.image = [UIImage imageNamed:@"classes"];
+    if (_dataArray.count > 0) {
+        CMgoodstypelist * type=  self.dataArray[indexPath.item];
+        cell.lb_listName.text = type.name;
+        NSURL * img_url = [NSURL URLWithString:type.iconUrl];
+        [cell.img_listView sd_setImageWithURL:img_url placeholderImage:nil];
+        
+        if (indexPath.item == 7) {
+            cell.lb_listName.text = @"全部分类";
+            cell.img_listView.image = [UIImage imageNamed:@"classes"];
+        }        
     }
-    
     return cell;
+
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

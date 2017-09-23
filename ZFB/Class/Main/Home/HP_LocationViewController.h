@@ -14,7 +14,13 @@ typedef void(^SelectLocationSuccessBlock)(AMapPOI *poi);
 
 @interface HP_LocationViewController : BaseViewController
 
-@property (nonatomic,strong)   AMapPOI                      *oldPoi;
-@property (nonatomic,copy  )   SelectLocationSuccessBlock   successBlock;
+@property (nonatomic,retain) MAUserLocation *currentLocation;//当前位置
+
+
+@property (nonatomic,copy) SelectLocationSuccessBlock moveBlock;
+
+@property (nonatomic,retain) NSString *searchStr;//搜索的内容
+
+@property (nonatomic,retain) NSString *currentCity;//当前参数
 
 @end

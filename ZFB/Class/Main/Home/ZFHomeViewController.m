@@ -103,16 +103,16 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
 {
 
     self.customLeft_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.customLeft_btn.frame = CGRectMake(20, 0, 40, 40);
-    [self.customLeft_btn setImage :[UIImage imageNamed:@"add_red"]  forState:UIControlStateNormal];
-    
+    self.customLeft_btn.frame = CGRectMake(0, 0, 40, 40);
+    [self.customLeft_btn setTitle:@"重庆市" forState:UIControlStateNormal];
+    self.customLeft_btn.titleLabel.font = [ UIFont systemFontOfSize:12];
+    [self.customLeft_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
  
 //    //把button的视图交给Item
     UIBarButtonItem *saoItem = [[UIBarButtonItem alloc] initWithCustomView:self.customLeft_btn];
     //添加到导航项的左按钮
     self.navigationItem.leftBarButtonItem = saoItem;
-    
-    
+
     self.shakehanderRight_btn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.shakehanderRight_btn.frame = CGRectMake(KScreenW - 50 -40, 0, 40, 40);
     [self.shakehanderRight_btn setImage :[UIImage imageNamed:@"add_red"]  forState:UIControlStateNormal];
