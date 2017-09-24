@@ -103,7 +103,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ZFAppraiseCell *appraiseCell = [self.evaluate_tableView  dequeueReusableCellWithIdentifier:@"ZFAppraiseCell" forIndexPath:indexPath];
+    ZFAppraiseCell *appraiseCell = [tableView  dequeueReusableCellWithIdentifier:@"ZFAppraiseCell" forIndexPath:indexPath];
     [self setupCell:appraiseCell AtIndexPath:indexPath];
     return appraiseCell;
     
@@ -112,7 +112,6 @@
 {
     Findlistreviews * info = self.appraiseListArray[indexPath.row];
     cell.infoList = info;
-    cell.mutImgArray = self.imgArray;
  
     if (self.appraiseListArray.count > 0) {
         
@@ -171,7 +170,6 @@
                 for (Findlistreviews * infoList in appraise.data.goodsCommentList.findListReviews) {
                     
                     [self.appraiseListArray addObject:infoList];
-                    [self.imgArray  addObject: infoList.attachImgUrl];
                 }
                 NSLog(@" ===============appraiseListArray ========== %@",  self.appraiseListArray);
                 _totalCount  = appraise.data.goodsCommentList.totalCount;

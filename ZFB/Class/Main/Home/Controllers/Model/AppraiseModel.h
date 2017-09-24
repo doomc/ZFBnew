@@ -83,6 +83,7 @@
 
 @property (nonatomic, copy) NSString *attachImgUrl;
 
+@property (nonatomic,strong) NSArray *evaluteImages;
 
 @end
 

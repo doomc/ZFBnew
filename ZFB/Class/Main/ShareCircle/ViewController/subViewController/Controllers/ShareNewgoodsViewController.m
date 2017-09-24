@@ -17,6 +17,7 @@
 @property (nonatomic , copy) NSString * isThumbed;
 @property (nonatomic , copy) NSString * recommentId;
 
+@property (nonatomic, strong) Recommentlist *currentList;
 @end
 
 @implementation ShareNewgoodsViewController
@@ -106,17 +107,14 @@
     NSLog(@"_indexx --- %ld",index);
     
     Recommentlist * list = self.commendList[index];
+    _currentList = list;
     NSString *thumsId =  [NSString stringWithFormat:@"%ld", list.recommentId];
     if (list.isThumbed == 0) {
-        
         [self didclickZanPostRequsetAtthumsId:thumsId];
-        
-        
     }else{
         [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
         
     }
-    
 }
 -(void)didClickPictureDetailAtIndex:(NSInteger)index
 {
@@ -174,10 +172,9 @@
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/newrecomment/toLike"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
             
-            _isThumbed = @"1";
+            _currentList.isThumbed = 1;
+            [self.zfb_tableView reloadData];
         }
-        [self.zfb_tableView reloadData];
-
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {

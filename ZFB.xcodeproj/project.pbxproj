@@ -6861,26 +6861,10 @@
 		49C33E691F55A68000BC2254 /* ShareCircle(分享圈) */ = {
 			isa = PBXGroup;
 			children = (
-				49C33E6A1F55A68000BC2254 /* Model */,
-				49C33E6B1F55A68000BC2254 /* View */,
 				49C33E6C1F55A68000BC2254 /* ViewController */,
 			);
 			name = "ShareCircle(分享圈)";
 			path = ShareCircle;
-			sourceTree = "<group>";
-		};
-		49C33E6A1F55A68000BC2254 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		49C33E6B1F55A68000BC2254 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		49C33E6C1F55A68000BC2254 /* ViewController */ = {

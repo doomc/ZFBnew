@@ -27,6 +27,8 @@
     self.img_appraiseView.layer.cornerRadius =  25;
 
     self.lb_message.preferredMaxLayoutWidth = KScreenW - 30 - 60;
+    
+    self.lb_nickName.preferredMaxLayoutWidth = KScreenW - 120 -30 - 50;
     self.lb_detailtext.preferredMaxLayoutWidth = 120;
     
     [self setup];
@@ -37,7 +39,8 @@
 -(void)setInfoList:(Findlistreviews *)infoList
 {
     _infoList = infoList;
-//    self.imgurl = _infoList.attachImgUrl;
+    
+    self.mutImgArray = _infoList.evaluteImages;
     self.lb_nickName.text = _infoList.userName;
     self.lb_message.text = _infoList.reviewsText;
     self.lb_detailtext.text = [NSString stringWithFormat:@"%@之前,来自%@",_infoList.createDate,_infoList.equip];
@@ -55,27 +58,14 @@
 
 }
 
--(void)setMutImgArray:(NSMutableArray *)mutImgArray{
-    
-    _mutImgArray  = mutImgArray;
-    
 
-}
 -(void)reloadlayout{
     
 //    if (_mutImgArray.count == 0 || _mutImgArray== nil) {
 //        _collectionLayoutHeight.constant  = 0.0;
 //    }
-
-    NSMutableArray * urlArr =[NSMutableArray array];
-    for (NSString * BigjsonUrl in _mutImgArray) {
-        NSArray * tempImgArray = [BigjsonUrl componentsSeparatedByString:@","];
-        for (NSString * url in tempImgArray) {
-            
-            [urlArr addObject:url];
-        }
-    }
-    if (urlArr.count > 3) {
+ 
+    if (self.mutImgArray.count > 3) {
        
         _collectionLayoutHeight.constant = (((KScreenW - 90 )/3.0 )*2 );
     }
@@ -92,41 +82,14 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSMutableArray * urlArr =[NSMutableArray array];
-    
-    for (NSString * BigjsonUrl in _mutImgArray) {
-        NSArray * tempImgArray = [BigjsonUrl componentsSeparatedByString:@","];
-        for (NSString * url in tempImgArray) {
-          
-            [urlArr addObject:url];
-        }
-    }
-    NSLog(@"urlArr ------- %@",urlArr);
-
-    return urlArr.count;
+    return self.mutImgArray.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
    
     ApprariseCollectionViewCell *cell = [self.appriseCollectionView dequeueReusableCellWithReuseIdentifier:@"ApprariseCollectionViewCellid" forIndexPath:indexPath];
     
-    for (NSString * BigjsonUrl in _mutImgArray) {
-        NSLog(@"jsonUrl ------- %@",BigjsonUrl);
-        NSArray * tempImgArray = [BigjsonUrl componentsSeparatedByString:@","];
-        NSLog(@"tempImgArray ------- %@",tempImgArray);
-        for (NSString * url in tempImgArray) {
-            NSLog(@"最后的URL ------- %@",url);
-            [cell.img_CollectionView  sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"170x170"]];
- 
-        }
-    }
-    
-//    NSString * url = _mutImgArray[indexPath.row];
-//    NSArray * urlArr = [url componentsSeparatedByString:@","];
-//    for (NSString  * imgUrl in urlArr) {
-//        [cell.img_CollectionView  sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"170x170"]];
-//    }
-// 
-    
+    [cell.img_CollectionView  sd_setImageWithURL:[NSURL URLWithString:self.mutImgArray[indexPath.item]] placeholderImage:[UIImage imageNamed:@"170x170"]];
+
     return cell;
     
 }

@@ -25,11 +25,18 @@
     return @{@"findListReviews" : [Findlistreviews class]};
 }
 
+
+
 @end
 
 
 @implementation Findlistreviews
 
+-(NSArray *)evaluteImages {
+    
+    NSArray * imgs = [self.attachImgUrl componentsSeparatedByString:@","];
+    return imgs;
+}
 @end
 
 
