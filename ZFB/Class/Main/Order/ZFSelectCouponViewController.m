@@ -9,7 +9,7 @@
 #import "ZFSelectCouponViewController.h"
 #import "CouponCell.h"
 
-@interface ZFSelectCouponViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface ZFSelectCouponViewController ()<UITableViewDataSource,UITableViewDelegate,CYLTableViewPlaceHolderDelegate,WeChatStylePlaceHolderDelegate>
 
 @property (nonatomic ,strong) UITableView * tableView;
 @property (nonatomic ,strong) NSMutableArray * couponList;//优惠券数组
@@ -85,17 +85,24 @@
     CouponCell * couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"CouponCell" forIndexPath:indexPath];
     Couponlist  * list  = self.couponList [indexPath.row];
     couponCell.couponlist = list;
+    couponCell.indexRow = indexPath.row;
     return couponCell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    Couponlist  * list  = self.couponList [indexPath.row];
+    self.couponBlock([NSString stringWithFormat:@"%ld",list.couponId], list.useRange, [NSString stringWithFormat:@"%.2f",list.eachOneAmount],list.storeId ,list.goodsIds);
+    [self backAction];
 }
+
 
 #pragma mark - 获取用户未使用优惠券列表   recomment/getUserNotUseCouponList
 -(void)getUserNotUseCouponListPostRequset{
     NSDictionary * parma = @{
-                             @"goodsAmount":_goodsAmount,//商品价格
+                             @"status":@"1",
+                             @"idType":@"3",
+                             @"resultId":@"",
+                             @"goodsAmount":_goodsAmount,//商品金额
                              @"goodsId":_goodsIdJson,
                              @"storeId":_storeIdjosn,
                              @"userId":BBUserDefault.cmUserId,
@@ -119,6 +126,10 @@
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
             [self endRefresh];
+           
+            if ([self isEmptyArray:self.couponList]) {
+                [self.tableView cyl_reloadData];
+            }
         }
         
     } progress:^(NSProgress *progeress) {
@@ -130,6 +141,31 @@
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [SVProgressHUD dismiss];
+
+}
+
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+    
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.tableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+    
+    [self getUserNotUseCouponListPostRequset];
 }
 
 

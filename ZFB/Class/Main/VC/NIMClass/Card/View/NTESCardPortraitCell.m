@@ -25,7 +25,7 @@
 
 @property (nonatomic,strong) UIImageView *genderIcon;
 
-@end
+@end 
 
 @implementation NTESCardPortraitCell
 
@@ -109,7 +109,7 @@
         self.accountLabel.left     = self.nameLabel.left;
         self.accountLabel.centerY  = (self.nickNameLabel.top + self.nameLabel.bottom) * .5f;
     }
-
+    
     self.genderIcon.left    = self.nameLabel.right + GenderIconAndTitleSpacing;
     self.genderIcon.centerY = self.nameLabel.centerY;
 }

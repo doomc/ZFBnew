@@ -8,6 +8,7 @@
 
 #import "RegisterViewController.h"
 #import "VerificationCodeViewController.h"
+#import "UserProtocolViewController.h"
 
 @interface RegisterViewController ()<UITextFieldDelegate>
 
@@ -132,6 +133,8 @@
 - (IBAction)serviceProtocol_btn:(id)sender {
     
     NSLog(@"服务协议");
+    UserProtocolViewController * userVC = [UserProtocolViewController new];
+    [self.navigationController pushViewController:userVC animated:NO];
     
 }
 

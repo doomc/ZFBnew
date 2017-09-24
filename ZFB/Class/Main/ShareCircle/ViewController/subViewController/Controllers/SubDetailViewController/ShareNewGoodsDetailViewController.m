@@ -38,7 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"新品推荐";
+    self.title = @"新品推荐详情";
     self.view.backgroundColor = RGBA(244, 244, 244, 1);
     
     [self initWithInterFace];
@@ -47,7 +47,7 @@
     
     [self.view addSubview:self.cycleScrollView];
 
-
+    [self recommentDetailPostRequst];
 }
 /**初始化轮播 */
 -(SDCycleScrollView *)cycleScrollView{
@@ -85,7 +85,6 @@
     _zan_btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_zan_btn setImage:[UIImage imageNamed:@"sharezan_normal"] forState:UIControlStateNormal];
     [_zan_btn setImage:[UIImage imageNamed:@"sharezan_selected"] forState:UIControlStateSelected];
-    [_zan_btn setTitle:@"255" forState:UIControlStateNormal];
     [_zan_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
     _zan_btn.backgroundColor = [UIColor whiteColor];
     [_zan_btn addTarget:self action:@selector(didClickZan:) forControlEvents:UIControlEventTouchUpInside];

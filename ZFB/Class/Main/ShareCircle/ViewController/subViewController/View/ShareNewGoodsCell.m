@@ -8,16 +8,23 @@
 
 #import "ShareNewGoodsCell.h"
 #import "UIImageView+ZFCornerRadius.h"
+@interface ShareNewGoodsCell ()<UIGestureRecognizerDelegate>
 
+
+@end
 @implementation ShareNewGoodsCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
     // Initialization code
- 
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     _lb_tags.preferredMaxLayoutWidth = KScreenW - 30;
+    
+    UITapGestureRecognizer * tap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didPicture:)];
+    tap.delegate = self;
+    _contentImgView.userInteractionEnabled = YES;
+    [_contentImgView addGestureRecognizer:tap];
 }
 
 -(void)setRecommend:(Recommentlist *)recommend
@@ -29,16 +36,33 @@
 
     _lb_goodsName.text = recommend.title;
     _lb_tags.text = recommend.describe;
-    
+    [_contentImgView sd_setImageWithURL:[NSURL URLWithString:recommend.goodsImgUrl] placeholderImage:[UIImage imageNamed:@""]];
+
     //0未点赞 1已点赞
     _isThumbed = [NSString stringWithFormat:@"%ld",recommend.isThumbed];
-    [_contentImgView sd_setImageWithURL:[NSURL URLWithString:recommend.goodsImgUrl] placeholderImage:[UIImage imageNamed:@""]];
+    if ([_isThumbed  isEqualToString:@"1"]) {
+        
+        [_zan_btn setImage:[UIImage imageNamed:@"sharezan_selected"] forState:UIControlStateNormal];
+
+    }else{
+        [_zan_btn setImage:[UIImage imageNamed:@"sharezan_normal"] forState:UIControlStateNormal];
+
+    }
     
 }
 - (IBAction)didClickZan:(id)sender {
     
+     if ([self.delegate respondsToSelector:@selector(didClickZanAtIndex:)]) {
+        [self.delegate didClickZanAtIndex:_indexRow];
+    }
 }
 
+-(void)didPicture:(UITapGestureRecognizer *)tap
+{
+    if ([self.delegate respondsToSelector:@selector(didClickPictureDetailAtIndex:)]) {
+        [self.delegate didClickPictureDetailAtIndex:_indexRow];
+    }
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

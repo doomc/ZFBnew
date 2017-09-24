@@ -44,7 +44,15 @@
     self.lb_nickname.text = fullList.nickname;
     self.lb_description.text = fullList.describe;
     _isThumbsStatus = fullList.thumbsStatus;
-
+  
+    if ([_isThumbsStatus  isEqualToString:@"1"]) {
+        
+        [_zan_btn setImage:[UIImage imageNamed:@"sharezan_selected"] forState:UIControlStateNormal];
+        
+    }else{
+        [_zan_btn setImage:[UIImage imageNamed:@"sharezan_normal"] forState:UIControlStateNormal];
+        
+    }
     
 }
 

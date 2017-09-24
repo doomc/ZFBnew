@@ -11,7 +11,7 @@
 #import "ShareCommendModel.h"
 
 #import "ShareNewGoodsDetailViewController.h"
-@interface ShareNewgoodsViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ShareNewgoodsViewController ()<UITableViewDelegate,UITableViewDataSource,ShareNewGoodsCellDelegate>
 
 @property (nonatomic , strong) NSMutableArray * commendList;
 @property (nonatomic , copy) NSString * isThumbed;
@@ -93,17 +93,38 @@
 {
     Recommentlist * list = self.commendList[indexPath.row];
     cell.recommend = list;
-    _isThumbed = cell.isThumbed;
+    cell.delegate = self;
+    cell.indexRow = indexPath.row;
+    cell.isThumbed = _isThumbed;
+    
 }
 
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma -mark   ShareNewGoodsCellDelegate 新品推荐代理
+-(void)didClickZanAtIndex:(NSInteger)index
 {
-    NSLog(@" ------%ld----", indexPath.row);
+    NSLog(@"_indexx --- %ld",index);
+    
+    Recommentlist * list = self.commendList[index];
+    NSString *thumsId =  [NSString stringWithFormat:@"%ld", list.recommentId];
+    if (list.isThumbed == 0) {
+        
+        [self didclickZanPostRequsetAtthumsId:thumsId];
+        
+        
+    }else{
+        [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
+        
+    }
+    
+}
+-(void)didClickPictureDetailAtIndex:(NSInteger)index
+{
+    Recommentlist * list = self.commendList[index];
     ShareNewGoodsDetailViewController * detailVC = [ShareNewGoodsDetailViewController new];
+    detailVC.recommentId = [NSString stringWithFormat:@"%ld",list.recommentId];
     [self.navigationController pushViewController:detailVC animated:NO];
 }
-
 
 #pragma mark -  获取新品推荐列表  recomment/recommentList
 -(void)recommentPostRequst
@@ -139,8 +160,35 @@
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-    
 }
+
+
+#pragma mark  - 点赞请求 newrecomment/toLike
+-(void)didclickZanPostRequsetAtthumsId:(NSString *)thumsId
+{
+    NSDictionary * parma = @{
+                             @"userId":BBUserDefault.cmUserId,
+                             @"thumsId":thumsId,//分享编号，新品推荐编号
+                             @"type":@"0",//0 新品推荐 1 分享
+                             };
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/newrecomment/toLike"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+            
+            _isThumbed = @"1";
+        }
+        [self.zfb_tableView reloadData];
+
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
+
+
 
 -(void)viewWillDisappear:(BOOL)animated{
     

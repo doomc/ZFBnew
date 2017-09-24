@@ -8,21 +8,30 @@
 
 #import <UIKit/UIKit.h>
 #import "ShareCommendModel.h"
-@protocol ShareNewGoodsCellDelegaet <NSObject>
+@protocol ShareNewGoodsCellDelegate <NSObject>
 
+
+/**
+ 点赞事件
+ 
+ @param index 下标
+ */
 -(void)didClickZanAtIndex:(NSInteger)index;
 
+//点图片查看详情
+-(void)didClickPictureDetailAtIndex:(NSInteger)index;
 
 @end
 @interface ShareNewGoodsCell : UITableViewCell
 
-@property (assign , nonatomic) id <ShareNewGoodsCellDelegaet>delegate;
+@property (assign , nonatomic) id <ShareNewGoodsCellDelegate>delegate;
+
 @property (assign, nonatomic) NSInteger indexRow;
 
 @property (weak, nonatomic) IBOutlet UIImageView *contentImgView;
 
 //描述下面的约束
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutTitle2BottomHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutTitleBottomHeight;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_goodsName;

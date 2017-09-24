@@ -52,7 +52,7 @@
                             <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="我能默认添加的一些内容" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sMt-ms-C4c" customClass="FSTextView">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sMt-ms-C4c" customClass="FSTextView">
                             <rect key="frame" x="96" y="63" width="264" height="120"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>

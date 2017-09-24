@@ -406,31 +406,28 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserCouponList"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
            
-            if (self.refreshType == RefreshTypeHeader) {
-                if (self.couponList.count > 0) {
-                    [self.couponList removeAllObjects];
-                }
-            }
-            CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
-            for (Couponlist * list in coupon.couponList) {
-                [self.couponList addObject:list];
-            }
-           
-            if ([status isEqualToString:@"0"]) {
+            if ([status isEqualToString:@"0"]) {//查询未领取列表
                 
                 [self.view addSubview:self.popCouponBackgroundView];
                 [self.tableView bringSubviewToFront:self.popCouponBackgroundView];
-                [self didClickCloseCouponView];
                 [self.popCouponView reloadData];
                 
             }else{//如果不为0只刷新外部
+                if (self.refreshType == RefreshTypeHeader) {
+                    if (self.couponList.count > 0) {
+                        [self.couponList removeAllObjects];
+                    }
+                }
+                CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
+                for (Couponlist * list in coupon.couponList) {
+                    [self.couponList addObject:list];
+                }
                 
+                [SVProgressHUD dismiss];
+                [self endRefresh];
                 [self.tableView reloadData];
             }
-            [SVProgressHUD dismiss];
-            [self endRefresh];
         }
-        
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
@@ -459,8 +456,6 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
             
             [self.popCouponView reloadData];
             //成功后请求下未使用列表
-            [self recommentPostRequst:@"1"];
-            
             [SVProgressHUD dismiss];
         }
         

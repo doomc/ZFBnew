@@ -313,8 +313,9 @@
     }
 }
 
+
 - (NSString *)notificationMessageContent:(NIMMessage *)lastMessage{
-    NIMNotificationObject *object = lastMessage.messageObject;
+    NIMNotificationObject *object = (NIMNotificationObject *) lastMessage.messageObject;
     if (object.notificationType == NIMNotificationTypeNetCall) {
         NIMNetCallNotificationContent *content = (NIMNetCallNotificationContent *)object.content;
         if (content.callType == NIMNetCallTypeAudio) {
@@ -334,7 +335,7 @@
 }
 
 - (NSString *)robotMessageContent:(NIMMessage *)lastMessage{
-    NIMRobotObject *object = lastMessage.messageObject;
+    NIMRobotObject *object =  (NIMRobotObject *)lastMessage.messageObject;
     if (object.isFromRobot)
     {
         return @"[机器人消息]";
@@ -344,7 +345,6 @@
         return lastMessage.text;
     }
 }
-
 
 #pragma mark - Notification
 - (void)onUserInfoHasUpdatedNotification:(NSNotification *)notification{

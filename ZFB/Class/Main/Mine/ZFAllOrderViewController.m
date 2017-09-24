@@ -1180,8 +1180,8 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             break;
         case OrderTypeDealSuccess://交易成功
             
-//            [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
-            [self.zfb_tableView reloadData];
+            [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
+
             break;
         case OrderTypeCancelSuccess://取消交易
             
@@ -1556,9 +1556,16 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 }
 
 //共享
--(void)didclickShareToFriend:(NSInteger)indexForRow AndOrderId:(NSString *)orderId
+-(void)didclickShareToFriendWithIndexPath:(NSIndexPath *)indexPath AndOrderId:(NSString *)orderId;
 {
+    Orderlist * list           = self.orderListArray[indexPath.section];
+    NSMutableArray * goodArray = [NSMutableArray array];
+    for (Ordergoods * ordergoods in list.orderGoods) {
+        [goodArray addObject:ordergoods];
+    }
+    Ordergoods * goods = goodArray[indexPath.row];
     PublishShareViewController *  publishvc = [PublishShareViewController new];
+    publishvc.goodId = goods.goodsId;
     [self.navigationController pushViewController:publishvc animated:NO];
 }
 #pragma mark - ZFFooterCellDelegate footer跳转的代理
@@ -1653,13 +1660,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         }
             break;
         case OrderTypeDealSuccess://交易成功后去晒单
-        {
-            NSLog(@"晒单啦");
-            //去晒单
-            ZFEvaluateGoodsViewController * appvc = [ZFEvaluateGoodsViewController new];
-            [self.navigationController pushViewController:appvc animated:NO];
-            
-        }
+
             break;
         case OrderTypeCancelSuccess:
             

@@ -570,7 +570,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             self.headview.lb_collectCount.text = _collectNum;
             self.headview.lb_historyCount.text = _foolnum;
             self.headview.lb_userNickname.text = BBUserDefault.nickName;
-            
+            BBUserDefault.userHeaderImg = _userImgAttachUrl;
             [self.headview.img_headview sd_setImageWithURL:[NSURL URLWithString:_userImgAttachUrl] placeholderImage:[UIImage imageNamed:@"avatar_user"]];
             
             [self.myTableView reloadData];

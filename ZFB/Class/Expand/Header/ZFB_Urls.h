@@ -23,19 +23,20 @@
 #define  aliOSS_baseUrl @"http://zavfb.oss-cn-shenzhen.aliyuncs.com/"
 
 #pragma mark ------------- 线上测试服务器--------------------
-//基类
-#define  zfb_baseUrl @"https://app.api.zavfb.com/zfb/InterfaceServlet"
-//单聊
-#define  IMsingle_baseUrl @"https://app.api.zavfb.com/im/user"
-//群聊
-#define  IMGroup_baseUrl @"https://app.api.zavfb.com/group"
+////基类
+//#define  zfb_baseUrl @"https://app.api.zavfb.com/zfb/InterfaceServlet"
+////单聊
+//#define  IMsingle_baseUrl @"https://app.api.zavfb.com/im/user"
+////群聊
+//#define  IMGroup_baseUrl @"https://app.api.zavfb.com/group"
 
 #pragma mark ------------- xd测试服务器数--------------------
-//#define  zfb_baseUrl @"http://192.168.1.104:8087/zfb/InterfaceServlet"
-////单聊
-//#define  IMsingle_baseUrl @"http://192.168.1.104:8087/im/user"
-////群聊
-//#define  IMGroup_baseUrl @"http://192.168.1.104:8087/group"
+//基类
+#define  zfb_baseUrl @"http://192.168.1.104:8087/zfb/InterfaceServlet"
+//单聊
+#define  IMsingle_baseUrl @"http://192.168.1.104:8087/im/user"
+//群聊
+#define  IMGroup_baseUrl @"http://192.168.1.104:8087/group"
 
 //#pragma mark ------------- tfy测试服务器数--------------------
 //baseURL

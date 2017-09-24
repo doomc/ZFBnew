@@ -59,20 +59,21 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     [self initWithHome_Tableview];
     
     [self initInTerfaceView];
-   
-    //主队列+异步任务
-    dispatch_queue_t queue = dispatch_get_main_queue();
-
-    //刷新定位
-    [self LocationMapManagerInit];
+ 
+    //1.获取主队列
+    dispatch_queue_t queue=dispatch_get_main_queue();
     
-    dispatch_async(queue,^{
-   
+    //2.把任务添加到主队列中执行
+    dispatch_async(queue, ^{
         
-        NSLog(@"%@ ",[NSThread currentThread]);
-            //定位成功后请求
+        [self LocationMapManagerInit];
+        NSLog(@"使用异步函数执行主队列中的任务1--%@",[NSThread currentThread]);
+    });
+    dispatch_async(queue, ^{
+       
         [self PostRequst];
-        
+
+        NSLog(@"使用异步函数执行主队列中的任务2--%@",[NSThread currentThread]);
     });
 
     [self setupRefresh];
@@ -114,7 +115,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 -(void)initInTerfaceView{
     
-    //    NSString * LoactionAddress = @"龙湖水晶国际 >";
     UIView * loc_view =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];//背景图
     UIView * bg_view =[[UIView alloc]initWithFrame:CGRectMake(15, 5, KScreenW-15-15, 30)];
     [loc_view addSubview:bg_view];
@@ -307,7 +307,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     currentLocation  = [currentLocation locationMarsFromEarth];
     _currentLocation =(MAUserLocation *) currentLocation  ;
-    NSLog(@"%@",_currentLocation);
+
     //打印当前的经度与纬度
     latitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
     longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
@@ -319,8 +319,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
             CLPlacemark *placeMark = placemarks[0];
             _currentCity =   placeMark.locality ;
             
-            if (!currentCityAndStreet) {
-                currentCityAndStreet = @"无法定位当前城市";
+            if (!_currentCity) {
+                _currentCity = @"无法定位当前城市";
             }
             /*看需求定义一个全局变量来接收赋值*/
 //            NSLog(@"----%@",placeMark.country);//当前国家

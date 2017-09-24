@@ -4132,7 +4132,7 @@
 				50B381051F3EFF94001ED3BA /* QRCode(二维码扫一扫) */,
 				49555E591F1E0092002E5688 /* Order(订单地址) */,
 				495EA3C31F14B64B001FCB7E /* Base(基类) */,
-				495EA3CE1F14B64B001FCB7E /* FriendsCircle(朋友圈) */,
+				495EA3CE1F14B64B001FCB7E /* FriendsCircle(IM聊天) */,
 				495EA45D1F14B64B001FCB7E /* Login(登录注册) */,
 				495EA4701F14B64B001FCB7E /* Mine(个人中心) */,
 				495EA54D1F14B64C001FCB7E /* PayController(收银台) */,
@@ -4156,7 +4156,7 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		495EA3CE1F14B64B001FCB7E /* FriendsCircle(朋友圈) */ = {
+		495EA3CE1F14B64B001FCB7E /* FriendsCircle(IM聊天) */ = {
 			isa = PBXGroup;
 			children = (
 				495EA3D01F14B64B001FCB7E /* DetailView */,
@@ -4164,7 +4164,7 @@
 				495EA3D21F14B64B001FCB7E /* ZFCInterpersonalCircleViewController.h */,
 				495EA3D31F14B64B001FCB7E /* ZFCInterpersonalCircleViewController.m */,
 			);
-			name = "FriendsCircle(朋友圈)";
+			name = "FriendsCircle(IM聊天)";
 			path = FriendsCircle;
 			sourceTree = "<group>";
 		};

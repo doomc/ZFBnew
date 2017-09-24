@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     SelectTypeAlready,//已使用
     
 };
-@interface MineShareViewController () <UITableViewDelegate,UITableViewDataSource,MineShareStatisticsCellDelegate>
+@interface MineShareViewController () <UITableViewDelegate,UITableViewDataSource,MineShareStatisticsCellDelegate,WeChatStylePlaceHolderDelegate,CYLTableViewPlaceHolderDelegate>
 {
     NSString * _generalIncome;//总收入
     NSString * _goodsCount;
@@ -125,7 +125,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [self.tableView registerNib:[UINib nibWithNibName:@"MineShareStatisticsCell" bundle:nil] forCellReuseIdentifier:@"MineShareStatisticsCellid"];
 }
 
-#pragma mark - <MTSegmentedControlDelegate>
+#pragma mark - <MTSegmentedControlDelegate>  判断是点击的那个板块
 - (void)segumentSelectionChange:(NSInteger)selection
 {
     _selectType = selection ;
@@ -337,7 +337,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/myShare/unCheckedList"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
-            
+          
+            [SVProgressHUD dismiss];
             if (self.refreshType == RefreshTypeHeader) {
                 if (self.reviewingList.count > 0) {
                     [self.reviewingList removeAllObjects];
@@ -348,11 +349,15 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 
                 [self.reviewingList addObject:reviewData];
             }
-            [self endRefresh];
-            [SVProgressHUD dismiss];
             [self.tableView reloadData];
+
+//            if ([self isEmptyArray:self.reviewingList]) {
+//                [self.tableView cyl_reloadData];
+//                [SVProgressHUD dismiss];
+//            }
         }
-        
+        [self endRefresh];
+
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
@@ -375,34 +380,70 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/myShare/checkedList"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
-            
+            [SVProgressHUD dismiss];
+
             if (self.refreshType == RefreshTypeHeader) {
+
                 if (self.reviewedList.count > 0) {
                     [self.reviewedList removeAllObjects];
                 }
             }
-            ReviewingModel * review =[ ReviewingModel mj_objectWithKeyValues:response];
-            _generalIncome = review.generalIncome;
-            _goodsCount = review.goodsCount;
-            _todayIncome = review.todayIncome;
+            ReviewingModel * review = [ReviewingModel mj_objectWithKeyValues:response];
             for (ReViewData * reviewData in review.data) {
                 
                 [self.reviewedList addObject:reviewData];
             }
-            [self endRefresh];
+            _generalIncome = review.generalIncome;
+            _goodsCount = review.goodsCount;
+            _todayIncome = review.todayIncome;
             [self.tableView reloadData];
-            [SVProgressHUD dismiss];
+
+//            if ([self isEmptyArray:self.reviewedList]) {
+//                [self.tableView cyl_reloadData];
+//                [SVProgressHUD dismiss];
+//                
+//            }
         }
-        
+        [self endRefresh];
+
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
+        [self endRefresh];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
 }
 
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+    
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.tableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+    
+    switch (_selectType) {
+        case SelectTypeDefault://未审核
+            [self mineShareListGoodsPost];
+            
+            break;
+        case SelectTypeAlready://已审核
+            [self alreadlymineCheckedListPost];
+            
+            break;
+    }
+
+}
 
 -(void)viewWillDisappear:(BOOL)animated{
     

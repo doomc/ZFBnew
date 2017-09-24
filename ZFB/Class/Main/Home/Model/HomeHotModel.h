@@ -92,7 +92,7 @@
 
 @property (nonatomic, assign) NSInteger originalGoodsId;
 
-@property (nonatomic, assign) NSInteger netPurchasePrice;
+@property (nonatomic, assign) CGFloat netPurchasePrice;
 
 @property (nonatomic, assign) NSInteger goodsSales;
 

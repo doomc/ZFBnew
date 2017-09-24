@@ -29,7 +29,7 @@
     if ([reviewingList.status isEqualToString:@"审核中"]) {
         _lb_title.textColor = HEXCOLOR(0xfe6d6a);
     }
-    [_headimg sd_setImageWithURL:[NSURL URLWithString:reviewingList.imgUrls] placeholderImage:[UIImage imageNamed:@""]];
+    [_headimg sd_setImageWithURL:[NSURL URLWithString:reviewingList.imgUrls] placeholderImage:[UIImage imageNamed:@"230x235"]];
 
 }
 
@@ -43,7 +43,7 @@
     _lb_detail.text = @"   ";
     _lb_descirbe.text = [NSString stringWithFormat:@"奖励:%@元",reviewedData.reward];//鼓励金
     
-    [_headimg sd_setImageWithURL:[NSURL URLWithString:reviewedData.imgUrls] placeholderImage:[UIImage imageNamed:@""]];
+    [_headimg sd_setImageWithURL:[NSURL URLWithString:reviewedData.imgUrls] placeholderImage:[UIImage imageNamed:@"230x235"]];
     
 }
 
@@ -54,7 +54,7 @@
     _lb_reviewStatus.hidden = YES;
     _lb_detail.text = @"   ";
     _lb_descirbe.text = goodsReviewData.describe;//描述
-    [_headimg sd_setImageWithURL:[NSURL URLWithString:goodsReviewData.imgUrls] placeholderImage:[UIImage imageNamed:@""]];
+    [_headimg sd_setImageWithURL:[NSURL URLWithString:goodsReviewData.imgUrls] placeholderImage:[UIImage imageNamed:@"230x235"]];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

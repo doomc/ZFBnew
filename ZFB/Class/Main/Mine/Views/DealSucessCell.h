@@ -24,10 +24,10 @@
 /**
  共享到自己的朋友圈
 
- @param indexForRow 当前index
+ @param indexPath 当前index
  @param orderId 当前id
  */
--(void)didclickShareToFriend:(NSInteger)indexForRow AndOrderId:(NSString *)orderId;
+-(void)didclickShareToFriendWithIndexPath:(NSIndexPath *)indexPath AndOrderId:(NSString *)orderId;
 
 
 @end

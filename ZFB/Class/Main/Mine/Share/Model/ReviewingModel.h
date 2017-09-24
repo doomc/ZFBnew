@@ -48,7 +48,8 @@
 @property (nonatomic, copy) NSString *goodsLogo;
 @property (nonatomic, copy) NSString *orderNum;
 
-//今日收入字段
+//错误字段
+@property (nonatomic, copy) NSString *googsName;
 
 
 @end

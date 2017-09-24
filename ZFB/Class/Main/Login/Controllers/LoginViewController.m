@@ -105,9 +105,10 @@ typedef NS_ENUM(NSUInteger, indexType) {
     return left_button;
 }
 
-//设置右边事件
+//设置返回的时候
 -(void)left_button_event{
     
+    [self loginNIM];
     //    [self.navigationController popToRootViewControllerAnimated:NO];
     [self dismissViewControllerAnimated:NO completion:^{
 
@@ -506,6 +507,24 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
 }
 
-
+#pragma mark - 登陆网易云信
+-(void)loginNIM
+{
+    //手动登录，error为登录错误信息，成功则为nil。
+    //不要在登录完成的回调中直接获取 SDK 缓存数据，而应该在 同步完成的回调里获取数据 或者 监听相应的数据变动回调后获取
+    [[[NIMSDK sharedSDK] loginManager] login:BBUserDefault.userPhoneNumber
+                                       token:BBUserDefault.token
+                                  completion:^(NSError *error) {
+                                      if (error == nil)
+                                      {
+                                          NSLog(@" 已经 login success");
+                                          
+                                      }
+                                      else
+                                      {
+                                          NSLog(@"登录失败 --- %@",error);
+                                      }
+                                  }];
+}
 
 @end

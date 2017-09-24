@@ -70,10 +70,11 @@
 {
     self.tf_title.delegate = self;
     self.tf_title.clipsToBounds = YES;
-    self.tf_title.layer.cornerRadius = 4;
+    self.tf_title.layer.cornerRadius = 2;
     self.tf_title.layer.borderWidth = 1;
     self.tf_title.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
     [self.tf_title addTarget:self action:@selector(textfieldChangetext:) forControlEvents:UIControlEventEditingChanged];
+   
     self.commitBtn.layer.cornerRadius = 4;
     self.commitBtn.clipsToBounds = YES;
 }
@@ -81,7 +82,7 @@
 {
     self.textView.zw_limitCount = 150;//个数显示
     self.textView.zw_labHeight = 20;//高度
-    self.textView.layer.cornerRadius = 4;
+    self.textView.layer.cornerRadius = 2;
     self.textView.clipsToBounds = YES;
     self.textView.layer.borderWidth = 1;
     self.textView.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
@@ -96,6 +97,8 @@
     // 添加到达最大限制Block回调.
     [self.textView addTextLengthDidMaxHandler:^(FSTextView *textView) {
         // 达到最大限制数后的相应操作.
+        [self.view makeToast:@"超过限制字数了" duration:2 position:@"center"];
+
     }];
      
 }
@@ -163,6 +166,8 @@
     
     }else{
         if (_imgUrlArray.count>0) {
+            
+            [SVProgressHUD show];
             [OSSImageUploader asyncUploadImages:_imgUrlArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
                 if (state == 1) {
                     NSString * nameURL  = [names componentsJoinedByString:@","];
@@ -190,11 +195,10 @@
                              @"imgUrls":nameURL,
                              @"goodsId":_goodId,
                              @"userAccount":BBUserDefault.userPhoneNumber,
-                             @"userLogo":BBUserDefault.uploadImgName,
+                             @"userLogo":BBUserDefault.userHeaderImg,
                              @"userNickname":BBUserDefault.nickName,
                              };
     
-    [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/toShareGoods/goodsShareIssue"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
 

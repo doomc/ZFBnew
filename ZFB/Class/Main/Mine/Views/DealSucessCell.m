@@ -48,8 +48,8 @@
 }
 //共享
 - (IBAction)commentShareAction:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(didclickShareToFriend:AndOrderId:)]) {
-        [self.delegate didclickShareToFriend:_indexRow AndOrderId:_orderId];
+    if ([self.delegate respondsToSelector:@selector(didclickShareToFriendWithIndexPath:AndOrderId:)]) {
+        [self.delegate didclickShareToFriendWithIndexPath:_indexPath AndOrderId:_orderId];
     }
 }
 

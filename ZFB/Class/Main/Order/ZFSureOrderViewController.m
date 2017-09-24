@@ -61,6 +61,12 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     NSString * _payType;// 0 在线支付，1 门店支付
     NSString * _storeIdAppding;
     NSString * _goodsIdAppding;
+    ////使用范围   回传字段
+    NSString * _useRange;
+    NSString * _couponId;
+    NSString * _couponAmount;
+    NSString * _couponStoreId;
+    NSString * _couponGoodsIds;
     
 }
 
@@ -148,8 +154,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     NSMutableArray * goodsIdArr = [NSMutableArray array];
     NSMutableArray * storeIdArr = [NSMutableArray array];
     for (NSDictionary * storedic in storeArray) {
-        NSString * stordID  = [storedic objectForKey:@"storedic"];
-        [storeArray addObject:stordID];
+        NSString * stordID  = [storedic objectForKey:@"storeId"];
         
         for (NSDictionary * goodsDic in storedic[@"goodsList"]) {
         
@@ -157,6 +162,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             
             [goodsIdArr addObject:goodId];
         }
+        [storeIdArr addObject:stordID];
     }
     _goodsIdAppding = [goodsIdArr componentsJoinedByString:@","];
     _storeIdAppding = [storeIdArr componentsJoinedByString:@","];
@@ -362,7 +368,10 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             //userCostNum	int(11)	支付总金额
             OrderPriceCell * priceCell   = [self.mytableView dequeueReusableCellWithIdentifier:@"OrderPriceCellid" forIndexPath:indexPath];
             priceCell.lb_tipFree.text    = _costNum ;
-            priceCell.lb_priceTotal.text = _goodsCount ;
+            
+            CGFloat afterAmount = [_goodsCount floatValue] - [_couponAmount floatValue];
+            NSLog(@"计算后的价格 --- %.2f",afterAmount);
+            priceCell.lb_priceTotal.text = [NSString stringWithFormat:@"¥%.2f",afterAmount] ;
             
             return priceCell;
         }
@@ -426,9 +435,19 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         {
        
             ZFSelectCouponViewController * couponVC =[ZFSelectCouponViewController new];
-            couponVC.goodsAmount= _userCostNum; //订单总额
+            couponVC.goodsAmount= _goodsCount; //订单总额
             couponVC.goodsIdJson = _goodsIdAppding;//商品id，
             couponVC.storeIdjosn = _storeIdAppding;//门店id，
+            couponVC.couponBlock = ^(NSString *couponId, NSString *userRange, NSString *couponAmount, NSString *storeId, NSString *goodsIds) {
+                _couponId = couponId;
+                _useRange = userRange;
+                _couponAmount = couponAmount;
+                _couponStoreId = storeId;
+                _couponGoodsIds = goodsIds;
+                
+                NSLog(@"%@,%@,%@",_couponId,_useRange,_couponAmount);
+                [self.mytableView reloadData];
+            };
             
             [self.navigationController pushViewController:couponVC animated:NO];
         }
@@ -486,7 +505,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             SureOrderModel * suremodel = [SureOrderModel mj_objectWithKeyValues:response];
             
             _storeDeliveryfeeListArr = response[@"storeDeliveryfeeList"];
-            _goodsCount              = [NSString stringWithFormat:@"¥%.2f",suremodel.goodsCount]  ;//商品总金额
+            _goodsCount              = [NSString stringWithFormat:@"%.2f",suremodel.goodsCount]  ;//商品总金额
             _costNum                 = [NSString stringWithFormat:@"+ ¥%.2f",suremodel.costNum]  ;//配送费总金额
             _userCostNum             = [NSString stringWithFormat:@"¥%.2f",suremodel.userCostNum]  ;//支付总金额
             _lb_price.text           = _userCostNum;//支付总金额
@@ -609,7 +628,13 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [jsondic setValue: cmgoodsList forKey:@"cmGoodsList"];
     [jsondic setValue: storeDeliveryfeeList forKey:@"storeDeliveryfeeList"];
     [jsondic setValue: storeAttachList forKey:@"storeAttachList"];
-    
+    ////////优惠券新加字段
+    [jsondic setValue: _useRange forKey:@"useRange"];
+    [jsondic setValue: _couponId forKey:@"couponId"];
+    [jsondic setValue: _couponStoreId forKey:@"storeId"];
+    [jsondic setValue: _couponAmount forKey:@"couponAmount"];
+    [jsondic setValue: _couponGoodsIds forKey:@"goodsIds"];
+ 
     NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
     //    NSLog(@"提交订单 -----------%@",successDic);
     if (_postAddress == nil  && _contactUserName == nil && _contactMobilePhone == nil) {

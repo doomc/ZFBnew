@@ -64,6 +64,7 @@
     self.emptyTipLabel.text = @"还没有会话，在通讯录中找个人聊聊吧";
     [self.emptyTipLabel sizeToFit];
     self.emptyTipLabel.hidden = self.recentSessions.count;
+    
     [self.view addSubview:self.emptyTipLabel];
     
     NSString *userID = [[[NIMSDK sharedSDK] loginManager] currentAccount];
@@ -83,8 +84,10 @@
 - (void)onSelectedAvatar:(NIMRecentSession *)recent
              atIndexPath:(NSIndexPath *)indexPath{
     if (recent.session.sessionType == NIMSessionTypeP2P) {
-       NTESPersonalCardViewController *vc = [[NTESPersonalCardViewController alloc] initWithUserId:recent.session.sessionId];
+        
+      NTESPersonalCardViewController *vc = [[NTESPersonalCardViewController alloc] initWithUserId:recent.session.sessionId];
       [self.navigationController pushViewController:vc animated:YES];
+    
     }
 }
 

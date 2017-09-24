@@ -31,7 +31,7 @@
 
 @property (nonatomic, copy) NSString *userLogo;//图片URL
 
-@property (nonatomic, copy) NSString *thumsId;//分享id
+@property (nonatomic, copy) NSString *shareId;//分享id
 
 @property (nonatomic, copy) NSString *nickname;
 

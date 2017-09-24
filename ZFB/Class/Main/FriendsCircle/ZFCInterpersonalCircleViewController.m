@@ -10,7 +10,7 @@
 #import "SGPagingView.h"//控制自控制器
 //#import "IMContactListViewController.h"//联系人通讯录
 //#import "IMFriendsCircleViewController.h"//朋友圈
-#import "IMChatSessionViewController.h"//会话列表
+//#import "IMChatSessionViewController.h"//会话列表
 #import "NTESCustomNotificationDB.h"
 
 #import "NTESSessionListViewController.h"//当前会话列表
@@ -64,17 +64,17 @@
     
     NTESSessionListViewController  *messageVC       = [[NTESSessionListViewController alloc]init];
     NTESContactViewController *contactVC        = [[NTESContactViewController alloc]init];
-    IMChatSessionViewController *friendVC       = [[IMChatSessionViewController alloc]init];
+//    IMChatSessionViewController *friendVC       = [[IMChatSessionViewController alloc]init];
     
-    NSArray *childArr = @[messageVC, contactVC, friendVC];
+    NSArray *childArr = @[messageVC, contactVC];
     
     /// pageContentView
-    CGFloat contentViewHeight                = self.view.frame.size.height - 108;
+    CGFloat contentViewHeight                = self.view.frame.size.height - 108 -44;
     self.pageContentView                     = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 108, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
     _pageContentView.delegatePageContentView = self;
     [self.view addSubview:_pageContentView];
     
-    NSArray *titleArr = @[@"消息", @"通讯录", @"朋友圈"];
+    NSArray *titleArr = @[@"消息", @"通讯录"];
     /// pageTitleView
     self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44) delegate:self titleNames:titleArr];
     [self.view addSubview:_pageTitleView];
@@ -102,7 +102,7 @@
         self.navigationItem.title = @"通讯录";
     }
     else {
-        self.navigationItem.title = @"朋友圈";
+     
     }
 }
 
@@ -305,8 +305,7 @@
     [self setUpNavItem];
     
     if (BBUserDefault.isLogin == 1) {
-        [self loginNIM];
-        
+ 
     }else{
         
         NSLog(@"登录了");
@@ -322,26 +321,7 @@
 }
 
 
-#pragma mark - 登陆网易云信
--(void)loginNIM
-{
-    
-    //手动登录，error为登录错误信息，成功则为nil。
-    //不要在登录完成的回调中直接获取 SDK 缓存数据，而应该在 同步完成的回调里获取数据 或者 监听相应的数据变动回调后获取
-    [[[NIMSDK sharedSDK] loginManager] login:BBUserDefault.userPhoneNumber
-                                       token:BBUserDefault.token
-                                  completion:^(NSError *error) {
-                                      if (error == nil)
-                                      {
-                                          NSLog(@" 已经 login success");
-                                          
-                                      }
-                                      else
-                                      {
-                                          NSLog(@"登录失败 --- %@",error);
-                                      }
-                                  }];
-}
+
 
 
 @end

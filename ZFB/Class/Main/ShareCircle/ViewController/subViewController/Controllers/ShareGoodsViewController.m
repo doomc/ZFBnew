@@ -120,17 +120,16 @@
 -(void)didClickZanAtIndexItem:(NSInteger)indexItem AndisThumbsStatus:(NSString *)isThumbsStatus
 {
     ShareGoodsData * shareGoods = self.shareArray[indexItem];
-    ShareGoodsCollectionViewCell *cell = [ShareGoodsCollectionViewCell new];
-    NSLog(@"当前点赞 ---%ld ,我点赞了吗 ---%@",indexItem,isThumbsStatus);
+ 
+    NSLog(@"当前点赞 ---%ld ,我点赞了吗 ---%@",indexItem,shareGoods.thumbsStatus);
     // 1 已点赞   0未点赞
-    if ([isThumbsStatus isEqualToString:@"1"]) {
-        
-        [cell.zan_btn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        //您已经点过赞了
-        
+    if ([shareGoods.thumbsStatus isEqualToString:@"1"]) {
+                //您已经点过赞了
+        [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
+
     }else{
         
-        [self didclickZanPostRequsetAtthumsId:shareGoods.thumsId];
+        [self didclickZanPostRequsetAtthumsId:shareGoods.shareId];
     }
 
 
@@ -142,8 +141,9 @@
  */
 -(void)didClickgGoodsImageViewAtIndexItem:(NSInteger)indexItem
 {
-    NSLog(@"当前图片 ---%ld",indexItem);
+    ShareGoodsData * shareGoods = self.shareArray[indexItem];
     ShareGoodsSubDetailViewController * detailVC = [ShareGoodsSubDetailViewController new];
+    detailVC.shareId = shareGoods.shareId;
     [self.navigationController pushViewController:detailVC animated:NO];
 }
 
@@ -193,11 +193,9 @@
                              @"thumsId":thumsId,//分享编号，新品推荐编号
                              @"type":@"1",//0 新品推荐 1 分享
                              };
-    [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/newrecomment/toLike"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {//
            
-            [SVProgressHUD dismiss];
             [self.collectionView reloadData];
         }
         

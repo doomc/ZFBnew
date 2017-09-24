@@ -30,7 +30,7 @@
 @dynamic uploadImgName;
 @dynamic sexType;
 @dynamic birthDay;
-
+@dynamic userHeaderImg;
 //关键字
 @dynamic keyWord;
 

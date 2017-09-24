@@ -38,7 +38,7 @@
     _lb_CouponType.text = couponlist.couponName;
     
     //每张优惠券的金额
-    _lb_ticketMaxPrice.text  = [NSString stringWithFormat:@"%ld",couponlist.eachOneAmount];
+    _lb_ticketMaxPrice.text  = [NSString stringWithFormat:@"%.2f",couponlist.eachOneAmount];
     _lb_conditionOfprice.text  = [NSString stringWithFormat:@"满%@元可用",couponlist.amountLimit];
     _couponId = [NSString stringWithFormat:@"%ld",couponlist.couponId];
     
