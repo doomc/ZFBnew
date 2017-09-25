@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class ResultNewData,ResultFindgoodslist;
-@interface SearchResultModel : NSObject
+@interface SearchResultModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultMsg;
 
@@ -18,7 +18,7 @@
 @property (nonatomic, copy) NSString *resultCode;
 
 @end
-@interface ResultNewData : NSObject
+@interface ResultNewData : ResponseObject
 
 @property (nonatomic, assign) NSInteger totalCount;
 
@@ -26,7 +26,7 @@
 
 @end
 
-@interface ResultFindgoodslist : NSObject
+@interface ResultFindgoodslist : ResponseObject
 
 @property (nonatomic, copy) NSString *priceTostr;
 

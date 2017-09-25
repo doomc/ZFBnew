@@ -15,4 +15,10 @@
 @property (copy, nonatomic) NSString * shareId;
 
 
+@property (weak, nonatomic) IBOutlet UIImageView *zan_imageView;
+
+@property (weak, nonatomic) IBOutlet UILabel *zan_number;
+
+
+
 @end

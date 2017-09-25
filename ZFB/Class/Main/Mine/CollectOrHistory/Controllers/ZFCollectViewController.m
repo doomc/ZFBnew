@@ -13,7 +13,7 @@
 #import "ZFHistoryCell.h"
 #import "CollectModel.h"
 #import "MTSegmentedControl.h"
-
+#import "XHStarRateView.h"
 typedef NS_ENUM(NSUInteger, CollectType) {
     
     CollectTypeGoods,
@@ -117,13 +117,11 @@ typedef NS_ENUM(NSUInteger, CollectType) {
     switch (_collectType) {
         case CollectTypeGoods: //1商品 2门店
             [self showCollectListPOSTRequestCollectType:@"1"];
-            [self.tableView reloadData];
 
             break;
             
         case CollectTypeStores:
             [self showCollectListPOSTRequestCollectType:@"2"];
-            [self.tableView reloadData];
             break;
             
         default:
@@ -164,14 +162,14 @@ typedef NS_ENUM(NSUInteger, CollectType) {
             {
 
                 ZFHistoryCell * normalCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFHistoryCellid" forIndexPath:indexPath];
-                normalCell.starView.hidden = YES;
+                [normalCell.starView removeFromSuperview];
                 normalCell.goodslist = list;
-                
                 return normalCell;
+                
             }else{
                 
                 ZFCollectEditCell *editCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFCollectEditCellid" forIndexPath:indexPath];
-                editCell.starView.hidden = YES;
+                [editCell.starView removeFromSuperview];
                 editCell.collectID = list.cartItemId;//收藏id
                 editCell.goodlist = list;
                 editCell.delegate = self;
@@ -184,20 +182,29 @@ typedef NS_ENUM(NSUInteger, CollectType) {
             if (_isEdit == NO)
             {
                 ZFHistoryCell * normalCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFHistoryCellid" forIndexPath:indexPath];
-                normalCell.starView.hidden = NO;
                 normalCell.lb_price.hidden = YES;
                 normalCell.storeslist = list;
+                //初始化五星好评控件info.goodsComment
+                XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:normalCell.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO];
+                wdStarView.currentScore = [list.starLevel integerValue];
+                //初始化五星好评控件
+                [normalCell addSubview:wdStarView];
 
                 return normalCell;
             }else{
                 
                 ZFCollectEditCell *editCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFCollectEditCellid" forIndexPath:indexPath];
-                editCell.starView.hidden = NO;
-                editCell.lb_price.hidden = YES;
 
+                editCell.lb_price.hidden = YES;
                 editCell.collectID = list.cartItemId;//收藏id
                 editCell.storeList = list;
                 editCell.delegate = self;
+                
+                //初始化五星好评控件info.goodsComment
+                XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:editCell.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO];
+                wdStarView.currentScore = [list.starLevel integerValue];
+                //初始化五星好评控件
+                [editCell addSubview:wdStarView];
                 
                 return editCell;
             }
@@ -482,6 +489,9 @@ typedef NS_ENUM(NSUInteger, CollectType) {
                 
                 [self.listArray addObject:list];
             }
+            [self.tableView reloadData];
+
+            
             NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",_listArray);
             if ([self isEmptyArray:self.listArray]) {
                 
@@ -490,7 +500,6 @@ typedef NS_ENUM(NSUInteger, CollectType) {
         }
         [SVProgressHUD dismiss];
         [self endRefresh];
-        [self.tableView reloadData];
 
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {

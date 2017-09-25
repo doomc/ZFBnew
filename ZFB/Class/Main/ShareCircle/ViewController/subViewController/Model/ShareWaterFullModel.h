@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class ShareGoodsData;
-@interface ShareWaterFullModel : NSObject
+@interface ShareWaterFullModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultCode;
 
@@ -21,7 +21,7 @@
 
 @end
 
-@interface ShareGoodsData : NSObject
+@interface ShareGoodsData : ResponseObject
 
 @property (nonatomic, copy) NSString *imgUrls;
 

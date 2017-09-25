@@ -11,8 +11,10 @@
 //图片选择器
 #import "HXPhotoViewController.h"
 #import "HXPhotoView.h"
- 
-@interface ZFEvaluateGoodsCell ()<UITextViewDelegate,HXPhotoViewDelegate>
+
+#import "XHStarRateView.h"
+
+@interface ZFEvaluateGoodsCell ()<UITextViewDelegate,HXPhotoViewDelegate,XHStarRateViewDelegate>
 
 //图片选择器
 @property (strong, nonatomic) HXPhotoManager *manager;
@@ -30,25 +32,27 @@
     
     [self initPickerView];
     [self initTextView];
-    [self initCustomStarView];
-    
+  
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.headImg.clipsToBounds = YES;
     self.headImg.layer.cornerRadius =  35;
     
+    //创建评价
+    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:self.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:YES];
+    wdStarView.delegate = self;
+    [self addSubview:wdStarView];
+    
 }
 
--(void)initCustomStarView
+-(void)starRateView:(XHStarRateView *)starRateView currentScore:(CGFloat)currentScore
 {
-    //初始化五星好评控件
-    self.starView.needIntValue = NO;//是否整数显示，默认整数显示
-    self.starView.canTouch     = NO;//是否可以点击，默认为NO
-    //        CGFloat number           = [storeList.starLevel floatValue];
-    //        goodsCell.starView.scoreNum     = [NSNumber numberWithFloat:number ];//星星显示个数
-    self.starView.normalColorChain(RGBA(244, 244, 244, 1));
-    self.starView.highlightColorChian(HEXCOLOR(0xfe6d6a));
-
+    _lb_score.text = [NSString stringWithFormat:@"%.f分",currentScore];
+    
+    if ([self.delegate respondsToSelector:@selector(getScorenum:)]) {
+        [self.delegate getScorenum:[NSString stringWithFormat:@"%.f",currentScore]];
+    }
+    
 }
 
 -(void)initTextView
@@ -114,11 +118,7 @@
  }
 
 - (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray <HXPhotoModel *> *)videos original:(BOOL)isOriginal {
-    
-    //    NSSLog(@"所有:%ld - 照片:%ld - 视频:%ld",allList.count,photos.count,videos.count);
-    //    将HXPhotoModel模型数组转化成HXPhotoResultModel模型数组  - 已按选择顺序排序
-    //    !!!!  必须是全部类型的那个数组 就是 allList 这个数组  !!!!
-    
+
     [HXPhotoTools getImageForSelectedPhoto:photos type:HXPhotoToolsFetchHDImageType completion:^(NSArray<UIImage *> *images) {
         NSSLog(@"%@",images);
 
@@ -129,26 +129,6 @@
         }
         NSLog(@"images === %@",images);
     }];
-    
-//    [HXPhotoTools getSelectedListResultModel:allList complete:^(NSArray<HXPhotoResultModel *> *alls, NSArray<HXPhotoResultModel *> *photos, NSArray<HXPhotoResultModel *> *videos) {
-//        //        NSSLog(@"\n全部类型:%@\n照片:%@\n视频:%@",alls,photos,videos);
-//        if (self.imgUrl_mutArray.count > 0) {
-//            [self.imgUrl_mutArray  removeAllObjects];
-//        }
-//        for (HXPhotoResultModel * photo in photos) {
-//            
-//            NSURL *url         = photo.fullSizeImageURL;
-//            NSString * urlpath = url.path;
-////            NSSLog(@"\n%@",urlpath);
-//            [self.imgUrl_mutArray addObject:urlpath];
-//        }
-//        //将数据传出去
-//        if ([self.delegate respondsToSelector:@selector(uploadImageArray:)]) {
-//            
-//            [self.delegate uploadImageArray: self.imgUrl_mutArray ];
-//        }
-//        NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
-//    }];
     
 }
 
@@ -162,7 +142,9 @@
 //    NSLog(@"  我当前的高度是 ---%f" ,frame.size.height) ;
     
     self.heightOfConstraint.constant = frame.size.height;
+    
     self.pickerView.frame  = CGRectMake(0, 0, KScreenW - 30 , self.heightOfConstraint.constant + 10);
+    
     if ([self.delegate respondsToSelector:@selector(reloadCellHeight:)]) {
       
         [self.delegate reloadCellHeight:self.heightOfConstraint.constant + 10];

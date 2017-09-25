@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class ClassListData,CmgoodsClasstypelist;
-@interface ClassLeftListModel : NSObject
+@interface ClassLeftListModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultMsg;
 
@@ -18,13 +18,13 @@
 @property (nonatomic, copy) NSString *resultCode;
 
 @end
-@interface ClassListData : NSObject
+@interface ClassListData : ResponseObject
 
 @property (nonatomic, strong) NSArray<CmgoodsClasstypelist *> *CmGoodsTypeList;
 
 @end
 
-@interface CmgoodsClasstypelist : NSObject
+@interface CmgoodsClasstypelist : ResponseObject
 
 @property (nonatomic, copy) NSString *createBy;
 

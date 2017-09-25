@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @class ClassData,Nexttypelist;
-@interface CollectionCategoryModel : NSObject
+
+@interface CollectionCategoryModel : ResponseObject
 
 
 @property (nonatomic, copy) NSString *resultMsg;
@@ -20,13 +21,13 @@
 
 
 @end
-@interface ClassData : NSObject
+@interface ClassData : ResponseObject
 
 @property (nonatomic, strong) NSArray<Nexttypelist *> *nextTypeList;
 
 @end
 
-@interface Nexttypelist : NSObject
+@interface Nexttypelist : ResponseObject
 
 @property (nonatomic, copy) NSString *createBy;
 

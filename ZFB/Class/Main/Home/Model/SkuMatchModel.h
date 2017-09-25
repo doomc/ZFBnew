@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class SkuData,Skumatch,SkuValulist;
-@interface SkuMatchModel : NSObject
+@interface SkuMatchModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultCode;
 
@@ -18,13 +18,13 @@
 @property (nonatomic, strong) SkuData *data;
 
 @end
-@interface SkuData : NSObject
+@interface SkuData : ResponseObject
 
 @property (nonatomic, strong) NSArray<Skumatch *> *skuMatch;
 
 @end
 
-@interface Skumatch : NSObject
+@interface Skumatch : ResponseObject
 
 @property (nonatomic, assign) NSInteger nameId;
 
@@ -32,7 +32,7 @@
 
 @end
 
-@interface SkuValulist : NSObject
+@interface SkuValulist : ResponseObject
 
 @property (nonatomic, assign) NSInteger valueId;
 

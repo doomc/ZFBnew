@@ -287,6 +287,7 @@
             
             [self.tableView bringSubviewToFront:self.couponBackgroundView];
             [self.view addSubview:self.couponBackgroundView];
+            [self.couponTableView reloadData];
         }
     }
 }
@@ -320,7 +321,6 @@
         [self cancelCollectedPostRequest];//取消收藏
         
     }else{
-        
         [self addCollectedPostRequest]; //添加收藏
     }
     
@@ -373,6 +373,7 @@
 {
     DetailCmgoodslist * goodlist = self.storeList[indexItem];
     DetailFindGoodsViewController * goodVC = [DetailFindGoodsViewController new];
+    goodVC.headerImage = goodlist.coverImgUrl;
     goodVC.goodsId = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
     [self.navigationController pushViewController:goodVC animated:NO];
 }

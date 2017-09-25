@@ -29,7 +29,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *selecet_btn;
 
-@property (weak, nonatomic) IBOutlet DWQRatingView *starView;
+@property (weak, nonatomic) IBOutlet UIView *starView;
 
 @property (strong, nonatomic) Cmkeepgoodslist *goodlist;
 ///收藏id

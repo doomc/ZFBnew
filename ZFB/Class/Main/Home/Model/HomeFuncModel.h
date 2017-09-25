@@ -10,7 +10,7 @@
 
 @class YypeData,CMgoodstypelist;
 
-@interface HomeFuncModel : NSObject
+@interface HomeFuncModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultCode;
 @property (nonatomic, copy) NSString *resultMsg;
@@ -18,14 +18,14 @@
 
 
 @end
-@interface YypeData : NSObject
+@interface YypeData : ResponseObject
 
 @property (nonatomic, strong) NSArray <CMgoodstypelist *> *CmGoodsTypeList;
 
 
 @end
 
-@interface CMgoodstypelist : NSObject
+@interface CMgoodstypelist : ResponseObject
 
 @property (nonatomic, assign) NSInteger goodId;
 

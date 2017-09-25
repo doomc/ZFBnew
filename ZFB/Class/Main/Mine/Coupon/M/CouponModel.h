@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class Couponlist;
-@interface CouponModel : NSObject
+@interface CouponModel : ResponseObject
 
 @property (nonatomic, strong) NSArray<Couponlist *> *couponList;
 
@@ -18,7 +18,7 @@
 @property (nonatomic, copy) NSString *resultMsg;
 
 @end
-@interface Couponlist : NSObject
+@interface Couponlist : ResponseObject
 
 /**
  用于编辑删除
@@ -45,7 +45,7 @@
 
 @property (nonatomic, assign) NSInteger couponId;
 
-@property (nonatomic, copy) NSString * useRange;
+@property (nonatomic, assign) NSInteger   useRange;
 
 @property (nonatomic, copy) NSString *storeId;
 

@@ -10,7 +10,7 @@
 
 @class Cmstoredetailslist,DetailCmgoodslist;
 
-@interface DetailStoreModel : NSObject
+@interface DetailStoreModel : ResponseObject
  
 @property (nonatomic, assign) NSInteger total;
 
@@ -24,7 +24,7 @@
 
 
 @end
-@interface Cmstoredetailslist : NSObject
+@interface Cmstoredetailslist : ResponseObject
 
 @property (nonatomic, copy) NSString *address;
 
@@ -46,7 +46,7 @@
 
 @end
 
-@interface DetailCmgoodslist : NSObject
+@interface DetailCmgoodslist : ResponseObject
 
 
 @property (nonatomic, copy) NSString *storePrice;

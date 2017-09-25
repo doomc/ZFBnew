@@ -34,6 +34,7 @@
     self.lb_price.text = [NSString stringWithFormat:@"￥%@",orderGoods.purchase_price];//商品价格
     self.lb_title.text = orderGoods.goods_name;
     self.lb_goodsCount.text = [NSString stringWithFormat:@"x%ld",orderGoods.goodsCount];
+    [self.dealImageView sd_setImageWithURL:[NSURL URLWithString:orderGoods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     _orderId = orderGoods.order_id;
     
 }

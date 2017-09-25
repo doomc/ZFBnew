@@ -9,8 +9,8 @@
 #import "ShareNewgoodsViewController.h"
 #import "ShareNewGoodsCell.h"
 #import "ShareCommendModel.h"
+#import "ShareRecommedDetailViewController.h"
 
-#import "ShareNewGoodsDetailViewController.h"
 @interface ShareNewgoodsViewController ()<UITableViewDelegate,UITableViewDataSource,ShareNewGoodsCellDelegate>
 
 @property (nonatomic , strong) NSMutableArray * commendList;
@@ -119,7 +119,7 @@
 -(void)didClickPictureDetailAtIndex:(NSInteger)index
 {
     Recommentlist * list = self.commendList[index];
-    ShareNewGoodsDetailViewController * detailVC = [ShareNewGoodsDetailViewController new];
+    ShareRecommedDetailViewController * detailVC = [ShareRecommedDetailViewController new];
     detailVC.recommentId = [NSString stringWithFormat:@"%ld",list.recommentId];
     [self.navigationController pushViewController:detailVC animated:NO];
 }
@@ -173,6 +173,7 @@
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
             
             _currentList.isThumbed = 1;
+            _currentList.thumbs += 1;
             [self.zfb_tableView reloadData];
         }
     } progress:^(NSProgress *progeress) {

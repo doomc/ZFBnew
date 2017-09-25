@@ -17,6 +17,9 @@
 
 @interface ShareGoodsViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,WaterFlowLayoutDelegate,ShareGoodsCollectionViewCellDelegate>
 
+{
+    ShareGoodsData * goodsdata;
+}
 @property (nonatomic, strong) UICollectionView *collectionView;
 /** 所有的商品数据 */
 @property (nonatomic, strong) NSMutableArray  * shareArray;
@@ -122,9 +125,10 @@
     ShareGoodsData * shareGoods = self.shareArray[indexItem];
  
     NSLog(@"当前点赞 ---%ld ,我点赞了吗 ---%@",indexItem,shareGoods.thumbsStatus);
-    // 1 已点赞   0未点赞
-    if ([shareGoods.thumbsStatus isEqualToString:@"1"]) {
-                //您已经点过赞了
+    // 1 未点赞   0已点赞
+    if ([shareGoods.thumbsStatus isEqualToString:@"0"]) {
+        
+        //您已经点过赞了
         [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
 
     }else{
@@ -168,17 +172,12 @@
             }
         }
         [SVProgressHUD dismiss];
-//        [self.collectionView.mj_header endRefreshing];
-//        [self.collectionView.mj_footer endRefreshing];
         [self.collectionView reloadData];
 
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
 
         [SVProgressHUD dismiss];
-//        [self.collectionView.mj_footer endRefreshing];
-//        [self.collectionView.mj_header endRefreshing];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
@@ -194,8 +193,12 @@
                              @"type":@"1",//0 新品推荐 1 分享
                              };
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/newrecomment/toLike"] params:parma success:^(id response) {
-        if ([response[@"resultCode"] isEqualToString:@"0"] ) {//
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
            
+            goodsdata.thumbsStatus = @"0";
+            NSInteger  count = [goodsdata.thumbs integerValue];
+            count ++;
+            NSLog(@"点击后的数量 - %ld",count);
             [self.collectionView reloadData];
         }
         

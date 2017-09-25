@@ -18,23 +18,31 @@
     self.commitBtn.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 
-//    //TggStarEvaluationView
-//    weakSelf(weakSelf);
-//    //发货速度
-//    _sendSpeedAppraiseView = [TggStarEvaluationView evaluationViewWithChooseStarBlock:^(NSUInteger count) {
-//        
-//        weakSelf.lb_sendSpeedScore.text = [NSString stringWithFormat:@"%ld分",count];
-//    }];
-//    //服务态度
-//    _serviceAppraiseView = [TggStarEvaluationView evaluationViewWithChooseStarBlock:^(NSUInteger count) {
-//        
-//        weakSelf.lb_serviceScore.text = [NSString stringWithFormat:@"%ld分",count];
-//    }];
-
+   
+    
+    //服务态度
+    XHStarRateView * sendView = [[XHStarRateView alloc]initWithFrame:self.sendSpeedAppraiseView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:YES];
+    [self addSubview:sendView];
+    sendView.delegate = self;
 }
 
+
+
+/**
+ 送货速度
+  */
+-(void)starRateView:(XHStarRateView *)starRateView currentScore:(CGFloat)currentScore
+{
+    _lb_sendSpeedScore.text = [NSString stringWithFormat:@"%.f分",currentScore];
+
+    if ([self.delegate respondsToSelector:@selector(getSendSpeedScore:)]) {
+        [self.delegate getSendSpeedScore:[NSString stringWithFormat:@"%.f",currentScore]];
+    }
+    
+}
 ///提交
 - (IBAction)didClickCommitAction:(id)sender {
+    
     if ([self.delegate respondsToSelector:@selector(didClickCommit)]) {
         [self.delegate didClickCommit];
     }

@@ -10,7 +10,7 @@
 
  
 @class Storeinfolist,Findgoodslist;
-@interface HomeStoreListModel : NSObject
+@interface HomeStoreListModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultMsg;
 
@@ -22,7 +22,7 @@
 
 @end
 
-@interface Storeinfolist : NSObject
+@interface Storeinfolist : ResponseObject
 
 @property (nonatomic, assign) NSInteger totalCount;
 
@@ -30,7 +30,7 @@
 
 @end
 
-@interface Findgoodslist : NSObject
+@interface Findgoodslist : ResponseObject
 
 @property (nonatomic, copy) NSString *auditDesc;
 

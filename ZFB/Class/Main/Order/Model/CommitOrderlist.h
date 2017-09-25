@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class AOrderlist;
-@interface CommitOrderlist : NSObject
+@interface CommitOrderlist : ResponseObject
 
 @property (nonatomic, strong) NSArray<AOrderlist *> *orderList;
 
@@ -20,7 +20,7 @@
 @property (nonatomic, copy) NSString *resultMsg;
 
 @end
-@interface AOrderlist : NSObject
+@interface AOrderlist : ResponseObject
 
 @property (nonatomic, copy) NSString *orderNum;
 

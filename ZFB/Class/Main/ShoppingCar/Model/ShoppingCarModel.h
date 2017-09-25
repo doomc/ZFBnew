@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class Shoppcartlist,ShopGoodslist,ShopGoodsprop;
-@interface ShoppingCarModel : NSObject
+@interface ShoppingCarModel : ResponseObject
 
 @property (nonatomic, strong) NSArray<Shoppcartlist *> *shoppCartList;
 
@@ -22,7 +22,7 @@
 
 @end
 
-@interface Shoppcartlist : NSObject
+@interface Shoppcartlist : ResponseObject
 
 @property (nonatomic, strong) NSMutableArray<ShopGoodslist *> *goodsList;
 
@@ -37,7 +37,7 @@
 
 @end
 
-@interface ShopGoodslist : NSObject
+@interface ShopGoodslist : ResponseObject
 // 商品左侧按钮是否选中
 @property (nonatomic,assign) BOOL goodslistIsChoosed;
 
@@ -65,7 +65,7 @@
 
 @end
 
-@interface ShopGoodsprop : NSObject
+@interface ShopGoodsprop : ResponseObject
 
 @property (nonatomic, assign) NSInteger nameId;
 

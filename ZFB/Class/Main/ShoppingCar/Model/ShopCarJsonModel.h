@@ -10,12 +10,12 @@
 
 
 @class StoreList,UserJsonGoodslist,UserJsonGoodsprop;
-@interface ShopCarJsonModel : NSObject
+@interface ShopCarJsonModel : ResponseObject
 
 @property (nonatomic, strong) NSArray<StoreList *> *storeList;
 
 @end
-@interface StoreList : NSObject
+@interface StoreList : ResponseObject
 
 @property (nonatomic, strong) NSArray<UserJsonGoodslist *> *goodsList;
 
@@ -25,7 +25,7 @@
 
 @end
 
-@interface UserJsonGoodslist : NSObject
+@interface UserJsonGoodslist : ResponseObject
 
 @property (nonatomic, copy) NSString *productId;
 
@@ -53,7 +53,7 @@
 
 @end
 
-@interface UserJsonGoodsprop : NSObject
+@interface UserJsonGoodsprop : ResponseObject
 
 @property (nonatomic, assign) NSInteger nameId;
 

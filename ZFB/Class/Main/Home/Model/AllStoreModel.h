@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class Storeinfolists,Findgoodslists;
-@interface AllStoreModel : NSObject
+@interface AllStoreModel : ResponseObject
 
 
 @property (nonatomic, copy) NSString *resultMsg;
@@ -20,7 +20,7 @@
 
 
 @end
-@interface Storeinfolists : NSObject
+@interface Storeinfolists : ResponseObject
 
 @property (nonatomic, assign) NSInteger totalCount;
 
@@ -28,7 +28,7 @@
 
 @end
 
-@interface Findgoodslists : NSObject
+@interface Findgoodslists : ResponseObject
 
 @property (nonatomic, copy) NSString *auditDesc;
 

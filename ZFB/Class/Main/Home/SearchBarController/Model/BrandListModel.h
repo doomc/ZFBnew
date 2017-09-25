@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class BrandData,BrandFindbrandlist;
-@interface BrandListModel : NSObject
+@interface BrandListModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultCode;
 
@@ -20,13 +20,13 @@
 
 @end
 
-@interface BrandData : NSObject
+@interface BrandData : ResponseObject
 
 @property (nonatomic, strong) NSArray<BrandFindbrandlist *> *findBrandList;
 
 @end
 
-@interface BrandFindbrandlist : NSObject
+@interface BrandFindbrandlist : ResponseObject
 
 @property (nonatomic, assign) NSInteger orderNum;
 

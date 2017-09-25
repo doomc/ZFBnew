@@ -31,7 +31,7 @@
                         <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="277-03-jau" customClass="DWQRatingView">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="277-03-jau">
                         <rect key="frame" x="93" y="47" width="125" height="28"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -61,7 +61,7 @@
                 <outlet property="img_allStoreView" destination="aLf-9e-Gyg" id="bkC-Jy-E7x"/>
                 <outlet property="lb_distance" destination="kGh-wj-doD" id="Mc5-1P-xZK"/>
                 <outlet property="lb_title" destination="Rf1-dy-Atr" id="kT7-Og-9Go"/>
-                <outlet property="starView" destination="277-03-jau" id="q5o-Xp-OPF"/>
+                <outlet property="starView" destination="277-03-jau" id="DKO-p2-FrM"/>
             </connections>
             <point key="canvasLocation" x="-277" y="60"/>
         </tableViewCell>

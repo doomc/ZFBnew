@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class CommentData,Goodscommentlist,Findlistreviews;
-@interface AppraiseModel : NSObject
+@interface AppraiseModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultCode;
 
@@ -21,13 +21,13 @@
 
 @end
 
-@interface CommentData : NSObject
+@interface CommentData : ResponseObject
 
 @property (nonatomic, strong) Goodscommentlist *goodsCommentList;
 
 @end
 
-@interface Goodscommentlist : NSObject
+@interface Goodscommentlist : ResponseObject
 
 @property (nonatomic, assign) NSInteger goodCommentNum;
 
@@ -43,7 +43,7 @@
 
 @end
 
-@interface Findlistreviews : NSObject
+@interface Findlistreviews : ResponseObject
 
 @property (nonatomic, assign) NSInteger imgComment;
 

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class BusinessOrderlist,BusinessOrdergoods;
-@interface BusinessOrderModel : NSObject
+@interface BusinessOrderModel : ResponseObject
 
 @property (nonatomic, assign) NSInteger status;
 
@@ -24,7 +24,7 @@
 @property (nonatomic, assign) NSInteger pageCount;
 
 @end
-@interface BusinessOrderlist : NSObject
+@interface BusinessOrderlist : ResponseObject
 
 @property (nonatomic, copy) NSString *netPurchasePrice;
 
@@ -75,7 +75,7 @@
 
 @end
 
-@interface BusinessOrdergoods : NSObject
+@interface BusinessOrdergoods : ResponseObject
 
 @property (nonatomic, copy) NSString *netPurchasePrice;//网购价格
 

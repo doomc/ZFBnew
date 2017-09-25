@@ -225,10 +225,12 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             ZFMyCashBagCell  * cashCell = [ self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyCashBagCell" forIndexPath:indexPath];
             cashCell.delegate = self;
             if (BBUserDefault.isLogin == 1) {
+                
                 cashCell.lb_balance.text = _balance;
+            
             }else{
+                
                 cashCell.lb_balance.text = @"0.00";
- 
             }
             return cashCell;
         }
@@ -271,10 +273,11 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             orderCell.order_imgicon.image =[UIImage imageNamed:@"switchover_icon"];
             orderCell.order_hiddenTitle.hidden = YES;
             
-            if (([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) || _courierFlag == nil ||  _shopFlag == nil ) {
+            if (([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) || _courierFlag == nil ||  _shopFlag == nil || [_courierFlag isEqualToString:@"-1"] || [_shopFlag isEqualToString:@"-1"]) {
                 
                 NSLog(@"我是普通用户");
                 [orderCell setHidden:YES];
+                
             }else{
                 
                 [orderCell setHidden:NO];
@@ -295,7 +298,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
          {
              ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
              
-             orderCell.order_imgicon.image =[UIImage imageNamed:@"settingShopCar"];
+             orderCell.order_imgicon.image = [UIImage imageNamed:@"settingShopCar"];
              orderCell.order_title.text = @"我的共享";
              orderCell.order_hiddenTitle.text = @"";
              return orderCell;
@@ -390,14 +393,14 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)didClickWaitForPayAction:(UIButton *)button
 {
     if (BBUserDefault.isLogin == 1) {
-        ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
         
+        ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
         [orderVC sendTitle:@"待付款" orderType:OrderTypeWaitPay];
-        orderVC.orderType   = 1 ;
+        orderVC.orderType   = 1;
         orderVC.orderStatus =@"4";
         orderVC.buttonTitle = @"待付款";
-        
         [self.navigationController pushViewController:orderVC animated:YES];
+        
     }else{
         [self isloginSuccess];
         

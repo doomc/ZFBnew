@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class IMSearchData,IMSearchUserinfo;
-@interface IMSearchResultModel : NSObject
+@interface IMSearchResultModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultMsg;
 
@@ -18,13 +18,13 @@
 @property (nonatomic, copy) NSString *resultCode;
 
 @end
-@interface IMSearchData : NSObject
+@interface IMSearchData : ResponseObject
 
 @property (nonatomic, strong) NSArray<IMSearchUserinfo *> *userInfo;
 
 @end
 
-@interface IMSearchUserinfo : NSObject
+@interface IMSearchUserinfo : ResponseObject
 
 @property (nonatomic, copy) NSString *userImgAttachUrl;
 

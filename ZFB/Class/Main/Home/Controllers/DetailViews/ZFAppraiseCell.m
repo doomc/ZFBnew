@@ -8,7 +8,6 @@
 
 #import "ZFAppraiseCell.h"
 #import "ApprariseCollectionViewCell.h"
-
 @interface ZFAppraiseCell ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionLayoutHeight;
@@ -27,7 +26,6 @@
     self.img_appraiseView.layer.cornerRadius =  25;
 
     self.lb_message.preferredMaxLayoutWidth = KScreenW - 30 - 60;
-    
     self.lb_nickName.preferredMaxLayoutWidth = KScreenW - 120 -30 - 50;
     self.lb_detailtext.preferredMaxLayoutWidth = 120;
     
@@ -39,14 +37,14 @@
 -(void)setInfoList:(Findlistreviews *)infoList
 {
     _infoList = infoList;
-    
     self.mutImgArray = _infoList.evaluteImages;
     self.lb_nickName.text = _infoList.userName;
     self.lb_message.text = _infoList.reviewsText;
     self.lb_detailtext.text = [NSString stringWithFormat:@"%@之前,来自%@",_infoList.createDate,_infoList.equip];
     [self.img_appraiseView sd_setImageWithURL:[NSURL URLWithString:_infoList.userAvatarImg] placeholderImage:nil];
-
+    
     [self reloadlayout];
+
 }
 
 -(void)setup{
@@ -72,6 +70,7 @@
     else{
         _collectionLayoutHeight.constant = ((KScreenW - 90 )/3.0 );
     }
+    
     [self.appriseCollectionView reloadData];
 
 }

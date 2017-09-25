@@ -30,6 +30,9 @@
 //获取textView中的值
 -(void)getTextViewValues:(NSString *)textViewValues;
 
+//获取分数
+-(void)getScorenum:(NSString *)score;
+
 
 
 @end
@@ -39,7 +42,7 @@
 //评分数
 @property (weak, nonatomic) IBOutlet UILabel *lb_score;
 
-@property (weak, nonatomic) IBOutlet DWQRatingView *starView;
+@property (weak, nonatomic) IBOutlet UIView *starView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *headImg;
 

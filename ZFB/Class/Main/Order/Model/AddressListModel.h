@@ -11,7 +11,8 @@
 
 
 @class Addresslist,Useraddresslist,UserAddressMap;
-@interface AddressListModel : NSObject
+
+@interface AddressListModel : ResponseObject
 
 @property (nonatomic, strong) UserAddressMap * userAddressMap;
 
@@ -24,7 +25,7 @@
 
 @end
 
-@interface UserAddressMap : NSObject
+@interface UserAddressMap : ResponseObject
 
 @property (nonatomic, copy) NSString *postAddressId;
 
@@ -43,7 +44,7 @@
 
 @end
 
-@interface Addresslist : NSObject
+@interface Addresslist : ResponseObject
 
 @property (nonatomic, strong) NSArray<Useraddresslist *> *userAddressList;
 
@@ -54,7 +55,7 @@
 
 @end
 
-@interface Useraddresslist : NSObject
+@interface Useraddresslist : ResponseObject
 
 @property (nonatomic, copy) NSString *contactMobilePhone;
 

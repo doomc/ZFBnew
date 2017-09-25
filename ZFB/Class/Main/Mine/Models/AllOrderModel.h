@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class Orderlist,Ordergoods;
-@interface AllOrderModel : NSObject
+@interface AllOrderModel : ResponseObject
 
 @property (nonatomic, assign) NSInteger status;
 
@@ -26,7 +26,7 @@
 
 @end
 
-@interface Orderlist : NSObject
+@interface Orderlist : ResponseObject
 
 @property (nonatomic, strong) NSArray<Ordergoods *> *orderGoods;
 
@@ -82,7 +82,7 @@
 
 @end
 
-@interface Ordergoods : NSObject
+@interface Ordergoods : ResponseObject
 ///商品唯一编号
 @property (nonatomic, copy) NSString *orderGoodsId;
 

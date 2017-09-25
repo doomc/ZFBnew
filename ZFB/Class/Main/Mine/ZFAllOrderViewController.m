@@ -35,7 +35,6 @@
 //model
 #import "AllOrderModel.h"
 #import "AllOrderProgress.h"
-#import "SalesAfterModel.h"
 
 static  NSString * headerCellid =@"ZFTitleCellid";//头id
 static  NSString * contentCellid =@"ZFSendingCellid";//内容id
@@ -1318,10 +1317,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             [SVProgressHUD dismiss];
             [self.zfb_tableView reloadData];
             
-            if ([self isEmptyArray:self.orderListArray]) {
-                
-                [self.zfb_tableView cyl_reloadData];
-            }
+//            if ([self isEmptyArray:self.orderListArray]) {
+//                
+//                [self.zfb_tableView cyl_reloadData];
+//            }
         }
         NSLog(@"orderListArray ====%@",self.orderListArray);
         [self endRefresh];
@@ -1498,8 +1497,8 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/afterSale/afterSaleList"] params:param success:^(id response) {
-        
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            
             if (self.refreshType == RefreshTypeHeader) {
                
                 if (self.progressArray.count > 0) {
@@ -1547,6 +1546,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     Ordergoods * goods = goodArray[indexPath.row];
     //去晒单
     ZFEvaluateGoodsViewController * vc = [ZFEvaluateGoodsViewController new];
+    vc.goodsImg =  goods.coverImgUrl;
     vc.goodId = goods.goodsId;
     vc.storeId = list.storeId;
     vc.storeName = list.storeName;

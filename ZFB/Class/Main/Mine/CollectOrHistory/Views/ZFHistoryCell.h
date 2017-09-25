@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 
-@property (weak, nonatomic) IBOutlet DWQRatingView *starView;
+@property (weak, nonatomic) IBOutlet UIView *starView;
 
 @property (strong, nonatomic) Cmkeepgoodslist * goodslist;
 

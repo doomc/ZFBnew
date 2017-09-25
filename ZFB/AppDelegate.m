@@ -218,7 +218,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     
     NSInteger count = [[[NIMSDK sharedSDK] conversationManager] allUnreadCount];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
-    
+
 }
 
 

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class ProgressData,List;
-@interface AllOrderProgress : NSObject
+@interface AllOrderProgress : ResponseObject
 
 @property (nonatomic, copy) NSString *resultMsg;
 
@@ -20,7 +20,7 @@
 
 
 @end
-@interface ProgressData : NSObject
+@interface ProgressData : ResponseObject
 
 @property (nonatomic, assign) NSInteger total;
 
@@ -28,7 +28,7 @@
 
 @end
 
-@interface List : NSObject
+@interface List : ResponseObject
 
 @property (nonatomic, copy) NSString *userId;
 

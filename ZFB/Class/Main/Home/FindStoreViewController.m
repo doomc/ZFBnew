@@ -60,6 +60,11 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     [self initInTerfaceView];
  
+    [self setupRefresh];
+    
+}
+-(void)viewWillAppear:(BOOL)animated
+{
     //1.获取主队列
     dispatch_queue_t queue=dispatch_get_main_queue();
     
@@ -70,14 +75,13 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         NSLog(@"使用异步函数执行主队列中的任务1--%@",[NSThread currentThread]);
     });
     dispatch_async(queue, ^{
-       
+        
         [self PostRequst];
-
+        
         NSLog(@"使用异步函数执行主队列中的任务2--%@",[NSThread currentThread]);
     });
-
-    [self setupRefresh];
     
+
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
@@ -312,6 +316,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     latitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
     longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
 //    NSLog(@"  %@  --- long%@",latitudestr,longitudestr);
+    BBUserDefault.latitude = latitudestr;
+    BBUserDefault.longitude = longitudestr;
     
     //反地理编码
     [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
@@ -331,11 +337,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 
             currentCityAndStreet = [NSString stringWithFormat:@"%@%@",placeMark.subLocality,placeMark.name];
             [self.location_btn setTitle:currentCityAndStreet forState:UIControlStateNormal];
-            
         }
     }];
-    
-
 }
 
 #pragma mark - 首页网络请求 getCmStoreInfo
@@ -358,9 +361,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                              };
 
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
-        
-        BBUserDefault.latitude = latitudestr;
-        BBUserDefault.longitude = longitudestr;
         
         if ([response[@"resultCode"] intValue] == 0) {
             

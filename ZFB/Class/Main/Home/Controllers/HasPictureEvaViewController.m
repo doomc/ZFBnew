@@ -9,7 +9,7 @@
 #import "HasPictureEvaViewController.h"
 #import "ZFAppraiseCell.h"
 #import "AppraiseModel.h"
-
+#import "XHStarRateView.h"
 @interface HasPictureEvaViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSString * _imgUrl_str;
@@ -112,19 +112,11 @@
 {
     Findlistreviews * info = self.appraiseListArray[indexPath.row];
     cell.infoList = info;
-    cell.mutImgArray = self.imgArray;
-    
-    if (self.appraiseListArray.count > 0) {
-        
-        //初始化五星好评控件
-        cell.starView.needIntValue = YES;   //是否整数显示，默认整数显示
-        cell.starView.canTouch = NO;//是否可以点击，默认为NO
-        NSNumber *number = [NSNumber numberWithInteger:info.goodsComment];
-        cell.starView.scoreNum = number;//星星显示个数
-        cell.starView.normalColorChain(HEXCOLOR(0xdedede));
-        cell.starView.highlightColorChian(HEXCOLOR(0xfe6d6a));
-        
-    }
+    //初始化五星好评控件info.goodsComment
+    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(KScreenW -  125-10, 10, 125, 25) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO];
+    wdStarView.currentScore = info.goodsComment;
+    [cell addSubview:wdStarView];
+
     
 }
 

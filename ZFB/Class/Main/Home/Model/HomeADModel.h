@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class ADdata,Cmadvertimglist;
-@interface HomeADModel : NSObject
+@interface HomeADModel : ResponseObject
 
  
 @property (nonatomic, copy) NSString *resultCode;
@@ -21,13 +21,13 @@
 
  
 @end
-@interface ADdata : NSObject
+@interface ADdata : ResponseObject
 
 @property (nonatomic, strong) NSArray<Cmadvertimglist *> *cmAdvertImgList;
 
 @end
 
-@interface Cmadvertimglist : NSObject
+@interface Cmadvertimglist : ResponseObject
 
 @property (nonatomic, copy) NSString *imgUrl;
 

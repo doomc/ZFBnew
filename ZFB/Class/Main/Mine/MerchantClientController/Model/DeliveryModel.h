@@ -10,8 +10,8 @@
 
  
 @class Deliverylist;
-@interface DeliveryModel : NSObject
 
+@interface DeliveryModel : ResponseObject
 
 @property (nonatomic, assign) NSInteger status;
 
@@ -25,7 +25,7 @@
 
 @end
 
-@interface Deliverylist : NSObject
+@interface Deliverylist : ResponseObject
 
 @property (nonatomic, assign) NSInteger cmAreaId;
 

@@ -49,19 +49,19 @@
                                 <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_user" translatesAutoresizingMaskIntoConstraints="NO" id="RCg-cu-aOU">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="230x235.png" translatesAutoresizingMaskIntoConstraints="NO" id="RCg-cu-aOU">
                                 <rect key="frame" x="15" y="50.5" width="70" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="gPS-kD-25i"/>
                                     <constraint firstAttribute="height" constant="70" id="yfZ-4l-sfg"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KGX-Qo-Jmh" customClass="DWQRatingView">
-                                <rect key="frame" x="100" y="75.5" width="150" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KGX-Qo-Jmh">
+                                <rect key="frame" x="100" y="75.5" width="125" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="3Ew-i8-IZD"/>
-                                    <constraint firstAttribute="width" constant="150" id="aX7-zF-nfj"/>
+                                    <constraint firstAttribute="width" constant="125" id="aX7-zF-nfj"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Nwu-Fo-Uc0" customClass="FSTextView">
@@ -89,8 +89,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="请输入评价,150字以内哦~"/>
                                 </userDefinedRuntimeAttributes>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ba-O0-gcj">
-                                <rect key="frame" x="151" y="50" width="25.5" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ba-O0-gcj">
+                                <rect key="frame" x="151" y="50" width="29.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -160,13 +160,13 @@
                 <outlet property="heightOfConstraint" destination="mEY-B1-Q0B" id="1CS-93-ltA"/>
                 <outlet property="lb_score" destination="2ba-O0-gcj" id="a63-KM-a5y"/>
                 <outlet property="pickerView" destination="cIq-gk-jD4" id="XeF-v3-1lZ"/>
-                <outlet property="starView" destination="KGX-Qo-Jmh" id="Uam-kE-d0H"/>
+                <outlet property="starView" destination="KGX-Qo-Jmh" id="dTN-CZ-8GU"/>
                 <outlet property="textView" destination="Nwu-Fo-Uc0" id="bMz-lY-Vay"/>
             </connections>
             <point key="canvasLocation" x="-15" y="150.5"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="avatar_user" width="108" height="108"/>
+        <image name="230x235.png" width="230" height="235"/>
     </resources>
 </document>

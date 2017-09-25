@@ -8,7 +8,7 @@
 
 #import "IMSearchResultModel.h"
 
-@implementation IMSearchResultModel : NSObject
+@implementation IMSearchResultModel : ResponseObject
 @end
 
 @implementation IMSearchData

@@ -12,7 +12,7 @@
 
 @interface ZFAppraiseCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet DWQRatingView *starView;
+@property (weak, nonatomic) IBOutlet UIView *starView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_appraiseView;
 

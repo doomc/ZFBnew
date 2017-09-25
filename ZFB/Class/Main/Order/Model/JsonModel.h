@@ -9,13 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @class Usergoodsinfojson,JosnGoodslist;
-@interface JsonModel : NSObject
+
+@interface JsonModel : ResponseObject
 
 @property (nonatomic, strong) NSArray<Usergoodsinfojson *> *userGoodsInfoJSON;
 
 @end
 
-@interface Usergoodsinfojson : NSObject
+@interface Usergoodsinfojson : ResponseObject
 
 @property (nonatomic, copy) NSString *storeName;
 
@@ -25,7 +26,7 @@
 
 @end
 
-@interface JosnGoodslist : NSObject
+@interface JosnGoodslist : ResponseObject
 
 @property (nonatomic, copy) NSString *storeId;
 

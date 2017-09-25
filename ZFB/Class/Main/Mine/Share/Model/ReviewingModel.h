@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class ReViewData;
-@interface ReviewingModel : NSObject
+@interface ReviewingModel : ResponseObject
 
 
 @property (nonatomic, strong) NSArray<ReViewData *> *data;
@@ -25,7 +25,7 @@
 
 @end
 
-@interface ReViewData : NSObject
+@interface ReViewData : ResponseObject
 
 @property (nonatomic, copy) NSString *status;
 

@@ -1,50 +1,36 @@
 //
-//  ShareGoodsSubDetailViewController.m
+//  ShareRecommedDetailViewController.m
 //  ZFB
 //
-//  Created by  展富宝  on 2017/9/12.
+//  Created by  展富宝  on 2017/9/25.
 //  Copyright © 2017年 com.zfb. All rights reserved.
-//  好货共享详情
+//
 
-#import "ShareGoodsSubDetailViewController.h"
+#import "ShareRecommedDetailViewController.h"
 #import "DetailFindGoodsViewController.h"
 
-@interface ShareGoodsSubDetailViewController ()<SDCycleScrollViewDelegate>
+@interface ShareRecommedDetailViewController ()<SDCycleScrollViewDelegate>
 {
-    NSString * _goodsId;
     NSArray * _adArray;
+    NSString * _shareGoodsId;
     NSString * _isThumbsStatus;
-    NSString * _shareId;
 }
-@property (weak, nonatomic) IBOutlet UIImageView *userHeadImg;
-@property (weak, nonatomic) IBOutlet UILabel *userNickName;
-@property (strong, nonatomic) SDCycleScrollView *sdCycleView;
-@property (weak, nonatomic) IBOutlet UIView *bannerView;
-
-@property (weak, nonatomic) IBOutlet UILabel *lb_titles;
-@property (weak, nonatomic) IBOutlet UILabel *lb_content;
-@property (weak, nonatomic) IBOutlet UILabel *lb_endTime;
-
-@property (weak, nonatomic) IBOutlet UIButton *btn_Zan;
-@property (weak, nonatomic) IBOutlet UIButton *btn_buy;
-
 @end
 
-@implementation ShareGoodsSubDetailViewController
+@implementation ShareRecommedDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"共享详情";
+    self.title = @"新品推荐详情";
     _adArray = [NSArray array];
     
-    self.userHeadImg.clipsToBounds = YES;
-    self.userHeadImg.layer.cornerRadius = 25;
-    
     [self recommentDetailPostRequst];
-    
     [self cycleViewInitWithimages:_adArray];
+
+    
 }
+
 
 -(void)cycleViewInitWithimages:(NSArray *)images
 {
@@ -63,69 +49,62 @@
 {
     
 }
-
-/**
- 点赞了
- */
-- (IBAction)didClickZan:(id)sender {
-    
-    if ([_isThumbsStatus isEqualToString: @"1"]) {
-      
-        [self didclickZanPostRequsetAtthumsId:_shareId];
-        
-    }else{
-        
-        [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
-
-    }
-    
- 
-}
-/**
- 点击购买 ---- 跳转到商品详情
- */
+//查看购买
 - (IBAction)didClickBuyNow:(id)sender {
     
-    DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
-    detailVC.goodsId = _goodsId;//这个地方写死的
-    [self.navigationController pushViewController:detailVC animated:NO ];
+    if ( [_shareGoodsId isEqualToString:@""] || _shareGoodsId == nil) {
+        
+    }else{
+        DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
+        detailVC.goodsId = _shareGoodsId;
+        detailVC.headerImage = [NSString stringWithFormat:@"%@",_adArray[0]];
+        [self.navigationController pushViewController:detailVC animated:NO];
+    }
+}
+//立即点赞
+- (IBAction)didClickZan:(id)sender {
+    
+    if ([_isThumbsStatus isEqualToString: @"0"]) {
+        
+        [self didclickZanPostRequsetAtthumsId:_recommentId];
+        
+    }else{
+        [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
+    }
 }
 
-#pragma mark -  共享详情 toShareGoods/shareGoodsDetail
+
+#pragma mark -  获取新品推荐详情信息 recomment/recommentDetailInfo
 -(void)recommentDetailPostRequst
 {
     NSDictionary * parma = @{
-                             @"id":_shareId,
+                             @"recommentId":_recommentId,
                              @"userId":BBUserDefault.cmUserId,
                              };
     [SVProgressHUD show];
-    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/toShareGoods/shareGoodsDetail"] params:parma success:^(id response) {
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/recommentDetailInfo"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
             
-            _lb_titles.text = response[@"data"][@"title"];
-            _lb_content.text = response[@"data"][@"describe"];
-            _lb_endTime .text = response[@"data"][@"createTime"];
-            _userNickName.text =response[@"data"][@"nickname"];
-            _shareId = [NSString stringWithFormat:@"%@",response[@"data"][@"id"]];
-         
-            _goodsId = response[@"data"][@"goodsId"];
-            _adArray = response[@"data"][@"imgUrls"];
-            [_userHeadImg sd_setImageWithURL:[NSURL URLWithString:response[@"data"][@"userLogo"]] placeholderImage:[UIImage imageNamed:@"head"]];
+            _lb_titles.text = response[@"recommentInfo"][@"title"];
+            _lb_content.text = response[@"recommentInfo"][@"describe"];
+            
+            //获取goodid
+            _shareGoodsId = [NSString stringWithFormat:@"%@",response[@"recommentInfo"][@"goodsId"]];
             
             //点赞数量
-            NSString * count  = [NSString stringWithFormat:@"%@",response[@"data"][@"thumbs"]];
-            _zan_number.text = count;
+            NSString * thumbs = [NSString stringWithFormat:@"%@",response[@"recommentInfo"][@"thumbs"]];
+            _lb_zanNum.text = thumbs;
             
             //是否点赞
-            _isThumbsStatus = [NSString stringWithFormat:@"%@",response[@"data"][@"thumbsStatus"]];
-            if ([_isThumbsStatus isEqualToString: @"1"]) {
-                
+            _isThumbsStatus = [NSString stringWithFormat:@"%@",response[@"data"][@"isThumbed"]];
+            if ([_isThumbsStatus isEqualToString: @"0"]) {
                 self.zan_imageView.image =[UIImage imageNamed:@"sharezan_normal"];
-                
             }else{
                 self.zan_imageView.image =[UIImage imageNamed:@"sharezan_selected"];
-
             }
+            
+            _recommentId = response[@"recommentInfo"][@"recommentId"];
+            _adArray = response[@"recommentInfo"][@"goodsImgUrlList"];
             
             [self cycleViewInitWithimages:_adArray];
             [SVProgressHUD dismiss];
@@ -142,19 +121,20 @@
     
 }
 
+
 #pragma mark  - 点赞请求 newrecomment/toLike
 -(void)didclickZanPostRequsetAtthumsId:(NSString *)thumsId
 {
     NSDictionary * parma = @{
                              @"userId":BBUserDefault.cmUserId,
-                             @"thumsId":thumsId,
-                             @"type":@"1",//0 新品推荐 1 分享
+                             @"thumsId":thumsId,//分享编号，新品推荐编号
+                             @"type":@"0",//0 新品推荐 1 分享
                              };
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/newrecomment/toLike"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
-          
+            
             self.zan_imageView.image =[UIImage imageNamed:@"sharezan_selected"];
-            _zan_number.text = [NSString stringWithFormat:@"%ld", [_zan_number.text integerValue]+1];
+            _lb_zanNum.text = [NSString stringWithFormat:@"%ld", [_lb_zanNum.text integerValue] + 1];
             
         }
     } progress:^(NSProgress *progeress) {
@@ -166,7 +146,6 @@
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

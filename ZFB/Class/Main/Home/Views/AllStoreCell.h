@@ -17,7 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_distance;
 
-@property (weak, nonatomic) IBOutlet DWQRatingView *starView;
+@property (weak, nonatomic) IBOutlet UIView *starView;
 
 @property (strong, nonatomic) Findgoodslists *  storelist;
 

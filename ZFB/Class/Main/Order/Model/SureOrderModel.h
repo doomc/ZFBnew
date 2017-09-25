@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class Storedeliveryfeelist;
-@interface SureOrderModel : NSObject
+@interface SureOrderModel : ResponseObject
 
 @property (nonatomic, strong) NSArray<Storedeliveryfeelist *> *storeDeliveryfeeList;
 
@@ -24,7 +24,7 @@
 @property (nonatomic, copy) NSString *resultMsg;
 
 @end
-@interface Storedeliveryfeelist : NSObject
+@interface Storedeliveryfeelist : ResponseObject
 
 @property (nonatomic, assign) NSInteger storeId;
 

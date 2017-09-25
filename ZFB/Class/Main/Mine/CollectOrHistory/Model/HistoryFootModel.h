@@ -10,7 +10,7 @@
 
 
 @class DataAA,Cmscanfoolprintslist;
-@interface HistoryFootModel : NSObject
+@interface HistoryFootModel : ResponseObject
 
 
 @property (nonatomic, copy) NSString *resultCode;
@@ -21,7 +21,7 @@
 
 @end
 
-@interface DataAA : NSObject
+@interface DataAA : ResponseObject
 
 @property (nonatomic, strong) NSArray<Cmscanfoolprintslist *> *cmScanFoolprintsList;
 
@@ -29,7 +29,7 @@
 
 @end
 
-@interface Cmscanfoolprintslist : NSObject
+@interface Cmscanfoolprintslist : ResponseObject
 
 @property (nonatomic, assign) NSInteger foolId;
 

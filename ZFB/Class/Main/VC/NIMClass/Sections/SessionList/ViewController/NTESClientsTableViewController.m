@@ -129,6 +129,7 @@ NSString *Identifier = @"client_cell";
         [self.navigationController popViewControllerAnimated:YES];
 
     }
+    
 }
 
 #pragma mark - 旋转处理 (iOS7)

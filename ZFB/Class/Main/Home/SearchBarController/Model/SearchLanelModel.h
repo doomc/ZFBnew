@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class SearchData,Cmgoodslanel;
-@interface SearchLanelModel : NSObject
+@interface SearchLanelModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultCode;
 
@@ -18,13 +18,13 @@
 @property (nonatomic, strong) SearchData *data;
 
 @end
-@interface SearchData : NSObject
+@interface SearchData : ResponseObject
 
 @property (nonatomic, strong) NSArray<Cmgoodslanel *> *cmGoodsLanel;
 
 @end
 
-@interface Cmgoodslanel : NSObject
+@interface Cmgoodslanel : ResponseObject
 
 @property (nonatomic, copy) NSString * labelId;
 

@@ -45,7 +45,7 @@
     self.lb_description.text = fullList.describe;
     _isThumbsStatus = fullList.thumbsStatus;
   
-    if ([_isThumbsStatus  isEqualToString:@"1"]) {
+    if ([_isThumbsStatus  isEqualToString:@"0"]) {
         
         [_zan_btn setImage:[UIImage imageNamed:@"sharezan_selected"] forState:UIControlStateNormal];
         

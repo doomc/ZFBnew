@@ -10,7 +10,7 @@
 
  
 @class DetailShoppcartlist,DetailGoodslist,Orderdetails,Deliveryinfo,Unpayorderinfo,DetailcmUserInfo;
-@interface DetailOrderModel : NSObject
+@interface DetailOrderModel : ResponseObject
 
 
 @property (nonatomic, assign) NSInteger status;
@@ -32,7 +32,7 @@
 @property (nonatomic, strong) DetailcmUserInfo *cmUserInfo;
 
 @end
-@interface DetailcmUserInfo : NSObject
+@interface DetailcmUserInfo : ResponseObject
 
 @property (nonatomic, copy) NSString *cmUserId;
 
@@ -45,7 +45,7 @@
 @end
 
 
-@interface DetailShoppcartlist : NSObject
+@interface DetailShoppcartlist : ResponseObject
 
 @property (nonatomic, strong) NSMutableArray<DetailGoodslist *> *goodsList;
 
@@ -55,7 +55,7 @@
 
 @end
 
-@interface DetailGoodslist : NSObject
+@interface DetailGoodslist : ResponseObject
 
 @property (nonatomic, copy) NSString *storePrice;
 
@@ -71,7 +71,7 @@
 
 @end
 
-@interface Orderdetails : NSObject
+@interface Orderdetails : ResponseObject
 
 @property (nonatomic, copy) NSString * payRelPrice;
 
@@ -97,7 +97,7 @@
 
 @end
 
-@interface Deliveryinfo : NSObject
+@interface Deliveryinfo : ResponseObject
 
 @property (nonatomic, assign) NSInteger deliveryId;
 
@@ -107,7 +107,7 @@
 
 @end
 
-@interface Unpayorderinfo : NSObject
+@interface Unpayorderinfo : ResponseObject
 
 @property (nonatomic, copy) NSString *order_num;
 

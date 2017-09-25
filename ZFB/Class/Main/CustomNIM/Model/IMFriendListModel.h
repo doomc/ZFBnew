@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class FriendsData,Userfeiendlist;
-@interface IMFriendListModel : NSObject
+@interface IMFriendListModel : ResponseObject
 
 
 @property (nonatomic, copy) NSString *resultCode;
@@ -19,13 +19,13 @@
 @property (nonatomic, strong) FriendsData *data;
 
 @end
-@interface FriendsData : NSObject
+@interface FriendsData : ResponseObject
 
 @property (nonatomic, strong) NSArray<Userfeiendlist *> *userFeiendList;
 
 @end
 
-@interface Userfeiendlist : NSObject
+@interface Userfeiendlist : ResponseObject
 
 @property (nonatomic, copy) NSString *userUrl;
 

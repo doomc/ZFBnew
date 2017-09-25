@@ -28,7 +28,7 @@
     
     self.lb_price.text = [NSString stringWithFormat:@"¥%.2f", goodslist.storePrice];
     self.lb_title.text = [NSString stringWithFormat:@"%@", goodslist.goodName];
-    [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:goodslist.coverImgUrl] placeholderImage:[UIImage imageNamed:@""]];
+    [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:goodslist.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
 
 }
 //门店列表
@@ -36,15 +36,11 @@
 {
     _storeslist = storeslist;
     self.lb_title.text = [NSString stringWithFormat:@"%@", storeslist.goodName];
-    [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:storeslist.coverImgUrl] placeholderImage:[UIImage imageNamed:@""]];
+    [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:storeslist.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     //starLevel  星星等级
     //初始化五星好评控件
-    self.starView.needIntValue = NO;//是否整数显示，默认整数显示
-    self.starView.canTouch     = NO;//是否可以点击，默认为NO
-    CGFloat number           = [storeslist.starLevel floatValue];
-    self.starView.scoreNum     = [NSNumber numberWithFloat:number ];//星星显示个数
-    self.starView.normalColorChain(RGBA(244, 244, 244, 1));
-    self.starView.highlightColorChian(HEXCOLOR(0xfe6d6a));
+ 
+
     
 }
 //足记列表
@@ -53,7 +49,7 @@
     _scanfool = scanfool;
     self.lb_title.text = _scanfool.goodName;
     self.lb_price.text =[NSString stringWithFormat:@"¥%.2f",_scanfool.storePrice];
-    [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:_scanfool.coverImgUrl] placeholderImage:[UIImage imageNamed:@""]];
+    [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:_scanfool.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

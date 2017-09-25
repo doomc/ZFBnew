@@ -69,6 +69,7 @@
     
     NSString *userID = [[[NIMSDK sharedSDK] loginManager] currentAccount];
     self.navigationItem.titleView  = [self titleView:userID];
+    
 }
 
 - (void)refresh{

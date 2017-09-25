@@ -518,7 +518,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
                                       if (error == nil)
                                       {
                                           NSLog(@" 已经 login success");
-                                          
+                                      
                                       }
                                       else
                                       {
@@ -526,5 +526,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
                                       }
                                   }];
 }
+
+
 
 @end

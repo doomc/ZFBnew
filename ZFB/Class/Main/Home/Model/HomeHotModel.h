@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class hotData,hotBestgoodslist,hotFindgoodslist;
-@interface HomeHotModel : NSObject
+@interface HomeHotModel : ResponseObject
  
 @property (nonatomic, copy) NSString *resultCode;
 
@@ -18,13 +18,13 @@
 @property (nonatomic, strong) hotData *data;
 
 @end
-@interface hotData : NSObject
+@interface hotData : ResponseObject
 
 @property (nonatomic, strong) hotBestgoodslist *bestGoodsList;
 
 @end
 
-@interface hotBestgoodslist : NSObject
+@interface hotBestgoodslist : ResponseObject
 
 @property (nonatomic, assign) NSInteger totalCount;
 
@@ -32,7 +32,7 @@
 
 @end
 
-@interface hotFindgoodslist : NSObject
+@interface hotFindgoodslist : ResponseObject
 
 @property (nonatomic, copy) NSString *goodsType;
 

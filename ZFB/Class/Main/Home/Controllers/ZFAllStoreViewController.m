@@ -18,6 +18,8 @@
 
 //view
 #import "ZspMenu.h"
+#import "XHStarRateView.h"
+
 @interface ZFAllStoreViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,CLLocationManagerDelegate,ZspMenuDataSource, ZspMenuDelegate>
 {
     NSString * _storeTypeInfo;//门店类型
@@ -181,18 +183,16 @@
     
     AllStoreCell *all_cell = [self.all_tableview
                               dequeueReusableCellWithIdentifier:@"AllStoreCell" forIndexPath:indexPath];
-    all_cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    Findgoodslists * goodlist = [self.allStoreArray objectAtIndex:indexPath.row];
+    Findgoodslists * goodlist = self.allStoreArray[indexPath.row];
     all_cell.storelist        = goodlist;
     
+    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:all_cell.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO];
+    
+    
+    wdStarView.currentScore = goodlist.starLevel;
     //初始化五星好评控件
-    all_cell.starView .needIntValue = NO;//是否整数显示，默认整数显示
-    all_cell.starView .canTouch     = NO;//是否可以点击，默认为NO
-    NSNumber *number                = [NSNumber numberWithFloat:goodlist.starLevel];
-    all_cell.starView .scoreNum     = number;//星星显示个数
-    all_cell.starView .normalColorChain(HEXCOLOR(0xdedede));
-    all_cell.starView .highlightColorChian(HEXCOLOR(0xfe6d6a));
+    [all_cell addSubview:wdStarView];
     
     return all_cell;
     

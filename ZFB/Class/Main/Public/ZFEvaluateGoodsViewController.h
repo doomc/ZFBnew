@@ -18,6 +18,7 @@
 @property (nonatomic , copy) NSString * storeId;
 @property (nonatomic , copy) NSString * orderNum;
 @property (nonatomic , copy) NSString * storeName;
+@property (nonatomic , copy) NSString * goodsImg;
 
 
 @end

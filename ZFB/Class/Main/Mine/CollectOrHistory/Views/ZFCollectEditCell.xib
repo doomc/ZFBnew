@@ -52,10 +52,11 @@
                         <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tXW-5l-NX7" customClass="DWQRatingView">
-                        <rect key="frame" x="124" y="50" width="181" height="26"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tXW-5l-NX7">
+                        <rect key="frame" x="124" y="50" width="125" height="26"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="width" constant="125" id="lU4-7g-lJG"/>
                             <constraint firstAttribute="height" constant="26" id="v5C-KD-aYg"/>
                         </constraints>
                     </view>
@@ -72,7 +73,6 @@
                     <constraint firstItem="muL-Lz-Nc8" firstAttribute="leading" secondItem="xlE-Ga-bnM" secondAttribute="trailing" constant="10" id="h3X-RN-ZeD"/>
                     <constraint firstItem="tXW-5l-NX7" firstAttribute="leading" secondItem="xlE-Ga-bnM" secondAttribute="trailing" constant="10" id="hH8-4Y-96x"/>
                     <constraint firstItem="QZb-Qb-3bp" firstAttribute="centerY" secondItem="zVh-Ji-tOi" secondAttribute="centerY" id="lhQ-Vs-zHN"/>
-                    <constraint firstAttribute="trailing" secondItem="tXW-5l-NX7" secondAttribute="trailing" constant="15" id="xAf-8q-N1c"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -80,7 +80,7 @@
                 <outlet property="lb_price" destination="8HY-W7-4jK" id="ra4-HM-lrK"/>
                 <outlet property="lb_title" destination="muL-Lz-Nc8" id="P7A-2F-0DZ"/>
                 <outlet property="selecet_btn" destination="QZb-Qb-3bp" id="aqt-QV-9KW"/>
-                <outlet property="starView" destination="tXW-5l-NX7" id="pLs-zM-uGE"/>
+                <outlet property="starView" destination="tXW-5l-NX7" id="eUj-hw-PIP"/>
             </connections>
             <point key="canvasLocation" x="-187" y="-39"/>
         </tableViewCell>

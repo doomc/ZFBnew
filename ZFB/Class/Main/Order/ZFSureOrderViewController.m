@@ -64,7 +64,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     ////使用范围   回传字段
     NSString * _useRange;
     NSString * _couponId;
-    NSString * _couponAmount;
+    NSString * _couponAmount;//优惠的价格
     NSString * _couponStoreId;
     NSString * _couponGoodsIds;
     
@@ -355,8 +355,12 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         {
             SureOrderCommonCell * couponCell    = [self.mytableView dequeueReusableCellWithIdentifier:@"SureOrderCommonCellid" forIndexPath:indexPath];
             couponCell.lb_title.text            = @"优惠券";
-            couponCell.lb_detailTitle.text      = @"您有2张优惠券可用";
             couponCell.lb_detailTitle.textColor = HEXCOLOR(0xfe6d6a);
+            if (_couponAmount != nil || ![_couponAmount isEqualToString:@""]) {
+                couponCell.lb_detailTitle.text      =  [NSString stringWithFormat:@"已优惠%@元",_couponAmount];
+            }else{
+                couponCell.lb_detailTitle.text      = @"点击使用";
+            }
             return couponCell;
         }
             
@@ -368,10 +372,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             //userCostNum	int(11)	支付总金额
             OrderPriceCell * priceCell   = [self.mytableView dequeueReusableCellWithIdentifier:@"OrderPriceCellid" forIndexPath:indexPath];
             priceCell.lb_tipFree.text    = _costNum ;
-            
-            CGFloat afterAmount = [_goodsCount floatValue] - [_couponAmount floatValue];
-            NSLog(@"计算后的价格 --- %.2f",afterAmount);
-            priceCell.lb_priceTotal.text = [NSString stringWithFormat:@"¥%.2f",afterAmount] ;
+            NSLog(@"原来的价格 --- %@",_goodsCount);
+            priceCell.lb_priceTotal.text = [NSString stringWithFormat:@"¥%@",_goodsCount] ;
             
             return priceCell;
         }
@@ -433,7 +435,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             break;
         case SureOrderCellTypeCouponCell://优惠券
         {
-       
+            
             ZFSelectCouponViewController * couponVC =[ZFSelectCouponViewController new];
             couponVC.goodsAmount= _goodsCount; //订单总额
             couponVC.goodsIdJson = _goodsIdAppding;//商品id，
@@ -444,8 +446,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                 _couponAmount = couponAmount;
                 _couponStoreId = storeId;
                 _couponGoodsIds = goodsIds;
-                
+                _lb_price.text = [NSString stringWithFormat:@"¥%.2f",[_userCostNum floatValue] - [couponAmount floatValue]];
                 NSLog(@"%@,%@,%@",_couponId,_useRange,_couponAmount);
+
                 [self.mytableView reloadData];
             };
             
@@ -507,8 +510,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             _storeDeliveryfeeListArr = response[@"storeDeliveryfeeList"];
             _goodsCount              = [NSString stringWithFormat:@"%.2f",suremodel.goodsCount]  ;//商品总金额
             _costNum                 = [NSString stringWithFormat:@"+ ¥%.2f",suremodel.costNum]  ;//配送费总金额
-            _userCostNum             = [NSString stringWithFormat:@"¥%.2f",suremodel.userCostNum]  ;//支付总金额
-            _lb_price.text           = _userCostNum;//支付总金额
+            _userCostNum             = [NSString stringWithFormat:@"%.2f",suremodel.userCostNum]  ;//支付总金额
+            _lb_price.text           = [NSString stringWithFormat:@"¥%@",_userCostNum];//支付总金额
         }
         
         [self.mytableView reloadData];

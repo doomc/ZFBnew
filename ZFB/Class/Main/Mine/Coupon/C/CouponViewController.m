@@ -407,11 +407,19 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
            
             if ([status isEqualToString:@"0"]) {//查询未领取列表
-                
+                if (self.couponList.count > 0) {
+                    [self.couponList removeAllObjects];
+                }
+                CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
+                for (Couponlist * list in coupon.couponList) {
+                    [self.couponList addObject:list];
+                }
+
                 [self.view addSubview:self.popCouponBackgroundView];
                 [self.tableView bringSubviewToFront:self.popCouponBackgroundView];
                 [self.popCouponView reloadData];
-                
+                [SVProgressHUD dismiss];
+
             }else{//如果不为0只刷新外部
                 if (self.refreshType == RefreshTypeHeader) {
                     if (self.couponList.count > 0) {
@@ -455,6 +463,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
             [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
             
             [self.popCouponView reloadData];
+            [self didClickCloseCouponView];
             //成功后请求下未使用列表
             [SVProgressHUD dismiss];
         }

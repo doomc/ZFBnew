@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 };
 
 @class detailData,Goodsinfo,Storeinfo,Productattribute,Valuelist;
-@interface DetailGoodsModel : NSObject
+@interface DetailGoodsModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultMsg;
 
@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 
 @end
 
-@interface detailData : NSObject
+@interface detailData : ResponseObject
 
 @property (nonatomic, strong) Goodsinfo *goodsInfo;
 
@@ -37,7 +37,7 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 
 @end
 
-@interface Goodsinfo : NSObject
+@interface Goodsinfo : ResponseObject
 
 @property (nonatomic, copy) NSString *goodsType;
 
@@ -123,7 +123,7 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 @end
 
 
-@interface Storeinfo : NSObject
+@interface Storeinfo : ResponseObject
 
 @property (nonatomic, copy) NSString *storeName;
 
@@ -139,7 +139,7 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 
 @end
 
-@interface Productattribute : NSObject///规格
+@interface Productattribute : ResponseObject///规格
 
 @property (nonatomic, strong) NSArray<Valuelist *> *valueList;
 
@@ -156,7 +156,7 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 
 @end
 
-@interface Valuelist : NSObject
+@interface Valuelist : ResponseObject
 
 @property (nonatomic, assign) ValueSelectType selectType;  //根据枚举类型显示
 

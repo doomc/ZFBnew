@@ -46,13 +46,7 @@
     [self.img_editView sd_setImageWithURL:[NSURL URLWithString:storeList.coverImgUrl] placeholderImage:[UIImage imageNamed:@""]];
     self.selecet_btn.selected = storeList.isCollectSelected;
     
-    //初始化五星好评控件
-    self.starView.needIntValue = NO;//是否整数显示，默认整数显示
-    self.starView.canTouch     = NO;//是否可以点击，默认为NO
-    CGFloat number           = [storeList.starLevel floatValue];
-    self.starView.scoreNum     = [NSNumber numberWithFloat:number ];//星星显示个数
-    self.starView.normalColorChain(RGBA(244, 244, 244, 1));
-    self.starView.highlightColorChian(HEXCOLOR(0xfe6d6a));
+ 
     
     
 }

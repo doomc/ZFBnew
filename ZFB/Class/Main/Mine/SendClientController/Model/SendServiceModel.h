@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class Weedmap,Monthmap,Numarray,Todaymap;
-@interface SendServiceModel : NSObject
+@interface SendServiceModel : ResponseObject
 
 @property (nonatomic, strong) Weedmap *weedMap;
 
@@ -26,7 +26,7 @@
 @property (nonatomic, strong) Todaymap *todayMap;
 
 @end
-@interface Weedmap : NSObject
+@interface Weedmap : ResponseObject
 
 @property (nonatomic, copy) NSString * distriCount;
 
@@ -40,7 +40,7 @@
 
 @end
 
-@interface Monthmap : NSObject
+@interface Monthmap : ResponseObject
 
 @property (nonatomic, copy) NSString *distriCount;
 
@@ -54,13 +54,13 @@
 
 @end
 
-@interface Numarray : NSObject
+@interface Numarray : ResponseObject
 
 @property (nonatomic, assign) NSInteger num;
 
 @end
 
-@interface Todaymap : NSObject
+@interface Todaymap : ResponseObject
 
 @property (nonatomic, copy) NSString *distriCount;
 

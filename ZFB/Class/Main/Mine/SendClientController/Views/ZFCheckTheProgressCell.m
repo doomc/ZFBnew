@@ -30,6 +30,7 @@
     }
     
 }
+//进度查询的数据
 -(void)setProgressList:(List *)progressList
 {
     _progressList = progressList;

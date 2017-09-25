@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class Orderunpayinfo,Todayorderinfo,Sevendayorderinfo,Monthorderinfo;
-@interface BusinessHomeModel : NSObject
+@interface BusinessHomeModel : ResponseObject
 
 @property (nonatomic, assign) NSInteger status;
 
@@ -28,7 +28,7 @@
 @property (nonatomic, strong) Orderunpayinfo *orderUnpayInfo;
 
 @end
-@interface Orderunpayinfo : NSObject
+@interface Orderunpayinfo : ResponseObject
 
 @property (nonatomic, copy) NSString *order_count;
 
@@ -42,7 +42,7 @@
 
 @end
 
-@interface Todayorderinfo : NSObject
+@interface Todayorderinfo : ResponseObject
 
 @property (nonatomic, copy) NSString *order_count;
 
@@ -56,7 +56,7 @@
 
 @end
 
-@interface Sevendayorderinfo : NSObject
+@interface Sevendayorderinfo : ResponseObject
 
 @property (nonatomic, copy) NSString *order_count;
 
@@ -70,7 +70,7 @@
 
 @end
 
-@interface Monthorderinfo : NSObject
+@interface Monthorderinfo : ResponseObject
 
 @property (nonatomic, copy) NSString *order_count;
 

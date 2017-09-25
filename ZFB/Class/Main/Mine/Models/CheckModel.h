@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class CheckData,CheckInfo,CheckList;
-@interface CheckModel : NSObject
+@interface CheckModel : ResponseObject
 
 
 
@@ -20,7 +20,7 @@
 @property (nonatomic, copy) NSString *resultCode;
 
 @end
-@interface CheckData : NSObject
+@interface CheckData : ResponseObject
 
 @property (nonatomic, strong) CheckInfo *info;
 
@@ -28,7 +28,7 @@
 
 @end
 
-@interface CheckInfo : NSObject
+@interface CheckInfo : ResponseObject
 
 @property (nonatomic, copy) NSString *status;
 
@@ -38,7 +38,7 @@
 
 @end
 
-@interface CheckList : NSObject
+@interface CheckList : ResponseObject
 
 @property (nonatomic, copy) NSString *message;
 

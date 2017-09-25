@@ -11,17 +11,23 @@
 #import "ZFServiceEvaluteCell.h"
 #import "ZFEvaluateGoodsCell.h"
 
-@interface ZFEvaluateGoodsViewController () <UITableViewDelegate,UITableViewDataSource ,ZFEvaluateGoodsCellDelegate,ZFServiceEvaluteCellDelegate>
+
+@interface ZFEvaluateGoodsViewController () <UITableViewDelegate,UITableViewDataSource ,ZFEvaluateGoodsCellDelegate,ZFServiceEvaluteCellDelegate,XHStarRateViewDelegate>
 {
     CGFloat _cellHeight;
     NSString * _textViewValues;
     NSString * _imgComment;//是否有图评论  1.有图评论 0.无图评论
     NSString * _deviceName;//设备名称
     BOOL _isCommited;
+    
+    NSString * _score;//评分
+    NSString * _speedScore;//送货速度
+    NSString * _serviceScore;//服务态度
+
 }
 @property (nonatomic,strong) UITableView * tableview;
 @property (nonatomic,strong) NSArray     * upImgArray;
-
+@property (nonatomic,strong) XHStarRateView * serviceView;
 @end
 
 @implementation ZFEvaluateGoodsViewController
@@ -81,21 +87,33 @@
     if (indexPath.section == 0) {
         
         ZFEvaluateGoodsCell * goodsCell = [self.tableview dequeueReusableCellWithIdentifier:@"ZFEvaluateGoodsCell" forIndexPath:indexPath];
-        
-
+        [goodsCell.headImg sd_setImageWithURL:[NSURL URLWithString:_goodsImg] placeholderImage:[UIImage imageNamed:@"230x235"]];
         goodsCell.delegate = self;
         return goodsCell;
         
     }else{
         
         ZFServiceEvaluteCell * serviceCell = [self.tableview dequeueReusableCellWithIdentifier:@"ZFServiceEvaluteCell" forIndexPath:indexPath];
-        
         serviceCell.delegate = self;
-        return serviceCell;
+
+        if (_serviceScore == nil || [_serviceScore isEqualToString:@""]) {
+            serviceCell.lb_serviceScore.text = @"0分";
+
+        }else{
+            serviceCell.lb_serviceScore.text =  [NSString stringWithFormat:@"%@分",_serviceScore];
+
+        }
+        //服务态度
+        if (_serviceView == nil) {
+            _serviceView = [[XHStarRateView alloc]initWithFrame:serviceCell.serviceAppraiseView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:YES];
+            [serviceCell addSubview:_serviceView];
+            _serviceView.delegate = self;
+        }
         
-    
+        return serviceCell;
     }
 }
+
 
 #pragma mark - ZFEvaluateGoodsCellDelegate
 //传入选择的图片
@@ -122,6 +140,26 @@
     NSLog(@" 外部的 %@",textViewValues);
     _textViewValues = textViewValues;
 }
+-(void)getScorenum:(NSString *)score
+{
+    NSLog(@" 用户评分 ==== %@",score);
+    _score = score;
+    
+}
+-(void)getSendSpeedScore:(NSString *)speedScore
+{
+    NSLog(@"送货速度 ==== %@",speedScore);
+    _speedScore = speedScore;
+    
+}
+-(void)starRateView:(XHStarRateView *)starRateView currentScore:(CGFloat)currentScore
+{
+    NSLog(@" 服务态度 ==== %f",currentScore);
+    _serviceScore = [NSString stringWithFormat:@"%.f",currentScore];
+    [self.tableview reloadData];
+
+}
+
 #pragma mark - ZFServiceEvaluteCellDelegate
 //提交
 -(void)didClickCommit
@@ -139,7 +177,7 @@
             NSMutableDictionary * jsondic =[NSMutableDictionary dictionary];
             NSString * imgUrlString = [names componentsJoinedByString:@","];
             
-            [jsondic setValue:@"5" forKey:@"goodsComment"];//评分评级得分 1到5分
+            [jsondic setValue:_score forKey:@"goodsComment"];//评分评级得分 1到5分
             [jsondic setValue:_textViewValues forKey:@"reviewsText"];
             [jsondic setValue:imgUrlString forKey:@"reviewsImgUrl"];
             [jsondic setValue:_imgComment forKey:@"imgComment"];
@@ -162,14 +200,14 @@
 #pragma mark  - insertGoodsComment 晒单的接口
 -(void)insertGoodsCommentPost:(NSArray*)reviewsJson
 {
-
+ 
     NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"equip":_deviceName,//获取手机
                              @"imgComment":_imgComment,
                              @"reviewsJson":reviewsJson,//集合
-                             @"serAttitude":@"4",//服务态度(最高五星)
-                             @"deliverySpeed":@"4",//送货速度
+                             @"serAttitude":_serviceScore,//服务态度(最高五星)
+                             @"deliverySpeed":_speedScore,//送货速度
                              @"storeName":_storeName,
                              @"orderId":_orderId,
                              @"storeId":_storeId,

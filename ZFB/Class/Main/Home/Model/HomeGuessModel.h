@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class GuessData,Cmgoodsbrowselist,Guessgoodslist;
-@interface HomeGuessModel : NSObject
+@interface HomeGuessModel : ResponseObject
 
 
 @property (nonatomic, copy) NSString *resultCode;
@@ -19,13 +19,13 @@
 @property (nonatomic, strong) GuessData *data;
 
 @end
-@interface GuessData : NSObject
+@interface GuessData : ResponseObject
 
 @property (nonatomic, strong) Cmgoodsbrowselist *cmGoodsBrowseList;
 
 @end
 
-@interface Cmgoodsbrowselist : NSObject
+@interface Cmgoodsbrowselist : ResponseObject
 
 @property (nonatomic, assign) NSInteger totalCount;
 
@@ -33,7 +33,7 @@
 
 @end
 
-@interface Guessgoodslist : NSObject
+@interface Guessgoodslist : ResponseObject
 //价格
 @property (nonatomic, copy) NSString *priceTostr;
 

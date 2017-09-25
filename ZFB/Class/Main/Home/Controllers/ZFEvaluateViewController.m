@@ -41,8 +41,9 @@
     self.title = @"评论";
     
     [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
+  
     //设置title
-    //    [self setupPageView];
+    [self setupPageView];
     
     
 }

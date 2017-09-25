@@ -45,9 +45,8 @@
 /** 判断 优惠券状态 是否过期  */
 @property (weak, nonatomic) IBOutlet UIImageView *img_CouponStutus;
 
+
 @property (assign , nonatomic) id <CouponCellDelegate> couponDelegate;
-
-
 /**
   选择按钮的宽度
  */

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class Feedbacklist;
-@interface UserFeedbackModel : NSObject
+@interface UserFeedbackModel : ResponseObject
 
 @property (nonatomic, strong) NSArray<Feedbacklist *> *feedbackList;
 
@@ -21,7 +21,7 @@
 
 @end
 
-@interface Feedbacklist : NSObject
+@interface Feedbacklist : ResponseObject
 
 @property (nonatomic, copy) NSString *feedbackContent;
 

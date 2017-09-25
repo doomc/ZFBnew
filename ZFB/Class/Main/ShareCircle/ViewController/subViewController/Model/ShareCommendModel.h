@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class Recommentlist;
-@interface ShareCommendModel : NSObject
+@interface ShareCommendModel : ResponseObject
 
 
 @property (nonatomic, assign) NSInteger pageCount;
@@ -23,7 +23,7 @@
 
 @end
 
-@interface Recommentlist : NSObject
+@interface Recommentlist : ResponseObject
 
 @property (nonatomic, assign) NSInteger thumbs;
 

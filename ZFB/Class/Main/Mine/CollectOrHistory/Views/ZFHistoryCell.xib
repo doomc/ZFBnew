@@ -47,10 +47,11 @@
                             <constraint firstAttribute="width" constant="20" id="T5i-Y8-aAa"/>
                         </constraints>
                     </button>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wUF-a1-hkE" customClass="DWQRatingView">
-                        <rect key="frame" x="90" y="50" width="180" height="26"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wUF-a1-hkE">
+                        <rect key="frame" x="90" y="50" width="125" height="26"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="width" constant="125" id="8mz-0V-Rgb"/>
                             <constraint firstAttribute="height" constant="26" id="olM-1Q-dEk"/>
                         </constraints>
                     </view>
@@ -61,7 +62,6 @@
                     <constraint firstItem="wUF-a1-hkE" firstAttribute="leading" secondItem="4Uk-E4-SXk" secondAttribute="trailing" constant="15" id="TOR-0d-9ZA"/>
                     <constraint firstItem="8XP-cD-edg" firstAttribute="top" secondItem="4Uk-E4-SXk" secondAttribute="top" id="Tdn-dY-aji"/>
                     <constraint firstItem="S1f-6I-a7g" firstAttribute="centerY" secondItem="4Uk-E4-SXk" secondAttribute="centerY" id="VRf-ns-y0a"/>
-                    <constraint firstAttribute="trailing" secondItem="wUF-a1-hkE" secondAttribute="trailing" constant="50" id="Z5I-YJ-aEu"/>
                     <constraint firstAttribute="trailing" secondItem="8XP-cD-edg" secondAttribute="trailing" constant="40" id="mHi-PC-Xuq"/>
                     <constraint firstItem="nX1-Ga-7Jc" firstAttribute="top" secondItem="8XP-cD-edg" secondAttribute="bottom" constant="5" id="rLH-JM-UFF"/>
                     <constraint firstItem="8XP-cD-edg" firstAttribute="leading" secondItem="4Uk-E4-SXk" secondAttribute="trailing" constant="15" id="tmo-47-2T3"/>

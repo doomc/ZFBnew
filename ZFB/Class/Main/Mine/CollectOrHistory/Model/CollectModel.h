@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class Data,Cmkeepgoodslist;
-@interface CollectModel : NSObject
+@interface CollectModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultCode;
 
@@ -19,7 +19,7 @@
 
 @end
 
-@interface Data : NSObject
+@interface Data : ResponseObject
 
 @property (nonatomic, assign) NSInteger totalCount;
 
@@ -27,7 +27,7 @@
 
 @end
 
-@interface Cmkeepgoodslist : NSObject
+@interface Cmkeepgoodslist : ResponseObject
 
 @property (nonatomic, assign) BOOL isCollectSelected;//选择单个商品
 

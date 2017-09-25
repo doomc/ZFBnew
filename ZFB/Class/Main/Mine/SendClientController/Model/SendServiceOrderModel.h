@@ -10,7 +10,7 @@
 
 
 @class SendServiceStoreinfomap,SendServiceOrdergoodslist;
-@interface SendServiceOrderModel : NSObject
+@interface SendServiceOrderModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultMsg;
 
@@ -20,7 +20,7 @@
 
 @end
 
-@interface SendServiceStoreinfomap : NSObject
+@interface SendServiceStoreinfomap : ResponseObject
 
 @property (nonatomic, copy) NSString *storeName;
 
@@ -41,7 +41,7 @@
 
 @end
 
-@interface SendServiceOrdergoodslist : NSObject
+@interface SendServiceOrdergoodslist : ResponseObject
 
 @property (nonatomic, copy) NSString *netPurchasePrice;//网购价格
 

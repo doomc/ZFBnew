@@ -20,7 +20,8 @@
     self.img_allStoreView.layer.borderWidth = 0.5;
     self.img_allStoreView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
 
- 
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
  
 }
 -(void)setStorelist:(Findgoodslists *)storelist
@@ -28,7 +29,7 @@
 
     self.lb_distance.text = [NSString stringWithFormat:@"%@km",storelist.storeDist];
     self.lb_title.text = storelist.storeName;
-    [self.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:storelist.coverUrl] placeholderImage:nil];
+    [self.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:storelist.coverUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
 
 }
 

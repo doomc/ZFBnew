@@ -7,16 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "XHStarRateView.h"
 
 @protocol ZFServiceEvaluteCellDelegate <NSObject>
 
 //提交
 -(void)didClickCommit;
 
+//送货速度
+-(void)getSendSpeedScore:(NSString *)speedScore;
+
+
 @end
 
-@interface ZFServiceEvaluteCell : UITableViewCell
+@interface ZFServiceEvaluteCell : UITableViewCell <XHStarRateViewDelegate>
 
 @property (assign, nonatomic)  id <ZFServiceEvaluteCellDelegate> delegate;
 
