@@ -149,7 +149,6 @@
             [self endRefresh];
             [self.zfb_tableView reloadData];
         }
-        
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {

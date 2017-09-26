@@ -10,6 +10,7 @@
 #import "AllOrderModel.h"
 #import "BusinessOrderModel.h"
 #import "SendServiceOrderModel.h"
+#import "AllOrderProgress.h"
 
 @interface ZFSendingCell : UITableViewCell
 
@@ -22,5 +23,7 @@
 @property (strong,nonatomic) Ordergoods * goods ;
 @property (strong,nonatomic) BusinessOrdergoods * businesGoods ;
 @property (strong,nonatomic) SendServiceOrdergoodslist * sendGoods ;
+@property (strong,nonatomic) List * progressModel ;//进度查询模型
+
 
 @end

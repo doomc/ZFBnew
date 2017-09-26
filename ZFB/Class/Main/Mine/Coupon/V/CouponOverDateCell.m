@@ -64,6 +64,7 @@
             
         }else if (couponlist.status == 2)
         {
+            _img_isUsed.hidden = NO;
             _img_isUsed.image = [UIImage imageNamed:@"used"];
             [_img_CouponStutus setHidden:YES];
             
@@ -71,10 +72,8 @@
             _img_isUsed.image = [UIImage imageNamed:@"overtime"];
             [_img_CouponStutus setHidden:YES];
         }
-        
     }
-    if (couponlist.status == 2)
-    {
+    if (couponlist.useRange == 2) {
         //status = 0 未领取 1 未使用 2 已使用 3 已失效
         if (couponlist.status == 0) {
             
@@ -88,6 +87,7 @@
             
         }else if (couponlist.status == 2)
         {
+            _img_isUsed.hidden = NO;
             _img_isUsed.image = [UIImage imageNamed:@"used"];
             [_img_CouponStutus setHidden:YES];
             
@@ -95,10 +95,9 @@
             _img_isUsed.image = [UIImage imageNamed:@"overtime"];
             [_img_CouponStutus setHidden:YES];
         }
-        
     }
-    if (couponlist.status == 3){
-    
+    if (couponlist.useRange == 3) {
+        
         //status = 0 未领取 1 未使用 2 已使用 3 已失效
         if (couponlist.status == 0) {
             
@@ -112,6 +111,7 @@
             
         }else if (couponlist.status == 2)
         {
+            _img_isUsed.hidden = NO;
             _img_isUsed.image = [UIImage imageNamed:@"used"];
             [_img_CouponStutus setHidden:YES];
             
@@ -119,7 +119,7 @@
             _img_isUsed.image = [UIImage imageNamed:@"overtime"];
             [_img_CouponStutus setHidden:YES];
         }
-
+        
     }
     
     _img_couponType.image = [UIImage imageNamed:@"couponGray"];

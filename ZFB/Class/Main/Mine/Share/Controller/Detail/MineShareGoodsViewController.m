@@ -9,7 +9,7 @@
 #import "MineShareGoodsViewController.h"
 #import "MineShareContentCell.h"
 
-@interface MineShareGoodsViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MineShareGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,CYLTableViewPlaceHolderDelegate,WeChatStylePlaceHolderDelegate>
 
 @property (strong, nonatomic)  UITableView * tableView;
 @property (strong, nonatomic)  NSMutableArray * goodsList;
@@ -112,6 +112,11 @@
             [self endRefresh];
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
+            
+            if ([self isEmptyArray:self.goodsList]) {
+                [self.tableView cyl_reloadData];
+                [SVProgressHUD dismiss];
+            }
         }
         
     } progress:^(NSProgress *progeress) {
@@ -124,6 +129,25 @@
     }];
 }
 
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+    
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.tableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+    
+    [self goodsListGoodsPost];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

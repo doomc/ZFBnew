@@ -974,6 +974,10 @@
 		499D150B1F676E3000EB705B /* PaySettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 499D15091F676E3000EB705B /* PaySettingCell.m */; };
 		499D150C1F676E3000EB705B /* PaySettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499D150A1F676E3000EB705B /* PaySettingCell.xib */; };
 		499D150F1F67754300EB705B /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 499D150E1F67754300EB705B /* ChangePasswordViewController.m */; };
+		49AA1B691F7A56DD00625FBA /* CalculateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AA1B671F7A56DD00625FBA /* CalculateCell.m */; };
+		49AA1B6A1F7A56DD00625FBA /* CalculateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AA1B681F7A56DD00625FBA /* CalculateCell.xib */; };
+		49AA1B6D1F7A582C00625FBA /* add_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AA1B6B1F7A582C00625FBA /* add_black.png */; };
+		49AA1B701F7A58EE00625FBA /* reduce_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AA1B6F1F7A58EE00625FBA /* reduce_black.png */; };
 		49AB0AE51F53F483004660B7 /* MineWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AB0AE41F53F483004660B7 /* MineWalletViewController.m */; };
 		49AB0AE91F53FB64004660B7 /* ZFCashCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AB0AE71F53FB64004660B7 /* ZFCashCell.m */; };
 		49AB0AEA1F53FB64004660B7 /* ZFCashCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AB0AE81F53FB64004660B7 /* ZFCashCell.xib */; };
@@ -2721,6 +2725,11 @@
 		499D150A1F676E3000EB705B /* PaySettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaySettingCell.xib; sourceTree = "<group>"; };
 		499D150D1F67754300EB705B /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		499D150E1F67754300EB705B /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		49AA1B661F7A56DD00625FBA /* CalculateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculateCell.h; sourceTree = "<group>"; };
+		49AA1B671F7A56DD00625FBA /* CalculateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculateCell.m; sourceTree = "<group>"; };
+		49AA1B681F7A56DD00625FBA /* CalculateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalculateCell.xib; sourceTree = "<group>"; };
+		49AA1B6B1F7A582C00625FBA /* add_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_black.png; sourceTree = "<group>"; };
+		49AA1B6F1F7A58EE00625FBA /* reduce_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reduce_black.png; sourceTree = "<group>"; };
 		49AB0AE31F53F483004660B7 /* MineWalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineWalletViewController.h; sourceTree = "<group>"; };
 		49AB0AE41F53F483004660B7 /* MineWalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineWalletViewController.m; sourceTree = "<group>"; };
 		49AB0AE61F53FB64004660B7 /* ZFCashCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCashCell.h; sourceTree = "<group>"; };
@@ -4322,6 +4331,9 @@
 				50E2A3DD1F51605600AF17F4 /* DetailWebViewCell.h */,
 				50E2A3DE1F51605600AF17F4 /* DetailWebViewCell.m */,
 				50E2A3DF1F51605600AF17F4 /* DetailWebViewCell.xib */,
+				49AA1B661F7A56DD00625FBA /* CalculateCell.h */,
+				49AA1B671F7A56DD00625FBA /* CalculateCell.m */,
+				49AA1B681F7A56DD00625FBA /* CalculateCell.xib */,
 			);
 			path = DetailViews;
 			sourceTree = "<group>";
@@ -7217,6 +7229,8 @@
 		50D61E7D1F1E5BAD00DBDA4D /* addres */ = {
 			isa = PBXGroup;
 			children = (
+				49AA1B6B1F7A582C00625FBA /* add_black.png */,
+				49AA1B6F1F7A58EE00625FBA /* reduce_black.png */,
 				50D61E7E1F1E5BAD00DBDA4D /* closeRed.png */,
 				50D61E7F1F1E5BAD00DBDA4D /* closeRed@2x.png */,
 				50D61E801F1E5BAD00DBDA4D /* closeRed@3x.png */,
@@ -7624,6 +7638,7 @@
 				495EA7CC1F14B64D001FCB7E /* ZFMyCashBagCell.xib in Resources */,
 				49C33E4B1F558D3700BC2254 /* store_black@2x.png in Resources */,
 				50B3812B1F3F729B001ED3BA /* time@3x.png in Resources */,
+				49AA1B6D1F7A582C00625FBA /* add_black.png in Resources */,
 				495EA8ED1F14B64E001FCB7E /* home_normal@3x.png in Resources */,
 				495EA8AF1F14B64D001FCB7E /* shoppingCar@3x.png in Resources */,
 				495EA7AF1F14B64D001FCB7E /* HotCollectionViewCell.xib in Resources */,
@@ -7631,6 +7646,7 @@
 				495EA8C61F14B64E001FCB7E /* NOAddress@2x.png in Resources */,
 				4958D51A1F6922EA007426A9 /* overtime.png in Resources */,
 				495EA8F11F14B64E001FCB7E /* Order_down@3x.png in Resources */,
+				49AA1B701F7A58EE00625FBA /* reduce_black.png in Resources */,
 				50B381291F3F729B001ED3BA /* compose_delete@3x.png in Resources */,
 				49DA749D1F259D20009F5577 /* arrowdown_red@3x.png in Resources */,
 				49DA74A81F25CB9C009F5577 /* SearchTypeCollectionCell.xib in Resources */,
@@ -7687,6 +7703,7 @@
 				495EA8B91F14B64D001FCB7E /* collectshopCar@3x.png in Resources */,
 				49C33E481F558C5900BC2254 /* addShopCar_white@3x.png in Resources */,
 				495EA8451F14B64D001FCB7E /* ZFOrderDetailGoosContentCell.xib in Resources */,
+				49AA1B6A1F7A56DD00625FBA /* CalculateCell.xib in Resources */,
 				495EA9001F14B64E001FCB7E /* comment_white@2x.png in Resources */,
 				49555EA61F1E0092002E5688 /* SendServiceTitleCell.xib in Resources */,
 				495EA7771F14B64D001FCB7E /* DetailShareViewController.xib in Resources */,
@@ -8294,6 +8311,7 @@
 				504A76171F6ADD9D00B61CE3 /* YYTextMagnifier.m in Sources */,
 				497A8ACD1F2F3FFB0003D7CB /* SendServiceModel.m in Sources */,
 				4968A28C1F4DB5080061A87E /* NIMKitNotificationFirer.m in Sources */,
+				49AA1B691F7A56DD00625FBA /* CalculateCell.m in Sources */,
 				50099B941F66CB7600B348FD /* TPPasswordTextView.m in Sources */,
 				495EA7741F14B64D001FCB7E /* ZFCollectionViewFlowLayout.m in Sources */,
 				495EA7F91F14B64D001FCB7E /* ZFSendHomeCell.m in Sources */,

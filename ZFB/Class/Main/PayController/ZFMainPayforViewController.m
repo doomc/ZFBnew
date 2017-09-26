@@ -146,7 +146,7 @@
 {
     [SVProgressHUD show];
     NSString * listJsonString  =  [NSString arrayToJSONString:_orderListArray];
-    listJsonString = [listJsonString stringByReplacingOccurrencesOfString:@"\\"withString:@""];
+//    listJsonString = [listJsonString stringByReplacingOccurrencesOfString:@"\\"withString:@""];
 #warning -- 此账号为测试时账号  正式时 需要修改成正式账号
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     [params setValue:_access_token forKey:@"access_token"];
@@ -185,8 +185,8 @@
 {
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
    
-    NSString * listJsonString  =[NSString arrayToJSONString:_orderListArray];
-    listJsonString=[listJsonString stringByReplacingOccurrencesOfString:@"\\"withString:@""];
+    NSString * listJsonString  = [NSString arrayToJSONString:_orderListArray];
+//    listJsonString = [listJsonString stringByReplacingOccurrencesOfString:@"\\"withString:@""];
     
     [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
     [params setValue:_access_token forKey:@"access_token"];

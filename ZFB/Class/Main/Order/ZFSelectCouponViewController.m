@@ -51,7 +51,6 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"CouponCell" bundle:nil] forCellReuseIdentifier:@"CouponCell"];
     
     [self setupRefresh];
-    [self getUserNotUseCouponListPostRequset];
 }
 
 -(void)footerRefresh
@@ -66,7 +65,11 @@
     [self getUserNotUseCouponListPostRequset];
 
 }
+-(void)viewWillAppear:(BOOL)animated{
 
+    [self getUserNotUseCouponListPostRequset];
+
+}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

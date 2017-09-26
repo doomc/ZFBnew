@@ -206,25 +206,35 @@
     [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getStoreOrderList",zfb_baseUrl] params:param success:^(id response) {
        
-        BusinessOrderModel * orderModel = [BusinessOrderModel mj_objectWithKeyValues:response];
-       
-        if (self.refreshType == RefreshTypeHeader) {
-          
-            if (self.orderListArray.count > 0) {
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+            BusinessOrderModel * orderModel = [BusinessOrderModel mj_objectWithKeyValues:response];
+            
+            if (self.refreshType == RefreshTypeHeader) {
                 
-                [self.orderListArray removeAllObjects];
+                if (self.orderListArray.count > 0) {
+                    
+                    [self.orderListArray removeAllObjects];
+                }
+                
             }
-
-        }
-        for (BusinessOrderlist * orderlist in orderModel.orderList) {
+            for (BusinessOrderlist * orderlist in orderModel.orderList) {
+                
+                [self.orderListArray addObject:orderlist];
+                
+            }
+            [SVProgressHUD dismiss];
+            [self.orderdTableView reloadData];
             
-            [self.orderListArray addObject:orderlist];
-            
+            if ([self isEmptyArray:self.orderListArray]) {
+                [self.orderdTableView cyl_reloadData];
+            }
         }
-        [self endRefresh];
-        [SVProgressHUD dismiss];
-        [self.orderdTableView reloadData];
+      
         
+    
+        [self endRefresh];
+
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
@@ -267,13 +277,6 @@
     }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
     {
         scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
-    }
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    
-    if ([self isEmptyArray:self.orderListArray]) {
-        [self.orderdTableView cyl_reloadData];
     }
 }
 

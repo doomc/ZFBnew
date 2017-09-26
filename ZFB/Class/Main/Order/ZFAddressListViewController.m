@@ -198,23 +198,24 @@
                              };
  
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmUserAdderss",zfb_baseUrl] params:parma success:^(id response) {
-        
-        if (self.listArray.count > 0) {
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+        if  ([code isEqualToString:@"0"])
+        {
+            if (self.listArray.count > 0) {
+                
+                [self.listArray removeAllObjects];
+            }
             
-            [self.listArray removeAllObjects];
-        }
-        
-        AddressListModel * list = [AddressListModel mj_objectWithKeyValues:response];
-        
-        for (Useraddresslist * addresslist in list.addressList.userAddressList) {
+            AddressListModel * list = [AddressListModel mj_objectWithKeyValues:response];
             
-            [self.listArray addObject:addresslist];
+            for (Useraddresslist * addresslist in list.addressList.userAddressList) {
+                
+                [self.listArray addObject:addresslist];
+            }
+            
+            NSLog(@"%@ ==== listArray",self.listArray);
+            [self.mytableView reloadData];
         }
-        
-        NSLog(@"%@ ==== listArray",self.listArray);
-        [self.mytableView reloadData];
-        
-
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);

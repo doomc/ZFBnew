@@ -33,16 +33,16 @@
     _imgUrls =[ NSArray array];
 
     [self detailShareListGoodsPost];
-    [self sd_HeadScrollViewInit];
+    [self sd_HeadScrollViewInitWithArray:_imgUrls];
 
 }
 
--(void)sd_HeadScrollViewInit
+-(void)sd_HeadScrollViewInitWithArray:(NSArray *)imgArray
 {
     _cycleView.imageURLStringsGroup = @[@"placeholder"];
     _cycleView.pageControlAliment   = SDCycleScrollViewPageContolAlimentCenter;
     _cycleView.delegate             = self;
-    _cycleView.imageURLStringsGroup = _imgUrls;
+    _cycleView.imageURLStringsGroup = imgArray;
     //自定义dot 大小和图案
     _cycleView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
     _cycleView.pageDotImage        = [UIImage imageNamed:@"dot_selected"];
@@ -61,15 +61,15 @@
 //设置右边按键（如果没有右边 可以不重写）
 -(UIButton*)set_rightButton
 {
-    NSString * saveStr = @"审核中";
-    _edit_btn = [[UIButton alloc]init];
-    [_edit_btn setTitle:saveStr forState:UIControlStateNormal];
-    _edit_btn.titleLabel.font=SYSTEMFONT(14);
-    [_edit_btn setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
-    _edit_btn.titleLabel.textAlignment = NSTextAlignmentRight;
-    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
-    CGFloat width = size.width ;
-    _edit_btn.frame =CGRectMake(0, 0, width+10, 22);
+    if (!_edit_btn ) {
+        _edit_btn = [[UIButton alloc]init];
+        _edit_btn.titleLabel.font=SYSTEMFONT(14);
+        [_edit_btn setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
+        _edit_btn.titleLabel.textAlignment = NSTextAlignmentRight;
+        CGSize size = [@"审核状态" sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
+        CGFloat width = size.width ;
+        _edit_btn.frame =CGRectMake(0, 0, width+10, 22);
+    }
     return _edit_btn;
 }
 
@@ -80,19 +80,19 @@
                              @"id":_goodsId,
                              };
     [SVProgressHUD show];
-    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/myShare/unCheckedList"] params:parma success:^(id response) {
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/myShare/unCheckedDetail"] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
-            for (NSDictionary * dic in response[@"data"]) {
-                _title = [dic objectForKey:@"title"];
-                _describe = [dic objectForKey:@"describe"];
-                _status = [dic objectForKey:@"status"];
-                _imgUrls= [dic objectForKey:@"imgUrls"];
-            }
+            
+            _imgUrls = response[@"data"][@"imgUrls"];
+            _status = response[@"data"][@"status"];
+            _title = response[@"data"][@"title"];
+            _describe =  response[@"data"][@"describe"];
 
             _lb_title.text = _title;
             _lb_descirbe.text = _describe;
-            [self sd_HeadScrollViewInit];
+            [self.edit_btn setTitle:_status forState:UIControlStateNormal];
+            [self sd_HeadScrollViewInitWithArray:_imgUrls];
             [SVProgressHUD dismiss];
         }
         

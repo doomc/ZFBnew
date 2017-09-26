@@ -29,7 +29,7 @@
     self.lb_sendListTitle.text =  businesGoods.goods_name;
     self.lb_Price.text =[NSString stringWithFormat:@"¥%@", businesGoods.purchase_price];
     self.lb_detailTime.text = @"";
-    [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:businesGoods.coverImgUrl] placeholderImage:nil];
+    [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:businesGoods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     
 }
 //全部订单
@@ -41,7 +41,7 @@
     self.lb_sendListTitle.text =  _goods.goods_name;
     self.lb_Price.text =[NSString stringWithFormat:@"¥%@", goods.purchase_price];
     self.lb_detailTime.text = @"";
-    [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:nil];
+    [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
 }
 //配送端数据
 -(void)setSendGoods:(SendServiceOrdergoodslist *)sendGoods
@@ -52,10 +52,20 @@
     self.lb_sendListTitle.text =  sendGoods.goodsName;
     self.lb_Price.text =[NSString stringWithFormat:@"¥%@", sendGoods.purchasePrice];
     self.lb_detailTime.text = @"";
-    [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:sendGoods.coverImgUrl] placeholderImage:nil];
+    [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:sendGoods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     
 }
- 
+//申请退回
+-(void)setProgressModel:(List *)progressModel
+{
+    _progressModel = progressModel;
+
+    self.lb_num.text = [NSString stringWithFormat:@" x %ld",progressModel.goodsCount];
+    self.lb_sendListTitle.text =  progressModel.goodsName;
+    self.lb_Price.text =[NSString stringWithFormat:@"¥%@", progressModel.refund];
+    self.lb_detailTime.text = @"";
+    [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:progressModel.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

@@ -197,8 +197,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             
         case 4:
 #warning -------------------------总觉得这句话有问题-=------------=-
-            if (([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) || _courierFlag == nil ||  _shopFlag == nil ) {
-                
+            if (([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) || _courierFlag == nil ||  _shopFlag == nil || [_courierFlag isEqualToString:@"-1"] || [_shopFlag isEqualToString:@"-1"])
+            {
                 height = 0;
                 
             }else{

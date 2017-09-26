@@ -63,6 +63,7 @@
             
         }else if (couponlist.status == 2)
         {
+            _img_isUsed.hidden = NO;
             _img_isUsed.image = [UIImage imageNamed:@"used"];
             [_img_CouponStutus setHidden:YES];
             
@@ -85,6 +86,7 @@
             
         }else if (couponlist.status == 2)
         {
+            _img_isUsed.hidden = NO;
             _img_isUsed.image = [UIImage imageNamed:@"used"];
             [_img_CouponStutus setHidden:YES];
             
@@ -108,6 +110,7 @@
             
         }else if (couponlist.status == 2)
         {
+            _img_isUsed.hidden = NO;
             _img_isUsed.image = [UIImage imageNamed:@"used"];
             [_img_CouponStutus setHidden:YES];
             

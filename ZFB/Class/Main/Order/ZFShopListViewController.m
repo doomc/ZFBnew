@@ -68,9 +68,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     StoreList * storeModel  = self.storeArray[section];
-    NSMutableArray *goodsArr = [NSMutableArray array];
-    
-    NSLog(@"%@",storeModel.goodsList);
+//    NSLog(@"%@",storeModel.goodsList);
     return storeModel.goodsList.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -137,7 +135,12 @@
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsInfoList",zfb_baseUrl] params:parma success:^(id response) {
         
-    [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+        if  ([code isEqualToString:@"0"])
+        {
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+   
+        }
         
     } progress:^(NSProgress *progeress) {
         

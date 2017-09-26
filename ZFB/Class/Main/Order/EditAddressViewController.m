@@ -193,7 +193,8 @@
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/saveUserAddressInfo"] params:param success:^(id response) {
         
-        if ([response[@"resultCode"] intValue] == 0) {
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+        if  ([code isEqualToString:@"0"]) {
             
             [self.navigationController popViewControllerAnimated:NO];
             
@@ -227,7 +228,8 @@
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/editUserReward"] params:param success:^(id response) {
         
-        if ([response[@"resultCode"] intValue] == 0) {
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+        if  ([code isEqualToString:@"0"]) {
             {
                 _tf_name.text          = response[@"cmUserRewardInfo"][@"userName"];
                 _tf_cellphone.text     = response[@"cmUserRewardInfo"][@"contactMobilePhone"];

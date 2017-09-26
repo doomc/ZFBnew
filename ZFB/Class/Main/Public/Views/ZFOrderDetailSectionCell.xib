@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNY-Bt-bT5">
@@ -44,22 +44,30 @@
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ads-jg-N6O">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
+                    <constraint firstItem="ads-jg-N6O" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="16b-V1-TrR"/>
+                    <constraint firstItem="yBS-UB-x1V" firstAttribute="top" secondItem="ads-jg-N6O" secondAttribute="bottom" id="4LM-vi-xsD"/>
                     <constraint firstAttribute="trailing" secondItem="yBS-UB-x1V" secondAttribute="trailing" id="5Kg-yt-B5O"/>
                     <constraint firstItem="zNY-Bt-bT5" firstAttribute="centerY" secondItem="FBF-nJ-apV" secondAttribute="centerY" id="7j0-py-reP"/>
                     <constraint firstItem="zNY-Bt-bT5" firstAttribute="leading" secondItem="FBF-nJ-apV" secondAttribute="trailing" constant="10" id="Et7-St-341"/>
                     <constraint firstAttribute="trailing" secondItem="Lvk-Nw-xUF" secondAttribute="trailing" constant="15" id="T7B-Kd-ZWx"/>
                     <constraint firstItem="FBF-nJ-apV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="jA5-qJ-dPe"/>
                     <constraint firstItem="yBS-UB-x1V" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="jy1-fR-fTk"/>
+                    <constraint firstItem="ads-jg-N6O" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="mWL-sz-jmd"/>
                     <constraint firstItem="Lvk-Nw-xUF" firstAttribute="centerY" secondItem="FBF-nJ-apV" secondAttribute="centerY" id="qHv-W6-lF7"/>
                     <constraint firstAttribute="bottom" secondItem="yBS-UB-x1V" secondAttribute="bottom" id="tP2-hK-f1w"/>
+                    <constraint firstAttribute="trailing" secondItem="ads-jg-N6O" secondAttribute="trailing" id="vbI-v5-ZR6"/>
                     <constraint firstItem="FBF-nJ-apV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="wc0-Fz-4Ux"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="lb_storeName" destination="zNY-Bt-bT5" id="SfO-Ia-dHv"/>
+                <outlet property="storeBtn" destination="ads-jg-N6O" id="QBb-YX-DZr"/>
                 <outlet property="storeIamge" destination="FBF-nJ-apV" id="dZG-Zy-uNk"/>
             </connections>
         </tableViewCell>

@@ -210,44 +210,50 @@
         }else{
             
             _isCommited = YES;
-            
+            NSArray * imgNames = [NSArray array];
             [SVProgressHUD show];
             [OSSImageUploader asyncUploadImages:_imgUrl_mutArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
                 NSLog(@"%@",names);
                 if (state == 1) {
-                    ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
-                    
-                    bcVC.goodsName  = _goodsName;
-                    bcVC.price      = _price ;
-                    bcVC.goodCount  = _goodCount;
-                    bcVC.coverImgUrl = _coverImgUrl;
-                    
-                    ///需要发送到售后申请的数据
-                    bcVC.orderId     = _orderId;
-                    bcVC.orderNum    = _orderNum;
-                    bcVC.goodsId     = _goodsId;
-                    bcVC.serviceType = @"0";///服务类型	否	 0 退货 1 换货
-                    bcVC.storeId     = _storeId;
-                    bcVC.orderTime   = _orderTime;
-                    bcVC.storeName   = _storeName;
-                    bcVC.postName    = _postName;
-                    bcVC.postPhone   = _postPhone;
-                    bcVC.orderGoodsId= _orderGoodsId;
-                    //原因
-                    bcVC.reason          = _reason;
-                    bcVC.problemDescr    = _problemDescr;
-                    bcVC.imgArr          = [names componentsJoinedByString:@","];//图片字符串
-                    bcVC.goodsProperties = _goodsProperties;
-                    [SVProgressHUD dismiss];
-                    [self.navigationController pushViewController: bcVC animated:YES];
-                    
+                   NSLog(@"上传成功了")
                     _isCommited = NO;
+                   
                 }
             }];
-            
+            //暂时不传值
+//            if (_isCommited == NO) {
+//                ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
+//                
+//                bcVC.goodsName  = _goodsName;
+//                bcVC.price      = _price ;
+//                bcVC.goodCount  = _goodCount;
+//                bcVC.coverImgUrl = _coverImgUrl;
+//                
+//                ///需要发送到售后申请的数据
+//                bcVC.orderId     = _orderId;
+//                bcVC.orderNum    = _orderNum;
+//                bcVC.goodsId     = _goodsId;
+//                bcVC.serviceType = @"0";///服务类型	否	 0 退货 1 换货
+//                bcVC.storeId     = _storeId;
+//                bcVC.orderTime   = _orderTime;
+//                bcVC.storeName   = _storeName;
+//                bcVC.postName    = _postName;
+//                bcVC.postPhone   = _postPhone;
+//                bcVC.orderGoodsId= _orderGoodsId;
+//                //原因
+//                bcVC.reason          = _reason;
+//                bcVC.problemDescr    = _problemDescr;
+//                bcVC.imgArr          = [names componentsJoinedByString:@","];//图片字符串
+//                bcVC.goodsProperties = _goodsProperties;
+//                [self.navigationController pushViewController: bcVC animated:YES];
+//                [SVProgressHUD dismiss];
+//
+//            }
+           
         }
-        }
-      }
+        
+    }
+}
 
 /**
  申请原因

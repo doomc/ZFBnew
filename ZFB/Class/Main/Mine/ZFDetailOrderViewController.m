@@ -15,6 +15,7 @@
 #import "ZFOrderDetailSectionCell.h" //店铺名称
 #import "ZFOrderDetailGoosContentCell.h"//商品简要
 #import "ZFDetailsStoreViewController.h"//门店详情
+#import "DetailFindGoodsViewController.h"//商品详情
 
 #import "ZFMainPayforViewController.h"
 #import "DetailOrderModel.h"//模型
@@ -46,13 +47,14 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     NSString * goodsAmount;
     NSString * deliveryFee;
     NSString * payRelPrice;
-
+    
     NSString * _datetime;
     NSString * _access_token;//token
     
     NSString * _payStatus;//支付状态
     NSString * _deliveryId;
-
+    NSString * _couponAmount;//优惠价格
+    
     
 }
 @property (nonatomic,strong) UITableView *  tableView;
@@ -126,6 +128,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     }
     return _sure_payfor;
 }
+
 -(UIView *)footerView
 {
     if (!_footerView) {
@@ -152,7 +155,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         return self.shoppCartList.count;
         //        return 1;//暂时写死
     }
-    return 4;
+    return 5;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -163,14 +166,21 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         
         ZFOrderDetailSectionCell* storeCell = [self.tableView dequeueReusableCellWithIdentifier:sectionDetailCellid ];
         storeCell.lb_storeName.text =  storeName;
-        
+        [storeCell.storeBtn addTarget:self action:@selector(didClickStoreMessage) forControlEvents:UIControlEventTouchUpInside];
         return storeCell;
         
     }
     
     return view;
-    
 }
+///点击门店信息
+-(void)didClickStoreMessage
+{
+    ZFDetailsStoreViewController * storeVC= [ZFDetailsStoreViewController new];
+    storeVC.storeId = _storeId;
+    [self.navigationController pushViewController:storeVC animated:NO];
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 1) {
@@ -217,14 +227,39 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         
     }
     if (indexPath.section == 2) {
-        if (indexPath.row  < 2) {
-            
+        if (indexPath.row  == 0) {
+           
             height = 44;
+
+        }
+        else if (indexPath.row  == 1) {
             
+            if (deliveryName == nil || [deliveryName isEqualToString:@""]) {
+                
+                height = 0;
+                
+            }else{
+                height = 44;
+                
+            }
+        }
+        else if (indexPath.row  == 2) {
+            if (_couponAmount == nil || [_couponAmount isEqualToString:@""]) {
+                
+                height = 0;
+                
+            }else{
+                height = 44;
+            }
+        }
+        else if (indexPath.row  == 3) {
+            
+            height = 70;
+
         }
         else {
             
-            height = 70;
+            height = 78;
             
         }
     }
@@ -286,13 +321,34 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         else if (indexPath.row == 1) {
             
             ZFOrderDetailCell* detailCell = [self.tableView dequeueReusableCellWithIdentifier:commonDetailCellid forIndexPath:indexPath];
-            detailCell.lb_detailtitle.text = @"配送信息";
-            detailCell.lb_detaileFootTitle.text = [NSString stringWithFormat:@"%@ %@",deliveryName,deliveryPhone];
+            if (deliveryName == nil || [deliveryName isEqualToString:@""]) {
+          
+                [detailCell setHidden: YES];
+
+            }else{
+                detailCell.lb_detailtitle.text = @"配送信息";
+                detailCell.lb_detaileFootTitle.text = [NSString stringWithFormat:@"%@ %@",deliveryName,deliveryPhone];
+            }
+
             cell  = detailCell;
             
         }
-        
-        else if (indexPath.row == 2) {
+        else if (indexPath.row == 2) {//折扣信息
+            
+            ZFOrderDetailCell* detailCell = [self.tableView dequeueReusableCellWithIdentifier:commonDetailCellid forIndexPath:indexPath];
+            if (_couponAmount == nil || [_couponAmount isEqualToString:@""]) {
+                
+                [detailCell setHidden: YES];
+                
+            }else{
+                detailCell.lb_detailtitle.text = @"折扣信息";
+                detailCell.lb_detaileFootTitle.text = [NSString stringWithFormat:@"已优惠%@元",_couponAmount];
+            }
+
+            cell  = detailCell;
+        }
+
+        else if (indexPath.row == 3) {//配送金额
             
             ZFOrderDetailCountCell* countCell = [self.tableView dequeueReusableCellWithIdentifier:kcountDetailCellid forIndexPath:indexPath];
             countCell.lb_freeSendPrice.text = [NSString stringWithFormat:@"¥%@",deliveryFee]  ;
@@ -319,10 +375,13 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     NSLog(@"%ld = section ,%ld = row ",indexPath.section,indexPath.row);
     
     if (indexPath.section == 1) {
-        
-        ZFDetailsStoreViewController * storeVC= [ZFDetailsStoreViewController new];
-        storeVC.storeId = _storeId;
-        [self.navigationController pushViewController:storeVC animated:NO];
+        if (indexPath.row == 0) {
+            DetailFindGoodsViewController * goodVC= [DetailFindGoodsViewController new];
+            goodVC.goodsId = _goodsId;
+            goodVC.headerImage = _imageUrl;
+            [self.navigationController pushViewController:goodVC animated:NO];
+
+        }
     }
 }
 
@@ -336,7 +395,10 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/order/getOrderDetailsInfo"] params:parma success:^(id response) {
         
-        if ([response[@"resultCode"]intValue ]==0) {
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+        
+        if([code isEqualToString:@"0"]){
+            
             if (self.shoppCartList.count > 0) {
                 [self.shoppCartList removeAllObjects];
             }
@@ -369,7 +431,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             
             //0.未支付的初始状态  1.支付成功 -1.支付失败  3.付款发起   4.付款取消 (待付款) 5.退款成功（支付成功的）6.退款发起(支付成功) 7.退款失败(支付成功)
             _payStatus = orderModel.orderDetails.payStatus;//支付状态
-        
+            
             //1.支付宝  2.微信支付 3.线下,4.展易付
             NSInteger payMethod = orderModel.orderDetails.payMethod;
             
@@ -384,14 +446,15 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             
             //店铺名称
             storeName = orderModel.shoppCartList.storeName;
- 
-            
+            //优惠价格
+            _couponAmount = orderModel.orderDetails.couponAmount; 
+
             NSLog(@"我当前是 属于商户端还是配送端 %@",BBUserDefault.shopFlag);
             if ([BBUserDefault.shopFlag isEqualToString:@"1"] && [orderStatusName isEqualToString:@"待付款"] &&  payMethod == 3  ) {
-            
-                    [self.sure_payfor setTitle:@"确认取货" forState:UIControlStateNormal];
-                    [self.sure_payfor setHidden:NO];
- 
+                
+                [self.sure_payfor setTitle:@"确认取货" forState:UIControlStateNormal];
+                [self.sure_payfor setHidden:NO];
+                
             }else{
                 [self.sure_payfor setHidden:YES];
                 self.sure_payfor.enabled = NO;
@@ -401,7 +464,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
                     [self.sure_payfor setTitle:@"去付款" forState:UIControlStateNormal];
                     self.sure_payfor.enabled = YES;
                     self.sure_payfor.hidden = NO;
-
+                    
                 }
                 else{
                     [self.sure_payfor setHidden:YES];
@@ -440,7 +503,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         //取货完毕后刷新状态
         [self getOrderDetailsInfoPostResquestcmOrderid:_cmOrderid];
-
+        
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
@@ -465,14 +528,15 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getPayAccessToken",zfb_baseUrl] params:param success:^(id response) {
-        
-        NSDate * date = [NSDate date];
-        _datetime     = [dateTimeHelper timehelpFormatter: date];//2017-07-20 17:08:54
-        _access_token = response[@"accessToken"];
-        
-        NSLog(@"_access_token = %@",_access_token);
-        NSLog(@"\n 我的当前的时间是====================_datetime = %@",_datetime);
-
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+        if([code isEqualToString:@"0"]){
+            NSDate * date = [NSDate date];
+            _datetime     = [dateTimeHelper timehelpFormatter: date];//2017-07-20 17:08:54
+            _access_token = response[@"accessToken"];
+            
+            NSLog(@"_access_token = %@",_access_token);
+            NSLog(@"\n 我的当前的时间是====================_datetime = %@",_datetime);
+        }
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
@@ -500,7 +564,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         [alertavc addAction:cancelAction];
         [alertavc addAction:sureAction];
         [self presentViewController:alertavc animated:YES completion:nil];
-
+        
     }else{
         
         //签名数据
@@ -513,19 +577,6 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 -(void)paysignData
 {
     NSLog(@"_unpayOrderInfoArray === %@",_unpayOrderInfoArray);
-//    NSMutableDictionary * mutOrderDic = [NSMutableDictionary dictionary];
-//    NSMutableArray * mutOrderArray  = [NSMutableArray array];
-//    for (NSDictionary * orderdic in _unpayOrderInfoArray) {
-//        
-//        NSString *body =   [orderdic objectForKey:@"body"];
-//        body=[body stringByReplacingOccurrencesOfString:@"\\"withString:@""];
-//        [mutOrderDic setValue:[orderdic objectForKey:@"order_num"] forKey:@"order_num"];
-//        [mutOrderDic setValue:body forKey:@"body"];
-//        [mutOrderDic setValue:[orderdic objectForKey:@"pay_money"] forKey:@"pay_money"];
-//        [mutOrderDic setValue:[orderdic objectForKey:@"title"] forKey:@"title"];
-//        
-//        [mutOrderArray addObject:mutOrderDic];
-//    }
     
     //跳转到webview
     ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
@@ -534,13 +585,13 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     payVC.notify_url    = _thirdUrlDic[@"notify_url"];
     payVC.return_url    = _thirdUrlDic[@"return_url"];
     payVC.gateWay_url   = _thirdUrlDic[@"gateWay_url"];
-    payVC.goback_url   = _thirdUrlDic[@"goback_url"];
-
+    payVC.goback_url    = _thirdUrlDic[@"goback_url"];
+    
     payVC.orderListArray  = _unpayOrderInfoArray;//[NSArray arrayWithArray:mutOrderArray];
     payVC.datetime        = _datetime;
     payVC.access_token    = _access_token;
     [self.navigationController pushViewController:payVC animated:YES];
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

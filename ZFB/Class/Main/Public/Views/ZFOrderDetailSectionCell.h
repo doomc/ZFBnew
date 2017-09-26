@@ -11,5 +11,6 @@
 @interface ZFOrderDetailSectionCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
 @property (weak, nonatomic) IBOutlet UIImageView *storeIamge;
+@property (weak, nonatomic) IBOutlet UIButton *storeBtn;
 
 @end

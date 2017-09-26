@@ -266,7 +266,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                 [self configCell:cell indexpath:indexPath];
 
             }];
-            NSLog(@" %f ===== height",height);
         }
             
             break;
@@ -356,10 +355,11 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             SureOrderCommonCell * couponCell    = [self.mytableView dequeueReusableCellWithIdentifier:@"SureOrderCommonCellid" forIndexPath:indexPath];
             couponCell.lb_title.text            = @"优惠券";
             couponCell.lb_detailTitle.textColor = HEXCOLOR(0xfe6d6a);
-            if (_couponAmount != nil || ![_couponAmount isEqualToString:@""]) {
-                couponCell.lb_detailTitle.text      =  [NSString stringWithFormat:@"已优惠%@元",_couponAmount];
-            }else{
+            if (_couponAmount == nil || [_couponAmount isEqualToString:@""]) {
                 couponCell.lb_detailTitle.text      = @"点击使用";
+            }else{
+                couponCell.lb_detailTitle.text      =  [NSString stringWithFormat:@"已优惠%@元",_couponAmount];
+
             }
             return couponCell;
         }
@@ -502,9 +502,10 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     _storeDeliveryfeeListArr =[NSMutableArray array];
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsCostInfo",zfb_baseUrl] params:jsondic success:^(id response) {
-        
-        if ([response[@"resultCode"] intValue ] == 0) {
-            
+     
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+        if([code isEqualToString:@"0"])
+        {            
             SureOrderModel * suremodel = [SureOrderModel mj_objectWithKeyValues:response];
             
             _storeDeliveryfeeListArr = response[@"storeDeliveryfeeList"];
@@ -584,13 +585,17 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getPayAccessToken",zfb_baseUrl] params:param success:^(id response) {
-        
-        NSDate * date = [NSDate date];
-        _datetime     = [dateTimeHelper timehelpFormatter: date];//2017-07-20 17:08:54
-        _access_token = response[@"accessToken"];
-        
-        NSLog(@"=======%@_access_token",_access_token);
-        NSLog(@"=======%@_datetime",_datetime);
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+        if([code isEqualToString:@"0"])
+        {
+            NSDate * date = [NSDate date];
+            _datetime     = [dateTimeHelper timehelpFormatter: date];//2017-07-20 17:08:54
+            _access_token = response[@"accessToken"];
+            
+            NSLog(@"=======%@_access_token",_access_token);
+            NSLog(@"=======%@_datetime",_datetime);
+        }
+
         
     } progress:^(NSProgress *progeress) {
         

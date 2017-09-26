@@ -192,24 +192,33 @@
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderDeliveryByDeliveryId",zfb_baseUrl] params:param success:^(id response) {
         
-        if (self.orderListArray.count > 0) {
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
             
-            [self.orderListArray  removeAllObjects];
-        }
-        SendServiceOrderModel * orderModel = [SendServiceOrderModel mj_objectWithKeyValues:response];
-        
-        for (SendServiceStoreinfomap * orderlist in orderModel.storeInfoMap) {
+            if (self.orderListArray.count > 0) {
+                
+                [self.orderListArray  removeAllObjects];
+            }
+            SendServiceOrderModel * orderModel = [SendServiceOrderModel mj_objectWithKeyValues:response];
             
-            [self.orderListArray addObject:orderlist];
- 
-        }
-        [self.orderdTableView reloadData];
-        
-        if ([self isEmptyArray:self.orderListArray]) {
+            for (SendServiceStoreinfomap * orderlist in orderModel.storeInfoMap) {
+                
+                [self.orderListArray addObject:orderlist];
+                
+            }
+            [self.orderdTableView reloadData];
             
-            [self.orderdTableView cyl_reloadData];
+            if ([self isEmptyArray:self.orderListArray]) {
+                
+                [self.orderdTableView cyl_reloadData];
+            }
+   
         }
-        
+        else{
+            [SVProgressHUD dismiss];
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        }
+
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);

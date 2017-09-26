@@ -81,8 +81,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
 
     [super footerRefresh];
     [self guessYouLikePostRequst];
-    [self HotsalesPostRequst];
-    [self FuncListPostRequst];
+//    [self HotsalesPostRequst];
+//    [self FuncListPostRequst];
 }
 
 
@@ -364,20 +364,15 @@ typedef NS_ENUM(NSUInteger, CellType) {
         
         if ([response[@"resultCode"]isEqualToString:@"0"]) {
             if (self.refreshType == RefreshTypeHeader) {
-                
                 if (self.likeListArray.count > 0) {
                     
                     [self.likeListArray removeAllObjects];
-                    
                 }
             }
-            
             HomeGuessModel * guess = [HomeGuessModel  mj_objectWithKeyValues:response];
-            
             for (Cmgoodsbrowselist * guesslist in guess.data.cmGoodsBrowseList.findGoodsList) {
                 
                 [self.likeListArray addObject:guesslist];
-                
             }
             NSLog(@"猜你喜欢         = likeListArray = %@",  self.likeListArray);
             [self.findGoods_TableView reloadData];
@@ -399,31 +394,28 @@ typedef NS_ENUM(NSUInteger, CellType) {
 #pragma mark - 热卖-getBestSellInfo网络请求
 -(void)HotsalesPostRequst
 {
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getBestSellInfo",zfb_baseUrl] params:nil success:^(id response) {
-        
         if (self.hotArray.count > 0) {
             
             [self.hotArray removeAllObjects];
-            
         }
-        HomeHotModel * hotmodel = [HomeHotModel mj_objectWithKeyValues:response];
-        
-        for (hotFindgoodslist * hotlist in hotmodel.data.bestGoodsList.findGoodsList) {
-            
-            [self.hotArray addObject:hotlist];
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]] ;
+        if ([code isEqualToString:@"0"]) {
+            HomeHotModel * hotmodel = [HomeHotModel mj_objectWithKeyValues:response];
+            for (hotFindgoodslist * hotlist in hotmodel.data.bestGoodsList.findGoodsList) {
+                
+                [self.hotArray addObject:hotlist];
+            }
+            NSLog(@"%@ ==== hote 热手",self.hotArray );
+            [self.findGoods_TableView reloadData];
+ 
+        }else{
+            [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         }
-        NSLog(@"%@ ==== hote 热手",self.hotArray );
-        [self.findGoods_TableView reloadData];
         
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
-        
         NSLog(@"error=====%@",error);
-        
     }];
 }
 

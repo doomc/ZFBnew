@@ -41,7 +41,7 @@
 @property (nonatomic,assign) id <BusinessSendOrderViewDelegate>delegate;
 
 @property (nonatomic,strong) NSMutableArray *deliveryArray;
-@property (nonatomic,assign) NSInteger section;
+ 
 
 //刷新派单列表
 -(void)reloadDeliveryList;

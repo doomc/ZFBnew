@@ -15,7 +15,7 @@
     // Initialization code
 }
 
-
+//商户端的头部
 -(void)setBusinessOrder:(BusinessOrderlist *)businessOrder
 {
     _businessOrder = businessOrder;
@@ -25,7 +25,7 @@
     [self.statusButton setTitle:businessOrder.orderStatusName forState:UIControlStateNormal];
     
 }
-
+// 订单列表
 -(void)setOrderlist:(Orderlist *)orderlist
 {
     _orderlist = orderlist;
@@ -40,9 +40,9 @@
     }else{
         self.lb_payMethod.text = @"";
     }
-    self.lb_nameOrTime.text = _orderlist.createTime;
-    self.lb_storeName.text =_orderlist.storeName;
-    [self.statusButton setTitle:_orderlist.orderStatusName forState:UIControlStateNormal];
+    self.lb_nameOrTime.text = orderlist.createTime;
+    self.lb_storeName.text =orderlist.storeName;
+    [self.statusButton setTitle:orderlist.orderStatusName forState:UIControlStateNormal];
 
     
 }

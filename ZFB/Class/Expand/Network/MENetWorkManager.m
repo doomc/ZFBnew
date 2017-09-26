@@ -55,7 +55,7 @@
     
     manager.responseSerializer= [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.requestSerializer.timeoutInterval = 60;
+    manager.requestSerializer.timeoutInterval = 30;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"text/html",@"text/plain",@"application/json", @"text/json", @"text/javascript"]];
 
     [manager POST:url parameters:parmaStr progress:^(NSProgress * _Nonnull uploadProgress) {

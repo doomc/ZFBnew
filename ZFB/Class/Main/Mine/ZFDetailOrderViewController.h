@@ -12,5 +12,7 @@
 
 @property (nonatomic,strong) NSString * cmOrderid;
 @property (nonatomic,strong) NSString * storeId;
+@property (nonatomic,strong) NSString * goodsId;
+@property (nonatomic,strong) NSString * imageUrl;
 
 @end

@@ -95,6 +95,8 @@
 
 @property (nonatomic, assign) NSInteger cmOrderId;
 
+@property (nonatomic, copy) NSString *couponAmount;
+
 @end
 
 @interface Deliveryinfo : ResponseObject

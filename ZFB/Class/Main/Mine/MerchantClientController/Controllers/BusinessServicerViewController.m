@@ -15,11 +15,11 @@
 #import "ZFTitleCell.h"
 #import "ZFSendHomeListCell.h"
 #import "SendServiceTitleCell.h"
-
 //订单cell
 #import "ZFSendingCell.h"//内容
 #import "ZFTitleCell.h"//头
 #import "ZFFooterCell.h"//尾部
+#import "ZFCheckTheProgressCell.h"//申请售后的
 
 //controller
 #import "OrderStatisticsViewController.h"
@@ -28,11 +28,13 @@
 //model
 #import "BusinessHomeModel.h"
 #import "DeliveryModel.h"//配送员列表
+#import "AllOrderProgress.h"//售后申请的
+
 
 //获取经纬度
 #import <CoreLocation/CoreLocation.h>
 #import "CLLocation+MPLocation.h"
-@interface BusinessServicerViewController ()<ZFFooterCellDelegate, BusinessServicPopViewDelegate,UITableViewDelegate,UITableViewDataSource,ZFSendHomeListCellDelegate,BusinessSendOrderViewDelegate,CLLocationManagerDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
+@interface BusinessServicerViewController ()<ZFFooterCellDelegate, BusinessServicPopViewDelegate,UITableViewDelegate,UITableViewDataSource,ZFSendHomeListCellDelegate,BusinessSendOrderViewDelegate,CLLocationManagerDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate,ZFCheckTheProgressCellDelegate>
 
 {
     //day
@@ -66,12 +68,13 @@
     
     NSInteger _pageCount;//每页显示条数
     NSInteger _page;//当前页码;
-    NSInteger _currentSection;//当前分区;
+ 
     
     NSString *currentCityAndStreet;//当前城市
     NSString *latitudestr;//经度
     NSString *longitudestr;//纬度
     
+    NSInteger _currentSection;
 }
 @property (nonatomic,strong) CLLocationManager * locationManager;
 
@@ -97,6 +100,7 @@
 
 @property (nonatomic ,strong) NSMutableArray *  orderListArray ;//订单列表
 @property (nonatomic ,strong) NSMutableArray *  deliveryArray   ;//配送员列表
+@property (nonatomic ,strong) NSMutableArray *  progressArray   ;//待确认退回的数据
 
 
 @end
@@ -137,6 +141,8 @@
     [self.homeTableView registerNib:[UINib nibWithNibName:@"ZFFooterCell" bundle:nil]
              forCellReuseIdentifier:@"ZFFooterCell"];
     
+    [self.homeTableView registerNib:[UINib nibWithNibName:@"ZFCheckTheProgressCell" bundle:nil]
+             forCellReuseIdentifier:@"ZFCheckTheProgressCell"];
     
     [self setupRefresh];
     
@@ -171,7 +177,7 @@
             break;
         case BusinessServicTypeSureReturn://待确认退回
             
-            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"6" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" storeId:_storeId];
+            [self salesAfterPostRequsteAtStoreId:_storeId];
             
             
             break;
@@ -211,8 +217,7 @@
             break;
         case BusinessServicTypeSureReturn://待确认退回
             
-            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"6" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" storeId:_storeId];
-            
+            [self salesAfterPostRequsteAtStoreId:_storeId];
             
             break;
         case BusinessServicTypeSended://已配送
@@ -269,7 +274,6 @@
         _sendOrderPopView.deliveryArray = self.deliveryArray;
         _sendOrderPopView.center        = self.view.center;
         _sendOrderPopView.delegate      = self;
-        
     }
     return _sendOrderPopView;
 }
@@ -288,7 +292,13 @@
     return _orderBgview;
     
 }
-
+-(NSMutableArray *)progressArray
+{
+    if (!_progressArray) {
+        _progressArray = [NSMutableArray array];
+    }
+    return _progressArray;
+}
 -(NSMutableArray *)orderListArray
 {
     if (!_orderListArray) {
@@ -372,8 +382,6 @@
 }
 
 
-
-
 #pragma mark  -tableView delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -401,7 +409,7 @@
                 
                 break;
             case BusinessServicTypeSureReturn://待确认退回
-                return self.orderListArray.count;
+                return 1;
                 
                 break;
             case BusinessServicTypeSended://已配送
@@ -422,9 +430,7 @@
         
         sectionRow = 1;
         
-        
     }else{
-        
         
         NSMutableArray * goodsArr = [NSMutableArray array];
         if (goodsArr.count > 0) {
@@ -455,7 +461,7 @@
                 break;
             case BusinessServicTypeSureReturn://待确认退回
                 
-                return goodsArr.count;
+                return self.progressArray.count;
                 
                 break;
             case BusinessServicTypeSended://已配送
@@ -501,7 +507,7 @@
                 
                 break;
             case BusinessServicTypeSureReturn://待确认退回
-                height = 82;
+                height = 180;
                 
                 break;
             case BusinessServicTypeSended://已配送
@@ -531,6 +537,7 @@
         view = titleCell;
         
     }else{
+        
         ZFTitleCell * titleCell = [self.homeTableView
                                    dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
         switch (_servicType) {
@@ -576,13 +583,7 @@
             }
                 break;
             case BusinessServicTypeSureReturn://待确认退回
-            {
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                [titleCell.statusButton setTitle:orderlist.orderStatusName forState:UIControlStateNormal];
-                
-                titleCell.businessOrder = orderlist;
-                return titleCell;
-            }
+  
                 break;
             case BusinessServicTypeSended://已配送
             {
@@ -636,7 +637,7 @@
                 
                 break;
             case BusinessServicTypeSureReturn://待确认退回
-                height = 82;
+                height = 0;
                 
                 break;
             case BusinessServicTypeSended://已配送
@@ -671,7 +672,6 @@
                 BusinessOrderlist  * orderlist = self.orderListArray[section];
                 cell.businessOrder             = orderlist;
                 cell.section                   = section;
-                _currentSection                = section;
                 //默认值
                 [cell.cancel_button setTitle:@"取消订单" forState:UIControlStateNormal];
                 [cell.payfor_button setTitle:@"派单" forState:UIControlStateNormal];
@@ -687,7 +687,7 @@
                                        dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
                 cell.footDelegate = self;
                 //没获取 当前的 indexPath
-                _currentSection = section;
+                cell.section = section;
                 [cell.cancel_button setHidden: YES];
                 [cell.payfor_button setHidden:YES];
                 BusinessOrderlist  * orderlist = self.orderListArray[section];
@@ -705,7 +705,7 @@
                 BusinessOrderlist  * orderlist = self.orderListArray[section];
                 cell.businessOrder             = orderlist;
                 //没获取 当前的 indexPath
-                _currentSection = section;
+                cell.section = section;
                 if ([orderlist.payModeName isEqualToString:@"线下支付"]) {
                     
                     [cell.cancel_button setHidden: YES];
@@ -731,7 +731,7 @@
                 BusinessOrderlist  * orderlist = self.orderListArray[section];
                 cell.businessOrder             = orderlist;
                 //没获取 当前的 indexPath
-                _currentSection = section;
+                cell.section = section;
                 [cell.payfor_button setTitle:@"晒单" forState:UIControlStateNormal];
                 
                 footerView = cell;
@@ -740,20 +740,7 @@
                 
                 break;
             case BusinessServicTypeSureReturn://待确认退回
-            {
-                ZFFooterCell * cell = [self.homeTableView
-                                       dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
-                cell.footDelegate              = self;
-                BusinessOrderlist  * orderlist = self.orderListArray[section];
-                cell.businessOrder             = orderlist;
-                //没获取 当前的 indexPath
-                _currentSection = section;
-                [cell.payfor_button setTitle:@"确认退回" forState:UIControlStateNormal];
-                
-                footerView = cell;
-                
-            }
-                
+ 
                 break;
             case BusinessServicTypeSended://已配送
             {
@@ -763,7 +750,7 @@
                 BusinessOrderlist  * orderlist = self.orderListArray[section];
                 cell.businessOrder             = orderlist;
                 //没获取 当前的 indexPath
-                _currentSection = section;
+                cell.section = section;
                 [cell.payfor_button setHidden:YES];
                 [cell.cancel_button setHidden:YES];
                 footerView = cell;
@@ -802,7 +789,7 @@
                 
                 break;
             case BusinessServicTypeSureReturn://待确认退回
-                height = 50;
+                height = 0;
                 
                 break;
             case BusinessServicTypeSended://已配送
@@ -863,7 +850,6 @@
 {
     
     if (_isSelectPage == YES) {
-        
         if (indexPath.section == 0) {
             
             ZFTitleCell *titleCell = [self.homeTableView
@@ -906,12 +892,13 @@
     }else{
         
         //公用cell
-        ZFSendingCell * contentCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
         
         switch (_servicType) {
                 
             case BusinessServicTypeWaitSendlist://待派单
             {
+                ZFSendingCell * contentCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
+
                 BusinessOrderlist  * orderlist = self.orderListArray[indexPath.section];
                 NSMutableArray * goodArray     = [NSMutableArray array];
                 for (BusinessOrdergoods * goods in orderlist.orderGoods) {
@@ -927,6 +914,8 @@
                 break;
             case BusinessServicTypeSending://配送中
             {
+                ZFSendingCell * contentCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
+
                 BusinessOrderlist  * orderlist = self.orderListArray[indexPath.section];
                 NSMutableArray * goodArray     = [NSMutableArray array];
                 for (BusinessOrdergoods * goods in orderlist.orderGoods) {
@@ -942,6 +931,8 @@
                 break;
             case BusinessServicTypeWaitPay://待付款
             {
+                ZFSendingCell * contentCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
+
                 BusinessOrderlist  * orderlist = self.orderListArray[indexPath.section];
                 NSMutableArray * goodArray     = [NSMutableArray array];
                 for (BusinessOrdergoods * goods in orderlist.orderGoods) {
@@ -957,6 +948,8 @@
                 break;
             case BusinessServicTypeDealComplete://交易完成
             {
+                ZFSendingCell * contentCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
+
                 BusinessOrderlist  * orderlist = self.orderListArray[indexPath.section];
                 NSMutableArray * goodArray     = [NSMutableArray array];
                 for (BusinessOrdergoods * goods in orderlist.orderGoods) {
@@ -965,7 +958,6 @@
                 
                 BusinessOrdergoods * goods = goodArray[indexPath.row];
                 contentCell.businesGoods   = goods;
-#warning ----- ----- ----- ----- ----- ----- ----_order_id
                 
                 return contentCell;
                 
@@ -973,20 +965,21 @@
                 break;
             case BusinessServicTypeSureReturn://待确认退回
             {
-                BusinessOrderlist  * orderlist = self.orderListArray[indexPath.section];
-                NSMutableArray * goodArray     = [NSMutableArray array];
-                for (BusinessOrdergoods * goods in orderlist.orderGoods) {
-                    [goodArray  addObject:goods];
-                }
-                
-                BusinessOrdergoods * goods = goodArray[indexPath.row];
-                contentCell.businesGoods   = goods;
-                return contentCell;
+                ZFCheckTheProgressCell *checkCell = [self.zfb_tableView dequeueReusableCellWithIdentifier:@"ZFCheckTheProgressCell" forIndexPath:indexPath];
+                List * progress                   = self.progressArray[indexPath.row];
+                checkCell.deldegate      = self;
+                [checkCell.checkProgress_btn  setTitle:@"确认退回" forState:UIControlStateNormal];
+                checkCell.progressList   = progress;
+                checkCell.indexpath      = indexPath.row;
+                return  checkCell;
+ 
                 
             }
                 break;
             case BusinessServicTypeSended://已配送
             {
+                ZFSendingCell * contentCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
+
                 BusinessOrderlist  * orderlist = self.orderListArray[indexPath.section];
                 NSMutableArray * goodArray     = [NSMutableArray array];
                 for (BusinessOrdergoods * goods in orderlist.orderGoods) {
@@ -1000,10 +993,7 @@
             }
                 
                 break;
-                
-                
         }
-        return contentCell;
     }
     return nil;
     
@@ -1024,42 +1014,61 @@
         
     }else{
         
-        BusinessOrderlist * storelist          = self.orderListArray[indexPath.row];
+        BusinessOrderlist * storelist          = self.orderListArray[indexPath.section];
         ZFDetailOrderViewController * detailVC = [ZFDetailOrderViewController new];
-        
+        NSMutableArray * goodArray    = [NSMutableArray array];
+        for (BusinessOrdergoods * goods in storelist.orderGoods) {
+            [goodArray  addObject:goods];
+        }
+        BusinessOrdergoods * goods = goodArray[indexPath.row];
+
         switch (_servicType) {
             case BusinessServicTypeWaitSendlist://待派单
             {
-                detailVC.cmOrderid = storelist.order_id;
+                detailVC.cmOrderid = goods.order_id;
+                detailVC.goodsId = goods.goodsId;
+                detailVC.storeId = storelist.storeId;
+                detailVC.imageUrl = goods.coverImgUrl;
                 [self.navigationController pushViewController:detailVC animated:NO];
                 
             }
                 break;
             case BusinessServicTypeSending://配送中
-                detailVC.cmOrderid = storelist.order_id;
+                detailVC.cmOrderid = goods.order_id;
+                detailVC.goodsId = goods.goodsId;
+                detailVC.storeId = storelist.storeId;
+                detailVC.imageUrl = goods.coverImgUrl;
                 [self.navigationController pushViewController:detailVC animated:NO];
                 
                 break;
             case BusinessServicTypeWaitPay://待付款
             {
                 //待派单跳转到详情
-                detailVC.cmOrderid = storelist.order_id;
+                detailVC.cmOrderid = goods.order_id;
+                detailVC.goodsId = goods.goodsId;
+                detailVC.storeId = storelist.storeId;
+                detailVC.imageUrl = goods.coverImgUrl;
                 [self.navigationController pushViewController:detailVC animated:NO];
             }
                 
                 break;
             case BusinessServicTypeDealComplete://交易完成
-                detailVC.cmOrderid = storelist.order_id;
+                detailVC.cmOrderid = goods.order_id;
+                detailVC.goodsId = goods.goodsId;
+                detailVC.storeId = storelist.storeId;
+                detailVC.imageUrl = goods.coverImgUrl;
                 [self.navigationController pushViewController:detailVC animated:NO];
                 
                 break;
             case BusinessServicTypeSureReturn://待确认退回
-                detailVC.cmOrderid = storelist.order_id;
-                [self.navigationController pushViewController:detailVC animated:NO];
+
                 
                 break;
             case BusinessServicTypeSended://已配送
-                detailVC.cmOrderid = storelist.order_id;
+                detailVC.cmOrderid = goods.order_id;
+                detailVC.goodsId = goods.goodsId;
+                detailVC.storeId = storelist.storeId;
+                detailVC.imageUrl = goods.coverImgUrl;
                 [self.navigationController pushViewController:detailVC animated:NO];
                 
                 break;
@@ -1114,7 +1123,8 @@
             break;
         case BusinessServicTypeSureReturn://待确认退回
             
-            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"6" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1" storeId:_storeId];
+            [self salesAfterPostRequsteAtStoreId:_storeId];
+
             [self.homeTableView reloadData];
             
             break;
@@ -1174,17 +1184,26 @@
     
     
 }
+
+#pragma mark -  确认退货代理
+/** * 确认退货代理 */
+-(void)progressWithCheckoutIndexPath:(NSInteger)indexpath
+{
+    List * progress                   = self.progressArray[indexpath];
+    [self returnBackStoreConfirmReceiptPostRequstAtOrderNum:progress.orderNum afterServiceId:progress.saleId goodsId:progress.goodsId orderGoodsId:progress.orderGoodsId goodsCount:[NSString stringWithFormat:@"%ld",progress.goodsCount]];
+    
+
+}
 #pragma mark - ZFFooterCellDelegate  payfor_button 派单代理
 ///派单列表添加   自定义tableview
 -(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice  indexPath :(NSInteger )indexPath
 {
     _order_id     = orderId;
     _order_amount = totalPrice;//当前总价
-    
     NSLog(@"  currentSection ====%ld ",indexPath);
+    _currentSection = indexPath;
     
     BusinessOrderlist * orderlist = self.orderListArray[indexPath];
-    
     switch (_servicType) {
         case BusinessServicTypeWaitSendlist:
             
@@ -1261,7 +1280,6 @@
     
     NSDictionary * param = @{
                              @"storeId": _storeId,
-                             
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/storeHomePage",zfb_baseUrl] params:param success:^(id response) {
@@ -1338,7 +1356,9 @@
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getStoreOrderList",zfb_baseUrl] params:param success:^(id response) {
-        if ([response[@"resultCode"] intValue ] == 0) {
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        
+        if ([code isEqualToString:@"0"]) {
             
             if (self.refreshType == RefreshTypeHeader) {
                 
@@ -1460,7 +1480,6 @@
 #pragma mark -  配送员列表接口    11111   order/selectDeliveryList
 -(void)selectDeliveryListPostRequst
 {
-#pragma mark -  正式数据的时候 经纬度要修改成正常的
     NSDictionary * param = @{
                              
                              @"longitude":longitudestr,
@@ -1484,7 +1503,7 @@
                 [self.deliveryArray addObject:list];
             }
             [SVProgressHUD dismiss];
-            [self reloadDeliveryList];
+            [self reloadDeliveryList];//刷新
             [self.view addSubview:self.orderBgview];
 
         }
@@ -1636,6 +1655,92 @@
 
 }
 
+#pragma mark -  确认退款的参数   order/storeConfirmReceipt
+-(void)returnBackStoreConfirmReceiptPostRequstAtOrderNum:(NSString *)orderNum
+                                afterServiceId:(NSString *)afterServiceId
+                                       goodsId:(NSString *)goodsId
+                                  orderGoodsId:(NSString *)orderGoodsId
+                                    goodsCount:(NSString *)goodsCount
+{
+    NSDictionary * param = @{
+                             
+                             @"orderNum":orderNum,
+                             @"afterServiceId":afterServiceId,
+                             @"goodsId":goodsId,
+                             @"orderGoodsId":orderGoodsId,
+                             @"goodsCount":goodsCount,
+                             @"userId":BBUserDefault.cmUserId,
+                             
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/storeConfirmReceipt",zfb_baseUrl] params:param success:^(id response) {
+        NSString *code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        
+        if ([code isEqualToString:@"0"]) {
+            
+            [SVProgressHUD dismiss];
+            
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+    }];
+    
+}
+
+
+#pragma mark - 查询进度 列表     zfb/InterfaceServlet/afterSale/afterSaleList
+-(void)salesAfterPostRequsteAtStoreId:(NSString *)storeId
+{
+    //状态:0:退货待审批   1:审批通过 2:审批未通过,3.待返回货物，4：服务完成 5.待寄货 6.待取件 7.服务关闭 8.商户待确认
+    NSDictionary * param = @{
+                             
+                             @"size":[NSNumber numberWithInteger:kPageCount] ,
+                             @"page":[NSNumber numberWithInteger:self.currentPage],
+                             @"userId":BBUserDefault.cmUserId,
+                             @"status":@"1",
+                             @"storeId":storeId,
+                             };
+    
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/afterSale/afterSaleList"] params:param success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            
+            if (self.refreshType == RefreshTypeHeader) {
+                
+                if (self.progressArray.count > 0) {
+                    
+                    [self.progressArray removeAllObjects];
+                }
+            }
+            AllOrderProgress * progressModel = [AllOrderProgress mj_objectWithKeyValues:response];
+            
+            for (List * cheakList in progressModel.data.list) {
+                
+                [self.progressArray addObject:cheakList];
+            }
+            [self.homeTableView reloadData];
+            [SVProgressHUD dismiss];
+        }
+        [self endRefresh];
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        [self endRefresh];
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

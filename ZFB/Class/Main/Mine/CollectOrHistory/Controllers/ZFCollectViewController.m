@@ -162,18 +162,20 @@ typedef NS_ENUM(NSUInteger, CollectType) {
             {
 
                 ZFHistoryCell * normalCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFHistoryCellid" forIndexPath:indexPath];
-                [normalCell.starView removeFromSuperview];
                 normalCell.goodslist = list;
+                normalCell.lb_price.hidden = NO;
+                [normalCell.starView removeFromSuperview];
                 return normalCell;
                 
             }else{
                 
                 ZFCollectEditCell *editCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFCollectEditCellid" forIndexPath:indexPath];
-                [editCell.starView removeFromSuperview];
                 editCell.collectID = list.cartItemId;//收藏id
                 editCell.goodlist = list;
                 editCell.delegate = self;
-                
+                editCell.lb_price.hidden = NO;
+                [editCell.starView removeFromSuperview];
+
                 return editCell;
             }
             break;
@@ -184,6 +186,7 @@ typedef NS_ENUM(NSUInteger, CollectType) {
                 ZFHistoryCell * normalCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFHistoryCellid" forIndexPath:indexPath];
                 normalCell.lb_price.hidden = YES;
                 normalCell.storeslist = list;
+                
                 //初始化五星好评控件info.goodsComment
                 XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:normalCell.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO];
                 wdStarView.currentScore = [list.starLevel integerValue];
@@ -399,7 +402,6 @@ typedef NS_ENUM(NSUInteger, CollectType) {
             [self.footView removeFromSuperview];
         }
         [self.tableView reloadData];
-        
         NSLog(@"点击完成");
         
     }

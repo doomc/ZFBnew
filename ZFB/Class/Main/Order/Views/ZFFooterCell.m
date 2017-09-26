@@ -35,14 +35,20 @@
     
     
 }
+//设置待确认退回
+-(void)setProgressModel:(List *)progressModel
+{
+    _progressModel = progressModel;
+    self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",progressModel.refund];//退回的价格
 
+}
 //全部订单
 -(void)setOrderlist:(Orderlist *)orderlist
 {
     _orderlist = orderlist;
     
     //订单金额
-    self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",_orderlist.orderAmount];//订单价格
+    self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",orderlist.orderAmount];//订单价格
     orderNumNormal          = orderlist.orderCode;
     orderIdNormal           = orderlist.order_id;
     deliveryIdNormal        = orderlist.deliveryId;
@@ -73,7 +79,6 @@
     _sendOrder              = sendOrder;
     self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",sendOrder.orderAmmount];//订单价格
     
-    
 }
 ///取消 所有指令
 -(void)cancel_buttonAction
@@ -91,7 +96,6 @@
 {
     NSLog(@"parInnerSection-============%ld", _section);
     if ([self.footDelegate respondsToSelector:@selector(sendOrdersActionOrderId:totalPrice:indexPath:)]) {
-        
         [self.footDelegate sendOrdersActionOrderId:_orderId totalPrice:_totalPrice indexPath:_section];
     }
     

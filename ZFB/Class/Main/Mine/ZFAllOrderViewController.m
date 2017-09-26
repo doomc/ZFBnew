@@ -48,7 +48,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 
 
 @interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate,DealSucessCellDelegate>
- 
+
 @property (nonatomic ,strong) UIView *  titleView ;
 @property (nonatomic ,strong) UIButton  *navbar_btn;//导航按钮
 @property (nonatomic ,strong) UIView    * bgview;//蒙板
@@ -135,16 +135,16 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             
             break;
         case OrderTypeAfterSale://售后
-           
-            if (_tagNum == 0) {
             
+            if (_tagNum == 0) {
+                
                 [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:@"" ];
                 
             }else{
                 [self salesAfterPostRequste];
-
+                
             }
-
+            
             break;
     }
     
@@ -156,7 +156,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         case OrderTypeAllOrder://全部订单
             
             [self allOrderPostRequsetWithOrderStatus:@""  orderNum:@""];
-          
+            
             break;
         case OrderTypeWaitPay://待付款
             
@@ -187,7 +187,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             [self allOrderPostRequsetWithOrderStatus:@"-1"  orderNum:@""];
             
             break;
-        
+            
         case OrderTypeAfterSale://售后
             
             if (_tagNum == 0) {
@@ -249,7 +249,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     [self.zfb_tableView registerNib:[UINib nibWithNibName:@"DealSucessCell" bundle:nil] forCellReuseIdentifier:dealSucessCellid];
     
     [self.view addSubview:self.zfb_tableView];
-
+    
 }
 
 -(NSMutableArray *)orderListArray
@@ -346,9 +346,9 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             break;
         case OrderTypeAfterSale:
             if (self.tagNum == 0) {
- 
-            sectionNum = self.orderListArray.count + 1;
-
+                
+                sectionNum = self.orderListArray.count + 1;
+                
             }else{
                 
                 sectionNum = 1;
@@ -676,7 +676,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                     
                     [cell.cancel_button  setHidden:YES];
                     [cell.payfor_button  setTitle:@"取消" forState:UIControlStateNormal];
-
+                    
                 }else{
                     [cell.cancel_button  setTitle:@"取消" forState:UIControlStateNormal];
                     [cell.payfor_button  setTitle:@"去付款" forState:UIControlStateNormal];
@@ -714,7 +714,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 [cell.cancel_button  setTitle:@"取消" forState:UIControlStateNormal];
                 [cell.payfor_button  setTitle:@"去付款" forState:UIControlStateNormal];
             }
-
+            
             view = cell;
             
         }
@@ -789,7 +789,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             
             [cell.cancel_button setHidden:YES];
             [cell.payfor_button setHidden: YES];
-//            [cell.payfor_button setTitle:@"晒单" forState:UIControlStateNormal];
+            //            [cell.payfor_button setTitle:@"晒单" forState:UIControlStateNormal];
             view = cell;
             
         }
@@ -816,7 +816,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             return view;
             break;
     }
- 
+    
     return view;
 }
 
@@ -966,10 +966,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         {
             
             DealSucessCell * successCell = [self.zfb_tableView
-                                        dequeueReusableCellWithIdentifier:dealSucessCellid forIndexPath:indexPath];
+                                            dequeueReusableCellWithIdentifier:dealSucessCellid forIndexPath:indexPath];
             successCell.indexRow = indexPath.row;
             successCell.indexPath = indexPath;
-
+            
             Orderlist * list           = self.orderListArray[indexPath.section];
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {
@@ -978,7 +978,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             Ordergoods * goods = goodArray[indexPath.row];
             successCell.orderGoods = goods;
             successCell.delegate = self;
-
+            
             return successCell;
         }
             break;
@@ -1027,6 +1027,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 }
                 
             }else if (self.tagNum ==1){
+                
                 List * progress                   = self.progressArray[indexPath.row];
                 ZFCheckTheProgressCell *checkCell = [self.zfb_tableView dequeueReusableCellWithIdentifier:saleAfterProgressCellid forIndexPath:indexPath];
                 checkCell.deldegate      = self;
@@ -1052,7 +1053,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
     Orderlist * orderlist    = self.orderListArray [indexPath.section];
     NSMutableArray * goodarr = [NSMutableArray array];
-    
+
     for (Ordergoods * goods in orderlist.orderGoods) {
         
         [goodarr addObject:goods];
@@ -1061,6 +1062,8 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     
     detailVc.cmOrderid = goods.order_id;
     detailVc.storeId = orderlist.storeId;
+    detailVc.goodsId = goods.goodsId;
+    detailVc.imageUrl = goods.coverImgUrl;
     
     switch (_orderType) {
         case OrderTypeAllOrder:
@@ -1102,24 +1105,16 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             
             if (self.tagNum == 0) {
                 if (indexPath.section ==0) {
-                    
-                    NSLog(@" tagNum 0  section = %ld ， row = %ld",indexPath.section,indexPath.row);
-                    
+                    NSLog(@" tagNum 售后申请0  section = %ld ， row = %ld",indexPath.section,indexPath.row);
                 }else{
-                    NSLog(@" tagNum 0  section = %ld ， row = %ld",indexPath.section,indexPath.row);
-
+                    NSLog(@" tagNum 售后申请0  section = %ld ， row = %ld",indexPath.section,indexPath.row);
                 }
-                
             }
             else{
-                NSLog(@" tagNum 1  section = %ld ， row = %ld",indexPath.section,indexPath.row);
-
+                NSLog(@" tagNum 进度查询1  section = %ld ， row = %ld",indexPath.section,indexPath.row);
             }
- 
             break;
     }
-    
-    
 }
 
 
@@ -1138,7 +1133,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 -(void)sendTitle:(NSString *)title orderType:(OrderType)type
 {
     self.titles =@[@"全部订单",@"待付款",@"待配送",@"配送中",@"已配送",@"交易完成",@"交易取消",@"售后申请",];
-
+    
     [UIView animateWithDuration:0.3 animations:^{
         if (self.bgview.superview) {
             [self.bgview removeFromSuperview];
@@ -1180,7 +1175,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         case OrderTypeDealSuccess://交易成功
             
             [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
-
+            
             break;
         case OrderTypeCancelSuccess://取消交易
             
@@ -1188,14 +1183,18 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             
             break;
         case OrderTypeAfterSale://售后
-            
-            
-            [self allOrderPostRequsetWithOrderStatus:@"2" orderNum:@""];
-            
-            BBUserDefault.keyWord = @"";
-            
-            self.searchBar.text = @"";
-            
+            if (_tagNum == 0) {
+                
+                BBUserDefault.keyWord = @"";
+                self.searchBar.text = @"";
+                [self allOrderPostRequsetWithOrderStatus:@"2" orderNum:@""];
+                //这个接口是搜索后才有的
+                //                [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:BBUserDefault.keyWord ];
+                
+            }else{
+                [self salesAfterPostRequste];
+                
+            }
             break;
             
     }
@@ -1247,7 +1246,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     Ordergoods * goods = goodArray[indexPath.row];
     ZFApplyBackgoodsViewController * saleAfterVC  = [ZFApplyBackgoodsViewController new];
     
-
+    
     
     saleAfterVC.goodsName = goods.goods_name;
     saleAfterVC.price = [NSString stringWithFormat:@"%@",goods.purchase_price];
@@ -1297,10 +1296,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/order/getOrderListBystatus"] params:param success:^(id response) {
         
-        if ([response[@"resultCode"] intValue] == 0) {
-            
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+        if([code isEqualToString:@"0"]){
             if (self.refreshType == RefreshTypeHeader) {
-             
+                
                 if (self.orderListArray.count > 0 ) {
                     
                     [self.orderListArray removeAllObjects];
@@ -1317,10 +1316,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             [SVProgressHUD dismiss];
             [self.zfb_tableView reloadData];
             
-//            if ([self isEmptyArray:self.orderListArray]) {
-//                
-//                [self.zfb_tableView cyl_reloadData];
-//            }
+            //            if ([self isEmptyArray:self.orderListArray]) {
+            //
+            //                [self.zfb_tableView cyl_reloadData];
+            //            }
         }
         NSLog(@"orderListArray ====%@",self.orderListArray);
         [self endRefresh];
@@ -1419,8 +1418,8 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/order/userConfirmReceipt"] params:param success:^(id response) {
         
-        if ([response[@"resultCode"] intValue] == 0) {
-            
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+        if([code isEqualToString:@"0"]){
             [SVProgressHUD dismiss];
         }
         
@@ -1436,7 +1435,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 }
 #pragma mark - 售后申请 ------  列表 getOrderListBystatus
 -(void)saleAfterCheckOrderlistPostwithOrderStatus :(NSString *)orderStatus
-                                    SearchWord :(NSString *)searchWord
+                                       SearchWord :(NSString *)searchWord
 {
     NSDictionary * param = @{
                              
@@ -1451,8 +1450,9 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/order/getOrderListBystatus"] params:param success:^(id response) {
         
-        if ([response[@"resultCode"] intValue] == 0) {
-            
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+        if([code isEqualToString:@"0"])
+        {
             if (self.refreshType == RefreshTypeHeader) {
                 if (self.orderListArray.count > 0 ) {
                     
@@ -1468,7 +1468,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             }
             [SVProgressHUD dismiss];
             [self.zfb_tableView reloadData];
-
+            
         }
         NSLog(@"orderListArray ====%@",self.orderListArray);
         [self endRefresh];
@@ -1491,7 +1491,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                              
                              @"size":[NSNumber numberWithInteger:kPageCount] ,
                              @"page":[NSNumber numberWithInteger:self.currentPage],
-                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"userId":BBUserDefault.cmUserId,
                              
                              };
     
@@ -1500,7 +1500,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
             
             if (self.refreshType == RefreshTypeHeader) {
-               
+                
                 if (self.progressArray.count > 0) {
                     
                     [self.progressArray removeAllObjects];
@@ -1660,7 +1660,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         }
             break;
         case OrderTypeDealSuccess://交易成功后去晒单
-
+            
             break;
         case OrderTypeCancelSuccess:
             
@@ -1764,7 +1764,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             if (self.tagNum == 0) {
                 
                 if (indexPath == 0) {
-               
+                    
                 }
                 
             }else  if (self.tagNum == 1) {
@@ -1782,16 +1782,16 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         NSLog(@"搜索条件不能为空");
         JXTAlertController * alertavc = [JXTAlertController alertControllerWithTitle:@"提示" message:@"搜索条件不能为空" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
- 
+            
         }];
         [alertavc addAction:sureAction];
         
         [self presentViewController:alertavc animated:YES completion:nil];
-
+        
     }else{
         //开始搜索
         [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:searchText];
-         BBUserDefault.keyWord = searchText;
+        BBUserDefault.keyWord = searchText;
         
     }
 }
@@ -1817,12 +1817,12 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     [self poptoUIViewControllerNibName:@"ZFPersonalViewController" AndObjectIndex:0];
     
 }
- 
+
 //既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    CGFloat sectionHeaderHeight = 80;
-    CGFloat sectionFooterHeight = 50;
+    CGFloat sectionHeaderHeight = 50;
+    CGFloat sectionFooterHeight = 0;
     CGFloat offsetY = scrollView.contentOffset.y;
     if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
     {
@@ -1838,7 +1838,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 
 #pragma mark - CYLTableViewPlaceHolderDelegate Method
 - (UIView *)makePlaceHolderView {
-   
+    
     UIView *weChatStyle = [self weChatStylePlaceHolder];
     return weChatStyle;
 }
@@ -1851,7 +1851,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 }
 #pragma mark - WeChatStylePlaceHolderDelegate Method
 - (void)emptyOverlayClicked:(id)sender {
-
+    
     switch (_orderType) {//-1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成
             
         case OrderTypeAllOrder://全部订单
@@ -1890,10 +1890,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         case OrderTypeAfterSale://售后
             if (_tagNum == 0) {
                 [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:BBUserDefault.keyWord ];
-
+                
             }else{
                 [self salesAfterPostRequste];
-
+                
             }
             
             break;

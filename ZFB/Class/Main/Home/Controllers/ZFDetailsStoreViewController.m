@@ -281,13 +281,12 @@
 {
     NSLog(@"section == %ld   ,row == %ld",indexPath.section,indexPath.row);
     if (indexPath.section == 1){//点击优惠券
-        
         //列表请求到了才能添加视图
         if (![self isEmptyArray:self.couponList]) {
             
             [self.tableView bringSubviewToFront:self.couponBackgroundView];
             [self.view addSubview:self.couponBackgroundView];
-            [self.couponTableView reloadData];
+            [self recommentPostRequst:@"0"];
         }
     }
 }
@@ -392,8 +391,10 @@
     [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreDetailsInfo",zfb_baseUrl] params:parma success:^(id response) {
         
-        if ( [response[@"resultCode"] intValue] == 0) {
-            
+        NSString *resultCode = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        
+        if ([resultCode isEqualToString:@"0"] ) {
+
             if (self.storeList.count > 0) {
                 
                 [self.storeList removeAllObjects];
@@ -448,12 +449,14 @@
             [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
             //领取成功后移除
             [self.couponBackgroundView removeFromSuperview];
+            [self.couponTableView reloadData];
             [SVProgressHUD dismiss];
             
         }else{
 
-            //领取成功后移除
+            //领取失败后移除
             [self.couponBackgroundView removeFromSuperview];
+            [self.couponTableView reloadData];
             [SVProgressHUD dismiss];
             [self.view makeToast:@"领取失败" duration:2 position:@"center"];
 

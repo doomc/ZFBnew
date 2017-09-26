@@ -1009,8 +1009,6 @@
                         NSLog(@"已配送接口");
                         break;
                 }
-                
-                
             }];
             [alertavc addAction:cancelAction];
             [alertavc addAction:sureAction];
@@ -1022,11 +1020,7 @@
         case SendServicTypeSended:
             
             break;
- 
     }
-    
-
-    
 }
 
 #pragma mark - 配送端首页 getOrderDeliveryInfo
@@ -1040,39 +1034,44 @@
     [SVProgressHUD show];
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderDeliveryInfo",zfb_baseUrl] params:param success:^(id response) {
-        
-        SendServiceModel * model = [SendServiceModel mj_objectWithKeyValues:response];
-    
-        
-        //day
-        _daydate_time = model.todayMap.nowDay;
-        _dayOrderDeliveryFee = model.todayMap.orderDeliveryFee;
-        _daydistriCount = model.todayMap.distriCount;
-        _daystart_time = model.todayMap.completTimeStart;
-        _dayend_time = model.todayMap.completTimeEnd;
-        
-        //week
-        _weekodate_time = model.weedMap.time;
-        _weekOrderDeliveryFee = model.weedMap.orderDeliveryFee;
-        _weekdistriCount = model.weedMap.distriCount;
-        _weekstart_time = model.weedMap.startDay;
-        _weekend_time = model.weedMap.endTime;
-        
-        //month
-        _monthOrderDeliveryFee = model.monthMap.orderDeliveryFee;
-        _monthdistriCount = model.monthMap.distriCount;
-        _monthodate_time = model.monthMap.betweenMonth;
-        _monthend_time = model.monthMap.endMonth;
-        _monthstart_time = model.monthMap.statusMbth;
-        
-        //配送员id
-        _deliveryId = model.deliveryId;
-        //配送订单数量
-        _order_count = [NSString stringWithFormat:@"%ld",model.numArray.num];
-        
-        
-        [self.send_tableView reloadData];
-        [SVProgressHUD dismiss];
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+            SendServiceModel * model = [SendServiceModel mj_objectWithKeyValues:response];
+            
+            //day
+            _daydate_time = model.todayMap.nowDay;
+            _dayOrderDeliveryFee = model.todayMap.orderDeliveryFee;
+            _daydistriCount = model.todayMap.distriCount;
+            _daystart_time = model.todayMap.completTimeStart;
+            _dayend_time = model.todayMap.completTimeEnd;
+            
+            //week
+            _weekodate_time = model.weedMap.time;
+            _weekOrderDeliveryFee = model.weedMap.orderDeliveryFee;
+            _weekdistriCount = model.weedMap.distriCount;
+            _weekstart_time = model.weedMap.startDay;
+            _weekend_time = model.weedMap.endTime;
+            
+            //month
+            _monthOrderDeliveryFee = model.monthMap.orderDeliveryFee;
+            _monthdistriCount = model.monthMap.distriCount;
+            _monthodate_time = model.monthMap.betweenMonth;
+            _monthend_time = model.monthMap.endMonth;
+            _monthstart_time = model.monthMap.statusMbth;
+            
+            //配送员id
+            _deliveryId = model.deliveryId;
+            //配送订单数量
+            _order_count = [NSString stringWithFormat:@"%ld",model.numArray.num];
+            
+            
+            [self.send_tableView reloadData];
+            [SVProgressHUD dismiss];
+
+        }else{
+            [SVProgressHUD dismiss];
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        }
         
     } progress:^(NSProgress *progeress) {
         
@@ -1111,10 +1110,11 @@
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderDeliveryByDeliveryId",zfb_baseUrl] params:param success:^(id response) {
         
-        if ([response[@"resultCode"] intValue] == 0) {
-            
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+        
             if (self.refreshType == RefreshTypeHeader) {
-            
+                
                 if (self.orderListArray.count > 0) {
                     
                     [self.orderListArray removeAllObjects];
@@ -1126,7 +1126,6 @@
                 [self.orderListArray addObject:infoStore];
             }
             NSLog(@"%@ ====orderListArray ",self.orderListArray);
-      
             [SVProgressHUD dismiss];
             [self.send_tableView reloadData];
             
@@ -1134,7 +1133,13 @@
                 
                 [self.send_tableView cyl_reloadData];
             }
+
         }
+        else{
+            [SVProgressHUD dismiss];
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        }
+        
         [self endRefresh];
         
     } progress:^(NSProgress *progeress) {
@@ -1170,22 +1175,27 @@
     [SVProgressHUD show];
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getIsOrderDeliveryInfo",zfb_baseUrl] params:param success:^(id response) {
-        
-        if ([response[@"resultCode"] intValue] == 0) {
+       
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
             
             [SVProgressHUD dismiss];
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
             
         }
-        if ([status isEqualToString:@"2"]) {
+        if ([status isEqualToString:@"2"]) {//查询已结单的列表
             
             [self orderlistDeliveryID:_deliveryId OrderStatus:@"1"  ];
             
         }
-        if ([status isEqualToString:@"3"]) {
+        if ([status isEqualToString:@"3"]) {//查询已配送
             
             [self orderlistDeliveryID:_deliveryId OrderStatus:@"2" ];
             
+        }
+        else{
+            [SVProgressHUD dismiss];
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         }
 
         [self.send_tableView reloadData];
@@ -1213,10 +1223,11 @@
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getDistriInfo",zfb_baseUrl] params:param success:^(id response) {
-        if ([response[@"resultCode"] intValue] == 0) {
+       
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
             
             if (self.msgArray.count > 0) {
-                
                 [self.msgArray removeAllObjects];
             }
             //懒得转模型
@@ -1233,13 +1244,18 @@
             [self.msgArray addObject:msg_orderDeliveryFee];
             [self.msgArray addObject:msg_postPhone];
             [self.msgArray addObject:msg_postAddress];
-
+            [SVProgressHUD dismiss];
+            //弹出 配送信息----当前视图
+            [self.view addSubview:self.messagebgview];
+            [self.messageView.tableView reloadData];
         }
-        [SVProgressHUD dismiss];
+        else{
+            [SVProgressHUD dismiss];
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        }
 
-        //弹出 配送信息----当前视图
-        [self.view addSubview:self.messagebgview];
-        [self.messageView.tableView reloadData];
+
+
         
     } progress:^(NSProgress *progeress) {
         

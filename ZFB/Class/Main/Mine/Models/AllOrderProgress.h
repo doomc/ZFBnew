@@ -40,11 +40,23 @@
 
 @property (nonatomic, copy) NSString *goodsName;
 
-@property (nonatomic, copy) NSString *refund;
+@property (nonatomic, copy) NSString *refund;//价格
 
 @property (nonatomic, copy) NSString *coverImgUrl;
 
+@property (nonatomic, assign) NSInteger goodsCount;
+
 @property (nonatomic, copy) NSString *createTime;
+
+@property (nonatomic, copy) NSString *orderGoodsId;
+
+@property (nonatomic, copy) NSString *goodsProperties;
+
+@property (nonatomic, copy) NSString *goodsId;
+
+@property (nonatomic, copy) NSString *orderNum;
+
+
 
 @end
 
