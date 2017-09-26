@@ -281,7 +281,7 @@
             [self.navigationController pushViewController:vc animated:YES];
             
         }else{
-            JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"这个商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
+            JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"该商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
             }];
@@ -298,9 +298,21 @@
 {
     //如果规格全选了
     if ([self isSKuAllSelect]) {
-        
-        //添加有规格的数据进入购物车  传入有规格的json数据
-        [self addToshoppingCarPostproductId:_productSkuId];
+        //判断库存
+        if ([_inventory intValue] > 0) {
+            //添加有规格的数据进入购物车  传入有规格的json数据
+            [self addToshoppingCarPostproductId:_productSkuId];
+            
+        }else{
+            JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"这个商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            [alertVC addAction:sure];
+            [self presentViewController:alertVC animated:YES completion:nil];
+            
+        }
+
         
     }else{
         
@@ -871,19 +883,19 @@
     
     goodsImgaeView               = [[UIImageView alloc]init];
     goodsImgaeView.clipsToBounds = YES;
-    [goodsImgaeView sd_setImageWithURL:[NSURL URLWithString:_headerImage] placeholderImage:[UIImage imageNamed:@""]];
+    [goodsImgaeView sd_setImageWithURL:[NSURL URLWithString:_headerImage] placeholderImage:[UIImage imageNamed:@"150x140"]];
     [headView addSubview:goodsImgaeView];
     
     
     lb_price           = [UILabel new];
-    lb_price.text      = @"价格: ¥0.00";//[NSString stringWithFormat:@"¥%@",_netPurchasePrice]
+    lb_price.text      =  [NSString stringWithFormat:@"¥%@",_priceRange];
     lb_price.textColor = HEXCOLOR(0xfe6d6a);
     lb_price.font      = [UIFont systemFontOfSize:14];
     [self.popView addSubview:lb_price];
     
     //库存
     lb_inShock           = [UILabel new];
-    lb_inShock.text =@"库存:0";
+    lb_inShock.text =[NSString stringWithFormat:@"库存:%@",_inventory];
     lb_inShock.textColor = HEXCOLOR(0xfe6d6a);
     lb_inShock.font      = [UIFont systemFontOfSize:12];
     [self.popView addSubview:lb_inShock];

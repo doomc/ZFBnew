@@ -10,11 +10,8 @@
 #import "ZFMyOpinionCell.h"
 #import "UserFeedbackModel.h"
 
-@interface ZFMyOpinionViewController () <UITableViewDataSource,UITableViewDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
-{
-    NSInteger  _page;
-    NSInteger  _pageCount;
-}
+@interface ZFMyOpinionViewController () <UITableViewDataSource,UITableViewDelegate,CYLTableViewPlaceHolderDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
+
 @property(nonatomic,strong)UITableView  * tableView;
 @property(nonatomic,strong)NSMutableArray * listArray;
 @end
@@ -26,11 +23,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.zfb_tableView = self.tableView;
     [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFMyOpinionCell" bundle:nil] forCellReuseIdentifier:@"ZFMyOpinionCellid"];
-    
+    [self setupRefresh];
 }
+-(void)footerRefresh{
+    [super footerRefresh];
+    [self feedOpinionPostRequst];
+}
+-(void)headerRefresh
+{
+    [super headerRefresh];
+    [self feedOpinionPostRequst];
 
+}
 -(UITableView *)tableView
 {
     if (!_tableView) {
@@ -112,12 +119,13 @@
 {
     NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"page":@"1",
-                             @"size":@"10",
+                             @"page":[NSNumber numberWithInteger:self.currentPage],
+                             @"size":[NSNumber numberWithInteger:kPageCount],
                              };
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getFeedbackINfoByUserId"] params:parma success:^(id response) {
         
-        if ([response[@"resultCode"] intValue] == 0) {
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"] ];
+        if ([code isEqualToString:@"0"]) {
             if (self.listArray.count > 0) {
                 
                 [self.listArray removeAllObjects];
@@ -127,11 +135,8 @@
             for (Feedbacklist * list in feedModel.feedbackList) {
                 
                 [self.listArray addObject:list];
-                
             }
-            
             [self.tableView reloadData];
- 
             if ([self isEmptyArray:self.listArray]) {
                 [self.tableView cyl_reloadData];
             }

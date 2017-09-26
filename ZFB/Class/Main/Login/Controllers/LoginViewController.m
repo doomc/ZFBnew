@@ -108,7 +108,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
 //设置返回的时候
 -(void)left_button_event{
     
-    [self loginNIM];
     //    [self.navigationController popToRootViewControllerAnimated:NO];
     [self dismissViewControllerAnimated:NO completion:^{
 
@@ -443,7 +442,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.accid = response[@"userInfo"][@"accid"];
 
             NSLog(@" ======= signMD5Key=======%@", BBUserDefault.userKeyMd5 );
-            [self left_button_event];
+            [self loginNIM];
 
         }
         [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
@@ -486,7 +485,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.userPhoneNumber = _tf_loginphone.text;
             BBUserDefault.token = response[@"userInfo"][@"token"];
             BBUserDefault.accid = response[@"userInfo"][@"accid"];
-            [self left_button_event];
+            [self loginNIM];
 
 
         }
@@ -518,7 +517,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
                                       if (error == nil)
                                       {
                                           NSLog(@" 已经 login success");
-                                      
+                                          [self left_button_event];
+
                                       }
                                       else
                                       {

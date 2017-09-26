@@ -4135,7 +4135,7 @@
 				495EA3D41F14B64B001FCB7E /* Home(首页) */,
 				49C33E691F55A68000BC2254 /* ShareCircle(分享圈) */,
 				4968A12F1F4D89690061A87E /* CustomNIM(自定义界面) */,
-				49965B3E1F4B051700B297C4 /* Class(IM网易云) */,
+				49965B3E1F4B051700B297C4 /* Class(IM网易云信) */,
 				50B381051F3EFF94001ED3BA /* QRCode(二维码扫一扫) */,
 				49555E591F1E0092002E5688 /* Order(订单地址) */,
 				495EA3C31F14B64B001FCB7E /* Base(基类) */,
@@ -4424,8 +4424,6 @@
 			isa = PBXGroup;
 			children = (
 				495EA45E1F14B64B001FCB7E /* Controllers */,
-				495EA46E1F14B64B001FCB7E /* Models */,
-				495EA46F1F14B64B001FCB7E /* Views */,
 			);
 			name = "Login(登录注册)";
 			path = Login;
@@ -4453,20 +4451,6 @@
 				49D92DF51F6661E200E925BF /* UserProtocolViewController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		495EA46E1F14B64B001FCB7E /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		495EA46F1F14B64B001FCB7E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		495EA4701F14B64B001FCB7E /* Mine(个人中心) */ = {
@@ -6517,42 +6501,10 @@
 		4968A3C11F4DB5290061A87E /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				4968A3C21F4DB5290061A87E /* Log */,
-				4968A3C31F4DB5290061A87E /* NetDetect */,
-				4968A3C41F4DB5290061A87E /* NoDisturb */,
 				4968A3C61F4DB5290061A87E /* UInfo */,
 				4968A3C91F4DB5290061A87E /* View */,
 			);
 			path = Setting;
-			sourceTree = "<group>";
-		};
-		4968A3C21F4DB5290061A87E /* Log */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Log;
-			sourceTree = "<group>";
-		};
-		4968A3C31F4DB5290061A87E /* NetDetect */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NetDetect;
-			sourceTree = "<group>";
-		};
-		4968A3C41F4DB5290061A87E /* NoDisturb */ = {
-			isa = PBXGroup;
-			children = (
-				4968A3C51F4DB5290061A87E /* View */,
-			);
-			path = NoDisturb;
-			sourceTree = "<group>";
-		};
-		4968A3C51F4DB5290061A87E /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		4968A3C61F4DB5290061A87E /* UInfo */ = {
@@ -6702,12 +6654,12 @@
 			path = Subscribe;
 			sourceTree = "<group>";
 		};
-		49965B3E1F4B051700B297C4 /* Class(IM网易云) */ = {
+		49965B3E1F4B051700B297C4 /* Class(IM网易云信) */ = {
 			isa = PBXGroup;
 			children = (
 				4968A2FD1F4DB5290061A87E /* NIMClass */,
 			);
-			name = "Class(IM网易云)";
+			name = "Class(IM网易云信)";
 			path = VC;
 			sourceTree = "<group>";
 		};

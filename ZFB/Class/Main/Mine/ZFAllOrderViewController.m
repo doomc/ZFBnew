@@ -361,70 +361,71 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger rowNum = 0;
-    
-    Orderlist * orderlist       = self.orderListArray[section];
-    NSMutableArray * goodsArray = [NSMutableArray array];
-    for (Ordergoods * goods in orderlist.orderGoods) {
-        [goodsArray addObject:goods];
-    }
-    
-    switch (_orderType) {
-        case OrderTypeAllOrder:
-            
-            rowNum = goodsArray.count;
-            
-            break;
-        case OrderTypeWaitPay:
-            
-            rowNum = goodsArray.count;
-            break;
-        case OrderTypeWaitSend:
-            
-            rowNum = goodsArray.count;
-            break;
-        case OrderTypeSending:
-            
-            rowNum = goodsArray.count;
-            break;
-        case OrderTypeSended:
-            
-            rowNum = goodsArray.count;
-            break;
-        case OrderTypeDealSuccess:
-            
-            rowNum =  goodsArray.count;
-            break;
-        case OrderTypeCancelSuccess:
-            
-            rowNum = goodsArray.count;
-            break;
-        case OrderTypeAfterSale:
-            
-            if (self.tagNum == 0) {
+    if (self.orderListArray.count > 0) {
+        Orderlist * orderlist       = self.orderListArray[section];
+        NSMutableArray * goodsArray = [NSMutableArray array];
+        for (Ordergoods * goods in orderlist.orderGoods) {
+            [goodsArray addObject:goods];
+        }
+        switch (_orderType) {
+            case OrderTypeAllOrder:
                 
-                if (section == 0) {
+                rowNum = goodsArray.count;
+                
+                break;
+            case OrderTypeWaitPay:
+                
+                rowNum = goodsArray.count;
+                break;
+            case OrderTypeWaitSend:
+                
+                rowNum = goodsArray.count;
+                break;
+            case OrderTypeSending:
+                
+                rowNum = goodsArray.count;
+                break;
+            case OrderTypeSended:
+                
+                rowNum = goodsArray.count;
+                break;
+            case OrderTypeDealSuccess:
+                
+                rowNum =  goodsArray.count;
+                break;
+            case OrderTypeCancelSuccess:
+                
+                rowNum = goodsArray.count;
+                break;
+            case OrderTypeAfterSale:
+                
+                if (self.tagNum == 0) {
                     
-                    rowNum = 1;
-                    
-                }else{
-                    
-                    Orderlist * orderlist       = self.orderListArray[section -1];
-                    NSMutableArray * saleArray = [NSMutableArray array];
-                    for (Ordergoods * goods in orderlist.orderGoods) {
-                        [saleArray addObject:goods];
+                    if (section == 0) {
+                        
+                        rowNum = 1;
+                        
+                    }else{
+                        
+                        Orderlist * orderlist       = self.orderListArray[section -1];
+                        NSMutableArray * saleArray = [NSMutableArray array];
+                        for (Ordergoods * goods in orderlist.orderGoods) {
+                            [saleArray addObject:goods];
+                        }
+                        rowNum = saleArray.count;
+                        NSLog(@" ------rowNum-----%ld=========",rowNum);
                     }
-                    rowNum = saleArray.count;
-                    NSLog(@" ------rowNum-----%ld=========",rowNum);
+                    
+                }
+                else{
+                    
+                    rowNum = self.progressArray.count;
                 }
                 
-            }
-            else{
-                
-                rowNum = self.progressArray.count;
-            }
-            
-            break;
+                break;
+        }
     }
+
     return rowNum;
     
     

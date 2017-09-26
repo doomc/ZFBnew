@@ -19,6 +19,7 @@
 #import "NTESNotificationCenter.h"
 #import "NTESSubscribeManager.h"
 #import "NTESSessionListViewController.h"
+
 //高德
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "SYSafeCategory.h"//安全操作
@@ -43,16 +44,16 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+    
     [self setupGuidePageView];
-
+    
     //统一处理一些为数组、集合等对nil插入会引起闪退
     [SYSafeCategory callSafeCategory];
     
     //高德地图
     [AMapServices sharedServices].apiKey = (NSString *)ApiKey;
     
- 
+    
     //默认一个switch开关的状态 存储在NSUserDefaults
     NSDictionary * df = @{@"switchType":@YES};
     [[NSUserDefaults standardUserDefaults]registerDefaults:df];
@@ -73,21 +74,30 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     
     [self setupServices];
     
+    [self loginNIM];
+    
     return YES;
 }
-#pragma mark - 设置导航栏抽屉
--(void)navSetting
-{
 
-}
 #pragma mark - logic impl
 - (void)setupServices
 {
     [[NTESNotificationCenter sharedCenter] start];
     [[NTESSubscribeManager sharedManager] start];
-
+    
 }
-
+-(void)loginNIM
+{
+    
+    if (BBUserDefault.userPhoneNumber != nil && BBUserDefault.token !=nil) {
+        
+        NIMAutoLoginData *loginData = [[NIMAutoLoginData alloc] init];
+        loginData.account = BBUserDefault.userPhoneNumber;
+        loginData.token = BBUserDefault.token;
+        [[[NIMSDK sharedSDK] loginManager] autoLogin:loginData];
+        [[NTESServiceManager sharedManager] start];
+    }
+}
 
 - (void)setupNIMSDK
 {
@@ -111,8 +121,11 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     //注册自定义消息的解析器
     [NIMCustomObject registerCustomDecoder:[NTESCustomAttachmentDecoder new]];
     
-
+    
 }
+
+
+
 - (void)commonInitListenEvents
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -140,11 +153,11 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
         default:
             break;
     }
-//    [[[NIMSDK sharedSDK] loginManager] logout:^(NSError *error) {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:NTESNotificationLogout object:nil];
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"下线通知" message:reason delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//        [alert show];
-//    }];
+    [[[NIMSDK sharedSDK] loginManager] logout:^(NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NTESNotificationLogout object:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"下线通知" message:reason delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }];
 }
 - (void)onAutoLoginFailed:(NSError *)error
 {
@@ -157,54 +170,56 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 - (void)showAutoLoginErrorAlert:(NSError *)error
 {
     NSString *message = [NTESSessionUtil formatAutoLoginMessage:error];
-    UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"自动登录失败"
-                                                                message:message
-                                                         preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"自动登录失败" message:message preferredStyle:UIAlertControllerStyleAlert];
     
     if ([error.domain isEqualToString:NIMLocalErrorDomain] &&
         error.code == NIMLocalErrorCodeAutoLoginRetryLimit)
     {
-        UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"重试"
-                                                              style:UIAlertActionStyleCancel
-                                                            handler:^(UIAlertAction * _Nonnull action) {
-                                 
-                                                                NSString *account =  BBUserDefault.userPhoneNumber;
-                                                                NSString *token =  BBUserDefault.token;
-                                                                if ([account length] && [token length])
-                                                                {
-                                                                    NIMAutoLoginData *loginData = [[NIMAutoLoginData alloc] init];
-                                                                    loginData.account = account;
-                                                                    loginData.token = token;
-                                                                    
-                                                                    [[[NIMSDK sharedSDK] loginManager] autoLogin:loginData];
-                                                                }
-                                                            }];
+        UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"重试"style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            if(BBUserDefault.userPhoneNumber != nil && BBUserDefault.token !=nil) {
+                
+                NIMAutoLoginData *loginData = [[NIMAutoLoginData alloc] init];
+                
+                loginData.account = BBUserDefault.userPhoneNumber;
+                
+                loginData.token = BBUserDefault.token;
+                
+                [[[NIMSDK sharedSDK] loginManager] autoLogin:loginData];
+                
+                [[NTESServiceManager sharedManager] start];
+                
+            }
+            
+        }];
         [vc addAction:retryAction];
     }
-    
-    
-    
-    UIAlertAction *logoutAction = [UIAlertAction actionWithTitle:@"注销"
-                                                           style:UIAlertActionStyleDestructive
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                                             [[[NIMSDK sharedSDK] loginManager] logout:^(NSError *error) {
-                                                                 [[NSNotificationCenter defaultCenter] postNotificationName:NTESNotificationLogout object:nil];
-                                                             }];
-                                                         }];
+    UIAlertAction *logoutAction = [UIAlertAction actionWithTitle:@"注销" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        [[[NIMSDK sharedSDK] loginManager] logout:^(NSError *error) {
+            NSLog(@"%@",error);
+            [[NSNotificationCenter defaultCenter] postNotificationName:NTESNotificationLogout object:nil];
+        }];
+    }];
     [vc addAction:logoutAction];
     
-    [self.window.rootViewController presentViewController:vc
-                                                 animated:YES
-                                               completion:nil];
+    [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
 }
-
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[[NIMSDK sharedSDK] loginManager] removeDelegate:self];
 }
+#pragma mark - 注销
+-(void)logout:(NSNotification*)note
+{
+    [self doLogout];
+}
 
+- (void)doLogout
+{
+    [[NTESServiceManager sharedManager] destory];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -218,7 +233,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     
     NSInteger count = [[[NIMSDK sharedSDK] conversationManager] allUnreadCount];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
-
+    
 }
 
 
@@ -250,7 +265,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     DDLogInfo(@"didRegisterForRemoteNotificationsWithDeviceToken:  %@", deviceToken);
     NSString*device = [[[[deviceToken description]stringByReplacingOccurrencesOfString:@"<"withString:@""]stringByReplacingOccurrencesOfString:@" "withString:@""]stringByReplacingOccurrencesOfString:@">"withString:@""];
     
- 
+    
     NSLog(@"%@",device);//0b80f4df845ba13378cd0868a8db45e4c56439fff09ec9e45e40abd480c6efbf
     
 }
@@ -260,7 +275,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     ZFbaseTabbarViewController * tabBar = [[ZFbaseTabbarViewController alloc]initWithNibName:@"NTESSessionListViewController" bundle:nil];
     [self.window.rootViewController presentViewController:tabBar animated:YES completion:nil];
     tabBar.selectedIndex = 1;
-
+    
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -336,7 +351,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
         UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound |        UIRemoteNotificationTypeBadge;
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
     }
- 
+    
 }
 
 - (void)onReceiveCustomSystemNotification:(NIMCustomSystemNotification *)notification
@@ -354,19 +369,19 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     ZFbaseTabbarViewController *tabbarVC = [[ZFbaseTabbarViewController alloc] init];
     
     //会崩溃
-//    XLSlideMenu *slideMenu = [[XLSlideMenu alloc] initWithRootViewController:tabbarVC];
-//    RightNavPopViewController * menuVC = [RightNavPopViewController new];
-//    //设置左右菜单
-//    slideMenu.rightViewController = menuVC;
-//    self.window.rootViewController = slideMenu;
+    //    XLSlideMenu *slideMenu = [[XLSlideMenu alloc] initWithRootViewController:tabbarVC];
+    //    RightNavPopViewController * menuVC = [RightNavPopViewController new];
+    //    //设置左右菜单
+    //    slideMenu.rightViewController = menuVC;
+    //    self.window.rootViewController = slideMenu;
     
     [self.window makeKeyAndVisible];
-
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *firstKey = [NSString stringWithFormat:@"isFirst%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
     NSString *isFirst = [defaults objectForKey:firstKey];
     if (!isFirst.length) {
-      
+        
         NSArray * images = @[@"引导页1",@"引导页2",@"引导页3",@"引导页4"];
         UIButton *enterButton = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetWidth([UIScreen mainScreen].bounds) - 100) / 2, CGRectGetHeight([UIScreen mainScreen].bounds) - 30 - 50, 100, 30)];
         
@@ -393,9 +408,9 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     } else {
         self.window.rootViewController = tabbarVC;
     }
-
-
-
+    
+    
+    
 }
 
 

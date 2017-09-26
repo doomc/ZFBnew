@@ -130,11 +130,10 @@ typedef NS_ENUM(NSUInteger, CellType) {
 /**初始化轮播 */
 -(void)CDsyceleSettingRunningPaint
 {
-    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 160.0/375.0 * KScreenW) delegate:self placeholderImage:nil];
+    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 160.0/375.0 * KScreenW) delegate:self placeholderImage:[UIImage imageNamed:@"720x330"]];
     _cycleScrollView.backgroundColor      = [UIColor whiteColor];
     _cycleScrollView.imageURLStringsGroup = self.adArray;
     _cycleScrollView.pageControlAliment   = SDCycleScrollViewPageContolAlimentCenter;
-    _cycleScrollView.delegate             = self;
     
     //自定义dot 大小和图案pageControlCurrentDot
     _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];

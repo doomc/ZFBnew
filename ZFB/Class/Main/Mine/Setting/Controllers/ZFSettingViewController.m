@@ -11,7 +11,7 @@
 #import "ForgetPSViewController.h"
 #import "ZFSettingCell.h"
 #import "PayPassWordSettingViewController.h"
-
+#import "NTESService.h"
 static NSString * settingCellid = @"ZFSettingCellid";
 @interface ZFSettingViewController ()<UITableViewDelegate,UITableViewDataSource,NIMLoginManagerDelegate>
 {
@@ -254,7 +254,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
         UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.view makeToast:@"数据已清空" duration:2.0 position:@"center"];
             [sender setTitle:@"登陆" forState:UIControlStateNormal ];
-            [self clearingCache];//清除所有缓存;
+//            [self clearingCache];//清除所有缓存;
             BBUserDefault.isLogin = 0;
             BBUserDefault.token = @"";
             BBUserDefault.cmUserId = @"";
@@ -293,11 +293,14 @@ static NSString * settingCellid = @"ZFSettingCellid";
 }
 
 
+#pragma mark - 注销
 ///登出
 -(void)loginOutAction
 {
-    [[[NIMSDK sharedSDK]loginManager]logout:^(NSError * _Nullable error) {
-        NSLog(@" %@ = error",error);
+ 
+    [[[NIMSDK sharedSDK]loginManager] logout:^(NSError * _Nullable error) {
+        
+        NSLog(@" 我已经退出了 ---- %@ = error",error);
     }];
 }
 @end

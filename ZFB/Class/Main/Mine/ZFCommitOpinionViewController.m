@@ -168,13 +168,13 @@
 {
     NSLog(@"反馈类型 ----%@",_typeName);
     
-    if (_isCommited == YES) {//如果还没有提交
+    if (_isCommited) {//如果还没有提交
         return;
     }
     _isCommited = YES;
 
-    if ([_typeName isEqualToString:@""]|| _typeName == nil) {
-        JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"请选择一个反馈类型" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    if ([_typeName isEqualToString:@""]|| _typeName == nil ||_textViewText == nil || _textViewText.length == 0 || [_textViewText isEqualToString:@""]) {
+        JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"请填写完您的宝贵意见" message:nil preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
         }];
@@ -268,15 +268,17 @@
                              @"feedbackUserPhone":_phoneNum,//用户预留电话
  
                              };
+    [SVProgressHUD showWithStatus:@"正在上传..."];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getFeedbackINfoInsert"] params:parma success:^(id response) {
 
         _isCommited = NO;
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-
+        [SVProgressHUD showSuccessWithStatus:@"上传成功！"];
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
-        
+        [SVProgressHUD showErrorWithStatus:@"上传失败"];
+
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
