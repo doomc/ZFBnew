@@ -71,7 +71,7 @@ UITableViewDelegate>
     [self initSearchBar]; //搜索框
     
  
-    [self searchAround];
+    [self searchAroundLatitude:[BBUserDefault.latitude floatValue] longitude:[BBUserDefault.longitude floatValue]];
 }
 
 //初始化地图
@@ -116,6 +116,14 @@ UITableViewDelegate>
     [self.zfb_tableView registerNib:[UINib nibWithNibName:@"HPLocationCell" bundle:nil] forCellReuseIdentifier:@"HPLocationCellId"];
 }
 
+//- (void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+//    
+//    MACoordinateRegion region;
+//    CLLocationCoordinate2D centerCoordinate = mapView.region.center;
+//    region.center= centerCoordinate;
+//    
+//    NSLog(@" regionDidChangeAnimated %f,%f",centerCoordinate.latitude, centerCoordinate.longitude);
+//}
 
  #pragma mark - 自定义定位按钮
 - (void)initLocationButton
@@ -197,9 +205,11 @@ UITableViewDelegate>
 - (void)setSelectedLocationWithLocation:(AMapPOI *)poi
 {
  
-    
     [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poi.location.latitude,poi.location.longitude) animated:NO];
     _searchController.searchBar.text = @"";
+
+    [self searchAroundLatitude:poi.location.latitude longitude:poi.location.longitude];
+
 }
 
 
@@ -220,7 +230,7 @@ UITableViewDelegate>
     return YES;
 }
 #pragma - mark - 搜索
--(void)searchAround {
+-(void)searchAroundLatitude:(CGFloat)latitude longitude:(CGFloat)longitude{
     //初始化检索对象
     _search = [[AMapSearchAPI alloc] init];
     _search.delegate = self;
@@ -229,7 +239,7 @@ UITableViewDelegate>
     AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
     
     //当前位置
-    request.location = [AMapGeoPoint locationWithLatitude:[BBUserDefault.latitude floatValue]longitude:[BBUserDefault.longitude floatValue]];
+    request.location = [AMapGeoPoint locationWithLatitude:latitude longitude:longitude];
 
     //关键字
     request.keywords = _searchController.searchBar.text;
@@ -310,6 +320,7 @@ UITableViewDelegate>
   
     if (_searchReturnBlock) {
         _searchReturnBlock(address, poi.location.longitude, poi.location.latitude, poi.postcode);
+        
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
