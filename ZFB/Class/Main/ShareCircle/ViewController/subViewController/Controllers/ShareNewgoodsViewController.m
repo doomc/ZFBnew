@@ -134,7 +134,9 @@
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/recommentList"] params:parma success:^(id response) {
-        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+       
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"] ];
+        if ([code isEqualToString:@"0"]) {
             if (self.refreshType == RefreshTypeHeader) {
                 if (self.commendList.count > 0) {
                     [self.commendList removeAllObjects];
@@ -184,6 +186,7 @@
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
 }
+
 
 
 

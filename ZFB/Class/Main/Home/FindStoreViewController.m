@@ -20,7 +20,6 @@
 //map
 #import "CLLocation+MPLocation.h"//火星坐标
 
-
 static NSString *CellIdentifier = @"FindStoreCellid";
 
 @interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,CLLocationManagerDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
@@ -84,6 +83,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 
 }
 #pragma mark -数据请求
+
 -(void)headerRefresh {
     [super headerRefresh];
     [self PostRequst];
@@ -92,7 +92,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     [super footerRefresh];
     [self PostRequst];
-  
   
 }
 
@@ -110,8 +109,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         _location_btn.titleLabel.adjustsFontSizeToFitWidth = YES;
         
         _location_btn.frame = CGRectMake(25, 0, KScreenW - 60, 30);
-#pragma mark - button内文字居左
-        //  _location_btn.titleLabel.textAlignment = NSTextAlignmentLeft; 无效
         _location_btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         _location_btn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     }
@@ -152,6 +149,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     
     self.zfb_tableView = self.home_tableView;
 }
+
 -(UIView *)sectionView
 {
     if (!_sectionView) {
@@ -239,7 +237,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         vc.storeId =[NSString stringWithFormat:@"%ld",listModel.storeId];
         [self.navigationController pushViewController:vc animated:YES];
     }
- 
 }
 
 /**
@@ -267,7 +264,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     locationVC.currentLocation = _currentLocation;
     locationVC.searchStr = currentCityAndStreet;
     locationVC.moveBlock = ^(AMapPOI *poi) {
-
         [self.location_btn setTitle:poi.name forState:UIControlStateNormal];
     };
     [self.navigationController pushViewController: locationVC animated:YES];
@@ -315,7 +311,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     //打印当前的经度与纬度
     latitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
     longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
-//    NSLog(@"  %@  --- long%@",latitudestr,longitudestr);
     BBUserDefault.latitude = latitudestr;
     BBUserDefault.longitude = longitudestr;
     
@@ -329,12 +324,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                 _currentCity = @"无法定位当前城市";
             }
             /*看需求定义一个全局变量来接收赋值*/
-//            NSLog(@"----%@",placeMark.country);//当前国家
             NSLog(@"%@",currentCityAndStreet);//当前的城市
-//            NSLog(@"%@",placeMark.subLocality);//当前的位置
-//            NSLog(@"%@",placeMark.thoroughfare);//当前街道
-//            NSLog(@"%@",placeMark.name);//具体地址
-
             currentCityAndStreet = [NSString stringWithFormat:@"%@%@",placeMark.subLocality,placeMark.name];
             [self.location_btn setTitle:currentCityAndStreet forState:UIControlStateNormal];
         }
@@ -362,7 +352,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
         
-        if ([response[@"resultCode"] intValue] == 0) {
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"] ];
+        
+        if ([code isEqualToString:@"0"]) {
             
             if (self.refreshType == RefreshTypeHeader) {
             
@@ -381,21 +373,18 @@ static NSString *CellIdentifier = @"FindStoreCellid";
       
                 [self.storeListArr addObject:goodlist];
             }
-            
-            if (self.storeListArr.count == 0 || self.storeListArr == nil) {
+            [self.home_tableView reloadData];
+
+            if ([self isEmptyArray:self.storeListArr]) {
                 
                 [self.home_tableView cyl_reloadData];
             }
         
         }
         [self endRefresh];
-        [self.home_tableView reloadData];
-
         NSLog(@"门店列表 = %@",   self.storeListArr);
 
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
         

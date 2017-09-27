@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,6 +15,7 @@
                 <outlet property="img_sendOrder" destination="Ops-et-cWn" id="Q0s-Q4-duj"/>
                 <outlet property="lb_sendHomeTitle" destination="VuB-R0-dNU" id="DIA-U2-zKX"/>
                 <outlet property="lb_sendOrderTitle" destination="02z-XJ-8is" id="JPO-do-Bgg"/>
+                <outlet property="segementPage" destination="yGx-Lo-d0h" id="Bm9-mb-69C"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,7 +24,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X1u-w5-Tw5">
+                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X1u-w5-Tw5">
                     <rect key="frame" x="188.5" y="618" width="186.5" height="49"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Order_normal.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ops-et-cWn">
@@ -60,7 +61,7 @@
                         <constraint firstItem="12A-fi-XJl" firstAttribute="leading" secondItem="X1u-w5-Tw5" secondAttribute="leading" constant="5" id="nFQ-d0-cfB"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ymA-bd-mVh">
+                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ymA-bd-mVh">
                     <rect key="frame" x="0.0" y="618" width="186.5" height="49"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_red.png" translatesAutoresizingMaskIntoConstraints="NO" id="Z6m-zn-1Dn">
@@ -76,8 +77,8 @@
                             <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dyp-bP-AsO">
-                            <rect key="frame" x="5" y="7" width="176.5" height="34"/>
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dyp-bP-AsO">
+                            <rect key="frame" x="5" y="8" width="68" height="33"/>
                             <connections>
                                 <action selector="homePageAction:" destination="-1" eventType="touchUpInside" id="kOq-1i-diY"/>
                             </connections>
@@ -97,17 +98,34 @@
                         <constraint firstItem="VuB-R0-dNU" firstAttribute="top" secondItem="Z6m-zn-1Dn" secondAttribute="bottom" id="yJF-v5-dVP"/>
                     </constraints>
                 </view>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yGx-Lo-d0h">
+                    <rect key="frame" x="0.0" y="618" width="375" height="50"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="49" id="6dm-t0-oyA"/>
+                    </constraints>
+                    <segments>
+                        <segment title="首页"/>
+                        <segment title="订单"/>
+                        <segment title="结算"/>
+                    </segments>
+                    <color key="tintColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </segmentedControl>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="yGx-Lo-d0h" secondAttribute="bottom" id="7bC-Or-opz"/>
+                <constraint firstAttribute="trailing" secondItem="yGx-Lo-d0h" secondAttribute="trailing" id="7cE-vu-sqv"/>
                 <constraint firstItem="X1u-w5-Tw5" firstAttribute="width" secondItem="ymA-bd-mVh" secondAttribute="width" id="F2W-fU-Acb"/>
                 <constraint firstItem="X1u-w5-Tw5" firstAttribute="height" secondItem="ymA-bd-mVh" secondAttribute="height" id="FzO-fP-30K"/>
                 <constraint firstAttribute="bottom" secondItem="X1u-w5-Tw5" secondAttribute="bottom" id="JHg-0z-nVh"/>
+                <constraint firstItem="yGx-Lo-d0h" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NLS-bz-Lqs"/>
                 <constraint firstAttribute="bottom" secondItem="ymA-bd-mVh" secondAttribute="bottom" id="Nfm-21-gZa"/>
                 <constraint firstItem="ymA-bd-mVh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UoN-dM-7GU"/>
                 <constraint firstAttribute="trailing" secondItem="X1u-w5-Tw5" secondAttribute="trailing" id="bbl-ah-E4D"/>
                 <constraint firstItem="X1u-w5-Tw5" firstAttribute="leading" secondItem="ymA-bd-mVh" secondAttribute="trailing" constant="2" id="q89-so-7Ic"/>
             </constraints>
+            <point key="canvasLocation" x="35.5" y="53.5"/>
         </view>
     </objects>
     <resources>

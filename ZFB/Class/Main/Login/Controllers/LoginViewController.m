@@ -392,7 +392,9 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/SendMessages",zfb_baseUrl] params:parma success:^(id response) {
-        if ([response[@"resultCode"] intValue ] == 0) {
+        
+        NSString * code  = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
             
             _smsCode = response[@"smsCode" ];
             
@@ -430,8 +432,9 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
     [SVProgressHUD showWithStatus:@"登陆中..."];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/quickLogin",zfb_baseUrl] params:parma success:^(id response) {
-      
-        if ([response[@"resultCode"] isEqualToString:@"0" ]) {
+        
+        NSString * code  = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0" ]) {
             BBUserDefault.isLogin = 1;
             
             BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
@@ -475,8 +478,9 @@ typedef NS_ENUM(NSUInteger, indexType) {
     
     [SVProgressHUD showWithStatus:@"登陆中..."];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/login",zfb_baseUrl] params:parma success:^(id response) {
-        
-        if ([response[@"resultCode"] isEqualToString:@"0" ]) {
+        NSString * code  = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+
+        if ([code isEqualToString:@"0"]) {
             //设置全局变量
             BBUserDefault.isLogin = 1;
             BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
@@ -486,7 +490,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.token = response[@"userInfo"][@"token"];
             BBUserDefault.accid = response[@"userInfo"][@"accid"];
             [self loginNIM];
-
 
         }
         [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];

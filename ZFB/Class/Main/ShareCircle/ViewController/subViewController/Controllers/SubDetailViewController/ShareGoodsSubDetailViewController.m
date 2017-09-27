@@ -42,6 +42,7 @@
     self.userHeadImg.layer.cornerRadius = 25;
     
     [self recommentDetailPostRequst];
+    [self addRecommentBrowsePostRequst];
     
     [self cycleViewInitWithimages:_adArray];
 }
@@ -165,6 +166,28 @@
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
+}
+
+
+#pragma mark - 添加浏览量 addRecommentBrowse
+-(void)addRecommentBrowsePostRequst
+{
+    NSDictionary * parma = @{
+                             
+                             @"recommentId":_shareId,//1 是新品推荐  2共享
+                             @"type":@"1",//1 是新品推荐  2共享
+                             
+                             
+                             };
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/recomment/addRecommentBrowse",zfb_baseUrl] params:parma success:^(id response) {
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        NSLog(@"error=====%@",error);
+    }];
+    
 }
 
 

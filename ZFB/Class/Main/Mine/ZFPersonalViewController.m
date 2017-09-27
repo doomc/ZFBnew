@@ -298,7 +298,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
          {
              ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
              
-             orderCell.order_imgicon.image = [UIImage imageNamed:@"settingShopCar"];
+             orderCell.order_imgicon.image = [UIImage imageNamed:@"share_red"];
              orderCell.order_title.text = @"我的共享";
              orderCell.order_hiddenTitle.text = @"";
              return orderCell;

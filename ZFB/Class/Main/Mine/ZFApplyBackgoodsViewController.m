@@ -188,28 +188,25 @@
  */
 - (IBAction)didClickNextPage:(id)sender {
     
-    /////***************提交之前暂时没有做处理
-    if ([_reason isEqualToString:@""] || _reason == nil ||_problemDescr == nil || [_problemDescr isEqualToString:@""]) {
-        JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"提示" message:@"申请原因或问题描述没填写" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction * sure       = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        [alert addAction:sure];
-        [self.navigationController presentViewController:alert animated:NO completion:^{
-            
-        }];
-        //参数不能为空
-    }else
-    {
+    if (_isCommited) {
+        [self.view makeToast:@"您的手速太快了,营养跟不上啊..." duration:2 position:@"center"];
         
-        if (_isCommited) {
-            [self.view makeToast:@"您的手速太快了,营养跟不上啊..." duration:2 position:@"center"];
-            
-            return;
-        }else{
-            
-            _isCommited = YES;
-            [SVProgressHUD show];
+        return;
+    }else{
+        /////***************提交之前暂时没有做处理
+        if ([_reason isEqualToString:@""] || _reason == nil ||_problemDescr == nil || [_problemDescr isEqualToString:@""]) {
+            JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"提示" message:@"申请原因或问题描述没填写" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * sure       = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            [alert addAction:sure];
+            [self.navigationController presentViewController:alert animated:NO completion:^{
+                
+            }];
+        }
+        
+        if (_imgUrl_mutArray.count > 0) {
+            [SVProgressHUD showWithStatus:@"正在上传..."];
             [OSSImageUploader asyncUploadImages:_imgUrl_mutArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
                 NSLog(@"%@",names);
                 if (state == 1) {
@@ -240,16 +237,42 @@
                         bcVC.imgArr          = [names componentsJoinedByString:@","];//图片字符串
                         bcVC.goodsProperties = _goodsProperties;
                         [self.navigationController pushViewController: bcVC animated:YES];
-                        [SVProgressHUD dismiss];
+                        [SVProgressHUD showSuccessWithStatus:@"上传成功！"];
+                        _isCommited = NO;
                         
                     }
-                    _isCommited = NO;
                 }
             }];
-            //暂时不传值
-           
+
+        }else{//图片为空的状态
+            ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
+            bcVC.goodsName  = _goodsName;
+            bcVC.price      = _price ;
+            bcVC.goodCount  = _goodCount;
+            bcVC.coverImgUrl = _coverImgUrl;
+            
+            ///需要发送到售后申请的数据
+            bcVC.orderId     = _orderId;
+            bcVC.orderNum    = _orderNum;
+            bcVC.goodsId     = _goodsId;
+            bcVC.serviceType = @"0";///服务类型    否     0 退货 1 换货
+            bcVC.storeId     = _storeId;
+            bcVC.orderTime   = _orderTime;
+            bcVC.storeName   = _storeName;
+            bcVC.postName    = _postName;
+            bcVC.postPhone   = _postPhone;
+            bcVC.orderGoodsId= _orderGoodsId;
+            
+            //原因
+            bcVC.reason          = _reason;
+            bcVC.problemDescr    = _problemDescr;
+            bcVC.imgArr          = @"";
+            bcVC.goodsProperties = _goodsProperties;
+            [self.navigationController pushViewController: bcVC animated:YES];
+            [SVProgressHUD showSuccessWithStatus:@"上传成功！"];
+            _isCommited = NO;
+
         }
-        
     }
 }
 

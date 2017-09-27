@@ -118,12 +118,15 @@
             
             if (self.refreshType == RefreshTypeHeader) {
                 if (self.couponList.count > 0) {
+                    
                     [self.couponList removeAllObjects];
                 }
             }
             CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
             for (Couponlist * list in coupon.couponList) {
-                [self.couponList addObject:list];
+                if ([list.validPeriod isEqualToString:@"1"]) {//有效期内
+                    [self.couponList addObject:list];
+                }
             }
 
             [self.tableView reloadData];

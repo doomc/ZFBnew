@@ -81,8 +81,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 
     [super footerRefresh];
     [self guessYouLikePostRequst];
-//    [self HotsalesPostRequst];
-//    [self FuncListPostRequst];
+ 
 }
 
 

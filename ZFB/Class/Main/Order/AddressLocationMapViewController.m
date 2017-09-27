@@ -309,7 +309,7 @@ UITableViewDelegate>
     NSString * address =[NSString stringWithFormat:@"%@%@%@",poi.city,poi.district,poi.name];
   
     if (_searchReturnBlock) {
-        _searchReturnBlock(address, poi.location.latitude, poi.location.longitude, poi.postcode);
+        _searchReturnBlock(address, poi.location.longitude, poi.location.latitude, poi.postcode);
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

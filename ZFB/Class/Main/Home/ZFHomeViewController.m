@@ -66,14 +66,14 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     FinGoodsViewController *findGoodsVC = [[FinGoodsViewController alloc]init];
     FindCircleViewController *findCircleVC = [[FindCircleViewController alloc]init];
     
-    NSArray *childArr = @[findStoreVC, findGoodsVC, findCircleVC];
+    NSArray *childArr = @[findStoreVC, findGoodsVC];
     /// pageContentView
     CGFloat contentViewHeight = self.view.frame.size.height - 108;
     self.pageContentView = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 108, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
     _pageContentView.delegatePageContentView = self;
     [self.view addSubview:_pageContentView];
     
-    NSArray *titleArr = @[@"找店", @"找商品", @"找圈子"];
+    NSArray *titleArr = @[@"找店", @"找商品"];
     /// pageTitleView
     self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44) delegate:self titleNames:titleArr];
     [self.view addSubview:_pageTitleView];

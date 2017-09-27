@@ -10,11 +10,8 @@
 
 @interface ZFSendSerViceViewController : BaseViewController
 
-@property (weak, nonatomic) IBOutlet UIImageView *img_sendHome;
-@property (weak, nonatomic) IBOutlet UIImageView *img_sendOrder;
-@property (weak, nonatomic) IBOutlet UILabel *lb_sendHomeTitle;
-@property (weak, nonatomic) IBOutlet UILabel *lb_sendOrderTitle;
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
 @end
 

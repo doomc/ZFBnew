@@ -34,15 +34,15 @@
     ShareNewgoodsViewController *newGoodsVC     = [[ShareNewgoodsViewController alloc]init];
     ShareGoodsViewController * goodsVC          = [[ShareGoodsViewController alloc]init];
     ShareFriendStautusViewController * friendVC = [[ShareFriendStautusViewController alloc]init];
+    NSArray *childArr = @[newGoodsVC, goodsVC];
     
-    NSArray *childArr = @[newGoodsVC, goodsVC, friendVC];
     /// pageContentView
     CGFloat contentViewHeight                = self.view.frame.size.height - 108;
     self.pageContentView                     = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 108, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
     _pageContentView.delegatePageContentView = self;
     [self.view addSubview:_pageContentView];
     
-    NSArray *titleArr = @[@"新品推荐", @"好货共享", @"好友动态"];
+    NSArray *titleArr = @[@"新品推荐", @"好货共享"];
     /// pageTitleView
     self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44) delegate:self titleNames:titleArr];
     [self.view addSubview:_pageTitleView];

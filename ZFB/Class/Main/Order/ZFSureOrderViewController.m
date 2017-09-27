@@ -31,6 +31,7 @@
 #import "JsonModel.h"
 #import "SureOrderModel.h"
 #import "CommitOrderlist.h"
+#import "CouponModel.h"
 
 typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     
@@ -77,6 +78,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 @property (nonatomic,strong) NSMutableArray * goodsListArray;//用来接收的商品数组
 @property (nonatomic,strong) NSMutableArray * cmGoodsListArray;//cmgoodslist
 @property (nonatomic,strong) NSMutableArray * storelistArry;//门店数组
+@property (nonatomic ,strong) NSMutableArray * couponList;//优惠券数组
 
 @property (nonatomic,strong) NSMutableArray    * storeAttachListArr;//有备注的数组
 @property (nonatomic,strong) NSMutableArray    * storeDeliveryfeeListArr;//配送费数组
@@ -115,6 +117,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     ///网络请求
     [self addresslistPostRequst];//收货地址
     [self getPayAccessTokenUrl]; //支付获取token
+    [self getUserNotUseCouponListPostRequset];
 
     
 }
@@ -332,7 +335,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         case SureOrderCellTypePayTypeCell://支付方式
         {
             SureOrderCommonCell * payCell = [self.mytableView dequeueReusableCellWithIdentifier:@"SureOrderCommonCellid" forIndexPath:indexPath];
-            
+            [payCell.canUsedCouponNum setHidden:YES];
+
             payCell.lb_title.text       = @"支付类型";
             if ([_payType isEqualToString:@"1"]) {
                 payCell.lb_detailTitle.text = @"在线支付";
@@ -353,13 +357,15 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         case SureOrderCellTypeCouponCell://优惠券
         {
             SureOrderCommonCell * couponCell    = [self.mytableView dequeueReusableCellWithIdentifier:@"SureOrderCommonCellid" forIndexPath:indexPath];
+            couponCell.canUsedCouponNum =@"";
             couponCell.lb_title.text            = @"优惠券";
             couponCell.lb_detailTitle.textColor = HEXCOLOR(0xfe6d6a);
             if (_couponAmount == nil || [_couponAmount isEqualToString:@""]) {
-                couponCell.lb_detailTitle.text      = @"点击使用";
+                couponCell.lb_detailTitle.text      = @"";
+                
             }else{
-                couponCell.lb_detailTitle.text      =  [NSString stringWithFormat:@"已优惠%@元",_couponAmount];
-
+                couponCell.lb_detailTitle.text      =  [NSString stringWithFormat:@"- ¥%@",_couponAmount];
+                couponCell.lb_detailTitle.textColor = HEXCOLOR(0xfe6d6a);
             }
             return couponCell;
         }
@@ -607,6 +613,44 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
+}
+
+
+#pragma mark - 获取用户未使用优惠券列表   recomment/getUserNotUseCouponList
+-(void)getUserNotUseCouponListPostRequset{
+    NSDictionary * parma = @{
+                             @"status":@"1",
+                             @"idType":@"3",
+                             @"resultId":@"",
+                             @"goodsAmount":_goodsCount,//商品金额
+                             @"goodsId":_goodsIdAppding,
+                             @"storeId":_storeIdAppding,
+                             @"userId":BBUserDefault.cmUserId,
+                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
+                             @"pageSize":@"30",
+                             };
+ 
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserNotUseCouponList"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+            if (self.couponList.count > 0) {
+               
+                [self.couponList removeAllObjects];
+            }
+            CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
+            for (Couponlist * list in coupon.couponList) {
+                if ([list.validPeriod isEqualToString:@"1"]) {//有效期内
+                    [self.couponList addObject:list];
+                }
+            }
+        }
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        [self endRefresh];
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
     
 }
 
@@ -668,6 +712,14 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 
 
 #pragma mark - 懒加载
+-(NSMutableArray *)couponList
+{
+    if (!_couponList) {
+        _couponList = [NSMutableArray array];
+    }
+    return _couponList;
+}
+
 -(NSMutableArray *)storeAttachListArr
 {
     if (!_storeAttachListArr) {

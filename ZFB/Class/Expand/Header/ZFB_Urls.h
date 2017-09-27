@@ -23,7 +23,7 @@
 #define  aliOSS_baseUrl @"http://zavfb.oss-cn-shenzhen.aliyuncs.com/"
 
 #pragma mark ------------- 线上测试服务器--------------------
-////基类
+//基类
 #define  zfb_baseUrl @"https://app.api.zavfb.com/zfb/InterfaceServlet"
 //单聊
 #define  IMsingle_baseUrl @"https://app.api.zavfb.com/im/user"

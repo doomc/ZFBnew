@@ -86,8 +86,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     [[NTESSubscribeManager sharedManager] start];
     
 }
--(void)loginNIM
-{
+-(void)loginNIM{
     
     if (BBUserDefault.userPhoneNumber != nil && BBUserDefault.token !=nil) {
         

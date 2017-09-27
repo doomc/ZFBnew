@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZFSendSerViceViewController">
             <connections>
-                <outlet property="Home_btn" destination="dn9-ii-QwK" id="xgS-NU-jgA"/>
-                <outlet property="Order_btn" destination="9UR-LO-Z3u" id="O3j-Xz-kZN"/>
-                <outlet property="img_sendHome" destination="86g-CG-1MJ" id="Mna-t8-Noa"/>
-                <outlet property="img_sendOrder" destination="d4c-jQ-tHK" id="35d-lO-eJt"/>
-                <outlet property="lb_sendHomeTitle" destination="3FT-av-jFh" id="2Tw-qG-CSx"/>
-                <outlet property="lb_sendOrderTitle" destination="8yv-pw-fb5" id="Dlv-Fj-cws"/>
+                <outlet property="segmentControl" destination="HPF-l1-hob" id="MCM-wP-d5b"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -25,92 +20,27 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0h-kl-ZR6">
-                    <rect key="frame" x="187.5" y="618" width="186.5" height="49"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Order_normal.png" translatesAutoresizingMaskIntoConstraints="NO" id="d4c-jQ-tHK">
-                            <rect key="frame" x="82" y="5" width="24" height="24"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="24" id="ST8-dD-SNv"/>
-                                <constraint firstAttribute="height" constant="24" id="Wne-01-dAO"/>
-                            </constraints>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yv-pw-fb5">
-                            <rect key="frame" x="81" y="29" width="25" height="15"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UR-LO-Z3u">
-                            <rect key="frame" x="34" y="7.5" width="120" height="34"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="120" id="gvb-Bf-4Rq"/>
-                            </constraints>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HPF-l1-hob">
+                    <rect key="frame" x="0.0" y="618" width="375" height="50"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="8yv-pw-fb5" firstAttribute="top" secondItem="d4c-jQ-tHK" secondAttribute="bottom" id="56l-B9-4A2"/>
-                        <constraint firstItem="8yv-pw-fb5" firstAttribute="centerX" secondItem="d0h-kl-ZR6" secondAttribute="centerX" id="64a-pQ-MDL"/>
-                        <constraint firstItem="d4c-jQ-tHK" firstAttribute="top" secondItem="d0h-kl-ZR6" secondAttribute="top" constant="5" id="7Mp-2N-4Np"/>
-                        <constraint firstItem="9UR-LO-Z3u" firstAttribute="centerX" secondItem="d0h-kl-ZR6" secondAttribute="centerX" id="GbO-1l-IF8"/>
-                        <constraint firstItem="8yv-pw-fb5" firstAttribute="centerX" secondItem="d4c-jQ-tHK" secondAttribute="centerX" id="Mrl-3F-d6u"/>
-                        <constraint firstItem="d4c-jQ-tHK" firstAttribute="centerX" secondItem="d0h-kl-ZR6" secondAttribute="centerX" id="SKk-rb-HVr"/>
-                        <constraint firstAttribute="height" constant="49" id="dR0-y4-SNb"/>
-                        <constraint firstItem="9UR-LO-Z3u" firstAttribute="centerY" secondItem="d0h-kl-ZR6" secondAttribute="centerY" id="uLX-aa-9Ju"/>
+                        <constraint firstAttribute="height" constant="49" id="s9m-dw-ShP"/>
                     </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jdf-h2-Uxt">
-                    <rect key="frame" x="0.0" y="618" width="186.5" height="49"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_red.png" translatesAutoresizingMaskIntoConstraints="NO" id="86g-CG-1MJ">
-                            <rect key="frame" x="81.5" y="5" width="24" height="24"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="24" id="8Pp-tx-tEm"/>
-                                <constraint firstAttribute="width" constant="24" id="gCS-Jd-pHT"/>
-                            </constraints>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="首页" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FT-av-jFh">
-                            <rect key="frame" x="80.5" y="29" width="25" height="20"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dn9-ii-QwK">
-                            <rect key="frame" x="33" y="7.5" width="120" height="34"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="120" id="1FR-kN-896"/>
-                            </constraints>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstItem="dn9-ii-QwK" firstAttribute="centerY" secondItem="Jdf-h2-Uxt" secondAttribute="centerY" id="IMS-rO-mff"/>
-                        <constraint firstAttribute="bottom" secondItem="3FT-av-jFh" secondAttribute="bottom" id="LWq-8R-TkA"/>
-                        <constraint firstItem="3FT-av-jFh" firstAttribute="top" secondItem="86g-CG-1MJ" secondAttribute="bottom" id="P75-6X-IrL"/>
-                        <constraint firstItem="3FT-av-jFh" firstAttribute="centerX" secondItem="86g-CG-1MJ" secondAttribute="centerX" id="TvB-JK-Wtb"/>
-                        <constraint firstAttribute="height" constant="49" id="V3P-oY-Hh3"/>
-                        <constraint firstItem="86g-CG-1MJ" firstAttribute="top" secondItem="Jdf-h2-Uxt" secondAttribute="top" constant="5" id="ZxP-6r-wQC"/>
-                        <constraint firstItem="86g-CG-1MJ" firstAttribute="centerX" secondItem="Jdf-h2-Uxt" secondAttribute="centerX" id="nbQ-ul-i9d"/>
-                        <constraint firstItem="dn9-ii-QwK" firstAttribute="centerX" secondItem="Jdf-h2-Uxt" secondAttribute="centerX" id="qP1-ma-8G1"/>
-                    </constraints>
-                </view>
+                    <segments>
+                        <segment title="首页"/>
+                        <segment title="订单"/>
+                        <segment title="结算"/>
+                    </segments>
+                    <color key="tintColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </segmentedControl>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="d0h-kl-ZR6" firstAttribute="leading" secondItem="Jdf-h2-Uxt" secondAttribute="trailing" constant="1" id="2Ot-Kh-WMt"/>
-                <constraint firstItem="d0h-kl-ZR6" firstAttribute="height" secondItem="Jdf-h2-Uxt" secondAttribute="height" id="Bh6-5R-Eod"/>
-                <constraint firstItem="d0h-kl-ZR6" firstAttribute="width" secondItem="Jdf-h2-Uxt" secondAttribute="width" id="Jti-z0-m0m"/>
-                <constraint firstAttribute="bottom" secondItem="Jdf-h2-Uxt" secondAttribute="bottom" id="O5s-HX-07k"/>
-                <constraint firstAttribute="bottom" secondItem="d0h-kl-ZR6" secondAttribute="bottom" id="XkI-5z-V7N"/>
-                <constraint firstAttribute="trailing" secondItem="d0h-kl-ZR6" secondAttribute="trailing" constant="1" id="wif-Za-21A"/>
-                <constraint firstItem="Jdf-h2-Uxt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zW7-wQ-dVd"/>
+                <constraint firstAttribute="bottom" secondItem="HPF-l1-hob" secondAttribute="bottom" id="3BZ-M9-f5f"/>
+                <constraint firstAttribute="trailing" secondItem="HPF-l1-hob" secondAttribute="trailing" id="4MP-KC-xm0"/>
+                <constraint firstItem="HPF-l1-hob" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xHJ-as-qPZ"/>
             </constraints>
             <point key="canvasLocation" x="67.5" y="38.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="Order_normal.png" width="29" height="29"/>
-        <image name="home_red.png" width="29" height="29"/>
-    </resources>
 </document>

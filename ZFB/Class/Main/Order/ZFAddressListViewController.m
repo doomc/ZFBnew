@@ -257,8 +257,6 @@
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-    
-    
 }
 
  

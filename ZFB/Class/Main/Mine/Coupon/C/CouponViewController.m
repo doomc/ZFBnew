@@ -17,6 +17,7 @@
 
 //view
 #import "CouponTableView.h"
+#import "CouponFooterView.h"
 
 //model
 #import "CouponModel.h"
@@ -28,15 +29,17 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     SelectCouponTypeOverDate,//已过期
 };
 
-@interface CouponViewController ()<MTSegmentedControlDelegate,UITableViewDataSource,UITableViewDelegate,CouponTableViewDelegate>
+@interface CouponViewController ()<MTSegmentedControlDelegate,UITableViewDataSource,UITableViewDelegate,CouponTableViewDelegate,CouponFooterViewDelegate>
 
-@property (strong, nonatomic) MTSegmentedControl *segumentView;
+@property (strong, nonatomic) MTSegmentedControl * segumentView;
 @property (strong, nonatomic) UITableView        * tableView;
-@property (assign, nonatomic) SelectCouponType   couponType;
+@property (assign, nonatomic) SelectCouponType     couponType;
 @property (strong, nonatomic) CouponTableView    * popCouponView;
 @property (strong, nonatomic) UIView             * popCouponBackgroundView;//背景图
 @property (strong, nonatomic) UIButton           * edit_btn;
 @property (strong, nonatomic) NSMutableArray     * couponList;
+@property (strong, nonatomic) CouponFooterView   * couponFootView;
+
 @property (assign, nonatomic) BOOL  isEditing;//编辑状态
 
 @end
@@ -53,11 +56,20 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     self.zfb_tableView = self.tableView;
     [self.view addSubview:self.tableView];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"SectionCouponCell" bundle:nil] forCellReuseIdentifier:@"SectionCouponCellid"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"CouponCell" bundle:nil] forCellReuseIdentifier:@"CouponCellid"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"CouponUsedCell" bundle:nil] forCellReuseIdentifier:@"CouponUsedCellid"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SectionCouponCell" bundle:nil]
+         forCellReuseIdentifier:@"SectionCouponCellid"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CouponCell" bundle:nil]
+         forCellReuseIdentifier:@"CouponCellid"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CouponUsedCell" bundle:nil]
+         forCellReuseIdentifier:@"CouponUsedCellid"];
     [self.tableView registerNib:[UINib nibWithNibName:@"CouponOverDateCell" bundle:nil] forCellReuseIdentifier:@"CouponOverDateCellid"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"EditCouponCell" bundle:nil] forCellReuseIdentifier:@"EditCouponCellid"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"EditCouponCell" bundle:nil]
+         forCellReuseIdentifier:@"EditCouponCellid"];
+    
+    self.couponFootView = [[NSBundle mainBundle]loadNibNamed:@"CouponFooterView" owner:nil options:nil].lastObject;
+    self.couponFootView.frame = CGRectMake(0, KScreenW - 50, KScreenW, 50);
+    [self.view addSubview:self.couponFootView];
+    
     
     [self setupRefresh];
     //默认0 未领取  1 未使用  2 已使用 3 已失效

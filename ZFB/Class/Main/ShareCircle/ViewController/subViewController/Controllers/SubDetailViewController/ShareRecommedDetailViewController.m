@@ -106,6 +106,7 @@
             _recommentId = response[@"recommentInfo"][@"recommentId"];
             _adArray = response[@"recommentInfo"][@"goodsImgUrlList"];
             
+            [self addRecommentBrowsePostRequst];
             [self cycleViewInitWithimages:_adArray];
             [SVProgressHUD dismiss];
         }
@@ -145,6 +146,27 @@
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
+}
+
+#pragma mark - 添加浏览量 addRecommentBrowse
+-(void)addRecommentBrowsePostRequst
+{
+    NSDictionary * parma = @{
+                             
+                             @"recommentId":_shareGoodsId,//新品推荐id或共享id
+                             @"type":@"2",//1 是新品推荐  2共享
+                             
+                             
+                             };
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/recomment/addRecommentBrowse",zfb_baseUrl] params:parma success:^(id response) {
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        NSLog(@"error=====%@",error);
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

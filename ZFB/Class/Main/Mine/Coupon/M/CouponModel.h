@@ -51,5 +51,9 @@
 
 @property (nonatomic, copy) NSString *goodsIds;
 
+@property (nonatomic, copy) NSString *validPeriod;//1有效期内 ，2无效了
+
+
+
 @end
 
