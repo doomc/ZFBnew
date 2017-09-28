@@ -27,7 +27,9 @@
  */
 - (IBAction)didClickChooseAction:(id)sender {
     NSLog(@"点击全选");
-    
+    if ([self.delegate respondsToSelector:@selector(didClickSelectAll:)]) {
+        [self.delegate didClickSelectAll:sender];
+    }
 }
 
 
@@ -37,7 +39,12 @@
  @param sender cancel
  */
 - (IBAction)didClickCancleAction:(id)sender {
-
+    //点击取消选择
+    NSLog(@"点击取消选择----隐藏按钮");
+ 
+    if ([self.delegate respondsToSelector:@selector(didClickCancle)]) {
+        [self.delegate didClickCancle];
+    }
 }
 
 
@@ -47,7 +54,12 @@
  @param sender   deleteAll
  */
 - (IBAction)didClickAll:(id)sender {
-    
+    //删除
+    NSLog(@"点击删除");
+
+    if ([self.delegate respondsToSelector:@selector(didClickDeleteSelectCouponCell)]) {
+        [self.delegate didClickDeleteSelectCouponCell];
+    }
 }
 
 @end

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="372" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qMT-uu-rcu" id="qMH-c7-FUx">
-                <rect key="frame" x="0.0" y="0.0" width="372" height="100"/>
+                <rect key="frame" x="0.0" y="0.0" width="372" height="99.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="couponGray.png" translatesAutoresizingMaskIntoConstraints="NO" id="V0w-rS-1XK">
@@ -48,7 +48,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="活动时间：2017.5.12~2017.5.15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOR-ZS-kjb">
-                        <rect key="frame" x="179.5" y="69.5" width="172.5" height="15"/>
+                        <rect key="frame" x="178.5" y="69.5" width="173.5" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -79,6 +79,9 @@
                         </constraints>
                         <state key="normal" image="select_normal.png"/>
                         <state key="selected" image="select_red.png"/>
+                        <connections>
+                            <action selector="didClickChoosSingleCoupon:" destination="qMT-uu-rcu" eventType="touchUpInside" id="zNS-8h-5GP"/>
+                        </connections>
                     </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -115,6 +118,7 @@
                 <outlet property="lb_activeTime" destination="NOR-ZS-kjb" id="i9T-8J-eRa"/>
                 <outlet property="lb_conditionOfprice" destination="8at-ch-Mzm" id="bE0-lP-xOD"/>
                 <outlet property="lb_ticketMaxPrice" destination="qvl-gR-dhD" id="M1n-dn-p4Z"/>
+                <outlet property="select_btn" destination="aHp-8m-2HM" id="MJj-n7-5Rg"/>
             </connections>
             <point key="canvasLocation" x="-195" y="19"/>
         </tableViewCell>

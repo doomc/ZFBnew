@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "CouponModel.h"
+@class CouponUsedCell;
+@protocol CouponUsedCellDelegate <NSObject>
 
+-(void)didUnsedCouponCell:(CouponUsedCell *)cell;
+
+@end
 @interface CouponUsedCell : UITableViewCell
+
+@property (assign ,nonatomic) id < CouponUsedCellDelegate> unUsedDelegate;
+
+@property (weak, nonatomic) IBOutlet UIButton *select_btn;
 
 /** 优惠最大价格  */
 @property (weak, nonatomic) IBOutlet UILabel *lb_ticketMaxPrice;

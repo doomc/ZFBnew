@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "CouponModel.h"
+@class CouponOverDateCell;
+
+@protocol CouponOverDateCellDelegate <NSObject>
+
+-(void)didCouponOverDateCell:(CouponOverDateCell *)cell;
+
+@end
 @interface CouponOverDateCell : UITableViewCell
+
+@property (assign ,nonatomic) id < CouponOverDateCellDelegate> overDelegate;
 
 /** 优惠最大价格  */
 @property (weak, nonatomic) IBOutlet UILabel *lb_ticketMaxPrice;
@@ -32,6 +41,8 @@
 /** 判断 优惠券状态 是否过期  */
 @property (weak, nonatomic) IBOutlet UIImageView *img_CouponStutus;
 
+
+@property (weak, nonatomic) IBOutlet UIButton *select_btn;
 
 /**
  左间距ContentView

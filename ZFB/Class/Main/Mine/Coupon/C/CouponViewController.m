@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     SelectCouponTypeOverDate,//已过期
 };
 
-@interface CouponViewController ()<MTSegmentedControlDelegate,UITableViewDataSource,UITableViewDelegate,CouponTableViewDelegate,CouponFooterViewDelegate>
+@interface CouponViewController ()<MTSegmentedControlDelegate,UITableViewDataSource,UITableViewDelegate,CouponTableViewDelegate,CouponFooterViewDelegate,CouponCellDelegate,CouponUsedCellDelegate,CouponOverDateCellDelegate>
 
 @property (strong, nonatomic) MTSegmentedControl * segumentView;
 @property (strong, nonatomic) UITableView        * tableView;
@@ -41,8 +41,9 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 @property (strong, nonatomic) NSMutableArray     * unUsedCouponList;//未使用的优惠券列表
 
 @property (strong, nonatomic) CouponFooterView   * couponFootView;
-
 @property (assign, nonatomic) BOOL  isEditing;//编辑状态
+@property (strong, nonatomic) NSString    * couponIdAppdding;
+
 
 @end
 
@@ -68,10 +69,8 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     [self.tableView registerNib:[UINib nibWithNibName:@"EditCouponCell" bundle:nil]
          forCellReuseIdentifier:@"EditCouponCellid"];
     
-    [self.view addSubview:self.couponFootView];
-    
     [self setupRefresh];
-    
+
     //默认0 未领取  1 未使用  2 已使用 3 已失效
     [self recommentPostRequst:@"1"];
     
@@ -125,8 +124,8 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 -(CouponFooterView *)couponFootView
 {
     if (!_couponFootView) {
-        
         _couponFootView = [[CouponFooterView alloc ]initWithCouponFooterViewFrame:CGRectMake(0, KScreenH -50, KScreenW, 50)];
+        _couponFootView.delegate  = self;
     }
     return _couponFootView;
 }
@@ -321,6 +320,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 }
                 
                 CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
+                couponCell.couponDelegate = self;
                 Couponlist * list       = self.unUsedCouponList[indexPath.row];
                 couponCell.buttonWidthConstraint.constant = 0;
                 couponCell.couponlist   = list;
@@ -331,6 +331,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
             case SelectCouponTypeUsed:{
                 
                 CouponUsedCell * cell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponUsedCellid" forIndexPath:indexPath];
+                
                 Couponlist * list     = self.unUsedCouponList[indexPath.row];
                 cell.buttonWidthConstrainWidth.constant = 0;
 
@@ -362,10 +363,11 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 }
                 
                 CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
+                couponCell.couponDelegate = self;
                 Couponlist * list       = self.unUsedCouponList[indexPath.row];
                 couponCell.buttonWidthConstraint.constant = 30;
                 couponCell.couponlist   = list;
-                
+
                 return couponCell;
             }
                 break;
@@ -374,7 +376,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 CouponUsedCell * cell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponUsedCellid" forIndexPath:indexPath];
                 Couponlist * list     = self.unUsedCouponList[indexPath.row];
                 cell.buttonWidthConstrainWidth.constant = 30;
-
+                cell.unUsedDelegate = self;
                 cell.couponlist       = list;
                 return cell;
             }
@@ -385,6 +387,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 Couponlist * list               = self.unUsedCouponList[indexPath.row];
                 couponCell.buttonWidthConstrainWidth.constant = 30;
                 couponCell.couponlist           = list;
+                couponCell.overDelegate = self;
                 return couponCell;
             }
                 break;
@@ -441,37 +444,6 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     [self.view endEditing:YES];
     [self.popCouponBackgroundView removeFromSuperview];
     
-}
-#pragma mark -  点击编辑
--(void)right_button_event:(UIButton*)sender{
-    
-    _edit_btn = sender;
-    _edit_btn.selected = !_edit_btn.selected;
-    
-    if (_edit_btn.selected == YES) {
-        [_edit_btn setTitle:@"完成" forState:UIControlStateNormal];
-        _isEditing = YES;
-        
-        [self.view addSubview:self.couponFootView];
-        [self.tableView reloadData];
-        NSLog(@"点击编辑");
-    }else{
-        sender.selected =NO;
-        _isEditing = NO;
-        [_edit_btn setTitle:@"编辑" forState:UIControlStateNormal];
-        
-        if (self.couponFootView.superview) {
-            [self.couponFootView removeFromSuperview];
-        }
-        [self.tableView reloadData];
-        NSLog(@"点击完成");
-        
-    }
-}
-
--(void)dealloc
-{
-    self.popCouponView = nil;
 }
 
 
@@ -603,26 +575,51 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     
 }
 
+#pragma mark -  点击编辑
+-(void)right_button_event:(UIButton*)sender{
+    
+    _edit_btn = sender;
+    _edit_btn.selected = !_edit_btn.selected;
+    
+    if (_edit_btn.selected == YES) {
+        _isEditing = YES;
+        [_edit_btn setTitle:@"完成" forState:UIControlStateNormal];
+        [self.view addSubview:self.couponFootView];
+        [self.tableView reloadData];
+        NSLog(@"点击编辑");
+    }else{
+        sender.selected =NO;
+        _isEditing = NO;
+        [_edit_btn setTitle:@"编辑" forState:UIControlStateNormal];
+        
+        if (self.couponFootView.superview) {
+            [self.couponFootView removeFromSuperview];
+        }
+        [self.tableView reloadData];
+        NSLog(@"点击完成");
+        
+    }
+}
 #pragma mark - 点击删除的方法 (暂时没有处理，删除事件没有写好)
 -(void)didClickDeleteCoupon
 {
     switch (_couponType) {
         case SelectCouponTypeDefault://未使用
          
-            [self deleteCouponesPostRequstCouponId:@"" Andstatus:@"1"];
+            [self deleteCouponesPostRequstCouponId:_couponIdAppdding Andstatus:@"1"];
             [self.tableView reloadData];
           
             break;
         case SelectCouponTypeUsed://已使用
          
-            [self deleteCouponesPostRequstCouponId:@"" Andstatus:@"2"];
+            [self deleteCouponesPostRequstCouponId:_couponIdAppdding Andstatus:@"2"];
 
             [self.tableView reloadData];
             
             break;
         case SelectCouponTypeOverDate://已过期
 
-            [self deleteCouponesPostRequstCouponId:@"" Andstatus:@"3"];
+            [self deleteCouponesPostRequstCouponId:_couponIdAppdding Andstatus:@"3"];
 
             [self.tableView reloadData];
             
@@ -632,8 +629,134 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     }
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+#pragma mark-  CouponFooterViewDelegate - 优惠券foot代理
+//取消删除-取消编辑状态
+-(void)didClickCancle
+{
+    for (Couponlist * lists in self.unUsedCouponList) {
     
+        lists.isChoosedCoupon = NO;
+    }
+    self.couponFootView.selectBtn.selected = NO;
+    
+}
+///批量删除
+-(void)didClickDeleteSelectCouponCell
+{
+    JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"确认删除？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+       
+        [self didClickDeleteCoupon];
+    }];
+    
+    [alertVC addAction:cancel];
+    [alertVC addAction:sure];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+///全选
+-(void)didClickSelectAll:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    NSMutableArray * chooseArray = [NSMutableArray array];
+    for (Couponlist * list in self.unUsedCouponList) {
+        list.isChoosedCoupon = sender.selected;
+        //如果为选中
+        if (list.isChoosedCoupon) {
+        
+            [chooseArray addObject:[NSString stringWithFormat:@"%ld",list.couponId]];
+        }
+    }
+    _couponIdAppdding = [chooseArray componentsJoinedByString:@","];
+    NSLog(@"选中全部的 id --- %@",_couponIdAppdding);
+    [self.tableView reloadData];
+    self.couponFootView.selectBtn.selected = [self isAllChoosed];
+
+}
+#pragma mark - <CouponCellDelegate>未使用 选择单个优惠券代理
+-(void)selectCouponCell:(CouponCell *)couponCell;
+{
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:couponCell];
+    NSLog(@"%@ --- couponCell",indexPath);
+    Couponlist * list     = self.unUsedCouponList[indexPath.row];
+    list.isChoosedCoupon = !list.isChoosedCoupon;
+    
+    NSMutableArray * couponIdArray = [NSMutableArray array];
+    for (Couponlist * lists in self.unUsedCouponList) {
+        if (lists.isChoosedCoupon) {
+            NSString *couponId = [NSString stringWithFormat:@"%ld",lists.couponId];
+            [couponIdArray addObject:couponId];
+        }
+    }
+    _couponIdAppdding = [couponIdArray componentsJoinedByString:@","];
+    NSLog(@"选中之后的操作 -- %@",_couponIdAppdding);
+    [self.tableView reloadData];
+    self.couponFootView.selectBtn.selected = [self isAllChoosed];
+    
+}
+#pragma mark - CouponUsedCellDelegate 已使用优惠券的代理
+-(void)didUnsedCouponCell:(CouponUsedCell *)cell
+{
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    Couponlist * list     = self.unUsedCouponList[indexPath.row];
+    list.isChoosedCoupon = !list.isChoosedCoupon;
+    NSMutableArray * couponIdArray = [NSMutableArray array];
+    for (Couponlist * lists in self.unUsedCouponList) {
+        if (lists.isChoosedCoupon) {
+            NSString *couponId = [NSString stringWithFormat:@"%ld",lists.couponId];
+            [couponIdArray addObject:couponId];
+        }
+    }
+    _couponIdAppdding = [couponIdArray componentsJoinedByString:@","];
+    NSLog(@"选中之后的操作 -- %@",_couponIdAppdding);
+    [self.tableView reloadData];
+    self.couponFootView.selectBtn.selected = [self isAllChoosed];
+}
+#pragma mark - CouponOverDateCellDelegate 已过期优惠券的代理
+-(void)didCouponOverDateCell:(CouponOverDateCell *)cell
+{
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    Couponlist * list     = self.unUsedCouponList[indexPath.row];
+    list.isChoosedCoupon = !list.isChoosedCoupon;
+    NSMutableArray * couponIdArray = [NSMutableArray array];
+    for (Couponlist * lists in self.unUsedCouponList) {
+        if (lists.isChoosedCoupon) {
+            NSString *couponId = [NSString stringWithFormat:@"%ld",lists.couponId];
+            [couponIdArray addObject:couponId];
+        }
+    }
+    _couponIdAppdding = [couponIdArray componentsJoinedByString:@","];
+    NSLog(@"选中之后的操作 -- %@",_couponIdAppdding);
+    [self.tableView reloadData];
+    self.couponFootView.selectBtn.selected = [self isAllChoosed];
+}
+#pragma mark - footiew 判断是否全部选中了
+- (BOOL)isAllChoosed
+{
+    if ([self isEmptyArray:self.unUsedCouponList] ) {
+        return NO;
+    }
+    
+    NSInteger count = 0;
+    for (Couponlist * list in self.unUsedCouponList) {
+        
+        if (list.isChoosedCoupon) {
+            count ++;
+        }
+    }
+    return (count == self.unUsedCouponList.count);
+}
+
+
+-(void)dealloc
+{
+    self.popCouponView = nil;
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
     [SVProgressHUD dismiss];
     
 }

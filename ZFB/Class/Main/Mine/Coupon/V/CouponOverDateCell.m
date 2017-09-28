@@ -16,7 +16,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     
-    _buttonWidthConstrainWidth.constant = 0;
+ 
 
 }
 
@@ -40,6 +40,7 @@
     NSString * mutTiem = [NSString stringWithFormat:@"活动时间:%@~%@",startTime,endTime] ;
     _lb_activeTime.text  =  mutTiem;
     
+    self.select_btn.selected = couponlist.isChoosedCoupon;
     //serviceType- 优惠券服务类型  1.满减券 2.运费券
     if (couponlist.serviceType == 1) {
         
@@ -126,6 +127,11 @@
 
 }
 
+- (IBAction)didClickOverTime:(UIButton*)sender {
+
+    sender.selected = !sender.selected;
+    
+}
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

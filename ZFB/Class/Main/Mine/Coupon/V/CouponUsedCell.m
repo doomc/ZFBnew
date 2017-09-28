@@ -39,6 +39,7 @@
     NSString * mutTiem = [NSString stringWithFormat:@"活动时间:%@~%@",startTime,endTime] ;
     _lb_activeTime.text  =  mutTiem;
     
+    self.select_btn.selected = couponlist.isChoosedCoupon;
     //serviceType- 优惠券服务类型  1.满减券 2.运费券
     if (couponlist.serviceType == 1) {
         
@@ -123,6 +124,16 @@
 
 }
 
+
+//点击选择
+- (IBAction)didClickChoosSingleCoupon:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    if ([self.unUsedDelegate respondsToSelector:@selector(didUnsedCouponCell:)]) {
+        
+        [self.unUsedDelegate didUnsedCouponCell:self ];
+    }
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

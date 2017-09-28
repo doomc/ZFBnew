@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CouponModel.h"
+@class CouponCell;
 @protocol CouponCellDelegate <NSObject>
 @optional
 /**
@@ -16,6 +17,14 @@
  @param indexRow 当前下标
  */
 -(void)didClickGetCouponWithIndexRow :(NSInteger)indexRow AndCouponId:(NSString *)couponId;
+
+/**
+ 选择的哪个cell
+
+ @param couponCell 当前cell
+ */
+-(void)selectCouponCell:(CouponCell *)couponCell;
+
 
 
 @end
@@ -51,6 +60,7 @@
   选择按钮的宽度
  */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonWidthConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *select_btn;
 
 //当前下标
 @property (assign , nonatomic) NSInteger indexRow;

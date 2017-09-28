@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Km8-dn-bfg" id="OvB-UO-Ws1">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="couponGray.png" translatesAutoresizingMaskIntoConstraints="NO" id="dnV-Tx-RoQ">
@@ -42,7 +42,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="活动时间：2017.5.12~2017.5.15" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WkL-Pj-k5O">
-                        <rect key="frame" x="127.5" y="69.5" width="172.5" height="15"/>
+                        <rect key="frame" x="126.5" y="69.5" width="173.5" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -70,6 +70,9 @@
                         </constraints>
                         <state key="normal" image="select_normal.png"/>
                         <state key="selected" image="select_red.png"/>
+                        <connections>
+                            <action selector="didClickOverTime:" destination="Km8-dn-bfg" eventType="touchUpInside" id="ZzN-kf-2cq"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PHy-6A-LgG">
                         <rect key="frame" x="50" y="33.5" width="17" height="33.5"/>
@@ -111,6 +114,7 @@
                 <outlet property="lb_activeTime" destination="WkL-Pj-k5O" id="JqY-tp-0dY"/>
                 <outlet property="lb_conditionOfprice" destination="Aqx-Sv-T40" id="22A-QK-eqY"/>
                 <outlet property="lb_ticketMaxPrice" destination="9wf-mg-xxb" id="ujX-Wt-gGs"/>
+                <outlet property="select_btn" destination="tf5-De-Tdl" id="acq-4o-453"/>
             </connections>
             <point key="canvasLocation" x="-304" y="-64"/>
         </tableViewCell>

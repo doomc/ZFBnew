@@ -7,21 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @protocol CouponFooterViewDelegate <NSObject>
 
  ///取消删除-取消编辑状态
--(void)didClickCancleEditStatus;
+-(void)didClickCancle;
 
  ///批量删除
--(void)didClickDeleteMoreData;
+-(void)didClickDeleteSelectCouponCell;
 
  ///全选
--(void)didClickSelectAll;
+-(void)didClickSelectAll:(UIButton *)sender;
 
 @end
 @interface CouponFooterView : UIView
 
 -(instancetype)initWithCouponFooterViewFrame:(CGRect)frame;
+
+@property (nonatomic , assign) id <CouponFooterViewDelegate> delegate;
 
 //取消操作
 @property (weak, nonatomic) IBOutlet UIButton *cancelEdit;
