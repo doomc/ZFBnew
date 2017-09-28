@@ -1853,7 +1853,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGFloat sectionHeaderHeight = 50;
-    CGFloat sectionFooterHeight = 0;
+    CGFloat sectionFooterHeight = 50;
     CGFloat offsetY = scrollView.contentOffset.y;
     if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
     {

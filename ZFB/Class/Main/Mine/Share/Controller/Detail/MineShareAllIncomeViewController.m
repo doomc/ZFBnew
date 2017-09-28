@@ -33,19 +33,19 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"MineShareIncomeCell" bundle:nil] forCellReuseIdentifier:@"MineShareIncomeCellid"];
     
     [self setupRefresh];
-    [self allOrderListGoodsPost];
+    [self allOrderListGoodsPostAthistory:@"0"];
 }
 
 -(void)footerRefresh
 {
     [super footerRefresh];
-    [self allOrderListGoodsPost];
+    [self allOrderListGoodsPostAthistory:@"0"];
 
 }
 -(void)headerRefresh
 {
     [super headerRefresh];
-    [self allOrderListGoodsPost];
+    [self allOrderListGoodsPostAthistory:@"0"];
 
 }
 -(NSMutableArray *)orderList{
@@ -119,9 +119,10 @@
 }
 
 #pragma mark  - 我的共享列表    myShare/allShareOrderList
--(void)allOrderListGoodsPost
+-(void)allOrderListGoodsPostAthistory:(NSString *)history
 {
     NSDictionary * parma = @{
+                             @"history":history,//0.全部 1.一个月前 2.一月前到三个月前 3.三个月前到六个月前 4.六个月前到一年前 5一年以前
                              @"userId":BBUserDefault.cmUserId,
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"pageSize":[NSNumber numberWithInteger:kPageCount],
@@ -175,7 +176,6 @@
 #pragma mark - WeChatStylePlaceHolderDelegate Method
 - (void)emptyOverlayClicked:(id)sender {
     
-    [self allOrderListGoodsPost];
     
 }
 

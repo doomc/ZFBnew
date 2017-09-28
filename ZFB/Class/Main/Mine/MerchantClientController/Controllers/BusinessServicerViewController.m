@@ -80,7 +80,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     NSString *latitudestr;//经度
     NSString *longitudestr;//纬度
     
-    NSInteger _currentSection;    
+    NSInteger _currentSection;
 }
 @property (nonatomic,strong) CLLocationManager * locationManager;
 
@@ -92,21 +92,23 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 @property (weak, nonatomic) IBOutlet UILabel *lb_sendHomeTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lb_sendOrderTitle;
 
-@property (nonatomic,strong) UIButton *  navbar_btn;//导航页选择器
-@property (nonatomic,strong) UIView   *  titleView;
-@property (nonatomic,strong) UIView   *  bgview;//蒙板1
+@property (nonatomic,strong) UIButton  *  navbar_btn;//导航页选择器
+@property (nonatomic,strong) UIView    *  bgview;//蒙板1
+@property (nonatomic,strong) UIView    *  titleView ;
+@property (nonatomic,strong) UILabel   *  navTitle  ;
+
 
 @property (nonatomic ,strong) BusinessServicPopView * popView;
 @property (nonatomic ,strong) NSArray               * titles;//pop数据源
 @property (nonatomic ,assign) BusinessServicType    servicType;//传一个type
-@property (nonatomic ,assign) SelectType    selectPageType;//选择类型
+@property (nonatomic ,assign) SelectType            selectPageType;//选择类型
 
 @property (nonatomic ,strong) BusinessSendOrderView * sendOrderPopView;
 @property (nonatomic ,strong) UIView                *  orderBgview;//蒙板2
 
 @property (nonatomic ,strong) NSMutableArray *  orderListArray ;//订单列表
-@property (nonatomic ,strong) NSMutableArray *  deliveryArray   ;//配送员列表
-@property (nonatomic ,strong) NSMutableArray *  progressArray   ;//待确认退回的数据
+@property (nonatomic ,strong) NSMutableArray *  deliveryArray    ;//配送员列表
+@property (nonatomic ,strong) NSMutableArray *  progressArray    ;//待确认退回的数据
 @property (nonatomic ,strong) NSMutableArray *  caculaterArray   ;//结算
 
 
@@ -159,21 +161,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [self setupRefresh];
     
 }
-
-////返回没处理
-//-(void)backAction{
-//    switch (_selectPageType ) {
-//        case SelectTypeHomePage:
-//            
-//            break;
-//        case SelectTypeOrderPage:
-//        
-//            break;
-//        case SelectTypeCaculater:
-//
-//            break;
-//    }
-//}
+ 
 #pragma mark -数据请求
 -(void)headerRefresh {
     
@@ -222,13 +210,13 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     break;
                     
             }
-
+            
             break;
         case SelectTypeCaculater:
             [self caculaterListPostRequset];
-
+            
             break;
- 
+            
     }
     
 }
@@ -276,7 +264,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     break;
                     
             }
-
+            
             break;
         case SelectTypeCaculater:
             [self caculaterListPostRequset];
@@ -285,7 +273,41 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     }
     
 }
+-(UIView *)titleView
+{
+    if (!_titleView) {
+        _titleView = [[UIView alloc]initWithFrame:self.navbar_btn.frame];
+        [_titleView addSubview:self.navTitle];
+    }
+    return _titleView;
+}
+-(UILabel *)navTitle
+{
+    if (!_navTitle) {
+        
+        _navTitle               = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 30)];
+        _navTitle.font =[UIFont systemFontOfSize:14];
+        _navTitle.textColor     = HEXCOLOR(0xfe6d6a);
+        _navTitle.textAlignment = NSTextAlignmentCenter;
+    }
+    return _navTitle;
+}
 
+//自定义导航按钮选择定订单
+-(UIButton *)navbar_btn
+{
+    if (!_navbar_btn) {
+        _navbar_btn       = [UIButton buttonWithType:UIButtonTypeCustom];
+        _navbar_btn.frame = CGRectMake(0, 0, 120, 30);
+        [_navbar_btn setImage:[UIImage imageNamed:@"Order_down"] forState:UIControlStateNormal];
+        _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_navbar_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
+        [_navbar_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 80, 0, 0)];
+        [_navbar_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0,30)];
+        [_navbar_btn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _navbar_btn;
+}
 -(UITableView *)homeTableView
 {
     if (!_homeTableView ) {
@@ -376,22 +398,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     }
     return _deliveryArray;
 }
-//自定义导航按钮选择定订单
--(UIButton *)navbar_btn
-{
-    if (!_navbar_btn) {
-        _navbar_btn       = [UIButton buttonWithType:UIButtonTypeCustom];
-        _navbar_btn.frame = CGRectMake(_titleView.centerX+40 , _titleView.centerY, 120, 24);
-        [_navbar_btn setImage:[UIImage imageNamed:@"Order_down"] forState:UIControlStateNormal];
-        _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_navbar_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
-        [_navbar_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 80, 0, 0)];
-        [_navbar_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -10, 0,30)];
-        [_navbar_btn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.titleView = _navbar_btn;
-    }
-    return _navbar_btn;
-}
+
 /**
  正选反选
  @param btn 切换
@@ -400,34 +407,33 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 {
     [self.view addSubview:self.bgview];;
 }
+
 #pragma mark - 页面切换
 -(void)segmentSetting
 {
     self.segementPage.selectedSegmentIndex = 0;
     [self.segementPage addTarget:self action:@selector(SegmentchangePage:) forControlEvents:UIControlEventValueChanged];
     self.segementPage.layer.masksToBounds = YES;
-    self.segementPage.layer.borderWidth = 1.0;
-    self.segementPage.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
-    UIFont *font = [UIFont boldSystemFontOfSize:14.0f];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
+    self.segementPage.layer.borderWidth   = 1.0;
+    self.segementPage.layer.borderColor   = HEXCOLOR(0xffcccc).CGColor;
+    UIFont *font                          = [UIFont boldSystemFontOfSize:14.0f];
+    NSDictionary *attributes              = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
     [self.segementPage setTitleTextAttributes:attributes forState:UIControlStateNormal];
 }
 -(void)SegmentchangePage:(UISegmentedControl*)segmentPage
 {
     NSInteger selectIndex = segmentPage.selectedSegmentIndex;
-    _selectPageType = selectIndex;
+    _selectPageType       = selectIndex;
     NSLog(@" idex === %ld",selectIndex);
     switch (_selectPageType) {
         case SelectTypeHomePage:
             NSLog(@"点击首页");
         {
-//            UILabel * atitle              = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)] ;
-//            atitle.text                   = @"商户端";
-//            atitle.font =[UIFont systemFontOfSize:15];
-//            atitle.textAlignment          = NSTextAlignmentCenter;
-//            atitle.textColor              = HEXCOLOR(0xfe6d6a);
-//            self.navigationItem.titleView = atitle;
+            self.navTitle.text  = @"商户送端";
+            self.navigationItem.titleView = _titleView;
             self.navbar_btn.hidden = YES;
+            self.navTitle.hidden = NO;
+            
             [self.homeTableView reloadData];
         }
             break;
@@ -435,8 +441,16 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeOrderPage:
             NSLog(@"点击订单");
             
-        {    self.navbar_btn.hidden = NO;
+        {
+            
+            
+            self.navbar_btn.hidden = NO;
+            self.navTitle.hidden = YES;
+            
             [self.navbar_btn setTitle:@"待派单" forState:UIControlStateNormal];
+            [self.titleView addSubview:self.navbar_btn];
+            self.navigationItem.titleView = _titleView;
+
             [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"  storeId:_storeId];
             [self.homeTableView reloadData];
         }
@@ -444,12 +458,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeCaculater:
             
         {
-//            UILabel * atitle              = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)] ;
-//            atitle.text = @"商户端";
-//            atitle.font = [UIFont systemFontOfSize:15];
-//            atitle.textAlignment          = NSTextAlignmentCenter;
-//            atitle.textColor              = HEXCOLOR(0xfe6d6a);
-//            self.navigationItem.titleView = atitle;
+            self.navTitle.text  = @"结算列表";
+            self.navigationItem.titleView = _titleView;
+            self.navbar_btn.hidden = YES;
+            self.navTitle.hidden = NO;
+            
             self.navbar_btn.hidden = YES;
             [self caculaterListPostRequset];
             [self.homeTableView reloadData];
@@ -544,7 +557,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
         case SelectTypeCaculater:
             
-            sectionNum =  1;
+            sectionNum = 1;
             
             break;
     }
@@ -571,24 +584,24 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             }
             switch (_servicType) {
                 case BusinessServicTypeWaitSendlist://待派单
-                    sectionRow =  goodsArr.count;
+                    sectionRow = goodsArr.count;
                     
                     break;
                 case BusinessServicTypeSending://配送中
-                    sectionRow =  goodsArr.count;
+                    sectionRow = goodsArr.count;
                     
                     break;
                 case BusinessServicTypeWaitPay://待付款
-                    sectionRow =  goodsArr.count;
+                    sectionRow = goodsArr.count;
                     
                     break;
                 case BusinessServicTypeDealComplete://交易完成
-                    sectionRow =  goodsArr.count;
+                    sectionRow = goodsArr.count;
                     
                     break;
                 case BusinessServicTypeSureReturn://待确认退回
                     
-                    sectionRow =  self.progressArray.count;
+                    sectionRow = self.progressArray.count;
                     
                     break;
                 case BusinessServicTypeSended://已配送
@@ -956,16 +969,16 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     break;
             }
-
+            
             break;
         case SelectTypeCaculater:
             
             height = 0;
-
+            
             break;
- 
+            
     }
- 
+    
     return height;
     
 }
@@ -1134,10 +1147,10 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 {
                     ZFCheckTheProgressCell *checkCell = [self.zfb_tableView dequeueReusableCellWithIdentifier:@"ZFCheckTheProgressCell" forIndexPath:indexPath];
                     List * progress                   = self.progressArray[indexPath.row];
-                    checkCell.deldegate      = self;
+                    checkCell.deldegate               = self;
                     [checkCell.checkProgress_btn  setTitle:@"确认退回" forState:UIControlStateNormal];
-                    checkCell.progressList   = progress;
-                    checkCell.indexpath      = indexPath.row;
+                    checkCell.progressList = progress;
+                    checkCell.indexpath    = indexPath.row;
                     return  checkCell;
                     
                     
@@ -1160,20 +1173,20 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 }
                     
                     break;
-        }
+            }
             break;
-
+            
         case SelectTypeCaculater:
         {
             BusinessSendAccountCell * accountCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"BusinessSendAccountCell" forIndexPath:indexPath];
-            Settlementlist * list  = self.caculaterArray[indexPath.row];
-            accountCell.cacuList = list;
+            Settlementlist * list                 = self.caculaterArray[indexPath.row];
+            accountCell.cacuList                  = list;
             return  accountCell;
         }
             break;
-
+            
     }
- 
+    
 }
 
 #pragma mark - didSelectRowAtIndexPath
@@ -1188,13 +1201,13 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 
                 [self orderPageAction:self];
             }
-
+            
             break;
         case SelectTypeOrderPage:
         {
             BusinessOrderlist * storelist          = self.orderListArray[indexPath.section];
             ZFDetailOrderViewController * detailVC = [ZFDetailOrderViewController new];
-            NSMutableArray * goodArray    = [NSMutableArray array];
+            NSMutableArray * goodArray             = [NSMutableArray array];
             for (BusinessOrdergoods * goods in storelist.orderGoods) {
                 [goodArray  addObject:goods];
             }
@@ -1204,18 +1217,18 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 case BusinessServicTypeWaitSendlist://待派单
                 {
                     detailVC.cmOrderid = goods.order_id;
-                    detailVC.goodsId = goods.goodsId;
-                    detailVC.storeId = storelist.storeId;
-                    detailVC.imageUrl = goods.coverImgUrl;
+                    detailVC.goodsId   = goods.goodsId;
+                    detailVC.storeId   = storelist.storeId;
+                    detailVC.imageUrl  = goods.coverImgUrl;
                     [self.navigationController pushViewController:detailVC animated:NO];
                     
                 }
                     break;
                 case BusinessServicTypeSending://配送中
                     detailVC.cmOrderid = goods.order_id;
-                    detailVC.goodsId = goods.goodsId;
-                    detailVC.storeId = storelist.storeId;
-                    detailVC.imageUrl = goods.coverImgUrl;
+                    detailVC.goodsId   = goods.goodsId;
+                    detailVC.storeId   = storelist.storeId;
+                    detailVC.imageUrl  = goods.coverImgUrl;
                     [self.navigationController pushViewController:detailVC animated:NO];
                     
                     break;
@@ -1223,18 +1236,18 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 {
                     //待派单跳转到详情
                     detailVC.cmOrderid = goods.order_id;
-                    detailVC.goodsId = goods.goodsId;
-                    detailVC.storeId = storelist.storeId;
-                    detailVC.imageUrl = goods.coverImgUrl;
+                    detailVC.goodsId   = goods.goodsId;
+                    detailVC.storeId   = storelist.storeId;
+                    detailVC.imageUrl  = goods.coverImgUrl;
                     [self.navigationController pushViewController:detailVC animated:NO];
                 }
                     
                     break;
                 case BusinessServicTypeDealComplete://交易完成
                     detailVC.cmOrderid = goods.order_id;
-                    detailVC.goodsId = goods.goodsId;
-                    detailVC.storeId = storelist.storeId;
-                    detailVC.imageUrl = goods.coverImgUrl;
+                    detailVC.goodsId   = goods.goodsId;
+                    detailVC.storeId   = storelist.storeId;
+                    detailVC.imageUrl  = goods.coverImgUrl;
                     [self.navigationController pushViewController:detailVC animated:NO];
                     
                     break;
@@ -1244,22 +1257,22 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     break;
                 case BusinessServicTypeSended://已配送
                     detailVC.cmOrderid = goods.order_id;
-                    detailVC.goodsId = goods.goodsId;
-                    detailVC.storeId = storelist.storeId;
-                    detailVC.imageUrl = goods.coverImgUrl;
+                    detailVC.goodsId   = goods.goodsId;
+                    detailVC.storeId   = storelist.storeId;
+                    detailVC.imageUrl  = goods.coverImgUrl;
                     [self.navigationController pushViewController:detailVC animated:NO];
                     
                     break;
             }
-
+            
         }
             break;
         case SelectTypeCaculater:
             
             break;
- 
+            
     }
- 
+    
 }
 
 
@@ -1321,7 +1334,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     break;
             }
-
+            
             break;
         case SelectTypeCaculater:
             
@@ -1386,7 +1399,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             
             break;
     }
-
+    
     
     
 }
@@ -1395,7 +1408,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 /** * 确认退货代理 */
 -(void)progressWithCheckoutIndexPath:(NSInteger)indexpath
 {
-    List * progress                   = self.progressArray[indexpath];
+    List * progress              = self.progressArray[indexpath];
     JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"是否确认退货？" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction * cancle =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -1413,16 +1426,16 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [self presentViewController:alertvc animated:NO completion:^{
         
     }];
-
-
+    
+    
     
 }
 #pragma mark - ZFFooterCellDelegate  payfor_button 派单代理
 ///派单列表添加   自定义tableview
 -(void)sendOrdersActionOrderId:(NSString*)orderId totalPrice:(NSString *)totalPrice  indexPath :(NSInteger )indexPath
 {
-    _order_id     = orderId;
-    _order_amount = totalPrice;//当前总价
+    _order_id       = orderId;
+    _order_amount   = totalPrice;//当前总价
     NSLog(@"  currentSection ====%ld ",indexPath);
     _currentSection = indexPath;
     
@@ -1477,15 +1490,15 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     break;
             }
-
+            
             break;
         case SelectTypeCaculater:
             
             break;
-
+            
     }
     
-   
+    
 }
 
 #pragma mark - BusinessSendOrderViewDelegate 3333 选择派单给谁 派单之前的操作
@@ -1677,7 +1690,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
-       
+        
         [SVProgressHUD dismiss];
         [self endRefresh];
         NSLog(@"error=====%@",error);
@@ -1939,7 +1952,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     //旧址
     CLLocation *currentLocation = [locations lastObject];
     //打印当前的经度与纬度
-    currentLocation  = [currentLocation locationMarsFromEarth];
+    currentLocation = [currentLocation locationMarsFromEarth];
     NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
     latitudestr  = [NSString stringWithFormat:@"%.6f",currentLocation.coordinate.latitude];
     longitudestr = [NSString stringWithFormat:@"%.6f",currentLocation.coordinate.longitude];
@@ -1973,7 +1986,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     
     CGFloat sectionHeaderHeight = 80;
     CGFloat sectionFooterHeight = 50;
-    CGFloat offsetY = scrollView.contentOffset.y;
+    CGFloat offsetY             = scrollView.contentOffset.y;
     if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
     {
         scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
@@ -1995,7 +2008,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 //暂无数据
 - (UIView *)weChatStylePlaceHolder {
     WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.homeTableView.frame];
-    weChatStylePlaceHolder.delegate = self;
+    weChatStylePlaceHolder.delegate                = self;
     return weChatStylePlaceHolder;
 }
 #pragma mark - WeChatStylePlaceHolderDelegate Method

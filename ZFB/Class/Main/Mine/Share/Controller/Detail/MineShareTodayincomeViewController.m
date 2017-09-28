@@ -9,7 +9,7 @@
 #import "MineShareTodayincomeViewController.h"
 #import "MineShareIncomeCell.h"
 
-@interface MineShareTodayincomeViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MineShareTodayincomeViewController ()<UITableViewDelegate,UITableViewDataSource,CYLTableViewPlaceHolderDelegate,WeChatStylePlaceHolderDelegate>
 
 @property (strong, nonatomic)  UITableView * tableView;
 @property (strong, nonatomic)  NSMutableArray * todayList;
@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"我的共享";
+    self.title = @"今日收入";
     [self.view addSubview:self.tableView];
     self.zfb_tableView = self.tableView;
 
@@ -99,6 +99,7 @@
                              @"userId":BBUserDefault.cmUserId,
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"pageSize":[NSNumber numberWithInteger:kPageCount],
+                             @"history":@"0",//0.全部 1.一个月前2.一月前到三个月前 3.三个月前到六个月前 4.六个月前到一年前5一年以前
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/myShare/allShareOrderList"] params:parma success:^(id response) {
@@ -114,11 +115,16 @@
                 
                 [self.todayList addObject:reviewData];
             }
-            [self endRefresh];
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
+            if ([self isEmptyArray:self.todayList]) {
+                [self.tableView cyl_reloadData];
+                [SVProgressHUD dismiss];
+            }
+
         }
-        
+        [self endRefresh];
+
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
@@ -127,6 +133,24 @@
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
+}
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+    
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.tableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+#pragma mark - WeChatStylePlaceHolderDelegate Method
+- (void)emptyOverlayClicked:(id)sender {
+    
+     
 }
 
 - (void)didReceiveMemoryWarning {

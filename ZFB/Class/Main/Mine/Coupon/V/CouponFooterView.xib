@@ -22,6 +22,7 @@
                         <constraint firstAttribute="height" constant="30" id="yjp-a3-4g6"/>
                     </constraints>
                     <state key="normal" title="全选" image="select_normal.png"/>
+                    <state key="selected" image="select_red.png"/>
                     <connections>
                         <action selector="didClickChooseAction:" destination="9HB-KM-N7A" eventType="touchUpInside" id="YXs-5O-xvL"/>
                     </connections>
@@ -84,5 +85,6 @@
     </objects>
     <resources>
         <image name="select_normal.png" width="24" height="24"/>
+        <image name="select_red.png" width="24" height="24"/>
     </resources>
 </document>

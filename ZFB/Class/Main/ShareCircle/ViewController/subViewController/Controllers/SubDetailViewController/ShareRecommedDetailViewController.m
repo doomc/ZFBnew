@@ -65,8 +65,12 @@
 - (IBAction)didClickZan:(id)sender {
     
     if ([_isThumbsStatus isEqualToString: @"0"]) {
-        
-        [self didclickZanPostRequsetAtthumsId:_recommentId];
+        if ([BBUserDefault.cmUserId isEqualToString:@""]||[BBUserDefault.cmUserId isEqualToString:@"0"] ||BBUserDefault.cmUserId ==nil) {
+            [self isIfNotSignIn];
+            
+        }else{
+            [self didclickZanPostRequsetAtthumsId:_recommentId];
+        }
         
     }else{
         [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
@@ -77,9 +81,15 @@
 #pragma mark -  获取新品推荐详情信息 recomment/recommentDetailInfo
 -(void)recommentDetailPostRequst
 {
+ 
+    
+    NSString * userId =  [NSString stringWithFormat:@"%@",BBUserDefault.cmUserId];
+    if ([userId isEqualToString:@""] || userId == nil) {
+        userId = @"0";
+    }
     NSDictionary * parma = @{
                              @"recommentId":_recommentId,
-                             @"userId":BBUserDefault.cmUserId,
+                             @"userId":userId,
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/recommentDetailInfo"] params:parma success:^(id response) {
@@ -126,8 +136,12 @@
 #pragma mark  - 点赞请求 newrecomment/toLike
 -(void)didclickZanPostRequsetAtthumsId:(NSString *)thumsId
 {
+    NSString * userId =  [NSString stringWithFormat:@"%@",BBUserDefault.cmUserId];
+    if ([userId isEqualToString:@""] || userId == nil) {
+        userId = @"0";
+    }
     NSDictionary * parma = @{
-                             @"userId":BBUserDefault.cmUserId,
+                             @"userId":userId,
                              @"thumsId":thumsId,//分享编号，新品推荐编号
                              @"type":@"0",//0 新品推荐 1 分享
                              };

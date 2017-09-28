@@ -15,7 +15,7 @@
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    _buttonWidthConstrainWidth.constant = 0;
+//    _buttonWidthConstrainWidth.constant = 0;
     
 }
 -(void)setCouponlist:(Couponlist *)couponlist

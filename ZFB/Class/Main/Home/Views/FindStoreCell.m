@@ -23,9 +23,7 @@
 -(void)setFindgoodslist:(Findgoodslist *)findgoodslist
 {
     _findgoodslist = findgoodslist;
-    
-    CGFloat juli = [_findgoodslist.storeDist floatValue]*0.001;
-    self.lb_distence.text = [NSString stringWithFormat:@"%.2f公里",juli];
+    self.lb_distence.text = [NSString stringWithFormat:@"%@公里",findgoodslist.storeDist];
     self.lb_collectNum.text = [NSString stringWithFormat:@"%ld",_findgoodslist.likeNum];
     self.store_listTitle.text = _findgoodslist.storeName;
     [self.store_listView sd_setImageWithURL:[NSURL URLWithString:_findgoodslist.coverUrl] placeholderImage:[UIImage imageNamed:@"720x300"]];

@@ -10,10 +10,7 @@
 
 @interface ZFShopListViewController : BaseViewController
 
-@property (nonatomic , copy) NSString * storeId;
-
  
-
 @property (nonatomic,strong) NSMutableArray * userGoodsArray;///商品列表
 
 

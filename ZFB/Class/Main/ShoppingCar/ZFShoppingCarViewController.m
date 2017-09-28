@@ -654,6 +654,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
                 NSString * goodsCount = [NSString stringWithFormat:@"%ld",goods.goodsCount];
                
                 [goodDic setValue:storeId forKey:@"storeId"];
+                [goodDic setValue:list.storeName forKey:@"storeName"];
                 [goodDic setValue:goodsId forKey:@"goodsId"];
                 [goodDic setValue:goods.goodsName forKey:@"goodsName"];
                 [goodDic setValue:goods.coverImgUrl forKey:@"coverImgUrl"];

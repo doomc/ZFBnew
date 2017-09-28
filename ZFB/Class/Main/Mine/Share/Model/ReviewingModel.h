@@ -47,9 +47,7 @@
 @property (nonatomic, copy) NSString *price;
 @property (nonatomic, copy) NSString *goodsLogo;
 @property (nonatomic, copy) NSString *orderNum;
-
-//错误字段
-@property (nonatomic, copy) NSString *googsName;
+ 
 
 
 @end

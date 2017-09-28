@@ -161,78 +161,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [self.segmentControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
     
 }
--(UIView *)titleView
-{
-    if (!_titleView) {
-        _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
-        _titleView.backgroundColor = HEXCOLOR(0xffcccc);
-        [_titleView addSubview:self.navTitle];
-        self.navigationItem.titleView = _titleView;
-    }
-    return _titleView;
-}
--(UILabel *)navTitle
-{
-    if (!_navTitle) {
-        _navTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
-        _navTitle.font =[UIFont systemFontOfSize:14];
-        _navTitle.textColor              = HEXCOLOR(0xfe6d6a);
-        _navTitle.textAlignment          = NSTextAlignmentCenter;
-
-    }
-    return _navTitle;
-}
--(void)SegmentchangePage:(UISegmentedControl*)segmentPage
-{
-   _selectPageType = segmentPage.selectedSegmentIndex;
- 
-    switch (_selectPageType) {
-        case SelectTypeHomePage:
-            NSLog(@"点击首页");
-        {
-            self.navTitle.text  = @"配送端";
-            self.titleView.hidden = NO;
-            self.navbar_btn.hidden = YES;
-            [self.send_tableView reloadData];
-        }
-            break;
-            
-        case SelectTypeOrderPage:
-            NSLog(@"点击订单");
-        {
-            self.titleView.hidden = YES;
-            self.navbar_btn.hidden = NO;
-            [self.navbar_btn setTitle:@"待配送" forState:UIControlStateNormal];
-            //订单列表
-            [self orderlistDeliveryID:_deliveryId OrderStatus:@"1"  ];
-//            [self.send_tableView reloadData];
-        }
-            break;
-        case SelectTypeCaculater:
-            
-        {
-            self.navTitle.text  = @"结算列表";
-            self.titleView.hidden = NO;
-            self.navbar_btn.hidden = YES;
-            [self caculaterListPostRequset];
-//            [self.send_tableView reloadData];
-            
-        }
-            NSLog(@"点击的结算");
-            break;
-    }
-    
-}
-
-/**
- 正选反选
- @param btn 切换
- */
--(void)navigationBarSelectedOther:(UIButton *)btn;
-{
-    [self.view addSubview:self.bgview];
-    
-}
 
 -(void)headerRefresh
 {
@@ -304,6 +232,56 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     }
     
 }
+-(void)SegmentchangePage:(UISegmentedControl*)segmentPage
+{
+    _selectPageType = segmentPage.selectedSegmentIndex;
+    
+    switch (_selectPageType) {
+        case SelectTypeHomePage:
+            NSLog(@"点击首页");
+        {
+            self.navTitle.text  = @"配送端";
+            self.navbar_btn.hidden = YES;
+            self.navTitle.hidden = NO;
+            self.navigationItem.titleView = _titleView;
+            [self.send_tableView reloadData];
+        }
+            break;
+            
+        case SelectTypeOrderPage:
+            NSLog(@"点击订单");
+        {
+            
+            self.navbar_btn.hidden = NO;
+            self.navTitle.hidden = YES;
+            
+            [self.navbar_btn setTitle:@"待配送" forState:UIControlStateNormal];
+            [self.titleView addSubview:self.navbar_btn];
+            self.navigationItem.titleView = _titleView;
+            
+            //订单列表
+            [self orderlistDeliveryID:_deliveryId OrderStatus:@"1"  ];
+            [self.send_tableView reloadData];
+        }
+            break;
+        case SelectTypeCaculater:
+            
+        {
+            self.navTitle.text  = @"结算列表";
+            self.navbar_btn.hidden = YES;
+            self.navTitle.hidden = NO;
+            self.navigationItem.titleView = _titleView;
+
+            [self caculaterListPostRequset];
+            [self.send_tableView reloadData];
+            
+        }
+            NSLog(@"点击的结算");
+            break;
+    }
+    
+}
+
 
 #pragma mark - 懒加载
 -(NSMutableArray *)msgArray
@@ -330,23 +308,52 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     return _caculaterArray;
     
 }
+-(UIView *)titleView
+{
+    if (!_titleView) {
+        _titleView = [[UIView alloc]initWithFrame:self.navbar_btn.frame];
+        [_titleView addSubview:self.navTitle];
+    }
+    return _titleView;
+}
+-(UILabel *)navTitle
+{
+    if (!_navTitle) {
+        
+        _navTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 30)];
+        _navTitle.font =[UIFont systemFontOfSize:14];
+        _navTitle.textColor              = HEXCOLOR(0xfe6d6a);
+        _navTitle.textAlignment          = NSTextAlignmentCenter;
+    }
+    return _navTitle;
+}
 
 //自定义导航按钮选择定订单
 -(UIButton *)navbar_btn
 {
     if (!_navbar_btn) {
         _navbar_btn       = [UIButton buttonWithType:UIButtonTypeCustom];
-        _navbar_btn.frame = CGRectMake(_titleView.centerX+40 , _titleView.centerY, 120, 24);
+        _navbar_btn.frame = CGRectMake(0, 0, 120, 30);
         [_navbar_btn setImage:[UIImage imageNamed:@"Order_down"] forState:UIControlStateNormal];
         _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_navbar_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
         [_navbar_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 80, 0, 0)];
         [_navbar_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0,30)];
         [_navbar_btn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.titleView = _navbar_btn;
     }
     return _navbar_btn;
 }
+
+/**
+ 正选反选
+ @param btn 切换
+ */
+-(void)navigationBarSelectedOther:(UIButton *)btn;
+{
+    [self.view addSubview:self.bgview];
+    
+}
+
 -(UITableView *)send_tableView
 {
     if (!_send_tableView) {
@@ -1385,6 +1392,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/order/getSettlementListById"] params:param success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
+            
             if (self.refreshType == RefreshTypeHeader) {
                 
                 if (self.caculaterArray.count > 0) {

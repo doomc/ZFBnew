@@ -8,24 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-
-@class StoreList,UserJsonGoodslist,UserJsonGoodsprop;
-@interface ShopCarJsonModel : ResponseObject
-
-@property (nonatomic, strong) NSArray<StoreList *> *storeList;
-
-@end
-@interface StoreList : ResponseObject
-
-@property (nonatomic, strong) NSArray<UserJsonGoodslist *> *goodsList;
-
-@property (nonatomic, copy) NSString *storeName;
-
-@property (nonatomic, copy) NSString *storeId;
-
-@end
-
-@interface UserJsonGoodslist : ResponseObject
+@class GoodsProplist;
+@interface ShopCarJsonModel : NSObject
 
 @property (nonatomic, copy) NSString *productId;
 
@@ -33,7 +17,7 @@
 
 @property (nonatomic, copy) NSString *storeId;
 
-@property (nonatomic, strong) NSArray<UserJsonGoodsprop *> *goodsProp;
+@property (nonatomic, strong) NSArray <GoodsProplist *>*goodsProp;
 
 @property (nonatomic, copy) NSString *goodsCount;
 
@@ -51,17 +35,17 @@
 
 @property (nonatomic, copy) NSString *goodsId;
 
+@property (nonatomic, copy) NSString *storeName;
+
+
 @end
 
-@interface UserJsonGoodsprop : ResponseObject
-
-@property (nonatomic, assign) NSInteger nameId;
-
-@property (nonatomic, assign) NSInteger valueId;
-
-@property (nonatomic, copy) NSString *value;
+@interface GoodsProplist : NSObject
 
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *nameId;
+@property (nonatomic, copy) NSString *value;
+@property (nonatomic, copy) NSString *valueId;
+
 
 @end
-

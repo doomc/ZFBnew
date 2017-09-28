@@ -62,8 +62,9 @@
     NSString * _htmlDivString;
     NSString * _netPurchasePrice;//购买价格
     NSString * _priceRange;//范围价格
-    NSInteger _goodsCount;//添加的商品个数
-    NSString *_goodsUnit;
+    NSInteger  _goodsCount;//添加的商品个数
+    NSString * _goodsUnit;
+    
     //UI控件
     UILabel * lb_Sku;//弹框上视图的选择的sku
     UILabel * lb_inShock ;//库存
@@ -258,7 +259,6 @@
         [self popActionView];
         
     }else{
-        
         [self addToshoppingCarPostproductId:_productSkuId];
         
     }
@@ -1086,8 +1086,8 @@
 //关闭弹框
 -(void)didClickCloseCouponView
 {
-    [self.couponBgView removeFromSuperview];
     [self.couponTableView  reloadData];
+    [self.couponBgView removeFromSuperview];
 }
 //领取优惠券接口
 -(void)selectCouponWithIndex:(NSInteger)indexRow AndCouponId :(NSString *)couponId withResult:(NSString *)result{
@@ -1188,6 +1188,7 @@
                 [goodsListDic setValue:goodsmodel.data.goodsInfo.netPurchasePrice forKey:@"purchasePrice"];//网购价
                 [goodsListDic setValue:_goodsId forKey:@"goodsId"];
                 [goodsListDic setValue:_storeId forKey:@"storeId"];
+                [goodsListDic setValue:_storeName forKey:@"storeName"];
                 [goodsListDic setObject:@"[]" forKey:@"goodsProp"];
                 [goodsListDic setValue:_productSkuId forKey:@"productId"];//无规格
                 _goodsUnit = goodsmodel.data.goodsInfo.goodsUnit ;
@@ -1487,16 +1488,17 @@
                 
                 [self.couponList removeAllObjects];
             }
-            
             CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
             for (Couponlist * list in coupon.couponList) {
               
                 [self.couponList addObject:list];
             }
             [self.couponTableView reloadData];
+            [SVProgressHUD dismiss];
+
         }
-        [SVProgressHUD dismiss];
         [self.list_tableView reloadData];
+
         
     } progress:^(NSProgress *progeress) {
         
@@ -1524,12 +1526,14 @@
             [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
             //领取成功后移除
             [self didClickCloseCouponView];
+            //在刷新下列表
+            [self recommentPostRequstCouponList];
             [SVProgressHUD dismiss];
 
         }else{
             
             [SVProgressHUD dismiss];
-            [self.view makeToast:@"让小宝要休息一下！" duration:2 position:@"center"];
+            [self.view makeToast:@"不要贪心,你已经领过啦。" duration:2 position:@"center"];
 
         }
         

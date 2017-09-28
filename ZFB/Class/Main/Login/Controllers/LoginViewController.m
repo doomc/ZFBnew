@@ -501,8 +501,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
         
         
     } failure:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"登录失败"];
         NSLog(@"error=====%@",error);
+        [SVProgressHUD showErrorWithStatus:@"登录失败"];
         [ SVProgressHUD dismiss];
 
     }];

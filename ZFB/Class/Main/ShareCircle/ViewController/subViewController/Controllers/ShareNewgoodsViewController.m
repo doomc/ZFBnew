@@ -110,7 +110,14 @@
     _currentList = list;
     NSString *thumsId =  [NSString stringWithFormat:@"%ld", list.recommentId];
     if (list.isThumbed == 0) {
-        [self didclickZanPostRequsetAtthumsId:thumsId];
+        if ([BBUserDefault.cmUserId isEqualToString:@""]||[BBUserDefault.cmUserId isEqualToString:@"0"] ||BBUserDefault.cmUserId ==nil) {
+            [self isIfNotSignIn];
+            
+        }else{
+            [self didclickZanPostRequsetAtthumsId:thumsId];
+ 
+        }
+        
     }else{
         [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
         
@@ -127,8 +134,12 @@
 #pragma mark -  获取新品推荐列表  recomment/recommentList
 -(void)recommentPostRequst
 {
+    NSString * userId =  [NSString stringWithFormat:@"%@",BBUserDefault.cmUserId];
+    if ([userId isEqualToString:@""] || userId == nil) {
+        userId = @"0";
+    }
     NSDictionary * parma = @{
-                             @"userId":BBUserDefault.cmUserId,
+                             @"userId":userId,
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"pageSize":[NSNumber numberWithInteger:kPageCount],
                              };

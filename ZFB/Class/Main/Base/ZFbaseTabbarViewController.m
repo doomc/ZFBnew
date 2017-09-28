@@ -65,10 +65,10 @@
     [self addOneChildVc:homeVC title:@"新零售" imageName:@"shopkeeper" selectedImageName:@"shopkeeper_selected"];
     
     ZFCInterpersonalCircleViewController *circleVC = [ZFCInterpersonalCircleViewController new];
-    [self addOneChildVc:circleVC title:@"消息" imageName:@"circle" selectedImageName:@"circle_selected"];
+    [self addOneChildVc:circleVC title:@"消息" imageName:@"messageNormal" selectedImageName:@"messageSelected"];
     
     ShareCircleViewController *shopVC = [ShareCircleViewController new];
-    [self addOneChildVc:shopVC title:@"分享圈" imageName:@"shoppingCar" selectedImageName:@"shoppingCar_selected"];
+    [self addOneChildVc:shopVC title:@"分享圈" imageName:@"shareCircle" selectedImageName:@"shareCircle_selected"];
     
     ZFPersonalViewController *meVc = [ZFPersonalViewController new];
     [self addOneChildVc:meVc title:@"我的" imageName:@"mine" selectedImageName:@"mine_selected"];

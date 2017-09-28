@@ -357,7 +357,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         case SureOrderCellTypeCouponCell://优惠券
         {
             SureOrderCommonCell * couponCell    = [self.mytableView dequeueReusableCellWithIdentifier:@"SureOrderCommonCellid" forIndexPath:indexPath];
-            couponCell.canUsedCouponNum =@"";
+            couponCell.canUsedCouponNum.text =@"";
             couponCell.lb_title.text            = @"优惠券";
             couponCell.lb_detailTitle.textColor = HEXCOLOR(0xfe6d6a);
             if (_couponAmount == nil || [_couponAmount isEqualToString:@""]) {

@@ -21,6 +21,8 @@
 @end
 @interface CouponFooterView : UIView
 
+-(instancetype)initWithCouponFooterViewFrame:(CGRect)frame;
+
 //取消操作
 @property (weak, nonatomic) IBOutlet UIButton *cancelEdit;
 
@@ -29,5 +31,7 @@
 
 //全选
 @property (weak, nonatomic) IBOutlet UIButton *selectBtn;
+
+
 
 @end

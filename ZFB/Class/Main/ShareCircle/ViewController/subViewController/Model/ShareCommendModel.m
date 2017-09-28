@@ -16,6 +16,12 @@
 @end
 @implementation Recommentlist
 
+-(NSArray *)imagesUrl
+{
+    NSArray * imgs  = [self.goodsImgUrl componentsSeparatedByString:@","];
+    return imgs;
+}
+
 @end
 
 

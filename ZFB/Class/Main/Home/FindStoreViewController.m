@@ -347,7 +347,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                              @"orderbylikeNum":@"",
                              @"nearBydisc":@"",
                              @"sercahText":@"",
-                             
                              };
 
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
@@ -391,7 +390,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         [self endRefresh];
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         NSLog(@"error=====%@",error);
-        
     }];
  
 }

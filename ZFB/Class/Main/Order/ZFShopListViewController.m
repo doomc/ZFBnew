@@ -9,12 +9,10 @@
 #import "ZFShopListViewController.h"
 #import "ZFShopListCell.h"
 #import "ShopOrderStoreNameCell.h"
-#import "ShopCarJsonModel.h"
 
 @interface ZFShopListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) UITableView  * mytableView;
-@property (nonatomic,strong) NSMutableArray  * storeArray;
 @property (nonatomic,strong) NSMutableArray  * goodsArray;
 
 
@@ -31,18 +29,16 @@
     
     [self tableViewInterFaceView];
  
-    NSLog(@"storeArray= %@",_userGoodsArray);
+    NSLog(@"_userGoodsArray= %@",_userGoodsArray);
+    
+    for (NSDictionary * dic in _userGoodsArray) {
+        
+        [self.goodsArray addObject:dic];
+    }
+    
  
 }
 
--(void)setUserGoodsArray:(NSMutableArray *)userGoodsArray
-{
-    _userGoodsArray  = userGoodsArray;
-    for (NSDictionary * dic in _userGoodsArray) {
-        [dic objectForKey:@""];
-        
-    }
-}
 
 -(void)tableViewInterFaceView
 {
@@ -55,60 +51,54 @@
     
     [self.mytableView registerNib:[UINib nibWithNibName:@"ZFShopListCell" bundle:nil]
            forCellReuseIdentifier:@"ZFShopListCellid"];
-    [self.mytableView registerNib:[UINib nibWithNibName:@"ShopOrderStoreNameCell" bundle:nil]
-           forCellReuseIdentifier:@"ShopOrderStoreNameCellid"];
+ 
     
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
- 
-    return self.storeArray.count;
+    
+    return 1;
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    StoreList * storeModel  = self.storeArray[section];
-//    NSLog(@"%@",storeModel.goodsList);
-    return storeModel.goodsList.count;
+
+    return self.goodsArray.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 135;
+    return 135+40;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 40;
-}
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    ShopOrderStoreNameCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopOrderStoreNameCellid"];
-   
-    StoreList * storeModel  = self.storeArray[section];
-    cell.lb_storeName.text = storeModel.storeName;
 
-    return cell;
-    
-}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
  
     ZFShopListCell * listCell = [self.mytableView dequeueReusableCellWithIdentifier:@"ZFShopListCellid" forIndexPath:indexPath];
-    StoreList * storeModel  = self.storeArray[indexPath.section];
-    UserJsonGoodslist * goodlist = storeModel.goodsList[indexPath.row];
+ 
+    NSDictionary * goodsdic = self.goodsArray[indexPath.row];
+    NSString * goodsProp =[NSString stringWithFormat:@"%@",[goodsdic objectForKey:@"goodsProp"]];
     
+    if (![goodsProp isEqualToString:@"[]"]) {
+        
+        NSArray * goodsPropArray = [goodsdic objectForKey:@"goodsProp"];
     
-//  //获取规格
-//    for (UserJsonGoodsprop * goodsprop  in goodlist.goodsProp) {
-//    
-//    }
-//    
-    [listCell.img_shopView sd_setImageWithURL:[NSURL URLWithString:goodlist.coverImgUrl] placeholderImage:[UIImage imageNamed:@""]];
-    listCell.lb_count.text = [NSString stringWithFormat:@"x%@",goodlist.goodsCount];
-    listCell.lb_title.text = [NSString stringWithFormat:@"%@",goodlist.goodsName];
-    listCell.lb_detailTitle.text = [NSString stringWithFormat:@"%@",goodlist.goodsProp];
-    listCell.lb_price.text = [NSString stringWithFormat:@"¥%@",goodlist.purchasePrice];
-    
-    
+        for (NSDictionary  * product in goodsPropArray) {
+            NSString * appding = [NSString stringWithFormat:@"%@  %@",[product objectForKey:@"name"],[product objectForKey:@"value"]];
+            listCell.lb_detailTitle.text = [NSString stringWithFormat:@"%@",appding];
+        }
+        
+    }else{
+        
+        listCell.lb_detailTitle.text = @"";
+    }
+
+    [listCell.img_shopView sd_setImageWithURL:[NSURL URLWithString:[goodsdic objectForKey:@"coverImgUrl"]] placeholderImage:[UIImage imageNamed:@"230x235"]];
+    listCell.lb_count.text = [NSString stringWithFormat:@"x%@",[goodsdic objectForKey:@"goodsCount"]];
+    listCell.lb_title.text = [NSString stringWithFormat:@"%@",[goodsdic objectForKey:@"goodsName"]];
+    listCell.lb_price.text = [NSString stringWithFormat:@"¥%@",[goodsdic objectForKey:@"purchasePrice"]];
+    listCell.lb_storeName.text = [NSString stringWithFormat:@"%@",[goodsdic objectForKey:@"storeName"]];
+
+
     return listCell;
 }
 
@@ -122,17 +112,9 @@
 {
     NSDictionary * parma = @{
 
-                             @"cmUserId":BBUserDefault.cmUserId,
-                             @"storeId":@"1",//可能添加参数 _storeId
-                             @"goodsList":@"",
-                             @"goodsId":@"",
-                             @"goodsProp":@"",
-                             @"goodsCount":@"",
+ 
  
                              };
-    
- 
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsInfoList",zfb_baseUrl] params:parma success:^(id response) {
         
         NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
@@ -167,11 +149,5 @@
     }
     return _goodsArray;
 }
--(NSMutableArray *)storeArray
-{
-    if (!_storeArray) {
-        _storeArray =[NSMutableArray array];
-    }
-    return _storeArray;
-}
+
 @end

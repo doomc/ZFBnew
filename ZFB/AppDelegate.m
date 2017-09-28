@@ -89,11 +89,9 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 -(void)loginNIM{
     
     if (BBUserDefault.userPhoneNumber != nil && BBUserDefault.token !=nil) {
-        
-        NIMAutoLoginData *loginData = [[NIMAutoLoginData alloc] init];
-        loginData.account = BBUserDefault.userPhoneNumber;
-        loginData.token = BBUserDefault.token;
-        [[[NIMSDK sharedSDK] loginManager] autoLogin:loginData];
+        [[[NIMSDK sharedSDK] loginManager] login:BBUserDefault.userPhoneNumber token: BBUserDefault.token completion:^(NSError * _Nullable error) {
+            
+        }];
         [[NTESServiceManager sharedManager] start];
     }
 }

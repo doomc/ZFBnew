@@ -67,6 +67,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 @property (nonatomic,copy) NSString * storeId   ;
 @property (nonatomic,copy) NSString * balance   ;//余额
 @property (nonatomic,copy) NSString * userImgAttachUrl  ;//头像URL
+@property (nonatomic,copy) NSString * couponNum  ;//优惠券数量
+
 
 
 @end
@@ -227,7 +229,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             if (BBUserDefault.isLogin == 1) {
                 
                 cashCell.lb_balance.text = _balance;
-            
+                cashCell.lb_discountCoupon.text = _couponNum;
             }else{
                 
                 cashCell.lb_balance.text = @"0.00";
@@ -554,12 +556,13 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
         if ([response [@"resultCode"] intValue]== 0) {
             
+            _couponNum  = [NSString stringWithFormat:@"%@",response[@"couponNum"]];//优惠券数量
             _foolnum    = [NSString stringWithFormat:@"%@",response[@"foolNum"] ];
             _collectNum = [NSString stringWithFormat:@"%@",response[@"collectNum"]];
             _shopFlag   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"shopFlag"]];//是否是商户
             _courierFlag= [NSString stringWithFormat:@"%@",response[@"userInfo"][@"courierFlag"]];//是否是快递员
             _storeId    = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"storeId"]];
-
+ 
             BBUserDefault.shopFlag = _shopFlag;
             BBUserDefault.courierFlag = _courierFlag;
             BBUserDefault.isSetPassword = response[@"userInfo"][@"isSetPassword"];

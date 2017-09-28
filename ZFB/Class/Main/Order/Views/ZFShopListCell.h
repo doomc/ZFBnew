@@ -11,6 +11,8 @@
 
 @interface ZFShopListCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
+
 @property (weak, nonatomic) IBOutlet UIImageView *img_shopView;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;

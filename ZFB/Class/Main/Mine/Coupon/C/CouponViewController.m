@@ -37,7 +37,9 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 @property (strong, nonatomic) CouponTableView    * popCouponView;
 @property (strong, nonatomic) UIView             * popCouponBackgroundView;//背景图
 @property (strong, nonatomic) UIButton           * edit_btn;
-@property (strong, nonatomic) NSMutableArray     * couponList;
+@property (strong, nonatomic) NSMutableArray     * couponList;//可领取的优惠券
+@property (strong, nonatomic) NSMutableArray     * unUsedCouponList;//未使用的优惠券列表
+
 @property (strong, nonatomic) CouponFooterView   * couponFootView;
 
 @property (assign, nonatomic) BOOL  isEditing;//编辑状态
@@ -66,18 +68,17 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     [self.tableView registerNib:[UINib nibWithNibName:@"EditCouponCell" bundle:nil]
          forCellReuseIdentifier:@"EditCouponCellid"];
     
-    self.couponFootView = [[NSBundle mainBundle]loadNibNamed:@"CouponFooterView" owner:nil options:nil].lastObject;
-    self.couponFootView.frame = CGRectMake(0, KScreenW - 50, KScreenW, 50);
     [self.view addSubview:self.couponFootView];
     
-    
     [self setupRefresh];
+    
     //默认0 未领取  1 未使用  2 已使用 3 已失效
     [self recommentPostRequst:@"1"];
     
     _isEditing = NO; //默认未编辑状态
-    
 }
+
+
 -(void)headerRefresh
 {
     [super headerRefresh];
@@ -121,6 +122,14 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 
 }
 #pragma mark - 懒加载
+-(CouponFooterView *)couponFootView
+{
+    if (!_couponFootView) {
+        
+        _couponFootView = [[CouponFooterView alloc ]initWithCouponFooterViewFrame:CGRectMake(0, KScreenH -50, KScreenW, 50)];
+    }
+    return _couponFootView;
+}
 -(UITableView *)tableView
 {
     if (!_tableView) {
@@ -132,7 +141,15 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     }
     return _tableView;
 }
+-(NSMutableArray *)unUsedCouponList{
+    
+    if (!_unUsedCouponList) {
+        _unUsedCouponList = [NSMutableArray array];
+    }
+    return _unUsedCouponList;
+}
 -(NSMutableArray *)couponList{
+    
     if (!_couponList) {
         _couponList = [NSMutableArray array];
     }
@@ -169,7 +186,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     CGSize size                        = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
     CGFloat width                      = size.width ;
     _edit_btn.frame                    = CGRectMake(0, 0, width+10, 22);
-    [_edit_btn addTarget:self action:@selector(didClickEditing:) forControlEvents:UIControlEventTouchUpInside];
+//    [_edit_btn addTarget:self action:@selector(didClickEditing:) forControlEvents:UIControlEventTouchUpInside];
     return _edit_btn;
 }
 
@@ -246,14 +263,14 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
             if (section == 0) {
                 numRow = 1;
             }else{
-                numRow = self.couponList.count;
+                numRow = self.unUsedCouponList.count;
             }
             break;
         case SelectCouponTypeUsed://已使用
-            numRow = self.couponList.count;
+            numRow = self.unUsedCouponList.count;
             break;
         case SelectCouponTypeOverDate://已过期
-            numRow = self.couponList.count;
+            numRow = self.unUsedCouponList.count;
             
             break;
         default:
@@ -299,11 +316,54 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 if (indexPath.section == 0) {
                     
                     SectionCouponCell * sectionCell = [ self.tableView dequeueReusableCellWithIdentifier:@"SectionCouponCellid" forIndexPath:indexPath];
+                    sectionCell.lb_title.text = @"您有待领取的优惠券";
                     return sectionCell;
                 }
                 
                 CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
-                Couponlist * list       = self.couponList[indexPath.row];
+                Couponlist * list       = self.unUsedCouponList[indexPath.row];
+                couponCell.buttonWidthConstraint.constant = 0;
+                couponCell.couponlist   = list;
+
+                return couponCell;
+            }
+                break;
+            case SelectCouponTypeUsed:{
+                
+                CouponUsedCell * cell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponUsedCellid" forIndexPath:indexPath];
+                Couponlist * list     = self.unUsedCouponList[indexPath.row];
+                cell.buttonWidthConstrainWidth.constant = 0;
+
+                cell.couponlist       = list;
+                return cell;
+            }
+                break;
+            case SelectCouponTypeOverDate:
+            {
+                CouponOverDateCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponOverDateCellid" forIndexPath:indexPath];
+                Couponlist * list               = self.unUsedCouponList[indexPath.row];
+                couponCell.buttonWidthConstrainWidth.constant = 0;
+
+                couponCell.couponlist           = list;
+                return couponCell;
+            }
+                break;
+        }
+    }
+    else{//如果为编辑状态
+        switch (_couponType) {
+            case SelectCouponTypeDefault:
+            {
+                if (indexPath.section == 0) {
+                    
+                    SectionCouponCell * sectionCell = [ self.tableView dequeueReusableCellWithIdentifier:@"SectionCouponCellid" forIndexPath:indexPath];
+                    sectionCell.lb_title.text = @"您有待领取的优惠券";
+                    return sectionCell;
+                }
+                
+                CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
+                Couponlist * list       = self.unUsedCouponList[indexPath.row];
+                couponCell.buttonWidthConstraint.constant = 30;
                 couponCell.couponlist   = list;
                 
                 return couponCell;
@@ -312,7 +372,9 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
             case SelectCouponTypeUsed:{
                 
                 CouponUsedCell * cell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponUsedCellid" forIndexPath:indexPath];
-                Couponlist * list     = self.couponList[indexPath.row];
+                Couponlist * list     = self.unUsedCouponList[indexPath.row];
+                cell.buttonWidthConstrainWidth.constant = 30;
+
                 cell.couponlist       = list;
                 return cell;
             }
@@ -320,16 +382,14 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
             case SelectCouponTypeOverDate:
             {
                 CouponOverDateCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponOverDateCellid" forIndexPath:indexPath];
-                Couponlist * list               = self.couponList[indexPath.row];
+                Couponlist * list               = self.unUsedCouponList[indexPath.row];
+                couponCell.buttonWidthConstrainWidth.constant = 30;
                 couponCell.couponlist           = list;
                 return couponCell;
             }
                 break;
         }
-    }
-    else{//如果为编辑状态
-        
-        return nil;
+
     }
 }
 
@@ -382,11 +442,31 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     [self.popCouponBackgroundView removeFromSuperview];
     
 }
-
-#pragma mark - 编辑/完成
--(void)didClickEditing:(UIButton *) editing
-{
-    NSLog(@"%@",editing);
+#pragma mark -  点击编辑
+-(void)right_button_event:(UIButton*)sender{
+    
+    _edit_btn = sender;
+    _edit_btn.selected = !_edit_btn.selected;
+    
+    if (_edit_btn.selected == YES) {
+        [_edit_btn setTitle:@"完成" forState:UIControlStateNormal];
+        _isEditing = YES;
+        
+        [self.view addSubview:self.couponFootView];
+        [self.tableView reloadData];
+        NSLog(@"点击编辑");
+    }else{
+        sender.selected =NO;
+        _isEditing = NO;
+        [_edit_btn setTitle:@"编辑" forState:UIControlStateNormal];
+        
+        if (self.couponFootView.superview) {
+            [self.couponFootView removeFromSuperview];
+        }
+        [self.tableView reloadData];
+        NSLog(@"点击完成");
+        
+    }
 }
 
 -(void)dealloc
@@ -429,25 +509,26 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 
                 [self.view addSubview:self.popCouponBackgroundView];
                 [self.tableView bringSubviewToFront:self.popCouponBackgroundView];
-                [self.popCouponView reloadData];
                 [SVProgressHUD dismiss];
+                [self.popCouponView reloadData];
 
             }else{//如果不为0只刷新外部
                 if (self.refreshType == RefreshTypeHeader) {
-                    if (self.couponList.count > 0) {
-                        [self.couponList removeAllObjects];
+                    if (self.unUsedCouponList.count > 0) {
+                        [self.unUsedCouponList removeAllObjects];
                     }
                 }
                 CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
                 for (Couponlist * list in coupon.couponList) {
-                    [self.couponList addObject:list];
+                    [self.unUsedCouponList addObject:list];
                 }
-                
-                [SVProgressHUD dismiss];
-                [self endRefresh];
                 [self.tableView reloadData];
+
+                [SVProgressHUD dismiss];
             }
         }
+        [self endRefresh];
+
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
@@ -492,7 +573,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 }
 
 
-#pragma mark - 编辑删除优惠券    recomment/deleteCoupons status0 未领取 1 未使用 2 已使用 3 已失效
+#pragma mark - 删除优惠券    recomment/deleteCoupons status0 未领取 1 未使用 2 已使用 3 已失效
 -(void)deleteCouponesPostRequstCouponId:(NSString *)couponId Andstatus:(NSString *)status
 {
     NSDictionary * parma = @{

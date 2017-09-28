@@ -37,11 +37,13 @@ static NSString * settingCellid = @"ZFSettingCellid";
     [super viewDidLoad];
  
     self.title = @"设置";
-    _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置",@"分享圈"];
+    _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置"];
+//    _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置",@"分享圈"];
     _titleArr2  = @[@"手机号码",@"清楚缓存"];
     _titleArr3  = @[@"客服热线",@"招商入驻"];
 
-    _imagesArr1 = @[@"setting_message",@"setting_ps",@"setting_ps",@"setting_phone"];
+//    _imagesArr1 = @[@"setting_message",@"setting_ps",@"settingPay",@"settingShare"];
+    _imagesArr1 = @[@"setting_message",@"setting_ps",@"settingPay"];
     _imagesArr2 = @[@"setting_phone",@"setting_cache"];
     _imagesArr3 = @[@"setting_calling",@"setting_shakehand",];
 
@@ -125,7 +127,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
     ZFSettingCell * settingcell = [self.tableView dequeueReusableCellWithIdentifier:settingCellid forIndexPath:indexPath];
     
     if (indexPath.section == 0) {
-        if (indexPath.row <3 ) {
+        if (indexPath.row < _imagesArr1.count -1 ) {
             
             settingcell.lb_detailTitle.text =@"";
             settingcell.img_detailIcon.hidden = NO;

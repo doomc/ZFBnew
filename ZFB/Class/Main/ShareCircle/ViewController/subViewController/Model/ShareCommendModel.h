@@ -39,5 +39,8 @@
 
 @property (nonatomic, assign) NSInteger isThumbed;
 
+@property (nonatomic, strong) NSArray  * imagesUrl;
+
+
 @end
 

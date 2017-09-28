@@ -228,8 +228,8 @@
                              
                              @"longitude":BBUserDefault.longitude,//经度
                              @"latitude":BBUserDefault.latitude ,//纬度
-                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
-                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
+                             @"size":[NSNumber numberWithInteger:kPageCount],
+                             @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"businessType":businessType,//经营种类       如:服装，小吃等等
                              @"payType":@"",//是否支持到店付款    1支持  0不支持
                              @"orderBydisc":orderBydisc,//距离排序   1升   0降
@@ -240,7 +240,8 @@
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
         
-        if ([response[@"resultCode"] intValue] == 0) {
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
             
             if (self.refreshType == RefreshTypeHeader) {
                 
@@ -250,24 +251,16 @@
                     
                 }
             }
+           
             AllStoreModel  * homeStore = [AllStoreModel mj_objectWithKeyValues:response];
-            
-            
             for (Findgoodslists * goodlist in homeStore.storeInfoList.findGoodsList) {
-                
                 [self.allStoreArray addObject:goodlist];
-                //无轮播图
             }
-            
             NSLog(@"门店列表         = %@",   self.allStoreArray);
             
         }
         [self.all_tableview reloadData];
-        
-        //            [self CDsyceleSettingRunningPaintWithArray:self.imgArray];//轮播图
-        
         [self endRefresh];
-        
         
     } progress:^(NSProgress *progeress) {
         

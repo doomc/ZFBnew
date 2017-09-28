@@ -106,10 +106,8 @@
             }
             ReviewingModel * review =[ ReviewingModel mj_objectWithKeyValues:response];
             for (ReViewData * reviewData in review.data) {
-                
                 [self.goodsList addObject:reviewData];
             }
-            [self endRefresh];
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
             
@@ -118,7 +116,8 @@
                 [SVProgressHUD dismiss];
             }
         }
-        
+        [self endRefresh];
+
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
@@ -144,7 +143,6 @@
 }
 #pragma mark - WeChatStylePlaceHolderDelegate Method
 - (void)emptyOverlayClicked:(id)sender {
-    
     [self goodsListGoodsPost];
     
 }

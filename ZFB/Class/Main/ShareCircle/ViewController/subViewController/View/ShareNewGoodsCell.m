@@ -35,8 +35,8 @@
     _lb_buyNum.text = [NSString stringWithFormat:@"%ld",recommend.saleCount];
 
     _lb_goodsName.text = recommend.title;
-    _lb_tags.text = recommend.describe;
-    [_contentImgView sd_setImageWithURL:[NSURL URLWithString:recommend.goodsImgUrl] placeholderImage:[UIImage imageNamed:@"720x330"]];
+    _lb_tags.text = recommend.describe;     
+    [_contentImgView sd_setImageWithURL:[NSURL URLWithString:recommend.imagesUrl[0]] placeholderImage:[UIImage imageNamed:@"720x330"]];
 
     //0未点赞 1已点赞
     _isThumbed = [NSString stringWithFormat:@"%ld",recommend.isThumbed];

@@ -10,6 +10,15 @@
 
 @implementation CouponFooterView
 
+-(instancetype)initWithCouponFooterViewFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        
+        self = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil][0];
+        self.frame = frame;
+    }
+    return self;
+}
 /**
  全选
  

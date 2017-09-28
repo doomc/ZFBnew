@@ -10,31 +10,18 @@
 
 @implementation ShopCarJsonModel
 
-
-
+ 
 + (NSDictionary *)objectClassInArray{
-    return @{@"StoreList" : [StoreList class]};
-}
-@end
-@implementation StoreList
-
-+ (NSDictionary *)objectClassInArray{
-    return @{@"goodsList" : [UserJsonGoodslist class]};
+    return @{@"GoodsProplist" : [GoodsProplist class]};
 }
 
 @end
 
 
-@implementation UserJsonGoodslist
-
-+ (NSDictionary *)objectClassInArray{
-    return @{@"goodsProp" : [UserJsonGoodsprop class]};
-}
-
-@end
+@implementation GoodsProplist
 
 
-@implementation UserJsonGoodsprop
+
 
 @end
 
