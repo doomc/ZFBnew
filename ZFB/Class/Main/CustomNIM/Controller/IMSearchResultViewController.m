@@ -133,19 +133,19 @@
      
      NSLog(@" 我点击的当前 第%ld行的 添加好友",indexPathRow);
      IMSearchUserinfo * info  = self.searchArray[indexPathRow];
-     [self addIMFriendPostWithAccid:info.accid];
+     [self addIMFriendPostWithAccid:info.mobilePhone];
      
 }
 
 #pragma mark - 加好友网络请求
--(void)addIMFriendPostWithAccid:(NSString *)accid
+-(void)addIMFriendPostWithAccid:(NSString *)mobilePhone
 {
      NSDictionary * param = @{
                               @"cmUserId":BBUserDefault.cmUserId,
-                              @"accid":accid,//用户的accid
-                              @"mobilePhone":BBUserDefault.userPhoneNumber,
+                              @"accid":BBUserDefault.userPhoneNumber,//用户的accid
+                              @"mobilePhone":mobilePhone,
                               @"type":@"2",//添加好友类型	否	1直接加好友，2请求加好友，3同意加好友，4拒绝加好友
-                              @"msg":@"我是啊狗",
+                              @"msg":@"",
                               };
      [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/addFriend",IMsingle_baseUrl]  params:param success:^(id response) {
           
@@ -165,12 +165,6 @@
      }];
 }
 
-
-#pragma mark - 加群网络请求
--(void)addIMGroupPost
-{
-     
-}
 
 
 #pragma mark - 用户搜索好友时接口 findUserInfo
@@ -204,6 +198,7 @@
 }
 
 
+     
 -(void)viewWillAppear:(BOOL)animated
 {
      switch (_friendType) {
@@ -221,6 +216,69 @@
                break;
      }
 }
+     
+     
+     
+     
+     
+#pragma mark - 加群网络请求
+-(void)addIMGroupPost
+{
+     NSDictionary * param = @{
+                 
+                              @"members":@"",//json 格式如下说明
+                              @"userId":@"2",//群主id
+                              @"groupId":@"",//我们所用的群id
+                              };
+     [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/addGroupUser",IMsingle_baseUrl]  params:param success:^(id response) {
+          
+          
+          if ([response[@"resultCode"]integerValue ] == 0) {
+               
+               [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+               
+          }
+          NSLog(@"添加成功");
+          
+     } progress:^(NSProgress *progeress) {
+          
+     } failure:^(NSError *error) {
+          
+          NSLog(@"%@",error);
+     }];
+
+}
+#pragma mark - 用户搜索群时接口
+-(void)ImsearchGroup:(NSString *)searchText
+     {
+          NSDictionary * param = @{
+                                   @"findName":searchText,
+                                   };
+          [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/findUserGroup",IMGroup_baseUrl]  params:param success:^(id response) {
+               
+               if ([response[@"resultCode"]integerValue ] == 0) {
+                    
+                    if (self.searchArray.count > 0) {
+                         
+                         [self.searchArray removeAllObjects];
+                    }
+                    IMSearchResultModel * model= [IMSearchResultModel mj_objectWithKeyValues:response];
+                    
+                    for (IMSearchUserinfo * info in model.data.userInfo) {
+                         
+                         [self.searchArray addObject:info];
+                    }
+               }
+               [self.tableView reloadData];
+               
+          } progress:^(NSProgress *progeress) {
+               
+          } failure:^(NSError *error) {
+               NSLog(@"%@",error);
+          }];
+     }
+
+     
 - (void)didReceiveMemoryWarning {
      [super didReceiveMemoryWarning];
      // Dispose of any resources that can be recreated.

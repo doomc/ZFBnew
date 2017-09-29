@@ -133,6 +133,7 @@
         
         AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
         NSString * verificationKey = [obj stringValue];
+        
         NSLog(@"verificationKey ===== %@",verificationKey);
         NSRange  range  = [verificationKey rangeOfString:@"á"];
         //type

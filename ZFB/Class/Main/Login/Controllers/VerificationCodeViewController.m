@@ -12,7 +12,7 @@
 @interface VerificationCodeViewController ()<UITextFieldDelegate>
 {
     NSString * _smsCode ;
-    BOOL _isRegiste;
+ 
 }
 @property (weak, nonatomic) IBOutlet UITextField *tf_verificationCode;
 @property (weak, nonatomic) IBOutlet UITextField *tf_loginPassword;
@@ -32,7 +32,6 @@
     
     self.title =@"注册";
     
-    _isRegiste = NO;
     
     self.regist_btn.enabled = NO;
     
@@ -54,16 +53,19 @@
 #pragma mark - 获取验证码
 -(void)getVerificationCodeAction:(UIButton *)sender{
    
-    if (_tf_verificationCode.text.length > 0) {
-       
-        [self.view makeToast:@"已经发送过验证码了" duration:2.0 position:@"center"];
-        [self.getVerificationCode_btn setEnabled:NO];
+    
+    [self.getVerificationCode_btn setEnabled:YES];
+    [self timeCountdown];
 
-    }else{
-        
-        [self.getVerificationCode_btn setEnabled:YES];
-        [self timeCountdown];
-    }
+//    if (_tf_verificationCode.text.length > 0) {
+//       
+//        [self.view makeToast:@"已经发送过验证码了" duration:2.0 position:@"center"];
+//        [self.getVerificationCode_btn setEnabled:NO];
+//
+//    }else{
+//        
+//       
+//    }
 }
 #pragma mark - UITextFieldDelegate  设置代理
 -(void)textFieldSettingDelegate
@@ -88,7 +90,7 @@
     }
     if (textfiled == _tf_loginPassword) {
         //当账号与密码同时有值,登录按钮才能够点击
-        if ((_tf_verificationCode.text.length ==6) && (_tf_loginPassword.text.length >= 8 && _tf_loginPassword.text.length <=20) ) {
+        if ( (_tf_loginPassword.text.length >= 8 && _tf_loginPassword.text.length <=20) ) {
             self.regist_btn.enabled = YES;
             self.regist_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
             
@@ -108,9 +110,7 @@
         if ( [_tf_verificationCode.text isEqualToString:_smsCode]) {
             
             NSLog(@" 验证码 正确");
-            
         }
-        
     }
     if (_tf_loginPassword == textField) {
         
@@ -147,11 +147,7 @@
         [self RegisterPostRequest];
        
     }
-    
-    else{
-        
-        [self.view makeToast:@"注册成功" duration:2 position:@"center"];
-    }
+ 
 }
 
 -(UIButton*)set_leftButton
@@ -198,8 +194,7 @@
 
                              @"mobilePhone":_phoneNumStr,
                              @"SmsLogo":@"1",
-                             @"svcName":@"",
-                             @"userId":@"",
+
                              };
 
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/SendMessages",zfb_baseUrl] params:parma success:^(id response) {
@@ -233,16 +228,17 @@
                              @"mobilePhone":_phoneNumStr,
                              @"loginPwd":_tf_loginPassword.text,
                              @"smsCheckCode":_smsCode,
-                             @"userId":@"",
-                             @"svcname":@"",
                              
                              };
     
+    [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/userRegistered",zfb_baseUrl] params:parma success:^(id response) {
  
-        if (_isRegiste== YES) {
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
             
-            JXTAlertController *AlertVC =[JXTAlertController alertControllerWithTitle:@"提示信息" message:@"已经注册成功了是否马上去登陆" preferredStyle:UIAlertControllerStyleAlert];
+            [SVProgressHUD dismiss];
+            JXTAlertController *AlertVC =[JXTAlertController alertControllerWithTitle:@"提示信息" message:@"注册成功,是否马上去登陆" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
             }];
@@ -253,22 +249,28 @@
             [AlertVC addAction:cancle];
             [AlertVC addAction:login];
             [self presentViewController:AlertVC animated:YES completion:nil];
-            
+
+        }else{
+            [SVProgressHUD dismiss];
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
         }
-        BBUserDefault.userPhonePassword = _tf_loginPassword.text;//保存密码
-        _isRegiste = YES;
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-        
-        
+ 
     } progress:^(NSProgress *progeress) {
         
         
     } failure:^(NSError *error) {
-        
+        [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
  
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [SVProgressHUD dismiss];
+
 }
 
 @end

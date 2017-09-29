@@ -54,21 +54,21 @@
     }
     return _orderList;
 }
-//设置右边按键（如果没有右边 可以不重写）
--(UIButton*)set_rightButton
-{
-    NSString * saveStr = @"选择时间";
-    _edit_btn = [[UIButton alloc]init];
-    [_edit_btn setTitle:saveStr forState:UIControlStateNormal];
-    _edit_btn.titleLabel.font=SYSTEMFONT(14);
-    [_edit_btn setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
-    _edit_btn.titleLabel.textAlignment = NSTextAlignmentRight;
-    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
-    CGFloat width = size.width ;
-    _edit_btn.frame =CGRectMake(0, 0, width+10, 22);
-    [_edit_btn addTarget:self action:@selector(didClickEditing:) forControlEvents:UIControlEventTouchUpInside];
-    return _edit_btn;
-}
+////设置右边按键（如果没有右边 可以不重写）
+//-(UIButton*)set_rightButton
+//{
+//    NSString * saveStr = @"选择时间";
+//    _edit_btn = [[UIButton alloc]init];
+//    [_edit_btn setTitle:saveStr forState:UIControlStateNormal];
+//    _edit_btn.titleLabel.font=SYSTEMFONT(14);
+//    [_edit_btn setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
+//    _edit_btn.titleLabel.textAlignment = NSTextAlignmentRight;
+//    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
+//    CGFloat width = size.width ;
+//    _edit_btn.frame =CGRectMake(0, 0, width+10, 22);
+//    [_edit_btn addTarget:self action:@selector(didClickEditing:) forControlEvents:UIControlEventTouchUpInside];
+//    return _edit_btn;
+//}
 
 #pragma mark - 懒加载
 -(UITableView *)tableView

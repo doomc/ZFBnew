@@ -119,17 +119,18 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 
         if (indexPath.row == 0) {
             
-            rowCell.isEdited = _isSavedNickName;
-            if (_isSavedNickName == YES) {
-         
-                rowCell.lb_detailTitle.hidden = YES;
-                rowCell.tf_contentTextfiled.placeholder = @"请输入昵称,该昵称填写后不可修改";
-                rowCell.delegate = self;
-
-            }else{
-                
-                rowCell.tf_contentTextfiled.text = BBUserDefault.nickName;
-            }
+            rowCell.isEdited = YES;//_isSavedNickName;
+//            if (_isSavedNickName == YES) {
+//         
+//                rowCell.lb_detailTitle.hidden = YES;
+//                rowCell.tf_contentTextfiled.placeholder = @"请输入昵称,该昵称填写后不可修改";
+//                rowCell.delegate = self;
+//
+//            }else{
+//                
+//                rowCell.tf_contentTextfiled.text = BBUserDefault.nickName;
+//            }
+            rowCell.tf_contentTextfiled.text = BBUserDefault.nickName;
 
      
         }
@@ -311,10 +312,10 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             
             //保存成功后不可以修改
             _isSavedBirthDay = NO;
-            _isSavedNickName = NO;
+//            _isSavedNickName = NO;
             
-            [SVProgressHUD dismiss];
-            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+ 
+            [SVProgressHUD showSuccessWithStatus:response[@"resultMsg"]];
         }
 
         
@@ -323,7 +324,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         NSLog(@"progeress=====%@",progeress);
         
     } failure:^(NSError *error) {
-        [SVProgressHUD dismiss];
+        [SVProgressHUD showErrorWithStatus:@"网络错误"];
         NSLog(@"error=====%@",error);
     }];
     
@@ -333,14 +334,14 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 {
       BBUserDefault.sexType  = 3;//默认
     
-    if (BBUserDefault.nickName == nil) {
-        
-        _isSavedNickName = YES; //如果nickname不存在说明没有编辑过 YES == 可编辑 NO 非
-    }else{
-        
-        _isSavedNickName =  NO;
-
-    }
+//    if (BBUserDefault.nickName == nil) {
+//        
+//        _isSavedNickName = YES; //如果nickname不存在说明没有编辑过 YES == 可编辑 NO 非
+//    }else{
+//        
+//        _isSavedNickName =  NO;
+//
+//    }
     if (BBUserDefault.birthDay == nil && [BBUserDefault.birthDay isEqualToString:@""]) {
         _isSavedBirthDay = YES;//可编辑状态
     }

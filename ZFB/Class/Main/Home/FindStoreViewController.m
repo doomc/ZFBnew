@@ -74,9 +74,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         NSLog(@"使用异步函数执行主队列中的任务1--%@",[NSThread currentThread]);
     });
     dispatch_async(queue, ^{
-        
-        [self PostRequst];
-        
+    
         NSLog(@"使用异步函数执行主队列中的任务2--%@",[NSThread currentThread]);
     });
     
@@ -299,7 +297,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 #pragma mark 定位成功后则执行此代理方法
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-    [_locationManager stopUpdatingLocation];
  
     //旧址
     CLLocation *currentLocation = [locations lastObject];
@@ -313,7 +310,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     longitudestr = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
     BBUserDefault.latitude = latitudestr;
     BBUserDefault.longitude = longitudestr;
-    
+
+
     //反地理编码
     [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         if (placemarks.count > 0) {
@@ -329,6 +327,16 @@ static NSString *CellIdentifier = @"FindStoreCellid";
             [self.location_btn setTitle:currentCityAndStreet forState:UIControlStateNormal];
         }
     }];
+    
+    if ([latitudestr isEqualToString:@""] || latitudestr == nil) {
+        NSLog(@"无法定位当前城市");
+
+    }else{
+        [self PostRequst];
+
+    }
+    [_locationManager stopUpdatingLocation];
+
 }
 
 #pragma mark - 首页网络请求 getCmStoreInfo

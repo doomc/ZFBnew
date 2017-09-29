@@ -19,6 +19,12 @@
 
 @implementation Feedbacklist
 
+-(NSArray<NSString *> *)images
+{
+    NSArray * array = [_feedbackUrl componentsSeparatedByString:@","];
+    return array;
+}
+
 @end
 
 

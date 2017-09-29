@@ -550,7 +550,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 {
     NSDictionary * parma = @{
                              
-                             @"couponId":couponId,//json字符串
+                             @"couponIds":couponId,//json字符串
                              @"userId":BBUserDefault.cmUserId,
                              @"status":status,
                              
@@ -560,7 +560,6 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
             
             [self.view makeToast:@"删除成功" duration:2 position:@"center"];
-            
             [SVProgressHUD dismiss];
         }
         
@@ -603,22 +602,48 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 #pragma mark - 点击删除的方法 (暂时没有处理，删除事件没有写好)
 -(void)didClickDeleteCoupon
 {
+    NSMutableArray * tempCellArray = [NSMutableArray array];
     switch (_couponType) {
         case SelectCouponTypeDefault://未使用
          
+            for (Couponlist * list in self.unUsedCouponList)
+            {
+                if (list.isChoosedCoupon)
+                {
+                    [tempCellArray addObject:list];
+                }
+            }
+            [self.unUsedCouponList removeObjectsInArray:tempCellArray];
+            
             [self deleteCouponesPostRequstCouponId:_couponIdAppdding Andstatus:@"1"];
             [self.tableView reloadData];
           
             break;
         case SelectCouponTypeUsed://已使用
-         
+            
+            for (Couponlist * list in self.unUsedCouponList)
+            {
+                if (list.isChoosedCoupon)
+                {
+                    [tempCellArray addObject:list];
+                }
+            }
+            [self.unUsedCouponList removeObjectsInArray:tempCellArray];
             [self deleteCouponesPostRequstCouponId:_couponIdAppdding Andstatus:@"2"];
 
             [self.tableView reloadData];
             
             break;
         case SelectCouponTypeOverDate://已过期
-
+            for (Couponlist * list in self.unUsedCouponList)
+            {
+                if (list.isChoosedCoupon)
+                {
+                    [tempCellArray addObject:list];
+                }
+            }
+            [self.unUsedCouponList removeObjectsInArray:tempCellArray];
+            
             [self deleteCouponesPostRequstCouponId:_couponIdAppdding Andstatus:@"3"];
 
             [self.tableView reloadData];

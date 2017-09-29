@@ -34,7 +34,7 @@
                         <constraint firstAttribute="width" constant="120" id="UPr-Wh-hGd"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="批量删除"/>
+                    <state key="normal" title="删除"/>
                     <connections>
                         <action selector="didClickAll:" destination="9HB-KM-N7A" eventType="touchUpInside" id="Ppb-fj-gAJ"/>
                     </connections>

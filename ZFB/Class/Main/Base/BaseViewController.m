@@ -236,6 +236,24 @@
 
     
 }
+///未开放的任务
+- (void)settingAlertView
+{
+        JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"该功能暂未开放" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+        UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    
+        }];
+        UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    
+        }];
+        [alertvc addAction:sure];
+        [alertvc addAction:cancle];
+        [self presentViewController:alertvc animated:YES completion:^{
+            
+        }];
+}
+
 #pragma mark - 判断是不是空数组
 - (BOOL)isEmptyArray:(NSMutableArray *)array
 {

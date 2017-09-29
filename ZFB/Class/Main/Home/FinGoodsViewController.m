@@ -65,6 +65,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
     [self FuncListPostRequst];
 
     [self setupRefresh];
+    
+//    [self CDsyceleSettingRunningPaintImageArr:self.adArray];
 
 }
 #pragma mark -数据请求
@@ -127,21 +129,22 @@ typedef NS_ENUM(NSUInteger, CellType) {
 
 
 /**初始化轮播 */
--(void)CDsyceleSettingRunningPaint
+-(void)CDsyceleSettingRunningPaintImageArr:(NSArray*)images
 {
-    _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 160.0/375.0 * KScreenW) delegate:self placeholderImage:[UIImage imageNamed:@"720x330"]];
-    _cycleScrollView.backgroundColor      = [UIColor whiteColor];
-    _cycleScrollView.imageURLStringsGroup = self.adArray;
-    _cycleScrollView.pageControlAliment   = SDCycleScrollViewPageContolAlimentCenter;
-    
-    //自定义dot 大小和图案pageControlCurrentDot
-    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
-    _cycleScrollView.pageDotImage        = [UIImage imageNamed:@"dot_selected"];
-    _cycleScrollView.currentPageDotColor = [UIColor whiteColor];// 自定义分页控件小圆标颜色
-    
-    self.findGoods_TableView.tableHeaderView = _cycleScrollView;
-    [self.findGoods_TableView reloadData];
-
+    if (images.count > 0) {
+        _cycleScrollView                      = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 160.0/375.0 * KScreenW) delegate:self placeholderImage:nil];
+        _cycleScrollView.imageURLStringsGroup = images;
+        _cycleScrollView.pageControlAliment   = SDCycleScrollViewPageContolAlimentCenter;
+        
+        //自定义dot 大小和图案pageControlCurrentDot
+        _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"dot_normal"];
+        _cycleScrollView.pageDotImage        = [UIImage imageNamed:@"dot_selected"];
+        _cycleScrollView.currentPageDotColor = [UIColor whiteColor];// 自定义分页控件小圆标颜色
+        
+        self.findGoods_TableView.tableHeaderView = _cycleScrollView;
+        [self.findGoods_TableView reloadData];
+   
+    }
 }
 
 
@@ -323,16 +326,13 @@ typedef NS_ENUM(NSUInteger, CellType) {
                 [self.adArray  removeAllObjects];
                 
             }else{
-                
                 HomeADModel * homeAd = [HomeADModel mj_objectWithKeyValues:response];
-                
                 for (Cmadvertimglist * adList in homeAd.data.cmAdvertImgList) {
-                    
                     [self.adArray addObject:adList.imgUrl];
                 }
             }
-            NSLog(@"广告页       = adArray = %@",self.adArray);
-            [self CDsyceleSettingRunningPaint];
+//            NSLog(@"广告页       = adArray = %@",self.adArray);
+            [self CDsyceleSettingRunningPaintImageArr:self.adArray];
         }
 
     } progress:^(NSProgress *progeress) {

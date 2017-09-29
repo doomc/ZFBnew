@@ -33,5 +33,8 @@
 
 @property (nonatomic, copy) NSString *isTreat;
 
+@property (nonatomic, strong) NSArray <NSString *>* images;
+
+
 @end
 

@@ -37,13 +37,13 @@ static NSString * settingCellid = @"ZFSettingCellid";
     [super viewDidLoad];
  
     self.title = @"设置";
-    _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置"];
+    _titleArr1  = @[@"我的信息",@"修改密码"];
 //    _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置",@"分享圈"];
-    _titleArr2  = @[@"手机号码",@"清楚缓存"];
+    _titleArr2  = @[@"手机号码",@"清除缓存"];
     _titleArr3  = @[@"客服热线",@"招商入驻"];
 
 //    _imagesArr1 = @[@"setting_message",@"setting_ps",@"settingPay",@"settingShare"];
-    _imagesArr1 = @[@"setting_message",@"setting_ps",@"settingPay"];
+    _imagesArr1 = @[@"setting_message",@"setting_ps"];
     _imagesArr2 = @[@"setting_phone",@"setting_cache"];
     _imagesArr3 = @[@"setting_calling",@"setting_shakehand",];
 
@@ -191,14 +191,14 @@ static NSString * settingCellid = @"ZFSettingCellid";
             ForgetPSViewController *chagePSVC =[[ForgetPSViewController alloc]init];
             [self.navigationController pushViewController:chagePSVC animated:YES];
             
-        }else if (indexPath.row == 2) {//支付设置
+        }
+        else if (indexPath.row == 2) {//支付设置
             
             PayPassWordSettingViewController * payVC =[[ PayPassWordSettingViewController alloc]init];
             [self.navigationController pushViewController:payVC animated:NO];
-            
         }
-
     }
+    
     else if (indexPath.section == 1)
     {
         if (indexPath.row == 1) {

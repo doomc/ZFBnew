@@ -25,19 +25,22 @@
     
     self.zfb_tableView = self.tableView;
     [self.view addSubview:self.tableView];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZFMyOpinionCell" bundle:nil] forCellReuseIdentifier:@"ZFMyOpinionCellid"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZFMyOpinionCell" bundle:nil] forCellReuseIdentifier:@"ZFMyOpinionCell"];
     [self setupRefresh];
 }
+    
 -(void)footerRefresh{
     [super footerRefresh];
     [self feedOpinionPostRequst];
 }
+    
 -(void)headerRefresh
 {
     [super headerRefresh];
     [self feedOpinionPostRequst];
 
 }
+    
 -(UITableView *)tableView
 {
     if (!_tableView) {
@@ -48,11 +51,13 @@
     }
     return _tableView;
 }
+    
 #pragma mark - datasoruce  代理实现
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.listArray.count;
 }
+    
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
@@ -61,23 +66,10 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height = 0;
-    Feedbacklist * list = self.listArray[indexPath.section];
-    
-    if ([list.feedbackUrl isEqualToString:@""]) {//判断图片地址是不是空
-        
-        return [tableView fd_heightForCellWithIdentifier:@"ZFMyOpinionCellid" configuration:^(id cell) {
-          
-            [self configCell:cell indexPath:indexPath];
-        }];
-    }
-    else{
-        
-        return [tableView fd_heightForCellWithIdentifier:@"ZFMyOpinionCellid" configuration:^(id cell) {
-            
-            [self configCell:cell indexPath:indexPath];
-        }];
-    }
+    height = [tableView fd_heightForCellWithIdentifier:@"ZFMyOpinionCell" configuration:^(id cell) {
+        [self configCell:cell indexPath:indexPath];
 
+    }];
     return height;
 }
 
@@ -86,16 +78,17 @@
     
     return 10;
 }
+    
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ZFMyOpinionCell *opinionCell = [self.tableView  dequeueReusableCellWithIdentifier:@"ZFMyOpinionCellid" forIndexPath:indexPath];
+    ZFMyOpinionCell *opinionCell = [self.tableView  dequeueReusableCellWithIdentifier:@"ZFMyOpinionCell" forIndexPath:indexPath];
    
-    
     [self configCell:opinionCell indexPath:indexPath];
 
     return opinionCell;
     
 }
+    
 -(void)configCell:(ZFMyOpinionCell *)cell indexPath:(NSIndexPath *)indexPath
 {
     if (self.listArray.count > 0) {
@@ -103,15 +96,9 @@
         Feedbacklist * list = self.listArray[indexPath.section];
         cell.feedList = list;
         [cell.feedCollectionView reloadData];
-
-    }
+     }
 }
 
-#pragma tableViewDataSource
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"%ld --------%ld",indexPath.section,indexPath.row);
-}
 
 
 #pragma mark - 意见反馈列表 -getFeedbackINfoByUserId
@@ -122,33 +109,37 @@
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"size":[NSNumber numberWithInteger:kPageCount],
                              };
+    
+    [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getFeedbackINfoByUserId"] params:parma success:^(id response) {
         
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"] ];
         if ([code isEqualToString:@"0"]) {
-            if (self.listArray.count > 0) {
-                
-                [self.listArray removeAllObjects];
+            if (self.refreshType == RefreshTypeHeader) {
+                if (self.listArray.count > 0) {
+                    
+                    [self.listArray removeAllObjects];
+                }
             }
+ 
             UserFeedbackModel * feedModel = [UserFeedbackModel mj_objectWithKeyValues:response];
-            
             for (Feedbacklist * list in feedModel.feedbackList) {
-                
                 [self.listArray addObject:list];
             }
+            
             [self.tableView reloadData];
             if ([self isEmptyArray:self.listArray]) {
                 [self.tableView cyl_reloadData];
             }
+            [SVProgressHUD dismiss];
+
         }
-       
-        
+        [self endRefresh];
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
-        NSLog(@"error=====%@",error);
+        [self endRefresh];
+        [SVProgressHUD dismiss];
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     

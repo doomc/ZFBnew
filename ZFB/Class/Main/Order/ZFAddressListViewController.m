@@ -198,6 +198,7 @@
                              };
  
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmUserAdderss",zfb_baseUrl] params:parma success:^(id response) {
+       
         NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
         if  ([code isEqualToString:@"0"])
         {
@@ -212,10 +213,12 @@
                 
                 [self.listArray addObject:addresslist];
             }
-            
-            NSLog(@"%@ ==== listArray",self.listArray);
             [self.mytableView reloadData];
+//            NSLog(@"%@ ==== listArray",self.listArray);
+
         }
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);

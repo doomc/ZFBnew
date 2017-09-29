@@ -117,7 +117,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     ///网络请求
     [self addresslistPostRequst];//收货地址
     [self getPayAccessTokenUrl]; //支付获取token
-    [self getUserNotUseCouponListPostRequset];
 
     
 }
@@ -169,7 +168,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     }
     _goodsIdAppding = [goodsIdArr componentsJoinedByString:@","];
     _storeIdAppding = [storeIdArr componentsJoinedByString:@","];
-    NSLog(@" 请求的参数 === %@ --%@",_storeIdAppding,_goodsIdAppding);
+    NSLog(@" _storeIdAppding === %@ --%@",_storeIdAppding,_goodsIdAppding);
 
     
     /////////////////////// 发起请求/////////////////////////////////////////////
@@ -203,6 +202,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     }
     NSLog(@"cmGoodsListArray = %@",self.cmGoodsListArray )
     [self.mytableView reloadData];
+
 }
 //创建UI
 -(void)creatCustomfooterView
@@ -265,10 +265,16 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     switch (_orderCellType) {
         case SureOrderCellTypeAddressCell://收货地址
         {
-            height =  [tableView fd_heightForCellWithIdentifier:@"OrderWithAddressCellid" configuration:^(OrderWithAddressCell * cell) {
+            if ([_payType isEqualToString:@"0"]) {
+                
+                height = 0;
+            }else{
+           
+                height =  [tableView fd_heightForCellWithIdentifier:@"OrderWithAddressCellid" configuration:^(OrderWithAddressCell * cell) {
                 [self configCell:cell indexpath:indexPath];
 
-            }];
+                }];
+            }
         }
             
             break;
@@ -284,7 +290,12 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             
             break;
         case SureOrderCellTypeCouponCell://优惠券
-            height = 44;
+            if (self.couponList.count > 0) {
+                height = 44;
+            }
+            else{
+                height = 0;
+            }
             
             break;
         case SureOrderCellTypeMoneyOrFreeCell://商品金额
@@ -303,10 +314,17 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     switch (_orderCellType) {
         case SureOrderCellTypeAddressCell://收货地址
         {
-            
             OrderWithAddressCell * addCell = [self.mytableView
                                               dequeueReusableCellWithIdentifier:@"OrderWithAddressCellid" forIndexPath:indexPath];
-            [self configCell:addCell indexpath:indexPath];
+            if ([_payType isEqualToString:@"0"]) {
+                [addCell setHidden:YES];
+            }
+            else{
+                
+                [self configCell:addCell indexpath:indexPath];
+ 
+            }
+
             
             return addCell;
         }
@@ -357,16 +375,23 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         case SureOrderCellTypeCouponCell://优惠券
         {
             SureOrderCommonCell * couponCell    = [self.mytableView dequeueReusableCellWithIdentifier:@"SureOrderCommonCellid" forIndexPath:indexPath];
-            couponCell.canUsedCouponNum.text =@"";
-            couponCell.lb_title.text            = @"优惠券";
-            couponCell.lb_detailTitle.textColor = HEXCOLOR(0xfe6d6a);
-            if (_couponAmount == nil || [_couponAmount isEqualToString:@""]) {
-                couponCell.lb_detailTitle.text      = @"";
-                
-            }else{
-                couponCell.lb_detailTitle.text      =  [NSString stringWithFormat:@"- ¥%@",_couponAmount];
+            if (self.couponList.count > 0) {
+                couponCell.canUsedCouponNum.text =[NSString stringWithFormat:@"可使用%ld张",self.couponList.count];
+                couponCell.lb_title.text            = @"优惠券";
                 couponCell.lb_detailTitle.textColor = HEXCOLOR(0xfe6d6a);
+               
+                if (_couponAmount == nil || [_couponAmount isEqualToString:@""]) {
+                    couponCell.lb_detailTitle.text      = @"";
+                    
+                }else{
+                    couponCell.lb_detailTitle.text      =  [NSString stringWithFormat:@"- ¥%@",_couponAmount];
+                    couponCell.lb_detailTitle.textColor = HEXCOLOR(0xfe6d6a);
+                }
+
+            }else{
+                [couponCell setHidden:YES];
             }
+           
             return couponCell;
         }
             
@@ -377,9 +402,24 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             //costNum	int(11)	配送费总金额
             //userCostNum	int(11)	支付总金额
             OrderPriceCell * priceCell   = [self.mytableView dequeueReusableCellWithIdentifier:@"OrderPriceCellid" forIndexPath:indexPath];
-            priceCell.lb_tipFree.text    = _costNum ;
+            
+            if ([_payType isEqualToString:@"0"]) {
+                priceCell.lb_tipFree.text    = @"¥0" ;
+            }
+            else{
+                priceCell.lb_tipFree.text    = _costNum ;
+            }
+            
+            if ([_goodsCount isEqualToString:@""] || _goodsCount ==nil) {
+               
+                priceCell.lb_priceTotal.text = @"¥0" ;
+            
+            }else{
+                
+                priceCell.lb_priceTotal.text = [NSString stringWithFormat:@"¥%@",_goodsCount] ;
+  
+            }
             NSLog(@"原来的价格 --- %@",_goodsCount);
-            priceCell.lb_priceTotal.text = [NSString stringWithFormat:@"¥%@",_goodsCount] ;
             
             return priceCell;
         }
@@ -480,7 +520,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderFix",zfb_baseUrl] params:parma success:^(id response) {
         
-        if ([response[@"resultCode"] intValue] == 0) {
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
             
             AddressListModel * addressModel = [AddressListModel mj_objectWithKeyValues:response ];
             
@@ -519,8 +560,12 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             _costNum                 = [NSString stringWithFormat:@"+ ¥%.2f",suremodel.costNum]  ;//配送费总金额
             _userCostNum             = [NSString stringWithFormat:@"%.2f",suremodel.userCostNum]  ;//支付总金额
             _lb_price.text           = [NSString stringWithFormat:@"¥%@",_userCostNum];//支付总金额
+            
+            //获取优惠券列表
+            [self getUserNotUseCouponListPostRequset];
+            
         }
-        
+
         [self.mytableView reloadData];
         
     } progress:^(NSProgress *progeress) {
@@ -582,11 +627,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 #pragma mark - 获取支付accessToken值，通过accessToken值获取支付签名1111111111111
 -(void)getPayAccessTokenUrl
 {
-#warning -- 此账号为测试时账号  正式时 需要修改成正式账号
     NSDictionary * param = @{
-                             
-                             @"account": @"18602343931",
-                             @"pass"   : @"123456",
+                             @"account": BBUserDefault.userPhoneNumber,
+//                             @"pass"   : BBUserDefault.userPhonePassword,
                              
                              };
     
@@ -619,6 +662,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 #pragma mark - 获取用户未使用优惠券列表   recomment/getUserNotUseCouponList
 -(void)getUserNotUseCouponListPostRequset{
     NSDictionary * parma = @{
+                             
                              @"status":@"1",
                              @"idType":@"3",
                              @"resultId":@"",

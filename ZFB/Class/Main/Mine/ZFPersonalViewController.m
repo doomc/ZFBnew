@@ -233,6 +233,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             }else{
                 
                 cashCell.lb_balance.text = @"0.00";
+                cashCell.lb_discountCoupon.text = @"0.00";
+
             }
             return cashCell;
         }
@@ -335,35 +337,54 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             break;
         case 2:            //全部订单
         {
-            ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
-            orderVC.buttonTitle =@"全部订单";
-            orderVC.orderStatus = @"";//默认状态
-            [self.navigationController pushViewController:orderVC animated:NO];
+            NSLog(@"已经加载了");
+            if (BBUserDefault.isLogin == 1) {
+                ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
+                orderVC.buttonTitle =@"全部订单";
+                orderVC.orderStatus = @"";//默认状态
+                [self.navigationController pushViewController:orderVC animated:NO];
+            }
+            else{
+                [self isloginSuccess];
+            }
+
             
         }
             break;
         case 3:            //购物车
         {
-            
-            ZFShoppingCarViewController * shopcarVC =[[ZFShoppingCarViewController alloc]init];
-            [self.navigationController pushViewController:shopcarVC animated:NO];
-            
+            if (BBUserDefault.isLogin == 1) {
+                ZFShoppingCarViewController * shopcarVC =[[ZFShoppingCarViewController alloc]init];
+                [self.navigationController pushViewController:shopcarVC animated:NO];
+                
+            }
+            else{
+                [self isloginSuccess];
+
+            }
+
         }
             break;
         case 4:             //切换到配送端
         {
- 
-            if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
-                //商户端
-                BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
-                businessVC.storeId = _storeId;
-                [self.navigationController pushViewController:businessVC animated:NO];
-                
+            if (BBUserDefault.isLogin == 1) {
+                if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
+                    //商户端
+                    BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
+                    businessVC.storeId = _storeId;
+                    [self.navigationController pushViewController:businessVC animated:NO];
+                    
+                }
+                if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
+                    // 配送端
+                    ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
+                    [self.navigationController pushViewController:sendVC animated:NO];
+                }
+
             }
-            if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
-                // 配送端
-                ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
-                [self.navigationController pushViewController:sendVC animated:NO];
+            else{
+                [self isloginSuccess];
+                
             }
             
         }
@@ -371,20 +392,30 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         case 5://我的共享
 
         {
-            MineShareViewController * shareVC = [MineShareViewController new];
-            [self.navigationController pushViewController:shareVC animated:NO];
+            if (BBUserDefault.isLogin == 1) {
+                
+                MineShareViewController * shareVC = [MineShareViewController new];
+                [self.navigationController pushViewController:shareVC animated:NO];
+            }else{
+                
+                [self isloginSuccess];
+                
+            }
 
         }
             break;
         case 6: {//意见反馈
-            
-            ZFFeedbackViewController * feedVC = [[ZFFeedbackViewController alloc]init];
-            [self.navigationController pushViewController:feedVC animated:NO];
-            
+            if (BBUserDefault.isLogin == 1) {
+                
+                ZFFeedbackViewController * feedVC = [[ZFFeedbackViewController alloc]init];
+                [self.navigationController pushViewController:feedVC animated:NO];
+                
+            }else{
+                
+                [self isloginSuccess];
+            }
         }
             
-            break;
-        default:
             break;
     }
     
@@ -420,6 +451,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         orderVC.buttonTitle = @"已配送";
         [self.navigationController pushViewController:orderVC animated:YES];
     }else{
+        
         [self isloginSuccess];
         
     }
@@ -500,45 +532,60 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
 }
 
-//点击头像
+#pragma  mark - 点击头像
 -(void)didClickHeadImageViewAction:(UITapGestureRecognizer *)sender
 {
-    
     NSLog(@"点击了头像");
-    ZFSettingHeadViewController *headVC = [[ZFSettingHeadViewController alloc]init];
-    headVC.userImgAttachUrl = _userImgAttachUrl;
-    [self.navigationController pushViewController:headVC animated:NO];
-    
+    if (BBUserDefault.isLogin == 0) {
+        [self isloginSuccess];
+        
+    }else{
+        ZFSettingHeadViewController *headVC = [[ZFSettingHeadViewController alloc]init];
+        headVC.userImgAttachUrl = _userImgAttachUrl;
+        [self.navigationController pushViewController:headVC animated:NO];
+    }
 }
 
 #pragma  mark - ZFMyCashBagCellDelegate - 钱包
 ///钱包
 -(void)didClickCashBag
 {
-    MineWalletViewController * walletVC = [[MineWalletViewController alloc]init];
-    [self.navigationController pushViewController:walletVC animated:NO];
+    
+    [self settingAlertView];
+//        MineWalletViewController * walletVC = [[MineWalletViewController alloc]init];
+//        [self.navigationController pushViewController:walletVC animated:NO];
     
 }
 ///余额
 -(void)didClickBalanceView
 {
-    
+    [self settingAlertView];
+
 }
 ///提成金额
 -(void)didClickUnitView
 {
-    
+    [self settingAlertView];
+
 }
 ///优惠券
 -(void)didClickDiscountCouponView
 {
-    CouponViewController * couponVC = [CouponViewController new];
-    [self.navigationController pushViewController:couponVC animated:NO];
+    if (BBUserDefault.isLogin == 0) {
+        
+        [self isloginSuccess];
+        
+    }else{
+        CouponViewController * couponVC = [CouponViewController new];
+        [self.navigationController pushViewController:couponVC animated:NO];
+    }
+
 }
 ///富豆
 -(void)didClickFuBeanView
 {
-    
+    [self settingAlertView];
+
 }
 
 
@@ -554,7 +601,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getUserInfo"] params:parma success:^(id response) {
         
-        if ([response [@"resultCode"] intValue]== 0) {
+        NSString * code = [NSString stringWithFormat:@"%@",response [@"resultCode"]];
+        
+        if ([code isEqualToString:@"0"]) {
             
             _couponNum  = [NSString stringWithFormat:@"%@",response[@"couponNum"]];//优惠券数量
             _foolnum    = [NSString stringWithFormat:@"%@",response[@"foolNum"] ];
@@ -595,7 +644,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)getThirdBalancePOSTRequste
 {
     NSDictionary * parma = @{
-                             @"account":@"18602343931",
+                             @"account":BBUserDefault.userPhoneNumber,
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/QRCode/getThirdBalance"] params:parma success:^(id response) {

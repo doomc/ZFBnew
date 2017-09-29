@@ -13,7 +13,6 @@
 
 -(NSDictionary *)signStringWithParamdic:(NSDictionary *)param
 {
-//    AppDelegate *appdelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
     
     NSLog(@"isLogin====%d",BBUserDefault.isLogin);
     
@@ -22,11 +21,12 @@
         _MD5_key = BBUserDefault.userKeyMd5 ;
     
     }else{
+        
         BBUserDefault.cmUserId = @"";
         _MD5_key = @"1233@sdf%22dscE3";//全局
     }
     NSLog(@" ////////登录状态  = %d --------- _MD5_key 值== %@ ///////////",BBUserDefault.isLogin,BBUserDefault.userKeyMd5 );
-
+    NSLog(@"current _MD5_key  =%@",_MD5_key);
     // 固定参数
     NSDate * date = [NSDate date];
     NSString * DateTime =  [dateTimeHelper htcTimeToLocationStr: date];

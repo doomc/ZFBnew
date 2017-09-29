@@ -397,7 +397,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
         if ([code isEqualToString:@"0"]) {
             
             _smsCode = response[@"smsCode" ];
-            
             self.login_btn.enabled = YES;
             self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
             
@@ -443,16 +442,19 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
             BBUserDefault.token = response[@"userInfo"][@"token"];
             BBUserDefault.accid = response[@"userInfo"][@"accid"];
+            BBUserDefault.userPhonePassword = _tf_verificationCodeOrPassWord.text;//保存密码
 
-            NSLog(@" ======= signMD5Key=======%@", BBUserDefault.userKeyMd5 );
+            NSLog(@" 登陆成功后的 signMD5Key=======%@", BBUserDefault.userKeyMd5 );
             [self loginNIM];
+            [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
+            [SVProgressHUD dismiss];
+
+        }else{
+            [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
+            [SVProgressHUD dismiss];
 
         }
-        [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
 
-        [SVProgressHUD dismiss];
-
-        
     } progress:^(NSProgress *progeress) {
         
         
@@ -489,11 +491,18 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.userPhoneNumber = _tf_loginphone.text;
             BBUserDefault.token = response[@"userInfo"][@"token"];
             BBUserDefault.accid = response[@"userInfo"][@"accid"];
+            BBUserDefault.userPhonePassword = _tf_verificationCodeOrPassWord.text;//保存密码
+
             [self loginNIM];
+            [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
+            [ SVProgressHUD dismiss];
 
         }
-        [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
-        [ SVProgressHUD dismiss];
+        else{
+            [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
+            [ SVProgressHUD dismiss];
+
+        }
 
         NSLog(@" ======= userKeyMd5=======%@",BBUserDefault.userKeyMd5 );
  

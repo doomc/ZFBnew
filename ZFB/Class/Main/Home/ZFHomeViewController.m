@@ -51,8 +51,8 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _titlesArr = @[@"扫一扫",@"收款",@"付款"];
-    _iconArr = @[@"saoyisao",@"saoyisao",@"saoyisao"];
+    _titlesArr = @[@"扫一扫"];
+    _iconArr = @[@"saoyisao"];
   
     [self customButtonOfNav];
  
@@ -193,12 +193,12 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
 
         case TypeVCAcceptMoney://收款
             NSLog(@"第2个VC");
-            [self collectMoneyQRCode];
+//            [self collectMoneyQRCode];
 
             break;
         case TypeVCPaymoney://付款
             NSLog(@"第3 ge VC");
-            [self PayMoneyQRCode];
+//            [self PayMoneyQRCode];
 
             break;
 

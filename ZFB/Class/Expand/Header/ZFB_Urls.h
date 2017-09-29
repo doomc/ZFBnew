@@ -57,11 +57,12 @@
 
 #pragma mark -------------hj--------------------
 ////baseURL
-//#define  zfb_baseUrl @"http://192.168.1.166:8087/zfb/InterfaceServlet"
+//#define  zfb_baseUrl @"http://192.168.1.107:8087/zfb/InterfaceServlet"
 ////单聊
-//#define  IMsingle_baseUrl @"http://192.168.1.166:8087/im/user"
+//#define  IMsingle_baseUrl @"http://192.168.1.107:8087/im/user"
 ////群聊
-//#define  IMGroup_baseUrl @"http://192.168.1.166:8087/group"
+//#define  IMGroup_baseUrl @"http://192.168.1.107:8087/group"
+
 
 #pragma mark -------------支付服务 -------------------
 //#define PayResulrUrl @"http://192.168.1.115:8080/cashier_zavfpay/cashier/gateway.do"//支付页面地址

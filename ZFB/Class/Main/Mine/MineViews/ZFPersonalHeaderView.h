@@ -16,6 +16,7 @@
 
 //更换头像
 -(void)didClickHeadImageViewAction:(UITapGestureRecognizer *)sender;
+
 //商品收藏的点击事件
 -(void)didClickCollectAction:(UIButton *)sender;
 

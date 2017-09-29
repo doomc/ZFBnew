@@ -17,6 +17,6 @@
 #pragma mark - 网络请求必传的参数
 @property (nonatomic ,copy) NSString *  orderStatus  ; //订单状态
 
--(void)sendTitle:(NSString *)title orderType:(OrderType)type;
+-(void)sendTitle:(NSString *) title orderType:(OrderType)type;
 
 @end

@@ -138,7 +138,6 @@ static NSString * identyhy = @"SearchHistoryCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         
-        //        return 50;
         return [tableView fd_heightForCellWithIdentifier:identyfy configuration:^(id cell) {
             
             [self configCell:cell indexpath:indexPath];

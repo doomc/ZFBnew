@@ -30,6 +30,7 @@
     NSString * _pickerImgString;//图片数组的字符串用逗号隔开
     NSString * _typeName;
     NSString * _textViewText;
+    NSString * _imgUrlString;
 
 }
 @property (nonatomic,strong) UITableView  * tableView;
@@ -167,11 +168,7 @@
 -(void)didClickCommit
 {
     NSLog(@"反馈类型 ----%@",_typeName);
-    
-    if (_isCommited) {//如果还没有提交
-        return;
-    }
-    _isCommited = YES;
+ 
 
     if ([_typeName isEqualToString:@""]|| _typeName == nil ||_textViewText == nil || _textViewText.length == 0 || [_textViewText isEqualToString:@""]) {
         JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"请填写完您的宝贵意见" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -180,17 +177,35 @@
         }];
         [alert addAction:sure];
         [self presentViewController:alert animated:YES completion:nil];
-        
+ 
     }else{
         
-        [OSSImageUploader asyncUploadImages:_uploadImageArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
-            if (state == 1) {
-                NSLog(@"点击提交了 _images = %@",names);
-                NSString * imgUrlString = [names componentsJoinedByString:@","];
-                [self getFeedbackINfoInsertPOSTRequste:imgUrlString];
-            }
-        }];
+        if (_uploadImageArray.count > 0) {
+            [OSSImageUploader asyncUploadImages:_uploadImageArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
+                if (state == 1) {
+                    NSLog(@"点击提交了 _images = %@",names);
+                    _imgUrlString = [names componentsJoinedByString:@","];
+                    
+                    if (_phoneNum.length > 0) {
+                        
+                        [self getFeedbackINfoInsertPOSTRequste:_imgUrlString AndPhone:_phoneNum];
+
+                    }else{
+                        [self getFeedbackINfoInsertPOSTRequste:_imgUrlString AndPhone:@""];
+  
+                    }
+                    return ;
+                }
+            }];
+            
+        }else{
+            
+            [self getFeedbackINfoInsertPOSTRequste:@"" AndPhone:_phoneNum];
+            
+        }
+
     }
+ 
 }
 
 
@@ -254,26 +269,28 @@
 }
 
 #pragma mark  - 保存用户反馈意见（针对平台反馈的意见)getFeedbackINfoInsert
--(void)getFeedbackINfoInsertPOSTRequste:(NSString *)imgURL
+-(void)getFeedbackINfoInsertPOSTRequste:(NSString *)imgURL AndPhone :(NSString *)phone
 {
-    if (_phoneNum == nil ) {
-        _phoneNum = @"";
-    }
     
     NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"feedbackType":_typeName,//反馈类型
                              @"feedbackContent":_textViewText,//反馈意见
                              @"feedbackUrl":imgURL,//图片评论
-                             @"feedbackUserPhone":_phoneNum,//用户预留电话
+                             @"feedbackUserPhone":phone,//用户预留电话
  
                              };
     [SVProgressHUD showWithStatus:@"正在上传..."];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getFeedbackINfoInsert"] params:parma success:^(id response) {
+  
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+            
+            _isCommited = NO;
+            
+            [SVProgressHUD showSuccessWithStatus:@"上传成功！"];
+        }
 
-        _isCommited = NO;
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-        [SVProgressHUD showSuccessWithStatus:@"上传成功！"];
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {

@@ -89,5 +89,7 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 //如果没有登录
 -(void)isIfNotSignIn;
 
+//用户提示没开放的任务
+- (void)settingAlertView;
 
 @end

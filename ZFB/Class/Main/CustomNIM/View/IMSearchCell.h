@@ -13,5 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_findSomething;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_searchNum;
+   
+@property (weak, nonatomic) IBOutlet UIImageView *headImg;
 
 @end

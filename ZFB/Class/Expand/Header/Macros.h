@@ -6,7 +6,7 @@
 //  Copyright © 2016年 wujunyang. All rights reserved.
 //
 
-#define TITLES @[@"门店",@"商品"]
+#define TITLES @[@"商品"]
 
 #define isiPhoe5AutoSizeScaleX  1
 #define isiPhoe5AutoSizeScaleY  1

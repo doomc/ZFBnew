@@ -40,7 +40,7 @@
         _searchBar                 = [[UISearchBar alloc]initWithFrame:CGRectMake(50, 0, KScreenW - 2*50, 44)];
         _searchBar.delegate        = self;
         _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
-        _searchBar.placeholder     = @"搜索好友/群号";
+        _searchBar.placeholder     = @"搜索好友手机号";
     }
     return _searchBar;
 }
@@ -64,7 +64,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -76,17 +76,19 @@
     
     if (indexPath.row ==  0 ) {
         cell.lb_searchNum.text = searchNum;
+        cell.headImg.image = [UIImage imageNamed:@"findsingle"];
         return cell;
 
     }
-    else
-    {
-        cell.lb_findSomething.text = @"找群:";
-        cell.lb_searchNum.text = searchNum;
-
-        return cell;
-
-    }
+//    else
+//    {
+//        cell.lb_findSomething.text = @"找群:";
+//        cell.lb_searchNum.text = searchNum;
+//        cell.headImg.image = [UIImage imageNamed:@"findGroup"];
+//
+//        return cell;
+//
+//    }
     return nil;
 }
 
@@ -101,15 +103,15 @@
         resultVC.friendType = 0;
         [self.navigationController pushViewController:resultVC animated:NO];
     }
-    else
-    {
-        NSLog(@"搜索群号");
-        resultVC.searchResult = searchNum;
-        resultVC.friendType = 1;
-        [self.navigationController pushViewController:resultVC animated:NO];
-
-        
-    }
+//    else
+//    {
+//        NSLog(@"搜索群号");
+//        resultVC.searchResult = searchNum;
+//        resultVC.friendType = 1;
+//        [self.navigationController pushViewController:resultVC animated:NO];
+//
+//        
+//    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -330,8 +330,7 @@ typedef NS_ENUM(NSUInteger, CollectType) {
         
     }];
     UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        
-        //重点 --------- //
+  
         switch (_collectType) {
             case CollectTypeGoods:
             {
@@ -406,7 +405,6 @@ typedef NS_ENUM(NSUInteger, CollectType) {
         
     }
 }
-
 -(NSMutableArray *)listArray
 {
     if (!_listArray) {
@@ -492,7 +490,6 @@ typedef NS_ENUM(NSUInteger, CollectType) {
                 [self.listArray addObject:list];
             }
             [self.tableView reloadData];
-
             
             NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",_listArray);
             if ([self isEmptyArray:self.listArray]) {
@@ -519,11 +516,8 @@ typedef NS_ENUM(NSUInteger, CollectType) {
 -(void)cancelCollectListPOSTRequest
 {
     NSDictionary * parma = @{
-                             
                              @"cartItemId":_collectId,
-                             
                              };
-    
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getKeepGoodDel"] params:parma success:^(id response) {
         
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
@@ -548,7 +542,6 @@ typedef NS_ENUM(NSUInteger, CollectType) {
                              @"goodId":_goodId,
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"collectType":collectType,//1商品 2门店
-                             
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/cancalGoodsCollect"] params:parma success:^(id response) {

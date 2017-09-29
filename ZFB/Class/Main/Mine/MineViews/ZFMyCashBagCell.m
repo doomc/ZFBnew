@@ -20,24 +20,29 @@
     // 点击账户余额
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBalanceView:)];
     tap.delegate = self;
+    self.balanceView.userInteractionEnabled = YES;
     [self.balanceView addGestureRecognizer:tap];
     
     UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapUnitView:)];
     tap2.delegate = self;
+    self.unitView.userInteractionEnabled = YES;
     [self.unitView addGestureRecognizer:tap2];
     
     UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDiscountCouponView:)];
     tap3.delegate = self;
+    self.discountCouponView.userInteractionEnabled = YES;
     [self.discountCouponView addGestureRecognizer:tap3];
     
     UITapGestureRecognizer *tap4 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFuBeanView:)];
     tap4.delegate = self;
+    self.fuBeanView.userInteractionEnabled = YES;
     [self.fuBeanView addGestureRecognizer:tap4];
     
     UITapGestureRecognizer * tapCaseBag = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCashBag:)];
     tapCaseBag.delegate = self;
-    [self.fuBeanView addGestureRecognizer:tapCaseBag];
- 
+    [self.myCaseBag addGestureRecognizer:tapCaseBag];
+    self.myCaseBag.userInteractionEnabled = YES;
+
 }
 // 点击钱包
 -(void)tapCashBag:(UITapGestureRecognizer *)tap

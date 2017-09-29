@@ -1051,6 +1051,12 @@
 		49C33E6F1F55A6B400BC2254 /* ShareCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C33E6E1F55A6B400BC2254 /* ShareCircleViewController.m */; };
 		49CE2EE51F2ACB81007B80AB /* BusinessServicerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CE2EE31F2ACB81007B80AB /* BusinessServicerViewController.m */; };
 		49CE2EE61F2ACB81007B80AB /* BusinessServicerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49CE2EE41F2ACB81007B80AB /* BusinessServicerViewController.xib */; };
+		49D115A91F7E7FE900467CF1 /* addFriend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D115A71F7E7FE900467CF1 /* addFriend@2x.png */; };
+		49D115AA1F7E7FE900467CF1 /* addFriend@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D115A81F7E7FE900467CF1 /* addFriend@3x.png */; };
+		49D115AF1F7E851900467CF1 /* findGroup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D115AB1F7E851900467CF1 /* findGroup@2x.png */; };
+		49D115B01F7E851900467CF1 /* findGroup@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D115AC1F7E851900467CF1 /* findGroup@3x.png */; };
+		49D115B11F7E851900467CF1 /* findsingle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D115AD1F7E851900467CF1 /* findsingle@2x.png */; };
+		49D115B21F7E851900467CF1 /* findsingle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D115AE1F7E851900467CF1 /* findsingle@3x.png */; };
 		49D6952C1F318087000868A7 /* SendOrderStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D6952B1F318087000868A7 /* SendOrderStatisticsViewController.m */; };
 		49D92DF61F6661E200E925BF /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D92DF51F6661E200E925BF /* UserProtocolViewController.m */; };
 		49DA748B1F2599FA009F5577 /* LocationDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74831F2599FA009F5577 /* LocationDetailVC.m */; };
@@ -2849,6 +2855,12 @@
 		49CE2EE21F2ACB81007B80AB /* BusinessServicerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessServicerViewController.h; sourceTree = "<group>"; };
 		49CE2EE31F2ACB81007B80AB /* BusinessServicerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessServicerViewController.m; sourceTree = "<group>"; };
 		49CE2EE41F2ACB81007B80AB /* BusinessServicerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessServicerViewController.xib; sourceTree = "<group>"; };
+		49D115A71F7E7FE900467CF1 /* addFriend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addFriend@2x.png"; sourceTree = "<group>"; };
+		49D115A81F7E7FE900467CF1 /* addFriend@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addFriend@3x.png"; sourceTree = "<group>"; };
+		49D115AB1F7E851900467CF1 /* findGroup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "findGroup@2x.png"; sourceTree = "<group>"; };
+		49D115AC1F7E851900467CF1 /* findGroup@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "findGroup@3x.png"; sourceTree = "<group>"; };
+		49D115AD1F7E851900467CF1 /* findsingle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "findsingle@2x.png"; sourceTree = "<group>"; };
+		49D115AE1F7E851900467CF1 /* findsingle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "findsingle@3x.png"; sourceTree = "<group>"; };
 		49D6952A1F318087000868A7 /* SendOrderStatisticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendOrderStatisticsViewController.h; sourceTree = "<group>"; };
 		49D6952B1F318087000868A7 /* SendOrderStatisticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendOrderStatisticsViewController.m; sourceTree = "<group>"; };
 		49D92DF41F6661E200E925BF /* UserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
@@ -4917,6 +4929,7 @@
 		495EA5811F14B64C001FCB7E /* all_icon */ = {
 			isa = PBXGroup;
 			children = (
+				49D115A21F7E7F7C00467CF1 /* IM聊天 */,
 				4958D4FA1F691958007426A9 /* 优惠券 */,
 				49411E271F67B14C00344731 /* 分享圈 */,
 				492141831F2A031100C44D10 /* 商户端 */,
@@ -6885,6 +6898,19 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		49D115A21F7E7F7C00467CF1 /* IM聊天 */ = {
+			isa = PBXGroup;
+			children = (
+				49D115AB1F7E851900467CF1 /* findGroup@2x.png */,
+				49D115AC1F7E851900467CF1 /* findGroup@3x.png */,
+				49D115AD1F7E851900467CF1 /* findsingle@2x.png */,
+				49D115AE1F7E851900467CF1 /* findsingle@3x.png */,
+				49D115A71F7E7FE900467CF1 /* addFriend@2x.png */,
+				49D115A81F7E7FE900467CF1 /* addFriend@3x.png */,
+			);
+			path = "IM聊天";
+			sourceTree = "<group>";
+		};
 		49DA74811F2599FA009F5577 /* common */ = {
 			isa = PBXGroup;
 			children = (
@@ -7367,7 +7393,7 @@
 					492752131EC44DFC003C22D0 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 297J2E2F8W;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -7635,6 +7661,7 @@
 				493BDE3A1F6A792900CF31D0 /* MineShareContentCell.xib in Resources */,
 				49C33E2D1F5561F800BC2254 /* settingShopCar@2x.png in Resources */,
 				495EA8731F14B64D001FCB7E /* shoppingCar_normal@3x.png in Resources */,
+				49D115AA1F7E7FE900467CF1 /* addFriend@3x.png in Resources */,
 				49DA74931F259BED009F5577 /* SearchTypeView.xib in Resources */,
 				495EA8CE1F14B64E001FCB7E /* setting_message@2x.png in Resources */,
 				494E5A181F56D0C3007FEC02 /* add_red@3x.png in Resources */,
@@ -7646,6 +7673,7 @@
 				49411E2A1F67B14C00344731 /* sharezan_normal@3x.png in Resources */,
 				493675DC1F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.xib in Resources */,
 				4968A5DD1F4DB83E0061A87E /* NIMKitSettings.bundle in Resources */,
+				49D115AF1F7E851900467CF1 /* findGroup@2x.png in Resources */,
 				495EA7CC1F14B64D001FCB7E /* ZFMyCashBagCell.xib in Resources */,
 				49C33E4B1F558D3700BC2254 /* store_black@2x.png in Resources */,
 				49786D781F7CD93F0088AAD3 /* settingPay@2x.png in Resources */,
@@ -7664,6 +7692,7 @@
 				49DA749D1F259D20009F5577 /* arrowdown_red@3x.png in Resources */,
 				49DA74A81F25CB9C009F5577 /* SearchTypeCollectionCell.xib in Resources */,
 				495EA86B1F14B64D001FCB7E /* cellphone_normal@3x.png in Resources */,
+				49D115B01F7E851900467CF1 /* findGroup@3x.png in Resources */,
 				497A8AAF1F2AECAA0003D7CB /* 今日@3x.png in Resources */,
 				49AD34511F289AE200DC8A8F /* search_history@2x.png in Resources */,
 				495EA8B11F14B64D001FCB7E /* shoppingCar_selected@3x.png in Resources */,
@@ -7683,6 +7712,7 @@
 				495EA85C1F14B64D001FCB7E /* qq@2x.png in Resources */,
 				4906D1711F74F6E500B327ED /* 引导页1.png in Resources */,
 				495EA86E1F14B64D001FCB7E /* Love_selected@2x.png in Resources */,
+				49D115B11F7E851900467CF1 /* findsingle@2x.png in Resources */,
 				495EA8FE1F14B64E001FCB7E /* Collected@2x.png in Resources */,
 				495EA88D1F14B64D001FCB7E /* diamond@3x.png in Resources */,
 				4906D1551F74D7BE00B327ED /* 720x330.png in Resources */,
@@ -7733,6 +7763,7 @@
 				4958D51E1F692367007426A9 /* used.png in Resources */,
 				4906D14A1F74D7BE00B327ED /* 130x140.png in Resources */,
 				49C33E401F558A3B00BC2254 /* shoppingcar_black@3x.png in Resources */,
+				49D115A91F7E7FE900467CF1 /* addFriend@2x.png in Resources */,
 				495EA8E91F14B64E001FCB7E /* 删除@3x .png in Resources */,
 				495EA7831F14B64D001FCB7E /* ZFAppraiseCell.xib in Resources */,
 				492752241EC44DFD003C22D0 /* Assets.xcassets in Resources */,
@@ -7763,6 +7794,7 @@
 				495EA7F81F14B64D001FCB7E /* ZFContactCell.xib in Resources */,
 				493BDE181F6A35E400CF31D0 /* 线下支付@3x.png in Resources */,
 				4906D15B1F74DA9000B327ED /* nomoreData@2x.png in Resources */,
+				49D115B21F7E851900467CF1 /* findsingle@3x.png in Resources */,
 				495EA8621F14B64D001FCB7E /* wx_share@2x.png in Resources */,
 				495EA8961F14B64D001FCB7E /* message@2x.png in Resources */,
 				49786D691F7C99F20088AAD3 /* messageNormal@3x.png in Resources */,
@@ -8725,7 +8757,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -8774,7 +8807,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -8802,7 +8836,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -8833,9 +8868,53 @@
 					"$(PROJECT_DIR)/ZFB/Class/Expand/Tool/YYkit/JhtGuidePagesSDK",
 					"$(PROJECT_DIR)/ZFB/Class/Expand/Tool/JhtGuidePagesSDK",
 				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AMap2DMap\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AMapFoundation\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AMapLocation\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AMapSearch\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/CYLTableViewPlaceHolder\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/FMDB\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/HXWeiboPhotoPicker\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/M80AttributedLabel\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MJExtension\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/NIMSDK\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/ReactiveCocoa\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SVProgressHUD\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/TZImagePickerController\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "c824e48c-4bb7-4107-a703-fb036f532ab9";
+				PROVISIONING_PROFILE_SPECIFIER = zafvbProductDistribution;
 			};
 			name = Debug;
 		};
@@ -8846,7 +8925,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -8877,9 +8957,53 @@
 					"$(PROJECT_DIR)/ZFB/Class/Expand/Tool/YYkit/JhtGuidePagesSDK",
 					"$(PROJECT_DIR)/ZFB/Class/Expand/Tool/JhtGuidePagesSDK",
 				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AMap2DMap\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AMapFoundation\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AMapLocation\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AMapSearch\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/CYLTableViewPlaceHolder\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/FMDB\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/HXWeiboPhotoPicker\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/M80AttributedLabel\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MJExtension\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/NIMSDK\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/ReactiveCocoa\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SVProgressHUD\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/TZImagePickerController\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "c824e48c-4bb7-4107-a703-fb036f532ab9";
+				PROVISIONING_PROFILE_SPECIFIER = zafvbProductDistribution;
 			};
 			name = Release;
 		};

@@ -522,8 +522,8 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 #warning -- 此账号为测试时账号  正式时 需要修改成正式账号
     NSDictionary * param = @{
                              
-                             @"account": @"18602343931",
-                             @"pass"   : @"123456",
+                             @"account":  BBUserDefault.cmUserId,
+//                             @"pass"   :  BBUserDefault.userPhonePassword,
                              
                              };
     

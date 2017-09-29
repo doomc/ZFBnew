@@ -71,8 +71,7 @@
                 if ([resultCode isEqualToString:@"3"]) {
                     BBUserDefault.isLogin = 0;
                     BBUserDefault.cmUserId = @"";
-                    [self clearAllUserDefaults];
-                }
+                 }
                 NSString *result = [NSString convertToJsonData:responseObject];
                 NSLog(@"%@",result);
             }
@@ -86,15 +85,6 @@
     
 }
 
-//移除所有本地数据
-+(void)clearAllUserDefaults
-{
-    
-    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"key"];
-    
-}
 + (AFSecurityPolicy*)customSecurityPolicy
 {
     // /先导入证书
