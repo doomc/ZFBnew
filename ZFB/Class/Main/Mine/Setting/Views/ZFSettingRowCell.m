@@ -40,16 +40,12 @@
 {
     NSLog(@"%@",textField.text);
     
+    if ([self.delegate respondsToSelector:@selector(changeNickName:)]) {
+        
+        [self.delegate changeNickName:textField.text];
+    }
 }
--(void)textFieldDidEndEditing:(UITextField *)textField
-{
-    _nickName = textField.text;
-     NSLog(@"%@",textField.text);
-    
-    [self.delegate getNickName:_nickName];
  
-}
-
 //回收键盘
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {

@@ -37,6 +37,16 @@
     [self.dealImageView sd_setImageWithURL:[NSURL URLWithString:orderGoods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     _orderId = orderGoods.order_id;
     
+    if ([orderGoods.is_comment isEqualToString:@"0"]) {
+        self.btn_shareOrder.hidden = NO;
+        self.shareOrderBtnWidth.constant = 70;
+    }else{
+
+        self.btn_shareOrder.hidden = YES;
+        self.shareOrderBtnWidth.constant = 0;
+    }
+    
+    
 }
 //晒单
 - (IBAction)shareOrderAction:(id)sender {

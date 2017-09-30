@@ -196,7 +196,7 @@
                               @"cmUserId":BBUserDefault.cmUserId,
                              
                              };
- 
+    [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmUserAdderss",zfb_baseUrl] params:parma success:^(id response) {
        
         NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
@@ -214,17 +214,16 @@
                 [self.listArray addObject:addresslist];
             }
             [self.mytableView reloadData];
-//            NSLog(@"%@ ==== listArray",self.listArray);
+            [SVProgressHUD dismiss];
 
         }
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
 
     } progress:^(NSProgress *progeress) {
         
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         
+        [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
@@ -236,10 +235,9 @@
 -(void)deleteInfoPostRequstWithpostAddressId :(NSString *)postAddressId
 {
     NSDictionary * parma = @{
-                             
                              @"postAddressId":postAddressId,
-                             
                              };
+    
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getDelUserAddressInfo",zfb_baseUrl] params:parma success:^(id response) {
         

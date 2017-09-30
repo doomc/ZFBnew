@@ -169,7 +169,7 @@
     }
     _isCommited = YES;
 
-    [SVProgressHUD show];
+    [SVProgressHUD showWithStatus:@"正在提交"];
     [OSSImageUploader asyncUploadImages:_upImgArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
         if (state == 1) {
             NSLog(@"点击提交了 _images = %@",names);
@@ -217,7 +217,7 @@
         
         if ([response [@"resultCode"] isEqualToString:@"0"]) {
           
-            [SVProgressHUD dismiss];
+            [SVProgressHUD showSuccessWithStatus:@"晒单成功!"];
             _isCommited = NO;//提交成功后返回默认
 
             JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"评价成功,马上返回？" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -238,12 +238,13 @@
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
-        [SVProgressHUD dismiss];
+        [SVProgressHUD showErrorWithStatus:@"网络错误"];
         NSLog(@"error=====%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
 }
+    
+    
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -42,10 +42,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 @property (weak, nonatomic) IBOutlet UILabel *lb_goodsCount;
 
+   
+
 /**
  晒单
  */
 @property (weak, nonatomic) IBOutlet UIButton *btn_shareOrder;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *shareOrderBtnWidth;
 
 /**
  共享

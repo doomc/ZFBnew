@@ -114,5 +114,8 @@
 
 @property (nonatomic, strong) NSArray *goods_properties;
 
+@property (nonatomic, copy) NSString * is_comment;//0 是未评论 1 是已评论
+    
+
 @end
 

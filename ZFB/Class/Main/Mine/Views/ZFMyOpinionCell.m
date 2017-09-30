@@ -73,12 +73,21 @@
 
 -(void)reloadlayout{
     
-    if (_imagerray.count > 3) {
+    if ([_feedList.feedbackUrl isEqualToString:@""] || _feedList == nil) {
+       
+        _feedcollectViewLayoutheight.constant = 0;
+
+    }else{
         
-        _feedcollectViewLayoutheight.constant = ((KScreenW - 30 )/3.0  *2 ) ;
-    }
-    else{
-        _feedcollectViewLayoutheight.constant = ((KScreenW - 30 )/3.0);
+        if (_imagerray.count > 3) {
+            
+            _feedcollectViewLayoutheight.constant = ((KScreenW - 30 )/3.0  *2 ) ;
+        }
+        else{
+            _feedcollectViewLayoutheight.constant = ((KScreenW - 30 )/3.0);
+
+        }
+  
     }
     
     [self.feedCollectionView reloadData];
@@ -99,8 +108,10 @@
   
     FeedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FeedCollectionViewCellid" forIndexPath:indexPath];
     
-     NSString * imgUrl = _imagerray[indexPath.item];
-    [cell.feedImgeView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
+    if (_imagerray.count > 0) {
+        NSString * imgUrl = _imagerray[indexPath.item];
+        [cell.feedImgeView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
+    }
     return cell;
     
 }

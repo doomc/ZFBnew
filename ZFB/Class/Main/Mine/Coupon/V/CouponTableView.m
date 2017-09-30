@@ -118,6 +118,8 @@
    
     cell.couponDelegate = self;
     
+    cell.buttonWidthConstraint.constant = 0;
+    
     cell.indexRow = indexPath.row;
     
     cell.couponlist = list;

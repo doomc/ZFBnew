@@ -10,7 +10,7 @@
 
 @protocol ZFSettingRowCellDelegate  <NSObject>
 
--(void )getNickName:(NSString *)nickName;
+-(void)changeNickName:(NSString *)nickName;
 
 @end
 @interface ZFSettingRowCell : UITableViewCell
@@ -22,8 +22,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *tf_contentTextfiled;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_detailTitle;
-
-@property (copy, nonatomic) NSString * nickName;
 
 @property (assign, nonatomic) BOOL   isEdited;//已经编辑过了
 

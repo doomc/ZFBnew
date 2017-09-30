@@ -101,6 +101,7 @@
                 <outlet property="lb_goodsCount" destination="idI-Tk-QdZ" id="qH9-de-LeW"/>
                 <outlet property="lb_price" destination="5xW-0D-Lyi" id="WUl-xB-uYx"/>
                 <outlet property="lb_title" destination="pTF-if-pLq" id="G8G-Sl-ZEQ"/>
+                <outlet property="shareOrderBtnWidth" destination="NJk-Au-6av" id="Pve-ft-BNi"/>
             </connections>
             <point key="canvasLocation" x="-131" y="153"/>
         </tableViewCell>

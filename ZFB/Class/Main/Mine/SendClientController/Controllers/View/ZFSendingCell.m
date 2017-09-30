@@ -31,6 +31,7 @@
     self.lb_detailTime.text = @"";
     [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:businesGoods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     
+    
 }
 //全部订单
 -(void)setGoods:(Ordergoods *)goods

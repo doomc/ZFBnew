@@ -25,8 +25,7 @@
 @property (nonatomic,copy) NSString *nickName;///默认用户昵称
 @property (nonatomic,copy) NSString *userHeaderImg;///默认用户头像
 @property (nonatomic,copy) NSString *userKeyMd5;///默认用户昵称
-//@property (nonatomic,copy) NSString *userStatus;///登录状态 1已在线  0下线
-
+ 
 //云信
 @property (nonatomic,copy) NSString *token;/// 网易云信的token
 

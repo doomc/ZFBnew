@@ -77,8 +77,6 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     // Do any additional setup after loading the view.
     self.title = @"订单详情";
     
-    [self getPayAccessTokenUrl];//获取token 和签名
-    
     [self.view addSubview:self.tableView];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFOrderDetailCell" bundle:nil]
@@ -519,10 +517,10 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 #pragma mark - 获取支付accessToken值，通过accessToken值获取支付签名
 -(void)getPayAccessTokenUrl
 {
-#warning -- 此账号为测试时账号  正式时 需要修改成正式账号
+ 
     NSDictionary * param = @{
                              
-                             @"account":  BBUserDefault.cmUserId,
+                             @"account":  BBUserDefault.userPhoneNumber,
 //                             @"pass"   :  BBUserDefault.userPhonePassword,
                              
                              };
@@ -597,7 +595,8 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
-    
+    [self getPayAccessTokenUrl];//获取token 和签名
+
     if ([_cmOrderid isEqual:[NSNull null]]) {
         _cmOrderid = @"";
     }

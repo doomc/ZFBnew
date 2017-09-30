@@ -179,22 +179,20 @@
         [self presentViewController:alert animated:YES completion:nil];
  
     }else{
-        
+
         if (_uploadImageArray.count > 0) {
-            [OSSImageUploader asyncUploadImages:_uploadImageArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
+            [OSSImageUploader syncUploadImages:_uploadImageArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
                 if (state == 1) {
-                    NSLog(@"点击提交了 _images = %@",names);
+                    NSLog(@"提价成功了 _images = %@",names);
                     _imgUrlString = [names componentsJoinedByString:@","];
-                    
                     if (_phoneNum.length > 0) {
                         
                         [self getFeedbackINfoInsertPOSTRequste:_imgUrlString AndPhone:_phoneNum];
 
                     }else{
+                        
                         [self getFeedbackINfoInsertPOSTRequste:_imgUrlString AndPhone:@""];
-  
                     }
-                    return ;
                 }
             }];
             
@@ -261,9 +259,7 @@
 -(void)didClickTypeName:(NSString *)typeName Index :(NSInteger)index isSelected:(BOOL)isSelected
 {
     _typeName = typeName;
-    if (isSelected == YES) {
-        
-    }
+ 
     // 此处获取类型
     NSLog(@"_typeName = %@",_typeName);
 }
@@ -284,10 +280,8 @@
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getFeedbackINfoInsert"] params:parma success:^(id response) {
   
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
-        if ([code isEqualToString:@"0"]) {
-            
-            _isCommited = NO;
-            
+        if ([code isEqualToString:@"0"]) {            
+//            _isCommited = YES;
             [SVProgressHUD showSuccessWithStatus:@"上传成功！"];
         }
 

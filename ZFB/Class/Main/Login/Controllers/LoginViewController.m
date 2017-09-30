@@ -10,7 +10,7 @@
 #import "RegisterViewController.h"
 #import "ForgetPSViewController.h"
 #import "ZFPersonalViewController.h"
-
+#import "LoginModel.h"
 typedef NS_ENUM(NSUInteger, indexType) {
     
     quickLoginIndexType = 0,//快捷登录
@@ -194,7 +194,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
                 self.login_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
                 
             }
-            NSLog(@"验证码手机号%@ ",_tf_loginphone.text );
+//            NSLog(@"验证码手机号%@ ",_tf_loginphone.text );
 
         }
     }
@@ -435,14 +435,17 @@ typedef NS_ENUM(NSUInteger, indexType) {
         NSString * code  = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0" ]) {
             BBUserDefault.isLogin = 1;
-            
-            BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
-            BBUserDefault.nickName = response[@"userInfo"][@"nickName"];
+
+            LoginModel * login = [LoginModel mj_objectWithKeyValues:response];
+            BBUserDefault.userKeyMd5  = login.userInfo.userKeyMd5;;
+            BBUserDefault.cmUserId = login.userInfo.cmUserId;
+            BBUserDefault.nickName = login.userInfo.nickName;
             BBUserDefault.userPhoneNumber = _tf_loginphone.text;
-            BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
-            BBUserDefault.token = response[@"userInfo"][@"token"];
-            BBUserDefault.accid = response[@"userInfo"][@"accid"];
+            BBUserDefault.token =login.userInfo.token;
+            BBUserDefault.accid = login.userInfo.accid;
+            
             BBUserDefault.userPhonePassword = _tf_verificationCodeOrPassWord.text;//保存密码
+            BBUserDefault.userPhoneNumber = _tf_loginphone.text;
 
             NSLog(@" 登陆成功后的 signMD5Key=======%@", BBUserDefault.userKeyMd5 );
             [self loginNIM];
@@ -481,16 +484,19 @@ typedef NS_ENUM(NSUInteger, indexType) {
     [SVProgressHUD showWithStatus:@"登陆中..."];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/login",zfb_baseUrl] params:parma success:^(id response) {
         NSString * code  = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
-
         if ([code isEqualToString:@"0"]) {
+            
+            LoginModel * login = [LoginModel mj_objectWithKeyValues:response];
+            
             //设置全局变量
             BBUserDefault.isLogin = 1;
-            BBUserDefault.userKeyMd5  = response[@"userInfo"][@"userKeyMd5"];
-            BBUserDefault.cmUserId = response[@"userInfo"][@"cmUserId"];
-            BBUserDefault.nickName = response[@"userInfo"][@"nickName"];
+            
+            BBUserDefault.userKeyMd5  = login.userInfo.userKeyMd5;;
+            BBUserDefault.cmUserId = login.userInfo.cmUserId;
+            BBUserDefault.nickName = login.userInfo.nickName;
             BBUserDefault.userPhoneNumber = _tf_loginphone.text;
-            BBUserDefault.token = response[@"userInfo"][@"token"];
-            BBUserDefault.accid = response[@"userInfo"][@"accid"];
+            BBUserDefault.token =login.userInfo.token;
+            BBUserDefault.accid = login.userInfo.accid;
             BBUserDefault.userPhonePassword = _tf_verificationCodeOrPassWord.text;//保存密码
 
             [self loginNIM];

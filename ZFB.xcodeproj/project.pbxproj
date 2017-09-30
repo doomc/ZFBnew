@@ -1057,6 +1057,7 @@
 		49D115B01F7E851900467CF1 /* findGroup@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D115AC1F7E851900467CF1 /* findGroup@3x.png */; };
 		49D115B11F7E851900467CF1 /* findsingle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D115AD1F7E851900467CF1 /* findsingle@2x.png */; };
 		49D115B21F7E851900467CF1 /* findsingle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D115AE1F7E851900467CF1 /* findsingle@3x.png */; };
+		49D115B91F7F64C600467CF1 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D115B81F7F64C600467CF1 /* LoginModel.m */; };
 		49D6952C1F318087000868A7 /* SendOrderStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D6952B1F318087000868A7 /* SendOrderStatisticsViewController.m */; };
 		49D92DF61F6661E200E925BF /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D92DF51F6661E200E925BF /* UserProtocolViewController.m */; };
 		49DA748B1F2599FA009F5577 /* LocationDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74831F2599FA009F5577 /* LocationDetailVC.m */; };
@@ -2861,6 +2862,8 @@
 		49D115AC1F7E851900467CF1 /* findGroup@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "findGroup@3x.png"; sourceTree = "<group>"; };
 		49D115AD1F7E851900467CF1 /* findsingle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "findsingle@2x.png"; sourceTree = "<group>"; };
 		49D115AE1F7E851900467CF1 /* findsingle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "findsingle@3x.png"; sourceTree = "<group>"; };
+		49D115B71F7F64C600467CF1 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
+		49D115B81F7F64C600467CF1 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		49D6952A1F318087000868A7 /* SendOrderStatisticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendOrderStatisticsViewController.h; sourceTree = "<group>"; };
 		49D6952B1F318087000868A7 /* SendOrderStatisticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendOrderStatisticsViewController.m; sourceTree = "<group>"; };
 		49D92DF41F6661E200E925BF /* UserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
@@ -4310,14 +4313,14 @@
 				495EA3EC1F14B64B001FCB7E /* DetailShareViewController.h */,
 				495EA3ED1F14B64B001FCB7E /* DetailShareViewController.m */,
 				495EA3EE1F14B64B001FCB7E /* DetailShareViewController.xib */,
+				5091A0E71F6D259300C6D632 /* ZFDetailsStoreViewController.h */,
+				5091A0E81F6D259300C6D632 /* ZFDetailsStoreViewController.m */,
 				495EA3F11F14B64B001FCB7E /* DetailViews */,
 				495EA41A1F14B64B001FCB7E /* Model */,
 				495EA41D1F14B64B001FCB7E /* ZFAllStoreViewController.h */,
 				495EA41E1F14B64B001FCB7E /* ZFAllStoreViewController.m */,
 				495EA41F1F14B64B001FCB7E /* ZFEvaluateViewController.h */,
 				495EA4201F14B64B001FCB7E /* ZFEvaluateViewController.m */,
-				5091A0E71F6D259300C6D632 /* ZFDetailsStoreViewController.h */,
-				5091A0E81F6D259300C6D632 /* ZFDetailsStoreViewController.m */,
 				4906D12E1F74A75400B327ED /* AllEvaluteViewController.h */,
 				4906D12F1F74A75400B327ED /* AllEvaluteViewController.m */,
 				4906D1311F74A77700B327ED /* GoodEvaluteViewController.h */,
@@ -4479,6 +4482,7 @@
 		495EA45E1F14B64B001FCB7E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				49D115B61F7F64C600467CF1 /* Models */,
 				495EA45F1F14B64B001FCB7E /* ForgetPSViewController.h */,
 				495EA4601F14B64B001FCB7E /* ForgetPSViewController.m */,
 				495EA4611F14B64B001FCB7E /* ForgetPSViewController.xib */,
@@ -6911,6 +6915,15 @@
 			path = "IM聊天";
 			sourceTree = "<group>";
 		};
+		49D115B61F7F64C600467CF1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				49D115B71F7F64C600467CF1 /* LoginModel.h */,
+				49D115B81F7F64C600467CF1 /* LoginModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		49DA74811F2599FA009F5577 /* common */ = {
 			isa = PBXGroup;
 			children = (
@@ -8566,6 +8579,7 @@
 				49183EB31F5954D900879E42 /* XTNetReloader.m in Sources */,
 				495EA7341F14B64D001FCB7E /* UIView+HDExtension.m in Sources */,
 				4906D1271F739ADA00B327ED /* NSData+YYAdd.m in Sources */,
+				49D115B91F7F64C600467CF1 /* LoginModel.m in Sources */,
 				4968A4471F4DB5290061A87E /* NTESSettingCheckCell.m in Sources */,
 				4968A4411F4DB5290061A87E /* NTESMutiClientsHeaderView.m in Sources */,
 				495EA7821F14B64D001FCB7E /* ZFAppraiseCell.m in Sources */,

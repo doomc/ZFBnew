@@ -24,12 +24,12 @@
 
     [self.typeCollectionView registerNib:[UINib nibWithNibName:@"FeedCommitCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"FeedCommitCollectionViewCellid"];
     
- 
+    _nameArray = [NSArray array];
+
 }
 
 -(void)setNameArray:(NSArray *)nameArray
 {
-    _nameArray = [NSArray array];
     _nameArray = nameArray;
     
     [self reloadCell];

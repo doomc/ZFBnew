@@ -112,7 +112,6 @@
     
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getFeedbackINfoByUserId"] params:parma success:^(id response) {
-        
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"] ];
         if ([code isEqualToString:@"0"]) {
             if (self.refreshType == RefreshTypeHeader) {

@@ -35,6 +35,10 @@
 
 @interface Guessgoodslist : ResponseObject
 //价格
+@property (nonatomic, assign) CGFloat latitude;//经度
+    
+@property (nonatomic, assign) CGFloat longitude;//纬度
+
 @property (nonatomic, copy) NSString *priceTostr;
 
 @property (nonatomic, copy) NSString *goodsType;
@@ -116,7 +120,6 @@
 @property (nonatomic, assign) NSInteger goodsPv;///访问量
 
 @property (nonatomic, assign) CGFloat storeDist;///距离
-
 
 
 @property (nonatomic, assign) NSInteger isCollect;

@@ -77,6 +77,7 @@
     
     //当前匹配的规格model
     SkuMatchModel *_currentSkuMatchModel;
+    NSString * _skuAmount;//有规格的库存
     
 }
 
@@ -258,8 +259,21 @@
         
         [self popActionView];
         
-    }else{
-        [self addToshoppingCarPostproductId:_productSkuId];
+    }else{//如果有规格的
+        
+        if ([_skuAmount intValue] > 0) {
+            //添加有规格的数据进入购物车  传入有规格的json数据
+            [self addToshoppingCarPostproductId:_productSkuId];
+            
+        }else{
+            JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"这个商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            [alertVC addAction:sure];
+            [self presentViewController:alertVC animated:YES completion:nil];
+            
+        }
         
     }
     
@@ -293,13 +307,13 @@
 }
 
 
-#pragma mark -SecondAddShopCar 加入购物车选择规格
+#pragma mark -SecondAddShopCar 有规格的 加入购物车
 -(void)SecondAddShopCar:(UIButton *)button
 {
-    //如果规格全选了
+    //没有规格商品的库存
     if ([self isSKuAllSelect]) {
         //判断库存
-        if ([_inventory intValue] > 0) {
+        if ([_skuAmount intValue] > 0) {
             //添加有规格的数据进入购物车  传入有规格的json数据
             [self addToshoppingCarPostproductId:_productSkuId];
             
@@ -313,7 +327,6 @@
             
         }
 
-        
     }else{
         
         JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"请选择好规格再加入购物车" preferredStyle:UIAlertControllerStyleAlert];
@@ -331,39 +344,52 @@
     //如果规格全选了
     if ([self isSKuAllSelect]) {
         
-        ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
+        if ([_skuAmount intValue ] > 0) {
+            ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
+            
+            NSMutableArray * userGoodsInfoJSON  =[ NSMutableArray array];
+            NSMutableArray * goodslistArray  =[ NSMutableArray array];
+            NSMutableDictionary * storedic = [NSMutableDictionary dictionary];
+            NSMutableDictionary * goodsdic = [NSMutableDictionary dictionary];
+            
+            [userGoodsInfoJSON removeAllObjects];
+            
+            [goodsdic setObject:self.selectedSkuArray forKey:@"goodsProp"];
+            [goodsdic setObject:_coverImgUrl forKey:@"coverImgUrl"];
+            [goodsdic setObject:_goodsName forKey:@"goodsName"];
+            [goodsdic setObject:_goodsId forKey:@"goodsId"];
+            [goodsdic setObject:_netPurchasePrice forKey:@"purchasePrice"];
+            [goodsdic setObject:_productSkuId forKey:@"productId"];
+            [goodsdic setObject:[NSString stringWithFormat:@"%ld",_goodsCount] forKey:@"goodsCount"];
+            [goodsdic setValue:@"0" forKey:@"concessionalPrice"];//优惠价
+            [goodsdic setObject:_storeId forKey:@"storeId"];
+            [goodsdic setObject:_storeName forKey:@"storeName"];
+            [goodsdic setValue:_goodsUnit forKey:@"goodsUnit"];
+            [goodsdic setValue:_netPurchasePrice forKey:@"originalPrice"];
+            [goodslistArray addObject:goodsdic];
+            
+            [storedic setObject:_storeId forKey:@"storeId"];
+            [storedic setObject:_storeName forKey:@"storeName"];
+            [storedic setObject:goodslistArray forKey:@"goodsList"];
+            [userGoodsInfoJSON addObject:storedic];
+            
+            NSLog(@"商品详情有规格的数组 userGoodsInfoJSON === %@",userGoodsInfoJSON);
+            vc.userGoodsInfoJSON = userGoodsInfoJSON ;
+            
+            [self.navigationController pushViewController:vc animated:YES];
+
         
-        NSMutableArray * userGoodsInfoJSON  =[ NSMutableArray array];
-        NSMutableArray * goodslistArray  =[ NSMutableArray array];
-        NSMutableDictionary * storedic = [NSMutableDictionary dictionary];
-        NSMutableDictionary * goodsdic = [NSMutableDictionary dictionary];
-    
-        [userGoodsInfoJSON removeAllObjects];
-  
- 
-        [goodsdic setObject:self.selectedSkuArray forKey:@"goodsProp"];
-        [goodsdic setObject:_coverImgUrl forKey:@"coverImgUrl"];
-        [goodsdic setObject:_goodsName forKey:@"goodsName"];
-        [goodsdic setObject:_goodsId forKey:@"goodsId"];
-        [goodsdic setObject:_netPurchasePrice forKey:@"purchasePrice"];
-        [goodsdic setObject:_productSkuId forKey:@"productId"];
-        [goodsdic setObject:[NSString stringWithFormat:@"%ld",_goodsCount] forKey:@"goodsCount"];
-        [goodsdic setValue:@"0" forKey:@"concessionalPrice"];//优惠价
-        [goodsdic setObject:_storeId forKey:@"storeId"];
-        [goodsdic setObject:_storeName forKey:@"storeName"];
-        [goodsdic setValue:_goodsUnit forKey:@"goodsUnit"];
-        [goodsdic setValue:_netPurchasePrice forKey:@"originalPrice"];
-        [goodslistArray addObject:goodsdic];
-        
-        [storedic setObject:_storeId forKey:@"storeId"];
-        [storedic setObject:_storeName forKey:@"storeName"];
-        [storedic setObject:goodslistArray forKey:@"goodsList"];
-        [userGoodsInfoJSON addObject:storedic];
+        }else{
+            
+            JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"这个商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            [alertVC addAction:sure];
+            [self presentViewController:alertVC animated:YES completion:nil];
+            
+        }
        
-        NSLog(@"商品详情有规格的数组 userGoodsInfoJSON === %@",userGoodsInfoJSON);
-        vc.userGoodsInfoJSON = userGoodsInfoJSON ;
-        
-        [self.navigationController pushViewController:vc animated:YES];
         
     }else{
         
@@ -1107,7 +1133,7 @@
 #pragma mark  - 商品详情 网络请求getGoodsDetailsInfo
 -(void)goodsDetailListPostRequset{
     
-    NSLog(@" 经度 %@ ----- 纬度 %@",latitudestr,longitudestr);
+
     NSDictionary * parma = @{
                              
                              @"latitude":BBUserDefault.latitude,
@@ -1128,6 +1154,9 @@
                 
                 [self.noReluArray removeAllObjects ];
             }
+            
+            NSLog(@" 经度 %@ ----- 纬度 %@",latitudestr,longitudestr);
+            
             
             DetailGoodsModel * goodsmodel = [DetailGoodsModel mj_objectWithKeyValues:response];
             //goods信息 ----goodsInfo
@@ -1390,9 +1419,9 @@
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
             //更新价格和数据
             NSMutableArray * chooseArray = [NSMutableArray array];
-            
             NSString * originalPriceStr = _netPurchasePrice = response[@"data"][@"originalPriceStr"];
             NSNumber * amount           = response[@"data"][@"amount"];
+            _skuAmount = [NSString stringWithFormat:@"%@",amount];
             NSArray * relujsonArr       = response[@"data"][@"reluJson"];
             
             for (NSDictionary * sukDic in relujsonArr) {
@@ -1403,15 +1432,15 @@
             
             NSString * chooseString = [chooseArray componentsJoinedByString:@" "];
             
-            if (originalPriceStr == nil || amount == nil ) {
-                lb_price.text   = @"价格:";
-                lb_inShock.text = @"库存:";
+            if (originalPriceStr == nil || _skuAmount == nil ) {
+                lb_price.text   = @"价格:0";
+                lb_inShock.text = @"库存:0";
                 
             }else{
                 
                 lb_Sku.text     = [NSString stringWithFormat:@"已选择:%@",chooseString];
                 lb_price.text   = [NSString stringWithFormat:@"价格:¥%@",originalPriceStr];
-                lb_inShock.text = [NSString stringWithFormat:@"库存:%@",amount];
+                lb_inShock.text = [NSString stringWithFormat:@"库存:%@",_skuAmount];
             }
             _productSkuId = response[@"data"][@"productSkuId"];
             NSLog(@"_productSkuId ========选择后的=============%@",_productSkuId);
@@ -1521,24 +1550,20 @@
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/receiveCoupon"] params:parma success:^(id response) {
-        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+       
+        NSString *code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        
+        if ([code isEqualToString:@"0"] ) {
             
-            [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
             //领取成功后移除
             [self didClickCloseCouponView];
             //在刷新下列表
             [self recommentPostRequstCouponList];
             [SVProgressHUD dismiss];
-
-        }else{
-            
-            [SVProgressHUD dismiss];
-            [self.view makeToast:@"不要贪心,你已经领过啦。" duration:2 position:@"center"];
-
-        }
+            [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
+    }
         
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         
         [SVProgressHUD dismiss];

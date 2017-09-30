@@ -115,6 +115,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [self creatCustomfooterView];
     
     ///网络请求
+    
     [self addresslistPostRequst];//收货地址
     [self getPayAccessTokenUrl]; //支付获取token
 
@@ -405,11 +406,12 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             
             if ([_payType isEqualToString:@"0"]) {
                 priceCell.lb_tipFree.text    = @"¥0" ;
+              
             }
             else{
-                priceCell.lb_tipFree.text    = _costNum ;
+                //配送费总金额
+                priceCell.lb_tipFree.text    =         [NSString stringWithFormat:@"+ ¥%@",_costNum]  ;
             }
-            
             if ([_goodsCount isEqualToString:@""] || _goodsCount ==nil) {
                
                 priceCell.lb_priceTotal.text = @"¥0" ;
@@ -557,10 +559,10 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             
             _storeDeliveryfeeListArr = response[@"storeDeliveryfeeList"];
             _goodsCount              = [NSString stringWithFormat:@"%.2f",suremodel.goodsCount]  ;//商品总金额
-            _costNum                 = [NSString stringWithFormat:@"+ ¥%.2f",suremodel.costNum]  ;//配送费总金额
+            _costNum                 = [NSString stringWithFormat:@"%.2f",suremodel.costNum];//配送费
             _userCostNum             = [NSString stringWithFormat:@"%.2f",suremodel.userCostNum]  ;//支付总金额
             _lb_price.text           = [NSString stringWithFormat:@"¥%@",_userCostNum];//支付总金额
-            
+           
             //获取优惠券列表
             [self getUserNotUseCouponListPostRequset];
             
@@ -644,8 +646,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             NSLog(@"=======%@_access_token",_access_token);
             NSLog(@"=======%@_datetime",_datetime);
         }
-
-        
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);
@@ -717,7 +717,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [jsondic setValue:_contactMobilePhone forKey:@"contactMobilePhone"];
     [jsondic setValue:_contactMobilePhone forKey:@"mobilePhone"];
     [jsondic setValue:_postAddress forKey:@"postAddress"];
-    //    [jsondic setValue:@"" forKey:@"payMode" ];//1.支付宝  2.微信支付 3.线下,4.展易付
     [jsondic setValue:_payType forKey:@"payType" ];//支付类型 0 线下 1 线上
     [jsondic setValue:_cartItemId forKey:@"cartItemId"];//立即购买不传，购物车加入的订单需要传
     
@@ -839,6 +838,13 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     _payType    = [NSString stringWithFormat:@"%ld",index];
     NSLog(@"%ld = index",index);
     [self.popCouponBackgroundView removeFromSuperview];
+    
+    if ([_payType isEqualToString:@"0"]) {//如果是门店
+        _lb_price.text   =  [NSString stringWithFormat:@"¥%.2f",[_userCostNum floatValue] - [_costNum floatValue]];
+    }else{
+        _lb_price.text   =  [NSString stringWithFormat:@"¥%.2f",[_userCostNum floatValue] ];
+
+    }
     [self.mytableView reloadData];
     [self.selectPayView reloadData];
 }

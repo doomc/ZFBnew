@@ -150,7 +150,7 @@
 #warning -- 此账号为测试时账号  正式时 需要修改成正式账号
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     [params setValue:_access_token forKey:@"access_token"];
-    [params setValue:@"18602343931" forKey:@"account"];
+    [params setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
     [params setValue:_datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
     [params setValue:_notify_url forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）
     [params setValue:_return_url forKey:@"return_url"];//同步通知地址（支付成功后的跳转）
@@ -190,7 +190,7 @@
     
     [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
     [params setValue:_access_token forKey:@"access_token"];
-    [params setValue:@"18602343931" forKey:@"account"];
+    [params setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
     [params setValue:_datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
     [params setValue:_notify_url forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）
     [params setValue:_return_url forKey:@"return_url"];//同步通知地址（支付成功后的跳转）

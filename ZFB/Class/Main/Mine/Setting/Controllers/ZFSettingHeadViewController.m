@@ -47,7 +47,8 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     _titleArr  = @[@"昵称",@"性别",@"生日",@"地址管理"];
     _sexTitleArr = @[@"男",@"女"];
 
-    
+    BBUserDefault.sexType  = 3;//默认
+
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingHeaderCell" bundle:nil] forCellReuseIdentifier:settingheadid];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingRowCell" bundle:nil] forCellReuseIdentifier:settingRowid];
     
@@ -113,12 +114,13 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
         [headCell.img_headView sd_setImageWithURL:imgURL placeholderImage:[UIImage imageNamed:@"head"]];
         cell =  headCell;
 
-    }if (indexPath.section == 1 ) {
+    }
+    if (indexPath.section == 1 ) {
      
         ZFSettingRowCell * rowCell = [self.tableView dequeueReusableCellWithIdentifier:settingRowid forIndexPath:indexPath];
+        rowCell.delegate = self;
 
         if (indexPath.row == 0) {
-            
             rowCell.isEdited = YES;//_isSavedNickName;
 //            if (_isSavedNickName == YES) {
 //         
@@ -152,8 +154,13 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             rowCell.tf_contentTextfiled.hidden = YES;
             
             if (_isSavedBirthDay == NO) {
-            
-                rowCell.lb_detailTitle.text = BBUserDefault.birthDay;
+                if ([BBUserDefault.birthDay isEqualToString:@""] || BBUserDefault.birthDay == nil) {
+                  
+                    rowCell.lb_detailTitle.text  = nil;
+                
+                }else{
+                    rowCell.lb_detailTitle.text = BBUserDefault.birthDay;
+                }
             
             }else{
                 
@@ -273,7 +280,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     
     NSLog(@"保存");
     
-    if ( _imagePath == nil || (BBUserDefault.birthDay == nil && [BBUserDefault.birthDay isEqualToString:@""] )|| (BBUserDefault.nickName == nil  && [BBUserDefault.nickName isEqualToString:@""])) {
+    if ( (BBUserDefault.birthDay == nil || [BBUserDefault.birthDay isEqualToString:@""] )|| (BBUserDefault.nickName == nil  && [BBUserDefault.nickName isEqualToString:@""])) {
         
         JXTAlertController *alertVC = [JXTAlertController alertControllerWithTitle:nil message:@"请填写完个人信息后再保存" preferredStyle:UIAlertControllerStyleAlert];
        
@@ -289,17 +296,18 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     }
 }
 
-#pragma mark  -  ZFSettingRowCellDelegate 
--(void)getNickName:(NSString *)nickName
+#pragma mark  -  ZFSettingRowCellDelegate
+-(void)changeNickName:(NSString *)nickName
 {
     _nickName = nickName;
+    
 }
 #pragma mark -  保存用户信息getUserInfoUpdate  //1. 男 2.女 3保密
 -(void)getUserInfoUpdate
 {
     NSDictionary * param = @{
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"nickName":BBUserDefault.nickName,
+                             @"nickName":_nickName,
                              @"sex":[NSString stringWithFormat:@"%ld",BBUserDefault.sexType],
                              @"cmBirthday":BBUserDefault.birthDay,
                              @"userImgAttachUrl": _imagePath,
@@ -313,8 +321,6 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             //保存成功后不可以修改
             _isSavedBirthDay = NO;
 //            _isSavedNickName = NO;
-            
- 
             [SVProgressHUD showSuccessWithStatus:response[@"resultMsg"]];
         }
 
@@ -332,7 +338,6 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
  
 -(void)viewWillAppear:(BOOL)animated
 {
-      BBUserDefault.sexType  = 3;//默认
     
 //    if (BBUserDefault.nickName == nil) {
 //        
@@ -342,7 +347,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 //        _isSavedNickName =  NO;
 //
 //    }
-    if (BBUserDefault.birthDay == nil && [BBUserDefault.birthDay isEqualToString:@""]) {
+    if (BBUserDefault.birthDay == nil || [BBUserDefault.birthDay isEqualToString:@""]) {
         _isSavedBirthDay = YES;//可编辑状态
     }
     else{
