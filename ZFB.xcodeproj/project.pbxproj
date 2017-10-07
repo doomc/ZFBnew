@@ -4216,27 +4216,11 @@
 		495EA3CE1F14B64B001FCB7E /* FriendsCircle(IM聊天) */ = {
 			isa = PBXGroup;
 			children = (
-				495EA3D01F14B64B001FCB7E /* DetailView */,
-				495EA3D11F14B64B001FCB7E /* Views */,
 				495EA3D21F14B64B001FCB7E /* ZFCInterpersonalCircleViewController.h */,
 				495EA3D31F14B64B001FCB7E /* ZFCInterpersonalCircleViewController.m */,
 			);
 			name = "FriendsCircle(IM聊天)";
 			path = FriendsCircle;
-			sourceTree = "<group>";
-		};
-		495EA3D01F14B64B001FCB7E /* DetailView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DetailView;
-			sourceTree = "<group>";
-		};
-		495EA3D11F14B64B001FCB7E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		495EA3D41F14B64B001FCB7E /* Home(首页) */ = {
@@ -7406,7 +7390,7 @@
 					492752131EC44DFC003C22D0 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 297J2E2F8W;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -8771,8 +8755,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -8821,8 +8805,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -8851,7 +8835,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -8927,8 +8912,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c824e48c-4bb7-4107-a703-fb036f532ab9";
-				PROVISIONING_PROFILE_SPECIFIER = zafvbProductDistribution;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -8940,7 +8925,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -9016,8 +9002,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c824e48c-4bb7-4107-a703-fb036f532ab9";
-				PROVISIONING_PROFILE_SPECIFIER = zafvbProductDistribution;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

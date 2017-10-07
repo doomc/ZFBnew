@@ -404,7 +404,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             //userCostNum	int(11)	支付总金额
             OrderPriceCell * priceCell   = [self.mytableView dequeueReusableCellWithIdentifier:@"OrderPriceCellid" forIndexPath:indexPath];
             
-            if ([_payType isEqualToString:@"0"]) {
+            if ([_payType isEqualToString:@"0"] || _postAddressId == nil|| [_postAddressId isEqualToString:@""] ) {
                 priceCell.lb_tipFree.text    = @"¥0" ;
               
             }
@@ -422,7 +422,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
   
             }
             NSLog(@"原来的价格 --- %@",_goodsCount);
-            
+        
             return priceCell;
         }
             break;

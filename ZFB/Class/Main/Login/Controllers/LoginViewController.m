@@ -10,6 +10,7 @@
 #import "RegisterViewController.h"
 #import "ForgetPSViewController.h"
 #import "ZFPersonalViewController.h"
+#import "ZFbaseTabbarViewController.h"
 #import "LoginModel.h"
 typedef NS_ENUM(NSUInteger, indexType) {
     
@@ -107,10 +108,13 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
 //设置返回的时候
 -(void)left_button_event{
-    
-    //    [self.navigationController popToRootViewControllerAnimated:NO];
+    ZFbaseTabbarViewController *tabController = (ZFbaseTabbarViewController *)self.presentingViewController;
+    NSInteger selectIndex = tabController.selectedIndex;
+    if (selectIndex == 1) {  //如果是消息跳转到登录就返回首页
+        [tabController setSelectedIndex:0];
+    }
     [self dismissViewControllerAnimated:NO completion:^{
-
+        
     }];
 }
 

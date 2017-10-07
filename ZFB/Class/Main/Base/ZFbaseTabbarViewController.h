@@ -10,6 +10,8 @@
 
 @interface ZFbaseTabbarViewController : UITabBarController
 
+@property (nonatomic, assign) BOOL isToLogin;
+
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item;
 
 @end

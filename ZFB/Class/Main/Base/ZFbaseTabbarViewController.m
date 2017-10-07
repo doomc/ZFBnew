@@ -13,6 +13,7 @@
 #import "ZFPersonalViewController.h"
 #import "ZFCInterpersonalCircleViewController.h"//消息总控制器
 #import "ShareCircleViewController.h" //分享圈
+#import "LoginViewController.h"
 
 @interface ZFbaseTabbarViewController ()
 
@@ -100,12 +101,25 @@
     
     NSLog(@"item name = %@", item.title);
     
-    if([item.title isEqualToString:@"我的"])
+    if([item.title isEqualToString:@"消息"])
     {
         // 也可以判断标题,然后做自己想做的事
+        if (BBUserDefault.isLogin == 1) {
+            
+        }else{
+            
+            NSLog(@"登录了");
+            LoginViewController * logvc    = [ LoginViewController new];
+            ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
+            
+            [self presentViewController:nav animated:NO completion:^{
+                
+                [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+                [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+            }];
+        }
     }
 }
-
 /*
 #pragma mark - Navigation
 
