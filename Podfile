@@ -37,5 +37,7 @@ target 'ZFB' do
   pod 'FMDB', '~> 2.5'
   pod 'HXWeiboPhotoPicker'
 
+#  wx支付
+  pod 'WechatOpenSDK'
   
 end

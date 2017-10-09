@@ -32,6 +32,8 @@
 #import "SureOrderModel.h"
 #import "CommitOrderlist.h"
 #import "CouponModel.h"
+//wx
+#import "MXWechatPayHandler.h"
 
 typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     
@@ -68,6 +70,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     NSString * _couponAmount;//优惠的价格
     NSString * _couponStoreId;
     NSString * _couponGoodsIds;
+    
+    //totalPirce 最后支付的价格
+    NSString * _totalPirce;
     
 }
 
@@ -494,7 +499,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                 _couponAmount = couponAmount;
                 _couponStoreId = storeId;
                 _couponGoodsIds = goodsIds;
-                _lb_price.text = [NSString stringWithFormat:@"¥%.2f",[_userCostNum floatValue] - [couponAmount floatValue]];
+                _lb_price.text = _totalPirce = [NSString stringWithFormat:@"¥%.2f",[_userCostNum floatValue] - [couponAmount floatValue]];
                 NSLog(@"%@,%@,%@",_couponId,_useRange,_couponAmount);
 
                 [self.mytableView reloadData];
@@ -561,7 +566,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             _goodsCount              = [NSString stringWithFormat:@"%.2f",suremodel.goodsCount]  ;//商品总金额
             _costNum                 = [NSString stringWithFormat:@"%.2f",suremodel.costNum];//配送费
             _userCostNum             = [NSString stringWithFormat:@"%.2f",suremodel.userCostNum]  ;//支付总金额
-            _lb_price.text           = [NSString stringWithFormat:@"¥%@",_userCostNum];//支付总金额
+            _lb_price.text           = _totalPirce = [NSString stringWithFormat:@"¥%@",_userCostNum];//支付总金额
            
             //获取优惠券列表
             [self getUserNotUseCouponListPostRequset];
@@ -630,9 +635,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 -(void)getPayAccessTokenUrl
 {
     NSDictionary * param = @{
-                             @"account": BBUserDefault.userPhoneNumber,
-//                             @"pass"   : BBUserDefault.userPhonePassword,
-                             
+                             @"account": BBUserDefault.userPhoneNumber,                             
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getPayAccessToken",zfb_baseUrl] params:param success:^(id response) {
@@ -702,55 +705,57 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 -(void)didCleckClearing:(UIButton *)sender
 {
     NSLog(@" 提交订单 ");
+    //  发起支付
+    [MXWechatPayHandler jumpToWxPayWithTradeType:@"展富宝" AndOrderNo:@"订单号" AndTotalFee:_totalPirce AndPayTitle:@"微信支付" AndNotifyUrl:@"回调地址"];
     
-    //还原成字典数组
-    NSArray * cmgoodsList          = [NSArray arrayWithArray:self.cmGoodsListArray];
-    NSArray * storeDeliveryfeeList = [NSArray arrayWithArray:self.storeDeliveryfeeListArr];
-    NSArray * storeAttachList      = [NSArray arrayWithArray:self.storeAttachListArr];
-    
-    /////////////////////////// 一个大集合 /////////////////////////////////////////////
-    NSMutableDictionary * jsondic = [NSMutableDictionary dictionary] ;
-    
-    [jsondic setValue:BBUserDefault.cmUserId forKey:@"cmUserId"];
-    [jsondic setValue:_postAddressId forKey:@"postAddressId"];
-    [jsondic setValue:_contactUserName forKey:@"contactUserName" ];
-    [jsondic setValue:_contactMobilePhone forKey:@"contactMobilePhone"];
-    [jsondic setValue:_contactMobilePhone forKey:@"mobilePhone"];
-    [jsondic setValue:_postAddress forKey:@"postAddress"];
-    [jsondic setValue:_payType forKey:@"payType" ];//支付类型 0 线下 1 线上
-    [jsondic setValue:_cartItemId forKey:@"cartItemId"];//立即购买不传，购物车加入的订单需要传
-    
-    [jsondic setValue: cmgoodsList forKey:@"cmGoodsList"];
-    [jsondic setValue: storeDeliveryfeeList forKey:@"storeDeliveryfeeList"];
-    [jsondic setValue: storeAttachList forKey:@"storeAttachList"];
-    ////////优惠券新加字段
-    [jsondic setValue: _useRange forKey:@"useRange"];
-    [jsondic setValue: _couponId forKey:@"couponId"];
-    [jsondic setValue: _couponStoreId forKey:@"storeId"];
-    [jsondic setValue: _couponAmount forKey:@"couponAmount"];
-    [jsondic setValue: _couponGoodsIds forKey:@"goodsIds"];
- 
-    NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
-    //    NSLog(@"提交订单 -----------%@",successDic);
-    if (_postAddress == nil  && _contactUserName == nil && _contactMobilePhone == nil) {
-        JXTAlertController * alertavc = [JXTAlertController alertControllerWithTitle:@"提示" message:@"您现在还没有默认地址，马上添加默认地址" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            ZFAddressListViewController * listVC =[[ZFAddressListViewController alloc]init];
-            [self.navigationController pushViewController:listVC animated:YES];
-        }];
-        [alertavc addAction:cancelAction];
-        [alertavc addAction:sureAction];
-        [self presentViewController:alertavc animated:YES completion:nil];
-        
-    }else{
- 
-        //进入请求
-        [self commitOrder:successDic];
- 
-    }
+//    //还原成字典数组
+//    NSArray * cmgoodsList          = [NSArray arrayWithArray:self.cmGoodsListArray];
+//    NSArray * storeDeliveryfeeList = [NSArray arrayWithArray:self.storeDeliveryfeeListArr];
+//    NSArray * storeAttachList      = [NSArray arrayWithArray:self.storeAttachListArr];
+//    
+//    /////////////////////////// 一个大集合 /////////////////////////////////////////////
+//    NSMutableDictionary * jsondic = [NSMutableDictionary dictionary] ;
+//    
+//    [jsondic setValue:BBUserDefault.cmUserId forKey:@"cmUserId"];
+//    [jsondic setValue:_postAddressId forKey:@"postAddressId"];
+//    [jsondic setValue:_contactUserName forKey:@"contactUserName" ];
+//    [jsondic setValue:_contactMobilePhone forKey:@"contactMobilePhone"];
+//    [jsondic setValue:_contactMobilePhone forKey:@"mobilePhone"];
+//    [jsondic setValue:_postAddress forKey:@"postAddress"];
+//    [jsondic setValue:_payType forKey:@"payType" ];//支付类型 0 线下 1 线上
+//    [jsondic setValue:_cartItemId forKey:@"cartItemId"];//立即购买不传，购物车加入的订单需要传
+//    
+//    [jsondic setValue: cmgoodsList forKey:@"cmGoodsList"];
+//    [jsondic setValue: storeDeliveryfeeList forKey:@"storeDeliveryfeeList"];
+//    [jsondic setValue: storeAttachList forKey:@"storeAttachList"];
+//    ////////优惠券新加字段
+//    [jsondic setValue: _useRange forKey:@"useRange"];
+//    [jsondic setValue: _couponId forKey:@"couponId"];
+//    [jsondic setValue: _couponStoreId forKey:@"storeId"];
+//    [jsondic setValue: _couponAmount forKey:@"couponAmount"];
+//    [jsondic setValue: _couponGoodsIds forKey:@"goodsIds"];
+// 
+//    NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
+//    //    NSLog(@"提交订单 -----------%@",successDic);
+//    if (_postAddress == nil  || _contactUserName == nil || _contactMobilePhone == nil) {
+//        JXTAlertController * alertavc = [JXTAlertController alertControllerWithTitle:@"提示" message:@"您现在还没有默认地址，马上添加默认地址" preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//            
+//        }];
+//        UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+//            ZFAddressListViewController * listVC =[[ZFAddressListViewController alloc]init];
+//            [self.navigationController pushViewController:listVC animated:YES];
+//        }];
+//        [alertavc addAction:cancelAction];
+//        [alertavc addAction:sureAction];
+//        [self presentViewController:alertavc animated:YES completion:nil];
+//        
+//    }else{
+// 
+//        //进入请求
+//        [self commitOrder:successDic];
+// 
+//    }
 }
 
 
@@ -840,9 +845,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [self.popCouponBackgroundView removeFromSuperview];
     
     if ([_payType isEqualToString:@"0"]) {//如果是门店
-        _lb_price.text   =  [NSString stringWithFormat:@"¥%.2f",[_userCostNum floatValue] - [_costNum floatValue]];
+        _lb_price.text   = _totalPirce = [NSString stringWithFormat:@"¥%.2f",[_userCostNum floatValue] - [_costNum floatValue]];
     }else{
-        _lb_price.text   =  [NSString stringWithFormat:@"¥%.2f",[_userCostNum floatValue] ];
+        _lb_price.text   = _totalPirce = [NSString stringWithFormat:@"¥%.2f",[_userCostNum floatValue] ];
 
     }
     [self.mytableView reloadData];

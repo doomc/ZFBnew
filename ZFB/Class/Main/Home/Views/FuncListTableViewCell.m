@@ -51,8 +51,7 @@
         CMgoodstypelist * type=  self.dataArray[indexPath.item];
         cell.lb_listName.text = type.name;
         NSURL * img_url = [NSURL URLWithString:type.iconUrl];
-        [cell.img_listView sd_setImageWithURL:img_url placeholderImage:nil];
-        
+        [cell.img_listView sd_setImageWithURL:img_url placeholderImage:[UIImage imageNamed:@"130x140"]];
         if (indexPath.item == 7) {
             cell.lb_listName.text = @"全部分类";
             cell.img_listView.image = [UIImage imageNamed:@"classes"];

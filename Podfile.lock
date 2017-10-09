@@ -19,25 +19,25 @@ PODS:
   - AMapFoundation (1.4.2)
   - AMapLocation (2.4.0):
     - AMapFoundation (~> 1.4)
-  - AMapSearch (5.3.0):
-    - AMapFoundation (~> 1.2)
-  - CocoaLumberjack (3.2.1):
-    - CocoaLumberjack/Default (= 3.2.1)
-    - CocoaLumberjack/Extensions (= 3.2.1)
-  - CocoaLumberjack/Default (3.2.1)
-  - CocoaLumberjack/Extensions (3.2.1):
+  - AMapSearch (5.4.0):
+    - AMapFoundation (~> 1.4)
+  - CocoaLumberjack (3.3.0):
+    - CocoaLumberjack/Default (= 3.3.0)
+    - CocoaLumberjack/Extensions (= 3.3.0)
+  - CocoaLumberjack/Default (3.3.0)
+  - CocoaLumberjack/Extensions (3.3.0):
     - CocoaLumberjack/Default
   - CYLTableViewPlaceHolder (1.0.8)
   - FMDB (2.7.2):
     - FMDB/standard (= 2.7.2)
   - FMDB/standard (2.7.2)
-  - HXWeiboPhotoPicker (2.0.9):
+  - HXWeiboPhotoPicker (2.1.0):
     - SDWebImage (~> 4.0)
   - M80AttributedLabel (1.6.3)
-  - Masonry (1.0.2)
+  - Masonry (1.1.0)
   - MBProgressHUD (1.0.0)
   - MJExtension (3.0.13)
-  - MJRefresh (3.1.12)
+  - MJRefresh (3.1.14)
   - NIMSDK (4.2.0)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
@@ -46,11 +46,12 @@ PODS:
   - ReactiveCocoa/no-arc (2.5)
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
-  - SDWebImage (4.1.0):
-    - SDWebImage/Core (= 4.1.0)
-  - SDWebImage/Core (4.1.0)
+  - SDWebImage (4.1.1):
+    - SDWebImage/Core (= 4.1.1)
+  - SDWebImage/Core (4.1.1)
   - SVProgressHUD (2.2.1)
   - TZImagePickerController (1.9.3)
+  - WechatOpenSDK (1.8.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -71,28 +72,30 @@ DEPENDENCIES:
   - SDWebImage (>= 4.0.0)
   - SVProgressHUD (>= 2.1.2)
   - TZImagePickerController (>= 1.7.7)
+  - WechatOpenSDK
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AMap2DMap: 003fa70526983a1469ae6fc3323a6ee8b5ccf53c
   AMapFoundation: 6c0471c9a6a0ad17dad46e3d800ad56ca170f82a
   AMapLocation: 47b62b5381a66e4d0c2931b70ffde72682427896
-  AMapSearch: beb01c6b2e7be18fb4898e97162fedf144420c6f
-  CocoaLumberjack: 2800c03334042fe80589423c8d80e582dcaec482
+  AMapSearch: 97042f81c1c8ea8adc4b1dadf1b1a688210aa141
+  CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
   CYLTableViewPlaceHolder: 44075c119aab78bbc514c75d771d6565e19938e8
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
-  HXWeiboPhotoPicker: e395ed32275b05f6c90822ffca1275522f32000c
+  HXWeiboPhotoPicker: 19118022bfccd9f16c7d7b53a6b35ed36d421889
   M80AttributedLabel: d06543195d3e451d2ea62ad76d04aa9cea7661d4
-  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
-  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MJRefresh: 6642e35b3227a5447b9fd5e17c552c90196c9859
   NIMSDK: 97a1920e36b6fa59316848a273866b92e28b7e8b
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
+  SDWebImage: caf91ee75671c95eb7b3073cd90649d25f852a88
   SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
   TZImagePickerController: 079ab986018c22793462e531045a75e366b18252
+  WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
 
-PODFILE CHECKSUM: 42e033768733d8cc721ef60138aa70d45a898553
+PODFILE CHECKSUM: dd06b1eddff75b63bb8876ca0aad57b94e57c255
 
 COCOAPODS: 1.2.0

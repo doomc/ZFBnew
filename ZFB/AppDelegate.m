@@ -10,6 +10,9 @@
 #import "ZFbaseTabbarViewController.h"
 #import "XLSlideMenu.h"
 #import "RightNavPopViewController.h"//查询订单时间
+//wx支付
+#import "WXApi.h"
+#import "WXApiManager.h"
 //云信
 #import "NTESClientUtil.h"
 #import "NTESSessionUtil.h"
@@ -29,9 +32,11 @@
 const static NSString * ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
 NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
+
+
 //推送Kit
 @import PushKit;
-@interface AppDelegate ()<NIMLoginManagerDelegate,PKPushRegistryDelegate>
+@interface AppDelegate ()<NIMLoginManagerDelegate,PKPushRegistryDelegate,WXApiDelegate>
 
 @property (nonatomic,strong) NTESSDKConfigDelegate *sdkConfigDelegate;
 @property (nonatomic, strong) JhtGradientGuidePageVC *guidePage;
@@ -46,6 +51,9 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     // Override point for customization after application launch.
     
     [self setupGuidePageView];
+    
+    //注册微信支付
+    [WXApi registerApp:WX_AppId];
     
     //统一处理一些为数组、集合等对nil插入会引起闪退
     [SYSafeCategory callSafeCategory];
@@ -405,10 +413,23 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     } else {
         self.window.rootViewController = tabbarVC;
     }
-    
-    
-    
+ 
 }
 
+
+//微信支付的方法
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+}
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url  sourceApplication:(nullable NSString *)sourceApplication annotation:(nonnull id)annotation
+{
+    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+}
+// NOTE: 9.0以后使用新API接口
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
+{
+    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+}
 
 @end

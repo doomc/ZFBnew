@@ -20,7 +20,7 @@
 
 
 #pragma mark ------------- OSSUrl 阿里云图片服务器-------------
-#define  aliOSS_baseUrl @"http://zavfb.oss-cn-shenzhen.aliyuncs.com/"
+#define aliOSS_baseUrl @"http://zavfb.oss-cn-shenzhen.aliyuncs.com/"
 
 #pragma mark ------------- 线上测试服务器--------------------
 //基类
@@ -55,8 +55,8 @@
 ////群聊
 //#define  IMGroup_baseUrl @"http://192.168.1.113:8087/group"
 
-#pragma mark -------------hj--------------------
-////baseURL
+#pragma mark ------------- --------------------
+//baseURL
 //#define  zfb_baseUrl @"http://192.168.1.107:8087/zfb/InterfaceServlet"
 ////单聊
 //#define  IMsingle_baseUrl @"http://192.168.1.107:8087/im/user"

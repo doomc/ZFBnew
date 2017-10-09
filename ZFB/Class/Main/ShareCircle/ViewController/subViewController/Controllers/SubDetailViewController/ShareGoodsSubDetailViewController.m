@@ -72,11 +72,11 @@
     
     if ([_isThumbsStatus isEqualToString: @"1"]) {
       
-        [self didclickZanPostRequsetAtthumsId:_shareId];
-        
+        [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
+
     }else{
         
-        [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
+        [self didclickZanPostRequsetAtthumsId:_shareId];
 
     }
     
@@ -120,11 +120,11 @@
             //是否点赞
             _isThumbsStatus = [NSString stringWithFormat:@"%@",response[@"data"][@"thumbsStatus"]];
             if ([_isThumbsStatus isEqualToString: @"1"]) {
-                
-                self.zan_imageView.image =[UIImage imageNamed:@"sharezan_normal"];
-                
-            }else{
                 self.zan_imageView.image =[UIImage imageNamed:@"sharezan_selected"];
+ 
+            }else{
+            
+                self.zan_imageView.image =[UIImage imageNamed:@"sharezan_normal"];
 
             }
             

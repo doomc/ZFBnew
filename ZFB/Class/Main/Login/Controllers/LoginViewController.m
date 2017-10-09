@@ -459,12 +459,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
         }else{
             [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
             [SVProgressHUD dismiss];
-
         }
-
     } progress:^(NSProgress *progeress) {
-        
-        
     } failure:^(NSError *error) {
         
         [SVProgressHUD dismiss];
@@ -502,7 +498,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.token =login.userInfo.token;
             BBUserDefault.accid = login.userInfo.accid;
             BBUserDefault.userPhonePassword = _tf_verificationCodeOrPassWord.text;//保存密码
-
             [self loginNIM];
             [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
             [ SVProgressHUD dismiss];
@@ -540,7 +535,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
                                       {
                                           NSLog(@" 已经 login success");
                                           [self left_button_event];
-
                                       }
                                       else
                                       {

@@ -117,11 +117,12 @@ typedef NS_ENUM(NSUInteger, CollectType) {
     switch (_collectType) {
         case CollectTypeGoods: //1商品 2门店
             [self showCollectListPOSTRequestCollectType:@"1"];
-
+  
             break;
             
         case CollectTypeStores:
             [self showCollectListPOSTRequestCollectType:@"2"];
+   
             break;
             
         default:
@@ -490,12 +491,8 @@ typedef NS_ENUM(NSUInteger, CollectType) {
                 [self.listArray addObject:list];
             }
             [self.tableView reloadData];
-            
             NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",_listArray);
-            if ([self isEmptyArray:self.listArray]) {
-                
-                [self.tableView cyl_reloadData];
-            }
+
         }
         [SVProgressHUD dismiss];
         [self endRefresh];
@@ -575,7 +572,7 @@ typedef NS_ENUM(NSUInteger, CollectType) {
     return weChatStylePlaceHolder;
 }
 #pragma mark - WeChatStylePlaceHolderDelegate Method
-- (void)emptyOverlayClicked:(id)sender {
+- (void)emptyOverlayClicked:(id)sender { 
     
     switch (_collectType) {
         case CollectTypeGoods: //1商品 2门店

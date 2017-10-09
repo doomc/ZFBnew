@@ -250,18 +250,18 @@
     ZFShoppingCarViewController * shopVC = [[ZFShoppingCarViewController alloc]init];
     [self.navigationController pushViewController:shopVC animated:NO];
 }
-#pragma mark - 加入购物车- 不选择规格
+#pragma mark - 加入购物车外部的- 不选择规格
 //加入购物车
 -(void)didClickAddShoppingCarView
 {
-    //没有规格 - 直接加入购物车
+    //  直接加入购物车
     if (self.productSkuArray.count > 0){
         
         [self popActionView];
         
-    }else{//如果有规格的
+    }else{//如果无规格的
         
-        if ([_skuAmount intValue] > 0) {
+        if ([_skuAmount intValue] > 0 || [_inventory intValue] > 0 ) {
             //添加有规格的数据进入购物车  传入有规格的json数据
             [self addToshoppingCarPostproductId:_productSkuId];
             
@@ -278,17 +278,16 @@
     }
     
 }
-#pragma mark -  立即购买无规格
+#pragma mark -  立即购买外部的
 -(void)didClickBuyNowView
 {
-    if (self.productSkuArray.count > 0) {
-
-        //先选规格  在传值
+    if (self.productSkuArray.count > 0) {//有规格
+        
         [self popActionView];
         
     }else{
         //没有规格 - 直接传值
-        if ([_inventory intValue] > 0) {
+        if ([_skuAmount intValue] > 0 || [_inventory intValue] > 0 ) {
             
             ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
             vc.userGoodsInfoJSON = _noReluArray;//没有规格的数组
@@ -375,7 +374,6 @@
             
             NSLog(@"商品详情有规格的数组 userGoodsInfoJSON === %@",userGoodsInfoJSON);
             vc.userGoodsInfoJSON = userGoodsInfoJSON ;
-            
             [self.navigationController pushViewController:vc animated:YES];
 
         

@@ -243,8 +243,9 @@
                 
             }];
             UIAlertAction * login = [UIAlertAction actionWithTitle:@"去登陆" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self.navigationController popToRootViewControllerAnimated:NO];
-                
+                NSArray * viewControllers = self.navigationController.viewControllers;
+                [self.navigationController popToViewController:viewControllers[0] animated:NO];
+
             }];
             [AlertVC addAction:cancle];
             [AlertVC addAction:login];
@@ -257,8 +258,6 @@
         }
  
     } progress:^(NSProgress *progeress) {
-        
-        
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);

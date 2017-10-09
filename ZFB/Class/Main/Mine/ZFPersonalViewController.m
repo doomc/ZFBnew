@@ -35,7 +35,7 @@
 #import "ZFShoppingCarViewController.h"//购物车
 #import "CouponViewController.h"//优惠券
 #import "MineShareViewController.h"//我的共享
-
+#import "AccountViewController.h"//交易明细 
 //base
 #import "ZFBaseNavigationViewController.h"
 
@@ -547,13 +547,12 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 }
 
 #pragma  mark - ZFMyCashBagCellDelegate - 钱包
-///钱包
+///钱包 、查看明细
 -(void)didClickCashBag
 {
-    
-    [self settingAlertView];
-//        MineWalletViewController * walletVC = [[MineWalletViewController alloc]init];
-//        [self.navigationController pushViewController:walletVC animated:NO];
+    NSLog(@"点击了明细");
+    AccountViewController * accontVC = [[AccountViewController alloc]init];
+    [self.navigationController pushViewController:accontVC animated:NO];
     
 }
 ///余额

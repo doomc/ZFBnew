@@ -48,10 +48,9 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     _sexTitleArr = @[@"男",@"女"];
 
     BBUserDefault.sexType  = 3;//默认
-
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingHeaderCell" bundle:nil] forCellReuseIdentifier:settingheadid];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingRowCell" bundle:nil] forCellReuseIdentifier:settingRowid];
-    
     [self.view addSubview:self.tableView];
  
 }
@@ -86,12 +85,10 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
-    
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        
         return 1;
     }
     return 4;
@@ -122,18 +119,12 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 
         if (indexPath.row == 0) {
             rowCell.isEdited = YES;//_isSavedNickName;
-//            if (_isSavedNickName == YES) {
-//         
-//                rowCell.lb_detailTitle.hidden = YES;
-//                rowCell.tf_contentTextfiled.placeholder = @"请输入昵称,该昵称填写后不可修改";
-//                rowCell.delegate = self;
-//
-//            }else{
-//                
-//                rowCell.tf_contentTextfiled.text = BBUserDefault.nickName;
-//            }
-            rowCell.tf_contentTextfiled.text = BBUserDefault.nickName;
 
+            if ([_nickName isEqualToString:@""] || _nickName == nil) {
+                rowCell.tf_contentTextfiled.text = BBUserDefault.nickName;
+
+            }
+            rowCell.tf_contentTextfiled.text = _nickName;
      
         }
         else if (indexPath.row == 1) {
@@ -184,11 +175,9 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"sectin = %ld,row = %ld",indexPath.section ,indexPath.row);
-    
     ZFSettingRowCell *rowCell =(ZFSettingRowCell *)[tableView cellForRowAtIndexPath:indexPath];
     
     if (indexPath.section == 0) {
- 
         ZFSettingHeaderCell *cell = (ZFSettingHeaderCell *)[tableView cellForRowAtIndexPath:indexPath];
         [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data, NSString *imgPath) {
            
@@ -198,9 +187,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
                 _imagePath = imgPath;
                 _userImgAttachUrl =  [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,imgPath ];
             });
-
             NSLog(@" 222222222 _userImgAttachUrl = = = = %@  ", imgPath );
-
         }];
  
     }
@@ -320,7 +307,6 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             
             //保存成功后不可以修改
             _isSavedBirthDay = NO;
-//            _isSavedNickName = NO;
             [SVProgressHUD showSuccessWithStatus:response[@"resultMsg"]];
         }
 
@@ -339,14 +325,6 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 -(void)viewWillAppear:(BOOL)animated
 {
     
-//    if (BBUserDefault.nickName == nil) {
-//        
-//        _isSavedNickName = YES; //如果nickname不存在说明没有编辑过 YES == 可编辑 NO 非
-//    }else{
-//        
-//        _isSavedNickName =  NO;
-//
-//    }
     if (BBUserDefault.birthDay == nil || [BBUserDefault.birthDay isEqualToString:@""]) {
         _isSavedBirthDay = YES;//可编辑状态
     }

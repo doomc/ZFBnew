@@ -44,7 +44,16 @@
 {
     textfiled.clearButtonMode = UITextFieldViewModeWhileEditing;
     textfiled.secureTextEntry = YES;
-    if (textfiled == _tf_newPS) {
+
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField == _tf_surePS) {
+        
+        BBUserDefault.newPassWord = _tf_surePS.text;
+        
+    }
+    if (textField == _tf_newPS) {
         
         if (_tf_newPS.text.length < 20 && _tf_newPS.text.length > 8 ) {
             NSLog(@"_tf_newPS==%@",_tf_newPS.text);
@@ -53,7 +62,7 @@
         [self.view makeToast:@"密码格式不对" duration:2 position:@"center"];
         
     }
-    if (textfiled == _tf_surePS) {
+    if (textField == _tf_surePS) {
         NSLog(@"_tf_surePS==%@",_tf_surePS.text);
         
         //当账号与密码同时有值,登录按钮才能够点击
@@ -67,14 +76,6 @@
             self.complete_btn.enabled         = NO;
             self.complete_btn.backgroundColor = HEXCOLOR(0xa7a7a7);
         }
-    }
-}
--(void)textFieldDidEndEditing:(UITextField *)textField
-{
-    if (textField == _tf_surePS) {
-        
-        BBUserDefault.newPassWord = _tf_surePS.text;
-        
     }
 }
 //回收键盘
@@ -131,8 +132,7 @@
     
     
     NSDictionary * parma = @{
-                             @"svcName":@"",
-                             @"userId":@"",
+
                              @"mobilePhone":_phoneNum,
                              @"newPassword":_tf_surePS.text,
                              @"smsCheckCode":_Vercode,
@@ -140,13 +140,12 @@
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/forgetPassword",zfb_baseUrl] params:parma success:^(id response) {
-        
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-        
-        BBUserDefault.userPhonePassword = _tf_surePS.text;//保存密码
-        
-        [self.navigationController popToRootViewControllerAnimated:NO];
-        
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]]        ;
+        if ([code isEqualToString:@"0"]) {
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+            BBUserDefault.userPhonePassword = _tf_surePS.text;//保存密码
+            [self.navigationController popToRootViewControllerAnimated:NO];
+        }
     } progress:^(NSProgress *progeress) {
         
         

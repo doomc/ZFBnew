@@ -66,6 +66,8 @@
 #import "NSString+RegexCategory.h"
 #import "imageCompressHelper.h"
 
+//wx
+#import "MXWechatConfig.h"
 //无数据占位图工具
 #import "UIView+EaseBlankPage.h"
 #import "CYLTableViewPlaceHolder.h"
@@ -79,7 +81,6 @@
 #import "NIMKit.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import "Macros.h"
-
 #define  Appkey @"6bd36bd4bfadba812aff256259316848" //自己的key
 
 //这个宏加上后，可以去掉'mas_'这个前缀了

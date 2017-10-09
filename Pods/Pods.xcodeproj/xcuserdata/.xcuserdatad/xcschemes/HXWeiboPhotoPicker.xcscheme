@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'D552925E8EAEABE28C91955D65A74165'
+               BlueprintIdentifier = '21B729BC64DB4F21B600A813E9CF7938'
                BlueprintName = 'HXWeiboPhotoPicker'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libHXWeiboPhotoPicker.a'>
