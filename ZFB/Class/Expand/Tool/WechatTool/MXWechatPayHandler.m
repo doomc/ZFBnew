@@ -56,14 +56,11 @@
     [session.requestSerializer setQueryStringSerializationWithBlock:^NSString *(NSURLRequest *request, NSDictionary *parameters, NSError *__autoreleasing *error) {
         return string;
     }];
-    
     [session POST:[NSString stringWithFormat:@"%@/cashier/wxPay.do",paySign_baseUrl]   parameters:string  progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
-         
          //  输出XML数据
-         NSString *responseString = [[NSString alloc] initWithData:responseObject
-                                                          encoding:NSUTF8StringEncoding] ;
+         NSString *responseString = [[NSString alloc] initWithData:responseObject  encoding:NSUTF8StringEncoding] ;
          //  将微信返回的xml数据解析转义成字典
          NSDictionary *dic = [NSDictionary dictionaryWithXMLString:responseString];
          
@@ -93,7 +90,6 @@
                                            package:request.package
                                           noncestr:request.nonceStr
                                          timestamp:request.timeStamp];
-             
              
              // 调用微信
              [WXApi sendReq:request];

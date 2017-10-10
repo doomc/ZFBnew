@@ -9,7 +9,7 @@
 #import "CheckstandViewController.h"
 #import "PayforCell.h"
 #import "PayFootCell.h"
-
+#import "WXApi.h"
 @interface CheckstandViewController () <UITableViewDelegate,UITableViewDataSource,PayFootCellDelegate>
 {
     NSString * _balance;
@@ -107,8 +107,26 @@
 }
 
 - (void)bizPay {
-   
-    [MXWechatPayHandler jumpToWxPayAtOrderNo:_zavfpay_num totalFee:_amount notifyUrl:_notifyUrl];
+
+    PayReq *req = [[PayReq alloc]init];
+    req.openID = WX_AppId;
+//    req.partnerId = [payDic valueForKey:@"partnerid"];
+//    req.prepayId = [payDic valueForKey:@"prepayid"];
+//    req.nonceStr = [payDic valueForKey:@"noncestr"];
+//    req.timeStamp = [[payDic valueForKey:@"timestamp"] intValue];
+//    req.package = [payDic valueForKey:@"package"];
+//    req.sign = [payDic valueForKey:@"sign"];
+    
+    BOOL flag = [WXApi sendReq:req];
+    if (flag) {
+        
+        NSLog(@"发起微信支付成功");
+    }else{
+        
+        NSLog(@"发起微信支付失败");
+    }
+    
+//    [MXWechatPayHandler jumpToWxPayAtOrderNo:_zavfpay_num totalFee:_amount notifyUrl:_notifyUrl];
     [self wxPaySignPostRequst];
 
 }
@@ -129,9 +147,7 @@
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/QRCode/getThirdBalance"] params:parma success:^(id response) {
         
         if ([response [@"resultCode"] intValue] == 0) {
-            
             _balance = response[@"balance"];
-            
         }
         [self.tableView reloadData];
         
