@@ -14,17 +14,19 @@
     [super awakeFromNib];
     // Initialization code
     
-    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.lb_Price.hidden = YES;
-    self.lb_Price.text =@"¥ 199.00";
  
+    self.lb_Price.hidden = YES;
+    self.lb_balance.hidden = YES;
+    self.btn_selected.hidden = YES;
     
 }
- 
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
+    self.btn_selected.selected = selected;
+    
     // Configure the view for the selected state
 }
 

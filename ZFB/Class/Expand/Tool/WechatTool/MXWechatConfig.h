@@ -14,19 +14,20 @@
 #import "MXWechatSignAdaptor.h" //微信签名工具类
 #import "XMLDictionary.h"       //XML转换工具类
 
+
 /**
  -----------------------------------
  微信支付需要配置的参数
  -----------------------------------
  */
 
-// 开放平台登录https://open.weixin.qq.com的开发者中心获取APPID
+// https://open.weixin.qq.com的开发者中心获取APPID
 #define WX_AppId @"wx2b173adc370b8052"
-// 开放平台登录https://open.weixin.qq.com的开发者中心获取AppSecret。
+// https://open.weixin.qq.com的开发者中心获取AppSecret。
 #define WX_APPSecret @"b701bcb7c40cdb2ae1da3adf4641f22f"
 // 微信支付商户号
 #define wx_MCH_ID  @"1489905222"
-//WX秘钥
+// 微信密匙
 #define WX_PartnerKey @"cqzavfbweixinzhifu2017jiesuanhuk"
 
 
@@ -36,7 +37,7 @@
  -----------------------------------
  */
 
-#define kUrlWechatPay       @"https://api.mch.weixin.qq.com/pay/unifiedorder"
+//#define kUrlWechatPay       @"https://api.mch.weixin.qq.com/pay/unifiedorder"
 
 
 /**

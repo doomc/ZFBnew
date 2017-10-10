@@ -16,6 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_Price;
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_balance;
 
 
 @end

@@ -10,8 +10,6 @@
 
 @implementation WXApiManager
 
-#pragma mark - 单粒
-
 +(instancetype)sharedManager {
     static dispatch_once_t onceToken;
     static WXApiManager *instance;

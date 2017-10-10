@@ -10,15 +10,6 @@
 
 @interface MXWechatPayHandler : NSObject
 
-/**
- 吊微信支付
-
- @param tradeType  交易类型
- @param orderNo 订单号
- @param totalFee 总金额
- @param payTitle 支付名称
- @param notifyUrl 回调地址
- */
-+ (void)jumpToWxPayWithTradeType:(NSString *)tradeType AndOrderNo:(NSString *)orderNo AndTotalFee:(NSString *)totalFee AndPayTitle:(NSString *)payTitle AndNotifyUrl:(NSString *)notifyUrl;
++ (void)jumpToWxPayAtOrderNo:(NSString *)orderNo totalFee:(NSString *)totalFee notifyUrl:(NSString *)notifyUrl;
 
 @end

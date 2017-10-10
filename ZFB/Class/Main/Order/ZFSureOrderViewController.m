@@ -34,6 +34,7 @@
 #import "CouponModel.h"
 //wx
 #import "MXWechatPayHandler.h"
+#import "CheckstandViewController.h"//收银台
 
 typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     
@@ -74,6 +75,14 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     //totalPirce 最后支付的价格
     NSString * _totalPirce;
     
+    //存放生成订单数组
+    NSArray  * _orderArr ;
+    NSString * _notify_url;
+    NSString * _return_url;
+    NSString * _gateWay_url;
+    NSString * _goback_url;
+    NSString * _paySign;//获取签名
+
 }
 
 @property (nonatomic,strong) UITableView * mytableView;
@@ -591,6 +600,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 -(void)commitOrder:(NSDictionary *) jsondic
 {
     [SVProgressHUD show];
+ 
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/generateOrderNumber",zfb_baseUrl] params:jsondic success:^(id response) {
         if ([response[@"resultCode"] intValue] == 0) {
             //paytype 支付类型 0 线下 1 线上
@@ -602,20 +612,16 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                 [self.navigationController pushViewController:allVC animated:NO];
           
             }else{ //跳转到收银台
-                NSArray * orderArr = response[@"orderList"];
-                //跳转到webview
-                ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
-                payVC.orderListArray               = orderArr;//[NSArray arrayWithArray:mutOrderArray];
-                payVC.datetime                     = _datetime;
-                payVC.access_token                 = _access_token;
-                
-                //支付的回调地址
-                payVC.notify_url  = response[@"thirdURI"][@"notify_url"];
-                payVC.return_url  = response[@"thirdURI"][@"return_url"];
-                payVC.gateWay_url  = response[@"thirdURI"][@"gateWay_url"];
-                payVC.goback_url   = response[@"thirdURI"][@"goback_url"];
+                _orderArr = response[@"orderList"];
  
-                [self.navigationController pushViewController:payVC animated:YES];
+                //支付的回调地址
+                _notify_url = response[@"thirdURI"][@"notify_url"];
+                _return_url  = response[@"thirdURI"][@"return_url"];
+                _gateWay_url  = response[@"thirdURI"][@"gateWay_url"];
+                _goback_url   = response[@"thirdURI"][@"goback_url"];
+                
+                [self getPaypaySignAccessTokenUrl];
+                
             }
             [SVProgressHUD dismiss];
         }
@@ -705,59 +711,138 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 -(void)didCleckClearing:(UIButton *)sender
 {
     NSLog(@" 提交订单 ");
-    //  发起支付
-    [MXWechatPayHandler jumpToWxPayWithTradeType:@"展富宝" AndOrderNo:@"订单号" AndTotalFee:_totalPirce AndPayTitle:@"微信支付" AndNotifyUrl:@"回调地址"];
+//    //  发起支付
+//    [MXWechatPayHandler jumpToWxPayWithTradeType:@"展富宝" AndOrderNo:@"订单号" AndTotalFee:_totalPirce AndPayTitle:@"微信支付" AndNotifyUrl:@"回调地址"];
     
-//    //还原成字典数组
-//    NSArray * cmgoodsList          = [NSArray arrayWithArray:self.cmGoodsListArray];
-//    NSArray * storeDeliveryfeeList = [NSArray arrayWithArray:self.storeDeliveryfeeListArr];
-//    NSArray * storeAttachList      = [NSArray arrayWithArray:self.storeAttachListArr];
-//    
-//    /////////////////////////// 一个大集合 /////////////////////////////////////////////
-//    NSMutableDictionary * jsondic = [NSMutableDictionary dictionary] ;
-//    
-//    [jsondic setValue:BBUserDefault.cmUserId forKey:@"cmUserId"];
-//    [jsondic setValue:_postAddressId forKey:@"postAddressId"];
-//    [jsondic setValue:_contactUserName forKey:@"contactUserName" ];
-//    [jsondic setValue:_contactMobilePhone forKey:@"contactMobilePhone"];
-//    [jsondic setValue:_contactMobilePhone forKey:@"mobilePhone"];
-//    [jsondic setValue:_postAddress forKey:@"postAddress"];
-//    [jsondic setValue:_payType forKey:@"payType" ];//支付类型 0 线下 1 线上
-//    [jsondic setValue:_cartItemId forKey:@"cartItemId"];//立即购买不传，购物车加入的订单需要传
-//    
-//    [jsondic setValue: cmgoodsList forKey:@"cmGoodsList"];
-//    [jsondic setValue: storeDeliveryfeeList forKey:@"storeDeliveryfeeList"];
-//    [jsondic setValue: storeAttachList forKey:@"storeAttachList"];
-//    ////////优惠券新加字段
-//    [jsondic setValue: _useRange forKey:@"useRange"];
-//    [jsondic setValue: _couponId forKey:@"couponId"];
-//    [jsondic setValue: _couponStoreId forKey:@"storeId"];
-//    [jsondic setValue: _couponAmount forKey:@"couponAmount"];
-//    [jsondic setValue: _couponGoodsIds forKey:@"goodsIds"];
-// 
-//    NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
-//    //    NSLog(@"提交订单 -----------%@",successDic);
-//    if (_postAddress == nil  || _contactUserName == nil || _contactMobilePhone == nil) {
-//        JXTAlertController * alertavc = [JXTAlertController alertControllerWithTitle:@"提示" message:@"您现在还没有默认地址，马上添加默认地址" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//            
-//        }];
-//        UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-//            ZFAddressListViewController * listVC =[[ZFAddressListViewController alloc]init];
-//            [self.navigationController pushViewController:listVC animated:YES];
-//        }];
-//        [alertavc addAction:cancelAction];
-//        [alertavc addAction:sureAction];
-//        [self presentViewController:alertavc animated:YES completion:nil];
-//        
-//    }else{
-// 
-//        //进入请求
-//        [self commitOrder:successDic];
-// 
-//    }
+    //还原成字典数组
+    NSArray * cmgoodsList          = [NSArray arrayWithArray:self.cmGoodsListArray];
+    NSArray * storeDeliveryfeeList = [NSArray arrayWithArray:self.storeDeliveryfeeListArr];
+    NSArray * storeAttachList      = [NSArray arrayWithArray:self.storeAttachListArr];
+    
+    /////////////////////////// 一个大集合 /////////////////////////////////////////////
+    NSMutableDictionary * jsondic = [NSMutableDictionary dictionary] ;
+    
+    [jsondic setValue:BBUserDefault.cmUserId forKey:@"cmUserId"];
+    [jsondic setValue:_postAddressId forKey:@"postAddressId"];
+    [jsondic setValue:_contactUserName forKey:@"contactUserName" ];
+    [jsondic setValue:_contactMobilePhone forKey:@"contactMobilePhone"];
+    [jsondic setValue:_contactMobilePhone forKey:@"mobilePhone"];
+    [jsondic setValue:_postAddress forKey:@"postAddress"];
+    [jsondic setValue:_payType forKey:@"payType" ];//支付类型 0 线下 1 线上
+    [jsondic setValue:_cartItemId forKey:@"cartItemId"];//立即购买不传，购物车加入的订单需要传
+    
+    [jsondic setValue: cmgoodsList forKey:@"cmGoodsList"];
+    [jsondic setValue: storeDeliveryfeeList forKey:@"storeDeliveryfeeList"];
+    [jsondic setValue: storeAttachList forKey:@"storeAttachList"];
+    ////////优惠券新加字段
+    [jsondic setValue: _useRange forKey:@"useRange"];
+    [jsondic setValue: _couponId forKey:@"couponId"];
+    [jsondic setValue: _couponStoreId forKey:@"storeId"];
+    [jsondic setValue: _couponAmount forKey:@"couponAmount"];
+    [jsondic setValue: _couponGoodsIds forKey:@"goodsIds"];
+ 
+    NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
+    //    NSLog(@"提交订单 -----------%@",successDic);
+    if (_postAddress == nil  || _contactUserName == nil || _contactMobilePhone == nil) {
+        JXTAlertController * alertavc = [JXTAlertController alertControllerWithTitle:@"提示" message:@"您现在还没有默认地址，马上添加默认地址" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            ZFAddressListViewController * listVC =[[ZFAddressListViewController alloc]init];
+            [self.navigationController pushViewController:listVC animated:YES];
+        }];
+        [alertavc addAction:cancelAction];
+        [alertavc addAction:sureAction];
+        [self presentViewController:alertavc animated:YES completion:nil];
+        
+    }else{
+ 
+        //进入请求
+        [self commitOrder:successDic];
+ 
+    }
 }
 
+#pragma mark - 获取支付paySign值
+-(void)getPaypaySignAccessTokenUrl
+{
+    [SVProgressHUD show];
+    NSString * listJsonString  =  [NSString arrayToJSONString:_orderArr];
+    //    listJsonString = [listJsonString stringByReplacingOccurrencesOfString:@"\\"withString:@""];
+#warning -- 此账号为测试时账号  正式时 需要修改成正式账号
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    [params setValue:_access_token forKey:@"access_token"];
+    [params setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
+    [params setValue:_datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
+    [params setValue:_notify_url forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）
+    [params setValue:_return_url forKey:@"return_url"];//同步通知地址（支付成功后的跳转）
+    [params setValue:listJsonString forKey:@"order_list"];//Json格式的订单字符集
+    [params setValue:@"" forKey:@"passback_params"];//回传参数：商户可自定义该参数，在支付回调后带回
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/paySign",zfb_baseUrl] params:[NSDictionary dictionaryWithDictionary:params] success:^(id response) {
+        
+        _paySign = response[@"paySign"];
+        
+        [SVProgressHUD dismissWithCompletion:^{
+            
+            [self getGoodsCostPayResulrUrlL];
+        }];
+        
+    } progress:^(NSProgress *progeress) {
+        
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
+
+
+#pragma mark -  PayResulrUrl支付页面地址
+-(void)getGoodsCostPayResulrUrlL
+{
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    NSString * listJsonString  = [NSString arrayToJSONString:_orderArr];
+    //    listJsonString = [listJsonString stringByReplacingOccurrencesOfString:@"\\"withString:@""];
+    
+    [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
+//    [params setValue:_access_token forKey:@"access_token"];
+    [params setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
+    [params setValue:_datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
+    [params setValue:_notify_url forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）
+    [params setValue:_return_url forKey:@"return_url"];//同步通知地址（支付成功后的跳转）
+    [params setValue:listJsonString forKey:@"order_list"];//Json格式的订单字符集
+    [params setValue:@"" forKey:@"passback_params"];//回传参数：商户可自定义该参数，在支付回调后带回
+    NSDictionary * dic  = [NSDictionary dictionaryWithDictionary:params];
+    
+    //非加密的请求 获取预订单
+    [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/cashier/order.do",paySign_baseUrl] params:dic success:^
+     (id response) {
+         NSString * code = [NSString stringWithFormat:@"%@",response[@"result_code"]];
+         NSLog(@"result_msg : %@",response[@"result_msg"]);
+         if ([code isEqualToString:@"0000"]) {
+             NSString * zavfpay_num = [NSString stringWithFormat:@"%@",response[@"zavfpay_num"]];
+             CheckstandViewController * payVC = [CheckstandViewController new];
+             payVC.paySign = _paySign;
+             payVC.amount = _totalPirce;
+             payVC.zavfpay_num = zavfpay_num;
+             payVC.notifyUrl = _notify_url;
+             [self.navigationController pushViewController:payVC animated:NO];
+         }
+         
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        
+    }];
+ 
+}
 
 #pragma mark - 懒加载
 -(NSMutableArray *)couponList
@@ -799,6 +884,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     }
     return _storelistArry;
 }
+
 -(SelectPayTypeView *)selectPayView
 {
     if (!_selectPayView) {

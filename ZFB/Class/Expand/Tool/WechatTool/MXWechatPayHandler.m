@@ -22,25 +22,23 @@
 
 #pragma mark - Public Methods
 
-+ (void)jumpToWxPayWithTradeType:(NSString *)tradeType AndOrderNo:(NSString *)orderNo AndTotalFee:(NSString *)totalFee AndPayTitle:(NSString *)payTitle AndNotifyUrl:(NSString *)notifyUrl
++ (void)jumpToWxPayAtOrderNo:(NSString *)orderNo totalFee:(NSString *)totalFee notifyUrl:(NSString *)notifyUrl;
 {
     //============================================================
     // 支付流程实现
     // 客户端操作     (实际操作应由服务端操作)
     //============================================================
-//    NSString *tradeType = @"APP";                                       //交易类型
+    NSString *tradeType = @"展富宝";                                       //交易类型
 //    NSString *totalFee  = @"1";                                         //交易价格1表示0.01元，10表示0.1元
     NSString *tradeNO   = [self generateTradeNO];                       //随机字符串变量 这里最好使用和安卓端一致的生成逻辑
-    NSString *addressIP = [self fetchIPAddress];                        //设备IP地址,请再wifi环境下测试,否则获取的ip地址为error,正确格式应该是8.8.8.8
-//    NSString *orderNo   = [NSString stringWithFormat:@"%ld",time(0)];   //随机产生订单号用于测试，正式使用请换成你从自己服务器获取的订单号
-//    NSString *notifyUrl = @"http://wxpay.weixin.qq.com/pub_v2/pay/notify.v2.php";// 交易结果通知网站此处用于测试，随意填写，正式使用时填写正确网站
+    NSString *addressIP = [self fetchIPAddress];                        //设备IP地址,请再wifi环境下测试,否则获取的ip地址为error,正确格式应该
     
     //获取SIGN签名
     MXWechatSignAdaptor *adaptor = [[MXWechatSignAdaptor alloc] initWithWechatAppId:WX_AppId
                                                                         wechatMCHId:wx_MCH_ID
                                                                             tradeNo:tradeNO
                                                                    wechatPartnerKey:WX_PartnerKey
-                                                                           payTitle:payTitle
+                                                                           payTitle:@"支付"
                                                                             orderNo:orderNo
                                                                            totalFee:totalFee
                                                                            deviceIp:addressIP
@@ -54,14 +52,12 @@
     // 这里传入的XML字符串只是形似XML，但不是正确是XML格式，需要使用AF方法进行转义
     session.responseSerializer = [[AFHTTPResponseSerializer alloc] init];
     [session.requestSerializer setValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [session.requestSerializer setValue:kUrlWechatPay forHTTPHeaderField:@"SOAPAction"];
+    [session.requestSerializer setValue:[NSString stringWithFormat:@"%@/cashier/wxPay.do",paySign_baseUrl]  forHTTPHeaderField:@"SOAPAction"];
     [session.requestSerializer setQueryStringSerializationWithBlock:^NSString *(NSURLRequest *request, NSDictionary *parameters, NSError *__autoreleasing *error) {
         return string;
     }];
     
-    [session POST:kUrlWechatPay
-       parameters:string
-         progress:nil
+    [session POST:[NSString stringWithFormat:@"%@/cashier/wxPay.do",paySign_baseUrl]   parameters:string  progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
          

@@ -24,7 +24,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>None</string>
 			<key>CFBundleURLName</key>
-			<string></string>
+			<string>zhifubao</string>
 			<key>CFBundleURLSchemes</key>
 			<array/>
 		</dict>
@@ -34,7 +34,7 @@
 			<key>CFBundleURLIconFile</key>
 			<string></string>
 			<key>CFBundleURLName</key>
-			<string></string>
+			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wx2b173adc370b8052</string>

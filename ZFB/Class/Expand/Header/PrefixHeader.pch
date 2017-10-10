@@ -66,8 +66,8 @@
 #import "NSString+RegexCategory.h"
 #import "imageCompressHelper.h"
 
-//wx
 #import "MXWechatConfig.h"
+
 //无数据占位图工具
 #import "UIView+EaseBlankPage.h"
 #import "CYLTableViewPlaceHolder.h"
