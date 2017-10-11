@@ -11,7 +11,7 @@
 
 @interface VerificatePayPassWordViewController ()
 {
-    NSMutableString * oldPassword ;
+    NSMutableString * currentPassword ;
 }
 @end
 @implementation VerificatePayPassWordViewController
@@ -33,14 +33,13 @@
         NSLog(@"%@",password);
         
         if (password.length == 6) {
-            
-            oldPassword  = [NSMutableString stringWithFormat:@"%@",password];
-            if ([self checkPassWordIsNotEasy:oldPassword] && [_checkPassword isEqualToString:oldPassword]) {
+            currentPassword  = [NSMutableString stringWithFormat:@"%@",password];
+            if ([_checkPassword isEqualToString:currentPassword]) {
                 NSLog(@"成功  --可以调 接口");
                 [self commitPasswordPostRequset];
                 
             }else{
-                [self.view makeToast:@"确认密码错误,请核对后重新输入" duration:2 position:@"center"];
+                [self.view makeToast:@"2次密码不匹配,请核对后重新输入" duration:2 position:@"center"];
             }
         }
     };
@@ -60,32 +59,32 @@
     
 }
 
-
-#pragma mark - 验证密码
+#pragma mark - 提交密码 请求
 -(void)commitPasswordPostRequset
 {
-    
     NSDictionary * param = @{
-                             @"payPassword":oldPassword,
+                             @"payPassword":currentPassword,
                              @"account":BBUserDefault.userPhoneNumber,
                              
                              };
     
-    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/validatePayPassword"] params:param success:^(id response) {
+    [SVProgressHUD show];
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/sitePayPassword"] params:param success:^(id response) {
         
         if ([response[@"resultCode"] intValue] == 0) {
- 
-            JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"支付密码设置成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
-            
+            JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"支付密码设置成功!" message:nil preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [self poptoUIViewControllerNibName:@"SettingPayPasswordViewController" AndObjectIndex:1];
             }];
- 
+            
             [alertvc addAction:sure];
             [self presentViewController:alertvc animated:YES completion:^{
                 
             }];
+            
         }
+        [SVProgressHUD dismiss];
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
@@ -93,8 +92,9 @@
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-
+    
 }
+
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
@@ -106,13 +106,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

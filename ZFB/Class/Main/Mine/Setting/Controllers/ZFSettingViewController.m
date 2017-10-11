@@ -37,13 +37,13 @@ static NSString * settingCellid = @"ZFSettingCellid";
     [super viewDidLoad];
  
     self.title = @"设置";
-    _titleArr1  = @[@"我的信息",@"修改密码"];
+    _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置"];
 //    _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置",@"分享圈"];
     _titleArr2  = @[@"手机号码",@"清除缓存"];
     _titleArr3  = @[@"客服热线",@"招商入驻"];
 
 //    _imagesArr1 = @[@"setting_message",@"setting_ps",@"settingPay",@"settingShare"];
-    _imagesArr1 = @[@"setting_message",@"setting_ps"];
+    _imagesArr1 = @[@"setting_message",@"setting_ps",@"settingPay"];
     _imagesArr2 = @[@"setting_phone",@"setting_cache"];
     _imagesArr3 = @[@"setting_calling",@"setting_shakehand",];
 

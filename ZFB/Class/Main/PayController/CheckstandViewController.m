@@ -10,12 +10,27 @@
 #import "PayforCell.h"
 #import "PayFootCell.h"
 #import "WXApi.h"
+//支付密码
+#import "CYPasswordView.h"
+#import "MBProgressHUD+MJ.h"
+#import "IQKeyboardManager.h"
+
+//支付跳转
+#import "DetailPayCashViewController.h"//支付失败
+#import "DetailPaySuccessViewController.h"//支付成功
+
+#define kRequestTime 3.0f
+#define kDelay 1.0f
+
 @interface CheckstandViewController () <UITableViewDelegate,UITableViewDataSource,PayFootCellDelegate>
 {
     NSString * _balance;
+    NSInteger  _indexRow;
+    BOOL  _paySuccess;//判断是否支付成功  yes 成功 No 失败
 }
 @property (nonatomic , strong) UITableView * tableView;
 @property (nonatomic , strong) NSArray * titles;
+@property (nonatomic , strong) CYPasswordView *passwordView;
 
 @end
 
@@ -41,8 +56,26 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"PayforCell" bundle:nil] forCellReuseIdentifier:@"PayforCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PayFootCell" bundle:nil] forCellReuseIdentifier:@"PayFootCell"];
-    
+    /** 注册取消按钮点击的通知 */
+    [CYNotificationCenter addObserver:self selector:@selector(cancel) name:CYPasswordViewCancleButtonClickNotification object:nil];
+    [CYNotificationCenter addObserver:self selector:@selector(forgetPWD) name:CYPasswordViewForgetPWDButtonClickNotification object:nil];
+
+    //注册微信支付
+    [WXApi registerApp:WX_AppId enableMTA:YES];
     [self getThirdBalancePOSTRequste];
+    
+}
+- (void)cancel {
+    CYLog(@"关闭密码框");
+    [MBProgressHUD showSuccess:@"关闭密码框"];
+}
+
+- (void)forgetPWD {
+    CYLog(@"忘记密码");
+    [MBProgressHUD showSuccess:@"忘记密码"];
+}
+- (void)dealloc {
+    CYLog(@"cy =========== %@：我走了", [self class]);
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -99,47 +132,57 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 2 ) {//如果是微信支付
-        
-
-    }
+    _indexRow =  indexPath.row;
     
 }
 
-- (void)bizPay {
+- (void)bizPayParterId:(NSString *)partnerId prepayId:(NSString *)prepayId package:(NSString *)package nonceStr:(NSString *)nonceStr timeStamp: (NSString *)timeStamp sign:(NSString *)sign
+{
 
     PayReq *req = [[PayReq alloc]init];
     req.openID = WX_AppId;
-//    req.partnerId = [payDic valueForKey:@"partnerid"];
-//    req.prepayId = [payDic valueForKey:@"prepayid"];
-//    req.nonceStr = [payDic valueForKey:@"noncestr"];
-//    req.timeStamp = [[payDic valueForKey:@"timestamp"] intValue];
-//    req.package = [payDic valueForKey:@"package"];
-//    req.sign = [payDic valueForKey:@"sign"];
-    
+    req.partnerId = partnerId;
+    req.prepayId = prepayId;
+    req.nonceStr = nonceStr;
+    req.timeStamp = [timeStamp intValue];
+    // 根据财付通文档填写的数据和签名 
+    //这个比较特殊，是固定的，只能是即req.package = Sign=WXPay
+    req.package = package;
+    req.sign = sign;
     BOOL flag = [WXApi sendReq:req];
     if (flag) {
-        
         NSLog(@"发起微信支付成功");
     }else{
         
         NSLog(@"发起微信支付失败");
     }
     
-//    [MXWechatPayHandler jumpToWxPayAtOrderNo:_zavfpay_num totalFee:_amount notifyUrl:_notifyUrl];
-    [self wxPaySignPostRequst];
 
 }
 #pragma mark - 选择支付方式--确定支付
 -(void)didClickSurePay
 {
-    NSLog(@"吊起支付");
-    [self bizPay] ;
-    
+    if (_indexRow == 1) {//余额支付
+        //该步骤需要先检测是不是有支付密码 后再调该借口
+        [self wakeUpPasswordAlert];
+    }
+    if (_indexRow == 2) {//微信支付
+        [self jumpToWXPayPostRequst];
+    }
+
+}
+//每次进来都需要重新请求签名
+-(void)viewWillAppear:(BOOL)animated
+{
+    //关闭toolbar
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+
+    [self WXparnerIdPost];
 }
 #pragma mark  - 网络请求 查询展易付余额
 -(void)getThirdBalancePOSTRequste
 {
+    
     NSDictionary * parma = @{
                              @"account":BBUserDefault.userPhoneNumber,
                              };
@@ -161,18 +204,110 @@
     
 }
 
-//接入微信支付
--(void)wxPaySignPostRequst
+//跳转到微信支付
+-(void)jumpToWXPayPostRequst
 {
     NSDictionary * param = @{
-                             @"account":wx_MCH_ID,
+                             @"account":BBUserDefault.userPhoneNumber,
                              @"zavfpay_num":_zavfpay_num,//支付订单号
-                             @"sign":_paySign,
+                             @"sign":_WXPaySign,
                              
                              };
     
     [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/cashier/wxPay.do",paySign_baseUrl] params:param success:^(id response) {
+    
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"result_code"]];
+        if ([code isEqualToString:@"0000"]) {
+            NSString * timeStamp = [NSString stringWithFormat:@"%@",response[@"timeStamp"]];
+            NSString * sign = [NSString stringWithFormat:@"%@",response[@"sign"]];
+            NSString * package = [NSString stringWithFormat:@"%@",response[@"package"]];
+            NSString * partnerId = [NSString stringWithFormat:@"%@",response[@"partnerId"]];
+            NSString * nonceStr = [NSString stringWithFormat:@"%@", response[@"nonceStr"]];
+            NSString * prepayId = [NSString stringWithFormat:@"%@", response[@"prepayId"]];
+//            NSString * appId = [NSString stringWithFormat:@"%@", response[@"appId"]];
+            
+            [self bizPayParterId:partnerId prepayId:prepayId package:package nonceStr:nonceStr timeStamp:timeStamp sign:sign] ;
+        }
         NSLog(@"%@",response[@"result_msg"]);
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        
+    }];
+    
+}
+//获取微信的sign
+-(void)wxPaySignPostRequst
+{
+    NSDictionary * param = @{
+                             @"account":BBUserDefault.userPhoneNumber,
+                             @"zavfpay_num":_zavfpay_num,//支付订单号
+                             };
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/paySign",zfb_baseUrl] params:param success:^(id response) {
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+            
+            _WXPaySign = [NSString stringWithFormat:@"%@", response[@"paySign"]];
+            NSLog(@"这个是微信支付的:%@",response[@"resultMsg"]);
+        }
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+//获取余额的sign
+-(void)balanceSignPostRequstWithPayPass:(NSString *)payPass
+{
+    NSDictionary * param = @{
+                             @"account":BBUserDefault.userPhoneNumber,
+                             @"zavfpay_num":_zavfpay_num,//支付订单号
+                             @"pay_pass":payPass,
+                             };
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/paySign",zfb_baseUrl] params:param success:^(id response) {
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+            
+            _BalancePaySign = [NSString stringWithFormat:@"%@", response[@"paySign"]];
+            NSLog(@"这个是余额支付的%@",response[@"resultMsg"]);
+            //获取到签名后再请求余额支付
+            [self balancePostRequstAtPassword:payPass];
+
+        }
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+//余额支付
+-(void)balancePostRequstAtPassword:(NSString *)pass
+{
+    NSDictionary * param = @{
+                             @"account":BBUserDefault.userPhoneNumber,
+                             @"zavfpay_num":_zavfpay_num,//支付订单号
+                             @"sign":_BalancePaySign,//支付平台支付密码
+                             @"pay_pass":pass
+                             };
+    
+    [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/cashier/balancePay.do",paySign_baseUrl] params:param success:^(id response) {
+        NSString* code = [NSString stringWithFormat:@"%@",response[@"result_code"]];
+        if ([code isEqualToString:@"0000"]) {//支付成功
+            [MBProgressHUD showSuccess:response[@"result_msg"]];
+            DetailPaySuccessViewController * successVC =[ DetailPaySuccessViewController new];
+            [self.navigationController pushViewController:successVC  animated:NO];
+        }
+        if ([code isEqualToString:@"0001"]) {//支付密码不正确
+            [self.view makeToast:response[@"result_msg"] duration:2 position:@"center"];
+
+        }
+        if ([code isEqualToString:@"0002"]) {//未设置支付密码
+            [self.view makeToast:response[@"result_msg"] duration:2 position:@"center"];
+
+        }
+        [self.passwordView stopLoading];
+        [self.passwordView hide];
         
     } progress:^(NSProgress *progeress) {
         
@@ -182,6 +317,47 @@
     }];
     
 }
+//获取预下单订单
+-(void)WXparnerIdPost
+{
+    //非加密的请求 获取预订单
+    [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/cashier/order.do",paySign_baseUrl] params:_signDic success:^
+     (id response) {
+         NSString * code = [NSString stringWithFormat:@"%@",response[@"result_code"]];
+         NSLog(@"result_msg : %@",response[@"result_msg"]);
+         if ([code isEqualToString:@"0000"]) {
+             
+             _zavfpay_num = [NSString stringWithFormat:@"%@",response[@"zavfpay_num"]];
+             [self wxPaySignPostRequst];//获取微信签名
+         }
+     } progress:^(NSProgress *progeress) {
+         
+     } failure:^(NSError *error) {
+         NSLog(@"%@",error);
+     }];
+
+}
+
+//唤醒密码键盘
+-(void)wakeUpPasswordAlert
+{
+    __weak CheckstandViewController *weakSelf = self;
+    self.passwordView = [[CYPasswordView alloc] init];
+    self.passwordView.title = @"输入交易密码";
+    self.passwordView.loadingText = @"提交中...";
+    [self.passwordView showInView:self.view.window];
+    self.passwordView.finish = ^(NSString *password) {
+        
+        [weakSelf.passwordView hideKeyboard];
+        [weakSelf.passwordView startLoading];
+        
+        CYLog(@"cy ========= 发送网络请求  pwd=%@", password);
+        //获取到余额签名
+        [weakSelf balanceSignPostRequstWithPayPass:password];
+        
+    };
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

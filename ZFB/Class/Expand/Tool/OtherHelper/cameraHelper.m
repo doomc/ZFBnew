@@ -22,7 +22,7 @@
         ALAuthorizationStatus authStatus = [ALAssetsLibrary authorizationStatus];
             if (ALAuthorizationStatusDenied == authStatus ||
                 ALAuthorizationStatusRestricted == authStatus) {
-                [MBProgressHUD showAutoMessage:@"请在iPhone的“设置->隐私->照片”中打开本应用的访问权限" ToView:nil];
+                [MBProgressHUD showMessage:@"请在iPhone的“设置->隐私->照片”中打开本应用的访问权限" toView:nil];
                 return NO;
         //    }
         }
@@ -32,7 +32,7 @@
 + (BOOL)checkCameraAuthorizationStatus
 {
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [MBProgressHUD showAutoMessage:@"该设备不支持拍照" ToView:nil];
+        [MBProgressHUD showMessage:@"该设备不支持拍照" toView:nil];
         return NO;
     }
 
@@ -40,7 +40,7 @@
         AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
         if (AVAuthorizationStatusDenied == authStatus ||
             AVAuthorizationStatusRestricted == authStatus) {
-            [MBProgressHUD showAutoMessage:@"请在iPhone的“设置->隐私->相机”中打开本应用的访问权限" ToView:nil];
+            [MBProgressHUD showMessage:@"请在iPhone的“设置->隐私->相机”中打开本应用的访问权限" toView:nil];
             return NO;
         }
     }

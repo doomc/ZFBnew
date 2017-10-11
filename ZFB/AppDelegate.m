@@ -53,7 +53,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     [self setupGuidePageView];
     
     //注册微信支付
-    [WXApi registerApp:WX_AppId];
+    [WXApi registerApp:@"wx2b173adc370b8052" enableMTA:YES];
     
     //统一处理一些为数组、集合等对nil插入会引起闪退
     [SYSafeCategory callSafeCategory];
@@ -430,6 +430,29 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
 {
     return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+}
+//微信SDK自带的方法，处理从微信客户端完成操作后返回程序之后的回调方法,显示支付结果的
+-(void) onResp:(BaseResp*)resp
+{
+    //启动微信支付的response
+    NSString *payResoult = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
+    if([resp isKindOfClass:[PayResp class]]){
+        //支付返回结果，实际支付结果需要去微信服务器端查询
+        switch (resp.errCode) {
+            case 0:
+                payResoult = @"支付结果：成功!";
+                break;
+            case -1:
+                payResoult = @"支付结果：失败！";
+                break;
+            case -2:
+                payResoult = @"用户已经退出支付";
+                break;
+            default:
+                payResoult = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", resp.errCode,resp.errStr];
+                break;
+        }
+    }
 }
 
 @end

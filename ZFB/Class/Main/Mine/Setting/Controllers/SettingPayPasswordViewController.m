@@ -31,12 +31,10 @@
     [self.view addSubview:paView];
     
     paView.passwordDidChangeBlock = ^(NSString *password) {
-        NSLog(@"%@",password);
-        
         if (password.length == 6) {
             newPassword  = [NSMutableString stringWithFormat:@"%@",password];
             if ([self checkPassWordIsNotEasy:newPassword]) {
-                NSLog(@"通过了");
+                NSLog(@"密码排除校验通过了！");
             }else{
                 [self.view makeToast:@"您的支付密码太过简单" duration:2 position:@"center"];
             }
@@ -79,7 +77,9 @@
 {
     if ([self checkPassWordIsNotEasy:newPassword]) {
         
-        [self commitPasswordPostRequset];
+        VerificatePayPassWordViewController * vc = [VerificatePayPassWordViewController new];
+        vc.checkPassword = newPassword;
+        [self.navigationController pushViewController:vc animated:NO];
         
     }else{
         
@@ -88,34 +88,6 @@
 }
 
 
-#pragma mark - 提交密码 请求
--(void)commitPasswordPostRequset
-{
-    
-    NSDictionary * param = @{
-                             @"payPassword":newPassword,
-                             @"account":BBUserDefault.userPhoneNumber,
-                             
-                             };
-
-    [SVProgressHUD show];
-    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/sitePayPassword"] params:param success:^(id response) {
-        
-        if ([response[@"resultCode"] intValue] == 0) {
-            [SVProgressHUD dismiss];
-            VerificatePayPassWordViewController * vc = [VerificatePayPassWordViewController new];
-            [self.navigationController pushViewController:vc animated:NO];
-
-        }
-        
-    } progress:^(NSProgress *progeress) {
-    } failure:^(NSError *error) {
-        [SVProgressHUD dismiss];
-        NSLog(@"error=====%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-    }];
-    
-}
 
 
 

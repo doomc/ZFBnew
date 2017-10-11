@@ -20,19 +20,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
- 
- 
-
+#import "MBProgressHUD+MJ.h"
 
 //第三方工具类
 #import <Masonry.h>
 #import "SDCycleScrollView.h"
-#import "MBProgressHUD+MP.h"
-#import <MBProgressHUD.h>
+#import "MBProgressHUD.h"
 #import "ControlFactory.h"//创建导航按钮
 
-#import <MBProgressHUD.h>
 #import "UIImageView+WebCache.h"
 #import "JXTAlertController.h"
 #import "cameraHelper.h"

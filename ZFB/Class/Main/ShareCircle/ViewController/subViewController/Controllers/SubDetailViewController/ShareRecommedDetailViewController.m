@@ -106,7 +106,7 @@
             _lb_zanNum.text = thumbs;
             
             //是否点赞
-            _isThumbsStatus = [NSString stringWithFormat:@"%@",response[@"data"][@"isThumbed"]];
+            _isThumbsStatus = [NSString stringWithFormat:@"%@",response[@"recommentInfo"][@"isThumbs"]];
             if ([_isThumbsStatus isEqualToString: @"0"]) {
                 self.zan_imageView.image =[UIImage imageNamed:@"sharezan_normal"];
             }else{

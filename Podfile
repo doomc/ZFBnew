@@ -14,7 +14,7 @@ target 'ZFB' do
   pod 'MJExtension'
   pod 'SDWebImage' , '>= 4.0.0'
   pod 'MJRefresh'
-  pod 'MBProgressHUD'
+#   pod 'MBProgressHUD'
   #无数据占位图工具
   pod 'CYLTableViewPlaceHolder'
 

@@ -131,7 +131,12 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     ///网络请求
     
     [self addresslistPostRequst];//收货地址
-    [self getPayAccessTokenUrl]; //支付获取token
+    
+    //获取当前时间
+    NSDate * date = [NSDate date];
+    _datetime     = [dateTimeHelper timehelpFormatter: date];
+
+//    [self getPayAccessTokenUrl]; //支付获取token
 
     
 }
@@ -638,34 +643,34 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 }
 
 #pragma mark - 获取支付accessToken值，通过accessToken值获取支付签名1111111111111
--(void)getPayAccessTokenUrl
-{
-    NSDictionary * param = @{
-                             @"account": BBUserDefault.userPhoneNumber,                             
-                             };
-    
-    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getPayAccessToken",zfb_baseUrl] params:param success:^(id response) {
-        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
-        if([code isEqualToString:@"0"])
-        {
-            NSDate * date = [NSDate date];
-            _datetime     = [dateTimeHelper timehelpFormatter: date];//2017-07-20 17:08:54
-            _access_token = response[@"accessToken"];
-            
-            NSLog(@"=======%@_access_token",_access_token);
-            NSLog(@"=======%@_datetime",_datetime);
-        }
-    } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
-    } failure:^(NSError *error) {
-        
-        NSLog(@"error=====%@",error);
-        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-    }];
-    
-}
+//-(void)getPayAccessTokenUrl
+//{
+//    NSDictionary * param = @{
+//                             @"account": BBUserDefault.userPhoneNumber,                             
+//                             };
+//    
+//    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getPayAccessToken",zfb_baseUrl] params:param success:^(id response) {
+//        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+//        if([code isEqualToString:@"0"])
+//        {
+//            NSDate * date = [NSDate date];
+//            _datetime     = [dateTimeHelper timehelpFormatter: date];//2017-07-20 17:08:54
+//            _access_token = response[@"accessToken"];
+//            
+//            NSLog(@"=======%@_access_token",_access_token);
+//            NSLog(@"=======%@_datetime",_datetime);
+//        }
+//    } progress:^(NSProgress *progeress) {
+//        
+//        NSLog(@"progeress=====%@",progeress);
+//        
+//    } failure:^(NSError *error) {
+//        
+//        NSLog(@"error=====%@",error);
+//        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+//    }];
+//    
+//}
 
 
 #pragma mark - 获取用户未使用优惠券列表   recomment/getUserNotUseCouponList
@@ -711,9 +716,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 -(void)didCleckClearing:(UIButton *)sender
 {
     NSLog(@" 提交订单 ");
-//    //  发起支付
-//    [MXWechatPayHandler jumpToWxPayWithTradeType:@"展富宝" AndOrderNo:@"订单号" AndTotalFee:_totalPirce AndPayTitle:@"微信支付" AndNotifyUrl:@"回调地址"];
-    
     //还原成字典数组
     NSArray * cmgoodsList          = [NSArray arrayWithArray:self.cmGoodsListArray];
     NSArray * storeDeliveryfeeList = [NSArray arrayWithArray:self.storeDeliveryfeeListArr];
@@ -769,10 +771,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 {
     [SVProgressHUD show];
     NSString * listJsonString  =  [NSString arrayToJSONString:_orderArr];
-    //    listJsonString = [listJsonString stringByReplacingOccurrencesOfString:@"\\"withString:@""];
-#warning -- 此账号为测试时账号  正式时 需要修改成正式账号
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
-    [params setValue:_access_token forKey:@"access_token"];
+
     [params setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
     [params setValue:_datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
     [params setValue:_notify_url forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）
@@ -790,10 +790,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         }];
         
     } progress:^(NSProgress *progeress) {
-        
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
@@ -808,10 +804,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 {
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     NSString * listJsonString  = [NSString arrayToJSONString:_orderArr];
-    //    listJsonString = [listJsonString stringByReplacingOccurrencesOfString:@"\\"withString:@""];
     
     [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
-//    [params setValue:_access_token forKey:@"access_token"];
     [params setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
     [params setValue:_datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
     [params setValue:_notify_url forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）
@@ -820,28 +814,12 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [params setValue:@"" forKey:@"passback_params"];//回传参数：商户可自定义该参数，在支付回调后带回
     NSDictionary * dic  = [NSDictionary dictionaryWithDictionary:params];
     
-    //非加密的请求 获取预订单
-    [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/cashier/order.do",paySign_baseUrl] params:dic success:^
-     (id response) {
-         NSString * code = [NSString stringWithFormat:@"%@",response[@"result_code"]];
-         NSLog(@"result_msg : %@",response[@"result_msg"]);
-         if ([code isEqualToString:@"0000"]) {
-             NSString * zavfpay_num = [NSString stringWithFormat:@"%@",response[@"zavfpay_num"]];
-             CheckstandViewController * payVC = [CheckstandViewController new];
-             payVC.paySign = _paySign;
-             payVC.amount = _totalPirce;
-             payVC.zavfpay_num = zavfpay_num;
-             payVC.notifyUrl = _notify_url;
-             [self.navigationController pushViewController:payVC animated:NO];
-         }
-         
-    } progress:^(NSProgress *progeress) {
-        
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        
-    }];
- 
+    CheckstandViewController * payVC = [CheckstandViewController new];
+    payVC.amount = _totalPirce;
+    payVC.notifyUrl = _notify_url;
+    payVC.signDic = dic;
+    [self.navigationController pushViewController:payVC animated:NO];
+    
 }
 
 #pragma mark - 懒加载

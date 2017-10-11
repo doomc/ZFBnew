@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailPayCashViewController">
             <connections>
-                <outlet property="btn_Remake" destination="TCw-De-AN7" id="JB2-ec-C9n"/>
-                <outlet property="btn_forgetOfPS" destination="PMD-2H-RMb" id="bxN-Tl-vgd"/>
-                <outlet property="img_Status" destination="7kj-Zk-RGY" id="QAG-kx-Sjb"/>
-                <outlet property="lb_status" destination="Yip-Bo-Hol" id="5Iz-27-4vE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -26,72 +22,37 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ofy-ps-cjC">
                     <rect key="frame" x="0.0" y="124" width="375" height="128"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支付密码不正确！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yip-Bo-Hol">
-                            <rect key="frame" x="126.5" y="10" width="122.5" height="21"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="21" id="ZNw-XE-CkX"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning_order.png" translatesAutoresizingMaskIntoConstraints="NO" id="7kj-Zk-RGY">
-                            <rect key="frame" x="92.5" y="6" width="29" height="29"/>
-                        </imageView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sqf-GV-AL2">
-                            <rect key="frame" x="30" y="58" width="142.5" height="50"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-va-Mi6">
+                            <rect key="frame" x="112.5" y="0.0" width="150" height="50"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TCw-De-AN7">
-                                    <rect key="frame" x="21.5" y="10" width="100" height="30"/>
-                                    <color key="backgroundColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支付失败！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3BZ-R9-gvG">
+                                    <rect key="frame" x="53" y="15" width="102" height="21"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="100" id="TpO-MJ-DjS"/>
+                                        <constraint firstAttribute="height" constant="21" id="IJI-CZ-rfv"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <state key="normal" title="重新输入"/>
-                                </button>
+                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pay_failure.png" translatesAutoresizingMaskIntoConstraints="NO" id="6Ey-5P-KBe">
+                                    <rect key="frame" x="0.0" y="4" width="43" height="43"/>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="TCw-De-AN7" firstAttribute="centerX" secondItem="sqf-GV-AL2" secondAttribute="centerX" id="P6B-j3-hyY"/>
-                                <constraint firstAttribute="height" constant="50" id="jRi-RB-CpN"/>
-                                <constraint firstItem="TCw-De-AN7" firstAttribute="centerY" secondItem="sqf-GV-AL2" secondAttribute="centerY" id="kGu-Jm-cFz"/>
-                            </constraints>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BuZ-J0-hdn">
-                            <rect key="frame" x="202.5" y="58" width="142.5" height="50"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PMD-2H-RMb">
-                                    <rect key="frame" x="20.5" y="10" width="100" height="30"/>
-                                    <color key="backgroundColor" red="0.99607843139999996" green="0.42745098040000001" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="100" id="f75-cX-tDT"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <state key="normal" title="忘记密码"/>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="50" id="4er-YK-apU"/>
-                                <constraint firstItem="PMD-2H-RMb" firstAttribute="centerY" secondItem="BuZ-J0-hdn" secondAttribute="centerY" id="VTl-LQ-yL7"/>
-                                <constraint firstItem="PMD-2H-RMb" firstAttribute="centerX" secondItem="BuZ-J0-hdn" secondAttribute="centerX" id="bHg-gy-2Fp"/>
+                                <constraint firstItem="6Ey-5P-KBe" firstAttribute="leading" secondItem="Vhh-va-Mi6" secondAttribute="leading" id="3eu-xj-Psa"/>
+                                <constraint firstItem="6Ey-5P-KBe" firstAttribute="centerY" secondItem="3BZ-R9-gvG" secondAttribute="centerY" id="H6q-zl-ncs"/>
+                                <constraint firstAttribute="height" constant="50" id="SS7-SH-ygS"/>
+                                <constraint firstAttribute="width" constant="150" id="Scc-ZE-AXi"/>
+                                <constraint firstItem="3BZ-R9-gvG" firstAttribute="leading" secondItem="6Ey-5P-KBe" secondAttribute="trailing" constant="10" id="eng-us-ws8"/>
+                                <constraint firstItem="6Ey-5P-KBe" firstAttribute="centerY" secondItem="Vhh-va-Mi6" secondAttribute="centerY" id="y9t-it-4Gx"/>
                             </constraints>
                         </view>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="sqf-GV-AL2" firstAttribute="leading" secondItem="ofy-ps-cjC" secondAttribute="leading" constant="30" id="5Np-Om-xcR"/>
                         <constraint firstAttribute="height" constant="128" id="Eab-pt-vLC"/>
-                        <constraint firstItem="BuZ-J0-hdn" firstAttribute="leading" secondItem="sqf-GV-AL2" secondAttribute="trailing" constant="30" id="Os4-qe-Phh"/>
-                        <constraint firstAttribute="trailing" secondItem="BuZ-J0-hdn" secondAttribute="trailing" constant="30" id="QLi-Di-Ycu"/>
-                        <constraint firstItem="Yip-Bo-Hol" firstAttribute="top" secondItem="ofy-ps-cjC" secondAttribute="top" constant="10" id="XF6-gg-4u1"/>
-                        <constraint firstAttribute="bottom" secondItem="BuZ-J0-hdn" secondAttribute="bottom" constant="20" id="b7L-h4-scZ"/>
-                        <constraint firstItem="Yip-Bo-Hol" firstAttribute="leading" secondItem="7kj-Zk-RGY" secondAttribute="trailing" constant="5" id="bGS-n4-f9G"/>
-                        <constraint firstItem="BuZ-J0-hdn" firstAttribute="width" secondItem="sqf-GV-AL2" secondAttribute="width" id="d5o-Im-x4a"/>
-                        <constraint firstItem="7kj-Zk-RGY" firstAttribute="centerY" secondItem="Yip-Bo-Hol" secondAttribute="centerY" id="f2P-Gn-2hI"/>
-                        <constraint firstItem="Yip-Bo-Hol" firstAttribute="centerX" secondItem="ofy-ps-cjC" secondAttribute="centerX" id="kDU-NE-DFv"/>
-                        <constraint firstItem="BuZ-J0-hdn" firstAttribute="height" secondItem="sqf-GV-AL2" secondAttribute="height" id="wXQ-wk-4Ve"/>
-                        <constraint firstAttribute="bottom" secondItem="sqf-GV-AL2" secondAttribute="bottom" constant="20" id="ydF-Se-OO1"/>
+                        <constraint firstItem="Vhh-va-Mi6" firstAttribute="centerX" secondItem="ofy-ps-cjC" secondAttribute="centerX" id="R50-NL-7cd"/>
+                        <constraint firstItem="Vhh-va-Mi6" firstAttribute="top" secondItem="ofy-ps-cjC" secondAttribute="top" id="XDo-H7-Muw"/>
                     </constraints>
                 </view>
             </subviews>
@@ -101,10 +62,10 @@
                 <constraint firstItem="ofy-ps-cjC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="124" id="W0a-uv-pPw"/>
                 <constraint firstItem="ofy-ps-cjC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zmu-4D-6bw"/>
             </constraints>
-            <point key="canvasLocation" x="33.5" y="54.5"/>
+            <point key="canvasLocation" x="-80.5" y="4.5"/>
         </view>
     </objects>
     <resources>
-        <image name="warning_order.png" width="29" height="29"/>
+        <image name="pay_failure.png" width="43" height="43"/>
     </resources>
 </document>

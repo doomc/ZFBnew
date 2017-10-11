@@ -119,7 +119,7 @@
             
             //是否点赞
             _isThumbsStatus = [NSString stringWithFormat:@"%@",response[@"data"][@"thumbsStatus"]];
-            if ([_isThumbsStatus isEqualToString: @"1"]) {
+            if ([_isThumbsStatus isEqualToString: @"0"]) {
                 self.zan_imageView.image =[UIImage imageNamed:@"sharezan_selected"];
  
             }else{

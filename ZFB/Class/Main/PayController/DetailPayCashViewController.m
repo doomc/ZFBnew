@@ -22,7 +22,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-  }
+    self.title = @"收银台";
+
+    self.btn_Remake.layer.masksToBounds = YES;
+    self.btn_Remake.layer.cornerRadius = 4;
+    
+    self.btn_forgetOfPS.layer.masksToBounds = YES;
+    self.btn_forgetOfPS.layer.cornerRadius = 4;
+}
+//重新输入
+- (IBAction)didClickReputin:(id)sender {
+    
+}
+
+//忘记密码
+- (IBAction)didClickforgetPass:(id)sender {
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

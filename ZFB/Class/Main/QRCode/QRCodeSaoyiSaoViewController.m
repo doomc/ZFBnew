@@ -9,10 +9,18 @@
 #import "QRCodeSaoyiSaoViewController.h"
 #import "SGQRCode.h"
 #import "QRCodeScanSuccessViewController.h"
-#import "ZFMainPayforViewController.h"
-@interface QRCodeSaoyiSaoViewController ()<SGQRCodeScanManagerDelegate, SGQRCodeAlbumManagerDelegate>
+//#import "ZFMainPayforViewController.h"
+#import "CheckstandViewController.h"
 
+@interface QRCodeSaoyiSaoViewController ()<SGQRCodeScanManagerDelegate, SGQRCodeAlbumManagerDelegate>
+{
+    NSString * _notify_url ;//回调url
+    NSString * _orderAmount ;//订单金额
+    NSString * _paySign ;
+    NSString * _datetime;
+}
 @property (nonatomic, strong) SGQRCodeScanningView *scanningView;
+@property (nonatomic, strong) NSArray *orderListArray;
 
 @end
 
@@ -55,6 +63,10 @@
     
     [self setupNavigationBar];
     [self setupQRCodeScanning];
+    
+    _orderListArray = [NSArray array];
+    NSDate * date = [NSDate date];
+    _datetime     = [dateTimeHelper timehelpFormatter: date];//2017-07-20 17:08:54
     
     
 }
@@ -173,14 +185,11 @@
         
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ( [code isEqualToString:@"0"]) {
-            
-            ZFMainPayforViewController * payVC = [[ZFMainPayforViewController alloc]init];
-            payVC.gateWay_url     = response[@"thirdURI"][@"gateWay_url"];
-            payVC.notify_url      = response[@"thirdURI"][@"notify_url"];
-            payVC.goback_url      = response[@"thirdURI"][@"goback_url"];
-            payVC.return_url      = response[@"thirdURI"][@"return_url"];
-            payVC.orderListArray  = response[@"result"];
-            [self.navigationController pushViewController:payVC animated:NO];
+
+            _orderAmount = [NSString stringWithFormat:@"%@",response[@"pay_money"]];
+            _orderListArray = response[@"result"];
+
+            [self getPaypaySignWithNotify_url:response[@"thirdURI"][@"notify_url"] return_url:response[@"thirdURI"][@"return_url"] datetime:_datetime];
         }
         
     } progress:^(NSProgress *progeress) {
@@ -189,6 +198,66 @@
         
     }];
 }
+
+
+
+#pragma mark - 获取支付paySign值
+-(void)getPaypaySignWithNotify_url:(NSString *)notify_url return_url:(NSString *)return_url datetime :(NSString *)datetime
+{
+    NSLog(@"orderListArray === %@",_orderListArray);
+    
+    [SVProgressHUD show];
+    NSString * listJsonString  =  [NSString arrayToJSONString:_orderListArray];
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    
+    [params setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
+    [params setValue:datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
+    [params setValue:notify_url forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）
+    [params setValue:return_url forKey:@"return_url"];//同步通知地址（支付成功后的跳转）
+    [params setValue:listJsonString forKey:@"order_list"];//Json格式的订单字符集
+    [params setValue:@"" forKey:@"passback_params"];//回传参数：商户可自定义该参数，在支付回调后带回
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/paySign",zfb_baseUrl] params:[NSDictionary dictionaryWithDictionary:params] success:^(id response) {
+        
+        _paySign = response[@"paySign"];
+        
+        [SVProgressHUD dismissWithCompletion:^{
+            
+            [self getGoodsCostPayResulrUrlNotify_url :notify_url return_url:return_url datetime:datetime];
+        }];
+        
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
+
+
+#pragma mark -  PayResulrUrl支付页面地址
+-(void)getGoodsCostPayResulrUrlNotify_url:(NSString *)notify_url return_url:(NSString *)return_url datetime :(NSString *)datetime
+{
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    NSString * listJsonString  = [NSString arrayToJSONString:_orderListArray];
+    [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
+    [params setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
+    [params setValue:datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
+    [params setValue:notify_url forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）
+    [params setValue:return_url forKey:@"return_url"];//同步通知地址（支付成功后的跳转）
+    [params setValue:listJsonString forKey:@"order_list"];//Json格式的订单字符集
+    [params setValue:@"" forKey:@"passback_params"];//回传参数：商户可自定义该参数，在支付回调后带回
+    NSDictionary * dic  = [NSDictionary dictionaryWithDictionary:params];
+    
+    CheckstandViewController * payVC = [CheckstandViewController new];
+    payVC.amount = _orderAmount;
+    payVC.notifyUrl = notify_url;
+    payVC.signDic = dic;
+    [self.navigationController pushViewController:payVC animated:NO];
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

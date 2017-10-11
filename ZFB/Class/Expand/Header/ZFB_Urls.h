@@ -66,9 +66,9 @@
 
 #pragma mark -------------支付服务 -------------------
 //测试支付地址
-#define payText_baseUrl @"http://192.168.1.115:8080/"
+#define payText_baseUrl @"http://192.168.1.115:8080"
 //正式支付地址
-#define paySign_baseUrl  @"https://pay.zavfb.com/"
+#define paySign_baseUrl  @"https://pay.zavfb.com"
 
 
 #endif /* ZFB_Urls_h */

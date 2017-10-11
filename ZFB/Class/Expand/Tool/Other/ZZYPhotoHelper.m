@@ -44,7 +44,7 @@ static ZZYPhotoHelper *picker = nil;
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
             [self creatWithSourceType:UIImagePickerControllerSourceTypeCamera block:selectImageBlock];
         }else{
-            [MBProgressHUD showAutoMessage:@"相机功能暂不能使用"];
+            [MBProgressHUD showMessage:@"相机功能暂不能使用"];
         }
     }];
     [alertController addAction:canleAction];

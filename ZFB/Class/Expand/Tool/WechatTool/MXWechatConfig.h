@@ -23,6 +23,7 @@
 
 // https://open.weixin.qq.com的开发者中心获取APPID
 #define WX_AppId @"wx2b173adc370b8052"
+
 // https://open.weixin.qq.com的开发者中心获取AppSecret。
 #define WX_APPSecret @"b701bcb7c40cdb2ae1da3adf4641f22f"
 // 微信支付商户号
@@ -37,7 +38,7 @@
  -----------------------------------
  */
 
-//#define kUrlWechatPay       @"https://api.mch.weixin.qq.com/pay/unifiedorder"
+#define kUrlWechatPay       @"https://api.mch.weixin.qq.com/pay/unifiedorder"
 
 
 /**
