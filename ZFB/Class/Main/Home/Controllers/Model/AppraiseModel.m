@@ -34,8 +34,13 @@
 
 -(NSArray *)evaluteImages {
     
-    NSArray * imgs = [self.attachImgUrl componentsSeparatedByString:@","];
+    NSArray *imgs = [NSArray array];
+    if (![self.reviewsImgUrl isEqualToString:@""]) {
+        
+        imgs = [self.reviewsImgUrl componentsSeparatedByString:@","];
+    }
     return imgs;
+
 }
 @end
 

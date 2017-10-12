@@ -700,6 +700,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                     [self.couponList addObject:list];
                 }
             }
+            [self.mytableView reloadData];
         }
     } progress:^(NSProgress *progeress) {
         

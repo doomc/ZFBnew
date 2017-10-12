@@ -170,30 +170,53 @@
     _isCommited = YES;
 
     [SVProgressHUD showWithStatus:@"正在提交"];
-    [OSSImageUploader asyncUploadImages:_upImgArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
-        if (state == 1) {
-            NSLog(@"点击提交了 _images = %@",names);
-            NSMutableArray * reviewsJsonArr = [NSMutableArray array];
-            NSMutableDictionary * jsondic =[NSMutableDictionary dictionary];
-            NSString * imgUrlString = [names componentsJoinedByString:@","];
-            
-            [jsondic setValue:_score forKey:@"goodsComment"];//评分评级得分 1到5分
-            [jsondic setValue:_textViewValues forKey:@"reviewsText"];
-            [jsondic setValue:imgUrlString forKey:@"reviewsImgUrl"];
-            [jsondic setValue:_imgComment forKey:@"imgComment"];
-            [jsondic setValue:_goodId forKey:@"goodsId"];
-            [reviewsJsonArr addObject:jsondic];
-            
-            if ([_textViewValues isEqualToString:@""] || _textViewValues == nil) {
-              
-                [self.view makeToast:@"请填写完评价信息后再提交" duration:2 position:@"center"];
- 
-            }else{
-                [self insertGoodsCommentPost:[NSArray arrayWithArray:reviewsJsonArr]];
+    if (_upImgArray.count > 0) {
+        [OSSImageUploader asyncUploadImages:_upImgArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
+            if (state == 1) {
+                NSLog(@"点击提交了 _images = %@",names);
+                NSMutableArray * reviewsJsonArr = [NSMutableArray array];
+                NSMutableDictionary * jsondic =[NSMutableDictionary dictionary];
+                NSString * imgUrlString = [names componentsJoinedByString:@","];
+                
+                [jsondic setValue:_score forKey:@"goodsComment"];//评分评级得分 1到5分
+                [jsondic setValue:_textViewValues forKey:@"reviewsText"];
+                [jsondic setValue:imgUrlString forKey:@"reviewsImgUrl"];
+                [jsondic setValue:_imgComment forKey:@"imgComment"];
+                [jsondic setValue:_goodId forKey:@"goodsId"];
+                [reviewsJsonArr addObject:jsondic];
+                
+                if ([_textViewValues isEqualToString:@""] || _textViewValues == nil) {
+                    
+                    [self.view makeToast:@"请填写完评价信息后再提交" duration:2 position:@"center"];
+                    
+                }else{
+                    [self insertGoodsCommentPost:[NSArray arrayWithArray:reviewsJsonArr]];
+                }
             }
+        }];
+ 
+    }else{
+        
+        NSMutableArray * reviewsJsonArr = [NSMutableArray array];
+        NSMutableDictionary * jsondic =[NSMutableDictionary dictionary];
+        
+        [jsondic setValue:_score forKey:@"goodsComment"];//评分评级得分 1到5分
+        [jsondic setValue:_textViewValues forKey:@"reviewsText"];
+        [jsondic setValue:@"" forKey:@"reviewsImgUrl"];
+        [jsondic setValue:_imgComment forKey:@"imgComment"];
+        [jsondic setValue:_goodId forKey:@"goodsId"];
+        [reviewsJsonArr addObject:jsondic];
+        
+        if ([_textViewValues isEqualToString:@""] || _textViewValues == nil) {
+            
+            [self.view makeToast:@"请填写完评价信息后再提交" duration:2 position:@"center"];
+            
+        }else{
+            [self insertGoodsCommentPost:[NSArray arrayWithArray:reviewsJsonArr]];
         }
-    }];
 
+    }
+   
     
 }
 
@@ -244,7 +267,10 @@
     
 }
     
-    
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [SVProgressHUD dismiss];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

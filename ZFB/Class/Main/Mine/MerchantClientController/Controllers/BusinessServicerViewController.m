@@ -170,6 +170,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     switch (_selectPageType ) {
         case SelectTypeHomePage:
             
+            [self endRefresh];
             
             break;
             
@@ -225,7 +226,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     
     switch (_selectPageType ) {
         case SelectTypeHomePage:
-            
+            [self endRefresh];
+
             break;
             
         case SelectTypeOrderPage:
@@ -412,7 +414,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(void)segmentSetting
 {
     self.segementPage.selectedSegmentIndex = 0;
-    [self.segementPage addTarget:self action:@selector(SegmentchangePage:) forControlEvents:UIControlEventValueChanged];
+    [self.segementPage addTarget:self action:@selector(segmentchangePage:) forControlEvents:UIControlEventValueChanged];
     self.segementPage.layer.masksToBounds = YES;
     self.segementPage.layer.borderWidth   = 1.0;
     self.segementPage.layer.borderColor   = HEXCOLOR(0xffcccc).CGColor;
@@ -420,7 +422,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     NSDictionary *attributes              = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
     [self.segementPage setTitleTextAttributes:attributes forState:UIControlStateNormal];
 }
--(void)SegmentchangePage:(UISegmentedControl*)segmentPage
+-(void)segmentchangePage:(UISegmentedControl*)segmentPage
 {
     NSInteger selectIndex = segmentPage.selectedSegmentIndex;
     _selectPageType       = selectIndex;
@@ -440,10 +442,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             
         case SelectTypeOrderPage:
             NSLog(@"点击订单");
-            
         {
-            
-            
             self.navbar_btn.hidden = NO;
             self.navTitle.hidden = YES;
             
@@ -475,45 +474,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
     }
     
-}
-#pragma mark - 切换首页
-- (IBAction)homePageAction:(id)sender {
-    
-    self.navbar_btn.hidden = YES;
-    
-    self.img_sendHome.image         = [UIImage imageNamed:@"home_red"];
-    self.lb_sendHomeTitle.textColor = HEXCOLOR(0xfe6d6a);
-    
-    self.lb_sendOrderTitle.textColor=[UIColor whiteColor];
-    self.img_sendOrder.image = [UIImage imageNamed:@"Order_normal"];
-    
-    UILabel * atitle              = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)] ;
-    atitle.text                   = @"商户端";
-    atitle.font =[UIFont systemFontOfSize:14];
-    atitle.textAlignment          = NSTextAlignmentCenter;
-    atitle.textColor              = HEXCOLOR(0xfe6d6a);
-    self.navigationItem.titleView = atitle;
-    
-    [self.homeTableView reloadData];
-}
-#pragma mark - 切换订单
-- (IBAction)orderPageAction:(id)sender {
-    
-    self.navbar_btn.hidden = NO;
-    [self.navbar_btn setTitle:@"待派单" forState:UIControlStateNormal];
-    
-    self.img_sendHome.image         = [UIImage imageNamed:@"home_normal"];
-    self.lb_sendHomeTitle.textColor = [UIColor whiteColor];
-    
-    self.lb_sendOrderTitle.textColor = HEXCOLOR(0xfe6d6a);
-    self.img_sendOrder.image         = [UIImage imageNamed:@"send_red"];
-    
-    self.navigationItem.titleView = self.navbar_btn;
-    
-    
-    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" payMode:@"1"  storeId:_storeId];
-    
-    [self.homeTableView reloadData];
 }
 
 
@@ -830,7 +790,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     ZFFooterCell * cell = [self.homeTableView
                                            dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
                     cell.footDelegate = self;
-#warning -----没获取 当前的 indexPath
+ 
                     BusinessOrderlist  * orderlist = self.orderListArray[section];
                     cell.businessOrder             = orderlist;
                     cell.section                   = section;
@@ -1199,7 +1159,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeHomePage:
             if (indexPath.section == 0) {
                 
-                [self orderPageAction:self];
+                self.segementPage.selectedSegmentIndex = 1;
+                [self segmentchangePage:self.segementPage];
             }
             
             break;

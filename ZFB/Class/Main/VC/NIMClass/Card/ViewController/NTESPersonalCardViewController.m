@@ -180,7 +180,7 @@
                                         CellClass    : @"NTESColorButtonCell",
                                         CellAction   : @"chat",
                                         ExtraInfo    : @(ColorButtonCellStyleBlue),
-                                        Disable      : @(isMe),
+                                        Disable      : @(isMyFriend),
                                         RowHeight    : @(60),
                                         ForbidSelect : @(YES),
                                         SepLeftEdge  : @(self.view.width),

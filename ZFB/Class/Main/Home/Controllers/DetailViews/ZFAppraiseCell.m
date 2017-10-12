@@ -58,22 +58,22 @@
 
 
 -(void)reloadlayout{
-    
-//    if (_mutImgArray.count == 0 || _mutImgArray== nil) {
-//        _collectionLayoutHeight.constant  = 0.0;
-//    }
- 
-    if (self.mutImgArray.count > 3) {
-       
-        _collectionLayoutHeight.constant = (((KScreenW - 90 )/3.0 )*2 );
-    }
-    else{
+
+    if (self.mutImgArray.count > 0 && self.mutImgArray.count <= 3) {
+
         _collectionLayoutHeight.constant = ((KScreenW - 90 )/3.0 );
     }
-    
+    else if (self.mutImgArray.count > 3){
+        _collectionLayoutHeight.constant = (((KScreenW - 90 )/3.0 )*2 );
+
+    }else{
+        _collectionLayoutHeight.constant  = 0.0;
+    }
     [self.appriseCollectionView reloadData];
 
 }
+
+
 #pragma  mark - UICollectionViewDelegate
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {

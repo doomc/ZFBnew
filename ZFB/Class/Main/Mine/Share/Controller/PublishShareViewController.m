@@ -177,8 +177,8 @@
             }];
 
         }else{
-            [self publicMessagePostRequset:@""];
 
+            [self.view makeToast:@"请晒出您要共享的图片哦" duration:2 position:@"center"];
         }
        
     }

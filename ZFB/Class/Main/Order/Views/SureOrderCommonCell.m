@@ -15,6 +15,10 @@
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 
+    self.canUsedCouponNum.layer.masksToBounds = YES;
+    self.canUsedCouponNum.layer.cornerRadius = 2;
+    self.canUsedCouponNum.layer.borderWidth = 0.5;
+    self.canUsedCouponNum.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

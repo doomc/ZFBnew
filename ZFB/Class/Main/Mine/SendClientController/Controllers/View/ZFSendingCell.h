@@ -12,13 +12,29 @@
 #import "SendServiceOrderModel.h"
 #import "AllOrderProgress.h"
 
+@protocol ZFSendingCellDelegate <NSObject>
+
+//点击共享
+-(void)didclickShareToFriendWithIndexPath:(NSIndexPath *)indexPath AndOrderId:(NSString *)orderId;
+
+//点击晒单
+-(void)shareOrderWithIndexPath:(NSIndexPath*)indexPath AndOrderId:(NSString *)orderId;
+
+@end
 @interface ZFSendingCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_sendListTitle;
 @property (weak, nonatomic) IBOutlet UIImageView *img_SenlistView;
 @property (weak, nonatomic) IBOutlet UILabel *lb_Price;
 @property (weak, nonatomic) IBOutlet UILabel *lb_num;
-@property (weak, nonatomic) IBOutlet UILabel *lb_detailTime;
+
+//共享
+@property (weak, nonatomic) IBOutlet UIButton *share_btn;
+//晒单
+@property (weak, nonatomic) IBOutlet UIButton *sunnyOrder_btn;
+@property (strong,nonatomic) NSIndexPath * indexpath ;
+
+@property (assign,nonatomic) id < ZFSendingCellDelegate > delegate ;
 
 @property (strong,nonatomic) Ordergoods * goods ;
 @property (strong,nonatomic) BusinessOrdergoods * businesGoods ;

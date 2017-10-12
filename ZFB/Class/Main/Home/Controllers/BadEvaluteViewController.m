@@ -33,19 +33,20 @@
     
     [self setupRefresh];
     [self initWithEvaluate_tableView];
-    [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
+    [self appriaseToPostRequestWithgoodsComment:@"0" AndimgComment:@""];
     
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
     [super headerRefresh];
-    [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
+    [self appriaseToPostRequestWithgoodsComment:@"0" AndimgComment:@""];
     
 }
 -(void)footerRefresh {
     [super footerRefresh];
-    [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
-    
+    [self appriaseToPostRequestWithgoodsComment:@"0" AndimgComment:@""];
+
+
 }
 
 -(NSMutableArray *)appraiseListArray{

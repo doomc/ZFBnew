@@ -998,6 +998,10 @@
 		49AD34521F289AE200DC8A8F /* search_history@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AD344E1F289AE200DC8A8F /* search_history@3x.png */; };
 		49AD34551F28BBA100DC8A8F /* SearchResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD34541F28BBA100DC8A8F /* SearchResultModel.m */; };
 		49AD34581F28C4CC00DC8A8F /* SearchNoResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD34571F28C4CC00DC8A8F /* SearchNoResultModel.m */; };
+		49AE161A1F8F526400CF7702 /* pay_success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AE16161F8F526400CF7702 /* pay_success@2x.png */; };
+		49AE161B1F8F526400CF7702 /* pay_success@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AE16171F8F526400CF7702 /* pay_success@3x.png */; };
+		49AE161E1F8F52D700CF7702 /* pay_failure@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AE161C1F8F52D700CF7702 /* pay_failure@2x.png */; };
+		49AE161F1F8F52D700CF7702 /* pay_failure@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AE161D1F8F52D700CF7702 /* pay_failure@3x.png */; };
 		49B0E7521F4176E00032E72E /* QRPayMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B0E7501F4176E00032E72E /* QRPayMoneyViewController.m */; };
 		49B0E7531F4176E00032E72E /* QRPayMoneyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B0E7511F4176E00032E72E /* QRPayMoneyViewController.xib */; };
 		49B0E7571F4177200032E72E /* QRCollectMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B0E7551F4177200032E72E /* QRCollectMoneyViewController.m */; };
@@ -1027,10 +1031,6 @@
 		49BA48B01F69157B006B5F60 /* SectionCouponCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49BA48AE1F69157B006B5F60 /* SectionCouponCell.xib */; };
 		49BB297E1F8E007E00147829 /* PlaceholderBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BB297C1F8E007E00147829 /* PlaceholderBackground@2x.png */; };
 		49BB297F1F8E007E00147829 /* PlaceholderBackground@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BB297D1F8E007E00147829 /* PlaceholderBackground@3x.png */; };
-		49BB29851F8E009200147829 /* pay_failure@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BB29811F8E009200147829 /* pay_failure@2x.png */; };
-		49BB29861F8E009200147829 /* pay_failure@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BB29821F8E009200147829 /* pay_failure@3x.png */; };
-		49BB29871F8E009200147829 /* pay_success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BB29831F8E009200147829 /* pay_success@2x.png */; };
-		49BB29881F8E009200147829 /* pay_success@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BB29841F8E009200147829 /* pay_success@3x.png */; };
 		49C1B5611F8B4B0300B2001B /* AccountListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C1B55F1F8B4B0300B2001B /* AccountListCell.m */; };
 		49C1B5621F8B4B0300B2001B /* AccountListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49C1B5601F8B4B0300B2001B /* AccountListCell.xib */; };
 		49C1B5651F8B4C7100B2001B /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C1B5641F8B4C7100B2001B /* AccountViewController.m */; };
@@ -2813,6 +2813,10 @@
 		49AD34541F28BBA100DC8A8F /* SearchResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultModel.m; sourceTree = "<group>"; };
 		49AD34561F28C4CC00DC8A8F /* SearchNoResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchNoResultModel.h; sourceTree = "<group>"; };
 		49AD34571F28C4CC00DC8A8F /* SearchNoResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchNoResultModel.m; sourceTree = "<group>"; };
+		49AE16161F8F526400CF7702 /* pay_success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_success@2x.png"; sourceTree = "<group>"; };
+		49AE16171F8F526400CF7702 /* pay_success@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_success@3x.png"; sourceTree = "<group>"; };
+		49AE161C1F8F52D700CF7702 /* pay_failure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_failure@2x.png"; sourceTree = "<group>"; };
+		49AE161D1F8F52D700CF7702 /* pay_failure@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_failure@3x.png"; sourceTree = "<group>"; };
 		49B0E74F1F4176E00032E72E /* QRPayMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRPayMoneyViewController.h; sourceTree = "<group>"; };
 		49B0E7501F4176E00032E72E /* QRPayMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRPayMoneyViewController.m; sourceTree = "<group>"; };
 		49B0E7511F4176E00032E72E /* QRPayMoneyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRPayMoneyViewController.xib; sourceTree = "<group>"; };
@@ -2861,10 +2865,6 @@
 		49BA48AE1F69157B006B5F60 /* SectionCouponCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionCouponCell.xib; sourceTree = "<group>"; };
 		49BB297C1F8E007E00147829 /* PlaceholderBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlaceholderBackground@2x.png"; sourceTree = "<group>"; };
 		49BB297D1F8E007E00147829 /* PlaceholderBackground@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlaceholderBackground@3x.png"; sourceTree = "<group>"; };
-		49BB29811F8E009200147829 /* pay_failure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_failure@2x.png"; sourceTree = "<group>"; };
-		49BB29821F8E009200147829 /* pay_failure@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_failure@3x.png"; sourceTree = "<group>"; };
-		49BB29831F8E009200147829 /* pay_success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_success@2x.png"; sourceTree = "<group>"; };
-		49BB29841F8E009200147829 /* pay_success@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_success@3x.png"; sourceTree = "<group>"; };
 		49C1B55E1F8B4B0300B2001B /* AccountListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountListCell.h; sourceTree = "<group>"; };
 		49C1B55F1F8B4B0300B2001B /* AccountListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountListCell.m; sourceTree = "<group>"; };
 		49C1B5601F8B4B0300B2001B /* AccountListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountListCell.xib; sourceTree = "<group>"; };
@@ -6959,10 +6959,10 @@
 		49BB29801F8E008D00147829 /* 支付 */ = {
 			isa = PBXGroup;
 			children = (
-				49BB29811F8E009200147829 /* pay_failure@2x.png */,
-				49BB29821F8E009200147829 /* pay_failure@3x.png */,
-				49BB29831F8E009200147829 /* pay_success@2x.png */,
-				49BB29841F8E009200147829 /* pay_success@3x.png */,
+				49AE161C1F8F52D700CF7702 /* pay_failure@2x.png */,
+				49AE161D1F8F52D700CF7702 /* pay_failure@3x.png */,
+				49AE16161F8F526400CF7702 /* pay_success@2x.png */,
+				49AE16171F8F526400CF7702 /* pay_success@3x.png */,
 			);
 			path = "支付";
 			sourceTree = "<group>";
@@ -7660,6 +7660,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				495EA8561F14B64D001FCB7E /* arrows_down_black@2x.png in Resources */,
+				49AE161F1F8F52D700CF7702 /* pay_failure@3x.png in Resources */,
 				4906D1581F74DA3A00B327ED /* background.png in Resources */,
 				495EA8151F14B64D001FCB7E /* ZFSaleAfterHeadCell.xib in Resources */,
 				495EA9231F14B64E001FCB7E /* cases@3x.png in Resources */,
@@ -7818,6 +7819,7 @@
 				49786D6B1F7C99F20088AAD3 /* messageSelected@3x.png in Resources */,
 				495EA7C01F14B64D001FCB7E /* VerificationCodeViewController.xib in Resources */,
 				495EA85D1F14B64D001FCB7E /* qq@3x.png in Resources */,
+				49AE161E1F8F52D700CF7702 /* pay_failure@2x.png in Resources */,
 				5091A0F41F6D2EB300C6D632 /* StoreListTableViewCell.xib in Resources */,
 				50777C2B1F2DBA170067B295 /* BusinessSendoOrderCell.xib in Resources */,
 				495EA83B1F14B64D001FCB7E /* DetailPayCashViewController.xib in Resources */,
@@ -7862,7 +7864,6 @@
 				495EA9071F14B64E001FCB7E /* location_icon2@3x.png in Resources */,
 				495EA8DF1F14B64E001FCB7E /* reduce@3x.png in Resources */,
 				495EA81D1F14B64D001FCB7E /* ZFSettingCell.xib in Resources */,
-				49BB29851F8E009200147829 /* pay_failure@2x.png in Resources */,
 				495EA9021F14B64E001FCB7E /* dot_normal@2x.png in Resources */,
 				495EA9091F14B64E001FCB7E /* more_icon@3x.png in Resources */,
 				495EA8881F14B64D001FCB7E /* wait_payfor@2x.png in Resources */,
@@ -7933,7 +7934,7 @@
 				49C33E501F558D9D00BC2254 /* kefu_black@3x.png in Resources */,
 				495EA8501F14B64D001FCB7E /* ShopCarSectionHeadViewCell.xib in Resources */,
 				495EA85C1F14B64D001FCB7E /* qq@2x.png in Resources */,
-				49BB29881F8E009200147829 /* pay_success@3x.png in Resources */,
+				49AE161B1F8F526400CF7702 /* pay_success@3x.png in Resources */,
 				4906D1711F74F6E500B327ED /* 引导页1.png in Resources */,
 				495EA86E1F14B64D001FCB7E /* Love_selected@2x.png in Resources */,
 				49D115B11F7E851900467CF1 /* findsingle@2x.png in Resources */,
@@ -7974,9 +7975,8 @@
 				49555EA61F1E0092002E5688 /* SendServiceTitleCell.xib in Resources */,
 				495EA7771F14B64D001FCB7E /* DetailShareViewController.xib in Resources */,
 				495EA85F1F14B64D001FCB7E /* weibo@3x.png in Resources */,
-				49BB29871F8E009200147829 /* pay_success@2x.png in Resources */,
+				49AE161A1F8F526400CF7702 /* pay_success@2x.png in Resources */,
 				495EA90A1F14B64E001FCB7E /* share_icon@2x.png in Resources */,
-				49BB29861F8E009200147829 /* pay_failure@3x.png in Resources */,
 				49411E3E1F67CEC400344731 /* sharezan_normal@2x.png in Resources */,
 				495EA8871F14B64D001FCB7E /* switchover_icon@3x.png in Resources */,
 				495EA8EB1F14B64E001FCB7E /* 省略@3x.png in Resources */,

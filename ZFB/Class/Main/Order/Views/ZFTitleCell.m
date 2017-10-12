@@ -30,11 +30,6 @@
 {
     _orderlist = orderlist;
     
-    
-    //13位时间戳
-//    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[_orderlist.createTime doubleValue] / 1000];
-//    self.lb_nameOrTime.text = [dateTimeHelper TimeToLocationStr:date];
-    
     if (orderlist.payType == 0) {
         self.lb_payMethod.text = @"线下订单";
     }else{

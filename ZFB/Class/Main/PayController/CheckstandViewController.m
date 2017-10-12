@@ -116,9 +116,13 @@
     else if (indexPath.row == 1) {//余额
         
         cell.lb_balance.hidden = NO;
-        cell.lb_balance.text = [NSString stringWithFormat:@"%@元",_balance];
         cell.btn_selected.hidden = NO;
-    
+        if ([_balance isEqualToString:@""] || _balance == nil) {
+            cell.lb_balance.text = @"0.0元";
+
+        }else{
+            cell.lb_balance.text = [NSString stringWithFormat:@"%@元",_balance];
+        }
     }else if (indexPath.row == 2) {//微信支付
 
         cell.btn_selected.hidden = NO;

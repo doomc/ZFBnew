@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SureOrderCommonCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *canUsedCouponNum;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;

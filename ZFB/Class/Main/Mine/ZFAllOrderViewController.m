@@ -47,7 +47,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 
 
-@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate,DealSucessCellDelegate>
+@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate,DealSucessCellDelegate,ZFSendingCellDelegate>
 
 @property (nonatomic ,strong) UIView *  titleView ;
 @property (nonatomic ,strong) UIButton  *navbar_btn;//导航按钮
@@ -699,7 +699,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             cell.orderlist         = orderlist;
             cell.section           = section;
             //默认值
-            
+            if ([orderlist.orderStatusName isEqualToString:@"交易完成"]) {
+                [cell.payfor_button  setHidden:YES];
+                [cell.cancel_button  setHidden:YES];
+            }
             if ([orderlist.orderStatusName isEqualToString:@"配送完成"]) {
                 [cell.payfor_button  setTitle:@"确认收货" forState:UIControlStateNormal];
                 [cell.cancel_button  setHidden:YES];
@@ -721,7 +724,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             }
             else if ([orderlist.orderStatusName isEqualToString:@"交易完成"]) {
                 [cell.cancel_button  setHidden:YES];
-                [cell.payfor_button  setTitle:@"晒单" forState:UIControlStateNormal];
+                [cell.payfor_button  setHidden:YES];
             }
             else if ([orderlist.orderStatusName isEqualToString:@"关闭"]) {
                 [cell.cancel_button  setHidden:YES];
@@ -904,7 +907,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     return height;
 }
 
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -916,13 +918,20 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
             
             Orderlist * list = self.orderListArray[indexPath.section];
+            if ([list.orderStatusName isEqualToString:@"交易完成"]) {
+                sendCell.share_btn.hidden = NO;
+                sendCell.sunnyOrder_btn.hidden = NO;
+                sendCell.delegate = self;
+                sendCell.indexpath = indexPath;
+
+            }
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {
-                
                 [goodArray addObject:ordergoods];
             }
             Ordergoods * goods = goodArray[indexPath.row];
             sendCell.goods = goods;
+
             return sendCell;
         }
             break;
@@ -995,7 +1004,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             return sendCell;
         }
             break;
-        case OrderTypeDealSuccess:
+        case OrderTypeDealSuccess://交易完成
         {
             
             DealSucessCell * successCell = [self.zfb_tableView
@@ -1148,6 +1157,44 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     }
 }
 
+#pragma mark -  ZFSendingCellDelegate 为了获取交易完成后的评价事件 此方法为公共代理
+#pragma mark -  DealSucessCellDelegate 晒单、共享代理
+/**
+ 晒单代理
+ @param indexPath 当前下标
+ @param orderId 订单id
+ */
+-(void)shareOrderWithIndexPath:(NSIndexPath*)indexPath AndOrderId:(NSString *)orderId
+{
+    Orderlist * list           = self.orderListArray[indexPath.section];
+    NSMutableArray * goodArray = [NSMutableArray array];
+    for (Ordergoods * ordergoods in list.orderGoods) {
+        [goodArray addObject:ordergoods];
+    }
+    Ordergoods * goods = goodArray[indexPath.row];
+    //去晒单
+    ZFEvaluateGoodsViewController * vc = [ZFEvaluateGoodsViewController new];
+    vc.goodsImg =  goods.coverImgUrl;
+    vc.goodId = goods.goodsId;
+    vc.storeId = list.storeId;
+    vc.storeName = list.storeName;
+    vc.orderId = list.order_id;
+    vc.orderNum = list.orderNum;
+    [self.navigationController pushViewController:vc animated:NO];
+}
+//点击共享
+-(void)didclickShareToFriendWithIndexPath:(NSIndexPath *)indexPath AndOrderId:(NSString *)orderId;
+{
+    Orderlist * list           = self.orderListArray[indexPath.section];
+    NSMutableArray * goodArray = [NSMutableArray array];
+    for (Ordergoods * ordergoods in list.orderGoods) {
+        [goodArray addObject:ordergoods];
+    }
+    Ordergoods * goods = goodArray[indexPath.row];
+    PublishShareViewController *  publishvc = [PublishShareViewController new];
+    publishvc.goodId = goods.goodsId;
+    [self.navigationController pushViewController:publishvc animated:NO];
+}
 
 /**
  确认付款
@@ -1206,7 +1253,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         case OrderTypeDealSuccess://交易成功
             
             [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
-            
             break;
         case OrderTypeCancelSuccess://取消交易
             
@@ -1227,10 +1273,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 
             }
             break;
-            
     }
     
-    
+    [self.zfb_tableView reloadData];
+
 }
 
 #pragma mark - ZFSaleAfterTopViewDelegate   售后申请的2种状态
@@ -1560,45 +1606,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     }];
     
 }
-#pragma mark - DealSucessCellDelegate 晒单、共享代理
-/**
- 晒单代理
- @param indexPath 当前下标
- @param orderId 订单id
- */
--(void)shareOrderWithIndexPath:(NSIndexPath*)indexPath AndOrderId:(NSString *)orderId
-{
-    NSLog(@"indexPath ==%@,orderId== %@",indexPath,orderId);
-    Orderlist * list           = self.orderListArray[indexPath.section];
-    NSMutableArray * goodArray = [NSMutableArray array];
-    for (Ordergoods * ordergoods in list.orderGoods) {
-        [goodArray addObject:ordergoods];
-    }
-    Ordergoods * goods = goodArray[indexPath.row];
-    //去晒单
-    ZFEvaluateGoodsViewController * vc = [ZFEvaluateGoodsViewController new];
-    vc.goodsImg =  goods.coverImgUrl;
-    vc.goodId = goods.goodsId;
-    vc.storeId = list.storeId;
-    vc.storeName = list.storeName;
-    vc.orderId = list.order_id;
-    vc.orderNum = list.orderNum;
-    [self.navigationController pushViewController:vc animated:NO];
-}
 
-//共享
--(void)didclickShareToFriendWithIndexPath:(NSIndexPath *)indexPath AndOrderId:(NSString *)orderId;
-{
-    Orderlist * list           = self.orderListArray[indexPath.section];
-    NSMutableArray * goodArray = [NSMutableArray array];
-    for (Ordergoods * ordergoods in list.orderGoods) {
-        [goodArray addObject:ordergoods];
-    }
-    Ordergoods * goods = goodArray[indexPath.row];
-    PublishShareViewController *  publishvc = [PublishShareViewController new];
-    publishvc.goodId = goods.goodsId;
-    [self.navigationController pushViewController:publishvc animated:NO];
-}
 #pragma mark - ZFFooterCellDelegate footer跳转的代理
 -(void)allOrdersActionOfindexPath:(NSInteger)indexPath
 {
@@ -1679,7 +1687,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             }];
             UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 
-                //确认收货 - 成功后跳转交易完成 - 晒单
+                //确认收货 - 成功后跳转交易完成
                 [self receiveUserConfirmReceiptPostDeliveryId:orderlist.deliveryId storeId:orderlist.storeId deliveryFee:[NSString stringWithFormat:@"%.2f",orderlist.orderDeliveryFee] orderNum:orderlist.orderCode userId:@"" orderAmount:orderlist.orderAmount storeName:orderlist.storeName orderDetail:orderlist.orderDetail];
                 
             }];

@@ -902,6 +902,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             
         case SelectTypeHomePage:
             if (indexPath.section ==0 ) {
+                self.segmentControl.selectedSegmentIndex = 1;
                 [self SegmentchangePage:self.segmentControl];
             }
             break;

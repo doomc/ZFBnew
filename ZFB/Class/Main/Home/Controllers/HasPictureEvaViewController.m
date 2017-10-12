@@ -34,18 +34,18 @@
     
     [self setupRefresh];
     [self initWithEvaluate_tableView];
-    [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
-    
+    //有图
+    [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@"1"];
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
     [super headerRefresh];
-    [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
+    [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@"1"];
     
 }
 -(void)footerRefresh {
     [super footerRefresh];
-    [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
+    [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@"1"];
     
 }
 
