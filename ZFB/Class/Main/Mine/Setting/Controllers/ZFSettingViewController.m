@@ -40,12 +40,12 @@ static NSString * settingCellid = @"ZFSettingCellid";
     _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置"];
 //    _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置",@"分享圈"];
     _titleArr2  = @[@"手机号码",@"清除缓存"];
-    _titleArr3  = @[@"客服热线",@"招商入驻"];
+    _titleArr3  = @[@"客服热线"];
 
 //    _imagesArr1 = @[@"setting_message",@"setting_ps",@"settingPay",@"settingShare"];
     _imagesArr1 = @[@"setting_message",@"setting_ps",@"settingPay"];
     _imagesArr2 = @[@"setting_phone",@"setting_cache"];
-    _imagesArr3 = @[@"setting_calling",@"setting_shakehand",];
+    _imagesArr3 = @[@"setting_calling"];
 
     [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingCell" bundle:nil] forCellReuseIdentifier:settingCellid];
@@ -161,17 +161,10 @@ static NSString * settingCellid = @"ZFSettingCellid";
         settingcell.img_detailIcon.hidden = YES;
         settingcell.lb_title.text = _titleArr3[indexPath.row];
         settingcell.img_iconView.image = [UIImage imageNamed:_imagesArr3[indexPath.row]];
-        if (indexPath.row == 0) {
-            //客服热线
-            settingcell.lb_detailTitle.text = @"023-67685157-8005";
  
-        }else{
         //客服热线
-        settingcell.lb_detailTitle.text =  @"400-666-2001";
-
-        return settingcell;
-        }
-   
+        settingcell.lb_detailTitle.text = @"400-666-2001";
+        return settingcell;   
     }
 
     return settingcell;

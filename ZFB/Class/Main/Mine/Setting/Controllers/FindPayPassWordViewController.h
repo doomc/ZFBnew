@@ -10,4 +10,8 @@
 
 @interface FindPayPassWordViewController : BaseViewController
 
+@property (weak, nonatomic) IBOutlet UIImageView *uploadImgZheng;
+
+@property (weak, nonatomic) IBOutlet UIImageView *uploadImgFan;
+
 @end

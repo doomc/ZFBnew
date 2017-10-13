@@ -19,8 +19,9 @@
 #import "DetailPayCashViewController.h"//支付失败
 #import "DetailPaySuccessViewController.h"//支付成功
 
-#define kRequestTime 3.0f
-#define kDelay 1.0f
+#import "MBProgressHUD+MJ.h"
+
+
 
 @interface CheckstandViewController () <UITableViewDelegate,UITableViewDataSource,PayFootCellDelegate>
 {
@@ -142,7 +143,8 @@
 
 - (void)bizPayParterId:(NSString *)partnerId prepayId:(NSString *)prepayId package:(NSString *)package nonceStr:(NSString *)nonceStr timeStamp: (NSString *)timeStamp sign:(NSString *)sign
 {
-
+    [MBProgressHUD showMessage:@"请稍后..."];
+    
     PayReq *req = [[PayReq alloc]init];
     req.openID = WX_AppId;
     req.partnerId = partnerId;
@@ -156,9 +158,12 @@
     BOOL flag = [WXApi sendReq:req];
     if (flag) {
         NSLog(@"发起微信支付成功");
+        [MBProgressHUD hideHUD];
     }else{
         
         NSLog(@"发起微信支付失败");
+        [MBProgressHUD hideHUD];
+
     }
     
 

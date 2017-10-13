@@ -1002,6 +1002,13 @@
 		49AE161B1F8F526400CF7702 /* pay_success@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AE16171F8F526400CF7702 /* pay_success@3x.png */; };
 		49AE161E1F8F52D700CF7702 /* pay_failure@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AE161C1F8F52D700CF7702 /* pay_failure@2x.png */; };
 		49AE161F1F8F52D700CF7702 /* pay_failure@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AE161D1F8F52D700CF7702 /* pay_failure@3x.png */; };
+		49AE16211F90546200CF7702 /* uploadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AE16201F90546200CF7702 /* uploadBackground.png */; };
+		49AE16251F9063AA00CF7702 /* CertificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AE16231F9063AA00CF7702 /* CertificationViewController.m */; };
+		49AE16261F9063AA00CF7702 /* CertificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AE16241F9063AA00CF7702 /* CertificationViewController.xib */; };
+		49AE162D1F90964D00CF7702 /* idcard1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 49AE162B1F90964D00CF7702 /* idcard1.jpg */; };
+		49AE162E1F90964D00CF7702 /* idcard2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 49AE162C1F90964D00CF7702 /* idcard2.jpg */; };
+		49AE16321F90A63A00CF7702 /* CertificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AE16301F90A63A00CF7702 /* CertificationCell.m */; };
+		49AE16331F90A63A00CF7702 /* CertificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AE16311F90A63A00CF7702 /* CertificationCell.xib */; };
 		49B0E7521F4176E00032E72E /* QRPayMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B0E7501F4176E00032E72E /* QRPayMoneyViewController.m */; };
 		49B0E7531F4176E00032E72E /* QRPayMoneyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B0E7511F4176E00032E72E /* QRPayMoneyViewController.xib */; };
 		49B0E7571F4177200032E72E /* QRCollectMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B0E7551F4177200032E72E /* QRCollectMoneyViewController.m */; };
@@ -2817,6 +2824,15 @@
 		49AE16171F8F526400CF7702 /* pay_success@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_success@3x.png"; sourceTree = "<group>"; };
 		49AE161C1F8F52D700CF7702 /* pay_failure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_failure@2x.png"; sourceTree = "<group>"; };
 		49AE161D1F8F52D700CF7702 /* pay_failure@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_failure@3x.png"; sourceTree = "<group>"; };
+		49AE16201F90546200CF7702 /* uploadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uploadBackground.png; sourceTree = "<group>"; };
+		49AE16221F9063AA00CF7702 /* CertificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificationViewController.h; sourceTree = "<group>"; };
+		49AE16231F9063AA00CF7702 /* CertificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificationViewController.m; sourceTree = "<group>"; };
+		49AE16241F9063AA00CF7702 /* CertificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CertificationViewController.xib; sourceTree = "<group>"; };
+		49AE162B1F90964D00CF7702 /* idcard1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = idcard1.jpg; sourceTree = "<group>"; };
+		49AE162C1F90964D00CF7702 /* idcard2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = idcard2.jpg; sourceTree = "<group>"; };
+		49AE162F1F90A63A00CF7702 /* CertificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificationCell.h; sourceTree = "<group>"; };
+		49AE16301F90A63A00CF7702 /* CertificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificationCell.m; sourceTree = "<group>"; };
+		49AE16311F90A63A00CF7702 /* CertificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CertificationCell.xib; sourceTree = "<group>"; };
 		49B0E74F1F4176E00032E72E /* QRPayMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRPayMoneyViewController.h; sourceTree = "<group>"; };
 		49B0E7501F4176E00032E72E /* QRPayMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRPayMoneyViewController.m; sourceTree = "<group>"; };
 		49B0E7511F4176E00032E72E /* QRPayMoneyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRPayMoneyViewController.xib; sourceTree = "<group>"; };
@@ -3251,6 +3267,7 @@
 		4906D13A1F74D7BE00B327ED /* placehoder */ = {
 			isa = PBXGroup;
 			children = (
+				49AE16201F90546200CF7702 /* uploadBackground.png */,
 				4906D1691F74F6E500B327ED /* 立即体验@2x.png */,
 				4906D16A1F74F6E500B327ED /* 立即体验@3x.png */,
 				4906D16B1F74F6E500B327ED /* 引导页1.png */,
@@ -4834,6 +4851,9 @@
 				50099B9A1F66E2F800B348FD /* FindPayPassWordViewController.xib */,
 				499D150D1F67754300EB705B /* ChangePasswordViewController.h */,
 				499D150E1F67754300EB705B /* ChangePasswordViewController.m */,
+				49AE16221F9063AA00CF7702 /* CertificationViewController.h */,
+				49AE16231F9063AA00CF7702 /* CertificationViewController.m */,
+				49AE16241F9063AA00CF7702 /* CertificationViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4851,6 +4871,9 @@
 				495EA5211F14B64C001FCB7E /* ZFSettingRowCell.h */,
 				495EA5221F14B64C001FCB7E /* ZFSettingRowCell.m */,
 				495EA5231F14B64C001FCB7E /* ZFSettingRowCell.xib */,
+				49AE162F1F90A63A00CF7702 /* CertificationCell.h */,
+				49AE16301F90A63A00CF7702 /* CertificationCell.m */,
+				49AE16311F90A63A00CF7702 /* CertificationCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4994,6 +5017,8 @@
 		495EA57E1F14B64C001FCB7E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				49AE162B1F90964D00CF7702 /* idcard1.jpg */,
+				49AE162C1F90964D00CF7702 /* idcard2.jpg */,
 				4906D13A1F74D7BE00B327ED /* placehoder */,
 				50D61E7D1F1E5BAD00DBDA4D /* addres */,
 				495EA5811F14B64C001FCB7E /* all_icon */,
@@ -7830,6 +7855,7 @@
 				49C1B6081F8DE82B00B2001B /* DetailPaySuccessViewController.xib in Resources */,
 				495EA8171F14B64D001FCB7E /* ZFSaleAfterSearchCell.xib in Resources */,
 				495EA91B1F14B64E001FCB7E /* shakehand@3x.png in Resources */,
+				49AE162D1F90964D00CF7702 /* idcard1.jpg in Resources */,
 				495EA77E1F14B64D001FCB7E /* SkuFooterReusableView.xib in Resources */,
 				49B0E7531F4176E00032E72E /* QRPayMoneyViewController.xib in Resources */,
 				4906D14B1F74D7BE00B327ED /* 150x140.png in Resources */,
@@ -7845,6 +7871,7 @@
 				4906D1501F74D7BE00B327ED /* 240x260.png in Resources */,
 				49C33E681F55A52E00BC2254 /* select_red@3x.png in Resources */,
 				4968A43F1F4DB5290061A87E /* NTESMutiClientsCell.xib in Resources */,
+				49AE162E1F90964D00CF7702 /* idcard2.jpg in Resources */,
 				495EA8BA1F14B64D001FCB7E /* editDelete@2x.png in Resources */,
 				495EA9051F14B64E001FCB7E /* dot_selected@3x.png in Resources */,
 				49786D821F7D11F30088AAD3 /* star_selected@2x.png in Resources */,
@@ -7856,6 +7883,7 @@
 				4968A3F51F4DB5290061A87E /* NTESJionTeamViewController.xib in Resources */,
 				495EA8641F14B64D001FCB7E /* arrows_Right_black@2x.png in Resources */,
 				50D61E8D1F1E5BAD00DBDA4D /* ico_check_nomal.png in Resources */,
+				49AE16261F9063AA00CF7702 /* CertificationViewController.xib in Resources */,
 				495EA88B1F14B64D001FCB7E /* write@3x.png in Resources */,
 				5091A0EF1F6D29AE00C6D632 /* DetailStoreTitleCell.xib in Resources */,
 				50B381191F3F605F001ED3BA /* addCamera@2x.png in Resources */,
@@ -8127,6 +8155,7 @@
 				4906D1821F7906A700B327ED /* ShareRecommedDetailViewController.xib in Resources */,
 				495EA8DE1F14B64E001FCB7E /* reduce@2x.png in Resources */,
 				49738A381F3D89530004657B /* ZFApplyBackgoodsViewController.xib in Resources */,
+				49AE16331F90A63A00CF7702 /* CertificationCell.xib in Resources */,
 				495EA7B11F14B64D001FCB7E /* HotTableViewCell.xib in Resources */,
 				50B381281F3F729B001ED3BA /* compose_delete@2x.png in Resources */,
 				4958D5331F6929C0007426A9 /* willOutDate_orange.png in Resources */,
@@ -8161,6 +8190,7 @@
 				50D61E931F1E5BAD00DBDA4D /* plus.png in Resources */,
 				493BDE2C1F6A773F00CF31D0 /* 订单数量@2x.png in Resources */,
 				495EA7B51F14B64D001FCB7E /* SearchCell.xib in Resources */,
+				49AE16211F90546200CF7702 /* uploadBackground.png in Resources */,
 				495EA8711F14B64D001FCB7E /* people_icon@3x.png in Resources */,
 				49C33E531F558E7000BC2254 /* bag_white@2x.png in Resources */,
 				495EA7A91F14B64D001FCB7E /* FuncListCollectionViewCell.xib in Resources */,
@@ -8400,6 +8430,7 @@
 				495EA7991F14B64D001FCB7E /* HP_LocationViewController.m in Sources */,
 				495EA7B61F14B64D001FCB7E /* ZFHomeViewController.m in Sources */,
 				49DA74911F259BD8009F5577 /* SearchTypeView.m in Sources */,
+				49AE16251F9063AA00CF7702 /* CertificationViewController.m in Sources */,
 				504A76371F6ADEFB00B61CE3 /* YYImage.m in Sources */,
 				504A76111F6ADD9D00B61CE3 /* YYTextDebugOption.m in Sources */,
 				50B380FF1F3EFF25001ED3BA /* UIImage+SGHelper.m in Sources */,
@@ -8754,6 +8785,7 @@
 				49BA488F1F67EDAB006B5F60 /* ShareGoodsSubDetailViewController.m in Sources */,
 				495EA7551F14B64D001FCB7E /* UIImage+FX.m in Sources */,
 				49B0E7521F4176E00032E72E /* QRPayMoneyViewController.m in Sources */,
+				49AE16321F90A63A00CF7702 /* CertificationCell.m in Sources */,
 				504A761F1F6ADD9D00B61CE3 /* NSParagraphStyle+YYText.m in Sources */,
 				495EA7731F14B64D001FCB7E /* UIViewController+Dealloc.m in Sources */,
 				4906D1391F74A7B700B327ED /* HasPictureEvaViewController.m in Sources */,

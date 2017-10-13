@@ -228,7 +228,7 @@
                              @"mobilePhone":_phoneNumStr,
                              @"loginPwd":_tf_loginPassword.text,
                              @"smsCheckCode":_smsCode,
-                             
+                             @"registerType":@"2"
                              };
     
     [SVProgressHUD show];

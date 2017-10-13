@@ -614,7 +614,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             BBUserDefault.shopFlag = _shopFlag;
             BBUserDefault.courierFlag = _courierFlag;
             BBUserDefault.isSetPassword = response[@"userInfo"][@"isSetPassword"];
-            
+            //是否实名认证 1 是 2 否
+            BBUserDefault.realNameFlag = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"realNameFlag"]];
             BBUserDefault.nickName   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"nickName"]];
             BBUserDefault.sexType    = [response[@"userInfo"][@"sex"] integerValue];
             BBUserDefault.birthDay   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"cmBirthday"]];

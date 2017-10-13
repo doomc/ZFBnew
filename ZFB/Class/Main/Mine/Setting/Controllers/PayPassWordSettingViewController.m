@@ -8,8 +8,10 @@
 
 #import "PayPassWordSettingViewController.h"
 #import "SettingPayPasswordViewController.h"
-#import "FindPayPassWordViewController.h"
 #import "ChangePasswordViewController.h"
+
+#import "FindPayPassWordViewController.h"//密码申诉
+#import "CertificationViewController.h"//实名认证
 @interface PayPassWordSettingViewController ()<UITableViewDelegate ,UITableViewDataSource>
 
 @property (nonatomic , strong) UITableView  * tableView;
@@ -78,33 +80,43 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([BBUserDefault.isSetPassword isEqualToString:@"1"]) {
-        if (indexPath.row == 0) {
-            //修改支付密码
-            ChangePasswordViewController * changevc = [ChangePasswordViewController new];
-            [self.navigationController pushViewController:changevc animated:NO];
+    if ( [BBUserDefault.realNameFlag isEqualToString:@"1"]) {//实名认证过了
+        NSLog(@"已经实名认证了");
+        if ([BBUserDefault.isSetPassword isEqualToString:@"1"]) {
+            if (indexPath.row == 0) {
+                //修改支付密码
+                ChangePasswordViewController * changevc = [ChangePasswordViewController new];
+                [self.navigationController pushViewController:changevc animated:NO];
+                
+            }else
+            {
+                //找回密码申诉
+                FindPayPassWordViewController * findVC = [FindPayPassWordViewController new];
+                [self.navigationController pushViewController:findVC animated:NO];
+            }
             
-        }else
-        {
-            //找回密码
-            FindPayPassWordViewController * findVC = [FindPayPassWordViewController new];
-            [self.navigationController pushViewController:findVC animated:NO];
+        }else{
+            
+            if (indexPath.row == 0) {
+                //设置支付密码
+                SettingPayPasswordViewController * vc = [SettingPayPasswordViewController new];
+                [self.navigationController pushViewController:vc animated:NO];
+                
+            }else
+            {
+                //找回密码
+                FindPayPassWordViewController * findVC = [FindPayPassWordViewController new];
+                [self.navigationController pushViewController:findVC animated:NO];
+            }
+            
         }
 
     }else{
-        
-        if (indexPath.row == 0) {
-            //设置支付密码
-            SettingPayPasswordViewController * vc = [SettingPayPasswordViewController new];
-            [self.navigationController pushViewController:vc animated:NO];
+        NSLog(@"还没有实名认证 --- 马上去认证");
+        //找回密码
+        CertificationViewController * cerVC = [CertificationViewController new];
+        [self.navigationController pushViewController:cerVC animated:NO];
 
-        }else
-        {
-            //找回密码
-            FindPayPassWordViewController * findVC = [FindPayPassWordViewController new];
-            [self.navigationController pushViewController:findVC animated:NO];
-        }
- 
     }
     
 }

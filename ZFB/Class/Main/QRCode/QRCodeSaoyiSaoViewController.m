@@ -220,7 +220,6 @@
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/paySign",zfb_baseUrl] params:[NSDictionary dictionaryWithDictionary:params] success:^(id response) {
         
         _paySign = response[@"paySign"];
-        
         [SVProgressHUD dismissWithCompletion:^{
             
             [self getGoodsCostPayResulrUrlNotify_url :notify_url return_url:return_url datetime:datetime];
@@ -257,6 +256,7 @@
     [self.navigationController pushViewController:payVC animated:NO];
     
 }
+
 
 
 - (void)didReceiveMemoryWarning {
