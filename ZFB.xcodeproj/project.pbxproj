@@ -1007,8 +1007,6 @@
 		49AE16261F9063AA00CF7702 /* CertificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AE16241F9063AA00CF7702 /* CertificationViewController.xib */; };
 		49AE162D1F90964D00CF7702 /* idcard1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 49AE162B1F90964D00CF7702 /* idcard1.jpg */; };
 		49AE162E1F90964D00CF7702 /* idcard2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 49AE162C1F90964D00CF7702 /* idcard2.jpg */; };
-		49AE16321F90A63A00CF7702 /* CertificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AE16301F90A63A00CF7702 /* CertificationCell.m */; };
-		49AE16331F90A63A00CF7702 /* CertificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AE16311F90A63A00CF7702 /* CertificationCell.xib */; };
 		49B0E7521F4176E00032E72E /* QRPayMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B0E7501F4176E00032E72E /* QRPayMoneyViewController.m */; };
 		49B0E7531F4176E00032E72E /* QRPayMoneyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B0E7511F4176E00032E72E /* QRPayMoneyViewController.xib */; };
 		49B0E7571F4177200032E72E /* QRCollectMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B0E7551F4177200032E72E /* QRCollectMoneyViewController.m */; };
@@ -2830,9 +2828,6 @@
 		49AE16241F9063AA00CF7702 /* CertificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CertificationViewController.xib; sourceTree = "<group>"; };
 		49AE162B1F90964D00CF7702 /* idcard1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = idcard1.jpg; sourceTree = "<group>"; };
 		49AE162C1F90964D00CF7702 /* idcard2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = idcard2.jpg; sourceTree = "<group>"; };
-		49AE162F1F90A63A00CF7702 /* CertificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificationCell.h; sourceTree = "<group>"; };
-		49AE16301F90A63A00CF7702 /* CertificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificationCell.m; sourceTree = "<group>"; };
-		49AE16311F90A63A00CF7702 /* CertificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CertificationCell.xib; sourceTree = "<group>"; };
 		49B0E74F1F4176E00032E72E /* QRPayMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRPayMoneyViewController.h; sourceTree = "<group>"; };
 		49B0E7501F4176E00032E72E /* QRPayMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRPayMoneyViewController.m; sourceTree = "<group>"; };
 		49B0E7511F4176E00032E72E /* QRPayMoneyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRPayMoneyViewController.xib; sourceTree = "<group>"; };
@@ -4871,9 +4866,6 @@
 				495EA5211F14B64C001FCB7E /* ZFSettingRowCell.h */,
 				495EA5221F14B64C001FCB7E /* ZFSettingRowCell.m */,
 				495EA5231F14B64C001FCB7E /* ZFSettingRowCell.xib */,
-				49AE162F1F90A63A00CF7702 /* CertificationCell.h */,
-				49AE16301F90A63A00CF7702 /* CertificationCell.m */,
-				49AE16311F90A63A00CF7702 /* CertificationCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -8155,7 +8147,6 @@
 				4906D1821F7906A700B327ED /* ShareRecommedDetailViewController.xib in Resources */,
 				495EA8DE1F14B64E001FCB7E /* reduce@2x.png in Resources */,
 				49738A381F3D89530004657B /* ZFApplyBackgoodsViewController.xib in Resources */,
-				49AE16331F90A63A00CF7702 /* CertificationCell.xib in Resources */,
 				495EA7B11F14B64D001FCB7E /* HotTableViewCell.xib in Resources */,
 				50B381281F3F729B001ED3BA /* compose_delete@2x.png in Resources */,
 				4958D5331F6929C0007426A9 /* willOutDate_orange.png in Resources */,
@@ -8785,7 +8776,6 @@
 				49BA488F1F67EDAB006B5F60 /* ShareGoodsSubDetailViewController.m in Sources */,
 				495EA7551F14B64D001FCB7E /* UIImage+FX.m in Sources */,
 				49B0E7521F4176E00032E72E /* QRPayMoneyViewController.m in Sources */,
-				49AE16321F90A63A00CF7702 /* CertificationCell.m in Sources */,
 				504A761F1F6ADD9D00B61CE3 /* NSParagraphStyle+YYText.m in Sources */,
 				495EA7731F14B64D001FCB7E /* UIViewController+Dealloc.m in Sources */,
 				4906D1391F74A7B700B327ED /* HasPictureEvaViewController.m in Sources */,
@@ -9118,7 +9108,7 @@
 				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -9195,7 +9185,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b051cc18-cd72-4528-92ca-35b575ca8b4b";
+				PROVISIONING_PROFILE = "7f63ac1a-aadd-4ab9-8eb7-2dae3f9f52a2";
 				PROVISIONING_PROFILE_SPECIFIER = zavfbDevelopment;
 			};
 			name = Debug;
@@ -9209,7 +9199,7 @@
 				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -9286,7 +9276,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b051cc18-cd72-4528-92ca-35b575ca8b4b";
+				PROVISIONING_PROFILE = "7f63ac1a-aadd-4ab9-8eb7-2dae3f9f52a2";
 				PROVISIONING_PROFILE_SPECIFIER = zavfbDevelopment;
 			};
 			name = Release;

@@ -4,21 +4,23 @@
 //
 //  Created by  展富宝  on 2017/10/13.
 //  Copyright © 2017年 com.zfb. All rights reserved.
-// 实名认证
+//  实名认证
 
 #import "CertificationViewController.h"
 #import "HXPhotoViewController.h"
-#import "CertificationCell.h"
-@interface CertificationViewController ()<UIGestureRecognizerDelegate,HXPhotoViewControllerDelegate,UITableViewDelegate,UITableViewDataSource,CertificationCellDelegate>
+@interface CertificationViewController ()<UIGestureRecognizerDelegate,HXPhotoViewControllerDelegate>
 {
     NSString * _imgbackUrl;
     NSString * _imgfaceUrl;
+    BOOL isFaceImg;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *ceritificationBtn;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+ 
 @property (strong, nonatomic) HXPhotoManager *manager;
-@property (strong, nonatomic) UIImageView * uploadBackImg;
+@property (weak, nonatomic) IBOutlet UIImageView *uploadFaceView;
+
+@property (weak, nonatomic) IBOutlet UIImageView *uploadBackView;
 
 @end
 
@@ -33,51 +35,28 @@
     }
     return _manager;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"实名认证";
-    [self.tableView registerNib:[UINib nibWithNibName:@"CertificationCell" bundle:nil] forCellReuseIdentifier:@"CertificationCell"];
+   
+    UITapGestureRecognizer * tapFace =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(uploadImgzhengAction)];
+    tapFace.delegate = self;
+    self.uploadFaceView.userInteractionEnabled = YES;
+    [self.uploadFaceView addGestureRecognizer:tapFace];
     
-
-}
-
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 250;
-}
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
-    if (indexPath.row == 0) {
-        CertificationCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CertificationCell" forIndexPath:indexPath];
-        cell.delegate = self;
-        return cell;
-
-    }
-    else{
-        CertificationCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CertificationCell" forIndexPath:indexPath];
-            UITapGestureRecognizer * tapUploadFan = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(uploadImgFanAction:)];
-            tapUploadFan.delegate = self;
-            [cell.uploadImg addGestureRecognizer:tapUploadFan];
-            cell.uploadImg.userInteractionEnabled = YES;
- 
-        return cell;
-    }
+    UITapGestureRecognizer * tapBack =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(uploadImgFanAction)];
+    tapBack.delegate = self;
+    self.uploadBackView.userInteractionEnabled = YES;
+    [self.uploadBackView addGestureRecognizer:tapBack];
+    
 }
 //上传正面
--(void)uploadImgzhengAction:(UIGestureRecognizer *)ges
+-(void)uploadImgzhengAction
 {
-      
-    NSLog(@"有了吗？");
+    isFaceImg = YES;//是正面
+    NSLog(@"上传正面");
     HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
     vc.manager = self.manager;
     vc.delegate = self;
@@ -86,9 +65,10 @@
 
 }
 //上传反面
--(void)uploadImgFanAction:(UIGestureRecognizer *)ges
+-(void)uploadImgFanAction
 {
-    NSLog(@"有了");
+    isFaceImg = NO;
+    NSLog(@"上传反面");
     HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
     vc.manager = self.manager;
     vc.delegate = self;
@@ -99,17 +79,24 @@
 - (void)photoViewControllerDidNext:(NSArray<HXPhotoModel *> *)allList Photos:(NSArray<HXPhotoModel *> *)photos Videos:(NSArray<HXPhotoModel *> *)videos Original:(BOOL)original {
     __weak typeof(self) weakSelf = self;
     [HXPhotoTools getImageForSelectedPhoto:photos type:0 completion:^(NSArray<UIImage *> *images) {
-  
-        
-        weakSelf.uploadBackImg.image = images.firstObject;
-        
+        NSLog(@"images === %@",images);
+        if (isFaceImg == YES) {
+            weakSelf.uploadFaceView.image = images.firstObject;
+
+        }else{
+            weakSelf.uploadBackView.image = images.firstObject;
+        }
         [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
             NSLog(@"%@",names);
             if (state == 1) {
                 NSLog(@"上传到阿里云成功了！");
- 
-                _imgbackUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
-                
+                if (isFaceImg == YES) {
+                    _imgfaceUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+
+                }else{
+                 
+                    _imgbackUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+                }
             }
         }];
         

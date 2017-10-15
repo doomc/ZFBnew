@@ -11,10 +11,9 @@
 
 @interface FindPayPassWordViewController ()<UIGestureRecognizerDelegate,HXPhotoViewControllerDelegate>
 {
-    NSString * _zhengImgUrl;
-    NSString * _fanImgUrl;
-    BOOL _isZheng;
-    BOOL _isFan;
+    NSString * _faceImgUrl;
+    NSString * _backImgUrl;
+    BOOL _isFace;
 }
 @property (strong, nonatomic) HXPhotoManager *manager;
 
@@ -35,14 +34,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"找回密码申诉";
-
-    _isFan = NO;
-    _isZheng = NO;
     
     //上传正面
     UITapGestureRecognizer * tapUploadZheng = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(uploadImgzhengAction:)];
     tapUploadZheng.delegate = self;
-    
     [self.uploadImgZheng addGestureRecognizer:tapUploadZheng];
     self.uploadImgZheng.userInteractionEnabled = YES;
 
@@ -57,9 +52,7 @@
 //上传正面
 -(void)uploadImgzhengAction:(UIGestureRecognizer *)ges
 {
-    _isZheng = YES;
-    
-    NSLog(@"有了吗？");
+    _isFace = YES;
     HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
     vc.manager = self.manager;
     vc.delegate = self;
@@ -68,9 +61,7 @@
 //上传反面
 -(void)uploadImgFanAction:(UIGestureRecognizer *)ges
 {
-    _isFan = YES;
-
-    NSLog(@"有了");
+    _isFace = NO;
     HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
     vc.manager = self.manager;
     vc.delegate = self;
@@ -81,7 +72,7 @@
 - (void)photoViewControllerDidNext:(NSArray<HXPhotoModel *> *)allList Photos:(NSArray<HXPhotoModel *> *)photos Videos:(NSArray<HXPhotoModel *> *)videos Original:(BOOL)original {
     __weak typeof(self) weakSelf = self;
     [HXPhotoTools getImageForSelectedPhoto:photos type:0 completion:^(NSArray<UIImage *> *images) {
-        if (_isZheng == YES) {
+        if (_isFace == YES) {
             weakSelf.uploadImgZheng.image = images.firstObject;
 
         }else{
@@ -91,10 +82,14 @@
         [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
             NSLog(@"%@",names);
             if (state == 1) {
+                if (_isFace == YES) {
+                    _faceImgUrl = names[0];
+
+                }else{
+                    _backImgUrl = names[0];
+
+                }
                 NSLog(@"上传到阿里云成功了！");
-                _zhengImgUrl = names[0];
-                _fanImgUrl = names[0];
-                
             }
         }];
         
@@ -119,8 +114,8 @@
     NSDictionary * param = @{
                              @"account":BBUserDefault.userPhoneNumber,
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"file_face_url":_zhengImgUrl,
-                             @"file_back_url":_zhengImgUrl,
+                             @"file_face_url":_faceImgUrl,
+                             @"file_back_url":_backImgUrl,
                              
                              };
     [SVProgressHUD showWithStatus:@"正在提交..."];

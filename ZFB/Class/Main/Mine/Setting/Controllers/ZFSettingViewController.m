@@ -215,7 +215,22 @@ static NSString * settingCellid = @"ZFSettingCellid";
 
     }
     else{
-        
+        JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"确认拨打号码:400-666-2001"]  preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            UIWebView *callWebView = [[UIWebView alloc] init];
+            
+            NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:400-666-2001"]];
+            [callWebView loadRequest:[NSURLRequest requestWithURL:telURL]];
+            [self.view addSubview:callWebView];
+            
+        }];
+        [alert addAction:cancel];
+        [alert addAction:sure];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     
 
