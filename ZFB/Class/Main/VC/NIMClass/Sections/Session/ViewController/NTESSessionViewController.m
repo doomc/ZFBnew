@@ -604,12 +604,12 @@ NIMContactSelectDelegate>
     [enterTeamCard sizeToFit];
     UIBarButtonItem *enterTeamCardItem = [[UIBarButtonItem alloc] initWithCustomView:enterTeamCard];
     
-    UIButton *infoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [infoBtn addTarget:self action:@selector(enterPersonInfoCard:) forControlEvents:UIControlEventTouchUpInside];
-    [infoBtn setImage:[UIImage imageNamed:@"icon_session_info_normal"] forState:UIControlStateNormal];
-    [infoBtn setImage:[UIImage imageNamed:@"icon_session_info_pressed"] forState:UIControlStateHighlighted];
-    [infoBtn sizeToFit];
-    UIBarButtonItem *enterUInfoItem = [[UIBarButtonItem alloc] initWithCustomView:infoBtn];
+//    UIButton *infoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [infoBtn addTarget:self action:@selector(enterPersonInfoCard:) forControlEvents:UIControlEventTouchUpInside];
+//    [infoBtn setImage:[UIImage imageNamed:@"icon_session_info_normal"] forState:UIControlStateNormal];
+//    [infoBtn setImage:[UIImage imageNamed:@"icon_session_info_pressed"] forState:UIControlStateHighlighted];
+//    [infoBtn sizeToFit];
+//    UIBarButtonItem *enterUInfoItem = [[UIBarButtonItem alloc] initWithCustomView:infoBtn];
     
     UIButton *historyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [historyBtn addTarget:self action:@selector(enterHistory:) forControlEvents:UIControlEventTouchUpInside];
@@ -634,7 +634,8 @@ NIMContactSelectDelegate>
         }
         else
         {
-            self.navigationItem.rightBarButtonItems = @[enterUInfoItem,historyButtonItem];
+            //            self.navigationItem.rightBarButtonItems = @[enterUInfoItem,historyButtonItem];
+            self.navigationItem.rightBarButtonItems = @[historyButtonItem];
         }
     }
 }

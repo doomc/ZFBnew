@@ -431,6 +431,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              
                              @"mobilePhone":_tf_loginphone.text,
                              @"smsCheckCode":_smsCode,
+                             @"registerType":@"2"//注册设备
                              };
 
     [SVProgressHUD showWithStatus:@"登陆中..."];
@@ -479,6 +480,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              
                              @"mobilePhone":_tf_loginphone.text,
                              @"loginPwd":_tf_verificationCodeOrPassWord.text,
+                             @"equipmentType":@"2",//ios
                              };
     
     [SVProgressHUD showWithStatus:@"登陆中..."];

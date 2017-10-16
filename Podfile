@@ -39,5 +39,9 @@ target 'ZFB' do
 
 #  wx支付
   pod 'WechatOpenSDK'
+
+#极光推送
+  pod 'JPush' 
   
+    
 end

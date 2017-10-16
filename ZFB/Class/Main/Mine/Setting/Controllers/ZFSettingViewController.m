@@ -309,8 +309,37 @@ static NSString * settingCellid = @"ZFSettingCellid";
 {
  
     [[[NIMSDK sharedSDK]loginManager] logout:^(NSError * _Nullable error) {
-        
-        NSLog(@" 我已经退出了 ---- %@ = error",error);
+        NSLog(@" 我已经退出了网易云信了 ---- %@ = error",error);
+        [self locationLoginOut];
     }];
 }
+
+//退出登录
+-(void)locationLoginOut
+{
+    NSDictionary * param = @{
+                             @"cmUserId":BBUserDefault.cmUserId
+                             };
+    
+    [SVProgressHUD show];
+    
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/exitLoginApp"] params:param success:^(id response) {
+        
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+        if([code isEqualToString:@"0"]){
+     
+            [SVProgressHUD dismiss];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
+
+
 @end

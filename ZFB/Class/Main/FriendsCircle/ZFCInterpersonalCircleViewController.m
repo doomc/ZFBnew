@@ -69,7 +69,7 @@
     NSArray *childArr = @[messageVC, contactVC];
     
     /// pageContentView
-    CGFloat contentViewHeight                = self.view.frame.size.height - 108 -44;
+    CGFloat contentViewHeight                = self.view.frame.size.height - 108 ;
     self.pageContentView                     = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 108, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
     _pageContentView.delegatePageContentView = self;
     [self.view addSubview:_pageContentView];

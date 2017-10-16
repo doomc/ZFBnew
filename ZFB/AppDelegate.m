@@ -28,16 +28,27 @@
 #import "SYSafeCategory.h"//安全操作
 #import "JhtGradientGuidePageVC.h"
 
+//极光推送
+// 引入JPush功能所需头文件
+#import "JPUSHService.h"
+// iOS10注册APNs所需头文件
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
+// 如果需要使用idfa功能所需要引入的头文件（可选）
+#import <AdSupport/AdSupport.h>
+
 //高德api
 const static NSString * ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
 NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
-
-
 //推送Kit
 @import PushKit;
-@interface AppDelegate ()<NIMLoginManagerDelegate,PKPushRegistryDelegate,WXApiDelegate>
-
+@interface AppDelegate ()<NIMLoginManagerDelegate,PKPushRegistryDelegate,WXApiDelegate,JPUSHRegisterDelegate>
+{
+     NSInteger _jpsuhCount;
+    
+}
 @property (nonatomic,strong) NTESSDKConfigDelegate *sdkConfigDelegate;
 @property (nonatomic, strong) JhtGradientGuidePageVC *guidePage;
 
@@ -66,10 +77,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     NSDictionary * df = @{@"switchType":@YES};
     [[NSUserDefaults standardUserDefaults]registerDefaults:df];
     
-    
-    //登录状态默认
-    //    BBUserDefault.isLogin = 1;
-    
     // 网易云信IM
     [self registerPushService];//注册pushKit
     
@@ -84,9 +91,33 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     
     [self loginNIM];
     
+    
+
+    
+    // Optional
+    // 获取IDFA
+    // 如需使用IDFA功能请添加此代码并在初始化方法的advertisingIdentifier参数中填写对应值
+    NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    
+    // Required
+    // init Push
+    // notice: 2.1.5版本的SDK新增的注册方法，改成可上报IDFA，如果没有使用IDFA直接传nil
+    // 如需继续使用pushConfig.plist文件声明appKey等配置内容，请依旧使用[JPUSHService setupWithOption:launchOptions]方式初始化。
+    [JPUSHService setupWithOption:launchOptions appKey:JpushAppkey
+                          channel:@"App Store"
+                 apsForProduction:@"1"
+            advertisingIdentifier:advertisingId];
+    
     return YES;
 }
+#pragma mark - 注册JPush
+-(void)jupshAction
+{
 
+
+
+
+}
 #pragma mark - logic impl
 - (void)setupServices
 {
@@ -236,14 +267,22 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
+    //此处的baedg 的个数应该为总推送的个数
+    
     NSInteger count = [[[NIMSDK sharedSDK] conversationManager] allUnreadCount];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
+    BBUserDefault.pushTotal  = count;
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:BBUserDefault.pushTotal];
+    
     
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    [application setApplicationIconBadgeNumber:0];
+    [application cancelAllLocalNotifications];
+    
 }
 
 
@@ -266,6 +305,10 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+    //极光推送
+    [JPUSHService registerDeviceToken:deviceToken];
+
+    //网易云信推送
     [[NIMSDK sharedSDK] updateApnsToken:deviceToken];
     DDLogInfo(@"didRegisterForRemoteNotificationsWithDeviceToken:  %@", deviceToken);
     NSString*device = [[[[deviceToken description]stringByReplacingOccurrencesOfString:@"<"withString:@""]stringByReplacingOccurrencesOfString:@" "withString:@""]stringByReplacingOccurrencesOfString:@">"withString:@""];
@@ -277,9 +320,13 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     DDLogInfo(@"receive remote notification:  %@", userInfo);
+    
     ZFbaseTabbarViewController * tabBar = [[ZFbaseTabbarViewController alloc]initWithNibName:@"NTESSessionListViewController" bundle:nil];
     [self.window.rootViewController presentViewController:tabBar animated:YES completion:nil];
     tabBar.selectedIndex = 1;
+
+    [JPUSHService handleRemoteNotification:userInfo];
+
     
 }
 
@@ -295,6 +342,9 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     NSLog(@"%@", userInfo);
+    
+    //极光推送
+    [JPUSHService handleRemoteNotification:userInfo];
     
     completionHandler(UIBackgroundFetchResultNewData);
 }
@@ -343,6 +393,19 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (void)registerAPNS
 {
+    //JPush 注册网易云信
+    //Required
+    //notice: 3.0.0及以后版本注册可以这样写，也可以继续用之前的注册方式
+    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        // 可以添加自定义categories
+        // NSSet<UNNotificationCategory *> *categories for iOS10 or later
+        // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
+    }
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+    
+    //网易云信注册 APNS
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerForRemoteNotifications)])
     {
         UIUserNotificationType types = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |      UIRemoteNotificationTypeAlert;
@@ -362,6 +425,62 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 - (void)onReceiveCustomSystemNotification:(NIMCustomSystemNotification *)notification
 {
     
+}
+
+// iOS 10 Support
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    // Required
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [JPUSHService handleRemoteNotification:userInfo];
+    }
+    completionHandler();  // 系统要求执行这个方法
+}
+
+#pragma mark- JPUSHRegisterDelegate
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    
+    UNNotificationRequest *request = notification.request; // 收到推送的请求
+    UNNotificationContent *content = request.content; // 收到推送的消息内容
+    
+    NSNumber *badge = content.badge;  // 推送消息的角标
+    _jpsuhCount = [badge integerValue];
+    NSString *body = content.body;    // 推送消息体
+    UNNotificationSound *sound = content.sound;  // 推送消息的声音
+    NSString *subtitle = content.subtitle;  // 推送消息的副标题
+    NSString *title = content.title;  // 推送消息的标题
+    
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [JPUSHService handleRemoteNotification:userInfo];
+        NSLog(@"iOS10 前台收到远程通知:%@", [self logDic:userInfo]);
+        
+    }
+    else {
+        // 判断为本地通知
+        NSLog(@"iOS10 前台收到本地通知:{\nbody:%@，\ntitle:%@,\nsubtitle:%@,\nbadge：%@，\nsound：%@，\nuserInfo：%@\n}",body,title,subtitle,badge,sound,userInfo);
+    }
+    completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
+}
+
+- (NSString *)logDic:(NSDictionary *)dic {
+    if (![dic count]) {
+        return nil;
+    }
+    NSString *tempStr1 =
+    [[dic description] stringByReplacingOccurrencesOfString:@"\\u"
+                                                 withString:@"\\U"];
+    NSString *tempStr2 =
+    [tempStr1 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+    NSString *tempStr3 =
+    [[@"\"" stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
+    NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *str =
+    [NSPropertyListSerialization propertyListFromData:tempData
+                                     mutabilityOption:NSPropertyListImmutable
+                                               format:NULL
+                                     errorDescription:NULL];
+    return str;
 }
 
 
@@ -415,7 +534,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     }
  
 }
-
 
 //微信支付的方法
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url

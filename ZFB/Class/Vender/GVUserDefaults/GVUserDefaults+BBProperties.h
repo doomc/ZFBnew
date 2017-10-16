@@ -46,7 +46,9 @@
 
 //售后申请记录下当前输入的关键字
 @property (nonatomic,copy) NSString * keyWord;
- 
+
+//推送的总个数   网易云信+JPush
+@property (nonatomic,assign) NSInteger pushTotal;
 
 
 @property (nonatomic) BOOL boolValue;

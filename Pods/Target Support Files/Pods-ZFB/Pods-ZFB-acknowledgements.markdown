@@ -144,6 +144,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+## JCore
+
+Copyright jpush.cn
+
+## JPush
+
+Copyright jpush.cn
+
 ## M80AttributedLabel
 
 Copyright (c) 2014 Xiang Wangfeng (http://xiangwangfeng.com)

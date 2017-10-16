@@ -59,7 +59,7 @@ static NSString *kstoreFolder = @"images/store";//门店图片
                 NSString *imageName = [kimagesFolder stringByAppendingPathComponent:[[NSUUID UUID].UUIDString stringByAppendingString:@".png"]];
                 put.objectKey = imageName;
                 [callBackNames addObject:imageName];
-                NSData *data = UIImageJPEGRepresentation(image, 0.3);
+                NSData *data = UIImageJPEGRepresentation(image, 1.0);
                 put.uploadingData = data;
                 OSSTask * putTask = [client putObject:put];
                 [putTask waitUntilFinished]; // 阻塞直到上传完成

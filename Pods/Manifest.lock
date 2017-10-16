@@ -33,6 +33,9 @@ PODS:
   - FMDB/standard (2.7.2)
   - HXWeiboPhotoPicker (2.1.0):
     - SDWebImage (~> 4.0)
+  - JCore (1.1.5)
+  - JPush (3.0.6):
+    - JCore (~> 1.1.1)
   - M80AttributedLabel (1.6.3)
   - Masonry (1.1.0)
   - MJExtension (3.0.13)
@@ -61,6 +64,7 @@ DEPENDENCIES:
   - CYLTableViewPlaceHolder
   - FMDB (~> 2.5)
   - HXWeiboPhotoPicker
+  - JPush
   - M80AttributedLabel (>= 1.6.3)
   - Masonry
   - MJExtension
@@ -82,6 +86,8 @@ SPEC CHECKSUMS:
   CYLTableViewPlaceHolder: 44075c119aab78bbc514c75d771d6565e19938e8
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
   HXWeiboPhotoPicker: 19118022bfccd9f16c7d7b53a6b35ed36d421889
+  JCore: 9bd9c770c877c583d98b90a68792b8361974c231
+  JPush: c41be50eb1a574a66aeb68d237f00a4ec6ec3a82
   M80AttributedLabel: d06543195d3e451d2ea62ad76d04aa9cea7661d4
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
@@ -93,6 +99,6 @@ SPEC CHECKSUMS:
   TZImagePickerController: 079ab986018c22793462e531045a75e366b18252
   WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
 
-PODFILE CHECKSUM: bdfb2a7df7480e856609fb149c1900eb45e14eac
+PODFILE CHECKSUM: 6ffda65348b4023bb82d3bfd55b08a0c9a4cf3d4
 
 COCOAPODS: 1.2.0

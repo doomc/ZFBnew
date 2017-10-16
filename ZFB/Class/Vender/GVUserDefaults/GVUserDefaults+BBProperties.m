@@ -13,6 +13,7 @@
 @dynamic cmUserId;
 @dynamic accid;
 @dynamic token;
+@dynamic pushTotal;
 
 @dynamic userPhoneNumber;
 @dynamic userPhonePassword;

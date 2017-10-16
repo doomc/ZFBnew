@@ -14,12 +14,10 @@
     NSString * _imgfaceUrl;
     BOOL isFaceImg;
 }
+@property (strong, nonatomic) HXPhotoManager *manager;
 
 @property (weak, nonatomic) IBOutlet UIButton *ceritificationBtn;
- 
-@property (strong, nonatomic) HXPhotoManager *manager;
 @property (weak, nonatomic) IBOutlet UIImageView *uploadFaceView;
-
 @property (weak, nonatomic) IBOutlet UIImageView *uploadBackView;
 
 @end
@@ -31,6 +29,8 @@
         _manager.openCamera = YES;
         _manager.singleSelected = YES;
         _manager.singleSelecteClip = NO;
+        _manager.isOriginal = YES;
+        _manager.endIsOriginal = YES;
         _manager.cameraType = HXPhotoManagerCameraTypeHalfScreen;
     }
     return _manager;
@@ -40,7 +40,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"实名认证";
-   
+    _ceritificationBtn.layer.masksToBounds = YES;
+    _ceritificationBtn.layer.cornerRadius = 4;
+    
     UITapGestureRecognizer * tapFace =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(uploadImgzhengAction)];
     tapFace.delegate = self;
     self.uploadFaceView.userInteractionEnabled = YES;
@@ -78,7 +80,7 @@
 #pragma mark - 获取图片代理
 - (void)photoViewControllerDidNext:(NSArray<HXPhotoModel *> *)allList Photos:(NSArray<HXPhotoModel *> *)photos Videos:(NSArray<HXPhotoModel *> *)videos Original:(BOOL)original {
     __weak typeof(self) weakSelf = self;
-    [HXPhotoTools getImageForSelectedPhoto:photos type:0 completion:^(NSArray<UIImage *> *images) {
+    [HXPhotoTools getImageForSelectedPhoto:photos type:1 completion:^(NSArray<UIImage *> *images) {
         NSLog(@"images === %@",images);
         if (isFaceImg == YES) {
             weakSelf.uploadFaceView.image = images.firstObject;
@@ -106,11 +108,17 @@
 
 //实名认证
 - (IBAction)CertificationAction:(id)sender {
-    
-    //需要处理是不是获取到图片地址了在请求
-    [self certificationPostRequstet];
-}
 
+    if (_imgbackUrl == nil || [_imgbackUrl isEqualToString:@""]||_imgfaceUrl == nil || [_imgfaceUrl isEqualToString:@""]) {
+       
+        [self.view makeToast:@"请上传正反面身份证照片" duration:2 position:@"center"];
+        
+    }else{
+   
+        //需要处理是不是获取到图片地址了在请求
+        [self certificationPostRequstet];
+    }
+}
 //认证请求
 -(void)certificationPostRequstet
 {
@@ -127,75 +135,17 @@
         
         if ([response[@"resultCode"] isEqualToString:@"0" ]) {
             
-            [SVProgressHUD showSuccessWithStatus:@"提交认证成功,我们将立刻进行审核，请耐心等待"];
+            [SVProgressHUD showSuccessWithStatus:@"认证成功!"];
             
         }else{
-            [SVProgressHUD showErrorWithStatus:response[@"resultMsg"]];
             
+            [SVProgressHUD showErrorWithStatus:response[@"resultMsg"]];
         }
-        
         
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"网络错误"];
     }];
-}
-
-
-
-/**
- * 图片压缩到指定大小
- * @param targetSize 目标图片的大小
- * @param sourceImage 源图片
- * @return 目标图片
- */
-- (UIImage*)imageByScalingAndCroppingForSize:(CGSize)targetSize withSourceImage:(UIImage *)sourceImage
-{
-    UIImage *newImage = nil;
-    CGSize imageSize = sourceImage.size;
-    CGFloat width = imageSize.width;
-    CGFloat height = imageSize.height;
-    CGFloat targetWidth = targetSize.width;
-    CGFloat targetHeight = targetSize.height;
-    CGFloat scaleFactor = 0.0;
-    CGFloat scaledWidth = targetWidth;
-    CGFloat scaledHeight = targetHeight;
-    CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
-    if (CGSizeEqualToSize(imageSize, targetSize) == NO)
-    {
-        CGFloat widthFactor = targetWidth / width;
-        CGFloat heightFactor = targetHeight / height;
-        if (widthFactor > heightFactor)
-            scaleFactor = widthFactor; // scale to fit height
-        else
-            scaleFactor = heightFactor; // scale to fit width
-        scaledWidth= width * scaleFactor;
-        scaledHeight = height * scaleFactor;
-        // center the image
-        if (widthFactor > heightFactor)
-        {
-            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
-        }
-        else if (widthFactor < heightFactor)
-        {
-            thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
-        }
-    }
-    UIGraphicsBeginImageContext(targetSize); // this will crop
-    CGRect thumbnailRect = CGRectZero;
-    thumbnailRect.origin = thumbnailPoint;
-    thumbnailRect.size.width= scaledWidth;
-    thumbnailRect.size.height = scaledHeight;
-    
-    [sourceImage drawInRect:thumbnailRect];
-    newImage = UIGraphicsGetImageFromCurrentImageContext();
-    if(newImage == nil)
-        NSLog(@"could not scale image");
-    
-    //pop the context to get back to the default
-    UIGraphicsEndImageContext();
-    
-    return newImage;
 }
 
 - (void)didReceiveMemoryWarning {

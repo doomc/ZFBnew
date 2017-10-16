@@ -16,6 +16,7 @@
     BOOL _isFace;
 }
 @property (strong, nonatomic) HXPhotoManager *manager;
+@property (weak, nonatomic) IBOutlet UIButton *ceritificationBtn;
 
 @end
 
@@ -26,7 +27,9 @@
         _manager.openCamera = YES;
         _manager.singleSelected = YES;
         _manager.singleSelecteClip = NO;
-        _manager.cameraType = HXPhotoManagerCameraTypeSystem;
+        _manager.isOriginal = YES;
+        _manager.endIsOriginal = YES;
+        _manager.cameraType = HXPhotoManagerCameraTypeFullScreen;
     }
     return _manager;
 }
@@ -34,6 +37,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"找回密码申诉";
+    _ceritificationBtn.layer.masksToBounds = YES;
+    _ceritificationBtn.layer.cornerRadius = 4;
     
     //上传正面
     UITapGestureRecognizer * tapUploadZheng = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(uploadImgzhengAction:)];
@@ -71,7 +76,7 @@
 #pragma mark - 获取图片代理
 - (void)photoViewControllerDidNext:(NSArray<HXPhotoModel *> *)allList Photos:(NSArray<HXPhotoModel *> *)photos Videos:(NSArray<HXPhotoModel *> *)videos Original:(BOOL)original {
     __weak typeof(self) weakSelf = self;
-    [HXPhotoTools getImageForSelectedPhoto:photos type:0 completion:^(NSArray<UIImage *> *images) {
+    [HXPhotoTools getImageForSelectedPhoto:photos type:1 completion:^(NSArray<UIImage *> *images) {
         if (_isFace == YES) {
             weakSelf.uploadImgZheng.image = images.firstObject;
 
@@ -83,10 +88,10 @@
             NSLog(@"%@",names);
             if (state == 1) {
                 if (_isFace == YES) {
-                    _faceImgUrl = names[0];
+                    _faceImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,names[0]];
 
                 }else{
-                    _backImgUrl = names[0];
+                    _backImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,names[0]];
 
                 }
                 NSLog(@"上传到阿里云成功了！");
@@ -98,9 +103,14 @@
 
 #pragma mark - 提交
 - (IBAction)commitAction:(id)sender {
-
-    [self updateImgPostRequst];
+    if (_faceImgUrl == nil || [_faceImgUrl isEqualToString:@""]||_backImgUrl == nil || [_backImgUrl isEqualToString:@""]) {
+        
+        [self.view makeToast:@"请上传正反面身份证照片" duration:2 position:@"center"];
+        
+    }else{
     
+        [self updateImgPostRequst];
+    }
 }
 
 -(void)backAction
@@ -108,7 +118,7 @@
     [self poptoUIViewControllerNibName:@"PayPassWordSettingViewController" AndObjectIndex:1];
 }
 
-
+//实名认证找回密码
 -(void)updateImgPostRequst
 {
     NSDictionary * param = @{
@@ -123,7 +133,8 @@
         
         if ([response[@"resultCode"] isEqualToString:@"0" ]) {
             
-            [SVProgressHUD showSuccessWithStatus:@"提交成功"];
+            [SVProgressHUD showSuccessWithStatus:@"提交认证成功,我们将立刻进行审核，请耐心等待"];
+
 
         }else{
             [SVProgressHUD showErrorWithStatus:response[@"resultMsg"]];

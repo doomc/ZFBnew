@@ -23,7 +23,6 @@
 #import "ZFShoppingCarViewController.h"//购物车
 #import "ZFDetailsStoreViewController.h" //店铺
 
-
 //model
 #import "DetailGoodsModel.h"
 #import "CouponModel.h"
@@ -32,10 +31,12 @@
 #import "SukItemCollectionViewCell.h"
 #import "SkuFooterReusableView.h"
 #import "SkuHeaderReusableView.h"
+
 //view
 #import <WebKit/WebKit.h>
 #import "TJMapNavigationService.h"
 #import "CouponTableView.h"
+#import "WMDragView.h"
 
 @interface DetailFindGoodsViewController ()
 <
@@ -133,10 +134,37 @@
     [self settingHeaderViewAndFooterView];//初始化footerview
     [self goodsDetailListPostRequset];//详情网络请求
     [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
-
+    [self flyButtonView];
 
 }
 
+//添加悬浮按钮
+-(void)flyButtonView
+{
+    WMDragView * flyView = [[WMDragView alloc] initWithFrame:CGRectMake(KScreenW - 50 -15 , self.list_tableView.height - 20, 50, 50)];
+    flyView.layer.cornerRadius = 25;
+    [flyView.button setImage:[UIImage imageNamed:@"backTop"] forState:UIControlStateNormal];
+    flyView.isKeepBounds = YES;
+    flyView.dragEnable = NO;
+    flyView.clickDragViewBlock = ^(WMDragView *dragView){
+    
+        NSLog(@"点击了 悬浮");
+        [self backTopScrollerView];
+    };
+    [self.view addSubview:flyView];
+    [flyView bringSubviewToFront:self.list_tableView];
+    
+
+}
+//回到顶部
+-(void)backTopScrollerView
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        self.list_tableView.contentOffset =  CGPointMake(0, 0);
+    }];
+ 
+}
 -(void)creatInterfaceDetailTableView
 {
     self.title = @"商品详情";
