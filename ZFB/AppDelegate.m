@@ -63,6 +63,10 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     
     [self setupGuidePageView];
     
+
+    //检查appstore更新版本
+    [self CheckUpadateVersion];
+    
     //注册微信支付
     [WXApi registerApp:@"wx2b173adc370b8052" enableMTA:YES];
     
@@ -80,8 +84,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     // 网易云信IM
     [self registerPushService];//注册pushKit
     
-    [self registerAPNS];//注册APNS
-    
     [self setupNIMSDK];
     
     //登录状态
@@ -91,32 +93,42 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     
     [self loginNIM];
     
-    
+    [self registerAPNS];//极光推送注册APNS
 
+    //notice: 3.0.0及以后版本注册可以这样写，也可以继续用之前的注册方式
+    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        //可以添加自定义categories
+            if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+              NSSet<UNNotificationCategory *> *categories;
+              entity.categories = categories;
+            }
+            else {
+              NSSet<UIUserNotificationCategory *> *categories;
+              entity.categories = categories;
+            }
+    }
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
     
     // Optional
-    // 获取IDFA
-    // 如需使用IDFA功能请添加此代码并在初始化方法的advertisingIdentifier参数中填写对应值
-    NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    
-    // Required
-    // init Push
-    // notice: 2.1.5版本的SDK新增的注册方法，改成可上报IDFA，如果没有使用IDFA直接传nil
-    // 如需继续使用pushConfig.plist文件声明appKey等配置内容，请依旧使用[JPUSHService setupWithOption:launchOptions]方式初始化。
     [JPUSHService setupWithOption:launchOptions appKey:JpushAppkey
-                          channel:@"App Store"
+                          channel:@"Publish channel"
                  apsForProduction:@"1"
-            advertisingIdentifier:advertisingId];
+            advertisingIdentifier:nil];
+    
+    //2.1.9版本新增获取registration id block接口。
+    [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
+        if(resCode == 0){
+            NSLog(@"registrationID获取成功：%@",registrationID);
+            
+        }
+        else{
+            NSLog(@"registrationID获取失败，code：%d",resCode);
+        }
+    }];
     
     return YES;
-}
-#pragma mark - 注册JPush
--(void)jupshAction
-{
-
-
-
-
 }
 #pragma mark - logic impl
 - (void)setupServices
@@ -260,6 +272,9 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    
+    [application setApplicationIconBadgeNumber:0];
+    [application cancelAllLocalNotifications];
 }
 
 
@@ -310,17 +325,17 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
     //网易云信推送
     [[NIMSDK sharedSDK] updateApnsToken:deviceToken];
-    DDLogInfo(@"didRegisterForRemoteNotificationsWithDeviceToken:  %@", deviceToken);
     NSString*device = [[[[deviceToken description]stringByReplacingOccurrencesOfString:@"<"withString:@""]stringByReplacingOccurrencesOfString:@" "withString:@""]stringByReplacingOccurrencesOfString:@">"withString:@""];
     
-    
-    NSLog(@"%@",device);//0b80f4df845ba13378cd0868a8db45e4c56439fff09ec9e45e40abd480c6efbf
+    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken:  %@", deviceToken);
     
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    DDLogInfo(@"receive remote notification:  %@", userInfo);
     
+    NSLog(@"receive remote notification:  %@", userInfo);
+    NSLog(@"iOS7及以上系统，收到通知:%@", [self logDic:userInfo]);
+
     ZFbaseTabbarViewController * tabBar = [[ZFbaseTabbarViewController alloc]initWithNibName:@"NTESSessionListViewController" bundle:nil];
     [self.window.rootViewController presentViewController:tabBar animated:YES completion:nil];
     tabBar.selectedIndex = 1;
@@ -329,10 +344,14 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
     
 }
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+   
+    [JPUSHService showLocalNotificationAtFront:notification identifierKey:nil];
+}
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-    DDLogError(@"fail to get apns token :%@",error);
+    NSLog(@"fail to get apns token :%@",error);
 }
 /*
  1.开启后台模式
@@ -360,7 +379,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(NSString *)type
 {
-    DDLogInfo(@"receive payload %@ type %@",payload.dictionaryPayload,type);
+    NSLog(@"receive payload %@ type %@",payload.dictionaryPayload,type);
     NSNumber *badge = payload.dictionaryPayload[@"aps"][@"badge"];
     if ([badge isKindOfClass:[NSNumber class]]) {
         [UIApplication sharedApplication].applicationIconBadgeNumber = [badge integerValue];
@@ -370,7 +389,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (void)pushRegistry:(PKPushRegistry *)registry didInvalidatePushTokenForType:(NSString *)type
 {
-    DDLogInfo(@"registry %@ invalidate %@",registry,type);
+    NSLog(@"registry %@ invalidate %@",registry,type);
 }
 
 #pragma mark - misc
@@ -393,19 +412,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (void)registerAPNS
 {
-    //JPush 注册网易云信
-    //Required
-    //notice: 3.0.0及以后版本注册可以这样写，也可以继续用之前的注册方式
-    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
-    entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        // 可以添加自定义categories
-        // NSSet<UNNotificationCategory *> *categories for iOS10 or later
-        // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
-    }
-    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
-    
-    //网易云信注册 APNS
+     //网易云信注册 APNS
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerForRemoteNotifications)])
     {
         UIUserNotificationType types = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound |      UIRemoteNotificationTypeAlert;
@@ -427,15 +434,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     
 }
 
-// iOS 10 Support
-- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
-    // Required
-    NSDictionary * userInfo = response.notification.request.content.userInfo;
-    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-        [JPUSHService handleRemoteNotification:userInfo];
-    }
-    completionHandler();  // 系统要求执行这个方法
-}
 
 #pragma mark- JPUSHRegisterDelegate
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
@@ -463,6 +461,31 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
 }
 
+// iOS 10 Support
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    // Required
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    UNNotificationRequest *request = response.notification.request; // 收到推送的请求
+    UNNotificationContent *content = request.content; // 收到推送的消息内容
+    
+    NSNumber *badge = content.badge;  // 推送消息的角标
+    NSString *body = content.body;    // 推送消息体
+    UNNotificationSound *sound = content.sound;  // 推送消息的声音
+    NSString *subtitle = content.subtitle;  // 推送消息的副标题
+    NSString *title = content.title;  // 推送消息的标题
+    
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [JPUSHService handleRemoteNotification:userInfo];
+        NSLog(@"iOS10 收到远程通知:%@", [self logDic:userInfo]);
+    }
+    else {
+        // 判断为本地通知
+        NSLog(@"iOS10 收到本地通知:{\nbody:%@，\ntitle:%@,\nsubtitle:%@,\nbadge：%@，\nsound：%@，\nuserInfo：%@\n}",body,title,subtitle,badge,sound,userInfo);
+    }
+    
+    completionHandler();  // 系统要求执行这个方法
+
+}
 - (NSString *)logDic:(NSDictionary *)dic {
     if (![dic count]) {
         return nil;
@@ -482,8 +505,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
                                      errorDescription:NULL];
     return str;
 }
-
-
 //guide引导页
 -(void)setupGuidePageView
 {
@@ -535,7 +556,89 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
  
 }
 
-//微信支付的方法
+
+#pragma mark - 检查app更新版本
+-(void)CheckUpadateVersion
+{
+    NSString * appStoreUrl = @"https://itunes.apple.com/us/app/%E5%B1%95%E5%AF%8C%E5%AE%9D/id1291284707?mt=8";
+    //网络请求App的信息（我们取Version就够了）
+    NSURL *url = [NSURL URLWithString:appStoreUrl];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                       timeoutInterval:10];
+    [request setHTTPMethod:@"POST"];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSMutableDictionary *receiveStatusDic=[[NSMutableDictionary alloc]init];
+        if (data) {
+            
+            //data是有关于App所有的信息
+            NSDictionary *receiveDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            if ([[receiveDic valueForKey:@"resultCount"] intValue]>0) {
+                
+                [receiveStatusDic setValue:@"1" forKey:@"status"];
+                [receiveStatusDic setValue:[[[receiveDic valueForKey:@"results"] objectAtIndex:0] valueForKey:@"version"]   forKey:@"version"];
+                
+                //请求的有数据，进行版本比较
+                [self performSelectorOnMainThread:@selector(receiveData:) withObject:receiveStatusDic waitUntilDone:NO];
+            }else{
+                
+                [receiveStatusDic setValue:@"-1" forKey:@"status"];
+            }
+        }else{
+            [receiveStatusDic setValue:@"-1" forKey:@"status"];
+        }
+        
+    }];
+    
+    [task resume];
+}
+-(void)receiveData:(id)sender
+{
+    //获取APP自身版本号
+    NSString *localVersion = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+    
+    NSArray *localArray = [localVersion componentsSeparatedByString:@"."];
+    NSArray *versionArray = [sender[@"version"] componentsSeparatedByString:@"."];
+    
+    
+    if ((versionArray.count == 3) && (localArray.count == versionArray.count)) {
+        
+        if ([localArray[0] intValue] <  [versionArray[0] intValue]) {
+            [self updateVersion];
+        }else if ([localArray[0] intValue]  ==  [versionArray[0] intValue]){
+            if ([localArray[1] intValue] <  [versionArray[1] intValue]) {
+                [self updateVersion];
+            }else if ([localArray[1] intValue] ==  [versionArray[1] intValue]){
+                if ([localArray[2] intValue] <  [versionArray[2] intValue]) {
+                    [self updateVersion];
+                }
+            }
+        }
+    }
+}
+-(void)updateVersion{
+    NSString * appID = @"1291284707";
+    NSString * appStoreUrl = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@",appID ];
+    NSString *msg = [NSString stringWithFormat:@"又出新版本啦，快点更新吧!"];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"升级提示" message:msg preferredStyle:UIAlertControllerStyleAlert];
+    
+    // Create the actions.
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"下次再说" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"现在升级"style:UIAlertActionStyleDestructive handler:^(UIAlertAction*action) {
+        NSURL *url = [NSURL URLWithString:appStoreUrl];
+        [[UIApplication sharedApplication]openURL:url];
+    }];
+    
+    // Add the actions.
+    [alertController addAction:cancelAction];
+    [alertController addAction:otherAction];
+    
+    [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+#pragma mark - 微信支付的方法
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
     return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];

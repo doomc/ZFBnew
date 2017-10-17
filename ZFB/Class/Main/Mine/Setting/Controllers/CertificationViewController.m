@@ -8,17 +8,27 @@
 
 #import "CertificationViewController.h"
 #import "HXPhotoViewController.h"
+
+typedef NS_ENUM(NSUInteger, PickerType) {
+    PickerTypeFace,
+    PickerTypeBack,
+    PickerTypeHand,
+};
+
 @interface CertificationViewController ()<UIGestureRecognizerDelegate,HXPhotoViewControllerDelegate>
 {
     NSString * _imgbackUrl;
     NSString * _imgfaceUrl;
-    BOOL isFaceImg;
+    NSString * _imghandUrl;
+ 
 }
 @property (strong, nonatomic) HXPhotoManager *manager;
 
 @property (weak, nonatomic) IBOutlet UIButton *ceritificationBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *uploadFaceView;
 @property (weak, nonatomic) IBOutlet UIImageView *uploadBackView;
+@property (weak, nonatomic) IBOutlet UIImageView *uploadHandView;
+@property (assign ,nonatomic) PickerType pickType;
 
 @end
 
@@ -53,11 +63,16 @@
     self.uploadBackView.userInteractionEnabled = YES;
     [self.uploadBackView addGestureRecognizer:tapBack];
     
+    UITapGestureRecognizer * tapHand =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(uploadImgHandAction)];
+    tapHand.delegate = self;
+    self.uploadHandView.userInteractionEnabled = YES;
+    [self.uploadHandView addGestureRecognizer:tapHand];
+    
 }
 //上传正面
 -(void)uploadImgzhengAction
 {
-    isFaceImg = YES;//是正面
+    _pickType = PickerTypeFace;//是正面
     NSLog(@"上传正面");
     HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
     vc.manager = self.manager;
@@ -69,7 +84,18 @@
 //上传反面
 -(void)uploadImgFanAction
 {
-    isFaceImg = NO;
+    _pickType = PickerTypeBack;
+    NSLog(@"上传反面");
+    HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
+    vc.manager = self.manager;
+    vc.delegate = self;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
+    
+}
+//上传手持
+-(void)uploadImgHandAction
+{
+    _pickType = PickerTypeHand;
     NSLog(@"上传反面");
     HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
     vc.manager = self.manager;
@@ -82,23 +108,42 @@
     __weak typeof(self) weakSelf = self;
     [HXPhotoTools getImageForSelectedPhoto:photos type:1 completion:^(NSArray<UIImage *> *images) {
         NSLog(@"images === %@",images);
-        if (isFaceImg == YES) {
-            weakSelf.uploadFaceView.image = images.firstObject;
+        switch (_pickType) {
+            case PickerTypeFace:
+                weakSelf.uploadFaceView.image = images.firstObject;
+ 
+                break;
+            case PickerTypeBack:
+                weakSelf.uploadBackView.image = images.firstObject;
 
-        }else{
-            weakSelf.uploadBackView.image = images.firstObject;
+                break;
+            case PickerTypeHand:
+                
+                weakSelf.uploadHandView.image = images.firstObject;
+                break;
+            default:
+                break;
         }
+ 
         [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
             NSLog(@"%@",names);
             if (state == 1) {
                 NSLog(@"上传到阿里云成功了！");
-                if (isFaceImg == YES) {
-                    _imgfaceUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
-
-                }else{
-                 
-                    _imgbackUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+                switch (_pickType) {
+                    case PickerTypeFace:
+                         _imgfaceUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+                        break;
+                    case PickerTypeBack:
+                        
+                        _imgbackUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+                        break;
+                    case PickerTypeHand:
+                        _imghandUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+                        break;
+                    default:
+                        break;
                 }
+               
             }
         }];
         
@@ -128,7 +173,8 @@
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"file_face_url":_imgfaceUrl,
                              @"file_back_url":_imgbackUrl,
-                             
+                             @"hand_url":_imghandUrl
+
                              };
     [SVProgressHUD showWithStatus:@"正在提交认证..."];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/realNameApprove"] params:param success:^(id response) {

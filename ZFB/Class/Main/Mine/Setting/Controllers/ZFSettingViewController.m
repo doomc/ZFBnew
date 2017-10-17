@@ -12,6 +12,7 @@
 #import "ZFSettingCell.h"
 #import "PayPassWordSettingViewController.h"
 #import "NTESService.h"
+#import "JPUSHService.h"
 static NSString * settingCellid = @"ZFSettingCellid";
 @interface ZFSettingViewController ()<UITableViewDelegate,UITableViewDataSource,NIMLoginManagerDelegate>
 {
@@ -40,12 +41,12 @@ static NSString * settingCellid = @"ZFSettingCellid";
     _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置"];
 //    _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置",@"分享圈"];
     _titleArr2  = @[@"手机号码",@"清除缓存"];
-    _titleArr3  = @[@"客服热线"];
+    _titleArr3  = @[@"客服热线",@"关于我们"];
 
 //    _imagesArr1 = @[@"setting_message",@"setting_ps",@"settingPay",@"settingShare"];
     _imagesArr1 = @[@"setting_message",@"setting_ps",@"settingPay"];
     _imagesArr2 = @[@"setting_phone",@"setting_cache"];
-    _imagesArr3 = @[@"setting_calling"];
+    _imagesArr3 = @[@"setting_calling",@"setting_calling"];
 
     [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingCell" bundle:nil] forCellReuseIdentifier:settingCellid];
@@ -329,6 +330,12 @@ static NSString * settingCellid = @"ZFSettingCellid";
         if([code isEqualToString:@"0"]){
      
             [SVProgressHUD dismiss];
+#pragma mark - 推送,用户退出,别名去掉
+   
+            [JPUSHService  deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+                
+            } seq:0];
+            
         }
         
     } progress:^(NSProgress *progeress) {

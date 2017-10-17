@@ -1,34 +1,25 @@
+
 //
-//  DetailPaySuccessViewController.m
+//  WirhDrowViewController.m
 //  ZFB
 //
-//  Created by  展富宝  on 2017/10/11.
+//  Created by  展富宝  on 2017/10/17.
 //  Copyright © 2017年 com.zfb. All rights reserved.
-//
+//  提现
 
-#import "DetailPaySuccessViewController.h"
-#import "ZFAllOrderViewController.h"
+#import "WirhDrowViewController.h"
 
-@interface DetailPaySuccessViewController ()
+@interface WirhDrowViewController ()
 
 @end
 
-@implementation DetailPaySuccessViewController
+@implementation WirhDrowViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.title = @"收银台";
+    // Do any additional setup after loading the view.
 }
 
-//返回跳转到全部订单
--(void)backAction
-{
-    ZFAllOrderViewController * allVC = [ ZFAllOrderViewController new];
-    allVC.buttonTitle = @"全部订单";
-    [self.navigationController pushViewController:allVC animated:NO];
-    
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -9,14 +9,20 @@
 #import "FindPayPassWordViewController.h"
 #import "HXPhotoViewController.h"
 
+typedef NS_ENUM(NSUInteger, PickerType) {
+    PickerTypeFace,
+    PickerTypeBack,
+    PickerTypeHand,
+};
 @interface FindPayPassWordViewController ()<UIGestureRecognizerDelegate,HXPhotoViewControllerDelegate>
 {
     NSString * _faceImgUrl;
     NSString * _backImgUrl;
-    BOOL _isFace;
+    NSString * _handImgUrl;
 }
 @property (strong, nonatomic) HXPhotoManager *manager;
 @property (weak, nonatomic) IBOutlet UIButton *ceritificationBtn;
+@property (assign ,nonatomic) PickerType pickType;
 
 @end
 
@@ -52,12 +58,20 @@
     tapUploadFan.delegate = self;
     [self.uploadImgFan addGestureRecognizer:tapUploadFan];
     self.uploadImgFan.userInteractionEnabled = YES;
+    
+    //手持
+    UITapGestureRecognizer * tapUploadHand = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(uploadImHandFaceAction:)];
+    tapUploadHand.delegate = self;
+    [self.uploadImgHandFace addGestureRecognizer:tapUploadHand];
+    self.uploadImgHandFace.userInteractionEnabled = YES;
+    
+    
 }
 
 //上传正面
 -(void)uploadImgzhengAction:(UIGestureRecognizer *)ges
 {
-    _isFace = YES;
+    _pickType  = PickerTypeFace;
     HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
     vc.manager = self.manager;
     vc.delegate = self;
@@ -66,34 +80,67 @@
 //上传反面
 -(void)uploadImgFanAction:(UIGestureRecognizer *)ges
 {
-    _isFace = NO;
+    _pickType  = PickerTypeBack;
     HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
     vc.manager = self.manager;
     vc.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
     
 }
+//上传手持
+-(void)uploadImHandFaceAction:(UIGestureRecognizer *)ges
+{
+    _pickType  = PickerTypeHand;
+    HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
+    vc.manager = self.manager;
+    vc.delegate = self;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
+}
+
 #pragma mark - 获取图片代理
 - (void)photoViewControllerDidNext:(NSArray<HXPhotoModel *> *)allList Photos:(NSArray<HXPhotoModel *> *)photos Videos:(NSArray<HXPhotoModel *> *)videos Original:(BOOL)original {
     __weak typeof(self) weakSelf = self;
     [HXPhotoTools getImageForSelectedPhoto:photos type:1 completion:^(NSArray<UIImage *> *images) {
-        if (_isFace == YES) {
-            weakSelf.uploadImgZheng.image = images.firstObject;
+        switch (_pickType) {
+            case PickerTypeFace:
+                
+                weakSelf.uploadImgZheng.image = images.firstObject;
+                break;
+            case PickerTypeBack:
+                weakSelf.uploadImgFan.image = images.firstObject;
 
-        }else{
-            weakSelf.uploadImgFan.image = images.firstObject;
+                break;
+            case PickerTypeHand:
+                weakSelf.uploadImgHandFace.image = images.firstObject;
 
+                break;
+            default:
+                break;
         }
+       
         [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
             NSLog(@"%@",names);
             if (state == 1) {
-                if (_isFace == YES) {
-                    _faceImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,names[0]];
-
-                }else{
-                    _backImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,names[0]];
-
+                
+                switch (_pickType) {
+                    case PickerTypeFace:
+                        
+                        _faceImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,names[0]];
+                        break;
+                    case PickerTypeBack:
+             
+                        _backImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,names[0]];
+                        
+                        break;
+                    case PickerTypeHand:
+                        
+                        _handImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,names[0]];
+                        
+                        break;
+                    default:
+                        break;
                 }
+    
                 NSLog(@"上传到阿里云成功了！");
             }
         }];
@@ -103,7 +150,7 @@
 
 #pragma mark - 提交
 - (IBAction)commitAction:(id)sender {
-    if (_faceImgUrl == nil || [_faceImgUrl isEqualToString:@""]||_backImgUrl == nil || [_backImgUrl isEqualToString:@""]) {
+    if (_faceImgUrl == nil || [_faceImgUrl isEqualToString:@""]||_backImgUrl == nil || [_backImgUrl isEqualToString:@""] ||_handImgUrl == nil || [_handImgUrl isEqualToString:@""]) {
         
         [self.view makeToast:@"请上传正反面身份证照片" duration:2 position:@"center"];
         
@@ -126,7 +173,7 @@
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"file_face_url":_faceImgUrl,
                              @"file_back_url":_backImgUrl,
-                             
+                             @"hand_url":_handImgUrl
                              };
     [SVProgressHUD showWithStatus:@"正在提交..."];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/appealPaymentCode"] params:param success:^(id response) {

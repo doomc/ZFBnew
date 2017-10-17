@@ -389,8 +389,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         
         }
         [self endRefresh];
-        NSLog(@"门店列表 = %@",   self.storeListArr);
-
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {

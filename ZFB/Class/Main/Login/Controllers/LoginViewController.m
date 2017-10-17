@@ -12,6 +12,8 @@
 #import "ZFPersonalViewController.h"
 #import "ZFbaseTabbarViewController.h"
 #import "LoginModel.h"
+#import "JPUSHService.h"
+
 typedef NS_ENUM(NSUInteger, indexType) {
     
     quickLoginIndexType = 0,//快捷登录
@@ -114,8 +116,10 @@ typedef NS_ENUM(NSUInteger, indexType) {
         [tabController setSelectedIndex:0];
     }
     [self dismissViewControllerAnimated:NO completion:^{
-        
+        // 登录成功
+
     }];
+ 
 }
 
 #pragma mark - getVerificationCodeAction获取验证码
@@ -454,7 +458,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
             NSLog(@" 登陆成功后的 signMD5Key=======%@", BBUserDefault.userKeyMd5 );
             [self loginNIM];
-            [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
             [SVProgressHUD dismiss];
 
         }else{
@@ -472,6 +475,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
     [SVProgressHUD dismiss];
 
 }
+
+
 
 #pragma mark -  PasswordLoginPostRequest 密码登录
 -(void)PasswordLoginPostRequest{
@@ -497,11 +502,11 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.cmUserId = login.userInfo.cmUserId;
             BBUserDefault.nickName = login.userInfo.nickName;
             BBUserDefault.userPhoneNumber = _tf_loginphone.text;
-            BBUserDefault.token =login.userInfo.token;
+            BBUserDefault.token = login.userInfo.token;
             BBUserDefault.accid = login.userInfo.accid;
             BBUserDefault.userPhonePassword = _tf_verificationCodeOrPassWord.text;//保存密码
             [self loginNIM];
-            [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
+//            [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
             [ SVProgressHUD dismiss];
 
         }
@@ -530,17 +535,29 @@ typedef NS_ENUM(NSUInteger, indexType) {
 {
     //手动登录，error为登录错误信息，成功则为nil。
     //不要在登录完成的回调中直接获取 SDK 缓存数据，而应该在 同步完成的回调里获取数据 或者 监听相应的数据变动回调后获取
-    [[[NIMSDK sharedSDK] loginManager] login:BBUserDefault.userPhoneNumber
+    NSLog(@" token --- %@",BBUserDefault.token);
+    [[[NIMSDK sharedSDK] loginManager] login:_tf_loginphone.text
                                        token:BBUserDefault.token
                                   completion:^(NSError *error) {
                                       if (error == nil)
                                       {
-                                          NSLog(@" 已经 login success");
-                                          [self left_button_event];
+
+                                          [self.view makeToast:@"登录成功！"  duration:2 position:@"center"];
+                                          //推送别名设置
+                                          [JPUSHService setAlias:BBUserDefault.userPhoneNumber completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+                                              
+                                              NSLog(@"iResCode = %ld-------------seq = %ld------------iAlias = %@",iResCode,seq,iAlias);
+                                              [self left_button_event];
+
+                                          } seq:0];
+                    
+
                                       }
                                       else
                                       {
                                           NSLog(@"登录失败 --- %@",error);
+                                          [self.view makeToast:@"登录失败！"  duration:2 position:@"center"];
+
                                       }
                                   }];
 }

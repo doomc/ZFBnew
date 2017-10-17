@@ -14,4 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *uploadImgFan;
 
+@property (weak, nonatomic) IBOutlet UIImageView *uploadImgHandFace;
+
 @end

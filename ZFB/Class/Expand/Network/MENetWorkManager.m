@@ -73,7 +73,7 @@
                     BBUserDefault.cmUserId = @"";
                  }
                 NSString *result = [NSString convertToJsonData:responseObject];
-                NSLog(@"%@",result);
+//                NSLog(@"%@",result);
             }
             success(responseObject);
         }

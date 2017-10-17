@@ -174,6 +174,7 @@
         //倒计时完毕
         _getVerificationCode_btn.enabled = YES;
         [_getVerificationCode_btn setTitle:@"重新发送" forState:UIControlStateNormal];
+        [_getVerificationCode_btn  addTarget:self action:@selector(resendMsg:) forControlEvents:UIControlEventTouchUpInside];
         [_getVerificationCode_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
         
     } blockNo:^(id time) {
@@ -182,6 +183,11 @@
         [_getVerificationCode_btn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal] ;
     }];
 
+}
+//重新发送
+-(void)resendMsg:(UIButton *)resendMsg
+{
+    [self ValidateCodePostRequset];
 }
 
 #pragma mark - ValidateCodePostRequset验证码网络请求

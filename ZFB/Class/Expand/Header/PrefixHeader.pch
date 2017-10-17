@@ -77,7 +77,7 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import "Macros.h"
 #define Appkey @"6bd36bd4bfadba812aff256259316848" //自己的key
-#define JpushAppkey @"3362b583aa2fe647a1809e75"
+#define JpushAppkey @"3362b583aa2fe647a1809e75" //极光推送的Key
 
 //这个宏加上后，可以去掉'mas_'这个前缀了
 #define MAS_SHORTHAND

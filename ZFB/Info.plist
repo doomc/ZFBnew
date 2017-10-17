@@ -101,7 +101,7 @@
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
-				<key>NSIncludesSubdomains</key>
+				<key>NSExceptionDomains</key>
 				<true/>
 			</dict>
 		</dict>

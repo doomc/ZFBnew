@@ -555,13 +555,13 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [self.navigationController pushViewController:accontVC animated:NO];
     
 }
-///余额
+///余额   --- (充值)
 -(void)didClickBalanceView
 {
-    [self settingAlertView];
+   
 
 }
-///提成金额
+///不可用金额
 -(void)didClickUnitView
 {
     [self settingAlertView];
@@ -580,10 +580,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
 
 }
-///富豆
+///富豆  银行卡绑定
 -(void)didClickFuBeanView
 {
-    [self settingAlertView];
 
 }
 
