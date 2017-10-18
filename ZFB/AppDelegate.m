@@ -285,9 +285,9 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     //此处的baedg 的个数应该为总推送的个数
     
     NSInteger count = [[[NIMSDK sharedSDK] conversationManager] allUnreadCount];
-    BBUserDefault.pushTotal  = count;
+    BBUserDefault.yunBadge  = count + _jpsuhCount;
     
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:BBUserDefault.pushTotal];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:BBUserDefault.yunBadge];
     
     
 }
@@ -443,7 +443,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     UNNotificationContent *content = request.content; // 收到推送的消息内容
     
     NSNumber *badge = content.badge;  // 推送消息的角标
-    _jpsuhCount = [badge integerValue];
     NSString *body = content.body;    // 推送消息体
     UNNotificationSound *sound = content.sound;  // 推送消息的声音
     NSString *subtitle = content.subtitle;  // 推送消息的副标题

@@ -1248,6 +1248,16 @@
                 [goodsListDic setValue:_productSkuId forKey:@"productId"];//无规格
                 _goodsUnit = goodsmodel.data.goodsInfo.goodsUnit ;
                 
+                //只有共享进来的才有
+                if (_shareId == nil ) {
+                    _shareId = @"";
+                }
+                if (_shareNum == nil) {
+                    _shareNum = @"";
+                }
+                [goodsListDic setValue:_shareId forKey:@"shareId"];
+                [goodsListDic setValue:_shareNum forKey:@"shareNum"];
+                
                 [goodsListDic setValue:_goodsUnit forKey:@"goodsUnit"];
                 [goodsListDic setValue:goodsmodel.data.goodsInfo.goodsName forKey:@"goodsName"];
                 [goodsListDic setValue:[NSString stringWithFormat:@"%ld",_goodsCount] forKey:@"goodsCount"];

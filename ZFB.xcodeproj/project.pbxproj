@@ -1110,6 +1110,12 @@
 		49DA74AF1F25CFBB009F5577 /* SearchTypeFootReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74AD1F25CFBB009F5577 /* SearchTypeFootReusableView.m */; };
 		49DA74B01F25CFBB009F5577 /* SearchTypeFootReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DA74AE1F25CFBB009F5577 /* SearchTypeFootReusableView.xib */; };
 		49DA74B41F25F371009F5577 /* ZspMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DA74B31F25F371009F5577 /* ZspMenu.m */; };
+		49DFC4761F9706B20080B6F7 /* UITabBar+CustomBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC4751F9706B20080B6F7 /* UITabBar+CustomBadge.m */; };
+		49DFC4791F972B770080B6F7 /* AddBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC4781F972B770080B6F7 /* AddBankCardViewController.m */; };
+		49DFC47D1F972BA40080B6F7 /* AddBankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC47B1F972BA40080B6F7 /* AddBankCell.m */; };
+		49DFC47E1F972BA40080B6F7 /* AddBankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DFC47C1F972BA40080B6F7 /* AddBankCell.xib */; };
+		49DFC4821F9741E90080B6F7 /* BackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC4801F9741E90080B6F7 /* BackCell.m */; };
+		49DFC4831F9741E90080B6F7 /* BackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DFC4811F9741E90080B6F7 /* BackCell.xib */; };
 		49FCF8F41F70B6FF0001802D /* app.api.zavfb.com.cer in Resources */ = {isa = PBXBuildFile; fileRef = 49FCF8F31F70B6FF0001802D /* app.api.zavfb.com.cer */; };
 		50099B8D1F66C74800B348FD /* PayPassWordSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B8C1F66C74800B348FD /* PayPassWordSettingViewController.m */; };
 		50099B901F66CB5800B348FD /* SettingPayPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B8F1F66CB5800B348FD /* SettingPayPasswordViewController.m */; };
@@ -2984,6 +2990,16 @@
 		49DA74AE1F25CFBB009F5577 /* SearchTypeFootReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTypeFootReusableView.xib; sourceTree = "<group>"; };
 		49DA74B21F25F371009F5577 /* ZspMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZspMenu.h; sourceTree = "<group>"; };
 		49DA74B31F25F371009F5577 /* ZspMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZspMenu.m; sourceTree = "<group>"; };
+		49DFC4741F9706B20080B6F7 /* UITabBar+CustomBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+CustomBadge.h"; sourceTree = "<group>"; };
+		49DFC4751F9706B20080B6F7 /* UITabBar+CustomBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+CustomBadge.m"; sourceTree = "<group>"; };
+		49DFC4771F972B770080B6F7 /* AddBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBankCardViewController.h; sourceTree = "<group>"; };
+		49DFC4781F972B770080B6F7 /* AddBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBankCardViewController.m; sourceTree = "<group>"; };
+		49DFC47A1F972BA40080B6F7 /* AddBankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBankCell.h; sourceTree = "<group>"; };
+		49DFC47B1F972BA40080B6F7 /* AddBankCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBankCell.m; sourceTree = "<group>"; };
+		49DFC47C1F972BA40080B6F7 /* AddBankCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddBankCell.xib; sourceTree = "<group>"; };
+		49DFC47F1F9741E90080B6F7 /* BackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackCell.h; sourceTree = "<group>"; };
+		49DFC4801F9741E90080B6F7 /* BackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackCell.m; sourceTree = "<group>"; };
+		49DFC4811F9741E90080B6F7 /* BackCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BackCell.xib; sourceTree = "<group>"; };
 		49FCF8F31F70B6FF0001802D /* app.api.zavfb.com.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = app.api.zavfb.com.cer; sourceTree = "<group>"; };
 		50099B8B1F66C74800B348FD /* PayPassWordSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPassWordSettingViewController.h; sourceTree = "<group>"; };
 		50099B8C1F66C74800B348FD /* PayPassWordSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayPassWordSettingViewController.m; sourceTree = "<group>"; };
@@ -3362,6 +3378,8 @@
 			children = (
 				491C8E801F95E2DF0072B2E3 /* RechargeViewController.h */,
 				491C8E811F95E2DF0072B2E3 /* RechargeViewController.m */,
+				49DFC4771F972B770080B6F7 /* AddBankCardViewController.h */,
+				49DFC4781F972B770080B6F7 /* AddBankCardViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -3376,6 +3394,12 @@
 		491C8E7C1F95E2A60072B2E3 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				49DFC47A1F972BA40080B6F7 /* AddBankCell.h */,
+				49DFC47B1F972BA40080B6F7 /* AddBankCell.m */,
+				49DFC47C1F972BA40080B6F7 /* AddBankCell.xib */,
+				49DFC47F1F9741E90080B6F7 /* BackCell.h */,
+				49DFC4801F9741E90080B6F7 /* BackCell.m */,
+				49DFC4811F9741E90080B6F7 /* BackCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -3982,6 +4006,8 @@
 		495EA2FD1F14B64B001FCB7E /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				49DFC4741F9706B20080B6F7 /* UITabBar+CustomBadge.h */,
+				49DFC4751F9706B20080B6F7 /* UITabBar+CustomBadge.m */,
 				49B3BCD21F204F70002A0FDC /* SySafeCategory */,
 				50D4D7AD1F1BC5680073DBC1 /* UIViewController+Unitil.h */,
 				50D4D7AE1F1BC5680073DBC1 /* UIViewController+Unitil.m */,
@@ -7933,6 +7959,7 @@
 				4968A3F51F4DB5290061A87E /* NTESJionTeamViewController.xib in Resources */,
 				495EA8641F14B64D001FCB7E /* arrows_Right_black@2x.png in Resources */,
 				50D61E8D1F1E5BAD00DBDA4D /* ico_check_nomal.png in Resources */,
+				49DFC4831F9741E90080B6F7 /* BackCell.xib in Resources */,
 				49AE16261F9063AA00CF7702 /* CertificationViewController.xib in Resources */,
 				495EA88B1F14B64D001FCB7E /* write@3x.png in Resources */,
 				5091A0EF1F6D29AE00C6D632 /* DetailStoreTitleCell.xib in Resources */,
@@ -8156,6 +8183,7 @@
 				495EA9301F14B64E001FCB7E /* washer@2x.png in Resources */,
 				4968A41C1F4DB5290061A87E /* NTESCustomSysNotificationViewController.xib in Resources */,
 				497EF7241F50465700BFF1AF /* IMSearchCell.xib in Resources */,
+				49DFC47E1F972BA40080B6F7 /* AddBankCell.xib in Resources */,
 				49B0E7631F417B630032E72E /* QRPayHistoryCell.xib in Resources */,
 				495EA7901F14B64D001FCB7E /* ZFLoctionNavCell.xib in Resources */,
 				495EA92D1F14B64E001FCB7E /* manClothes@3x.png in Resources */,
@@ -8460,6 +8488,7 @@
 				49DA74A71F25CB9C009F5577 /* SearchTypeCollectionCell.m in Sources */,
 				495EA9391F14B64E001FCB7E /* GVUserDefaults+BBProperties.m in Sources */,
 				4968A2A11F4DB5080061A87E /* NIMInputMoreContainerView.m in Sources */,
+				49DFC47D1F972BA40080B6F7 /* AddBankCell.m in Sources */,
 				495EA7C31F14B64D001FCB7E /* CollectModel.m in Sources */,
 				49411E251F67AD1E00344731 /* ShareNewGoodsCell.m in Sources */,
 				4927189E1F1F5C6C002A7A54 /* WKWebViewJavascriptBridge.m in Sources */,
@@ -8607,10 +8636,12 @@
 				4968A4191F4DB5290061A87E /* NTESCustomNotificationDB.m in Sources */,
 				504A76121F6ADD9D00B61CE3 /* YYTextEffectWindow.m in Sources */,
 				4968A1441F4D89B10061A87E /* IMFriendsCircleViewController.m in Sources */,
+				49DFC4821F9741E90080B6F7 /* BackCell.m in Sources */,
 				49555EA71F1E0092002E5688 /* ShopOrderStoreNameCell.m in Sources */,
 				4968A4401F4DB5290061A87E /* NTESListHeader.m in Sources */,
 				495EA8441F14B64D001FCB7E /* ZFOrderDetailGoosContentCell.m in Sources */,
 				492752191EC44DFC003C22D0 /* main.m in Sources */,
+				49DFC4761F9706B20080B6F7 /* UITabBar+CustomBadge.m in Sources */,
 				492141821F29FB0A00C44D10 /* OrderStatisticsViewController.m in Sources */,
 				4968A4531F4DB5290061A87E /* NTESService.m in Sources */,
 				4968A2AD1F4DB5080061A87E /* NIMImageContentConfig.m in Sources */,
@@ -8957,6 +8988,7 @@
 				497A8ABB1F2B230B0003D7CB /* UILabel+LXAdd.m in Sources */,
 				495EA7511F14B64D001FCB7E /* ResponseObject.m in Sources */,
 				495EA7961F14B64D001FCB7E /* FindCircleViewController.m in Sources */,
+				49DFC4791F972B770080B6F7 /* AddBankCardViewController.m in Sources */,
 				4968A2CF1F4DB5090061A87E /* NIMSessionViewController.m in Sources */,
 				495EA7581F14B64D001FCB7E /* UIImageView+ZFCornerRadius.m in Sources */,
 				495EA79E1F14B64D001FCB7E /* HomeFuncModel.m in Sources */,
@@ -9161,8 +9193,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;
@@ -9241,8 +9273,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "64834e2a-1408-44f4-b06b-71d174ddb38a";
-				PROVISIONING_PROFILE_SPECIFIER = zafvbProductDistribution;
+				PROVISIONING_PROFILE = "04f81e7b-4889-448f-94a1-6e75cbfe2e16";
+				PROVISIONING_PROFILE_SPECIFIER = CompanyDelevopment;
 			};
 			name = Debug;
 		};
@@ -9253,8 +9285,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yong Qing Zhang (F2AL8LXG98)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;
@@ -9333,8 +9365,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "64834e2a-1408-44f4-b06b-71d174ddb38a";
-				PROVISIONING_PROFILE_SPECIFIER = zafvbProductDistribution;
+				PROVISIONING_PROFILE = "04f81e7b-4889-448f-94a1-6e75cbfe2e16";
+				PROVISIONING_PROFILE_SPECIFIER = CompanyDelevopment;
 			};
 			name = Release;
 		};

@@ -14,9 +14,13 @@
 #import "ZFCInterpersonalCircleViewController.h"//消息总控制器
 #import "ShareCircleViewController.h" //分享圈
 #import "LoginViewController.h"
+#import "UITabBar+CustomBadge.h"
 
 @interface ZFbaseTabbarViewController ()
-
+{
+    NSInteger badge;
+    CustomBadgeType type;
+}
 @end
 
 @implementation ZFbaseTabbarViewController
@@ -95,6 +99,16 @@
     
     //设置TabBar的颜色
     self.tabBar.backgroundColor =[UIColor whiteColor];
+   
+    //通过这两个参数来调整badge位置
+    [self.tabBar setTabIconWidth:29];
+    [self.tabBar setBadgeTop:9];
+ 
+    type = kCustomBadgeStyleNumber;
+    badge = BBUserDefault.yunBadge;
+ 
+    [self.tabBarController.tabBar setBadgeStyle:type value:badge atIndex:1];
+
     
 }
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
@@ -103,6 +117,8 @@
     
     if([item.title isEqualToString:@"消息"])
     {
+//        type = kCustomBadgeStyleNone;
+
         // 也可以判断标题,然后做自己想做的事
         if (BBUserDefault.isLogin == 1) {
             

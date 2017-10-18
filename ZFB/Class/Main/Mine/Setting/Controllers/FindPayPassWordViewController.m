@@ -162,7 +162,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 
 -(void)backAction
 {
-    [self poptoUIViewControllerNibName:@"PayPassWordSettingViewController" AndObjectIndex:1];
+    [self poptoUIViewControllerNibName:@"PayPassWordSettingViewController" AndObjectIndex:2];
 }
 
 //实名认证找回密码

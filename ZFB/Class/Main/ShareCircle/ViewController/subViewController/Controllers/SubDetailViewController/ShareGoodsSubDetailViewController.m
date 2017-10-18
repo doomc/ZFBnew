@@ -15,6 +15,7 @@
     NSArray * _adArray;
     NSString * _isThumbsStatus;
     NSString * _shareId;
+    NSString * _shareNum;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *userHeadImg;
 @property (weak, nonatomic) IBOutlet UILabel *userNickName;
@@ -88,7 +89,9 @@
 - (IBAction)didClickBuyNow:(id)sender {
     
     DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
-    detailVC.goodsId = _goodsId;//这个地方写死的
+    detailVC.goodsId = _goodsId;
+    detailVC.shareId = _shareId;
+    detailVC.shareNum = _shareNum;
     [self.navigationController pushViewController:detailVC animated:NO ];
 }
 
@@ -108,7 +111,7 @@
             _lb_endTime .text = response[@"data"][@"createTime"];
             _userNickName.text =response[@"data"][@"nickname"];
             _shareId = [NSString stringWithFormat:@"%@",response[@"data"][@"id"]];
-         
+            _shareNum = [NSString stringWithFormat:@"%@",response[@"data"][@"shareNum"]];
             _goodsId = response[@"data"][@"goodsId"];
             _adArray = response[@"data"][@"imgUrls"];
             [_userHeadImg sd_setImageWithURL:[NSURL URLWithString:response[@"data"][@"userLogo"]] placeholderImage:[UIImage imageNamed:@"head"]];

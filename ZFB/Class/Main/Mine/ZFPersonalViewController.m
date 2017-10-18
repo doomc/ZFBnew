@@ -35,7 +35,10 @@
 #import "ZFShoppingCarViewController.h"//购物车
 #import "CouponViewController.h"//优惠券
 #import "MineShareViewController.h"//我的共享
-#import "AccountViewController.h"//交易明细 
+#import "AccountViewController.h"//交易明细
+#import "RechargeViewController.h"//充值
+#import "WirhDrowViewController.h"//提现
+
 //base
 #import "ZFBaseNavigationViewController.h"
 
@@ -558,7 +561,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 ///余额   --- (充值)
 -(void)didClickBalanceView
 {
-   
+    RechargeViewController * bankVC = [RechargeViewController new];
+    [self.navigationController pushViewController:bankVC animated:NO];
 
 }
 ///不可用金额
@@ -580,10 +584,11 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
 
 }
-///富豆  银行卡绑定
+///富豆  银行卡绑定 提现
 -(void)didClickFuBeanView
 {
-
+    WirhDrowViewController * bankVC = [WirhDrowViewController new];
+    [self.navigationController pushViewController:bankVC animated:NO];
 }
 
 

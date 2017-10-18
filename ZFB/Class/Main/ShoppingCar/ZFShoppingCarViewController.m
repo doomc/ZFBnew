@@ -232,11 +232,14 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         else
         {
             goods.goodsCount --;
+            [self updateGoodsNubBuycount:[NSString stringWithFormat:@"%ld",goods.goodsCount] AndcartItemId:goods.cartItemId];
+
         }
     }
     else if (tag == 666)
     {
         goods.goodsCount ++;
+        [self updateGoodsNubBuycount:[NSString stringWithFormat:@"%ld",goods.goodsCount] AndcartItemId:goods.cartItemId];
     }
     
     self.totalPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[self countTotalPrice]];
@@ -624,7 +627,22 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     
 }
 
-
+#pragma mark - getShoppCartUpdate 更新商品数量
+-(void)updateGoodsNubBuycount:(NSString *)buyCount AndcartItemId:(NSString *)cartItemId
+{
+    NSDictionary  * param = @{
+                              @"cartItemId":cartItemId,
+                              @"buyNum":buyCount,
+                              };
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getShoppCartUpdate",zfb_baseUrl] params:param success:^(id response) {
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
 #pragma mark - didClickClearingShoppingCar 购物车结算
 -(void)didClickClearingShoppingCar:(UIButton *)sender
 {
@@ -719,9 +737,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     }
     
 }
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

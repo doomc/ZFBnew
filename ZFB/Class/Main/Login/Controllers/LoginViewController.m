@@ -458,7 +458,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
             NSLog(@" 登陆成功后的 signMD5Key=======%@", BBUserDefault.userKeyMd5 );
             [self loginNIM];
-            [SVProgressHUD dismiss];
 
         }else{
             [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
@@ -507,7 +506,6 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.userPhonePassword = _tf_verificationCodeOrPassWord.text;//保存密码
             [self loginNIM];
 //            [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
-            [ SVProgressHUD dismiss];
 
         }
         else{
@@ -541,6 +539,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
                                   completion:^(NSError *error) {
                                       if (error == nil)
                                       {
+                                          [ SVProgressHUD dismiss];
 
                                           [self.view makeToast:@"登录成功！"  duration:2 position:@"center"];
                                           //推送别名设置

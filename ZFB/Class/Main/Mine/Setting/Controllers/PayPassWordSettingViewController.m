@@ -7,15 +7,16 @@
 //
 
 #import "PayPassWordSettingViewController.h"
-#import "SettingPayPasswordViewController.h"
-#import "ChangePasswordViewController.h"
 
+#import "SettingPayPasswordViewController.h"//设置支付密码
+#import "ChangePasswordViewController.h"//修改密码
 #import "FindPayPassWordViewController.h"//密码申诉
 #import "CertificationViewController.h"//实名认证
+
 @interface PayPassWordSettingViewController ()<UITableViewDelegate ,UITableViewDataSource>
 {
-    NSString * _realNameFlag;//已经实名认证了
-    NSString * _isSetPassword;//是否设置了支付密码
+    NSString * _realNameFlag;//是否实名认证 1 是 2 否
+    NSString * _isSetPassword;//是否设置了支付密码 1 设置过了 0 没有设置
     NSString * _state;
 }
 @property (nonatomic , strong) UITableView  * tableView;
@@ -95,136 +96,102 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ( [_realNameFlag isEqualToString:@"1"]) {//实名认证过了
-        NSLog(@"已经实名认证了");
- 
-        if ([_state isEqualToString:@""] || _state == nil) {//审核状态 1 审核中 2 审核通过 3审核拒绝
-          
-            NSLog(@"没有申诉过");
+    if (indexPath.row == 0 ) {//设置密码/修改密码
+        if ([_isSetPassword isEqualToString:@"1"]) {//设置过密码
+            //去修改密码
+            ChangePasswordViewController * changeVC = [ChangePasswordViewController new];
+            [self.navigationController pushViewController:changeVC animated:NO];
             
         }else{
-            NSLog(@"申诉过了");
+            //还没有设置密码 然后去实名认证
+            if ( [_realNameFlag isEqualToString:@"1"]) {
 
-            if ([_state isEqualToString: @"1"]) {
-                
-                JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"申诉密码状态:审核中,请耐心等待" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    
-                }];
-                UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                }];
-                [alertvc addAction:sure];
-                [alertvc addAction:cancle];
-                [self presentViewController:alertvc animated:YES completion:^{
-                    
-                }];
+                //实名认证过了 就去设置密码
+                SettingPayPasswordViewController * settingVC = [SettingPayPasswordViewController  new];
+                [self.navigationController pushViewController:settingVC animated:NO];
+
+            }
+            else{
+                //进行实名认证、
+                CertificationViewController * cerVC = [CertificationViewController new];
+                [self.navigationController pushViewController:cerVC animated:NO];
                 
             }
-            if ([_state isEqualToString: @"2"]) {
-                JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"申诉密码状态:审核通过" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    SettingPayPasswordViewController * vc = [SettingPayPasswordViewController new];
-                    [self.navigationController pushViewController:vc animated:NO];
-                    
-                }];
-                UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                }];
-                [alertvc addAction:sure];
-                [alertvc addAction:cancle];
-                [self presentViewController:alertvc animated:YES completion:^{
-                    
-                }];
-            }
-            if ([_state isEqualToString: @"3"]) {
-                
-                JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"申诉密码状态:审核拒绝" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    FindPayPassWordViewController * findVC = [FindPayPassWordViewController new];
-                    [self.navigationController pushViewController:findVC animated:NO];
-                    
-                }];
-                UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                }];
-                [alertvc addAction:sure];
-                [alertvc addAction:cancle];
-                [self presentViewController:alertvc animated:YES completion:^{
-                    
-                }];
-            }
+
         }
-
-     
-    }else{
-        if ([_state isEqualToString:@""] || _state == nil) {//审核状态 1 审核中 2 审核通过 3审核拒绝
- 
-            NSLog(@"还没有实名认证 --- 马上去认证");
-            //找回密码
+    }else{ //申诉密码、重新设置支付密码
+        if ( [_realNameFlag isEqualToString:@"1"]) {//实名认证过了
+            NSLog(@"已经实名认证了");
+            
+            if ([_state isEqualToString:@""] || _state == nil) {//审核状态 1 审核中 2 审核通过 3审核拒绝
+                NSLog(@"没有申诉过");
+                FindPayPassWordViewController * findVC = [FindPayPassWordViewController new];
+                [self.navigationController pushViewController:findVC animated:NO];
+                
+            }else{
+                NSLog(@"申诉过了");
+                if ([_state isEqualToString: @"1"]) {
+                    
+                    JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"申诉密码状态:审核中,请耐心等待" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    [alertvc addAction:sure];
+                    [alertvc addAction:cancle];
+                    [self presentViewController:alertvc animated:YES completion:^{
+                        
+                    }];
+                    
+                }
+                if ([_state isEqualToString: @"2"]) {
+                    JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"申诉密码状态:审核通过" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        SettingPayPasswordViewController * vc = [SettingPayPasswordViewController new];
+                        [self.navigationController pushViewController:vc animated:NO];
+                        
+                    }];
+                    UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    [alertvc addAction:sure];
+                    [alertvc addAction:cancle];
+                    [self presentViewController:alertvc animated:YES completion:^{
+                        
+                    }];
+                }
+                if ([_state isEqualToString: @"3"]) {
+                    
+                    JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"申诉密码状态:审核拒绝" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        
+                        FindPayPassWordViewController * findVC = [FindPayPassWordViewController new];
+                        [self.navigationController pushViewController:findVC animated:NO];
+                        
+                    }];
+                    UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    [alertvc addAction:sure];
+                    [alertvc addAction:cancle];
+                    [self presentViewController:alertvc animated:YES completion:^{
+                        
+                    }];
+                }
+            }
+        }else{ //没有实名认证
+            //进行实名认证、
             CertificationViewController * cerVC = [CertificationViewController new];
             [self.navigationController pushViewController:cerVC animated:NO];
-
-        }else{
             
-            if ([_state isEqualToString: @"1"]) {
-                JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"申诉密码状态:审核中" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    
-                }];
-                UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                }];
-                [alertvc addAction:sure];
-                [alertvc addAction:cancle];
-                [self presentViewController:alertvc animated:YES completion:^{
-                    
-                }];
-                
-            }
-            if ([_state isEqualToString: @"2"]) {
-                JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"申诉密码状态:审核通过" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    SettingPayPasswordViewController * vc = [SettingPayPasswordViewController new];
-                    [self.navigationController pushViewController:vc animated:NO];
-                    
-                }];
-                UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                }];
-                [alertvc addAction:sure];
-                [alertvc addAction:cancle];
-                [self presentViewController:alertvc animated:YES completion:^{
-                    
-                }];
-            }
-            if ([_state isEqualToString: @"3"]) {
-                
-                JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"申诉密码状态:审核拒绝" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    FindPayPassWordViewController * findVC = [FindPayPassWordViewController new];
-                    [self.navigationController pushViewController:findVC animated:NO];
-                    
-                }];
-                UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                }];
-                [alertvc addAction:sure];
-                [alertvc addAction:cancle];
-                [self presentViewController:alertvc animated:YES completion:^{
-                    
-                }];
-            }
         }
     }
+ 
 }
 -(void)viewWillAppear:(BOOL)animated{
     
@@ -279,7 +246,7 @@
         
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
-        
+          
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络出差了~" duration:2 position:@"center"];
     }];

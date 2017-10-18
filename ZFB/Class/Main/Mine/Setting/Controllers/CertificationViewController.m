@@ -12,14 +12,12 @@
 typedef NS_ENUM(NSUInteger, PickerType) {
     PickerTypeFace,
     PickerTypeBack,
-    PickerTypeHand,
 };
 
 @interface CertificationViewController ()<UIGestureRecognizerDelegate,HXPhotoViewControllerDelegate>
 {
     NSString * _imgbackUrl;
     NSString * _imgfaceUrl;
-    NSString * _imghandUrl;
  
 }
 @property (strong, nonatomic) HXPhotoManager *manager;
@@ -27,7 +25,6 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 @property (weak, nonatomic) IBOutlet UIButton *ceritificationBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *uploadFaceView;
 @property (weak, nonatomic) IBOutlet UIImageView *uploadBackView;
-@property (weak, nonatomic) IBOutlet UIImageView *uploadHandView;
 @property (assign ,nonatomic) PickerType pickType;
 
 @end
@@ -41,7 +38,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
         _manager.singleSelecteClip = NO;
         _manager.isOriginal = YES;
         _manager.endIsOriginal = YES;
-        _manager.cameraType = HXPhotoManagerCameraTypeHalfScreen;
+        _manager.cameraType = HXPhotoManagerCameraTypeSystem;
     }
     return _manager;
 }
@@ -63,10 +60,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     self.uploadBackView.userInteractionEnabled = YES;
     [self.uploadBackView addGestureRecognizer:tapBack];
     
-    UITapGestureRecognizer * tapHand =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(uploadImgHandAction)];
-    tapHand.delegate = self;
-    self.uploadHandView.userInteractionEnabled = YES;
-    [self.uploadHandView addGestureRecognizer:tapHand];
+
     
 }
 //上传正面
@@ -92,17 +86,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
     
 }
-//上传手持
--(void)uploadImgHandAction
-{
-    _pickType = PickerTypeHand;
-    NSLog(@"上传反面");
-    HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
-    vc.manager = self.manager;
-    vc.delegate = self;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
-    
-}
+
 #pragma mark - 获取图片代理
 - (void)photoViewControllerDidNext:(NSArray<HXPhotoModel *> *)allList Photos:(NSArray<HXPhotoModel *> *)photos Videos:(NSArray<HXPhotoModel *> *)videos Original:(BOOL)original {
     __weak typeof(self) weakSelf = self;
@@ -110,43 +94,35 @@ typedef NS_ENUM(NSUInteger, PickerType) {
         NSLog(@"images === %@",images);
         switch (_pickType) {
             case PickerTypeFace:
+            {
                 weakSelf.uploadFaceView.image = images.firstObject;
- 
+                [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
+                    NSLog(@"%@",names);
+                    if (state == 1) {
+                        _imgfaceUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+
+                    }
+                }];
+            }
                 break;
             case PickerTypeBack:
+            {
                 weakSelf.uploadBackView.image = images.firstObject;
+                [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
+                    NSLog(@"%@",names);
+                    if (state == 1) {
+                     
+                        _imgbackUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
 
-                break;
-            case PickerTypeHand:
-                
-                weakSelf.uploadHandView.image = images.firstObject;
+                        
+                    }
+                }];
+            }
                 break;
             default:
                 break;
         }
  
-        [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
-            NSLog(@"%@",names);
-            if (state == 1) {
-                NSLog(@"上传到阿里云成功了！");
-                switch (_pickType) {
-                    case PickerTypeFace:
-                         _imgfaceUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
-                        break;
-                    case PickerTypeBack:
-                        
-                        _imgbackUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
-                        break;
-                    case PickerTypeHand:
-                        _imghandUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
-                        break;
-                    default:
-                        break;
-                }
-               
-            }
-        }];
-        
     }];
 }
 
@@ -154,7 +130,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 //实名认证
 - (IBAction)CertificationAction:(id)sender {
 
-    if (_imgbackUrl == nil || [_imgbackUrl isEqualToString:@""]||_imgfaceUrl == nil || [_imgfaceUrl isEqualToString:@""]) {
+    if (_imgbackUrl == nil  || _imgfaceUrl == nil) {
        
         [self.view makeToast:@"请上传正反面身份证照片" duration:2 position:@"center"];
         
@@ -173,7 +149,6 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"file_face_url":_imgfaceUrl,
                              @"file_back_url":_imgbackUrl,
-                             @"hand_url":_imghandUrl
 
                              };
     [SVProgressHUD showWithStatus:@"正在提交认证..."];

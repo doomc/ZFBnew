@@ -48,7 +48,7 @@
 @property (nonatomic,copy) NSString * keyWord;
 
 //推送的总个数   网易云信+JPush
-@property (nonatomic,assign) NSInteger pushTotal;
+@property (nonatomic,assign) NSInteger yunBadge;
 
 
 @property (nonatomic) BOOL boolValue;
