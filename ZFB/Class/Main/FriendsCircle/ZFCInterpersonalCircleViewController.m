@@ -27,6 +27,7 @@
 #import "NIMContactSelectViewController.h"
 #import "NTESGroupedContacts.h"
 #import "NTESContactUtilItem.h"
+
 @interface ZFCInterpersonalCircleViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate,NIMUserManagerDelegate,NIMLoginManagerDelegate,NIMSystemNotificationManagerDelegate,NIMConversationManagerDelegate>
 {
     UIRefreshControl *_refreshControl;
@@ -52,6 +53,8 @@
     [[NIMSDK sharedSDK].loginManager addDelegate:self];
     [[NIMSDK sharedSDK].userManager addDelegate:self];
  
+
+
 }
 - (void)dealloc{
     [[NIMSDK sharedSDK].systemNotificationManager removeDelegate:self];
@@ -89,6 +92,9 @@
     _pageTitleView.indicatorColor          = [UIColor colorWithRed:0.996 green:0.427 blue:0.416 alpha:1.000];
     _pageTitleView.indicatorHeight         = 1.0;
     _pageTitleView.titleTextScaling        = 0.3;
+    
+    
+    
 }
 
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex

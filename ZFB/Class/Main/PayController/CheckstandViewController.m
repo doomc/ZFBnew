@@ -18,9 +18,7 @@
 //支付跳转
 #import "DetailPayCashViewController.h"//支付失败
 #import "DetailPaySuccessViewController.h"//支付成功
-
 #import "MBProgressHUD+MJ.h"
-
 
 
 @interface CheckstandViewController () <UITableViewDelegate,UITableViewDataSource,PayFootCellDelegate>
@@ -66,6 +64,12 @@
     [self getThirdBalancePOSTRequste];
     
 }
+#pragma mark - 返回跳转到我的订单
+-(void)backAction
+{
+    [self poptoUIViewControllerNibName:@"DetailFindGoodsViewController" AndObjectIndex:2];
+}
+
 - (void)cancel {
     CYLog(@"关闭密码框");
     [MBProgressHUD showSuccess:@"关闭密码框"];
@@ -283,6 +287,10 @@
             //获取到签名后再请求余额支付
             [self balancePostRequstAtPassword:payPass];
 
+        }else
+        {
+            [self.view makeToast:response[@"result_msg"] duration:2 position:@"center"];
+
         }
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
@@ -306,6 +314,8 @@
             [MBProgressHUD showSuccess:response[@"result_msg"]];
             DetailPaySuccessViewController * successVC =[ DetailPaySuccessViewController new];
             [self.navigationController pushViewController:successVC  animated:NO];
+            
+  
         }
         if ([code isEqualToString:@"0001"]) {//支付密码不正确
             [self.view makeToast:response[@"result_msg"] duration:2 position:@"center"];
@@ -314,6 +324,11 @@
         if ([code isEqualToString:@"0002"]) {//未设置支付密码
             [self.view makeToast:response[@"result_msg"] duration:2 position:@"center"];
 
+        }
+        else
+        {
+            [self.view makeToast:response[@"result_msg"] duration:2 position:@"center"];
+            
         }
         [self.passwordView stopLoading];
         [self.passwordView hide];
@@ -360,7 +375,7 @@
         [weakSelf.passwordView hideKeyboard];
         [weakSelf.passwordView startLoading];
         
-        CYLog(@"cy ========= 发送网络请求  pwd=%@", password);
+        NSLog(@"cy ========= 发送网络请求  pwd=%@", password);
         //获取到余额签名
         [weakSelf balanceSignPostRequstWithPayPass:password];
         

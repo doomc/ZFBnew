@@ -11,6 +11,7 @@
 #import "ForgetPSViewController.h"
 #import "ZFSettingCell.h"
 #import "PayPassWordSettingViewController.h"
+#import "AboutUSViewController.h"
 #import "NTESService.h"
 #import "JPUSHService.h"
 static NSString * settingCellid = @"ZFSettingCellid";
@@ -39,11 +40,9 @@ static NSString * settingCellid = @"ZFSettingCellid";
  
     self.title = @"设置";
     _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置"];
-//    _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置",@"分享圈"];
     _titleArr2  = @[@"手机号码",@"清除缓存"];
     _titleArr3  = @[@"客服热线",@"关于我们"];
 
-//    _imagesArr1 = @[@"setting_message",@"setting_ps",@"settingPay",@"settingShare"];
     _imagesArr1 = @[@"setting_message",@"setting_ps",@"settingPay"];
     _imagesArr2 = @[@"setting_phone",@"setting_cache"];
     _imagesArr3 = @[@"setting_calling",@"setting_calling"];
@@ -159,13 +158,21 @@ static NSString * settingCellid = @"ZFSettingCellid";
         return settingcell;
 
     }else{
-        settingcell.img_detailIcon.hidden = YES;
         settingcell.lb_title.text = _titleArr3[indexPath.row];
-        settingcell.img_iconView.image = [UIImage imageNamed:_imagesArr3[indexPath.row]];
- 
-        //客服热线
-        settingcell.lb_detailTitle.text = @"400-666-2001";
-        return settingcell;   
+
+        if (indexPath.row == 0) {
+            settingcell.img_detailIcon.hidden = YES;
+            settingcell.img_iconView.image = [UIImage imageNamed:_imagesArr3[indexPath.row]];
+            
+            //客服热线
+            settingcell.lb_detailTitle.text = @"400-666-2001";
+            return settingcell;
+        }
+        else{
+            settingcell.lb_detailTitle.hidden = YES;
+            
+
+        }
     }
 
     return settingcell;
@@ -216,22 +223,29 @@ static NSString * settingCellid = @"ZFSettingCellid";
 
     }
     else{
-        JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"确认拨打号码:400-666-2001"]  preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction * cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-            UIWebView *callWebView = [[UIWebView alloc] init];
-            
-            NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:400-666-2001"]];
-            [callWebView loadRequest:[NSURLRequest requestWithURL:telURL]];
-            [self.view addSubview:callWebView];
-            
-        }];
-        [alert addAction:cancel];
-        [alert addAction:sure];
-        [self presentViewController:alert animated:YES completion:nil];
+        if (indexPath.row == 0) {
+            JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"确认拨打号码:400-666-2001"]  preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                UIWebView *callWebView = [[UIWebView alloc] init];
+                
+                NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:400-666-2001"]];
+                [callWebView loadRequest:[NSURLRequest requestWithURL:telURL]];
+                [self.view addSubview:callWebView];
+                
+            }];
+            [alert addAction:cancel];
+            [alert addAction:sure];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+        else{
+            //关于我们
+            AboutUSViewController  * aboutVC = [[AboutUSViewController alloc]init];
+            [self.navigationController pushViewController:aboutVC animated:NO];
+        }
     }
     
 

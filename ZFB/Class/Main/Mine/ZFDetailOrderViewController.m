@@ -373,15 +373,16 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld = section ,%ld = row ",indexPath.section,indexPath.row);
-    
+    DetailFindGoodsViewController * goodVC= [DetailFindGoodsViewController new];
+   
     if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            DetailFindGoodsViewController * goodVC= [DetailFindGoodsViewController new];
-            goodVC.goodsId = _goodsId;
-            goodVC.headerImage = _imageUrl;
-            [self.navigationController pushViewController:goodVC animated:NO];
 
-        }
+        DetailGoodslist * goodlist = self.shoppCartList[indexPath.row];
+        goodVC.goodsId = goodlist.goodsId;
+        goodVC.headerImage = _imageUrl;
+        [self.navigationController pushViewController:goodVC animated:NO];
+        
+        
     }
 }
 

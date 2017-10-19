@@ -8,6 +8,7 @@
 
 #import "AddBankCardViewController.h"
 #import "AddBankCell.h"
+
 @interface AddBankCardViewController () <UITableViewDelegate ,UITableViewDataSource>
 
 @property (nonatomic ,strong) NSArray * titles;
@@ -17,6 +18,7 @@
 @end
 
 @implementation AddBankCardViewController
+
 -(UITableView *)tableView
 {
     if (!_tableView) {
@@ -68,7 +70,29 @@
     
 }
 
-
+#pragma mark - 绑定银行卡
+-(void)bandBankCardPost
+{
+    NSDictionary * param = @{
+                              @"account":BBUserDefault.userPhoneNumber,
+                                @"baseBankId":@"",//银行卡基本编号
+                                @"bankCredNum":@"",//银行卡号
+                                @"bankCredPhone":@"",//银行卡绑定电话
+                                @"bankCredHolder":@"",//银行卡持有人姓名
+                                @"bankCredType":@"",//银行卡类型   1.储蓄卡 2.信用卡	否
+                                @"validDate":@"",//信用卡有效期，格式YYMM	是	银行卡类型   为 2 必填
+                                @"cvv3":@"",//信用卡背后三后数
+                              };
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/bindBank",zfb_baseUrl] params:param success:^(id response) {
+        
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

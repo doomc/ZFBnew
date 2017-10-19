@@ -923,7 +923,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 sendCell.sunnyOrder_btn.hidden = NO;
                 sendCell.delegate = self;
                 sendCell.indexpath = indexPath;
-
+                
+            }else{
+                sendCell.share_btn.hidden = YES;
+                sendCell.sunnyOrder_btn.hidden = YES;
             }
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {
@@ -940,7 +943,8 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         {
             ZFSendingCell * sendCell = [self.zfb_tableView
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
-            
+            sendCell.share_btn.hidden = YES;
+            sendCell.sunnyOrder_btn.hidden = YES;
             Orderlist * list           = self.orderListArray[indexPath.section];
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {

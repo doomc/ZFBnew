@@ -684,7 +684,14 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
                 [goodDic setValue:@"0" forKey:@"originalPrice"];
                 [goodDic setValue:goods.goodsUnit forKey:@"goodsUnit"];
                 [goodDic setValue:goodsPropArr forKey:@"goodsProp"];
-                
+                if ( _shardId == nil) {
+                    _shardId = @"";
+                }
+                if (_shareNum == nil) {
+                    _shareNum = @"";
+                }
+                [goodDic setValue:_shardId forKey:@"shareId"];
+                [goodDic setValue:_shareNum forKey:@"shareNum"];
                 [mutGoodsArr addObject:goodDic];
             }
         }

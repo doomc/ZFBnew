@@ -11,7 +11,7 @@
 #import "ShareGoodsViewController.h"
 #import "ShareFriendStautusViewController.h"
 #import "SGPagingView.h"//控制自控制器
-
+#import "PPBadgeView.h"
 @interface ShareCircleViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate>
 
 @property (nonatomic, strong) SGPageTitleView   *pageTitleView;
@@ -26,14 +26,17 @@
     // Do any additional setup after loading the view.
     self.title = @"分享圈";
     [self setupPageView];
+ 
     
+    [self.tabBarItem pp_addDotWithColor:[UIColor redColor]];
+ 
 }
 
 - (void)setupPageView {
     
     ShareNewgoodsViewController *newGoodsVC     = [[ShareNewgoodsViewController alloc]init];
     ShareGoodsViewController * goodsVC          = [[ShareGoodsViewController alloc]init];
-    ShareFriendStautusViewController * friendVC = [[ShareFriendStautusViewController alloc]init];
+//    ShareFriendStautusViewController * friendVC = [[ShareFriendStautusViewController alloc]init];
     NSArray *childArr = @[newGoodsVC, goodsVC];
     
     /// pageContentView

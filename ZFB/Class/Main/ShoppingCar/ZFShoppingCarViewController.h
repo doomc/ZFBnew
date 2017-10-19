@@ -10,4 +10,7 @@
 
 @interface ZFShoppingCarViewController : BaseViewController
 
+@property (nonatomic ,copy) NSString * shardId;
+@property (nonatomic ,copy) NSString * shareNum;
+
 @end

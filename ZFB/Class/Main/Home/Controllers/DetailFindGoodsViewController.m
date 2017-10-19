@@ -276,6 +276,8 @@
 -(void)didClickShoppingCariew
 {
     ZFShoppingCarViewController * shopVC = [[ZFShoppingCarViewController alloc]init];
+    shopVC.shardId = _shareId;
+    shopVC.shareNum = _shareNum;
     [self.navigationController pushViewController:shopVC animated:NO];
 }
 #pragma mark - 加入购物车外部的- 不选择规格

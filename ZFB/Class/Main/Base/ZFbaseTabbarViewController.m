@@ -14,13 +14,10 @@
 #import "ZFCInterpersonalCircleViewController.h"//消息总控制器
 #import "ShareCircleViewController.h" //分享圈
 #import "LoginViewController.h"
-#import "UITabBar+CustomBadge.h"
+#import "PPBadgeView.h"
 
 @interface ZFbaseTabbarViewController ()
-{
-    NSInteger badge;
-    CustomBadgeType type;
-}
+
 @end
 
 @implementation ZFbaseTabbarViewController
@@ -30,8 +27,7 @@
     // 设置UITabBarItem主题
     [self setupTabBarItemTheme];
     
-    // 设置UITabBar主题
-    [self setupTabBarTheme];
+ 
 }
 
 + (void)setupTabBarItemTheme {
@@ -47,10 +43,6 @@
 
 }
 
-+ (void)setupTabBarTheme {
-    
-    //    UITabBar *tabBar = [UITabBar appearance];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -69,14 +61,21 @@
     ZFHomeViewController* homeVC = [ZFHomeViewController new];
     [self addOneChildVc:homeVC title:@"新零售" imageName:@"shopkeeper" selectedImageName:@"shopkeeper_selected"];
     
-    ZFCInterpersonalCircleViewController *circleVC = [ZFCInterpersonalCircleViewController new];
-    [self addOneChildVc:circleVC title:@"消息" imageName:@"messageNormal" selectedImageName:@"messageSelected"];
+    ZFCInterpersonalCircleViewController *msgVC = [ZFCInterpersonalCircleViewController new];
+    [self addOneChildVc:msgVC title:@"消息" imageName:@"messageNormal" selectedImageName:@"messageSelected"];
     
     ShareCircleViewController *shopVC = [ShareCircleViewController new];
     [self addOneChildVc:shopVC title:@"分享圈" imageName:@"shareCircle" selectedImageName:@"shareCircle_selected"];
-    
+
+
     ZFPersonalViewController *meVc = [ZFPersonalViewController new];
     [self addOneChildVc:meVc title:@"我的" imageName:@"mine" selectedImageName:@"mine_selected"];
+    
+    //设置完毕
+    NSInteger count = [[[NIMSDK sharedSDK] conversationManager] allUnreadCount];
+    [msgVC.tabBarItem pp_addBadgeWithText:[NSString stringWithFormat:@"12"]];
+    [shopVC.tabBarItem pp_addDotWithColor:[UIColor redColor]];
+    
     
 }
 
@@ -84,7 +83,7 @@
 - (void)addOneChildVc:(UIViewController *)childVc title:(NSString *)title imageName:(NSString *)imageName selectedImageName:(NSString *)seletedImageName {
     
     childVc.tabBarItem.title = title;
-    childVc.tabBarItem.image = [UIImage imageNamed:imageName];
+    childVc.tabBarItem.image = [[UIImage imageNamed:imageName ] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     childVc.tabBarItem.selectedImage = [[UIImage imageNamed:seletedImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     //    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor grayColor], NSForegroundColorAttributeName, [UIFont fontWithName:title size:12.0f],NSFontAttributeName,nil] forState:UIControlStateNormal];
@@ -100,15 +99,6 @@
     //设置TabBar的颜色
     self.tabBar.backgroundColor =[UIColor whiteColor];
    
-    //通过这两个参数来调整badge位置
-    [self.tabBar setTabIconWidth:29];
-    [self.tabBar setBadgeTop:9];
- 
-    type = kCustomBadgeStyleNumber;
-    badge = BBUserDefault.yunBadge;
- 
-    [self.tabBarController.tabBar setBadgeStyle:type value:badge atIndex:1];
-
     
 }
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
@@ -117,10 +107,9 @@
     
     if([item.title isEqualToString:@"消息"])
     {
-//        type = kCustomBadgeStyleNone;
-
         // 也可以判断标题,然后做自己想做的事
         if (BBUserDefault.isLogin == 1) {
+            
             
         }else{
             
@@ -135,6 +124,7 @@
             }];
         }
     }
+  
 }
 /*
 #pragma mark - Navigation

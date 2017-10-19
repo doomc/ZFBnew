@@ -61,9 +61,9 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    //引导页 和 tabar 初始化
     [self setupGuidePageView];
     
-
     //检查appstore更新版本
     [self CheckUpadateVersion];
     
@@ -92,6 +92,8 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     [self setupServices];
     
     [self loginNIM];
+    
+
     
     [self registerAPNS];//极光推送注册APNS
 
@@ -141,7 +143,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     
     if (BBUserDefault.userPhoneNumber != nil && BBUserDefault.token !=nil) {
         [[[NIMSDK sharedSDK] loginManager] login:BBUserDefault.userPhoneNumber token: BBUserDefault.token completion:^(NSError * _Nullable error) {
-            
+            NSLog(@"网易云信 --- %@",error);
         }];
         [[NTESServiceManager sharedManager] start];
     }
@@ -169,7 +171,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     //注册自定义消息的解析器
     [NIMCustomObject registerCustomDecoder:[NTESCustomAttachmentDecoder new]];
     
-    
+
 }
 
 
@@ -285,9 +287,9 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     //此处的baedg 的个数应该为总推送的个数
     
     NSInteger count = [[[NIMSDK sharedSDK] conversationManager] allUnreadCount];
-    BBUserDefault.yunBadge  = count + _jpsuhCount;
+    NSInteger allCouunt = count + _jpsuhCount;
     
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:BBUserDefault.yunBadge];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:allCouunt];
     
     
 }
@@ -303,6 +305,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
 }
 
 
@@ -327,7 +330,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     [[NIMSDK sharedSDK] updateApnsToken:deviceToken];
     NSString*device = [[[[deviceToken description]stringByReplacingOccurrencesOfString:@"<"withString:@""]stringByReplacingOccurrencesOfString:@" "withString:@""]stringByReplacingOccurrencesOfString:@">"withString:@""];
     
-    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken:  %@", deviceToken);
+    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken:  %@", device);
     
 }
 
@@ -336,9 +339,9 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     NSLog(@"receive remote notification:  %@", userInfo);
     NSLog(@"iOS7及以上系统，收到通知:%@", [self logDic:userInfo]);
 
-    ZFbaseTabbarViewController * tabBar = [[ZFbaseTabbarViewController alloc]initWithNibName:@"NTESSessionListViewController" bundle:nil];
-    [self.window.rootViewController presentViewController:tabBar animated:YES completion:nil];
-    tabBar.selectedIndex = 1;
+//    ZFbaseTabbarViewController * tabBar = [[ZFbaseTabbarViewController alloc]initWithNibName:@"NTESSessionListViewController" bundle:nil];
+//    [self.window.rootViewController presentViewController:tabBar animated:YES completion:nil];
+//    tabBar.selectedIndex = 1;
 
     [JPUSHService handleRemoteNotification:userInfo];
 
@@ -347,6 +350,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
    
     [JPUSHService showLocalNotificationAtFront:notification identifierKey:nil];
+    
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -443,6 +447,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     UNNotificationContent *content = request.content; // 收到推送的消息内容
     
     NSNumber *badge = content.badge;  // 推送消息的角标
+    _jpsuhCount = [badge integerValue];
     NSString *body = content.body;    // 推送消息体
     UNNotificationSound *sound = content.sound;  // 推送消息的声音
     NSString *subtitle = content.subtitle;  // 推送消息的副标题
@@ -468,6 +473,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     UNNotificationContent *content = request.content; // 收到推送的消息内容
     
     NSNumber *badge = content.badge;  // 推送消息的角标
+    _jpsuhCount = [badge integerValue];
     NSString *body = content.body;    // 推送消息体
     UNNotificationSound *sound = content.sound;  // 推送消息的声音
     NSString *subtitle = content.subtitle;  // 推送消息的副标题
@@ -551,6 +557,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
         };
     } else {
         self.window.rootViewController = tabbarVC;
+        
     }
  
 }

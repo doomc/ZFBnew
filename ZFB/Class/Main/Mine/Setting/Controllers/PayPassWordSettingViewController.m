@@ -206,11 +206,13 @@
                              };
 
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCheckInfo",zfb_baseUrl] params:param success:^(id response) {
-       
-        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
-        //0，没有审核信息
-        if ([code isEqualToString:@"0"]) {
-          
+ 
+        if ([response[@"data"] isEqualToString:@""]) {
+              // 没有审核信息
+            NSLog(@"没有审核信息");
+            _state = nil;
+
+        }else{
             _state = [NSString stringWithFormat:@"%@",response[@"data"][@"state"]];//审核状态 1 审核中 2 审核通过 3审核拒绝
 
         }

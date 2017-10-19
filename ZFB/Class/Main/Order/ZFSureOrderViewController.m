@@ -36,6 +36,7 @@
 //wx
 #import "MXWechatPayHandler.h"
 #import "CheckstandViewController.h"//收银台
+ 
 
 typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     
@@ -83,6 +84,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     NSString * _gateWay_url;
     NSString * _goback_url;
     NSString * _paySign;//获取签名
+    
+    BOOL _creatOrder;
 
 }
 
@@ -600,7 +603,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     
     [SVProgressHUD dismiss];
     
-    
 }
 
 #pragma mark -  order/generateOrderNumber 用户订单提交
@@ -616,11 +618,17 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 #pragma mark -  生成订单之前验证库存 checkStock
 -(void)verificationSukproductId:(NSDictionary* )param AndjsonDic:(NSDictionary *)jsondic
 {
- 
+
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/checkStock",zfb_baseUrl] params:param success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
         if([code isEqualToString:@"0"])//库存充足
         {
+            if (_creatOrder) {//如果生成了订单了
+                
+                [self.view makeToast:@"请勿重复操作！" duration:2 position:@"center"];
+                return;
+            }else{
+                
                 [SVProgressHUD show];
                 [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/generateOrderNumber",zfb_baseUrl] params:jsondic success:^(id response) {
                     if ([response[@"resultCode"] intValue] == 0) {
@@ -631,20 +639,22 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                             allVC.orderType = OrderTypeAllOrder;
                             allVC.buttonTitle = @"全部订单";
                             [self.navigationController pushViewController:allVC animated:NO];
-            
+                            
                         }else{ //跳转到收银台
                             _orderArr = response[@"orderList"];
-            
+                            
                             //支付的回调地址
                             _notify_url = response[@"thirdURI"][@"notify_url"];
                             _return_url  = response[@"thirdURI"][@"return_url"];
                             _gateWay_url  = response[@"thirdURI"][@"gateWay_url"];
                             _goback_url   = response[@"thirdURI"][@"goback_url"];
-            
+                            
                             [self getPaypaySignAccessTokenUrl];
-            
+                            
                         }
                         [SVProgressHUD dismiss];
+                        
+                        _creatOrder = YES;// 已经生成了订单了
                     }
                 } progress:^(NSProgress *progeress) {
                     
@@ -652,8 +662,11 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                     [SVProgressHUD dismiss];
                     NSLog(@"error=====%@",error);
                     [self.view makeToast:@"网络错误" duration:2 position:@"center"];
-            
+                    
                 }];
+            }
+   
+ 
         }
         if ([code isEqualToString:@"100501"]) {
            

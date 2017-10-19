@@ -8,14 +8,23 @@
 
 #import "RechargeViewController.h"
 #import "AddBankCardViewController.h"//添加银行卡
+#import "BankCardListModel.h"
 
 @interface RechargeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic , strong) UITableView * backTableView;
+@property (nonatomic ,strong) NSMutableArray * backCardList;
 
 @end
 
 @implementation RechargeViewController
+-(NSMutableArray *)backCardList
+{
+    if (!_backCardList) {
+        _backCardList = [NSMutableArray array];
+    }
+    return  _backCardList;
+}
 //设置右边按键（如果没有右边 可以不重写）
 -(UIButton*)set_rightButton
 {
@@ -45,6 +54,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"银行卡列表";
 }
 
 //设置右边事件
@@ -56,6 +66,57 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self backCardListPost];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.backCardList.count;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 55;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell * backCell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    
+    return backCell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //银行卡详情
+}
+
+-(void)backCardListPost
+{
+    NSDictionary * param = @{
+                             @"account":BBUserDefault.userPhoneNumber
+                             };
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/getBaseBankList",zfb_baseUrl] params:param success:^(id response) {
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        
+        if ([code isEqualToString:@"0"]) {
+            BankCardListModel  * bank = [BankCardListModel mj_objectWithKeyValues:response];
+            for (Base_Bank_List * list in bank.base_bank_list) {
+                [self.backCardList addObject:list];
+            }
+            
+            [self.backTableView reloadData];
+        }
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

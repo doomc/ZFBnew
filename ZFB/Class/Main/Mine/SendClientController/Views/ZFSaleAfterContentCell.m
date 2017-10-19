@@ -17,7 +17,8 @@
     // Initialization code
     
     [self.saleAfter_btn addTarget:self action:@selector(saleAfter_btnAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.saleAfter_btn.clipsToBounds = YES;
+    
+    self.saleAfter_btn.layer.masksToBounds = YES;
     self.saleAfter_btn.layer.cornerRadius = 4;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
@@ -40,15 +41,20 @@
     ///status 0 未操作 1 退货中 2 服务完成
     if (goods.status == 0) {
         
-        
-    }else if (goods.status == 1)
+        [self.saleAfter_btn setTitle:@"申请售后" forState:UIControlStateNormal];
+        self.saleAfter_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+        [self.saleAfter_btn setTitleColor: HEXCOLOR(0xffffff) forState:UIControlStateNormal] ;
+
+        self.saleAfter_btn.enabled = YES;
+    }
+    if (goods.status == 1)
     {
         [self.saleAfter_btn setTitle:@"退货中" forState:UIControlStateNormal];
         self.saleAfter_btn.backgroundColor = [UIColor whiteColor];
         [self.saleAfter_btn setTitleColor: HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
         self.saleAfter_btn.enabled = NO;
     }
-    else{
+     if (goods.status == 2){
         self.saleAfter_btn.backgroundColor = [UIColor whiteColor];
         [self.saleAfter_btn setTitleColor: HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
         self.saleAfter_btn.enabled = NO;

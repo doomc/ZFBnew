@@ -18,6 +18,7 @@
 #import "NTESPersonalCardViewController.h"
 
 #define SessionListTitle @"展富宝"
+ 
 
 @interface NTESSessionListViewController ()<NIMLoginManagerDelegate,NTESListHeaderDelegate,NIMEventSubscribeManagerDelegate,UIViewControllerPreviewingDelegate>
 
@@ -69,6 +70,10 @@
     
     NSString *userID = [[[NIMSDK sharedSDK] loginManager] currentAccount];
     self.navigationItem.titleView  = [self titleView:userID];
+    
+
+
+ 
     
 }
 

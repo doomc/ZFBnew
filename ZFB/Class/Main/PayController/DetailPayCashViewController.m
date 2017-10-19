@@ -7,7 +7,7 @@
 //
 
 #import "DetailPayCashViewController.h"
-
+#import "ZFAllOrderViewController.h"
 @interface DetailPayCashViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_status;
@@ -30,9 +30,19 @@
     self.btn_forgetOfPS.layer.masksToBounds = YES;
     self.btn_forgetOfPS.layer.cornerRadius = 4;
 }
+#pragma mark - 返回跳转到我的订单
+-(void)backAction
+{
+    ZFAllOrderViewController * allVC = [ZFAllOrderViewController new];
+    allVC.orderType = 0;
+    allVC.buttonTitle = @"全部订单";
+    [self.navigationController pushViewController:allVC animated:NO];
+}
+
+
 //重新输入
 - (IBAction)didClickReputin:(id)sender {
-    
+ 
 }
 
 //忘记密码
