@@ -26,8 +26,6 @@
     
     // 设置UITabBarItem主题
     [self setupTabBarItemTheme];
-    
- 
 }
 
 + (void)setupTabBarItemTheme {
@@ -39,14 +37,12 @@
     
     // 选中状态
     [tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f],NSForegroundColorAttributeName : HEXCOLOR(0xfe6d6a)} forState:UIControlStateSelected];
-    
-
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     // 添加所有子控制器
     [self addAllViewControllers];
     
@@ -56,7 +52,6 @@
 
 #pragma mark - 添加所有子控制器
 - (void)addAllViewControllers {
-
     
     ZFHomeViewController* homeVC = [ZFHomeViewController new];
     [self addOneChildVc:homeVC title:@"新零售" imageName:@"shopkeeper" selectedImageName:@"shopkeeper_selected"];
@@ -72,9 +67,11 @@
     [self addOneChildVc:meVc title:@"我的" imageName:@"mine" selectedImageName:@"mine_selected"];
     
     //设置完毕
-    NSInteger count = [[[NIMSDK sharedSDK] conversationManager] allUnreadCount];
-    [msgVC.tabBarItem pp_addBadgeWithText:[NSString stringWithFormat:@"12"]];
-    [shopVC.tabBarItem pp_addDotWithColor:[UIColor redColor]];
+//    NSInteger count = [[[NIMSDK sharedSDK] conversationManager] allUnreadCount];
+//    [msgVC.tabBarItem pp_addBadgeWithText:[NSString stringWithFormat:@"12"]];
+//    [shopVC.tabBarItem pp_addDotWithColor:[UIColor redColor]];
+    
+//    [msgVC.tabBarItem  setBadgeValue:@"22"];
     
     
 }
@@ -88,7 +85,7 @@
     
     //    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor grayColor], NSForegroundColorAttributeName, [UIFont fontWithName:title size:12.0f],NSFontAttributeName,nil] forState:UIControlStateNormal];
     //    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName, [UIFont fontWithName:title size:12.0f],NSFontAttributeName,nil] forState:UIControlStateSelected];
-    
+
     //将NavigationController给包含进来。
     [self addChildViewController:[[ZFBaseNavigationViewController alloc] initWithRootViewController:childVc]];
 }

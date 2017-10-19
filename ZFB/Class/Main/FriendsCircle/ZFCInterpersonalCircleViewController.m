@@ -27,7 +27,7 @@
 #import "NIMContactSelectViewController.h"
 #import "NTESGroupedContacts.h"
 #import "NTESContactUtilItem.h"
-
+#import "PPBadgeView.h"
 @interface ZFCInterpersonalCircleViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate,NIMUserManagerDelegate,NIMLoginManagerDelegate,NIMSystemNotificationManagerDelegate,NIMConversationManagerDelegate>
 {
     UIRefreshControl *_refreshControl;
@@ -42,6 +42,7 @@
 
 @implementation ZFCInterpersonalCircleViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -52,8 +53,7 @@
     [[NIMSDK sharedSDK].conversationManager addDelegate:self];
     [[NIMSDK sharedSDK].loginManager addDelegate:self];
     [[NIMSDK sharedSDK].userManager addDelegate:self];
- 
-
+    
 
 }
 - (void)dealloc{

@@ -44,7 +44,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 //推送Kit
 @import PushKit;
-@interface AppDelegate ()<NIMLoginManagerDelegate,PKPushRegistryDelegate,WXApiDelegate,JPUSHRegisterDelegate>
+@interface AppDelegate ()<NIMLoginManagerDelegate,PKPushRegistryDelegate,WXApiDelegate,JPUSHRegisterDelegate,NIMConversationManagerDelegate>
 {
      NSInteger _jpsuhCount;
     
@@ -93,8 +93,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     
     [self loginNIM];
     
-
-    
     [self registerAPNS];//极光推送注册APNS
 
     //notice: 3.0.0及以后版本注册可以这样写，也可以继续用之前的注册方式
@@ -116,7 +114,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     // Optional
     [JPUSHService setupWithOption:launchOptions appKey:JpushAppkey
                           channel:@"Publish channel"
-                 apsForProduction:@"1"
+                 apsForProduction:YES
             advertisingIdentifier:nil];
     
     //2.1.9版本新增获取registration id block接口。
@@ -144,6 +142,10 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     if (BBUserDefault.userPhoneNumber != nil && BBUserDefault.token !=nil) {
         [[[NIMSDK sharedSDK] loginManager] login:BBUserDefault.userPhoneNumber token: BBUserDefault.token completion:^(NSError * _Nullable error) {
             NSLog(@"网易云信 --- %@",error);
+
+            NSInteger count = [[[NIMSDK sharedSDK] conversationManager] allUnreadCount];
+            NSLog(@"--------count  ==== %ld  ------",count);
+
         }];
         [[NTESServiceManager sharedManager] start];
     }
@@ -156,7 +158,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     [[NIMSDKConfig sharedConfig] setDelegate:self.sdkConfigDelegate];
     [[NIMSDKConfig sharedConfig] setShouldSyncUnreadCount:YES];
     [[NIMSDKConfig sharedConfig] setMaxAutoLoginRetryTimes:10];
-    
+ 
     
     //appkey 是应用的标识，不同应用之间的数据（用户、消息、群组等）是完全隔离的。
     //如需打网易云信 Demo 包，请勿修改 appkey ，开发自己的应用时，请替换为自己的 appkey 。
@@ -171,7 +173,9 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     //注册自定义消息的解析器
     [NIMCustomObject registerCustomDecoder:[NTESCustomAttachmentDecoder new]];
     
-
+    NSInteger count = [[[NIMSDK sharedSDK] conversationManager] allUnreadCount];
+ 
+    NSLog(@"--------count  ==== %ld  ------",count);
 }
 
 

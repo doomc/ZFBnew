@@ -5578,7 +5578,6 @@
 				495EA7011F14B64D001FCB7E /* YBPopupMenu */,
 				495EA7081F14B64D001FCB7E /* YYCache */,
 				495EA7111F14B64D001FCB7E /* ZWLimitCounter */,
-				495EA7141F14B64D001FCB7E /* ZWPlaceHolder */,
 			);
 			path = Vender;
 			sourceTree = "<group>";
@@ -5691,13 +5690,6 @@
 				495EA7131F14B64D001FCB7E /* UITextView+ZWLimitCounter.m */,
 			);
 			path = ZWLimitCounter;
-			sourceTree = "<group>";
-		};
-		495EA7141F14B64D001FCB7E /* ZWPlaceHolder */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ZWPlaceHolder;
 			sourceTree = "<group>";
 		};
 		4968A12F1F4D89690061A87E /* CustomNIM(自定义界面) */ = {
@@ -6958,13 +6950,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		49B0E74D1F4176AA0032E72E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		49B0E74E1F4176AA0032E72E /* VC */ = {
 			isa = PBXGroup;
 			children = (
@@ -7503,7 +7488,6 @@
 		50B381051F3EFF94001ED3BA /* QRCode(二维码扫一扫) */ = {
 			isa = PBXGroup;
 			children = (
-				49B0E74D1F4176AA0032E72E /* Model */,
 				49B0E74E1F4176AA0032E72E /* VC */,
 				50B3810F1F3F0B7A001ED3BA /* View */,
 				50B381091F3EFFE1001ED3BA /* QRCodeSaoyiSaoViewController.h */,
@@ -9331,8 +9315,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "04f81e7b-4889-448f-94a1-6e75cbfe2e16";
-				PROVISIONING_PROFILE_SPECIFIER = CompanyDelevopment;
+				PROVISIONING_PROFILE = "7f63ac1a-aadd-4ab9-8eb7-2dae3f9f52a2";
+				PROVISIONING_PROFILE_SPECIFIER = zavfbDevelopment;
 			};
 			name = Debug;
 		};
@@ -9423,8 +9407,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "04f81e7b-4889-448f-94a1-6e75cbfe2e16";
-				PROVISIONING_PROFILE_SPECIFIER = CompanyDelevopment;
+				PROVISIONING_PROFILE = "7f63ac1a-aadd-4ab9-8eb7-2dae3f9f52a2";
+				PROVISIONING_PROFILE_SPECIFIER = zavfbDevelopment;
 			};
 			name = Release;
 		};
