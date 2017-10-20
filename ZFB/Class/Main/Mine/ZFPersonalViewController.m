@@ -36,8 +36,8 @@
 #import "CouponViewController.h"//优惠券
 #import "MineShareViewController.h"//我的共享
 #import "AccountViewController.h"//交易明细
-#import "RechargeViewController.h"//充值
-#import "WirhDrowViewController.h"//提现
+#import "RechargeViewController.h"//提现
+#import "BandBackCarViewController.h"//绑卡
 
 //base
 #import "ZFBaseNavigationViewController.h"
@@ -558,7 +558,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [self.navigationController pushViewController:accontVC animated:NO];
     
 }
-///余额   --- (充值)
+///余额   --- (充值、提现)
 -(void)didClickBalanceView
 {
     RechargeViewController * bankVC = [RechargeViewController new];
@@ -584,10 +584,10 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
 
 }
-///富豆  银行卡绑定 提现
+///富豆  银行卡绑定
 -(void)didClickFuBeanView
 {
-    WirhDrowViewController * bankVC = [WirhDrowViewController new];
+    BandBackCarViewController * bankVC = [BandBackCarViewController new];
     [self.navigationController pushViewController:bankVC animated:NO];
 }
 

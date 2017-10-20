@@ -1,15 +1,14 @@
-
 //
-//  AboutUSCell.m
+//  SupportBankCell.m
 //  ZFB
 //
-//  Created by  展富宝  on 2017/10/19.
+//  Created by  展富宝  on 2017/10/20.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
-#import "AboutUSCell.h"
+#import "SupportBankCell.h"
 
-@implementation AboutUSCell
+@implementation SupportBankCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

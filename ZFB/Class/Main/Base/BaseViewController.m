@@ -103,6 +103,33 @@
     });
 }
 
+/**
+ collction集成刷新
+ */
+-(void)setupCollectionViewRefresh
+{
+    self.zfb_collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+    self.zfb_collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
+}
+
+/**
+ collction结束刷新
+ */
+-(void)endCollectionViewRefresh
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self.refreshType == RefreshTypeHeader) {
+            
+            [self.zfb_collectionView.mj_header endRefreshing];
+            
+        }else {
+            
+            [self.zfb_collectionView.mj_footer endRefreshing];
+        }
+    });
+}
+
+
 - (void)backSweepGesture:(UISwipeGestureRecognizer*)gesture{
     
     // [self dismissViewControllerAnimated:YES completion:nil];

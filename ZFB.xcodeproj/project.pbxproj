@@ -55,10 +55,24 @@
 		491C8E631F948E140072B2E3 /* backTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 491C8E621F948E140072B2E3 /* backTop.png */; };
 		491C8E651F9497460072B2E3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 491C8E641F9497460072B2E3 /* CFNetwork.framework */; };
 		491C8E821F95E2DF0072B2E3 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 491C8E811F95E2DF0072B2E3 /* RechargeViewController.m */; };
-		491C8E851F95E2FB0072B2E3 /* WirhDrowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 491C8E841F95E2FB0072B2E3 /* WirhDrowViewController.m */; };
 		491EC5911F98A9E300873412 /* shopkeeper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 491EC58F1F98A9E300873412 /* shopkeeper@2x.png */; };
 		491EC5921F98A9E300873412 /* shopkeeper@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 491EC5901F98A9E300873412 /* shopkeeper@3x.png */; };
 		491EC5991F98BD4D00873412 /* BankCardListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 491EC5981F98BD4D00873412 /* BankCardListModel.m */; };
+		491EC5A41F99AA8D00873412 /* AboutUsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491EC5A31F99AA8D00873412 /* AboutUsView.m */; };
+		491EC5A61F99AB2B00873412 /* AboutUsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491EC5A51F99AB2B00873412 /* AboutUsView.xib */; };
+		491EC5A91F99CF1500873412 /* BandBackCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 491EC5A81F99CF1500873412 /* BandBackCarViewController.m */; };
+		491EC5AD1F99CF8B00873412 /* WithdrawCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 491EC5AB1F99CF8B00873412 /* WithdrawCell.m */; };
+		491EC5AE1F99CF8B00873412 /* WithdrawCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491EC5AC1F99CF8B00873412 /* WithdrawCell.xib */; };
+		491EC5B21F99D34500873412 /* AddBackButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 491EC5B01F99D34500873412 /* AddBackButtonCell.m */; };
+		491EC5B31F99D34500873412 /* AddBackButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491EC5B11F99D34500873412 /* AddBackButtonCell.xib */; };
+		491EC5B61F99DE4500873412 /* BankCarListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 491EC5B51F99DE4500873412 /* BankCarListViewController.m */; };
+		491EC5BA1F99DF1100873412 /* BankCarListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 491EC5B81F99DF1100873412 /* BankCarListCell.m */; };
+		491EC5BB1F99DF1100873412 /* BankCarListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491EC5B91F99DF1100873412 /* BankCarListCell.xib */; };
+		491EC5BE1F99E45C00873412 /* SupprotBankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 491EC5BD1F99E45C00873412 /* SupprotBankViewController.m */; };
+		491EC5C11F99E4DE00873412 /* BankMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 491EC5C01F99E4DE00873412 /* BankMessageViewController.m */; };
+		491EC5C51F99E60C00873412 /* SupportBankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 491EC5C31F99E60C00873412 /* SupportBankCell.m */; };
+		491EC5C61F99E60C00873412 /* SupportBankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491EC5C41F99E60C00873412 /* SupportBankCell.xib */; };
+		491EC5C91F99F65400873412 /* BankCardPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491EC5C81F99F65400873412 /* BankCardPopView.m */; };
 		4921415E1F298DA800C44D10 /* BrandListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921415D1F298DA800C44D10 /* BrandListModel.m */; };
 		492141741F29E62300C44D10 /* delete_sku.png in Resources */ = {isa = PBXBuildFile; fileRef = 492141731F29E62300C44D10 /* delete_sku.png */; };
 		492141821F29FB0A00C44D10 /* OrderStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492141811F29FB0A00C44D10 /* OrderStatisticsViewController.m */; };
@@ -1117,8 +1131,6 @@
 		49DFC4821F9741E90080B6F7 /* BackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC4801F9741E90080B6F7 /* BackCell.m */; };
 		49DFC4831F9741E90080B6F7 /* BackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DFC4811F9741E90080B6F7 /* BackCell.xib */; };
 		49DFC4861F9843710080B6F7 /* AboutUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC4851F9843710080B6F7 /* AboutUSViewController.m */; };
-		49DFC48A1F98500D0080B6F7 /* AboutUSCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC4881F98500D0080B6F7 /* AboutUSCell.m */; };
-		49DFC48B1F98500D0080B6F7 /* AboutUSCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DFC4891F98500D0080B6F7 /* AboutUSCell.xib */; };
 		49DFC49B1F9874A90080B6F7 /* PPBadgeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC4931F9874A90080B6F7 /* PPBadgeLabel.m */; };
 		49DFC49C1F9874A90080B6F7 /* UIBarButtonItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC4961F9874A90080B6F7 /* UIBarButtonItem+PPBadgeView.m */; };
 		49DFC49D1F9874A90080B6F7 /* UITabBarItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC4981F9874A90080B6F7 /* UITabBarItem+PPBadgeView.m */; };
@@ -1326,13 +1338,36 @@
 		491C8E6C1F9497D30072B2E3 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		491C8E801F95E2DF0072B2E3 /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
 		491C8E811F95E2DF0072B2E3 /* RechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
-		491C8E831F95E2FB0072B2E3 /* WirhDrowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WirhDrowViewController.h; sourceTree = "<group>"; };
-		491C8E841F95E2FB0072B2E3 /* WirhDrowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WirhDrowViewController.m; sourceTree = "<group>"; };
 		491C8E871F9609110072B2E3 /* ZFB.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ZFB.entitlements; sourceTree = "<group>"; };
 		491EC58F1F98A9E300873412 /* shopkeeper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopkeeper@2x.png"; sourceTree = "<group>"; };
 		491EC5901F98A9E300873412 /* shopkeeper@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopkeeper@3x.png"; sourceTree = "<group>"; };
 		491EC5971F98BD4D00873412 /* BankCardListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankCardListModel.h; sourceTree = "<group>"; };
 		491EC5981F98BD4D00873412 /* BankCardListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankCardListModel.m; sourceTree = "<group>"; };
+		491EC5A21F99AA8D00873412 /* AboutUsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsView.h; sourceTree = "<group>"; };
+		491EC5A31F99AA8D00873412 /* AboutUsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsView.m; sourceTree = "<group>"; };
+		491EC5A51F99AB2B00873412 /* AboutUsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutUsView.xib; sourceTree = "<group>"; };
+		491EC5A71F99CF1500873412 /* BandBackCarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BandBackCarViewController.h; sourceTree = "<group>"; };
+		491EC5A81F99CF1500873412 /* BandBackCarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BandBackCarViewController.m; sourceTree = "<group>"; };
+		491EC5AA1F99CF8B00873412 /* WithdrawCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WithdrawCell.h; sourceTree = "<group>"; };
+		491EC5AB1F99CF8B00873412 /* WithdrawCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WithdrawCell.m; sourceTree = "<group>"; };
+		491EC5AC1F99CF8B00873412 /* WithdrawCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WithdrawCell.xib; sourceTree = "<group>"; };
+		491EC5AF1F99D34500873412 /* AddBackButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBackButtonCell.h; sourceTree = "<group>"; };
+		491EC5B01F99D34500873412 /* AddBackButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBackButtonCell.m; sourceTree = "<group>"; };
+		491EC5B11F99D34500873412 /* AddBackButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddBackButtonCell.xib; sourceTree = "<group>"; };
+		491EC5B41F99DE4500873412 /* BankCarListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankCarListViewController.h; sourceTree = "<group>"; };
+		491EC5B51F99DE4500873412 /* BankCarListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankCarListViewController.m; sourceTree = "<group>"; };
+		491EC5B71F99DF1100873412 /* BankCarListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankCarListCell.h; sourceTree = "<group>"; };
+		491EC5B81F99DF1100873412 /* BankCarListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankCarListCell.m; sourceTree = "<group>"; };
+		491EC5B91F99DF1100873412 /* BankCarListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BankCarListCell.xib; sourceTree = "<group>"; };
+		491EC5BC1F99E45C00873412 /* SupprotBankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupprotBankViewController.h; sourceTree = "<group>"; };
+		491EC5BD1F99E45C00873412 /* SupprotBankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupprotBankViewController.m; sourceTree = "<group>"; };
+		491EC5BF1F99E4DE00873412 /* BankMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankMessageViewController.h; sourceTree = "<group>"; };
+		491EC5C01F99E4DE00873412 /* BankMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankMessageViewController.m; sourceTree = "<group>"; };
+		491EC5C21F99E60C00873412 /* SupportBankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportBankCell.h; sourceTree = "<group>"; };
+		491EC5C31F99E60C00873412 /* SupportBankCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupportBankCell.m; sourceTree = "<group>"; };
+		491EC5C41F99E60C00873412 /* SupportBankCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SupportBankCell.xib; sourceTree = "<group>"; };
+		491EC5C71F99F65400873412 /* BankCardPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankCardPopView.h; sourceTree = "<group>"; };
+		491EC5C81F99F65400873412 /* BankCardPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankCardPopView.m; sourceTree = "<group>"; };
 		4921415C1F298DA800C44D10 /* BrandListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandListModel.h; sourceTree = "<group>"; };
 		4921415D1F298DA800C44D10 /* BrandListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandListModel.m; sourceTree = "<group>"; };
 		492141731F29E62300C44D10 /* delete_sku.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_sku.png; sourceTree = "<group>"; };
@@ -3009,9 +3044,6 @@
 		49DFC4811F9741E90080B6F7 /* BackCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BackCell.xib; sourceTree = "<group>"; };
 		49DFC4841F9843710080B6F7 /* AboutUSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUSViewController.h; sourceTree = "<group>"; };
 		49DFC4851F9843710080B6F7 /* AboutUSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUSViewController.m; sourceTree = "<group>"; };
-		49DFC4871F98500D0080B6F7 /* AboutUSCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUSCell.h; sourceTree = "<group>"; };
-		49DFC4881F98500D0080B6F7 /* AboutUSCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUSCell.m; sourceTree = "<group>"; };
-		49DFC4891F98500D0080B6F7 /* AboutUSCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutUSCell.xib; sourceTree = "<group>"; };
 		49DFC4921F9874A90080B6F7 /* PPBadgeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPBadgeLabel.h; sourceTree = "<group>"; };
 		49DFC4931F9874A90080B6F7 /* PPBadgeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPBadgeLabel.m; sourceTree = "<group>"; };
 		49DFC4941F9874A90080B6F7 /* PPBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPBadgeView.h; sourceTree = "<group>"; };
@@ -3372,25 +3404,25 @@
 			path = WMDragView;
 			sourceTree = "<group>";
 		};
-		491C8E781F95E2660072B2E3 /* Recharge(充值绑卡) */ = {
+		491C8E781F95E2660072B2E3 /* Recharge(提现) */ = {
 			isa = PBXGroup;
 			children = (
 				491C8E7A1F95E2A60072B2E3 /* C */,
 				491C8E7B1F95E2A60072B2E3 /* M */,
 				491C8E7C1F95E2A60072B2E3 /* V */,
 			);
-			name = "Recharge(充值绑卡)";
+			name = "Recharge(提现)";
 			path = Recharge;
 			sourceTree = "<group>";
 		};
-		491C8E791F95E2660072B2E3 /* Withdraw(提现) */ = {
+		491C8E791F95E2660072B2E3 /* Withdraw(绑定银行卡) */ = {
 			isa = PBXGroup;
 			children = (
 				491C8E7D1F95E2AE0072B2E3 /* C */,
 				491C8E7E1F95E2AE0072B2E3 /* M */,
 				491C8E7F1F95E2AE0072B2E3 /* V */,
 			);
-			name = "Withdraw(提现)";
+			name = "Withdraw(绑定银行卡)";
 			path = Withdraw;
 			sourceTree = "<group>";
 		};
@@ -3401,6 +3433,12 @@
 				491C8E811F95E2DF0072B2E3 /* RechargeViewController.m */,
 				49DFC4771F972B770080B6F7 /* AddBankCardViewController.h */,
 				49DFC4781F972B770080B6F7 /* AddBankCardViewController.m */,
+				491EC5BF1F99E4DE00873412 /* BankMessageViewController.h */,
+				491EC5C01F99E4DE00873412 /* BankMessageViewController.m */,
+				491EC5B41F99DE4500873412 /* BankCarListViewController.h */,
+				491EC5B51F99DE4500873412 /* BankCarListViewController.m */,
+				491EC5BC1F99E45C00873412 /* SupprotBankViewController.h */,
+				491EC5BD1F99E45C00873412 /* SupprotBankViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -3423,6 +3461,20 @@
 				49DFC47F1F9741E90080B6F7 /* BackCell.h */,
 				49DFC4801F9741E90080B6F7 /* BackCell.m */,
 				49DFC4811F9741E90080B6F7 /* BackCell.xib */,
+				491EC5AA1F99CF8B00873412 /* WithdrawCell.h */,
+				491EC5AB1F99CF8B00873412 /* WithdrawCell.m */,
+				491EC5AC1F99CF8B00873412 /* WithdrawCell.xib */,
+				491EC5AF1F99D34500873412 /* AddBackButtonCell.h */,
+				491EC5B01F99D34500873412 /* AddBackButtonCell.m */,
+				491EC5B11F99D34500873412 /* AddBackButtonCell.xib */,
+				491EC5B71F99DF1100873412 /* BankCarListCell.h */,
+				491EC5B81F99DF1100873412 /* BankCarListCell.m */,
+				491EC5B91F99DF1100873412 /* BankCarListCell.xib */,
+				491EC5C21F99E60C00873412 /* SupportBankCell.h */,
+				491EC5C31F99E60C00873412 /* SupportBankCell.m */,
+				491EC5C41F99E60C00873412 /* SupportBankCell.xib */,
+				491EC5C71F99F65400873412 /* BankCardPopView.h */,
+				491EC5C81F99F65400873412 /* BankCardPopView.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -3430,8 +3482,8 @@
 		491C8E7D1F95E2AE0072B2E3 /* C */ = {
 			isa = PBXGroup;
 			children = (
-				491C8E831F95E2FB0072B2E3 /* WirhDrowViewController.h */,
-				491C8E841F95E2FB0072B2E3 /* WirhDrowViewController.m */,
+				491EC5A71F99CF1500873412 /* BandBackCarViewController.h */,
+				491EC5A81F99CF1500873412 /* BandBackCarViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -4716,8 +4768,8 @@
 		495EA4701F14B64B001FCB7E /* Mine(个人中心) */ = {
 			isa = PBXGroup;
 			children = (
-				491C8E781F95E2660072B2E3 /* Recharge(充值绑卡) */,
-				491C8E791F95E2660072B2E3 /* Withdraw(提现) */,
+				491C8E781F95E2660072B2E3 /* Recharge(提现) */,
+				491C8E791F95E2660072B2E3 /* Withdraw(绑定银行卡) */,
 				49C1B55A1F8B491100B2001B /* Accounts(流水明细) */,
 				493BDE1E1F6A74E500CF31D0 /* Share(我的共享) */,
 				49BA48941F691050006B5F60 /* Coupon(优惠券) */,
@@ -4998,9 +5050,9 @@
 				495EA5211F14B64C001FCB7E /* ZFSettingRowCell.h */,
 				495EA5221F14B64C001FCB7E /* ZFSettingRowCell.m */,
 				495EA5231F14B64C001FCB7E /* ZFSettingRowCell.xib */,
-				49DFC4871F98500D0080B6F7 /* AboutUSCell.h */,
-				49DFC4881F98500D0080B6F7 /* AboutUSCell.m */,
-				49DFC4891F98500D0080B6F7 /* AboutUSCell.xib */,
+				491EC5A21F99AA8D00873412 /* AboutUsView.h */,
+				491EC5A31F99AA8D00873412 /* AboutUsView.m */,
+				491EC5A51F99AB2B00873412 /* AboutUsView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -8058,6 +8110,7 @@
 				49D115B01F7E851900467CF1 /* findGroup@3x.png in Resources */,
 				497A8AAF1F2AECAA0003D7CB /* 今日@3x.png in Resources */,
 				49AD34511F289AE200DC8A8F /* search_history@2x.png in Resources */,
+				491EC5A61F99AB2B00873412 /* AboutUsView.xib in Resources */,
 				495EA8B11F14B64D001FCB7E /* shoppingCar_selected@3x.png in Resources */,
 				493BDE171F6A35E400CF31D0 /* 线下支付@2x.png in Resources */,
 				495EA9201F14B64E001FCB7E /* accessory@2x.png in Resources */,
@@ -8068,6 +8121,7 @@
 				50424F171F30EB2E00A1689D /* head@3x.png in Resources */,
 				493BDE121F6A34AF00CF31D0 /* SelectPayTypeCell.xib in Resources */,
 				495EA8661F14B64D001FCB7E /* bag_normal@2x.png in Resources */,
+				491EC5AE1F99CF8B00873412 /* WithdrawCell.xib in Resources */,
 				49786D811F7D11F30088AAD3 /* star_normal@3x.png in Resources */,
 				495EA8FF1F14B64E001FCB7E /* Collected@3x.png in Resources */,
 				49C33E501F558D9D00BC2254 /* kefu_black@3x.png in Resources */,
@@ -8080,6 +8134,7 @@
 				495EA8FE1F14B64E001FCB7E /* Collected@2x.png in Resources */,
 				495EA88D1F14B64D001FCB7E /* diamond@3x.png in Resources */,
 				4906D1551F74D7BE00B327ED /* 720x330.png in Resources */,
+				491EC5C61F99E60C00873412 /* SupportBankCell.xib in Resources */,
 				493BDE191F6A35E400CF31D0 /* 在线支付@2x.png in Resources */,
 				495EA9241F14B64E001FCB7E /* classes@2x.png in Resources */,
 				495EA92B1F14B64E001FCB7E /* love@3x.png in Resources */,
@@ -8172,6 +8227,7 @@
 				495EA8331F14B64D001FCB7E /* ZFBackWaysViewController.xib in Resources */,
 				50B3812A1F3F729B001ED3BA /* time@2x.png in Resources */,
 				49AD34521F289AE200DC8A8F /* search_history@3x.png in Resources */,
+				491EC5BB1F99DF1100873412 /* BankCarListCell.xib in Resources */,
 				495EA9351F14B64E001FCB7E /* 距离@2x.png in Resources */,
 				4906D15C1F74DA9000B327ED /* nomoreData@3x.png in Resources */,
 				495EA86D1F14B64D001FCB7E /* flying_local@3x.png in Resources */,
@@ -8205,6 +8261,7 @@
 				495EA88E1F14B64D001FCB7E /* placeholder@2x.png in Resources */,
 				49AD34461F2883BA00DC8A8F /* storeimg@3x.png in Resources */,
 				4968A4311F4DB5290061A87E /* NTESAudio2TextViewController.xib in Resources */,
+				491EC5B31F99D34500873412 /* AddBackButtonCell.xib in Resources */,
 				495EA8571F14B64D001FCB7E /* arrows_down_black@3x.png in Resources */,
 				495EA8BD1F14B64E001FCB7E /* editting@3x.png in Resources */,
 				495EA8821F14B64D001FCB7E /* sending_icon@2x.png in Resources */,
@@ -8230,7 +8287,6 @@
 				495EA8811F14B64D001FCB7E /* return_icon@3x.png in Resources */,
 				495EA7371F14B64D001FCB7E /* blankpage_button_reload@2x.png in Resources */,
 				497EF7291F50468700BFF1AF /* IMSearchResultCell.xib in Resources */,
-				49DFC48B1F98500D0080B6F7 /* AboutUSCell.xib in Resources */,
 				495EA78E1F14B64D001FCB7E /* ZFLocationGoToStoreCell.xib in Resources */,
 				495EA8C51F14B64E001FCB7E /* navback_white@3x.png in Resources */,
 				50D61E951F1E5BAD00DBDA4D /* plus@3x.png in Resources */,
@@ -8490,6 +8546,7 @@
 				497EF7111F4EAA4400BFF1AF /* NTESChartletAttachment.m in Sources */,
 				497EF6E31F4E9F6C00BFF1AF /* NTESRecordSelectView.m in Sources */,
 				49B0E75C1F417AEB0032E72E /* QRPayHistoryViewController.m in Sources */,
+				491EC5C11F99E4DE00873412 /* BankMessageViewController.m in Sources */,
 				49182B6C1F6F5BB5003D6C47 /* UIImage+ImageSize.m in Sources */,
 				495EA72D1F14B64D001FCB7E /* AddressPickerView.m in Sources */,
 				4968A4581F4DB5290061A87E /* NTESSpellingCenter.m in Sources */,
@@ -8520,6 +8577,7 @@
 				4968A2A91F4DB5080061A87E /* NIMTimestampModel.m in Sources */,
 				492718A91F1F767D002A7A54 /* SureOrderModel.m in Sources */,
 				50B3811E1F3F62E4001ED3BA /* PlaceholderTextView.m in Sources */,
+				491EC5AD1F99CF8B00873412 /* WithdrawCell.m in Sources */,
 				4968A2921F4DB5080061A87E /* NIMGroupedUsrInfo.m in Sources */,
 				49DA74A71F25CB9C009F5577 /* SearchTypeCollectionCell.m in Sources */,
 				495EA9391F14B64E001FCB7E /* GVUserDefaults+BBProperties.m in Sources */,
@@ -8557,7 +8615,6 @@
 				4968A2841F4DB5080061A87E /* NIMKitProgressHUD.m in Sources */,
 				4968A4301F4DB5290061A87E /* NTESAudio2TextViewController.m in Sources */,
 				4958D53E1F692D2C007426A9 /* CouponUsedCell.m in Sources */,
-				49DFC48A1F98500D0080B6F7 /* AboutUSCell.m in Sources */,
 				495EA75C1F14B64D001FCB7E /* UIView+ZFCornerRadius.m in Sources */,
 				4968A2BB1F4DB5090061A87E /* NIMSessionConfigurator.m in Sources */,
 				4968A2B71F4DB5090061A87E /* NIMKitMessageAtModel.m in Sources */,
@@ -8586,6 +8643,7 @@
 				4968A3FA1F4DB5290061A87E /* NTESTeamListViewController.m in Sources */,
 				49555D921F32EA6B00C3C748 /* IQTitleBarButtonItem.m in Sources */,
 				495EA8461F14B64D001FCB7E /* ZFOrderDetailPaycashCell.m in Sources */,
+				491EC5A41F99AA8D00873412 /* AboutUsView.m in Sources */,
 				4968A41D1F4DB5290061A87E /* NTESSystemNotificationCell.m in Sources */,
 				4968A4051F4DB5290061A87E /* UIScrollView+NTESPullToRefresh.m in Sources */,
 				49C1B5F51F8DE1E800B2001B /* CYConst.m in Sources */,
@@ -8715,6 +8773,7 @@
 				495EA7AE1F14B64D001FCB7E /* HotCollectionViewCell.m in Sources */,
 				49D6952C1F318087000868A7 /* SendOrderStatisticsViewController.m in Sources */,
 				50D4D6871F1BB94D0073DBC1 /* QBImagePickerGroupCell.m in Sources */,
+				491EC5BA1F99DF1100873412 /* BankCarListCell.m in Sources */,
 				495EA73C1F14B64D001FCB7E /* EaseBlankPageView.m in Sources */,
 				497A8AC61F2ECC110003D7CB /* UICustomDatePicker.m in Sources */,
 				495EA7F71F14B64D001FCB7E /* ZFContactCell.m in Sources */,
@@ -8804,10 +8863,12 @@
 				49B3BCE11F204FC1002A0FDC /* NSUserDefaults+SafeAccess.m in Sources */,
 				4968A2971F4DB5080061A87E /* NIMContactSelectViewController.m in Sources */,
 				4968A4091F4DB5290061A87E /* NTESFPSLabel.m in Sources */,
+				491EC5B21F99D34500873412 /* AddBackButtonCell.m in Sources */,
 				495EA7AC1F14B64D001FCB7E /* GuessCell.m in Sources */,
 				4968A4421F4DB5290061A87E /* NTESTextHeaderView.m in Sources */,
 				49555E961F1E0092002E5688 /* AddressLocationMapViewController.m in Sources */,
 				495EA76C1F14B64D001FCB7E /* CollectionCategoryModel.m in Sources */,
+				491EC5B61F99DE4500873412 /* BankCarListViewController.m in Sources */,
 				499D150F1F67754300EB705B /* ChangePasswordViewController.m in Sources */,
 				49B3BCD81F204F70002A0FDC /* SYSafeCategory.m in Sources */,
 				495EA73F1F14B64D001FCB7E /* introductoryPagesHelper.m in Sources */,
@@ -8847,6 +8908,7 @@
 				495EA7C21F14B64D001FCB7E /* ZFHistoryViewController.m in Sources */,
 				4939E6711F2AC3EE00ECD0B7 /* SKTag.m in Sources */,
 				4968A2951F4DB5080061A87E /* NIMContactSelectConfig.m in Sources */,
+				491EC5C51F99E60C00873412 /* SupportBankCell.m in Sources */,
 				497EF6FF1F4EA23400BFF1AF /* NTESVideoChatNetStatusView.m in Sources */,
 				495EA8371F14B64D001FCB7E /* ZFMyOpinionViewController.m in Sources */,
 				4968A2BC1F4DB5090061A87E /* NIMSessionDataSourceImpl.m in Sources */,
@@ -8881,8 +8943,8 @@
 				495EA79B1F14B64D001FCB7E /* DetailGoodsModel.m in Sources */,
 				4906D12A1F739ADA00B327ED /* UIDevice+YYAdd.m in Sources */,
 				493BDDFF1F6A202400CF31D0 /* SureOrderChooseTypeCell.m in Sources */,
+				491EC5C91F99F65400873412 /* BankCardPopView.m in Sources */,
 				4968A2E91F4DB5090061A87E /* NIMKitRobotDefaultTemplateParser.m in Sources */,
-				491C8E851F95E2FB0072B2E3 /* WirhDrowViewController.m in Sources */,
 				4968A40C1F4DB5290061A87E /* NTESContactDataMember.m in Sources */,
 				4971FB841F3864A20012DF84 /* ShopCarSectionHeadViewCell.m in Sources */,
 				4968A2E21F4DB5090061A87E /* NIMTeamSwitchTableViewCell.m in Sources */,
@@ -9037,6 +9099,7 @@
 				4968A3FE1F4DB5290061A87E /* NSString+NTES.m in Sources */,
 				495EA7721F14B64D001FCB7E /* NSObject+Property.m in Sources */,
 				495EA7911F14B64D001FCB7E /* ZFTitleAndChooseListCell.m in Sources */,
+				491EC5A91F99CF1500873412 /* BandBackCarViewController.m in Sources */,
 				493BDE561F6A889000CF31D0 /* MineShareTodayincomeViewController.m in Sources */,
 				495EA82A1F14B64D001FCB7E /* FeedTextViewCell.m in Sources */,
 				495EA7321F14B64D001FCB7E /* NSString+HDExtension.m in Sources */,
@@ -9053,6 +9116,7 @@
 				49B0E7571F4177200032E72E /* QRCollectMoneyViewController.m in Sources */,
 				495EA81E1F14B64D001FCB7E /* ZFSettingHeaderCell.m in Sources */,
 				4968A2A71F4DB5080061A87E /* NIMMediaItem.m in Sources */,
+				491EC5BE1F99E45C00873412 /* SupprotBankViewController.m in Sources */,
 				49555E971F1E0092002E5688 /* EditAddressViewController.m in Sources */,
 				504A76161F6ADD9D00B61CE3 /* YYTextLine.m in Sources */,
 				4968A4251F4DB5290061A87E /* NTESSearchLocalHistoryObject.m in Sources */,
@@ -9315,8 +9379,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7f63ac1a-aadd-4ab9-8eb7-2dae3f9f52a2";
-				PROVISIONING_PROFILE_SPECIFIER = zavfbDevelopment;
+				PROVISIONING_PROFILE = "04f81e7b-4889-448f-94a1-6e75cbfe2e16";
+				PROVISIONING_PROFILE_SPECIFIER = CompanyDelevopment;
 			};
 			name = Debug;
 		};
@@ -9407,8 +9471,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7f63ac1a-aadd-4ab9-8eb7-2dae3f9f52a2";
-				PROVISIONING_PROFILE_SPECIFIER = zavfbDevelopment;
+				PROVISIONING_PROFILE = "04f81e7b-4889-448f-94a1-6e75cbfe2e16";
+				PROVISIONING_PROFILE_SPECIFIER = CompanyDelevopment;
 			};
 			name = Release;
 		};

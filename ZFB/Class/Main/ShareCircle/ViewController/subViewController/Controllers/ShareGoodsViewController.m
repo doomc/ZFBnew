@@ -35,8 +35,18 @@
     
     [self initCollectionView];
     // 第一次刷新手动调用
-    [self.collectionView.mj_header beginRefreshing];
-
+ 
+    [self setupCollectionViewRefresh];
+}
+-(void)footerRefresh
+{
+    [super footerRefresh];
+    [self shareGoodsPost];
+}
+-(void)headerRefresh
+{
+    [super headerRefresh];
+    [self shareGoodsPost];
 }
 
 -(void)initCollectionView{
@@ -54,6 +64,8 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.view addSubview:self.collectionView];
+    self.zfb_collectionView =self.collectionView  ;
+    
     // 注册
     [self.collectionView registerNib:[UINib nibWithNibName:@"ShareGoodsCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"ShareGoodsCollectionViewCellid"];
 }
@@ -157,28 +169,34 @@
 {
     NSDictionary * parma = @{
                              @"userId":BBUserDefault.cmUserId,
-                             @"pageIndex":@"1",
-                             @"pageSize":@"10",
+                             @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
+                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/toShareGoods/shareGoodsList"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {//
-            if ( self.shareArray.count > 0) {
-                [ self.shareArray removeAllObjects];
+            if (self.refreshType == RefreshTypeHeader) {
+                if ( self.shareArray.count > 0) {
+                    [ self.shareArray removeAllObjects];
+                }
             }
+
             ShareWaterFullModel * waterfull = [ShareWaterFullModel mj_objectWithKeyValues:response];
             for (ShareGoodsData * goodslist in waterfull.data) {
                 [self.shareArray addObject:goodslist];
             }
-        }
-        [SVProgressHUD dismiss];
-        [self.collectionView reloadData];
+            [self.collectionView reloadData];
+            [SVProgressHUD dismiss];
 
+        }
+        [self endCollectionViewRefresh];
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
 
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
+        [self endCollectionViewRefresh];
+
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
@@ -194,7 +212,7 @@
                              };
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/newrecomment/toLike"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
-           
+
             goodsdata.thumbsStatus = @"0";
             NSInteger  count = [goodsdata.thumbs integerValue];
             count ++;
@@ -212,14 +230,43 @@
     }];
 }
 
+#pragma mark  - 消息读取状态 messageInfo
+-(void)MessageInfo
+{
+    NSDictionary * parma = @{
+                             @"userId":BBUserDefault.cmUserId,
+                             @"timestamp":@"",//分享编号，新品推荐编号
+
+                             };
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/messageInfo"] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+            
+ 
+            [self.collectionView reloadData];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
+    
     [self shareGoodsPost];
+    
+    [self MessageInfo];
 
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [SVProgressHUD dismiss];
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

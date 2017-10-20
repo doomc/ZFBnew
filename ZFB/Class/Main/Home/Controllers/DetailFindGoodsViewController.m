@@ -143,6 +143,7 @@
 {
     WMDragView * flyView = [[WMDragView alloc] initWithFrame:CGRectMake(KScreenW - 50 -15 , self.list_tableView.height - 20, 50, 50)];
     flyView.layer.cornerRadius = 25;
+    flyView.backgroundColor = [UIColor whiteColor];
     [flyView.button setImage:[UIImage imageNamed:@"backTop"] forState:UIControlStateNormal];
     flyView.isKeepBounds = YES;
     flyView.dragEnable = NO;

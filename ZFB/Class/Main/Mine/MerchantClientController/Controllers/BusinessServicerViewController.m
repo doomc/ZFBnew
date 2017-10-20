@@ -305,7 +305,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_navbar_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
         [_navbar_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 80, 0, 0)];
-        [_navbar_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0,30)];
+        [_navbar_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0,33)];
         [_navbar_btn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _navbar_btn;
@@ -347,7 +347,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     return _popView;
 }
 
-
+//配送员列表
 -(BusinessSendOrderView *)sendOrderPopView
 {
     if (!_sendOrderPopView) {
@@ -367,6 +367,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     if (!_orderBgview) {
         _orderBgview =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH)];
         _orderBgview.backgroundColor = RGBA(0, 0, 0, 0.2) ;
+        
         
         [_orderBgview addSubview:self.sendOrderPopView];
     }
@@ -1469,19 +1470,21 @@ typedef NS_ENUM(NSUInteger, SelectType) {
              orderDeliveryFee:(NSString *)orderDeliveryFee
                         Index:(NSInteger)index
 {
+
     
-    BusinessOrderlist * orderlist = self.orderListArray[_currentSection];
+    
+//    BusinessOrderlist * orderlist = self.orderListArray[_currentSection];
     NSLog(@"_currentSection  =========   %ld",_currentSection);
-    [self sendOrderPostRequstStoreID:_storeId
-                          deliveryId:deliveryId
-                             orderId:orderlist.order_id
-                         postAddress:orderlist.post_address
-                            postName:orderlist.post_name
-                         orderAmount:orderlist.orderAmount
-                        deliveryName:deliveryName
-                       deliveryPhone:deliveryPhone
-                           postPhone:orderlist.post_phone
-                    orderDeliveryFee:orderDeliveryFee];
+//    [self sendOrderPostRequstStoreID:_storeId
+//                          deliveryId:deliveryId
+//                             orderId:orderlist.order_id
+//                         postAddress:orderlist.post_address
+//                            postName:orderlist.post_name
+//                         orderAmount:orderlist.orderAmount
+//                        deliveryName:deliveryName
+//                       deliveryPhone:deliveryPhone
+//                           postPhone:orderlist.post_phone
+//                    orderDeliveryFee:orderDeliveryFee];
     
     
 }
@@ -1763,7 +1766,23 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             }
             [SVProgressHUD dismiss];
             [self reloadDeliveryList];//刷新
-            [self.view addSubview:self.orderBgview];
+            
+////warn ------- 选择派单
+            JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"提示" message:@"选择派单模式" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * action1 = [UIAlertAction actionWithTitle:@"自派送" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            UIAlertAction * action2= [UIAlertAction actionWithTitle:@"系统派送" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            UIAlertAction * action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            [alert addAction:action1];
+            [alert addAction:action2];
+            [alert addAction:action3];
+            [self presentViewController:alert animated:YES completion:nil];
+//            [self.view addSubview:self.orderBgview];
             
         }
         

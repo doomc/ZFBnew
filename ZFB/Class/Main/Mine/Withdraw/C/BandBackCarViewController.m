@@ -1,29 +1,33 @@
 
 //
-//  WirhDrowViewController.m
+//  BandBackCarViewController.m
 //  ZFB
 //
-//  Created by  展富宝  on 2017/10/17.
+//  Created by  展富宝  on 2017/10/20.
 //  Copyright © 2017年 com.zfb. All rights reserved.
-//  提现
+//  绑定银行卡
 
-#import "WirhDrowViewController.h"
+#import "BandBackCarViewController.h"
 
-@interface WirhDrowViewController ()
+@interface BandBackCarViewController ()
+
+
+@property (nonatomic ,strong) UITableView * tableView;
 
 @end
 
-@implementation WirhDrowViewController
+@implementation BandBackCarViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+ }
+
 
 /*
 #pragma mark - Navigation

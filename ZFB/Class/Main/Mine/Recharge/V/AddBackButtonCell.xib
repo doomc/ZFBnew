@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="125" id="KGk-i7-Jjw" customClass="AddBackButtonCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rHY-SK-Uqx">
+                        <rect key="frame" x="15" y="65" width="290" height="45"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="NyD-sr-yGO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="＋添加银行卡">
+                            <color key="titleColor" red="0.97647058819999999" green="0.35294117650000001" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="addBankCard:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wxO-6n-riF"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s74-EY-ABo">
+                        <rect key="frame" x="15" y="10" width="290" height="45"/>
+                        <color key="backgroundColor" red="0.97647058819999999" green="0.35294117650000001" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="tTD-aJ-rp9"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="确认提现">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="sureCashWithDraw:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="W4G-Gt-daI"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="rHY-SK-Uqx" secondAttribute="trailing" constant="15" id="9Eg-JW-UFf"/>
+                    <constraint firstItem="rHY-SK-Uqx" firstAttribute="top" secondItem="s74-EY-ABo" secondAttribute="bottom" constant="10" id="I4Z-vn-CwL"/>
+                    <constraint firstItem="s74-EY-ABo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="IML-M9-RlA"/>
+                    <constraint firstItem="rHY-SK-Uqx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Kma-7m-mhG"/>
+                    <constraint firstItem="s74-EY-ABo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="cjc-y8-zfw"/>
+                    <constraint firstAttribute="trailing" secondItem="s74-EY-ABo" secondAttribute="trailing" constant="15" id="clG-xx-xO7"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="addBackBtn" destination="rHY-SK-Uqx" id="Ijo-s4-2bH"/>
+                <outlet property="sureWithdrawBtn" destination="s74-EY-ABo" id="2k3-BN-Sc7"/>
+            </connections>
+            <point key="canvasLocation" x="-169" y="60.5"/>
+        </tableViewCell>
+    </objects>
+</document>

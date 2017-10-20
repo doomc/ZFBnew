@@ -15,6 +15,7 @@
     // Initialization code
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+   
     
 }
 

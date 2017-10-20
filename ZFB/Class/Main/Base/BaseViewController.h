@@ -26,27 +26,39 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 @property (nonatomic, assign) RefreshType refreshType;
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) UITableView * zfb_tableView;
+@property (nonatomic, strong) UICollectionView * zfb_collectionView;
 
 
 /**
- 集成刷新
- */
--(void)setupRefresh;
-
-/**
- 下拉刷新
+ tableview下拉刷新
  */
 -(void)headerRefresh;
 
 /**
- 上拉刷新
+ tableview上拉刷新
  */
 -(void)footerRefresh;
 
+
 /**
- 结束刷新
+ tableview集成刷新
+ */
+-(void)setupRefresh;
+
+/**
+ tableview结束刷新
  */
 -(void)endRefresh;
+
+/**
+ collction集成刷新
+ */
+-(void)setupCollectionViewRefresh;
+
+/**
+ collction结束刷新
+ */
+-(void)endCollectionViewRefresh;
 
 
 -(void)backAction;

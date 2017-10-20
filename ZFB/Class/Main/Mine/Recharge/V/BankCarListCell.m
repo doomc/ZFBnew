@@ -1,22 +1,18 @@
-
 //
-//  BackCell.m
+//  BankCarListCell.m
 //  ZFB
 //
-//  Created by  展富宝  on 2017/10/18.
+//  Created by  展富宝  on 2017/10/20.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
-#import "BackCell.h"
+#import "BankCarListCell.h"
 
-@implementation BackCell
+@implementation BankCarListCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
