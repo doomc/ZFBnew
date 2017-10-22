@@ -29,6 +29,7 @@
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 110+ 32+55) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.scrollEnabled = NO;
         _tableView.backgroundColor = HEXCOLOR(0xeaeaea);
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
@@ -40,9 +41,11 @@
     // Do any additional setup after loading the view.
     self.title = @"填写银行卡信息";
     _titles = @[@"卡类型",@"卡号人",@"手机号"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"AddBankCell" bundle:nil] forCellReuseIdentifier:@"AddBankCell"];
     
     [self settingButton];
     [self.view addSubview:self.tableView];
+    self.view.backgroundColor = HEXCOLOR(0xf7f7f7);
 }
 -(void)settingButton
 {
@@ -50,11 +53,11 @@
     [_nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
     _nextBtn.titleLabel.font = SYSTEMFONT(15);
     [_nextBtn addTarget: self action:@selector(bandNext) forControlEvents:UIControlEventTouchUpInside];
-    _nextBtn.frame = CGRectMake( 15, 2*110+ 32, KScreenW -30, 45);
+    _nextBtn.frame = CGRectMake( 15, 2*110+ 32+55, KScreenW -30, 45);
     
-    [_nextBtn setTitleColor:HEXCOLOR(0x666666) forState:UIControlStateNormal];
-    [_nextBtn setBackgroundColor:HEXCOLOR(0xe0e0e0)];
-    _nextBtn.enabled = NO;
+    [_nextBtn setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+    [_nextBtn setBackgroundColor:HEXCOLOR(0xF95A70)];
+    _nextBtn.enabled = YES;
     
     [self.view addSubview:_nextBtn];
     
@@ -84,23 +87,26 @@
 {
     return 55;
 }
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView * view = nil;
-    if (!view) {
-        view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 32)];
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UIView * headView = nil;
+    if (!headView) {
+        headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 20)];
     }
-    return view;
+    return headView;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 32;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 40;
+}
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView * footview = nil;
     if (!footview) {
-        footview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 32)];
+        footview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
         
         UIButton * argreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [argreeBtn setImage:[UIImage imageNamed:@"s_normal"] forState:UIControlStateNormal];
@@ -115,19 +121,22 @@
         tag.textColor = HEXCOLOR(0x8d8d8d);
         [footview addSubview:tag];
         [tag mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(argreeBtn).with.offset(5);
+            make.left.equalTo(argreeBtn.mas_right).with.offset(5);
             make.top.equalTo(footview).with.offset(10);
+            make.height.mas_equalTo(22);
         }];
         
         UIButton * protoclbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        protoclbtn.titleLabel.font = SYSTEMFONT(12);
         [protoclbtn setTitleColor:HEXCOLOR(0xF95A70) forState:UIControlStateNormal];
         [protoclbtn setTitle:@"《展富宝代发服务协议》" forState:UIControlStateNormal];
         [protoclbtn addTarget:self action:@selector(protcolAction:) forControlEvents:UIControlEventTouchUpInside];
         [footview addSubview:protoclbtn];
         
         [protoclbtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(tag.right).with.offset(5);
+            make.left.equalTo(tag.mas_right).with.offset(5);
             make.top.equalTo(footview).with.offset(10);
+            make.height.mas_equalTo(22);
         }];
         
     }
@@ -141,16 +150,18 @@
     
     if (indexPath.row == 0) {
         [backCell.tf_content addTarget:self action:@selector(handCarText:) forControlEvents:UIControlEventEditingChanged];
-        
+        return backCell;
+
     }else if(indexPath.row == 1)
     {
         [backCell.tf_content addTarget:self action:@selector(carNumText:) forControlEvents:UIControlEventEditingChanged];
-        
+        return backCell;
+
     }else{
         [backCell.tf_content addTarget:self action:@selector(phoneNumText:) forControlEvents:UIControlEventEditingChanged];
+        return backCell;
 
     }
-    return backCell;
     
 }
 //持卡人姓名

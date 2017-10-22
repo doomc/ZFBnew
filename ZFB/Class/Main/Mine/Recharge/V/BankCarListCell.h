@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BankCardListModel.h"
 
 @interface BankCarListCell : UITableViewCell
 
@@ -19,5 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *bankType;
 
 @property (weak, nonatomic) IBOutlet UILabel *cardNum;
+
+@property (strong ,nonatomic) Base_Bank_List * bankList;
 
 @end

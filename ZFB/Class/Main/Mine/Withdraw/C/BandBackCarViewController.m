@@ -26,7 +26,31 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
- }
+ 
+}
+
+#pragma mark - 提现接口
+-(void)withDrawkCashPost
+{
+    NSDictionary * param = @{
+                             @"account":BBUserDefault.userPhoneNumber,
+                             @"bankId":@"",//绑卡后银行卡编号
+                             @"amount":@"12",//银行卡号
+                             @"logoUrl":@"",//银行卡绑定电话
+                             @"objectName":@"",//银行卡持有人姓名
+
+                             };
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/withdrawCash",zfb_baseUrl] params:param success:^(id response) {
+        
+        
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
 
 
 /*

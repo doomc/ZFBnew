@@ -13,6 +13,9 @@
 #import "WithdrawCell.h"
 #import "AddBackButtonCell.h"
 
+#import "BankCarListViewController.h"//银行卡列表
+#import "WithDrawViewController.h"//提现
+
 @interface RechargeViewController ()<UITableViewDelegate,UITableViewDataSource,WithdrawCellDelegate,AddBackButtonCellDelegate>
 
 @property (nonatomic , strong) UITableView * backTableView;
@@ -102,6 +105,13 @@
     }
  }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        BankCarListViewController * bankVC =[[BankCarListViewController alloc]init];
+        [self.navigationController pushViewController:bankVC animated:NO];
+    }
+}
  
 #pragma mark - AddBackButtonCellDelegate 添加银行卡代理
 //添加银行卡

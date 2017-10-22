@@ -7,6 +7,7 @@
 //   **** 我的
 
 #import "ZFPersonalViewController.h"
+
 //cell
 #import "ZFMyCashBagCell.h"
 #import "ZFMyProgressCell.h"
@@ -25,8 +26,7 @@
 #import "ZFPersonalHeaderView.h"
 
 //用户端VC
-#import "RegisterViewController.h"
-
+#import "RegisterViewController.h"//注册
 #import "ZFAllOrderViewController.h"//全部订单
 #import "ZFSettingViewController.h"//个人设置
 #import "ZFSettingHeadViewController.h"//设置个人信息
@@ -38,11 +38,10 @@
 #import "AccountViewController.h"//交易明细
 #import "RechargeViewController.h"//提现
 #import "BandBackCarViewController.h"//绑卡
+#import "PersonalMesViewController.h"//通知消息列表
 
 //base
 #import "ZFBaseNavigationViewController.h"
-
-
 
 typedef NS_ENUM(NSUInteger, TypeCell) {
     
@@ -72,8 +71,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 @property (nonatomic,copy) NSString * userImgAttachUrl  ;//头像URL
 @property (nonatomic,copy) NSString * couponNum  ;//优惠券数量
 
-
-
 @end
 
 @implementation ZFPersonalViewController
@@ -100,6 +97,29 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
 }
 
+//设置右边按键（如果没有右边 可以不重写）
+-(UIButton*)set_rightButton
+{
+    NSString * saveStr = @"消息";
+    UIButton *right_button = [[UIButton alloc]init];
+    [right_button setTitle:saveStr forState:UIControlStateNormal];
+    right_button.titleLabel.font=SYSTEMFONT(14);
+    [right_button setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
+    right_button.titleLabel.textAlignment = NSTextAlignmentRight;
+    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
+    CGFloat width = size.width ;
+    right_button.frame =CGRectMake(0, 0, width+10, 22);
+    
+    return right_button;
+}
+//设置右边事件
+-(void)right_button_event:(UIButton*)sender{
+    
+    NSLog(@"消息列表");
+    PersonalMesViewController * messVC = [PersonalMesViewController new];
+    [self.navigationController pushViewController:messVC animated:NO];
+   
+}
 #pragma mark - 注册
 -(void)didClickRegisterAction:(UIButton *)sender
 {

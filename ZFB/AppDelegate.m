@@ -570,6 +570,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 #pragma mark - 检查app更新版本
 -(void)CheckUpadateVersion
 {
+
     NSString * appStoreUrl = @"https://itunes.apple.com/us/app/%E5%B1%95%E5%AF%8C%E5%AE%9D/id1291284707?mt=8";
     //网络请求App的信息（我们取Version就够了）
     NSURL *url = [NSURL URLWithString:appStoreUrl];
@@ -628,8 +629,8 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     }
 }
 -(void)updateVersion{
-    NSString * appID = @"1291284707";
-    NSString * appStoreUrl = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@",appID ];
+
+    NSString * appStoreUrl = @"https://itunes.apple.com/us/app/%E5%B1%95%E5%AF%8C%E5%AE%9D/id1291284707?mt=8";
     NSString *msg = [NSString stringWithFormat:@"又出新版本啦，快点更新吧!"];
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"升级提示" message:msg preferredStyle:UIAlertControllerStyleAlert];
     

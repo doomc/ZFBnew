@@ -15,6 +15,16 @@
     // Initialization code
 }
 
+-(void)setBankList:(Base_Bank_List *)bankList
+{
+    _bankList = bankList;
+    [_bankIMG sd_setImageWithURL:[NSURL URLWithString:bankList.base_bank_log_url] placeholderImage:[UIImage imageNamed:@""]];
+    _bankName.text = bankList.base_bank_name;
+    
+    
+    
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

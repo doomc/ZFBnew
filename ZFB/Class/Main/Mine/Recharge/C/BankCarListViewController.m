@@ -46,6 +46,7 @@
     
     self.title = @"银行卡列表";
     [self.view addSubview:self.tableView];
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"BankCarListCell" bundle:nil] forCellReuseIdentifier:@"BankCarListCell"];
     
 }
@@ -62,6 +63,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BankCarListCell  * listCell = [self.tableView dequeueReusableCellWithIdentifier:@"BankCarListCell" forIndexPath:indexPath];
+    Base_Bank_List * bankCard = self.backCardList[indexPath.row];
+    listCell.bankList = bankCard;
     return listCell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
