@@ -205,7 +205,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 #pragma mark -   视图售后初始化
 -(ZFSaleAfterTopView *)topView{
     if (!_topView) {
-        _topView  =[[ZFSaleAfterTopView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 44) titleArr:self.saleTitles];
+        _topView  =[[ZFSaleAfterTopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 44) titleArr:self.saleTitles];
         _topView.delegate = self;
     }
     return _topView;
@@ -225,7 +225,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 //初始化allOrder_tableView
 -(void)initZfb_tableView
 {
-    self.zfb_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64) style:UITableViewStylePlain];
+    self.zfb_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH) style:UITableViewStylePlain];
     self.zfb_tableView .delegate       = self;
     self.zfb_tableView .dataSource     = self;
     self.zfb_tableView .separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -299,7 +299,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 -(UIView *)bgview
 {
     if (!_bgview) {
-        _bgview =[[ UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH)];
+        _bgview =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH)];
         _bgview.backgroundColor = RGBA(0, 0, 0, 0.2) ;
         [_bgview addSubview:self.popView];
     }

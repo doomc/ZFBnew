@@ -8,30 +8,23 @@
 
 #import "ResponseObject.h"
 
-@class Base_Bank_List;
+@class BankList;
+
 @interface BankCardListModel : ResponseObject
 
-@property (nonatomic, assign) NSInteger status;
-
 @property (nonatomic, assign) NSInteger resultCode;
-
-@property (nonatomic, strong) NSArray<Base_Bank_List *> *base_bank_list;
-
-@property (nonatomic, copy) NSString *responseText;
-
-
-@property (nonatomic, copy) NSString *resultMsg;
+@property (nonatomic, assign) NSInteger status;
+@property (nonatomic, copy) NSArray <BankList *> *bankList;
 
 @end
-@interface Base_Bank_List : NSObject
+@interface BankList : ResponseObject
 
-@property (nonatomic, copy) NSString *base_bank_log_url;
+@property (nonatomic, copy) NSString * bank_id;
+@property (nonatomic, copy) NSString * bank_num;
+@property (nonatomic, copy) NSString * phone;
+@property (nonatomic, copy) NSString * bank_name;
+@property (nonatomic, copy) NSString * bank_img;
+@property (nonatomic, copy) NSString * bank_type; //1,2,3银行卡类型
 
-@property (nonatomic, assign) NSInteger base_bank_id;
-
-@property (nonatomic, copy) NSString *base_bank_code;
-
-@property (nonatomic, copy) NSString *base_bank_name;
 
 @end
-

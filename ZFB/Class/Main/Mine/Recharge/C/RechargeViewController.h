@@ -9,5 +9,7 @@
 #import "BaseViewController.h"
 
 @interface RechargeViewController : BaseViewController
+//余额
+@property (nonatomic,copy)NSString * balance;
 
 @end

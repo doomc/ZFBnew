@@ -80,13 +80,13 @@
     self.title = @"选择地址";
     _isFirst  = YES;//默认第一次进来
     //创建bgView
-    self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW,50 )];
+    self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW,50 )];
     [self.view addSubview:_bgView];
     [_bgView addSubview:self.searchBar];
     
     
     //tableView的创建
-    self.location_TableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 114, KScreenW, KScreenH - 114) style:UITableViewStyleGrouped];
+    self.location_TableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 50, KScreenW, KScreenH - 50) style:UITableViewStyleGrouped];
     [self.view addSubview:self.location_TableView];
     
     self.location_TableView.dataSource = self;

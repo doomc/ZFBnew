@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wgQ-xi-1WO">
-                    <rect key="frame" x="0.0" y="84" width="375" height="89"/>
+                    <rect key="frame" x="0.0" y="64" width="375" height="89"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单号:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEK-DB-xyg">
                             <rect key="frame" x="15" y="10" width="50.5" height="24"/>
@@ -89,7 +88,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I96-E9-kQs">
-                    <rect key="frame" x="0.0" y="183" width="375" height="484"/>
+                    <rect key="frame" x="0.0" y="163" width="375" height="504"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCP-rP-qUI">
                             <rect key="frame" x="304" y="10" width="56" height="24"/>
@@ -242,15 +241,14 @@
             </subviews>
             <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="wgQ-xi-1WO" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Dg2-np-RTr"/>
+                <constraint firstItem="wgQ-xi-1WO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Dg2-np-RTr"/>
                 <constraint firstItem="I96-E9-kQs" firstAttribute="top" secondItem="wgQ-xi-1WO" secondAttribute="bottom" constant="10" id="IeZ-1m-ZFC"/>
-                <constraint firstItem="I96-E9-kQs" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="XsO-aB-bo2"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="I96-E9-kQs" secondAttribute="bottom" id="hKm-Sw-GjW"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="I96-E9-kQs" secondAttribute="trailing" id="iMJ-cI-HMi"/>
-                <constraint firstItem="wgQ-xi-1WO" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="64" id="pFG-Au-57n"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="wgQ-xi-1WO" secondAttribute="trailing" id="uVr-nU-W0F"/>
+                <constraint firstItem="I96-E9-kQs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="XsO-aB-bo2"/>
+                <constraint firstAttribute="bottom" secondItem="I96-E9-kQs" secondAttribute="bottom" id="hKm-Sw-GjW"/>
+                <constraint firstAttribute="trailing" secondItem="I96-E9-kQs" secondAttribute="trailing" id="iMJ-cI-HMi"/>
+                <constraint firstItem="wgQ-xi-1WO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="pFG-Au-57n"/>
+                <constraint firstAttribute="trailing" secondItem="wgQ-xi-1WO" secondAttribute="trailing" id="uVr-nU-W0F"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>
     </objects>
 </document>

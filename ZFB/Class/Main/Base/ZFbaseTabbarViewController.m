@@ -54,13 +54,13 @@
 - (void)addAllViewControllers {
     
     ZFHomeViewController* homeVC = [ZFHomeViewController new];
-    [self addOneChildVc:homeVC title:@"新零售" imageName:@"shopkeeper" selectedImageName:@"shopkeeper_selected"];
+    [self addOneChildVc:homeVC title:@"首页" imageName:@"home-off" selectedImageName:@"home-on"];
     
     ZFCInterpersonalCircleViewController *msgVC = [ZFCInterpersonalCircleViewController new];
-    [self addOneChildVc:msgVC title:@"消息" imageName:@"messageNormal" selectedImageName:@"messageSelected"];
+    [self addOneChildVc:msgVC title:@"消息" imageName:@"news-off" selectedImageName:@"news-on"];
     
     ShareCircleViewController *shopVC = [ShareCircleViewController new];
-    [self addOneChildVc:shopVC title:@"分享圈" imageName:@"shareCircle" selectedImageName:@"shareCircle_selected"];
+    [self addOneChildVc:shopVC title:@"分享圈" imageName:@"share-off" selectedImageName:@"share-on"];
 
 
     ZFPersonalViewController *meVc = [ZFPersonalViewController new];

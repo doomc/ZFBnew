@@ -111,7 +111,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(void)initWithFindGoodsTableView
 {
     self.findGoods_TableView = [[UITableView alloc]initWithFrame:
-                                CGRectMake(0, 0, KScreenW, KScreenH -48-64-44) style:UITableViewStylePlain];
+                                CGRectMake(0, 0, KScreenW, KScreenH -49-44 -64) style:UITableViewStylePlain];
     self.findGoods_TableView.delegate   = self;
     self.findGoods_TableView.dataSource = self;
     
@@ -187,48 +187,51 @@ typedef NS_ENUM(NSUInteger, CellType) {
     }
     return 35;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section == 0) {
+        return 0;
+    }
+    return  10;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView * footView  = nil;
+    if (!footView) {
+        if (section == 0) {
+            return footView;
+        }
+        else{
+            footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 10)];
+            footView.backgroundColor = HEXCOLOR(0xf7f7f7);
+
+        }
+    }
+    return footView;
+}
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView = nil;
-    UIFont *font     = [UIFont systemFontOfSize:14];
     if (headView == nil) {
-        if (section == 1) {
+        if (section== 0)
+        {
+            return headView;
+        } else  if (section == 1) {
           
-            headView         = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
-            [headView setBackgroundColor:HEXCOLOR(0xffcccc)];
-            
-            UILabel *labelTitle      = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 3, 200.0f, 30.0f)];
-            labelTitle.textColor     = HEXCOLOR(0x363636);
-            labelTitle.textAlignment = NSTextAlignmentLeft;
-            labelTitle.text          = @"热卖推荐";
-            labelTitle.font          = font;
-            [headView addSubview:labelTitle];
-            
-            UIImageView * logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fire"] ];//定位icon
-            logo.frame         = CGRectMake(5, 5, 25, 25);
+            headView         = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
+            [headView setBackgroundColor:HEXCOLOR(0xffffff)];
+            UIImageView * logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"hotImg"] ];
+            logo.frame         = CGRectMake(0, 10, 105, 30);
             [headView addSubview:logo];
-            
             return headView;
             
-        }
-        else  if (section== 2) {
+        } else {
             headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
-            [headView setBackgroundColor:HEXCOLOR(0xffcccc)];
-            
-            UILabel * title     = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 3.0f, 200.0f, 30.0f)];
-            title.textColor     = HEXCOLOR(0x363636);
-            title.textAlignment = NSTextAlignmentLeft;
-            title.text          = @"猜你喜欢";
-            title.font          = font;
-            [headView addSubview:title];
-            
-            UIImageView * logo2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"love"] ];//定位icon
-            logo2.frame         = CGRectMake(5, 5, 25, 25);
+            [headView setBackgroundColor:HEXCOLOR(0xffffff)];
+            UIImageView * logo2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"guessLike"] ];//定位icon
+            logo2.frame         = CGRectMake(0, 10, 105, 30);
             [headView addSubview:logo2];
             return headView;
             
         }
- 
     }
     return headView;
 }

@@ -24,12 +24,9 @@
     self.img_headview.layer.borderWidth = 1;
     self.img_headview.layer.borderColor = HEXCOLOR(0xffffff).CGColor;
  
-    [self.img_headview setImage:[UIImage  circleImage:@"avatar_user"]];
+    [self.img_headview setImage:[UIImage  circleImage:@"head"]];
     [self.img_headview.image circleImage];
-    
-    self.loginBackgroudView.clipsToBounds = YES;
-    self.loginBackgroudView.layer.cornerRadius = 8;
-   
+ 
  
     
 
@@ -43,8 +40,7 @@
     
 
     [self.btn_login addTarget:self action:@selector(btn_loginAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.btn_regist addTarget:self action:@selector(btn_registAction:) forControlEvents:UIControlEventTouchUpInside];
+ 
     
 }
 -(void)btn_loginAction:(UIButton *)sender

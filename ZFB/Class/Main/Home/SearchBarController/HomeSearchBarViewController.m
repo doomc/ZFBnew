@@ -56,7 +56,7 @@ static NSString * identyhy = @"SearchHistoryCell";
 -(UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -80,7 +80,7 @@ static NSString * identyhy = @"SearchHistoryCell";
     //返回
     UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
     left_button.frame =CGRectMake(0, 0,22,22);
-    [left_button setBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [left_button setBackgroundImage:[UIImage imageNamed:@"nav_backBlack"] forState:UIControlStateNormal];
     [left_button addTarget:self action:@selector(dismissCurrentPage) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem1 = [[UIBarButtonItem alloc]initWithCustomView: left_button];
     self.navigationItem.leftBarButtonItems = @[leftItem1];
@@ -178,15 +178,14 @@ static NSString * identyhy = @"SearchHistoryCell";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    CGFloat height = 0.0001 ;
     if (self.historyArray.count > 0) {
-        CGFloat height = 0.0001 ;
-        if (section ==0 ) {
-            return height;
+        if (section == 0 ) {
+             height = 40;
         }
-        return 40;
-
+        height = 40;
     }
-    return 0;
+    return height;
   
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
@@ -195,6 +194,13 @@ static NSString * identyhy = @"SearchHistoryCell";
     if (self.historyArray.count > 0) {
         
         if (section == 0) {
+            view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
+            view.backgroundColor = [UIColor whiteColor];
+            UILabel * hotLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW, 40)];
+            hotLabel.text = @"热门搜索";
+            hotLabel.font = SYSTEMFONT(14);
+            hotLabel.textColor = HEXCOLOR(0x333333);
+            [view addSubview:hotLabel];
             return  view;
         }
         else{
@@ -263,8 +269,8 @@ static NSString * identyhy = @"SearchHistoryCell";
         SKTag *tag = [[SKTag alloc] initWithText:arr[idx]];
         
         tag.font = [UIFont systemFontOfSize:14];
-        tag.textColor = HEXCOLOR(0xfefefe);
-        tag.bgColor = HEXCOLOR(0xffcccc);
+        tag.textColor = HEXCOLOR(0x333333);
+        tag.bgColor = HEXCOLOR(0xf7f7f7);
         tag.cornerRadius = 4;
         tag.enable = YES;
         tag.padding = UIEdgeInsetsMake(5, 10, 5, 10);
@@ -395,15 +401,16 @@ static NSString * identyhy = @"SearchHistoryCell";
 {
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsLanel",zfb_baseUrl] params:nil success:^(id response) {
-        
-        SearchLanelModel * searchLanel = [SearchLanelModel mj_objectWithKeyValues:response];
-        for (Cmgoodslanel * lanel in searchLanel.data.cmGoodsLanel) {
-            
-            [self.tagList addObject:lanel.labelName];
-            [self.tagIdArr addObject:lanel.labelId];
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+            SearchLanelModel * searchLanel = [SearchLanelModel mj_objectWithKeyValues:response];
+            for (Cmgoodslanel * lanel in searchLanel.data.cmGoodsLanel) {
+                
+                [self.tagList addObject:lanel.labelName];
+                [self.tagIdArr addObject:lanel.labelId];
+            }
+            [self.tableView reloadData];
         }
-        [self.tableView reloadData];
-        
     } progress:^(NSProgress *progeress) {
         
         NSLog(@"progeress=====%@",progeress);

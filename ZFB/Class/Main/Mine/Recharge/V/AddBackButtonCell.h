@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @protocol AddBackButtonCellDelegate <NSObject>
-
+@optional
 //添加银行卡
 -(void)didClickAddBankCard;
 
@@ -18,9 +18,11 @@
 @end
 @interface AddBackButtonCell : UITableViewCell
 
+//添加银行卡
 @property (weak, nonatomic) IBOutlet UIButton *addBackBtn;
 //确认提现
 @property (weak, nonatomic) IBOutlet UIButton *sureWithdrawBtn;
+
 @property (assign ,nonatomic) id <AddBackButtonCellDelegate>deldegate;
 
 @end

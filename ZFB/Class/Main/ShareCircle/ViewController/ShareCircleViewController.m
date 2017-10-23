@@ -41,13 +41,13 @@
     
     /// pageContentView
     CGFloat contentViewHeight                = self.view.frame.size.height - 108;
-    self.pageContentView                     = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 108, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
+    self.pageContentView                     = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
     _pageContentView.delegatePageContentView = self;
     [self.view addSubview:_pageContentView];
     
     NSArray *titleArr = @[@"新品推荐", @"好货共享"];
     /// pageTitleView
-    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44) delegate:self titleNames:titleArr];
+    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self titleNames:titleArr];
     [self.view addSubview:_pageTitleView];
     _pageTitleView.isTitleGradientEffect   = NO;
     _pageTitleView.indicatorLengthStyle    = SGIndicatorLengthStyleSpecial;
@@ -55,9 +55,9 @@
     _pageTitleView.selectedIndex           = 0;
     _pageTitleView.isShowBottomSeparator   = NO;
     _pageTitleView.isNeedBounces           = NO;
-    _pageTitleView.titleColorStateSelected = HEXCOLOR(0xfe6d6a);
-    _pageTitleView.titleColorStateNormal   = HEXCOLOR(0x363636);
-    _pageTitleView.indicatorColor          = [UIColor colorWithRed:0.996 green:0.427 blue:0.416 alpha:1.000];
+    _pageTitleView.titleColorStateSelected = HEXCOLOR(0xf95a70);
+    _pageTitleView.titleColorStateNormal   = HEXCOLOR(0x7a7a7a);
+    _pageTitleView.indicatorColor          = HEXCOLOR(0xf95a70);
     _pageTitleView.indicatorHeight         = 1.0;
     _pageTitleView.titleTextScaling        = 0.3;
 }

@@ -99,7 +99,7 @@
 -(UITableView *)all_tableview
 {
     if (!_all_tableview) {
-        _all_tableview                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64+150+44, KScreenW, KScreenH - 64-44-150) style:UITableViewStylePlain];
+        _all_tableview                = [[UITableView alloc]initWithFrame:CGRectMake(0, 160.0/375*KScreenW+44, KScreenW, KScreenH -44-160.0/375*KScreenW-64) style:UITableViewStylePlain];
         _all_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
         _all_tableview.delegate       = self;
         _all_tableview.dataSource     = self;
@@ -132,7 +132,7 @@
 -(void)CDsyceleSettingRunningPaintWithArray:(NSArray *)imgArray
 {
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
-    SDCycleScrollView *  _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, KScreenW, 160.0/375*KScreenW) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    SDCycleScrollView *  _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 160.0/375*KScreenW) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     _cycleScrollView.imageURLStringsGroup = imgArray;
     _cycleScrollView.pageControlAliment   = SDCycleScrollViewPageContolAlimentCenter;
     _cycleScrollView.delegate             = self;
@@ -143,7 +143,7 @@
     _cycleScrollView.currentPageDotColor = [UIColor whiteColor];// 自定义分页控件小圆标颜色
     [self.view addSubview:_cycleScrollView];
     
-    _menu            = [[ZspMenu alloc] initWithOrigin:CGPointMake(0, 64+150) andHeight:44];
+    _menu            = [[ZspMenu alloc] initWithOrigin:CGPointMake(0, 150) andHeight:44];
     _menu.delegate   = self;
     _menu.dataSource = self;
     [_menu selectDeafultIndexPath];
@@ -176,7 +176,6 @@
     CGFloat height = 88;
     return height;
 }
-
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

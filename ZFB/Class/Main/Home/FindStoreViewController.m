@@ -98,7 +98,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     if (!_location_btn) {
         _location_btn  = [UIButton buttonWithType:UIButtonTypeCustom];//定位按钮
         [_location_btn addTarget:self action:@selector(pushToLocationView:) forControlEvents:UIControlEventTouchUpInside];
-        [_location_btn setTitleColor: HEXCOLOR(0xfa6d6a) forState:UIControlStateNormal];
+        [_location_btn setTitleColor: HEXCOLOR(0xf95a70) forState:UIControlStateNormal];
         
         UIFont * font = [UIFont systemFontOfSize:13];
         _location_btn.titleLabel.font = font ;
@@ -106,7 +106,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         [_location_btn.titleLabel  sizeToFit];
         _location_btn.titleLabel.adjustsFontSizeToFitWidth = YES;
         
-        _location_btn.frame = CGRectMake(25, 0, KScreenW - 60, 30);
+        _location_btn.frame = CGRectMake(25, 0, KScreenW - 50, 40);
         _location_btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         _location_btn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     }
@@ -114,21 +114,27 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 -(void)initInTerfaceView{
     
-    UIView * loc_view =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];//背景图
-    UIView * bg_view =[[UIView alloc]initWithFrame:CGRectMake(15, 5, KScreenW-15-15, 30)];
+    UIView * loc_view =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40+20)];//背景图
+    loc_view.backgroundColor = [UIColor whiteColor];
+    UIView * bg_view =[[UIView alloc]initWithFrame:CGRectMake(15, 5, KScreenW - 15 -15, 40)];
     [loc_view addSubview:bg_view];
     
     bg_view.layer.borderWidth = 1.0;
     bg_view.layer.cornerRadius = 4.0;
-    bg_view.layer.borderColor = HEXCOLOR(0xfa6d6a).CGColor;
-    
+    bg_view.layer.borderColor = HEXCOLOR(0xf95a70).CGColor;
+ 
     //定位icon
-    UIImageView * icon_locationView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 18, 20) ];
-    icon_locationView.image =  [UIImage imageNamed:@"location_find2"];
+    UIImageView * icon_locationView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 10, 20, 20) ];
+    icon_locationView.image =  [UIImage imageNamed:@"location"];
     
     [bg_view addSubview:self.location_btn];
     [bg_view addSubview: icon_locationView ];
     self.home_tableView.tableHeaderView = loc_view;
+    
+    //占位背景图
+    UIView * bgView= [[UIView alloc]initWithFrame:CGRectMake(0, 50, KScreenW, 10)];
+    bgView.backgroundColor = HEXCOLOR(0xf7f7f7);
+    [loc_view addSubview:bgView];
 }
 
 
@@ -138,7 +144,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)initWithHome_Tableview
 {
 
-    self.home_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -49-64-44) style:UITableViewStylePlain];
+    self.home_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -49- 50- 64) style:UITableViewStylePlain];
     self.home_tableView.delegate = self;
     self.home_tableView.dataSource = self;
     [self.view addSubview:_home_tableView];
@@ -151,26 +157,19 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(UIView *)sectionView
 {
     if (!_sectionView) {
-        _sectionView =[[UIView alloc] initWithFrame:CGRectMake(30, 0,KScreenW, 40)];
-        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 100, 35)];
-        _sectionView.backgroundColor = HEXCOLOR(0xffcccc);
-        labelTitle.textAlignment = NSTextAlignmentLeft;
-        labelTitle.text = @"附近门店";
-        labelTitle.textColor = HEXCOLOR(0x363636);
-        labelTitle.font =[ UIFont systemFontOfSize:14];
-        [_sectionView addSubview:labelTitle];
+        _sectionView =[[UIView alloc] initWithFrame:CGRectMake(30, 0,KScreenW, 50)];
         
         UIButton * more_btn = [UIButton buttonWithType:UIButtonTypeSystem];
         [more_btn addTarget:self action:@selector(more_btnAction:) forControlEvents:UIControlEventTouchUpInside];
-        more_btn.frame =CGRectMake( KScreenW - 40 , 0, 40, 35);
-        [more_btn setTitle:@"更多" forState:UIControlStateNormal];
+        more_btn.frame =CGRectMake( KScreenW - 40-10, 10, 40, 40);
+        [more_btn setTitle:@"更多>" forState:UIControlStateNormal];
         more_btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [more_btn setTitleColor: HEXCOLOR(0xfa6d6a) forState:UIControlStateNormal];
+        [more_btn setTitleColor: HEXCOLOR(0X8d8d8d) forState:UIControlStateNormal];
         [_sectionView addSubview:more_btn];
         
         UIImageView * icon_locationView = [[UIImageView alloc]init ];//定位icon
-        icon_locationView.frame =CGRectMake(15,5, 20, 25);
-        icon_locationView.image = [UIImage imageNamed:@"location_find"];
+        icon_locationView.frame =CGRectMake(0,10, 105, 30);
+        icon_locationView.image = [UIImage imageNamed:@"arroundStore"];
         
         [_sectionView addSubview:icon_locationView];
         
@@ -208,11 +207,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  
     FindStoreCell *storeCell = [self.home_tableView  dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-   
     if (self.storeListArr.count > 0) {
-        
         Findgoodslist * listModel =  self.storeListArr[indexPath.row];
         storeCell.findgoodslist = listModel;
     }

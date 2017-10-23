@@ -104,7 +104,7 @@ typedef NS_ENUM(NSUInteger, CollectType) {
 - (void)setupPageView {
  
     NSArray *titleArr   = @[@"商品收藏",@"门店收藏"];
-    _segumentView       = [[MTSegmentedControl alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 44)];
+    _segumentView       = [[MTSegmentedControl alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 44)];
     [self.segumentView segmentedControl:titleArr Delegate:self];
     [self.view addSubview:_segumentView];
 }
@@ -434,7 +434,7 @@ typedef NS_ENUM(NSUInteger, CollectType) {
 }
 -(UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64 +44, KScreenW, KScreenH - 64 - 49-44) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, KScreenW, KScreenH - 49-44) style:UITableViewStyleGrouped];
         _tableView.delegate =self;
         _tableView.dataSource = self;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
@@ -448,7 +448,7 @@ typedef NS_ENUM(NSUInteger, CollectType) {
     _edit_btn = [[UIButton alloc]init];
     [_edit_btn setTitle:saveStr forState:UIControlStateNormal];
     _edit_btn.titleLabel.font=SYSTEMFONT(14);
-    [_edit_btn setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
+    [_edit_btn setTitleColor:HEXCOLOR(0xffffff)  forState:UIControlStateNormal];
     _edit_btn.titleLabel.textAlignment = NSTextAlignmentRight;
     CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
     CGFloat width = size.width ;

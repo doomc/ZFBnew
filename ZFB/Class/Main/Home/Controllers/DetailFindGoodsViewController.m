@@ -170,7 +170,7 @@
 {
     self.title = @"商品详情";
     
-    self.list_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-50) style:UITableViewStylePlain];
+    self.list_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-50) style:UITableViewStylePlain];
     self.list_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.list_tableView];
     

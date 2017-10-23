@@ -72,14 +72,14 @@
     NSArray *childArr = @[messageVC, contactVC];
     
     /// pageContentView
-    CGFloat contentViewHeight                = self.view.frame.size.height - 108 ;
-    self.pageContentView                     = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 108, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
+    CGFloat contentViewHeight                = self.view.frame.size.height - 44 ;
+    self.pageContentView                     = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
     _pageContentView.delegatePageContentView = self;
     [self.view addSubview:_pageContentView];
     
     NSArray *titleArr = @[@"消息", @"通讯录"];
     /// pageTitleView
-    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44) delegate:self titleNames:titleArr];
+    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self titleNames:titleArr];
     [self.view addSubview:_pageTitleView];
     _pageTitleView.isTitleGradientEffect   = YES;
     _pageTitleView.indicatorLengthStyle    = SGIndicatorLengthStyleSpecial;
@@ -87,9 +87,9 @@
     _pageTitleView.selectedIndex           = 0;
     _pageTitleView.isShowBottomSeparator   = NO;
     _pageTitleView.isNeedBounces           = NO;
-    _pageTitleView.titleColorStateSelected = HEXCOLOR(0xfe6d6a);
-    _pageTitleView.titleColorStateNormal   = HEXCOLOR(0x363636);
-    _pageTitleView.indicatorColor          = [UIColor colorWithRed:0.996 green:0.427 blue:0.416 alpha:1.000];
+    _pageTitleView.titleColorStateSelected = HEXCOLOR(0xf95a70);
+    _pageTitleView.titleColorStateNormal = HEXCOLOR(0x7a7a7a);
+    _pageTitleView.indicatorColor = HEXCOLOR(0xf95a70);
     _pageTitleView.indicatorHeight         = 1.0;
     _pageTitleView.titleTextScaling        = 0.3;
     
@@ -102,10 +102,10 @@
     [self.pageContentView setPageCententViewCurrentIndex:selectedIndex];
     
     if (selectedIndex == 0) {
-        self.navigationItem.title = @"消息";
+        self.title = @"消息";
     }
     else if (selectedIndex == 1) {
-        self.navigationItem.title = @"通讯录";
+        self.title = @"通讯录";
     }
     else {
      
@@ -169,8 +169,8 @@
 
 - (void)setUpNavItem{
     // 设置导航栏颜色
-    [self.navigationController.navigationBar setBarTintColor:RGBA(244, 244, 244, 1.0)];    
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xfe6d6a),NSFontAttributeName:[UIFont systemFontOfSize:16.0]}];
+//    [self.navigationController.navigationBar setBarTintColor:RGBA(244, 244, 244, 1.0)];    
+//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xfe6d6a),NSFontAttributeName:[UIFont systemFontOfSize:16.0]}];
     
     UIButton *teamBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [teamBtn addTarget:self action:@selector(onOpera:) forControlEvents:UIControlEventTouchUpInside];

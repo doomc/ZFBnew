@@ -132,7 +132,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 -(UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 108, KScreenW, KScreenH - 64 - 44 - 50) style:UITableViewStylePlain
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, KScreenW, KScreenH  - 44 - 50) style:UITableViewStylePlain
                       ];
         _tableView.delegate       = self;
         _tableView.dataSource     = self;
@@ -180,7 +180,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     _edit_btn          = [[UIButton alloc]init];
     [_edit_btn setTitle:saveStr forState:UIControlStateNormal];
     _edit_btn.titleLabel.font = SYSTEMFONT(14);
-    [_edit_btn setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
+    [_edit_btn setTitleColor:HEXCOLOR(0xffffff)  forState:UIControlStateNormal];
     _edit_btn.titleLabel.textAlignment = NSTextAlignmentRight;
     CGSize size                        = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
     CGFloat width                      = size.width ;
@@ -194,7 +194,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     NSString * used     = @"已使用";
     NSString * overdate = @"已过期";
     NSArray *titleArr   = @[unuserd,used,overdate];
-    _segumentView       = [[MTSegmentedControl alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 44)];
+    _segumentView       = [[MTSegmentedControl alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 44)];
     [self.segumentView segmentedControl:titleArr Delegate:self];
     [self.view addSubview:_segumentView];
 }

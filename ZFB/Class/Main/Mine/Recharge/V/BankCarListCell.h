@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+ 
 #import "BankCardListModel.h"
 
 @interface BankCarListCell : UITableViewCell
-
+ 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundIMG;
 
 @property (weak, nonatomic) IBOutlet UIImageView *bankIMG;
@@ -21,6 +22,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *cardNum;
 
-@property (strong ,nonatomic) Base_Bank_List * bankList;
+@property (nonatomic , strong) BankList * banklist;
 
 @end

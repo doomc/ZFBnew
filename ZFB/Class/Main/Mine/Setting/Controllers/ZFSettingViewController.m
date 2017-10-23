@@ -45,7 +45,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
 
     _imagesArr1 = @[@"setting_message",@"setting_ps",@"settingPay"];
     _imagesArr2 = @[@"setting_phone",@"setting_cache"];
-    _imagesArr3 = @[@"setting_calling",@"setting_calling"];
+    _imagesArr3 = @[@"setting_calling",@"about"];
 
     [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingCell" bundle:nil] forCellReuseIdentifier:settingCellid];
@@ -54,7 +54,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
 }
 -(UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH - 64 - 60) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH - 60) style:UITableViewStylePlain];
         _tableView.delegate =self;
         _tableView.dataSource = self;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
@@ -67,7 +67,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
 {
     _login_btn = [UIButton buttonWithType:UIButtonTypeCustom];
     _login_btn.titleLabel.font=SYSTEMFONT(14);
-    [_login_btn setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
+    [_login_btn setTitleColor:HEXCOLOR(0xffffff)  forState:UIControlStateNormal];
     _login_btn.titleLabel.textAlignment = NSTextAlignmentRight;
     _login_btn.frame =CGRectMake(0, 0, 80, 22);
     
@@ -159,11 +159,10 @@ static NSString * settingCellid = @"ZFSettingCellid";
 
     }else{
         settingcell.lb_title.text = _titleArr3[indexPath.row];
+        settingcell.img_iconView.image = [UIImage imageNamed:_imagesArr3[indexPath.row]];
 
         if (indexPath.row == 0) {
             settingcell.img_detailIcon.hidden = YES;
-            settingcell.img_iconView.image = [UIImage imageNamed:_imagesArr3[indexPath.row]];
-            
             //客服热线
             settingcell.lb_detailTitle.text = @"400-666-2001";
             return settingcell;

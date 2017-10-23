@@ -28,7 +28,7 @@
     self.title =@"选择收货地址";
  
     
-    self.mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-49) style:UITableViewStylePlain];
+    self.mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49) style:UITableViewStylePlain];
     self.mytableView.delegate= self;
     self.mytableView.dataSource = self;
     [self.view addSubview:self.mytableView];

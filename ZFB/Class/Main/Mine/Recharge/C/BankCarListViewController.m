@@ -9,11 +9,15 @@
 #import "BankCarListViewController.h"
 #import "BankCardListModel.h"
 #import "BankCarListCell.h"
+
+typedef void (^BankBlock)(NSString * bankName,NSString * bank_img, NSString * cardNum);
+
 @interface BankCarListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic , strong) UITableView *tableView;
 @property (nonatomic ,strong) NSMutableArray * backCardList;
 
+@property (copy, nonatomic) BankBlock bankBlock;
 
 @end
 
@@ -28,7 +32,7 @@
 -(UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -64) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle =  UITableViewCellSeparatorStyleNone;
@@ -48,7 +52,6 @@
     [self.view addSubview:self.tableView];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"BankCarListCell" bundle:nil] forCellReuseIdentifier:@"BankCarListCell"];
-    
 }
 
 
@@ -60,35 +63,40 @@
 {
     return  self.backCardList.count;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 150;
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    BankList * list = self.backCardList[indexPath.row];
     BankCarListCell  * listCell = [self.tableView dequeueReusableCellWithIdentifier:@"BankCarListCell" forIndexPath:indexPath];
-    Base_Bank_List * bankCard = self.backCardList[indexPath.row];
-    listCell.bankList = bankCard;
+    listCell.banklist = list;
     return listCell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     //传一个block回调当前银行卡信息
+//    _bankBlock =            
     
 }
 //银行卡列表
 -(void)backCardListPost
 {
     NSDictionary * param = @{
-                             @"account":BBUserDefault.userPhoneNumber
+                             @"account":BBUserDefault.userPhoneNumber,
+                             @"cardType":@"3"//所有银行卡
+                             
                              };
-    [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/getBaseBankList",zfb_baseUrl] params:param success:^(id response) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/getThirdBankCardList",zfb_baseUrl] params:param success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         
         if ([code isEqualToString:@"0"]) {
             
             BankCardListModel  * bank = [BankCardListModel mj_objectWithKeyValues:response];
-            for (Base_Bank_List * list in bank.base_bank_list) {
+            for (BankList * list in bank.bankList) {
                 [self.backCardList addObject:list];
             }
-            
             [self.tableView reloadData];
         }
     } progress:^(NSProgress *progeress) {

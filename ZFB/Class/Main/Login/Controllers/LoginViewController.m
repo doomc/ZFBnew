@@ -456,6 +456,12 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.userPhonePassword = _tf_verificationCodeOrPassWord.text;//保存密码
             BBUserDefault.userPhoneNumber = _tf_loginphone.text;
 
+            //推送别名设置
+            [JPUSHService setAlias:BBUserDefault.userPhoneNumber completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+                
+                NSLog(@"iResCode = %ld-------------seq = %ld------------iAlias = %@",iResCode,seq,iAlias);
+                
+            } seq:0];
             NSLog(@" 登陆成功后的 signMD5Key=======%@", BBUserDefault.userKeyMd5 );
             [self loginNIM];
 
@@ -505,8 +511,12 @@ typedef NS_ENUM(NSUInteger, indexType) {
             BBUserDefault.accid = login.userInfo.accid;
             BBUserDefault.userPhonePassword = _tf_verificationCodeOrPassWord.text;//保存密码
             [self loginNIM];
-//            [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
-
+            //推送别名设置
+            [JPUSHService setAlias:BBUserDefault.userPhoneNumber completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+                
+                NSLog(@"iResCode = %ld-------------seq = %ld------------iAlias = %@",iResCode,seq,iAlias);
+                
+            } seq:0];
         }
         else{
             [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
@@ -542,14 +552,9 @@ typedef NS_ENUM(NSUInteger, indexType) {
                                           [ SVProgressHUD dismiss];
 
                                           [self.view makeToast:@"登录成功！"  duration:2 position:@"center"];
-                                          //推送别名设置
-                                          [JPUSHService setAlias:BBUserDefault.userPhoneNumber completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
-                                              
-                                              NSLog(@"iResCode = %ld-------------seq = %ld------------iAlias = %@",iResCode,seq,iAlias);
-                                              [self left_button_event];
 
-                                          } seq:0];
-                    
+                                          [self left_button_event];
+
 
                                       }
                                       else

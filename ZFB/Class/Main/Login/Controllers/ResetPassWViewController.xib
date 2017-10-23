@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhn-9f-STl">
-                    <rect key="frame" x="30" y="270" width="315" height="40"/>
+                    <rect key="frame" x="30" y="216" width="315" height="40"/>
                     <color key="backgroundColor" red="0.65490196079999996" green="0.65490196079999996" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="FPU-Ay-stV"/>
@@ -41,13 +41,13 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8-20位字母、数字或组合，区分大小写" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82C-5o-YPk">
-                    <rect key="frame" x="73.5" y="204" width="229.5" height="16"/>
+                    <rect key="frame" x="73.5" y="150" width="229.5" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sgt-sH-Iaj">
-                    <rect key="frame" x="30" y="94" width="315" height="40"/>
+                    <rect key="frame" x="30" y="40" width="315" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zd8-JU-Agv">
                             <rect key="frame" x="0.0" y="38" width="315" height="1"/>
@@ -91,7 +91,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GRS-6C-SM7">
-                    <rect key="frame" x="30" y="144" width="315" height="40"/>
+                    <rect key="frame" x="30" y="90" width="315" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JoF-PC-mTu">
                             <rect key="frame" x="0.0" y="38" width="315" height="1"/>
@@ -142,7 +142,7 @@
                 <constraint firstItem="sgt-sH-Iaj" firstAttribute="leading" secondItem="1KZ-C5-EzT" secondAttribute="leading" constant="30" id="Ebj-fV-gsm"/>
                 <constraint firstItem="GRS-6C-SM7" firstAttribute="leading" secondItem="1KZ-C5-EzT" secondAttribute="leading" constant="30" id="SbA-ju-S1A"/>
                 <constraint firstItem="xhn-9f-STl" firstAttribute="leading" secondItem="1KZ-C5-EzT" secondAttribute="leading" constant="30" id="W2d-Fc-saG"/>
-                <constraint firstItem="sgt-sH-Iaj" firstAttribute="top" secondItem="1KZ-C5-EzT" secondAttribute="top" constant="94" id="Xd4-4m-eWM"/>
+                <constraint firstItem="sgt-sH-Iaj" firstAttribute="top" secondItem="1KZ-C5-EzT" secondAttribute="top" constant="40" id="Xd4-4m-eWM"/>
                 <constraint firstAttribute="trailing" secondItem="xhn-9f-STl" secondAttribute="trailing" constant="30" id="gTa-gC-k7h"/>
                 <constraint firstItem="82C-5o-YPk" firstAttribute="centerX" secondItem="1KZ-C5-EzT" secondAttribute="centerX" id="nEd-TK-osr"/>
                 <constraint firstItem="GRS-6C-SM7" firstAttribute="top" secondItem="sgt-sH-Iaj" secondAttribute="bottom" constant="10" id="r7T-hn-B48"/>

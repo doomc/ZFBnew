@@ -92,7 +92,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 108, KScreenW, KScreenH - 64 - 44 - 50) style:UITableViewStylePlain
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, KScreenW, KScreenH  - 44 - 50) style:UITableViewStylePlain
                       ];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -117,7 +117,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 - (void)setupPageView {
     
     NSArray *titleArr = @[@"未审核",@"已审核"];
-    _segumentView = [[MTSegmentedControl alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 44)];
+    _segumentView = [[MTSegmentedControl alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 44)];
     [self.segumentView segmentedControl:titleArr Delegate:self];
     [self.view addSubview:_segumentView];
     

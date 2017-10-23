@@ -59,7 +59,7 @@
     layout.columnMargin = 10;
     layout.delegate = self;
     
-    self.collectionView = [[UICollectionView alloc]initWithFrame: CGRectMake(0, 0, KScreenW, KScreenH -64- 49 -44) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc]initWithFrame: CGRectMake(0, 0, KScreenW, KScreenH - 49 -44) collectionViewLayout:layout];
     self.collectionView.backgroundColor = HEXCOLOR(0xf2f2f2);
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;

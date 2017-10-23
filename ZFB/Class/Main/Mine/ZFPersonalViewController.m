@@ -23,7 +23,6 @@
 
 //view
 #import "ZFPersonalHeaderView.h"
-#import "ZFPersonalHeaderView.h"
 
 //用户端VC
 #import "RegisterViewController.h"//注册
@@ -86,9 +85,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyCashBagCell" bundle:nil] forCellReuseIdentifier:@"ZFMyCashBagCell"];
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyProgressCell" bundle:nil] forCellReuseIdentifier:@"ZFMyProgressCell"];
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyOderCell" bundle:nil] forCellReuseIdentifier:@"ZFMyOderCell"];
-    
     self.headview                    = [[NSBundle mainBundle]loadNibNamed:@"ZFPersonalHeaderView" owner:self options:nil].lastObject;
     self.myTableView.tableHeaderView = self.headview;
+    self.myTableView.tableFooterView.height = 222;
     self.headview.delegate           = self;
     self.headview.unloginView        = [self.headview viewWithTag:911];//没登录之前的图
     self.headview.loginView          = [self.headview viewWithTag:912];//登录后的图
@@ -143,9 +142,10 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(UITableView *)myTableView
 {
     if (!_myTableView) {
-        _myTableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -64 - 49) style:UITableViewStylePlain];
+        _myTableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -64 - 49) style:UITableViewStylePlain];
         _myTableView.delegate       = self;
         _myTableView.dataSource     = self;
+        _myTableView.backgroundColor = HEXCOLOR(0xf7f7f7);
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _myTableView;
@@ -155,7 +155,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     
     UIButton  * left_btn  =[ UIButton buttonWithType:UIButtonTypeCustom];
-    left_btn.frame = CGRectMake(0, 0, 30, 30);
+    left_btn.frame = CGRectMake(0, 0, 20, 20);
     [left_btn setBackgroundImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
     [left_btn addTarget:self action:@selector(im_SettingTag:) forControlEvents:UIControlEventTouchUpInside];
     //自定义button必须执行
@@ -325,7 +325,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
          {
              ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
              
-             orderCell.order_imgicon.image = [UIImage imageNamed:@"share_red"];
+             orderCell.order_imgicon.image = [UIImage imageNamed:@"share_black"];
              orderCell.order_title.text = @"我的共享";
              orderCell.order_hiddenTitle.text = @"";
              return orderCell;
@@ -569,7 +569,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
 }
 
-#pragma  mark - ZFMyCashBagCellDelegate - 钱包
+#pragma  mark - ZFMyCashBagCellDelegate - 钱包d
 ///钱包 、查看明细
 -(void)didClickCashBag
 {
@@ -582,6 +582,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)didClickBalanceView
 {
     RechargeViewController * bankVC = [RechargeViewController new];
+    bankVC.balance  = _balance;
     [self.navigationController pushViewController:bankVC animated:NO];
 
 }
@@ -650,7 +651,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             self.headview.lb_historyCount.text = _foolnum;
             self.headview.lb_userNickname.text = BBUserDefault.nickName;
             BBUserDefault.userHeaderImg = _userImgAttachUrl;
-            [self.headview.img_headview sd_setImageWithURL:[NSURL URLWithString:_userImgAttachUrl] placeholderImage:[UIImage imageNamed:@"avatar_user"]];
+            [self.headview.img_headview sd_setImageWithURL:[NSURL URLWithString:_userImgAttachUrl] placeholderImage:[UIImage imageNamed:@"head"]];
             
             [self.myTableView reloadData];
         }

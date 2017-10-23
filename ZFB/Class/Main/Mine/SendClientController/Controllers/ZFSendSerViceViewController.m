@@ -357,7 +357,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(UITableView *)send_tableView
 {
     if (!_send_tableView) {
-        _send_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64-49) style:UITableViewStyleGrouped];
+        _send_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49) style:UITableViewStyleGrouped];
         _send_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _send_tableView.delegate       = self;
         _send_tableView.dataSource     = self;
@@ -379,7 +379,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(UIView *)bgview
 {
     if (!_bgview) {
-        _bgview =[[ UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH)];
+        _bgview =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH)];
         _bgview.backgroundColor = RGBA(0, 0, 0, 0.2) ;
         [_bgview addSubview:self.popView];
     }

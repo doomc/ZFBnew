@@ -53,7 +53,7 @@
 
 -(void)initWithInterface
 {
-    self.zfb_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH-64) style:UITableViewStylePlain];
+    self.zfb_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, KScreenW, KScreenH -64) style:UITableViewStylePlain];
     self.zfb_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.zfb_tableView.delegate = self;
     self.zfb_tableView.dataSource = self;

@@ -27,11 +27,11 @@
     
     if (isIOS7) {
         
-        self.automaticallyAdjustsScrollViewInsets = NO;
+        self.automaticallyAdjustsScrollViewInsets = YES;
         //self.navigationController.navigationBar.translucent = NO;
-        self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
+//        self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
         
-        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xfe6d6a),NSFontAttributeName:[UIFont systemFontOfSize:16.0]}];
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:16.0]}];
         
     }
     self.view.backgroundColor = [UIColor  whiteColor];
@@ -257,7 +257,7 @@
     
     [self presentViewController:nav animated:NO completion:^{
         
-        [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+//        [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
         [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
     }];
 

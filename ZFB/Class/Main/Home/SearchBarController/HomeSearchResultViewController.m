@@ -163,7 +163,7 @@
 {
  
     _searchTypeHeaderView          = [[NSBundle mainBundle]loadNibNamed:@"SearchTypeView" owner:self options:nil].lastObject;
-    _searchTypeHeaderView.frame    = CGRectMake(0, 64, KScreenW, 40);
+    _searchTypeHeaderView.frame    = CGRectMake(0, 0, KScreenW, 40);
     _searchTypeHeaderView.delegate = self;
     [self.resultView addSubview: _searchTypeHeaderView];
     
@@ -184,7 +184,7 @@
      NSInteger count = self.brandListArray.count ;
     // ceil(count/2.0) 最大取整
     //140  = 30*2+40*2
-    _searchCollectionView                              = [[SearchTypeCollectionView alloc]initWithFrame:CGRectMake(0,64+40, KScreenW, 30 * ceil(count/2.0) + 2*40+10) collectionViewLayout:layout];
+    _searchCollectionView                              = [[SearchTypeCollectionView alloc]initWithFrame:CGRectMake(0,40, KScreenW, 30 * ceil(count/2.0) + 2*40+10) collectionViewLayout:layout];
     
     _searchCollectionView.brandListArray = self.brandListArray;
     _searchCollectionView.typeDelegate = self;
@@ -210,7 +210,7 @@
 {
     if (!_resultTableView) {
         _resultTableView = [[UITableView alloc] initWithFrame:
-                      CGRectMake(0, 64 + 44  , KScreenW, KScreenH-64-44 ) style:UITableViewStylePlain];
+                      CGRectMake(0,  44  , KScreenW, KScreenH-44 ) style:UITableViewStylePlain];
         //加载xib
         [_resultTableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil] forCellReuseIdentifier:@"resultCellid"];
         _resultTableView.delegate   = self;
@@ -223,7 +223,7 @@
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:
-                      CGRectMake(0, 64  , KScreenW, KScreenH-64 ) style:UITableViewStylePlain];
+                      CGRectMake(0, 0  , KScreenW, KScreenH ) style:UITableViewStylePlain];
         //加载xib
         [self.tableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil] forCellReuseIdentifier:@"resultCellid"];
         _tableView.delegate   = self;

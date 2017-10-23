@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p1r-ry-BUq">
-                    <rect key="frame" x="30" y="94" width="315" height="40"/>
+                    <rect key="frame" x="30" y="30" width="315" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3QV-Jf-ylB">
                             <rect key="frame" x="0.0" y="38" width="315" height="1"/>
@@ -66,7 +66,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IXu-aL-R18">
-                    <rect key="frame" x="30" y="154" width="315" height="40"/>
+                    <rect key="frame" x="30" y="90" width="315" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uym-sa-G56">
                             <rect key="frame" x="0.0" y="38" width="315" height="1"/>
@@ -121,7 +121,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vra-PD-SlF">
-                    <rect key="frame" x="30" y="254" width="315" height="40"/>
+                    <rect key="frame" x="30" y="190" width="315" height="40"/>
                     <color key="backgroundColor" red="0.65490196079999996" green="0.65490196079999996" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="EC3-JA-8xS"/>
@@ -144,7 +144,7 @@
                 <constraint firstItem="p1r-ry-BUq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="JkC-oa-Dwg"/>
                 <constraint firstAttribute="trailing" secondItem="IXu-aL-R18" secondAttribute="trailing" constant="30" id="Tbb-8O-hov"/>
                 <constraint firstAttribute="trailing" secondItem="vra-PD-SlF" secondAttribute="trailing" constant="30" id="XTo-rt-A7l"/>
-                <constraint firstItem="p1r-ry-BUq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="94" id="edY-cS-B4E"/>
+                <constraint firstItem="p1r-ry-BUq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="edY-cS-B4E"/>
                 <constraint firstItem="vra-PD-SlF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="mEu-Oj-Itr"/>
                 <constraint firstItem="vra-PD-SlF" firstAttribute="top" secondItem="IXu-aL-R18" secondAttribute="bottom" constant="60" id="o3i-kM-11S"/>
             </constraints>

@@ -15,6 +15,7 @@
 @implementation ZFBaseNavigationViewController
 
 + (void)initialize {
+    
     // 设置导航items数据主题
     [self setupNavigationItemsTheme];
     
@@ -22,13 +23,12 @@
     [self setupNavigationBarTheme];
 }
 
-
 #pragma mark -  设置导航items数据主题
 + (void)setupNavigationItemsTheme {
     UIBarButtonItem *barButtonItem = [UIBarButtonItem appearance];
     // 设置字体颜色
-    [barButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:14]} forState:UIControlStateNormal];
-    [barButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor redColor]} forState:UIControlStateHighlighted];
+    [barButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:15]} forState:UIControlStateNormal];
+    [barButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]} forState:UIControlStateHighlighted];
     [barButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]} forState:UIControlStateDisabled];
     
 }
@@ -40,12 +40,11 @@
     // 设置导航栏title属性
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
     // 设置导航栏颜色
-    [navBar setBarTintColor:HEXCOLOR(0xffcccc)];
+    [navBar setBarTintColor:[UIColor clearColor]];
     
-    UIImage *image = [UIImage imageNamed:@"nav_64"];
-    
+    UIImage *image = [UIImage imageNamed:@"title.jpg"];
     [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    
+    [navBar setShadowImage:[UIImage new]];
 }
 
 
@@ -55,7 +54,6 @@
     if (self.viewControllers.count > 0) {
         // 如果navigationController的字控制器个数大于两个就隐藏
         viewController.hidesBottomBarWhenPushed = YES;
-        
         viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(back)];
     }
     [super pushViewController:viewController animated:YES];

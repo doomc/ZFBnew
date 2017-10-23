@@ -9,13 +9,14 @@
 #import "AddBankCardViewController.h"
 #import "AddBankCell.h"
 #import "BankMessageViewController.h"//银行卡信息
+#import "SupprotBankViewController.h"//支持银行
 @interface AddBankCardViewController () <UITableViewDelegate ,UITableViewDataSource,UITextFieldDelegate>
 {
     BOOL _massgeEnough;//信息是否完整 yes是完整 no 不完整
     NSString * _bandCardName; //持卡人姓名
     NSString * _kcardNum; //卡号
     NSString * _realNameFlag; //实名认证
-    
+    UIButton * _edit_btn;
 }
 @property (nonatomic ,strong) NSArray * titles;
 @property (nonatomic ,strong) NSArray * placeHoder;
@@ -29,7 +30,7 @@
 -(UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, 110+ 32) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 55 *2 + 32  ) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.scrollEnabled = NO;
@@ -77,14 +78,27 @@
 //    }
 
 }
+//设置右边按键（如果没有右边 可以不重写）
+-(UIButton*)set_rightButton
+{
+    NSString * saveStr = @"支持银行";
+    _edit_btn          = [[UIButton alloc]init];
+    [_edit_btn setTitle:saveStr forState:UIControlStateNormal];
+    _edit_btn.titleLabel.font = SYSTEMFONT(14);
+    [_edit_btn setTitleColor:HEXCOLOR(0xffffff)  forState:UIControlStateNormal];
+    _edit_btn.titleLabel.textAlignment = NSTextAlignmentRight;
+    CGSize size                        = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
+    CGFloat width                      = size.width ;
+    _edit_btn.frame                    = CGRectMake(0, 0, width+10, 22);
+    [_edit_btn addTarget:self action:@selector(supportBankAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    return _edit_btn;
+}
 #pragma mark- 绑卡下一步
 -(void)bandNext
 {
-    NSLog(@"下一步");
-    
-    //先实名认证
-    [self realNamePost];
-    
+    NSLog(@"下一步"); 
+    [self verificationNameAndCardNumPost];
 
 }
 
@@ -151,43 +165,13 @@
     
 }
 
-#pragma mark - 实名认证
--(void)realNamePost
+
+#pragma mark-  支持银行
+-(void)supportBankAction
 {
-    NSDictionary * parma = @{
-                             @"cmUserId":BBUserDefault.cmUserId,
-                             };
-    
-    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getUserInfo"] params:parma success:^(id response) {
-        
-        NSString * code = [NSString stringWithFormat:@"%@",response [@"resultCode"]];
-        
-        if ([code isEqualToString:@"0"]) {
-            //是否实名认证 1 是 2 否
-            _realNameFlag = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"realNameFlag"]];
-
-            if ([_realNameFlag isEqualToString:@"1"]) {
-               //实名后跳转到下一步
-                [self verificationNameAndCardNumPost];
-                
-            }else{
-                BankMessageViewController  * nextVC  = [BankMessageViewController new];
-                [self.navigationController pushViewController:nextVC animated:NO];
-
-//                [self.view makeToast:@"您还没有实名认证" duration:2 position:@"center"];
-            }
-            [self.tableView reloadData];
-        }
-        
-    } progress:^(NSProgress *progeress) {
-    } failure:^(NSError *error) {
-        
-        NSLog(@"error=====%@",error);
-        [self.view makeToast:@"网络出差了~" duration:2 position:@"center"];
-    }];
-  
+    SupprotBankViewController * supportVC =[ SupprotBankViewController new];
+    [self.navigationController pushViewController: supportVC animated:NO];
 }
-
 
 #pragma mark - 验证卡号和姓名 getBankByCardNum
 -(void)verificationNameAndCardNumPost

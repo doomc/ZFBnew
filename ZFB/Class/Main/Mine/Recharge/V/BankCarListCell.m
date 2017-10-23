@@ -13,16 +13,17 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
--(void)setBankList:(Base_Bank_List *)bankList
-{
-    _bankList = bankList;
-    [_bankIMG sd_setImageWithURL:[NSURL URLWithString:bankList.base_bank_log_url] placeholderImage:[UIImage imageNamed:@""]];
-    _bankName.text = bankList.base_bank_name;
-    
-    
-    
+-(void)setBanklist:(BankList *)banklist{
+    _banklist = banklist;
+    _bankName.text = banklist.bank_name;
+    [_bankIMG sd_setImageWithURL:[NSURL URLWithString:banklist.bank_img] placeholderImage:nil];
+    _cardNum.text = banklist.bank_num;
+    if ([banklist.bank_type isEqualToString:@"1"]) {//1 为借记卡 。。。。暂时不清楚
+        _bankType.text = @"借记卡";
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

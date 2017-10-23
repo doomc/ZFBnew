@@ -115,7 +115,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     self.title = @"确认订单";
     _payType = @"1";//默认为线上支付
     
-    self.mytableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH -49-64) style:UITableViewStylePlain];
+    self.mytableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -49) style:UITableViewStylePlain];
     self.mytableView.delegate       = self;
     self.mytableView.dataSource     = self;
     self.mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;

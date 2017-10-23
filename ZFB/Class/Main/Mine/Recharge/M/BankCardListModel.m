@@ -10,13 +10,12 @@
 
 @implementation BankCardListModel
 
-
 + (NSDictionary *)objectClassInArray{
-    return @{@"base_bank_list" : [Base_Bank_List class]};
+    return @{@"BankList" : [BankList class]};
 }
 @end
-@implementation Base_Bank_List
+
+@implementation BankList
 
 @end
-
 
