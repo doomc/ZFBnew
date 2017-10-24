@@ -44,11 +44,9 @@
                 [self didclickWithAction:button];
             }
             self.backgroundColor= [UIColor whiteColor];
-            
-            
+ 
         }
-
-        
+ 
     }
     return self;
 }
@@ -56,7 +54,6 @@
 
 -(void)didclickWithAction:(UIButton*)sender
 {
-    
     [_selectBtn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
     _selectBtn.backgroundColor =[UIColor whiteColor];
     

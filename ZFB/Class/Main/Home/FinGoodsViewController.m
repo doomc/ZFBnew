@@ -214,6 +214,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
         if (section== 0)
         {
             return headView;
+            
         } else  if (section == 1) {
           
             headView         = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
@@ -224,9 +225,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
             return headView;
             
         } else {
-            headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
+            headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
             [headView setBackgroundColor:HEXCOLOR(0xffffff)];
-            UIImageView * logo2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"guessLike"] ];//定位icon
+            UIImageView * logo2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"guessLike"] ]; 
             logo2.frame         = CGRectMake(0, 10, 105, 30);
             [headView addSubview:logo2];
             return headView;

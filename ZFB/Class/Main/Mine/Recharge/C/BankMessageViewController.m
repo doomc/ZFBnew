@@ -41,6 +41,7 @@
     // Do any additional setup after loading the view.
     self.title = @"填写银行卡信息";
     _titles = @[@"卡类型",@"卡号人",@"手机号"];
+    _placeHoder =  @[@"持卡卡类型",@"请输入有效姓名",@"预留手机号"];
     [self.tableView registerNib:[UINib nibWithNibName:@"AddBankCell" bundle:nil] forCellReuseIdentifier:@"AddBankCell"];
     
     [self settingButton];
@@ -146,15 +147,27 @@
 {
     AddBankCell * backCell = [self.tableView dequeueReusableCellWithIdentifier:@"AddBankCell" forIndexPath:indexPath];
     backCell.LB_title.text = _titles[indexPath.row];
-//    backCell.tf_content.placeholder = _placeHoder[indexPath.row];
-    
+    backCell.tf_content.placeholder = _placeHoder[indexPath.row];
+    NSString * bankType ;
     if (indexPath.row == 0) {
         [backCell.tf_content addTarget:self action:@selector(handCarText:) forControlEvents:UIControlEventEditingChanged];
+        
+        if ([_bankCredType isEqualToString:@"1"]) {
+            bankType = @"储蓄卡";
+        }else{
+            bankType = @"信用卡";
+
+        }
+        backCell.tf_content.text = [NSString stringWithFormat:@"%@  %@",_baseBankName,bankType];
+        backCell.tf_content.userInteractionEnabled = NO;
+
         return backCell;
 
     }else if(indexPath.row == 1)
     {
         [backCell.tf_content addTarget:self action:@selector(carNumText:) forControlEvents:UIControlEventEditingChanged];
+        backCell.tf_content.userInteractionEnabled = NO;
+        backCell.tf_content.text = _bankCredHolder;
         return backCell;
 
     }else{

@@ -225,7 +225,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 //初始化allOrder_tableView
 -(void)initZfb_tableView
 {
-    self.zfb_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH) style:UITableViewStylePlain];
+    self.zfb_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH - 64 ) style:UITableViewStylePlain];
     self.zfb_tableView .delegate       = self;
     self.zfb_tableView .dataSource     = self;
     self.zfb_tableView .separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -259,8 +259,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     }
     return _orderListArray;
 }
-
-
 -(NSMutableArray *)salesAfterArray
 {
     if (!_salesAfterArray) {
@@ -281,9 +279,9 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     if (!_navbar_btn) {
         _navbar_btn       = [UIButton buttonWithType:UIButtonTypeCustom];
         _navbar_btn.frame = CGRectMake(_titleView.centerX+40 , _titleView.centerY, 120, 24);
-        [_navbar_btn setImage:[UIImage imageNamed:@"Order_down"] forState:UIControlStateNormal];
+        [_navbar_btn setImage:[UIImage imageNamed:@"down_white"] forState:UIControlStateNormal];
         _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_navbar_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
+        [_navbar_btn setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
         [_navbar_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 80, 0, 0)];
         [_navbar_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0,40)];
         [_navbar_btn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];

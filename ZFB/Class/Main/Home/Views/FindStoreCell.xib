@@ -15,11 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="207"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4O3-QZ-Rbs">
-                    <rect key="frame" x="0.0" y="10" width="375" height="197"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </imageView>
-                <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UTP-Op-V33">
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UTP-Op-V33">
                     <rect key="frame" x="0.0" y="177" width="375" height="30"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="茜茜服装店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yY-5g-5MR">
@@ -47,7 +43,7 @@
                             <rect key="frame" x="244" y="9.5" width="12" height="12"/>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="8yY-5g-5MR" firstAttribute="leading" secondItem="UTP-Op-V33" secondAttribute="leading" constant="5" id="5QD-vd-5Hq"/>
                         <constraint firstItem="sMJ-kx-CgD" firstAttribute="centerY" secondItem="7tf-fA-jbn" secondAttribute="centerY" id="Ibt-in-eNa"/>
@@ -62,6 +58,10 @@
                         <constraint firstAttribute="height" constant="30" id="fsc-bc-Lsk"/>
                     </constraints>
                 </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4O3-QZ-Rbs">
+                    <rect key="frame" x="0.0" y="10" width="375" height="197"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>

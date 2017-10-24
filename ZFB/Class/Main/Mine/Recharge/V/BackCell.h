@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BankCardListModel.h"
 @interface BackCell : UITableViewCell
 
 //卡图
@@ -16,5 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *backName;
 //尾号
 @property (weak, nonatomic) IBOutlet UILabel *backNo;
+
+@property (strong, nonatomic)  BankList *  bankList;
+
 
 @end

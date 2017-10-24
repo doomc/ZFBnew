@@ -9,6 +9,9 @@
 #import "WithDrawResultViewController.h"
 
 @interface WithDrawResultViewController ()
+//银行卡信息
+@property (weak, nonatomic) IBOutlet UILabel *lb_BankCardInfo;
+@property (weak, nonatomic) IBOutlet UILabel *lb_WithDrawAmount;//提现金额
 
 @end
 
@@ -17,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"确认提现";
+    
 }
 
 - (void)didReceiveMemoryWarning {

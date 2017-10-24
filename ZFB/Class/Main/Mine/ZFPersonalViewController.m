@@ -115,9 +115,12 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)right_button_event:(UIButton*)sender{
     
     NSLog(@"消息列表");
-    PersonalMesViewController * messVC = [PersonalMesViewController new];
-    [self.navigationController pushViewController:messVC animated:NO];
-   
+    if (BBUserDefault.isLogin == 1) {
+        PersonalMesViewController * messVC = [PersonalMesViewController new];
+        [self.navigationController pushViewController:messVC animated:NO];
+    }else{
+        [self isloginSuccess];
+    }
 }
 #pragma mark - 注册
 -(void)didClickRegisterAction:(UIButton *)sender
@@ -164,8 +167,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
 }
 
-
-
 /**
  设置
  
@@ -183,8 +184,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
         [self isloginSuccess];
     }
-    
-    
 }
 
 #pragma mark - tableview delegate
@@ -574,16 +573,25 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)didClickCashBag
 {
     NSLog(@"点击了明细");
-    AccountViewController * accontVC = [[AccountViewController alloc]init];
-    [self.navigationController pushViewController:accontVC animated:NO];
+    if (BBUserDefault.isLogin == 1) {
+        AccountViewController * accontVC = [[AccountViewController alloc]init];
+        [self.navigationController pushViewController:accontVC animated:NO];
+    }else{
+        [self isloginSuccess];
+    }
+
     
 }
 ///余额   --- (充值、提现)
 -(void)didClickBalanceView
 {
-    RechargeViewController * bankVC = [RechargeViewController new];
-    bankVC.balance  = _balance;
-    [self.navigationController pushViewController:bankVC animated:NO];
+    if (BBUserDefault.isLogin == 1) {
+        RechargeViewController * bankVC = [RechargeViewController new];
+        bankVC.balance  = _balance;
+        [self.navigationController pushViewController:bankVC animated:NO];
+    }else{
+        [self isloginSuccess];
+    }
 
 }
 ///不可用金额
@@ -608,8 +616,13 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 ///富豆  银行卡绑定
 -(void)didClickFuBeanView
 {
-    BandBackCarViewController * bankVC = [BandBackCarViewController new];
-    [self.navigationController pushViewController:bankVC animated:NO];
+    if (BBUserDefault.isLogin == 1) {
+        BandBackCarViewController * bankVC = [BandBackCarViewController new];
+        [self.navigationController pushViewController:bankVC animated:NO];
+    }else{
+        [self isloginSuccess];
+    }
+
 }
 
 
@@ -673,18 +686,13 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/QRCode/getThirdBalance"] params:parma success:^(id response) {
-        
         if ([response [@"resultCode"] intValue] == 0) {
-            
             _balance = response[@"balance"];
-            
         }
         [self.myTableView reloadData];
         
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
-        
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
@@ -733,10 +741,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 //判断是否登录了
 -(void)isloginSuccess
 {
-    
     [self isIfNotSignIn];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {

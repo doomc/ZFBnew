@@ -178,8 +178,7 @@
 {
     NSDictionary * parma = @{
                              @"account":BBUserDefault.userPhoneNumber,
-                             @"bankCredNum":@"6228480478020447973"
-                             //6228480478020447973
+                             @"bankCredNum":_kcardNum
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/QRCode/getBankByCardNum"] params:parma success:^(id response) {
@@ -189,6 +188,10 @@
         if ([code isEqualToString:@"0"]) {
  
             BankMessageViewController  * nextVC  = [BankMessageViewController new];
+            nextVC.bankCredHolder = _bandCardName;//持卡人姓名
+            nextVC.bankCredNum = _kcardNum ;//卡号
+            nextVC.baseBankName = @"农业银行";
+            nextVC.bankCredType = @"1";// 1 储蓄卡 2信用卡
             [self.navigationController pushViewController:nextVC animated:NO];
 
             

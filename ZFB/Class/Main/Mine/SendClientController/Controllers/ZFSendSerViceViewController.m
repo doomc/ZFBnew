@@ -334,9 +334,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     if (!_navbar_btn) {
         _navbar_btn       = [UIButton buttonWithType:UIButtonTypeCustom];
         _navbar_btn.frame = CGRectMake(0, 0, 120, 30);
-        [_navbar_btn setImage:[UIImage imageNamed:@"Order_down"] forState:UIControlStateNormal];
+        [_navbar_btn setImage:[UIImage imageNamed:@"down_white"] forState:UIControlStateNormal];
         _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_navbar_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
+        [_navbar_btn setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
         [_navbar_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 80, 0, 0)];
         [_navbar_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0,30)];
         [_navbar_btn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];
@@ -357,7 +357,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(UITableView *)send_tableView
 {
     if (!_send_tableView) {
-        _send_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49) style:UITableViewStyleGrouped];
+        _send_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49-64) style:UITableViewStyleGrouped];
         _send_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _send_tableView.delegate       = self;
         _send_tableView.dataSource     = self;

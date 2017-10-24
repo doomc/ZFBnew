@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WithDrawResultViewController">
             <connections>
+                <outlet property="lb_BankCardInfo" destination="wp5-fS-mtH" id="ev7-MJ-wvM"/>
+                <outlet property="lb_WithDrawAmount" destination="IaW-PD-Muf" id="n0d-D3-hv3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -28,12 +30,8 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="success.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Jf-4D-a8k">
-                            <rect key="frame" x="63" y="24.5" width="50" height="50"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="50" id="Erp-dw-lde"/>
-                                <constraint firstAttribute="height" constant="50" id="m67-aZ-gYs"/>
-                            </constraints>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="success_green.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Jf-4D-a8k">
+                            <rect key="frame" x="73" y="29.5" width="40" height="40"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -95,6 +93,6 @@
         </view>
     </objects>
     <resources>
-        <image name="success.png" width="28" height="28"/>
+        <image name="success_green.png" width="40" height="40"/>
     </resources>
 </document>

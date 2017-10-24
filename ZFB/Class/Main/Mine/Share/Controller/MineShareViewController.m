@@ -92,7 +92,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, KScreenW, KScreenH  - 44 - 50) style:UITableViewStylePlain
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, KScreenW, KScreenH  - 44 - 50 -64) style:UITableViewStylePlain
                       ];
         _tableView.delegate = self;
         _tableView.dataSource = self;

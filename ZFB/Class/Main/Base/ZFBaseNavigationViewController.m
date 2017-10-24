@@ -42,7 +42,7 @@
     // 设置导航栏颜色
     [navBar setBarTintColor:[UIColor clearColor]];
     
-    UIImage *image = [UIImage imageNamed:@"title.jpg"];
+    UIImage *image = [UIImage imageNamed:@"nav64_red"];
     [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     [navBar setShadowImage:[UIImage new]];
 }

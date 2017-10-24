@@ -18,6 +18,9 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 {
     NSString * _imgbackUrl;
     NSString * _imgfaceUrl;
+    BOOL _faceSuccess;
+    BOOL _backSuccess;
+
  
 }
 @property (strong, nonatomic) HXPhotoManager *manager;
@@ -47,6 +50,9 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"实名认证";
+    _faceSuccess = NO;
+    _backSuccess = NO;
+    
     _ceritificationBtn.layer.masksToBounds = YES;
     _ceritificationBtn.layer.cornerRadius = 4;
     
@@ -100,7 +106,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                     NSLog(@"%@",names);
                     if (state == 1) {
                         _imgfaceUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
-
+                        _faceSuccess = YES;
                     }
                 }];
             }
@@ -111,10 +117,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                 [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
                     NSLog(@"%@",names);
                     if (state == 1) {
-                     
                         _imgbackUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
-
-                        
+                        _backSuccess = YES;
                     }
                 }];
             }
@@ -122,7 +126,6 @@ typedef NS_ENUM(NSUInteger, PickerType) {
             default:
                 break;
         }
- 
     }];
 }
 
@@ -130,14 +133,22 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 //实名认证
 - (IBAction)CertificationAction:(id)sender {
 
-    if (_imgbackUrl == nil  || _imgfaceUrl == nil) {
-       
-        [self.view makeToast:@"请上传正反面身份证照片" duration:2 position:@"center"];
+
+    if (_backSuccess == YES && _faceSuccess == YES) {
         
-    }else{
-   
         //需要处理是不是获取到图片地址了在请求
         [self certificationPostRequstet];
+        
+    }else
+    {
+        if (_imgbackUrl == nil  || _imgfaceUrl == nil) {
+            
+            [self.view makeToast:@"网络较慢，请稍等片刻" duration:2 position:@"center"];
+            
+        }else{
+            [self.view makeToast:@"图片正在上传，请耐心等待" duration:2 position:@"center"];
+
+        }
     }
 }
 //认证请求

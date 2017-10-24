@@ -11,8 +11,6 @@
 @class CheckData,CheckInfo,CheckList;
 @interface CheckModel : ResponseObject
 
-
-
 @property (nonatomic, copy) NSString *resultMsg;
 
 @property (nonatomic, strong) CheckData *data;

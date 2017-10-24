@@ -289,7 +289,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         
         _navTitle               = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 30)];
         _navTitle.font =[UIFont systemFontOfSize:14];
-        _navTitle.textColor     = HEXCOLOR(0xfe6d6a);
+        _navTitle.textColor     = HEXCOLOR(0xffffff);
         _navTitle.textAlignment = NSTextAlignmentCenter;
     }
     return _navTitle;
@@ -301,9 +301,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     if (!_navbar_btn) {
         _navbar_btn       = [UIButton buttonWithType:UIButtonTypeCustom];
         _navbar_btn.frame = CGRectMake(0, 0, 120, 30);
-        [_navbar_btn setImage:[UIImage imageNamed:@"Order_down"] forState:UIControlStateNormal];
+        [_navbar_btn setImage:[UIImage imageNamed:@"down_white"] forState:UIControlStateNormal];
         _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_navbar_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
+        [_navbar_btn setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
         [_navbar_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 80, 0, 0)];
         [_navbar_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0,33)];
         [_navbar_btn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];
@@ -313,7 +313,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(UITableView *)homeTableView
 {
     if (!_homeTableView ) {
-        _homeTableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49) style:UITableViewStylePlain];
+        _homeTableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49-64) style:UITableViewStylePlain];
         _homeTableView.delegate       = self;
         _homeTableView.dataSource     = self;
         _homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -341,8 +341,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     if (!_popView) {
         _popView =[[BusinessServicPopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 110) titleArray:_titles];
         _popView.delegate = self;
-        
-        
     }
     return _popView;
 }
@@ -1410,10 +1408,27 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeOrderPage:
             switch (_servicType) {
                 case BusinessServicTypeWaitSendlist:
-                    
+                {
                     NSLog(@"派单操作 - orderId =%@ ,totalPrice         = %@ ",_order_id,_order_amount);
-                    [self selectDeliveryListPostRequst];//请求配送员接口
-                    
+//                    [self selectDeliveryListPostRequst];//请求配送员接口
+                    ////warn ------- 选择派单
+                    JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"提示" message:@"选择派单模式" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction * action1 = [UIAlertAction actionWithTitle:@"商家派送" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    UIAlertAction * action2= [UIAlertAction actionWithTitle:@"系统派送" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        //系统配送
+                        [self autoSendOrderId:_order_id];
+                        
+                    }];
+                    UIAlertAction * action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    [alert addAction:action1];
+                    [alert addAction:action2];
+                    [alert addAction:action3];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
                     break;
                 case BusinessServicTypeSending:
                     
@@ -1463,7 +1478,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     
 }
 
-#pragma mark - BusinessSendOrderViewDelegate 3333 选择派单给谁 派单之前的操作
+#pragma mark - BusinessSendOrderViewDelegate 3333 选择派单给谁 派单之前的操作（方法暂时弃用）
 -(void)didClickPushdeliveryId:(NSString*)deliveryId
                  deliveryName:(NSString *)deliveryName
                 deliveryPhone:(NSString *)deliveryPhone
@@ -1473,18 +1488,18 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
     
     
-//    BusinessOrderlist * orderlist = self.orderListArray[_currentSection];
+    BusinessOrderlist * orderlist = self.orderListArray[_currentSection];
     NSLog(@"_currentSection  =========   %ld",_currentSection);
-//    [self sendOrderPostRequstStoreID:_storeId
-//                          deliveryId:deliveryId
-//                             orderId:orderlist.order_id
-//                         postAddress:orderlist.post_address
-//                            postName:orderlist.post_name
-//                         orderAmount:orderlist.orderAmount
-//                        deliveryName:deliveryName
-//                       deliveryPhone:deliveryPhone
-//                           postPhone:orderlist.post_phone
-//                    orderDeliveryFee:orderDeliveryFee];
+    [self sendOrderPostRequstStoreID:_storeId
+                          deliveryId:deliveryId
+                             orderId:orderlist.order_id
+                         postAddress:orderlist.post_address
+                            postName:orderlist.post_name
+                         orderAmount:orderlist.orderAmount
+                        deliveryName:deliveryName
+                       deliveryPhone:deliveryPhone
+                           postPhone:orderlist.post_phone
+                    orderDeliveryFee:orderDeliveryFee];
     
     
 }
@@ -1739,7 +1754,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     
 }
 
-#pragma mark -  配送员列表接口    11111   order/selectDeliveryList
+#pragma mark -  配送员列表接口    11111   order/selectDeliveryList（方法暂时弃用）
 -(void)selectDeliveryListPostRequst
 {
     NSDictionary * param = @{
@@ -1766,23 +1781,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             }
             [SVProgressHUD dismiss];
             [self reloadDeliveryList];//刷新
-            
-////warn ------- 选择派单
-            JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"提示" message:@"选择派单模式" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction * action1 = [UIAlertAction actionWithTitle:@"自派送" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
-            }];
-            UIAlertAction * action2= [UIAlertAction actionWithTitle:@"系统派送" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
-            }];
-            UIAlertAction * action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                
-            }];
-            [alert addAction:action1];
-            [alert addAction:action2];
-            [alert addAction:action3];
-            [self presentViewController:alert animated:YES completion:nil];
-//            [self.view addSubview:self.orderBgview];
+            [self.view addSubview:self.orderBgview];
             
         }
         
@@ -1796,7 +1795,65 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     }];
     
 }
-
+#pragma mark - 自动派送 接口 ---
+-(void)autoSendOrderId:(NSString *)orderId
+{
+    NSDictionary * param = @{
+                             @"orderId":orderId,
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/automaticDispatNew",zfb_baseUrl] params:param success:^(id response) {
+        NSString *code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        
+        if ([code isEqualToString:@"0"]) {
+            
+            [SVProgressHUD dismiss];
+            
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+    }];
+}
+#pragma mark - 商家派送  ---
+-(void)getOrderbyOrderId:(NSString *)orderId deliveryId:(NSString *)deliveryId status:(NSString *)status
+{
+    NSDictionary * param = @{
+                             @"orderId":orderId,
+                             @"deliveryId":deliveryId,
+                             @"status":status,
+                             
+                             };
+    [SVProgressHUD show];
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getIsOrderDeliveryInfo",zfb_baseUrl] params:param success:^(id response) {
+        
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+            
+            [SVProgressHUD dismiss];
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+            
+        }else{
+            [SVProgressHUD dismiss];
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        }
+        
+        [self.homeTableView reloadData];
+        
+    } progress:^(NSProgress *progeress) {
+        
+        NSLog(@"progeress=====%@",progeress);
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        
+    }];
+    
+}
 #pragma mark -  确认退款的参数   order/storeConfirmReceipt
 -(void)returnBackStoreConfirmReceiptPostRequstAtOrderNum:(NSString *)orderNum
                                           afterServiceId:(NSString *)afterServiceId

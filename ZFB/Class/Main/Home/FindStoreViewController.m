@@ -158,7 +158,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 {
     if (!_sectionView) {
         _sectionView =[[UIView alloc] initWithFrame:CGRectMake(30, 0,KScreenW, 50)];
-        
+        _sectionView.backgroundColor= [UIColor whiteColor];
         UIButton * more_btn = [UIButton buttonWithType:UIButtonTypeSystem];
         [more_btn addTarget:self action:@selector(more_btnAction:) forControlEvents:UIControlEventTouchUpInside];
         more_btn.frame =CGRectMake( KScreenW - 40-10, 10, 40, 40);
@@ -203,7 +203,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 200/375.0 *KScreenW;
+    return 180/375.0 *KScreenW +10;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

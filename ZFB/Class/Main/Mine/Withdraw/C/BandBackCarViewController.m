@@ -12,6 +12,7 @@
 #import "BankCarListCell.h"
 #import "AddBackButtonCell.h"
 #import "AddBankCardViewController.h"
+#import "CertificationViewController.h"
 @interface BandBackCarViewController ()<UITableViewDelegate,UITableViewDataSource,AddBackButtonCellDelegate>
 {
     NSString * _realNameFlag;
@@ -28,17 +29,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"银行卡";
-    [self backCardListPost];
     
     [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"BankCarListCell" bundle:nil] forCellReuseIdentifier:@"BankCarListCellid"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"AddBackButtonCell" bundle:nil] forCellReuseIdentifier:@"AddBackButtonCellid"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"AddBackButtonCell" bundle:nil] forCellReuseIdentifier:@"AddBackButtonCell"];
     
     
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self realNamePost];
+    [self backCardListPost];
 }
 
 -(NSMutableArray *)backCardList{
@@ -66,42 +66,45 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        
         return  self.backCardList.count;
+    }else{
+        return 1;
     }
-    return 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     CGFloat height = 0;
-    if (self.backCardList.count > 0) {
-        if (indexPath.section == 0) {
+    if (indexPath.section == 0) {
+        if (self.backCardList.count > 0) {
             height =  150;
+        }else{
+            height =  0;
         }
-        else{
-            height =  125;
-        }
+    }else{
+        height =  125;
     }
     return height;
-    
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (indexPath.section == 0) {
-        BankList * list = self.backCardList[indexPath.row];
         BankCarListCell  * listCell = [self.tableView dequeueReusableCellWithIdentifier:@"BankCarListCellid" forIndexPath:indexPath];
-        listCell.banklist = list;
-        return listCell;
-        
-    }else{
-        AddBackButtonCell *buttonCell =[self.tableView dequeueReusableCellWithIdentifier:@"AddBackButtonCellid" forIndexPath:indexPath];
-        buttonCell.deldegate  = self;
-        buttonCell.sureWithdrawBtn.hidden = YES;
-        return buttonCell;
-        
+        if (self.backCardList.count > 0) {
+            BankList * list = self.backCardList[indexPath.row];
+            listCell.banklist = list;
+            return listCell;
+        }else{
+            [listCell setHidden:YES];
+        }
+
     }
+    AddBackButtonCell *buttonCell = [self.tableView dequeueReusableCellWithIdentifier:@"AddBackButtonCell" forIndexPath:indexPath];
+    buttonCell.delegate  = self;
+    buttonCell.sureWithdrawBtn.hidden = YES;
+    return buttonCell;
+    
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -111,8 +114,10 @@
 //添加银行卡
 -(void)didClickAddBankCard{
     NSLog(@"我点击到了吗");
-    AddBankCardViewController * addVC = [AddBankCardViewController new];
-    [self.navigationController pushViewController:addVC animated:NO];
+    [self realNamePost];
+
+//    AddBankCardViewController * addVC = [AddBankCardViewController new];
+//    [self.navigationController pushViewController:addVC animated:NO];
 }
 //银行卡列表
 -(void)backCardListPost
@@ -149,6 +154,16 @@
         if ([code isEqualToString:@"0"]) {
             //是否实名认证 1 是 2 否
             _realNameFlag = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"realNameFlag"]];
+            
+            if ([_realNameFlag isEqualToString:@"1"]) {
+                AddBankCardViewController * addVC = [AddBankCardViewController new];
+                [self.navigationController pushViewController:addVC animated:NO];
+                
+            }else{
+                CertificationViewController * cerVC = [CertificationViewController new];
+                [self.navigationController pushViewController:cerVC animated:NO];
+
+            }
         }
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {

@@ -30,14 +30,14 @@
 //添加银行卡
 - (IBAction)addBankCard:(id)sender {
     
-    if ([self.deldegate respondsToSelector:@selector(didClickAddBankCard)]) {
-        [self.deldegate didClickAddBankCard];
+    if ([self.delegate respondsToSelector:@selector(didClickAddBankCard)]) {
+        [self.delegate didClickAddBankCard];
     }
 }
 //确认提现
 - (IBAction)sureCashWithDraw:(id)sender {
-    if ([self.deldegate respondsToSelector:@selector(didClickcashWithdraw)]) {
-        [self.deldegate didClickcashWithdraw];
+    if ([self.delegate respondsToSelector:@selector(didClickcashWithdraw)]) {
+        [self.delegate didClickcashWithdraw];
     }
 }
 

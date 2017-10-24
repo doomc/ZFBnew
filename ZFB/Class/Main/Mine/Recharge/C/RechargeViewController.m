@@ -12,6 +12,7 @@
 #import "BackCell.h"
 #import "WithdrawCell.h"
 #import "AddBackButtonCell.h"
+#import "BankCardListModel.h"//可用银行卡model
 
 #import "BankCarListViewController.h"//银行卡列表
 #import "WithDrawViewController.h"//提现
@@ -23,13 +24,18 @@
     NSString * _realNameFlag;
 }
 @property (nonatomic , strong) UITableView * backTableView;
-
-
+@property (nonatomic , strong) NSMutableArray * backCardList;
 @end
 
 @implementation RechargeViewController
 
-
+-(NSMutableArray *)backCardList
+{
+    if (!_backCardList) {
+        _backCardList= [ NSMutableArray array];
+    }
+    return _backCardList;
+}
 -(UITableView *)backTableView
 {
     if (!_backTableView) {
@@ -94,6 +100,8 @@
 {
     if (indexPath.section == 0) {
         BackCell * cell = [self.backTableView dequeueReusableCellWithIdentifier:@"BackCell" forIndexPath:indexPath];
+        BankList *  list  =  self.backCardList[0];
+        cell.bankList = list;
         return cell;
     }
    else if (indexPath.section == 1) {
@@ -106,7 +114,7 @@
     }
     else{
         AddBackButtonCell * cell = [self.backTableView dequeueReusableCellWithIdentifier:@"AddBackButtonCell" forIndexPath:indexPath];
-        cell.deldegate = self;
+        cell.delegate = self;
         return cell;
 
     }
@@ -210,7 +218,31 @@
     }];
     
 }
-
+//获取可用的银行卡列表
+-(void)backCardListPost
+{
+    NSDictionary * param = @{
+                             @"account":BBUserDefault.userPhoneNumber,
+                             @"cardType":@"3"//所有银行卡
+                             
+                             };
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/getThirdBankCardList",zfb_baseUrl] params:param success:^(id response) {
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        
+        if ([code isEqualToString:@"0"]) {
+            BankCardListModel  * bank = [BankCardListModel mj_objectWithKeyValues:response];
+            for (BankList * list in bank.bankList) {
+                [self.backCardList addObject:list];
+            }
+            [self.backTableView reloadData];
+        }
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     

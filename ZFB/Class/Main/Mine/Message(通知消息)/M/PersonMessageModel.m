@@ -2,7 +2,7 @@
 //  PersonMessageModel.m
 //  ZFB
 //
-//  Created by 熊维东 on 2017/10/22.
+//  Created by  展富宝  on 2017/10/24.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
@@ -19,5 +19,7 @@
 
 @implementation PushMessageList
 
+
 @end
+
 

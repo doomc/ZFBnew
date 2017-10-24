@@ -11,23 +11,22 @@
 #import "PersonalMessCell.h"
 @interface PersonalMesViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic, strong) NSMutableArray * Messagelist;
+@property (nonatomic, strong) NSMutableArray * messagelist;
 
 @end
 @implementation PersonalMesViewController
--(NSMutableArray *)Messagelist
+-(NSMutableArray *)messagelist
 {
-    if (!_Messagelist) {
-        _Messagelist = [NSMutableArray array];
+    if (!_messagelist) {
+        _messagelist = [NSMutableArray array];
     }
-    return _Messagelist;
+    return _messagelist;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-   
+    self.title = @"通知中心";
     [self settingTableview];
-    [self setupRefresh];
 
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -36,13 +35,16 @@
 }
 -(void)settingTableview
 {
-    self.zfb_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH) style:UITableViewStylePlain];
+    self.zfb_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-64) style:UITableViewStylePlain];
     self.zfb_tableView.delegate  = self;
     self.zfb_tableView.dataSource = self;
-    self.zfb_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.zfb_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.zfb_tableView];
     
     [self.zfb_tableView registerNib:[UINib nibWithNibName:@"PersonalMessCell" bundle:nil] forCellReuseIdentifier:@"PersonalMessCell"];
+
+    [self setupRefresh];
+
 }
 -(void)footerRefresh
 {
@@ -60,12 +62,20 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.Messagelist.count;
+    return self.messagelist.count;
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PersonalMessCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonalMessCell" forIndexPath:indexPath];
+
+    if (self.messagelist.count > 0 )  {
+        PushMessageList * pushList = self.messagelist[indexPath.row];
+        cell.pushList  = pushList;
+    }
     return cell;
 }
 -(void)messageListPOSTRequste
@@ -75,25 +85,30 @@
                              @"userId":BBUserDefault.cmUserId,
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"size":[NSNumber numberWithInteger:kPageCount],
-//                             @"msgType":@"1",
-//                             @"timestamp":@"",
+                             @"mobilePhone":BBUserDefault.userPhoneNumber
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getPushMessageList"] params:parma success:^(id response) {
-        
-        if ([response [@"resultCode"] isEqualToString:@"0"]) {
+        NSString * code = [ NSString stringWithFormat:@"%@",response [@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
             if (self.refreshType == RefreshTypeHeader) {
-                if (self.Messagelist.count > 0) {
-                    
-                    [self.Messagelist removeAllObjects];
+                if (self.messagelist.count > 0) {
+                    [self.messagelist removeAllObjects];
                 }
             }
-            
+            PersonMessageModel * mess = [PersonMessageModel mj_objectWithKeyValues:response];
+            for (PushMessageList * pushlist in mess.pushMessageList) {
+                [self.messagelist addObject:pushlist];
+//                NSLog(@"content=%@, title=%@", pushlist.content, pushlist.title);
+                
+            }
+            [self.zfb_tableView reloadData];
         }
         
+        [self endRefresh];
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
-        
+        [self endRefresh];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];

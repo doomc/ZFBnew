@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PersonMessageModel.h"
 @interface PersonalMessCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_title;
+@property (weak, nonatomic) IBOutlet UILabel *lb_content;
+@property (nonatomic ,strong) PushMessageList * pushList;
+
+
+
 
 @end

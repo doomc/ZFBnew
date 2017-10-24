@@ -23,6 +23,6 @@
 //确认提现
 @property (weak, nonatomic) IBOutlet UIButton *sureWithdrawBtn;
 
-@property (assign ,nonatomic) id <AddBackButtonCellDelegate>deldegate;
+@property (assign ,nonatomic) id <AddBackButtonCellDelegate> delegate;
 
 @end
