@@ -20,8 +20,7 @@
 {
     _pushList = pushList ;
     self.lb_title.text = pushList.title;
-//    NSLog(@"createTime -- %@ , object - %@ ,- content_s = %@   isNew=  %ld",pushList.createTime,pushList.object,pushList.content_s,pushList.isNew);
-//    self.lb_content.text = [NSString stringWithFormat:@"%@",pushList.content_s];
+    self.lb_content.text = [NSString stringWithFormat:@"%@",pushList.content];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

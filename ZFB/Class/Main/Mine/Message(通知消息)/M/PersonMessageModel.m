@@ -11,7 +11,7 @@
 @implementation PersonMessageModel
 
 + (NSDictionary *)objectClassInArray{
-    return @{@"PushMessageList" : [PushMessageList class]};
+    return @{@"pushMessageList" : [PushMessageList class]};
 }
 
 

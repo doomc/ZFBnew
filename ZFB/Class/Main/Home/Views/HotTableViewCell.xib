@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,9 +19,9 @@
                     <rect key="frame" x="0.0" y="0.0" width="349" height="100"/>
                     <subviews>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="WyH-0Z-ONB">
-                            <rect key="frame" x="10" y="0.0" width="329" height="100"/>
+                            <rect key="frame" x="0.0" y="0.0" width="349" height="100"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Rp4-dZ-aUC">
+                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Rp4-dZ-aUC">
                                 <size key="itemSize" width="50" height="50"/>
                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -30,9 +30,9 @@
                         </collectionView>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="WyH-0Z-ONB" secondAttribute="trailing" constant="10" id="ANx-lS-nNg"/>
+                        <constraint firstAttribute="trailing" secondItem="WyH-0Z-ONB" secondAttribute="trailing" id="ANx-lS-nNg"/>
                         <constraint firstItem="WyH-0Z-ONB" firstAttribute="top" secondItem="Pr3-tB-ece" secondAttribute="top" id="MVk-hA-kav"/>
-                        <constraint firstItem="WyH-0Z-ONB" firstAttribute="leading" secondItem="Pr3-tB-ece" secondAttribute="leading" constant="10" id="ORa-wf-rDz"/>
+                        <constraint firstItem="WyH-0Z-ONB" firstAttribute="leading" secondItem="Pr3-tB-ece" secondAttribute="leading" id="ORa-wf-rDz"/>
                         <constraint firstAttribute="bottom" secondItem="WyH-0Z-ONB" secondAttribute="bottom" id="PUQ-cg-hGK"/>
                     </constraints>
                 </view>

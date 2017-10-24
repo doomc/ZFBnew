@@ -72,6 +72,22 @@
     self.currentPage = 1;
 
 }
+//设置导航栏
+-(void)settingNavBarBgName:(NSString *)bgName
+{
+  ZFBaseNavigationViewController *nvc =  (ZFBaseNavigationViewController *)self.navigationController;
+    
+    UINavigationBar *navBar = nvc.navigationBar;
+    // 设置导航栏title属性
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
+    // 设置导航栏颜色
+    [navBar setBarTintColor:[UIColor clearColor]];
+    
+    UIImage *image = [UIImage imageNamed:bgName];
+    [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [navBar setShadowImage:[UIImage new]];
+    
+}
 #pragma mark - 集成刷新
 -(void)setupRefresh {
   
@@ -163,8 +179,6 @@
 {
     
 }
-
-
 
 #pragma mark -- rightButton
 -(BOOL)rightButton

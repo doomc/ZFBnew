@@ -100,8 +100,14 @@
 {
     if (indexPath.section == 0) {
         BackCell * cell = [self.backTableView dequeueReusableCellWithIdentifier:@"BackCell" forIndexPath:indexPath];
-        BankList *  list  =  self.backCardList[0];
-        cell.bankList = list;
+        if (self.backCardList.count >0) {
+            cell.NOBankCardView.hidden = YES;
+            BankList *  list  =  self.backCardList[0];
+            cell.bankList = list;
+        }else{
+            
+            cell.NOBankCardView.hidden = NO;
+        }
         return cell;
     }
    else if (indexPath.section == 1) {

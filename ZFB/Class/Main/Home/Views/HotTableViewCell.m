@@ -54,14 +54,10 @@
     return cell;
 }
 
-
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld  = item" ,indexPath.item);
-   
     hotFindgoodslist * hotlist =  _hotArray[indexPath.item];
-
     if ([self.delegate respondsToSelector:@selector(pushToDetailVCWithGoodsID:)]) {
         [self.delegate pushToDetailVCWithGoodsID:[NSString stringWithFormat:@"%ld",hotlist.goodsId]  ];
     }
@@ -71,23 +67,20 @@
 //每个cell的大小，因为有indexPath，所以可以判断哪一组，或者哪一个item，可一个给特定的大小，等同于layout的itemSize属性
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-    return CGSizeMake((KScreenW - 50)*0.3333,(KScreenW - 50)*0.3333);
+    return CGSizeMake(KScreenW/3.0,KScreenW/3.0);
 }
 // 设置整个组的缩进量是多少
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(5, 5, 5, 5);
-}
 
-// 设置最小行间距，也就是前一行与后一行的中间最小间隔
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 10;
-}
 
-// 设置最小列间距，也就是左行与右一行的中间最小间隔
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 10;
-}
+//// 设置最小行间距，也就是前一行与后一行的中间最小间隔
+//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+//    return 10;
+//}
+//
+//// 设置最小列间距，也就是左行与右一行的中间最小间隔
+//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+//    return 10;
+//}
 
 
 

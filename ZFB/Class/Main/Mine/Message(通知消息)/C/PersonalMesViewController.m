@@ -99,7 +99,7 @@
             PersonMessageModel * mess = [PersonMessageModel mj_objectWithKeyValues:response];
             for (PushMessageList * pushlist in mess.pushMessageList) {
                 [self.messagelist addObject:pushlist];
-//                NSLog(@"content=%@, title=%@", pushlist.content, pushlist.title);
+                NSLog(@"content=%@, title=%@", pushlist.content, pushlist.title);
                 
             }
             [self.zfb_tableView reloadData];

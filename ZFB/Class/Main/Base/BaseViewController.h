@@ -104,4 +104,10 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 //用户提示没开放的任务
 - (void)settingAlertView;
 
+
+//设置导航栏背景
+-(void)settingNavBarBgName:(NSString *)bgName;
+
+
+
 @end

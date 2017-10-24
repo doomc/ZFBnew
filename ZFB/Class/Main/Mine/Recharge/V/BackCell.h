@@ -19,5 +19,6 @@
 
 @property (strong, nonatomic)  BankList *  bankList;
 
+@property (weak, nonatomic) IBOutlet UIView *NOBankCardView;
 
 @end

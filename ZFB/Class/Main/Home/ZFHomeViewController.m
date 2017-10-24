@@ -123,16 +123,17 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     self.navigationItem.rightBarButtonItem = shakeItem;
     
     
+    UISearchBar * searchbar  = [[UISearchBar alloc]init];
     
-    self.navSearch_btn  =[UIButton buttonWithType:UIButtonTypeCustom];
-    [self.navSearch_btn setBackgroundImage:[UIImage imageNamed:@"searchBar"] forState:UIControlStateNormal];
-    [self.navSearch_btn addTarget:self action:@selector(DidClickSearchBarAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.navSearch_btn.frame = CGRectMake(0, 0, KScreenW - 60, 30);
-    self.navigationItem.titleView = self.navSearch_btn;
     
+//    self.navSearch_btn  =[UIButton buttonWithType:UIButtonTypeCustom];
+//    [self.navSearch_btn setBackgroundImage:[UIImage imageNamed:@"searchBar"] forState:UIControlStateNormal];
+//    [self.navSearch_btn addTarget:self action:@selector(DidClickSearchBarAction:) forControlEvents:UIControlEventTouchUpInside];
+//    self.navSearch_btn.frame = CGRectMake(0, 0, KScreenW - 60, 30);
+//    self.navigationItem.titleView = self.navSearch_btn;
     
     //navBar 的背景颜色
-    self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
+//    self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
  
 }
 

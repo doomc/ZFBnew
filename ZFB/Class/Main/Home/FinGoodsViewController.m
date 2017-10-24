@@ -244,7 +244,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
     }
     if (indexPath.section == 1 ) {
         
-        return 140 / 375.0 *KScreenW ;
+        return KScreenW /3.0 ;//140 / 375.0 *KScreenW
     }
     return  90;
 }
@@ -432,10 +432,9 @@ typedef NS_ENUM(NSUInteger, CellType) {
             }
             //mjextention 数组转模型
             HomeFuncModel *functype = [HomeFuncModel mj_objectWithKeyValues:response];
-            
             for (CMgoodstypelist * typeList in functype.data.CmGoodsTypeList) {
                 
-                [self.funcArray addObject:typeList];
+//                [self.funcArray addObject:typeList];
             }
             [self.findGoods_TableView reloadData];
         }

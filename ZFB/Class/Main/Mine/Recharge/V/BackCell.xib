@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -40,19 +40,40 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows_Right_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pkl-Yf-fbp">
                         <rect key="frame" x="293" y="26.5" width="12" height="12"/>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03P-9J-dMI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无银行卡" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nd7-lj-3GM">
+                                <rect key="frame" x="109" y="21" width="102" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nd7-lj-3GM" firstAttribute="centerY" secondItem="03P-9J-dMI" secondAttribute="centerY" id="Xbc-VO-Vs5"/>
+                            <constraint firstItem="nd7-lj-3GM" firstAttribute="centerX" secondItem="03P-9J-dMI" secondAttribute="centerX" id="r8Q-Em-XUL"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="03P-9J-dMI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="E7Q-uj-1O5"/>
                     <constraint firstItem="RUh-rk-Je7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="FMt-Up-TqT"/>
                     <constraint firstAttribute="trailing" secondItem="Pkl-Yf-fbp" secondAttribute="trailing" constant="15" id="Fuf-Bu-Qzj"/>
                     <constraint firstItem="Pkl-pF-lYF" firstAttribute="top" secondItem="QZ9-aZ-6fo" secondAttribute="bottom" constant="5" id="OWM-60-w0P"/>
                     <constraint firstItem="RUh-rk-Je7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="W7F-b8-yrd"/>
+                    <constraint firstAttribute="trailing" secondItem="03P-9J-dMI" secondAttribute="trailing" id="aDV-en-XDQ"/>
                     <constraint firstItem="QZ9-aZ-6fo" firstAttribute="leading" secondItem="RUh-rk-Je7" secondAttribute="trailing" constant="15" id="d97-U5-Koy"/>
                     <constraint firstItem="QZ9-aZ-6fo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="jXG-k3-1rD"/>
+                    <constraint firstItem="03P-9J-dMI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="kJp-hd-O6s"/>
                     <constraint firstItem="Pkl-Yf-fbp" firstAttribute="centerY" secondItem="RUh-rk-Je7" secondAttribute="centerY" id="mnZ-cQ-Pcd"/>
+                    <constraint firstAttribute="bottom" secondItem="03P-9J-dMI" secondAttribute="bottom" id="ocN-fh-ZWo"/>
                     <constraint firstItem="Pkl-pF-lYF" firstAttribute="leading" secondItem="QZ9-aZ-6fo" secondAttribute="leading" id="y3P-qr-KSt"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="NOBankCardView" destination="03P-9J-dMI" id="zfI-gH-hhD"/>
                 <outlet property="backImg" destination="RUh-rk-Je7" id="Npr-gQ-mEB"/>
                 <outlet property="backName" destination="QZ9-aZ-6fo" id="48u-r9-9Jb"/>
                 <outlet property="backNo" destination="Pkl-pF-lYF" id="H4f-wS-hwY"/>

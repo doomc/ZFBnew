@@ -191,27 +191,26 @@ static NSString * identyhy = @"SearchHistoryCell";
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView * view = nil;
-    if (self.historyArray.count > 0) {
+    
+    if (section == 0) {
+        view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
+        view.backgroundColor = [UIColor whiteColor];
+        UILabel * hotLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW, 40)];
+        hotLabel.text = @"热门搜索";
+        hotLabel.font = SYSTEMFONT(14);
+        hotLabel.textColor = HEXCOLOR(0x333333);
+        [view addSubview:hotLabel];
+ 
+    }
+    else{
+        UIButton * footBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        footBtn.frame = CGRectMake(0, 0, KScreenW, 40);
+        [footBtn setTitle:@"清空历史记录~" forState:UIControlStateNormal];
+        footBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [footBtn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
+        [footBtn addTarget:self action:@selector(clearingAllhistoryData) forControlEvents:UIControlEventTouchUpInside];
+        view = footBtn;
         
-        if (section == 0) {
-            view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
-            view.backgroundColor = [UIColor whiteColor];
-            UILabel * hotLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW, 40)];
-            hotLabel.text = @"热门搜索";
-            hotLabel.font = SYSTEMFONT(14);
-            hotLabel.textColor = HEXCOLOR(0x333333);
-            [view addSubview:hotLabel];
-            return  view;
-        }
-        else{
-            UIButton * footBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            footBtn.frame = CGRectMake(0, 0, KScreenW, 40);
-            [footBtn setTitle:@"清空历史记录~" forState:UIControlStateNormal];
-            footBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-            [footBtn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
-            [footBtn addTarget:self action:@selector(clearingAllhistoryData) forControlEvents:UIControlEventTouchUpInside];
-            view = footBtn;
-        }
     }
     return view;
 }
