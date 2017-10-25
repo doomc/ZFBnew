@@ -43,7 +43,7 @@
     
     UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
     left_button.frame =CGRectMake(0, 0,22,22);
-    [left_button setBackgroundImage:[UIImage imageNamed:@"navback_white"] forState:UIControlStateNormal];
+    [left_button setBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     [left_button addTarget:self action:@selector(left_button_event:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:left_button];
     self.navigationItem.leftBarButtonItem = leftItem;

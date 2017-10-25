@@ -31,6 +31,7 @@
 
 //背景图
 @property (weak, nonatomic) IBOutlet UIImageView *img_bgView;
+@property (weak, nonatomic) IBOutlet UIImageView *img_headView2;
 
 //头像
 @property (weak, nonatomic) IBOutlet UIImageView *img_headview;

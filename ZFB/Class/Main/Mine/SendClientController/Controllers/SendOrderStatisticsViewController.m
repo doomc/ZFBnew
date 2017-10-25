@@ -219,9 +219,6 @@
         }
 
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);
@@ -234,7 +231,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {   //网络请求
     [self getOrderPostRequst];
-    
+    [self settingNavBarBgName:@"nav64_gray"];
+
 }
 
 #pragma mark - CYLTableViewPlaceHolderDelegate Method

@@ -47,7 +47,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    BBUserDefault.isLogin = 0;
+ 
     _isQuickLogin = YES;//默认为快速登录
     _indexType = quickLoginIndexType; //默认为快速登录
     self.login_btn.enabled = NO; //默认关闭用户登录
@@ -101,7 +101,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 {
     UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
     left_button.frame =CGRectMake(0, 0,22,22);
-    [left_button setBackgroundImage:[UIImage imageNamed:@"navback_white"] forState:UIControlStateNormal];
+    [left_button setBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     [left_button addTarget:self action:@selector(left_button_event) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:left_button];
     self.navigationItem.leftBarButtonItem = leftItem;

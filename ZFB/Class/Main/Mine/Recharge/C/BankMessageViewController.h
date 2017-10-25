@@ -17,7 +17,7 @@
 
 @property (nonatomic , copy) NSString  * bankCredNum;//银行卡号
 @property (nonatomic , copy) NSString  * bankCredHolder;//银行卡持有人姓名
-@property (nonatomic , copy) NSString  * baseBankId;//银行卡持有人姓名
+@property (nonatomic , copy) NSString  * baseBankId;//银行卡id
 
 
 @end

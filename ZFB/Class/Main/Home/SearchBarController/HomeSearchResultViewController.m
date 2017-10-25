@@ -743,6 +743,8 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self settingNavBarBgName:@"nav64_gray"];
+ 
     [self getFindbrandListPost];
     
     if ([self.searchType  isEqualToString:@"商品"]) {

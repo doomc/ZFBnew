@@ -39,6 +39,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self backCardListPost];
+    [self settingNavBarBgName:@"nav64_gray"];
+
 }
 
 -(NSMutableArray *)backCardList{
@@ -76,7 +78,7 @@
     CGFloat height = 0;
     if (indexPath.section == 0) {
         if (self.backCardList.count > 0) {
-            height =  150;
+            height =  140;
         }else{
             height =  0;
         }
@@ -116,8 +118,7 @@
     NSLog(@"我点击到了吗");
     [self realNamePost];
 
-//    AddBankCardViewController * addVC = [AddBankCardViewController new];
-//    [self.navigationController pushViewController:addVC animated:NO];
+ 
 }
 //银行卡列表
 -(void)backCardListPost
@@ -131,6 +132,9 @@
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         
         if ([code isEqualToString:@"0"]) {
+            if (self.backCardList.count > 0) {
+                [self.backCardList removeAllObjects];
+            }
             BankCardListModel  * bank = [BankCardListModel mj_objectWithKeyValues:response];
             for (BankList * list in bank.bankList) {
                 [self.backCardList addObject:list];

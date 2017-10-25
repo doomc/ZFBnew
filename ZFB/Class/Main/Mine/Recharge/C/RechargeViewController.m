@@ -76,6 +76,7 @@
     }else if (indexPath.section == 1)
     {
         height = 130;
+        
     }else{
         height = 125;
  
@@ -139,26 +140,29 @@
 -(void)didClickAddBankCard
 {
     NSLog(@"点击了  ---- 添加银行卡");
-//    if ([_realNameFlag isEqualToString:@"2"] ) {            //是否实名认证 1 是 2 否
-//        CertificationViewController * cerVC = [CertificationViewController new];
-//        [self.navigationController pushViewController:cerVC animated:NO];
-//
-//    }else{
-//        AddBankCardViewController * addVC = [AddBankCardViewController new];
-//        [self.navigationController pushViewController:addVC animated:NO];
-//    }
-    AddBankCardViewController * addVC = [AddBankCardViewController new];
-    [self.navigationController pushViewController:addVC animated:NO];
-    
+    if ([_realNameFlag isEqualToString:@"2"] ) {            //是否实名认证 1 是 2 否
+        CertificationViewController * cerVC = [CertificationViewController new];
+        [self.navigationController pushViewController:cerVC animated:NO];
+
+    }else{
+        AddBankCardViewController * addVC = [AddBankCardViewController new];
+        [self.navigationController pushViewController:addVC animated:NO];
+    }
+ 
 }
 //确认提现
 -(void)didClickcashWithdraw
 {
     //先判断是不是满足条件了
-    
-    [self withDrawkCashPost];
-    NSLog(@"点击了  ---- 确认提现");
+    if (_putInMoney.length > 0) {
+        BankList * list = self.backCardList[0];
+        [self withDrawkCashPostAccount:list.phone bankId:list.bank_id amount:_putInMoney objectName:list.name logoUrl:list.bank_img];
 
+    }else{
+        [self.view makeToast:@"请输入提现金额" duration:2 position:@"center"];
+
+    }
+    NSLog(@"点击了  ---- 确认提现");
 }
 
 #pragma mark - WithdrawCellDelegate 提现代理
@@ -202,20 +206,26 @@
 }
 
 #pragma mark - 提现接口
--(void)withDrawkCashPost
+-(void)withDrawkCashPostAccount:(NSString *)account bankId:(NSString *)bankId amount:(NSString *)amount objectName:(NSString *)objectName logoUrl:(NSString *)logoUrl
 {
+    BankList * list = self.backCardList[0];
+
     NSDictionary * param = @{
-                             @"account":BBUserDefault.userPhoneNumber,
-                             @"bankId":@"",//绑卡后银行卡编号
-                             @"amount":@"12",//银行卡号
-                             @"logoUrl":@"",//银行卡绑定电话
-                             @"objectName":@"",//银行卡持有人姓名
+                             @"account":account,
+                             @"bankId":bankId,//绑卡后银行卡编号
+                             @"amount":amount,//银行卡号
+                             @"logoUrl":logoUrl,//银行卡绑定电话
+                             @"objectName":objectName,//银行卡持有人姓名
                              
                              };
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/withdrawCash",zfb_baseUrl] params:param success:^(id response) {
-       
-        WithDrawResultViewController * drawVC = [WithDrawResultViewController new];
-        [self.navigationController pushViewController:drawVC animated:NO];
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+            WithDrawResultViewController * drawVC = [WithDrawResultViewController new];
+            drawVC.bankMsg = [NSString stringWithFormat:@"%@",list.bank_name];
+            drawVC.amont = amount ;
+            [self.navigationController pushViewController:drawVC animated:NO];
+        }
         
     } progress:^(NSProgress *progeress) {
         
@@ -236,6 +246,9 @@
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         
         if ([code isEqualToString:@"0"]) {
+            if (self.backCardList.count > 0) {
+                [self.backCardList removeAllObjects];
+            }
             BankCardListModel  * bank = [BankCardListModel mj_objectWithKeyValues:response];
             for (BankList * list in bank.bankList) {
                 [self.backCardList addObject:list];
@@ -243,16 +256,19 @@
             [self.backTableView reloadData];
         }
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         
     }];
-    
 }
+
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    [self settingNavBarBgName:@"nav64_gray"];
     [self realNamePost];
+    
+    [self backCardListPost];
+
 }
 
 

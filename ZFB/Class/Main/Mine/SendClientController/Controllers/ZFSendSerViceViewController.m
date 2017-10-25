@@ -334,9 +334,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     if (!_navbar_btn) {
         _navbar_btn       = [UIButton buttonWithType:UIButtonTypeCustom];
         _navbar_btn.frame = CGRectMake(0, 0, 120, 30);
-        [_navbar_btn setImage:[UIImage imageNamed:@"down_white"] forState:UIControlStateNormal];
+        [_navbar_btn setImage:[UIImage imageNamed:@"arrows_down_black"] forState:UIControlStateNormal];
         _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_navbar_btn setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+        [_navbar_btn setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
         [_navbar_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 80, 0, 0)];
         [_navbar_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0,30)];
         [_navbar_btn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];
@@ -1434,6 +1434,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(void)viewWillAppear:(BOOL)animated
 {
     [self selectDeliveryListPostRequst];
+    [self settingNavBarBgName:@"nav64_gray"];
     
 }
 

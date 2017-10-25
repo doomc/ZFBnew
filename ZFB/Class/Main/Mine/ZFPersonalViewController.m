@@ -78,8 +78,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"我的";
-    
+    [self setCustomerTitle:@"我的" textColor:[UIColor whiteColor]];
+
     [self.view addSubview:self.myTableView];
     
     [self.myTableView registerNib:[UINib nibWithNibName:@"ZFMyCashBagCell" bundle:nil] forCellReuseIdentifier:@"ZFMyCashBagCell"];
@@ -99,15 +99,10 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 //设置右边按键（如果没有右边 可以不重写）
 -(UIButton*)set_rightButton
 {
-    NSString * saveStr = @"消息";
+//    NSString * saveStr = @"消息";
     UIButton *right_button = [[UIButton alloc]init];
-    [right_button setTitle:saveStr forState:UIControlStateNormal];
-    right_button.titleLabel.font=SYSTEMFONT(14);
-    [right_button setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
-    right_button.titleLabel.textAlignment = NSTextAlignmentRight;
-    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
-    CGFloat width = size.width ;
-    right_button.frame =CGRectMake(0, 0, width+10, 22);
+    [right_button setImage:[UIImage imageNamed:@"message_white"] forState:UIControlStateNormal];
+    right_button.frame =CGRectMake(0, 0, 22, 22);
     
     return right_button;
 }
@@ -717,6 +712,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self settingNavBarBgName:@"nav64_red"];
+ 
     if (BBUserDefault.isLogin == 1) {
         
         [self getThirdBalancePOSTRequste];//余额查询

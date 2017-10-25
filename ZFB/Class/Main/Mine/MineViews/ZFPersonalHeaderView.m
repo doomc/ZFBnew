@@ -20,16 +20,18 @@
     
     self.img_headview.clipsToBounds = YES;
     self.img_headview.layer.cornerRadius = 40;
- 
     self.img_headview.layer.borderWidth = 1;
     self.img_headview.layer.borderColor = HEXCOLOR(0xffffff).CGColor;
- 
     [self.img_headview setImage:[UIImage  circleImage:@"head"]];
     [self.img_headview.image circleImage];
  
- 
+    self.img_headView2.clipsToBounds = YES;
+    self.img_headView2.layer.cornerRadius = 40;
+    self.img_headView2.layer.borderWidth = 1;
+    self.img_headView2.layer.borderColor = HEXCOLOR(0xffffff).CGColor;
+    [self.img_headView2 setImage:[UIImage  circleImage:@"head"]];
+    [self.img_headView2.image circleImage];
     
-
     //点击头像
     UITapGestureRecognizer * img_headviewtap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didClickimgheadviewGestureRecognizer:)];
     img_headviewtap.delegate = self;

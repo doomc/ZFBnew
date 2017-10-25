@@ -20,7 +20,10 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *bankType;
 
+//前四位
 @property (weak, nonatomic) IBOutlet UILabel *cardNum;
+//后四位
+@property (weak, nonatomic) IBOutlet UILabel *lb_tailNumber;
 
 @property (nonatomic , strong) BankList * banklist;
 

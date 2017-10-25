@@ -102,10 +102,11 @@
     [self.pageContentView setPageCententViewCurrentIndex:selectedIndex];
     
     if (selectedIndex == 0) {
-        self.title = @"消息";
+        [self setCustomerTitle:@"消息" textColor:[UIColor whiteColor]];
     }
     else if (selectedIndex == 1) {
-        self.title = @"通讯录";
+        [self setCustomerTitle:@"通讯录" textColor:[UIColor whiteColor]];
+
     }
     else {
      

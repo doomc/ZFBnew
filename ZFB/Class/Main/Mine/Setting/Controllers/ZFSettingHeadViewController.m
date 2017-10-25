@@ -43,7 +43,8 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"个人资料";
+    self.title = @"个人资料";    
+
     _titleArr  = @[@"昵称",@"性别",@"生日",@"地址管理"];
     _sexTitleArr = @[@"男",@"女"];
 
@@ -324,7 +325,8 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
  
 -(void)viewWillAppear:(BOOL)animated
 {
-    
+    [self settingNavBarBgName:@"nav64_gray"];
+
     if (BBUserDefault.birthDay == nil || [BBUserDefault.birthDay isEqualToString:@""]) {
         _isSavedBirthDay = YES;//可编辑状态
     }

@@ -49,7 +49,7 @@
 
     hotFindgoodslist * hotlist =  _hotArray[indexPath.item];
     NSURL * img_url = [NSURL URLWithString:hotlist.coverImgUrl];
-    [cell.img_hotImgView sd_setImageWithURL:img_url placeholderImage:nil];
+    [cell.img_hotImgView sd_setImageWithURL:img_url placeholderImage:[UIImage imageNamed:@"130x140"]];
     cell.lb_price.text = [NSString stringWithFormat:@"¥%.2f",hotlist.netPurchasePrice];//netPurchasePrice 网购价格2选1
     return cell;
 }

@@ -64,6 +64,10 @@ typedef NS_ENUM(NSUInteger, CollectType) {
     [self setupRefresh];
 
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [self settingNavBarBgName:@"nav64_gray"];
+
+}
 -(void)footerRefresh{
     
     [super footerRefresh];
@@ -434,7 +438,7 @@ typedef NS_ENUM(NSUInteger, CollectType) {
 }
 -(UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, KScreenW, KScreenH - 49-44) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, KScreenW, KScreenH - 49-44 -64) style:UITableViewStyleGrouped];
         _tableView.delegate =self;
         _tableView.dataSource = self;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;

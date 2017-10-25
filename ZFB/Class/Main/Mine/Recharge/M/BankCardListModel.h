@@ -22,6 +22,7 @@
 @property (nonatomic, copy) NSString * bank_id;
 @property (nonatomic, copy) NSString * bank_num;
 @property (nonatomic, copy) NSString * phone;
+@property (nonatomic, copy) NSString * name;
 @property (nonatomic, copy) NSString * bank_name;
 @property (nonatomic, copy) NSString * bank_img;
 @property (nonatomic, copy) NSString * bank_type; //1,2,3银行卡类型

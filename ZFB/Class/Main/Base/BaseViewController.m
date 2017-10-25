@@ -24,21 +24,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.view.backgroundColor = [UIColor  whiteColor];
+
     if (isIOS7) {
         
         self.automaticallyAdjustsScrollViewInsets = YES;
         //self.navigationController.navigationBar.translucent = NO;
 //        self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
         
-        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:16.0]}];
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0x333333),NSFontAttributeName:[UIFont systemFontOfSize:16.0]}];
         
     }
-    self.view.backgroundColor = [UIColor  whiteColor];
     // 导航栏返回 按钮 打开注释掉的代码正常使用
-    
     NSArray *viewControllers = self.navigationController.viewControllers;
-    
     if (viewControllers.count > 1){
         
         [self.navigationItem setHidesBackButton:NO animated:NO];
@@ -75,14 +73,14 @@
 //设置导航栏
 -(void)settingNavBarBgName:(NSString *)bgName
 {
-  ZFBaseNavigationViewController *nvc =  (ZFBaseNavigationViewController *)self.navigationController;
+  
+    ZFBaseNavigationViewController *nvc =  (ZFBaseNavigationViewController *)self.navigationController;
     
     UINavigationBar *navBar = nvc.navigationBar;
     // 设置导航栏title属性
-    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :HEXCOLOR(0x333333)}];
     // 设置导航栏颜色
     [navBar setBarTintColor:[UIColor clearColor]];
-    
     UIImage *image = [UIImage imageNamed:bgName];
     [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     [navBar setShadowImage:[UIImage new]];
@@ -158,11 +156,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)setCustomerTitle:(NSString *)title{
+-(void)setCustomerTitle:(NSString *)title textColor:(UIColor *)textColor{
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 44)];
     titleLabel.text = title;
-    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textColor = textColor;
     titleLabel.font = [UIFont systemFontOfSize:15];
     self.navigationItem.titleView = titleLabel;
     
@@ -253,26 +251,17 @@
 //如果没有登录
 -(void)isIfNotSignIn
 {
-//    JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"您还没登录,是否马上去登录" message:nil preferredStyle:UIAlertControllerStyleAlert];
-//    
-//    UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        
-//    }];
-//    UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//        
-//    }];
-//    [alertvc addAction:sure];
-//    [alertvc addAction:cancle];
-//    [self presentViewController:alertvc animated:YES completion:^{
-//        
-//    }];
+
     LoginViewController * logvc    = [ LoginViewController new];
     ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
     
     [self presentViewController:nav animated:NO completion:^{
-        
-//        [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
-        [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+        // 设置导航栏颜色
+        UIImage *image = [UIImage imageNamed:@"nav64_gray"];
+        [nav.navigationBar  setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+        [nav.navigationBar  setBarTintColor:[UIColor clearColor]];
+        [nav.navigationBar  setShadowImage:[UIImage new]];
+        [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0x333333),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
     }];
 
     

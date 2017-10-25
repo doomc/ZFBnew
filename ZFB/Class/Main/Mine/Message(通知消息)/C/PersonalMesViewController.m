@@ -32,6 +32,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self messageListPOSTRequste];
+    [self settingNavBarBgName:@"nav64_gray"];
+   
 }
 -(void)settingTableview
 {
@@ -99,8 +101,6 @@
             PersonMessageModel * mess = [PersonMessageModel mj_objectWithKeyValues:response];
             for (PushMessageList * pushlist in mess.pushMessageList) {
                 [self.messagelist addObject:pushlist];
-                NSLog(@"content=%@, title=%@", pushlist.content, pushlist.title);
-                
             }
             [self.zfb_tableView reloadData];
         }

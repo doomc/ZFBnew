@@ -115,7 +115,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     self.title = @"确认订单";
     _payType = @"1";//默认为线上支付
     
-    self.mytableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -49) style:UITableViewStylePlain];
+    self.mytableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -49-64) style:UITableViewStylePlain];
     self.mytableView.delegate       = self;
     self.mytableView.dataSource     = self;
     self.mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -237,7 +237,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     NSString *caseOrder   = @"实付金额:";
     
     UIFont * font  =[UIFont systemFontOfSize:15];
-    _footerView = [[UIView alloc]initWithFrame:CGRectMake(0,KScreenH -49, KScreenW, 49)];
+    _footerView = [[UIView alloc]initWithFrame:CGRectMake(0,KScreenH -49-64, KScreenW, 49)];
     _footerView.backgroundColor =[UIColor clearColor];
     [self.view addSubview:_footerView];
     

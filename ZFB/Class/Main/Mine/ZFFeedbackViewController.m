@@ -29,6 +29,11 @@
     [self setupPageView];
     
 }
+-(void)viewWillAppear:(BOOL)animated{
+
+    [self settingNavBarBgName:@"nav64_gray"];
+
+}
 - (void)setupPageView {
     
     ZFCommitOpinionViewController *commitOpinionVC = [[ZFCommitOpinionViewController alloc]init];

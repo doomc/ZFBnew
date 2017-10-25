@@ -289,7 +289,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         
         _navTitle               = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 30)];
         _navTitle.font =[UIFont systemFontOfSize:14];
-        _navTitle.textColor     = HEXCOLOR(0xffffff);
+        _navTitle.textColor     = HEXCOLOR(0x333333);
         _navTitle.textAlignment = NSTextAlignmentCenter;
     }
     return _navTitle;
@@ -301,9 +301,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     if (!_navbar_btn) {
         _navbar_btn       = [UIButton buttonWithType:UIButtonTypeCustom];
         _navbar_btn.frame = CGRectMake(0, 0, 120, 30);
-        [_navbar_btn setImage:[UIImage imageNamed:@"down_white"] forState:UIControlStateNormal];
+        [_navbar_btn setImage:[UIImage imageNamed:@"arrows_down_black"] forState:UIControlStateNormal];
         _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_navbar_btn setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+        [_navbar_btn setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
         [_navbar_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 80, 0, 0)];
         [_navbar_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0,33)];
         [_navbar_btn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];
@@ -1415,6 +1415,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"提示" message:@"选择派单模式" preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction * action1 = [UIAlertAction actionWithTitle:@"商家派送" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         
+                        //商家配送
+                        [self businessOrderbyOrderId:_order_id];
+
                     }];
                     UIAlertAction * action2= [UIAlertAction actionWithTitle:@"系统派送" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         //系统配送
@@ -1786,8 +1789,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         }
         
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
+ 
         
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
@@ -1811,7 +1813,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         }
-        
+        [self.homeTableView reloadData];
+
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
@@ -1819,29 +1822,22 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     }];
 }
 #pragma mark - 商家派送  ---
--(void)getOrderbyOrderId:(NSString *)orderId deliveryId:(NSString *)deliveryId status:(NSString *)status
+-(void)businessOrderbyOrderId:(NSString *)orderId
 {
     NSDictionary * param = @{
                              @"orderId":orderId,
-                             @"deliveryId":deliveryId,
-                             @"status":status,
-                             
                              };
     [SVProgressHUD show];
-    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getIsOrderDeliveryInfo",zfb_baseUrl] params:param success:^(id response) {
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/merchantSendOrders",zfb_baseUrl] params:param success:^(id response) {
         
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
             
             [SVProgressHUD dismiss];
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-            
-        }else{
-            [SVProgressHUD dismiss];
-            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+            [self.homeTableView reloadData];
+
         }
-        
-        [self.homeTableView reloadData];
         
     } progress:^(NSProgress *progeress) {
         
@@ -2011,6 +2007,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self settingNavBarBgName:@"nav64_gray"];
+
     //获取商户端数据列表
     [self storeHomePagePostRequst];
     

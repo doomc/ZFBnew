@@ -65,7 +65,7 @@ typedef void (^BankBlock)(NSString * bankName,NSString * bank_img, NSString * ca
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 150;
+    return 140;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -90,7 +90,6 @@ typedef void (^BankBlock)(NSString * bankName,NSString * bank_img, NSString * ca
                              };
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/getThirdBankCardList",zfb_baseUrl] params:param success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
-        
         if ([code isEqualToString:@"0"]) {
             
             BankCardListModel  * bank = [BankCardListModel mj_objectWithKeyValues:response];

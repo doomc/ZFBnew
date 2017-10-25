@@ -197,6 +197,7 @@
                 <outlet property="collectTagView" destination="UI0-sU-0UQ" id="w3a-5K-Ux6"/>
                 <outlet property="historyTagView" destination="Wi5-6C-sqQ" id="hTk-41-vnP"/>
                 <outlet property="img_bgView" destination="WF6-zv-21a" id="Uhk-0S-IBd"/>
+                <outlet property="img_headView2" destination="kjL-dm-wr0" id="0Zx-js-IXE"/>
                 <outlet property="img_headview" destination="scy-zQ-lqM" id="EUO-5E-zeb"/>
                 <outlet property="lb_collectCount" destination="iWU-8F-THZ" id="llg-TD-ZHL"/>
                 <outlet property="lb_historyCount" destination="AeV-Ou-zr6" id="EO8-jW-gOk"/>

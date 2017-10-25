@@ -52,6 +52,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"门店详情";
+
     [self.view addSubview:self.tableView];
 
     [self creatUI];
@@ -66,12 +67,16 @@
 
  
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self settingNavBarBgName:@"nav64_gray"];
 
+}
 #pragma mark - 懒加载
 -(UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH  ) style:UITableViewStylePlain
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH - 64  ) style:UITableViewStylePlain
                       ];
         _tableView.delegate       = self;
         _tableView.dataSource     = self;

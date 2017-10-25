@@ -22,7 +22,7 @@
 
 static NSString *CellIdentifier = @"FindStoreCellid";
 
-@interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,CLLocationManagerDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
+@interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,CLLocationManagerDelegate>
 {
     NSString *currentCityAndStreet;//当前城市
     NSString *latitudestr;//经度
@@ -74,7 +74,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         NSLog(@"使用异步函数执行主队列中的任务1--%@",[NSThread currentThread]);
     });
     dispatch_async(queue, ^{
-    
+        [self PostRequst];
+
         NSLog(@"使用异步函数执行主队列中的任务2--%@",[NSThread currentThread]);
     });
     
@@ -377,11 +378,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                 [self.storeListArr addObject:goodlist];
             }
             [self.home_tableView reloadData];
-
-            if ([self isEmptyArray:self.storeListArr]) {
-                
-                [self.home_tableView cyl_reloadData];
-            }
         
         }
         [self endRefresh];
@@ -397,26 +393,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 
 
-
-#pragma mark - CYLTableViewPlaceHolderDelegate Method
-- (UIView *)makePlaceHolderView {
-    
-    UIView *weChatStyle = [self weChatStylePlaceHolder];
-    return weChatStyle;
-}
-
-//暂无数据
-- (UIView *)weChatStylePlaceHolder {
-    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.home_tableView.frame];
-    weChatStylePlaceHolder.delegate = self;
-    return weChatStylePlaceHolder;
-}
-#pragma mark - WeChatStylePlaceHolderDelegate Method
-- (void)emptyOverlayClicked:(id)sender {
- 
-    [self PostRequst];
-    
-}
 
 
 - (void)didReceiveMemoryWarning {

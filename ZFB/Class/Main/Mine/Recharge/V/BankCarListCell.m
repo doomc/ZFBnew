@@ -18,11 +18,15 @@
 
 -(void)setBanklist:(BankList *)banklist{
     _banklist = banklist;
-    _bankName.text = banklist.bank_name;
-    [_bankIMG sd_setImageWithURL:[NSURL URLWithString:banklist.bank_img] placeholderImage:nil];
-    _cardNum.text = banklist.bank_num;
-    if ([banklist.bank_type isEqualToString:@"1"]) {//1 为借记卡 。。。。暂时不清楚
-        _bankType.text = @"借记卡";
+    self.bankName.text = banklist.bank_name;
+    [self.bankIMG sd_setImageWithURL:[NSURL URLWithString:banklist.bank_img] placeholderImage:nil];
+    //银行卡号 前4位
+    self.cardNum.text = banklist.bank_num;
+    if ([banklist.bank_type isEqualToString:@"1"]) {//1 为借记卡 2信用卡
+        self.bankType.text = @"储蓄卡";
+    }else{
+        self.bankType.text = @"信用卡";
+
     }
 }
 

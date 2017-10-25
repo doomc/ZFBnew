@@ -11,7 +11,7 @@
 @implementation BankCardListModel
 
 + (NSDictionary *)objectClassInArray{
-    return @{@"BankList" : [BankList class]};
+    return @{@"bankList" : [BankList class]};
 }
 @end
 

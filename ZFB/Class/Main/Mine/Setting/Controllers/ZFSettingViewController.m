@@ -37,7 +37,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
+
     self.title = @"设置";
     _titleArr1  = @[@"我的信息",@"修改密码",@"支付设置"];
     _titleArr2  = @[@"手机号码",@"清除缓存"];
@@ -67,7 +67,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
 {
     _login_btn = [UIButton buttonWithType:UIButtonTypeCustom];
     _login_btn.titleLabel.font=SYSTEMFONT(14);
-    [_login_btn setTitleColor:HEXCOLOR(0xffffff)  forState:UIControlStateNormal];
+    [_login_btn setTitleColor:HEXCOLOR(0x333333)  forState:UIControlStateNormal];
     _login_btn.titleLabel.textAlignment = NSTextAlignmentRight;
     _login_btn.frame =CGRectMake(0, 0, 80, 22);
     
@@ -304,6 +304,8 @@ static NSString * settingCellid = @"ZFSettingCellid";
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    [self settingNavBarBgName:@"nav64_gray"];
+
     [self.tableView reloadData];
     //默认为登录状态后面根据后台数据返回
     if (BBUserDefault.isLogin == 1) {

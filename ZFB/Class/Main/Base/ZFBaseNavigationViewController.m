@@ -27,8 +27,8 @@
 + (void)setupNavigationItemsTheme {
     UIBarButtonItem *barButtonItem = [UIBarButtonItem appearance];
     // 设置字体颜色
-    [barButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:15]} forState:UIControlStateNormal];
-    [barButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]} forState:UIControlStateHighlighted];
+    [barButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName :  HEXCOLOR(0x333333) , NSFontAttributeName : [UIFont systemFontOfSize:15]} forState:UIControlStateNormal];
+    [barButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName :   HEXCOLOR(0x333333) } forState:UIControlStateHighlighted];
     [barButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]} forState:UIControlStateDisabled];
     
 }

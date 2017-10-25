@@ -56,23 +56,13 @@
     [_nextBtn addTarget: self action:@selector(bandNext) forControlEvents:UIControlEventTouchUpInside];
     _nextBtn.frame = CGRectMake( 15, 2*110+ 32+55, KScreenW -30, 45);
     
+    //暂时没有处理
     [_nextBtn setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
     [_nextBtn setBackgroundColor:HEXCOLOR(0xF95A70)];
     _nextBtn.enabled = YES;
-    
     [self.view addSubview:_nextBtn];
     
-//    if (_massgeEnough == YES) {
-//        [_nextBtn setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
-//        [_nextBtn setBackgroundColor:HEXCOLOR(0xF95A70)];
-//        _nextBtn.enabled = YES;
-//        
-//    }else{
-//        [_nextBtn setTitleColor:HEXCOLOR(0x666666) forState:UIControlStateNormal];
-//        [_nextBtn setBackgroundColor:HEXCOLOR(0xe0e0e0)];
-//        _nextBtn.enabled = NO;
-    
-//    }
+ 
     
 }
 
@@ -197,6 +187,16 @@
     NSLog(@"%@ === text2",tf.text);
     _phoneNum = tf.text;
     
+    if (tf.text.length > 0) {
+        [_nextBtn setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+        [_nextBtn setBackgroundColor:HEXCOLOR(0xF95A70)];
+        _nextBtn.enabled = YES;
+    } else{
+        [_nextBtn setTitleColor:HEXCOLOR(0x666666) forState:UIControlStateNormal];
+        [_nextBtn setBackgroundColor:HEXCOLOR(0xe0e0e0)];
+        _nextBtn.enabled = NO;
+    }
+    
 }
 
 //用户协议
@@ -208,7 +208,6 @@
 {
     NSLog(@"切换协议");
 }
-
 #pragma mark- 绑卡下一步
 -(void)bandNext
 {
@@ -231,14 +230,22 @@
                              @"cvv3":@"",//信用卡背后三后数
                              };
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/bindBank",zfb_baseUrl] params:param success:^(id response) {
-        
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+            [SVProgressHUD showSuccessWithStatus:@"绑卡成功!"];
+            [self backAction];
+        }
         
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
-        
+        [SVProgressHUD showErrorWithStatus:@"网络出差了~"];
+
     }];
-    
+}
+
+-(void)backAction
+{
+    [self poptoUIViewControllerNibName:@"RechargeViewController" AndObjectIndex:1];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

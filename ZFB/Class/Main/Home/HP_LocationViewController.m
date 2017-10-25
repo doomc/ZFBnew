@@ -105,7 +105,9 @@
 
 }
 - (void)viewWillAppear:(BOOL)animated
-{
+{ 
+    [self settingNavBarBgName:@"nav64_gray"]; 
+ 
     [super viewWillAppear:animated];
     [self.searchBar becomeFirstResponder];
 }

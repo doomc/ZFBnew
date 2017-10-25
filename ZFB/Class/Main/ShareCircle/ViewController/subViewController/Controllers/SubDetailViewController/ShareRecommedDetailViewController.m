@@ -24,14 +24,17 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"新品推荐详情";
     _adArray = [NSArray array];
-    
     [self recommentDetailPostRequst];
     [self cycleViewInitWithimages:_adArray];
 
     
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self settingNavBarBgName:@"nav64_gray"];
 
+}
 -(void)cycleViewInitWithimages:(NSArray *)images
 {
     _sdCycleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 200/375.0 * KScreenW) delegate:self placeholderImage:[UIImage imageNamed:@"720x330"]];

@@ -28,7 +28,7 @@
             button.layer.cornerRadius = 2;
             button.layer.borderWidth = 1;
             button.layer.borderColor = HEXCOLOR(0xdedede).CGColor;
-            [button setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+            [button setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
             [button setTitle:titleArray[i] forState:UIControlStateNormal];
             button.titleLabel.font = [UIFont systemFontOfSize:12];
             [button addTarget:self action:@selector(didclickSendPopViewAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -47,7 +47,7 @@
 
 -(void)didclickSendPopViewAction:(UIButton *)sender {
     
-    [_selectBtn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+    [_selectBtn setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
     _selectBtn.layer.borderColor =HEXCOLOR(0xdedede).CGColor;
     
     [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];

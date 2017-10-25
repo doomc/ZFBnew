@@ -7,6 +7,9 @@
 //
 
 #import "AddBankCell.h"
+@interface AddBankCell() 
+
+@end
 
 @implementation AddBankCell
 
@@ -15,9 +18,10 @@
     // Initialization code
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-   
+ 
     
 }
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

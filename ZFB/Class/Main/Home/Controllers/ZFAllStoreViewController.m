@@ -62,7 +62,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title =@"全部门店";
-    
+
     _sort = @[@"距离最近", @"人气最高"];
     
     [self.titlelistArray insertObject:@"全部" atIndex:0];
@@ -301,7 +301,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self checkClassPostRequst];
-    
+    [self settingNavBarBgName:@"nav64_gray"];
+
 }
 
 #pragma mark - ZspMenuDataSource, ZspMenuDelegate

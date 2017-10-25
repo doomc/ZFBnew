@@ -24,14 +24,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"分享圈";
+ 
+    [self setCustomerTitle: @"分享圈" textColor:[UIColor whiteColor]];
     [self setupPageView];
  
-    
     [self.tabBarItem pp_addDotWithColor:[UIColor redColor]];
  
 }
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self settingNavBarBgName:@"nav64_red"];
 
+}
 - (void)setupPageView {
     
     ShareNewgoodsViewController *newGoodsVC     = [[ShareNewgoodsViewController alloc]init];

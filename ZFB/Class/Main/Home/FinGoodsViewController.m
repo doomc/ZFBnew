@@ -188,10 +188,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
     return 35;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (section == 0) {
-        return 0;
-    }
-    return  10;
+ 
+    return  0;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView * footView  = nil;
@@ -255,12 +253,13 @@ typedef NS_ENUM(NSUInteger, CellType) {
     if (indexPath.section == CellTypeWithMainListCell ) {
         
         FuncListTableViewCell * listCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_listID forIndexPath:indexPath];
-        listCell.funcDelegate            = self;
-        listCell.dataArray               = self.funcArray;
-        [listCell reloadColltionView];
+        if (self.funcArray.count > 0) {
+            listCell.funcDelegate            = self;
+            listCell.dataArray               = self.funcArray;
+            [listCell reloadColltionView];
+        }
         return listCell;
-        
-        
+
     }else if(indexPath.section == CellTypeWithHotTableViewCell )
     {
         HotTableViewCell * hotCell = [self.findGoods_TableView dequeueReusableCellWithIdentifier:cell_hotID forIndexPath:indexPath];
@@ -434,7 +433,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
             HomeFuncModel *functype = [HomeFuncModel mj_objectWithKeyValues:response];
             for (CMgoodstypelist * typeList in functype.data.CmGoodsTypeList) {
                 
-//                [self.funcArray addObject:typeList];
+                [self.funcArray addObject:typeList];
             }
             [self.findGoods_TableView reloadData];
         }

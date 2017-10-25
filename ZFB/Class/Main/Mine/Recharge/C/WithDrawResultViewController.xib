@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8GH-0F-JM1">
-                    <rect key="frame" x="0.0" y="64" width="375" height="100"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="申请提现已提交！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5s-bl-se0">
                             <rect key="frame" x="118" y="39.5" width="139" height="21"/>
@@ -44,19 +44,19 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提现银行卡：中国工商银行（尾号8888）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wp5-fS-mtH">
-                    <rect key="frame" x="15" y="185" width="345" height="18"/>
+                    <rect key="frame" x="15" y="121" width="345" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提现金额（元）:1200" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IaW-PD-Muf">
-                    <rect key="frame" x="15" y="218" width="345" height="18"/>
+                    <rect key="frame" x="15" y="154" width="345" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2S-nu-voN">
-                    <rect key="frame" x="0.0" y="164" width="375" height="1"/>
+                    <rect key="frame" x="0.0" y="100" width="375" height="1"/>
                     <color key="backgroundColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="sFg-k4-MhG"/>
@@ -66,7 +66,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预计1~3个工作日到账" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Me1-KS-ENr">
-                    <rect key="frame" x="128.5" y="256" width="119" height="14.5"/>
+                    <rect key="frame" x="128.5" y="192" width="119" height="14.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -78,7 +78,7 @@
                 <constraint firstItem="IaW-PD-Muf" firstAttribute="top" secondItem="wp5-fS-mtH" secondAttribute="bottom" constant="15" id="2XV-3D-U1T"/>
                 <constraint firstItem="wp5-fS-mtH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="3F5-HZ-yPh"/>
                 <constraint firstItem="W2S-nu-voN" firstAttribute="top" secondItem="8GH-0F-JM1" secondAttribute="bottom" id="4gD-Oe-AeY"/>
-                <constraint firstItem="8GH-0F-JM1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="5YE-aG-Euf"/>
+                <constraint firstItem="8GH-0F-JM1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5YE-aG-Euf"/>
                 <constraint firstItem="8GH-0F-JM1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7w0-IW-UgX"/>
                 <constraint firstItem="wp5-fS-mtH" firstAttribute="top" secondItem="W2S-nu-voN" secondAttribute="bottom" constant="20" id="9xx-PD-J5g"/>
                 <constraint firstAttribute="trailing" secondItem="wp5-fS-mtH" secondAttribute="trailing" constant="15" id="G0S-tH-nxH"/>

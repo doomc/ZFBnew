@@ -28,7 +28,8 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 @property (nonatomic, strong) UITableView * zfb_tableView;
 @property (nonatomic, strong) UICollectionView * zfb_collectionView;
 
-
+///自定义导航title颜色
+-(void)setCustomerTitle:(NSString *)title textColor:(UIColor *)textColor;
 /**
  tableview下拉刷新
  */

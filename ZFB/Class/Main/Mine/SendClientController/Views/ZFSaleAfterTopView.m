@@ -27,7 +27,7 @@
             
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.frame = CGRectMake(i*(KScreenW*0.5), 0, (KScreenW*0.5), 43);
-            [button setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+            [button setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
             [button setTitle:arr[i] forState:UIControlStateNormal];
             button.titleLabel.font = [UIFont systemFontOfSize:14];
             
@@ -54,7 +54,7 @@
 
 -(void)didclickWithAction:(UIButton*)sender
 {
-    [_selectBtn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
+    [_selectBtn setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
     _selectBtn.backgroundColor =[UIColor whiteColor];
     
     [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

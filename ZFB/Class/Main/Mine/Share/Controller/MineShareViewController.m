@@ -56,7 +56,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [self setupRefresh];
     [self mineShareListGoodsPost];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self settingNavBarBgName:@"nav64_gray"];
+    
+}
 -(void)headerRefresh
 {
     [super headerRefresh];

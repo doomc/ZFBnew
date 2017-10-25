@@ -65,6 +65,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     self.complete_Btn.selected      = NO;
     
 }
+
 -(NSMutableArray *)carListArray
 {
     if (!_carListArray) {
@@ -729,6 +730,8 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self settingNavBarBgName:@"nav64_gray"];
+
     if (BBUserDefault.isLogin == 1) {
         
         [self shoppingCarPostRequst];

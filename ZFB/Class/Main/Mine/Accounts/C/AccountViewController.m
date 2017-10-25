@@ -35,6 +35,8 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self settingNavBarBgName:@"nav64_gray"];
+
     //暂时写着
     [self accountListPostRequstAtPayType:@"0"];
 }

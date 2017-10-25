@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     TypeVCAcceptMoney,
     TypeVCPaymoney,
 };
-@interface ZFHomeViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate,YBPopupMenuDelegate>
+@interface ZFHomeViewController () <SGPageTitleViewDelegate, SGPageContentViewDelegate,YBPopupMenuDelegate,UISearchBarDelegate>
 
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
 @property (nonatomic, strong) SGPageContentView *pageContentView;
@@ -59,12 +59,17 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     [self setupPageView];
 
 }
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self settingNavBarBgName:@"nav64_red"];
+    
+}
 
 - (void)setupPageView {
     
     FindStoreViewController *findStoreVC = [[FindStoreViewController alloc]init];
     FinGoodsViewController *findGoodsVC = [[FinGoodsViewController alloc]init];
-    FindCircleViewController *findCircleVC = [[FindCircleViewController alloc]init];
+//    FindCircleViewController *findCircleVC = [[FindCircleViewController alloc]init];
     
     NSArray *childArr = @[findStoreVC, findGoodsVC];
     /// pageContentView
@@ -103,7 +108,7 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
 {
 
     self.customLeft_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.customLeft_btn.frame = CGRectMake(0, 0, 40, 40);
+    self.customLeft_btn.frame = CGRectMake(0, 10, 40, 40);
     [self.customLeft_btn setTitle:@"重庆市" forState:UIControlStateNormal];
     self.customLeft_btn.titleLabel.font = [ UIFont systemFontOfSize:12];
     [self.customLeft_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -114,7 +119,7 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     self.navigationItem.leftBarButtonItem = saoItem;
 
     self.shakehanderRight_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.shakehanderRight_btn.frame = CGRectMake(KScreenW - 50 -40, 0, 40, 40);
+    self.shakehanderRight_btn.frame = CGRectMake(KScreenW - 50 -40, 10, 40, 40);
     [self.shakehanderRight_btn setImage :[UIImage imageNamed:@"more"]  forState:UIControlStateNormal];
     [self.shakehanderRight_btn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
     //把button的视图交给Item
@@ -123,23 +128,31 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     self.navigationItem.rightBarButtonItem = shakeItem;
     
     
-    UISearchBar * searchbar  = [[UISearchBar alloc]init];
-    
-    
-//    self.navSearch_btn  =[UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.navSearch_btn setBackgroundImage:[UIImage imageNamed:@"searchBar"] forState:UIControlStateNormal];
-//    [self.navSearch_btn addTarget:self action:@selector(DidClickSearchBarAction:) forControlEvents:UIControlEventTouchUpInside];
-//    self.navSearch_btn.frame = CGRectMake(0, 0, KScreenW - 60, 30);
-//    self.navigationItem.titleView = self.navSearch_btn;
+    UISearchBar * searchbar  = [[UISearchBar alloc]init];   //WithFrame: CGRectMake(0, 0, KScreenW - 80, 30)];
+    searchbar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:searchbar.bounds.size];
+    searchbar.placeholder = @"请输入关键字";
+    searchbar.delegate = self;
+    self.navigationItem.titleView = searchbar;
+
     
     //navBar 的背景颜色
 //    self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
  
 }
 
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    HomeSearchBarViewController  * sVC = [HomeSearchBarViewController new];
+    ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:sVC];
+    [self.navigationController presentViewController:nav animated:NO completion:^{
+        
+    }];
+    
+}
 /**
  跳转搜索
-
+ 
  @param sender sender点击放大镜
  */
 -(void)DidClickSearchBarAction:(UIButton*)sender

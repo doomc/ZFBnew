@@ -141,7 +141,7 @@
 //添加悬浮按钮
 -(void)flyButtonView
 {
-    WMDragView * flyView = [[WMDragView alloc] initWithFrame:CGRectMake(KScreenW - 50 -15 , self.list_tableView.height - 20, 50, 50)];
+    WMDragView * flyView = [[WMDragView alloc] initWithFrame:CGRectMake(KScreenW - 50 -15 , self.list_tableView.height - 20 -64, 50, 50)];
     flyView.layer.cornerRadius = 25;
     flyView.backgroundColor = [UIColor whiteColor];
     [flyView.button setImage:[UIImage imageNamed:@"backTop"] forState:UIControlStateNormal];
@@ -169,8 +169,8 @@
 -(void)creatInterfaceDetailTableView
 {
     self.title = @"商品详情";
-    
-    self.list_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-50) style:UITableViewStylePlain];
+
+    self.list_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-50 -64) style:UITableViewStylePlain];
     self.list_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.list_tableView];
     
@@ -198,7 +198,7 @@
  */
 -(void)settingHeaderViewAndFooterView
 {
-    self.tbFootView          = [[ZFGoodsFooterView alloc]initWithFootViewFrame:CGRectMake(0, KScreenH - 50, KScreenW, 50)];
+    self.tbFootView          = [[ZFGoodsFooterView alloc]initWithFootViewFrame:CGRectMake(0, KScreenH - 50 - 64, KScreenW, 50)];
     self.tbFootView.delegate = self;
     [self.view addSubview:self.tbFootView];
     
@@ -920,7 +920,7 @@
 -(void)popActionView
 {
     
-    _BgView                 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH)];
+    _BgView                 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-64)];
     _BgView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.3f];
     [self.view addSubview:self.BgView];
     [self.list_tableView bringSubviewToFront:_BgView];
@@ -1660,8 +1660,13 @@
 {
     NSLog(@"viewWillDisappear  消失了 这个方法走了吗");
     [SVProgressHUD dismiss];
+    
 }
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self settingNavBarBgName:@"nav64_gray"];
 
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

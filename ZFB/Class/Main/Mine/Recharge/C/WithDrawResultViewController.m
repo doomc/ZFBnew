@@ -22,6 +22,8 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"确认提现";
     
+    self.lb_BankCardInfo.text = [NSString stringWithFormat:@"提现银行卡：%@",_bankMsg];
+    self.lb_WithDrawAmount.text = [NSString stringWithFormat:@"提现金额(元)：%@",_amont];
 }
 
 - (void)didReceiveMemoryWarning {

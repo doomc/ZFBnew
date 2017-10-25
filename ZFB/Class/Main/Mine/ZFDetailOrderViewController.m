@@ -104,7 +104,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 -(UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView            = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH ) style:UITableViewStylePlain];
+        _tableView            = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -64 ) style:UITableViewStylePlain];
         _tableView.delegate   = self;
         _tableView.dataSource = self;
     }
@@ -153,7 +153,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     if (section == 1) {
         
         return self.shoppCartList.count;
-        //        return 1;//暂时写死
+ 
     }
     return 5;
 }
@@ -638,7 +638,6 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     if ([_cmOrderid isEqual:[NSNull null]]) {
         _cmOrderid = @"";
     }
-    
     NSLog(@"_cmOrderid  == ==== == == %@",_cmOrderid);
     if ( ![_cmOrderid isEqualToString:@"null"]) {
         

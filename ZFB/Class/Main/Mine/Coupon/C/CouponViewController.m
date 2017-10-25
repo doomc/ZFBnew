@@ -180,7 +180,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     _edit_btn          = [[UIButton alloc]init];
     [_edit_btn setTitle:saveStr forState:UIControlStateNormal];
     _edit_btn.titleLabel.font = SYSTEMFONT(14);
-    [_edit_btn setTitleColor:HEXCOLOR(0xffffff)  forState:UIControlStateNormal];
+    [_edit_btn setTitleColor:HEXCOLOR(0x333333)  forState:UIControlStateNormal];
     _edit_btn.titleLabel.textAlignment = NSTextAlignmentRight;
     CGSize size                        = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
     CGFloat width                      = size.width ;
@@ -779,6 +779,11 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 -(void)dealloc
 {
     self.popCouponView = nil;
+}
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self settingNavBarBgName:@"nav64_gray"];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

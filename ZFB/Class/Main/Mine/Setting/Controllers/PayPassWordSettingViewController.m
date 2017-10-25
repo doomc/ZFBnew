@@ -207,14 +207,15 @@
 
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCheckInfo",zfb_baseUrl] params:param success:^(id response) {
  
-        if ([response[@"data"] isEqualToString:@""]) {
-              // 没有审核信息
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+ 
+            _state = [NSString stringWithFormat:@"%@",response[@"data"][@"state"]];//审核状态 1 审核中 2 审核通过 3审核拒绝
+            NSLog(@"有审核信息");
+        }else{
+            // 没有审核信息
             NSLog(@"没有审核信息");
             _state = nil;
-
-        }else{
-            _state = [NSString stringWithFormat:@"%@",response[@"data"][@"state"]];//审核状态 1 审核中 2 审核通过 3审核拒绝
-
         }
         [self.tableView reloadData];
         

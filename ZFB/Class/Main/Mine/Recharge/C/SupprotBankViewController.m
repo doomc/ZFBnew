@@ -30,7 +30,7 @@
 -(UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH - 64) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle =  UITableViewCellSeparatorStyleNone;
@@ -61,6 +61,10 @@
 {
     return  self.carlist.count;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SupportBankCell  * listCell = [self.tableView dequeueReusableCellWithIdentifier:@"SupportBankCell" forIndexPath:indexPath];
@@ -71,7 +75,6 @@
 
 -(void)supportCardPost
 {
- 
     NSDictionary * param = @{
                              @"account":BBUserDefault.userPhoneNumber
                              };
@@ -79,7 +82,9 @@
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         
         if ([code isEqualToString:@"0"]) {
-            
+            if (self.carlist.count > 0) {
+                [self.carlist removeAllObjects];
+            }
             SupportBankModel  * bank = [SupportBankModel mj_objectWithKeyValues:response];
             for (Base_Bank_List * list in bank.base_bank_list) {
                 [self.carlist addObject:list];

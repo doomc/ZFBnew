@@ -94,7 +94,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     [self setupRefresh];
 }
 
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self settingNavBarBgName:@"nav64_gray"];
+}
 #pragma mark -数据请求
 -(void)headerRefresh {
     
@@ -279,9 +282,9 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     if (!_navbar_btn) {
         _navbar_btn       = [UIButton buttonWithType:UIButtonTypeCustom];
         _navbar_btn.frame = CGRectMake(_titleView.centerX+40 , _titleView.centerY, 120, 24);
-        [_navbar_btn setImage:[UIImage imageNamed:@"down_white"] forState:UIControlStateNormal];
+        [_navbar_btn setImage:[UIImage imageNamed:@"arrows_down_black"] forState:UIControlStateNormal];
         _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_navbar_btn setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+        [_navbar_btn setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
         [_navbar_btn setImageEdgeInsets:UIEdgeInsetsMake(0, 80, 0, 0)];
         [_navbar_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0,40)];
         [_navbar_btn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];
@@ -1852,6 +1855,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     
 }
 
+
 //重写返回方法
 -(void)backAction{
     
@@ -1862,7 +1866,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 //既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    CGFloat sectionHeaderHeight = 50;
+    CGFloat sectionHeaderHeight = 80 ;
     CGFloat sectionFooterHeight = 50;
     CGFloat offsetY = scrollView.contentOffset.y;
     if (offsetY >= 0 && offsetY <= sectionHeaderHeight)

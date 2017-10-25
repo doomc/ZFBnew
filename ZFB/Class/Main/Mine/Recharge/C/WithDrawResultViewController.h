@@ -10,4 +10,7 @@
 
 @interface WithDrawResultViewController : BaseViewController
 
+@property (nonatomic ,copy)NSString * bankMsg;
+@property (nonatomic ,copy)NSString * amont;
+
 @end

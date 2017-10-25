@@ -85,8 +85,11 @@ static float kLeftTableViewWidth = 80.f;
     [self.view addSubview:self.collectionView];
     
     [self classListTableVieWithGoodTypePostRequset];//一级
+}
+
+-(void)viewWillAppear:(BOOL)animated{
     
- 
+    [self settingNavBarBgName:@"nav64_gray"];
 }
 -(void)viewDidAppear:(BOOL)animated{
 
