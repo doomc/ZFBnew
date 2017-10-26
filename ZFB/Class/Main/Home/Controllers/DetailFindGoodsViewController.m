@@ -23,6 +23,9 @@
 #import "ZFShoppingCarViewController.h"//购物车
 #import "ZFDetailsStoreViewController.h" //店铺
 
+//网易云信
+#import "NTESSessionViewController.h"
+
 //model
 #import "DetailGoodsModel.h"
 #import "CouponModel.h"
@@ -258,12 +261,20 @@
     return _couponBgView;
 }
 
+#pragma mark - 跳转到IM聊天
+- (void)onSelectedRecent:(NIMRecentSession *)recent atIndexPath:(NSIndexPath *)indexPath{
+    NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:recent.session];
+    vc.storeId = _storeId;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 #pragma mark - ZFGoodsFooterViewDelegate 底部的视图的dedegate
 //客服
 -(void)didClickContactRobotView
 {
     NSLog(@"点击了客服");
+//    NSString * currentStoreID = _storeId;
+//    NSString * contact = _contactPhone;
 }
 #pragma mark - 店铺
 -(void)didClickStoreiew

@@ -732,8 +732,6 @@
 		495EA9781F14B64E001FCB7E /* YYMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA7101F14B64D001FCB7E /* YYMemoryCache.m */; };
 		495EA9791F14B64E001FCB7E /* UITextView+ZWLimitCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 495EA7131F14B64D001FCB7E /* UITextView+ZWLimitCounter.m */; };
 		4968A1421F4D89B10061A87E /* IMChatSessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A13D1F4D89B10061A87E /* IMChatSessionViewController.m */; };
-		4968A1431F4D89B10061A87E /* IMContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A13F1F4D89B10061A87E /* IMContactListViewController.m */; };
-		4968A1441F4D89B10061A87E /* IMFriendsCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A1411F4D89B10061A87E /* IMFriendsCircleViewController.m */; };
 		4968A1471F4D8DE90061A87E /* NoEncryptionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A1461F4D8DE90061A87E /* NoEncryptionManager.m */; };
 		4968A14A1F4D974E0061A87E /* IMFriendListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A1491F4D974E0061A87E /* IMFriendListModel.m */; };
 		4968A2791F4DB5080061A87E /* M80AttributedLabel+NIMKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4968A14F1F4DB5080061A87E /* M80AttributedLabel+NIMKit.m */; };
@@ -1023,6 +1021,11 @@
 		4992D7201F26E14800FBF982 /* SkuMatchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4992D71F1F26E14800FBF982 /* SkuMatchModel.m */; };
 		4992D7231F27499800FBF982 /* arrowdown_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4992D7211F27499800FBF982 /* arrowdown_black@3x.png */; };
 		4992D7241F27499800FBF982 /* arrowdown_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4992D7221F27499800FBF982 /* arrowdown_black@2x.png */; };
+		499380D61FA1FFFA00ABC3E6 /* DetailMsgNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 499380D51FA1FFFA00ABC3E6 /* DetailMsgNoticeViewController.m */; };
+		499380DA1FA2001D00ABC3E6 /* DetailMsgCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 499380D81FA2001D00ABC3E6 /* DetailMsgCell.m */; };
+		499380DB1FA2001D00ABC3E6 /* DetailMsgCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499380D91FA2001D00ABC3E6 /* DetailMsgCell.xib */; };
+		499380DE1FA2149900ABC3E6 /* enter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 499380DC1FA2149800ABC3E6 /* enter@2x.png */; };
+		499380DF1FA2149900ABC3E6 /* enter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 499380DD1FA2149800ABC3E6 /* enter@3x.png */; };
 		499659D91F4AF45E00B297C4 /* FeedCommitPhoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 499659D71F4AF45E00B297C4 /* FeedCommitPhoneCell.m */; };
 		499659DA1F4AF45E00B297C4 /* FeedCommitPhoneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499659D81F4AF45E00B297C4 /* FeedCommitPhoneCell.xib */; };
 		499745111EE6959B00DA273B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 498DE0C81EE63C8700F64A61 /* libsqlite3.0.tbd */; };
@@ -2358,10 +2361,6 @@
 		49689EF01F4C4DC90061A87E /* NTESGlobalMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESGlobalMacro.h; sourceTree = "<group>"; };
 		4968A13C1F4D89B10061A87E /* IMChatSessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMChatSessionViewController.h; sourceTree = "<group>"; };
 		4968A13D1F4D89B10061A87E /* IMChatSessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMChatSessionViewController.m; sourceTree = "<group>"; };
-		4968A13E1F4D89B10061A87E /* IMContactListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMContactListViewController.h; sourceTree = "<group>"; };
-		4968A13F1F4D89B10061A87E /* IMContactListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMContactListViewController.m; sourceTree = "<group>"; };
-		4968A1401F4D89B10061A87E /* IMFriendsCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMFriendsCircleViewController.h; sourceTree = "<group>"; };
-		4968A1411F4D89B10061A87E /* IMFriendsCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMFriendsCircleViewController.m; sourceTree = "<group>"; };
 		4968A1451F4D8DE90061A87E /* NoEncryptionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoEncryptionManager.h; sourceTree = "<group>"; };
 		4968A1461F4D8DE90061A87E /* NoEncryptionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoEncryptionManager.m; sourceTree = "<group>"; };
 		4968A1481F4D974E0061A87E /* IMFriendListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMFriendListModel.h; sourceTree = "<group>"; };
@@ -2907,6 +2906,13 @@
 		4992D71F1F26E14800FBF982 /* SkuMatchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkuMatchModel.m; sourceTree = "<group>"; };
 		4992D7211F27499800FBF982 /* arrowdown_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowdown_black@3x.png"; sourceTree = "<group>"; };
 		4992D7221F27499800FBF982 /* arrowdown_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowdown_black@2x.png"; sourceTree = "<group>"; };
+		499380D41FA1FFFA00ABC3E6 /* DetailMsgNoticeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailMsgNoticeViewController.h; sourceTree = "<group>"; };
+		499380D51FA1FFFA00ABC3E6 /* DetailMsgNoticeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailMsgNoticeViewController.m; sourceTree = "<group>"; };
+		499380D71FA2001D00ABC3E6 /* DetailMsgCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailMsgCell.h; sourceTree = "<group>"; };
+		499380D81FA2001D00ABC3E6 /* DetailMsgCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailMsgCell.m; sourceTree = "<group>"; };
+		499380D91FA2001D00ABC3E6 /* DetailMsgCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailMsgCell.xib; sourceTree = "<group>"; };
+		499380DC1FA2149800ABC3E6 /* enter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "enter@2x.png"; sourceTree = "<group>"; };
+		499380DD1FA2149800ABC3E6 /* enter@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "enter@3x.png"; sourceTree = "<group>"; };
 		499659D61F4AF45E00B297C4 /* FeedCommitPhoneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCommitPhoneCell.h; sourceTree = "<group>"; };
 		499659D71F4AF45E00B297C4 /* FeedCommitPhoneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedCommitPhoneCell.m; sourceTree = "<group>"; };
 		499659D81F4AF45E00B297C4 /* FeedCommitPhoneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCommitPhoneCell.xib; sourceTree = "<group>"; };
@@ -5862,10 +5868,6 @@
 			children = (
 				4968A13C1F4D89B10061A87E /* IMChatSessionViewController.h */,
 				4968A13D1F4D89B10061A87E /* IMChatSessionViewController.m */,
-				4968A13E1F4D89B10061A87E /* IMContactListViewController.h */,
-				4968A13F1F4D89B10061A87E /* IMContactListViewController.m */,
-				4968A1401F4D89B10061A87E /* IMFriendsCircleViewController.h */,
-				4968A1411F4D89B10061A87E /* IMFriendsCircleViewController.m */,
 				497EF71D1F50452600BFF1AF /* IMSearchFriendViewController.h */,
 				497EF71E1F50452600BFF1AF /* IMSearchFriendViewController.m */,
 				497EF72A1F50488D00BFF1AF /* IMSearchResultViewController.h */,
@@ -7375,6 +7377,8 @@
 		49D115A21F7E7F7C00467CF1 /* IM聊天 */ = {
 			isa = PBXGroup;
 			children = (
+				499380DC1FA2149800ABC3E6 /* enter@2x.png */,
+				499380DD1FA2149800ABC3E6 /* enter@3x.png */,
 				49D115AB1F7E851900467CF1 /* findGroup@2x.png */,
 				49D115AC1F7E851900467CF1 /* findGroup@3x.png */,
 				49D115AD1F7E851900467CF1 /* findsingle@2x.png */,
@@ -7472,6 +7476,8 @@
 			children = (
 				50252E2E1F9CDD970013AA7C /* PersonalMesViewController.h */,
 				50252E2F1F9CDD970013AA7C /* PersonalMesViewController.m */,
+				499380D41FA1FFFA00ABC3E6 /* DetailMsgNoticeViewController.h */,
+				499380D51FA1FFFA00ABC3E6 /* DetailMsgNoticeViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -7491,6 +7497,9 @@
 				50252E361F9CE54A0013AA7C /* PersonalMessCell.h */,
 				50252E371F9CE54A0013AA7C /* PersonalMessCell.m */,
 				50252E381F9CE54A0013AA7C /* PersonalMessCell.xib */,
+				499380D71FA2001D00ABC3E6 /* DetailMsgCell.h */,
+				499380D81FA2001D00ABC3E6 /* DetailMsgCell.m */,
+				499380D91FA2001D00ABC3E6 /* DetailMsgCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -8014,6 +8023,7 @@
 				4958D5341F6929C0007426A9 /* willOutDate_red.png in Resources */,
 				494419D21F9EE4EE006BAE39 /* bankCardground.png in Resources */,
 				495EA8981F14B64D001FCB7E /* passWord@2x.png in Resources */,
+				499380DE1FA2149900ABC3E6 /* enter@2x.png in Resources */,
 				491872011F9DD77F00536CD2 /* settingShopCar@2x.png in Resources */,
 				495EA7AB1F14B64D001FCB7E /* FuncListTableViewCell.xib in Resources */,
 				50B381231F3F70F2001ED3BA /* SearchHistoryCell.xib in Resources */,
@@ -8078,6 +8088,7 @@
 				495EA8CB1F14B64E001FCB7E /* setting_calling@3x.png in Resources */,
 				4968A41E1F4DB5290061A87E /* NTESSystemNotificationCell.xib in Resources */,
 				49FCF8F41F70B6FF0001802D /* app.api.zavfb.com.cer in Resources */,
+				499380DB1FA2001D00ABC3E6 /* DetailMsgCell.xib in Resources */,
 				495EA8DD1F14B64E001FCB7E /* add@3x.png in Resources */,
 				495EA8D71F14B64E001FCB7E /* wateRedBlank@3x.png in Resources */,
 				49786D831F7D11F30088AAD3 /* star_selected@3x.png in Resources */,
@@ -8536,6 +8547,7 @@
 				493BDE351F6A774900CF31D0 /* 收入3@3x.png in Resources */,
 				50252E471F9CF7140013AA7C /* WithDrawResultViewController.xib in Resources */,
 				495EA72C1F14B64D001FCB7E /* addressData.plist in Resources */,
+				499380DF1FA2149900ABC3E6 /* enter@3x.png in Resources */,
 				495EA88C1F14B64D001FCB7E /* diamond@2x.png in Resources */,
 				50D61E931F1E5BAD00DBDA4D /* plus.png in Resources */,
 				493BDE2C1F6A773F00CF31D0 /* 订单数量@2x.png in Resources */,
@@ -8737,6 +8749,7 @@
 				495EA72D1F14B64D001FCB7E /* AddressPickerView.m in Sources */,
 				4968A4581F4DB5290061A87E /* NTESSpellingCenter.m in Sources */,
 				4968A1421F4D89B10061A87E /* IMChatSessionViewController.m in Sources */,
+				499380DA1FA2001D00ABC3E6 /* DetailMsgCell.m in Sources */,
 				495EA7A01F14B64D001FCB7E /* HomeHotModel.m in Sources */,
 				4968A14A1F4D974E0061A87E /* IMFriendListModel.m in Sources */,
 				495EA82C1F14B64D001FCB7E /* FeedTypeTableViewCell.m in Sources */,
@@ -8818,6 +8831,7 @@
 				49555D8A1F32EA6B00C3C748 /* IQUIView+Hierarchy.m in Sources */,
 				495EA76A1F14B64D001FCB7E /* ZFbaseTabbarViewController.m in Sources */,
 				49555E9A1F1E0092002E5688 /* AddressListModel.m in Sources */,
+				499380D61FA1FFFA00ABC3E6 /* DetailMsgNoticeViewController.m in Sources */,
 				49555EAC1F1E0092002E5688 /* ZFFooterCell.m in Sources */,
 				50D4D6881F1BB94D0073DBC1 /* QBImagePickerThumbnailView.m in Sources */,
 				495EA7541F14B64D001FCB7E /* UIImage+Alpha.m in Sources */,
@@ -8913,12 +8927,10 @@
 				4968A2D31F4DB5090061A87E /* NIMCardMemberItem.m in Sources */,
 				493BDE541F6A889000CF31D0 /* MineShareDetailViewController.m in Sources */,
 				4968A2A81F4DB5080061A87E /* NIMMessageModel.m in Sources */,
-				4968A1431F4D89B10061A87E /* IMContactListViewController.m in Sources */,
 				504A761B1F6ADD9D00B61CE3 /* YYTextParser.m in Sources */,
 				4968A2D01F4DB5090061A87E /* NIMSessionListDefaultConfig.m in Sources */,
 				4968A4191F4DB5290061A87E /* NTESCustomNotificationDB.m in Sources */,
 				504A76121F6ADD9D00B61CE3 /* YYTextEffectWindow.m in Sources */,
-				4968A1441F4D89B10061A87E /* IMFriendsCircleViewController.m in Sources */,
 				49DFC4821F9741E90080B6F7 /* BackCell.m in Sources */,
 				49555EA71F1E0092002E5688 /* ShopOrderStoreNameCell.m in Sources */,
 				4968A4401F4DB5290061A87E /* NTESListHeader.m in Sources */,

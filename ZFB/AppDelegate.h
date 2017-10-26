@@ -16,5 +16,7 @@
 
 @property (copy, nonatomic) NSString * signMD5Key;
 
+@property (nonatomic,assign) NSInteger networkStatus;//网络状态
+
 @end
 

@@ -18,7 +18,6 @@
 //支付跳转
 #import "DetailPayCashViewController.h"//支付失败
 #import "DetailPaySuccessViewController.h"//支付成功
-#import "MBProgressHUD+MJ.h"
 
 
 @interface CheckstandViewController () <UITableViewDelegate,UITableViewDataSource,PayFootCellDelegate>

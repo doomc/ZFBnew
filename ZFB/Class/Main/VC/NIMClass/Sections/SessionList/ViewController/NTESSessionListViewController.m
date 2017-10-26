@@ -70,9 +70,6 @@
     
     NSString *userID = [[[NIMSDK sharedSDK] loginManager] currentAccount];
     self.navigationItem.titleView  = [self titleView:userID];
-    
-
-
  
     
 }
@@ -312,5 +309,14 @@
     }
     
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    // 设置导航栏title属性
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
+    // 设置导航栏颜色
+    [self.navigationController.navigationBar setBarTintColor:[UIColor clearColor]];
+    UIImage *image = [UIImage imageNamed:@"nav64_red"];
+    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+}
 @end

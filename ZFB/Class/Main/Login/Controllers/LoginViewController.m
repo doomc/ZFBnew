@@ -435,9 +435,11 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              
                              @"mobilePhone":_tf_loginphone.text,
                              @"smsCheckCode":_smsCode,
-                             @"registerType":@"2"//注册设备
+                             @"registerType":@"2",//注册设备
+                             @"longitude":BBUserDefault.longitude,
+                             @"latitude":BBUserDefault.latitude,
                              };
-
+ 
     [SVProgressHUD showWithStatus:@"登陆中..."];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/quickLogin",zfb_baseUrl] params:parma success:^(id response) {
         
@@ -491,6 +493,8 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              @"mobilePhone":_tf_loginphone.text,
                              @"loginPwd":_tf_verificationCodeOrPassWord.text,
                              @"equipmentType":@"2",//ios
+                             @"longitude":BBUserDefault.longitude ,
+                             @"latitude":BBUserDefault.latitude,
                              };
     
     [SVProgressHUD showWithStatus:@"登陆中..."];

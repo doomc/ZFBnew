@@ -73,6 +73,22 @@ typedef NS_ENUM(NSUInteger, BusinessServicType) {
     
 };
 
+
+/**
+网络状态
+
+ - DDAFNetworkReachabilityStatusUnknown: -1
+ - DDAFNetworkReachabilityStatusNotReachable: 0
+ - DDAFNetworkReachabilityStatusReachableViaWWAN: 1
+ - DDAFNetworkReachabilityStatusReachableViaWiFi: 2
+ */
+typedef NS_ENUM(NSUInteger, DDAFNetworkReachabilityStatus ) {
+    DDAFNetworkReachabilityStatusUnknown = -1,
+    DDAFNetworkReachabilityStatusNotReachable = 0,
+    DDAFNetworkReachabilityStatusReachableViaWWAN = 1,
+    DDAFNetworkReachabilityStatusReachableViaWiFi = 2,
+};
+
 @interface ZFEnum : NSObject
 
 @end

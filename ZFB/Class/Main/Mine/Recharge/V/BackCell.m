@@ -21,11 +21,14 @@
 -(void)setBankList:(BankList *)bankList
 {
     _bankList = bankList;
-    NSString * bankType = bankList.bank_type;// 银行卡类型
-    
     self.backName.text = [NSString stringWithFormat:@"%@",bankList.bank_name];
-    self.backNo.text = [NSString stringWithFormat:@"尾号%@",bankList.bank_num];
+    //后4位
+    NSString *lastfourCardno = [bankList.bank_num  substringFromIndex:bankList.bank_num.length - 4];
+    self.backNo.text = [NSString stringWithFormat:@"尾号(%@)",lastfourCardno];
+    [self.backImg sd_setImageWithURL:[NSURL URLWithString:bankList.bank_img] placeholderImage:[UIImage imageNamed:@"head"]];
 }
+
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

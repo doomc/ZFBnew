@@ -14,4 +14,5 @@ typedef void(^POISearchReturnBlock)(NSString *name, CGFloat longitude, CGFloat l
 @interface AddressLocationMapViewController : BaseViewController
 
 @property (nonatomic, copy) POISearchReturnBlock searchReturnBlock;
+
 @end

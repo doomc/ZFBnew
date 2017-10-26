@@ -10,14 +10,12 @@
 #import "BankCardListModel.h"
 #import "BankCarListCell.h"
 
-typedef void (^BankBlock)(NSString * bankName,NSString * bank_img, NSString * cardNum);
 
 @interface BankCarListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic , strong) UITableView *tableView;
 @property (nonatomic ,strong) NSMutableArray * backCardList;
 
-@property (copy, nonatomic) BankBlock bankBlock;
 
 @end
 
@@ -77,7 +75,11 @@ typedef void (^BankBlock)(NSString * bankName,NSString * bank_img, NSString * ca
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //传一个block回调当前银行卡信息
-//    _bankBlock =            
+    BankList * list = self.backCardList[indexPath.row];
+    //(NSString * bankName,NSString * bank_img, NSString * lastCardNum);
+    if (_bankBlock) {
+        _bankBlock(list);
+    }
     
 }
 //银行卡列表

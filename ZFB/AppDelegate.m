@@ -6,6 +6,7 @@
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
+
 #import "AppDelegate.h"
 #import "ZFbaseTabbarViewController.h"
 #import "XLSlideMenu.h"
@@ -38,6 +39,7 @@
 // 如果需要使用idfa功能所需要引入的头文件（可选）
 #import <AdSupport/AdSupport.h>
 
+
 //高德api
 const static NSString * ApiKey = @"a693affa49bd4e25c586d1cf4c97c35f";
 NSString *NTESNotificationLogout = @"NTESNotificationLogout";
@@ -60,6 +62,10 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:100  * 1024 * 1024 diskPath:nil];
+    [NSURLCache setSharedURLCache:cache];
+    [self networkStutas];
     
     //引导页 和 tabar 初始化
     [self setupGuidePageView];
@@ -129,6 +135,39 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     }];
     
     return YES;
+}
+///监听网络
+-(void)networkStutas
+{
+    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
+    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown: // 未知网络
+                
+                self.networkStatus = DDAFNetworkReachabilityStatusUnknown;
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"isHaveNetWorkRefreshHomeCtrl" object:nil];
+                
+                break;
+            case AFNetworkReachabilityStatusNotReachable: // 没有网络(断网)
+                self.networkStatus = DDAFNetworkReachabilityStatusNotReachable;
+                
+                break;
+            case AFNetworkReachabilityStatusReachableViaWWAN: // 手机自带网络
+                self.networkStatus = DDAFNetworkReachabilityStatusReachableViaWWAN;
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"isHaveNetWorkRefreshHomeCtrl" object:nil];
+                break;
+            case AFNetworkReachabilityStatusReachableViaWiFi:// WIFI
+                
+                self.networkStatus = DDAFNetworkReachabilityStatusReachableViaWiFi;
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"isHaveNetWorkRefreshHomeCtrl" object:nil];
+                break;
+            default:
+                break;
+        }
+    }];
+    [mgr startMonitoring];
 }
 #pragma mark - logic impl
 - (void)setupServices

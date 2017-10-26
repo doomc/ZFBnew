@@ -25,7 +25,9 @@
     _goodlist =  goodlist;
     
     self.lb_title.text = _goodlist.goodsName;
-    self.lb_price.text = [NSString stringWithFormat:@"¥%@",_goodlist.purchasePrice];
+    CGFloat purchasePrice = [_goodlist.purchasePrice floatValue];
+    
+    self.lb_price.text = [NSString stringWithFormat:@"¥%.2f",purchasePrice];
     self.lb_count.text = [NSString stringWithFormat:@"x %@",_goodlist.goodsCount];
     [self.img_orderDetailView sd_setImageWithURL:[NSURL URLWithString:_goodlist.coverImgUrl] placeholderImage:nil];
     

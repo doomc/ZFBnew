@@ -244,7 +244,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
         
         return KScreenW /3.0 ;//140 / 375.0 *KScreenW
     }
-    return  90;
+    return  130 /375.0* KScreenW;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -352,13 +352,11 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(void)guessYouLikePostRequst
 {
     NSDictionary * parma = @{
-                             
                              @"latitude" : BBUserDefault.latitude ,
                              @"longitude": BBUserDefault.longitude,
                              @"pageSize": [NSNumber numberWithInteger:kPageCount],
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"cmUserId":BBUserDefault.cmUserId,
-                             
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getYouWillLike",zfb_baseUrl] params:parma success:^(id response) {
@@ -366,7 +364,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
         if ([response[@"resultCode"]isEqualToString:@"0"]) {
             if (self.refreshType == RefreshTypeHeader) {
                 if (self.likeListArray.count > 0) {
-                    
                     [self.likeListArray removeAllObjects];
                 }
             }

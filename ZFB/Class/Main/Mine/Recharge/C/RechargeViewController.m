@@ -18,13 +18,23 @@
 #import "WithDrawViewController.h"//提现
 #import "CertificationViewController.h"//实名认证
 #import "WithDrawResultViewController.h"//提交提现
+
+//支付密码
+#import "CYPasswordView.h"
+#import "MBProgressHUD+MJ.h"
+#import "IQKeyboardManager.h"
+
 @interface RechargeViewController ()<UITableViewDelegate,UITableViewDataSource,WithdrawCellDelegate,AddBackButtonCellDelegate>
 {
     NSString * _putInMoney;
     NSString * _realNameFlag;
+
 }
 @property (nonatomic , strong) UITableView * backTableView;
 @property (nonatomic , strong) NSMutableArray * backCardList;
+@property (nonatomic , strong) CYPasswordView *passwordView;
+@property (nonatomic , copy) NSString * randomString;
+
 @end
 
 @implementation RechargeViewController
@@ -57,6 +67,67 @@
     [self.backTableView registerNib:[UINib nibWithNibName:@"AddBackButtonCell" bundle:nil] forCellReuseIdentifier:@"AddBackButtonCell"];
     [self.backTableView registerNib:[UINib nibWithNibName:@"WithdrawCell" bundle:nil] forCellReuseIdentifier:@"WithdrawCell"];
     
+    /** 注册取消按钮点击的通知 */
+    [CYNotificationCenter addObserver:self selector:@selector(cancel) name:CYPasswordViewCancleButtonClickNotification object:nil];
+    [CYNotificationCenter addObserver:self selector:@selector(forgetPWD) name:CYPasswordViewForgetPWDButtonClickNotification object:nil];
+}
+- (void)cancel {
+    CYLog(@"关闭密码框");
+    [MBProgressHUD showSuccess:@"关闭密码框"];
+}
+
+- (void)forgetPWD {
+    CYLog(@"忘记密码");
+    [MBProgressHUD showSuccess:@"忘记密码"];
+}
+- (void)dealloc {
+    CYLog(@"cy =========== %@：我走了", [self class]);
+}
+//唤醒密码键盘
+-(void)wakeUpPasswordAlert
+{
+    __weak RechargeViewController *weakSelf = self;
+    self.passwordView = [[CYPasswordView alloc] init];
+    self.passwordView.title = @"输入交易密码";
+    self.passwordView.loadingText = @"提交中...";
+    [self.passwordView showInView:self.view.window];
+    self.passwordView.finish = ^(NSString *password) {
+        
+        [weakSelf.passwordView hideKeyboard];
+        [weakSelf.passwordView startLoading];
+        
+        //password 需要加密
+        NSString * base64 = [password base64EncodedString];
+        NSMutableString* mutpassword=[[NSMutableString alloc]initWithString:base64];//存在堆区，可变字符串
+        NSLog(@"str1:%@",mutpassword);
+        [mutpassword insertString:weakSelf.randomString atIndex:1];//把一个字符串插入另一个字符串中的某一个位置
+        NSLog(@"str2:%@",mutpassword);
+        //获取请求接口
+        [weakSelf PayoassWordPost:mutpassword];
+        
+    };
+}
+
+- (NSString *)shuffledAlphabet {
+    NSString *alphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    
+    // Get the characters into a C array for efficient shuffling
+    NSUInteger numberOfCharacters = [alphabet length];
+    unichar *characters = calloc(numberOfCharacters, sizeof(unichar));
+    [alphabet getCharacters:characters range:NSMakeRange(0, numberOfCharacters)];
+    
+    // Perform a Fisher-Yates shuffle
+    for (NSUInteger i = 0; i < 5; ++i) {
+        NSUInteger j = (arc4random_uniform(numberOfCharacters - i) + i);
+        unichar c = characters[i];
+        characters[i] = characters[j];
+        characters[j] = c;
+    }
+    
+    // Turn the result back into a string
+    NSString *result = [NSString stringWithCharacters:characters length:5];
+    free(characters);
+    return result;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -131,6 +202,13 @@
 {
     if (indexPath.section == 0) {
         BankCarListViewController * bankVC =[[BankCarListViewController alloc]init];
+        bankVC.bankBlock = ^(BankList *banklist) {
+            if (self.backCardList.count > 0 ) {
+                [self.backCardList removeAllObjects];
+            }
+            [self.backCardList addObject: banklist];
+            [self.backTableView reloadData];
+        };
         [self.navigationController pushViewController:bankVC animated:NO];
     }
 }
@@ -153,6 +231,9 @@
 //确认提现
 -(void)didClickcashWithdraw
 {
+    //先生成随机数
+    _randomString =  [self shuffledAlphabet];
+    
     //先判断是不是满足条件了
     if (_putInMoney.length > 0) {
         BankList * list = self.backCardList[0];
@@ -208,7 +289,7 @@
 #pragma mark - 提现接口
 -(void)withDrawkCashPostAccount:(NSString *)account bankId:(NSString *)bankId amount:(NSString *)amount objectName:(NSString *)objectName logoUrl:(NSString *)logoUrl
 {
-    BankList * list = self.backCardList[0];
+
 
     NSDictionary * param = @{
                              @"account":account,
@@ -221,16 +302,16 @@
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/withdrawCash",zfb_baseUrl] params:param success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
-            WithDrawResultViewController * drawVC = [WithDrawResultViewController new];
-            drawVC.bankMsg = [NSString stringWithFormat:@"%@",list.bank_name];
-            drawVC.amont = amount ;
-            [self.navigationController pushViewController:drawVC animated:NO];
+            //唤醒支付键盘操作后
+            [self wakeUpPasswordAlert];
         }
-        
+ 
+
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {
-        
+        [self.view makeToast:@"网络出差了~" duration:2 position:@"center"];
+
     }];
     
 }
@@ -257,18 +338,52 @@
         }
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
-        
+        [self.view makeToast:@"网络出差了~" duration:2 position:@"center"];
+
     }];
 }
 
+#pragma mark - 提现支付密码
+-(void)PayoassWordPost:(NSString *)payPassword
+{
+    BankList * list = self.backCardList[0];
+
+    NSDictionary * param = @{
+                             @"account":BBUserDefault.userPhoneNumber,
+                             @"payPassword":payPassword//base64加密
+                             };
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/validateZyfPayPassword",zfb_baseUrl] params:param success:^(id response) {
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+            WithDrawResultViewController * drawVC = [WithDrawResultViewController new];
+            //后4位
+            NSString *lastfourCardno = [list.bank_num  substringFromIndex:list.bank_num.length - 4];
+            NSString * lastNum = [NSString stringWithFormat:@"尾号(%@)",lastfourCardno];
+            drawVC.bankMsg = [NSString stringWithFormat:@"%@ %@",list.bank_name,lastNum];
+            drawVC.amont = _putInMoney ;
+            [self.navigationController pushViewController:drawVC animated:NO];
+        }
+        else{
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        }
+       
+        //关闭键盘
+        [self.passwordView stopLoading];
+        [self.passwordView hide];
+        
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        [self.view makeToast:@"网络出差了~" duration:2 position:@"center"];
+
+    }];
+}
 
 -(void)viewWillAppear:(BOOL)animated{
-    
     [self settingNavBarBgName:@"nav64_gray"];
     [self realNamePost];
-    
     [self backCardListPost];
-
+    //关闭toolbar
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
 }
 
 

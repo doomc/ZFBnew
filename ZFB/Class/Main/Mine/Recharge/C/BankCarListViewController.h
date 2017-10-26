@@ -7,9 +7,13 @@
 //
 
 #import "BaseViewController.h"
+#import "BankCardListModel.h"
 
 @interface BankCarListViewController : BaseViewController
 
+typedef void (^BankBlock)(BankList *  banklist);
+
+@property (copy, nonatomic) BankBlock bankBlock;
 
 
 @end

@@ -92,9 +92,7 @@
     _pageTitleView.indicatorColor = HEXCOLOR(0xf95a70);
     _pageTitleView.indicatorHeight         = 1.0;
     _pageTitleView.titleTextScaling        = 0.3;
-    
-    
-    
+
 }
 
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex
@@ -118,9 +116,6 @@
     
     
 }
-
-
-
 - (void)prepareData{
     _contacts = [[NTESGroupedContacts alloc] init];
     
@@ -310,7 +305,14 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self setUpNavItem];
-    
+ 
+    // 设置导航栏title属性
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    // 设置导航栏颜色
+    [self.navigationController.navigationBar setBarTintColor:[UIColor clearColor]];
+    UIImage *image = [UIImage imageNamed:@"nav64_red"];
+    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
 }
 

@@ -16,12 +16,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
--(void)setPushList:(PushMessageList *)pushList
-{
-    _pushList = pushList ;
-    self.lb_title.text = pushList.title;
-    self.lb_content.text = [NSString stringWithFormat:@"%@",pushList.content];
-}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

@@ -19,6 +19,8 @@
     self.guess_listView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
     self.guess_listView.contentMode = UIViewContentModeScaleAspectFill;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+  
+    self.lb_storeName.preferredMaxLayoutWidth = KScreenW - 25 - 15 - 115 - 110 /375.0* KScreenW;
 }
 
 //搜索有结果的模型

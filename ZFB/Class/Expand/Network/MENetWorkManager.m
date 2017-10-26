@@ -7,7 +7,7 @@
 //
 
 #import "MENetWorkManager.h"
-
+#import "AppDelegate.h"
 @implementation MENetWorkManager
 
 +(void)get:(NSString *)url params:(NSDictionary *)params
@@ -57,6 +57,29 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.requestSerializer.timeoutInterval = 30;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"text/html",@"text/plain",@"application/json", @"text/json", @"text/javascript"]];
+
+    ///////----------------------//////
+    AppDelegate * appDelegate= [[UIApplication sharedApplication] delegate];
+    NSInteger netStatus = appDelegate.networkStatus;
+ 
+    switch (netStatus) {
+        case DDAFNetworkReachabilityStatusUnknown:
+            [manager.requestSerializer setCachePolicy:NSURLRequestReturnCacheDataDontLoad];
+            break;
+        case DDAFNetworkReachabilityStatusNotReachable:
+            [manager.requestSerializer setCachePolicy:NSURLRequestReturnCacheDataDontLoad];
+            break;
+        case DDAFNetworkReachabilityStatusReachableViaWWAN:
+            [manager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringCacheData];
+            break;
+        case DDAFNetworkReachabilityStatusReachableViaWiFi:
+            
+            [manager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringCacheData];
+            break;
+        default:
+            break;
+    }
+    ///////----------------------//////
 
     [manager POST:url parameters:parmaStr progress:^(NSProgress * _Nonnull uploadProgress) {
         

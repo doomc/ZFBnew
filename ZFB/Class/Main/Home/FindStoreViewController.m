@@ -339,9 +339,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 #pragma mark - 首页网络请求 getCmStoreInfo
 -(void)PostRequst
 {
- 
+
     NSDictionary * parma = @{
- 
+
                              @"longitude":longitudestr,//经度
                              @"latitude":latitudestr ,//纬度
                              @"size":[NSNumber numberWithInteger:kPageCount],
@@ -355,43 +355,32 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                              };
 
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
-        
+
         NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"] ];
-        
         if ([code isEqualToString:@"0"]) {
-            
             if (self.refreshType == RefreshTypeHeader) {
-            
                 if (self.storeListArr.count > 0) {
-                    
                     [self.storeListArr  removeAllObjects];
                 }
             }
             HomeStoreListModel * homeStore = [HomeStoreListModel mj_objectWithKeyValues:response];
-            
             totalCount = homeStore.storeInfoList.totalCount;
-            
             NSLog(@"%ld -----page = %ld",totalCount,self.currentPage);
-    
             for (Findgoodslist  * goodlist in homeStore.storeInfoList.findGoodsList) {
-      
                 [self.storeListArr addObject:goodlist];
             }
             [self.home_tableView reloadData];
-        
         }
         [self endRefresh];
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
-        
+
         [self endRefresh];
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         NSLog(@"error=====%@",error);
     }];
- 
-}
 
+}
 
 
 

@@ -14,4 +14,8 @@
 
 @property (nonatomic,assign) BOOL disableOnlineState;  //需要在导航条上显示在线状态
 
+@property (nonatomic,assign) BOOL isVipStore;  //判断是不是店铺
+
+@property (nonatomic,copy) NSString * storeId;
+
 @end

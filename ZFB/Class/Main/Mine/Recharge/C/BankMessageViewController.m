@@ -8,7 +8,7 @@
 
 #import "BankMessageViewController.h"
 #import "AddBankCell.h"
-
+#import "BankProtocolViewController.h"
 @interface BankMessageViewController () <UITableViewDelegate,UITableViewDataSource>
 {
     NSString * _kcardNum; //卡号
@@ -203,10 +203,12 @@
 -(void)protcolAction:(UIButton *)sender
 {
     NSLog(@"用户协议");
+    BankProtocolViewController * vc= [BankProtocolViewController new];
+    [self.navigationController pushViewController:vc animated:NO];
 }
 -(void)chooseAction:(UIButton *)sender
 {
-    NSLog(@"切换协议");
+    NSLog(@"xuanze协议");
 }
 #pragma mark- 绑卡下一步
 -(void)bandNext
@@ -234,6 +236,9 @@
         if ([code isEqualToString:@"0"]) {
             [SVProgressHUD showSuccessWithStatus:@"绑卡成功!"];
             [self backAction];
+        }else{
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
         }
         
     } progress:^(NSProgress *progeress) {

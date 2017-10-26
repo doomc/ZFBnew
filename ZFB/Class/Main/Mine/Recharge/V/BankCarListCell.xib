@@ -44,7 +44,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="33" id="Bm6-0M-wIb"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -53,7 +53,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="33" id="nB8-vB-LfL"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -62,7 +62,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="33" id="E3a-Yu-9Pc"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -87,7 +87,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="33" id="065-ul-aJM"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>

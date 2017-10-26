@@ -42,6 +42,7 @@
 #import "NTESPersonalCardViewController.h"
 #import "NIMInputAtCache.h"
 #import "NTESAudioChatViewController.h"
+#import "ZFDetailsStoreViewController.h"//门店详情
 
 @interface NTESSessionViewController ()
 <UIImagePickerControllerDelegate,
@@ -606,10 +607,16 @@ NIMContactSelectDelegate>
     
 //    UIButton *infoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [infoBtn addTarget:self action:@selector(enterPersonInfoCard:) forControlEvents:UIControlEventTouchUpInside];
-//    [infoBtn setImage:[UIImage imageNamed:@"icon_session_info_normal"] forState:UIControlStateNormal];
-//    [infoBtn setImage:[UIImage imageNamed:@"icon_session_info_pressed"] forState:UIControlStateHighlighted];
+//    [infoBtn setImage:[UIImage imageNamed:@"enter"] forState:UIControlStateNormal];
+//    [infoBtn setImage:[UIImage imageNamed:@"enter"] forState:UIControlStateHighlighted];
 //    [infoBtn sizeToFit];
 //    UIBarButtonItem *enterUInfoItem = [[UIBarButtonItem alloc] initWithCustomView:infoBtn];
+    UIButton *vipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [vipBtn addTarget:self action:@selector(enterStoreItem:) forControlEvents:UIControlEventTouchUpInside];
+    [vipBtn setImage:[UIImage imageNamed:@"enter"] forState:UIControlStateNormal];
+    [vipBtn setImage:[UIImage imageNamed:@"enter"] forState:UIControlStateHighlighted];
+    [vipBtn sizeToFit];
+    UIBarButtonItem *enterVipStoreItem = [[UIBarButtonItem alloc] initWithCustomView:vipBtn];
     
     UIButton *historyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [historyBtn addTarget:self action:@selector(enterHistory:) forControlEvents:UIControlEventTouchUpInside];
@@ -634,14 +641,35 @@ NIMContactSelectDelegate>
         }
         else
         {
+            if (_isVipStore == YES) {
+                self.navigationItem.rightBarButtonItems = @[enterVipStoreItem,historyButtonItem];
+
+            }else{
+                self.navigationItem.rightBarButtonItems = @[historyButtonItem];
+
+            }
             //            self.navigationItem.rightBarButtonItems = @[enterUInfoItem,historyButtonItem];
-            self.navigationItem.rightBarButtonItems = @[historyButtonItem];
         }
     }
+}
+#pragma mark - 进店
+- (void)enterStoreItem:(id)sender{
+    ZFDetailsStoreViewController * storeVC = [[ZFDetailsStoreViewController alloc] init];
+    storeVC.storeId = _storeId;
+    [self.navigationController pushViewController:storeVC animated:YES];
 }
 
 - (BOOL)shouldAutorotate{
     return !self.currentSingleSnapView;
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    // 设置导航栏title属性
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
+    // 设置导航栏颜色
+    [self.navigationController.navigationBar setBarTintColor:[UIColor clearColor]];
+    UIImage *image = [UIImage imageNamed:@"nav64_gray"];
+    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+}
 @end

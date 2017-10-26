@@ -13,12 +13,9 @@
 + (NSDictionary *)objectClassInArray{
     return @{@"pushMessageList" : [PushMessageList class]};
 }
-
-
 @end
 
 @implementation PushMessageList
-
 
 @end
 
