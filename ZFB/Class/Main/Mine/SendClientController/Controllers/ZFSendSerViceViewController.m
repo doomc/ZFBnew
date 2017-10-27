@@ -37,7 +37,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     SelectTypeOrderPage, //选择订单
     SelectTypeCaculater,//选择结算
 };
-@interface ZFSendSerViceViewController ()<UITableViewDelegate,UITableViewDataSource,ZFSendPopViewDelegate,ZFFooterCellDelegate,ZFSendHomeListCellDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
+@interface ZFSendSerViceViewController ()<UITableViewDelegate,UITableViewDataSource,ZFSendPopViewDelegate,ZFFooterCellDelegate,ZFSendHomeListCellDelegate >
 {
     //day
     NSString * _daydistriCount;
@@ -133,10 +133,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
               forCellReuseIdentifier:@"ZFFooterCellid"];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFContactCell" bundle:nil]
               forCellReuseIdentifier:@"ZFContactCellid"];
-    [self.send_tableView registerNib:[UINib nibWithNibName:@"SendServiceTitleCell" bundle:nil] forCellReuseIdentifier:@"SendServiceTitleCellid"];
+    [self.send_tableView registerNib:[UINib nibWithNibName:@"SendServiceTitleCell" bundle:nil]
+              forCellReuseIdentifier:@"SendServiceTitleCellid"];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendHomeCell" bundle:nil]
               forCellReuseIdentifier:@"ZFSendHomeCellid"];
-    [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendHomeListCell" bundle:nil] forCellReuseIdentifier:@"ZFSendHomeListCellid"];
+    [self.send_tableView registerNib:[UINib nibWithNibName:@"ZFSendHomeListCell" bundle:nil]
+              forCellReuseIdentifier:@"ZFSendHomeListCellid"];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"OrderPriceCell" bundle:nil]
               forCellReuseIdentifier:@"OrderPriceCellid"];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"SendServiceFootCell" bundle:nil]
@@ -787,7 +789,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 //日
                 cell.lb_todayCreatTime.text = _daydate_time;
                 cell.lb_todayOrderNum.text  = _daydistriCount;
-                cell.lb_todayPriceFree.text = _dayOrderDeliveryFee;
+                cell.lb_todayPriceFree.text = [NSString stringWithFormat:@"%.2f",[_dayOrderDeliveryFee floatValue]];
                 
                 //周
                 cell.lb_weekCreatTime.text = _weekodate_time;
@@ -892,12 +894,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 }
 
 #pragma mark - didSelectRowAtIndexPath
-
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section  =%ld , row = %ld",indexPath.section ,indexPath.row);
-    
     switch (_selectPageType) {
             
         case SelectTypeHomePage:
@@ -920,10 +919,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 #pragma mark - ZFSendPopViewDelegate 选择类型 根据类型请求
 
 -(void)sendTitle:(NSString *)title SendServiceType:(SendServicType)type
-
 {
-    
-    [UIView animateWithDuration:0.3 animations:^{
+     [UIView animateWithDuration:0.3 animations:^{
         
         if (self.bgview.superview) {
             
@@ -984,7 +981,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     orderDeal.orderNum = _daydistriCount;
     orderDeal.orderStartTime = _daystart_time;
     orderDeal.orderEndTime = _dayend_time;
-    orderDeal.dealPrice = _dayOrderDeliveryFee;
+    orderDeal.dealPrice =  [NSString stringWithFormat:@"%.2f",[_dayOrderDeliveryFee floatValue]];
     
     [self.navigationController pushViewController:orderDeal animated:NO];
     
@@ -1072,7 +1069,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 SendServiceStoreinfomap * store = self.orderListArray[indexPath];
                 
                 switch (_servicType) {
-                    case SendServicTypeWaitSend:
+                    case SendServicTypeWaitSend: // //OrderStatus 1.待接单 2.已接单 3.已配送
                         
                         [self getOrderbyOrderId:[NSString stringWithFormat:@"%ld",store.orderId] deliveryId:_deliveryId status:@"2"]; //接单2
                         break;
@@ -1222,11 +1219,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
-            
             if (self.refreshType == RefreshTypeHeader) {
-                
                 if (self.orderListArray.count > 0) {
-                    
                     [self.orderListArray removeAllObjects];
                 }
             }
@@ -1235,14 +1229,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 
                 [self.orderListArray addObject:infoStore];
             }
-            NSLog(@"%@ ====orderListArray ",self.orderListArray);
             [SVProgressHUD dismiss];
             [self.send_tableView reloadData];
-            
-            if ([self isEmptyArray:self.orderListArray]) {
-                
-                [self.send_tableView cyl_reloadData];
-            }
+            NSLog(@"%@ ====orderListArray ",self.orderListArray);
             
         }
         else{
@@ -1271,7 +1260,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
  
  @param orderId 订单id
  @param deliveryId 配送员id
- @param status 选择状态1.待接单 2.已接单 3.已配送
+ @param status 选择状态1.待接单 2.已接单 3.已配送,4.已完成订单
  */
 -(void)getOrderbyOrderId:(NSString *)orderId deliveryId:(NSString *)deliveryId status:(NSString *)status
 {
@@ -1447,54 +1436,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     
 }
 
-#pragma mark - CYLTableViewPlaceHolderDelegate Method
-- (UIView *)makePlaceHolderView {
-    
-    UIView *weChatStyle = [self weChatStylePlaceHolder];
-    return weChatStyle;
-}
-//暂无数据
-- (UIView *)weChatStylePlaceHolder {
-    
-    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.send_tableView.frame];
-    weChatStylePlaceHolder.delegate = self;
-    return weChatStylePlaceHolder;
-}
-#pragma mark - WeChatStylePlaceHolderDelegate Method
-- (void)emptyOverlayClicked:(id)sender {
-    switch (_selectPageType) {
-            
-        case SelectTypeHomePage:
-            
-            [self selectDeliveryListPostRequst];
-            break;
-        case SelectTypeOrderPage:
-            switch (_servicType) {
-                    
-                case SendServicTypeWaitSend://待派单
-                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"1"   ];
-                    
-                    break;
-                case SendServicTypeSending://配送中
-                    
-                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"2" ] ;
-                    
-                    break;
-                case SendServicTypeSended://已配送
-                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"3"  ];
-                    
-                    break;
-            }
-            
-            break;
-            
-        case SelectTypeCaculater:
-            
-            break;
-            
-    }
-    
-}
 
 
 

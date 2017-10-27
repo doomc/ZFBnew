@@ -48,6 +48,7 @@
     
     [self cycleViewInitWithimages:_adArray];
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [self settingNavBarBgName:@"nav64_gray"];
@@ -83,21 +84,24 @@
     }else{
         
         [self didclickZanPostRequsetAtthumsId:_shareId];
-
     }
-    
- 
 }
 /**
  点击购买 ---- 跳转到商品详情
  */
 - (IBAction)didClickBuyNow:(id)sender {
-    
-    DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
-    detailVC.goodsId = _goodsId;
-    detailVC.shareId = _shareId;
-    detailVC.shareNum = _shareNum;
-    [self.navigationController pushViewController:detailVC animated:NO ];
+    if (BBUserDefault.isLogin == 0 || [BBUserDefault.cmUserId isEqualToString:@"0"] ||  BBUserDefault.cmUserId ==nil ) {
+        
+        [self isIfNotSignIn];
+    }else{
+        
+        DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
+        detailVC.goodsId = _goodsId;
+        detailVC.shareId = _shareId;
+        detailVC.shareNum = _shareNum;
+        [self.navigationController pushViewController:detailVC animated:NO ];
+    }
+
 }
 
 #pragma mark -  共享详情 toShareGoods/shareGoodsDetail
@@ -181,17 +185,12 @@
 -(void)addRecommentBrowsePostRequst
 {
     NSDictionary * parma = @{
-                             
                              @"recommentId":_shareId,//1 是新品推荐  2共享
                              @"type":@"1",//1 是新品推荐  2共享
-                             
-                             
                              };
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/recomment/addRecommentBrowse",zfb_baseUrl] params:parma success:^(id response) {
         
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         NSLog(@"error=====%@",error);
     }];

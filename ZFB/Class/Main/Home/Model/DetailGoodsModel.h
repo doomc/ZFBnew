@@ -25,6 +25,8 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 @property (nonatomic, strong) detailData *data;
 
 
+
+
 @end
 
 @interface detailData : ResponseObject
@@ -34,6 +36,8 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 @property (nonatomic, strong) Storeinfo *storeInfo;
 
 @property (nonatomic, strong) NSArray<Productattribute *> *productAttribute;
+
+@property (nonatomic, copy) NSString *accId;
 
 @end
 

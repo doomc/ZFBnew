@@ -559,6 +559,9 @@
 #pragma mark - 取消收藏 cancalGoodsCollect
 -(void)cancelCollectedPostRequest
 {
+    if (BBUserDefault.cmUserId == nil) {
+        BBUserDefault.cmUserId = @"";
+    }
     NSDictionary * parma = @{
                              
                              @"cmUserId":BBUserDefault.cmUserId,

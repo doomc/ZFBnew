@@ -642,7 +642,7 @@ NIMContactSelectDelegate>
         else
         {
             if (_isVipStore == YES) {
-                self.navigationItem.rightBarButtonItems = @[enterVipStoreItem,historyButtonItem];
+                self.navigationItem.rightBarButtonItems = @[enterVipStoreItem];
 
             }else{
                 self.navigationItem.rightBarButtonItems = @[historyButtonItem];

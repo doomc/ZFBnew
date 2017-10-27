@@ -351,7 +351,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         else if (indexPath.row == 3) {//配送金额
             
             ZFOrderDetailCountCell* countCell = [self.tableView dequeueReusableCellWithIdentifier:kcountDetailCellid forIndexPath:indexPath];
-            countCell.lb_freeSendPrice.text = [NSString stringWithFormat:@"¥%@",deliveryFee]  ;
+            countCell.lb_freeSendPrice.text = [NSString stringWithFormat:@"¥%.2f",[deliveryFee floatValue]]  ;
             countCell.lb_goodsAllPrice .text = [NSString stringWithFormat:@"¥%@",goodsAmount] ;
             
             cell                              = countCell;

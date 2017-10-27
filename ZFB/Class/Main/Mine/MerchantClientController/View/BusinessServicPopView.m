@@ -50,7 +50,6 @@
     
     [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
     sender.layer.borderColor =HEXCOLOR(0xfe6d6a).CGColor;
-    
     NSInteger selectTag = sender.tag;
     
     _selectBtn = sender;

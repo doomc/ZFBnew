@@ -98,7 +98,9 @@
     if (_kcardNum.length > 0 && _kcardNum.length >0) {
      
         [self verificationNameAndCardNumPost];
-        
+//        BankMessageViewController  * nextVC  = [BankMessageViewController new];
+//        [self.navigationController pushViewController:nextVC animated:NO];
+
     }else{
         [self.view makeToast:@"提交身份信息有误" duration:1.5 position:@"center"];
     }

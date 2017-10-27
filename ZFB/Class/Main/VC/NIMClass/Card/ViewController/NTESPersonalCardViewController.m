@@ -70,8 +70,10 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressNavbar:)];
-    [self.navigationController.navigationBar addGestureRecognizer:self.longPressGesture];
+//    self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressNavbar:)];
+//    [self.navigationController.navigationBar addGestureRecognizer:self.longPressGesture];
+
+    [self settingNavBarBgName:@"nav64_gray"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{

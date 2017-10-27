@@ -222,16 +222,10 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 {
     NSLog(@" section --- %ld ,row -----%ld",indexPath.section ,indexPath.row);    
  
-    if (BBUserDefault.cmUserId == nil || BBUserDefault.isLogin ==0 || [BBUserDefault.cmUserId isEqualToString:@""]) {
-        
-        [self isIfNotSignIn];
-        
-    }else{
-        ZFDetailsStoreViewController * vc = [[ZFDetailsStoreViewController alloc]init];
-        Findgoodslist * listModel = self.storeListArr[indexPath.row];
-        vc.storeId =[NSString stringWithFormat:@"%ld",listModel.storeId];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
+    ZFDetailsStoreViewController * vc = [[ZFDetailsStoreViewController alloc]init];
+    Findgoodslist * listModel = self.storeListArr[indexPath.row];
+    vc.storeId =[NSString stringWithFormat:@"%ld",listModel.storeId];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 /**
@@ -350,7 +344,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                              @"payType":@"",
                              @"orderBydisc":@"1",
                              @"orderbylikeNum":@"",
-                             @"nearBydisc":@"",
+                             @"nearBydisc":@"0",
                              @"sercahText":@"",
                              };
 

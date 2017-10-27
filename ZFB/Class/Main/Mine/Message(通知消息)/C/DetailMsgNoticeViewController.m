@@ -56,23 +56,48 @@
     
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return self.messagelist.count;
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.messagelist.count;
+   
+    PushMessageList * overList = self.messagelist[section];
+    return  overList.list.count;
+    
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 40;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView * headView = nil;
+    if (!headView) {
+        headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
+        headView.backgroundColor = HEXCOLOR(0xf7f7f7);
+    
+        UILabel *  title = [[UILabel alloc]init];
+        title.frame = headView.frame;
+        title.font = SYSTEMFONT(14);
+        title.textAlignment = NSTextAlignmentCenter;
+        title.textColor =HEXCOLOR(0x333333);
+        
+        PushMessageList * overList = self.messagelist[section];
+        title.text = overList.title;
+        [headView addSubview:title];
+    }
+    return headView;
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 75;
-    
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     DetailMsgCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailMsgCell" forIndexPath:indexPath];
     if (self.messagelist.count > 0 )  {
-        PushMessageList * pushList = self.messagelist[indexPath.row];
-        cell.pushList  = pushList;
+        PushMessageList * overList = self.messagelist[indexPath.section];
+        DateList * list = overList.list[indexPath.row];
+        cell.dateList  = list;
     }
     return cell;
     
@@ -84,7 +109,10 @@
                              @"userId":BBUserDefault.cmUserId,
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"size":[NSNumber numberWithInteger:kPageCount],
-                             @"mobilePhone":BBUserDefault.userPhoneNumber
+                             @"mobilePhone":BBUserDefault.userPhoneNumber,
+                             @"msgType":@"",
+                             @"timestamp":@"",
+
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getPushMessageList"] params:parma success:^(id response) {

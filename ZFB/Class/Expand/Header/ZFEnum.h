@@ -70,7 +70,9 @@ typedef NS_ENUM(NSUInteger, BusinessServicType) {
     BusinessServicTypeDealComplete,//交易完成
     BusinessServicTypeSureReturn,//待确认退回
     BusinessServicTypeSended,//配送完成
-    
+    BusinessServicTypeCancelOrder,//取消订单
+    BusinessServicTypeWiatOrder,//待接单
+
 };
 
 

@@ -18,4 +18,6 @@
 
 @property (nonatomic,copy) NSString * storeId;
 
+@property (nonatomic,copy) NSString * storeName;
+
 @end

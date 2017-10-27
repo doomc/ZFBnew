@@ -43,7 +43,7 @@
 
 @interface DetailFindGoodsViewController ()
 <
-    UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate,ZFGoodsFooterViewDelegate,CLLocationManagerDelegate,CouponTableViewDelegate
+    UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SkuFooterReusableViewDelegate,ZFGoodsFooterViewDelegate,CLLocationManagerDelegate,CouponTableViewDelegate,NIMSystemNotificationManagerDelegate,NIMUserManagerDelegate
 >
 {
     NSString *latitudestr;//经度
@@ -82,6 +82,7 @@
     //当前匹配的规格model
     SkuMatchModel *_currentSkuMatchModel;
     NSString * _skuAmount;//有规格的库存
+    NSString * _accId;
     
 }
 
@@ -121,6 +122,8 @@
 //优惠券列表
 @property (nonatomic , strong) NSMutableArray * couponList;
 
+//云信内titleview
+@property (nonatomic,strong) UILabel *titleLabel;
 
 
 @end
@@ -138,9 +141,22 @@
     [self goodsDetailListPostRequset];//详情网络请求
     [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
     [self flyButtonView];
+    
+    
 
+    [[NIMSDK sharedSDK].userManager addDelegate:self];
+    [[NIMSDK sharedSDK].systemNotificationManager addDelegate:self];
+
+    
 }
 
+
+- (void)dealloc
+{
+    [[[NIMSDK sharedSDK] systemNotificationManager] removeDelegate:self];
+    [[NIMSDK sharedSDK].userManager removeDelegate:self];
+
+}
 //添加悬浮按钮
 -(void)flyButtonView
 {
@@ -261,20 +277,20 @@
     return _couponBgView;
 }
 
-#pragma mark - 跳转到IM聊天
-- (void)onSelectedRecent:(NIMRecentSession *)recent atIndexPath:(NSIndexPath *)indexPath{
-    NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:recent.session];
-    vc.storeId = _storeId;
-    [self.navigationController pushViewController:vc animated:YES];
-}
 
 #pragma mark - ZFGoodsFooterViewDelegate 底部的视图的dedegate
+#pragma mark - 跳转到IM聊天
 //客服
 -(void)didClickContactRobotView
 {
     NSLog(@"点击了客服");
-//    NSString * currentStoreID = _storeId;
-//    NSString * contact = _contactPhone;
+    NIMSession *session = [NIMSession session:_accId type:NIMSessionTypeP2P];
+    NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
+    vc.isVipStore = YES;
+    vc.storeId = _storeId;
+    vc.storeName = _storeName;
+
+    [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark - 店铺
 -(void)didClickStoreiew
@@ -1199,6 +1215,8 @@
             
             
             DetailGoodsModel * goodsmodel = [DetailGoodsModel mj_objectWithKeyValues:response];
+            _accId    = goodsmodel.data.accId;//云信ID
+
             //goods信息 ----goodsInfo
             _goodsName    = goodsmodel.data.goodsInfo.goodsName;//商品名
             _coverImgUrl  = goodsmodel.data.goodsInfo.coverImgUrl;//商品封面

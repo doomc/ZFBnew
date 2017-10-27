@@ -919,6 +919,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
             
             Orderlist * list = self.orderListArray[indexPath.section];
+            if ([list.orderStatusName isEqualToString:@"待收货"]) {
+                sendCell.share_btn.hidden = YES;
+                sendCell.sunnyOrder_btn.hidden = YES;
+            }
             if ([list.orderStatusName isEqualToString:@"交易完成"]) {
                 sendCell.share_btn.hidden = NO;
                 sendCell.sunnyOrder_btn.hidden = NO;

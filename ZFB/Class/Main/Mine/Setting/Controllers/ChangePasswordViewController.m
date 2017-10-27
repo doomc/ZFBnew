@@ -26,7 +26,7 @@
     
     self.title = @"修改支付密码";
     
-    self.paView = [[TPPasswordTextView alloc] initWithFrame:CGRectMake(0, 50, KScreenW - 60, 44)];
+    self.paView = [[TPPasswordTextView alloc] initWithFrame:CGRectMake(0, 0, KScreenW - 60, 44)];
     self.paView.elementCount = 6;
     CGPoint center = self.view.center;
     self.paView.center = CGPointMake(center.x, 120);

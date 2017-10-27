@@ -10,7 +10,7 @@
 #import "PersonMessageModel.h"
 
 @interface DetailMsgCell : UITableViewCell
-@property (nonatomic ,strong) PushMessageList * pushList;
+@property (nonatomic ,strong) DateList * dateList;
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 @property (weak, nonatomic) IBOutlet UILabel *lb_content;
 @property (weak, nonatomic) IBOutlet UILabel *lb_time;

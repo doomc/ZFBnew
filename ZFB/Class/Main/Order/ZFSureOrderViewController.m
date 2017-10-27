@@ -706,7 +706,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                              @"storeId":_storeIdAppding,
                              @"userId":BBUserDefault.cmUserId,
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
-                             @"pageSize":@"30",
+                             @"pageSize":[NSNumber numberWithInteger:kPageCount],
                              };
  
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserNotUseCouponList"] params:parma success:^(id response) {

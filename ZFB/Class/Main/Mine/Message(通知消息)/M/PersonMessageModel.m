@@ -16,7 +16,12 @@
 @end
 
 @implementation PushMessageList
-
++ (NSDictionary *)objectClassInArray{
+    return @{@"list" : [DateList class]};
+}
 @end
 
+@implementation DateList
+ 
+@end
 

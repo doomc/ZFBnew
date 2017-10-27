@@ -28,7 +28,7 @@
     [self setCustomerTitle: @"分享圈" textColor:[UIColor whiteColor]];
     [self setupPageView];
  
-    [self.tabBarItem pp_addDotWithColor:[UIColor redColor]];
+
  
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -44,7 +44,7 @@
     NSArray *childArr = @[newGoodsVC, goodsVC];
     
     /// pageContentView
-    CGFloat contentViewHeight                = self.view.frame.size.height - 108;
+    CGFloat contentViewHeight                = self.view.frame.size.height - 44;
     self.pageContentView                     = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
     _pageContentView.delegatePageContentView = self;
     [self.view addSubview:_pageContentView];

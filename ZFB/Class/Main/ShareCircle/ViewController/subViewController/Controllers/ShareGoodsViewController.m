@@ -13,6 +13,7 @@
 #import "ShareGoodsSubDetailViewController.h"
 #import "NSString+YYAdd.h"
 
+#import "PPBadgeView.h"
 #define itemWidth ((KScreenW-30)/2)
 
 @interface ShareGoodsViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,WaterFlowLayoutDelegate,ShareGoodsCollectionViewCellDelegate>
@@ -37,6 +38,9 @@
     // 第一次刷新手动调用
  
     [self setupCollectionViewRefresh];
+    
+   [self.tabBarItem pp_hiddenBadge];
+    
 }
 -(void)footerRefresh
 {
@@ -73,7 +77,6 @@
 #pragma mark - 懒加载
 - (NSMutableArray *)shareArray{
     if (!_shareArray) {
-        
         _shareArray = [NSMutableArray array];
     }
     return _shareArray;
@@ -157,6 +160,7 @@
  */
 -(void)didClickgGoodsImageViewAtIndexItem:(NSInteger)indexItem
 {
+ 
     ShareGoodsData * shareGoods = self.shareArray[indexItem];
     ShareGoodsSubDetailViewController * detailVC = [ShareGoodsSubDetailViewController new];
     detailVC.shareId = shareGoods.shareId;

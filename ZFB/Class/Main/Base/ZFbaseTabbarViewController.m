@@ -15,8 +15,14 @@
 #import "ShareCircleViewController.h" //分享圈
 #import "LoginViewController.h"
 #import "PPBadgeView.h"
+#import "AppDelegate.h"
+#import "NTESCustomNotificationDB.h"
 
-@interface ZFbaseTabbarViewController ()
+@interface ZFbaseTabbarViewController ()<NIMSystemNotificationManagerDelegate,NIMConversationManagerDelegate>
+
+@property (nonatomic,assign) NSInteger sessionUnreadCount;
+@property (nonatomic,assign) NSInteger systemUnreadCount;
+@property (nonatomic,assign) NSInteger customSystemUnreadCount;
 
 @end
 
@@ -42,7 +48,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [[NIMSDK sharedSDK].systemNotificationManager addDelegate:self];
+    [[NIMSDK sharedSDK].conversationManager addDelegate:self];
+    
+    extern NSString *NTESCustomNotificationCountChanged;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onCustomNotifyChanged:) name:NTESCustomNotificationCountChanged object:nil];
+    
+    self.sessionUnreadCount  = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
+    self.systemUnreadCount   = [NIMSDK sharedSDK].systemNotificationManager.allUnreadCount;
+    self.customSystemUnreadCount = [[NTESCustomNotificationDB sharedInstance] unreadCount];
+    
+    NSLog(@"count 聊天 == %ld",self.sessionUnreadCount);
+    NSLog(@"count 系统 == %ld",self.systemUnreadCount);
+    NSLog(@"count 自定义系统 == %ld",self.customSystemUnreadCount);
+    
+    
     // 添加所有子控制器
     [self addAllViewControllers];
     
@@ -50,28 +70,83 @@
     [self addCustomTabBar];
 }
 
+#pragma mark - NIMConversationManagerDelegate
+- (void)didAddRecentSession:(NIMRecentSession *)recentSession
+           totalUnreadCount:(NSInteger)totalUnreadCount{
+    self.sessionUnreadCount = totalUnreadCount;
+    [self refreshSessionBadge];
+}
+
+
+- (void)didUpdateRecentSession:(NIMRecentSession *)recentSession
+              totalUnreadCount:(NSInteger)totalUnreadCount{
+    self.sessionUnreadCount = totalUnreadCount;
+    [self refreshSessionBadge];
+}
+
+
+- (void)didRemoveRecentSession:(NIMRecentSession *)recentSession totalUnreadCount:(NSInteger)totalUnreadCount{
+    self.sessionUnreadCount = totalUnreadCount;
+    [self refreshSessionBadge];
+}
+
+- (void)messagesDeletedInSession:(NIMSession *)session{
+    self.sessionUnreadCount = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
+    [self refreshSessionBadge];
+}
+
+- (void)allMessagesDeleted{
+    self.sessionUnreadCount = 0;
+    [self refreshSessionBadge];
+}
+
+- (void)allMessagesRead
+{
+    self.sessionUnreadCount = 0;
+    [self refreshSessionBadge];
+}
+#pragma mark - NIMSystemNotificationManagerDelegate
+- (void)onSystemNotificationCountChanged:(NSInteger)unreadCount
+{
+    self.systemUnreadCount = unreadCount;
+    [self refreshSessionBadge];
+}
+
+#pragma mark - Notification
+- (void)onCustomNotifyChanged:(NSNotification *)notification
+{
+    NTESCustomNotificationDB *db = [NTESCustomNotificationDB sharedInstance];
+    self.customSystemUnreadCount = db.unreadCount;
+    [self refreshSessionBadge];
+}
+- (void)dealloc{
+    [[NIMSDK sharedSDK].systemNotificationManager removeDelegate:self];
+    [[NIMSDK sharedSDK].conversationManager removeDelegate:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+- (void)refreshSessionBadge{
+    ZFCInterpersonalCircleViewController *msgVC = [ZFCInterpersonalCircleViewController new];
+    msgVC.tabBarItem.badgeValue = self.sessionUnreadCount ? @(self.sessionUnreadCount).stringValue : nil;
+}
 #pragma mark - 添加所有子控制器
 - (void)addAllViewControllers {
-    
+
     ZFHomeViewController* homeVC = [ZFHomeViewController new];
     [self addOneChildVc:homeVC title:@"首页" imageName:@"home-off" selectedImageName:@"home-on"];
     
     ZFCInterpersonalCircleViewController *msgVC = [ZFCInterpersonalCircleViewController new];
     [self addOneChildVc:msgVC title:@"消息" imageName:@"news-off" selectedImageName:@"news-on"];
+    NSInteger badge = self.sessionUnreadCount;
+    msgVC.tabBarItem.badgeValue = badge ? @(badge).stringValue : nil;
     
     ShareCircleViewController *shopVC = [ShareCircleViewController new];
     [self addOneChildVc:shopVC title:@"分享圈" imageName:@"share-off" selectedImageName:@"share-on"];
-
-
+    [shopVC.tabBarItem pp_addDotWithColor:[UIColor redColor]];
+ 
     ZFPersonalViewController *meVc = [ZFPersonalViewController new];
     [self addOneChildVc:meVc title:@"我的" imageName:@"mine" selectedImageName:@"mine_selected"];
-    
-    //设置完毕
-//    NSInteger count = [[[NIMSDK sharedSDK] conversationManager] allUnreadCount];
-//    [msgVC.tabBarItem pp_addBadgeWithText:[NSString stringWithFormat:@"12"]];
-//    [shopVC.tabBarItem pp_addDotWithColor:[UIColor redColor]];
-    
-//    [msgVC.tabBarItem  setBadgeValue:@"22"];
+
+
     
     
 }

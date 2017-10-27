@@ -241,7 +241,6 @@
     
     [self uiAddMessages:messages];
     [self sendMessageReceipt:messages];
-    
     [self.conversationManager markAllMessagesReadInSession:self.session];
 }
 
@@ -728,7 +727,6 @@
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.titleLabel.font = [UIFont boldSystemFontOfSize:15.f];
     self.titleLabel.text = self.sessionTitle;
- 
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     
     self.subTitleLabel  = [[UILabel alloc] initWithFrame:CGRectZero];

@@ -103,12 +103,12 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     UIButton *right_button = [[UIButton alloc]init];
     [right_button setImage:[UIImage imageNamed:@"message_white"] forState:UIControlStateNormal];
     right_button.frame =CGRectMake(0, 0, 22, 22);
-    
+
     return right_button;
 }
 //设置右边事件
 -(void)right_button_event:(UIButton*)sender{
-    
+
     NSLog(@"消息列表");
     if (BBUserDefault.isLogin == 1) {
         PersonalMesViewController * messVC = [PersonalMesViewController new];

@@ -13,7 +13,7 @@
 {
     NSString * _kcardNum; //卡号
     NSString * _phoneNum; //手机号
-    BOOL * _isAgreeProtocol; //是否同意协议 yes 是
+    BOOL   _isAgreeProtocol; //是否同意协议 yes 是
 
 }
 @property (nonatomic ,strong) NSArray * titles;
@@ -162,6 +162,7 @@
 
     }else{
         [backCell.tf_content addTarget:self action:@selector(phoneNumText:) forControlEvents:UIControlEventEditingChanged];
+        backCell.tf_content.keyboardType = UIKeyboardTypePhonePad;
         return backCell;
 
     }
@@ -187,15 +188,15 @@
     NSLog(@"%@ === text2",tf.text);
     _phoneNum = tf.text;
     
-    if (tf.text.length > 0) {
-        [_nextBtn setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
-        [_nextBtn setBackgroundColor:HEXCOLOR(0xF95A70)];
-        _nextBtn.enabled = YES;
-    } else{
-        [_nextBtn setTitleColor:HEXCOLOR(0x666666) forState:UIControlStateNormal];
-        [_nextBtn setBackgroundColor:HEXCOLOR(0xe0e0e0)];
-        _nextBtn.enabled = NO;
-    }
+//    if (tf.text.length > 0) {
+//        [_nextBtn setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
+//        [_nextBtn setBackgroundColor:HEXCOLOR(0xF95A70)];
+//        _nextBtn.enabled = YES;
+//    } else{
+//        [_nextBtn setTitleColor:HEXCOLOR(0x666666) forState:UIControlStateNormal];
+//        [_nextBtn setBackgroundColor:HEXCOLOR(0xe0e0e0)];
+//        _nextBtn.enabled = NO;
+//    }
     
 }
 
@@ -208,13 +209,29 @@
 }
 -(void)chooseAction:(UIButton *)sender
 {
-    NSLog(@"xuanze协议");
+    sender.selected = ! sender.selected;
+    if (sender.selected ) {
+        _isAgreeProtocol = YES;
+    }else{
+        _isAgreeProtocol = NO;
+    }
+    NSLog(@"选择协议");
 }
 #pragma mark- 绑卡下一步
 -(void)bandNext
 {
     NSLog(@"下一步");
-    [self bandBankCardPost];
+    if (_isAgreeProtocol == NO) {
+        [self.view makeToast:@"还没有同意展富宝代发协议" duration:1.5 position:@"center"];
+    }
+    if (_phoneNum.length != 11) {
+        
+        [self.view makeToast:@"请输入手机号" duration:1.5 position:@"center"];
+    }
+    if (_isAgreeProtocol == YES && _phoneNum.length == 11) {
+     
+        [self bandBankCardPost];
+    }
     
 }
 
@@ -231,6 +248,7 @@
                              @"validDate":@"",//信用卡有效期，格式YYMM	是	银行卡类型   为 2 必填
                              @"cvv3":@"",//信用卡背后三后数
                              };
+    [SVProgressHUD showWithStatus:@"正在匹配信息，请稍后"];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/bindBank",zfb_baseUrl] params:param success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
@@ -238,9 +256,7 @@
             [self backAction];
         }else{
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-
-        }
-        
+        }        
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"网络出差了~"];

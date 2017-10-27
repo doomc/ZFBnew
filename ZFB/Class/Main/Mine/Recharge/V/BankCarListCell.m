@@ -22,9 +22,11 @@
     [self.bankIMG sd_setImageWithURL:[NSURL URLWithString:banklist.bank_img] placeholderImage:nil];
     
     NSString * origincardNo = banklist.bank_num;
-    NSString *firstCardNo = [origincardNo  substringToIndex:origincardNo.length-4];
     //后四位数字
     NSString *lastfourCardno = [origincardNo  substringFromIndex:origincardNo.length - 4];
+    
+    NSString *firstCardNo = [origincardNo  substringToIndex:4];//截取掉下标2之前的字符串
+
     //银行卡号 前4位
     self.cardNum.text = firstCardNo;
     //后四位

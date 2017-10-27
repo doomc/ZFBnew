@@ -51,7 +51,7 @@
 -(void)initFooterView{
     
     NSString * text = @"重庆展付卫网络技术有限公司 版权所有 \n Chongqing Zavfwei Network Technology Co.,LTD";
-    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, KScreenH - 50, KScreenW, 40)];
+    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, KScreenH - 50-64, KScreenW, 40)];
     label.textAlignment = NSTextAlignmentCenter;
     label.backgroundColor = HEXCOLOR(0xF7F7F7);
     label.numberOfLines = 2;
@@ -78,8 +78,8 @@
 {
     ZFSettingCell * settingCell = [ self.tableView dequeueReusableCellWithIdentifier:@"ZFSettingCell" forIndexPath:indexPath];
     
-    settingCell.lb_title.text = @"功能介绍";
-
+//    settingCell.lb_title.text = @"功能介绍";
+    [settingCell setHidden:YES];
     return settingCell;
     
 }

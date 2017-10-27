@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class PushMessageList;
+@class PushMessageList,DateList;
 @interface PersonMessageModel : NSObject
 
 @property (nonatomic , copy) NSString *resultMsg;
@@ -18,17 +18,24 @@
 
 @interface PushMessageList : NSObject
 
-@property (nonatomic , copy) NSString * content;
-@property (nonatomic , copy) NSString * object;
-@property (nonatomic , copy) NSString * createTime;
+@property (nonatomic , strong) NSArray <DateList*> *list ;
 @property (nonatomic , copy) NSString * title;
-
-@property (nonatomic , assign) int status;
-@property (nonatomic , assign) int userId;
-@property (nonatomic , assign) int msg_type;
-@property (nonatomic , assign) int isRead;
-@property (nonatomic , assign) int isNew;
-@property (nonatomic , assign) int pushmsgId;
 
 @end
 
+@interface DateList : NSObject
+
+@property (nonatomic , copy) NSString * title;
+@property (nonatomic , copy) NSString * content;
+@property (nonatomic , copy) NSString * object;
+@property (nonatomic , copy) NSString * createTime;
+@property (nonatomic , copy) NSString * pltime;
+
+@property (nonatomic , assign) NSInteger status;
+@property (nonatomic , assign) NSInteger userId;
+@property (nonatomic , assign) NSInteger msg_type;
+@property (nonatomic , assign) NSInteger isRead;
+@property (nonatomic , assign) NSInteger isNew;
+@property (nonatomic , assign) NSInteger pushmsgId;
+
+@end

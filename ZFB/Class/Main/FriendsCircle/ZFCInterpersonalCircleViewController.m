@@ -170,8 +170,8 @@
     
     UIButton *teamBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [teamBtn addTarget:self action:@selector(onOpera:) forControlEvents:UIControlEventTouchUpInside];
-    [teamBtn setImage:[UIImage imageNamed:@"icon_tinfo_normal"] forState:UIControlStateNormal];
-    [teamBtn setImage:[UIImage imageNamed:@"icon_tinfo_pressed"] forState:UIControlStateHighlighted];
+    [teamBtn setImage:[UIImage imageNamed:@"addFriend"] forState:UIControlStateNormal];
+    [teamBtn setImage:[UIImage imageNamed:@"addFriend"] forState:UIControlStateHighlighted];
     [teamBtn sizeToFit];
     UIBarButtonItem *teamItem = [[UIBarButtonItem alloc] initWithCustomView:teamBtn];
     self.navigationItem.rightBarButtonItem = teamItem;

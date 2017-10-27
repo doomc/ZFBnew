@@ -75,6 +75,7 @@ NIMEventSubscribeManagerDelegate> {
 }
 
 - (void)setUpNavItem{
+    
     UIButton *teamBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [teamBtn addTarget:self action:@selector(onOpera:) forControlEvents:UIControlEventTouchUpInside];
     [teamBtn setImage:[UIImage imageNamed:@"icon_tinfo_normal"] forState:UIControlStateNormal];

@@ -17,11 +17,12 @@
     self.bgView.layer.cornerRadius = 3;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
--(void)setPushList:(PushMessageList *)pushList{
-    _pushList = pushList ;
-    self.lb_title.text = pushList.title;
-    self.lb_content.text = [NSString stringWithFormat:@"%@",pushList.content];
-    self.lb_time.text = pushList.createTime;
+-(void)setDateList:(DateList *)dateList
+{
+    _dateList = dateList ;
+    self.lb_title.text = dateList.title;
+    self.lb_content.text = [NSString stringWithFormat:@"%@",dateList.content];
+    self.lb_time.text = dateList.createTime;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

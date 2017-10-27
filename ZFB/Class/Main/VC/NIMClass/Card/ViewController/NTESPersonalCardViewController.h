@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BaseViewController.h"
 @class ContactDataMember;
 
-@interface NTESPersonalCardViewController : UIViewController
+@interface NTESPersonalCardViewController :BaseViewController
 
 - (instancetype)initWithUserId:(NSString *)userId;
 

@@ -46,7 +46,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 //推送Kit
 @import PushKit;
-@interface AppDelegate ()<NIMLoginManagerDelegate,PKPushRegistryDelegate,WXApiDelegate,JPUSHRegisterDelegate,NIMConversationManagerDelegate>
+@interface AppDelegate ()<NIMSystemNotificationManagerDelegate,NIMConversationManagerDelegate,NIMLoginManagerDelegate,PKPushRegistryDelegate,WXApiDelegate,JPUSHRegisterDelegate,NIMConversationManagerDelegate>
 {
      NSInteger _jpsuhCount;
     
@@ -62,6 +62,14 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [[NIMSDK sharedSDK].systemNotificationManager addDelegate:self];
+    [[NIMSDK sharedSDK].conversationManager addDelegate:self];
+    
+    extern NSString *NTESCustomNotificationCountChanged;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onCustomNotifyChanged:) name:NTESCustomNotificationCountChanged object:nil];
+    
+    NSInteger count1 = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
+    NSInteger count2    = [NIMSDK sharedSDK].systemNotificationManager.allUnreadCount;
     
     NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:100  * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];
@@ -182,9 +190,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
         [[[NIMSDK sharedSDK] loginManager] login:BBUserDefault.userPhoneNumber token: BBUserDefault.token completion:^(NSError * _Nullable error) {
             NSLog(@"网易云信 --- %@",error);
 
-            NSInteger count = [[[NIMSDK sharedSDK] conversationManager] allUnreadCount];
-            NSLog(@"--------count  ==== %ld  ------",count);
-
         }];
         [[NTESServiceManager sharedManager] start];
     }
@@ -212,9 +217,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     //注册自定义消息的解析器
     [NIMCustomObject registerCustomDecoder:[NTESCustomAttachmentDecoder new]];
     
-    NSInteger count = [[[NIMSDK sharedSDK] conversationManager] allUnreadCount];
  
-    NSLog(@"--------count  ==== %ld  ------",count);
 }
 
 
@@ -238,6 +241,8 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
         case NIMKickReasonByClientManually:{
             NSString *clientName = [NTESClientUtil clientName:clientType];
             reason = clientName.length ? [NSString stringWithFormat:@"你的帐号被%@端踢出下线，请注意帐号信息安全",clientName] : @"你的帐号被踢出下线，请注意帐号信息安全";
+            BBUserDefault.cmUserId = @"";
+            BBUserDefault.isLogin = 0;
             break;
         }
         case NIMKickReasonByServer:
@@ -249,13 +254,14 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     [[[NIMSDK sharedSDK] loginManager] logout:^(NSError *error) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NTESNotificationLogout object:nil];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"下线通知" message:reason delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        
         [alert show];
     }];
 }
 - (void)onAutoLoginFailed:(NSError *)error
 {
     //只有连接发生严重错误才会走这个回调，在这个回调里应该登出，返回界面等待用户手动重新登录。
-    DDLogInfo(@"onAutoLoginFailed %zd",error.code);
+    NSLog(@"onAutoLoginFailed %zd",error.code);
     [self showAutoLoginErrorAlert:error];
 }
 
@@ -381,10 +387,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     
     NSLog(@"receive remote notification:  %@", userInfo);
     NSLog(@"iOS7及以上系统，收到通知:%@", [self logDic:userInfo]);
-
-//    ZFbaseTabbarViewController * tabBar = [[ZFbaseTabbarViewController alloc]initWithNibName:@"NTESSessionListViewController" bundle:nil];
-//    [self.window.rootViewController presentViewController:tabBar animated:YES completion:nil];
-//    tabBar.selectedIndex = 1;
 
     [JPUSHService handleRemoteNotification:userInfo];
 
