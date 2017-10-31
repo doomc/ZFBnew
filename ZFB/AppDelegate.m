@@ -23,6 +23,7 @@
 #import "NTESNotificationCenter.h"
 #import "NTESSubscribeManager.h"
 #import "NTESSessionListViewController.h"
+#import "NTESBundleSetting.h"
 
 //高德
 #import <AMapFoundationKit/AMapFoundationKit.h>
@@ -46,13 +47,11 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 //推送Kit
 @import PushKit;
-@interface AppDelegate ()<NIMSystemNotificationManagerDelegate,NIMConversationManagerDelegate,NIMLoginManagerDelegate,PKPushRegistryDelegate,WXApiDelegate,JPUSHRegisterDelegate,NIMConversationManagerDelegate>
-{
-     NSInteger _jpsuhCount;
-    
-}
-@property (nonatomic,strong) NTESSDKConfigDelegate *sdkConfigDelegate;
+@interface AppDelegate ()<NIMSystemNotificationManagerDelegate,NIMConversationManagerDelegate,NIMLoginManagerDelegate,PKPushRegistryDelegate,WXApiDelegate,JPUSHRegisterDelegate,NIMConversationManagerDelegate,NIMEventSubscribeManagerDelegate>
+
+@property (nonatomic, strong) NTESSDKConfigDelegate *sdkConfigDelegate;
 @property (nonatomic, strong) JhtGradientGuidePageVC *guidePage;
+@property (nonatomic, assign) NSInteger  jpsuhCount;
 
 @end
 
@@ -62,15 +61,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [[NIMSDK sharedSDK].systemNotificationManager addDelegate:self];
-    [[NIMSDK sharedSDK].conversationManager addDelegate:self];
-    
-    extern NSString *NTESCustomNotificationCountChanged;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onCustomNotifyChanged:) name:NTESCustomNotificationCountChanged object:nil];
-    
-    NSInteger count1 = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
-    NSInteger count2    = [NIMSDK sharedSDK].systemNotificationManager.allUnreadCount;
-    
+
     NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:100  * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];
     [self networkStutas];
@@ -182,6 +173,8 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 {
     [[NTESNotificationCenter sharedCenter] start];
     [[NTESSubscribeManager sharedManager] start];
+    [[NTESServiceManager sharedManager] start];
+
     
 }
 -(void)loginNIM{
@@ -189,21 +182,26 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     if (BBUserDefault.userPhoneNumber != nil && BBUserDefault.token !=nil) {
         [[[NIMSDK sharedSDK] loginManager] login:BBUserDefault.userPhoneNumber token: BBUserDefault.token completion:^(NSError * _Nullable error) {
             NSLog(@"网易云信 --- %@",error);
+            [[NTESServiceManager sharedManager] start];
 
         }];
-        [[NTESServiceManager sharedManager] start];
+        NSInteger systemCount = [[[NIMSDK sharedSDK] systemNotificationManager] allUnreadCount];
+        NSInteger count1 = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
     }
 }
 
 - (void)setupNIMSDK
 {
+    [[NIMSDK sharedSDK].systemNotificationManager addDelegate:self];
+    [[NIMSDK sharedSDK].conversationManager addDelegate:self];
+    
     //在注册 NIMSDK appKey 之前先进行配置信息的注册，如是否使用新路径,是否要忽略某些通知，是否需要多端同步未读数
     self.sdkConfigDelegate = [[NTESSDKConfigDelegate alloc] init];
     [[NIMSDKConfig sharedConfig] setDelegate:self.sdkConfigDelegate];
     [[NIMSDKConfig sharedConfig] setShouldSyncUnreadCount:YES];
     [[NIMSDKConfig sharedConfig] setMaxAutoLoginRetryTimes:10];
+    [[NIMSDKConfig sharedConfig] setShouldCountTeamNotification:[[NTESBundleSetting sharedConfig] countTeamNotification]];
  
-    
     //appkey 是应用的标识，不同应用之间的数据（用户、消息、群组等）是完全隔离的。
     //如需打网易云信 Demo 包，请勿修改 appkey ，开发自己的应用时，请替换为自己的 appkey 。
     //并请对应更换 Demo 代码中的获取好友列表、个人信息等网易云信 SDK 未提供的接口。
@@ -213,12 +211,16 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     option.pkCername        = [[ZFBCustomConfig sharedConfig] pkCername];
     [[NIMSDK sharedSDK] registerWithOption:option];
     
-    
     //注册自定义消息的解析器
     [NIMCustomObject registerCustomDecoder:[NTESCustomAttachmentDecoder new]];
-    
  
+ 
+    NSInteger systemCount = [[[NIMSDK sharedSDK] systemNotificationManager] allUnreadCount];
+    NSInteger count1 = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
+    
 }
+
+
 
 
 
@@ -318,6 +320,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 - (void)doLogout
 {
     [[NTESServiceManager sharedManager] destory];
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -339,7 +342,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     NSInteger allCouunt = count + _jpsuhCount;
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:allCouunt];
-    
     
 }
 
@@ -602,7 +604,8 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
         };
     } else {
         self.window.rootViewController = tabbarVC;
-        
+        NSInteger systemCount = [[[NIMSDK sharedSDK] systemNotificationManager] allUnreadCount];
+        NSInteger count1 = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
     }
  
 }

@@ -76,11 +76,11 @@
     //富文本设置
     //关键字
     dealNum.keywords = _orderNum;
-    dealNum.keywordsColor = HEXCOLOR(0xfe6d6a);
+    dealNum.keywordsColor = HEXCOLOR(0xf95a70);
     dealNum.keywordsFont = [UIFont systemFontOfSize:20];
     //关键字
     dealPrice.keywords = _dealPrice;
-    dealPrice.keywordsColor = HEXCOLOR(0xfe6d6a);
+    dealPrice.keywordsColor = HEXCOLOR(0xf95a70);
     dealPrice.keywordsFont = [UIFont systemFontOfSize:20];
    
     ///必须设置计算宽高

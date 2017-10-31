@@ -54,7 +54,7 @@
     status.clipsToBounds = YES;
     status.titleLabel.font = font;
     [status setTitle:str forState:UIControlStateNormal];
-    status.backgroundColor = HEXCOLOR(0xfe6d6a);
+    status.backgroundColor = HEXCOLOR(0xf95a70);
     [status setTitleColor: HEXCOLOR(0xffffff) forState:UIControlStateNormal];
     [status addTarget:self action:@selector(didclickAdd:) forControlEvents:UIControlEventTouchUpInside];
     status.frame =CGRectMake(15, 5, KScreenW - 30, 40);

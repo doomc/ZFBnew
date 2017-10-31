@@ -245,7 +245,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     UIButton * complete_Btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [complete_Btn setTitle:buttonTitle forState:UIControlStateNormal];
     complete_Btn.titleLabel.font = font;
-    complete_Btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+    complete_Btn.backgroundColor = HEXCOLOR(0xf95a70);
     complete_Btn.frame = CGRectMake(KScreenW - 120 , 0, 120 , 49);
     [complete_Btn addTarget:self action:@selector(didCleckClearing:) forControlEvents:UIControlEventTouchUpInside];
     [_footerView addSubview:complete_Btn];
@@ -403,14 +403,14 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             if (self.couponList.count > 0) {
                 couponCell.canUsedCouponNum.text =[NSString stringWithFormat:@"可使用%ld张",self.couponList.count];
                 couponCell.lb_title.text            = @"优惠券";
-                couponCell.lb_detailTitle.textColor = HEXCOLOR(0xfe6d6a);
+                couponCell.lb_detailTitle.textColor = HEXCOLOR(0xf95a70);
                
                 if (_couponAmount == nil || [_couponAmount isEqualToString:@""]) {
                     couponCell.lb_detailTitle.text      = @"";
                     
                 }else{
                     couponCell.lb_detailTitle.text      =  [NSString stringWithFormat:@"- ¥%@",_couponAmount];
-                    couponCell.lb_detailTitle.textColor = HEXCOLOR(0xfe6d6a);
+                    couponCell.lb_detailTitle.textColor = HEXCOLOR(0xf95a70);
                 }
 
             }else{

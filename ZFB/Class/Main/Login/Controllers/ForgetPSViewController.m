@@ -65,7 +65,7 @@
             //倒计时完毕
             sender.enabled = YES;
             [sender setTitle:@"重新发送" forState:UIControlStateNormal];
-            [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
+            [sender setTitleColor:HEXCOLOR(0xf95a70) forState:UIControlStateNormal] ;
             
         } blockNo:^(id time) {
             sender.enabled = NO;
@@ -106,7 +106,7 @@
         //当账号与密码同时有值,登录按钮才能够点击
         if ([_tf_phoneNum.text  isMobileNumberClassification] && _tf_codeVerification.text.length > 0 ) {
             
-            self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+            self.nextStep_btn.backgroundColor = HEXCOLOR(0xf95a70);
             self.nextStep_btn.enabled = YES;
             
         }else{
@@ -134,7 +134,7 @@
     if (_tf_codeVerification == textField) {
         if ([_tf_phoneNum.text  isMobileNumberClassification] && _tf_codeVerification.text.length == 6 ) {
             
-            self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+            self.nextStep_btn.backgroundColor = HEXCOLOR(0xf95a70);
             self.nextStep_btn.enabled = YES;
             
         }else{
@@ -206,7 +206,7 @@
         NSLog(@"_smsCode ===== %@",_smsCode);
         
         self.nextStep_btn.enabled = YES;
-        self.nextStep_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+        self.nextStep_btn.backgroundColor = HEXCOLOR(0xf95a70);
         
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         

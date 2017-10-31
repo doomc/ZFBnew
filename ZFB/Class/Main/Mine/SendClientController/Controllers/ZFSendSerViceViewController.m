@@ -324,7 +324,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         
         _navTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 30)];
         _navTitle.font =[UIFont systemFontOfSize:14];
-        _navTitle.textColor              = HEXCOLOR(0xfe6d6a);
+        _navTitle.textColor              = HEXCOLOR(0xf95a70);
         _navTitle.textAlignment          = NSTextAlignmentCenter;
     }
     return _navTitle;
@@ -773,7 +773,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 
                 //关键字
                 titleCell.lb_storeName.keywords      = _order_count;
-                titleCell.lb_storeName.keywordsColor = HEXCOLOR(0xfe6d6a);
+                titleCell.lb_storeName.keywordsColor = HEXCOLOR(0xf95a70);
                 titleCell.lb_storeName.keywordsFont  = [UIFont systemFontOfSize:18];
                 ///必须设置计算宽高
                 CGRect dealNumh              = [titleCell.lb_storeName getLableHeightWithMaxWidth:300];

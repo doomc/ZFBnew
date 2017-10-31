@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收货人：李煜 188****1111" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k9T-sj-ttS">
-                        <rect key="frame" x="46" y="10" width="167" height="18"/>
+                        <rect key="frame" x="46" y="10" width="164.5" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="aoe-JB-3tc"/>
                         </constraints>
@@ -37,7 +37,7 @@
                         <rect key="frame" x="293" y="29" width="12" height="12"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEQ-pp-tjr">
-                        <rect key="frame" x="233" y="11.5" width="30" height="15"/>
+                        <rect key="frame" x="230.5" y="11.5" width="30" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="vjw-eO-f9f"/>
                         </constraints>
@@ -46,7 +46,7 @@
                             <color key="titleColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_find2.png" translatesAutoresizingMaskIntoConstraints="NO" id="4c6-I6-893">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location.png" translatesAutoresizingMaskIntoConstraints="NO" id="4c6-I6-893">
                         <rect key="frame" x="15" y="26" width="16" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="S3F-YF-t3t"/>
@@ -113,6 +113,6 @@
     <resources>
         <image name="PlaceholderBackground.png" width="120" height="47"/>
         <image name="arrows_Right_black.png" width="12" height="12"/>
-        <image name="location_find2.png" width="16" height="16"/>
+        <image name="location.png" width="20" height="20"/>
     </resources>
 </document>

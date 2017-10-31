@@ -72,7 +72,7 @@
     self.tf_title.clipsToBounds = YES;
     self.tf_title.layer.cornerRadius = 2;
     self.tf_title.layer.borderWidth = 1;
-    self.tf_title.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
+    self.tf_title.layer.borderColor = HEXCOLOR(0xf95a70).CGColor;
     [self.tf_title addTarget:self action:@selector(textfieldChangetext:) forControlEvents:UIControlEventEditingChanged];
    
     self.commitBtn.layer.cornerRadius = 4;
@@ -85,7 +85,7 @@
     self.textView.layer.cornerRadius = 2;
     self.textView.clipsToBounds = YES;
     self.textView.layer.borderWidth = 1;
-    self.textView.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
+    self.textView.layer.borderColor = HEXCOLOR(0xf95a70).CGColor;
     self.textView.placeholder = @"字数在150字以内哦~";
     self.textView.delegate = self;
     // 添加输入改变Block回调.

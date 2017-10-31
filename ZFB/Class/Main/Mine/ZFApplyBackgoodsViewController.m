@@ -174,12 +174,12 @@
     self.lb_goodsReturnMoney.clipsToBounds      = YES;
     self.lb_goodsReturnMoney.layer.cornerRadius = 2;
     self.lb_goodsReturnMoney.layer.borderWidth  = 1;
-    self.lb_goodsReturnMoney.layer.borderColor  = HEXCOLOR(0xfe6d6a).CGColor;
+    self.lb_goodsReturnMoney.layer.borderColor  = HEXCOLOR(0xf95a70).CGColor;
     
     self.lb_goodsReturn.clipsToBounds      = YES;
     self.lb_goodsReturn.layer.cornerRadius = 2;
     self.lb_goodsReturn.layer.borderWidth  = 1;
-    self.lb_goodsReturn.layer.borderColor  = HEXCOLOR(0xfe6d6a).CGColor;
+    self.lb_goodsReturn.layer.borderColor  = HEXCOLOR(0xf95a70).CGColor;
 }
 
 /**

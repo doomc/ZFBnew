@@ -94,8 +94,8 @@ NIMEventSubscribeManagerDelegate> {
     NSString *contactCellUtilTitle  = @"title";
     NSString *contactCellUtilUid    = @"uid";
     NSString *contactCellUtilSelectorName = @"selName";
-//原始数据
     
+//原始数据
     NSInteger systemCount = [[[NIMSDK sharedSDK] systemNotificationManager] allUnreadCount];
     NSMutableArray *utils =
             [@[

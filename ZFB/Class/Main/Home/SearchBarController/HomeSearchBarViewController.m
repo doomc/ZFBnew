@@ -76,6 +76,8 @@ static NSString * identyhy = @"SearchHistoryCell";
     [_titleView addSubview:self.searchBar];
     self.navigationItem.titleView = _titleView;
     
+    
+    
     //返回
     UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
     left_button.frame =CGRectMake(0, 0,22,22);
@@ -106,7 +108,7 @@ static NSString * identyhy = @"SearchHistoryCell";
 {
     if (!_selectbutton) {
         _selectbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _selectbutton.backgroundColor = HEXCOLOR(0xfe6d6a);
+        _selectbutton.backgroundColor = HEXCOLOR(0xf95a70);
         [_selectbutton setTitle:@"商品" forState:UIControlStateNormal];
         _selectbutton.frame = CGRectMake(5, 7, 40, 30);
         _selectbutton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -124,6 +126,7 @@ static NSString * identyhy = @"SearchHistoryCell";
         _searchBar.delegate = self;
         _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
         _searchBar.placeholder = @"搜索";
+ 
     }
     return _searchBar;
 }
@@ -206,7 +209,7 @@ static NSString * identyhy = @"SearchHistoryCell";
         footBtn.frame = CGRectMake(0, 0, KScreenW, 40);
         [footBtn setTitle:@"清空历史记录~" forState:UIControlStateNormal];
         footBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [footBtn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
+        [footBtn setTitleColor:HEXCOLOR(0xf95a70) forState:UIControlStateNormal];
         [footBtn addTarget:self action:@selector(clearingAllhistoryData) forControlEvents:UIControlEventTouchUpInside];
         view = footBtn;
         
@@ -381,7 +384,7 @@ static NSString * identyhy = @"SearchHistoryCell";
         popupMenu.arrowWidth  = 10;
         popupMenu.fontSize = 14;
         popupMenu.delegate = self;
-        popupMenu.borderColor = HEXCOLOR(0xfe6d6a);
+        popupMenu.borderColor = HEXCOLOR(0xf95a70);
     }];
 }
 #pragma mark - YBPopupMenuDelegate

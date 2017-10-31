@@ -88,5 +88,8 @@
 
 @property (nonatomic, copy) NSString *address;
 
+@property (nonatomic, assign) NSInteger  collectCount;
+
+
 @end
 

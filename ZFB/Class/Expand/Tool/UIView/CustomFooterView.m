@@ -28,7 +28,7 @@
         [complete_Btn setTitle:buttonTitle forState:UIControlStateNormal];
         complete_Btn.titleLabel.font =font;
         complete_Btn.layer.cornerRadius = 2;
-        complete_Btn.backgroundColor =HEXCOLOR(0xfe6d6a);
+        complete_Btn.backgroundColor =HEXCOLOR(0xf95a70);
         CGSize complete_BtnSize = [buttonTitle sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
         CGFloat complete_BtnW = complete_BtnSize.width;
         complete_Btn.frame =CGRectMake(KScreenW - complete_BtnW - 25, 5, complete_BtnW +20, 30);
@@ -49,7 +49,7 @@
         lb_price.text = price;
         lb_price.textAlignment = NSTextAlignmentLeft;
         lb_price.font = font;
-        lb_price.textColor = HEXCOLOR(0xfe6d6a);
+        lb_price.textColor = HEXCOLOR(0xf95a70);
         CGSize lb_priceSize = [price sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
         CGFloat lb_priceW = lb_priceSize.width;
         lb_price.frame = CGRectMake(15+lb_orderW+10, 5, lb_priceW, 30);

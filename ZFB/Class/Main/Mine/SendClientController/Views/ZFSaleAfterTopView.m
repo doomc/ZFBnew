@@ -58,7 +58,7 @@
     _selectBtn.backgroundColor =[UIColor whiteColor];
     
     [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    sender.backgroundColor =HEXCOLOR(0xfe6d6a);
+    sender.backgroundColor =HEXCOLOR(0xf95a70);
     
     NSInteger selectTag = sender.tag;
     _selectBtn = sender;

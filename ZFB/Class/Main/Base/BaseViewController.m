@@ -222,7 +222,7 @@
 #pragma mark - 去除searchbar 背景色
 - (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
 {
-    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    CGRect rect = CGRectMake(0, 0, size.width , size.height);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     

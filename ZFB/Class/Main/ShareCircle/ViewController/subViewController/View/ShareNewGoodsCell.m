@@ -19,7 +19,8 @@
     
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    _lb_tags.preferredMaxLayoutWidth = KScreenW - 30;
+    _lb_tags.preferredMaxLayoutWidth = KScreenW - 20;
+    _lb_goodsName.preferredMaxLayoutWidth = KScreenW - 20;
     
     UITapGestureRecognizer * tap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didPicture:)];
     tap.delegate = self;

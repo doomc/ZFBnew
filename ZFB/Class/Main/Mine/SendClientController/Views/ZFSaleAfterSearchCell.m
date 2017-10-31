@@ -24,7 +24,7 @@
     self.bgViewCorner.clipsToBounds = YES;
     self.bgViewCorner.layer.cornerRadius = 8;
     self.bgViewCorner.layer.borderWidth =1;
-    self.bgViewCorner.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
+    self.bgViewCorner.layer.borderColor = HEXCOLOR(0xf95a70).CGColor;
     
     self.tf_search.delegate = self;
     self.tf_search.clearButtonMode = UITextFieldViewModeWhileEditing;

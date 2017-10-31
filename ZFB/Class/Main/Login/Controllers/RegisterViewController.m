@@ -45,7 +45,7 @@
         
         _nextTarget_btn.enabled = YES;
        
-        _nextTarget_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+        _nextTarget_btn.backgroundColor = HEXCOLOR(0xf95a70);
 
     }else{
         _nextTarget_btn.enabled = NO;
@@ -60,7 +60,7 @@
     if ( [_tf_phoneNum.text isMobileNumberClassification] && _choose_btn.selected == YES) {
         
         _nextTarget_btn.enabled = YES;
-        _nextTarget_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+        _nextTarget_btn.backgroundColor = HEXCOLOR(0xf95a70);
         
     }else{
         _nextTarget_btn.enabled = NO;
@@ -113,7 +113,7 @@
     if (sender.selected == YES) {
        
         if ([_tf_phoneNum.text isMobileNumberClassification]) {
-            _nextTarget_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+            _nextTarget_btn.backgroundColor = HEXCOLOR(0xf95a70);
             _nextTarget_btn.enabled = YES;
         }
         

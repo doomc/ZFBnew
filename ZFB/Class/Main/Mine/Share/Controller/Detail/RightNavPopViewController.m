@@ -93,7 +93,7 @@
     
         //确定
         _sureButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _sureButton.backgroundColor = HEXCOLOR(0xfe6d6a);
+        _sureButton.backgroundColor = HEXCOLOR(0xf95a70);
         [_sureButton addTarget:self action:@selector(didClickcommit:) forControlEvents:UIControlEventTouchUpInside];
         [_sureButton setTitle:@"确定" forState:UIControlStateNormal];
         [_sureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

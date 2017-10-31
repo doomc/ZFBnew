@@ -92,7 +92,7 @@
         //当账号与密码同时有值,登录按钮才能够点击
         if ( (_tf_loginPassword.text.length >= 8 && _tf_loginPassword.text.length <=20) ) {
             self.regist_btn.enabled = YES;
-            self.regist_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+            self.regist_btn.backgroundColor = HEXCOLOR(0xf95a70);
             
         }else{
             self.regist_btn.enabled = NO;
@@ -175,7 +175,7 @@
         _getVerificationCode_btn.enabled = YES;
         [_getVerificationCode_btn setTitle:@"重新发送" forState:UIControlStateNormal];
         [_getVerificationCode_btn  addTarget:self action:@selector(resendMsg:) forControlEvents:UIControlEventTouchUpInside];
-        [_getVerificationCode_btn setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
+        [_getVerificationCode_btn setTitleColor:HEXCOLOR(0xf95a70) forState:UIControlStateNormal] ;
         
     } blockNo:^(id time) {
         _getVerificationCode_btn.enabled = NO;
@@ -244,11 +244,11 @@
         if ([code isEqualToString:@"0"]) {
             
             [SVProgressHUD dismiss];
-            JXTAlertController *AlertVC =[JXTAlertController alertControllerWithTitle:@"提示信息" message:@"注册成功,是否马上去登陆" preferredStyle:UIAlertControllerStyleAlert];
+            JXTAlertController *AlertVC =[JXTAlertController alertControllerWithTitle:@"提示信息" message:@"注册成功,是否马上去登录" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
             }];
-            UIAlertAction * login = [UIAlertAction actionWithTitle:@"去登陆" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction * login = [UIAlertAction actionWithTitle:@"去登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 NSArray * viewControllers = self.navigationController.viewControllers;
                 [self.navigationController popToViewController:viewControllers[0] animated:NO];
 

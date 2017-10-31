@@ -26,7 +26,7 @@
     _didClickget_btn.layer.cornerRadius = 4;
     _didClickget_btn.layer.masksToBounds = YES;
     _didClickget_btn.layer.borderWidth = 1;
-    _didClickget_btn.layer.borderColor = HEXCOLOR(0xfe6d6a).CGColor;
+    _didClickget_btn.layer.borderColor = HEXCOLOR(0xf95a70).CGColor;
    
 #warning  ------------暂时没有做编辑删除 为了隐藏button
 //    _buttonWidthConstraint.constant = 0.0;

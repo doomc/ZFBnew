@@ -23,7 +23,7 @@
     //多行必须写
     [self.lb_title setPreferredMaxLayoutWidth:(KScreenW - 30)];
     
-    self.lb_status.textColor = HEXCOLOR(0xfe6d6a);
+    self.lb_status.textColor = HEXCOLOR(0xf95a70);
     
     _imagerray = [NSMutableArray array];
     

@@ -15,4 +15,5 @@
 @property (nonatomic,strong) NSString * goodsId;
 @property (nonatomic,strong) NSString * imageUrl;
 
+ 
 @end

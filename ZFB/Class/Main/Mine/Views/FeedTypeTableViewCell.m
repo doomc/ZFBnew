@@ -71,7 +71,7 @@
     FeedCommitCollectionViewCell *cell = (FeedCommitCollectionViewCell *)[self.typeCollectionView cellForItemAtIndexPath:indexPath];
 
     if (_nameArray.count > 0 ) {
-        cell.lb_type.backgroundColor = HEXCOLOR(0xfe6d6a);
+        cell.lb_type.backgroundColor = HEXCOLOR(0xf95a70);
         cell.lb_type.textColor =  HEXCOLOR(0xffffff);
 
  

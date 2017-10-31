@@ -47,7 +47,7 @@
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="locationwhite.png" translatesAutoresizingMaskIntoConstraints="NO" id="yZc-ep-Tng">
                             <rect key="frame" x="299" y="9.5" width="12" height="12"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="praise.png" translatesAutoresizingMaskIntoConstraints="NO" id="0pQ-sa-KjU">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="collection.png" translatesAutoresizingMaskIntoConstraints="NO" id="0pQ-sa-KjU">
                             <rect key="frame" x="244" y="9.5" width="12" height="12"/>
                         </imageView>
                     </subviews>
@@ -88,7 +88,7 @@
         </view>
     </objects>
     <resources>
+        <image name="collection.png" width="12" height="12"/>
         <image name="locationwhite.png" width="12" height="12"/>
-        <image name="praise.png" width="12" height="12"/>
     </resources>
 </document>

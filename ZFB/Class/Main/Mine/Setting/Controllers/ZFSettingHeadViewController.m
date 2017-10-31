@@ -73,7 +73,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     UIButton *right_button = [[UIButton alloc]init];
     [right_button setTitle:saveStr forState:UIControlStateNormal];
     right_button.titleLabel.font=SYSTEMFONT(14);
-    [right_button setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
+    [right_button setTitleColor:HEXCOLOR(0xf95a70)  forState:UIControlStateNormal];
     right_button.titleLabel.textAlignment = NSTextAlignmentRight;
     CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
     CGFloat width = size.width ;

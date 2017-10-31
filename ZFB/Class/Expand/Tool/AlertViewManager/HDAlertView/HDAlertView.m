@@ -973,7 +973,7 @@ NSString *const HDAlertViewDidDismissNotification   = @"HDAlertViewDidDismissNot
     alertView.buttonFont = [UIFont systemFontOfSize:17.0];
     alertView.cancelButtonTitleColor = HDColorFromHex(0xf74c31);
     alertView.defaultButtonTitleColor = HDColorFromHex(0x363636);
-    alertView.destructiveButtonTitleColor = HDColorFromHex(0xfe6d6a);
+    alertView.destructiveButtonTitleColor = HDColorFromHex(0xf95a70);
     alertView.titleColor = HDColorFromHex(0x363636);
     alertView.cornerRadius = 0;
     

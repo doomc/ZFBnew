@@ -69,7 +69,7 @@
     _distenceList = @[@"附近", @"1km", @"3km", @"5km",@"10km",@"全城"];
     _salesList    = @[@"智能排序", @"离我最近", @"好评优先", @"人气最高"];
     
-    self.searchBar.text = _resultsText;//设置一个搜索默认值
+//    self.searchBar.text = _resultsText;//设置一个搜索默认值
     
     //创建titleView
     [self creatTitleView];
@@ -318,7 +318,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
  
-    return 90;
+    return  130 /375.0* KScreenW;
+
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -520,8 +521,7 @@
                              @"size":[NSNumber numberWithInteger:kPageCount],
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"sercahText":sercahText,
-                             
-                             
+                             @"serviceType" : @""//商品1级类别id
                              };
     
     [SVProgressHUD show];

@@ -64,7 +64,7 @@
     if (!_edit_btn ) {
         _edit_btn = [[UIButton alloc]init];
         _edit_btn.titleLabel.font=SYSTEMFONT(14);
-        [_edit_btn setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
+        [_edit_btn setTitleColor:HEXCOLOR(0xf95a70)  forState:UIControlStateNormal];
         _edit_btn.titleLabel.textAlignment = NSTextAlignmentRight;
         CGSize size = [@"审核状态" sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
         CGFloat width = size.width ;

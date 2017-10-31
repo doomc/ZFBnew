@@ -213,9 +213,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         Findgoodslist * listModel =  self.storeListArr[indexPath.row];
         storeCell.findgoodslist = listModel;
     }
-
     return storeCell;
-    
 }
 #pragma tableViewDataSource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -346,6 +344,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
                              @"orderbylikeNum":@"",
                              @"nearBydisc":@"0",
                              @"sercahText":@"",
+                             @"serviceType" : @"",//商品1级类别id
+                       
                              };
 
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {

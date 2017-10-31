@@ -55,8 +55,8 @@
     [_selectedBtn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
     _selectedBtn.layer.borderColor =HEXCOLOR(0xdedede).CGColor;
     
-    [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
-    sender.layer.borderColor =HEXCOLOR(0xfe6d6a).CGColor;
+    [sender setTitleColor:HEXCOLOR(0xf95a70) forState:UIControlStateNormal];
+    sender.layer.borderColor =HEXCOLOR(0xf95a70).CGColor;
     
     _selectedBtn = sender;
     

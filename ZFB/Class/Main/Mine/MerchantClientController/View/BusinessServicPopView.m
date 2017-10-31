@@ -48,8 +48,8 @@
     [_selectBtn setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
     _selectBtn.layer.borderColor =HEXCOLOR(0xdedede).CGColor;
     
-    [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal];
-    sender.layer.borderColor =HEXCOLOR(0xfe6d6a).CGColor;
+    [sender setTitleColor:HEXCOLOR(0xf95a70) forState:UIControlStateNormal];
+    sender.layer.borderColor =HEXCOLOR(0xf95a70).CGColor;
     NSInteger selectTag = sender.tag;
     
     _selectBtn = sender;
@@ -77,6 +77,14 @@
             break;
         case 3005:
             _selctedType = BusinessServicTypeSended;//已配送
+            
+            break;
+        case 3006:
+            _selctedType = BusinessServicTypeCancelOrder;//取消交易
+            
+            break;
+        case 3007:
+            _selctedType = BusinessServicTypeWiatOrder;//待结单
             
             break;
     }

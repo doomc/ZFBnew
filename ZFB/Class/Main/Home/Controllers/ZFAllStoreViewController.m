@@ -13,6 +13,7 @@
 #import "ZFDetailsStoreViewController.h"
 #import "AllStoreModel.h"
 #import "HomeADModel.h"
+#import "ClassLeftListModel.h"
 //map
 #import <CoreLocation/CoreLocation.h>
 
@@ -30,8 +31,7 @@
     NSString *longitudestr;//纬度
     
     NSString * _currentName;
-    NSInteger  currentlist;//当前列
-    
+ 
     
 }
 @property (nonatomic,strong) NSMutableArray * allStoreArray;//全部门店数据源
@@ -65,7 +65,7 @@
 
     _sort = @[@"距离最近", @"人气最高"];
     
-    [self.titlelistArray insertObject:@"全部" atIndex:0];
+//    [titles  addObject:type.name];
     
     _isChanged = YES;//默认切换全部 （No?yes : 距离最近 /全部）
     
@@ -83,17 +83,17 @@
     
     [self ADpagePostRequst];
     
-    [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@""];//距离最近
+    [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@"" serviceType:@""];//距离最近
     
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
     [super headerRefresh];
-    [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@""];//距离最近
+    [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@"" serviceType:@""];//距离最近
 }
 -(void)footerRefresh {
     [super footerRefresh];
-    [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@""];//距离最近
+    [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@"" serviceType:@""];//距离最近
 }
 
 -(UITableView *)all_tableview
@@ -188,7 +188,6 @@
     
     XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:all_cell.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO];
     
-    
     wdStarView.currentScore = goodlist.starLevel;
     //初始化五星好评控件
     [all_cell addSubview:wdStarView];
@@ -209,8 +208,6 @@
     detailStroeVC.storeId = [NSString stringWithFormat:@"%ld",goodlist.storeId];
     [self.navigationController pushViewController:detailStroeVC animated:YES];
     [self.all_tableview reloadData];
-    
-    
 }
 
 
@@ -221,6 +218,7 @@
                              orderBydisc:(NSString *)orderBydisc
                          orderbylikeNum :(NSString *)orderbylikeNum
                               nearBydisc:(NSString *)nearBydisc
+                              serviceType:(NSString *)serviceType
 {
     
     NSDictionary * parma = @{
@@ -235,40 +233,32 @@
                              @"orderbylikeNum":orderbylikeNum,//	人气排序   1升   0降
                              @"nearBydisc":nearBydisc,//获取附近门店    1  获取10公里以内的门店
                              @"sercahText":nearBydisc,//搜索关键词
+                             @"serviceType" : serviceType,//商品1级类别id
+
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
         
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
-            
             if (self.refreshType == RefreshTypeHeader) {
-                
                 if (self.allStoreArray.count > 0) {
-                    
                     [self.allStoreArray removeAllObjects];
-                    
                 }
             }
-           
             AllStoreModel  * homeStore = [AllStoreModel mj_objectWithKeyValues:response];
             for (Findgoodslists * goodlist in homeStore.storeInfoList.findGoodsList) {
                 [self.allStoreArray addObject:goodlist];
             }
             NSLog(@"门店列表         = %@",   self.allStoreArray);
-            
         }
         [self.all_tableview reloadData];
         [self endRefresh];
         
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         
         [self endRefresh];
-        
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         NSLog(@"error=====%@",error);
         
@@ -277,26 +267,6 @@
 }
 
 
-#pragma mark -  getStoreTypeInfo 查找商品列表
--(void)checkClassPostRequst
-{
-    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getStoreTypeInfo",zfb_baseUrl] params:nil success:^(id response) {
-        
-        NSString * storeTypeInfo = response[@"storeTypeInfo"];
-        NSArray * titlearr       = [storeTypeInfo componentsSeparatedByString:@","];
-        self.titlelistArray      = [NSMutableArray arrayWithObject:@"全部"];
-        [self.titlelistArray  insertObjects:titlearr atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange([self.titlelistArray count], [titlearr count])]];
-        
-        NSLog(@"_titlelistArray  ==  %@",_titlelistArray);
-        
-    } progress:^(NSProgress *progeress) {
-        
-    } failure:^(NSError *error) {
-        
-        NSLog(@"error=====%@",error);
-    }];
-    
-}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -312,15 +282,14 @@
 }
 
 - (NSInteger)menu:(ZspMenu *)menu numberOfRowsInColumn:(NSInteger)column {
-    
-    currentlist = column;
-    
+
     if (column == 0) {
         
         return _sort.count;
         
     }
     else {
+        
         return _titlelistArray.count;
     }
 }
@@ -331,13 +300,15 @@
         return _sort[indexPath.row];
         
     }else{
-        
-        return _titlelistArray[indexPath.row];
-        
+        CmgoodsClasstypelist * type  = _titlelistArray[indexPath.row];
+        return type.name;
+
     }
 }
 
 - (void)menu:(ZspMenu *)menu didSelectRowAtIndexPath:(ZspIndexPath *)indexPath {
+    CmgoodsClasstypelist * type  = _titlelistArray[indexPath.row];
+
     if (indexPath.item >= 0) {
         NSLog(@"点击了 %ld - %ld - %ld",indexPath.column,indexPath.row,indexPath.item);
     }else {
@@ -347,23 +318,23 @@
             
             if (indexPath.row == 0) {
                 //距离最近
-                [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@""];
+                [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@"" serviceType:@""];
                 [self.all_tableview reloadData];
             }else{
                 //人气最高
-                [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"" orderbylikeNum:@"0" nearBydisc:@""];
+                [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"" orderbylikeNum:@"0" nearBydisc:@"" serviceType:@""];
                 [self.all_tableview reloadData];
                 
             }
             
         }else{
-            _currentName = _titlelistArray[indexPath.row];
-            if (indexPath.row == 0) {
-                [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@""];
+            _currentName = type.name;
+            if (indexPath.row == 0) { //全部
+                [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@"" serviceType:[NSString stringWithFormat:@"%ld",type.typeId]];
                 [self.all_tableview reloadData];
                 
             }else{
-                [self allStorePostRequstAndbusinessType:_currentName orderBydisc:@"" orderbylikeNum:@"0" nearBydisc:@""];
+                [self allStorePostRequstAndbusinessType:_currentName orderBydisc:@"" orderbylikeNum:@"0" nearBydisc:@"" serviceType:[NSString stringWithFormat:@"%ld",type.typeId]];
                 [self.all_tableview reloadData];
                 
                 
@@ -373,36 +344,50 @@
     }
 }
 
+#pragma mark  - 第一级分类网络请求
+-(void)checkClassPostRequst{
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getMaxType",zfb_baseUrl] params:nil success:^(id response) {
+        
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            
+            if (self.titlelistArray.count > 0) {
+                [self.titlelistArray removeAllObjects];
+            }
+            ClassLeftListModel * list = [ClassLeftListModel mj_objectWithKeyValues:response];
+            for (CmgoodsClasstypelist * Typelist in list.data.CmGoodsTypeList) {
+                [self.titlelistArray addObject:Typelist];
+            }
+            [self.all_tableview reloadData];
+        }
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
 
 #pragma mark - 广告轮播-getAdImageInfo网络请求
 -(void)ADpagePostRequst
 {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getAdImageInfo",zfb_baseUrl] params:nil success:^(id response) {
-        
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
-            
             if (self.imgArray.count >0) {
-                
                 [self.imgArray  removeAllObjects];
-                
             }else{
-                
                 HomeADModel * homeAd = [HomeADModel mj_objectWithKeyValues:response];
-                
                 for (Cmadvertimglist * adList in homeAd.data.cmAdvertImgList) {
-                    
                     [self.imgArray addObject:adList.imgUrl];
                 }
             }
             [self CDsyceleSettingRunningPaintWithArray:self.imgArray];//轮播图
             [self.all_tableview reloadData];
-
         }
         
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
-        
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];

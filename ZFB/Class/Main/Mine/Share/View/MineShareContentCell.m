@@ -27,7 +27,7 @@
     _lb_descirbe.text = reviewingList.describe;
     _lb_detail.hidden = YES;
     if ([reviewingList.status isEqualToString:@"审核中"]) {
-        _lb_title.textColor = HEXCOLOR(0xfe6d6a);
+        _lb_title.textColor = HEXCOLOR(0xf95a70);
     }
     [_headimg sd_setImageWithURL:[NSURL URLWithString:reviewingList.imgUrls] placeholderImage:[UIImage imageNamed:@"230x235"]];
 

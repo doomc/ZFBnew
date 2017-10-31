@@ -42,7 +42,7 @@
     [tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f], NSForegroundColorAttributeName : HEXCOLOR(0xa7a7a7)} forState:UIControlStateNormal];
     
     // 选中状态
-    [tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f],NSForegroundColorAttributeName : HEXCOLOR(0xfe6d6a)} forState:UIControlStateSelected];
+    [tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f],NSForegroundColorAttributeName : HEXCOLOR(0xf95a70)} forState:UIControlStateSelected];
 }
 
 
@@ -126,8 +126,13 @@
 }
 - (void)refreshSessionBadge{
     ZFCInterpersonalCircleViewController *msgVC = [ZFCInterpersonalCircleViewController new];
-    msgVC.tabBarItem.badgeValue = self.sessionUnreadCount ? @(self.sessionUnreadCount).stringValue : nil;
-}
+    
+    if (self.sessionUnreadCount > 0) {
+        msgVC.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld",self.sessionUnreadCount] ;
+    }else{
+        msgVC.tabBarItem.badgeValue = nil;
+    }
+ }
 #pragma mark - 添加所有子控制器
 - (void)addAllViewControllers {
 

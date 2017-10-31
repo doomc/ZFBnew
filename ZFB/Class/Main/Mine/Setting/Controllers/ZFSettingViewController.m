@@ -78,7 +78,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
     
     [self didClickChangeLoginStatus:sender];
     
-    NSLog(@"退出登录");
+    NSLog(@"退出登录、登录");
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -277,53 +277,43 @@ static NSString * settingCellid = @"ZFSettingCellid";
         }];
         UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.view makeToast:@"数据已清空" duration:2.0 position:@"center"];
-            [sender setTitle:@"登陆" forState:UIControlStateNormal ];
+            [sender setTitle:@"登录" forState:UIControlStateNormal ];
 //            [self clearingCache];//清除所有缓存;
             BBUserDefault.isLogin = 0;
             BBUserDefault.token = @"";
             BBUserDefault.cmUserId = @"";
             [self loginOutAction];
             [self.tableView reloadData];
-
-
         }];
         [jxt addAction:left];
         [jxt addAction:right];
         [self presentViewController:jxt animated:YES completion:^{  }];
         
     }
-    
-    if ([sender.titleLabel.text isEqualToString:@"登陆"]) {
-        
+    if ([sender.titleLabel.text isEqualToString:@"登录"]) {
         [self isIfNotSignIn];
-        
     }
-    
 }
 
 
 -(void)viewWillAppear:(BOOL)animated{
     
     [self settingNavBarBgName:@"nav64_gray"];
-
     [self.tableView reloadData];
     //默认为登录状态后面根据后台数据返回
     if (BBUserDefault.isLogin == 1) {
-        
         [self.login_btn setTitle:@"退出登录" forState:UIControlStateNormal];
         
     }else{
-        [self.login_btn setTitle:@"登陆" forState:UIControlStateNormal ];
+        [self.login_btn setTitle:@"登录" forState:UIControlStateNormal ];
     }
     
 }
-
 
 #pragma mark - 注销
 ///登出
 -(void)loginOutAction
 {
- 
     [[[NIMSDK sharedSDK]loginManager] logout:^(NSError * _Nullable error) {
         NSLog(@" 我已经退出了网易云信了 ---- %@ = error",error);
         [self locationLoginOut];

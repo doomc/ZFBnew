@@ -27,28 +27,25 @@
 
 @interface CMgoodstypelist : ResponseObject
 
-@property (nonatomic, assign) NSInteger goodId;
-
-@property (nonatomic, copy) NSString *name;
-
-@property (nonatomic, copy) NSString *iconUrl;
-
+@property (nonatomic, assign) NSInteger goodId;//重命名的id
 
 @property (nonatomic, copy) NSString *delFlag;
 
-@property (nonatomic, assign) NSInteger parentId;
-
-@property (nonatomic, copy) NSString *updateBy;
-
 @property (nonatomic, assign) NSInteger typeLevel;
-
-@property (nonatomic, copy) NSString *parentIds;
-
+@property (nonatomic, copy) NSString *brandIds;
+@property (nonatomic, copy) NSString *lockFlag;
 @property (nonatomic, copy) NSString *remarks;
 
+@property (nonatomic, assign) NSInteger parentId;
+@property (nonatomic, copy) NSString *iconUrl;
+@property (nonatomic, copy) NSString *parentIds;
 @property (nonatomic, assign) NSInteger sort;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *updateDate;
 
+@property (nonatomic, copy) NSString *updateBy;
 @property (nonatomic, copy) NSString *createBy;
+@property (nonatomic, copy) NSString *createDate;
 
 
 

@@ -132,7 +132,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             //倒计时完毕
             sender.enabled = YES;
             [sender setTitle:@"重新发送" forState:UIControlStateNormal];
-            [sender setTitleColor:HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
+            [sender setTitleColor:HEXCOLOR(0xF95A70) forState:UIControlStateNormal] ;
             
         } blockNo:^(id time) {
             sender.enabled = NO;
@@ -195,7 +195,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             //当账号与密码同时有值,登录按钮才能够点击
             if ( _tf_verificationCodeOrPassWord.text.length > 0) {
                 self.login_btn.enabled = YES;
-                self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+                self.login_btn.backgroundColor = HEXCOLOR(0xF95A70);
                 
             }else{
                 self.login_btn.enabled = NO;
@@ -216,7 +216,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             //当账号与密码同时有值,登录按钮才能够点击
             if ( _tf_verificationCodeOrPassWord.text.length > 0) {
                 self.login_btn.enabled = YES;
-                self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+                self.login_btn.backgroundColor = HEXCOLOR(0xF95A70);
                 
             }else{
                 self.login_btn.enabled = NO;
@@ -241,7 +241,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
             if ( [_tf_loginphone.text isMobileNumberClassification]) {
                 self.login_btn.enabled = YES;
-                self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+                self.login_btn.backgroundColor = HEXCOLOR(0xF95A70);
                 
             }else{
                 self.login_btn.enabled = NO;
@@ -255,7 +255,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             
             if ( [_tf_loginphone.text isMobileNumberClassification] && _tf_verificationCodeOrPassWord.text.length > 0) {
                 self.login_btn.enabled = YES;
-                self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+                self.login_btn.backgroundColor = HEXCOLOR(0xF95A70);
                 
             }else{
                 self.login_btn.enabled = NO;
@@ -272,7 +272,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             //判断是不是手机号
             if ( [_tf_loginphone.text isMobileNumberClassification]) {
                 self.login_btn.enabled = YES;
-                self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+                self.login_btn.backgroundColor = HEXCOLOR(0xF95A70);
                 
             }else{
                 self.login_btn.enabled = NO;
@@ -285,7 +285,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             if ( [_tf_loginphone.text isMobileNumberClassification] && _tf_verificationCodeOrPassWord.text.length > 0) {
                
                 self.login_btn.enabled = YES;
-                self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+                self.login_btn.backgroundColor = HEXCOLOR(0xF95A70);
                 
             }else{
                 
@@ -406,7 +406,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
             
             _smsCode = response[@"smsCode" ];
             self.login_btn.enabled = YES;
-            self.login_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+            self.login_btn.backgroundColor = HEXCOLOR(0xF95A70);
             
         }
 
@@ -439,8 +439,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              @"longitude":BBUserDefault.longitude,
                              @"latitude":BBUserDefault.latitude,
                              };
- 
-    [SVProgressHUD showWithStatus:@"登陆中..."];
+    [SVProgressHUD showWithStatus:@"登录中..."];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/quickLogin",zfb_baseUrl] params:parma success:^(id response) {
         
         NSString * code  = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
@@ -457,14 +456,13 @@ typedef NS_ENUM(NSUInteger, indexType) {
             
             BBUserDefault.userPhonePassword = _tf_verificationCodeOrPassWord.text;//保存密码
             BBUserDefault.userPhoneNumber = _tf_loginphone.text;
-
             //推送别名设置
             [JPUSHService setAlias:BBUserDefault.userPhoneNumber completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
                 
                 NSLog(@"iResCode = %ld-------------seq = %ld------------iAlias = %@",iResCode,seq,iAlias);
                 
             } seq:0];
-            NSLog(@" 登陆成功后的 signMD5Key=======%@", BBUserDefault.userKeyMd5 );
+            NSLog(@" 登录成功后的 signMD5Key=======%@", BBUserDefault.userKeyMd5 );
             [self loginNIM];
 
         }else{
@@ -497,7 +495,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
                              @"latitude":BBUserDefault.latitude,
                              };
     
-    [SVProgressHUD showWithStatus:@"登陆中..."];
+    [SVProgressHUD showWithStatus:@"登录中..."];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/login",zfb_baseUrl] params:parma success:^(id response) {
         NSString * code  = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
@@ -525,14 +523,10 @@ typedef NS_ENUM(NSUInteger, indexType) {
         else{
             [self.view makeToast:response[@"resultMsg"]   duration:2 position:@"center"];
             [ SVProgressHUD dismiss];
-
         }
-
         NSLog(@" ======= userKeyMd5=======%@",BBUserDefault.userKeyMd5 );
  
     } progress:^(NSProgress *progeress) {
-        
-        
     } failure:^(NSError *error) {
         NSLog(@"error=====%@",error);
         [SVProgressHUD showErrorWithStatus:@"登录失败"];
@@ -542,7 +536,7 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
 }
 
-#pragma mark - 登陆网易云信
+#pragma mark - 登录网易云信
 -(void)loginNIM
 {
     //手动登录，error为登录错误信息，成功则为nil。
@@ -569,7 +563,14 @@ typedef NS_ENUM(NSUInteger, indexType) {
                                       }
                                   }];
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    UIImage *image = [UIImage imageNamed:@"nav64_gray"];
+    [self.navigationController.navigationBar  setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar  setBarTintColor:[UIColor clearColor]];
+    [self.navigationController.navigationBar  setShadowImage:[UIImage new]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0x333333),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+}
 
 
 @end

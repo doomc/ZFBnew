@@ -137,23 +137,18 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     //register  nib
     [self.homeTableView registerNib:[UINib nibWithNibName:@"ZFTitleCell" bundle:nil]
              forCellReuseIdentifier:@"ZFTitleCell"];//商户首页头
-    
     [self.homeTableView registerNib:[UINib nibWithNibName:@"ZFSendHomeListCell" bundle:nil]
              forCellReuseIdentifier:@"ZFSendHomeListCell"];//首页section =  2
-    
     [self.homeTableView registerNib:[UINib nibWithNibName:@"SendServiceTitleCell" bundle:nil]
              forCellReuseIdentifier:@"SendServiceTitleCell"];//商户首页头2
     
     //订单 nib
     [self.homeTableView registerNib:[UINib nibWithNibName:@"ZFSendingCell" bundle:nil]
              forCellReuseIdentifier:@"ZFSendingCell"];
-    
     [self.homeTableView registerNib:[UINib nibWithNibName:@"ZFFooterCell" bundle:nil]
              forCellReuseIdentifier:@"ZFFooterCell"];
-    
     [self.homeTableView registerNib:[UINib nibWithNibName:@"ZFCheckTheProgressCell" bundle:nil]
              forCellReuseIdentifier:@"ZFCheckTheProgressCell"];
-    
     [self.homeTableView registerNib:[UINib nibWithNibName:@"BusinessSendAccountCell" bundle:nil]
              forCellReuseIdentifier:@"BusinessSendAccountCell"];
     
@@ -303,11 +298,10 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(UILabel *)navTitle
 {
     if (!_navTitle) {
-        
-        _navTitle               = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 30)];
+        _navTitle               = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 140, 30)];
         _navTitle.font =[UIFont systemFontOfSize:14];
         _navTitle.textColor     = HEXCOLOR(0x333333);
-        _navTitle.textAlignment = NSTextAlignmentCenter;
+        _navTitle.textAlignment = NSTextAlignmentLeft;
     }
     return _navTitle;
 }
@@ -317,7 +311,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 {
     if (!_navbar_btn) {
         _navbar_btn       = [UIButton buttonWithType:UIButtonTypeCustom];
-        _navbar_btn.frame = CGRectMake(0, 0, 120, 30);
+        _navbar_btn.frame = CGRectMake(0, 0, 140, 30);
         [_navbar_btn setImage:[UIImage imageNamed:@"arrows_down_black"] forState:UIControlStateNormal];
         _navbar_btn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_navbar_btn setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
@@ -551,6 +545,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger sectionRow = 2;
+    NSMutableArray * goodsArr = [NSMutableArray array];
+    if (goodsArr.count > 0) {
+        [goodsArr removeAllObjects];
+    }
+    
     switch (_selectPageType) {//选择了哪个版块
         case SelectTypeHomePage:
             sectionRow = 1;
@@ -558,31 +557,43 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
         case SelectTypeOrderPage:
         {
-            NSMutableArray * goodsArr = [NSMutableArray array];
-            if (goodsArr.count > 0) {
-                [goodsArr removeAllObjects];
-            }
-            BusinessOrderlist * orderlist = self.orderListArray[section];
-            
-            for (BusinessOrdergoods * goods in orderlist.orderGoods) {
-                [goodsArr addObject:goods];
-            }
+
             switch (_servicType) {
                 case BusinessServicTypeWaitSendlist://待派单
+                {
+                    BusinessOrderlist * orderlist = self.orderListArray[section];
+                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
+                        [goodsArr addObject:goods];
+                    }
                     sectionRow = goodsArr.count;
-                    
+                }
                     break;
                 case BusinessServicTypeSending://配送中
+                {
+                    BusinessOrderlist * orderlist = self.orderListArray[section];
+                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
+                        [goodsArr addObject:goods];
+                    }
                     sectionRow = goodsArr.count;
-                    
+                }
                     break;
                 case BusinessServicTypeWaitPay://待付款
+                {
+                    BusinessOrderlist * orderlist = self.orderListArray[section];
+                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
+                        [goodsArr addObject:goods];
+                    }
                     sectionRow = goodsArr.count;
-                    
+                }
                     break;
                 case BusinessServicTypeDealComplete://交易完成
+                {
+                    BusinessOrderlist * orderlist = self.orderListArray[section];
+                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
+                        [goodsArr addObject:goods];
+                    }
                     sectionRow = goodsArr.count;
-                    
+                }
                     break;
                 case BusinessServicTypeSureReturn://待确认退回
                     
@@ -590,17 +601,33 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     break;
                 case BusinessServicTypeSended://已配送
+                {
+                    BusinessOrderlist * orderlist = self.orderListArray[section];
+                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
+                        [goodsArr addObject:goods];
+                    }
                     sectionRow = goodsArr.count;
- 
+                }
                     break;
                 case BusinessServicTypeCancelOrder://取消订单
                     
+                {
+                    BusinessOrderlist * orderlist = self.orderListArray[section];
+                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
+                        [goodsArr addObject:goods];
+                    }
                     sectionRow = goodsArr.count;
+                }
                     break;
                 case BusinessServicTypeWiatOrder://待接单
-                    
+                {
+                    BusinessOrderlist * orderlist = self.orderListArray[section];
+                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
+                        [goodsArr addObject:goods];
+                    }
                     sectionRow = goodsArr.count;
-                    
+                }
+ 
                     break;
             }
         }
@@ -741,7 +768,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 }
                     break;
                 case BusinessServicTypeSureReturn://待确认退回
-                    
+                  
+                    return view;
+
                     break;
                 case BusinessServicTypeSended://已配送
                 {
@@ -935,6 +964,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     break;
                 case BusinessServicTypeSureReturn://待确认退回
                     
+                    return footerView;
+                
                     break;
                 case BusinessServicTypeSended://已配送
                 {
@@ -1112,7 +1143,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 
                 //关键字
                 titleCell.lb_storeName.keywords      = _order_count;
-                titleCell.lb_storeName.keywordsColor = HEXCOLOR(0xfe6d6a);
+                titleCell.lb_storeName.keywordsColor = HEXCOLOR(0xf95a70);
                 titleCell.lb_storeName.keywordsFont  = [UIFont systemFontOfSize:18];
                 ///必须设置计算宽高
                 CGRect dealNumh              = [titleCell.lb_storeName getLableHeightWithMaxWidth:300];
@@ -1316,42 +1347,30 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 [goodArray  addObject:goods];
             }
             BusinessOrdergoods * goods = goodArray[indexPath.row];
+            detailVC.cmOrderid = goods.order_id;
+            detailVC.goodsId   = goods.goodsId;
+            detailVC.storeId   = storelist.storeId;
+            detailVC.imageUrl  = goods.coverImgUrl;
             
             switch (_servicType) {
                 case BusinessServicTypeWaitSendlist://待派单
-                {
-                    detailVC.cmOrderid = goods.order_id;
-                    detailVC.goodsId   = goods.goodsId;
-                    detailVC.storeId   = storelist.storeId;
-                    detailVC.imageUrl  = goods.coverImgUrl;
-                    [self.navigationController pushViewController:detailVC animated:NO];
                     
-                }
+                    [self.navigationController pushViewController:detailVC animated:NO];
+             
                     break;
                 case BusinessServicTypeSending://配送中
-                    detailVC.cmOrderid = goods.order_id;
-                    detailVC.goodsId   = goods.goodsId;
-                    detailVC.storeId   = storelist.storeId;
-                    detailVC.imageUrl  = goods.coverImgUrl;
+ 
                     [self.navigationController pushViewController:detailVC animated:NO];
                     
                     break;
                 case BusinessServicTypeWaitPay://待付款
-                {
-                    //待派单跳转到详情
-                    detailVC.cmOrderid = goods.order_id;
-                    detailVC.goodsId   = goods.goodsId;
-                    detailVC.storeId   = storelist.storeId;
-                    detailVC.imageUrl  = goods.coverImgUrl;
+ 
                     [self.navigationController pushViewController:detailVC animated:NO];
-                }
+            
                     
                     break;
                 case BusinessServicTypeDealComplete://交易完成
-                    detailVC.cmOrderid = goods.order_id;
-                    detailVC.goodsId   = goods.goodsId;
-                    detailVC.storeId   = storelist.storeId;
-                    detailVC.imageUrl  = goods.coverImgUrl;
+ 
                     [self.navigationController pushViewController:detailVC animated:NO];
                     
                     break;
@@ -1360,28 +1379,18 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     break;
                 case BusinessServicTypeSended://已配送
-                    detailVC.cmOrderid = goods.order_id;
-                    detailVC.goodsId   = goods.goodsId;
-                    detailVC.storeId   = storelist.storeId;
-                    detailVC.imageUrl  = goods.coverImgUrl;
+     
                     [self.navigationController pushViewController:detailVC animated:NO];
                     
                     break;
                 case BusinessServicTypeCancelOrder://待配送
-                  
-                    detailVC.cmOrderid = goods.order_id;
-                    detailVC.goodsId   = goods.goodsId;
-                    detailVC.storeId   = storelist.storeId;
-                    detailVC.imageUrl  = goods.coverImgUrl;
+ 
                     [self.navigationController pushViewController:detailVC animated:NO];
                     break;
                     
                 case BusinessServicTypeWiatOrder://待配送
 
-                    detailVC.cmOrderid = goods.order_id;
-                    detailVC.goodsId   = goods.goodsId;
-                    detailVC.storeId   = storelist.storeId;
-                    detailVC.imageUrl  = goods.coverImgUrl;
+ 
                     [self.navigationController pushViewController:detailVC animated:NO];
                     break;
 
@@ -1417,7 +1426,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeOrderPage:
             _servicType = type;//把类型赋值一下
             switch (_servicType) {
-                    
                 case BusinessServicTypeWaitSendlist://待派单
                     
                     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" storeId:_storeId];
@@ -1455,13 +1463,15 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     [self.homeTableView reloadData];
                     
                     break;
-                case BusinessServicTypeCancelOrder://待配送
+                case BusinessServicTypeCancelOrder://取消订单
                     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"-1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
                     [self.homeTableView reloadData];
 
                     break;
                     
-                case BusinessServicTypeWiatOrder://待配送
+                case  BusinessServicTypeWiatOrder://待接单
+                    
+ 
                     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
                     [self.homeTableView reloadData];
                     break;
@@ -1575,7 +1585,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     _currentSection = indexPath;
     
     BusinessOrderlist * orderlist = self.orderListArray[indexPath];
-    
     switch (_selectPageType) {
         case SelectTypeHomePage:
             
@@ -1774,23 +1783,17 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/getStoreOrderList",zfb_baseUrl] params:param success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
-        
         if ([code isEqualToString:@"0"]) {
-            
             if (self.refreshType == RefreshTypeHeader) {
-                
                 if (self.orderListArray.count > 0) {
-                    
                     [self.orderListArray removeAllObjects];
                 }
             }
             BusinessOrderModel * orderModel = [BusinessOrderModel mj_objectWithKeyValues:response];
             for (BusinessOrderlist * orderlist in orderModel.orderList) {
-                
                 [self.orderListArray addObject:orderlist];
             }
             NSLog(@"orderListArray = %@",self.orderListArray);
-            
             [self.homeTableView reloadData];
         
         }
@@ -1798,7 +1801,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
         [self endRefresh];
-        
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
@@ -1914,16 +1916,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/orderSheet",zfb_baseUrl] params:param success:^(id response) {
         
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-        
         [self.orderBgview removeFromSuperview];
         
         //派单成功后刷新
         [self.homeTableView reloadData];
         
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);
@@ -1944,24 +1942,17 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         if ([response[@"resultCode"] intValue] == 0) {
             
             DeliveryModel * model = [DeliveryModel mj_objectWithKeyValues:response];
-            
             if (self.deliveryArray.count > 0) {
-                
                 [self.deliveryArray removeAllObjects];
             }
             for (Deliverylist * list in model.deliveryList) {
-                
                 [self.deliveryArray addObject:list];
             }
             [SVProgressHUD dismiss];
             [self reloadDeliveryList];//刷新
             [self.view addSubview:self.orderBgview];
-            
         }
-        
     } progress:^(NSProgress *progeress) {
- 
-        
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
@@ -1983,13 +1974,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             [SVProgressHUD showSuccessWithStatus:response[@"resultMsg"]];
             
             [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
+            [self.homeTableView reloadData];
 
         }else{
-            
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-
         }
-        [self.homeTableView reloadData];
 
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
@@ -2011,12 +2000,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
  
             [SVProgressHUD showSuccessWithStatus:response[@"resultMsg"]];
             [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
+            [self.homeTableView reloadData];
 
         }else{
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
             
         }
-        [self.homeTableView reloadData];
 
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
@@ -2059,9 +2048,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         }
         
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
@@ -2078,7 +2064,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                              
                              @"size":[NSNumber numberWithInteger:kPageCount] ,
                              @"page":[NSNumber numberWithInteger:self.currentPage],
-                             @"userId":BBUserDefault.cmUserId,
                              @"status":@"1",
                              @"storeId":storeId,
                              };
@@ -2086,27 +2071,22 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/afterSale/afterSaleList"] params:param success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
-            
             if (self.refreshType == RefreshTypeHeader) {
-                
                 if (self.progressArray.count > 0) {
-                    
                     [self.progressArray removeAllObjects];
                 }
             }
             AllOrderProgress * progressModel = [AllOrderProgress mj_objectWithKeyValues:response];
-            
             for (List * cheakList in progressModel.data.list) {
-                
                 [self.progressArray addObject:cheakList];
             }
-            [self.homeTableView reloadData];
             [SVProgressHUD dismiss];
+            [self.homeTableView reloadData];
+
         }
         [self endRefresh];
         
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
         [self endRefresh];
@@ -2116,8 +2096,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     }];
     
 }
-
-
 
 //取消操作
 -(void)cancelAction

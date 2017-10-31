@@ -116,7 +116,7 @@ static float kLeftTableViewWidth = 80.f;
 {
     if (!_selectbutton) {
         _selectbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _selectbutton.backgroundColor = HEXCOLOR(0xfe6d6a);
+        _selectbutton.backgroundColor = HEXCOLOR(0xf95a70);
         [_selectbutton setTitle:@"商品" forState:UIControlStateNormal];
         _selectbutton.frame = CGRectMake(5, 7, 40, 30);
         _selectbutton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -261,8 +261,10 @@ static float kLeftTableViewWidth = 80.f;
                                                                                forIndexPath:indexPath];
     if ([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
-        CmgoodsClasstypelist * leftList = self.dataSource[indexPath.section];
-        view.title.text = leftList.name;
+        if (self.dataSource.count > 0) {
+            CmgoodsClasstypelist * leftList = self.dataSource[_selectIndex];
+            view.title.text = leftList.name;
+        }
     }
     return view;
 }
@@ -338,7 +340,7 @@ static float kLeftTableViewWidth = 80.f;
         popupMenu.arrowWidth  = 10;
         popupMenu.fontSize = 14;
         popupMenu.delegate = self;
-        popupMenu.borderColor = HEXCOLOR(0xfe6d6a);
+        popupMenu.borderColor = HEXCOLOR(0xf95a70);
     }];
 }
 #pragma mark - YBPopupMenuDelegate
@@ -383,25 +385,17 @@ static float kLeftTableViewWidth = 80.f;
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getMaxType",zfb_baseUrl] params:nil success:^(id response) {
 
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
-           
             if (self.dataSource.count > 0) {
-                
                 [self.dataSource removeAllObjects];
-                
             }
             ClassLeftListModel * list = [ClassLeftListModel mj_objectWithKeyValues:response];
-           
             for (CmgoodsClasstypelist * Typelist in list.data.CmGoodsTypeList) {
-                
                 [self.dataSource addObject:Typelist];
-                
             }
             NSLog(@"%@",self.dataSource);
             [self.tableView reloadData];
-            
         }
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);
@@ -415,27 +409,18 @@ static float kLeftTableViewWidth = 80.f;
 -(void)secondClassListWithGoodTypePostRequsetTypeid:(NSString *) typeID
 {
     NSDictionary * parma = @{
-                             
                             @"typeId":typeID,
-                             
                              };
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getNextType",zfb_baseUrl] params:parma success:^(id response) {
- 
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
             if (self.collectionDatas.count > 0) {
-                
                 [self.collectionDatas removeAllObjects];
-        
             }
             CollectionCategoryModel *model = [CollectionCategoryModel mj_objectWithKeyValues:response];
-           
             for (Nexttypelist  * list in model.data.nextTypeList) {
-                
                 [self.collectionDatas addObject:list];
             }
             NSLog(@"%@",self.collectionDatas);
-
             [self.collectionView reloadData];
 
         }

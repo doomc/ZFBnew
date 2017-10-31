@@ -242,7 +242,6 @@
         if ([code isEqualToString:@"0"]) {
 
             [SVProgressHUD showSuccessWithStatus:@"验证成功！"];
-
             BankMessageViewController  * nextVC  = [BankMessageViewController new];
             nextVC.bankCredHolder = _bandCardName;//持卡人姓名
             nextVC.bankCredNum = _kcardNum ;//卡号
@@ -250,6 +249,9 @@
             nextVC.bankCredType =[NSString stringWithFormat:@"%@",response[@"bankInfo"][@"bankCredType"]];
             nextVC.baseBankId = [NSString stringWithFormat:@"%@",response[@"bankInfo"][@"baseBankId"]];
             [self.navigationController pushViewController:nextVC animated:NO];
+            
+        }else{
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         }
         
     } progress:^(NSProgress *progeress) {

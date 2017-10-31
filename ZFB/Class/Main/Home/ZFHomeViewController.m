@@ -73,7 +73,7 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     
     NSArray *childArr = @[findStoreVC, findGoodsVC];
     /// pageContentView
-    CGFloat contentViewHeight = self.view.frame.size.height - 108;
+    CGFloat contentViewHeight = self.view.frame.size.height - 114;
     self.pageContentView = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
     _pageContentView.delegatePageContentView = self;
     [self.view addSubview:_pageContentView];
@@ -104,37 +104,55 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     [self.pageTitleView setPageTitleViewWithProgress:progress originalIndex:originalIndex targetIndex:targetIndex];
 }
 
+-(UIButton *)set_leftButton
+{
+    _customLeft_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _customLeft_btn.frame = CGRectMake(0, 10, 40, 24);
+    [_customLeft_btn setTitle:@"重庆市" forState:UIControlStateNormal];
+    _customLeft_btn.titleLabel.font = [ UIFont systemFontOfSize:13];
+    [_customLeft_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    return _customLeft_btn;
+}
+-(UIButton *)set_rightButton
+{
+    _shakehanderRight_btn          = [UIButton buttonWithType:UIButtonTypeCustom];
+    _shakehanderRight_btn.frame = CGRectMake(0, 10, 24, 24);
+    [_shakehanderRight_btn setImage :[UIImage imageNamed:@"more"]  forState:UIControlStateNormal];
+    [_shakehanderRight_btn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+    return  _shakehanderRight_btn;
+}
 -(void)customButtonOfNav
 {
-
-    self.customLeft_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.customLeft_btn.frame = CGRectMake(0, 10, 40, 40);
-    [self.customLeft_btn setTitle:@"重庆市" forState:UIControlStateNormal];
-    self.customLeft_btn.titleLabel.font = [ UIFont systemFontOfSize:12];
-    [self.customLeft_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
  
-//    //把button的视图交给Item
-    UIBarButtonItem *saoItem = [[UIBarButtonItem alloc] initWithCustomView:self.customLeft_btn];
-    //添加到导航项的左按钮
-    self.navigationItem.leftBarButtonItem = saoItem;
-
-    self.shakehanderRight_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.shakehanderRight_btn.frame = CGRectMake(KScreenW - 50 -40, 10, 40, 40);
-    [self.shakehanderRight_btn setImage :[UIImage imageNamed:@"more"]  forState:UIControlStateNormal];
-    [self.shakehanderRight_btn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-    //把button的视图交给Item
-    UIBarButtonItem * shakeItem = [[UIBarButtonItem alloc] initWithCustomView:self.shakehanderRight_btn];
-    //添加到导航项的左按钮
-    self.navigationItem.rightBarButtonItem = shakeItem;
-    
-    
     UISearchBar * searchbar  = [[UISearchBar alloc]init];   //WithFrame: CGRectMake(0, 0, KScreenW - 80, 30)];
     searchbar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:searchbar.bounds.size];
+
     searchbar.placeholder = @"请输入关键字";
     searchbar.delegate = self;
-    self.navigationItem.titleView = searchbar;
+    [searchbar sizeToFit];
 
-    
+    if (@available(iOS 11, *))
+    {
+        UIView*searchbg=[[UIView alloc]init];
+        searchbg.backgroundColor=[UIColor clearColor];
+        self.navigationItem.titleView = searchbg;
+        [searchbg.heightAnchor constraintEqualToConstant: 44].active = YES;
+        [searchbg.widthAnchor constraintEqualToConstant:KScreenW-150].active=YES;
+        [searchbg addSubview:searchbar];
+        [searchbar mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(searchbg);
+            make.top.equalTo(searchbg).with.offset(3);
+            make.left.equalTo(searchbg).with.offset(0);
+            make.right.equalTo(searchbg).with.offset(0);
+            make.bottom.equalTo(searchbg).with.offset(-3);
+        }];
+    }
+    else
+    {
+        [searchbar.heightAnchor constraintEqualToConstant: 44].active = YES;
+        [searchbar.widthAnchor constraintEqualToConstant:KScreenW-150].active=YES;
+        self.navigationItem.titleView = searchbar;
+    }
     //navBar 的背景颜色
 //    self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
  
@@ -166,7 +184,7 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
 }
  
 /**
- 扫一扫事件 、  摇一摇  、
+ 扫一扫事件 、 加好友加群、
  */
 -(void)clickAction:(UIButton *)sender
 {
@@ -176,6 +194,7 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
         [YBPopupMenu showRelyOnView:sender titles:_titlesArr icons:_iconArr menuWidth:140 otherSettings:^(YBPopupMenu *popupMenu) {
             popupMenu.isShowShadow = YES;
             popupMenu.delegate = self;
+            popupMenu.tintColor = HEXCOLOR(0xfffffff);
             popupMenu.offset = 10;
             popupMenu.type = YBPopupMenuTypeDark;
             

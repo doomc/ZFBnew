@@ -37,7 +37,7 @@
             [_selectItemColor setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal];
             break;
         case ValueSelectType_selected:
-            [_selectItemColor setBackgroundColor:HEXCOLOR(0xfe6d6a)];
+            [_selectItemColor setBackgroundColor:HEXCOLOR(0xf95a70)];
             [_selectItemColor setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
             break;
         case ValueSelectType_enable:

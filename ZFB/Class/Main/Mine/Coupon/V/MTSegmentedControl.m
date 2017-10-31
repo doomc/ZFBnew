@@ -44,11 +44,11 @@
     _selectSeugment = 0;
     
     self.backgroundColor = [UIColor whiteColor];
-    self.bottomColor = HEXCOLOR(0xfe6d6a);
+    self.bottomColor = HEXCOLOR(0xf95a70);
     
     self.titleColor = HEXCOLOR(0x363636);
     self.titleFont = [UIFont systemFontOfSize:15.0f];
-    self.selectColor = HEXCOLOR(0xfe6d6a);
+    self.selectColor = HEXCOLOR(0xf95a70);
     self.isAnimated = YES;
     
 }

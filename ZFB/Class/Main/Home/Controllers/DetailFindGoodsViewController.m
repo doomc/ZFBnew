@@ -598,7 +598,7 @@
                 NSInteger count = self.couponList.count;
                 couponCell.lb_title.text = [NSString stringWithFormat:@"您有 %ld 张可使用的的优惠券",count];
                 couponCell.lb_title.keywords      = [NSString stringWithFormat:@"%ld",count];
-                couponCell.lb_title.keywordsColor = HEXCOLOR(0xfe6d6a);
+                couponCell.lb_title.keywordsColor = HEXCOLOR(0xf95a70);
                 couponCell.lb_title.keywordsFont  = [UIFont systemFontOfSize:18];
                 ///必须设置计算宽高
                 CGRect dealNumh              = [couponCell.lb_title getLableHeightWithMaxWidth:300];
@@ -971,26 +971,26 @@
     
     lb_price           = [UILabel new];
     lb_price.text      =  [NSString stringWithFormat:@"¥%@",_priceRange];
-    lb_price.textColor = HEXCOLOR(0xfe6d6a);
+    lb_price.textColor = HEXCOLOR(0xf95a70);
     lb_price.font      = [UIFont systemFontOfSize:14];
     [self.popView addSubview:lb_price];
     
     //库存
     lb_inShock           = [UILabel new];
     lb_inShock.text =[NSString stringWithFormat:@"库存:%@",_inventory];
-    lb_inShock.textColor = HEXCOLOR(0xfe6d6a);
+    lb_inShock.textColor = HEXCOLOR(0xf95a70);
     lb_inShock.font      = [UIFont systemFontOfSize:12];
     [self.popView addSubview:lb_inShock];
     
     //lb_Sku规格
     lb_Sku           = [UILabel new];
     lb_Sku.text      = @"已选择:";
-    lb_Sku.textColor = HEXCOLOR(0xfe6d6a);
+    lb_Sku.textColor = HEXCOLOR(0xf95a70);
     lb_Sku.font      = [UIFont systemFontOfSize:12];
     [self.popView addSubview:lb_Sku];
     
     UILabel * lb_line       = [UILabel new];
-    lb_line.backgroundColor = HEXCOLOR(0xfe6d6a);
+    lb_line.backgroundColor = HEXCOLOR(0xf95a70);
     [self.popView addSubview:lb_line];
     
     
@@ -1037,7 +1037,7 @@
     addShopCar.clipsToBounds      = YES;
     addShopCar.layer.cornerRadius = 4;
     addShopCar.titleLabel.font    = [UIFont systemFontOfSize:14];
-    addShopCar.backgroundColor    = HEXCOLOR(0xfe6d6a);
+    addShopCar.backgroundColor    = HEXCOLOR(0xf95a70);
     [addShopCar setTitle:@"加入购物车"forState:UIControlStateNormal];
     [addShopCar addTarget:self action:@selector(SecondAddShopCar:) forControlEvents:UIControlEventTouchUpInside];
     [self.popView addSubview:addShopCar];
@@ -1047,7 +1047,7 @@
     buyNow.clipsToBounds      = YES;
     buyNow.layer.cornerRadius = 4;
     buyNow.titleLabel.font    = [UIFont systemFontOfSize:14];
-    buyNow.backgroundColor    = HEXCOLOR(0xfe6d6a);
+    buyNow.backgroundColor    = HEXCOLOR(0xf95a70);
     [buyNow setTitle:@"立即抢购"forState:UIControlStateNormal];
     [buyNow addTarget: self action:@selector(SecondBuyNowAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.popView addSubview:buyNow];

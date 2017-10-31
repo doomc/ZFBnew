@@ -24,7 +24,7 @@
 {
     _findgoodslist = findgoodslist;
     self.lb_distence.text = [NSString stringWithFormat:@"%@公里",findgoodslist.storeDist];
-    self.lb_collectNum.text = [NSString stringWithFormat:@"%ld",_findgoodslist.likeNum];
+    self.lb_collectNum.text = [NSString stringWithFormat:@"%ld",_findgoodslist.collectCount];
     self.store_listTitle.text = _findgoodslist.storeName;
     [self.store_listView sd_setImageWithURL:[NSURL URLWithString:_findgoodslist.coverUrl] placeholderImage:[UIImage imageNamed:@"720x300"]];
     

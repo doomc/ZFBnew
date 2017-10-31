@@ -158,6 +158,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self settingNavBarBgName:@"nav64_gray"];
     [self.navigationController.navigationBar setBarTintColor:RGBA(244, 244, 244, 1.0)];
 
 

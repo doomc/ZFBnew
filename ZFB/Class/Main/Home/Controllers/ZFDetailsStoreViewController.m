@@ -258,7 +258,7 @@
             //关键字
             couponCell.lb_title.text = [NSString stringWithFormat:@"您有 %ld 张待领取的优惠券",count];
             couponCell.lb_title.keywords      = [NSString stringWithFormat:@"%ld",count];
-            couponCell.lb_title.keywordsColor = HEXCOLOR(0xfe6d6a);
+            couponCell.lb_title.keywordsColor = HEXCOLOR(0xf95a70);
             couponCell.lb_title.keywordsFont  = [UIFont systemFontOfSize:18];
             ///必须设置计算宽高
             CGRect dealNumh              = [couponCell.lb_title getLableHeightWithMaxWidth:300];

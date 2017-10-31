@@ -38,7 +38,7 @@
 #import "RechargeViewController.h"//提现
 #import "BandBackCarViewController.h"//绑卡
 #import "PersonalMesViewController.h"//通知消息列表
-
+#import "DetailMsgNoticeViewController.h"//通知消息
 //base
 #import "ZFBaseNavigationViewController.h"
 
@@ -111,7 +111,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 
     NSLog(@"消息列表");
     if (BBUserDefault.isLogin == 1) {
-        PersonalMesViewController * messVC = [PersonalMesViewController new];
+        DetailMsgNoticeViewController * messVC = [DetailMsgNoticeViewController new];
         [self.navigationController pushViewController:messVC animated:NO];
     }else{
         [self isloginSuccess];
@@ -126,7 +126,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
     [self presentViewController:nav animated:NO completion:^{
         regiVC.mark = YES;
-        [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];
+        [nav.navigationBar setBarTintColor:HEXCOLOR(0xf95a70)];
         [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0xffffff),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
     }];
     //    [self.navigationController pushViewController:regiVC animated:YES];

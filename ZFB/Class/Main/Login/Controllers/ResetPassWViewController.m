@@ -69,7 +69,7 @@
         if ( _tf_surePS.text.length > 0  && (_tf_newPS.text.length >= 8 && _tf_newPS.text.length <=20) ) {
             
             self.complete_btn.enabled         = YES;
-            self.complete_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+            self.complete_btn.backgroundColor = HEXCOLOR(0xf95a70);
             
         }
         else{

@@ -83,10 +83,10 @@
 
 - (void)setUpNav{
     self.navigationItem.title = @"个人名片";
-    if ([self.userId isEqualToString:[[NIMSDK sharedSDK].loginManager currentAccount]]) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStyleDone target:self action:@selector(onActionEditMyInfo:)];
-        self.navigationItem.rightBarButtonItem.tintColor = [UIColor blackColor];
-    }
+//    if ([self.userId isEqualToString:[[NIMSDK sharedSDK].loginManager currentAccount]]) {
+//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStyleDone target:self action:@selector(onActionEditMyInfo:)];
+//        self.navigationItem.rightBarButtonItem.tintColor = [UIColor blackColor];
+//    }
 }
 
 - (void)refresh{
@@ -254,7 +254,8 @@
     UISwitch *switcher = sender;
     [SVProgressHUD show];
     __weak typeof(self) wself = self;
-    [[NIMSDK sharedSDK].userManager updateNotifyState:switcher.on forUser:self.userId completion:^(NSError *error) {            [SVProgressHUD dismiss];
+    [[NIMSDK sharedSDK].userManager updateNotifyState:switcher.on forUser:self.userId completion:^(NSError *error) {
+        [SVProgressHUD dismiss];
         if (error) {
             [wself.view makeToast:@"操作失败"duration:2.0f position:@"center"];
             [wself refresh];
@@ -275,13 +276,13 @@
 - (void)addFriend{
     NIMUserRequest *request = [[NIMUserRequest alloc] init];
     request.userId = self.userId;
-    request.operation = NIMUserOperationAdd;
+    request.operation = NIMUserOperationRequest;
     if ([[NTESBundleSetting sharedConfig] needVerifyForFriend]) {
         request.operation = NIMUserOperationRequest;
         request.message = @"跪求通过";
     }
-    NSString *successText = request.operation == NIMUserOperationAdd ? @"添加成功" : @"请求成功";
-    NSString *failedText =  request.operation == NIMUserOperationAdd ? @"添加失败" : @"请求失败";
+    NSString *successText = request.operation == NIMUserOperationRequest ? @"添加请求已发送" : @"请求发送成功";
+    NSString *failedText =  request.operation == NIMUserOperationRequest ? @"添加失败" : @"请求失败";
     
     __weak typeof(self) wself = self;
     [SVProgressHUD show];

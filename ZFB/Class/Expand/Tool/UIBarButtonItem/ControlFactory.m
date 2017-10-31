@@ -12,21 +12,19 @@
 
 + (UIBarButtonItem*)createBackBarButtonItemWithTarget:(id)target action:(SEL)action{
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftButton.frame = CGRectMake(0, 0, 25, 25);
+    leftButton.frame = CGRectMake(0, 10, 25, 25);
     leftButton.titleLabel.font = Nav_Back_Font_M;
     [leftButton setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     leftButton.adjustsImageWhenHighlighted = NO;
     
     [leftButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-    
-    
     UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithCustomView:leftButton];
     return leftBtn;
 }
 
 + (UIBarButtonItem*)createCloseBarButtonItemWithTarget:(id)target action:(SEL)action{
     UIButton *leftButton = [[UIButton alloc]init];
-    leftButton.frame = CGRectMake(0, 0, 40, 45);
+    leftButton.frame = CGRectMake(0, 10, 40, 30);
     leftButton.titleLabel.font = Nav_Back_Font_M;
     [leftButton setTitleColor:Theme_Color_Pink forState:UIControlStateNormal];
     [leftButton setTitle:@"返回" forState:UIControlStateNormal];
@@ -42,19 +40,16 @@
     return leftBtn;
 }
 
-
 + (UIBarButtonItem*)createBarButtonItemWithTitle2:(NSString*)title addTarget:(id)target action:(SEL)action{
     
     UIButton *leftButton = [[UIButton alloc]init];
-    leftButton.frame = CGRectMake(0, 0, 72, 45);
+    leftButton.frame = CGRectMake(0,10, 72, 45);
     leftButton.titleLabel.font = Nav_Back_Font_M;
     [leftButton setTitle:title forState:UIControlStateNormal];
     leftButton.adjustsImageWhenDisabled = NO;
     
     [leftButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-    
     UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithCustomView:leftButton];
-    
     return leftBtn;
 }
 

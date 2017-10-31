@@ -117,7 +117,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     if (!_sure_payfor) {
         _sure_payfor = [UIButton buttonWithType:UIButtonTypeCustom];
         [_sure_payfor setTitle:@"去付款" forState:UIControlStateNormal];
-        [_sure_payfor setBackgroundColor:HEXCOLOR(0xfe6d6a)];
+        [_sure_payfor setBackgroundColor:HEXCOLOR(0xf95a70)];
         UIFont *font  =[UIFont systemFontOfSize:15];
         _sure_payfor.titleLabel.font    = font;
         CGSize size                     = [_sure_payfor.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
@@ -211,56 +211,40 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         if (indexPath.row == 0) {
             
             height = 40;
-            return height;
+   
         }
         else if (indexPath.row == 1) {
-            
             height = 60;
-            
-            return height;
+ 
         }
-        
     }
     else if (indexPath.section == 1) {
-        
         height = 100;
-        
     }
     if (indexPath.section == 2) {
         if (indexPath.row  == 0) {
-           
             height = 44;
-
         }
         else if (indexPath.row  == 1) {
-            
             if (deliveryName == nil || [deliveryName isEqualToString:@""]) {
-                
                 height = 0;
                 
             }else{
                 height = 44;
-                
             }
         }
         else if (indexPath.row  == 2) {
             if (_couponAmount == nil || [_couponAmount isEqualToString:@""]) {
-                
                 height = 0;
-                
             }else{
                 height = 44;
             }
         }
         else if (indexPath.row  == 3) {
-            
             height = 70;
-
         }
         else {
-            
             height = 78;
-            
         }
     }
     return height;
@@ -268,18 +252,18 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell  * cell = nil;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             
             ZFOrderDetailCell* detailCell       = [self.tableView dequeueReusableCellWithIdentifier:commonDetailCellid forIndexPath:indexPath];
-            Unpayorderinfo * payinfo = self.paySignArray[indexPath.row];
-            detailCell.lb_detailtitle.text      = [NSString stringWithFormat:@"订单号：%@",payinfo.order_num];
-            detailCell.lb_detaileFootTitle.text = orderStatusName;
-            detailCell.lb_detaileFootTitle.textColor = HEXCOLOR(0xfe6d6a);
-            cell = detailCell;
-            
-        }
+            if (self.paySignArray.count > 0) {
+                Unpayorderinfo * payinfo = self.paySignArray[indexPath.row];
+                detailCell.lb_detailtitle.text      = [NSString stringWithFormat:@"订单号：%@",payinfo.order_num];
+                detailCell.lb_detaileFootTitle.text = orderStatusName;
+                detailCell.lb_detaileFootTitle.textColor = HEXCOLOR(0xf95a70);
+             }
+            return detailCell;
+       }
         else if (indexPath.row == 1) {
             
             OrderWithAddressCell* addressCell = [self.tableView dequeueReusableCellWithIdentifier:addressCellid forIndexPath:indexPath];
@@ -288,13 +272,12 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             [addressCell.nodataView setHidden:YES];
             addressCell.lb_nameAndPhone.text = [NSString stringWithFormat:@"%@ %@",nickName,mobilePhone];
             addressCell.lb_address.text =  postAddress;
-            cell                              = addressCell;
+            return  addressCell;
             
         }
         
     }
-    else if (indexPath.section == 1)
-    {
+    else if (indexPath.section == 1){
         
         ZFOrderDetailGoosContentCell* goodsCell = [self.tableView dequeueReusableCellWithIdentifier:kcontentDetailCellid forIndexPath:indexPath];
         
@@ -304,21 +287,17 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             goodsCell.goodlist = goodlist;
         }
         
-        cell = goodsCell;
+        return goodsCell;
         
-    }
-    
-    else if (indexPath.section == 2)
-    {
+    }else if (indexPath.section == 2){
         if (indexPath.row == 0) {
             
             ZFOrderDetailCell* detailCell = [self.tableView dequeueReusableCellWithIdentifier:commonDetailCellid forIndexPath:indexPath];
             detailCell.lb_detailtitle.text = @"支付方式";
             detailCell.lb_detaileFootTitle.text = payMethodName;
-            cell  = detailCell;
+           return detailCell;
             
-        }
-        else if (indexPath.row == 1) {
+        }else if (indexPath.row == 1) {
             
             ZFOrderDetailCell* detailCell = [self.tableView dequeueReusableCellWithIdentifier:commonDetailCellid forIndexPath:indexPath];
             if (deliveryName == nil || [deliveryName isEqualToString:@""]) {
@@ -330,7 +309,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
                 detailCell.lb_detaileFootTitle.text = [NSString stringWithFormat:@"%@ %@",deliveryName,deliveryPhone];
             }
 
-            cell  = detailCell;
+           return detailCell;
             
         }
         else if (indexPath.row == 2) {//折扣信息
@@ -342,32 +321,27 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
                 
             }else{
                 detailCell.lb_detailtitle.text = @"折扣信息";
-                detailCell.lb_detaileFootTitle.text = [NSString stringWithFormat:@"已优惠%@元",_couponAmount];
+                detailCell.lb_detaileFootTitle.text = [NSString stringWithFormat:@"已优惠%.2f元",[_couponAmount floatValue]];
             }
-
-            cell  = detailCell;
-        }
-
-        else if (indexPath.row == 3) {//配送金额
+            return detailCell;
+        }else if (indexPath.row == 3) {//配送金额
             
             ZFOrderDetailCountCell* countCell = [self.tableView dequeueReusableCellWithIdentifier:kcountDetailCellid forIndexPath:indexPath];
             countCell.lb_freeSendPrice.text = [NSString stringWithFormat:@"¥%.2f",[deliveryFee floatValue]]  ;
-            countCell.lb_goodsAllPrice .text = [NSString stringWithFormat:@"¥%@",goodsAmount] ;
+            countCell.lb_goodsAllPrice .text = [NSString stringWithFormat:@"¥%.2f",[goodsAmount floatValue]];
+            return countCell;
             
-            cell                              = countCell;
-            
-        }
-        else  {
+        }else{
             
             ZFOrderDetailPaycashCell* payCell = [self.tableView dequeueReusableCellWithIdentifier:payCashDetailCellid forIndexPath:indexPath];
             payCell.lb_realPay.text = [NSString stringWithFormat:@"¥%@",payRelPrice] ;
             payCell.lb_orderCreatTime.text = createTime;
-            cell                              = payCell;
+            return payCell;
             
         }
     }
-    
-    return cell;
+    return nil;
+ 
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -390,16 +364,12 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 -(void)getOrderDetailsInfoPostResquestcmOrderid:(NSString*) cmOrderId
 {
     NSDictionary * parma = @{
-                             
                              @"cmOrderid":cmOrderId,
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/order/getOrderDetailsInfo"] params:parma success:^(id response) {
-        
         NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
-        
         if([code isEqualToString:@"0"]){
-            
             if (self.shoppCartList.count > 0) {
                 [self.shoppCartList removeAllObjects];
             }
@@ -474,12 +444,11 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
                 }
             }
             [SVProgressHUD dismiss];
+            [self.tableView reloadData];
+
         }
-        [self.tableView reloadData];
-        
         
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
@@ -635,16 +604,15 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     NSDate * date = [NSDate date];
     _datetime     = [dateTimeHelper timehelpFormatter: date];//2017-07-20 17:08:54
 
-    if ([_cmOrderid isEqual:[NSNull null]]) {
-        _cmOrderid = @"";
-    }
     NSLog(@"_cmOrderid  == ==== == == %@",_cmOrderid);
-    if ( ![_cmOrderid isEqualToString:@"null"]) {
-        
-        [self getOrderDetailsInfoPostResquestcmOrderid:_cmOrderid];
-        
-    }
-    
+//    if (_isBussiness == YES) {
+//        [self getOrderDetailsInfoPostResquestcmOrderid:@""];
+//
+//    }else{
+//
+//    }
+    [self getOrderDetailsInfoPostResquestcmOrderid:_cmOrderid];
+
 }
 -(void)viewWillDisappear:(BOOL)animated
 {

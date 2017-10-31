@@ -27,11 +27,12 @@
 {
     if (self = [super init])
     {
-        _appKey = @"6bd36bd4bfadba812aff256259316848";
-        _apnsCername = @"DevelopmentPushCer";
+        _appKey = YunXinAppkey;
+        _apnsCername = @"PushProductCer";//线上正式
+//        _apnsCername = @"PushDevelopmentCer";//线下测试
         _pkCername = @"DPushKitCer";
         
-        _redPacketConfig = [[NTESRedPacketConfig alloc] init];
+//        _redPacketConfig = [[NTESRedPacketConfig alloc] init];
     }
     return self;
 }

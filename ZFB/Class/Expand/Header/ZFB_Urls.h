@@ -40,11 +40,11 @@
 
 #pragma mark ------------- tfy测试服务器数--------------------
 ////baseURL
-//#define  zfb_baseUrl @"http://192.168.1.222:8087/zfb/InterfaceServlet"
+//#define  zfb_baseUrl @"http://192.168.1.166:8087/zfb/InterfaceServlet"
 ////单聊
-//#define  IMsingle_baseUrl @"http://192.168.1.222:8087/im/user"
+//#define  IMsingle_baseUrl @"http://192.168.1.166:8087/im/user"
 ////群聊
-//#define  IMGroup_baseUrl @"http://192.168.1.222:8087/group"
+//#define  IMGroup_baseUrl @"http://192.168.1.166:8087/group"
 
 
 #pragma mark ------------- 测试服务器数--------------------
@@ -66,7 +66,7 @@
 
 #pragma mark -------------支付服务 -------------------
 //测试支付地址
-#define payText_baseUrl @"http://192.168.1.115:8080"
+//#define paySign_baseUrl @"http://192.168.1.115:8080"
 //正式支付地址
 #define paySign_baseUrl  @"https://pay.zavfb.com"
 

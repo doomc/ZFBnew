@@ -91,7 +91,6 @@ typedef NS_ENUM(NSUInteger, CellType) {
 ///全部分类
 -(void)seleteItemGoodsTypeId: (NSString *)goodsTypeId withIndexrow:(NSInteger )indexPathRow
 {
-    CMgoodstypelist * typeList  = self.funcArray[indexPathRow];
     if (indexPathRow == 7) {
         NSLog(@"全部分类全部分类");
         ZFClassifyCollectionViewController * classifyVC = [[ZFClassifyCollectionViewController alloc]init];
@@ -100,7 +99,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
     }else{
 
         HomeSearchResultViewController * searchVC= [HomeSearchResultViewController new];
-        searchVC.goodsType = [NSString stringWithFormat:@"%ld",typeList.goodId];///商品类别
+        searchVC.goodsType = goodsTypeId;///商品类别
         searchVC.searchType = @"商品";
         [self.navigationController pushViewController:searchVC animated:NO];
     }
@@ -185,7 +184,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
         
         return self.hotArray.count > 0 ? 40 : 0;
     }
-    return 35;
+    return 40;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
  
@@ -432,6 +431,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
                 
                 [self.funcArray addObject:typeList];
             }
+   
+            
             [self.findGoods_TableView reloadData];
         }
     } progress:^(NSProgress *progeress) {

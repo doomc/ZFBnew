@@ -42,7 +42,7 @@
     if (goods.status == 0) {
         
         [self.saleAfter_btn setTitle:@"申请售后" forState:UIControlStateNormal];
-        self.saleAfter_btn.backgroundColor = HEXCOLOR(0xfe6d6a);
+        self.saleAfter_btn.backgroundColor = HEXCOLOR(0xf95a70);
         [self.saleAfter_btn setTitleColor: HEXCOLOR(0xffffff) forState:UIControlStateNormal] ;
 
         self.saleAfter_btn.enabled = YES;
@@ -51,12 +51,12 @@
     {
         [self.saleAfter_btn setTitle:@"退货中" forState:UIControlStateNormal];
         self.saleAfter_btn.backgroundColor = [UIColor whiteColor];
-        [self.saleAfter_btn setTitleColor: HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
+        [self.saleAfter_btn setTitleColor: HEXCOLOR(0xf95a70) forState:UIControlStateNormal] ;
         self.saleAfter_btn.enabled = NO;
     }
      if (goods.status == 2){
         self.saleAfter_btn.backgroundColor = [UIColor whiteColor];
-        [self.saleAfter_btn setTitleColor: HEXCOLOR(0xfe6d6a) forState:UIControlStateNormal] ;
+        [self.saleAfter_btn setTitleColor: HEXCOLOR(0xf95a70) forState:UIControlStateNormal] ;
         self.saleAfter_btn.enabled = NO;
         [self.saleAfter_btn setTitle:@"服务完成" forState:UIControlStateNormal];
 
