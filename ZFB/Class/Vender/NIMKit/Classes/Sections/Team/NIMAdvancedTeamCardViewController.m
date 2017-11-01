@@ -23,6 +23,8 @@
 #import "NIMTeamSwitchTableViewCell.h"
 #import "NIMAvatarImageView.h"
 #import "NIMKitProgressHUD.h"
+#import "NIMTeamNotifyUpdateViewController.h"
+
 
 #pragma mark - Team Header View
 #define CardHeaderHeight 89
@@ -252,10 +254,10 @@
             wself.memberData = members;
         }else if(error.code == NIMRemoteErrorCodeTeamNotMember){
             [wself.view makeToast:@"你已经不在群里" duration:2
-                                position:@"center"];
+                                position:CSToastPositionCenter];
         }else{
             [wself.view makeToast:[NSString stringWithFormat:@"拉好友失败 error: %zd",error.code] duration:2
-                                position:@"center"];
+                                position:CSToastPositionCenter];
         }
         handler(error);
     }];
@@ -306,9 +308,9 @@
     
     NIMTeamCardRowItem *teamNotify = [[NIMTeamCardRowItem alloc] init];
     teamNotify.title  = @"消息提醒";
-    teamNotify.switchOn = [self.team notifyForNewMsg];
+    teamNotify.action = @selector(updateTeamNotify);
     teamNotify.rowHeight = 50.f;
-    teamNotify.type   = TeamCardRowItemTypeSwitch;
+    teamNotify.type   = TeamCardRowItemTypeCommon;
 
     NIMTeamCardRowItem *itemQuit = [[NIMTeamCardRowItem alloc] init];
     itemQuit.title = @"退出高级群";
@@ -570,6 +572,12 @@
     [_updateTeamNickAlertView show];
 }
 
+- (void)updateTeamNotify
+{
+    NIMTeamNotifyUpdateViewController *vc = [[NIMTeamNotifyUpdateViewController alloc] initTeam:self.team];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)updateTeamIntro{
     _updateTeamIntroAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"修改群介绍" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     _updateTeamIntroAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
@@ -677,7 +685,7 @@
                                                  if (error) {
                                                      [weakSelf.view makeToast:[NSString stringWithFormat:@"修改失败  error:%zd",error.code]
                                                                             duration:2
-                                                                            position:@"center"];
+                                                                            position:CSToastPositionCenter];
                                                  }
                                                  [weakSelf reloadData];
                                              }];
@@ -713,11 +721,11 @@
         if (!error) {
             [self.view makeToast:@"邀请成功"
                                duration:2
-                               position:@"center"];
+                               position:CSToastPositionCenter];
         }else{
             [self.view makeToast:[NSString stringWithFormat:@"邀请失败 code:%zd",error.code]
                                duration:2
-                               position:@"center"];
+                               position:CSToastPositionCenter];
         }
     }];
 }
@@ -758,11 +766,11 @@
                     if (!error) {
                         self.team.teamName = name;
                         [self.view makeToast:@"修改成功" duration:2
-                                           position:@"center"];
+                                           position:CSToastPositionCenter];
                         [self reloadData];
                     }else{
                         [self.view makeToast:[NSString stringWithFormat:@"修改失败 code:%zd",error.code] duration:2
-                                           position:@"center"];
+                                           position:CSToastPositionCenter];
                     }
                 }];
             }
@@ -922,14 +930,14 @@
     __block ContactSelectFinishBlock finishBlock =  ^(NSArray * memeber){
         [[NIMSDK sharedSDK].teamManager transferManagerWithTeam:wself.team.teamId newOwnerId:memeber.firstObject isLeave:isLeave completion:^(NSError *error) {
             if (!error) {
-                [wself.view makeToast:@"转移成功！" duration:2.0 position:@"center"];
+                [wself.view makeToast:@"转移成功！" duration:2.0 position:CSToastPositionCenter];
                 if (isLeave) {
                     [wself.navigationController popToRootViewControllerAnimated:YES];
                 }else{
                     [wself reloadData];
                 }
             }else{
-                [wself.view makeToast:[NSString stringWithFormat:@"转移失败！code:%zd",error.code] duration:2.0 position:@"center"];
+                [wself.view makeToast:[NSString stringWithFormat:@"转移失败！code:%zd",error.code] duration:2.0 position:CSToastPositionCenter];
             }
         }];
     };
@@ -1066,20 +1074,20 @@
                     }else{
                         [wself.view makeToast:@"设置头像失败，请重试"
                                      duration:2
-                                     position:@"center"];
+                                     position:CSToastPositionCenter];
                     }
                 }];
                 
             }else{
                 [wself.view makeToast:@"图片上传失败，请重试"
                              duration:2
-                             position:@"center"];
+                             position:CSToastPositionCenter];
             }
         }];
     }else{
         [self.view makeToast:@"图片保存失败，请重试"
                     duration:2
-                    position:@"center"];
+                    position:CSToastPositionCenter];
     }
 }
 

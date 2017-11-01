@@ -170,6 +170,11 @@
     [self refresh];
 }
 
+- (void)allMessagesRead
+{
+    _recentSessions = [[NIMSDK sharedSDK].conversationManager.allRecentSessions mutableCopy];
+    [self refresh];
+}
 
 #pragma mark - NIMLoginManagerDelegate
 - (void)onLogin:(NIMLoginStep)step
@@ -313,9 +318,8 @@
     }
 }
 
-
 - (NSString *)notificationMessageContent:(NIMMessage *)lastMessage{
-    NIMNotificationObject *object = (NIMNotificationObject *) lastMessage.messageObject;
+    NIMNotificationObject *object = lastMessage.messageObject;
     if (object.notificationType == NIMNotificationTypeNetCall) {
         NIMNetCallNotificationContent *content = (NIMNetCallNotificationContent *)object.content;
         if (content.callType == NIMNetCallTypeAudio) {
@@ -335,7 +339,7 @@
 }
 
 - (NSString *)robotMessageContent:(NIMMessage *)lastMessage{
-    NIMRobotObject *object =  (NIMRobotObject *)lastMessage.messageObject;
+    NIMRobotObject *object = lastMessage.messageObject;
     if (object.isFromRobot)
     {
         return @"[机器人消息]";
@@ -345,6 +349,7 @@
         return lastMessage.text;
     }
 }
+
 
 #pragma mark - Notification
 - (void)onUserInfoHasUpdatedNotification:(NSNotification *)notification{

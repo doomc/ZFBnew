@@ -11,7 +11,8 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface NIMLocationViewController (){
+@interface NIMLocationViewController () <CLLocationManagerDelegate>
+{
     BOOL  _updateUserLocation;
 }
 
@@ -62,22 +63,33 @@
     }else{
         [self setUpRightNavButton];
         self.locationPoint   = [[NIMKitLocationPoint alloc] init];
+        self.locationManager = [CLLocationManager new];
+        [self.locationManager requestWhenInUseAuthorization];
+        self.locationManager.delegate = self;
         if ([CLLocationManager locationServicesEnabled]) {
-            [_locationManager requestAlwaysAuthorization];
+            [_locationManager requestLocation];
             CLAuthorizationStatus status = CLLocationManager.authorizationStatus;
             if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied) {
                 [self.view makeToast:@"请在设置-隐私里允许程序使用地理位置服务"
                             duration:2
-                            position:@"center"];
+                            position:CSToastPositionCenter];
             }else{
                 self.mapView.showsUserLocation = YES;
             }
         }else{
             [self.view makeToast:@"请打开地理位置服务"
                         duration:2
-                        position:@"center"];
+                        position:CSToastPositionCenter];
         }
     }
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(nonnull NSArray<CLLocation *> *)locations {
     
 }
 

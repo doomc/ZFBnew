@@ -16,27 +16,27 @@
 #import "LoginViewController.h"
 #import "PPBadgeView.h"
 #import "AppDelegate.h"
-#import "NTESCustomNotificationDB.h"
 
-@interface ZFbaseTabbarViewController ()<NIMSystemNotificationManagerDelegate,NIMConversationManagerDelegate>
+#import "NTESSessionUtil.h"
 
-@property (nonatomic,assign) NSInteger sessionUnreadCount;
-@property (nonatomic,assign) NSInteger systemUnreadCount;
-@property (nonatomic,assign) NSInteger customSystemUnreadCount;
+@interface ZFbaseTabbarViewController ()<NIMLoginManagerDelegate,NIMEventSubscribeManagerDelegate>
+
+@property (nonatomic,assign) NSInteger  teamUnreadCount;
+
+@property (nonatomic,assign) NSInteger  singleUnreadCount;
 
 @end
 
 @implementation ZFbaseTabbarViewController
 
 + (void)initialize {
-    
     // 设置UITabBarItem主题
     [self setupTabBarItemTheme];
 }
 
 + (void)setupTabBarItemTheme {
-    UITabBarItem *tabBarItem = [UITabBarItem appearance];
     
+    UITabBarItem *tabBarItem = [UITabBarItem appearance];
     /**设置文字属性**/
     // 普通状态
     [tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f], NSForegroundColorAttributeName : HEXCOLOR(0xa7a7a7)} forState:UIControlStateNormal];
@@ -48,21 +48,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NIMSDK sharedSDK].systemNotificationManager addDelegate:self];
-    [[NIMSDK sharedSDK].conversationManager addDelegate:self];
     
-    extern NSString *NTESCustomNotificationCountChanged;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onCustomNotifyChanged:) name:NTESCustomNotificationCountChanged object:nil];
-    
-    self.sessionUnreadCount  = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
-    self.systemUnreadCount   = [NIMSDK sharedSDK].systemNotificationManager.allUnreadCount;
-    self.customSystemUnreadCount = [[NTESCustomNotificationDB sharedInstance] unreadCount];
-    
-    NSLog(@"count 聊天 == %ld",self.sessionUnreadCount);
-    NSLog(@"count 系统 == %ld",self.systemUnreadCount);
-    NSLog(@"count 自定义系统 == %ld",self.customSystemUnreadCount);
-    
-    
+    [[NIMSDK sharedSDK].loginManager addDelegate:self];
+    [[NIMSDK sharedSDK].subscribeManager addDelegate:self];
+
     // 添加所有子控制器
     [self addAllViewControllers];
     
@@ -70,69 +59,6 @@
     [self addCustomTabBar];
 }
 
-#pragma mark - NIMConversationManagerDelegate
-- (void)didAddRecentSession:(NIMRecentSession *)recentSession
-           totalUnreadCount:(NSInteger)totalUnreadCount{
-    self.sessionUnreadCount = totalUnreadCount;
-    [self refreshSessionBadge];
-}
-
-
-- (void)didUpdateRecentSession:(NIMRecentSession *)recentSession
-              totalUnreadCount:(NSInteger)totalUnreadCount{
-    self.sessionUnreadCount = totalUnreadCount;
-    [self refreshSessionBadge];
-}
-
-
-- (void)didRemoveRecentSession:(NIMRecentSession *)recentSession totalUnreadCount:(NSInteger)totalUnreadCount{
-    self.sessionUnreadCount = totalUnreadCount;
-    [self refreshSessionBadge];
-}
-
-- (void)messagesDeletedInSession:(NIMSession *)session{
-    self.sessionUnreadCount = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
-    [self refreshSessionBadge];
-}
-
-- (void)allMessagesDeleted{
-    self.sessionUnreadCount = 0;
-    [self refreshSessionBadge];
-}
-
-- (void)allMessagesRead
-{
-    self.sessionUnreadCount = 0;
-    [self refreshSessionBadge];
-}
-#pragma mark - NIMSystemNotificationManagerDelegate
-- (void)onSystemNotificationCountChanged:(NSInteger)unreadCount
-{
-    self.systemUnreadCount = unreadCount;
-    [self refreshSessionBadge];
-}
-
-#pragma mark - Notification
-- (void)onCustomNotifyChanged:(NSNotification *)notification
-{
-    NTESCustomNotificationDB *db = [NTESCustomNotificationDB sharedInstance];
-    self.customSystemUnreadCount = db.unreadCount;
-    [self refreshSessionBadge];
-}
-- (void)dealloc{
-    [[NIMSDK sharedSDK].systemNotificationManager removeDelegate:self];
-    [[NIMSDK sharedSDK].conversationManager removeDelegate:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-- (void)refreshSessionBadge{
-    ZFCInterpersonalCircleViewController *msgVC = [ZFCInterpersonalCircleViewController new];
-    
-    if (self.sessionUnreadCount > 0) {
-        msgVC.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld",self.sessionUnreadCount] ;
-    }else{
-        msgVC.tabBarItem.badgeValue = nil;
-    }
- }
 #pragma mark - 添加所有子控制器
 - (void)addAllViewControllers {
 
@@ -141,19 +67,17 @@
     
     ZFCInterpersonalCircleViewController *msgVC = [ZFCInterpersonalCircleViewController new];
     [self addOneChildVc:msgVC title:@"消息" imageName:@"news-off" selectedImageName:@"news-on"];
-    NSInteger badge = self.sessionUnreadCount;
-    msgVC.tabBarItem.badgeValue = badge ? @(badge).stringValue : nil;
+//    NSInteger badge = self.sessionUnreadCount;
+//    msgVC.tabBarItem.badgeValue = badge ? @(badge).stringValue : nil;
+    msgVC.tabBarItem.badgeValue = BBUserDefault.unReadCount;
     
     ShareCircleViewController *shopVC = [ShareCircleViewController new];
     [self addOneChildVc:shopVC title:@"分享圈" imageName:@"share-off" selectedImageName:@"share-on"];
-    [shopVC.tabBarItem pp_addDotWithColor:[UIColor redColor]];
+//    [shopVC.tabBarItem pp_addDotWithColor:[UIColor redColor]];
  
     ZFPersonalViewController *meVc = [ZFPersonalViewController new];
     [self addOneChildVc:meVc title:@"我的" imageName:@"mine" selectedImageName:@"mine_selected"];
-
-
-    
-    
+ 
 }
 
 #pragma mark - 添加一个子控制器
@@ -181,19 +105,16 @@
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
     
     NSLog(@"item name = %@", item.title);
-    
     if([item.title isEqualToString:@"消息"])
     {
         // 也可以判断标题,然后做自己想做的事
         if (BBUserDefault.isLogin == 1) {
-            
             
         }else{
             
             NSLog(@"登录了");
             LoginViewController * logvc    = [ LoginViewController new];
             ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
-            
             [self presentViewController:nav animated:NO completion:^{
                 
 //                [nav.navigationBar setBarTintColor:HEXCOLOR(0xfe6d6a)];

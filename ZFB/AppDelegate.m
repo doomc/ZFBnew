@@ -181,12 +181,13 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     
     if (BBUserDefault.userPhoneNumber != nil && BBUserDefault.token !=nil) {
         [[[NIMSDK sharedSDK] loginManager] login:BBUserDefault.userPhoneNumber token: BBUserDefault.token completion:^(NSError * _Nullable error) {
-            NSLog(@"网易云信 --- %@",error);
             [[NTESServiceManager sharedManager] start];
+            NSLog(@"网易云信 ---登录成功");
 
         }];
-        NSInteger systemCount = [[[NIMSDK sharedSDK] systemNotificationManager] allUnreadCount];
-        NSInteger count1 = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
+    }else{
+        NSLog(@"网易云信 ---登录失败");
+
     }
 }
 
@@ -215,14 +216,8 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     [NIMCustomObject registerCustomDecoder:[NTESCustomAttachmentDecoder new]];
  
  
-    NSInteger systemCount = [[[NIMSDK sharedSDK] systemNotificationManager] allUnreadCount];
-    NSInteger count1 = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
-    
+ 
 }
-
-
-
-
 
 - (void)commonInitListenEvents
 {
@@ -288,7 +283,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
                 [[[NIMSDK sharedSDK] loginManager] autoLogin:loginData];
                 
                 [[NTESServiceManager sharedManager] start];
-                
             }
             
         }];
@@ -322,6 +316,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     [[NTESServiceManager sharedManager] destory];
 
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -560,8 +555,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 //guide引导页
 -(void)setupGuidePageView
 {
-    
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+ self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     ZFbaseTabbarViewController *tabbarVC = [[ZFbaseTabbarViewController alloc] init];
     

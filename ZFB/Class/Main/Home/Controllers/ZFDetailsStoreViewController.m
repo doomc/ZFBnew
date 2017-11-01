@@ -379,6 +379,7 @@
     DetailFindGoodsViewController * goodVC = [DetailFindGoodsViewController new];
     goodVC.headerImage = goodlist.coverImgUrl;
     goodVC.goodsId = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
+    goodVC.store_address = _address;
     [self.navigationController pushViewController:goodVC animated:NO];
 }
 

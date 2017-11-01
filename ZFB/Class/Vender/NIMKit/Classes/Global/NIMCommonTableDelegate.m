@@ -51,7 +51,6 @@ static NSString *DefaultTableCell = @"UITableViewCell";
     NIMCommonTableSection *tableSection = self.data[indexPath.section];
     NIMCommonTableRow     *tableRow     = tableSection.rows[indexPath.row];
     NSString *identity = tableRow.cellClassName.length ? tableRow.cellClassName : DefaultTableCell;
-
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identity];
     if (!cell) {
         Class clazz = NSClassFromString(identity);

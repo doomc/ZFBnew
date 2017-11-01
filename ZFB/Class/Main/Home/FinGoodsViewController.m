@@ -303,6 +303,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
             
             Guessgoodslist *goodlist = self.likeListArray[indexPath.row];
             findVCgoods.headerImage = goodlist.coverImgUrl ;
+ 
             findVCgoods.goodsId      = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
         }
         [self.navigationController pushViewController:findVCgoods animated:YES];

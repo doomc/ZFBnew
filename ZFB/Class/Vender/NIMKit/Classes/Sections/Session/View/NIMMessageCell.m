@@ -22,7 +22,8 @@
 #import "NIMKitUIConfig.h"
 #import "NIMKit.h"
 
-@interface NIMMessageCell()<NIMPlayAudioUIDelegate,NIMMessageContentViewDelegate>{
+@interface NIMMessageCell()<NIMPlayAudioUIDelegate,NIMMessageContentViewDelegate>
+{
     UILongPressGestureRecognizer *_longPressGesture;
     UIMenuController             *_menuController;
 }
@@ -32,6 +33,8 @@
 @property (nonatomic,copy)   NSArray *customViews;
 
 @end
+
+
 
 @implementation NIMMessageCell
 
@@ -52,10 +55,15 @@
 
 - (void)makeComponents
 {
+    static UIImage *NIMRetryButtonImage;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NIMRetryButtonImage = [UIImage nim_imageInKit:@"icon_message_cell_error"];
+    });
     //retyrBtn
     _retryButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_retryButton setImage:[UIImage nim_imageInKit:@"icon_message_cell_error"] forState:UIControlStateNormal];
-    [_retryButton setImage:[UIImage nim_imageInKit:@"icon_message_cell_error"] forState:UIControlStateHighlighted];
+    [_retryButton setImage:NIMRetryButtonImage forState:UIControlStateNormal];
+    [_retryButton setImage:NIMRetryButtonImage forState:UIControlStateHighlighted];
     [_retryButton setFrame:CGRectMake(0, 0, 20, 20)];
     [_retryButton addTarget:self action:@selector(onRetryMessage:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_retryButton];
@@ -101,9 +109,11 @@
     [self addGestureRecognizer:_longPressGesture];
 }
 
-- (void)refreshData:(NIMMessageModel *)data{
+- (void)refreshData:(NIMMessageModel *)data
+{
     self.model = data;
-    if ([self checkData]) {
+    if ([self checkData])
+    {
         [self refresh];
     }
 }
@@ -113,7 +123,8 @@
 }
 
 
-- (void)refresh{
+- (void)refresh
+{
     [self addContentViewIfNotExist];
     [self addUserCustomViews];
     
@@ -197,6 +208,8 @@
     [self layoutReadLabel];
 }
 
+
+
 - (void)layoutAvatar
 {
     BOOL needShow = [self needShowAvatar];
@@ -223,6 +236,12 @@
 
 - (void)layoutBubbleView
 {
+    CGSize size  = [self.model contentSize:self.nim_width];
+    UIEdgeInsets insets = self.model.contentViewInsets;
+    size.width  = size.width + insets.left + insets.right;
+    size.height = size.height + insets.top + insets.bottom;
+    _bubbleView.nim_size = size;
+    
     UIEdgeInsets contentInsets = self.model.bubbleViewInsets;
     if (!self.model.shouldShowLeft)
     {
@@ -390,9 +409,10 @@
 - (BOOL)unreadHidden {
     if (self.model.message.messageType == NIMMessageTypeAudio) { //音频
         BOOL disable = NO;
-        if ([self.model.sessionConfig respondsToSelector:@selector(disableAudioPlayedStatusIcon)]) {
-            disable = [self.model.sessionConfig disableAudioPlayedStatusIcon];
+        if ([self.delegate respondsToSelector:@selector(disableAudioPlayedStatusIcon:)]) {
+            disable = [self.delegate disableAudioPlayedStatusIcon:self.model.message];
         }
+        
         BOOL hideIcon = self.model.message.attachmentDownloadState != NIMMessageAttachmentDownloadStateDownloaded || disable;
 
         return (hideIcon || self.model.message.isOutgoingMsg || [self.model.message isPlayed]);

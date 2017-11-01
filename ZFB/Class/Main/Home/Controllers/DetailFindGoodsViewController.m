@@ -53,7 +53,7 @@
     NSString * _storeName;
     NSString * _contactPhone;
     NSString * _juli;
-    NSString * _address;
+
     NSString * _storeId;
     NSString * _inventory;
     NSString * _productSkuId;//传到购物车
@@ -83,7 +83,10 @@
     SkuMatchModel *_currentSkuMatchModel;
     NSString * _skuAmount;//有规格的库存
     NSString * _accId;
-    
+    //
+    NSString * store_latitude;
+    NSString * store_longitude;
+
 }
 
 @property (nonatomic,strong) UITableView       * list_tableView;
@@ -147,16 +150,14 @@
     [[NIMSDK sharedSDK].userManager addDelegate:self];
     [[NIMSDK sharedSDK].systemNotificationManager addDelegate:self];
 
-    
 }
-
 
 - (void)dealloc
 {
     [[[NIMSDK sharedSDK] systemNotificationManager] removeDelegate:self];
     [[NIMSDK sharedSDK].userManager removeDelegate:self];
-
 }
+
 //添加悬浮按钮
 -(void)flyButtonView
 {
@@ -536,7 +537,7 @@
             break;
             
         case 5:
-            height = 54;
+            height = 64;
             break;
             
         case 6:
@@ -641,7 +642,7 @@
             ZFLocationGoToStoreCell  *  goToStoreCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFLocationGoToStoreCell" forIndexPath:indexPath];
             goToStoreCell.selectionStyle              = UITableViewCellSelectionStyleNone;
             CGFloat juli                              = [_juli floatValue]*0.001;
-            goToStoreCell.lb_address.text             = [NSString stringWithFormat:@"%@  %.2fkm",_address,juli];
+            goToStoreCell.lb_address.text             = [NSString stringWithFormat:@"%@  %.2fkm",_store_address,juli];
             goToStoreCell.lb_storeName.text           = _storeName;
             
             return goToStoreCell;
@@ -891,12 +892,12 @@
 -(void)whereTogoMap:(UIButton *)sender
 {
     //当前位置导航到指定地
-    CGFloat endLat       = 39.54;
-    CGFloat endLot       = 116.23;
-    NSString *endAddress = @"北京";
+    CGFloat endLat       = [store_latitude doubleValue];
+    CGFloat endLot       = [store_longitude doubleValue] ;
+    NSString *endAddress = _store_address;
     
-    CGFloat startLat = [BBUserDefault.latitude floatValue];
-    CGFloat startLot = [BBUserDefault.longitude floatValue];
+    CGFloat startLat = [BBUserDefault.latitude doubleValue];
+    CGFloat startLot = [BBUserDefault.longitude doubleValue] ;
     
     TJMapNavigationService *mapNavigationService = [[TJMapNavigationService alloc] initWithStartLatitude:startLat startLongitude:startLot endLatitude:endLat endLongitude:endLot endAddress:endAddress locationType:LocationType_Mars];
     
@@ -1064,7 +1065,6 @@
         make.left.equalTo(self.BgView).with.offset(0);
         make.right.equalTo(self.BgView).with.offset(0);
         make.size.mas_equalTo(CGSizeMake(KScreenW, collectionViewHeight + 90 + 50 + 40 + 20));
-        
     }];
     
     //价格
@@ -1231,9 +1231,11 @@
             //store信息 ----storeInfo
             _storeName    = goodsmodel.data.storeInfo.storeName;//店名
             _contactPhone = goodsmodel.data.storeInfo.contactPhone;//联系手机号
-            _address      = goodsmodel.data.storeInfo.address;//门店地址
+            _store_address      = goodsmodel.data.storeInfo.address;//门店地址
             _juli         = goodsmodel.data.storeInfo.storeDist;//门店距离
-            
+            store_latitude       = [NSString stringWithFormat:@"%.6f",[goodsmodel.data.storeInfo.latitude doubleValue]];//经度
+            store_longitude       = [NSString stringWithFormat:@"%.6f",[goodsmodel.data.storeInfo.longitude doubleValue]];//经度
+
             //图片详情网址
             _htmlDivString = goodsmodel.data.goodsInfo.goodsDetail;//网址
             _priceRange  = goodsmodel.data.goodsInfo.priceRange;//范围价格

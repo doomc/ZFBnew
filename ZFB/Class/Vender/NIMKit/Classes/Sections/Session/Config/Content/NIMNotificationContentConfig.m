@@ -15,7 +15,7 @@
 @implementation NIMNotificationContentConfig
 - (CGSize)contentSize:(CGFloat)cellWidth message:(NIMMessage *)message
 {
-    NIMNotificationObject *object = (NIMNotificationObject*)message.messageObject;
+    NIMNotificationObject *object = message.messageObject;
     NSAssert([object isKindOfClass:[NIMNotificationObject class]], @"message should be notification");
     
     CGSize contentSize = CGSizeZero;
@@ -62,12 +62,11 @@
 
 - (NSString *)cellContent:(NIMMessage *)message
 {
-    NIMNotificationObject *object = (NIMNotificationObject*)message.messageObject;
+    NIMNotificationObject *object = message.messageObject;
     NSAssert([object isKindOfClass:[NIMNotificationObject class]], @"message should be notification");
     
     switch (object.notificationType) {
         case NIMNotificationTypeTeam:
-            
         case NIMNotificationTypeChatroom:
             return @"NIMSessionNotificationContentView";
         case NIMNotificationTypeNetCall:

@@ -162,6 +162,7 @@
     if (!_toolBar)
     {
         _toolBar = [[NIMInputToolBar alloc] initWithFrame:CGRectMake(0, 0, self.nim_width, 0)];
+        
         [self addSubview:_toolBar];
         
         //设置placeholder
@@ -484,7 +485,8 @@
                 });
             }
                 break;
-            case NIMSessionTypeP2P:{
+            case NIMSessionTypeP2P:
+            case NIMSessionTypeChatroom:{
                 if (([self.inputConfig respondsToSelector:@selector(enableRobot)] && self.inputConfig.enableRobot) || [NIMSDK sharedSDK].isUsingDemoAppKey)
                 {
                     NIMContactRobotSelectConfig *config = [[NIMContactRobotSelectConfig alloc] init];

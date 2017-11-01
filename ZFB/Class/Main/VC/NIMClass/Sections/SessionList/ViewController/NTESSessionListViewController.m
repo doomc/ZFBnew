@@ -16,7 +16,8 @@
 #import "NTESChartletAttachment.h"
 #import "NTESSessionUtil.h"
 #import "NTESPersonalCardViewController.h"
-
+#import "NTESCustomNotificationDB.h"
+#import "ZFCInterpersonalCircleViewController.h"
 #define SessionListTitle @"展富宝"
  
 
@@ -29,6 +30,10 @@
 @property (nonatomic,assign) BOOL supportsForceTouch;
 
 @property (nonatomic,strong) NSMutableDictionary *previews;
+
+@property (nonatomic,assign) NSInteger  teamUnreadCount;
+
+@property (nonatomic,assign) NSInteger  singleUnreadCount;
 
 @end
 
@@ -46,8 +51,6 @@
 - (void)dealloc{
     [[NIMSDK sharedSDK].loginManager removeDelegate:self];
 }
-
-
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -70,8 +73,8 @@
     
     NSString *userID = [[[NIMSDK sharedSDK] loginManager] currentAccount];
     self.navigationItem.titleView  = [self titleView:userID];
- 
-    
+
+
 }
 
 - (void)refresh{
@@ -277,18 +280,17 @@
             text =  nickName.length ? [nickName stringByAppendingFormat:@" : %@",text] : @"";
         }
         content = [[NSAttributedString alloc] initWithString:text];
-    }
+     }
     else
     {
         content = [super contentForRecentSession:recent];
+ 
     }
     NSMutableAttributedString *attContent = [[NSMutableAttributedString alloc] initWithAttributedString:content];
     [self checkNeedAtTip:recent content:attContent];
     [self checkOnlineState:recent content:attContent];
-
     return attContent;
 }
-
 
 - (void)checkNeedAtTip:(NIMRecentSession *)recent content:(NSMutableAttributedString *)content
 {
@@ -306,6 +308,17 @@
             NSAttributedString *atTip = [[NSAttributedString alloc] initWithString:format attributes:nil];
             [content insertAttributedString:atTip atIndex:0];
         }
+    }
+    _singleUnreadCount = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
+    _teamUnreadCount  = [NIMSDK sharedSDK].systemNotificationManager.allUnreadCount;
+
+    //自己添加的
+    BBUserDefault.unReadCount  = [NSString stringWithFormat:@"%ld",_singleUnreadCount+_teamUnreadCount] ;
+    UITabBarItem *item = [self.tabBarController.tabBar.items objectAtIndex:1];
+    if ([BBUserDefault.unReadCount isEqualToString:@"0"]) {
+        item.badgeValue = nil;
+    }else{
+        item.badgeValue = BBUserDefault.unReadCount;
     }
     
 }

@@ -52,7 +52,7 @@
     [self.imageView addTarget:self action:@selector(onSelected:) forControlEvents:UIControlEventTouchUpInside];
     self.titleLabel.text = data.title;
     if([data isKindOfClass:[NIMTeamCardMemberItem class]]) {
-        NIMTeamCardMemberItem *member = (NIMTeamCardMemberItem*)data;
+        NIMTeamCardMemberItem *member = data;
         self.titleLabel.text = member.title.length ? member.title : member.memberId;
         switch (member.type) {
             case NIMTeamMemberTypeOwner:

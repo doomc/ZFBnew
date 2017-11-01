@@ -26,6 +26,8 @@
 @dynamic isNoFirstLaunch;
 @dynamic isLogin;
 @dynamic isCollect;
+//im
+@dynamic unReadCount;
 
 //个人资料资料
 @dynamic uploadImgName;

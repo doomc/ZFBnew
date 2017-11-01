@@ -128,5 +128,10 @@
 
 @property (nonatomic, assign) NSInteger lockFlag;
 
+@property (nonatomic, copy) NSString *address;
+
+
+
+
 @end
 

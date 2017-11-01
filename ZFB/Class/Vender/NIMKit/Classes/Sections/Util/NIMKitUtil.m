@@ -67,15 +67,18 @@
     {
         hour = hour - 12;
     }
-    if(nowDateComponents.day == msgDateComponents.day) //同一天,显示时间
+    
+    BOOL isSameMonth = (nowDateComponents.year == msgDateComponents.year) && (nowDateComponents.month == msgDateComponents.month);
+    
+    if(isSameMonth && (nowDateComponents.day == msgDateComponents.day)) //同一天,显示时间
     {
         result = [[NSString alloc] initWithFormat:@"%@ %zd:%02d",result,hour,(int)msgDateComponents.minute];
     }
-    else if(nowDateComponents.day == (msgDateComponents.day+1))//昨天
+    else if(isSameMonth && (nowDateComponents.day == (msgDateComponents.day+1)))//昨天
     {
         result = showDetail?  [[NSString alloc] initWithFormat:@"昨天%@ %zd:%02d",result,hour,(int)msgDateComponents.minute] : @"昨天";
     }
-    else if(nowDateComponents.day == (msgDateComponents.day+2)) //前天
+    else if(isSameMonth && (nowDateComponents.day == (msgDateComponents.day+2))) //前天
     {
         result = showDetail? [[NSString alloc] initWithFormat:@"前天%@ %zd:%02d",result,hour,(int)msgDateComponents.minute] : @"前天";
     }
@@ -152,7 +155,7 @@
 
 
 + (NSString *)notificationMessage:(NIMMessage *)message{
-    NIMNotificationObject *object = (NIMNotificationObject*) message.messageObject;
+    NIMNotificationObject *object = message.messageObject;
     switch (object.notificationType) {
         case NIMNotificationTypeTeam:{
             return [NIMKitUtil teamNotificationFormatedMessage:message];
@@ -171,7 +174,7 @@
 
 + (NSString*)teamNotificationFormatedMessage:(NIMMessage *)message{
     NSString *formatedMessage = @"";
-    NIMNotificationObject *object = (NIMNotificationObject *)message.messageObject;
+    NIMNotificationObject *object = message.messageObject;
     if (object.notificationType == NIMNotificationTypeTeam)
     {
         NIMTeamNotificationContent *content = (NIMTeamNotificationContent*)object.content;
@@ -301,7 +304,7 @@
 
 
 + (NSString *)netcallNotificationFormatedMessage:(NIMMessage *)message{
-    NIMNotificationObject *object = (NIMNotificationObject*) message.messageObject;
+    NIMNotificationObject *object = message.messageObject;
     NIMNetCallNotificationContent *content = (NIMNetCallNotificationContent *)object.content;
     NSString *text = @"";
     NSString *currentAccount = [[NIMSDK sharedSDK].loginManager currentAccount];
@@ -333,7 +336,7 @@
 
 
 + (NSString *)chatroomNotificationFormatedMessage:(NIMMessage *)message{
-    NIMNotificationObject *object = (NIMNotificationObject*)message.messageObject;
+    NIMNotificationObject *object = message.messageObject;
     NIMChatroomNotificationContent *content = (NIMChatroomNotificationContent *)object.content;
     NSMutableArray *targetNicks = [[NSMutableArray alloc] init];
     for (NIMChatroomNotificationMember *memebr in content.targets) {
@@ -442,7 +445,7 @@
 #pragma mark - Private
 + (NSString *)teamNotificationSourceName:(NIMMessage *)message{
     NSString *source;
-    NIMNotificationObject *object =(NIMNotificationObject*) message.messageObject;
+    NIMNotificationObject *object = message.messageObject;
     NIMTeamNotificationContent *content = (NIMTeamNotificationContent*)object.content;
     NSString *currentAccount = [[NIMSDK sharedSDK].loginManager currentAccount];
     if ([content.sourceID isEqualToString:currentAccount]) {
@@ -455,7 +458,7 @@
 
 + (NSArray *)teamNotificationTargetNames:(NIMMessage *)message{
     NSMutableArray *targets = [[NSMutableArray alloc] init];
-    NIMNotificationObject *object = (NIMNotificationObject*)message.messageObject;
+    NIMNotificationObject *object = message.messageObject;
     NIMTeamNotificationContent *content = (NIMTeamNotificationContent*)object.content;
     NSString *currentAccount = [[NIMSDK sharedSDK].loginManager currentAccount];
     for (NSString *item in content.targetIDs) {

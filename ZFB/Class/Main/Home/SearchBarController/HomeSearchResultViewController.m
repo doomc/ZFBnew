@@ -403,20 +403,24 @@
 {
     [self.searchBar resignFirstResponder];
     
-    SearchFindgoodslist * goodlist = self.noResultArray[indexPath.row];//精选数据跳转
-    ResultFindgoodslist * findGoods = self.searchListArray[indexPath.row];//搜索到的商品数据跳转
+    NSLog(@" sction1 == %ld  ---  row1 == %ld",indexPath.section ,indexPath.row);
+
     
     DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
 
     if (_isFeatured == 1) {
- 
-        NSLog(@" sction1 == %ld  ---  row1 == %ld",indexPath.section ,indexPath.row);
-        detailVC.goodsId = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
+        if (self.noResultArray.count > 0 ) {
+            SearchFindgoodslist * goodlist = self.noResultArray[indexPath.row];//精选数据跳转
+            detailVC.goodsId = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
+        }
         [self.navigationController pushViewController:detailVC animated:NO];
         
     }else{
+        if (self.searchListArray.count > 0) {
+            ResultFindgoodslist * findGoods = self.searchListArray[indexPath.row];//搜索到的商品数据跳转
+            detailVC.goodsId = [NSString stringWithFormat:@"%ld",findGoods.goodsId];
 
-        detailVC.goodsId = [NSString stringWithFormat:@"%ld",findGoods.goodsId];
+        }
         [self.navigationController pushViewController:detailVC animated:NO];
 
   

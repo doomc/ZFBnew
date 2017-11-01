@@ -72,7 +72,7 @@
     NSArray *childArr = @[messageVC, contactVC];
     
     /// pageContentView
-    CGFloat contentViewHeight                = self.view.frame.size.height - 44 ;
+    CGFloat contentViewHeight                = self.view.frame.size.height - 44-64 ;
     self.pageContentView                     = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
     _pageContentView.delegatePageContentView = self;
     [self.view addSubview:_pageContentView];
@@ -92,6 +92,9 @@
     _pageTitleView.indicatorColor = HEXCOLOR(0xf95a70);
     _pageTitleView.indicatorHeight         = 1.0;
     _pageTitleView.titleTextScaling        = 0.3;
+    
+    
+
 
 }
 

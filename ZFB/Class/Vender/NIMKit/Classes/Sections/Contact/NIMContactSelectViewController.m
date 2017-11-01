@@ -249,7 +249,7 @@
     } else if(_selectecContacts.count >= _maxSelectCount) {
         if ([self.config respondsToSelector:@selector(selectedOverFlowTip)]) {
             NSString *tip = [self.config selectedOverFlowTip];
-            [self.view makeToast:tip duration:2.0 position:@"center"];
+            [self.view makeToast:tip duration:2.0 position:CSToastPositionCenter];
         }
         cell.accessoryBtn.selected = NO;
     } else {

@@ -42,9 +42,7 @@
     
     [self appriaseToPostRequestWithgoodsComment:@"" AndimgComment:@""];
   
-    //设置title
-    [self setupPageView];
-    
+
     
 }
 
@@ -60,12 +58,11 @@
     NSArray *childArr = @[allVC, goodVC, badVC, picVC];
     
     /// pageContentView
-    CGFloat contentViewHeight = self.view.frame.size.height - 44;
-    self.pageContentView = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childArr];
+    CGFloat contentViewHeight = self.view.frame.size.height - 44-64;
+    self.pageContentView = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 44, KScreenW, contentViewHeight) parentVC:self childVCs:childArr];
     _pageContentView.delegatePageContentView = self;
     [self.view addSubview:_pageContentView];
     
-    //    NSArray *titleArr   = @[@"全部",@"好评",@"差评",@"有图"];
     NSArray *titleArr   = @[_commentNum,_goodCommentNum,_lackCommentNum,_imgCommentNum];
     
     /// pageTitleView
@@ -117,14 +114,15 @@
             _goodCommentNum = [NSString stringWithFormat:@"好评(%ld)",appraise.data.goodsCommentList.goodCommentNum ];  //好评数
             _lackCommentNum = [NSString stringWithFormat:@"差评(%ld)",appraise.data.goodsCommentList.lackCommentNum ];  //差评数
             _imgCommentNum = [NSString stringWithFormat:@"有图(%ld)",appraise.data.goodsCommentList.imgCommentNum ];    //有图数
-            
+          
+            //设置title
+            [self setupPageView];
         }
-        
         [self setupPageView];
-        
+
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
+        
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];

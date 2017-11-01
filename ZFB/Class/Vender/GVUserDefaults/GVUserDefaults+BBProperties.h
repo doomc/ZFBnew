@@ -28,6 +28,7 @@
  
 //云信
 @property (nonatomic,copy) NSString *token;/// 网易云信的token
+@property (nonatomic,copy) NSString *unReadCount;///未读消息数
 
 //首页
 @property (nonatomic,copy) NSString *latitude;///纬度
