@@ -40,6 +40,8 @@
 #import "BandBackCarViewController.h"//绑卡
 #import "PersonalMesViewController.h"//通知消息列表
 #import "DetailMsgNoticeViewController.h"//通知消息
+#import "iWantOpenStoreViewController.h"
+#import "iwantSendedViewController.h"
 //base
 #import "ZFBaseNavigationViewController.h"
 
@@ -766,12 +768,16 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)didClickOpenStore
 {
     NSLog(@"我要开店");
+    iWantOpenStoreViewController * openVC  = [iWantOpenStoreViewController new];
+    [self.navigationController pushViewController:openVC animated:NO];
+    
 }
 //点击配送
 -(void)didClickSendGoods
 {
     NSLog(@"点击配送");
-
+    iwantSendedViewController * sendVC  = [iwantSendedViewController new];
+    [self.navigationController pushViewController:sendVC animated:NO];
 }
 //切换商户
 -(void)didClickChangeID

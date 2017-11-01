@@ -20,8 +20,6 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     NSString * _imgfaceUrl;
     BOOL _faceSuccess;
     BOOL _backSuccess;
-
- 
 }
 @property (strong, nonatomic) HXPhotoManager *manager;
 
@@ -133,21 +131,18 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 //实名认证
 - (IBAction)CertificationAction:(id)sender {
 
-
     if (_backSuccess == YES && _faceSuccess == YES) {
         
         //需要处理是不是获取到图片地址了在请求
         [self certificationPostRequstet];
-        
-    }else
-    {
+    }else{
+
         if (_imgbackUrl == nil  || _imgfaceUrl == nil) {
             
             [self.view makeToast:@"网络较慢，请稍等片刻" duration:2 position:@"center"];
             
         }else{
             [self.view makeToast:@"图片正在上传，请耐心等待" duration:2 position:@"center"];
-
         }
     }
 }

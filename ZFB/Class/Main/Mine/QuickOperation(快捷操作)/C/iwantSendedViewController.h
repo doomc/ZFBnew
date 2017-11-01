@@ -9,5 +9,12 @@
 #import "BaseViewController.h"
 
 @interface iwantSendedViewController : BaseViewController
+@property (weak, nonatomic) IBOutlet UITextField *tf_phoneNum;
+@property (weak, nonatomic) IBOutlet UITextField *tf_VerCode;
+@property (weak, nonatomic) IBOutlet UITextField *tf_email;
+@property (weak, nonatomic) IBOutlet UIButton *verCode_btn;
+@property (weak, nonatomic) IBOutlet UIButton *commit_btn;
+@property (weak, nonatomic) IBOutlet UIImageView *uploadFaceImgView;
+@property (weak, nonatomic) IBOutlet UIImageView *uploadBackImgView;
 
 @end

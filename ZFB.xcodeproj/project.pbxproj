@@ -1280,6 +1280,7 @@
 		50B381291F3F729B001ED3BA /* compose_delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B381251F3F729B001ED3BA /* compose_delete@3x.png */; };
 		50B3812A1F3F729B001ED3BA /* time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B381261F3F729B001ED3BA /* time@2x.png */; };
 		50B3812B1F3F729B001ED3BA /* time@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B381271F3F729B001ED3BA /* time@3x.png */; };
+		50C7DD1D1FA9F16500EEB8FA /* Upload_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 50C7DD1C1FA9F16500EEB8FA /* Upload_bg.png */; };
 		50CA6C311F72C4200077231B /* UIViewController+XLSlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CA6C2E1F72C4200077231B /* UIViewController+XLSlideMenu.m */; };
 		50CA6C321F72C4200077231B /* XLSlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CA6C301F72C4200077231B /* XLSlideMenu.m */; };
 		50CA6C351F72C8620077231B /* RightNavPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CA6C341F72C8620077231B /* RightNavPopViewController.m */; };
@@ -3340,6 +3341,7 @@
 		50B381251F3F729B001ED3BA /* compose_delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "compose_delete@3x.png"; path = "../搜索（无数据）/compose_delete@3x.png"; sourceTree = "<group>"; };
 		50B381261F3F729B001ED3BA /* time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@2x.png"; sourceTree = "<group>"; };
 		50B381271F3F729B001ED3BA /* time@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@3x.png"; sourceTree = "<group>"; };
+		50C7DD1C1FA9F16500EEB8FA /* Upload_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Upload_bg.png; sourceTree = "<group>"; };
 		50CA6C2D1F72C4200077231B /* UIViewController+XLSlideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+XLSlideMenu.h"; sourceTree = "<group>"; };
 		50CA6C2E1F72C4200077231B /* UIViewController+XLSlideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+XLSlideMenu.m"; sourceTree = "<group>"; };
 		50CA6C2F1F72C4200077231B /* XLSlideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLSlideMenu.h; sourceTree = "<group>"; };
@@ -3481,6 +3483,7 @@
 		4906D13A1F74D7BE00B327ED /* placehoder */ = {
 			isa = PBXGroup;
 			children = (
+				50C7DD1C1FA9F16500EEB8FA /* Upload_bg.png */,
 				49E917601FA9A3BD00867857 /* backTop.png */,
 				491BEE321F9D967800418765 /* logo@2x.png */,
 				491BEE311F9D967700418765 /* logo@3x.png */,
@@ -7540,8 +7543,8 @@
 		49E917621FA9BA9300867857 /* QuickOperation(快捷操作) */ = {
 			isa = PBXGroup;
 			children = (
+				50C7DD191FA9ED4300EEB8FA /* M */,
 				49E917631FA9BA9300867857 /* C */,
-				49E917641FA9BA9300867857 /* M */,
 				49E917651FA9BA9300867857 /* V */,
 			);
 			path = "QuickOperation(快捷操作)";
@@ -7558,13 +7561,6 @@
 				49E917821FA9D47B00867857 /* iwantSendedViewController.xib */,
 			);
 			path = C;
-			sourceTree = "<group>";
-		};
-		49E917641FA9BA9300867857 /* M */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = M;
 			sourceTree = "<group>";
 		};
 		49E917651FA9BA9300867857 /* V */ = {
@@ -7865,6 +7861,13 @@
 				50B3811D1F3F62E4001ED3BA /* PlaceholderTextView.m */,
 			);
 			path = PlaceholderTextView;
+			sourceTree = "<group>";
+		};
+		50C7DD191FA9ED4300EEB8FA /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
 			sourceTree = "<group>";
 		};
 		50CA6C2C1F72C4200077231B /* XLSlideMenu(侧滑) */ = {
@@ -8267,6 +8270,7 @@
 				495EA8FB1F14B64E001FCB7E /* sendComplete_normal@3x.png in Resources */,
 				491871E81F9DCE3A00536CD2 /* classes@2x.png in Resources */,
 				49C1B5F71F8DE1E800B2001B /* CYPasswordView.bundle in Resources */,
+				50C7DD1D1FA9F16500EEB8FA /* Upload_bg.png in Resources */,
 				4992D7241F27499800FBF982 /* arrowdown_black@2x.png in Resources */,
 				494419EE1FA03281006BAE39 /* message@2x.png in Resources */,
 				495EA8581F14B64D001FCB7E /* arrows_down_white@2x.png in Resources */,

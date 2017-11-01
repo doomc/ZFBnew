@@ -37,7 +37,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AOF-eD-1ym">
-                            <rect key="frame" x="90" y="0.0" width="160" height="50"/>
+                            <rect key="frame" x="90" y="0.0" width="140" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="WeW-8S-B4W"/>
                             </constraints>
@@ -46,16 +46,19 @@
                             <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sGv-zt-nRI">
-                            <rect key="frame" x="260" y="0.5" width="80" height="50"/>
+                            <rect key="frame" x="240" y="0.5" width="100" height="50"/>
                             <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="80" id="h4G-ON-dpG"/>
+                                <constraint firstAttribute="width" constant="100" id="h4G-ON-dpG"/>
                                 <constraint firstAttribute="height" constant="50" id="jbO-df-Y9E"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="获取验证码">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <connections>
+                                <action selector="getVerCodeAction:" destination="-1" eventType="touchUpInside" id="xlL-iZ-kex"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -121,7 +124,7 @@
                             </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
+                            <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                         </textField>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -134,14 +137,17 @@
                         <constraint firstItem="Q48-3k-QTJ" firstAttribute="centerY" secondItem="mxt-Ed-VTc" secondAttribute="centerY" id="xKN-um-h04"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSB-93-OWN">
-                    <rect key="frame" x="27" y="242" width="325" height="50"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSB-93-OWN">
+                    <rect key="frame" x="25" y="240" width="325" height="50"/>
                     <color key="backgroundColor" red="0.97647058823529409" green="0.3529411764705882" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="Dkl-wq-xKQ"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="下一步"/>
+                    <connections>
+                        <action selector="openStoreNextPage:" destination="-1" eventType="touchUpInside" id="kg6-x9-2ud"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
