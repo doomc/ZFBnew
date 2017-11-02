@@ -17,7 +17,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 {
     NSString * _phoneNum;
     NSString * _verCodeNum;
-    NSString * _emailNum;
+    NSString * _name;
+    NSString * _smsCode;
     
     NSString * _imgbackUrl;
     NSString * _imgfaceUrl;
@@ -75,13 +76,13 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     [self.tf_VerCode addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
    
     //电子邮箱
-    self.tf_email.layer.masksToBounds = YES;
-    self.tf_email.layer.cornerRadius = 4;
-    self.tf_email.layer.borderWidth = 1;
-    self.tf_email.layer.borderColor = HEXCOLOR(0x8d8d8d).CGColor;
-    self.tf_email.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
-    self.tf_email.leftViewMode = UITextFieldViewModeAlways;
-    [self.tf_email addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
+    self.tf_Name.layer.masksToBounds = YES;
+    self.tf_Name.layer.cornerRadius = 4;
+    self.tf_Name.layer.borderWidth = 1;
+    self.tf_Name.layer.borderColor = HEXCOLOR(0x8d8d8d).CGColor;
+    self.tf_Name.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
+    self.tf_Name.leftViewMode = UITextFieldViewModeAlways;
+    [self.tf_Name addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
     
     self.commit_btn.layer.masksToBounds = YES;
     self.commit_btn.layer.cornerRadius = 4;
@@ -97,6 +98,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     self.uploadBackImgView.userInteractionEnabled = YES;
     [self.uploadBackImgView addGestureRecognizer:tapBack];
 }
+
+
 #pragma mark -UITextFieldDelegate
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     return YES;
@@ -104,6 +107,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 -(void)textFieldDidEndEditing:(UITextField *)textField{
     NSLog(@"编辑完了");
 }
+
 -(void)textfieldChange:(UITextField *)textField{
     if (self.tf_phoneNum == textField) {
         _phoneNum = textField.text;
@@ -115,9 +119,9 @@ typedef NS_ENUM(NSUInteger, PickerType) {
         NSLog(@"验证码：%@",textField.text);
         
     }
-    if (self.tf_email == textField) {
-        _emailNum = textField.text;
-        NSLog(@"email：%@",textField.text);
+    if (self.tf_Name == textField) {
+        _name = textField.text;
+        NSLog(@"name：%@",textField.text);
     }
 }
 
@@ -182,6 +186,79 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 }
 
 
+- (IBAction)commitAction:(UIButton *)sender {
+    if (_phoneNum.length > 0  &&  _smsCode.length > 0  &&  _name.length > 0  &&  _imgfaceUrl != nil &&  _imgbackUrl!= nil) {
+        
+        [self appShopRegisteredPost];
+
+    }else{
+        [self.view makeToast:@"填写信息有误" duration:2 position:@"center"];
+
+    }
+ 
+}
+
+
+#pragma mark - 验证码网络请求 SmsLogo 1 注册为配送  2注册商户
+-(void)ValidateCodePostRequset
+{
+    [SVProgressHUD show];
+    NSDictionary * parma = @{
+                             @"SmsLogo":@"1",
+                             @"mobilePhone":_phoneNum,
+                             };
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/SendMessages",zfb_baseUrl] params:parma success:^(id response) {
+        
+        NSString * code  = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+            
+            _smsCode = response[@"smsCode" ];
+            self.verCode_btn.enabled = YES;
+            self.verCode_btn.backgroundColor = HEXCOLOR(0xF95A70);
+        }
+        [self.view makeToast:response[@"resultMsg"]  duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+        
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
+
+
+#pragma mark  - 成为商户appShopRegistered
+-(void)appShopRegisteredPost
+{
+    NSDictionary * parma = @{
+                             @"deliveryPhone":_phoneNum,
+                             @"Vcode":_smsCode,
+                             @"deliveryName":_name,//姓名
+                             @"frontUrl":_imgfaceUrl,
+                             @"reverseUrl":_imgbackUrl,
+                             @"latitude":BBUserDefault.latitude,//纬度
+                             @"longitude":BBUserDefault.longitude,
+                             
+                             };
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/deliveryman",zfb_baseUrl] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+            
+        }else{
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        }
+        
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {

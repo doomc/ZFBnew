@@ -7,12 +7,14 @@
 //
 
 #import "iWantOpenStoreViewController.h"
+#import "iOpenStoreViewController.h"
 
 @interface iWantOpenStoreViewController ()<UITextFieldDelegate>
 {
     NSString * _phoneNum;
     NSString * _verCodeNum;
     NSString * _emailNum;
+    NSString * _smsCode;
     
 }
 @end
@@ -64,13 +66,50 @@
 
 
 #pragma mark - 获取验证码
-- (IBAction)getVerCodeAction:(id)sender {
-    
+- (IBAction)getVerCodeAction:(UIButton *)sender {
+    if ([_phoneNum isMobileNumberClassification]) {
+        // 网络请求
+        [self ValidateCodePostRequset];
+        
+        [dateTimeHelper verificationCode:^{
+            //倒计时完毕
+            sender.enabled = YES;
+            [sender setTitle:@"重新发送" forState:UIControlStateNormal];
+//            [sender setTitleColor:HEXCOLOR(0xF95A70) forState:UIControlStateNormal] ;
+            
+        } blockNo:^(id time) {
+            sender.enabled = NO;
+            [sender setTitle:time forState:UIControlStateNormal];
+//            [sender setTitleColor:HEXCOLOR(0x363636) forState:UIControlStateNormal] ;
+        }];
+        
+    }else{
+        [self.view makeToast:@"请输正确的手机号" duration:2 position:@"center"];
+    }
 }
 
 #pragma mark - 下一步
 - (IBAction)openStoreNextPage:(id)sender {
+    if (_phoneNum.length == 11) {
+        [self.view makeToast:@"手机格式错误" duration:2 position:@"center"];
 
+    }
+    if ([_emailNum isEmailAddress]) {
+        [self.view makeToast:@"请填写正确的邮箱" duration:2 position:@"center"];
+
+    }
+    if ([_smsCode isEqualToString:_verCodeNum]) {
+        [self.view makeToast:@"验证码填写错误" duration:2 position:@"center"];
+    }
+    else{
+        iOpenStoreViewController * openVC = [iOpenStoreViewController new];
+        openVC.phoneNum = _phoneNum;
+        openVC.email = _emailNum;
+        openVC.verCode = _smsCode;
+        [self.navigationController pushViewController:openVC animated:NO];
+    }
+
+    
 }
 
 #pragma mark -UITextFieldDelegate
@@ -102,6 +141,34 @@
 
 
 
+#pragma mark - 验证码网络请求 SmsLogo 1 注册为配送  2注册商户
+-(void)ValidateCodePostRequset
+{
+    [SVProgressHUD show];
+    NSDictionary * parma = @{
+                             @"SmsLogo":@"2",
+                             @"mobilePhone":_phoneNum,
+                             };
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/SendMessages",zfb_baseUrl] params:parma success:^(id response) {
+        
+        NSString * code  = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+            
+            _smsCode = response[@"smsCode" ];
+            self.verCode_btn.enabled = YES;
+            self.verCode_btn.backgroundColor = HEXCOLOR(0xF95A70);
+        }
+        [self.view makeToast:response[@"resultMsg"]  duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+        
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {

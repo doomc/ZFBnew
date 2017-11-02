@@ -252,6 +252,9 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
         [[NSNotificationCenter defaultCenter] postNotificationName:NTESNotificationLogout object:nil];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"下线通知" message:reason delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         
+        
+        [self doLogout];
+
         [alert show];
     }];
 }

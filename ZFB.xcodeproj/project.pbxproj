@@ -1201,6 +1201,9 @@
 		49E9177F1FA9CF4B00867857 /* iWantOpenStoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E9177D1FA9CF4B00867857 /* iWantOpenStoreViewController.xib */; };
 		49E917831FA9D47B00867857 /* iwantSendedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E917811FA9D47B00867857 /* iwantSendedViewController.m */; };
 		49E917841FA9D47B00867857 /* iwantSendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E917821FA9D47B00867857 /* iwantSendedViewController.xib */; };
+		49E917881FAAAA7E00867857 /* iOpenStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E917861FAAAA7E00867857 /* iOpenStoreViewController.m */; };
+		49E917891FAAAA7E00867857 /* iOpenStoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E917871FAAAA7E00867857 /* iOpenStoreViewController.xib */; };
+		49E9178C1FAAC74400867857 /* CommonClassTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E9178B1FAAC74400867857 /* CommonClassTypeView.m */; };
 		49FCF8F41F70B6FF0001802D /* app.api.zavfb.com.cer in Resources */ = {isa = PBXBuildFile; fileRef = 49FCF8F31F70B6FF0001802D /* app.api.zavfb.com.cer */; };
 		50099B8D1F66C74800B348FD /* PayPassWordSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B8C1F66C74800B348FD /* PayPassWordSettingViewController.m */; };
 		50099B901F66CB5800B348FD /* SettingPayPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B8F1F66CB5800B348FD /* SettingPayPasswordViewController.m */; };
@@ -3199,6 +3202,11 @@
 		49E917801FA9D47B00867857 /* iwantSendedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iwantSendedViewController.h; sourceTree = "<group>"; };
 		49E917811FA9D47B00867857 /* iwantSendedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iwantSendedViewController.m; sourceTree = "<group>"; };
 		49E917821FA9D47B00867857 /* iwantSendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iwantSendedViewController.xib; sourceTree = "<group>"; };
+		49E917851FAAAA7E00867857 /* iOpenStoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOpenStoreViewController.h; sourceTree = "<group>"; };
+		49E917861FAAAA7E00867857 /* iOpenStoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOpenStoreViewController.m; sourceTree = "<group>"; };
+		49E917871FAAAA7E00867857 /* iOpenStoreViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iOpenStoreViewController.xib; sourceTree = "<group>"; };
+		49E9178A1FAAC74400867857 /* CommonClassTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonClassTypeView.h; sourceTree = "<group>"; };
+		49E9178B1FAAC74400867857 /* CommonClassTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonClassTypeView.m; sourceTree = "<group>"; };
 		49FCF8F31F70B6FF0001802D /* app.api.zavfb.com.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = app.api.zavfb.com.cer; sourceTree = "<group>"; };
 		50099B8B1F66C74800B348FD /* PayPassWordSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPassWordSettingViewController.h; sourceTree = "<group>"; };
 		50099B8C1F66C74800B348FD /* PayPassWordSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayPassWordSettingViewController.m; sourceTree = "<group>"; };
@@ -7559,6 +7567,9 @@
 				49E917801FA9D47B00867857 /* iwantSendedViewController.h */,
 				49E917811FA9D47B00867857 /* iwantSendedViewController.m */,
 				49E917821FA9D47B00867857 /* iwantSendedViewController.xib */,
+				49E917851FAAAA7E00867857 /* iOpenStoreViewController.h */,
+				49E917861FAAAA7E00867857 /* iOpenStoreViewController.m */,
+				49E917871FAAAA7E00867857 /* iOpenStoreViewController.xib */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -7569,6 +7580,8 @@
 				49E917661FA9BAE900867857 /* QuickOperationCell.h */,
 				49E917671FA9BAE900867857 /* QuickOperationCell.m */,
 				49E917681FA9BAE900867857 /* QuickOperationCell.xib */,
+				49E9178A1FAAC74400867857 /* CommonClassTypeView.h */,
+				49E9178B1FAAC74400867857 /* CommonClassTypeView.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -8691,6 +8704,7 @@
 				493675E11F57D8FE001EDEC2 /* ZFServiceEvaluteCell.xib in Resources */,
 				499380E21FA3116F00ABC3E6 /* addFriend@3x.png in Resources */,
 				495EA8671F14B64D001FCB7E /* bag_normal@3x.png in Resources */,
+				49E917891FAAAA7E00867857 /* iOpenStoreViewController.xib in Resources */,
 				495EA73B1F14B64D001FCB7E /* blankpage_image_Sleep@3x.png in Resources */,
 				494419CB1F9EE4B2006BAE39 /* rmb2@3x.png in Resources */,
 				49B0E76D1F418A680032E72E /* DetailCollectMoneyViewController.xib in Resources */,
@@ -8845,6 +8859,7 @@
 				493BDE281F6A766300CF31D0 /* MineShareStatisticsCell.m in Sources */,
 				50D4D6811F1BB94D0073DBC1 /* QBAssetsCollectionVideoIndicatorView.m in Sources */,
 				4968A4111F4DB5290061A87E /* NTESContactUtilCell.m in Sources */,
+				49E9178C1FAAC74400867857 /* CommonClassTypeView.m in Sources */,
 				495EA7161F14B64D001FCB7E /* NSData+Encrypt.m in Sources */,
 				504A76101F6ADD9D00B61CE3 /* YYTextContainerView.m in Sources */,
 				495EA8001F14B64D001FCB7E /* ZFSendSerViceViewController.m in Sources */,
@@ -8895,6 +8910,7 @@
 				4927189D1F1F5C6C002A7A54 /* WebViewJavascriptBridgeBase.m in Sources */,
 				49DA74AB1F25CCFB009F5577 /* SearchTypeCollectionView.m in Sources */,
 				49B0E7621F417B630032E72E /* QRPayHistoryCell.m in Sources */,
+				49E917881FAAAA7E00867857 /* iOpenStoreViewController.m in Sources */,
 				49DA748B1F2599FA009F5577 /* LocationDetailVC.m in Sources */,
 				49E916DA1FA976A100867857 /* NIMPageView.m in Sources */,
 				498A33E51F3C09E30057E2AE /* ZFEvaluateGoodsViewController.m in Sources */,

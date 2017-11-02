@@ -70,7 +70,6 @@ UITableViewDelegate>
     [self initTableView];
     [self initSearchBar]; //搜索框
     
- 
     [self searchAroundLatitude:[BBUserDefault.latitude floatValue] longitude:[BBUserDefault.longitude floatValue]];
 }
 

@@ -28,7 +28,6 @@ static NSString * footIdentifier = @"SearchTypeFootReusableView";
         self.delegate = self;
         self.dataSource = self;
  
-        
         [self registerNib:[UINib nibWithNibName:@"SearchTypeCollectionCell" bundle:nil] forCellWithReuseIdentifier:identifier];
         //如果collectionView有头的话，那么写上它，注册collectionview的尾部视图，
         
@@ -40,13 +39,7 @@ static NSString * footIdentifier = @"SearchTypeFootReusableView";
 }
 
 
--(void)setBrandListArray:(NSMutableArray *)brandListArray
-{
-    _brandListArray = [NSMutableArray array];
-    _brandListArray = brandListArray;
 
-    NSLog(@"%@",_brandListArray);
-}
 //返回collection view里区(section)的个数，如果没有实现该方法，将默认返回1：
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {

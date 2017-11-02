@@ -12,8 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="iwantSendedViewController">
             <connections>
                 <outlet property="commit_btn" destination="LW3-Kt-ipY" id="hLH-59-bNa"/>
+                <outlet property="tf_Name" destination="90H-tE-dLi" id="2ro-ex-7L2"/>
                 <outlet property="tf_VerCode" destination="uZa-eS-BSD" id="yvG-cl-LlQ"/>
-                <outlet property="tf_email" destination="90H-tE-dLi" id="x75-cT-Gnm"/>
                 <outlet property="tf_phoneNum" destination="WyR-mK-lMM" id="Pqx-oC-axy"/>
                 <outlet property="uploadBackImgView" destination="fXf-VQ-Rtc" id="hVE-52-JSd"/>
                 <outlet property="uploadFaceImgView" destination="4Qv-Ir-9dP" id="pqa-g0-v4C"/>
@@ -110,17 +110,17 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="94g-jy-zGD">
                             <rect key="frame" x="15" y="140" width="345" height="50"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电子邮箱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fah-ja-03l">
-                                    <rect key="frame" x="10" y="16.5" width="70" height="18"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="配送员姓名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fah-ja-03l">
+                                    <rect key="frame" x="10" y="16.5" width="80" height="18"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="70" id="LOd-lW-xbe"/>
+                                        <constraint firstAttribute="width" constant="80" id="LOd-lW-xbe"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入电子邮箱" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="90H-tE-dLi">
-                                    <rect key="frame" x="90" y="0.0" width="240" height="50"/>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入配送员姓名" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="90H-tE-dLi">
+                                    <rect key="frame" x="100" y="0.0" width="230" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="hDC-G2-kuf"/>
                                     </constraints>
@@ -147,6 +147,9 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="提交审核"/>
+                            <connections>
+                                <action selector="commitAction:" destination="-1" eventType="touchUpInside" id="iS1-0O-hnt"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="身份证正面" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QBF-IX-Q48">
                             <rect key="frame" x="25" y="210" width="76.5" height="18"/>
