@@ -85,24 +85,20 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     }
     return _themeArray;
 }
--(CommonClassTypeView *)typeView
+
+
+-(void )creatCoverView
 {
-    if (!_typeView) {
-        _typeView = [[CommonClassTypeView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 250 )];
-        _typeView.delegate = self;
-        _typeView.backgroundColor = HEXCOLOR(0xf7f7f7);
-        _typeView.isThemeType = _isThemeType;
-    }
-    return _typeView;
-}
--(UIView *)coverView
-{
-    if (!_coverView) {
-        _coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 150, KScreenW, KScreenH )];
-        _coverView.backgroundColor = RGBA(0, 0, 0, 0.2);
-        [_coverView addSubview:self.typeView];
-    }
-    return _coverView;
+    _coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 150, KScreenW, KScreenH )];
+    _coverView.backgroundColor = RGBA(0, 0, 0, 0.2);
+    [_scrollView addSubview:_coverView];
+
+    _typeView = [[CommonClassTypeView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 250 )];
+    _typeView.delegate = self;
+    _typeView.backgroundColor = HEXCOLOR(0xf7f7f7);
+    [_coverView addSubview:_typeView];
+    [self.coverView bringSubviewToFront:self.bgView];
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -317,7 +313,6 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 //1级列表
 - (IBAction)themeTypeOneClass:(id)sender {
     _isThemeType = YES;
-    self.themeArray = nil;
 
     [self.themeType_btn setBackgroundColor:HEXCOLOR(0xf7f7f7)] ;
     [self.themeMan_btn setBackgroundColor:HEXCOLOR(0xffffff)] ;
@@ -328,14 +323,20 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 
 //2级列表
 - (IBAction)themeTypeTwoClass:(id)sender {
-    self.classTypeArray = nil;
- 
     _isThemeType = NO;
 
-    [self.themeMan_btn setBackgroundColor:HEXCOLOR(0xf7f7f7)] ;
-    [self.themeType_btn setBackgroundColor:HEXCOLOR(0xffffff) ] ;
+    if (_currentTypeID == nil) {
+        
+        [self.view makeToast:@"请先选择主题分类" duration:2 position:@"center"];
+    }else{
+        
+        [self.themeMan_btn setBackgroundColor:HEXCOLOR(0xf7f7f7)] ;
+        [self.themeType_btn setBackgroundColor:HEXCOLOR(0xffffff) ] ;
+        
+        [self secondClassListWithGoodTypePostRequsetTypeid:_currentTypeID];
 
-    [self secondClassListWithGoodTypePostRequsetTypeid:_currentTypeID];
+    }
+    
 
 }
 
@@ -410,11 +411,11 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                 [self.classTypeArray addObject:Typelist];
             }
             NSLog(@"classTypeArray:%@",self.classTypeArray);
-            
+            [self creatCoverView];
+
+            self.typeView.isThemeType = YES;
             self.typeView.classListArray = self.classTypeArray;
 
-            [_scrollView addSubview:self.coverView];
-            [self.coverView bringSubviewToFront:self.bgView];
             [self.typeView reloadCollctionView];
 
         }
@@ -442,12 +443,11 @@ typedef NS_ENUM(NSUInteger, PickerType) {
             for (Nexttypelist  * list in model.data.nextTypeList) {
                 [self.themeArray addObject:list];
             }
-         
             NSLog(@"themeArray:%@",self.themeArray);
        
-            [_scrollView addSubview:self.coverView];
-            [self.coverView bringSubviewToFront:self.bgView];
-            
+            [self creatCoverView];
+
+            self.typeView.isThemeType = NO;
             self.typeView.brandListArray = self.themeArray;
             [self.typeView reloadCollctionView];
 

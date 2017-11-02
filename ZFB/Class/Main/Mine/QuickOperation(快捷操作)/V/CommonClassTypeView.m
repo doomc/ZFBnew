@@ -8,7 +8,7 @@
 
 #import "CommonClassTypeView.h"
 #import "SearchTypeCollectionCell.h"
-#import "BrandListModel.h"
+#import "CollectionCategoryModel.h"
 #import "ClassLeftListModel.h"
 static NSString * identifier = @"SearchTypeCollectionCell";
 
@@ -122,8 +122,8 @@ static NSString * identifier = @"SearchTypeCollectionCell";
     if (_isThemeType == YES) {
         return _classListArray.count;
     }else{
+        
         return  _brandListArray.count;
-
     }
 }
 
@@ -135,8 +135,8 @@ static NSString * identifier = @"SearchTypeCollectionCell";
         CmgoodsClasstypelist * list = _classListArray[indexPath.item];
         cell.lb_title.text = list.name;
     }else{
-        BrandFindbrandlist * list = _brandListArray[indexPath.item];
-        cell.lb_title.text = list.brandName;
+        Nexttypelist * list = _brandListArray[indexPath.item];
+        cell.lb_title.text = list.name;
     }
  
     return cell;
@@ -165,11 +165,11 @@ static NSString * identifier = @"SearchTypeCollectionCell";
             [self.delegate didClicktypeId:[NSString stringWithFormat:@"%ld",list.typeId] AndTitle:list.name];
         }
     }else{
-        BrandFindbrandlist * list = _brandListArray[indexPath.item];
-        NSString * brandid = list.brandId;
-        NSLog(@"brandid = = =%@",brandid);
+        Nexttypelist * list = _brandListArray[indexPath.item];
+        NSString * goodid = [NSString stringWithFormat:@"%ld",list.goodId];
+        NSLog(@"goodid = = =%@",goodid);
         if ([self.delegate respondsToSelector:@selector(didClicktypeId:AndTitle:)]) {
-            [self.delegate  didClicktypeId:list.brandId AndTitle:list.brandName];
+            [self.delegate  didClicktypeId:goodid AndTitle:list.name];
         }
     }
 
@@ -187,7 +187,6 @@ static NSString * identifier = @"SearchTypeCollectionCell";
 
 -(void)reloadCollctionView
 {
-
     [self.collctionView reloadData];
 }
 @end
