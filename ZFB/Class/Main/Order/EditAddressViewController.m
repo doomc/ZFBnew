@@ -128,12 +128,11 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField == _tf_cellphone) {
-        
-        if ([_tf_cellphone.text isMobileNumberClassification]) {
+ 
+        if ([_tf_cellphone.text isMobileNumber]) {
             NSLog(@"手机号 ===== %@",_tf_cellphone.text);
             
         }else{
-            
             [self.view makeToast:@"手机格式不对哦~😯" duration:2 position:@"center"];
             
         }

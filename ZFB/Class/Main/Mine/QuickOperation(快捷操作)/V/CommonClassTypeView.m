@@ -47,28 +47,6 @@ static NSString * identifier = @"SearchTypeCollectionCell";
     
     [self addSubview:self.collctionView];
     
-    NSInteger lieCount = 0;
-    if (_isThemeType == YES) {
-        if (_classListArray.count%2 == 0)
-        {
-            lieCount = _classListArray.count/2;
-        }
-        else
-        {
-            lieCount = _classListArray.count/2+1;
-        }
- 
-    }else{
-        if (_brandListArray.count%2 == 0)
-        {
-            lieCount = _brandListArray.count/2;
-        }
-        else
-        {
-            lieCount = _brandListArray.count/2+1;
-        }
-
-    }
     UIView  * footView  =[[ UIView alloc ]initWithFrame:CGRectMake(0, 210 , KScreenW, 50)];
     footView.backgroundColor = [ UIColor redColor];
     [self addSubview:footView];

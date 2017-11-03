@@ -142,7 +142,6 @@
     [self creatInterfaceDetailTableView];//初始化控件tableview
     [self settingHeaderViewAndFooterView];//初始化footerview
     [self goodsDetailListPostRequset];//详情网络请求
-    [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
     [self flyButtonView];
     
     
@@ -1311,6 +1310,7 @@
             [self cycleScrollViewInit];
 
             [self recommentPostRequstCouponList];//获取优惠券
+            [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
 
         }
         [SVProgressHUD dismiss];

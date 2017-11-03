@@ -642,7 +642,24 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                             
                         }else{ //跳转到收银台
                             _orderArr = response[@"orderList"];
-                            
+                             //经研究 测试 价格存在很大的问题
+//                            _orderArr = @[
+//                                          @{
+//                                              @"body":@"【周黑鸭旗舰店_锁鲜】H气调盒装牛肉片150gx2盒 武汉特产零食",
+//                                              @"order_num":@"201711034900042518",
+//                                              @"title":@"唐老鸭",
+//                                              @"pay_money":@"70.06",
+//                                              @"goods_list":@[
+//                                                      @{
+//                                                          @"goods_disamount":@"69.99",
+//                                                          @"goods_count":@"1",
+//                                                          @"goods_num":@"gs201711037835-5457",
+//                                                          @"goods_name":@"周黑鸭旗舰店_锁鲜】H气调盒装牛肉片150gx2盒 武汉特产零食",
+//                                                          @"goods_amount":@"69.99",
+//                                                          }
+//                                                      ]
+//                                              },
+//                                          ];
                             //支付的回调地址
                             _notify_url = response[@"thirdURI"][@"notify_url"];
                             _return_url  = response[@"thirdURI"][@"return_url"];
@@ -807,7 +824,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         _paySign = response[@"paySign"];
         
         [SVProgressHUD dismissWithCompletion:^{
-            
+          
             [self getGoodsCostPayResulrUrlL];
         }];
         

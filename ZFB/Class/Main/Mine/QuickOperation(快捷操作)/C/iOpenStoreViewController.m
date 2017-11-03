@@ -26,7 +26,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     UITextFieldDelegate,
     UIGestureRecognizerDelegate,
     HXPhotoViewControllerDelegate,
-    CommonClassTypeViewDelegate
+    CommonClassTypeViewDelegate,
+    UIScrollViewDelegate
 >
 {
     NSString * _storeAddress;//门店地址
@@ -103,7 +104,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-
+    self.scrollView.delegate = self;
     self.title  = @"我要开店";
 
     [self initView];
@@ -113,7 +114,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     self.tf_storeName.layer.masksToBounds = YES;
     self.tf_storeName.layer.cornerRadius = 4;
     self.tf_storeName.layer.borderWidth = 1;
-    self.tf_storeName.layer.borderColor = HEXCOLOR(0x8d8d8d).CGColor;
+    self.tf_storeName.delegate = self;
+    self.tf_storeName.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
     self.tf_storeName.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
     self.tf_storeName.leftViewMode = UITextFieldViewModeAlways;
     [self.tf_storeName addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
@@ -124,7 +126,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     self.tf_contactName.layer.masksToBounds = YES;
     self.tf_contactName.layer.cornerRadius = 4;
     self.tf_contactName.layer.borderWidth = 1;
-    self.tf_contactName.layer.borderColor = HEXCOLOR(0x8d8d8d).CGColor;
+    self.tf_contactName.delegate = self;
+    self.tf_contactName.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
     self.tf_contactName.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
     self.tf_contactName.leftViewMode = UITextFieldViewModeAlways;
     [self.tf_contactName addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
@@ -133,7 +136,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     self.tf_phoneNum.layer.masksToBounds = YES;
     self.tf_phoneNum.layer.cornerRadius = 4;
     self.tf_phoneNum.layer.borderWidth = 1;
-    self.tf_phoneNum.layer.borderColor = HEXCOLOR(0x8d8d8d).CGColor;
+    self.tf_phoneNum.delegate = self;
+    self.tf_phoneNum.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
     self.tf_phoneNum.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
     self.tf_phoneNum.leftViewMode = UITextFieldViewModeAlways;
     [self.tf_phoneNum addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
@@ -142,12 +146,12 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     self.themeType_btn.layer.masksToBounds = YES;
     self.themeType_btn.layer.cornerRadius = 4;
     self.themeType_btn.layer.borderWidth = 1;
-    self.themeType_btn.layer.borderColor = HEXCOLOR(0x8d8d8d).CGColor;
+    self.themeType_btn.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
     
     self.themeMan_btn.layer.masksToBounds = YES;
     self.themeMan_btn.layer.cornerRadius = 4;
     self.themeMan_btn.layer.borderWidth = 1;
-    self.themeMan_btn.layer.borderColor = HEXCOLOR(0x8d8d8d).CGColor;
+    self.themeMan_btn.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
     //提交审核
     self.commmit_btn.layer.masksToBounds = YES;
     self.commmit_btn.layer.cornerRadius = 4;
@@ -227,6 +231,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField{
     NSLog(@"编辑完了");
+    [textField resignFirstResponder];
+
 }
 -(void)textfieldChange:(UITextField *)textField{
     if (self.tf_storeName == textField) {
@@ -244,7 +250,16 @@ typedef NS_ENUM(NSUInteger, PickerType) {
         NSLog(@"电话：%@",textField.text);
     }
 }
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.tf_storeName resignFirstResponder];
 
+}
 
 #pragma mark- 图片选择器的代理
 - (void)photoViewControllerDidNext:(NSArray<HXPhotoModel *> *)allList Photos:(NSArray<HXPhotoModel *> *)photos Videos:(NSArray<HXPhotoModel *> *)videos Original:(BOOL)original {
@@ -372,7 +387,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self.scrollView endEditing:YES];
+    [self.coverView endEditing:YES];
     [self removeFromtoSuperView];
 }
 
@@ -384,6 +399,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
         
         NSLog(@"name=%@, longitude=%f, latitude=%f, postCode=%@", name, longitude, latitude, postCode);
         [self.address_btn setTitle:name forState:UIControlStateNormal];
+        _storeAddress  = name;
         _longitude =[NSString stringWithFormat:@"%.6f",longitude];
         _latitude = [NSString stringWithFormat:@"%.6f",latitude];
     };
@@ -392,8 +408,14 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 
 #pragma mark - 提交审核
 - (IBAction)commitAction:(id)sender {
-    
-    [self appShopRegisteredPost];
+ 
+    if (_storeName.length > 0 && _contactName.length > 0 &&  _contactPhone.length > 0 &&  _commitmentImgUrl.length > 0 && _liceseImgUrl.length > 0 &&  _idCardImgUrl.length >0  && _openLiceseImgUrl.length > 0 && _commitmentImgUrl.length > 0 ) {
+        [self appShopRegisteredPost];
+
+    }else{
+        [self.view makeToast:@"信息不完整" duration:2 position:@"center"];
+
+    }
 }
 
 
@@ -466,19 +488,21 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 -(void)appShopRegisteredPost
 {
     NSDictionary * parma = @{
-                             @"mobilePhone":_phoneNum,
+                             @"mobilePhone":BBUserDefault.userPhoneNumber,
                              @"email":_email,
                              @"serviceType":_themeTitle,//一级类型
                              @"bussinessType":_themeTitle2,//二级类型
+                             
                              @"businessLicense":_liceseImgUrl,//营业执照
                              @"icFaceAttachId":_idCardImgUrl,//身份证正面照
                              @"bankLicense":_openLiceseImgUrl,//开户行许可证
                              @"servicePeomiseUrl":_commitmentImgUrl,//商品承诺书
+
                              @"storeContact":_contactName,//联系人
                              @"contactPhone":_contactPhone,//联系人电话
                              @"storeName":_storeName,//店铺名称
                              @"storeAddress":_storeAddress,//商户地址
-                             @"areaId":@"2220",//区域id
+                             @"areaId":_areaId,//区域id
                              @"latitude":_latitude,//经度
                              @"longitude":_longitude,//纬度
        
@@ -486,9 +510,12 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     [SVProgressHUD showWithStatus:@"由于上传图片过多,上传较慢,请耐心等待"];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/appShopRegistered",zfb_baseUrl] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
-            [SVProgressHUD showSuccessWithStatus:response[@"resultMsg"]];
+            
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
             
         }else{
+            
             [SVProgressHUD showErrorWithStatus:response[@"resultMsg"]];
         }
     } progress:^(NSProgress *progeress) {

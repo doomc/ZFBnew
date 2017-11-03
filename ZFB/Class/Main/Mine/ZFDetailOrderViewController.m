@@ -580,7 +580,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 {
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     NSString * listJsonString  = [NSString arrayToJSONString:_unpayOrderInfoArray];
-    [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
+//    [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
     [params setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
     [params setValue:_datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
     [params setValue:_thirdUrlDic[@"notify_url"] forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）

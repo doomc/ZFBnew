@@ -15,6 +15,7 @@
 @property (nonatomic , copy) NSString * phoneNum;//手机号
 @property (nonatomic , copy) NSString * verCode;//验证码
 @property (nonatomic , copy) NSString * email;//电子邮箱
+@property (nonatomic , copy) NSString * areaId;//区域id
 
 
 //输入框

@@ -22,38 +22,47 @@
 
 @interface AddressLocationMapViewController ()
 <
-MAMapViewDelegate,
-AMapSearchDelegate,
-AMapLocationManagerDelegate,//定位代理
-SearchResultTableVCDelegate,//搜索代理
-UISearchBarDelegate,
-UITableViewDataSource,
-UITableViewDelegate>
+    MAMapViewDelegate,
+    AMapSearchDelegate,
+    AMapLocationManagerDelegate,//定位代理
+    SearchResultTableVCDelegate,//搜索代理
+    UISearchBarDelegate,
+    UITableViewDataSource,
+    UITableViewDelegate,
+    UISearchResultsUpdating
+
+>
 {
     AMapSearchAPI * _search;  //获取周边api
     UIImageView   * _centerMaker;//固定中间的图
+    
     // 第一次定位标记
     BOOL isFirstLocated;
+    
     // 禁止连续点击两次
     BOOL _isMapViewRegionChangedFromTableView;
+    
     //页码
     NSInteger searchPage;
+    
     // 高德API不支持定位开关，需要自己设置
     UIButton * _locationBtn;
     UIImage  * _imageLocated;
     UIImage  * _imageNotLocate;
+    
     //地图中心点POI列表
     MBProgressHUD * _HUD;
     NSString * addressPoi ;
 }
+
 //定位
 @property (nonatomic, strong) MAMapView           *mapView;
 @property (nonatomic, strong) AMapLocationManager *locationManager;
 @property (nonatomic, strong) MAPointAnnotation   *pointAnnotaiton;
+
 //搜索框
 @property (nonatomic, strong) SearchResultTableVC *searchResultTableVC;
 @property (nonatomic, strong) UISearchController  *searchController       ;
-
 @property (nonatomic, strong) NSMutableArray<AMapPOI *> *dataList;
 @end
 
@@ -107,7 +116,7 @@ UITableViewDelegate>
 //初始化atableview
 - (void)initTableView
 {
-    self.zfb_tableView          = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_mapView.frame)-64 , KScreenW, 6 * 55 + 64) style:UITableViewStylePlain];
+    self.zfb_tableView          = [[UITableView alloc] initWithFrame:CGRectMake(0, 300, KScreenW, 6 * 55 -50) style:UITableViewStylePlain];
     self.zfb_tableView.delegate = self;
     self.zfb_tableView.dataSource = self;
     [self.view addSubview:self.zfb_tableView];
@@ -155,20 +164,26 @@ UITableViewDelegate>
 #pragma mark - 搜索框------
 -(void)initSearchBar
 {
-    searchPage          = 1;
-    
+     searchPage          = 1;
     _searchResultTableVC                   = [[SearchResultTableVC alloc] init];
     _searchResultTableVC.delegate          = self;
     _searchController                      = [[UISearchController alloc] initWithSearchResultsController:_searchResultTableVC];
     _searchController.searchResultsUpdater = _searchResultTableVC;
     _searchController.searchBar.placeholder = @"搜索";
     _searchController.searchBar.barTintColor = HEXCOLOR(0xefefef);
+    _searchController.hidesNavigationBarDuringPresentation = NO;
+    _searchController.definesPresentationContext = YES;
 
     int SearchBarStyle = 0;
     switch (SearchBarStyle) {
         case 0:  // 放在NavigationBar底部
-            [self.view addSubview:_searchController.searchBar];
-            self.edgesForExtendedLayout = UIRectEdgeNone;
+//            [self.view addSubview:_searchController.searchBar];
+//            self.edgesForExtendedLayout = UIRectEdgeNone;
+            _searchController.searchBar.searchBarStyle             = UISearchBarStyleMinimal;
+            _searchController.hidesNavigationBarDuringPresentation = NO;
+            self.navigationItem.titleView                          = _searchController.searchBar;
+            self.definesPresentationContext                        = YES;
+           
             break;
         case 1:  // 点击搜索按钮显示SearchBar
             self.navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(searchAction)];
@@ -183,8 +198,10 @@ UITableViewDelegate>
         default:
             break;
     }
-    
-    
+}
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    NSLog(@"searchController = %@",searchController);
 }
 
 - (void)searchAction
@@ -263,9 +280,7 @@ UITableViewDelegate>
     {
         return;
     }
-    
     //通过 AMapPOISearchResponse 对象处理搜索结果
-    
     [self.dataList removeAllObjects];
     for (AMapPOI *p in response.pois) {
         NSLog(@"%@",[NSString stringWithFormat:@"%@\nPOI: %@,%@", p.description,p.name,p.address]);
@@ -276,6 +291,7 @@ UITableViewDelegate>
  
     [self.zfb_tableView reloadData];
 }
+
 - (NSMutableArray<AMapPOI *> *)dataList
 {
     if (!_dataList) {
@@ -292,7 +308,6 @@ UITableViewDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
- 
     return [self.dataList count];
 }
 
@@ -311,6 +326,7 @@ UITableViewDelegate>
     
     return 50.0;
 }
+
 //点击cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

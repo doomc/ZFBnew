@@ -282,7 +282,6 @@ static const CGFloat kTopViewHeight=40;
 }
 
 #pragma mark 默认绑定设置
-
 -(void)configDataProvince:(NSString *)provinceName City:(NSString *)cityName Town:(NSString *)townName
 {
     NSString *provinceStr = provinceName;

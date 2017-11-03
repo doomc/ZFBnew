@@ -13,7 +13,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     PickerTypeFace,
     PickerTypeBack,
 };
-@interface iwantSendedViewController ()<UITextFieldDelegate,UIGestureRecognizerDelegate,HXPhotoViewControllerDelegate>
+@interface iwantSendedViewController ()<UITextFieldDelegate,UIGestureRecognizerDelegate,HXPhotoViewControllerDelegate,UIScrollViewDelegate>
 {
     NSString * _phoneNum;
     NSString * _verCodeNum;
@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     BOOL _faceSuccess;
     BOOL _backSuccess;
 }
+@property (weak, nonatomic) IBOutlet UIScrollView *scrolleView;
 
 @property (strong, nonatomic) HXPhotoManager *manager;
 @property (assign ,nonatomic) PickerType pickType;
@@ -50,7 +51,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     self.title  = @"我要配送";
     _faceSuccess = NO;
     _backSuccess = NO;
-    
+    self.scrolleView.delegate = self;
     
     [self initView];
 }
@@ -59,8 +60,11 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     self.tf_phoneNum.layer.masksToBounds = YES;
     self.tf_phoneNum.layer.cornerRadius = 4;
     self.tf_phoneNum.layer.borderWidth = 1;
-    self.tf_phoneNum.layer.borderColor = HEXCOLOR(0x8d8d8d).CGColor;
+    self.tf_phoneNum.delegate = self;
     self.tf_phoneNum.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
+    self.tf_phoneNum.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
+    self.tf_phoneNum.text = BBUserDefault.userPhoneNumber;
+    self.tf_phoneNum.userInteractionEnabled = NO;
     self.tf_phoneNum.leftViewMode = UITextFieldViewModeAlways;
     [self.tf_phoneNum addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
     
@@ -70,16 +74,18 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     self.tf_VerCode.layer.masksToBounds = YES;
     self.tf_VerCode.layer.cornerRadius = 4;
     self.tf_VerCode.layer.borderWidth = 1;
-    self.tf_VerCode.layer.borderColor = HEXCOLOR(0x8d8d8d).CGColor;
+    self.tf_VerCode.delegate = self;
+    self.tf_VerCode.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
     self.tf_VerCode.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
     self.tf_VerCode.leftViewMode = UITextFieldViewModeAlways;
     [self.tf_VerCode addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
    
-    //电子邮箱
+    //name
     self.tf_Name.layer.masksToBounds = YES;
     self.tf_Name.layer.cornerRadius = 4;
     self.tf_Name.layer.borderWidth = 1;
-    self.tf_Name.layer.borderColor = HEXCOLOR(0x8d8d8d).CGColor;
+    self.tf_Name.delegate = self;
+    self.tf_Name.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
     self.tf_Name.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
     self.tf_Name.leftViewMode = UITextFieldViewModeAlways;
     [self.tf_Name addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
@@ -126,6 +132,18 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 }
 
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.tf_phoneNum resignFirstResponder];
+    [self.tf_Name resignFirstResponder];
+    [self.tf_VerCode resignFirstResponder];
+}
 #pragma mark -  UITapGestureRecognizer 身份证正反面
 //正面
 -(void)tapFaceView:(UITapGestureRecognizer *)ges
@@ -187,14 +205,31 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 
 
 - (IBAction)commitAction:(UIButton *)sender {
-    if (_phoneNum.length > 0  &&  _smsCode.length > 0  &&  _name.length > 0  &&  _imgfaceUrl != nil &&  _imgbackUrl!= nil) {
+    if ( _smsCode.length > 0  &&  _name.length > 0  &&  _imgfaceUrl != nil &&  _imgbackUrl!= nil) {
         
         [self appShopRegisteredPost];
 
     }else{
-        [self.view makeToast:@"填写信息有误" duration:2 position:@"center"];
+        
+        [self.view makeToast:@"上传资料不全" duration:2 position:@"center"];
 
     }
+ 
+}
+- (IBAction)getVerCodeAction:(UIButton *)sender {
+ 
+        // 网络请求
+        [self ValidateCodePostRequset];
+        
+        [dateTimeHelper verificationCode:^{
+            //倒计时完毕
+            sender.enabled = YES;
+            [sender setTitle:@"重新发送" forState:UIControlStateNormal];
+            
+        } blockNo:^(id time) {
+            sender.enabled = NO;
+            [sender setTitle:time forState:UIControlStateNormal];
+        }];
  
 }
 
@@ -205,7 +240,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     [SVProgressHUD show];
     NSDictionary * parma = @{
                              @"SmsLogo":@"1",
-                             @"mobilePhone":_phoneNum,
+                             @"mobilePhone":BBUserDefault.userPhoneNumber,
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/SendMessages",zfb_baseUrl] params:parma success:^(id response) {
@@ -215,7 +250,6 @@ typedef NS_ENUM(NSUInteger, PickerType) {
             
             _smsCode = response[@"smsCode" ];
             self.verCode_btn.enabled = YES;
-            self.verCode_btn.backgroundColor = HEXCOLOR(0xF95A70);
         }
         [self.view makeToast:response[@"resultMsg"]  duration:2 position:@"center"];
         [SVProgressHUD dismiss];
@@ -229,11 +263,11 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 }
 
 
-#pragma mark  - 成为商户appShopRegistered
+#pragma mark  - 配送员appShopRegistered
 -(void)appShopRegisteredPost
 {
     NSDictionary * parma = @{
-                             @"deliveryPhone":_phoneNum,
+                             @"deliveryPhone":BBUserDefault.userPhoneNumber,
                              @"Vcode":_smsCode,
                              @"deliveryName":_name,//姓名
                              @"frontUrl":_imgfaceUrl,
@@ -244,7 +278,9 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                              };
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/deliveryman",zfb_baseUrl] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
-            
+           
+            [self.navigationController popToRootViewControllerAnimated:YES];
+
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
             
         }else{

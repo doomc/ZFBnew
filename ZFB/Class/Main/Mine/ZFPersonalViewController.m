@@ -73,6 +73,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 @property (nonatomic,copy) NSString * balance   ;//余额
 @property (nonatomic,copy) NSString * userImgAttachUrl  ;//头像URL
 @property (nonatomic,copy) NSString * couponNum  ;//优惠券数量
+@property (nonatomic,copy) NSString * deliveryStatus  ;//申请配送员的审核状态
 
 @end
 
@@ -360,6 +361,20 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
 
     QuickOperationCell * quickCell = [self.myTableView dequeueReusableCellWithIdentifier:@"QuickOperationCell" forIndexPath:indexPath];
+    if ([_shopFlag isEqualToString:@"1"] || [_courierFlag isEqualToString:@"1"] ) {
+        quickCell.unCheckView.hidden = YES;
+    }
+    if ([_shopFlag isEqualToString:@"1"]){
+        quickCell.lb_changeName.text = @"切换到商户端";
+        quickCell.checkedView.hidden = NO;
+
+    }
+    if ([_courierFlag isEqualToString:@"1"]) {
+        quickCell.lb_changeName.text = @"切换到配送端";
+        quickCell.checkedView.hidden = NO;
+
+    }
+
     quickCell.delegate = self;
     return quickCell;
 
@@ -666,7 +681,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             _couponNum  = [NSString stringWithFormat:@"%@",response[@"couponNum"]];//优惠券数量
             _foolnum    = [NSString stringWithFormat:@"%@",response[@"foolNum"] ];
             _collectNum = [NSString stringWithFormat:@"%@",response[@"collectNum"]];
-            _shopFlag   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"shopFlag"]];//是否是商户
+            _shopFlag   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"shopFlag"]];// 1.是商家 0. 普通用户 -1待审核
             _courierFlag= [NSString stringWithFormat:@"%@",response[@"userInfo"][@"courierFlag"]];//是否是快递员
             _storeId    = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"storeId"]];
  
@@ -719,6 +734,27 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }];
     
 }
+#pragma mark  - 配送员审核状态
+-(void)checkStatusPost
+{
+    NSDictionary * parma = @{
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             };
+    
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/deliveryAuditStatus"] params:parma success:^(id response) {
+        // 审核状态   1.审核通过 2.待审核 3.审核失败
+
+        _deliveryStatus = [NSString stringWithFormat:@"%@",response[@"data"]];
+        [self.myTableView reloadData];
+      
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
+
 
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -741,6 +777,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     if (BBUserDefault.isLogin == 1) {
         [self getThirdBalancePOSTRequste];//余额查询
         [self minePagePOSTRequste];//页面网络请求
+        [self checkStatusPost];//配送员状态
         
         //移除登录视图
         _headview.loginView.hidden   = NO;
@@ -764,35 +801,84 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 }
 
 #pragma mark - 快捷操作 代理 QuickOperationCellDelegate
-//点击开店
+//我要开店
 -(void)didClickOpenStore
 {
     NSLog(@"我要开店");
-    iWantOpenStoreViewController * openVC  = [iWantOpenStoreViewController new];
-    [self.navigationController pushViewController:openVC animated:NO];
-    
+  if ([_courierFlag isEqualToString:@"0"] &&[_shopFlag isEqualToString:@"0"] )
+  {
+      iWantOpenStoreViewController * openVC  = [iWantOpenStoreViewController new];
+      [self.navigationController pushViewController:openVC animated:NO];
+      
+  }else{
+      if ([_shopFlag isEqualToString:@"-1"]) {
+           [self.view makeToast:@"审核中..." duration:2 position:@"center"];
+      }else{
+          [self.view makeToast:@"配送和商户,只能选其一" duration:2 position:@"center"];
+      }
+  }
 }
-//点击配送
+//成为配送
 -(void)didClickSendGoods
 {
-    NSLog(@"点击配送");
-    iwantSendedViewController * sendVC  = [iwantSendedViewController new];
-    [self.navigationController pushViewController:sendVC animated:NO];
+
+    if ([_courierFlag isEqualToString:@"0"] &&[_shopFlag isEqualToString:@"0"] ) {//普通用户
+        
+        iwantSendedViewController * sendVC  = [iwantSendedViewController new];
+        [self.navigationController pushViewController:sendVC animated:NO];
+        
+    }else{
+        if ([_deliveryStatus isEqualToString:@"3"]) {//如果失败
+            iwantSendedViewController * sendVC  = [iwantSendedViewController new];
+            [self.navigationController pushViewController:sendVC animated:NO];
+        }
+        else if ([_deliveryStatus isEqualToString:@"2"])//审核中
+        {
+            [self.view makeToast:@"审核中..." duration:2 position:@"center"];
+        }
+        else{
+            [self.view makeToast:@"配送和商户,只能选其一" duration:2 position:@"center"];
+
+        }
+
+    }
 }
 //切换商户
 -(void)didClickChangeID
 {
     NSLog(@"切换商户");
+    
+    if (BBUserDefault.isLogin == 1) {
+        if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
+            //商户端
+            BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
+            businessVC.storeId = _storeId;
+            [self.navigationController pushViewController:businessVC animated:NO];
+            
+        }
+        if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
+            // 配送端
+            ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
+            [self.navigationController pushViewController:sendVC animated:NO];
+        }
+        
+    }
+    else{
+        [self isloginSuccess];
+        
+    }
 
 }
 //我的评价
 -(void)didClickMyevalution{
     NSLog(@"我的评价");
+    [self settingAlertView];
 
 }
 //我的动态
 -(void)didClickmyDynamic{
     NSLog(@"我的动态");
+    [self settingAlertView];
 
 }
 

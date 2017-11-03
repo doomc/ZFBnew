@@ -14,5 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *tf_email;
 @property (weak, nonatomic) IBOutlet UIButton *verCode_btn;
 @property (weak, nonatomic) IBOutlet UIButton *NextPage_btn;
+@property (weak, nonatomic) IBOutlet UITextField *tf_address;
+@property (weak, nonatomic) IBOutlet UIButton *address_btn;
 
 @end

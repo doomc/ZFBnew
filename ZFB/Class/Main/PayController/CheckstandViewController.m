@@ -249,11 +249,11 @@
     
 }
 //获取微信的sign
--(void)wxPaySignPostRequst
+-(void)wxPaySignPostRequst:(NSString *)zavfpay_num
 {
     NSDictionary * param = @{
                              @"account":BBUserDefault.userPhoneNumber,
-                             @"zavfpay_num":_zavfpay_num,//支付订单号
+                             @"zavfpay_num":zavfpay_num,//支付订单号
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/paySign",zfb_baseUrl] params:param success:^(id response) {
@@ -346,15 +346,19 @@
     //非加密的请求 获取预订单
     [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/cashier/order.do",paySign_baseUrl] params:_signDic success:^
      (id response) {
+         
+         NSLog(@"预下单订单 order.do : %@",response[@"result_msg"]);
+         
          NSString * code = [NSString stringWithFormat:@"%@",response[@"result_code"]];
-         NSLog(@"result_msg : %@",response[@"result_msg"]);
          if ([code isEqualToString:@"0000"]) {
              
              _zavfpay_num = [NSString stringWithFormat:@"%@",response[@"zavfpay_num"]];
-             [self wxPaySignPostRequst];//获取微信签名
+             [self wxPaySignPostRequst:_zavfpay_num];//获取微信签名
+         }
+         else{
+             [self.view makeToast:response[@"result_msg"] duration:2 position:@"center"];
          }
      } progress:^(NSProgress *progeress) {
-         
      } failure:^(NSError *error) {
          NSLog(@"%@",error);
      }];

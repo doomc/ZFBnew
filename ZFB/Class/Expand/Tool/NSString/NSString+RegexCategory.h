@@ -91,7 +91,6 @@
  *  手机号有效性
  */
 - (BOOL)isMobileNumber;
-
 /**
  *  邮箱的有效性
  */

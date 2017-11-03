@@ -12,10 +12,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="iwantSendedViewController">
             <connections>
                 <outlet property="commit_btn" destination="LW3-Kt-ipY" id="hLH-59-bNa"/>
+                <outlet property="scrolleView" destination="Uh2-es-IvQ" id="GAH-iG-2LZ"/>
                 <outlet property="tf_Name" destination="90H-tE-dLi" id="2ro-ex-7L2"/>
                 <outlet property="tf_VerCode" destination="uZa-eS-BSD" id="yvG-cl-LlQ"/>
                 <outlet property="tf_phoneNum" destination="WyR-mK-lMM" id="Pqx-oC-axy"/>
-                <outlet property="uploadBackImgView" destination="fXf-VQ-Rtc" id="hVE-52-JSd"/>
+                <outlet property="uploadBackImgView" destination="fXf-VQ-Rtc" id="lCv-B0-uZm"/>
                 <outlet property="uploadFaceImgView" destination="4Qv-Ir-9dP" id="pqa-g0-v4C"/>
                 <outlet property="verCode_btn" destination="rL0-mm-BCn" id="L6N-ea-jUI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -33,16 +34,17 @@
                             <rect key="frame" x="15" y="20" width="345" height="50"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手 机 号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uxQ-UO-Pms">
-                                    <rect key="frame" x="10" y="16.5" width="70" height="18"/>
+                                    <rect key="frame" x="10" y="16.5" width="80" height="18"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="70" id="jpD-dh-30G"/>
+                                        <constraint firstAttribute="width" constant="80" id="jpD-dh-30G"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WyR-mK-lMM">
-                                    <rect key="frame" x="90" y="0.0" width="140" height="50"/>
+                                    <rect key="frame" x="100" y="0.0" width="130" height="50"/>
+                                    <color key="backgroundColor" red="0.87833553549999999" green="0.87848657370000005" blue="0.8783260584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="MkH-eD-CmC"/>
                                     </constraints>
@@ -61,6 +63,9 @@
                                     <state key="normal" title="获取验证码">
                                         <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="getVerCodeAction:" destination="-1" eventType="touchUpInside" id="6bk-pW-pw4"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -79,16 +84,16 @@
                             <rect key="frame" x="15" y="80" width="345" height="50"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="验证码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgz-6N-dQQ">
-                                    <rect key="frame" x="10" y="16.5" width="70" height="18"/>
+                                    <rect key="frame" x="10" y="16.5" width="80" height="18"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="70" id="vWv-Va-KQa"/>
+                                        <constraint firstAttribute="width" constant="80" id="vWv-Va-KQa"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="uZa-eS-BSD">
-                                    <rect key="frame" x="90" y="0.0" width="240" height="50"/>
+                                    <rect key="frame" x="100" y="0.0" width="230" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="88e-4y-hai"/>
                                     </constraints>
@@ -157,7 +162,7 @@
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="4Qv-Ir-9dP">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_photo.png" translatesAutoresizingMaskIntoConstraints="NO" id="4Qv-Ir-9dP">
                             <rect key="frame" x="25" y="238" width="325" height="150"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="150" id="PZZ-ao-BJG"/>
@@ -169,7 +174,7 @@
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="fXf-VQ-Rtc">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_photo.png" translatesAutoresizingMaskIntoConstraints="NO" id="fXf-VQ-Rtc">
                             <rect key="frame" x="25" y="426" width="325" height="150"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="150" id="LHu-ql-mr2"/>
@@ -218,6 +223,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Upload_bg.png" width="120" height="120"/>
+        <image name="add_photo.png" width="270" height="270"/>
     </resources>
 </document>

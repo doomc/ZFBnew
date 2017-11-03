@@ -67,9 +67,14 @@
     
     ZFCInterpersonalCircleViewController *msgVC = [ZFCInterpersonalCircleViewController new];
     [self addOneChildVc:msgVC title:@"消息" imageName:@"news-off" selectedImageName:@"news-on"];
-//    NSInteger badge = self.sessionUnreadCount;
-//    msgVC.tabBarItem.badgeValue = badge ? @(badge).stringValue : nil;
-    msgVC.tabBarItem.badgeValue = BBUserDefault.unReadCount;
+ 
+    if ([BBUserDefault.unReadCount isEqualToString:@"0"]) {
+        msgVC.tabBarItem.badgeValue = nil;
+
+    }else{
+        msgVC.tabBarItem.badgeValue = BBUserDefault.unReadCount;
+
+    }
     
     ShareCircleViewController *shopVC = [ShareCircleViewController new];
     [self addOneChildVc:shopVC title:@"分享圈" imageName:@"share-off" selectedImageName:@"share-on"];
@@ -86,9 +91,6 @@
     childVc.tabBarItem.title = title;
     childVc.tabBarItem.image = [[UIImage imageNamed:imageName ] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     childVc.tabBarItem.selectedImage = [[UIImage imageNamed:seletedImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    //    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor grayColor], NSForegroundColorAttributeName, [UIFont fontWithName:title size:12.0f],NSFontAttributeName,nil] forState:UIControlStateNormal];
-    //    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName, [UIFont fontWithName:title size:12.0f],NSFontAttributeName,nil] forState:UIControlStateSelected];
 
     //将NavigationController给包含进来。
     [self addChildViewController:[[ZFBaseNavigationViewController alloc] initWithRootViewController:childVc]];

@@ -28,7 +28,7 @@
     self.title =@"选择收货地址";
  
     
-    self.mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49) style:UITableViewStylePlain];
+    self.mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49 - 64) style:UITableViewStylePlain];
     self.mytableView.delegate= self;
     self.mytableView.dataSource = self;
     [self.view addSubview:self.mytableView];
@@ -43,7 +43,7 @@
 -(void)customFooterView
 {
  
-    UIView *  footerView = [[UIView alloc]initWithFrame:CGRectMake(0 , KScreenH -49, KScreenW, 69)];
+    UIView *  footerView = [[UIView alloc]initWithFrame:CGRectMake(0 , KScreenH -49 -64, KScreenW, 69)];
     footerView.backgroundColor = [UIColor whiteColor];
     UIFont * font  =[UIFont systemFontOfSize:14];
     [self.view addSubview:footerView];

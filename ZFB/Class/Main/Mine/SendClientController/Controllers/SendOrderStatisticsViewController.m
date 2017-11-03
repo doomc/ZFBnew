@@ -91,7 +91,7 @@
 -(UITableView *)orderdTableView
 {
     if (!_orderdTableView) {
-        _orderdTableView =[[ UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH) style:UITableViewStylePlain];
+        _orderdTableView =[[ UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH - 64) style:UITableViewStylePlain];
         _orderdTableView.delegate = self;
         _orderdTableView.dataSource =self;
         _orderdTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
