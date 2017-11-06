@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,11 +24,11 @@
                             <constraint firstAttribute="height" constant="20" id="3ZW-r7-GhR"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.99607843137254903" green="0.42745098039215684" blue="0.41568627450980389" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kgZ-ys-JMt">
-                        <rect key="frame" x="49" y="52.5" width="212" height="17"/>
+                        <rect key="frame" x="35" y="52.5" width="245" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -43,34 +43,34 @@
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_icon2.png" translatesAutoresizingMaskIntoConstraints="NO" id="6aP-dI-SQp">
-                        <rect key="frame" x="15" y="46" width="29" height="29"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location3.png" translatesAutoresizingMaskIntoConstraints="NO" id="6aP-dI-SQp">
+                        <rect key="frame" x="15" y="56" width="10" height="10"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="29" id="Dac-Cp-PEm"/>
-                            <constraint firstAttribute="height" constant="29" id="IWE-RP-Mqk"/>
+                            <constraint firstAttribute="width" constant="10" id="4Y2-ST-QI4"/>
+                            <constraint firstAttribute="height" constant="10" id="MYP-d9-MkO"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calling_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="xpw-k1-JSa">
-                        <rect key="frame" x="276" y="46" width="29" height="29"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone.png" translatesAutoresizingMaskIntoConstraints="NO" id="xpw-k1-JSa">
+                        <rect key="frame" x="290" y="54" width="15" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="29" id="2P1-T5-v94"/>
-                            <constraint firstAttribute="width" constant="29" id="yXX-Hj-xzU"/>
+                            <constraint firstAttribute="height" constant="15" id="NOn-Bm-7oW"/>
+                            <constraint firstAttribute="width" constant="15" id="ipt-8d-B5S"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="ZTb-ot-A1M" firstAttribute="top" secondItem="MRh-qS-9Gr" secondAttribute="bottom" constant="10" id="4du-Ag-bJ2"/>
                     <constraint firstItem="MRh-qS-9Gr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="9M3-dI-NqD"/>
-                    <constraint firstItem="kgZ-ys-JMt" firstAttribute="leading" secondItem="6aP-dI-SQp" secondAttribute="trailing" constant="5" id="COP-rT-sUy"/>
-                    <constraint firstItem="6aP-dI-SQp" firstAttribute="top" secondItem="ZTb-ot-A1M" secondAttribute="bottom" constant="5" id="FKC-n5-tVz"/>
+                    <constraint firstItem="6aP-dI-SQp" firstAttribute="top" secondItem="ZTb-ot-A1M" secondAttribute="bottom" constant="15" id="FKC-n5-tVz"/>
+                    <constraint firstItem="xpw-k1-JSa" firstAttribute="leading" secondItem="kgZ-ys-JMt" secondAttribute="trailing" constant="10" id="Hlw-EF-e11"/>
                     <constraint firstItem="MRh-qS-9Gr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="OaY-oa-Mlq"/>
-                    <constraint firstItem="xpw-k1-JSa" firstAttribute="leading" secondItem="kgZ-ys-JMt" secondAttribute="trailing" constant="15" id="Odw-SD-NR9"/>
+                    <constraint firstItem="xpw-k1-JSa" firstAttribute="top" secondItem="ZTb-ot-A1M" secondAttribute="bottom" constant="13" id="STG-82-5oo"/>
                     <constraint firstItem="6aP-dI-SQp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="VLE-Hk-zLY"/>
+                    <constraint firstItem="kgZ-ys-JMt" firstAttribute="centerY" secondItem="6aP-dI-SQp" secondAttribute="centerY" id="WmS-CI-RrJ"/>
+                    <constraint firstItem="kgZ-ys-JMt" firstAttribute="leading" secondItem="6aP-dI-SQp" secondAttribute="trailing" constant="10" id="c2f-On-WfG"/>
                     <constraint firstAttribute="trailing" secondItem="ZTb-ot-A1M" secondAttribute="trailing" id="gJT-CH-cHp"/>
                     <constraint firstItem="ZTb-ot-A1M" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jta-Jc-bHo"/>
                     <constraint firstAttribute="trailing" secondItem="MRh-qS-9Gr" secondAttribute="trailing" constant="15" id="paD-5h-8eO"/>
-                    <constraint firstItem="xpw-k1-JSa" firstAttribute="centerY" secondItem="6aP-dI-SQp" secondAttribute="centerY" id="t9e-pI-J72"/>
-                    <constraint firstItem="kgZ-ys-JMt" firstAttribute="centerY" secondItem="6aP-dI-SQp" secondAttribute="centerY" id="xJr-wp-WG5"/>
                     <constraint firstAttribute="trailing" secondItem="xpw-k1-JSa" secondAttribute="trailing" constant="15" id="zbQ-Eh-heA"/>
                 </constraints>
             </tableViewCellContentView>
@@ -79,11 +79,11 @@
                 <outlet property="lb_address" destination="kgZ-ys-JMt" id="50y-Zz-MOh"/>
                 <outlet property="lb_storeName" destination="MRh-qS-9Gr" id="Fyo-IG-msy"/>
             </connections>
-            <point key="canvasLocation" x="77" y="63"/>
+            <point key="canvasLocation" x="-250" y="43"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="calling_icon.png" width="29" height="29"/>
-        <image name="location_icon2.png" width="29" height="29"/>
+        <image name="location3.png" width="10" height="10"/>
+        <image name="phone.png" width="13" height="13"/>
     </resources>
 </document>

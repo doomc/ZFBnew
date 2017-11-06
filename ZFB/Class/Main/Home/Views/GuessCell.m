@@ -60,8 +60,7 @@
     self.lb_price.text = [NSString stringWithFormat:@"¥%@",_goodlist.priceTostr];
     self.lb_storeName.text = _goodlist.storeName;
     self.lb_collectNum.text = [NSString stringWithFormat:@"%ld",_goodlist.goodsPv];
-    CGFloat dictence  = _goodlist.storeDist/1000;
-    self.lb_distence.text = [NSString stringWithFormat:@"%.2f公里",dictence ];
+    self.lb_distence.text = [NSString stringWithFormat:@"%@公里",_goodlist.storeDist ];
     
 }
 

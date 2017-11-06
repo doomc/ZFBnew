@@ -274,7 +274,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                     NSLog(@"%@",names);
                     if (state == 1) {
                         
-                        _liceseImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+                        _liceseImgUrl =[NSString stringWithFormat:@"%@", names[0]];
 //                        _faceSuccess = YES;
                     }
                 }];
@@ -287,7 +287,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                     NSLog(@"%@",names);
                     if (state == 1) {
                         
-                        _idCardImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+                        _idCardImgUrl =[NSString stringWithFormat:@"%@", names[0]];
 //                        _backSuccess = YES;
                     }
                 }];
@@ -299,7 +299,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                 [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
                     NSLog(@"%@",names);
                     if (state == 1) {
-                        _openLiceseImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+                        _openLiceseImgUrl =[NSString stringWithFormat:@"%@", names[0]];
                         //                        _backSuccess = YES;
                     }
                 }];
@@ -312,7 +312,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                 [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
                     NSLog(@"%@",names);
                     if (state == 1) {
-                        _commitmentImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+                        _commitmentImgUrl = [NSString stringWithFormat:@"%@", names[0]];
                         //                        _backSuccess = YES;
                     }
                 }];

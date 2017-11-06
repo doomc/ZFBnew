@@ -20,11 +20,14 @@
     [super awakeFromNib];
     // Initialization code
     
+    self.layer.masksToBounds = YES;
+    self.layer.cornerRadius = 6;
+    
     _waterPullImageView.clipsToBounds = YES;
     _waterPullImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     _headImg.layer.masksToBounds = YES;
-    _headImg.layer.cornerRadius = 20;
+    _headImg.layer.cornerRadius = 15;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapContenImgView)];
     tap.delegate = self;
@@ -39,18 +42,18 @@
     // 图片
     [self.waterPullImageView sd_setImageWithURL:[NSURL URLWithString:fullList.imgUrls] placeholderImage:[UIImage imageNamed:@"240x260"]];
     [self.headImg sd_setImageWithURL:[NSURL URLWithString:fullList.userLogo] placeholderImage:[UIImage imageNamed:@"head"]];
+    self.lb_nickname.text  = fullList.userNickname;
     self.lb_title.text = fullList.title;
     self.lb_zanNum.text = fullList.thumbs;
-    self.lb_nickname.text = fullList.nickname;
     self.lb_description.text = fullList.describe;
     _isThumbsStatus = fullList.thumbsStatus;
   
     if ([_isThumbsStatus  isEqualToString:@"0"]) {
         
-        [_zan_btn setImage:[UIImage imageNamed:@"sharezan_selected"] forState:UIControlStateNormal];
+        [_zan_btn setImage:[UIImage imageNamed:@"praise_on"] forState:UIControlStateNormal];
         
     }else{
-        [_zan_btn setImage:[UIImage imageNamed:@"sharezan_normal"] forState:UIControlStateNormal];
+        [_zan_btn setImage:[UIImage imageNamed:@"praise_off"] forState:UIControlStateNormal];
         
     }
     

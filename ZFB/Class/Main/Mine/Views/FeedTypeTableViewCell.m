@@ -8,9 +8,11 @@
 
 #import "FeedTypeTableViewCell.h"
 #import "FeedCommitCollectionViewCell.h"
+
 @interface FeedTypeTableViewCell ()<UICollectionViewDelegate,UICollectionViewDataSource>
-
-
+{
+    NSIndexPath * _indexPath;
+}
 @end
 @implementation FeedTypeTableViewCell
 
@@ -55,9 +57,9 @@
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-   
-    FeedCommitCollectionViewCell *cell = [self.typeCollectionView dequeueReusableCellWithReuseIdentifier:@"FeedCommitCollectionViewCellid" forIndexPath:indexPath];
-    
+    _indexPath = indexPath;
+
+    FeedCommitCollectionViewCell *cell = [self.typeCollectionView dequeueReusableCellWithReuseIdentifier:@"FeedCommitCollectionViewCellid" forIndexPath:_indexPath];
     if (_nameArray.count > 0) {
         //数据操作
         cell.lb_type.text = _nameArray[indexPath.item];
@@ -86,7 +88,7 @@
 //取消选定
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    FeedCommitCollectionViewCell *cell = (FeedCommitCollectionViewCell *)[self.typeCollectionView cellForItemAtIndexPath:indexPath];
+    FeedCommitCollectionViewCell *cell = (FeedCommitCollectionViewCell *)[self.typeCollectionView cellForItemAtIndexPath:_indexPath];
     cell.lb_type.backgroundColor = HEXCOLOR(0xffffff);
     cell.lb_type.textColor =  HEXCOLOR(0x363636);
 }

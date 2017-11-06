@@ -21,7 +21,7 @@
 
 
 //计算cell高度
-#define   itemHeight ((KScreenW -30-20 )*0.5 - 10 ) * 140/121 +36+20+15
+#define   itemHeight ((KScreenW -30 )*0.5 ) * 200/150.0  +80
 
 @interface ZFDetailsStoreViewController ()<UITableViewDelegate,UITableViewDataSource,CouponTableViewDelegate,SDCycleScrollViewDelegate,StoreListTableViewCellDelegate,DetailStoreTitleCellDelegate>
 {
@@ -63,12 +63,16 @@
 
     _isCalling = NO;//默认没打电话
     
-    [self recommentPostRequst:@"0"];
+
 
  
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    if (BBUserDefault.isLogin == 1) {
+        //登录后才有优惠券
+        [self recommentPostRequst:@"0"];
+    }
     [self settingNavBarBgName:@"nav64_gray"];
 
 }
@@ -81,6 +85,7 @@
         _tableView.delegate       = self;
         _tableView.dataSource     = self;
         _tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+        _tableView.backgroundColor = HEXCOLOR(0xf7f7f7);
     }
     return _tableView;
 }
@@ -190,16 +195,12 @@
         else{
             return 0;
         }
-    }
-    else{
-        
+    }else{
         NSInteger cout =  self.storeList.count;
         if (cout % 2 == 0 ) {
-            
-            return (itemHeight +10) * cout/2 +10  ;
+            return (itemHeight + 10) * cout/2 +10  ;
         }else{
-            
-            return (itemHeight +10) * (cout/2 +1) +10;
+            return (itemHeight + 10) * (cout/2 +1) +10;
         }
      }
 }
@@ -219,18 +220,19 @@
         if (section == 2) {
             //全部商品section
             headerView =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 44)];
-            headerView.backgroundColor = HEXCOLOR(0xffcccc);
+            headerView.backgroundColor = [UIColor whiteColor];
+            UIImageView * bgview = [[UIImageView alloc]init];
+            bgview.frame = headerView.frame;
+            bgview.image = [UIImage imageNamed:@"title_bg"];
+            [headerView addSubview:bgview];
             
-            UIImageView * section_icon = [[UIImageView alloc]initWithFrame:CGRectMake(10, 7, 30, 30)];
-            section_icon.image =[ UIImage imageNamed:@"more_icon"];
-            [headerView addSubview:section_icon];
-            
-            UILabel * sectionTitle= [[ UILabel alloc]initWithFrame:CGRectMake(40, 0, 100, 44)];
+            UILabel * sectionTitle= [[ UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 44)];
             sectionTitle.text =@"全部商品";
-            sectionTitle.font =[UIFont systemFontOfSize:14];
-            sectionTitle.textAlignment = NSTextAlignmentLeft;
-            sectionTitle.textColor = HEXCOLOR(0x363636);
-            [headerView addSubview:sectionTitle];
+            sectionTitle.center = headerView.center;
+            sectionTitle.font = SYSTEMFONT(15);
+            sectionTitle.textAlignment = NSTextAlignmentCenter;
+            sectionTitle.textColor = HEXCOLOR(0x333333);
+            [bgview addSubview:sectionTitle];
         }
     }
     return headerView;
@@ -273,6 +275,7 @@
     else{
         StoreListTableViewCell * listCell = [self.tableView dequeueReusableCellWithIdentifier:@"StoreListTableViewCell" forIndexPath:indexPath];
         listCell.storeListArray = self.storeList;
+
         listCell.collectionDelegate = self;
         [listCell reloadCollectionView];
 

@@ -186,7 +186,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
               
                 cell.img_headView.image = (UIImage *)data;
                 _imagePath = imgPath;
-                _userImgAttachUrl =  [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,imgPath ];
+                _userImgAttachUrl =  [NSString stringWithFormat:@"%@",imgPath ];
             });
             NSLog(@" 222222222 _userImgAttachUrl = = = = %@  ", imgPath );
         }];

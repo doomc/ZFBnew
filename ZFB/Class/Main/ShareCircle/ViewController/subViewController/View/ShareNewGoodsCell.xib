@@ -12,36 +12,36 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="289" id="KGk-i7-Jjw" customClass="ShareNewGoodsCell">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="290"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="283" id="KGk-i7-Jjw" customClass="ShareNewGoodsCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="284"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="289.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="283.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7fH-Qu-CaG">
-                        <rect key="frame" x="10" y="10" width="355" height="176"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="186"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="7fH-Qu-CaG" secondAttribute="height" multiplier="355:176" id="rPF-Vs-daf"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热卖秋季" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgM-0O-Z3G">
-                        <rect key="frame" x="10" y="221" width="350" height="18.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <rect key="frame" x="10" y="221" width="350" height="12.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.55294117647058827" green="0.55294117647058827" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1EP-vS-bW3">
-                        <rect key="frame" x="297" y="249.5" width="9" height="20"/>
+                        <rect key="frame" x="302" y="243.5" width="9" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="dl6-dv-tke"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ew-Ha-lEi">
-                        <rect key="frame" x="0.0" y="279.5" width="375" height="10"/>
+                        <rect key="frame" x="0.0" y="273.5" width="375" height="10"/>
                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="p3X-4F-aKb"/>
@@ -51,17 +51,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7Y-ea-KTD">
-                        <rect key="frame" x="267" y="249.5" width="20" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="cWe-8h-1Pu"/>
-                            <constraint firstAttribute="width" constant="20" id="yED-8g-DWz"/>
-                        </constraints>
-                        <state key="normal" title="购">
+                        <rect key="frame" x="282" y="243.5" width="15" height="20"/>
+                        <state key="normal" image="Purchase_off.png">
                             <color key="titleColor" red="0.50553816559999998" green="0.81836944820000002" blue="0.93576711420000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7C-X5-0D4">
-                        <rect key="frame" x="351" y="249.5" width="9" height="20"/>
+                        <rect key="frame" x="351" y="243.5" width="9" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="sgV-Ne-IrW"/>
                         </constraints>
@@ -70,12 +66,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l1c-RV-ReJ">
-                        <rect key="frame" x="321" y="249.5" width="20" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="Chs-fn-fmt"/>
-                            <constraint firstAttribute="width" constant="20" id="DQN-tE-oHi"/>
-                        </constraints>
-                        <state key="normal" image="sharezan_normal.png"/>
+                        <rect key="frame" x="326" y="241.5" width="15" height="22"/>
+                        <state key="normal" image="praise_off.png"/>
                         <connections>
                             <action selector="didClickZan:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cNr-Wc-mQf"/>
                         </connections>
@@ -85,14 +77,13 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="n8v-3L-3kM"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="u7C-X5-0D4" firstAttribute="leading" secondItem="l1c-RV-ReJ" secondAttribute="trailing" constant="10" id="0lz-ky-d5l"/>
-                    <constraint firstAttribute="trailing" secondItem="7fH-Qu-CaG" secondAttribute="trailing" constant="10" id="5cY-ed-bFx"/>
                     <constraint firstAttribute="trailing" secondItem="u7C-X5-0D4" secondAttribute="trailing" constant="15" id="7N1-zm-IdK"/>
                     <constraint firstItem="6ew-Ha-lEi" firstAttribute="top" secondItem="l1c-RV-ReJ" secondAttribute="bottom" constant="10" id="7Ro-Ec-fTL"/>
                     <constraint firstAttribute="bottom" secondItem="6ew-Ha-lEi" secondAttribute="bottom" id="BPS-Wa-gqx"/>
@@ -105,15 +96,16 @@
                     <constraint firstItem="635-26-HlX" firstAttribute="top" secondItem="7fH-Qu-CaG" secondAttribute="bottom" constant="10" id="SZb-Aj-jES"/>
                     <constraint firstItem="fgM-0O-Z3G" firstAttribute="top" secondItem="635-26-HlX" secondAttribute="bottom" constant="5" id="YOt-LB-xdd"/>
                     <constraint firstItem="6ew-Ha-lEi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="dVc-iS-pfm"/>
+                    <constraint firstAttribute="trailing" secondItem="7fH-Qu-CaG" secondAttribute="trailing" id="djQ-Ps-aWt"/>
                     <constraint firstItem="O7Y-ea-KTD" firstAttribute="bottom" secondItem="1EP-vS-bW3" secondAttribute="bottom" id="eMK-yn-6dU"/>
                     <constraint firstItem="l1c-RV-ReJ" firstAttribute="leading" secondItem="1EP-vS-bW3" secondAttribute="trailing" constant="15" id="i3f-ty-rdw"/>
-                    <constraint firstItem="1EP-vS-bW3" firstAttribute="leading" secondItem="O7Y-ea-KTD" secondAttribute="trailing" constant="10" id="pj4-Wa-xre"/>
-                    <constraint firstItem="7fH-Qu-CaG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="t11-oI-lOO"/>
+                    <constraint firstItem="7fH-Qu-CaG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="nlO-8d-cjW"/>
+                    <constraint firstItem="1EP-vS-bW3" firstAttribute="leading" secondItem="O7Y-ea-KTD" secondAttribute="trailing" constant="5" id="pj4-Wa-xre"/>
                     <constraint firstItem="635-26-HlX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="uGd-BB-ji3"/>
                     <constraint firstAttribute="trailing" secondItem="fgM-0O-Z3G" secondAttribute="trailing" constant="15" id="wdw-FF-OvM"/>
                     <constraint firstItem="u7C-X5-0D4" firstAttribute="top" secondItem="fgM-0O-Z3G" secondAttribute="bottom" constant="10" id="yQq-1y-FDG"/>
                     <constraint firstItem="u7C-X5-0D4" firstAttribute="centerY" secondItem="O7Y-ea-KTD" secondAttribute="centerY" id="yxw-aB-3XT"/>
-                    <constraint firstItem="7fH-Qu-CaG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="yyX-AB-4IF"/>
+                    <constraint firstItem="7fH-Qu-CaG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="yyX-AB-4IF"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -124,10 +116,11 @@
                 <outlet property="lb_zanNum" destination="u7C-X5-0D4" id="9qt-qv-qMP"/>
                 <outlet property="zan_btn" destination="l1c-RV-ReJ" id="09h-w6-lAy"/>
             </connections>
-            <point key="canvasLocation" x="41.5" y="205"/>
+            <point key="canvasLocation" x="-256.5" y="218"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="sharezan_normal.png" width="24" height="24"/>
+        <image name="Purchase_off.png" width="15" height="15"/>
+        <image name="praise_off.png" width="15" height="15"/>
     </resources>
 </document>

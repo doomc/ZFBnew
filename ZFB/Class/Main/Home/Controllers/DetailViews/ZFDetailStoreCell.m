@@ -14,11 +14,7 @@
     [super awakeFromNib];
     // Initialization code
     
-    self.Store_Bgview.clipsToBounds = YES;
-    self.Store_Bgview.layer.cornerRadius = 2;
-    self.Store_Bgview.layer.borderWidth = 0.5;
-    self.Store_Bgview.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
-    
+ 
 }
  
 -(void)setDetailGoodlist:(DetailCmgoodslist *)detailGoodlist
@@ -26,7 +22,7 @@
     _detailGoodlist = detailGoodlist;
     
     self.lb_Storetitle.text = _detailGoodlist.goodsName;
-    self.lb_price.text = [NSString stringWithFormat:@"价格:¥%@",_detailGoodlist.netPurchasePrice];
+    self.lb_price.text = [NSString stringWithFormat:@"¥%@",_detailGoodlist.netPurchasePrice];
     NSURL * url  =[ NSURL URLWithString:detailGoodlist.coverImgUrl];
     [self.img_storeImageView sd_setImageWithURL: url placeholderImage:nil];
 

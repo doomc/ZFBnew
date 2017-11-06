@@ -116,8 +116,8 @@
     ShareGoodsData * shareGoods = self.shareArray[indexPath.row];
     if (shareGoods.describe && shareGoods.describeHeight == 0) {
         //计算hobby的高度 并缓存
-        CGFloat titleH = [shareGoods.title heightForFont:[UIFont systemFontOfSize:15] width:(KScreenW-30)/2-20];
-        CGFloat descibeH = [shareGoods.describe heightForFont:[UIFont systemFontOfSize:15] width:(KScreenW-30)/2-20];
+        CGFloat titleH = [shareGoods.title heightForFont:[UIFont systemFontOfSize:12] width:(KScreenW-30)/2-20];
+        CGFloat descibeH = [shareGoods.describe heightForFont:[UIFont systemFontOfSize:12] width:(KScreenW-30)/2-20];
         if (descibeH > 43) {
             descibeH = 43;
         }

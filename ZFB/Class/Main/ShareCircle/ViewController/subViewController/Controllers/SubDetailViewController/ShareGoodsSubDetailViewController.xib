@@ -112,17 +112,13 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="222" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tqq-sQ-cUk">
-                                            <rect key="frame" x="79" y="19" width="27" height="18"/>
+                                            <rect key="frame" x="70" y="16" width="27" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sharezan_normal.png" translatesAutoresizingMaskIntoConstraints="NO" id="2cT-MK-lQI">
-                                            <rect key="frame" x="50" y="13" width="24" height="24"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="24" id="U92-c4-UDC"/>
-                                                <constraint firstAttribute="width" constant="24" id="e3A-qB-Hgw"/>
-                                            </constraints>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="praise_off.png" translatesAutoresizingMaskIntoConstraints="NO" id="2cT-MK-lQI">
+                                            <rect key="frame" x="50" y="17.5" width="15" height="15"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eUG-N2-LVG">
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
@@ -139,8 +135,8 @@
                                         <constraint firstItem="Tqq-sQ-cUk" firstAttribute="leading" secondItem="2cT-MK-lQI" secondAttribute="trailing" constant="5" id="NMJ-F3-ggS"/>
                                         <constraint firstItem="2cT-MK-lQI" firstAttribute="centerY" secondItem="ZQy-M7-YUy" secondAttribute="centerY" id="cHa-UN-dLe"/>
                                         <constraint firstItem="ZQy-M7-YUy" firstAttribute="top" secondItem="MeC-Is-r1J" secondAttribute="top" id="gXV-kh-Zsz"/>
-                                        <constraint firstItem="Tqq-sQ-cUk" firstAttribute="bottom" secondItem="2cT-MK-lQI" secondAttribute="bottom" id="pzW-C4-U7n"/>
                                         <constraint firstItem="ZQy-M7-YUy" firstAttribute="leading" secondItem="eUG-N2-LVG" secondAttribute="trailing" id="rIz-KU-nY1"/>
+                                        <constraint firstItem="Tqq-sQ-cUk" firstAttribute="centerY" secondItem="2cT-MK-lQI" secondAttribute="centerY" id="rvy-mi-gAr"/>
                                         <constraint firstItem="ZQy-M7-YUy" firstAttribute="leading" secondItem="MeC-Is-r1J" secondAttribute="leading" constant="150" id="ujI-Nx-ajO"/>
                                         <constraint firstAttribute="height" constant="50" id="wmr-y3-Lqv"/>
                                         <constraint firstAttribute="bottom" secondItem="eUG-N2-LVG" secondAttribute="bottom" id="xmq-3f-bLn"/>
@@ -213,6 +209,6 @@
     </objects>
     <resources>
         <image name="head.png" width="70" height="70"/>
-        <image name="sharezan_normal.png" width="24" height="24"/>
+        <image name="praise_off.png" width="15" height="15"/>
     </resources>
 </document>

@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,12 +19,8 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="maa-Rc-cFc">
-                        <rect key="frame" x="11.5" y="9.5" width="60" height="20"/>
+                        <rect key="frame" x="0.0" y="0.0" width="83" height="39"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="Z0H-WX-IaT"/>
-                            <constraint firstAttribute="width" constant="60" id="qad-gh-EeQ"/>
-                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="灰色">
                             <color key="titleColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -33,7 +29,11 @@
                 </subviews>
             </view>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="maa-Rc-cFc" secondAttribute="trailing" id="Bvf-UT-LU6"/>
+                <constraint firstItem="maa-Rc-cFc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="JhG-xH-uOD"/>
+                <constraint firstAttribute="bottom" secondItem="maa-Rc-cFc" secondAttribute="bottom" id="VQf-z2-A43"/>
                 <constraint firstItem="maa-Rc-cFc" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="WNH-bO-kwQ"/>
+                <constraint firstItem="maa-Rc-cFc" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hRe-AF-Q2h"/>
                 <constraint firstItem="maa-Rc-cFc" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="iqv-Ym-I3b"/>
             </constraints>
             <size key="customSize" width="83" height="39"/>

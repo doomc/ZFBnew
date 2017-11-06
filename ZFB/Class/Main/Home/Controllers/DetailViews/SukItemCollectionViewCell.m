@@ -19,9 +19,9 @@
     [super awakeFromNib];
 
     self.selectItemColor.clipsToBounds = YES;
-    self.selectItemColor.layer.cornerRadius = 2;
+    self.selectItemColor.layer.cornerRadius = 4;
     self.selectItemColor.layer.borderWidth = 0.5;
-    self.selectItemColor.layer.borderColor = HEXCOLOR(0xdedede).CGColor;
+    self.selectItemColor.layer.borderColor = HEXCOLOR(0x999999).CGColor;
     self.selectItemColor.userInteractionEnabled = NO;
 }
 
@@ -41,7 +41,7 @@
             [_selectItemColor setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
             break;
         case ValueSelectType_enable:
-            [_selectItemColor setBackgroundColor:HEXCOLOR(0xdedede)];
+            [_selectItemColor setBackgroundColor:HEXCOLOR(0xf5f5f5)];
             [_selectItemColor setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
             
             break;

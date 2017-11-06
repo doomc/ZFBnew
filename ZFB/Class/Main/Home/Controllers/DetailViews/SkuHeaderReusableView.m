@@ -16,8 +16,8 @@
         
         self.backgroundColor = [UIColor whiteColor];
         _lb_title = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
-        _lb_title.font = [UIFont systemFontOfSize:14];
-        _lb_title.textColor = HEXCOLOR(0x363636);
+        _lb_title.font = [UIFont systemFontOfSize:15];
+        _lb_title.textColor = HEXCOLOR(0x333333);
         [self addSubview:_lb_title];
     }
     return  self;

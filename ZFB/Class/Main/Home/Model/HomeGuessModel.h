@@ -119,7 +119,7 @@
 
 @property (nonatomic, assign) NSInteger goodsPv;///访问量
 
-@property (nonatomic, assign) CGFloat storeDist;///距离
+@property (nonatomic, copy) NSString * storeDist;///距离
 
 
 @property (nonatomic, assign) NSInteger isCollect;

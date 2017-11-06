@@ -22,7 +22,7 @@
     self.storeListCollectionView.delegate = self;
     self.storeListCollectionView .dataSource = self;
     self.storeListCollectionView.scrollEnabled = NO;
-    
+    self.storeListCollectionView.backgroundColor = HEXCOLOR(0xf7f7f7);
     [self.storeListCollectionView registerNib:[UINib nibWithNibName:@"ZFDetailStoreCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"ZFDetailStoreCellid"];
     
 }
@@ -59,14 +59,14 @@
 //设置每个item的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat itemHeight =  ((KScreenW -30-20 )*0.5 - 10 ) * 140/121 +36+20+15;
-    return CGSizeMake( (KScreenW -30-20 )*0.5 , itemHeight);
+    CGFloat itemHeight =  ((KScreenW -30 )*0.5 ) * 200/150.0  +80;
+    return CGSizeMake( (KScreenW -30 )*0.5 , itemHeight);
 }
 
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(15,  20 , 10, 20);
+    return UIEdgeInsetsMake(10,  10 , 10, 10);
     
 }
 

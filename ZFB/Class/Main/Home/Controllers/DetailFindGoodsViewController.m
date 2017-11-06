@@ -721,10 +721,8 @@
         case 7:
             
             break;
-
     }
 }
-
 
 
 #pragma mark - SKUColleView - UICollectionViewDataSource
@@ -771,7 +769,6 @@
 {
     SukItemCollectionViewCell *cell = [self.SkuColletionView
                                        dequeueReusableCellWithReuseIdentifier:@"SukItemCollectionViewCellid" forIndexPath:indexPath];
-    
     if (self.productSkuArray.count > 0) {
         
         Productattribute *product = self.productSkuArray[indexPath.section];
@@ -957,7 +954,7 @@
     [_BgView addSubview:self.popView];
     
     //头视图
-    UIView * headView           = [[UIView alloc]initWithFrame:CGRectMake(30, -10, 80, 80)];
+    UIView * headView           = [[UIView alloc]initWithFrame:CGRectMake(20, -20, 110, 110)];
     headView.backgroundColor    = [UIColor whiteColor];
     headView.clipsToBounds      = YES;
     headView.layer.cornerRadius = 2;
@@ -971,21 +968,21 @@
     
     lb_price           = [UILabel new];
     lb_price.text      =  [NSString stringWithFormat:@"¥%@",_priceRange];
-    lb_price.textColor = HEXCOLOR(0xf95a70);
-    lb_price.font      = [UIFont systemFontOfSize:14];
+    lb_price.textColor = HEXCOLOR(0xb80c2f);
+    lb_price.font      = [UIFont systemFontOfSize:16];
     [self.popView addSubview:lb_price];
     
     //库存
     lb_inShock           = [UILabel new];
-    lb_inShock.text =[NSString stringWithFormat:@"库存:%@",_inventory];
-    lb_inShock.textColor = HEXCOLOR(0xf95a70);
+    lb_inShock.text =[NSString stringWithFormat:@"库存%@件",_inventory];
+    lb_inShock.textColor = HEXCOLOR(0x8d8d8d);
     lb_inShock.font      = [UIFont systemFontOfSize:12];
     [self.popView addSubview:lb_inShock];
     
     //lb_Sku规格
     lb_Sku           = [UILabel new];
-    lb_Sku.text      = @"已选择:";
-    lb_Sku.textColor = HEXCOLOR(0xf95a70);
+    lb_Sku.text      = @"请选择规格";
+    lb_Sku.textColor = HEXCOLOR(0x8d8d8d);
     lb_Sku.font      = [UIFont systemFontOfSize:12];
     [self.popView addSubview:lb_Sku];
     
@@ -995,12 +992,12 @@
     
     
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
-    //    layout.footerReferenceSize = CGSizeMake(KScreenW, 40);
+//    layout.footerReferenceSize = CGSizeMake(KScreenW, 1);
     layout.headerReferenceSize          = CGSizeMake(KScreenW, 30);
     layout.scrollDirection              = UICollectionViewScrollDirectionVertical;
+
     
-    
-    self.SkuColletionView                 = [[UICollectionView alloc]initWithFrame:CGRectMake(30, 90, KScreenW - 60, 80) collectionViewLayout:layout];
+    self.SkuColletionView                 = [[UICollectionView alloc]initWithFrame:CGRectMake(30, 110, KScreenW-60 , 80) collectionViewLayout:layout];
     self.SkuColletionView.delegate        = self;
     self.SkuColletionView.dataSource      = self;
     self.SkuColletionView.backgroundColor = [UIColor whiteColor];
@@ -1017,7 +1014,9 @@
     
     //////////------高度 只能在代理走完了才可以获取到------////////
     CGFloat collectionViewHeight = self.SkuColletionView.collectionViewLayout.collectionViewContentSize.height ;
-    self.SkuColletionView.frame  = CGRectMake(30, 90, KScreenW - 60, collectionViewHeight);
+    self.SkuColletionView.frame  = CGRectMake(30, 110, KScreenW-60 , collectionViewHeight);
+    self.SkuColletionView.showsVerticalScrollIndicator =NO;
+    self.SkuColletionView.showsHorizontalScrollIndicator =NO;
     
     self.skufooterView.countDelegate = self;
     [self.popView addSubview:self.skufooterView];
@@ -1025,30 +1024,25 @@
     //  删除
     UIButton * delete         = [UIButton buttonWithType:UIButtonTypeCustom];
     delete.clipsToBounds      = YES;
-    delete.layer.cornerRadius = 4;
-    delete.titleLabel.font    = [UIFont systemFontOfSize:14];
-    //    delete.backgroundColor    = HEXCOLOR(0xfe6d6a);
-    [delete setImage:[UIImage imageNamed:@"delete_sku"] forState:UIControlStateNormal];
+    [delete setImage:[UIImage imageNamed:@"close2"] forState:UIControlStateNormal];
     [delete addTarget:self action:@selector(deleteRemoveTheBackgroundView:) forControlEvents:UIControlEventTouchUpInside];
     [self.popView addSubview:delete];
     
     //加入购物车
     UIButton * addShopCar         = [UIButton buttonWithType:UIButtonTypeCustom];
-    addShopCar.clipsToBounds      = YES;
-    addShopCar.layer.cornerRadius = 4;
-    addShopCar.titleLabel.font    = [UIFont systemFontOfSize:14];
-    addShopCar.backgroundColor    = HEXCOLOR(0xf95a70);
+    addShopCar.titleLabel.font    = [UIFont systemFontOfSize:15];
+    addShopCar.backgroundColor    = HEXCOLOR(0xf8af00);
+    [addShopCar setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
     [addShopCar setTitle:@"加入购物车"forState:UIControlStateNormal];
     [addShopCar addTarget:self action:@selector(SecondAddShopCar:) forControlEvents:UIControlEventTouchUpInside];
     [self.popView addSubview:addShopCar];
     
     //立即抢购
     UIButton * buyNow         = [UIButton buttonWithType:UIButtonTypeCustom];
-    buyNow.clipsToBounds      = YES;
-    buyNow.layer.cornerRadius = 4;
-    buyNow.titleLabel.font    = [UIFont systemFontOfSize:14];
+    buyNow.titleLabel.font    = [UIFont systemFontOfSize:15];
     buyNow.backgroundColor    = HEXCOLOR(0xf95a70);
     [buyNow setTitle:@"立即抢购"forState:UIControlStateNormal];
+    [buyNow setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
     [buyNow addTarget: self action:@selector(SecondBuyNowAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.popView addSubview:buyNow];
     
@@ -1063,7 +1057,7 @@
         make.bottom.equalTo(self.BgView).with.offset(0);
         make.left.equalTo(self.BgView).with.offset(0);
         make.right.equalTo(self.BgView).with.offset(0);
-        make.size.mas_equalTo(CGSizeMake(KScreenW, collectionViewHeight + 90 + 50 + 40 + 20));
+        make.size.mas_equalTo(CGSizeMake(KScreenW, collectionViewHeight + 120 + 40 + 50 + 3*10  ));
     }];
     
     //价格
@@ -1075,14 +1069,14 @@
     //库存
     [lb_inShock mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(headView.mas_right).with.offset(10);
-        make.top.equalTo(lb_price.mas_bottom).with.offset(5);
+        make.top.equalTo(lb_price.mas_bottom).with.offset(10);
         make.size.mas_equalTo(CGSizeMake(120, 15));
         
     }];
     //规格尺寸
     [lb_Sku mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(headView.mas_right).with.offset(10);
-        make.top.equalTo(lb_inShock.mas_bottom).with.offset(5);
+        make.top.equalTo(lb_inShock.mas_bottom).with.offset(10);
         make.size.mas_equalTo(CGSizeMake(200, 15));
     }];
     
@@ -1095,7 +1089,7 @@
     
     //SkuColletionView
     [self.SkuColletionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.popView).with.insets(UIEdgeInsetsMake(90, 30, 100, 30));
+        make.edges.equalTo(self.popView).with.insets(UIEdgeInsetsMake(120, 30, 120, 30));
     }];
     
     //footerView
@@ -1103,7 +1097,7 @@
         make.top.equalTo(self.SkuColletionView.mas_bottom).with.offset(10);
         make.left.equalTo(self.popView).with.offset(10);
         make.right.equalTo(self.popView).with.offset(-10);
-        make.size.mas_equalTo(CGSizeMake(KScreenW , 30));
+        make.size.mas_equalTo(CGSizeMake(KScreenW , 50));
     }];
     //删除按钮
     [delete mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1114,16 +1108,18 @@
     }];
     //加入购物车按钮
     [addShopCar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.skufooterView.mas_bottom).with.offset(10);
-        make.left.equalTo(self.popView).with.offset(30);
-        make.size.mas_equalTo(CGSizeMake((KScreenW - 120)/2, 40));
-        
+//        make.top.equalTo(self.skufooterView.mas_bottom).with.offset(10);
+        make.left.equalTo(self.popView).with.offset(0);
+        make.bottom.equalTo(self.popView).with.offset(0);
+        make.size.mas_equalTo(CGSizeMake(KScreenW/2.0, 50));
+
     }];
     //抢购按钮
     [buyNow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.skufooterView.mas_bottom).with.offset(10);
-        make.right.equalTo(self.popView).with.offset(-30);
-        make.size.mas_equalTo(CGSizeMake((KScreenW - 120)/2, 40));
+//        make.top.equalTo(self.skufooterView.mas_bottom).with.offset(10);
+        make.bottom.equalTo(self.popView).with.offset(0);
+        make.right.equalTo(self.popView).with.offset(0);
+        make.size.mas_equalTo(CGSizeMake(KScreenW/2.0, 50));
         
     }];
     

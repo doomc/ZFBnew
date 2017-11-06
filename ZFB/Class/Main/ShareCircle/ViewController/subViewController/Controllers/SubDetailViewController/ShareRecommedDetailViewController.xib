@@ -74,17 +74,13 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="222" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NhC-eR-a4O">
-                            <rect key="frame" x="79" y="19" width="27" height="18"/>
+                            <rect key="frame" x="70" y="16" width="27" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sharezan_normal.png" translatesAutoresizingMaskIntoConstraints="NO" id="Cft-vk-l2E">
-                            <rect key="frame" x="50" y="13" width="24" height="24"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="24" id="G58-MN-m9P"/>
-                                <constraint firstAttribute="height" constant="24" id="jLE-1L-dLs"/>
-                            </constraints>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="praise_off.png" translatesAutoresizingMaskIntoConstraints="NO" id="Cft-vk-l2E">
+                            <rect key="frame" x="50" y="17.5" width="15" height="15"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rQW-iB-wmq">
                             <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
@@ -94,7 +90,7 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="NhC-eR-a4O" firstAttribute="bottom" secondItem="Cft-vk-l2E" secondAttribute="bottom" id="1Lk-Vz-RfT"/>
+                        <constraint firstItem="NhC-eR-a4O" firstAttribute="centerY" secondItem="Cft-vk-l2E" secondAttribute="centerY" id="6ah-fG-KIK"/>
                         <constraint firstItem="FWI-ih-MTn" firstAttribute="leading" secondItem="C19-hy-a0e" secondAttribute="leading" constant="150" id="7dY-Lk-90l"/>
                         <constraint firstAttribute="bottom" secondItem="FWI-ih-MTn" secondAttribute="bottom" id="JFf-tY-GPZ"/>
                         <constraint firstItem="Cft-vk-l2E" firstAttribute="centerY" secondItem="FWI-ih-MTn" secondAttribute="centerY" id="PF2-2c-Rzk"/>
@@ -150,6 +146,6 @@
         </view>
     </objects>
     <resources>
-        <image name="sharezan_normal.png" width="24" height="24"/>
+        <image name="praise_off.png" width="15" height="15"/>
     </resources>
 </document>

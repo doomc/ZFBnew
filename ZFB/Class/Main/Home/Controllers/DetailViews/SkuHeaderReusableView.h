@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SkuHeaderReusableView : UICollectionReusableView
+
 @property (nonatomic,strong) UILabel *  lb_title;
 
 @end

@@ -33,7 +33,7 @@
 
 @property (nonatomic, copy) NSString *shareId;//分享id
 
-@property (nonatomic, copy) NSString *nickname;
+@property (nonatomic, copy) NSString *userNickname;
 
 @property (nonatomic, copy) NSString *title;
 

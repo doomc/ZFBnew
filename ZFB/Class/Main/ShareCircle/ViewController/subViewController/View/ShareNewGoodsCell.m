@@ -43,10 +43,10 @@
     _isThumbed = [NSString stringWithFormat:@"%ld",recommend.isThumbed];
     if ([_isThumbed  isEqualToString:@"1"]) {
         
-        [_zan_btn setImage:[UIImage imageNamed:@"sharezan_selected"] forState:UIControlStateNormal];
+        [_zan_btn setImage:[UIImage imageNamed:@"praise_on"] forState:UIControlStateNormal];
 
     }else{
-        [_zan_btn setImage:[UIImage imageNamed:@"sharezan_normal"] forState:UIControlStateNormal];
+        [_zan_btn setImage:[UIImage imageNamed:@"praise_off"] forState:UIControlStateNormal];
 
     }
     

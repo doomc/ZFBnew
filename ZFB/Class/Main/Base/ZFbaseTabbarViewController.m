@@ -39,7 +39,7 @@
     UITabBarItem *tabBarItem = [UITabBarItem appearance];
     /**设置文字属性**/
     // 普通状态
-    [tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f], NSForegroundColorAttributeName : HEXCOLOR(0xa7a7a7)} forState:UIControlStateNormal];
+    [tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f], NSForegroundColorAttributeName : HEXCOLOR(0x333333)} forState:UIControlStateNormal];
     
     // 选中状态
     [tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f],NSForegroundColorAttributeName : HEXCOLOR(0xf95a70)} forState:UIControlStateSelected];

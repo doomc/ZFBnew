@@ -38,7 +38,7 @@
  */
 - (IBAction)reduceAction:(id)sender {
     
-    if ((num - 1) <= 1|| num == 1) {
+    if ((num - 1) < 1|| num == 1) {
         NSLog(@"超出范围");
         
     }else{

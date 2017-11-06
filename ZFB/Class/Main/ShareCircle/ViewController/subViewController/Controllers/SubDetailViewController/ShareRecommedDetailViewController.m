@@ -111,9 +111,9 @@
             //是否点赞
             _isThumbsStatus = [NSString stringWithFormat:@"%@",response[@"recommentInfo"][@"isThumbs"]];
             if ([_isThumbsStatus isEqualToString: @"0"]) {
-                self.zan_imageView.image =[UIImage imageNamed:@"sharezan_normal"];
+                self.zan_imageView.image =[UIImage imageNamed:@"praise_off"];
             }else{
-                self.zan_imageView.image =[UIImage imageNamed:@"sharezan_selected"];
+                self.zan_imageView.image =[UIImage imageNamed:@"praise_on"];
             }
             
             _recommentId = response[@"recommentInfo"][@"recommentId"];
@@ -151,7 +151,7 @@
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/newrecomment/toLike"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
             
-            self.zan_imageView.image =[UIImage imageNamed:@"sharezan_selected"];
+            self.zan_imageView.image =[UIImage imageNamed:@"praise_on"];
             _lb_zanNum.text = [NSString stringWithFormat:@"%ld", [_lb_zanNum.text integerValue] + 1];
             
         }

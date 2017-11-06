@@ -47,7 +47,7 @@
 
 -(void)initTableView
 {
-    self.zfb_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH  -50 -44) style:UITableViewStylePlain];
+    self.zfb_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH  -50 -44-64) style:UITableViewStylePlain];
     self.zfb_tableView.delegate = self;
     self.zfb_tableView.dataSource = self;
     self.zfb_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -159,11 +159,11 @@
                 [self.commendList addObject:list];
             }
             [SVProgressHUD dismiss];
-            [self endRefresh];
             [self.zfb_tableView reloadData];
         }
+        [self endRefresh];
+
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         [self endRefresh];
         [SVProgressHUD dismiss];
