@@ -49,6 +49,8 @@
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH) style:UITableViewStyleGrouped];
         _tableView.delegate =self ;
         _tableView.dataSource = self;
+ 
+
     }
     return _tableView;
 }

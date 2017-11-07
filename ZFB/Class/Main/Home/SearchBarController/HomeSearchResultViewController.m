@@ -211,6 +211,8 @@
     if (!_resultTableView) {
         _resultTableView = [[UITableView alloc] initWithFrame:
                       CGRectMake(0,  44  , KScreenW, KScreenH-44 ) style:UITableViewStylePlain];
+        _resultTableView.estimatedRowHeight = 0;
+
         //加载xib
         [_resultTableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil] forCellReuseIdentifier:@"resultCellid"];
         _resultTableView.delegate   = self;
@@ -224,6 +226,8 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:
                       CGRectMake(0, 0  , KScreenW, KScreenH ) style:UITableViewStylePlain];
+        _tableView.estimatedRowHeight = 0;
+
         //加载xib
         [self.tableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil] forCellReuseIdentifier:@"resultCellid"];
         _tableView.delegate   = self;

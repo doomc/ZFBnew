@@ -100,6 +100,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                       ];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.estimatedRowHeight = 0;
         _tableView.separatorStyle =  UITableViewCellSelectionStyleNone;
     }
     return _tableView;

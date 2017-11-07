@@ -100,6 +100,7 @@
 {
     if (!_all_tableview) {
         _all_tableview                = [[UITableView alloc]initWithFrame:CGRectMake(0, 160.0/375*KScreenW+44, KScreenW, KScreenH -44-160.0/375*KScreenW-64) style:UITableViewStylePlain];
+        _all_tableview.estimatedRowHeight = 0;
         _all_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
         _all_tableview.delegate       = self;
         _all_tableview.dataSource     = self;

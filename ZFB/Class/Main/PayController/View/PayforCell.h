@@ -14,9 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btn_selected;
 
-@property (weak, nonatomic) IBOutlet UILabel *lb_Price;
-
 @property (weak, nonatomic) IBOutlet UILabel *lb_balance;
 
+@property (weak, nonatomic) IBOutlet UIImageView *icons;
 
 @end

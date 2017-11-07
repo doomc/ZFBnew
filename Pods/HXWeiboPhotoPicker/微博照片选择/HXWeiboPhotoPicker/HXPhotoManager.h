@@ -28,7 +28,43 @@ typedef enum : NSUInteger {
     HXPhotoManagerCameraTypeSystem              // 系统相机
 } HXPhotoManagerCameraType;
 
+typedef enum : NSUInteger {
+    HXPhotoAlbumStylesWeibo = 0,           // 微博相册风格
+    HXPhotoAlbumStylesSystem               // 系统相册(支持横屏、暂不支持单选)
+} HXPhotoAlbumStyles;
+
 @interface HXPhotoManager : NSObject
+
+
+/**
+ 系统相册风格横屏时是否隐藏状态栏 默认显示  暂不支持修改
+ */
+//@property (assign, nonatomic) BOOL horizontalHideStatusBar;
+
+/**
+ 系统相册风格横屏时相册每行个数  默认6个
+ */
+@property (assign, nonatomic) NSInteger horizontalRowCount;
+
+/**
+ 相册风格 默认weibo (system)
+ */
+@property (assign, nonatomic) HXPhotoAlbumStyles style;
+
+/**
+ 是否需要显示日期section  默认YES
+ */
+@property (assign, nonatomic) BOOL showDateHeaderSection;
+
+/**
+ 照片列表按日期倒序 - HXPhotoAlbumStylesSystem 时有用 默认 NO
+ */
+@property (assign, nonatomic) BOOL reverseDate;
+
+/**
+ 相机视频录制最大秒数  -  默认60s
+ */
+@property (assign, nonatomic) NSTimeInterval videoMaximumDuration;
 
 /**
  *  删除临时的照片/视频 - 注:相机拍摄的照片并没有保存到系统相册 或 是本地图片 如果当这样的照片都没有被选中时会清空这些照片 有一张选中了就不会删..  - 默认 YES
@@ -237,7 +273,7 @@ typedef enum : NSUInteger {
  @param albums 相册集合
  */
 - (void)FetchAllAlbum:(void(^)(NSArray *albums))albums IsShowSelectTag:(BOOL)isShow;
-
+- (void)getAllPhotoAlbums:(void(^)(HXAlbumModel *firstAlbumModel))firstModel albums:(void(^)(NSArray *albums))albums isFirst:(BOOL)isFirst;
 /**
  根据PHFetchResult获取某个相册里面的所有图片和视频
 
@@ -247,6 +283,7 @@ typedef enum : NSUInteger {
  */
 - (void)FetchAllPhotoForPHFetchResult:(PHFetchResult *)result Index:(NSInteger)index FetchResult:(void(^)(NSArray *photos, NSArray *videos, NSArray *Objs))list;
 
+- (void)getPhotoListWithAlbumModel:(HXAlbumModel *)albumModel complete:(void (^)(NSArray *allList , NSArray *previewList,NSArray *photoList ,NSArray *videoList ,NSArray *dateList , HXPhotoModel *firstSelectModel))complete;
 /**
  删除指定model
 

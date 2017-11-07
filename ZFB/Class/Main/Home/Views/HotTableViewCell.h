@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @protocol HotTableViewCellDelegate <NSObject>
 
 -(void)pushToDetailVCWithGoodsID :(NSString *) goodsId;

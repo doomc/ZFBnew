@@ -231,6 +231,9 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     self.zfb_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH - 64 ) style:UITableViewStylePlain];
     self.zfb_tableView .delegate       = self;
     self.zfb_tableView .dataSource     = self;
+    self.zfb_tableView.estimatedRowHeight = 0;
+    self.zfb_tableView.estimatedSectionHeaderHeight = 0;
+    self.zfb_tableView.estimatedSectionFooterHeight = 0;
     self.zfb_tableView .separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.zfb_tableView registerNib:[UINib nibWithNibName:@"ZFSendingCell" bundle:nil]
@@ -648,37 +651,36 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     switch (_orderType) {
         case OrderTypeAllOrder:
             
-            height = 50;
+            height = 60;
             break;
             
         case OrderTypeWaitPay:
-            height = 50;
-            
+            height = 60;
+
             break;
         case OrderTypeWaitSend:
-            height = 50;
-            
+            height = 60;
+
             break;
         case OrderTypeSending:
-            height = 50;
-            
+            height = 60;
+
             break;
         case OrderTypeSended:
-            height = 50;
-            
+            height = 60;
+
             break;
         case OrderTypeDealSuccess:
-            height = 50;
-            
+            height = 60;
+
             break;
         case OrderTypeCancelSuccess:
-            height = 50;
-            
+            height = 60;
+
             break;
         case OrderTypeAfterSale:
             
             height = 10;
-            
             break;
     }
     
@@ -863,31 +865,31 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     switch (_orderType) {
         case OrderTypeAllOrder:
             
-            height = 84;
+            height = 118;
             
             break;
         case OrderTypeWaitPay:
-            height = 84;
+            height = 118;
             
             break;
         case OrderTypeWaitSend:
-            height = 84;
+            height = 118;
             
             break;
         case OrderTypeSending:
-            height = 84;
+            height = 118;
             
             break;
         case OrderTypeSended:
-            height = 84;
+            height = 118;
             
             break;
         case OrderTypeDealSuccess:
-            height = 84;
+            height = 118;
             break;
             
         case OrderTypeCancelSuccess:
-            height = 84;
+            height = 118;
             break;
         case OrderTypeAfterSale:
             if (self.tagNum == 0) {
@@ -1871,7 +1873,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGFloat sectionHeaderHeight = 80 ;
-    CGFloat sectionFooterHeight = 50;
+    CGFloat sectionFooterHeight = 60;
     CGFloat offsetY = scrollView.contentOffset.y;
     if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
     {

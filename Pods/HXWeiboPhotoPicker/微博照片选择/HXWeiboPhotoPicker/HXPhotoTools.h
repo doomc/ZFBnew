@@ -9,9 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
 #import "HXPhotoModel.h"
+#import "HXAlbumModel.h"
 #import "UIView+HXExtension.h"
 #import "HXPhotoResultModel.h"
 #import "NSBundle+HXWeiboPhotoPicker.h"
+#import "NSDate+HXExtension.h"
+#import "UIFont+HXExtension.h"
 #ifdef DEBUG
 #define NSSLog(FORMAT, ...) fprintf(stderr,"%s:%d\t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 
@@ -22,8 +25,12 @@
 #define kDevice_Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
 #define kNavigationBarHeight (kDevice_Is_iPhoneX ? 88 : 64)
-
+#define kTopMargin (kDevice_Is_iPhoneX ? 24 : 0)
 #define kBottomMargin (kDevice_Is_iPhoneX ? 34 : 0)
+
+#define iOS9_Later ([UIDevice currentDevice].systemVersion.floatValue >= 9.0f)
+
+#define iOS8_2Later ([UIDevice currentDevice].systemVersion.floatValue >= 8.2f)
 
 /*
  *  工具类
@@ -99,6 +106,14 @@ typedef enum : NSUInteger {
  @param completion image数组
  */
 + (void)getImageForSelectedPhoto:(NSArray<HXPhotoModel *> *)photos type:(HXPhotoToolsFetchType)type completion:(void(^)(NSArray<UIImage *> *images))completion;
+
++ (PHImageRequestID)getImageWithModel:(HXPhotoModel *)model completion:(void (^)(UIImage *image, HXPhotoModel *model))completion;
+
++ (PHImageRequestID)getImageWithAlbumModel:(HXAlbumModel *)model size:(CGSize)size completion:(void (^)(UIImage *image, HXAlbumModel *model))completion;
+
++ (PHImageRequestID)getPlayerItemWithPHAsset:(PHAsset *)asset startRequestIcloud:(void (^)(PHImageRequestID cloudRequestId))startRequestIcloud progressHandler:(void (^)(double progress))progressHandler completion:(void(^)(AVPlayerItem *playerItem))completion failed:(void(^)(NSDictionary *info))failed;
+
++ (PHImageRequestID)getAVAssetWithPHAsset:(PHAsset *)phAsset startRequestIcloud:(void (^)(PHImageRequestID cloudRequestId))startRequestIcloud progressHandler:(void (^)(double progress))progressHandler completion:(void(^)(AVAsset *asset))completion failed:(void(^)(NSDictionary *info))failed;
 
 + (PHImageRequestID)getHighQualityFormatPhoto:(PHAsset *)asset size:(CGSize)size succeed:(void (^)(UIImage *image))succeed failed:(void(^)())failed;
 

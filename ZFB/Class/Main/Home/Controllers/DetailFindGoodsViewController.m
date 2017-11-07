@@ -191,6 +191,8 @@
 
     self.list_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-50 -64) style:UITableViewStylePlain];
     self.list_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.list_tableView.estimatedRowHeight = 0;
+
     [self.view addSubview:self.list_tableView];
     
     self.list_tableView.delegate   = self;
@@ -1013,8 +1015,8 @@
     self.skufooterView = [[NSBundle mainBundle]loadNibNamed:@"SkuFooterReusableView" owner:self options:nil].lastObject;
     
     //////////------高度 只能在代理走完了才可以获取到------////////
-    CGFloat collectionViewHeight = self.SkuColletionView.collectionViewLayout.collectionViewContentSize.height ;
-    self.SkuColletionView.frame  = CGRectMake(30, 110, KScreenW-60 , collectionViewHeight);
+    CGFloat collectionViewHeight =  200 ;//self.SkuColletionView.collectionViewLayout.collectionViewContentSize.height ;
+    self.SkuColletionView.frame  = CGRectMake(30, 110, KScreenW-60 , collectionViewHeight);//这里的高度要改成固定  以前的高度：collectionViewHeight
     self.SkuColletionView.showsVerticalScrollIndicator =NO;
     self.SkuColletionView.showsHorizontalScrollIndicator =NO;
     
@@ -1057,14 +1059,14 @@
         make.bottom.equalTo(self.BgView).with.offset(0);
         make.left.equalTo(self.BgView).with.offset(0);
         make.right.equalTo(self.BgView).with.offset(0);
-        make.size.mas_equalTo(CGSizeMake(KScreenW, collectionViewHeight + 120 + 40 + 50 + 3*10  ));
+        make.size.mas_equalTo(CGSizeMake(KScreenW, collectionViewHeight + 120 + 50 + 50 + 20  ));
     }];
     
     //价格
     [lb_price mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(headView.mas_right).with.offset(10);
         make.top.equalTo(self.popView).with.offset(10);
-        make.size.mas_equalTo(CGSizeMake(120, 15));
+        make.size.mas_equalTo(CGSizeMake(170, 15));
     }];
     //库存
     [lb_inShock mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1089,12 +1091,12 @@
     
     //SkuColletionView
     [self.SkuColletionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.popView).with.insets(UIEdgeInsetsMake(120, 30, 120, 30));
+        make.edges.equalTo(self.popView).with.insets(UIEdgeInsetsMake(120, 30, 100, 30));
     }];
     
     //footerView
     [self.skufooterView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.SkuColletionView.mas_bottom).with.offset(10);
+        make.top.equalTo(self.SkuColletionView.mas_bottom).with.offset(0);
         make.left.equalTo(self.popView).with.offset(10);
         make.right.equalTo(self.popView).with.offset(-10);
         make.size.mas_equalTo(CGSizeMake(KScreenW , 50));
@@ -1108,7 +1110,7 @@
     }];
     //加入购物车按钮
     [addShopCar mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.skufooterView.mas_bottom).with.offset(10);
+        //        make.top.equalTo(self.skufooterView.mas_bottom).with.offset(10);
         make.left.equalTo(self.popView).with.offset(0);
         make.bottom.equalTo(self.popView).with.offset(0);
         make.size.mas_equalTo(CGSizeMake(KScreenW/2.0, 50));

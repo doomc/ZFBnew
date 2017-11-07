@@ -68,7 +68,8 @@
     
     self.evaluate_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, KScreenW, KScreenH -64 - 44) style:UITableViewStylePlain];
     self.evaluate_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    self.evaluate_tableView.estimatedRowHeight = 0;
+
     self.evaluate_tableView.delegate = self;
     self.evaluate_tableView.dataSource = self;
     

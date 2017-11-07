@@ -25,6 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor  whiteColor];
+    self.zfb_tableView.estimatedRowHeight = 0;
 
     if (isIOS7) {
         

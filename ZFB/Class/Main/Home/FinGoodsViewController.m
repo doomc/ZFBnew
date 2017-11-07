@@ -113,7 +113,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
                                 CGRectMake(0, 0, KScreenW, KScreenH -49-44 -64) style:UITableViewStylePlain];
     self.findGoods_TableView.delegate   = self;
     self.findGoods_TableView.dataSource = self;
-    
+    self.findGoods_TableView.estimatedRowHeight = 0;
+
     [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"GuessCell" bundle:nil]
                    forCellReuseIdentifier:cell_guessID];
     [self.findGoods_TableView registerNib:[UINib nibWithNibName:@"FuncListTableViewCell" bundle:nil]

@@ -15,10 +15,7 @@
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 
-    self.img_editView.clipsToBounds = YES;
-    self.img_editView.layer.borderWidth = 0.5;
-    self.img_editView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
-
+ 
 
     if ([self.delegate  respondsToSelector:@selector(deleteCell:)]) {
        

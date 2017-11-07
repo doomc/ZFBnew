@@ -58,6 +58,7 @@ static NSString * identyhy = @"SearchHistoryCell";
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -64)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.estimatedRowHeight = 0;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
     }

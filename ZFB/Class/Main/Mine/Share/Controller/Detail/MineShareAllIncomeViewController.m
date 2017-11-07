@@ -78,6 +78,7 @@
                       ];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.estimatedRowHeight = 0;
         _tableView.separatorStyle =  UITableViewCellSelectionStyleNone;
     }
     return _tableView;

@@ -16,9 +16,7 @@
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 
-    self.img_collctView.clipsToBounds = YES;
-    self.img_collctView.layer.borderWidth = 0.5;
-    self.img_collctView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
+
     
 }
 //商品列表

@@ -89,6 +89,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         _shopCar_tableview =[[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49-64) style:UITableViewStyleGrouped];
         _shopCar_tableview.delegate       = self;
         _shopCar_tableview.dataSource     = self;
+        _shopCar_tableview.estimatedRowHeight = 0;
         _shopCar_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _shopCar_tableview;

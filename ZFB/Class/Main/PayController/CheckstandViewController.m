@@ -8,7 +8,7 @@
 
 #import "CheckstandViewController.h"
 #import "PayforCell.h"
-#import "PayFootCell.h"
+#import "PayRealCell.h"
 #import "WXApi.h"
 //支付密码
 #import "CYPasswordView.h"
@@ -20,14 +20,16 @@
 #import "DetailPaySuccessViewController.h"//支付成功
 
 
-@interface CheckstandViewController () <UITableViewDelegate,UITableViewDataSource,PayFootCellDelegate>
+@interface CheckstandViewController () <UITableViewDelegate,UITableViewDataSource>
 {
     NSString * _balance;
     NSInteger  _indexRow;
     BOOL  _paySuccess;//判断是否支付成功  yes 成功 No 失败
 }
 @property (nonatomic , strong) UITableView * tableView;
+@property (nonatomic , strong) UIButton * payBtn;
 @property (nonatomic , strong) NSArray * titles;
+@property (nonatomic , strong) NSArray * imageIcons;
 @property (nonatomic , strong) CYPasswordView *passwordView;
 
 @end
@@ -38,22 +40,43 @@
 {
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 300) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.backgroundColor = HEXCOLOR(0xf7f7f7);
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
+}
+-(UIButton *)payBtn
+{
+    if (!_payBtn ) {
+        _payBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_payBtn setTitle:@"确认支付" forState:UIControlStateNormal];
+        _payBtn.titleLabel.font = SYSTEMFONT(15);
+        _payBtn.frame = CGRectMake(20, 300+50, KScreenW -40, 44);
+        _payBtn.backgroundColor = HEXCOLOR(0xf95a70);
+        _payBtn.layer.masksToBounds = YES;
+        _payBtn.layer.cornerRadius = 6;
+        [_payBtn addTarget:self action:@selector(didClickSurePay) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _payBtn;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"收银台";
-    _titles = @[@"选择支付方式",@"余额",@"微信支付",@"实付金额"];
+    
+    _titles = @[@"余额",@"微信",@"支付宝",@"快捷支付"];
+    _imageIcons = @[@"yue",@"wechat",@"alipay",@"quick"];
+    
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.payBtn];
+    self.view.backgroundColor = HEXCOLOR(0xf7f7f7);
     
     [self.tableView registerNib:[UINib nibWithNibName:@"PayforCell" bundle:nil] forCellReuseIdentifier:@"PayforCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"PayFootCell" bundle:nil] forCellReuseIdentifier:@"PayFootCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"PayRealCell" bundle:nil] forCellReuseIdentifier:@"PayRealCell"];
+
     /** 注册取消按钮点击的通知 */
     [CYNotificationCenter addObserver:self selector:@selector(cancel) name:CYPasswordViewCancleButtonClickNotification object:nil];
     [CYNotificationCenter addObserver:self selector:@selector(forgetPWD) name:CYPasswordViewForgetPWDButtonClickNotification object:nil];
@@ -84,7 +107,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -92,55 +115,98 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    if (section == 0) {
+        return 4;
+    }
+    return 1;
+}
+-(UIView *)tableView:(UITableView *)tableView  viewForHeaderInSection:(NSInteger)section
+{
+    UIView * sectionView = nil;
+    if (section == 0) {
+        if (!sectionView) {
+            sectionView =  [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
+            sectionView.backgroundColor = HEXCOLOR(0xf7f7f7);
+            UILabel *  title = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW, 40)];
+            title.text = @"选择支付方式";
+            title.textColor = HEXCOLOR(0x8d8d8d);
+            title.font = SYSTEMFONT(12);
+            title.textAlignment = NSTextAlignmentLeft;
+            [sectionView addSubview:title];
+        }
+    }else
+    {
+        if (!sectionView) {
+            sectionView =  [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 0.001)];
+        }
+    }
+    return sectionView;
+
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView * view = nil;
-    if (!view) {
-        PayFootCell * cell = [tableView dequeueReusableCellWithIdentifier:@"PayFootCell"];
-        cell.delegate = self;
-        view = cell;
+    UIView * footview = nil;
+    if (!footview) {
+        footview =  [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 10)];
     }
-    return view;
+    return footview;
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+         return 40;
+    }
+    return 0.001;
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 50;
+    return 10;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PayforCell * cell = [self.tableView dequeueReusableCellWithIdentifier:@"PayforCell" forIndexPath:indexPath];
-    cell.lb_title.text = _titles[indexPath.row];
-    if (indexPath.row == 0) {
-
-    }
-    else if (indexPath.row == 1) {//余额
+    
+    if (indexPath.section == 0 ) {
         
-        cell.lb_balance.hidden = NO;
-        cell.btn_selected.hidden = NO;
-        if ([_balance isEqualToString:@""] || _balance == nil) {
-            cell.lb_balance.text = @"0.0元";
+        PayforCell * cell = [self.tableView dequeueReusableCellWithIdentifier:@"PayforCell" forIndexPath:indexPath];
+        NSString * iconName = _imageIcons[indexPath.row];
+        cell.lb_title.text = _titles[indexPath.row];
+        cell.icons.image = [UIImage imageNamed:iconName];
+        
+        if (indexPath.row == 0) {//余额
+            cell.lb_balance.hidden = NO;
+            cell.btn_selected.hidden = NO;
+            if ([_balance isEqualToString:@""] || _balance == nil) {
+                cell.lb_balance.text = @"0.0元";
 
-        }else{
-            cell.lb_balance.text = [NSString stringWithFormat:@"%@元",_balance];
+            }else{
+                cell.lb_balance.text = [NSString stringWithFormat:@"%@元",_balance];
+            }
         }
-    }else if (indexPath.row == 2) {//微信支付
+        else if (indexPath.row == 1) {//微信
 
-        cell.btn_selected.hidden = NO;
+            cell.btn_selected.hidden = NO;
 
-    }else{//实付金额
+        }else if (indexPath.row == 2) {//支付宝
+            cell.btn_selected.hidden = NO;
+
+        }else{//快捷方式
+            cell.btn_selected.hidden = NO;
+
+        }
         
-        cell.lb_Price.hidden = NO;
-        cell.lb_Price.text = _amount;
+        return cell;
+    }else{
+        PayRealCell * realCell = [tableView dequeueReusableCellWithIdentifier:@"PayRealCell" forIndexPath:indexPath];
+        realCell.lb_Price.text = _amount;
+        return realCell;
     }
-    return cell;
+  
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _indexRow =  indexPath.row;
+    if (indexPath.section == 0) {
+        _indexRow =  indexPath.row;
+    }
     
 }
 
@@ -174,14 +240,22 @@
 #pragma mark - 选择支付方式--确定支付
 -(void)didClickSurePay
 {
-    if (_indexRow == 1) {//余额支付
+    if (_indexRow == 0) {//余额支付
         //该步骤需要先检测是不是有支付密码 后再调该借口
         [self wakeUpPasswordAlert];
     }
-    if (_indexRow == 2) {//微信支付
+    if (_indexRow == 1) {//微信支付
         [self jumpToWXPayPostRequst];
     }
 
+    if (_indexRow == 2) {//支付宝
+     
+        [self settingAlertView];
+    }
+    if (_indexRow == 3) {//快捷支付
+        [self settingAlertView];
+
+    }
 }
 //每次进来都需要重新请求签名
 -(void)viewWillAppear:(BOOL)animated

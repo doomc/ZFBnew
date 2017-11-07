@@ -107,6 +107,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         _tableView            = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -64 ) style:UITableViewStylePlain];
         _tableView.delegate   = self;
         _tableView.dataSource = self;
+        
     }
     return _tableView;
     

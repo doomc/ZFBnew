@@ -25,6 +25,7 @@
           _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH ) style:UITableViewStylePlain];
           _tableView.delegate = self;
           _tableView.dataSource = self;
+          
      }
      return _tableView;
 }

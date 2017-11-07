@@ -36,6 +36,7 @@
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -64 ) style:UITableViewStyleGrouped];
         _tableView.delegate =self;
         _tableView.dataSource = self;
+        _tableView.estimatedRowHeight = 0;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
@@ -78,14 +79,27 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 0.001;
-    }
     return 10;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.001;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView * view = nil;
+    if (view == nil) {
+        view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.001)];
+     }
+    return view;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView * headview = nil;
+    if (headview == nil) {
+        headview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
+    }
+    return headview;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -160,9 +174,7 @@
 
 -(void)deletFootRemovePOSTRequest
 {
-    
-    
-    NSDictionary * parma = @{
+        NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"id":@"",
                              };

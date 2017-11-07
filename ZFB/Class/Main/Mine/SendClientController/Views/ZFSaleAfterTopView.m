@@ -26,7 +26,7 @@
         for (int i = 0 ; i < arr.count; i++) {
             
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.frame = CGRectMake(i*(KScreenW*0.5), 0, (KScreenW*0.5), 43);
+            button.frame = CGRectMake(i*(KScreenW*0.5), 0, (KScreenW*0.5), 44);
             [button setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
             [button setTitle:arr[i] forState:UIControlStateNormal];
             button.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -36,7 +36,7 @@
             [self addSubview:button];
             NSLog(@"%ld \n",button.tag);
             
-            UILabel * line = [[UILabel alloc]initWithFrame:CGRectMake(0, 43, KScreenW, 1)];
+            UILabel * line = [[UILabel alloc]initWithFrame:CGRectMake(0, 44, KScreenW, 1)];
             line.backgroundColor = [UIColor colorWithWhite:0.840 alpha:1.000];
             [self addSubview:line];
             

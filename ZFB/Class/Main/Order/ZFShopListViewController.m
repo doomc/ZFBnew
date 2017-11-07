@@ -46,6 +46,8 @@
     self.mytableView            = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH) style:UITableViewStylePlain];
     self.mytableView.delegate   = self;
     self.mytableView.dataSource = self;
+    self.mytableView.estimatedRowHeight = 0;
+
     [self.view addSubview:self.mytableView];
     self.mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     

@@ -132,6 +132,7 @@ static float kLeftTableViewWidth = 80.f;
     if (!_tableView)
     {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kLeftTableViewWidth, KScreenH)];
+        _tableView.estimatedRowHeight = 0;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [UIView new];
@@ -162,6 +163,7 @@ static float kLeftTableViewWidth = 80.f;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(kCollectionViewMargin + kLeftTableViewWidth, kCollectionViewMargin, KScreenW - kLeftTableViewWidth - 2 * kCollectionViewMargin, KScreenH - 2 * kCollectionViewMargin ) collectionViewLayout:self.flowLayout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
+
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
         [_collectionView setBackgroundColor:[UIColor clearColor]];

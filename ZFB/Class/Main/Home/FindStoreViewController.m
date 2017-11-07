@@ -148,6 +148,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     self.home_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -49- 50- 64) style:UITableViewStylePlain];
     self.home_tableView.delegate = self;
     self.home_tableView.dataSource = self;
+    self.home_tableView.estimatedRowHeight = 0;
+
     [self.view addSubview:_home_tableView];
     self.home_tableView.separatorStyle =UITableViewCellSeparatorStyleNone;
     [self.home_tableView registerNib:[UINib nibWithNibName:@"FindStoreCell" bundle:nil] forCellReuseIdentifier:CellIdentifier];

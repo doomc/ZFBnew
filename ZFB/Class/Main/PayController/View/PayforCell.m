@@ -16,7 +16,7 @@
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
  
-    self.lb_Price.hidden = YES;
+ 
     self.lb_balance.hidden = YES;
     self.btn_selected.hidden = YES;
     

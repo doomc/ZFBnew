@@ -59,6 +59,8 @@
     self.zfb_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.zfb_tableView.delegate = self;
     self.zfb_tableView.dataSource = self;
+    self.zfb_tableView.estimatedRowHeight = 0;
+
     [self.view addSubview:self.zfb_tableView];
     [self.zfb_tableView registerNib:[UINib nibWithNibName:@"AccountListCell" bundle:nil] forCellReuseIdentifier:@"AccountListCell"];
 }

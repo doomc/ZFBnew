@@ -47,6 +47,7 @@
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -104) style:UITableViewStylePlain];
         _tableView.dataSource =self;
         _tableView.delegate= self;
+        _tableView.estimatedRowHeight = 0;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;

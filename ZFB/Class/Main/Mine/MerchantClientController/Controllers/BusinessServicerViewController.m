@@ -328,6 +328,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         _homeTableView.delegate       = self;
         _homeTableView.dataSource     = self;
         _homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _homeTableView.estimatedRowHeight = 0;
+
         
     }
     return _homeTableView;
@@ -660,36 +662,36 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeOrderPage:
             switch (_servicType) {
                 case BusinessServicTypeWaitSendlist://待派单
-                    height = 82;
+                    height = 118;
                     
                     break;
                 case BusinessServicTypeSending://配送中
-                    height = 82;
-                    
+                    height = 118;
+
                     break;
                 case BusinessServicTypeWaitPay://待付款
-                    height = 82;
-                    
+                    height = 118;
+
                     break;
                 case BusinessServicTypeDealComplete://交易完成
-                    height = 82;
-                    
+                    height = 118;
+
                     break;
                 case BusinessServicTypeSureReturn://待确认退回
                     height = 180;
                     
                     break;
                 case BusinessServicTypeSended://已配送
-                    height = 82;
-                    
+                    height = 118;
+
                     break;
                 case BusinessServicTypeCancelOrder://取消订单
                     
-                    height = 82;
+                    height = 118;
                     break;
                 case BusinessServicTypeWiatOrder://待接单
                     
-                    height = 82;
+                    height = 118;
 
                     break;
             }

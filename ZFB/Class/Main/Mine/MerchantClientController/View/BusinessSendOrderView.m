@@ -63,6 +63,7 @@
         _alertTableView =[[ UITableView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height -40) style:UITableViewStylePlain];
         _alertTableView.delegate = self;
         _alertTableView.dataSource =self;
+        _alertTableView.estimatedRowHeight = 0;
         _alertTableView.separatorStyle = UITableViewScrollPositionNone;
     }
     return _alertTableView;

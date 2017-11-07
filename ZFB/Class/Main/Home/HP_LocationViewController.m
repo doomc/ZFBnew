@@ -87,13 +87,15 @@
     
     //tableView的创建
     self.location_TableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 50, KScreenW, KScreenH - 50) style:UITableViewStyleGrouped];
-    [self.view addSubview:self.location_TableView];
-    
+    self.location_TableView.estimatedRowHeight = 0;
+
     self.location_TableView.dataSource = self;
     self.location_TableView.delegate = self;
     
     [self.location_TableView registerNib:[UINib nibWithNibName:@"SearchCell" bundle:nil] forCellReuseIdentifier:@"SearchCellid"];
     [self.location_TableView registerNib:[UINib nibWithNibName:@"HPLocationCell" bundle:nil] forCellReuseIdentifier:@"HPLocationCellid"];
+   
+    [self.view addSubview:self.location_TableView];
 
     
     _search = [[AMapSearchAPI alloc] init];

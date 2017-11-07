@@ -180,7 +180,9 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                         NSLog(@"%@",names);
                         if (state == 1) {
                             
-                            _imgfaceUrl =[NSString stringWithFormat:@"%@",  names[0]];
+                            _imgfaceUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+
+//                            _imgfaceUrl =[NSString stringWithFormat:@"%@",  names[0]];
                             _faceSuccess = YES;
                         }
                     }];
@@ -192,8 +194,9 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                     [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
                         NSLog(@"%@",names);
                         if (state == 1) {
+                            _imgbackUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
 
-                            _imgbackUrl =[NSString stringWithFormat:@"%@", names[0]];
+//                            _imgbackUrl =[NSString stringWithFormat:@"%@", names[0]];
                             _backSuccess = YES;
                         }
                     }];

@@ -94,6 +94,7 @@
         _orderdTableView =[[ UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH - 64) style:UITableViewStylePlain];
         _orderdTableView.delegate = self;
         _orderdTableView.dataSource =self;
+        _orderdTableView.estimatedRowHeight = 0;
         _orderdTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _orderdTableView.tableHeaderView = self.headView;
         _orderdTableView.tableHeaderView.height = 80;
@@ -129,11 +130,11 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 50;
+    return 60;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 82;
+    return 118;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {

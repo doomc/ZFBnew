@@ -508,7 +508,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeHomePage:
             if (indexPath.section == 0) {
                 
-                height = 80;
+                height = 118;
             }
             else{
                 
@@ -732,11 +732,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                 case SendServicTypeWaitSend:
                     
-                    height = 50;
+                    height = 60;
                     break;
                     
                 case SendServicTypeSending:
-                    height = 50;
+                    height = 60;
                     
                     break;
                     

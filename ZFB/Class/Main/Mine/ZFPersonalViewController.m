@@ -804,44 +804,55 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 //我要开店
 -(void)didClickOpenStore
 {
+    if (BBUserDefault.isLogin == 1) {
+        if ([_courierFlag isEqualToString:@"0"] &&[_shopFlag isEqualToString:@"0"] )
+        {
+            iWantOpenStoreViewController * openVC  = [iWantOpenStoreViewController new];
+            [self.navigationController pushViewController:openVC animated:NO];
+            
+        }else{
+            if ([_shopFlag isEqualToString:@"-1"]) {
+                [self.view makeToast:@"审核中..." duration:2 position:@"center"];
+            }else{
+                [self.view makeToast:@"配送和商户,只能选其一" duration:2 position:@"center"];
+            }
+        }
+    }
+    else{
+        [self isloginSuccess];
+    }
     NSLog(@"我要开店");
-  if ([_courierFlag isEqualToString:@"0"] &&[_shopFlag isEqualToString:@"0"] )
-  {
-      iWantOpenStoreViewController * openVC  = [iWantOpenStoreViewController new];
-      [self.navigationController pushViewController:openVC animated:NO];
-      
-  }else{
-      if ([_shopFlag isEqualToString:@"-1"]) {
-           [self.view makeToast:@"审核中..." duration:2 position:@"center"];
-      }else{
-          [self.view makeToast:@"配送和商户,只能选其一" duration:2 position:@"center"];
-      }
-  }
+ 
 }
 //成为配送
 -(void)didClickSendGoods
 {
-
-    if ([_courierFlag isEqualToString:@"0"] &&[_shopFlag isEqualToString:@"0"] ) {//普通用户
-        
-        iwantSendedViewController * sendVC  = [iwantSendedViewController new];
-        [self.navigationController pushViewController:sendVC animated:NO];
-        
-    }else{
-        if ([_deliveryStatus isEqualToString:@"3"]) {//如果失败
+    if (BBUserDefault.isLogin == 1) {
+        if ([_courierFlag isEqualToString:@"0"] &&[_shopFlag isEqualToString:@"0"] ) {//普通用户
+            
             iwantSendedViewController * sendVC  = [iwantSendedViewController new];
             [self.navigationController pushViewController:sendVC animated:NO];
+            
+        }else{
+            if ([_deliveryStatus isEqualToString:@"3"]) {//如果失败
+                iwantSendedViewController * sendVC  = [iwantSendedViewController new];
+                [self.navigationController pushViewController:sendVC animated:NO];
+            }
+            else if ([_deliveryStatus isEqualToString:@"2"])//审核中
+            {
+                [self.view makeToast:@"审核中..." duration:2 position:@"center"];
+            }
+            else{
+                [self.view makeToast:@"配送和商户,只能选其一" duration:2 position:@"center"];
+                
+            }
+            
         }
-        else if ([_deliveryStatus isEqualToString:@"2"])//审核中
-        {
-            [self.view makeToast:@"审核中..." duration:2 position:@"center"];
-        }
-        else{
-            [self.view makeToast:@"配送和商户,只能选其一" duration:2 position:@"center"];
-
-        }
-
+    }else{
+       
+        [self isloginSuccess];
     }
+
 }
 //切换商户
 -(void)didClickChangeID
