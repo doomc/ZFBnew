@@ -57,11 +57,11 @@
 
 #pragma mark ------------- --------------------
 ////baseURL
-//#define  zfb_baseUrl @"http://192.168.1.103:8087/zfb/InterfaceServlet"
+//#define  zfb_baseUrl @"http://192.168.1.166:8087/zfb/InterfaceServlet"
 ////单聊
-//#define  IMsingle_baseUrl @"http://192.168.1.103:8087/im/user"
+//#define  IMsingle_baseUrl @"http://192.168.1.166:8087/im/user"
 ////群聊
-//#define  IMGroup_baseUrl @"http://192.168.1.103:8087/group"
+//#define  IMGroup_baseUrl @"http://192.168.1.166:8087/group"
 
 
 #pragma mark -------------支付服务 -------------------

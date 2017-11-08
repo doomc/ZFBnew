@@ -8,6 +8,7 @@
 
 #import "ZFSelectCouponViewController.h"
 #import "CouponCell.h"
+#define  k_cellHeight  112
 
 @interface ZFSelectCouponViewController ()<UITableViewDataSource,UITableViewDelegate,CYLTableViewPlaceHolderDelegate,WeChatStylePlaceHolderDelegate>
 
@@ -81,12 +82,13 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return k_cellHeight;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CouponCell * couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"CouponCell" forIndexPath:indexPath];
     Couponlist  * list  = self.couponList [indexPath.row];
+    couponCell.buttonWidthConstraint.constant = 0;
     couponCell.couponlist = list;
     couponCell.indexRow = indexPath.row;
     return couponCell;

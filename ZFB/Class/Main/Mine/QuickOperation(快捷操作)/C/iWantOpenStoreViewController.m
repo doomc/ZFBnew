@@ -114,12 +114,12 @@
 - (IBAction)openStoreNextPage:(id)sender {
  
     if ([_smsCode isEqualToString:_verCodeNum] && [_emailNum isEmailAddress] == YES ) {
-        iOpenStoreViewController * openVC = [iOpenStoreViewController new];
-        openVC.phoneNum = BBUserDefault.userPhoneNumber;
-        openVC.email = _emailNum;
-        openVC.verCode = _smsCode;
-        openVC.areaId = _areaId;
-        [self.navigationController pushViewController:openVC animated:NO];
+//        iWantOpenStoreViewController * openVC = [iWantOpenStoreViewController new];
+//        openVC.phoneNum = BBUserDefault.userPhoneNumber;
+//        openVC.email = _emailNum;
+//        openVC.verCode = _smsCode;
+//        openVC.areaId = _areaId;
+//        [self.navigationController pushViewController:openVC animated:NO];
         
     }else
     {

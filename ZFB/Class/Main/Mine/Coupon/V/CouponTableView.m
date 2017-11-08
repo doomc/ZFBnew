@@ -52,7 +52,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 122;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -83,7 +83,7 @@
         
         //线
         UILabel * line = [[UILabel alloc]initWithFrame:CGRectMake(0, 44, KScreenW, 0.5)];
-        line.backgroundColor = [UIColor whiteColor];
+        line.backgroundColor = HEXCOLOR(0xe0e0e0);
         [headerView addSubview:line];
         
         UIButton * close = [UIButton buttonWithType:UIButtonTypeCustom];

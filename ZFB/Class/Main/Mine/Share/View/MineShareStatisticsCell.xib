@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,11 +21,11 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IYK-V4-XNw">
                         <rect key="frame" x="0.0" y="10" width="106.5" height="105.5"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="收入1.png" translatesAutoresizingMaskIntoConstraints="NO" id="rOw-bW-bNN">
-                                <rect key="frame" x="31" y="10" width="45" height="45"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="total_income.png" translatesAutoresizingMaskIntoConstraints="NO" id="rOw-bW-bNN">
+                                <rect key="frame" x="28.5" y="10" width="50" height="50"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总收入：24142.12元" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGL-NY-cgh">
-                                <rect key="frame" x="5" y="65" width="96.5" height="29"/>
+                                <rect key="frame" x="5" y="70" width="96.5" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -42,11 +42,11 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mtv-0V-EOL">
                         <rect key="frame" x="106.5" y="10" width="107" height="105.5"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="订单数量.png" translatesAutoresizingMaskIntoConstraints="NO" id="uit-jZ-DjB">
-                                <rect key="frame" x="31" y="10" width="45" height="45"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="total_goods.png" translatesAutoresizingMaskIntoConstraints="NO" id="uit-jZ-DjB">
+                                <rect key="frame" x="28.5" y="10" width="50" height="50"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品数 88" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WkF-M0-ynI">
-                                <rect key="frame" x="5" y="65" width="97" height="14.5"/>
+                                <rect key="frame" x="5" y="70" width="97" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -84,11 +84,11 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pi2-bD-Zek">
                         <rect key="frame" x="213.5" y="10" width="106.5" height="105.5"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="收入3.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fb0-NE-1DP">
-                                <rect key="frame" x="31" y="10" width="45" height="45"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="today_income.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fb0-NE-1DP">
+                                <rect key="frame" x="28.5" y="10" width="50" height="50"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今日收入：24142.12元" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmN-Ub-ux4">
-                                <rect key="frame" x="5" y="65" width="96.5" height="29"/>
+                                <rect key="frame" x="5" y="70" width="96.5" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -138,8 +138,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="收入1.png" width="45" height="45"/>
-        <image name="收入3.png" width="45" height="45"/>
-        <image name="订单数量.png" width="45" height="45"/>
+        <image name="today_income.png" width="50" height="50"/>
+        <image name="total_goods.png" width="50" height="50"/>
+        <image name="total_income.png" width="50" height="50"/>
     </resources>
 </document>

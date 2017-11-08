@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="105" id="KGk-i7-Jjw" customClass="ZFOrderListCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="122" id="KGk-i7-Jjw" customClass="ZFOrderListCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="97"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="96.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="UzY-Ah-y5b">
-                        <rect key="frame" x="5" y="0.0" width="216.5" height="79.5"/>
+                        <rect key="frame" x="5" y="0.0" width="219.5" height="84.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="85" id="xwN-kV-0uA"/>
+                        </constraints>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hcF-cW-lj7">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -29,50 +32,55 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一共5件" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KHs-nQ-3Hr">
-                        <rect key="frame" x="246.5" y="5" width="58.5" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="w2H-CV-OM4"/>
-                        </constraints>
+                        <rect key="frame" x="234.5" y="30" width="70.5" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(可附加留言)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBW-5V-guB">
-                        <rect key="frame" x="246.5" y="30" width="58.5" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="bkz-6R-2mx"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <rect key="frame" x="234.5" y="49.5" width="70.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="省略.png" translatesAutoresizingMaskIntoConstraints="NO" id="XqE-my-t16">
-                        <rect key="frame" x="226.5" y="38.5" width="15" height="3"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows_Right_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="tcC-z0-QPY">
+                        <rect key="frame" x="303" y="42.5" width="12" height="12"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SB6-7N-du7">
+                        <rect key="frame" x="0.0" y="86.5" width="320" height="10"/>
+                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="JWw-q7-HN8"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="DBW-5V-guB" firstAttribute="trailing" secondItem="KHs-nQ-3Hr" secondAttribute="trailing" id="1P9-5d-abj"/>
-                    <constraint firstAttribute="bottom" secondItem="UzY-Ah-y5b" secondAttribute="bottom" id="CBh-h3-9Od"/>
-                    <constraint firstAttribute="trailing" secondItem="KHs-nQ-3Hr" secondAttribute="trailing" constant="15" id="HSo-OH-ia4"/>
-                    <constraint firstItem="DBW-5V-guB" firstAttribute="leading" secondItem="UzY-Ah-y5b" secondAttribute="trailing" constant="25" id="iuB-qy-yCF"/>
-                    <constraint firstItem="XqE-my-t16" firstAttribute="leading" secondItem="UzY-Ah-y5b" secondAttribute="trailing" constant="5" id="jw7-6J-WwG"/>
-                    <constraint firstItem="XqE-my-t16" firstAttribute="centerY" secondItem="UzY-Ah-y5b" secondAttribute="centerY" id="pD3-6b-aEU"/>
+                    <constraint firstItem="tcC-z0-QPY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="6C4-lL-LAv"/>
+                    <constraint firstAttribute="trailing" secondItem="SB6-7N-du7" secondAttribute="trailing" id="UEB-8a-vhi"/>
+                    <constraint firstItem="SB6-7N-du7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Wqt-gt-DQT"/>
+                    <constraint firstAttribute="trailing" secondItem="KHs-nQ-3Hr" secondAttribute="trailing" constant="15" id="Xcy-0v-Q9K"/>
+                    <constraint firstAttribute="trailing" secondItem="tcC-z0-QPY" secondAttribute="trailing" constant="5" id="cYR-Ya-dm0"/>
+                    <constraint firstItem="DBW-5V-guB" firstAttribute="leading" secondItem="UzY-Ah-y5b" secondAttribute="trailing" constant="10" id="iuB-qy-yCF"/>
                     <constraint firstItem="UzY-Ah-y5b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="tzs-cq-kqh"/>
                     <constraint firstItem="UzY-Ah-y5b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="xb1-iY-9vQ"/>
                     <constraint firstItem="DBW-5V-guB" firstAttribute="top" secondItem="KHs-nQ-3Hr" secondAttribute="bottom" constant="5" id="ypg-Kg-nfP"/>
+                    <constraint firstAttribute="bottom" secondItem="SB6-7N-du7" secondAttribute="bottom" id="zGw-uY-g63"/>
                     <constraint firstItem="DBW-5V-guB" firstAttribute="width" secondItem="KHs-nQ-3Hr" secondAttribute="width" id="zZc-so-pNZ"/>
-                    <constraint firstItem="KHs-nQ-3Hr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="zwK-8f-ehM"/>
+                    <constraint firstItem="KHs-nQ-3Hr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="zwK-8f-ehM"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="img_shenglve" destination="XqE-my-t16" id="p5z-kv-7Q7"/>
                 <outlet property="lb_totalNum" destination="KHs-nQ-3Hr" id="uZN-VI-nGt"/>
                 <outlet property="order_collectionCell" destination="UzY-Ah-y5b" id="kQc-m1-suO"/>
             </connections>
-            <point key="canvasLocation" x="-422" y="46"/>
+            <point key="canvasLocation" x="-422" y="46.5"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="省略.png" width="15" height="3"/>
+        <image name="arrows_Right_black.png" width="12" height="12"/>
     </resources>
 </document>

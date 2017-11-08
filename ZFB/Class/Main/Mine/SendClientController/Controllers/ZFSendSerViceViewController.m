@@ -32,6 +32,10 @@
 //vc
 #import "SendOrderStatisticsViewController.h"
 
+#define  k_cellHeight 130
+#define  k_sectionHeight 50
+#define  k_footHeight 60
+
 typedef NS_ENUM(NSUInteger, SelectType) {
     SelectTypeHomePage, //选择首页
     SelectTypeOrderPage, //选择订单
@@ -360,6 +364,10 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 {
     if (!_send_tableView) {
         _send_tableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49-64) style:UITableViewStyleGrouped];
+        _send_tableView.estimatedSectionFooterHeight = 0;
+        _send_tableView.estimatedSectionHeaderHeight = 0;
+        _send_tableView.estimatedRowHeight = 0;
+        _send_tableView.backgroundColor = HEXCOLOR(0xf7f7f7);
         _send_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _send_tableView.delegate       = self;
         _send_tableView.dataSource     = self;
@@ -508,7 +516,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeHomePage:
             if (indexPath.section == 0) {
                 
-                height = 118;
+                height = 100;
             }
             else{
                 
@@ -521,14 +529,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             switch (_servicType) {
                     
                 case SendServicTypeWaitSend:
-                    height = 84;
+                    height = k_cellHeight;
                     break;
                 case SendServicTypeSending:
-                    height = 84;
+                    height = k_cellHeight;
                     break;
                 case SendServicTypeSended:
                     
-                    height = 84;
+                    height = k_cellHeight;
                     break;
             }
             break;
@@ -626,15 +634,15 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             switch (_servicType) {
                     
                 case SendServicTypeWaitSend:
-                    height = 40;
+                    height = k_sectionHeight;
                     break;
                     
                 case SendServicTypeSending:
-                    height = 40;
+                    height = k_sectionHeight;
                     
                     break;
                 case SendServicTypeSended:
-                    height = 40;
+                    height = k_sectionHeight;
                     
                     break;
             }
@@ -704,7 +712,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     footerView = cell;
                     
                 }
-                    
                     break;
             }
             
@@ -732,11 +739,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                 case SendServicTypeWaitSend:
                     
-                    height = 60;
+                    height = k_footHeight;
                     break;
                     
                 case SendServicTypeSending:
-                    height = 60;
+                    height = k_footHeight;
                     
                     break;
                     
@@ -782,6 +789,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 return titleCell;
                 
             }else{
+                
                 ZFSendHomeListCell * cell = [self.send_tableView dequeueReusableCellWithIdentifier:@"ZFSendHomeListCellid" forIndexPath:indexPath];
                 cell.selectionStyle       = UITableViewCellSelectionStyleNone;
                 cell.delegate             = self;
@@ -821,7 +829,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                         for (SendServiceOrdergoodslist * goods in store.orderGoodsList) {
                             [goodsArr addObject:goods ];
                         }
-                        
                         SendServiceOrdergoodslist * goods = goodsArr [indexPath.row];
                         contentCell.sendGoods = goods;
                     }

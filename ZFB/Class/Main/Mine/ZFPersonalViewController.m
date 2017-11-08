@@ -40,8 +40,8 @@
 #import "BandBackCarViewController.h"//绑卡
 #import "PersonalMesViewController.h"//通知消息列表
 #import "DetailMsgNoticeViewController.h"//通知消息
-#import "iWantOpenStoreViewController.h"
-#import "iwantSendedViewController.h"
+#import "iOpenStoreViewController.h"//我要开店
+#import "iwantSendedViewController.h"//我要成为配送员
 //base
 #import "ZFBaseNavigationViewController.h"
 
@@ -807,7 +807,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     if (BBUserDefault.isLogin == 1) {
         if ([_courierFlag isEqualToString:@"0"] &&[_shopFlag isEqualToString:@"0"] )
         {
-            iWantOpenStoreViewController * openVC  = [iWantOpenStoreViewController new];
+            iOpenStoreViewController * openVC  = [iOpenStoreViewController new];
             [self.navigationController pushViewController:openVC animated:NO];
             
         }else{

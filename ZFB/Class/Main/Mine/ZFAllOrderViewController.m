@@ -36,6 +36,10 @@
 #import "AllOrderModel.h"
 #import "AllOrderProgress.h"
 
+#define  k_cellHeight 130
+#define  k_sectionHeight 90
+#define  k_footHeight 60
+
 static  NSString * headerCellid =@"ZFTitleCellid";//头id
 static  NSString * contentCellid =@"ZFSendingCellid";//内容id
 static  NSString * footerCellid =@"ZFFooterCellid";//尾部id
@@ -232,8 +236,8 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     self.zfb_tableView .delegate       = self;
     self.zfb_tableView .dataSource     = self;
     self.zfb_tableView.estimatedRowHeight = 0;
-    self.zfb_tableView.estimatedSectionHeaderHeight = 0;
-    self.zfb_tableView.estimatedSectionFooterHeight = 0;
+    self.zfb_tableView.estimatedSectionFooterHeight=0;
+    self.zfb_tableView.estimatedSectionHeaderHeight=0;
     self.zfb_tableView .separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.zfb_tableView registerNib:[UINib nibWithNibName:@"ZFSendingCell" bundle:nil]
@@ -474,31 +478,31 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     switch (_orderType) {
         case OrderTypeAllOrder:
             
-            height = 82;
+            height = k_sectionHeight;
             break;
             
         case OrderTypeWaitPay:
-            height = 82;
+            height = k_sectionHeight;
             
             break;
         case OrderTypeWaitSend:
-            height = 82;
+            height = k_sectionHeight;
             
             break;
         case OrderTypeSending:
-            height = 82;
+            height = k_sectionHeight;
             
             break;
         case OrderTypeSended:
-            height = 82;
+            height = k_sectionHeight;
             
             break;
         case OrderTypeDealSuccess:
-            height = 82;
+            height = k_sectionHeight;
             
             break;
         case OrderTypeCancelSuccess:
-            height = 82;
+            height = k_sectionHeight;
             
             break;
         case OrderTypeAfterSale:
@@ -651,31 +655,31 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     switch (_orderType) {
         case OrderTypeAllOrder:
             
-            height = 60;
+            height = k_footHeight;
             break;
             
         case OrderTypeWaitPay:
-            height = 60;
+            height = k_footHeight;
 
             break;
         case OrderTypeWaitSend:
-            height = 60;
+            height = k_footHeight;
 
             break;
         case OrderTypeSending:
-            height = 60;
+            height = k_footHeight;
 
             break;
         case OrderTypeSended:
-            height = 60;
+            height = k_footHeight;
 
             break;
         case OrderTypeDealSuccess:
-            height = 60;
+            height = k_footHeight;
 
             break;
         case OrderTypeCancelSuccess:
-            height = 60;
+            height = k_footHeight;
 
             break;
         case OrderTypeAfterSale:
@@ -865,31 +869,31 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     switch (_orderType) {
         case OrderTypeAllOrder:
             
-            height = 118;
+            height = k_cellHeight;
             
             break;
         case OrderTypeWaitPay:
-            height = 118;
+            height = k_cellHeight;
             
             break;
         case OrderTypeWaitSend:
-            height = 118;
+            height = k_cellHeight;
             
             break;
         case OrderTypeSending:
-            height = 118;
+            height = k_cellHeight;
             
             break;
         case OrderTypeSended:
-            height = 118;
+            height = k_cellHeight;
             
             break;
         case OrderTypeDealSuccess:
-            height = 118;
+            height = k_cellHeight;
             break;
             
         case OrderTypeCancelSuccess:
-            height = 118;
+            height = k_cellHeight;
             break;
         case OrderTypeAfterSale:
             if (self.tagNum == 0) {

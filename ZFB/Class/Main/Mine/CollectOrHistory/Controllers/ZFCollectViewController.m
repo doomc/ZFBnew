@@ -445,7 +445,7 @@ typedef NS_ENUM(NSUInteger, CollectType) {
 {
     if (!_footView) {
         _footView = [[NSBundle mainBundle]loadNibNamed:@"ZFCollectBarView" owner:self options:nil].lastObject;
-        _footView.frame = CGRectMake(0, KScreenH-49, KScreenW, 49);
+        _footView.frame = CGRectMake(0, KScreenH-49-64, KScreenW, 49);
         _footView.delegate = self;
         
     }
@@ -468,7 +468,7 @@ typedef NS_ENUM(NSUInteger, CollectType) {
     _edit_btn = [[UIButton alloc]init];
     [_edit_btn setTitle:saveStr forState:UIControlStateNormal];
     _edit_btn.titleLabel.font=SYSTEMFONT(14);
-    [_edit_btn setTitleColor:HEXCOLOR(0xffffff)  forState:UIControlStateNormal];
+    [_edit_btn setTitleColor:HEXCOLOR(0x333333)  forState:UIControlStateNormal];
     _edit_btn.titleLabel.textAlignment = NSTextAlignmentRight;
     CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
     CGFloat width = size.width ;

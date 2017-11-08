@@ -28,7 +28,7 @@
 
 @property (nonatomic, assign) NSInteger storeId;
 
-@property (nonatomic, copy) NSString* orderAmmount;
+@property (nonatomic, assign) CGFloat orderAmmount;
 
 @property (nonatomic, assign) NSInteger orderId;
 
@@ -37,7 +37,7 @@
 
 @property (nonatomic, strong) NSArray<SendServiceOrdergoodslist *> *orderGoodsList;
 
-@property (nonatomic, assign) NSInteger orderDeliveryFee;
+@property (nonatomic, assign) CGFloat orderDeliveryFee;
 
 @end
 

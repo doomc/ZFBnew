@@ -77,7 +77,7 @@
 -(void)setSendOrder:(SendServiceStoreinfomap *)sendOrder
 {
     _sendOrder              = sendOrder;
-    self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%@",sendOrder.orderAmmount];//订单价格
+    self.lb_totalPrice.text = [NSString stringWithFormat:@"￥%.2f",sendOrder.orderAmmount];//订单价格
     
 }
 ///取消 所有指令

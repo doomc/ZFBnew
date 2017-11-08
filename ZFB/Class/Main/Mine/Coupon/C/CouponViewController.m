@@ -22,6 +22,9 @@
 //model
 #import "CouponModel.h"
 
+#define  k_cellHeight  112
+
+
 typedef NS_ENUM(NSUInteger, SelectCouponType) {
     
     SelectCouponTypeDefault,//未使用
@@ -124,7 +127,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 -(CouponFooterView *)couponFootView
 {
     if (!_couponFootView) {
-        _couponFootView = [[CouponFooterView alloc ]initWithCouponFooterViewFrame:CGRectMake(0, KScreenH -50, KScreenW, 50)];
+        _couponFootView = [[CouponFooterView alloc ]initWithCouponFooterViewFrame:CGRectMake(0, KScreenH -50 -64, KScreenW, 50)];
         _couponFootView.delegate  = self;
     }
     return _couponFootView;
@@ -167,7 +170,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 
 -(CouponTableView *)popCouponView{
     if (!_popCouponView) {
-        _popCouponView             = [[CouponTableView alloc]initWithFrame:CGRectMake(0, 200, KScreenW, KScreenH - 200 ) style:UITableViewStylePlain];
+        _popCouponView             = [[CouponTableView alloc]initWithFrame:CGRectMake(0, 200, KScreenW, KScreenH - 200- 64) style:UITableViewStylePlain];
         _popCouponView.popDelegate = self;
         _popCouponView.couponesList = self.couponList;//获取到的数组传入内部
     }
@@ -288,16 +291,16 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 height = 44;
             }
             else{
-                height = 100;
+                height = k_cellHeight;
             }
             break;
         case SelectCouponTypeUsed:
             
-            height = 100;
+            height = k_cellHeight;
             
             break;
         case SelectCouponTypeOverDate:
-            height = 100;
+            height = k_cellHeight;
             
             break;
         default:
@@ -325,28 +328,26 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 Couponlist * list       = self.unUsedCouponList[indexPath.row];
                 couponCell.buttonWidthConstraint.constant = 0;
                 couponCell.couponlist   = list;
-
                 return couponCell;
             }
                 break;
             case SelectCouponTypeUsed:{
                 
-                CouponUsedCell * cell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponUsedCellid" forIndexPath:indexPath];
-                
-                Couponlist * list     = self.unUsedCouponList[indexPath.row];
-                cell.buttonWidthConstrainWidth.constant = 0;
-
-                cell.couponlist       = list;
-                return cell;
+                CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
+                couponCell.couponDelegate = self;
+                Couponlist * list       = self.unUsedCouponList[indexPath.row];
+                couponCell.buttonWidthConstraint.constant = 0;
+                couponCell.couponlist   = list;
+                return couponCell;
             }
                 break;
             case SelectCouponTypeOverDate:
             {
-                CouponOverDateCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponOverDateCellid" forIndexPath:indexPath];
-                Couponlist * list               = self.unUsedCouponList[indexPath.row];
-                couponCell.buttonWidthConstrainWidth.constant = 0;
-
-                couponCell.couponlist           = list;
+                CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
+                couponCell.couponDelegate = self;
+                Couponlist * list       = self.unUsedCouponList[indexPath.row];
+                couponCell.buttonWidthConstraint.constant = 0;
+                couponCell.couponlist   = list;
                 return couponCell;
             }
                 break;
@@ -374,21 +375,23 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 break;
             case SelectCouponTypeUsed:{
                 
-                CouponUsedCell * cell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponUsedCellid" forIndexPath:indexPath];
-                Couponlist * list     = self.unUsedCouponList[indexPath.row];
-                cell.buttonWidthConstrainWidth.constant = 30;
-                cell.unUsedDelegate = self;
-                cell.couponlist       = list;
-                return cell;
+                CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
+                couponCell.couponDelegate = self;
+                Couponlist * list       = self.unUsedCouponList[indexPath.row];
+                couponCell.buttonWidthConstraint.constant = 30;
+                couponCell.couponlist   = list;
+                
+                return couponCell;
             }
                 break;
             case SelectCouponTypeOverDate:
             {
-                CouponOverDateCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponOverDateCellid" forIndexPath:indexPath];
-                Couponlist * list               = self.unUsedCouponList[indexPath.row];
-                couponCell.buttonWidthConstrainWidth.constant = 30;
-                couponCell.couponlist           = list;
-                couponCell.overDelegate = self;
+                CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
+                couponCell.couponDelegate = self;
+                Couponlist * list       = self.unUsedCouponList[indexPath.row];
+                couponCell.buttonWidthConstraint.constant = 30;
+                couponCell.couponlist   = list;
+                
                 return couponCell;
             }
                 break;

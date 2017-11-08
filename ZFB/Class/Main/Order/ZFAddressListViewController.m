@@ -28,9 +28,10 @@
     self.title =@"选择收货地址";
  
     
-    self.mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49 - 64) style:UITableViewStylePlain];
+    self.mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49 - 64) style:UITableViewStyleGrouped];
     self.mytableView.delegate= self;
     self.mytableView.dataSource = self;
+    self.mytableView.backgroundColor = HEXCOLOR(0xf7f7f7);
     [self.view addSubview:self.mytableView];
     
     self.mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -79,23 +80,45 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
-    
+    return self.listArray.count;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.listArray.count;
- 
+    return 1;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView * headView = nil;
+    if (!headView ) {
+        headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 10)];
+    }
+    return headView;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView * footView = nil;
+    if (!footView ) {
+        footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 0.001)];
+    }
+    return footView;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.001;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat actualHeight = [tableView fd_heightForCellWithIdentifier:@"ZFAddOfListCellid" cacheByIndexPath:indexPath configuration:^(ZFAddOfListCell *cell) {
-        
-        [self configCell:cell indexPath:indexPath];
-        
-    }];
-    return actualHeight >= 100 ? actualHeight : 92;
+//    CGFloat actualHeight = [tableView fd_heightForCellWithIdentifier:@"ZFAddOfListCellid" cacheByIndexPath:indexPath configuration:^(ZFAddOfListCell *cell) {
+//
+//        [self configCell:cell indexPath:indexPath];
+//
+//    }];
+//    return actualHeight >= 114 ? actualHeight : 92;
 
+    return 114;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -113,8 +136,7 @@
 //组装cell 方便返回的高度
 - (void)configCell:(ZFAddOfListCell *)cell indexPath:(NSIndexPath *)indexPath
 {
-    Useraddresslist * info = self.listArray[indexPath.row];
-
+    Useraddresslist * info = self.listArray[indexPath.section];
     cell.list = info;
     
 }
@@ -154,6 +176,8 @@
     [self presentViewController:alertVC animated:YES completion:nil];
 
 }
+
+
 ///编辑操作
 -(void)editAction:(NSIndexPath * )indexPath
 {
@@ -176,7 +200,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Useraddresslist * info = self.listArray[indexPath.row];
+    Useraddresslist * info = self.listArray[indexPath.section];
 
     NSLog(@"%ld- %ld",indexPath.section,indexPath.row);
 
@@ -203,10 +227,8 @@
         if  ([code isEqualToString:@"0"])
         {
             if (self.listArray.count > 0) {
-                
                 [self.listArray removeAllObjects];
             }
-            
             AddressListModel * list = [AddressListModel mj_objectWithKeyValues:response];
             
             for (Useraddresslist * addresslist in list.addressList.userAddressList) {
@@ -216,9 +238,10 @@
             [self.mytableView reloadData];
             [SVProgressHUD dismiss];
 
-        }
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        }else{
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
 
+        }
     } progress:^(NSProgress *progeress) {
         
     } failure:^(NSError *error) {

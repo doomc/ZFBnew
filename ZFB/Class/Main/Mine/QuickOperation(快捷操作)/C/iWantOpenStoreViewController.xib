@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,7 +14,6 @@
                 <outlet property="NextPage_btn" destination="uSB-93-OWN" id="u5v-J4-JQy"/>
                 <outlet property="address_btn" destination="kaJ-UI-EkO" id="kgC-af-pJF"/>
                 <outlet property="tf_VerCode" destination="EwG-4m-frp" id="Nxm-wV-73Z"/>
-                <outlet property="tf_address" destination="CkJ-Kt-HW2" id="O5F-qc-b7O"/>
                 <outlet property="tf_email" destination="Zgh-6c-Rkc" id="FZY-Jd-toj"/>
                 <outlet property="tf_phoneNum" destination="Kzk-Gh-f6w" id="9id-91-n0D"/>
                 <outlet property="verCode_btn" destination="dOI-pY-gLI" id="WMa-7v-xzM"/>
@@ -172,15 +171,6 @@
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输详细地址" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="CkJ-Kt-HW2">
-                            <rect key="frame" x="25" y="101" width="325" height="50"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="50" id="59l-E2-PGX"/>
-                            </constraints>
-                            <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
-                        </textField>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hvv-0h-7nb">
                             <rect key="frame" x="0.0" y="40" width="375" height="1"/>
                             <color key="backgroundColor" red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -233,15 +223,12 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="140" id="3s1-cv-2rK"/>
-                        <constraint firstItem="CkJ-Kt-HW2" firstAttribute="leading" secondItem="MGt-QJ-diF" secondAttribute="leading" constant="25" id="7S7-5E-KiF"/>
                         <constraint firstItem="Zxe-4z-QBv" firstAttribute="top" secondItem="MGt-QJ-diF" secondAttribute="top" constant="10" id="EAf-E6-2uD"/>
                         <constraint firstItem="Qvk-VC-tkU" firstAttribute="leading" secondItem="MGt-QJ-diF" secondAttribute="leading" constant="15" id="FP4-1s-xDN"/>
-                        <constraint firstItem="CkJ-Kt-HW2" firstAttribute="top" secondItem="Qvk-VC-tkU" secondAttribute="bottom" id="Ko7-v3-dro"/>
                         <constraint firstAttribute="trailing" secondItem="Qvk-VC-tkU" secondAttribute="trailing" constant="15" id="KrC-4p-fOO"/>
                         <constraint firstAttribute="trailing" secondItem="hvv-0h-7nb" secondAttribute="trailing" id="WU6-Rp-jT9"/>
                         <constraint firstItem="hvv-0h-7nb" firstAttribute="leading" secondItem="MGt-QJ-diF" secondAttribute="leading" id="ZPi-gW-66w"/>
                         <constraint firstItem="Zxe-4z-QBv" firstAttribute="leading" secondItem="MGt-QJ-diF" secondAttribute="leading" constant="23" id="bnT-wr-Ftn"/>
-                        <constraint firstAttribute="trailing" secondItem="CkJ-Kt-HW2" secondAttribute="trailing" constant="25" id="dbx-ud-hm5"/>
                         <constraint firstItem="Qvk-VC-tkU" firstAttribute="top" secondItem="hvv-0h-7nb" secondAttribute="bottom" constant="10" id="eoF-0P-BME"/>
                         <constraint firstItem="hvv-0h-7nb" firstAttribute="top" secondItem="Zxe-4z-QBv" secondAttribute="bottom" constant="10" id="hz1-wV-XcE"/>
                     </constraints>

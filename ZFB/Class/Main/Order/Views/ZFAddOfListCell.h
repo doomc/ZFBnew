@@ -30,9 +30,10 @@
 
 @property (strong, nonatomic)  NSIndexPath *  indexPath;
 
-@property (weak, nonatomic) IBOutlet UIButton *defaultButton;
+@property (weak, nonatomic) IBOutlet UILabel *defaultAddress;
 
-@property (weak, nonatomic) IBOutlet UILabel *lb_nameAndphoneNum;
+@property (weak, nonatomic) IBOutlet UILabel *lb_name ;
+@property (weak, nonatomic) IBOutlet UILabel *lb_phoneNum;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_detailArress;
 

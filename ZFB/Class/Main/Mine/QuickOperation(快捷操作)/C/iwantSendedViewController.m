@@ -15,10 +15,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 };
 @interface iwantSendedViewController ()<UITextFieldDelegate,UIGestureRecognizerDelegate,HXPhotoViewControllerDelegate,UIScrollViewDelegate>
 {
-    NSString * _phoneNum;
-    NSString * _verCodeNum;
+
     NSString * _name;
-    NSString * _smsCode;
     
     NSString * _imgbackUrl;
     NSString * _imgfaceUrl;
@@ -56,38 +54,11 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     [self initView];
 }
 -(void)initView{
-    //手机号
-    self.tf_phoneNum.layer.masksToBounds = YES;
-    self.tf_phoneNum.layer.cornerRadius = 4;
-    self.tf_phoneNum.layer.borderWidth = 1;
-    self.tf_phoneNum.delegate = self;
-    self.tf_phoneNum.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
-    self.tf_phoneNum.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
-    self.tf_phoneNum.text = BBUserDefault.userPhoneNumber;
-    self.tf_phoneNum.userInteractionEnabled = NO;
-    self.tf_phoneNum.leftViewMode = UITextFieldViewModeAlways;
-    [self.tf_phoneNum addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
-    
-    //验证码
-    self.verCode_btn.layer.masksToBounds = YES;
-    self.verCode_btn.layer.cornerRadius = 4;
-    self.tf_VerCode.layer.masksToBounds = YES;
-    self.tf_VerCode.layer.cornerRadius = 4;
-    self.tf_VerCode.layer.borderWidth = 1;
-    self.tf_VerCode.delegate = self;
-    self.tf_VerCode.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
-    self.tf_VerCode.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
-    self.tf_VerCode.leftViewMode = UITextFieldViewModeAlways;
-    [self.tf_VerCode addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
+
+ 
    
     //name
-    self.tf_Name.layer.masksToBounds = YES;
-    self.tf_Name.layer.cornerRadius = 4;
-    self.tf_Name.layer.borderWidth = 1;
     self.tf_Name.delegate = self;
-    self.tf_Name.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
-    self.tf_Name.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
-    self.tf_Name.leftViewMode = UITextFieldViewModeAlways;
     [self.tf_Name addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
     
     self.commit_btn.layer.masksToBounds = YES;
@@ -115,16 +86,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 }
 
 -(void)textfieldChange:(UITextField *)textField{
-    if (self.tf_phoneNum == textField) {
-        _phoneNum = textField.text;
-        NSLog(@"手机号%@",textField.text);
-        
-    }
-    if (self.tf_VerCode == textField) {
-        _verCodeNum = textField.text;
-        NSLog(@"验证码：%@",textField.text);
-        
-    }
+
     if (self.tf_Name == textField) {
         _name = textField.text;
         NSLog(@"name：%@",textField.text);
@@ -208,7 +170,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 
 
 - (IBAction)commitAction:(UIButton *)sender {
-    if ( _smsCode.length > 0  &&  _name.length > 0  &&  _imgfaceUrl != nil &&  _imgbackUrl!= nil) {
+    if ( _name.length > 0  &&  _imgfaceUrl.length >0 &&  _imgbackUrl.length > 0) {
         
         [self appShopRegisteredPost];
 
@@ -250,8 +212,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
         
         NSString * code  = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
-            
-            _smsCode = response[@"smsCode" ];
+     
             self.verCode_btn.enabled = YES;
         }
         [self.view makeToast:response[@"resultMsg"]  duration:2 position:@"center"];
@@ -271,7 +232,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 {
     NSDictionary * parma = @{
                              @"deliveryPhone":BBUserDefault.userPhoneNumber,
-                             @"Vcode":_smsCode,
+                             @"Vcode":@"",
                              @"deliveryName":_name,//姓名
                              @"frontUrl":_imgfaceUrl,
                              @"reverseUrl":_imgbackUrl,

@@ -304,7 +304,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             
             break;
         case SureOrderCellTypeGoodsListCell://商品类型
-            height = 70;
+            height = 85 +10;
             break;
         case SureOrderCellTypePayTypeCell://支付方式
             height = 44;

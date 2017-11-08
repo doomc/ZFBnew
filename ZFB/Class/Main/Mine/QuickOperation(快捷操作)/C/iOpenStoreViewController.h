@@ -12,16 +12,9 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
-@property (nonatomic , copy) NSString * phoneNum;//手机号
-@property (nonatomic , copy) NSString * verCode;//验证码
-@property (nonatomic , copy) NSString * email;//电子邮箱
-@property (nonatomic , copy) NSString * areaId;//区域id
-
-
 //输入框
 @property (weak, nonatomic) IBOutlet UITextField *tf_storeName;
 @property (weak, nonatomic) IBOutlet UITextField *tf_contactName;
-@property (weak, nonatomic) IBOutlet UITextField *tf_phoneNum;
 
 //营业图片
 @property (weak, nonatomic) IBOutlet UIImageView *licenseView;
@@ -38,6 +31,8 @@
 
 //地址
 @property (weak, nonatomic) IBOutlet UIButton *address_btn;
+@property (weak, nonatomic) IBOutlet UIButton *detailAddressBtn;
+
 //提交审核
 @property (weak, nonatomic) IBOutlet UIButton *commmit_btn;
 

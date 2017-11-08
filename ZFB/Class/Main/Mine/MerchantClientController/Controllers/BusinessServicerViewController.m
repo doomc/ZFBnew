@@ -35,12 +35,17 @@
 //获取经纬度
 #import <CoreLocation/CoreLocation.h>
 #import "CLLocation+MPLocation.h"
+
+#define  k_cellHeight 130
+#define  k_sectionHeight 90
+#define  k_footHeight 60
+
 typedef NS_ENUM(NSUInteger, SelectType) {
     SelectTypeHomePage, //选择首页
     SelectTypeOrderPage, //选择订单
     SelectTypeCaculater,//选择结算
 };
-@interface BusinessServicerViewController ()<ZFFooterCellDelegate, BusinessServicPopViewDelegate,UITableViewDelegate,UITableViewDataSource,ZFSendHomeListCellDelegate,BusinessSendOrderViewDelegate,CLLocationManagerDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate,ZFCheckTheProgressCellDelegate>
+@interface BusinessServicerViewController ()<ZFFooterCellDelegate, BusinessServicPopViewDelegate,UITableViewDelegate,UITableViewDataSource,ZFSendHomeListCellDelegate,BusinessSendOrderViewDelegate,CLLocationManagerDelegate,ZFCheckTheProgressCellDelegate>
 
 {
     //day
@@ -327,6 +332,10 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         _homeTableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49-64) style:UITableViewStylePlain];
         _homeTableView.delegate       = self;
         _homeTableView.dataSource     = self;
+        _homeTableView.backgroundColor = HEXCOLOR(0xf7f7f7);
+        _homeTableView.estimatedSectionFooterHeight = 0;
+        _homeTableView.estimatedSectionHeaderHeight = 0;
+        _homeTableView.estimatedRowHeight = 0;
         _homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _homeTableView.estimatedRowHeight = 0;
 
@@ -662,19 +671,19 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeOrderPage:
             switch (_servicType) {
                 case BusinessServicTypeWaitSendlist://待派单
-                    height = 118;
+                    height = k_cellHeight;
                     
                     break;
                 case BusinessServicTypeSending://配送中
-                    height = 118;
+                    height = k_cellHeight;
 
                     break;
                 case BusinessServicTypeWaitPay://待付款
-                    height = 118;
+                    height = k_cellHeight;
 
                     break;
                 case BusinessServicTypeDealComplete://交易完成
-                    height = 118;
+                    height = k_cellHeight;
 
                     break;
                 case BusinessServicTypeSureReturn://待确认退回
@@ -682,16 +691,16 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     break;
                 case BusinessServicTypeSended://已配送
-                    height = 118;
+                    height = k_cellHeight;
 
                     break;
                 case BusinessServicTypeCancelOrder://取消订单
                     
-                    height = 118;
+                    height = k_cellHeight;
                     break;
                 case BusinessServicTypeWiatOrder://待接单
                     
-                    height = 118;
+                    height = k_cellHeight;
 
                     break;
             }
@@ -833,19 +842,19 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             switch (_servicType) {
                     
                 case BusinessServicTypeWaitSendlist://待派单
-                    height = 82;
+                    height = k_sectionHeight;
                     
                     break;
                 case BusinessServicTypeSending://配送中
-                    height = 82;
+                    height = k_sectionHeight;
                     
                     break;
                 case BusinessServicTypeWaitPay://待付款
-                    height = 82;
+                    height = k_sectionHeight;
                     
                     break;
                 case BusinessServicTypeDealComplete://交易完成
-                    height = 82;
+                    height = k_sectionHeight;
                     
                     break;
                 case BusinessServicTypeSureReturn://待确认退回
@@ -853,16 +862,16 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     break;
                 case BusinessServicTypeSended://已配送
-                    height = 82;
+                    height = k_sectionHeight;
                     
                     break;
                 case BusinessServicTypeCancelOrder://取消订单
                     
-                    height = 82;
+                    height = k_sectionHeight;
 
                     break;
                 case BusinessServicTypeWiatOrder://待配送
-                    height = 82;
+                    height = k_sectionHeight;
                     
                     break;
             }
@@ -900,8 +909,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     //默认值
                     [cell.cancel_button setTitle:@"取消订单" forState:UIControlStateNormal];
                     [cell.payfor_button setTitle:@"派单" forState:UIControlStateNormal];
-                    NSLog(@"cell.orderId  === %@",cell.orderId );
-                    
+ 
                     footerView = cell;
                     
                 }
@@ -1039,18 +1047,18 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             
             switch (_servicType) {
                 case BusinessServicTypeWaitSendlist://待派单
-                    height = 50;
+                    height = k_footHeight;
                     break;
                 case BusinessServicTypeSending://配送中
-                    height = 50;
+                    height = k_footHeight;
                     
                     break;
                 case BusinessServicTypeWaitPay://待付款
-                    height = 50;
+                    height = k_footHeight;
                     
                     break;
                 case BusinessServicTypeDealComplete://交易完成
-                    height = 50;
+                    height = k_footHeight;
                     
                     break;
                 case BusinessServicTypeSureReturn://待确认退回
@@ -1058,15 +1066,15 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     break;
                 case BusinessServicTypeSended://已配送
-                    height = 50;
+                    height = k_footHeight;
                     
                     break;
                 case BusinessServicTypeCancelOrder://
-                    height = 50;
+                    height = k_footHeight;
                     
                     break;
                 case BusinessServicTypeWiatOrder://待配送
-                    height = 50;
+                    height = k_footHeight;
                     
                     break;
             }
@@ -2176,8 +2184,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 //既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    CGFloat sectionHeaderHeight = 80;
-    CGFloat sectionFooterHeight = 50;
+    CGFloat sectionHeaderHeight = k_sectionHeight;
+    CGFloat sectionFooterHeight = k_footHeight;
     CGFloat offsetY             = scrollView.contentOffset.y;
     if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
     {

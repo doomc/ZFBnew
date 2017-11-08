@@ -50,7 +50,9 @@
 //每个cell的大小，因为有indexPath，所以可以判断哪一组，或者哪一个item，可一个给特定的大小，等同于layout的itemSize属性
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return CGSizeMake((KScreenW - self.lb_totalNum.width )*0.3333 - 35,60);
+//    return CGSizeMake((KScreenW - self.lb_totalNum.width )*0.3333 - 35,65);
+    return CGSizeMake(65,65);
+    
 }
 // 设置整个组的缩进量是多少
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -63,7 +65,6 @@
     GoodsitemCell * cell = [self.order_collectionCell
                             dequeueReusableCellWithReuseIdentifier:@"GoodsitemCellid" forIndexPath:indexPath];
 
-    self.img_shenglve.hidden = NO;
     [cell.img_listImgView sd_setImageWithURL:[NSURL URLWithString:_images[indexPath.item] ] placeholderImage:nil];
     
     return cell;

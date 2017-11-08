@@ -13,9 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.defaultButton.clipsToBounds = YES;
-    self.defaultButton.layer.cornerRadius = 2;
-    
+ 
 }
 ///点击编辑
 - (IBAction)didEdit:(id)sender {
@@ -36,15 +34,16 @@
 {
     _list = list;
     self.lb_detailArress.text = list.postAddress;
-    self.lb_nameAndphoneNum.text = [NSString stringWithFormat:@"%@  %@",list.contactUserName,list.contactMobilePhone];
+    self.lb_name.text = list.contactUserName;
+    self.lb_phoneNum.text = list.contactMobilePhone;
     
     if ( list.defaultFlag == 1) {
         //设置默认
-        self.defaultButton.hidden = NO;
+        self.selectedButton.selected = YES;
     }else{
         //隐藏默认按钮
-        self.defaultButton.hidden = YES;
-        
+        self.selectedButton.selected = NO;
+
     }
     
 }
