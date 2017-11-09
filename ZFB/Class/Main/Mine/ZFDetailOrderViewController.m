@@ -335,7 +335,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         }else{
             
             ZFOrderDetailPaycashCell* payCell = [self.tableView dequeueReusableCellWithIdentifier:payCashDetailCellid forIndexPath:indexPath];
-            payCell.lb_realPay.text = [NSString stringWithFormat:@"¥%@",payRelPrice] ;
+            payCell.lb_realPay.text = [NSString stringWithFormat:@"¥%.2f",[payRelPrice floatValue]] ;
             payCell.lb_orderCreatTime.text = createTime;
             return payCell;
             
@@ -581,7 +581,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 {
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     NSString * listJsonString  = [NSString arrayToJSONString:_unpayOrderInfoArray];
-//    [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
+    [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
     [params setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
     [params setValue:_datetime forKey:@"datetime"];//yyyy-MM-dd HH:mm:ss（北京时间）
     [params setValue:_thirdUrlDic[@"notify_url"] forKey:@"notify_url"];//异步通知地址（用于接收订单支付通知）
@@ -591,7 +591,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     NSDictionary * dic  = [NSDictionary dictionaryWithDictionary:params];
   
     CheckstandViewController * payVC = [CheckstandViewController new];
-    payVC.amount = payRelPrice;
+    payVC.amount = [NSString stringWithFormat:@"%.2f",[payRelPrice floatValue]];
     payVC.notifyUrl = _thirdUrlDic[@"notify_url"];
     payVC.signDic = dic;
     [self.navigationController pushViewController:payVC animated:NO];

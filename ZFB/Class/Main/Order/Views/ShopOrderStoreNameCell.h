@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BussnissListModel.h"
 @interface ShopOrderStoreNameCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
+@property (weak, nonatomic) IBOutlet UILabel *lb_type;
+
+@property (strong, nonatomic)  BussnissUserStoreList * storeList;//商家清单
+
 
 @end

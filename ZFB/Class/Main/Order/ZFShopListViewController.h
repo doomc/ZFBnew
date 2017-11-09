@@ -12,6 +12,10 @@
 
  
 @property (nonatomic,strong) NSMutableArray * userGoodsArray;///商品列表
+@property (nonatomic,strong) NSMutableArray * userGoodsInfoJSON;
+
+@property (nonatomic,copy) NSString * postAddressId;
+
 
 
  

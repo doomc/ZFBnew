@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ZFOrderDetailPaycashCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *lb_realPay;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_orderCreatTime;
+
 @end

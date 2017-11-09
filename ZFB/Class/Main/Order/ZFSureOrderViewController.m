@@ -233,7 +233,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 -(void)creatCustomfooterView
 {
     NSString *buttonTitle = @"提交订单";
-    NSString *price       = @"¥0.00";
+    NSString *price       = @"¥0.0";
     NSString *caseOrder   = @"实付金额:";
     
     UIFont * font  =[UIFont systemFontOfSize:15];
@@ -493,6 +493,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         {
             ZFShopListViewController * shoplistVc =[[ZFShopListViewController alloc]init];
             shoplistVc.userGoodsArray = self.cmGoodsListArray;
+            shoplistVc.userGoodsInfoJSON = _userGoodsInfoJSON;
+            shoplistVc.postAddressId  = _postAddressId;
             [self.navigationController pushViewController:shoplistVc animated:YES];
         }
             break;

@@ -17,17 +17,10 @@
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    self.img_shopView.clipsToBounds = YES;
-    self.img_shopView.layer.borderWidth = 0.5;
-    self.img_shopView.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
-    
-    self.backGroundView.clipsToBounds = YES;
-    self.backGroundView.layer.borderWidth = 1;
-    self.backGroundView.layer.cornerRadius = 4;
-
-    self.backGroundView.layer.borderColor = HEXCOLOR(0xdedede).CGColor;
-    
     self.tf_message.delegate = self;
+    self.tf_message.layer.masksToBounds = YES;
+    self.tf_message.layer.cornerRadius = 4;
+    self.tf_message.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
     [self.tf_message addTarget:self action:@selector(changeTextmessAge:) forControlEvents:UIControlEventEditingChanged];
 }
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class Orderlist,Ordergoods;
+@class Orderlist,Ordergoods,OrderProper;
 @interface AllOrderModel : ResponseObject
 
 @property (nonatomic, assign) NSInteger status;
@@ -112,10 +112,18 @@
 
 @property (nonatomic, copy) NSString *original_price;
 
-@property (nonatomic, strong) NSArray *goods_properties;
+@property (nonatomic, strong) NSArray <OrderProper *>*goods_properties;
 
 @property (nonatomic, copy) NSString * is_comment;//0 是未评论 1 是已评论
-    
+
+
 
 @end
+@interface OrderProper : ResponseObject
+@property (nonatomic, copy) NSString * nameId;
+@property (nonatomic, copy) NSString * valueId;
+@property (nonatomic, copy) NSString * value;
+@property (nonatomic, copy) NSString * name;
 
+
+@end

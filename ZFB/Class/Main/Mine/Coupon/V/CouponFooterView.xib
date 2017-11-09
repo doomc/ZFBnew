@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,8 +21,8 @@
                         <constraint firstAttribute="width" constant="30" id="7Gh-m5-niy"/>
                         <constraint firstAttribute="height" constant="30" id="yjp-a3-4g6"/>
                     </constraints>
-                    <state key="normal" title="全选" image="select_normal.png"/>
-                    <state key="selected" image="select_red.png"/>
+                    <state key="normal" title="全选" image="unchecked.png"/>
+                    <state key="selected" image="selected2.png"/>
                     <connections>
                         <action selector="didClickChooseAction:" destination="9HB-KM-N7A" eventType="touchUpInside" id="YXs-5O-xvL"/>
                     </connections>
@@ -84,7 +84,7 @@
         </view>
     </objects>
     <resources>
-        <image name="select_normal.png" width="24" height="24"/>
-        <image name="select_red.png" width="24" height="24"/>
+        <image name="selected2.png" width="22" height="22"/>
+        <image name="unchecked.png" width="22" height="22"/>
     </resources>
 </document>

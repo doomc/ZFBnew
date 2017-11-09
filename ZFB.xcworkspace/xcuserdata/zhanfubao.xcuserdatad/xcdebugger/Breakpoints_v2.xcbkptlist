@@ -9,13 +9,173 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/PayController/CheckstandViewController.m"
-            timestampString = "531743473.43841"
+            filePath = "ZFB/Class/Main/Mine/QuickOperation(&#x5feb;&#x6377;&#x64cd;&#x4f5c;)/C/iOpenStoreViewController.m"
+            timestampString = "531914559.986918"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
+            landmarkName = "-appShopRegisteredPost"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[iOpenStoreViewController appShopRegisteredPost]"
+                  moduleName = "ZFB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/QuickOperation(%E5%BF%AB%E6%8D%B7%E6%93%8D%E4%BD%9C)/C/iOpenStoreViewController.m"
+                  timestampString = "531914562.285781"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "517"
+                  endingLineNumber = "517"
+                  offsetFromSymbolStart = "932">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__49-[iOpenStoreViewController appShopRegisteredPost]_block_invoke"
+                  moduleName = "ZFB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/QuickOperation(%E5%BF%AB%E6%8D%B7%E6%93%8D%E4%BD%9C)/C/iOpenStoreViewController.m"
+                  timestampString = "531914562.288128"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "518"
+                  endingLineNumber = "518"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Order/ZFShopListViewController.m"
+            timestampString = "531914559.987074"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "-listPost"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ZFShopListViewController listPost]"
+                  moduleName = "ZFB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Order/ZFShopListViewController.m"
+                  timestampString = "531914562.293283"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "148"
+                  endingLineNumber = "148"
+                  offsetFromSymbolStart = "84">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__36-[ZFShopListViewController listPost]_block_invoke"
+                  moduleName = "ZFB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Order/ZFShopListViewController.m"
+                  timestampString = "531914562.295787"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "149"
+                  endingLineNumber = "149"
+                  offsetFromSymbolStart = "108">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Mine/QuickOperation(&#x5feb;&#x6377;&#x64cd;&#x4f5c;)/C/iOpenStoreViewController.m"
+            timestampString = "531914559.987734"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
+            landmarkName = "-appShopRegisteredPost"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[iOpenStoreViewController appShopRegisteredPost]"
+                  moduleName = "ZFB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/QuickOperation(%E5%BF%AB%E6%8D%B7%E6%93%8D%E4%BD%9C)/C/iOpenStoreViewController.m"
+                  timestampString = "531914562.301346"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "517"
+                  endingLineNumber = "517"
+                  offsetFromSymbolStart = "932">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__49-[iOpenStoreViewController appShopRegisteredPost]_block_invoke"
+                  moduleName = "ZFB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/QuickOperation(%E5%BF%AB%E6%8D%B7%E6%93%8D%E4%BD%9C)/C/iOpenStoreViewController.m"
+                  timestampString = "531914562.303744"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "518"
+                  endingLineNumber = "518"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Mine/QuickOperation(&#x5feb;&#x6377;&#x64cd;&#x4f5c;)/C/iOpenStoreViewController.m"
+            timestampString = "531914559.987845"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "361"
+            endingLineNumber = "361"
+            landmarkName = "-didClassTwotypeId:AndTitle:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/Class/Main/Mine/QuickOperation(&#x5feb;&#x6377;&#x64cd;&#x4f5c;)/C/iOpenStoreViewController.m"
+            timestampString = "531914559.987938"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
+            landmarkName = "-didClassOnetypeId:AndTitle:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

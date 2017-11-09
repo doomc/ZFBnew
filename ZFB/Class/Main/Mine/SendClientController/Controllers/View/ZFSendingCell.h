@@ -11,6 +11,7 @@
 #import "BusinessOrderModel.h"
 #import "SendServiceOrderModel.h"
 #import "AllOrderProgress.h"
+#import "BussnissListModel.h"
 
 @protocol ZFSendingCellDelegate <NSObject>
 
@@ -27,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *img_SenlistView;
 @property (weak, nonatomic) IBOutlet UILabel *lb_Price;
 @property (weak, nonatomic) IBOutlet UILabel *lb_num;
+@property (weak, nonatomic) IBOutlet UILabel *lb_progrop;
 
 //共享
 @property (weak, nonatomic) IBOutlet UIButton *share_btn;
@@ -40,6 +42,7 @@
 @property (strong,nonatomic) BusinessOrdergoods * businesGoods ;
 @property (strong,nonatomic) SendServiceOrdergoodslist * sendGoods ;
 @property (strong,nonatomic) List * progressModel ;//进度查询模型
+@property (strong,nonatomic) BussnissGoodsInfoList * goodlist ;//商家清单
 
 
 @end

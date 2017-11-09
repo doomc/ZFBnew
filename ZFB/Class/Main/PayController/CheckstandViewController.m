@@ -207,7 +207,6 @@
     if (indexPath.section == 0) {
         _indexRow =  indexPath.row;
     }
-    
 }
 
 - (void)bizPayParterId:(NSString *)partnerId prepayId:(NSString *)prepayId package:(NSString *)package nonceStr:(NSString *)nonceStr timeStamp: (NSString *)timeStamp sign:(NSString *)sign

@@ -25,18 +25,20 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kRO-jb-YgR">
-                        <rect key="frame" x="211" y="10" width="37" height="24"/>
+                        <rect key="frame" x="215" y="11" width="35" height="22"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="是" image="select_normal.png">
+                        <state key="normal" title="是" image="unchecked.png">
                             <color key="titleColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <state key="selected" image="selected2.png"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rlC-WU-nqx">
-                        <rect key="frame" x="268" y="10" width="37" height="24"/>
+                        <rect key="frame" x="270" y="11" width="35" height="22"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="否" image="select_normal.png">
+                        <state key="normal" title="否" image="unchecked.png">
                             <color key="titleColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <state key="selected" image="selected2.png"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ad8-13-Lys">
                         <rect key="frame" x="0.0" y="43" width="320" height="0.5"/>
@@ -64,6 +66,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="select_normal.png" width="24" height="24"/>
+        <image name="selected2.png" width="22" height="22"/>
+        <image name="unchecked.png" width="22" height="22"/>
     </resources>
 </document>

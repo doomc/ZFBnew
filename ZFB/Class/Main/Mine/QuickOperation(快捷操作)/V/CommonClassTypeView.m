@@ -139,15 +139,15 @@ static NSString * identifier = @"SearchTypeCollectionCell";
     if (_isThemeType == YES) {
         CmgoodsClasstypelist * list = _classListArray[indexPath.item];
         NSLog(@"typeId ==== %ld",list.typeId);
-        if ([self.delegate respondsToSelector:@selector(didClicktypeId:AndTitle:)]) {
-            [self.delegate didClicktypeId:[NSString stringWithFormat:@"%ld",list.typeId] AndTitle:list.name];
+        if ([self.delegate respondsToSelector:@selector(didClassOnetypeId:AndTitle:)]) {
+            [self.delegate didClassOnetypeId:[NSString stringWithFormat:@"%ld",list.typeId] AndTitle:list.name];
         }
     }else{
         Nexttypelist * list = _brandListArray[indexPath.item];
         NSString * goodid = [NSString stringWithFormat:@"%ld",list.goodId];
         NSLog(@"goodid = = =%@",goodid);
-        if ([self.delegate respondsToSelector:@selector(didClicktypeId:AndTitle:)]) {
-            [self.delegate  didClicktypeId:goodid AndTitle:list.name];
+        if ([self.delegate respondsToSelector:@selector(didClassTwotypeId:AndTitle:)]) {
+            [self.delegate  didClassTwotypeId:goodid AndTitle:list.name];
         }
     }
 

@@ -35,11 +35,10 @@
 -(UITableView *)tableview
 {
     if (!_tableview ) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH ) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -64) style:UITableViewStylePlain];
         _tableview.delegate = self;
-        _tableview.estimatedRowHeight = 0;
-        _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableview.dataSource = self;
+        _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableview;
 }
@@ -54,6 +53,7 @@
     _isCommited = NO;//默认没有提交
     UIDevice *currentDevice = [UIDevice currentDevice];
     _deviceName = currentDevice.name;    //设备名称
+    
     [self.view addSubview:self.tableview];
     
     [self.tableview registerNib:[UINib nibWithNibName:@"ZFServiceEvaluteCell" bundle:nil] forCellReuseIdentifier:@"ZFServiceEvaluteCell"];
@@ -76,7 +76,7 @@
 {
     if (indexPath.section == 0) {
         if (_upImgArray.count > 0) {
-            return _cellHeight + 240 + 50 ;
+            return _cellHeight + 240 + 50 + 20;
         }
         return 113 + 240 + 50;
     }else{

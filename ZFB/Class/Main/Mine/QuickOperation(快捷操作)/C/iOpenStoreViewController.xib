@@ -83,11 +83,12 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uau-SU-T79">
-                                            <rect key="frame" x="110" y="5" width="95" height="40"/>
+                                            <rect key="frame" x="100" y="5" width="105" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="JK4-ep-b2X"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <inset key="imageEdgeInsets" minX="85" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="主题分类" image="down3.png">
                                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -97,11 +98,12 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0a4-bN-hqA">
-                                            <rect key="frame" x="220" y="5" width="95" height="40"/>
+                                            <rect key="frame" x="220" y="5" width="105" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="Lxw-wk-pnw"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <inset key="imageEdgeInsets" minX="86" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="选择" image="down3.png">
                                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -118,11 +120,11 @@
                                         <constraint firstItem="0a4-bN-hqA" firstAttribute="top" secondItem="J3k-WD-etm" secondAttribute="top" constant="5" id="Ef9-Kt-AyF"/>
                                         <constraint firstItem="1tD-lI-Y3M" firstAttribute="leading" secondItem="J3k-WD-etm" secondAttribute="leading" id="Lf7-YM-9as"/>
                                         <constraint firstItem="1tD-lI-Y3M" firstAttribute="centerY" secondItem="J3k-WD-etm" secondAttribute="centerY" id="Rz2-4S-ovC"/>
-                                        <constraint firstItem="Uau-SU-T79" firstAttribute="leading" secondItem="1tD-lI-Y3M" secondAttribute="trailing" constant="40" id="T1H-Yi-D8Q"/>
+                                        <constraint firstItem="Uau-SU-T79" firstAttribute="leading" secondItem="1tD-lI-Y3M" secondAttribute="trailing" constant="30" id="T1H-Yi-D8Q"/>
                                         <constraint firstItem="0a4-bN-hqA" firstAttribute="width" secondItem="Uau-SU-T79" secondAttribute="width" id="Up9-Xq-VsE"/>
                                         <constraint firstItem="Uau-SU-T79" firstAttribute="top" secondItem="J3k-WD-etm" secondAttribute="top" constant="5" id="ZyO-e7-Dh8"/>
                                         <constraint firstAttribute="height" constant="50" id="cfV-Qd-EBD"/>
-                                        <constraint firstAttribute="trailing" secondItem="0a4-bN-hqA" secondAttribute="trailing" constant="30" id="dTL-gl-0yc"/>
+                                        <constraint firstAttribute="trailing" secondItem="0a4-bN-hqA" secondAttribute="trailing" constant="20" id="dTL-gl-0yc"/>
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oS7-7c-pjk">

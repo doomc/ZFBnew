@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,7 +24,7 @@
                             <constraint firstAttribute="height" constant="20" id="0lJ-ZC-KHG"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSt-RL-c3k">
@@ -37,18 +37,27 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="自配" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="975-pG-a4s">
+                        <rect key="frame" x="280" y="14" width="25" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.97647058819999999" green="0.35294117650000001" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="lSt-RL-c3k" secondAttribute="trailing" id="2QC-tw-zh9"/>
                     <constraint firstAttribute="bottom" secondItem="lSt-RL-c3k" secondAttribute="bottom" id="9Jr-pS-2Dr"/>
                     <constraint firstItem="lSt-RL-c3k" firstAttribute="leading" secondItem="VCq-GR-ppm" secondAttribute="leading" id="BQ8-VS-2lS"/>
                     <constraint firstItem="UoF-gF-JU8" firstAttribute="centerY" secondItem="VCq-GR-ppm" secondAttribute="centerY" id="X8M-u5-yNc"/>
+                    <constraint firstItem="975-pG-a4s" firstAttribute="centerY" secondItem="UoF-gF-JU8" secondAttribute="centerY" id="YVa-eT-QtE"/>
+                    <constraint firstAttribute="trailing" secondItem="975-pG-a4s" secondAttribute="trailing" constant="15" id="du3-89-u2r"/>
                     <constraint firstItem="UoF-gF-JU8" firstAttribute="leading" secondItem="VCq-GR-ppm" secondAttribute="leading" constant="15" id="e9t-mT-NVN"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="lb_storeName" destination="UoF-gF-JU8" id="Xl5-Fq-Tz5"/>
+                <outlet property="lb_type" destination="975-pG-a4s" id="A9c-cv-eMP"/>
             </connections>
             <point key="canvasLocation" x="-65" y="47"/>
         </tableViewCell>

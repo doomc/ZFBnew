@@ -535,7 +535,7 @@
     [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:param success:^(id response) {
         if (self.refreshType  == RefreshTypeHeader) {
-#warning  -- -门店搜锁没有
+ 
         }
         [SVProgressHUD dismissWithDelay:1];
         [self endRefresh];

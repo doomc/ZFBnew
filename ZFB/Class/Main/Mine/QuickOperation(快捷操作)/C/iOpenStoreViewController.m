@@ -36,7 +36,9 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     NSString * _contactName;
 //    NSString * _contactPhone;
     BOOL  _isThemeType;// yes 一级列表  NO 二级列表
-    NSString * _currentTypeID;//当前一级列表的Id
+    NSString * _onceTypeID;//当前一级列表的Id
+    NSString * _secondTypeID;//当前2级列表的Id
+
     NSString * _themeTitle;//当前一级列表的Id
     NSString * _themeTitle2;//当前一级列表的Id
     //上传的图片
@@ -50,6 +52,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     
     NSString * _areaId;
     NSString * _address;//详细地址
+    BOOL isSure;//是否点击了确定   yes 点击了 NO，没点击
 
 }
 @property (strong, nonatomic) HXPhotoManager *manager;
@@ -115,13 +118,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 }
 -(void)initView{
     //手机号
-//    self.tf_storeName.layer.masksToBounds = YES;
-//    self.tf_storeName.layer.cornerRadius = 4;
-//    self.tf_storeName.layer.borderWidth = 1;
+
     self.tf_storeName.delegate = self;
-//    self.tf_storeName.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
-//    self.tf_storeName.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
-//    self.tf_storeName.leftViewMode = UITextFieldViewModeAlways;
     [self.tf_storeName addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
     
     //联系人
@@ -248,8 +246,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    [self.tf_contactName resignFirstResponder];
     [self.tf_storeName resignFirstResponder];
-
 }
 
 #pragma mark- 图片选择器的代理
@@ -264,9 +262,9 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                 [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
                     NSLog(@"%@",names);
                     if (state == 1) {
-                        _liceseImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+//                        _liceseImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
 
-//                        _liceseImgUrl =[NSString stringWithFormat:@"%@", names[0]];
+                        _liceseImgUrl =[NSString stringWithFormat:@"%@", names[0]];
 //                        _faceSuccess = YES;
                     }
                 }];
@@ -280,9 +278,9 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                     if (state == 1) {
                         
                         
-                        _idCardImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+//                        _idCardImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
 
-//                        _idCardImgUrl =[NSString stringWithFormat:@"%@", names[0]];
+                        _idCardImgUrl =[NSString stringWithFormat:@"%@", names[0]];
                     }
                 }];
             }
@@ -293,8 +291,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                 [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
                     NSLog(@"%@",names);
                     if (state == 1) {
-//                        _openLiceseImgUrl =[NSString stringWithFormat:@"%@", names[0]];
-                        _openLiceseImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+                        _openLiceseImgUrl =[NSString stringWithFormat:@"%@", names[0]];
+//                        _openLiceseImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
                     }
                 }];
             }
@@ -306,8 +304,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                 [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
                     NSLog(@"%@",names);
                     if (state == 1) {
-//                        _commitmentImgUrl = [NSString stringWithFormat:@"%@", names[0]];
-                        _commitmentImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+                        _commitmentImgUrl = [NSString stringWithFormat:@"%@", names[0]];
+//                        _commitmentImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
 
                         //                        _backSuccess = YES;
                     }
@@ -323,10 +321,11 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 #pragma mark - 主题类型 1级2级列表
 //1级列表
 - (IBAction)themeTypeOneClass:(id)sender {
-    _isThemeType = YES;
 
-    [self.themeType_btn setBackgroundColor:HEXCOLOR(0xf7f7f7)] ;
+    
+    [self.themeType_btn setBackgroundColor:HEXCOLOR(0xf7f7f7)] ;//1级
     [self.themeMan_btn setBackgroundColor:HEXCOLOR(0xffffff)] ;
+//    [self.themeMan_btn setTitle:@"" forState:UIControlStateNormal] ;
 
     [self classListTableVieWithGoodTypePostRequset];
 
@@ -334,48 +333,47 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 
 //2级列表
 - (IBAction)themeTypeTwoClass:(id)sender {
-    _isThemeType = NO;
-
-    if (_currentTypeID == nil) {
-        
+  
+    if (_onceTypeID == nil && isSure == NO) {
         [self.view makeToast:@"请先选择主题分类" duration:2 position:@"center"];
     }else{
-        
         [self.themeMan_btn setBackgroundColor:HEXCOLOR(0xf7f7f7)] ;
-        [self.themeType_btn setBackgroundColor:HEXCOLOR(0xffffff) ] ;
-        
-        [self secondClassListWithGoodTypePostRequsetTypeid:_currentTypeID];
-
+        [self.themeType_btn setBackgroundColor:HEXCOLOR(0xffffff)] ;
+        [self secondClassListWithGoodTypePostRequsetTypeid:_onceTypeID];
     }
-    
-
 }
 
 #pragma mark - CommonClassTypeViewDelegate  获取到当前typeId
--(void)didClicktypeId:(NSString *)typeId AndTitle:(NSString *)title
+//获取1级列表的id
+-(void)didClassOnetypeId:(NSString *) typeId AndTitle:(NSString * )title
 {
-     if (_isThemeType == YES) {
-         _currentTypeID = typeId;
-         _themeTitle = title;
-     }else{
-         _themeTitle2 = title;
-     }
+    _onceTypeID = typeId;
+    _themeTitle = title;
+    NSLog(@"%@ - %@",typeId,title);
 
+}
+//获取二级列表id
+-(void)didClassTwotypeId:(NSString *) typeId AndTitle:(NSString * )title
+{
+    _secondTypeID = typeId;
+    _themeTitle2 = title;
+    NSLog(@"%@- %@",typeId,title);
 }
 //关闭视图
 -(void)removeFromtoSuperView
 {
     [self.coverView removeFromSuperview];
- }
+    isSure = NO;
+}
 //确定之后的操作
 -(void)selectedAfter
 {
+    isSure = YES;
     if (_isThemeType == YES) {
         [self.themeType_btn setTitle:_themeTitle forState:UIControlStateNormal];
         [self removeFromtoSuperView];
 
     }else{
-        
         [self.themeMan_btn setTitle:_themeTitle2 forState:UIControlStateNormal];
         [self removeFromtoSuperView];
 
@@ -387,14 +385,14 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     [self removeFromtoSuperView];
 }
 
-#pragma mark - 补充店铺地址
+#pragma mark - 补充详细店铺地址
 - (IBAction)addressAction:(id)sender {
     
     AddressLocationMapViewController * locaVC = [AddressLocationMapViewController new];
     locaVC.searchReturnBlock = ^(NSString *name, CGFloat longitude, CGFloat latitude, NSString *postCode) {
         
         NSLog(@"name=%@, longitude=%f, latitude=%f, postCode=%@", name, longitude, latitude, postCode);
-        [self.address_btn setTitle:name forState:UIControlStateNormal];
+        [self.detailAddressBtn setTitle:name forState:UIControlStateNormal];
         _storeAddress  = name;
         _longitude =[NSString stringWithFormat:@"%.6f",longitude];
         _latitude = [NSString stringWithFormat:@"%.6f",latitude];
@@ -408,7 +406,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     ProvinceVC * vc = [ ProvinceVC new];
     vc.addressBlock = ^(NSString *areaId, NSString *address) {
         NSLog(@"第一级：%@,%@",areaId,address);
-        [self.detailAddressBtn setTitle:address forState:UIControlStateNormal];
+        [self.address_btn setTitle:address forState:UIControlStateNormal];
         _areaId = areaId;
         _address = address;
     };
@@ -419,6 +417,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 - (IBAction)commitAction:(id)sender {
  
     if (_storeName.length > 0 && _contactName.length > 0  && _areaId.length > 0 && _address.length > 0 && _commitmentImgUrl.length > 0 && _liceseImgUrl.length > 0 &&  _idCardImgUrl.length >0  && _openLiceseImgUrl.length > 0 && _commitmentImgUrl.length > 0 ) {
+       
         [self appShopRegisteredPost];
 
     }else{
@@ -443,16 +442,14 @@ typedef NS_ENUM(NSUInteger, PickerType) {
             }
             NSLog(@"classTypeArray:%@",self.classTypeArray);
             [self creatCoverView];
-
-            self.typeView.isThemeType = YES;
+     
+            self.typeView.isThemeType = _isThemeType = YES;
             self.typeView.classListArray = self.classTypeArray;
-
             [self.typeView reloadCollctionView];
 
         }
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
-        
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
@@ -478,7 +475,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
        
             [self creatCoverView];
 
-            self.typeView.isThemeType = NO;
+            self.typeView.isThemeType = _isThemeType = NO;
             self.typeView.brandListArray = self.themeArray;
             [self.typeView reloadCollctionView];
 
@@ -499,8 +496,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     NSDictionary * parma = @{
                              @"mobilePhone":BBUserDefault.userPhoneNumber,
                              @"email":@"",
-                             @"serviceType":_themeTitle,//一级类型
-                             @"bussinessType":_themeTitle2,//二级类型
+                             @"serviceType":_onceTypeID,//一级类型
+                             @"bussinessType":_secondTypeID,//二级类型
                              
                              @"businessLicense":_liceseImgUrl,//营业执照
                              @"icFaceAttachId":_idCardImgUrl,//身份证正面照
@@ -519,9 +516,12 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     [SVProgressHUD showWithStatus:@"由于上传图片过多,上传较慢,请耐心等待"];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/appShopRegistered",zfb_baseUrl] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
-            
-            
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [SVProgressHUD showSuccessWithStatus:@"提交成功，等待审核"];
+ 
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSLog(@"延迟2.0秒后打印出来的日志！");
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            });
             
         }else{
             

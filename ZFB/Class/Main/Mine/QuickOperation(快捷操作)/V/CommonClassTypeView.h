@@ -9,14 +9,16 @@
 #import <UIKit/UIKit.h>
 @protocol CommonClassTypeViewDelegate <NSObject>
 
-//获取二级列表
--(void)didClicktypeId:(NSString *) typeId AndTitle:(NSString * )title;
+//获取1级列表的id
+-(void)didClassOnetypeId:(NSString *) typeId AndTitle:(NSString * )title;
+
+//获取二级列表id
+-(void)didClassTwotypeId:(NSString *) typeId AndTitle:(NSString * )title;
 
 //关闭视图
 -(void)removeFromtoSuperView;
 //选择后的视图
 -(void)selectedAfter;
-
 
 
 @end

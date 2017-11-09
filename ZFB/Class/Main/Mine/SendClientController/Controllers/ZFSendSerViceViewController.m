@@ -802,14 +802,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 //周
                 cell.lb_weekCreatTime.text = _weekodate_time;
                 cell.lb_weekOrderNum.text  = _weekdistriCount;
-                cell.lb_weekPriceFree.text = _weekOrderDeliveryFee;
+                cell.lb_weekPriceFree.text = [NSString stringWithFormat:@"%.2f",[_weekOrderDeliveryFee floatValue]];
                 
                 
                 
                 //月
                 cell.lb_monthCreatTime.text = _monthodate_time;
                 cell.lb_monthOrderNum.text  = _monthdistriCount;
-                cell.lb_monthPriceFree.text = _monthOrderDeliveryFee;
+                cell.lb_monthPriceFree.text = [NSString stringWithFormat:@"%.2f",[_monthOrderDeliveryFee floatValue]] ;
                 
                 return cell;
     
@@ -936,7 +936,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         }
         
     }];
-    
     
     _servicType = type;
     

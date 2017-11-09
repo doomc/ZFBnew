@@ -13,8 +13,16 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
+-(void)setStoreList:(BussnissUserStoreList *)storeList
+{
+    _storeList = storeList;
+    self.lb_type.text = storeList.deliveryTypeName;
+    self.lb_storeName.text = storeList.storeName;
 
+    
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

@@ -114,8 +114,8 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         //全选按钮
         _allSelectedButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_allSelectedButton addTarget:self action:@selector(clickAllGoodsSelected:) forControlEvents:UIControlEventTouchUpInside];
-        [_allSelectedButton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
-        [_allSelectedButton setImage:[UIImage imageNamed:@"select_red"] forState:UIControlStateSelected];
+        [_allSelectedButton setImage:[UIImage imageNamed:@"unchecked"] forState:UIControlStateNormal];
+        [_allSelectedButton setImage:[UIImage imageNamed:@"selected2"] forState:UIControlStateSelected];
         [_underFootView addSubview:_allSelectedButton];
         
         

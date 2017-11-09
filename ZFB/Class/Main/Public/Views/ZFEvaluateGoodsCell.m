@@ -34,9 +34,7 @@
     [self initTextView];
   
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    self.headImg.clipsToBounds = YES;
-    self.headImg.layer.cornerRadius =  35;
+ 
     
     //创建评价
     XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:self.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:YES];
@@ -58,8 +56,8 @@
 -(void)initTextView
 {
     //textview
-    self.textView.zw_limitCount = 150;//个数显示
-    self.textView.zw_labHeight = 20;//高度
+//    self.textView.zw_limitCount = 150;//个数显示
+//    self.textView.zw_labHeight = 20;//高度
     self.textView.delegate = self;
     self.textView.placeholder = @"请输入评价,150字以内哦~";
     
@@ -105,7 +103,8 @@
 -(void)initPickerView
 {
     self.photoView                 = [HXPhotoView photoManager:self.manager];
-    self.photoView.frame           = CGRectMake(0, 0, KScreenW - 30 , (KScreenW - 30-3*5)/4);
+//    self.photoView.frame           = CGRectMake(0, 0, KScreenW - 30 , (KScreenW - 30-3*5)/4);
+    self.photoView.frame           = CGRectMake(0, 0, KScreenW - 30 , (KScreenW - 30)/4-3*5);
     self.photoView.delegate        = self;
     self.photoView.backgroundColor = [UIColor whiteColor];
     [self.pickerView addSubview:self.photoView];
@@ -154,15 +153,13 @@
 //图片管理器
 - (HXPhotoManager *)manager {
     if (!_manager) {
-        _manager                    = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhotoAndVideo];
+        _manager                    = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhoto];
         _manager.openCamera         = YES;
         _manager.cacheAlbum         = YES;
-        _manager.lookLivePhoto      = YES;
         _manager.open3DTouchPreview = YES;
         _manager.cameraType         = HXPhotoManagerCameraTypeSystem;
         _manager.photoMaxNum        = 5;
-        _manager.videoMaxNum        = 5;
-        _manager.maxNum             = 8;
+        _manager.maxNum             = 6;
         _manager.saveSystemAblum    = NO;
     }
     return _manager;

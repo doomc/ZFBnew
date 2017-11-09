@@ -45,6 +45,16 @@
     self.lb_sendListTitle.text =  _goods.goods_name;
     self.lb_Price.text =[NSString stringWithFormat:@"¥%@", goods.purchase_price];
     [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
+ 
+    NSArray * nameArr =   goods.goods_properties;
+    for (NSDictionary * valueDic in nameArr) {
+        
+    }
+    for (NSString  * name in goods.goods_properties) {
+        [nameArr addObject:name];
+    }
+    
+//    self.lb_progrop.text =
 }
 //配送端数据
 -(void)setSendGoods:(SendServiceOrdergoodslist *)sendGoods
@@ -68,6 +78,14 @@
     [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:progressModel.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
 }
 
+-(void)setGoodlist:(BussnissGoodsInfoList *)goodlist
+{
+    _goodlist = goodlist;
+    self.lb_num.text = [NSString stringWithFormat:@" x %@",goodlist.goodsNum];
+    self.lb_sendListTitle.text =  goodlist.goodsName;
+    self.lb_Price.text =[NSString stringWithFormat:@"¥%@", goodlist.storePrice];
+    [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:goodlist.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
+}
 
 #pragma - mark 点击共享
 - (IBAction)didShareAction:(id)sender {

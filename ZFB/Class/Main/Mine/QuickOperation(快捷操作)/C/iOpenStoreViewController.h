@@ -26,8 +26,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *letterOfCommitmentView;
 
 //主题类型
-@property (weak, nonatomic) IBOutlet UIButton *themeType_btn;
-@property (weak, nonatomic) IBOutlet UIButton *themeMan_btn;
+@property (weak, nonatomic) IBOutlet UIButton *themeType_btn;//1级
+@property (weak, nonatomic) IBOutlet UIButton *themeMan_btn;//2级
 
 //地址
 @property (weak, nonatomic) IBOutlet UIButton *address_btn;

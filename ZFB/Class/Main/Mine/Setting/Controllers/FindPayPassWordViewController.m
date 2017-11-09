@@ -125,19 +125,19 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                 switch (_pickType) {
                     case PickerTypeFace:
                         
-//                        _faceImgUrl = [NSString stringWithFormat:@"%@",names[0]];
-                        _faceImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,names[0]];
+                        _faceImgUrl = [NSString stringWithFormat:@"%@",names[0]];
+//                        _faceImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,names[0]];
                         break;
                     case PickerTypeBack:
              
-//                        _backImgUrl = [NSString stringWithFormat:@"%@",names[0]];
-                        _backImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,names[0]];
+                        _backImgUrl = [NSString stringWithFormat:@"%@",names[0]];
+//                        _backImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,names[0]];
 
                         break;
                     case PickerTypeHand:
                         
-//                        _handImgUrl = [NSString stringWithFormat:@"%@",names[0]];
-                        _handImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,names[0]];
+                        _handImgUrl = [NSString stringWithFormat:@"%@",names[0]];
+//                        _handImgUrl = [NSString stringWithFormat:@"%@%@",aliOSS_baseUrl,names[0]];
 
                         break;
                     default:

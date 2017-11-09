@@ -27,11 +27,13 @@
 
 #import <Foundation/NSObject.h>
 #import <Foundation/NSObjCRuntime.h>
+#import <Foundation/NSSet.h>
 
 #import <UIKit/UITextInputTraits.h>
-#import <UIKit/UIView.h>
 
-@class UIFont;
+@class UIFont, UIColor, UITapGestureRecognizer, UIView, UIImage;
+
+@class NSString;
 
 ///---------------------
 /// @name IQToolbar tags
@@ -123,6 +125,11 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nullable, nonatomic, strong) UIColor *toolbarTintColor;
 
 /**
+ This is used for toolbar.barTintColor. Default is nil and uses white color.
+ */
+@property(nullable, nonatomic, strong) UIColor *toolbarBarTintColor;
+
+/**
  IQPreviousNextDisplayModeDefault:      Show NextPrevious when there are more than 1 textField otherwise hide.
  IQPreviousNextDisplayModeAlwaysHide:   Do not show NextPrevious buttons in any case.
  IQPreviousNextDisplayModeAlwaysShow:   Always show nextPrevious buttons, if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
@@ -178,6 +185,9 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign) BOOL shouldResignOnTouchOutside;
 
+/** TapGesture to resign keyboard on view's touch. It's a readonly property and exposed only for adding/removing dependencies if your added gesture does have collision with this one */
+@property(nonnull, nonatomic, strong, readonly) UITapGestureRecognizer  *resignFirstResponderGesture;
+
 /**
  Resigns currently first responder field.
  */
@@ -229,6 +239,17 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  If YES, then always consider UINavigationController.view begin point as {0,0}, this is a workaround to fix a bug #464 because there are no notification mechanism exist when UINavigationController.view.frame gets changed internally.
  */
 @property(nonatomic, assign) BOOL shouldFixInteractivePopGestureRecognizer;
+
+#ifdef __IPHONE_11_0
+///---------------------------
+/// @name Safe Area
+///---------------------------
+
+/**
+ If YES, then library will try to adjust viewController.additionalSafeAreaInsets to automatically handle layout guide. Default is NO.
+ */
+@property(nonatomic, assign) BOOL canAdjustAdditionalSafeAreaInsets;
+#endif
 
 ///---------------------------------------------
 /// @name Class Level enabling/disabling methods

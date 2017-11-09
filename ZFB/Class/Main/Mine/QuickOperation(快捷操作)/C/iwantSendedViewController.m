@@ -142,9 +142,9 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                         NSLog(@"%@",names);
                         if (state == 1) {
                             
-                            _imgfaceUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+//                            _imgfaceUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
 
-//                            _imgfaceUrl =[NSString stringWithFormat:@"%@",  names[0]];
+                            _imgfaceUrl =[NSString stringWithFormat:@"%@",  names[0]];
                             _faceSuccess = YES;
                         }
                     }];
@@ -156,9 +156,9 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                     [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
                         NSLog(@"%@",names);
                         if (state == 1) {
-                            _imgbackUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
+//                            _imgbackUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
 
-//                            _imgbackUrl =[NSString stringWithFormat:@"%@", names[0]];
+                            _imgbackUrl =[NSString stringWithFormat:@"%@", names[0]];
                             _backSuccess = YES;
                         }
                     }];
@@ -243,9 +243,12 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/deliveryman",zfb_baseUrl] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
            
-            [self.navigationController popToRootViewControllerAnimated:YES];
-
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSLog(@"延迟2.0秒后打印出来的日志！");
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            });
             
         }else{
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
