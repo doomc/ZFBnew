@@ -9916,7 +9916,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;
@@ -9995,8 +9995,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "845799b7-9485-4679-90c3-9e6f87dff827";
-				PROVISIONING_PROFILE_SPECIFIER = iOSD1.0.1Develpment;
+				PROVISIONING_PROFILE = "958a787d-2271-404a-b740-05d1239fc953";
+				PROVISIONING_PROFILE_SPECIFIER = IOS1.0.1diStribution;
 			};
 			name = Debug;
 		};
@@ -10008,7 +10008,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;
@@ -10087,8 +10087,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "845799b7-9485-4679-90c3-9e6f87dff827";
-				PROVISIONING_PROFILE_SPECIFIER = iOSD1.0.1Develpment;
+				PROVISIONING_PROFILE = "958a787d-2271-404a-b740-05d1239fc953";
+				PROVISIONING_PROFILE_SPECIFIER = IOS1.0.1diStribution;
 			};
 			name = Release;
 		};

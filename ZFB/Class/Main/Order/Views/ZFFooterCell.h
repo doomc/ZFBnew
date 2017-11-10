@@ -39,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_totalPrice;
 @property (weak, nonatomic) IBOutlet UIButton *cancel_button;
 @property (weak, nonatomic) IBOutlet UIButton *payfor_button;
+@property (weak, nonatomic) IBOutlet UILabel *lb_hjkey;//阿黄添加的字段
 
 
 @property (nonatomic, strong) Orderlist * orderlist ;

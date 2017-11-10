@@ -120,12 +120,13 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 
         if (indexPath.row == 0) {
             rowCell.isEdited = YES;//_isSavedNickName;
+            rowCell.tf_contentTextfiled.enabled = NO;
+            if (_nickName.length > 0) { //如果当前输入有值
+                rowCell.tf_contentTextfiled.text = _nickName;
 
-            if ([_nickName isEqualToString:@""] || _nickName == nil) {
+            }else{
                 rowCell.tf_contentTextfiled.text = BBUserDefault.nickName;
-
             }
-            rowCell.tf_contentTextfiled.text = _nickName;
      
         }
         else if (indexPath.row == 1) {
@@ -195,6 +196,22 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     if (indexPath.section == 1){
         
         if (indexPath.row == 0) {
+            JXTAlertController * alertVC  =[ JXTAlertController alertControllerWithTitle:@"编辑昵称" message:nil preferredStyle:UIAlertControllerStyleAlert ];
+            
+            [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                [textField addTarget:self action:@selector(changeNickName:) forControlEvents:UIControlEventEditingChanged];
+                 textField.placeholder = @"编辑昵称";
+            }];
+            UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self.tableView reloadData];
+            }];
+            [alertVC addAction: cancel];
+            [alertVC addAction: sure];
+
+            [self presentViewController:alertVC animated:YES completion:nil];
+
             
         }
         else if (indexPath.row == 1) {
@@ -242,9 +259,7 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
                     
                 }];
                 [alertVC addAction: sure];
-                
                 [self presentViewController:alertVC animated:NO completion:^{
-                    
                 }];
 
                 NSLog(@"不做操作");
@@ -285,9 +300,9 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 }
 
 #pragma mark  -  ZFSettingRowCellDelegate
--(void)changeNickName:(NSString *)nickName
+-(void)changeNickName:(UITextField  *)textField
 {
-    _nickName = nickName;
+    _nickName = textField.text;
     
 }
 #pragma mark -  保存用户信息getUserInfoUpdate  //1. 男 2.女 3保密

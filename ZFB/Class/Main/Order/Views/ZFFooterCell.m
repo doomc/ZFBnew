@@ -33,7 +33,7 @@
     [self.cancel_button addTarget:self action:@selector(cancel_buttonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.payfor_button addTarget:self action:@selector(payfor_buttonAction) forControlEvents:UIControlEventTouchUpInside];
     
-    
+    _lb_hjkey.hidden = YES;
 }
 //设置待确认退回
 -(void)setProgressModel:(List *)progressModel
@@ -54,7 +54,7 @@
     deliveryIdNormal        = orderlist.deliveryId;
     orderDetail             = orderlist.orderDetail;
     orderStoreName          = orderlist.storeName;
-    
+    _lb_hjkey.text = orderlist.partRefund;
 }
 
 ///服务端订单goodlist

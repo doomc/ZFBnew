@@ -829,7 +829,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             Orderlist  * footList = self.orderListArray[section];
             cell.orderlist        = footList;
             cell.section          = section;
-            
+            cell.lb_hjkey.hidden = NO;
             [cell.cancel_button setHidden:YES];
             [cell.payfor_button setHidden: YES];
             //            [cell.payfor_button setTitle:@"晒单" forState:UIControlStateNormal];
@@ -1208,6 +1208,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     Ordergoods * goods = goodArray[indexPath.row];
     PublishShareViewController *  publishvc = [PublishShareViewController new];
     publishvc.goodId = goods.goodsId;
+    publishvc.goodsPrice = [NSString stringWithFormat:@"%.2f",[goods.purchase_price floatValue]];
     [self.navigationController pushViewController:publishvc animated:NO];
 }
 

@@ -59,6 +59,4 @@
 
 
 
-@property (nonatomic, strong) NSArray<BussnissgoodsProp *> *goodsProp;
-
 @end

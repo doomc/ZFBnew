@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet FSTextView *textView;
 
 @property (copy, nonatomic) NSString * goodId;
+@property (copy, nonatomic) NSString * goodsPrice;
 
 @property (weak, nonatomic) IBOutlet UIButton *commitBtn;
 

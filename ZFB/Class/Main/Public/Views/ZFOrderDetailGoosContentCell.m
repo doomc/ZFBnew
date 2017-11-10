@@ -31,10 +31,28 @@
     self.lb_count.text = [NSString stringWithFormat:@"x %@",_goodlist.goodsCount];
     [self.img_orderDetailView sd_setImageWithURL:[NSURL URLWithString:_goodlist.coverImgUrl] placeholderImage:nil];
     
-    
+    if ([self isEmptyArray:goodlist.goodsProperties]) {
+        NSLog(@"这是个空数组");
+        self.lb_suk.text = @"";
+    }else{
+        NSMutableArray * mutNameArray = [NSMutableArray array];
+        for (OrderGoodsProperties * pro in goodlist.goodsProperties) {
+            NSString * value =  pro.value;
+            [mutNameArray addObject:value];
+            NSLog(@"name = %@",value);
+        }
+        self.lb_suk.text = [NSString stringWithFormat:@"规格:%@",[mutNameArray componentsJoinedByString:@" "]];
+    }
     
     
 }
+
+#pragma mark - 判断是不是空数组
+- (BOOL)isEmptyArray:(NSArray *)array
+{
+    return (array.count == 0 || array == nil || [array isKindOfClass:[NSNull class]]);
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

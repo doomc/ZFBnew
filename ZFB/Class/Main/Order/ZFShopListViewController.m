@@ -53,7 +53,7 @@
     self.mytableView            = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-64) style:UITableViewStylePlain];
     self.mytableView.delegate   = self;
     self.mytableView.dataSource = self;
-    self.mytableView.backgroundColor = HEXCOLOR(0xf7f7f7);
+    self.mytableView.backgroundColor = HEXCOLOR(0xffffff);
 
     [self.view addSubview:self.mytableView];
     self.mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -79,8 +79,9 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    ShopOrderStoreNameCell * titleCell = [self.zfb_tableView
-                                       dequeueReusableCellWithIdentifier:@"ShopOrderStoreNameCell"];
+ 
+    ShopOrderStoreNameCell * titleCell = [self.mytableView
+                                          dequeueReusableCellWithIdentifier:@"ShopOrderStoreNameCell"];
     if (self.storeArray.count > 0) {
         BussnissUserStoreList  * sectionList = self.storeArray[section];
         titleCell.storeList = sectionList;
@@ -90,8 +91,9 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    BSListFooterCell * footCell = [self.zfb_tableView
-                                          dequeueReusableCellWithIdentifier:@"BSListFooterCell"];
+ 
+    BSListFooterCell * footCell = [self.mytableView
+                                   dequeueReusableCellWithIdentifier:@"BSListFooterCell"];
     return footCell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -149,9 +151,11 @@
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
             BussnissListModel * listModel = [BussnissListModel mj_objectWithKeyValues:response];
+    
             for (BussnissUserStoreList * storelist in listModel.userGoodsList) {
                 [self.storeArray addObject:storelist];
             }
+            [self.mytableView reloadData];
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
             [SVProgressHUD dismiss];
 

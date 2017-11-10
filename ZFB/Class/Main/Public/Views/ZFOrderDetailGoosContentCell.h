@@ -18,6 +18,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_count;
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_suk;
+
 @property (nonatomic , strong) DetailGoodslist * goodlist;
 
 @end

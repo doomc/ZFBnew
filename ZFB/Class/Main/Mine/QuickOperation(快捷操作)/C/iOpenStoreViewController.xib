@@ -20,7 +20,7 @@
                 <outlet property="licenseView" destination="iTb-uM-TbJ" id="geH-Hs-oad"/>
                 <outlet property="openLicenceView" destination="Wwb-ah-pi6" id="kua-Vn-vNC"/>
                 <outlet property="scrollView" destination="yc9-fV-qtO" id="QbW-Wv-3am"/>
-                <outlet property="tf_contactName" destination="cdt-B2-WlU" id="anf-bJ-31M"/>
+                <outlet property="tf_contactName" destination="cdt-B2-WlU" id="Qkp-Xw-lE6"/>
                 <outlet property="tf_storeName" destination="bgH-gf-HXh" id="B8v-e0-7rd"/>
                 <outlet property="themeMan_btn" destination="0a4-bN-hqA" id="I8V-Gh-jOH"/>
                 <outlet property="themeType_btn" destination="Uau-SU-T79" id="UOr-tI-cJB"/>

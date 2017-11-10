@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@class SendServiceStoreinfomap,SendServiceOrdergoodslist;
+@class SendServiceStoreinfomap,SendServiceOrdergoodslist,SendServiceGoodsProperties;
 @interface SendServiceOrderModel : ResponseObject
 
 @property (nonatomic, copy) NSString *resultMsg;
@@ -51,8 +51,6 @@
 
 @property (nonatomic, assign) NSInteger storePrice;
 
-@property (nonatomic, copy) NSString *goodsProperties;
-
 @property (nonatomic, assign) NSInteger goodsCount;
 
 @property (nonatomic, assign) NSInteger concessionalPrice;
@@ -69,5 +67,16 @@
 
 @property (nonatomic, assign) NSInteger goodsId;
 
+@property (nonatomic, strong) NSArray<SendServiceGoodsProperties *> *goodsProperties;
+
+
 @end
 
+@interface SendServiceGoodsProperties : ResponseObject
+
+@property (nonatomic, copy) NSString *nameId;
+@property (nonatomic, copy) NSString *value;
+@property (nonatomic, copy) NSString *valueId;
+@property (nonatomic, copy) NSString *name;
+
+@end

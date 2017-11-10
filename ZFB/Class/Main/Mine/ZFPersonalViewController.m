@@ -362,19 +362,20 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 
     QuickOperationCell * quickCell = [self.myTableView dequeueReusableCellWithIdentifier:@"QuickOperationCell" forIndexPath:indexPath];
     if ([_shopFlag isEqualToString:@"1"] || [_courierFlag isEqualToString:@"1"] ) {
-        quickCell.unCheckView.hidden = YES;
+        quickCell.unCheckView.hidden = YES; //没有审核过的视图隐藏
+    }
+    if ([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) {
+         quickCell.unCheckView.hidden = NO;//显示
     }
     if ([_shopFlag isEqualToString:@"1"]){
         quickCell.lb_changeName.text = @"切换到商户端";
         quickCell.checkedView.hidden = NO;
-
     }
     if ([_courierFlag isEqualToString:@"1"]) {
         quickCell.lb_changeName.text = @"切换到配送端";
         quickCell.checkedView.hidden = NO;
-
     }
-
+  
     quickCell.delegate = self;
     return quickCell;
 

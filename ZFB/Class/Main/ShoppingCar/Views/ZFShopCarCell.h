@@ -38,8 +38,6 @@
 @property (strong,nonatomic) ShopGoodslist  * goodlist;
 
 
-
-
 #pragma mark - 正常视图
 @property (weak, nonatomic) IBOutlet UIView *normalBackView;
 @property (weak, nonatomic) IBOutlet UIImageView *img_shopCar;
@@ -50,6 +48,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *tf_result;//加减出的结果
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;//左边选择按钮
 
+@property (weak, nonatomic) IBOutlet UILabel *lb_prod;
+@property (weak, nonatomic) IBOutlet UILabel *lb_editprod;
 
 #pragma mark - 编辑后的视图
 @property (weak, nonatomic) IBOutlet UIView *editBackView;

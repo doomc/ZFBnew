@@ -193,7 +193,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         [self configCell:cell indexPath:indexPath];
         
     }];
-    return actualHeight >= 100 ? actualHeight : 92;
+    return actualHeight >= 140 ? actualHeight : 130;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -248,6 +248,22 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     cell.editlb_price.text  = [NSString stringWithFormat:@"¥%@",goodslist.netPurchasePrice];
     cell.editlb_title.text  = goodslist.goodsName;
     cell.editTf_result.text = [NSString stringWithFormat:@"%.ld",goodslist.goodsCount];
+    
+    if ([self isEmptyArray:goodslist.goodsProp]) {
+        NSLog(@"这是个空数组");
+        cell.lb_prod.text = @"";
+        cell.lb_editprod.text = @"";
+        
+    }else{
+        NSMutableArray * mutNameArray = [NSMutableArray array];
+        for (ShopGoodsprop * pro in goodslist.goodsProp) {
+            NSString * value =  pro.value;
+            [mutNameArray addObject:value];
+            NSLog(@"name = %@",value);
+        }
+        cell.lb_prod.text = [NSString stringWithFormat:@"规格:%@",[mutNameArray componentsJoinedByString:@" "]];
+        cell.lb_editprod.text = [NSString stringWithFormat:@"规格:%@",[mutNameArray componentsJoinedByString:@" "]];
+    }
     
     // 正常模式下面 非编辑
     if (!shopList.ShoppcartlistIsEditing)

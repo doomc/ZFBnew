@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
  
-@class DetailShoppcartlist,DetailGoodslist,Orderdetails,Deliveryinfo,Unpayorderinfo,DetailcmUserInfo;
+@class DetailShoppcartlist,DetailGoodslist,Orderdetails,Deliveryinfo,Unpayorderinfo,DetailcmUserInfo,OrderGoodsProperties;
 @interface DetailOrderModel : ResponseObject
 
 
@@ -69,8 +69,22 @@
 
 @property (nonatomic, copy) NSString *purchasePrice;
 
-@end
+@property (nonatomic, strong) NSArray <OrderGoodsProperties *> *goodsProperties;
 
+@end
+@interface OrderGoodsProperties : ResponseObject
+
+@property (nonatomic, copy) NSString *nameId;
+
+@property (nonatomic, copy) NSString *valueId;
+
+@property (nonatomic, copy) NSString *name;
+
+@property (nonatomic, copy) NSString *value;
+
+
+
+@end
 @interface Orderdetails : ResponseObject
 
 @property (nonatomic, copy) NSString * payRelPrice;

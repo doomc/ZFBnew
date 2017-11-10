@@ -15,6 +15,7 @@
 
 #import "CommonClassTypeView.h"
 #import "ProvinceVC.h"
+#import "IQKeyboardManager.h"
 
 typedef NS_ENUM(NSUInteger, PickerType) {
     PickerTypeLicese = 0,//营业执照
@@ -52,7 +53,9 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     
     NSString * _areaId;
     NSString * _address;//详细地址
-    BOOL isSure;//是否点击了确定   yes 点击了 NO，没点击
+    BOOL _isSureFirst;//是否点击了确定   yes 点击了 NO，没点击
+    BOOL _isSureSecond;//是否点击了确定   yes 点击了 NO，没点击
+    BOOL _isSelectedBtn;//是否点击了确定   yes 点击了 NO，没点击
 
 }
 @property (strong, nonatomic) HXPhotoManager *manager;
@@ -113,7 +116,10 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     // Do any additional setup after loading the view from its nib.
     self.scrollView.delegate = self;
     self.title  = @"我要开店";
-
+    _isSureFirst = NO;
+    _isSureSecond = NO;
+    _isSelectedBtn = NO;
+ 
     [self initView];
 }
 -(void)initView{
@@ -126,13 +132,11 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 //    self.tf_contactName.layer.masksToBounds = YES;
 //    self.tf_contactName.layer.cornerRadius = 4;
 //    self.tf_contactName.layer.borderWidth = 1;
-    self.tf_contactName.delegate = self;
 //    self.tf_contactName.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
 //    self.tf_contactName.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
 //    self.tf_contactName.leftViewMode = UITextFieldViewModeAlways;
+    self.tf_contactName.delegate = self;
     [self.tf_contactName addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
-    
-
     
     //主题类型
     self.themeType_btn.layer.masksToBounds = YES;
@@ -144,6 +148,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     self.themeMan_btn.layer.cornerRadius = 4;
     self.themeMan_btn.layer.borderWidth = 1;
     self.themeMan_btn.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
+  
     //提交审核
     self.commmit_btn.layer.masksToBounds = YES;
     self.commmit_btn.layer.cornerRadius = 6;
@@ -198,7 +203,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 //开户许可
 -(void)tapOpenView:(UITapGestureRecognizer *)ges
 {
-    _pickType =PickerTypeOpenLicese;
+    _pickType = PickerTypeOpenLicese;
     
     HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
     vc.manager = self.manager;
@@ -209,7 +214,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 //商品承诺书
 -(void)tapCommitMentView:(UITapGestureRecognizer *)ges
 {
-    _pickType =PickerTypeLetterCommitment;
+    _pickType = PickerTypeLetterCommitment;
     
     HXPhotoViewController *vc = [[HXPhotoViewController alloc] init];
     vc.manager = self.manager;
@@ -218,36 +223,40 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 }
 
 #pragma mark -UITextFieldDelegate
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    return YES;
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    NSLog(@"我开始编辑");
+    if ( self.tf_storeName == textField  ) {
+        [self.tf_storeName becomeFirstResponder];
+        
+    } else{
+        [self.tf_contactName becomeFirstResponder];
+        
+    }
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField{
     NSLog(@"编辑完了");
-    [textField resignFirstResponder];
-
 }
 -(void)textfieldChange:(UITextField *)textField{
-    if (self.tf_storeName == textField) {
+    if ( self.tf_storeName == textField  ) {
         _storeName = textField.text;
         NSLog(@"店铺：%@",textField.text);
-        
-    }
-    if (self.tf_contactName == textField) {
+    }else{
         _contactName = textField.text;
         NSLog(@"联系人：%@",textField.text);
-        
     }
 
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
+    [self.tf_storeName resignFirstResponder];
+    [self.tf_contactName resignFirstResponder];
+
     return YES;
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self.tf_contactName resignFirstResponder];
-    [self.tf_storeName resignFirstResponder];
+     [self.tf_storeName resignFirstResponder];
 }
 
 #pragma mark- 图片选择器的代理
@@ -276,8 +285,6 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                 [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
                     NSLog(@"%@",names);
                     if (state == 1) {
-                        
-                        
 //                        _idCardImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
 
                         _idCardImgUrl =[NSString stringWithFormat:@"%@", names[0]];
@@ -320,27 +327,44 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 
 #pragma mark - 主题类型 1级2级列表
 //1级列表
-- (IBAction)themeTypeOneClass:(id)sender {
+- (IBAction)themeTypeOneClass:(UIButton *)sender {
+ 
+    if (_isSelectedBtn == YES) {
+        return;
+    }else{
 
-    
-    [self.themeType_btn setBackgroundColor:HEXCOLOR(0xf7f7f7)] ;//1级
-    [self.themeMan_btn setBackgroundColor:HEXCOLOR(0xffffff)] ;
-//    [self.themeMan_btn setTitle:@"" forState:UIControlStateNormal] ;
+        [self removeFromtoSuperView];
+        [self.themeType_btn setBackgroundColor:HEXCOLOR(0xf7f7f7)] ;//1级
+        [self.themeMan_btn setBackgroundColor:HEXCOLOR(0xffffff)] ;
+        [self classListTableVieWithGoodTypePostRequset];
+        _isSelectedBtn = YES;
 
-    [self classListTableVieWithGoodTypePostRequset];
+    }
 
-}
+ }
 
 //2级列表
 - (IBAction)themeTypeTwoClass:(id)sender {
   
-    if (_onceTypeID == nil && isSure == NO) {
+    if (_isSelectedBtn == YES ) {
+        if ( _isSureFirst == YES  && _onceTypeID.length > 0) {
+            [self.themeMan_btn setBackgroundColor:HEXCOLOR(0xf7f7f7)] ;
+            [self.themeType_btn setBackgroundColor:HEXCOLOR(0xffffff)] ;
+            [self secondClassListWithGoodTypePostRequsetTypeid:_onceTypeID];
+            _isSelectedBtn =   NO;
+            _isSureFirst = NO  ;//重新赋值第一级
+        }
+        else{
+            [self.view makeToast:@"请先选择主题分类" duration:2 position:@"center"];
+        }
+    } else{
         [self.view makeToast:@"请先选择主题分类" duration:2 position:@"center"];
-    }else{
-        [self.themeMan_btn setBackgroundColor:HEXCOLOR(0xf7f7f7)] ;
-        [self.themeType_btn setBackgroundColor:HEXCOLOR(0xffffff)] ;
-        [self secondClassListWithGoodTypePostRequsetTypeid:_onceTypeID];
+        _isSelectedBtn = NO;
+        _isSureFirst = NO  ;//重新赋值第一级
+
+        return;
     }
+   
 }
 
 #pragma mark - CommonClassTypeViewDelegate  获取到当前typeId
@@ -351,6 +375,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     _themeTitle = title;
     NSLog(@"%@ - %@",typeId,title);
 
+ 
 }
 //获取二级列表id
 -(void)didClassTwotypeId:(NSString *) typeId AndTitle:(NSString * )title
@@ -363,19 +388,23 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 -(void)removeFromtoSuperView
 {
     [self.coverView removeFromSuperview];
-    isSure = NO;
 }
 //确定之后的操作
 -(void)selectedAfter
 {
-    isSure = YES;
+    
     if (_isThemeType == YES) {
+        
         [self.themeType_btn setTitle:_themeTitle forState:UIControlStateNormal];
         [self removeFromtoSuperView];
+        _isSureFirst = YES;
+        _isSelectedBtn = YES;
 
     }else{
         [self.themeMan_btn setTitle:_themeTitle2 forState:UIControlStateNormal];
         [self removeFromtoSuperView];
+        _isSureSecond = YES;
+        _isSelectedBtn = NO;
 
     }
 }
@@ -442,7 +471,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
             }
             NSLog(@"classTypeArray:%@",self.classTypeArray);
             [self creatCoverView];
-     
+  
             self.typeView.isThemeType = _isThemeType = YES;
             self.typeView.classListArray = self.classTypeArray;
             [self.typeView reloadCollctionView];
@@ -474,7 +503,6 @@ typedef NS_ENUM(NSUInteger, PickerType) {
             NSLog(@"themeArray:%@",self.themeArray);
        
             [self creatCoverView];
-
             self.typeView.isThemeType = _isThemeType = NO;
             self.typeView.brandListArray = self.themeArray;
             [self.typeView reloadCollctionView];
@@ -538,6 +566,8 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 -(void)viewWillAppear:(BOOL)animated
 {
     [self settingNavBarBgName:@"nav64_gray"];
+//    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+
 }
 
 - (void)didReceiveMemoryWarning {

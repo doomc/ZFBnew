@@ -26,6 +26,12 @@
 
 
 @implementation BusinessOrdergoods
++ (NSDictionary *)objectClassInArray{
+    return @{@"goods_properties" : [BusinessOrderproperties class]};
+}
+
+@end
+@implementation BusinessOrderproperties
 
 @end
 

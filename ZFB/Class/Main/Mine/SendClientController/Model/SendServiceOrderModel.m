@@ -29,6 +29,14 @@
 
 @implementation SendServiceOrdergoodslist
 
++ (NSDictionary *)objectClassInArray{
+    return @{@"goodsProperties" : [SendServiceGoodsProperties class]};
+}
+@end
+
+@implementation SendServiceGoodsProperties
+
+
 @end
 
 

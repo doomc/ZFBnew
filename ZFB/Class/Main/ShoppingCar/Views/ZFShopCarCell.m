@@ -18,10 +18,7 @@
     [super awakeFromNib];
     // Initialization code
     
-    self.img_shopCar.clipsToBounds = YES;
-    self.img_shopCar.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
-    self.img_shopCar.layer.borderWidth = 0.5;
-    
+
     self.tf_result.userInteractionEnabled = NO;
     
  }

@@ -1212,8 +1212,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     
     NSDictionary * param = @{
                              @"deliveryId":deliveryID,
-                             @"orderStartTime":@"",
-                             @"orderEndTime":@"",
                              @"status":orderStatus,
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"size":[NSNumber numberWithInteger:kPageCount],
@@ -1222,7 +1220,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [SVProgressHUD show];
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderDeliveryByDeliveryId",zfb_baseUrl] params:param success:^(id response) {
-        
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
             if (self.refreshType == RefreshTypeHeader) {

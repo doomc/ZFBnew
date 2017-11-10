@@ -178,24 +178,24 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                 case BusinessServicTypeWaitSendlist://待派单
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
-                    
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" storeId:_storeId];
+
                     break;
                 case BusinessServicTypeSending://配送中
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId] ;
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" storeId:_storeId];
+
                     
                     break;
                 case BusinessServicTypeWaitPay://待付款
-                    
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""   storeId:_storeId];
-                    
+         
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4" storeId:_storeId];
+
                     break;
                 case BusinessServicTypeDealComplete://交易完成
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""   storeId:_storeId];
-                    
-                    
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3" storeId:_storeId];
+
                     break;
                 case BusinessServicTypeSureReturn://待确认退回
                     
@@ -205,18 +205,19 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     break;
                 case BusinessServicTypeSended://已配送
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""   storeId:_storeId];
-                    
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2" storeId:_storeId];
+
                     break;
                 case BusinessServicTypeCancelOrder://取消订单
-                    
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"-1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""   storeId:_storeId];
+   
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"-1" storeId:_storeId];
+
                     
                     break;
                 case BusinessServicTypeWiatOrder://待接单
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
-                    
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8" storeId:_storeId];
+
                     break;
             }
             
@@ -243,43 +244,45 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                 case BusinessServicTypeWaitSendlist://待派单
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" storeId:_storeId];
                     
                     break;
                 case BusinessServicTypeSending://配送中
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId] ;
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" storeId:_storeId];
+                    
                     
                     break;
                 case BusinessServicTypeWaitPay://待付款
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""   storeId:_storeId];
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4" storeId:_storeId];
                     
                     break;
                 case BusinessServicTypeDealComplete://交易完成
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""   storeId:_storeId];
-                    
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3" storeId:_storeId];
                     
                     break;
                 case BusinessServicTypeSureReturn://待确认退回
                     
                     [self salesAfterPostRequsteAtStoreId:_storeId];
                     
+                    
                     break;
                 case BusinessServicTypeSended://已配送
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""   storeId:_storeId];
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2" storeId:_storeId];
                     
                     break;
                 case BusinessServicTypeCancelOrder://取消订单
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"-1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""   storeId:_storeId];
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"-1" storeId:_storeId];
+                    
                     
                     break;
                 case BusinessServicTypeWiatOrder://待接单
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8" storeId:_storeId];
                     
                     break;
             }
@@ -471,7 +474,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             [self.titleView addSubview:self.navbar_btn];
             self.navigationItem.titleView = _titleView;
 
-            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""   storeId:_storeId];
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" storeId:_storeId];
             [self.homeTableView reloadData];
         }
             break;
@@ -660,7 +663,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeHomePage:
             if (indexPath.section == 0) {
                 
-                height = 80;
+                height = 100;
             }
             else{
                 
@@ -1438,26 +1441,26 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             switch (_servicType) {
                 case BusinessServicTypeWaitSendlist://待派单
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" storeId:_storeId];
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0"  storeId:_storeId];
                     
                     [self.homeTableView reloadData];
                     
                     break;
                 case BusinessServicTypeSending://配送中
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId] ;
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1"  storeId:_storeId] ;
                     [self.homeTableView reloadData];
                     
                     break;
                 case BusinessServicTypeWaitPay://待付款
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4"  storeId:_storeId];
                     [self.homeTableView reloadData];
                     
                     break;
                 case BusinessServicTypeDealComplete://交易完成
                     
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@"" storeId:_storeId];
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3"  storeId:_storeId];
                     [self.homeTableView reloadData];
                     
                     break;
@@ -1469,12 +1472,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     break;
                 case BusinessServicTypeSended://已配送
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2"  storeId:_storeId];
                     [self.homeTableView reloadData];
                     
                     break;
                 case BusinessServicTypeCancelOrder://取消订单
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"-1" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"-1"  storeId:_storeId];
                     [self.homeTableView reloadData];
 
                     break;
@@ -1482,7 +1485,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 case  BusinessServicTypeWiatOrder://待接单
                     
  
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8"   storeId:_storeId];
                     [self.homeTableView reloadData];
                     break;
                     
@@ -1765,28 +1768,24 @@ typedef NS_ENUM(NSUInteger, SelectType) {
  
  @param payStatus 0.未支付的初始状态 1.支付成功 -1.支付失败 3.付款发起 4.付款取消 (待付款) 5.退款成功（支付成功的）6.退款发起(支付成功) 7.退款失败(支付成功)',
  @param orderStatus -1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成
- @param searchWord 关键词
- @param cmUserId 注意：商户端查询订单式 ，该字段不传
- @param startTime 开始时间
- @param endTime 结束时间
+ @re cmUserId 注意：商户端查询订单式 ，该字段不传
+ @re searchWord 关键词
+ @re startTime 开始时间
+ @re endTime 结束时间
  
  */
 -(void)businessOrderListPostRequstpayStatus:(NSString *)payStatus
                                 orderStatus:(NSString *)orderStatus
-                                 searchWord:(NSString *)searchWord
-                                   cmUserId:(NSString *)cmUserId
-                                  startTime:(NSString *)startTime
-                                    endTime:(NSString *)endTime
                                     storeId:(NSString *)storeId
 { 
     NSDictionary * param = @{
                              @"page": [NSNumber numberWithInteger:self.currentPage],
                              @"size": [NSNumber numberWithInteger:kPageCount],
                              @"orderStatus": orderStatus,
-                             @"payStatus": payStatus,
-                             @"searchWord":searchWord,
-                             @"startTime": startTime,
-                             @"endTime": endTime,
+//                             @"payStatus": payStatus,
+//                             @"searchWord":searchWord,
+//                             @"startTime": startTime,
+//                             @"endTime": endTime,
                              @"storeId": storeId,
                              
                              };
@@ -1882,7 +1881,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         //成功后需要刷新列表
-        [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
+        [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" storeId:_storeId];
         
         
     } progress:^(NSProgress *progeress) {
@@ -1983,7 +1982,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
             [SVProgressHUD showSuccessWithStatus:response[@"resultMsg"]];
             
-            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0"  storeId:_storeId];
             [self.homeTableView reloadData];
 
         }else{
@@ -2009,7 +2008,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         if ([code isEqualToString:@"0"]) {
  
             [SVProgressHUD showSuccessWithStatus:response[@"resultMsg"]];
-            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" searchWord:@"" cmUserId:@"" startTime:@"" endTime:@""  storeId:_storeId];
+            [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0"  storeId:_storeId];
             [self.homeTableView reloadData];
 
         }else{

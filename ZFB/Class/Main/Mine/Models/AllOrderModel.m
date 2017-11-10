@@ -31,11 +31,12 @@
 + (NSDictionary *)objectClassInArray{
     return @{@"goods_properties" : [OrderProper class]};
 }
+ 
 
 @end
 
 @implementation OrderProper
 
-
+ 
 @end
 

@@ -38,9 +38,9 @@
 
 @property (assign,nonatomic) id < ZFSendingCellDelegate > delegate ;
 
-@property (strong,nonatomic) Ordergoods * goods ;
-@property (strong,nonatomic) BusinessOrdergoods * businesGoods ;
-@property (strong,nonatomic) SendServiceOrdergoodslist * sendGoods ;
+@property (strong,nonatomic) Ordergoods * goods ;//全部订单
+@property (strong,nonatomic) BusinessOrdergoods * businesGoods ;//商户端
+@property (strong,nonatomic) SendServiceOrdergoodslist * sendGoods ;//配送端
 @property (strong,nonatomic) List * progressModel ;//进度查询模型
 @property (strong,nonatomic) BussnissGoodsInfoList * goodlist ;//商家清单
 

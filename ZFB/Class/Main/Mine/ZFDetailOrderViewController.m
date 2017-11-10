@@ -220,7 +220,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         }
     }
     else if (indexPath.section == 1) {
-        height = 100;
+        height = 100+25;
     }
     if (indexPath.section == 2) {
         if (indexPath.row  == 0) {

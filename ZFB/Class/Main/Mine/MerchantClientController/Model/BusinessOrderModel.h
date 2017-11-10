@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class BusinessOrderlist,BusinessOrdergoods;
+@class BusinessOrderlist,BusinessOrdergoods,BusinessOrderproperties;
 @interface BusinessOrderModel : ResponseObject
 
 @property (nonatomic, assign) NSInteger status;
@@ -83,7 +83,7 @@
 
 @property (nonatomic, copy) NSString *goods_name;
 
-@property (nonatomic, copy) NSString *goods_properties;
+//@property (nonatomic, copy) NSString *goods_properties;
 
 @property (nonatomic, copy) NSString *priceUnit;
 
@@ -102,6 +102,17 @@
 @property (nonatomic, copy) NSString *original_price;
 
 @property (nonatomic, copy) NSString *concessional_price;
+
+@property (nonatomic, strong) NSArray<BusinessOrderproperties *> *goods_properties;
+
+
+@end
+@interface BusinessOrderproperties : ResponseObject
+
+@property (nonatomic, copy) NSString *valueId;
+@property (nonatomic, copy) NSString *value;
+@property (nonatomic, copy) NSString *nameId;
+@property (nonatomic, copy) NSString *name;
 
 @end
 

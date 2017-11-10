@@ -80,6 +80,9 @@
 
 @property (nonatomic, copy) NSString *orderComment;
 
+@property (nonatomic, copy) NSString *partRefund;
+
+
 @end
 
 @interface Ordergoods : ResponseObject
@@ -120,10 +123,12 @@
 
 @end
 @interface OrderProper : ResponseObject
+
 @property (nonatomic, copy) NSString * nameId;
 @property (nonatomic, copy) NSString * valueId;
 @property (nonatomic, copy) NSString * value;
 @property (nonatomic, copy) NSString * name;
+ 
 
 
 @end
