@@ -163,11 +163,6 @@
     self.lb_goodsCount.text = [NSString stringWithFormat:@"数量 x%@",_goodCount];
     [self.img_view sd_setImageWithURL:[NSURL URLWithString:_img_urlStr] placeholderImage:[UIImage imageNamed:@""]];
     
-    self.img_view.clipsToBounds      = YES;
-    self.img_view.layer.cornerRadius = 2;
-    self.img_view.layer.borderWidth  = 0.5;
-    self.img_view.layer.borderColor  = HEXCOLOR(0xffcccc).CGColor;
-    
     self.didClickNextPage.clipsToBounds      = YES;
     self.didClickNextPage.layer.cornerRadius = 4;
     
@@ -190,7 +185,6 @@
     
     if (_isCommited) {
         [self.view makeToast:@"您的手速太快了,营养跟不上啊..." duration:2 position:@"center"];
-        
         return;
     }else{
         /////***************提交之前暂时没有做处理
@@ -203,76 +197,81 @@
             [self.navigationController presentViewController:alert animated:NO completion:^{
                 
             }];
-        }
-        
-        if (_imgUrl_mutArray.count > 0) {
-            [SVProgressHUD showWithStatus:@"正在上传..."];
-            [OSSImageUploader asyncUploadImages:_imgUrl_mutArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
-                NSLog(@"%@",names);
-                if (state == 1) {
-                    NSLog(@"上传成功了");
-                    if (_isCommited == NO) {
-                        ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
-                        
-                        bcVC.goodsName  = _goodsName;
-                        bcVC.price      = _price ;
-                        bcVC.goodCount  = _goodCount;
-                        bcVC.coverImgUrl = _coverImgUrl;
-                        
-                        ///需要发送到售后申请的数据
-                        bcVC.orderId     = _orderId;
-                        bcVC.orderNum    = _orderNum;
-                        bcVC.goodsId     = _goodsId;
-                        bcVC.serviceType = @"0";///服务类型    否     0 退货 1 换货
-                        bcVC.storeId     = _storeId;
-                        bcVC.orderTime   = _orderTime;
-                        bcVC.storeName   = _storeName;
-                        bcVC.postName    = _postName;
-                        bcVC.postPhone   = _postPhone;
-                        bcVC.orderGoodsId= _orderGoodsId;
-                        
-                        //原因
-                        bcVC.reason          = _reason;
-                        bcVC.problemDescr    = _problemDescr;
-                        bcVC.imgArr          = [names componentsJoinedByString:@","];//图片字符串
-                        bcVC.goodsProperties = _goodsProperties;
-                        [self.navigationController pushViewController: bcVC animated:YES];
-                        [SVProgressHUD showSuccessWithStatus:@"上传成功！"];
-                        _isCommited = NO;
-                        
+        }else
+        {
+            if (_imgUrl_mutArray.count > 0) {
+                [SVProgressHUD show];
+                [OSSImageUploader asyncUploadImages:_imgUrl_mutArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
+                    NSLog(@"%@",names);
+                    if (state == 1) {
+                        NSLog(@"上传成功了");
+                        if (_isCommited == NO) {
+                            ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
+                            
+                            bcVC.goodsName  = _goodsName;
+                            bcVC.price      = _price ;
+                            bcVC.goodCount  = _goodCount;
+                            bcVC.coverImgUrl = _coverImgUrl;
+                            
+                            ///需要发送到售后申请的数据
+                            bcVC.orderId     = _orderId;
+                            bcVC.orderNum    = _orderNum;
+                            bcVC.goodsId     = _goodsId;
+                            bcVC.serviceType = @"0";///服务类型    否     0 退货 1 换货
+                            bcVC.storeId     = _storeId;
+                            bcVC.orderTime   = _orderTime;
+                            bcVC.storeName   = _storeName;
+                            bcVC.postName    = _postName;
+                            bcVC.postPhone   = _postPhone;
+                            bcVC.orderGoodsId= _orderGoodsId;
+                            
+                            //原因
+                            bcVC.reason          = _reason;
+                            bcVC.problemDescr    = _problemDescr;
+                            bcVC.imgArr          = [names componentsJoinedByString:@","];//图片字符串
+                            bcVC.goodsProperties = _goodsProperties;
+                            [self.navigationController pushViewController: bcVC animated:YES];
+                            [SVProgressHUD dismiss];
+
+                            _isCommited = NO;
+                            
+                        }
                     }
-                }
-            }];
+                }];
+                
+            }else{//图片为空的状态
+                ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
+                bcVC.goodsName  = _goodsName;
+                bcVC.price      = _price ;
+                bcVC.goodCount  = _goodCount;
+                bcVC.coverImgUrl = _coverImgUrl;
+                
+                ///需要发送到售后申请的数据
+                bcVC.orderId     = _orderId;
+                bcVC.orderNum    = _orderNum;
+                bcVC.goodsId     = _goodsId;
+                bcVC.serviceType = @"0";///服务类型    否     0 退货 1 换货
+                bcVC.storeId     = _storeId;
+                bcVC.orderTime   = _orderTime;
+                bcVC.storeName   = _storeName;
+                bcVC.postName    = _postName;
+                bcVC.postPhone   = _postPhone;
+                bcVC.orderGoodsId= _orderGoodsId;
+                
+                //原因
+                bcVC.reason          = _reason;
+                bcVC.problemDescr    = _problemDescr;
+                bcVC.imgArr          = @"";
+                bcVC.goodsProperties = _goodsProperties;
+                _isCommited = NO;
+                [SVProgressHUD dismiss];
+                [self.navigationController pushViewController: bcVC animated:YES];
+      
 
-        }else{//图片为空的状态
-            ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
-            bcVC.goodsName  = _goodsName;
-            bcVC.price      = _price ;
-            bcVC.goodCount  = _goodCount;
-            bcVC.coverImgUrl = _coverImgUrl;
-            
-            ///需要发送到售后申请的数据
-            bcVC.orderId     = _orderId;
-            bcVC.orderNum    = _orderNum;
-            bcVC.goodsId     = _goodsId;
-            bcVC.serviceType = @"0";///服务类型    否     0 退货 1 换货
-            bcVC.storeId     = _storeId;
-            bcVC.orderTime   = _orderTime;
-            bcVC.storeName   = _storeName;
-            bcVC.postName    = _postName;
-            bcVC.postPhone   = _postPhone;
-            bcVC.orderGoodsId= _orderGoodsId;
-            
-            //原因
-            bcVC.reason          = _reason;
-            bcVC.problemDescr    = _problemDescr;
-            bcVC.imgArr          = @"";
-            bcVC.goodsProperties = _goodsProperties;
-            [self.navigationController pushViewController: bcVC animated:YES];
-            [SVProgressHUD showSuccessWithStatus:@"上传成功！"];
-            _isCommited = NO;
-
+            }
+        
         }
+  
     }
 }
 
@@ -305,7 +304,10 @@
     [self.popBackGView removeFromSuperview];
      
 }
-
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [SVProgressHUD   dismiss];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

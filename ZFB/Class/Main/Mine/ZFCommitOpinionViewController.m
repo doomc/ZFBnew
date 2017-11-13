@@ -168,29 +168,21 @@
 -(void)didClickCommit
 {
     NSLog(@"反馈类型 ----%@",_typeName);
- 
-
-    if ([_typeName isEqualToString:@""]|| _typeName == nil ||_textViewText == nil || _textViewText.length == 0 || [_textViewText isEqualToString:@""]) {
-        JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"请填写完您的宝贵意见" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        [alert addAction:sure];
-        [self presentViewController:alert animated:YES completion:nil];
- 
-    }else{
-
+    [SVProgressHUD showWithStatus:@"正在提交..."];
+    
+    if (_typeName.length > 0 && _textViewText.length > 0) {
+   
         if (_uploadImageArray.count > 0) {
             [OSSImageUploader syncUploadImages:_uploadImageArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
                 if (state == 1) {
-                    NSLog(@"提价成功了 _images = %@",names);
                     _imgUrlString = [names componentsJoinedByString:@","];
+                    NSLog(@"提价成功了 _imgUrlString = %@",_imgUrlString);
+
                     if (_phoneNum.length > 0) {
                         
                         [self getFeedbackINfoInsertPOSTRequste:_imgUrlString AndPhone:_phoneNum];
-
-                    }else{
                         
+                    }else{
                         [self getFeedbackINfoInsertPOSTRequste:_imgUrlString AndPhone:@""];
                     }
                 }
@@ -202,6 +194,10 @@
             
         }
 
+    }else{
+        [SVProgressHUD showErrorWithStatus:@"请填写完您的宝贵意见"];
+
+       
     }
  
 }
@@ -276,7 +272,7 @@
                              @"feedbackUserPhone":phone,//用户预留电话
  
                              };
-    [SVProgressHUD showWithStatus:@"正在上传..."];
+
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getFeedbackINfoInsert"] params:parma success:^(id response) {
   
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];

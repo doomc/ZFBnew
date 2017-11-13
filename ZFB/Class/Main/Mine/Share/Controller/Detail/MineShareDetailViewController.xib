@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Q4-BL-wmf" customClass="SDCycleScrollView">
-                    <rect key="frame" x="0.0" y="64" width="375" height="200"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="7Q4-BL-wmf" secondAttribute="height" multiplier="15:8" id="FTw-en-1DD"/>
@@ -32,7 +32,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jjd-UJ-67c">
-                    <rect key="frame" x="0.0" y="265" width="375" height="44"/>
+                    <rect key="frame" x="0.0" y="201" width="375" height="44"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aN7-N4-F99">
                             <rect key="frame" x="15" y="13" width="345" height="19.5"/>
@@ -50,7 +50,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a7t-AW-1Kk">
-                    <rect key="frame" x="0.0" y="314" width="375" height="38"/>
+                    <rect key="frame" x="0.0" y="250" width="375" height="38"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UgS-Qt-s4Q">
                             <rect key="frame" x="15" y="10" width="345" height="18"/>
@@ -76,7 +76,7 @@
                 <constraint firstItem="Jjd-UJ-67c" firstAttribute="top" secondItem="7Q4-BL-wmf" secondAttribute="bottom" constant="1" id="V4A-9k-S8b"/>
                 <constraint firstItem="7Q4-BL-wmf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="XpF-nc-p7Q"/>
                 <constraint firstItem="a7t-AW-1Kk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ddx-Bb-X4N"/>
-                <constraint firstItem="7Q4-BL-wmf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="kfm-jj-c2J"/>
+                <constraint firstItem="7Q4-BL-wmf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="kfm-jj-c2J"/>
                 <constraint firstItem="a7t-AW-1Kk" firstAttribute="top" secondItem="Jjd-UJ-67c" secondAttribute="bottom" constant="5" id="s06-ni-UF3"/>
                 <constraint firstItem="Jjd-UJ-67c" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="uMa-XF-mww"/>
                 <constraint firstAttribute="trailing" secondItem="Jjd-UJ-67c" secondAttribute="trailing" id="xZA-Dc-WRk"/>

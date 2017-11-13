@@ -618,12 +618,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 //设置headView视图
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    CGFloat height = 0.001;
+    CGFloat height = 0;
     switch (_selectPageType) {
         case SelectTypeHomePage:
             if (section == 0) {
                 
-                height = 0.001;
+                height = 0;
             }else{
                 
                 height = 41;
@@ -650,7 +650,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
         case SelectTypeCaculater:
 
-            height = 0.001;
+            height =0;
             break;
             
     }
@@ -728,7 +728,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    CGFloat height = 0.001;
+    CGFloat height = 0;
     switch (_selectPageType) {
         case SelectTypeHomePage:
             height = 10;
@@ -755,7 +755,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
         case SelectTypeCaculater:
             
-            height = 0.001;
+            height = 0;
             break;
     }
     return height;

@@ -71,7 +71,7 @@
         for (OrderProper * pro in goods.goods_properties) {
             NSString * name =  pro.value;
             [mutNameArray addObject:name];
-               NSLog(@"name = %@",name);
+  
         }
         self.lb_progrop.text = [NSString stringWithFormat:@"规格:%@",[mutNameArray componentsJoinedByString:@" "]];
     }
@@ -95,7 +95,6 @@
         for (SendServiceGoodsProperties * pro in sendGoods.goodsProperties) {
             NSString * value =  pro.value;
             [mutNameArray addObject:value];
-            //            NSLog(@"name = %@",value);
         }
         self.lb_progrop.text = [NSString stringWithFormat:@"规格:%@",[mutNameArray componentsJoinedByString:@" "]];
     }
@@ -130,7 +129,6 @@
         for (OrderProper * pro in goodlist.goodsProp) {
             NSString * name =  pro.value;
             [mutNameArray addObject:name];
-            NSLog(@"name = %@",name);
         }
         self.lb_progrop.text = [NSString stringWithFormat:@"规格:%@",[mutNameArray componentsJoinedByString:@" "]];
     }

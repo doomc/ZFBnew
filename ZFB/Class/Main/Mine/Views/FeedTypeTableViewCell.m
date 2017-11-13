@@ -57,7 +57,6 @@
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    _indexPath = indexPath;
 
     FeedCommitCollectionViewCell *cell = [self.typeCollectionView dequeueReusableCellWithReuseIdentifier:@"FeedCommitCollectionViewCellid" forIndexPath:_indexPath];
     if (_nameArray.count > 0) {
@@ -71,6 +70,7 @@
 //点击选定
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     FeedCommitCollectionViewCell *cell = (FeedCommitCollectionViewCell *)[self.typeCollectionView cellForItemAtIndexPath:indexPath];
+    _indexPath = indexPath;
 
     if (_nameArray.count > 0 ) {
         cell.lb_type.backgroundColor = HEXCOLOR(0xf95a70);

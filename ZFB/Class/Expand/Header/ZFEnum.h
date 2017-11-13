@@ -23,7 +23,9 @@ typedef NS_ENUM(NSUInteger, OrderType) {
     OrderTypeDealSuccess,//交易完成
     OrderTypeCancelSuccess,//取消交易
     OrderTypeAfterSale,//售后
-    
+    OrderTypeWaitSending,//待发货
+    OrderTypeWaitRecive,//待收货
+
 };
 
 

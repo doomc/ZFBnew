@@ -128,9 +128,9 @@
             }
             
             [self.tableView reloadData];
-            if ([self isEmptyArray:self.listArray]) {
-                [self.tableView cyl_reloadData];
-            }
+//            if ([self isEmptyArray:self.listArray]) {
+//                [self.tableView cyl_reloadData];
+//            }
             [SVProgressHUD dismiss];
 
         }
@@ -151,7 +151,10 @@
     [self feedOpinionPostRequst];
 
 }
-
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [SVProgressHUD dismiss];
+}
 #pragma mark - CYLTableViewPlaceHolderDelegate Method
 - (UIView *)makePlaceHolderView {
     

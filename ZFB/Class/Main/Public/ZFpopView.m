@@ -90,6 +90,15 @@
             _selctedType = OrderTypeAfterSale;//申请售后
 
             break;
+        case 2008:
+            _selctedType = OrderTypeWaitSending; //待发货
+           
+
+            break;
+        case 2009:
+            _selctedType =  OrderTypeWaitRecive;//待收货
+            
+            break;
     }
     if ([_delegate respondsToSelector:@selector(sendTitle:orderType:)]) {
         

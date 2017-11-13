@@ -86,7 +86,7 @@
     
     
     //tableView的创建
-    self.location_TableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 50, KScreenW, KScreenH - 50) style:UITableViewStyleGrouped];
+    self.location_TableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 50, KScreenW, KScreenH - 50 -64) style:UITableViewStyleGrouped];
     self.location_TableView.estimatedRowHeight = 0;
 
     self.location_TableView.dataSource = self;

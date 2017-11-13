@@ -61,9 +61,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
  
     [self setupRefresh];
     
-}
--(void)viewWillAppear:(BOOL)animated
-{
     //1.获取主队列
     dispatch_queue_t queue=dispatch_get_main_queue();
     
@@ -75,17 +72,18 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     });
     dispatch_async(queue, ^{
         [self PostRequst];
-
+        
         NSLog(@"使用异步函数执行主队列中的任务2--%@",[NSThread currentThread]);
     });
     
-
 }
+
 #pragma mark -数据请求
 
 -(void)headerRefresh {
     [super headerRefresh];
     [self PostRequst];
+    [self LocationMapManagerInit];
 }
 -(void)footerRefresh {
     
@@ -254,6 +252,10 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     locationVC.searchStr = currentCityAndStreet;
     locationVC.moveBlock = ^(AMapPOI *poi) {
         [self.location_btn setTitle:poi.name forState:UIControlStateNormal];
+        NSLog(@"latitude:%f === longitude:%f",poi.location.latitude,poi.location.longitude);
+        BBUserDefault.latitude = [NSString stringWithFormat:@"%.6f",poi.location.latitude];
+        BBUserDefault.longitude = [NSString stringWithFormat:@"%.6f",poi.location.longitude];
+
     };
     [self.navigationController pushViewController: locationVC animated:YES];
     
