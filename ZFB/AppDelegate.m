@@ -47,7 +47,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 //推送Kit
 @import PushKit;
-@interface AppDelegate ()<NIMSystemNotificationManagerDelegate,NIMConversationManagerDelegate,NIMLoginManagerDelegate,PKPushRegistryDelegate,WXApiDelegate,JPUSHRegisterDelegate,NIMConversationManagerDelegate,NIMEventSubscribeManagerDelegate>
+@interface AppDelegate ()<NIMSystemNotificationManagerDelegate,NIMConversationManagerDelegate,NIMLoginManagerDelegate,PKPushRegistryDelegate,WXApiDelegate,JPUSHRegisterDelegate,NIMConversationManagerDelegate,NIMEventSubscribeManagerDelegate,UNUserNotificationCenterDelegate>
 
 @property (nonatomic, strong) NTESSDKConfigDelegate *sdkConfigDelegate;
 @property (nonatomic, strong) JhtGradientGuidePageVC *guidePage;
@@ -62,6 +62,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
+    
     NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:100  * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];
     [self networkStutas];
@@ -392,10 +393,10 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
     
 }
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-   
-    [JPUSHService showLocalNotificationAtFront:notification identifierKey:nil];
-    
+#pragma UNUserNotificationCenterDelegate ios10 后的推送
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
+{
+    completionHandler(UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert);
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -601,8 +602,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
         };
     } else {
         self.window.rootViewController = tabbarVC;
-        NSInteger systemCount = [[[NIMSDK sharedSDK] systemNotificationManager] allUnreadCount];
-        NSInteger count1 = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
+
     }
  
 }

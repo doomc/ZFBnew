@@ -123,9 +123,9 @@
 #define isIOS9                  ([[[UIDevice currentDevice]systemVersion]floatValue] >=9.0)
 
 #define isIOS10                  ([[[UIDevice currentDevice]systemVersion]floatValue] >=10.0)
-// 是否iPad
-//#define isPad                   (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
+// 是否iphonex
+#define kDevice_Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 // 是否空对象
 #define IS_NULL_CLASS(OBJECT) [OBJECT isKindOfClass:[NSNull class]]
 

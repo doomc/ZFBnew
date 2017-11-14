@@ -167,9 +167,12 @@
 ///提交数据
 -(void)didClickCommit
 {
+    if (_isCommited == YES) {
+        return;
+    }
+    _isCommited = YES;
     NSLog(@"反馈类型 ----%@",_typeName);
     [SVProgressHUD showWithStatus:@"正在提交..."];
-    
     if (_typeName.length > 0 && _textViewText.length > 0) {
    
         if (_uploadImageArray.count > 0) {
@@ -277,7 +280,7 @@
   
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {            
-//            _isCommited = YES;
+            _isCommited = NO;
             [SVProgressHUD showSuccessWithStatus:@"上传成功！"];
         }
 

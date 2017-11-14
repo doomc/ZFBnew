@@ -10,8 +10,9 @@
 #import "ZFAppraiseCell.h"
 #import "AppraiseModel.h"
 #import "XHStarRateView.h"
+#import "JZLPhotoBrowser.h"
 
-@interface GoodEvaluteViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface GoodEvaluteViewController ()<UITableViewDelegate,UITableViewDataSource,ZFAppraiseCellDelegate>
 {
     NSString * _imgUrl_str;
     NSInteger  _starNum;
@@ -110,17 +111,27 @@
     return appraiseCell;
     
 }
+
+
 -(void)setupCell:(ZFAppraiseCell *)cell AtIndexPath :(NSIndexPath*)indexPath
 {
     Findlistreviews * info = self.appraiseListArray[indexPath.row];
+    cell.delegate = self;
     cell.infoList = info;
     //初始化五星好评控件info.goodsComment
     XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(KScreenW -  125-10, 10, 125, 25) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO];
     wdStarView.currentScore = info.goodsComment;
     [cell addSubview:wdStarView];
 
+}
+
+#pragma mark - delegate
+-(void)didclickPhotoPicker:(NSInteger )index images:(NSArray *)images{
+    
+    [JZLPhotoBrowser showPhotoBrowserWithUrlArr:images currentIndex:index originalImageViewArr:nil];
     
 }
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

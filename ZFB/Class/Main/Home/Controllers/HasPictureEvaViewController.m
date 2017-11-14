@@ -10,7 +10,8 @@
 #import "ZFAppraiseCell.h"
 #import "AppraiseModel.h"
 #import "XHStarRateView.h"
-@interface HasPictureEvaViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "JZLPhotoBrowser.h"
+@interface HasPictureEvaViewController ()<UITableViewDelegate,UITableViewDataSource,ZFAppraiseCellDelegate>
 {
     NSString * _imgUrl_str;
     NSInteger  _starNum;
@@ -111,6 +112,7 @@
 }
 -(void)setupCell:(ZFAppraiseCell *)cell AtIndexPath :(NSIndexPath*)indexPath
 {
+    cell.delegate = self;
     Findlistreviews * info = self.appraiseListArray[indexPath.row];
     cell.infoList = info;
     //初始化五星好评控件info.goodsComment
@@ -120,7 +122,12 @@
 
     
 }
+#pragma mark - delegate
+-(void)didclickPhotoPicker:(NSInteger )index images:(NSArray *)images{
 
+    [JZLPhotoBrowser showPhotoBrowserWithUrlArr:images currentIndex:index originalImageViewArr:nil];
+    
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);

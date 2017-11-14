@@ -28,8 +28,14 @@
 
 @implementation DetailGoodslist
 
++ (NSDictionary *)objectClassInArray{
+    return @{@"goodsProperties" : [OrderGoodsProperties class]};
+}
 @end
 
+@implementation OrderGoodsProperties
+
+@end
 
 @implementation Orderdetails
 

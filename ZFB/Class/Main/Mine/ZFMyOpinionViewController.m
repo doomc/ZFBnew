@@ -9,8 +9,9 @@
 #import "ZFMyOpinionViewController.h"
 #import "ZFMyOpinionCell.h"
 #import "UserFeedbackModel.h"
+#import "JZLPhotoBrowser.h"
 
-@interface ZFMyOpinionViewController () <UITableViewDataSource,UITableViewDelegate,CYLTableViewPlaceHolderDelegate,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
+@interface ZFMyOpinionViewController () <UITableViewDataSource,UITableViewDelegate,ZFMyOpinionCellDelegate,UIGestureRecognizerDelegate>
 
 @property(nonatomic,strong)UITableView  * tableView;
 @property(nonatomic,strong)NSMutableArray * listArray;
@@ -40,7 +41,9 @@
     [self feedOpinionPostRequst];
 
 }
-    
+
+
+
 -(UITableView *)tableView
 {
     if (!_tableView) {
@@ -93,7 +96,7 @@
 -(void)configCell:(ZFMyOpinionCell *)cell indexPath:(NSIndexPath *)indexPath
 {
     if (self.listArray.count > 0) {
-       
+        cell.delegate = self;
         Feedbacklist * list = self.listArray[indexPath.section];
         cell.feedList = list;
         [cell.feedCollectionView reloadData];
@@ -155,26 +158,7 @@
 {
     [SVProgressHUD dismiss];
 }
-#pragma mark - CYLTableViewPlaceHolderDelegate Method
-- (UIView *)makePlaceHolderView {
-    
-    UIView *weChatStyle = [self weChatStylePlaceHolder];
-    return weChatStyle;
-}
 
-//暂无数据
-- (UIView *)weChatStylePlaceHolder {
-    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.zfb_tableView.frame];
-    weChatStylePlaceHolder.delegate = self;
-    return weChatStylePlaceHolder;
-}
-
-#pragma mark - WeChatStylePlaceHolderDelegate Method
-- (void)emptyOverlayClicked:(id)sender {
-
-    [self feedOpinionPostRequst];
-
-}
 
 -(NSMutableArray *)listArray
 {
@@ -183,4 +167,16 @@
     }
     return _listArray;
 }
+
+
+#pragma mark - ZFMyOpinionCellDelegate
+-(void)didclickPhotoPicker:(NSInteger )index images:(NSArray *)images{
+    
+    [JZLPhotoBrowser showPhotoBrowserWithUrlArr:images currentIndex:index originalImageViewArr:nil];
+    
+}
+
+
+
+
 @end

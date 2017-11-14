@@ -10,7 +10,7 @@
 #import "FeedCollectionViewCell.h"
 
 @interface ZFMyOpinionCell ()< UICollectionViewDelegate,UICollectionViewDataSource >
-
+ 
 @end
 
 @implementation ZFMyOpinionCell
@@ -114,6 +114,13 @@
     }
     return cell;
     
+}
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+ 
+    if ([self.delegate respondsToSelector:@selector(didclickPhotoPicker:images:)]) {
+        [self.delegate didclickPhotoPicker: indexPath.item images:_imagerray];
+    }
 }
  
 

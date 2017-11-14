@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #define kPageCount 10
 
 /**
@@ -27,6 +26,8 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) UITableView * zfb_tableView;
 @property (nonatomic, strong) UICollectionView * zfb_collectionView;
+
+
 
 ///自定义导航title颜色
 -(void)setCustomerTitle:(NSString *)title textColor:(UIColor *)textColor;

@@ -10,7 +10,15 @@
 
 #import "AppraiseModel.h"
 
+@protocol ZFAppraiseCellDelegate <NSObject>
+
+-(void)didclickPhotoPicker:(NSInteger )index images:(NSArray *)images;
+
+@end
+
 @interface ZFAppraiseCell : UITableViewCell
+
+@property (assign, nonatomic) id <ZFAppraiseCellDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UIView *starView;
 

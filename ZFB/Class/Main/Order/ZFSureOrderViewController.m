@@ -25,6 +25,7 @@
 #import "ZFSelectCouponViewController.h"
 #import "ZFBaseNavigationViewController.h"
 #import "ZFAllOrderViewController.h"
+#import "JZLPhotoBrowser.h"//查看大图
 
 //model
 #import "AddressListModel.h"
@@ -49,7 +50,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     
 };
 
-@interface ZFSureOrderViewController ()<UITableViewDelegate ,UITableViewDataSource,SelectPayTypeViewDelegate>
+@interface ZFSureOrderViewController ()<UITableViewDelegate ,UITableViewDataSource,SelectPayTypeViewDelegate,ZFOrderListCellDelegate>
 {
     NSString * _contactUserName;
     NSString * _postAddress;
@@ -359,7 +360,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             ZFOrderListCell * listCell = [self.mytableView
                                           dequeueReusableCellWithIdentifier:@"ZFOrderListCellid" forIndexPath:indexPath];
             listCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
+            listCell.delegate = self;
             if (self.cmGoodsListArray.count > 0) {
                 listCell.listArray        = self.cmGoodsListArray;
                 NSMutableArray * goodsCountArray = [NSMutableArray array];
@@ -974,7 +975,13 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [self.popCouponBackgroundView removeFromSuperview];
 }
 
-
+#pragma mark - delegate
+-(void)didclickPhotoPicker:(NSInteger )index images:(NSArray *)images
+{
+    
+    [JZLPhotoBrowser showPhotoBrowserWithUrlArr:images currentIndex:index originalImageViewArr:nil];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

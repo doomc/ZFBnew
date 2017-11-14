@@ -8,11 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "UserFeedbackModel.h"
+
+@protocol ZFMyOpinionCellDelegate <NSObject>
+
+-(void)didclickPhotoPicker:(NSInteger )index images:(NSArray *)images;
+
+@end
+
 @interface ZFMyOpinionCell : UITableViewCell
+
+@property (assign, nonatomic) id <ZFMyOpinionCellDelegate>delegate;
 
 //约束
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *feedcollectViewLayoutheight;
-
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 

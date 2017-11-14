@@ -34,18 +34,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"关于我们";
-    [self initFooterView];
-
+    NSString * version =     [NSString stringWithFormat:@"版本号:%@",appMPVersion];
+    
     self.view.backgroundColor = HEXCOLOR(0xF7F7F7);
     [self.view addSubview:self.tableView];
-//    UIView * headView =  [[AboutUsView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 170)];
-     UIView * headView= [[NSBundle mainBundle]loadNibNamed:@"AboutUsView" owner:self options:nil].lastObject;
+
+    AboutUsView * headView= [[NSBundle mainBundle]loadNibNamed:@"AboutUsView" owner:self options:nil].lastObject;
+    headView.versionNO.text = version;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingCell" bundle:nil] forCellReuseIdentifier:@"ZFSettingCell"];
     self.tableView.tableHeaderView = headView;
     self.tableView.tableHeaderView.height = 170;
     
-    
+    [self initFooterView];
+
     
 }
 -(void)initFooterView{

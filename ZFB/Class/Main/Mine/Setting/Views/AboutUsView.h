@@ -12,5 +12,6 @@
 
 -(instancetype)initWithAboutFrame:(CGRect)frame;
 
+@property (weak, nonatomic) IBOutlet UILabel *versionNO;
 
 @end

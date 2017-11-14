@@ -109,9 +109,15 @@
     
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     NSLog(@"%ld",indexPath.item);
+
+    if ([self.delegate respondsToSelector:@selector(didclickPhotoPicker:images:)]) {
+        [self.delegate didclickPhotoPicker: indexPath.item images:self.mutImgArray];
+    }
 }
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

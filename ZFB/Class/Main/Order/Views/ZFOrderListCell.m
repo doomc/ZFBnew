@@ -73,7 +73,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld  = item" ,indexPath.item);
-    
+    if ([self.delegate respondsToSelector:@selector(didclickPhotoPicker:images:)]) {
+        [self.delegate didclickPhotoPicker:indexPath.item images:_images];
+    }
 }
 
 
