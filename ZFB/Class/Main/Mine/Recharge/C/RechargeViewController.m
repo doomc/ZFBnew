@@ -218,7 +218,7 @@
 -(void)didClickAddBankCard
 {
     NSLog(@"点击了  ---- 添加银行卡");
-    if ([_realNameFlag isEqualToString:@"2"] ) {            //是否实名认证 1 是 2 否
+    if (![_realNameFlag isEqualToString:@"1"] ) {            //是否实名认证 1 是 2 否
         CertificationViewController * cerVC = [CertificationViewController new];
         [self.navigationController pushViewController:cerVC animated:NO];
 

@@ -643,7 +643,7 @@
             ZFLocationGoToStoreCell  *  goToStoreCell = [self.list_tableView dequeueReusableCellWithIdentifier:@"ZFLocationGoToStoreCell" forIndexPath:indexPath];
             goToStoreCell.selectionStyle              = UITableViewCellSelectionStyleNone;
             CGFloat juli                              = [_juli floatValue]*0.001;
-            goToStoreCell.lb_address.text             = [NSString stringWithFormat:@"%@  %.2fkm",_store_address,juli];
+            goToStoreCell.lb_address.text             = [NSString stringWithFormat:@"%@  %.2f公里",_store_address,juli];
             goToStoreCell.lb_storeName.text           = _storeName;
             
             return goToStoreCell;

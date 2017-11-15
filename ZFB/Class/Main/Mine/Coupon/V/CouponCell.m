@@ -27,21 +27,7 @@
 -(void)setCouponlist:(Couponlist *)couponlist
 {
     _couponlist = couponlist;
-
-    //没领取优惠券
-    if (couponlist.status == 0) {
-        //券名
-        _lb_CouponType.text = [NSString stringWithFormat:@"¥%.f",couponlist.eachOneAmount];
-        _lb_CouponType.font = SYSTEMFONT(20);
-    }else{
-        
-        //券名
-        _lb_CouponType.text = couponlist.couponName;
-        _lb_CouponType.font = SYSTEMFONT(15);
-
-    }
-
-    
+ 
     //每张优惠券的金额
     _lb_ticketMaxPrice.text  = [NSString stringWithFormat:@"%.f",couponlist.eachOneAmount];
     _lb_conditionOfprice.text  = [NSString stringWithFormat:@"满%@元可用",couponlist.amountLimit];
@@ -59,105 +45,145 @@
 
     //serviceType- 优惠券服务类型  1.满减券 2.运费券
     if (couponlist.serviceType == 1) {
+    }else{
+    }
+    
+    //使用范围 1 全场通用 2 店铺券 3店铺商品券
+    if (couponlist.status == 0) {    //没领取优惠券
+        
+        _didClickget_btn.hidden = NO;
+        _img_isUsed.hidden = YES;
+        _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
+        //券名
+        _lb_CouponType.text = [NSString stringWithFormat:@"¥%.f",couponlist.eachOneAmount];
+        _lb_CouponType.font = SYSTEMFONT(20);
+        
+    }else if (couponlist.status == 1)
+    {
+        _img_isUsed.hidden = YES;
+        _didClickget_btn.hidden = YES;
+        _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
+        
+        //券名
+        _lb_CouponType.text = couponlist.couponName;
+        _lb_CouponType.font = SYSTEMFONT(15);
+        
+    }else if (couponlist.status == 2)
+    {
+        _img_isUsed.hidden = NO;
+        _img_isUsed.image = [UIImage imageNamed:@"used"];
+        _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
+        _didClickget_btn.hidden = YES;
+        
+        //券名
+        _lb_CouponType.text = couponlist.couponName;
+        _lb_CouponType.font = SYSTEMFONT(15);
         
     }else{
+        _img_isUsed.hidden = NO;
+        _img_isUsed.image = [UIImage imageNamed:@"expired"];
+        _img_couponType.image = [UIImage imageNamed:@"coupon_overdu"];
+        _didClickget_btn.hidden = YES;
+        
+        //券名
+        _lb_CouponType.text = couponlist.couponName;
+        _lb_CouponType.font = SYSTEMFONT(15);
+        _lb_CouponType.textColor = HEXCOLOR(0x333333);
         
     }
-
-    //使用范围 1 全场通用 2 店铺券 3店铺商品券
-    //背景图  red是平台券，orange是店铺券 ,绿色商品券,灰色是不可用和过期券
-    if (couponlist.useRange == 1) {
-        //status = 0 未领取 1 未使用 2 已使用 3 已失效
-        if (couponlist.status == 0) {
-            
-            _didClickget_btn.hidden = NO;
-             [_img_isUsed setHidden:YES];
-            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
+//    if (couponlist.useRange == 1) {
+//        //status = 0 未领取 1 未使用 2 已使用 3 已失效
+//        if (couponlist.status == 0) {
+//
+//            _didClickget_btn.hidden = NO;
+//            _img_isUsed.hidden = YES;
+//            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
+//
+//
+//        }else if (couponlist.status == 1)
+//        {
+//
+//            _img_isUsed.hidden = YES;
+//            _didClickget_btn.hidden = YES;
+//            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
+//
+//
+//        }else if (couponlist.status == 2)
+//        {
+//            _img_isUsed.image = [UIImage imageNamed:@"used"];//已使用
+//            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
+//            _didClickget_btn.hidden = YES;
+//
+//        }else{
+//
+//            _img_isUsed.image = [UIImage imageNamed:@"expired"];//已过期
+//            _img_couponType.image = [UIImage imageNamed:@"coupon_overdu"];
+//            _didClickget_btn.hidden = YES;
+//
+//        }
+//
+//    }
+//    if (couponlist.useRange == 2){
+//        //status = 0 未领取 1 未使用 2 已使用 3 已失效
+//        if (couponlist.status == 0) {
+//
+//            _didClickget_btn.hidden = NO;
+//            _img_isUsed.hidden = YES;
+//            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
+//
+//
+//        }else if (couponlist.status == 1)
+//        {
+//            _img_isUsed.hidden = YES;
+//            _didClickget_btn.hidden = YES;
+//            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
+//
+//        }else if (couponlist.status == 2)
+//        {
+//            _img_isUsed.image = [UIImage imageNamed:@"used"];
+//            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
+//            _didClickget_btn.hidden = YES;
+//
+//        }else{
+//
+//            _img_isUsed.image = [UIImage imageNamed:@"expired"];
+//            _img_couponType.image = [UIImage imageNamed:@"coupon_overdu"];
+//            _didClickget_btn.hidden = YES;
+//
+//        }
+//
+//    }
+//    if (couponlist.useRange == 3){
+//        //status = 0 未领取 1 未使用 2 已使用 3 已失效
+//        if (couponlist.status == 0) {
+//
+//            _didClickget_btn.hidden = NO;
+//            _img_isUsed.hidden = YES;
+//            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
+//
+//
+//        }else if (couponlist.status == 1)
+//        {
+//            _didClickget_btn.hidden = YES;
+//            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
+//            _img_isUsed.hidden = YES;
+//
+//
+//        }else if (couponlist.status == 2)
+//        {
+//            _img_isUsed.image = [UIImage imageNamed:@"used"];
+//            _img_couponType.image = [UIImage imageNamed:@"coupon_overdu"];
+//            _didClickget_btn.hidden = YES;
+//
+//
+//        }else{
+//            _img_isUsed.image = [UIImage imageNamed:@"expired"];
+//            _img_couponType.image = [UIImage imageNamed:@"coupon_overdu"];
+//            _didClickget_btn.hidden = YES;
+//
+//        }
 
  
-        }else if (couponlist.status == 1)
-        {
-            [_img_isUsed setHidden:YES];
-            _didClickget_btn.hidden = YES;
-            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
-
-
-        }else if (couponlist.status == 2)
-        {
-            _img_isUsed.image = [UIImage imageNamed:@"used"];
-            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
-            _didClickget_btn.hidden = YES;
-
-        }else{
-            
-            _img_isUsed.image = [UIImage imageNamed:@"expired"];
-            _img_couponType.image = [UIImage imageNamed:@"coupon_overdu"];
-            _didClickget_btn.hidden = YES;
-
-        }
-
-    }
-    if (couponlist.useRange == 2){
-        //status = 0 未领取 1 未使用 2 已使用 3 已失效
-        if (couponlist.status == 0) {
-            
-            _didClickget_btn.hidden = NO;
-            _img_isUsed.image = [UIImage imageNamed:@"used"];
-            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
-            
-            
-        }else if (couponlist.status == 1)
-        {
-            _img_isUsed.image = [UIImage imageNamed:@"used"];
-            _didClickget_btn.hidden = YES;
-            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
-
-        }else if (couponlist.status == 2)
-        {
-            _img_isUsed.image = [UIImage imageNamed:@"used"];
-            _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
-            _didClickget_btn.hidden = YES;
-            
-        }else{
-            
-            _img_isUsed.image = [UIImage imageNamed:@"expired"];
-            _img_couponType.image = [UIImage imageNamed:@"coupon_overdu"];
-            _didClickget_btn.hidden = YES;
-            
-        }
-
-    }
-    if (couponlist.useRange == 3){
-        //status = 0 未领取 1 未使用 2 已使用 3 已失效
-        if (couponlist.status == 0) {
-            
-            _didClickget_btn.hidden = NO;
-            _img_couponType.image = [UIImage imageNamed:@"coupon_overdu"];
-            _img_isUsed.image = [UIImage imageNamed:@"expired"];
-
-            
-        }else if (couponlist.status == 1)
-        {
-            _didClickget_btn.hidden = YES;
-            _img_couponType.image = [UIImage imageNamed:@"coupon_overdu"];
-            _img_isUsed.image = [UIImage imageNamed:@"expired"];
-
-
-        }else if (couponlist.status == 2)
-        {
-            _img_isUsed.image = [UIImage imageNamed:@"expired"];
-            _img_couponType.image = [UIImage imageNamed:@"coupon_overdu"];
-            _didClickget_btn.hidden = YES;
-
-            
-        }else{
-            _img_isUsed.image = [UIImage imageNamed:@"expired"];
-            _img_couponType.image = [UIImage imageNamed:@"coupon_overdu"];
-            _didClickget_btn.hidden = YES;
-
-        }
-
-    }
 }
 
 /**

@@ -14,7 +14,8 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-
+    self.bgview.layer.masksToBounds = YES;
+    self.bgview.layer.cornerRadius = 6;
 }
 
 //总收入模型

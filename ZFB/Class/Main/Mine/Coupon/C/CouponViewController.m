@@ -41,7 +41,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 @property (strong, nonatomic) UIView             * popCouponBackgroundView;//背景图
 @property (strong, nonatomic) UIButton           * edit_btn;
 @property (strong, nonatomic) NSMutableArray     * couponList;//可领取的优惠券
-@property (strong, nonatomic) NSMutableArray     * unUsedCouponList;//未使用的优惠券列表
+@property (strong, nonatomic) NSMutableArray     * outSideCouponList;//外部优惠券列表
 
 @property (strong, nonatomic) CouponFooterView   * couponFootView;
 @property (assign, nonatomic) BOOL  isEditing;//编辑状态
@@ -144,12 +144,12 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     }
     return _tableView;
 }
--(NSMutableArray *)unUsedCouponList{
+-(NSMutableArray *)outSideCouponList{
     
-    if (!_unUsedCouponList) {
-        _unUsedCouponList = [NSMutableArray array];
+    if (!_outSideCouponList) {
+        _outSideCouponList = [NSMutableArray array];
     }
-    return _unUsedCouponList;
+    return _outSideCouponList;
 }
 -(NSMutableArray *)couponList{
     
@@ -266,14 +266,14 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
             if (section == 0) {
                 numRow = 1;
             }else{
-                numRow = self.unUsedCouponList.count;
+                numRow = self.outSideCouponList.count;
             }
             break;
         case SelectCouponTypeUsed://已使用
-            numRow = self.unUsedCouponList.count;
+            numRow = self.outSideCouponList.count;
             break;
         case SelectCouponTypeOverDate://已过期
-            numRow = self.unUsedCouponList.count;
+            numRow = self.outSideCouponList.count;
             
             break;
         default:
@@ -325,7 +325,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 
                 CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
                 couponCell.couponDelegate = self;
-                Couponlist * list       = self.unUsedCouponList[indexPath.row];
+                Couponlist * list       = self.outSideCouponList[indexPath.row];
                 couponCell.buttonWidthConstraint.constant = 0;
                 couponCell.couponlist   = list;
                 return couponCell;
@@ -335,7 +335,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 
                 CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
                 couponCell.couponDelegate = self;
-                Couponlist * list       = self.unUsedCouponList[indexPath.row];
+                Couponlist * list       = self.outSideCouponList[indexPath.row];
                 couponCell.buttonWidthConstraint.constant = 0;
                 couponCell.couponlist   = list;
                 return couponCell;
@@ -345,7 +345,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
             {
                 CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
                 couponCell.couponDelegate = self;
-                Couponlist * list       = self.unUsedCouponList[indexPath.row];
+                Couponlist * list       = self.outSideCouponList[indexPath.row];
                 couponCell.buttonWidthConstraint.constant = 0;
                 couponCell.couponlist   = list;
                 return couponCell;
@@ -366,7 +366,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 
                 CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
                 couponCell.couponDelegate = self;
-                Couponlist * list       = self.unUsedCouponList[indexPath.row];
+                Couponlist * list       = self.outSideCouponList[indexPath.row];
                 couponCell.buttonWidthConstraint.constant = 30;
                 couponCell.couponlist   = list;
 
@@ -377,7 +377,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 
                 CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
                 couponCell.couponDelegate = self;
-                Couponlist * list       = self.unUsedCouponList[indexPath.row];
+                Couponlist * list       = self.outSideCouponList[indexPath.row];
                 couponCell.buttonWidthConstraint.constant = 30;
                 couponCell.couponlist   = list;
                 
@@ -388,10 +388,10 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
             {
                 CouponCell * couponCell = [ self.tableView dequeueReusableCellWithIdentifier:@"CouponCellid" forIndexPath:indexPath];
                 couponCell.couponDelegate = self;
-                Couponlist * list       = self.unUsedCouponList[indexPath.row];
-                couponCell.buttonWidthConstraint.constant = 30;
+                Couponlist * list       = self.outSideCouponList[indexPath.row];
                 couponCell.couponlist   = list;
-                
+                couponCell.buttonWidthConstraint.constant = 30;
+
                 return couponCell;
             }
                 break;
@@ -466,15 +466,14 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                              @"status":status,
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"pageSize":[NSNumber numberWithInteger:kPageCount],
-                             @"storeId":@"",
-                             @"goodsId":@"",
+
 
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserCouponList"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
-           
             if ([status isEqualToString:@"0"]) {//查询未领取列表
+                
                 if (self.couponList.count > 0) {
                     [self.couponList removeAllObjects];
                 }
@@ -490,13 +489,13 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 
             }else{//如果不为0只刷新外部
                 if (self.refreshType == RefreshTypeHeader) {
-                    if (self.unUsedCouponList.count > 0) {
-                        [self.unUsedCouponList removeAllObjects];
+                    if (self.outSideCouponList.count > 0) {
+                        [self.outSideCouponList removeAllObjects];
                     }
                 }
                 CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
                 for (Couponlist * list in coupon.couponList) {
-                    [self.unUsedCouponList addObject:list];
+                    [self.outSideCouponList addObject:list];
                 }
                 [self.tableView reloadData];
 
@@ -506,7 +505,6 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
         [self endRefresh];
 
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         [self endRefresh];
         [SVProgressHUD dismiss];
@@ -610,46 +608,42 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
     switch (_couponType) {
         case SelectCouponTypeDefault://未使用
          
-            for (Couponlist * list in self.unUsedCouponList)
+            for (Couponlist * list in self.outSideCouponList)
             {
                 if (list.isChoosedCoupon)
                 {
                     [tempCellArray addObject:list];
                 }
             }
-            [self.unUsedCouponList removeObjectsInArray:tempCellArray];
-            
+            [self.outSideCouponList removeObjectsInArray:tempCellArray];
             [self deleteCouponesPostRequstCouponId:_couponIdAppdding Andstatus:@"1"];
             [self.tableView reloadData];
           
             break;
         case SelectCouponTypeUsed://已使用
             
-            for (Couponlist * list in self.unUsedCouponList)
+            for (Couponlist * list in self.outSideCouponList)
             {
                 if (list.isChoosedCoupon)
                 {
                     [tempCellArray addObject:list];
                 }
             }
-            [self.unUsedCouponList removeObjectsInArray:tempCellArray];
+            [self.outSideCouponList removeObjectsInArray:tempCellArray];
             [self deleteCouponesPostRequstCouponId:_couponIdAppdding Andstatus:@"2"];
-
             [self.tableView reloadData];
             
             break;
         case SelectCouponTypeOverDate://已过期
-            for (Couponlist * list in self.unUsedCouponList)
+            for (Couponlist * list in self.outSideCouponList)
             {
                 if (list.isChoosedCoupon)
                 {
                     [tempCellArray addObject:list];
                 }
             }
-            [self.unUsedCouponList removeObjectsInArray:tempCellArray];
-            
+            [self.outSideCouponList removeObjectsInArray:tempCellArray];
             [self deleteCouponesPostRequstCouponId:_couponIdAppdding Andstatus:@"3"];
-
             [self.tableView reloadData];
             
             break;
@@ -662,8 +656,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 //取消删除-取消编辑状态
 -(void)didClickCancle
 {
-    for (Couponlist * lists in self.unUsedCouponList) {
-    
+    for (Couponlist * lists in self.outSideCouponList) {
         lists.isChoosedCoupon = NO;
     }
     self.couponFootView.selectBtn.selected = NO;
@@ -691,7 +684,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 {
     sender.selected = !sender.selected;
     NSMutableArray * chooseArray = [NSMutableArray array];
-    for (Couponlist * list in self.unUsedCouponList) {
+    for (Couponlist * list in self.outSideCouponList) {
         list.isChoosedCoupon = sender.selected;
         //如果为选中
         if (list.isChoosedCoupon) {
@@ -710,11 +703,11 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 {
     NSIndexPath * indexPath = [self.tableView indexPathForCell:couponCell];
     NSLog(@"%@ --- couponCell",indexPath);
-    Couponlist * list     = self.unUsedCouponList[indexPath.row];
+    Couponlist * list     = self.outSideCouponList[indexPath.row];
     list.isChoosedCoupon = !list.isChoosedCoupon;
     
     NSMutableArray * couponIdArray = [NSMutableArray array];
-    for (Couponlist * lists in self.unUsedCouponList) {
+    for (Couponlist * lists in self.outSideCouponList) {
         if (lists.isChoosedCoupon) {
             NSString *couponId = [NSString stringWithFormat:@"%ld",lists.couponId];
             [couponIdArray addObject:couponId];
@@ -730,10 +723,10 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 -(void)didUnsedCouponCell:(CouponUsedCell *)cell
 {
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    Couponlist * list     = self.unUsedCouponList[indexPath.row];
+    Couponlist * list     = self.outSideCouponList[indexPath.row];
     list.isChoosedCoupon = !list.isChoosedCoupon;
     NSMutableArray * couponIdArray = [NSMutableArray array];
-    for (Couponlist * lists in self.unUsedCouponList) {
+    for (Couponlist * lists in self.outSideCouponList) {
         if (lists.isChoosedCoupon) {
             NSString *couponId = [NSString stringWithFormat:@"%ld",lists.couponId];
             [couponIdArray addObject:couponId];
@@ -748,10 +741,10 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 -(void)didCouponOverDateCell:(CouponOverDateCell *)cell
 {
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    Couponlist * list     = self.unUsedCouponList[indexPath.row];
+    Couponlist * list     = self.outSideCouponList[indexPath.row];
     list.isChoosedCoupon = !list.isChoosedCoupon;
     NSMutableArray * couponIdArray = [NSMutableArray array];
-    for (Couponlist * lists in self.unUsedCouponList) {
+    for (Couponlist * lists in self.outSideCouponList) {
         if (lists.isChoosedCoupon) {
             NSString *couponId = [NSString stringWithFormat:@"%ld",lists.couponId];
             [couponIdArray addObject:couponId];
@@ -765,18 +758,18 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 #pragma mark - footiew 判断是否全部选中了
 - (BOOL)isAllChoosed
 {
-    if ([self isEmptyArray:self.unUsedCouponList] ) {
+    if ([self isEmptyArray:self.outSideCouponList] ) {
         return NO;
     }
     
     NSInteger count = 0;
-    for (Couponlist * list in self.unUsedCouponList) {
+    for (Couponlist * list in self.outSideCouponList) {
         
         if (list.isChoosedCoupon) {
             count ++;
         }
     }
-    return (count == self.unUsedCouponList.count);
+    return (count == self.outSideCouponList.count);
 }
 
 

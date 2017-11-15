@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class Storedeliveryfeelist;
+@class Storedeliveryfeelist,AlldeliveryFeeList;
 @interface SureOrderModel : ResponseObject
 
 @property (nonatomic, strong) NSArray<Storedeliveryfeelist *> *storeDeliveryfeeList;
+
+@property (nonatomic, strong) NSArray<AlldeliveryFeeList *> *deliveryFeeList;
 
 @property (nonatomic, assign) CGFloat goodsCount;
 
@@ -32,3 +34,10 @@
 
 @end
 
+@interface AlldeliveryFeeList : ResponseObject
+
+@property (nonatomic, copy) NSString * orderDeliveryfee;
+@property (nonatomic, copy) NSString * deliveryType;
+@property (nonatomic, copy) NSString * deliveryTypeName;
+
+@end

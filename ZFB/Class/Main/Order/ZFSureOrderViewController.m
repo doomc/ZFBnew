@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     
 };
 
-@interface ZFSureOrderViewController ()<UITableViewDelegate ,UITableViewDataSource,SelectPayTypeViewDelegate,ZFOrderListCellDelegate>
+@interface ZFSureOrderViewController ()<UITableViewDelegate ,UITableViewDataSource,SelectPayTypeViewDelegate,ZFOrderListCellDelegate,OrderPriceCellDelegate,YBPopupMenuDelegate>
 {
     NSString * _contactUserName;
     NSString * _postAddress;
@@ -100,6 +100,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 @property (nonatomic ,strong) NSMutableArray * couponList;//优惠券数组
 
 @property (nonatomic,strong) NSMutableArray    * storeAttachListArr;//有备注的数组
+@property (nonatomic,strong) NSMutableArray    * allDeliveryFeeListArray;//配送费数组
 @property (nonatomic,strong) NSMutableArray    * storeDeliveryfeeListArr;//配送费数组
 @property (nonatomic,strong) NSMutableArray    * productIDArray;//检查商品坤库存数组
 @property (nonatomic,assign) SureOrderCellType orderCellType;
@@ -428,10 +429,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             //costNum	int(11)	配送费总金额
             //userCostNum	int(11)	支付总金额
             OrderPriceCell * priceCell   = [self.mytableView dequeueReusableCellWithIdentifier:@"OrderPriceCellid" forIndexPath:indexPath];
-            
+            priceCell.delegate = self;
             if ([_payType isEqualToString:@"0"] || _postAddressId == nil|| [_postAddressId isEqualToString:@""] ) {
                 priceCell.lb_tipFree.text    = @"¥0" ;
-              
             }
             else{
                 //配送费总金额
@@ -575,14 +575,21 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 #pragma mark -  getGoodsCostInfo 用户订单确定费用信息接口
 -(void)getGoodsCostInfoListPostRequstWithJsonString:(NSDictionary *) jsondic
 {
-    _storeDeliveryfeeListArr =[NSMutableArray array];
+    _storeDeliveryfeeListArr = [NSMutableArray array];
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsCostInfo",zfb_baseUrl] params:jsondic success:^(id response) {
      
         NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
         if([code isEqualToString:@"0"])
-        {            
+        {
+            if (self.allDeliveryFeeListArray.count > 0) {
+                [self.allDeliveryFeeListArray removeAllObjects];
+            }
             SureOrderModel * suremodel = [SureOrderModel mj_objectWithKeyValues:response];
+            for (AlldeliveryFeeList * allFee in suremodel.deliveryFeeList) {
+                NSString * titles = [NSString stringWithFormat:@"%@          ¥%@",allFee.deliveryTypeName,allFee.orderDeliveryfee];
+                [self.allDeliveryFeeListArray addObject:titles];
+            }
             
             _storeDeliveryfeeListArr = response[@"storeDeliveryfeeList"];
             _goodsCount              = [NSString stringWithFormat:@"%.2f",suremodel.goodsCount]  ;//商品总金额
@@ -911,6 +918,13 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     }
     return _storelistArry;
 }
+-(NSMutableArray *)allDeliveryFeeListArray
+{
+    if (!_allDeliveryFeeListArray) {
+        _allDeliveryFeeListArray = [NSMutableArray array];
+    }
+    return _allDeliveryFeeListArray;
+}
 
 -(SelectPayTypeView *)selectPayView
 {
@@ -982,6 +996,24 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [JZLPhotoBrowser showPhotoBrowserWithUrlArr:images currentIndex:index originalImageViewArr:nil];
     
 }
+
+#pragma mark - OrderPriceCellDelegate
+//查看明细
+-(void)checkDetailAction:(UIButton*)sender
+{
+    [YBPopupMenu showRelyOnView:sender titles:self.allDeliveryFeeListArray  icons:nil menuWidth:120 otherSettings:^(YBPopupMenu *popupMenu) {
+        popupMenu.priorityDirection = YBPopupMenuPriorityDirectionTop;
+        popupMenu.borderWidth = 0.5;
+        popupMenu.arrowHeight = 5;
+        popupMenu.arrowWidth  = 10;
+        popupMenu.fontSize = 14;
+        popupMenu.delegate = self;
+    }];
+}
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

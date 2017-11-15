@@ -26,5 +26,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headImg;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_reword;
+@property (weak, nonatomic) IBOutlet UILabel *lb_price;
+@property (weak, nonatomic) IBOutlet UILabel *lb_goodsNum;
+
+@property (weak, nonatomic) IBOutlet UIView *bgview;
 
 @end

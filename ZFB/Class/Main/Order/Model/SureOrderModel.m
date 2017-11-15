@@ -12,13 +12,20 @@
 
 
 + (NSDictionary *)objectClassInArray{
-    return @{@"storeDeliveryfeeList" : [Storedeliveryfeelist class]};
+    return @{
+             @"storeDeliveryfeeList" : [Storedeliveryfeelist class],
+             @"deliveryFeeList" : [AlldeliveryFeeList class]
+             };
 }
 
- 
+
+
 @end
+@implementation AlldeliveryFeeList
+
+@end
+
 @implementation Storedeliveryfeelist
 
 @end
-
 

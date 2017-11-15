@@ -18,6 +18,14 @@
 
 }
 
+- (IBAction)didclickDetail:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(checkDetailAction:)]) {
+        [self.delegate checkDetailAction:sender];
+    }
+}
+
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

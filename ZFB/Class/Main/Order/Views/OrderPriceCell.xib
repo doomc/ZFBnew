@@ -45,29 +45,42 @@
                         <color key="textColor" red="0.72156862749999995" green="0.047058823530000002" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥ 1998.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qqi-QW-3ie">
-                        <rect key="frame" x="247" y="35" width="58" height="20"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lMF-ZD-LkV">
+                        <rect key="frame" x="251" y="30" width="59" height="27"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="(查看明细)">
+                            <color key="titleColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="didclickDetail:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dCv-r0-Y3d"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥ 1998.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qqi-QW-3ie">
+                        <rect key="frame" x="193" y="33.5" width="58" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="G2L-FW-G5O"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" red="0.72156862749999995" green="0.047058823530000002" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="lMF-ZD-LkV" secondAttribute="trailing" constant="10" id="03Y-3a-RFO"/>
                     <constraint firstItem="VQ9-E4-9za" firstAttribute="centerY" secondItem="GmA-fP-J9v" secondAttribute="centerY" id="6FE-su-XnP"/>
                     <constraint firstAttribute="trailing" secondItem="VQ9-E4-9za" secondAttribute="trailing" constant="15" id="AzA-cD-TEs"/>
                     <constraint firstItem="Bc0-rj-kIK" firstAttribute="leading" secondItem="GmA-fP-J9v" secondAttribute="leading" id="DGO-XS-WsV"/>
+                    <constraint firstItem="lMF-ZD-LkV" firstAttribute="top" secondItem="VQ9-E4-9za" secondAttribute="bottom" id="JT2-sb-7IA"/>
                     <constraint firstItem="GmA-fP-J9v" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="NYf-ll-CjC"/>
-                    <constraint firstItem="Qqi-QW-3ie" firstAttribute="trailing" secondItem="VQ9-E4-9za" secondAttribute="trailing" id="YKH-YI-ETF"/>
                     <constraint firstItem="Bc0-rj-kIK" firstAttribute="top" secondItem="GmA-fP-J9v" secondAttribute="bottom" constant="5" id="akt-T7-oHf"/>
-                    <constraint firstItem="Qqi-QW-3ie" firstAttribute="centerY" secondItem="Bc0-rj-kIK" secondAttribute="centerY" id="hbk-ck-rWx"/>
+                    <constraint firstItem="Qqi-QW-3ie" firstAttribute="centerY" secondItem="lMF-ZD-LkV" secondAttribute="centerY" id="fGe-gv-WnO"/>
                     <constraint firstItem="GmA-fP-J9v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="r16-eE-gWl"/>
+                    <constraint firstItem="lMF-ZD-LkV" firstAttribute="leading" secondItem="Qqi-QW-3ie" secondAttribute="trailing" id="t5l-K8-yyB"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="checkDeitalBtn" destination="lMF-ZD-LkV" id="K9T-vz-n0G"/>
                 <outlet property="lb_priceTotal" destination="VQ9-E4-9za" id="0MK-jW-Is5"/>
                 <outlet property="lb_tipFree" destination="Qqi-QW-3ie" id="hSe-ma-DYZ"/>
             </connections>

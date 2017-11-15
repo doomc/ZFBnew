@@ -50,7 +50,6 @@
 /** 判断 是否使用  */
 @property (weak, nonatomic) IBOutlet UIImageView *img_isUsed;
 
-
 @property (weak, nonatomic) IBOutlet UIImageView *img_couponType;
 
 @property (assign , nonatomic) id <CouponCellDelegate> couponDelegate;

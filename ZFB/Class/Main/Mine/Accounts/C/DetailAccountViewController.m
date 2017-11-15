@@ -86,13 +86,12 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return 1;
-    }else
-    {
+    }else {
      // 支付类型	1 转账 2 退款 3 充值 4 订单 5 提现 6佣金
-        if ([_pay_type isEqualToString:@"4"]) {
-            
-        }
-        return 6;
+//        if ([_pay_type isEqualToString:@"4"]) {
+//            return 6;
+//        }
+        return _titles.count;
     }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -128,10 +127,11 @@
         
     }else{
         DetailAcountTitleCell * titleCell = [self.tableview dequeueReusableCellWithIdentifier:@"DetailAcountTitleCellid" forIndexPath:indexPath];
-        titleCell.lb_title.text = _titles[indexPath.row];
-        titleCell.lb_descirption.text = self.subTitles[indexPath.row];
 
-     
+        if (self.subTitles.count>0) {
+            titleCell.lb_title.text = _titles[indexPath.row];
+            titleCell.lb_descirption.text = self.subTitles[indexPath.row];
+        }
         return titleCell;
 
     }
