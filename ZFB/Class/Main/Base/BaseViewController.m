@@ -29,7 +29,7 @@
 
     if (isIOS7) {
         
-        self.automaticallyAdjustsScrollViewInsets = YES;
+        self.automaticallyAdjustsScrollViewInsets = NO;
         //self.navigationController.navigationBar.translucent = NO;
 //        self.navigationController.navigationBar.barTintColor = HEXCOLOR(0xffcccc);
         

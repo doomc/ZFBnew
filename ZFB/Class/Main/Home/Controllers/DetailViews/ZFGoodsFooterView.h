@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @protocol ZFGoodsFooterViewDelegate <NSObject>
-
+@optional
 //客服
 -(void)didClickContactRobotView;
 //店铺

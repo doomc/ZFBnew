@@ -21,12 +21,11 @@
     // Do any additional setup after loading the view.
     self.title = @"确认支付密码";
     
-    TPPasswordTextView * paView = [[TPPasswordTextView alloc] initWithFrame:CGRectMake(0, 50, KScreenW - 60, 44)];
+    TPPasswordTextView * paView = [[TPPasswordTextView alloc] initWithFrame:CGRectMake(30, 20, KScreenW - 60, 44)];
     paView.elementCount = 6;
-    CGPoint center = self.view.center;
-    paView.center = CGPointMake(center.x, 120);
-    paView.elementBorderColor = [UIColor grayColor];
     paView.elementMargin = 5;
+    paView.elementBorderColor = HEXCOLOR(0x333333);
+
     [self.view addSubview:paView];
     
     paView.passwordDidChangeBlock = ^(NSString *password) {

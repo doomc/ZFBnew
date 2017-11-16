@@ -7,7 +7,8 @@
 //
 
 #import "FinGoodsViewController.h"
-#import "DetailFindGoodsViewController.h"
+#import "GoodsDeltailViewController.h"
+//#import "DetailFindGoodsViewController.h"
 #import "ZFClassifyCollectionViewController.h"
 #import "HomeSearchResultViewController.h"
 
@@ -283,7 +284,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
 -(void)pushToDetailVCWithGoodsID :(NSString *) goodsId
 {
     if (BBUserDefault.isLogin == 1) {
-        DetailFindGoodsViewController *detailVCgoods = [[DetailFindGoodsViewController alloc]init];
+        GoodsDeltailViewController *detailVCgoods = [[GoodsDeltailViewController alloc]init];
         detailVCgoods.goodsId                        = goodsId;
         [self.navigationController pushViewController:detailVCgoods animated:NO];
         
@@ -298,10 +299,8 @@ typedef NS_ENUM(NSUInteger, CellType) {
     NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);
     
     if (BBUserDefault.isLogin == 1) {
-        DetailFindGoodsViewController * findVCgoods =[[DetailFindGoodsViewController alloc]init];
-        
+        GoodsDeltailViewController * findVCgoods =[[GoodsDeltailViewController alloc]init];
         if (self.likeListArray.count > 0) {
-            
             Guessgoodslist *goodlist = self.likeListArray[indexPath.row];
             findVCgoods.headerImage = goodlist.coverImgUrl ;
  

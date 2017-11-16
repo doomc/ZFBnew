@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,12 +15,9 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="优惠券.png" translatesAutoresizingMaskIntoConstraints="NO" id="ojk-ys-5cY">
-                        <rect key="frame" x="15" y="9" width="24" height="24"/>
-                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows_Right_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="gbT-ok-zzS">
                         <rect key="frame" x="293" y="15" width="12" height="12"/>
                         <constraints>
@@ -38,10 +35,10 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您有2张待领取的优惠券" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zku-De-zoD">
-                        <rect key="frame" x="49" y="12.5" width="162" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="领优惠券" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zku-De-zoD">
+                        <rect key="frame" x="15" y="12.5" width="62" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQy-4l-3T0">
@@ -57,14 +54,12 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="gbT-ok-zzS" secondAttribute="trailing" constant="15" id="3S6-ki-bdB"/>
-                    <constraint firstItem="ojk-ys-5cY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="8av-it-bDJ"/>
-                    <constraint firstItem="ojk-ys-5cY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Fbr-v4-Auo"/>
+                    <constraint firstItem="zku-De-zoD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="7Zo-15-VEW"/>
                     <constraint firstAttribute="bottom" secondItem="YlB-AN-6i5" secondAttribute="bottom" id="G4n-5b-RJc"/>
                     <constraint firstAttribute="trailing" secondItem="oQy-4l-3T0" secondAttribute="trailing" id="GRT-34-oYK"/>
                     <constraint firstItem="gbT-ok-zzS" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="IBd-2s-BZM"/>
                     <constraint firstItem="YlB-AN-6i5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="JvU-GF-Vvm"/>
-                    <constraint firstItem="zku-De-zoD" firstAttribute="centerY" secondItem="ojk-ys-5cY" secondAttribute="centerY" id="Psg-GM-0vp"/>
-                    <constraint firstItem="zku-De-zoD" firstAttribute="leading" secondItem="ojk-ys-5cY" secondAttribute="trailing" constant="10" id="QRn-qh-9zv"/>
+                    <constraint firstItem="zku-De-zoD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="MaH-LA-8ic"/>
                     <constraint firstAttribute="trailing" secondItem="YlB-AN-6i5" secondAttribute="trailing" id="cC0-BP-sqW"/>
                     <constraint firstItem="oQy-4l-3T0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ibc-On-0a4"/>
                     <constraint firstItem="oQy-4l-3T0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qoQ-E7-0WU"/>
@@ -78,6 +73,5 @@
     </objects>
     <resources>
         <image name="arrows_Right_black.png" width="12" height="12"/>
-        <image name="优惠券.png" width="24" height="24"/>
     </resources>
 </document>

@@ -1,19 +1,19 @@
 //
-//  ZFbabyEvaluateCell.m
+//  GoodsDetailEvaCell.m
 //  ZFB
 //
-//  Created by  展富宝  on 2017/5/18.
+//  Created by  展富宝  on 2017/11/16.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
-#import "ZFbabyEvaluateCell.h"
+#import "GoodsDetailEvaCell.h"
 
-@implementation ZFbabyEvaluateCell
+@implementation GoodsDetailEvaCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.selectionStyle         = UITableViewCellSelectionStyleNone;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 
 }
 

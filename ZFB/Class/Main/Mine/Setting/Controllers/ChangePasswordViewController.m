@@ -26,12 +26,12 @@
     
     self.title = @"修改支付密码";
     
-    self.paView = [[TPPasswordTextView alloc] initWithFrame:CGRectMake(0, 0, KScreenW - 60, 44)];
+    self.paView = [[TPPasswordTextView alloc] initWithFrame:CGRectMake(30, 20, KScreenW - 60, 44)];
     self.paView.elementCount = 6;
-    CGPoint center = self.view.center;
-    self.paView.center = CGPointMake(center.x, 120);
-    self.paView.elementBorderColor = [UIColor grayColor];
     self.paView.elementMargin = 5;
+    self.paView.elementBorderColor = HEXCOLOR(0x333333);
+//    CGPoint center = self.view.center;
+//    self.paView.center = CGPointMake(center.x, 120);
     [self.view addSubview:self.paView];
 
     

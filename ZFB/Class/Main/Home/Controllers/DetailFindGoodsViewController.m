@@ -234,7 +234,6 @@
     UIBarButtonItem *rightItem             = [[UIBarButtonItem alloc] initWithCustomView:collectButton];
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    
 }
 #pragma mark - 轮播图
 -(void)cycleScrollViewInit
@@ -316,27 +315,20 @@
 {
     //  直接加入购物车
     if (self.productSkuArray.count > 0){
-        
         [self popActionView];
-        
     }else{//如果无规格的
         
         if ([_skuAmount intValue] > 0 || [_inventory intValue] > 0 ) {
             //添加有规格的数据进入购物车  传入有规格的json数据
             [self addToshoppingCarPostproductId:_productSkuId];
-            
         }else{
             JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"这个商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
             }];
             [alertVC addAction:sure];
             [self presentViewController:alertVC animated:YES completion:nil];
-            
         }
-        
     }
-    
 }
 #pragma mark -  立即购买外部的
 -(void)didClickBuyNowView
@@ -462,7 +454,6 @@
 
 /**
  点爱心
- 
  @param sender 收藏/取消收藏
  */
 -(void )didclickLove:(UIButton *)sender
@@ -470,15 +461,10 @@
     sender.selected = !sender.selected;
     ///是否收藏	1.收藏 2.不是
     if (_isCollect == 1) {
-        
         [self cancelCollectedPostRequest];//取消收藏
-        
     }else{
-        
         [self addCollectedPostRequest]; //添加收藏
-        
     }
-    
 }
 #pragma mark - DetailWebViewCellDelegate 获取webview高度
 -(void)getHeightForWebView:(CGFloat)Height
@@ -1687,7 +1673,7 @@
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
-    NSLog(@"viewWillDisappear  消失了 这个方法走了吗");
+ 
     [SVProgressHUD dismiss];
     
 }

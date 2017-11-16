@@ -20,6 +20,7 @@
 #import "BrandListModel.h"//品牌模型
 //vc
 #import "DetailFindGoodsViewController.h"
+
 @interface HomeSearchResultViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,SearchTypeCollectionViewDelegate,SearchTypeViewDelegate >
 
 {

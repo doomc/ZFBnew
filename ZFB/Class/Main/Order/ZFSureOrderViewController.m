@@ -63,8 +63,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     NSString * _orderDeliveryfee;//每家门店的配送费
     
     NSString * _datetime;
-    NSString * _access_token;
-    
+ 
     NSString * _payType;// 0 在线支付，1 门店支付
     NSString * _storeIdAppding;
     NSString * _goodsIdAppding;
@@ -830,9 +829,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [params setValue:@"" forKey:@"passback_params"];//回传参数：商户可自定义该参数，在支付回调后带回
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/paySign",zfb_baseUrl] params:[NSDictionary dictionaryWithDictionary:params] success:^(id response) {
-        
         _paySign = response[@"paySign"];
-        
         [SVProgressHUD dismissWithCompletion:^{
           
             [self getGoodsCostPayResulrUrlL];
@@ -1001,7 +998,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 //查看明细
 -(void)checkDetailAction:(UIButton*)sender
 {
-    [YBPopupMenu showRelyOnView:sender titles:self.allDeliveryFeeListArray  icons:nil menuWidth:120 otherSettings:^(YBPopupMenu *popupMenu) {
+    [YBPopupMenu showRelyOnView:sender titles:self.allDeliveryFeeListArray  icons:nil menuWidth:140 otherSettings:^(YBPopupMenu *popupMenu) {
         popupMenu.priorityDirection = YBPopupMenuPriorityDirectionTop;
         popupMenu.borderWidth = 0.5;
         popupMenu.arrowHeight = 5;

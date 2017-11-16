@@ -166,6 +166,10 @@ typedef NS_ENUM(NSUInteger, PickerType) {
         if ([response[@"resultCode"] isEqualToString:@"0" ]) {
             
             [SVProgressHUD showSuccessWithStatus:@"认证成功!"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+       
+                [self poptoUIViewControllerNibName:@"PayPassWordSettingViewController" AndObjectIndex:2];
+            });
             
         }else{
             

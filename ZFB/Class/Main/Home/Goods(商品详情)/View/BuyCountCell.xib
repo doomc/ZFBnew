@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="KGk-i7-Jjw" customClass="BuyCountCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="购买数量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BBG-qM-MNL">
+                        <rect key="frame" x="15" y="25.5" width="61.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="knk-vq-mkM">
+                        <rect key="frame" x="96.5" y="19" width="130" height="30"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DPS-fb-guX">
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="dKG-BK-Vzv"/>
+                                    <constraint firstAttribute="width" constant="40" id="u40-3Z-pko"/>
+                                </constraints>
+                                <state key="normal" title="－">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="reduceAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vu5-iQ-bhQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXK-Jv-3ow">
+                                <rect key="frame" x="90" y="0.0" width="40" height="30"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="m7M-nN-qxj"/>
+                                    <constraint firstAttribute="height" constant="30" id="pBs-c9-VLC"/>
+                                </constraints>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="addAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="QUn-m0-CbX"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBM-Fu-k57">
+                                <rect key="frame" x="40" y="6" width="50" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="FBM-Fu-k57" firstAttribute="centerY" secondItem="CXK-Jv-3ow" secondAttribute="centerY" id="EPg-OL-Dkw"/>
+                            <constraint firstItem="CXK-Jv-3ow" firstAttribute="centerY" secondItem="knk-vq-mkM" secondAttribute="centerY" id="Gwg-KQ-k7h"/>
+                            <constraint firstItem="FBM-Fu-k57" firstAttribute="leading" secondItem="DPS-fb-guX" secondAttribute="trailing" id="T9O-BL-66i"/>
+                            <constraint firstAttribute="height" constant="30" id="WX2-wY-gjg"/>
+                            <constraint firstAttribute="trailing" secondItem="CXK-Jv-3ow" secondAttribute="trailing" id="ai2-PU-jjm"/>
+                            <constraint firstItem="DPS-fb-guX" firstAttribute="centerY" secondItem="knk-vq-mkM" secondAttribute="centerY" id="eGU-jr-Vju"/>
+                            <constraint firstItem="FBM-Fu-k57" firstAttribute="centerY" secondItem="DPS-fb-guX" secondAttribute="centerY" id="lTP-th-fQR"/>
+                            <constraint firstItem="CXK-Jv-3ow" firstAttribute="leading" secondItem="FBM-Fu-k57" secondAttribute="trailing" id="ljK-35-1gP"/>
+                            <constraint firstItem="DPS-fb-guX" firstAttribute="leading" secondItem="knk-vq-mkM" secondAttribute="leading" id="rnd-2z-eLi"/>
+                            <constraint firstAttribute="width" constant="130" id="shS-K9-WIA"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="BBG-qM-MNL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Eak-EK-jWA"/>
+                    <constraint firstItem="BBG-qM-MNL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Wcy-Vt-LgY"/>
+                    <constraint firstItem="knk-vq-mkM" firstAttribute="leading" secondItem="BBG-qM-MNL" secondAttribute="trailing" constant="20" id="jFs-rM-gAA"/>
+                    <constraint firstItem="knk-vq-mkM" firstAttribute="centerY" secondItem="BBG-qM-MNL" secondAttribute="centerY" id="kcA-Bt-BbE"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="lb_count" destination="FBM-Fu-k57" id="4qd-Hf-dse"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="67"/>
+        </tableViewCell>
+    </objects>
+</document>

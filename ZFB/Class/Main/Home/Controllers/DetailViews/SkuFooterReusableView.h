@@ -11,7 +11,6 @@
 
 -(void)addCount:(NSInteger)count;
 
-
 @end
 @interface SkuFooterReusableView : UIView
 
