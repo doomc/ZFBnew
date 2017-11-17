@@ -4,7 +4,7 @@
 //
 //  Created by Jonas Gessner on 20.7.14.
 //  Copyright (c) 2014 Jonas Gessner. All rights reserved.
-//  
+//
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -60,3 +60,4 @@
 - (void)updateAccessibility;
 
 @end
+

@@ -311,3 +311,4 @@
 + (NSArray *)allProgressHUDsInViewHierarchy:(UIView *)view;
 
 @end
+

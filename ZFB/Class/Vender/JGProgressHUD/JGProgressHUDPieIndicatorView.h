@@ -17,7 +17,7 @@
 - (instancetype)initWithHUDStyle:(JGProgressHUDStyle)style;
 
 /**
- Tint color of the Pie. 
+ Tint color of the Pie.
  
  @b Default: White for JGProgressHUDStyleDark, otherwise black.
  */
@@ -31,3 +31,4 @@
 @property (nonatomic, strong) UIColor *fillColor;
 
 @end
+

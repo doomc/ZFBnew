@@ -4,7 +4,7 @@
 //
 //  Created by Jonas Gessner on 20.7.14.
 //  Copyright (c) 2014 Jonas Gessner. All rights reserved.
-//  
+//
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -31,7 +31,7 @@
 
 /**
  The @c progressHUD is hidden from screen with @c alpha = 1 and @c hidden = @c YES. Ideally, you should prepare the HUD for presentation, then set @c hidden to @c NO on the @c progressHUD and then perform the animation.
-  @post Call @c animationFinished.
+ @post Call @c animationFinished.
  */
 - (void)show NS_REQUIRES_SUPER;
 
@@ -48,3 +48,4 @@
 - (void)animationFinished NS_REQUIRES_SUPER;
 
 @end
+

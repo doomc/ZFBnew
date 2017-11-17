@@ -589,7 +589,7 @@ NS_INLINE UIViewAnimationOptions UIViewAnimationOptionsFromUIViewAnimationCurve(
 }
 
 - (void)appDidBecomeActive {
-     [self updateFrame:YES];
+    [self updateFrame:YES];
 }
 
 - (void)updateMotionOnHUDView {
@@ -939,3 +939,4 @@ NS_INLINE UIViewAnimationOptions UIViewAnimationOptionsFromUIViewAnimationCurve(
 }
 
 @end
+

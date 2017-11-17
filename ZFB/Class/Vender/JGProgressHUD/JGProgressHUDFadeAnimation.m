@@ -4,7 +4,7 @@
 //
 //  Created by Jonas Gessner on 20.7.14.
 //  Copyright (c) 2014 Jonas Gessner. All rights reserved.
-//  
+//
 
 #import "JGProgressHUDFadeAnimation.h"
 #import "JGProgressHUD.h"
@@ -55,3 +55,4 @@
 }
 
 @end
+
