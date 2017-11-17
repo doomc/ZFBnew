@@ -16,25 +16,20 @@
 #import "DetailgoodsSelectCell.h"
 #import "DetailWebViewCell.h"
 #import "SectionCouponCell.h"
-
 //controlller
 #import "ZFEvaluateViewController.h"
 #import "ZFSureOrderViewController.h"
 #import "ZFShoppingCarViewController.h"//购物车
 #import "ZFDetailsStoreViewController.h" //店铺
-
 //网易云信
 #import "NTESSessionViewController.h"
-
 //model
 #import "DetailGoodsModel.h"
 #import "CouponModel.h"
-
 //sku - view
 #import "SukItemCollectionViewCell.h"
 #import "SkuFooterReusableView.h"
 #import "SkuHeaderReusableView.h"
-
 //view
 #import <WebKit/WebKit.h>
 #import "TJMapNavigationService.h"

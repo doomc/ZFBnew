@@ -7,8 +7,8 @@
 //
 
 #import "ShareRecommedDetailViewController.h"
-#import "DetailFindGoodsViewController.h"
-
+//#import "DetailFindGoodsViewController.h"
+#import "GoodsDeltailViewController.h"
 @interface ShareRecommedDetailViewController ()<SDCycleScrollViewDelegate>
 {
     NSArray * _adArray;
@@ -58,7 +58,7 @@
     if ( [_shareGoodsId isEqualToString:@""] || _shareGoodsId == nil) {
         
     }else{
-        DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
+        GoodsDeltailViewController * detailVC = [GoodsDeltailViewController new];
         detailVC.goodsId = _shareGoodsId;
         detailVC.headerImage = [NSString stringWithFormat:@"%@",_adArray[0]];
         [self.navigationController pushViewController:detailVC animated:NO];

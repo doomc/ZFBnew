@@ -10,4 +10,14 @@
 
 @interface StoreDetailViewController : BaseViewController
 
+
+//logo
+@property (weak, nonatomic) IBOutlet UIImageView *storeLogo;
+//背景
+@property (weak, nonatomic) IBOutlet UIImageView *storeBackground;
+
+@property (weak, nonatomic) IBOutlet UILabel *lb_storeName;
+//销量和收藏
+@property (weak, nonatomic) IBOutlet UILabel *lb_sale_collect;
+
 @end

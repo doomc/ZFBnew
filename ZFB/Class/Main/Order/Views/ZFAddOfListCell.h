@@ -13,7 +13,9 @@
 @protocol AddressCellDelegate <NSObject>
 
 ///删除操作
--(void)deleteAction :(ZFAddOfListCell *)cell;
+//-(void)deleteAction :(ZFAddOfListCell *)cell;
+-(void)deleteAddress:(NSIndexPath *)indexPath ;
+
 ///编辑操作
 -(void)editAction :(NSIndexPath *)indexPath ;
 
@@ -33,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *defaultAddress;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_name ;
+
 @property (weak, nonatomic) IBOutlet UILabel *lb_phoneNum;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_detailArress;
@@ -42,5 +45,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+
+@property (assign, nonatomic)  NSInteger    defaultFlag;
+
 
 @end

@@ -14,5 +14,9 @@
     [super awakeFromNib];
     // Initialization code
 }
+- (IBAction)selectedCollection:(UIButton*)sender {
+    
+}
+
 
 @end

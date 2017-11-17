@@ -124,11 +124,11 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZFAddOfListCell * addCell = [self.mytableView dequeueReusableCellWithIdentifier:@"ZFAddOfListCellid" forIndexPath:indexPath];
-    addCell.selectionStyle  = UITableViewCellSelectionStyleNone;
-    [self configCell:addCell indexPath:indexPath];
-   
+    
     addCell.indexPath = indexPath;
     addCell.delegate = self;
+    [self configCell:addCell indexPath:indexPath];
+
     
     return addCell;
 }
@@ -138,36 +138,29 @@
 {
     Useraddresslist * info = self.listArray[indexPath.section];
     cell.list = info;
-    
 }
 //当前选中的状态 暂时没有用到
 -(void)selecteStatus :(BOOL)isSelected
 {
     //更改了状态的回调数据
+    [self.mytableView reloadData];
     
 }
 #pragma mark - AddressCellDelegate
 ///删除操作
--(void)deleteAction :(ZFAddOfListCell *)cell{
+-(void)deleteAddress:(NSIndexPath *)indexPath
+//-(void)deleteAction :(ZFAddOfListCell *)cell
+{
     
-    [self.tempCellArray removeAllObjects];
-    [self.tempCellArray addObject:cell];
+//    [self.tempCellArray removeAllObjects];
+//    [self.tempCellArray addObject:cell];
     
     JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"确认删除？" message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];
     UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        
-        NSIndexPath *indexpath = [self.mytableView indexPathForCell:self.tempCellArray.firstObject];
-        
-        Useraddresslist * info = self.listArray[indexpath.row];
-        
-        if (self.listArray.count == 1) {
-           
-            [self.listArray removeObject:info];
-        }
-     
-         [self deleteInfoPostRequstWithpostAddressId:[NSString stringWithFormat:@"%ld",info.postAddressId]];
+        Useraddresslist * info = self.listArray[indexPath.row];
+        [self deleteInfoPostRequstWithpostAddressId:[NSString stringWithFormat:@"%ld",info.postAddressId]];
         
     }];
     
@@ -243,7 +236,6 @@
 
         }
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         
         [SVProgressHUD dismiss];
@@ -260,22 +252,15 @@
     NSDictionary * parma = @{
                              @"postAddressId":postAddressId,
                              };
-    
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getDelUserAddressInfo",zfb_baseUrl] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] intValue ]== 0) {
           
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-           
             [self getuserInfoMessagePostRequst];
-
+            
         }
-        
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);

@@ -7,8 +7,8 @@
 //  好货共享详情
 
 #import "ShareGoodsSubDetailViewController.h"
-#import "DetailFindGoodsViewController.h"
-
+//#import "DetailFindGoodsViewController.h"
+#import "GoodsDeltailViewController.h"
 @interface ShareGoodsSubDetailViewController ()<SDCycleScrollViewDelegate>
 {
     NSString * _goodsId;
@@ -95,7 +95,7 @@
         [self isIfNotSignIn];
     }else{
         
-        DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
+        GoodsDeltailViewController * detailVC = [GoodsDeltailViewController new];
         detailVC.goodsId = _goodsId;
         detailVC.shareId = _shareId;
         detailVC.shareNum = _shareNum;

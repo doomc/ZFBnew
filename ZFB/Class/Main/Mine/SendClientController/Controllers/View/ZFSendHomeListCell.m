@@ -13,6 +13,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.selectionStyle       = UITableViewCellSelectionStyleNone;
+
     //多行必须写
     self.todaybgView.clipsToBounds = YES;
     self.todaybgView.layer.borderWidth = 0.5;

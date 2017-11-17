@@ -151,7 +151,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     [self.view addSubview:_home_tableView];
     self.home_tableView.separatorStyle =UITableViewCellSeparatorStyleNone;
     [self.home_tableView registerNib:[UINib nibWithNibName:@"FindStoreCell" bundle:nil] forCellReuseIdentifier:CellIdentifier];
-    
     self.zfb_tableView = self.home_tableView;
 }
 

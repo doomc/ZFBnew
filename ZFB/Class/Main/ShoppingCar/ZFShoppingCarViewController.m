@@ -9,8 +9,8 @@
 
 #import "ZFShoppingCarViewController.h"
 #import "ZFSureOrderViewController.h"
-#import "DetailFindGoodsViewController.h"
-
+//#import "DetailFindGoodsViewController.h"
+#import "GoodsDeltailViewController.h"
 #import "ZFShopCarCell.h"
 #import "ShoppingCarModel.h"
 
@@ -280,22 +280,19 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 }
 -(void)ChangeGoodsNumberCell:(ZFShopCarCell *)cell Number:(NSInteger)num
 {
-    
-#warning ------ 没有处理价格加减 乘
     NSLog(@"num = %ld ",num );
 }
 
 #pragma mark - tableView datasource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    DetailFindGoodsViewController *deatilGoods =[[DetailFindGoodsViewController alloc]init];
-    //    NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
-    //    if (self.carListArray.count > 0 ) {
-    //        Goodslist * goodlist = self.carListArray[indexPath.row];
-    //        deatilGoods.goodsId  = goodlist.goodsId;
-    //
-    //    }
-    //    [self.navigationController pushViewController:deatilGoods animated:YES];
+//        GoodsDeltailViewController *deatilGoods =[[GoodsDeltailViewController alloc]init];
+//        NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
+//        if (self.carListArray.count > 0 ) {
+//            Goodslist * goodlist = self.carListArray[indexPath.row];
+//            deatilGoods.goodsId  = goodlist.goodsId;
+//        }
+//        [self.navigationController pushViewController:deatilGoods animated:YES];
     
 }
 

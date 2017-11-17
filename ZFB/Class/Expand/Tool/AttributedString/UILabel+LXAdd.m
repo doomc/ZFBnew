@@ -80,7 +80,7 @@
  *  @return rect
  */
 - (CGRect)getLableHeightWithMaxWidth:(CGFloat)maxWidth{
-    NSLog(@"xxxxx");
+
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:self.text];
     [attributedString addAttribute:NSFontAttributeName value:self.font range:NSMakeRange(0,self.text.length)];
     

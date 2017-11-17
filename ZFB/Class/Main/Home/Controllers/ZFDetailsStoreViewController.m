@@ -7,8 +7,8 @@
 //
 
 #import "ZFDetailsStoreViewController.h"
-#import "DetailFindGoodsViewController.h"
-
+//#import "DetailFindGoodsViewController.h"
+#import "GoodsDeltailViewController.h"
 //model
 #import "CouponModel.h"
 #import "DetailStoreModel.h"
@@ -380,7 +380,7 @@
 -(void)didClickCollectionCellGoodId:(NSString *)goodId withIndexItem:(NSInteger )indexItem
 {
     DetailCmgoodslist * goodlist = self.storeList[indexItem];
-    DetailFindGoodsViewController * goodVC = [DetailFindGoodsViewController new];
+    GoodsDeltailViewController * goodVC = [GoodsDeltailViewController new];
     goodVC.headerImage = goodlist.coverImgUrl;
     goodVC.goodsId = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
     goodVC.store_address = _address;

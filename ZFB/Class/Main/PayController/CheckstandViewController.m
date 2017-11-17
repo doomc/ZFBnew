@@ -89,7 +89,7 @@
 #pragma mark - 返回跳转到我的订单
 -(void)backAction
 {
-    [self poptoUIViewControllerNibName:@"DetailFindGoodsViewController" AndObjectIndex:2];
+    [self poptoUIViewControllerNibName:@"GoodsDeltailViewController" AndObjectIndex:2];
 }
 
 - (void)cancel {

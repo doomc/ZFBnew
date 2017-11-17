@@ -15,9 +15,9 @@
 #import "ZFOrderDetailSectionCell.h" //店铺名称
 #import "ZFOrderDetailGoosContentCell.h"//商品简要
 #import "ZFDetailsStoreViewController.h"//门店详情
-#import "DetailFindGoodsViewController.h"//商品详情
+//#import "DetailFindGoodsViewController.h"//商品详情
+#import "GoodsDeltailViewController.h"
 
-//#import "ZFMainPayforViewController.h"
 #import "CheckstandViewController.h"//收银台
 #import "DetailOrderModel.h"//模型
 
@@ -348,7 +348,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld = section ,%ld = row ",indexPath.section,indexPath.row);
-    DetailFindGoodsViewController * goodVC= [DetailFindGoodsViewController new];
+    GoodsDeltailViewController * goodVC= [GoodsDeltailViewController new];
    
     if (indexPath.section == 1) {
 

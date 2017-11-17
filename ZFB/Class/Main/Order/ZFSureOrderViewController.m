@@ -437,16 +437,12 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                 priceCell.lb_tipFree.text    =         [NSString stringWithFormat:@"+ ¥%@",_costNum]  ;
             }
             if ([_goodsCount isEqualToString:@""] || _goodsCount ==nil) {
-               
                 priceCell.lb_priceTotal.text = @"¥0" ;
             
             }else{
-                
                 priceCell.lb_priceTotal.text = [NSString stringWithFormat:@"¥%@",_goodsCount] ;
-  
             }
             NSLog(@"原来的价格 --- %@",_goodsCount);
-        
             return priceCell;
         }
             break;
@@ -585,12 +581,14 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                 [self.allDeliveryFeeListArray removeAllObjects];
             }
             SureOrderModel * suremodel = [SureOrderModel mj_objectWithKeyValues:response];
+            
             for (AlldeliveryFeeList * allFee in suremodel.deliveryFeeList) {
-                NSString * titles = [NSString stringWithFormat:@"%@          ¥%@",allFee.deliveryTypeName,allFee.orderDeliveryfee];
+                NSString * titles = [NSString stringWithFormat:@"%@    ¥%@",allFee.deliveryTypeName,allFee.orderDeliveryfee];
                 [self.allDeliveryFeeListArray addObject:titles];
             }
-            
+
             _storeDeliveryfeeListArr = response[@"storeDeliveryfeeList"];
+            //配送类型：1 配送员配送     2 快递     3 商家配送 
             _goodsCount              = [NSString stringWithFormat:@"%.2f",suremodel.goodsCount]  ;//商品总金额
             _costNum                 = [NSString stringWithFormat:@"%.2f",suremodel.costNum];//配送费
             _userCostNum             = [NSString stringWithFormat:@"%.2f",suremodel.userCostNum]  ;//支付总金额
@@ -807,10 +805,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         [self presentViewController:alertavc animated:YES completion:nil];
         
     }else{
- 
         //进入请求
         [self commitOrder:successDic];
- 
     }
 }
 
@@ -831,7 +827,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/paySign",zfb_baseUrl] params:[NSDictionary dictionaryWithDictionary:params] success:^(id response) {
         _paySign = response[@"paySign"];
         [SVProgressHUD dismissWithCompletion:^{
-          
             [self getGoodsCostPayResulrUrlL];
         }];
         
@@ -989,9 +984,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 #pragma mark - delegate
 -(void)didclickPhotoPicker:(NSInteger )index images:(NSArray *)images
 {
-    
     [JZLPhotoBrowser showPhotoBrowserWithUrlArr:images currentIndex:index originalImageViewArr:nil];
-    
 }
 
 #pragma mark - OrderPriceCellDelegate

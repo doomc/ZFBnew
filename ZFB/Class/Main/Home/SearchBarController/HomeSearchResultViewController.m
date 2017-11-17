@@ -19,7 +19,8 @@
 #import "SearchNoResultModel.h"//搜索无数据的模型
 #import "BrandListModel.h"//品牌模型
 //vc
-#import "DetailFindGoodsViewController.h"
+//#import "DetailFindGoodsViewController.h"
+#import "GoodsDeltailViewController.h"
 
 @interface HomeSearchResultViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,SearchTypeCollectionViewDelegate,SearchTypeViewDelegate >
 
@@ -411,7 +412,7 @@
     NSLog(@" sction1 == %ld  ---  row1 == %ld",indexPath.section ,indexPath.row);
 
     
-    DetailFindGoodsViewController * detailVC = [DetailFindGoodsViewController new];
+    GoodsDeltailViewController * detailVC = [GoodsDeltailViewController new];
 
     if (_isFeatured == 1) {
         if (self.noResultArray.count > 0 ) {

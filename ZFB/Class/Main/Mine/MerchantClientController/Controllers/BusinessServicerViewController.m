@@ -130,7 +130,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     
     self.navigationItem.title = @"商户端";
     
-    _titles = @[@"待派单",@"配送中",@"待付款",@"交易完成",@"待确认退回",@"已配送",@"取消订单",@"待接单"];
+    _titles = @[@"待派单",@"配送中",@"待付款",@"交易完成",@"待确认退回",@"已配送",@"取消订单",@"待接单",@"待发货",@"待收货"];
     
     //待派单 。配送中。待付款、交易完成。待确认退回；
     [self.view addSubview:self.homeTableView];
@@ -219,6 +219,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8" storeId:_storeId];
 
                     break;
+                case BusinessServicTypeWaitSending://待发货
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"9" storeId:_storeId];
+
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"10" storeId:_storeId];
+
+                    break;
             }
             
             break;
@@ -285,6 +293,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8" storeId:_storeId];
                     
                     break;
+                case BusinessServicTypeWaitSending://待发货
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"9" storeId:_storeId];
+                    
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"10" storeId:_storeId];
+                    
+                    break;
             }
             
             break;
@@ -309,7 +325,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         _navTitle               = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 140, 30)];
         _navTitle.font =[UIFont systemFontOfSize:14];
         _navTitle.textColor     = HEXCOLOR(0x333333);
-        _navTitle.textAlignment = NSTextAlignmentLeft;
+        _navTitle.textAlignment = NSTextAlignmentCenter;
     }
     return _navTitle;
 }
@@ -364,7 +380,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(BusinessServicPopView *)popView
 {
     if (!_popView) {
-        _popView =[[BusinessServicPopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 110 + 40) titleArray:_titles];
+        _popView =[[BusinessServicPopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 50*4) titleArray:_titles];
         _popView.delegate = self;
     }
     return _popView;
@@ -545,6 +561,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     return self.orderListArray.count;
 
                     break;
+                case BusinessServicTypeWaitSending://待发货
+                    return self.orderListArray.count;
+
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
+                    return self.orderListArray.count;
+
+                    break;
             }
             
             break;
@@ -643,6 +667,26 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 }
  
                     break;
+                case BusinessServicTypeWaitSending://待发货
+                {
+                    BusinessOrderlist * orderlist = self.orderListArray[section];
+                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
+                        [goodsArr addObject:goods];
+                    }
+                    sectionRow = goodsArr.count;
+                }
+                    
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
+                {
+                    BusinessOrderlist * orderlist = self.orderListArray[section];
+                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
+                        [goodsArr addObject:goods];
+                    }
+                    sectionRow = goodsArr.count;
+                }
+                    
+                    break;
             }
         }
             break;
@@ -703,6 +747,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     break;
                 case BusinessServicTypeWiatOrder://待接单
                     
+                    height = k_cellHeight;
+
+                    break;
+                case BusinessServicTypeWaitSending://待发货
+                    height = k_cellHeight;
+
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
                     height = k_cellHeight;
 
                     break;
@@ -816,6 +868,24 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 }
                     
                     break;
+                case BusinessServicTypeWaitSending://待发货
+                {
+                    BusinessOrderlist  * orderlist = self.orderListArray[section];
+                    [titleCell.statusButton setTitle:orderlist.orderStatusName forState:UIControlStateNormal];
+                    
+                    titleCell.businessOrder = orderlist;
+                    return titleCell;
+                }
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
+                {
+                    BusinessOrderlist  * orderlist = self.orderListArray[section];
+                    [titleCell.statusButton setTitle:orderlist.orderStatusName forState:UIControlStateNormal];
+                    
+                    titleCell.businessOrder = orderlist;
+                    return titleCell;
+                }
+                    break;
             }
         }
             break;
@@ -876,6 +946,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 case BusinessServicTypeWiatOrder://待配送
                     height = k_sectionHeight;
                     
+                    break;
+                case BusinessServicTypeWaitSending://待发货
+                    height = k_sectionHeight;
+
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
+                    height = k_sectionHeight;
+
                     break;
             }
             break;
@@ -1023,7 +1101,35 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     [cell.cancel_button setHidden:YES];
                     footerView = cell;
                 }
-                    
+                    break;
+                case BusinessServicTypeWaitSending://待发货
+                {
+                    ZFFooterCell * cell = [self.homeTableView
+                                           dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
+                    cell.footDelegate              = self;
+                    BusinessOrderlist  * orderlist = self.orderListArray[section];
+                    cell.businessOrder             = orderlist;
+                    //没获取 当前的 indexPath
+                    cell.section = section;
+                    [cell.payfor_button setHidden:YES];
+                    [cell.cancel_button setHidden:YES];
+                    footerView = cell;
+                }
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
+                {
+                    ZFFooterCell * cell = [self.homeTableView
+                                           dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
+                    cell.footDelegate              = self;
+                    BusinessOrderlist  * orderlist = self.orderListArray[section];
+                    cell.businessOrder             = orderlist;
+                    //没获取 当前的 indexPath
+                    cell.section = section;
+                    [cell.payfor_button setHidden:YES];
+                    [cell.cancel_button setHidden:YES];
+                    footerView = cell;
+                }
+                    break;
             }
             
             
@@ -1079,6 +1185,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 case BusinessServicTypeWiatOrder://待配送
                     height = k_footHeight;
                     
+                    break;
+                case BusinessServicTypeWaitSending://待发货
+                    height = k_footHeight;
+
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
+                    height = k_footHeight;
+
                     break;
             }
             
@@ -1320,6 +1434,22 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                 }
                     break;
+                case BusinessServicTypeWaitSending://待发货
+                {
+                    BusinessSendAccountCell * accountCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"BusinessSendAccountCell" forIndexPath:indexPath];
+                    Settlementlist * list                 = self.caculaterArray[indexPath.row];
+                    accountCell.cacuList                  = list;
+                    return  accountCell;
+                }
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
+                {
+                    BusinessSendAccountCell * accountCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"BusinessSendAccountCell" forIndexPath:indexPath];
+                    Settlementlist * list                 = self.caculaterArray[indexPath.row];
+                    accountCell.cacuList                  = list;
+                    return  accountCell;
+                }
+                    break;
             }
             break;
             
@@ -1331,9 +1461,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             return  accountCell;
         }
             break;
-            
     }
-    
+    return nil;
 }
 
 #pragma mark - didSelectRowAtIndexPath
@@ -1406,7 +1535,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
  
                     [self.navigationController pushViewController:detailVC animated:NO];
                     break;
+                case BusinessServicTypeWaitSending://待发货
+                    [self.navigationController pushViewController:detailVC animated:NO];
 
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
+                    [self.navigationController pushViewController:detailVC animated:NO];
+
+                    break;
             }
             
         }
@@ -1483,9 +1619,15 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     break;
                     
                 case  BusinessServicTypeWiatOrder://待接单
-                    
- 
                     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8"   storeId:_storeId];
+                    [self.homeTableView reloadData];
+                    break;
+                case BusinessServicTypeWaitSending://待发货
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"9"   storeId:_storeId];
+                    [self.homeTableView reloadData];
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
+                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"10"   storeId:_storeId];
                     [self.homeTableView reloadData];
                     break;
                     
@@ -1496,9 +1638,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             
             break;
     }
-    
-    
-    
 }
 
 #pragma mark - ZFFooterCellDelegate   footerview的所有代理方法
@@ -1554,6 +1693,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 case BusinessServicTypeWiatOrder://待配送
  
                     break;
+                case BusinessServicTypeWaitSending://待发货
+                    
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
+                    
+                    break;
             }
             break;
         case SelectTypeCaculater:
@@ -1604,7 +1749,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
         case SelectTypeOrderPage:
             switch (_servicType) {
-                case BusinessServicTypeWaitSendlist:
+                case BusinessServicTypeWaitSendlist://配送类型：1 配送员配送   2 快递  3 商家配送
                 {
                     NSLog(@"派单操作 - orderId =%@ ,totalPrice         = %@ ",_order_id,_order_amount);
 //                    [self selectDeliveryListPostRequst];//请求配送员接口
@@ -1670,6 +1815,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     break;
                 case BusinessServicTypeWiatOrder:
+                    
+                    break;
+                case BusinessServicTypeWaitSending://待发货
+                    
+                    break;
+                case BusinessServicTypeWaitReceived://待收货
                     
                     break;
             }
@@ -2180,12 +2331,13 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [self LocationMapManagerInit];
     
 }
+
 //既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    CGFloat sectionHeaderHeight = k_sectionHeight;
-    CGFloat sectionFooterHeight = k_footHeight;
-    CGFloat offsetY             = scrollView.contentOffset.y;
+    CGFloat sectionHeaderHeight = k_sectionHeight ;
+    CGFloat sectionFooterHeight = 60;
+    CGFloat offsetY = scrollView.contentOffset.y;
     if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
     {
         scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);

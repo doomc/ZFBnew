@@ -51,6 +51,8 @@
 		49103D171FBD7B5D0059F6C9 /* GoodsDetailEvaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49103D151FBD7B5D0059F6C9 /* GoodsDetailEvaCell.xib */; };
 		49103D1B1FBD7CB90059F6C9 /* GoodsEvaluateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49103D191FBD7CB90059F6C9 /* GoodsEvaluateCell.m */; };
 		49103D1C1FBD7CB90059F6C9 /* GoodsEvaluateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49103D1A1FBD7CB90059F6C9 /* GoodsEvaluateCell.xib */; };
+		49103D201FBE87B50059F6C9 /* CouponCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49103D1E1FBE87B50059F6C9 /* CouponCollectionCell.m */; };
+		49103D211FBE87B50059F6C9 /* CouponCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49103D1F1FBE87B50059F6C9 /* CouponCollectionCell.xib */; };
 		49182B6C1F6F5BB5003D6C47 /* UIImage+ImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 49182B6B1F6F5BB5003D6C47 /* UIImage+ImageSize.m */; };
 		49183EB21F5954D900879E42 /* WeChatStylePlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 49183EAE1F5954D900879E42 /* WeChatStylePlaceHolder.m */; };
 		49183EB31F5954D900879E42 /* XTNetReloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 49183EB11F5954D900879E42 /* XTNetReloader.m */; };
@@ -1493,6 +1495,9 @@
 		49103D181FBD7CB90059F6C9 /* GoodsEvaluateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodsEvaluateCell.h; sourceTree = "<group>"; };
 		49103D191FBD7CB90059F6C9 /* GoodsEvaluateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodsEvaluateCell.m; sourceTree = "<group>"; };
 		49103D1A1FBD7CB90059F6C9 /* GoodsEvaluateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoodsEvaluateCell.xib; sourceTree = "<group>"; };
+		49103D1D1FBE87B50059F6C9 /* CouponCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponCollectionCell.h; sourceTree = "<group>"; };
+		49103D1E1FBE87B50059F6C9 /* CouponCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponCollectionCell.m; sourceTree = "<group>"; };
+		49103D1F1FBE87B50059F6C9 /* CouponCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouponCollectionCell.xib; sourceTree = "<group>"; };
 		49182B6A1F6F5BB5003D6C47 /* UIImage+ImageSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageSize.h"; sourceTree = "<group>"; };
 		49182B6B1F6F5BB5003D6C47 /* UIImage+ImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageSize.m"; sourceTree = "<group>"; };
 		49183EAD1F5954D900879E42 /* WeChatStylePlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChatStylePlaceHolder.h; sourceTree = "<group>"; };
@@ -3838,6 +3843,9 @@
 				4919D8C91FBAEAB40098AD6A /* DuplicationStoreCell.h */,
 				4919D8CA1FBAEAB40098AD6A /* DuplicationStoreCell.m */,
 				4919D8CB1FBAEAB40098AD6A /* DuplicationStoreCell.xib */,
+				49103D1D1FBE87B50059F6C9 /* CouponCollectionCell.h */,
+				49103D1E1FBE87B50059F6C9 /* CouponCollectionCell.m */,
+				49103D1F1FBE87B50059F6C9 /* CouponCollectionCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -9049,6 +9057,7 @@
 				495EA7F81F14B64D001FCB7E /* ZFContactCell.xib in Resources */,
 				493BDE181F6A35E400CF31D0 /* 线下支付@3x.png in Resources */,
 				4906D15B1F74DA9000B327ED /* nomoreData@2x.png in Resources */,
+				49103D211FBE87B50059F6C9 /* CouponCollectionCell.xib in Resources */,
 				491871C01F9DB58E00536CD2 /* arroundStore@3x.png in Resources */,
 				49D115B21F7E851900467CF1 /* findsingle@3x.png in Resources */,
 				495EA8621F14B64D001FCB7E /* wx_share@2x.png in Resources */,
@@ -9988,6 +9997,7 @@
 				493BDE3E1F6A821100CF31D0 /* MineShareIncomeCell.m in Sources */,
 				49C1B5611F8B4B0300B2001B /* AccountListCell.m in Sources */,
 				497A8ABB1F2B230B0003D7CB /* UILabel+LXAdd.m in Sources */,
+				49103D201FBE87B50059F6C9 /* CouponCollectionCell.m in Sources */,
 				49E916E01FA976A100867857 /* NIMContactSelectConfig.m in Sources */,
 				49E916EF1FA976A100867857 /* NIMKitEvent.m in Sources */,
 				495EA7511F14B64D001FCB7E /* ResponseObject.m in Sources */,

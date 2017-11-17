@@ -23,20 +23,24 @@
 #define aliOSS_baseUrl @"http://zavfb.oss-cn-shenzhen.aliyuncs.com/"
 
 #pragma mark ------------- 线上测试服务器--------------------
-////基类
-//#define  zfb_baseUrl @"https://app.api.zavfb.com/zfb/InterfaceServlet"
-////单聊
-//#define  IMsingle_baseUrl @"https://app.api.zavfb.com/im/user"
-////群聊
-//#define  IMGroup_baseUrl @"https://app.api.zavfb.com/group"
+//基类
+#define  zfb_baseUrl @"https://app.api.zavfb.com/zfb/InterfaceServlet"
+//单聊
+#define  IMsingle_baseUrl @"https://app.api.zavfb.com/im/user"
+//群聊
+#define  IMGroup_baseUrl @"https://app.api.zavfb.com/group"
+//正式支付地址
+#define paySign_baseUrl  @"https://pay.zavfb.com"
 
 #pragma mark ------------- xd测试服务器数--------------------
 ////基类
-//#define  zfb_baseUrl @"http://192.168.1.103:8087/zfb/InterfaceServlet"
+//#define  zfb_baseUrl @"http://192.168.1.104:8087/zfb/InterfaceServlet"
 ////单聊
-//#define  IMsingle_baseUrl @"http://192.168.1.103:8087/im/user"
+//#define  IMsingle_baseUrl @"http://192.168.1.104:8087/im/user"
 ////群聊
-//#define  IMGroup_baseUrl @"http://192.168.1.103:8087/group"
+//#define  IMGroup_baseUrl @"http://192.168.1.104:8087/group"
+////测试支付地址
+//#define paySign_baseUrl @"http://192.168.1.115:8080"
 
 #pragma mark ------------- tfy测试服务器数--------------------
 ////baseURL
@@ -45,15 +49,18 @@
 //#define  IMsingle_baseUrl @"http://192.168.1.222:8087/im/user"
 ////群聊
 //#define  IMGroup_baseUrl @"http://192.168.1.222:8087/group"
-
+////测试支付地址
+//#define paySign_baseUrl @"http://192.168.1.115:8080"
 
 #pragma mark ------------- 测试服务器数--------------------
-//baseURL
-#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
-//单聊
-#define  IMsingle_baseUrl @"http://192.168.1.113:8087/im/user"
-//群聊
-#define  IMGroup_baseUrl @"http://192.168.1.113:8087/group"
+////baseURL
+//#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
+////单聊
+//#define  IMsingle_baseUrl @"http://192.168.1.113:8087/im/user"
+////群聊
+//#define  IMGroup_baseUrl @"http://192.168.1.113:8087/group"
+////测试支付地址
+//#define paySign_baseUrl @"http://192.168.1.115:8080"
 
 #pragma mark ------------- --------------------
 ////baseURL
@@ -62,13 +69,10 @@
 //#define  IMsingle_baseUrl @"http://192.168.1.166:8087/im/user"
 ////群聊
 //#define  IMGroup_baseUrl @"http://192.168.1.166:8087/group"
-
-
-#pragma mark -------------支付服务 -------------------
-//测试支付地址
+////测试支付地址
 //#define paySign_baseUrl @"http://192.168.1.115:8080"
-//正式支付地址
-#define paySign_baseUrl  @"https://pay.zavfb.com"
+
+
 
 
 #endif /* ZFB_Urls_h */

@@ -87,6 +87,14 @@
             _selctedType = BusinessServicTypeWiatOrder;//待结单
             
             break;
+        case 3008:
+            _selctedType = BusinessServicTypeWaitSending;
+            
+            break;
+        case 3009:
+            _selctedType = BusinessServicTypeWaitReceived;
+            
+            break;
     }
     if ([_delegate respondsToSelector:@selector(sendTitle:businessServicType:)]) {
         

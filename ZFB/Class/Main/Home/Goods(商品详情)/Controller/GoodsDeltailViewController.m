@@ -133,6 +133,29 @@
     self.segmentController =  [YJSegmentedControl segmentedControlFrame:CGRectMake(0, 0, KScreenW/2, 40) titleDataSource:titles backgroundColor:[UIColor clearColor] titleColor:HEXCOLOR(0x333333) titleFont:SYSTEMFONT(14) selectColor:HEXCOLOR(0xf95a70) buttonDownColor:HEXCOLOR(0xf95a70) Delegate:self];
     self.navigationItem.titleView = self.segmentController;
     
+
+    [self initTableview];
+    //悬浮按钮
+    [self flyButtonView];
+    //轮播
+    [self cycleScrollViewInitImges:@[]];
+    [self settingHeaderViewAndFooterView];//初始化footerview
+}
+
+
+- (void)dealloc
+{
+    [[[NIMSDK sharedSDK] systemNotificationManager] removeDelegate:self];
+    [[NIMSDK sharedSDK].userManager removeDelegate:self];
+}
+
+-(void)initTableview
+{
+    _tableView      = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -64 - 50) style:UITableViewStylePlain];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    _tableView.delegate   = self;
+    _tableView.dataSource = self;
     //nib
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFTitleAndChooseListCell" bundle:nil]
          forCellReuseIdentifier:@"ZFTitleAndChooseListCell"];
@@ -153,32 +176,8 @@
     _webCell = [self.tableView dequeueReusableCellWithIdentifier:@"DetailWebViewCell" ];
     
     [self.view addSubview:self.tableView];
-    //悬浮按钮
-    [self flyButtonView];
-    //轮播
-    [self cycleScrollViewInitImges:@[]];
-    [self settingHeaderViewAndFooterView];//初始化footerview
 }
 
-
-- (void)dealloc
-{
-    [[[NIMSDK sharedSDK] systemNotificationManager] removeDelegate:self];
-    [[NIMSDK sharedSDK].userManager removeDelegate:self];
-}
-
-
--(UITableView *)tableView
-{
-    if (!_tableView) {
-        _tableView      = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -64 - 50) style:UITableViewStylePlain];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.estimatedRowHeight = 0;
-        _tableView.delegate   = self;
-        _tableView.dataSource = self;
-    }
-    return _tableView;
-}
 -(NSMutableArray *)couponList{
     if (!_couponList) {
         _couponList = [NSMutableArray array];
@@ -256,6 +255,7 @@
 -(void)backTopScrollerView
 {
     [UIView animateWithDuration:0.5 animations:^{
+        
         self.tableView.contentOffset =  CGPointMake(0, 0);
     }];
 }
@@ -1483,23 +1483,29 @@
 {
     CGFloat offsetY = scrollView.contentOffset.y;
     NSLog(@"---- %f---",offsetY);
-//    if (offsetY < 400) {
-//        self.segmentController.segmentIndex =  0;
-//
-//    }
-//    if ( offsetY > 400 ) {
-//       self.segmentController.segmentIndex  = 1;
-//    }
-//    if (offsetY > 630)
-//    {
-//        self.segmentController.segmentIndex  = 2;
-//    }
+
 }
 //判断选择的版快
 -(void)segumentSelectionChange:(NSInteger)selection
 {
     NSLog(@"  -----%ld----",selection);
     _selectSegmentTag = selection;
+
+    if (selection == 0) {
+   
+        NSIndexPath *topRow = [NSIndexPath indexPathForRow:0 inSection:0];
+        [_tableView scrollToRowAtIndexPath:topRow atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+    else if (selection == 1)
+    {
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+    else{
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:7 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{

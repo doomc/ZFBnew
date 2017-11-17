@@ -119,10 +119,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"配送端";
-    _titles = @[@"待配送",@"配送中",@"已配送"];
+    _titles = @[@"待配送",@"配送中",@"已配送",@"待发货",@"待收货"];
     
     _selectPageType = SelectTypeHomePage;
-//    _servicType = SendServicTypeWaitSend;//默认一个type
 
     [self.view addSubview:self.send_tableView];
     self.zfb_tableView =  self.send_tableView;
@@ -191,6 +190,15 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     [self orderlistDeliveryID:_deliveryId OrderStatus:@"3"  ];
                     
                     break;
+                    
+                case SendServicTypeWaitSending://待发货
+                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"9"  ];
+                    
+                    break;
+                case SendServicTypeWaitReceived://待收货
+                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"10"  ];
+                    
+                    break;
             }
             
             break;
@@ -227,6 +235,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                 case SendServicTypeSended://已配送
                     [self orderlistDeliveryID:_deliveryId OrderStatus:@"3" ];
+                    
+                    break;
+                case SendServicTypeWaitSending://待发货
+                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"9"  ];
+                    
+                    break;
+                case SendServicTypeWaitReceived://待收货
+                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"10"  ];
                     
                     break;
             }
@@ -378,7 +394,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 {
     if (!_popView) {
         
-        _popView          = [[ZFSendPopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 60) titleArray:self.titles];
+        _popView          = [[ZFSendPopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 50 *2) titleArray:_titles];
         _popView.delegate = self;
     }
     return _popView;
@@ -444,6 +460,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     sectionNum = self.orderListArray.count;
                     break;
+                case SendServicTypeWaitSending://待发货
+                    sectionNum = self.orderListArray.count;
+
+                    break;
+                case SendServicTypeWaitReceived://待收货
+                    sectionNum = self.orderListArray.count;
+
+                    break;
             }
             
             break;
@@ -497,6 +521,26 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     sectionRow =  goodsArr.count;
                 }
                     break;
+                case SendServicTypeWaitSending://待发货
+                {
+                    SendServiceStoreinfomap * store = self.orderListArray[section];
+                    NSMutableArray * goodsArr = [NSMutableArray array];
+                    for (SendServiceOrdergoodslist * goods in store.orderGoodsList) {
+                        [goodsArr addObject:goods ];
+                    }
+                    sectionRow =  goodsArr.count;
+                }
+                    break;
+                case SendServicTypeWaitReceived://待收货
+                {
+                    SendServiceStoreinfomap * store = self.orderListArray[section];
+                    NSMutableArray * goodsArr = [NSMutableArray array];
+                    for (SendServiceOrdergoodslist * goods in store.orderGoodsList) {
+                        [goodsArr addObject:goods ];
+                    }
+                    sectionRow =  goodsArr.count;
+                }
+                    break;
             }
             
             break;
@@ -538,6 +582,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     height = k_cellHeight;
                     break;
+                case SendServicTypeWaitSending://待发货
+                    height = k_cellHeight;
+                    break;
+                case SendServicTypeWaitReceived://待收货
+                    height = k_cellHeight;
+                    break;
             }
             break;
         case SelectTypeCaculater:
@@ -570,21 +620,16 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                 case SendServicTypeWaitSend:
                 {
-                    
                     [titleCell.statusButton setTitle:@"待配送" forState:UIControlStateNormal];
-                    
                     SendServiceStoreinfomap * sendService = self.orderListArray[section];
                     if (self.orderListArray.count > 0) {
-                        
                         titleCell.storlist = sendService;
                     }
-                    
                     view = titleCell;
                 }
                     break;
                 case SendServicTypeSending:
                 {
-                    
                     [titleCell.statusButton setTitle:@"配送中" forState:UIControlStateNormal];
                     SendServiceStoreinfomap * sendService = self.orderListArray[section];
                     if (self.orderListArray.count > 0) {
@@ -595,6 +640,29 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 }
                     break;
                 case SendServicTypeSended:
+                {
+                    [titleCell.statusButton setTitle:@"已配送" forState:UIControlStateNormal];
+                    SendServiceStoreinfomap * sendService = self.orderListArray[section];
+                    if (self.orderListArray.count > 0) {
+                        
+                        titleCell.storlist = sendService;
+                    }
+                    view = titleCell;
+                }
+                    break;
+                    
+                case SendServicTypeWaitSending://待发货
+                {
+                    [titleCell.statusButton setTitle:@"已配送" forState:UIControlStateNormal];
+                    SendServiceStoreinfomap * sendService = self.orderListArray[section];
+                    if (self.orderListArray.count > 0) {
+                        
+                        titleCell.storlist = sendService;
+                    }
+                    view = titleCell;
+                }
+                    break;
+                case SendServicTypeWaitReceived://待收货
                 {
                     [titleCell.statusButton setTitle:@"已配送" forState:UIControlStateNormal];
                     SendServiceStoreinfomap * sendService = self.orderListArray[section];
@@ -644,6 +712,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 case SendServicTypeSended:
                     height = k_sectionHeight;
                     
+                    break;
+                case SendServicTypeWaitSending://待发货
+                    height = k_sectionHeight;
+                    break;
+                case SendServicTypeWaitReceived://待收货
+                    height = k_sectionHeight;
                     break;
             }
             
@@ -713,6 +787,37 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                 }
                     break;
+                case SendServicTypeWaitSending://待发货
+                {
+                    
+                    footcell.footDelegate = self;
+                    //没获取 当前的 indexPath
+                    SendServiceStoreinfomap  * orderlist = self.orderListArray[section];
+                    footcell.sendOrder         = orderlist;
+                    footcell.cancel_button.hidden = YES;
+                    footcell.payfor_button.hidden = YES;
+                    footcell.section = section;
+                    
+                    footerView                 = footcell;
+                    
+                }
+                    break;
+                case SendServicTypeWaitReceived://待收货
+                {
+                    
+                    footcell.footDelegate = self;
+                    //没获取 当前的 indexPath
+                    SendServiceStoreinfomap  * orderlist = self.orderListArray[section];
+                    footcell.sendOrder         = orderlist;
+                    footcell.cancel_button.hidden = YES;
+                    footcell.payfor_button.hidden = YES;
+                    footcell.lb_hjkey.hidden = YES;
+
+                    footcell.section = section;
+                    footerView                 = footcell;
+                    
+                }
+                    break;
             }
             
             break;
@@ -751,6 +856,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     height = 76+10;
                     
                     break;
+                case SendServicTypeWaitSending://待发货
+                    height = k_footHeight;
+                    break;
+                case SendServicTypeWaitReceived://待收货
+                    height = k_footHeight;
+                    break;
             }
             break;
         case SelectTypeCaculater:
@@ -763,8 +874,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    UITableViewCell *cell = nil;
+
     
     switch (_selectPageType) {
         case SelectTypeHomePage:
@@ -791,26 +901,25 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             }else{
                 
                 ZFSendHomeListCell * cell = [self.send_tableView dequeueReusableCellWithIdentifier:@"ZFSendHomeListCellid" forIndexPath:indexPath];
-                cell.selectionStyle       = UITableViewCellSelectionStyleNone;
                 cell.delegate             = self;
-                
+
                 //日
                 cell.lb_todayCreatTime.text = _daydate_time;
                 cell.lb_todayOrderNum.text  = _daydistriCount;
                 cell.lb_todayPriceFree.text = [NSString stringWithFormat:@"%.2f",[_dayOrderDeliveryFee floatValue]];
-                
+
                 //周
                 cell.lb_weekCreatTime.text = _weekodate_time;
                 cell.lb_weekOrderNum.text  = _weekdistriCount;
                 cell.lb_weekPriceFree.text = [NSString stringWithFormat:@"%.2f",[_weekOrderDeliveryFee floatValue]];
-                
-                
-                
+
+
+
                 //月
                 cell.lb_monthCreatTime.text = _monthodate_time;
                 cell.lb_monthOrderNum.text  = _monthdistriCount;
                 cell.lb_monthPriceFree.text = [NSString stringWithFormat:@"%.2f",[_monthOrderDeliveryFee floatValue]] ;
-                
+
                 return cell;
     
             }
@@ -820,8 +929,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 #pragma mark - SendServicTypeWaitSend 待配送
                 case SendServicTypeWaitSend:
                 {
-                    
                     ZFSendingCell *contentCell = [self.send_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+
                     if (self.orderListArray.count > 0) {
                         
                         SendServiceStoreinfomap * store = self.orderListArray[indexPath.section];
@@ -840,8 +949,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 #pragma mark - SendServicTypeSending 配送中
                 case SendServicTypeSending:
                 {
-                    
                     ZFSendingCell *contentCell = [self.send_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+
                     if (self.orderListArray.count > 0) {
                         
                         SendServiceStoreinfomap * store = self.orderListArray[indexPath.section];
@@ -862,10 +971,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 #pragma mark - SendServicTypeSended 已配送
                 case SendServicTypeSended:
                 {
-                    
                     ZFSendingCell *contentCell = [self.send_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+
                     if (self.orderListArray.count > 0) {
-                        
                         SendServiceStoreinfomap * store = self.orderListArray[indexPath.section];
                         NSMutableArray * goodsArr = [NSMutableArray array];
                         for (SendServiceOrdergoodslist * goods in store.orderGoodsList) {
@@ -880,6 +988,44 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                 }
                     
+                    break;
+                case SendServicTypeWaitSending://待发货
+                {
+                    ZFSendingCell *contentCell = [self.send_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+
+                    if (self.orderListArray.count > 0) {
+                        SendServiceStoreinfomap * store = self.orderListArray[indexPath.section];
+                        NSMutableArray * goodsArr = [NSMutableArray array];
+                        for (SendServiceOrdergoodslist * goods in store.orderGoodsList) {
+                            [goodsArr addObject:goods ];
+                        }
+                        
+                        SendServiceOrdergoodslist * goods = goodsArr [indexPath.row];
+                        contentCell.sendGoods = goods;
+                    }
+                    contentCell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    return contentCell;
+                    
+                }
+                    break;
+                case SendServicTypeWaitReceived://待收货
+                {
+                    ZFSendingCell *contentCell = [self.send_tableView dequeueReusableCellWithIdentifier:@"ZFSendingCellid" forIndexPath:indexPath];
+
+                    if (self.orderListArray.count > 0) {
+                        SendServiceStoreinfomap * store = self.orderListArray[indexPath.section];
+                        NSMutableArray * goodsArr = [NSMutableArray array];
+                        for (SendServiceOrdergoodslist * goods in store.orderGoodsList) {
+                            [goodsArr addObject:goods ];
+                        }
+                        
+                        SendServiceOrdergoodslist * goods = goodsArr [indexPath.row];
+                        contentCell.sendGoods = goods;
+                    }
+                    contentCell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    return contentCell;
+                    
+                }
                     break;
                     
             }
@@ -896,7 +1042,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
             
     }
-    return cell;
+    return nil;
     
 }
 
@@ -919,31 +1065,29 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeCaculater:
             
             break;
+        case SendServicTypeWaitSending://待发货
+ 
+            break;
+        case SendServicTypeWaitReceived://待收货
+
+            break;
             
     }
 }
 
 #pragma mark - ZFSendPopViewDelegate 选择类型 根据类型请求
-
 -(void)sendTitle:(NSString *)title SendServiceType:(SendServicType)type
 {
-     [UIView animateWithDuration:0.3 animations:^{
-        
+     [UIView animateWithDuration:0.5 animations:^{
         if (self.bgview.superview) {
-            
             [self.bgview removeFromSuperview];
-            
         }
-        
     }];
-    
     _servicType = type;
-    
     [self.navbar_btn setTitle:title forState:UIControlStateNormal];
-    
     switch (_selectPageType) {
         case SelectTypeHomePage:
-            
+
             break;
         case SelectTypeOrderPage:
             //status  1.待接单 2.已接单 3.已配送
@@ -967,7 +1111,16 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     [self.send_tableView reloadData];
                     
                     break;
+                case SendServicTypeWaitSending://待发货
                     
+                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"9"  ];
+                    [self.send_tableView reloadData];
+                    break;
+                case SendServicTypeWaitReceived://待收货
+                    
+                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"10"  ];
+                    [self.send_tableView reloadData];
+                    break;
             }
             
             break;
@@ -1054,7 +1207,13 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             [self sendMsgOrderDeliveryByorderId:_order_id];
             
             break;
+        case SendServicTypeWaitSending://待发货
+ 
+            break;
+        case SendServicTypeWaitReceived://待收货
             
+ 
+            break;
     }
     
     
@@ -1087,6 +1246,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     case SendServicTypeSended:
                         
                         NSLog(@"已配送接口");
+                        break;
+                    case SendServicTypeWaitSending://待发货
+                        
+                        break;
+                    case SendServicTypeWaitReceived://待收货
+                        
                         break;
                 }
                 
@@ -1121,6 +1286,13 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                         
                         NSLog(@"已配送接口");
                         break;
+                    case SendServicTypeWaitSending://待发货
+                        
+                        break;
+                    case SendServicTypeWaitReceived://待收货
+                        
+                        
+                        break;
                 }
             }];
             [alertavc addAction:cancelAction];
@@ -1131,6 +1303,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             
             break;
         case SendServicTypeSended:
+            
+            break;
+        case SendServicTypeWaitSending://待发货
+            
+            break;
+        case SendServicTypeWaitReceived://待收货
             
             break;
     }
@@ -1387,9 +1565,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         if ([code isEqualToString:@"0"]) {
             
             if (self.refreshType == RefreshTypeHeader) {
-                
                 if (self.caculaterArray.count > 0) {
-                    
                     [self.caculaterArray removeAllObjects];
                 }
             }

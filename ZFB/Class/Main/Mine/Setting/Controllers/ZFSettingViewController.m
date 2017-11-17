@@ -278,10 +278,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
         UIAlertAction * right = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.view makeToast:@"数据已清空" duration:2.0 position:@"center"];
             [sender setTitle:@"登录" forState:UIControlStateNormal ];
-//            [self clearingCache];//清除所有缓存;
-            BBUserDefault.isLogin = 0;
-            BBUserDefault.token = @"";
-            BBUserDefault.cmUserId = @"";
+
             [self loginOutAction];
             [self.tableView reloadData];
         }];
@@ -323,24 +320,23 @@ static NSString * settingCellid = @"ZFSettingCellid";
 //退出登录
 -(void)locationLoginOut
 {
+
     NSDictionary * param = @{
                              @"cmUserId":BBUserDefault.cmUserId
                              };
-    
     [SVProgressHUD show];
-    
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/exitLoginApp"] params:param success:^(id response) {
-        
         NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
         if([code isEqualToString:@"0"]){
-     
             [SVProgressHUD dismiss];
 #pragma mark - 推送,用户退出,别名去掉
-   
             [JPUSHService  deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
                 
             } seq:0];
-            
+            //            [self clearingCache];//清除所有缓存;
+            BBUserDefault.isLogin = 0;
+            BBUserDefault.token = @"";
+            BBUserDefault.cmUserId = @"";
         }
         
     } progress:^(NSProgress *progeress) {

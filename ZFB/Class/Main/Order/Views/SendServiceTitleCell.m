@@ -19,10 +19,8 @@
 -(void)setStorlist:(SendServiceStoreinfomap *)storlist
 {
     _storlist = storlist;
-    
     self.lb_title.text = storlist.createTime;
     
- 
  
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

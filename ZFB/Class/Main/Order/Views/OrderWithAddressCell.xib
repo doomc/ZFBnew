@@ -18,6 +18,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location3.png" translatesAutoresizingMaskIntoConstraints="NO" id="4c6-I6-893">
+                        <rect key="frame" x="15" y="43" width="10" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="pUj-8c-z21"/>
+                            <constraint firstAttribute="width" constant="10" id="soL-dx-BAx"/>
+                        </constraints>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收货人：李煜 188****1111" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k9T-sj-ttS">
                         <rect key="frame" x="15" y="10" width="164.5" height="18"/>
                         <constraints>
@@ -56,27 +63,20 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cVn-Mf-HSt">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVn-Mf-HSt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="HAW-kj-pjs">
                                 <rect key="frame" x="100" y="11" width="120" height="47"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="HAW-kj-pjs" firstAttribute="centerY" secondItem="cVn-Mf-HSt" secondAttribute="centerY" id="fCL-VX-tGm"/>
                             <constraint firstItem="HAW-kj-pjs" firstAttribute="centerX" secondItem="cVn-Mf-HSt" secondAttribute="centerX" id="rCt-yI-vYw"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location3.png" translatesAutoresizingMaskIntoConstraints="NO" id="4c6-I6-893">
-                        <rect key="frame" x="15" y="43" width="10" height="10"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="10" id="pUj-8c-z21"/>
-                            <constraint firstAttribute="width" constant="10" id="soL-dx-BAx"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="jyG-EL-2z6" firstAttribute="top" secondItem="cVn-Mf-HSt" secondAttribute="bottom" id="1po-Ad-xwG"/>

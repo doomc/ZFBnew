@@ -176,7 +176,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 
     }else{
         
-        [self.view makeToast:@"上传资料不全" duration:2 position:@"center"];
+        [self.view makeToast:@"正在上传..." duration:2 position:@"center"];
 
     }
  
@@ -242,9 +242,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                              };
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/deliveryman",zfb_baseUrl] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
-           
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 NSLog(@"延迟2.0秒后打印出来的日志！");
                 [self.navigationController popToRootViewControllerAnimated:YES];
