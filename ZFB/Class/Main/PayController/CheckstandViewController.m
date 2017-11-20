@@ -66,6 +66,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"收银台";
+     _indexRow = 5;//默认一个值
     
     _titles = @[@"余额",@"微信",@"支付宝",@"快捷支付"];
     _imageIcons = @[@"yue",@"wechat",@"alipay",@"quick"];
@@ -254,6 +255,10 @@
     if (_indexRow == 3) {//快捷支付
         [self settingAlertView];
 
+    }
+    if ( _indexRow == 5 ) {
+        [self.view makeToast:@"请选择支付方式！" duration:2 position:@"center"];
+        
     }
 }
 //每次进来都需要重新请求签名

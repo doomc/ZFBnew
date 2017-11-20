@@ -10,4 +10,7 @@
 
 @interface UserProtocolViewController : BaseViewController
 
+@property (nonatomic , copy) NSString * navTitle;
+@property (nonatomic , copy) NSString * mutContent;
+
 @end

@@ -486,10 +486,10 @@
 #pragma mark - 获取用户优惠券列表   recomment/getUserCouponList
 -(void)recommentPostRequst:(NSString *)status
 {
-    //idType	number	0 平台 1 商家 2 商品 3 所有	否
-    //resultId	number	平台编号/商店编号/商品编号	是
-    // userId	number	领优惠券用户编号	否
-    // status	number	0 未领取 1 未使用 2 已使用 3 已失效	否
+    //idType    number    0 平台 1 商家 2 商品 3 所有    否
+    //resultId    number    平台编号/商店编号/商品编号    是
+    // userId    number    领优惠券用户编号    否
+    // status    number    0 未领取 1 未使用 2 已使用 3 已失效    否
     
     NSDictionary * parma = @{
                              @"idType":@"3",

@@ -467,7 +467,6 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"pageSize":[NSNumber numberWithInteger:kPageCount],
 
-
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserCouponList"] params:parma success:^(id response) {
@@ -498,12 +497,10 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                     [self.outSideCouponList addObject:list];
                 }
                 [self.tableView reloadData];
-
                 [SVProgressHUD dismiss];
             }
         }
         [self endRefresh];
-
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
         [self endRefresh];

@@ -578,14 +578,15 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     if (!isFirst.length) {
         
         NSArray * images = @[@"引导页1",@"引导页2",@"引导页3",@"引导页4"];
-        UIButton *enterButton = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetWidth([UIScreen mainScreen].bounds) - 100) / 2, CGRectGetHeight([UIScreen mainScreen].bounds) - 30 - 50, 100, 30)];
-        
-        [enterButton setBackgroundImage:[UIImage imageNamed:@"立即体验"] forState:UIControlStateNormal];
+//        UIButton *enterButton = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetWidth([UIScreen mainScreen].bounds) - 100) / 2, CGRectGetHeight([UIScreen mainScreen].bounds) - 30 - 50, 230, 65)];
+        UIButton *enterButton =[[UIButton alloc] initWithFrame:CGRectMake((KScreenW - 150)/2,CGRectGetHeight([UIScreen mainScreen].bounds) - 30 - 50- 50, 150, 45)];
+        [enterButton setBackgroundImage:[UIImage imageNamed:@"experience"] forState:UIControlStateNormal];
         self.guidePage = [[JhtGradientGuidePageVC alloc] initWithGuideImageNames:images withLastRootViewController:tabbarVC];
         self.guidePage.enterButton = enterButton;
         
         // 添加《跳过》按钮
         self.guidePage.isNeedSkipButton = YES;
+        self.guidePage.isHiddenPageControl = YES;
         self.window.rootViewController = self.guidePage;
         
         __weak AppDelegate *weakSelf = self;

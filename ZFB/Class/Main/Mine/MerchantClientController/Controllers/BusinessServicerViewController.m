@@ -1436,18 +1436,32 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     break;
                 case BusinessServicTypeWaitSending://待发货
                 {
-                    BusinessSendAccountCell * accountCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"BusinessSendAccountCell" forIndexPath:indexPath];
-                    Settlementlist * list                 = self.caculaterArray[indexPath.row];
-                    accountCell.cacuList                  = list;
-                    return  accountCell;
+                    ZFSendingCell * contentCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
+                    
+                    BusinessOrderlist  * orderlist = self.orderListArray[indexPath.section];
+                    NSMutableArray * goodArray     = [NSMutableArray array];
+                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
+                        [goodArray  addObject:goods];
+                    }
+                    
+                    BusinessOrdergoods * goods = goodArray[indexPath.row];
+                    contentCell.businesGoods   = goods;
+                    return contentCell;
                 }
                     break;
                 case BusinessServicTypeWaitReceived://待收货
                 {
-                    BusinessSendAccountCell * accountCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"BusinessSendAccountCell" forIndexPath:indexPath];
-                    Settlementlist * list                 = self.caculaterArray[indexPath.row];
-                    accountCell.cacuList                  = list;
-                    return  accountCell;
+                    ZFSendingCell * contentCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
+                    
+                    BusinessOrderlist  * orderlist = self.orderListArray[indexPath.section];
+                    NSMutableArray * goodArray     = [NSMutableArray array];
+                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
+                        [goodArray  addObject:goods];
+                    }
+                    
+                    BusinessOrdergoods * goods = goodArray[indexPath.row];
+                    contentCell.businesGoods   = goods;
+                    return contentCell;
                 }
                     break;
             }

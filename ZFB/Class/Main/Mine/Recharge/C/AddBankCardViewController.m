@@ -10,6 +10,7 @@
 #import "AddBankCell.h"
 #import "BankMessageViewController.h"//银行卡信息
 #import "SupprotBankViewController.h"//支持银行
+
 @interface AddBankCardViewController () <UITableViewDelegate ,UITableViewDataSource,UITextFieldDelegate>
 {
     BOOL _massgeEnough;//信息是否完整 yes是完整 no 不完整
@@ -41,7 +42,6 @@
     }
     return _tableView;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -228,6 +228,8 @@
     [self.navigationController pushViewController: supportVC animated:NO];
 }
 
+
+
 #pragma mark - 验证卡号和姓名 getBankByCardNum
 -(void)verificationNameAndCardNumPost
 {
@@ -235,13 +237,13 @@
                              @"account":BBUserDefault.userPhoneNumber,
                              @"bankCredNum":_kcardNum
                              };
-    [SVProgressHUD showWithStatus:@"正在验证信息，请稍后"];
+    [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/QRCode/getBankByCardNum"] params:parma success:^(id response) {
         
         NSString * code = [NSString stringWithFormat:@"%@",response [@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
+            [SVProgressHUD dismiss];
 
-            [SVProgressHUD showSuccessWithStatus:@"验证成功！"];
             BankMessageViewController  * nextVC  = [BankMessageViewController new];
             nextVC.bankCredHolder = _bandCardName;//持卡人姓名
             nextVC.bankCredNum = _kcardNum ;//卡号
@@ -249,19 +251,27 @@
             nextVC.bankCredType =[NSString stringWithFormat:@"%@",response[@"bankInfo"][@"bankCredType"]];
             nextVC.baseBankId = [NSString stringWithFormat:@"%@",response[@"bankInfo"][@"baseBankId"]];
             [self.navigationController pushViewController:nextVC animated:NO];
-            
+            [self.tableView reloadData];
+
         }else{
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+            [SVProgressHUD dismiss];
+            [self.tableView reloadData];
         }
         
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
         NSLog(@"error=====%@",error);
+        [SVProgressHUD dismiss];
         [SVProgressHUD showErrorWithStatus:@"网络出差了~"];
     }];
     
 }
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [SVProgressHUD dismiss];
 
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

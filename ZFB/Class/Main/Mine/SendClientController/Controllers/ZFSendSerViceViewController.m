@@ -690,13 +690,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     switch (_selectPageType) {
         case SelectTypeHomePage:
             if (section == 0) {
-                
-                height = 0;
+                height = 0.001;
             }else{
                 
                 height = 41;
             }
-            
             break;
         case SelectTypeOrderPage:
             switch (_servicType) {
@@ -724,7 +722,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
         case SelectTypeCaculater:
 
-            height =0;
+            height = 0.001;
             break;
             
     }
@@ -866,7 +864,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
         case SelectTypeCaculater:
             
-            height = 0;
+            height = 0.0001;
             break;
     }
     return height;

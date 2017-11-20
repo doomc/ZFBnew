@@ -12,7 +12,7 @@
 #import "HP_LocationViewController.h"
 #import "ZFDetailsStoreViewController.h"
 #import "ZFAllStoreViewController.h"
-
+#import "StoreDetailViewController.h"//新的门店详情
 //cell
 #import "FindStoreCell.h"
 //model
@@ -218,8 +218,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@" section --- %ld ,row -----%ld",indexPath.section ,indexPath.row);    
- 
     ZFDetailsStoreViewController * vc = [[ZFDetailsStoreViewController alloc]init];
+//    StoreDetailViewController * vc = [[StoreDetailViewController alloc]init];
     Findgoodslist * listModel = self.storeListArr[indexPath.row];
     vc.storeId =[NSString stringWithFormat:@"%ld",listModel.storeId];
     [self.navigationController pushViewController:vc animated:YES];

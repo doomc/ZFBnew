@@ -316,10 +316,10 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAA-5L-1Yn">
-                            <rect key="frame" x="25" y="1200" width="325" height="50"/>
+                            <rect key="frame" x="25" y="1281.5" width="325" height="44"/>
                             <color key="backgroundColor" red="0.97647058819999999" green="0.35294117650000001" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="50" id="yq7-Ys-LhB"/>
+                                <constraint firstAttribute="height" constant="44" id="yq7-Ys-LhB"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="提交审核"/>
@@ -446,26 +446,87 @@
                                 <constraint firstItem="Aht-8B-bAa" firstAttribute="leading" secondItem="ek1-Xv-5CF" secondAttribute="leading" constant="15" id="lUZ-M4-ooM"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q1s-Ba-F0d">
+                            <rect key="frame" x="15" y="1190" width="22" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="22" id="PL4-3m-rAB"/>
+                                <constraint firstAttribute="height" constant="22" id="r2N-Fh-cUR"/>
+                            </constraints>
+                            <state key="normal" image="agree_off.png"/>
+                            <state key="selected" image="agree.png"/>
+                            <connections>
+                                <action selector="selectbtn:" destination="-1" eventType="touchUpInside" id="aJA-Ig-qzY"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nkk-NS-c7O">
+                            <rect key="frame" x="47" y="1213.5" width="147" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="16" id="a4K-Vz-gS9"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <state key="normal" title="《展富宝网络交易平台协议》"/>
+                            <connections>
+                                <action selector="dealProtocol:" destination="-1" eventType="touchUpInside" id="9Up-vj-p0c"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cA-uS-0dp">
+                            <rect key="frame" x="47" y="1255.5" width="79" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="16" id="C7M-XZ-aqe"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <state key="normal" title="《商家承诺函》"/>
+                            <connections>
+                                <action selector="promiseProtocol:" destination="-1" eventType="touchUpInside" id="3uo-xt-d1C"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我已同意并阅读：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfH-ee-Lw6">
+                            <rect key="frame" x="47" y="1194" width="98.5" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P48-Lx-cJs">
+                            <rect key="frame" x="47" y="1234.5" width="214" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="16" id="gN0-Kh-H5x"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <state key="normal" title="《展富宝网站商家在线签约系统服务协议》"/>
+                            <connections>
+                                <action selector="onlineProtocol:" destination="-1" eventType="touchUpInside" id="n7O-EP-0qW"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="y7A-dn-9hs" secondAttribute="trailing" id="2AS-MP-gaj"/>
+                        <constraint firstItem="Nkk-NS-c7O" firstAttribute="top" secondItem="XfH-ee-Lw6" secondAttribute="bottom" constant="5" id="6rv-9R-ffn"/>
                         <constraint firstItem="y7A-dn-9hs" firstAttribute="top" secondItem="yc9-fV-qtO" secondAttribute="top" constant="10" id="7Rr-DX-z9D"/>
                         <constraint firstAttribute="bottom" secondItem="cAA-5L-1Yn" secondAttribute="bottom" constant="100" id="7nQ-xp-FHK"/>
                         <constraint firstItem="sRk-S5-DWs" firstAttribute="leading" secondItem="yc9-fV-qtO" secondAttribute="leading" id="A4G-ag-l4v"/>
                         <constraint firstItem="ek1-Xv-5CF" firstAttribute="top" secondItem="n0U-GK-vdL" secondAttribute="bottom" constant="10" id="CUQ-nV-qoE"/>
                         <constraint firstItem="n0U-GK-vdL" firstAttribute="leading" secondItem="yc9-fV-qtO" secondAttribute="leading" id="L2Y-0h-afi"/>
+                        <constraint firstItem="3cA-uS-0dp" firstAttribute="top" secondItem="P48-Lx-cJs" secondAttribute="bottom" constant="5" id="LDy-PO-seR"/>
+                        <constraint firstItem="P48-Lx-cJs" firstAttribute="top" secondItem="Nkk-NS-c7O" secondAttribute="bottom" constant="5" id="MOU-Vx-sXw"/>
+                        <constraint firstItem="P48-Lx-cJs" firstAttribute="leading" secondItem="Nkk-NS-c7O" secondAttribute="leading" id="O8p-Yr-dai"/>
                         <constraint firstItem="y7A-dn-9hs" firstAttribute="leading" secondItem="yc9-fV-qtO" secondAttribute="leading" id="SYf-Ae-Ilr"/>
-                        <constraint firstItem="cAA-5L-1Yn" firstAttribute="top" secondItem="ek1-Xv-5CF" secondAttribute="bottom" constant="20" id="Usa-ay-bE6"/>
+                        <constraint firstItem="3cA-uS-0dp" firstAttribute="leading" secondItem="P48-Lx-cJs" secondAttribute="leading" id="UQ4-Pe-VjE"/>
                         <constraint firstItem="ek1-Xv-5CF" firstAttribute="leading" secondItem="yc9-fV-qtO" secondAttribute="leading" id="VhU-1E-iqR"/>
+                        <constraint firstItem="Nkk-NS-c7O" firstAttribute="leading" secondItem="XfH-ee-Lw6" secondAttribute="leading" id="WKQ-Qi-927"/>
                         <constraint firstItem="cAA-5L-1Yn" firstAttribute="leading" secondItem="yc9-fV-qtO" secondAttribute="leading" constant="25" id="Z42-SH-xhZ"/>
                         <constraint firstItem="n0U-GK-vdL" firstAttribute="top" secondItem="sRk-S5-DWs" secondAttribute="bottom" constant="10" id="Zrx-EV-D3r"/>
                         <constraint firstAttribute="trailing" secondItem="cAA-5L-1Yn" secondAttribute="trailing" constant="25" id="aFh-24-0ux"/>
                         <constraint firstItem="sRk-S5-DWs" firstAttribute="top" secondItem="y7A-dn-9hs" secondAttribute="bottom" constant="10" id="aTm-jF-zSw"/>
                         <constraint firstAttribute="trailing" secondItem="sRk-S5-DWs" secondAttribute="trailing" id="b1d-yH-oUV"/>
+                        <constraint firstItem="XfH-ee-Lw6" firstAttribute="leading" secondItem="q1s-Ba-F0d" secondAttribute="trailing" constant="10" id="cGh-OW-2aR"/>
+                        <constraint firstItem="XfH-ee-Lw6" firstAttribute="centerY" secondItem="q1s-Ba-F0d" secondAttribute="centerY" id="hmD-Q7-2wr"/>
+                        <constraint firstItem="q1s-Ba-F0d" firstAttribute="top" secondItem="ek1-Xv-5CF" secondAttribute="bottom" constant="10" id="kfb-a9-RUJ"/>
                         <constraint firstAttribute="trailing" secondItem="ek1-Xv-5CF" secondAttribute="trailing" id="mYT-YA-gTk"/>
+                        <constraint firstItem="cAA-5L-1Yn" firstAttribute="top" secondItem="3cA-uS-0dp" secondAttribute="bottom" constant="10" id="oah-U9-voR"/>
                         <constraint firstAttribute="trailing" secondItem="n0U-GK-vdL" secondAttribute="trailing" id="omI-Wx-BFq"/>
                         <constraint firstItem="y7A-dn-9hs" firstAttribute="width" secondItem="yc9-fV-qtO" secondAttribute="width" id="qKF-Lz-URS"/>
+                        <constraint firstItem="q1s-Ba-F0d" firstAttribute="leading" secondItem="yc9-fV-qtO" secondAttribute="leading" constant="15" id="wrM-Pg-BYr"/>
                     </constraints>
                 </scrollView>
             </subviews>
@@ -482,6 +543,8 @@
     </objects>
     <resources>
         <image name="add_photo.png" width="270" height="270"/>
+        <image name="agree.png" width="12" height="12"/>
+        <image name="agree_off.png" width="12" height="12"/>
         <image name="arrow_rightB.png" width="20" height="20"/>
         <image name="down3.png" width="8" height="8"/>
     </resources>

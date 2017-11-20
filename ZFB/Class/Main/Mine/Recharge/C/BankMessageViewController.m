@@ -238,6 +238,7 @@
 #pragma mark - 绑定银行卡
 -(void)bandBankCardPost
 {
+    //62284 8047 8709 452179
     NSDictionary * param = @{
                              @"account":BBUserDefault.userPhoneNumber,
                              @"baseBankId":_baseBankId,//银行卡基本编号
@@ -249,6 +250,7 @@
                              @"cvv3":@"",//信用卡背后三后数
                              };
     [SVProgressHUD showWithStatus:@"正在匹配信息，请稍后"];
+ 
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/bindBank",zfb_baseUrl] params:param success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {

@@ -94,6 +94,24 @@ typedef NS_ENUM(NSUInteger, DDAFNetworkReachabilityStatus ) {
     DDAFNetworkReachabilityStatusReachableViaWiFi = 2,
 };
 
+
+/**
+ 门店详情的筛选
+ 
+ - DDAFNetworkReachabilityStatusUnknown: -1
+ - DDAFNetworkReachabilityStatusNotReachable: 0
+ - DDAFNetworkReachabilityStatusReachableViaWWAN: 1
+ - DDAFNetworkReachabilityStatusReachableViaWiFi: 2
+ */
+typedef NS_ENUM(NSUInteger, StoreScreenType ) {
+    StoreScreenTypeAll = 0, //综合类型
+    StoreScreenTypeSales ,//销量
+    StoreScreenTypelastGoods,//最新
+    StoreScreenTypePrice ,//价格
+ 
+};
+
+
 @interface ZFEnum : NSObject
 
 @end

@@ -132,7 +132,6 @@ static float kLeftTableViewWidth = 80.f;
     if (!_tableView)
     {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kLeftTableViewWidth, KScreenH)];
-        _tableView.estimatedRowHeight = 0;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [UIView new];
