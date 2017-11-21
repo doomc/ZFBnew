@@ -10,9 +10,11 @@
 
 #import "FindStoreViewController.h"
 #import "HP_LocationViewController.h"
-#import "ZFDetailsStoreViewController.h"
+//#import "ZFDetailsStoreViewController.h"
 #import "ZFAllStoreViewController.h"
-#import "StoreDetailViewController.h"//新的门店详情
+//#import "StoreDetailViewController.h"//新的门店详情
+#import "MainStoreViewController.h"
+
 //cell
 #import "FindStoreCell.h"
 //model
@@ -83,7 +85,10 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)headerRefresh {
     [super headerRefresh];
     [self PostRequst];
-    [self LocationMapManagerInit];
+    if ([latitudestr isEqualToString:@""] || latitudestr.length == 0 || latitudestr == nil) {
+        
+        [self LocationMapManagerInit];
+    }
 }
 -(void)footerRefresh {
     
@@ -218,8 +223,9 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@" section --- %ld ,row -----%ld",indexPath.section ,indexPath.row);    
-    ZFDetailsStoreViewController * vc = [[ZFDetailsStoreViewController alloc]init];
+//    ZFDetailsStoreViewController * vc = [[ZFDetailsStoreViewController alloc]init];
 //    StoreDetailViewController * vc = [[StoreDetailViewController alloc]init];
+    MainStoreViewController * vc =[MainStoreViewController new];
     Findgoodslist * listModel = self.storeListArr[indexPath.row];
     vc.storeId =[NSString stringWithFormat:@"%ld",listModel.storeId];
     [self.navigationController pushViewController:vc animated:YES];
@@ -252,8 +258,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     locationVC.moveBlock = ^(AMapPOI *poi) {
         [self.location_btn setTitle:poi.name forState:UIControlStateNormal];
         NSLog(@"latitude:%f === longitude:%f",poi.location.latitude,poi.location.longitude);
-        BBUserDefault.latitude = [NSString stringWithFormat:@"%.6f",poi.location.latitude];
-        BBUserDefault.longitude = [NSString stringWithFormat:@"%.6f",poi.location.longitude];
+        BBUserDefault.latitude = latitudestr = [NSString stringWithFormat:@"%.6f",poi.location.latitude];
+        BBUserDefault.longitude = longitudestr = [NSString stringWithFormat:@"%.6f",poi.location.longitude];
 
     };
     [self.navigationController pushViewController: locationVC animated:YES];
@@ -339,6 +345,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 
                              @"longitude":longitudestr,//经度
                              @"latitude":latitudestr ,//纬度
+                             
                              @"size":[NSNumber numberWithInteger:kPageCount],
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"businessType":@"",

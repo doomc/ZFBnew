@@ -74,14 +74,6 @@
             _selectType = SendServicTypeSended;//已配送
             
             break;
-        case 1003:
-            _selectType = SendServicTypeWaitSending;//待发货
-            
-            break;
-        case 1004:
-            _selectType = SendServicTypeWaitReceived;//待收货
-            
-            break;
     }
     
     if ([self.delegate respondsToSelector:@selector(sendTitle:SendServiceType:)]) {

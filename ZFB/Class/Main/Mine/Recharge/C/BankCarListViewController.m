@@ -79,6 +79,7 @@
     //(NSString * bankName,NSString * bank_img, NSString * lastCardNum);
     if (_bankBlock) {
         _bankBlock(list);
+        [self backAction];
     }
     
 }

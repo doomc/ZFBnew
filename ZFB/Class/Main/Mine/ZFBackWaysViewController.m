@@ -12,9 +12,7 @@
 @interface ZFBackWaysViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *tf_contactName;
-
 @property (weak, nonatomic) IBOutlet UITextField *tf_contactPhone;
-
 @property (weak, nonatomic) IBOutlet UIButton *commitBtn;
 
 @end

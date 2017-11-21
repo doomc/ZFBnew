@@ -12,17 +12,16 @@
 #import "StoreHomeHeaderCell.h"
 #import "StoreCouponTableCell.h"
 //view
-#import "CouponTableView.h"
+
 //model
 #import "CouponModel.h"
+#import "StoreDetailHomeModel.h"
 
-@interface StoreHomeViewController () <UITableViewDelegate,UITableViewDataSource,CouponTableViewDelegate>
+@interface StoreHomeViewController () <UITableViewDelegate,UITableViewDataSource,StoreCouponTableCellDelegate,StoreHomeCellDelegate>
 
-@property (nonatomic , strong) UITableView * tableView;
 @property (nonatomic , strong) NSMutableArray * dataArray;
 @property (nonatomic , strong) NSMutableArray * couponList;
-@property (nonatomic , strong) CouponTableView *  couponTableView;
-@property (nonatomic , strong) UIView *  couponBackgroundView;
+
 
 @end
 
@@ -35,26 +34,10 @@
     }
     return _couponList;
 }
--(CouponTableView *)couponTableView
-{
-    if (!_couponTableView) {
-        _couponTableView = [[CouponTableView alloc]initWithFrame:CGRectMake(0, 200, KScreenW, KScreenH -200) style:UITableViewStylePlain];
-        _couponTableView.couponesList = self.couponList;
-        _couponTableView.popDelegate = self;
-    }
-    return _couponTableView;
-}
--(UIView *)couponBackgroundView
-{
-    if (!_couponBackgroundView) {
-        _couponBackgroundView = [[UIView alloc]initWithFrame:self.view.bounds];
-        _couponBackgroundView.backgroundColor = RGBA(0, 0, 0, 0.2);
-        [_couponBackgroundView addSubview:self.couponTableView];
-    }
-    return _couponBackgroundView;
-}
+
+
 -(NSMutableArray *)dataArray{
-    if (_dataArray) {
+    if (!_dataArray) {
         _dataArray = [NSMutableArray array];
     }
     return _dataArray;
@@ -63,7 +46,7 @@
 -(UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -50)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH -64 -40 -49 )];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = HEXCOLOR(0xf7f7f7);
@@ -78,15 +61,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     [self.view addSubview:self.tableView];
-    
+    self.zfb_tableView  = self.tableView;
+
     [self.tableView registerNib:[UINib nibWithNibName:@"StoreHomeCell" bundle:nil] forCellReuseIdentifier:@"StoreHomeCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"StoreCouponTableCell" bundle:nil] forCellReuseIdentifier:@"StoreCouponTableCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"StoreHomeHeaderCell" bundle:nil] forCellReuseIdentifier:@"StoreHomeHeaderCell"];
+    
+    [self storeListPostRequest];
+    [self setupRefresh];
 
+}
+-(void)headerRefresh
+{
+    [super headerRefresh];
+    [self storeListPostRequest];
+
+}
+-(void)footerRefresh
+{
+    [super footerRefresh];
     [self storeListPostRequest];
 }
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
@@ -96,7 +93,9 @@
     if (section == 0) {
         return 1;
     }
-    return 3;
+    else{
+        return self.dataArray.count;
+    }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -107,15 +106,20 @@
         else{
             return 0;
         }
+    }else
+    {
+        return cellHeight;
     }
-    return cellHeight;
+  
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
         return 0.001;
     }
-    return 98;
+    else{
+        return 98;
+    }
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -134,48 +138,41 @@
         StoreCouponTableCell * couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"StoreCouponTableCell" forIndexPath:indexPath];
         if (![self isEmptyArray:self.couponList]) {
             //优惠券不为空
-            
+            couponCell.couponArray = self.couponList;
+            couponCell.delegate = self;
+            [couponCell reload_CollectionView];
         }else {
             couponCell.hidden = YES;
         }
         return couponCell;
-    }else
-    {
+    }else{
         StoreHomeCell * storeCell = [self.tableView dequeueReusableCellWithIdentifier:@"StoreHomeCell" forIndexPath:indexPath];
+        GoodsExtendList * goodslist = self.dataArray[indexPath.row];
+        storeCell.goodslist = goodslist;
+        storeCell.delegate = self;
+        storeCell.indexPath = indexPath;
         return storeCell;
     }
-
 }
-
-#pragma mark - <CouponTableViewDelegate> 优惠券代理
-/**
- *  关闭弹框
- */
--(void)didClickCloseCouponView
-{
-    [self.couponBackgroundView removeFromSuperview];
-}
-
-/**
- 获取到当前的优惠券信息
- 
- @param indexRow 下标
- @param couponId id
- @param result 返回值
- */
--(void)selectCouponWithIndex:(NSInteger)indexRow AndCouponId :(NSString *)couponId withResult:(NSString *)result
-{
-    //领取优惠券  接口
-    [self getCouponesPostRequst:couponId];
-}
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self.view endEditing:YES];
-    [self.couponBackgroundView removeFromSuperview];
+#pragma mark - StoreHomeCellDelegate 立即购买
+-(void)didClickwitchOneBuyIndexPath:(NSIndexPath*)indexPath AndGoodId:(NSString * )goodId{
+  
+    NSLog(@"%@ == goodId",goodId);
     
 }
-
+#pragma mark - StoreCouponTableCellDelegate 获取优惠券
+/**
+ 获取到当前的优惠券
+ 
+ @param index 下标
+ @param couponId id
+ */
+-(void)didClickCouponlistIndex:(NSInteger)index andCouponId:(NSString *)couponId
+{
+    NSLog(@"index == =%ld",index);
+    //领取优惠券  接口
+   [self getCouponesPostRequst:couponId];
+}
 
 #pragma mark - 点击领取优惠券    recomment/receiveCoupon
 -(void)getCouponesPostRequst:(NSString *)couponId
@@ -192,15 +189,11 @@
             
             [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
             //领取成功后移除
-            [self.couponBackgroundView removeFromSuperview];
-            [self.couponTableView reloadData];
             [SVProgressHUD dismiss];
             
         }else{
             
             //领取失败后移除
-            [self.couponBackgroundView removeFromSuperview];
-            [self.couponTableView reloadData];
             [SVProgressHUD dismiss];
             [self.view makeToast:@"领取失败" duration:2 position:@"center"];
             
@@ -247,7 +240,6 @@
                 [self.couponList addObject:list];
             }
             
-            [self.couponTableView reloadData];
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
         }else{
@@ -267,9 +259,9 @@
 #pragma mark - 门店详情
 -(void)storeListPostRequest
 {
-    if (BBUserDefault.cmUserId == nil) {
-        BBUserDefault.cmUserId = @"";
-    }
+//    if (BBUserDefault.cmUserId == nil) {
+//        BBUserDefault.cmUserId = @"";
+//    }
     NSDictionary * parma = @{
                              @"userId":BBUserDefault.cmUserId,
                              @"storeId":_storeId,
@@ -279,14 +271,24 @@
                              @"size":[NSNumber numberWithInteger:kPageCount],
                              };
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsExtendListApp",zfb_baseUrl] params:parma success:^(id response) {
-        if ([response[@"resultCode"] isEqualToString:@"0"]) {
-            
- 
-            
+        StoreDetailHomeModel * store = [StoreDetailHomeModel mj_objectWithKeyValues:response];
+        if ([store.resultCode isEqualToString:@"0"]) {
+            if (self.refreshType == RefreshTypeHeader) {
+                if (self.dataArray.count > 0) {
+                    [self.dataArray removeAllObjects];
+                }
+            }
+            for (GoodsExtendList * storelist in store.data.goodsExtendList) {
+                [self.dataArray addObject:storelist];
+            }
+
+            [self.tableView reloadData];
         }
+        [self endRefresh];
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
         NSLog(@"error=====%@",error);
+        [self endRefresh];
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
     
@@ -300,6 +302,27 @@
     }
     
 }
+//既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.DidScrollBlock) {
+        self.DidScrollBlock(scrollView.contentOffset.y);
+    }
+    CGFloat sectionHeaderHeight = 98 ;
+    CGFloat sectionFooterHeight = 0;
+    CGFloat offsetY = scrollView.contentOffset.y;
+    if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
+    {
+        scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
+    }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
+    {
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
+    }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
+    {
+        scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+    }
+}
+
+ 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

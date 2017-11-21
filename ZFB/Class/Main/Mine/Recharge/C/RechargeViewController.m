@@ -200,6 +200,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"section :%ld --- row:%ld",indexPath.section ,indexPath.row);
     if (indexPath.section == 0) {
         BankCarListViewController * bankVC =[[BankCarListViewController alloc]init];
         bankVC.bankBlock = ^(BankList *banklist) {
@@ -218,13 +219,14 @@
 -(void)didClickAddBankCard
 {
     NSLog(@"点击了  ---- 添加银行卡");
-    if (![_realNameFlag isEqualToString:@"1"] ) {            //是否实名认证 1 是 2 否
-        CertificationViewController * cerVC = [CertificationViewController new];
-        [self.navigationController pushViewController:cerVC animated:NO];
-
-    }else{
+    if ([_realNameFlag isEqualToString:@"1"] ) {            //是否实名认证 1 是 2 否
         AddBankCardViewController * addVC = [AddBankCardViewController new];
         [self.navigationController pushViewController:addVC animated:NO];
+
+    }else{
+
+        CertificationViewController * cerVC = [CertificationViewController new];
+        [self.navigationController pushViewController:cerVC animated:NO];
     }
  
 }

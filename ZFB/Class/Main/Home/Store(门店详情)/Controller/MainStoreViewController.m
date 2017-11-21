@@ -1,54 +1,65 @@
 //
-//  StoreDetailViewController.m
+//  MainStoreViewController.m
 //  ZFB
 //
-//  Created by  展富宝  on 2017/11/14.
+//  Created by  展富宝  on 2017/11/21.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
+#define  headerH 130
 
-#import "StoreDetailViewController.h"
+#import "MainStoreViewController.h"
 #import "StoreHomeViewController.h"//门店首页
 #import "StoreAllgoodsViewController.h"//全部商品
 #import "StoreRemonedViewController.h"//新品推荐
 
-#import "XHStarRateView.h"
-#import "SGPageTitleView.h"
-#import "SGPageContentView.h"
+#import "MainStoreHeadView.h"
+#import "MainStoreFooterView.h"
 
-@interface StoreDetailViewController ()<SGPageTitleViewDelegate, SGPageContentViewDelegate>
+#import "JohnTopTitleView.h"
+#import "XHStarRateView.h"
+
+@interface MainStoreViewController ()<JohnTopTitleViewDelegate>
 {
-    BOOL _isCalling;
-    NSString * _contactPhone;
-    
     NSString * _isCollect;//0没收藏 1,收藏
     NSString * _starLevel;//评价星星
     NSString * _storeName;
     NSString * _saleCount;//销售数量
     NSString * _coverUrl;//背景图
     NSString * _collectNumber;//背景图
-    
-
 }
-@property (nonatomic, strong) SGPageTitleView *pageTitleView;
-@property (nonatomic, strong) SGPageContentView *pageContentView;
+@property (nonatomic,strong) StoreHomeViewController * vc1;
+@property (nonatomic,strong) StoreAllgoodsViewController * vc2;
+@property (nonatomic,strong) StoreRemonedViewController * vc3;
+@property (nonatomic,strong) JohnTopTitleView *topTitleView;
+@property (nonatomic,strong) MainStoreHeadView * headerView;
+@property (nonatomic,strong) MainStoreFooterView * footerView;
 @property (nonatomic, strong) XHStarRateView * wdStarView;
 @property (nonatomic, strong) UIButton *collectButton;
 
 @end
 
-@implementation StoreDetailViewController
+@implementation MainStoreViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    _isCalling = NO;//默认没打电话
+    // Do any additional setup after loading the view.
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.view.backgroundColor =  HEXCOLOR(0xf7f7f7);
+    
+    self.headerView = [[NSBundle mainBundle]loadNibNamed:@"MainStoreHeadView" owner:nil options:nil].lastObject;
+    self.footerView = [[NSBundle mainBundle]loadNibNamed:@"MainStoreFooterView" owner:nil options:nil].lastObject;
 
-    [self collectionButton];
-    [self setupPageView];
+    [self.view addSubview:self.headerView];
+    [self.view addSubview:self.footerView];
+    [self.view addSubview:self.topTitleView];
+    
+    _wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 120, 24) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO];
+    [ self.headerView.starView addSubview:_wdStarView];
     
     [self storePostRequest];
-
+    [self collectionButton];
 }
+
 -(void)collectionButton
 {
     //收藏按钮
@@ -61,72 +72,108 @@
     //自定义button必须执行
     UIBarButtonItem *rightItem             = [[UIBarButtonItem alloc] initWithCustomView:_collectButton];
     self.navigationItem.rightBarButtonItem = rightItem;
-    
-    
-    _wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 120, 24) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO];
-    [self.starView addSubview:_wdStarView];
- 
 }
 
 
-- (void)setupPageView {
-    
-    StoreHomeViewController * storeVC1 = [[StoreHomeViewController alloc]init];
-    StoreAllgoodsViewController * storeVC2 = [[StoreAllgoodsViewController alloc]init];
-    StoreRemonedViewController * storeVC3 = [[StoreRemonedViewController alloc]init];
-    storeVC1.storeId = _storeId;
-    
-    NSArray *childs = @[storeVC1, storeVC2,storeVC3];
-    /// pageContentView
-    CGFloat contentViewHeight = self.view.frame.size.height - 130 - 44 - 64 -49;
-    self.pageContentView = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 130+44, self.view.frame.size.width, contentViewHeight) parentVC:self childVCs:childs];
-    _pageContentView.delegatePageContentView = self;
-    [self.view addSubview:_pageContentView];
-    
-    NSArray * titles = @[@"门店首页",@"全部商品",@"新品推荐"];
-    /// pageTitleView
-    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 130, self.view.frame.size.width, 44) delegate:self titleNames:titles];
-    [self.view addSubview:_pageTitleView];
-    _pageTitleView.isTitleGradientEffect = NO;
-    _pageTitleView.indicatorLengthStyle = SGIndicatorLengthStyleSpecial;
-    _pageTitleView.indicatorScrollStyle = SGIndicatorScrollStyleHalf;
-    _pageTitleView.selectedIndex = 0;
-    _pageTitleView.isShowBottomSeparator = NO;
-    _pageTitleView.isNeedBounces = NO;
-    _pageTitleView.titleColorStateSelected = HEXCOLOR(0xf95a70);
-    _pageTitleView.titleColorStateNormal = HEXCOLOR(0x7a7a7a);
-    _pageTitleView.indicatorColor = HEXCOLOR(0xf95a70);
-    _pageTitleView.indicatorHeight = 1.0;
-    _pageTitleView.titleTextScaling = 0.3;
-}
-
-- (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex
-{
-    [self.pageContentView setPageCententViewCurrentIndex:selectedIndex];
-}
-- (void)pageContentView:(SGPageContentView *)pageContentView progress:(CGFloat)progress originalIndex:(NSInteger)originalIndex targetIndex:(NSInteger)targetIndex {
-    [self.pageTitleView setPageTitleViewWithProgress:progress originalIndex:originalIndex targetIndex:targetIndex];
-}
-
-#pragma mark - <DetailStoreTitleCellDelegate> 拨打电话代理
-//拨打电话
--(void)callingBack
-{
-    if (_isCalling == YES) {
-        return;
+#pragma mark - CustomDelegate
+- (void)johnScrollViewDidScroll:(CGFloat)scrollY{
+    CGFloat headerViewY;
+    if (scrollY > 0) {
+        headerViewY = -scrollY ;
+        if (scrollY > headerH) {
+            headerViewY = -headerH ;
+        }
+    }else{
+        headerViewY = 0;
     }
-    _isCalling = YES;
-    NSMutableString * str= [[NSMutableString alloc] initWithFormat:@"telprompt://%@",_contactPhone];
-    NSDictionary * dic = @{@"":@""} ;
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:dic completionHandler:^(BOOL success) {
-        _isCalling = NO;
-    }];
-    
+    self.headerView.frame = CGRectMake(0,headerViewY, KScreenW, headerH);
+    self.topTitleView.frame = CGRectMake(0, CGRectGetMaxY(self.headerView.frame), KScreenW, KScreenH - CGRectGetMaxY(self.headerView.frame));
 }
+
+
+#pragma mark - JohnTopTitleViewDelegate
+- (void)didSelectedPage:(NSInteger)page{
+    self.headerView.frame = CGRectMake(0, 0, KScreenW, headerH);
+    self.topTitleView.frame = CGRectMake(0, CGRectGetMaxY(self.headerView.frame), KScreenW, KScreenH - CGRectGetMaxY(self.headerView.frame));
+    switch (page) {
+        case 0:
+        {
+            [self.vc2.AcollectionView setContentOffset:CGPointMake(0, 0) animated:NO];
+            [self.vc3.ScollectionView setContentOffset:CGPointMake(0, 0) animated:NO];
+        }
+            break;
+        case 1:
+        {
+            [self.vc1.tableView setContentOffset:CGPointMake(0, 0) animated:NO];
+            [self.vc3.ScollectionView setContentOffset:CGPointMake(0, 0) animated:NO];
+            
+        }
+            break;
+        default:
+        {
+            [self.vc1.tableView setContentOffset:CGPointMake(0, 0) animated:NO];
+            [self.vc2.AcollectionView setContentOffset:CGPointMake(0, 0) animated:NO];
+            
+        }
+            break;
+    }
+}
+
+#pragma mark - Getter
+- (JohnTopTitleView *)topTitleView{
+    if (!_topTitleView) {
+        _topTitleView = [[JohnTopTitleView alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(self.headerView.frame), KScreenW, KScreenH)];
+        _topTitleView.titles = @[@"门店首页",@"全部商品",@"新品推荐"];
+        [_topTitleView setupViewControllerWithFatherVC:self childVC:@[self.vc1,self.vc2,self.vc3]];
+        _topTitleView.delegete = self;
+    }
+    return _topTitleView;
+}
+
+- (StoreHomeViewController *)vc1{
+    if (!_vc1) {
+        _vc1 = [[StoreHomeViewController alloc]init];
+        __weak typeof(self) weakSelf = self;
+        _vc1.storeId = _storeId;
+        _vc1.DidScrollBlock = ^(CGFloat scrollY) {
+            [weakSelf johnScrollViewDidScroll:scrollY];
+        };
+    }
+    return _vc1;
+}
+
+- (StoreAllgoodsViewController *)vc2{
+    if (!_vc2) {
+        _vc2 = [[StoreAllgoodsViewController alloc]init];
+        __weak typeof(self) weakSelf = self;
+        _vc2.DidScrollBlock = ^(CGFloat scrollY) {
+            [weakSelf johnScrollViewDidScroll:scrollY];
+        };
+    }
+    return _vc2;
+}
+
+- (StoreRemonedViewController *)vc3{
+    if (!_vc3) {
+        _vc3 = [[StoreRemonedViewController alloc]init];
+        __weak typeof(self) weakSelf = self;
+        _vc3.DidScrollBlock = ^(CGFloat scrollY) {
+            [weakSelf johnScrollViewDidScroll:scrollY];
+        };
+    }
+    return _vc3;
+}
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self settingNavBarBgName:@"nav64_gray"];
+
+}
+
 /**
  点爱心
- 
- @param sender 收藏/取消收藏
+  @param sender 收藏/取消收藏
  */
 -(void )didclickLove:(UIButton *)sender
 {
@@ -221,12 +268,12 @@
             _isCollect = [NSString stringWithFormat:@"%@",response[@"data"][@"isCollect"]];
             _starLevel = [NSString stringWithFormat:@"%@",response[@"data"][@"starLevel"]];
             
-            self.lb_sale.text = _saleCount;
-            self.lb_collect.text = _collectNumber;
-            self.lb_storeName.text = _storeName;
+            self.headerView.lb_sale.text = _saleCount;
+            self.headerView.lb_collect.text = _collectNumber;
+            self.headerView.lb_storeName.text = _storeName;
             _wdStarView.currentScore = [_starLevel integerValue];
-            [self.storeBackground sd_setImageWithURL:[NSURL URLWithString:_coverUrl] placeholderImage:nil];
-
+            [self.headerView.storeBackground sd_setImageWithURL:[NSURL URLWithString:_coverUrl] placeholderImage:nil];
+            
         }
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
@@ -236,30 +283,11 @@
     
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [self settingNavBarBgName:@"nav64_gray"];
-    
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-//去附近逛逛
-- (IBAction)gotoNear:(id)sender {
-}
-//门店信息
-- (IBAction)storeMessage:(id)sender {
-}
-//联系卖家
-- (IBAction)contactBuyer:(id)sender {
-}
-
-//商品分类
-- (IBAction)goodsClassily:(id)sender {
-}
-
 
 /*
 #pragma mark - Navigation

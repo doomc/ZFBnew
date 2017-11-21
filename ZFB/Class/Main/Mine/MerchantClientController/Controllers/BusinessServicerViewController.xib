@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BusinessServicerViewController">
             <connections>
+                <outlet property="homeTableView" destination="yuV-Il-g06" id="MAP-BS-hdx"/>
                 <outlet property="img_sendHome" destination="Z6m-zn-1Dn" id="hwH-7d-I7u"/>
                 <outlet property="img_sendOrder" destination="Ops-et-cWn" id="Q0s-Q4-duj"/>
                 <outlet property="lb_sendHomeTitle" destination="VuB-R0-dNU" id="DIA-U2-zKX"/>
@@ -111,11 +112,18 @@
                     </segments>
                     <color key="tintColor" red="0.97647058819999999" green="0.35294117650000001" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </segmentedControl>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yuV-Il-g06">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="X1u-w5-Tw5" firstAttribute="top" secondItem="yuV-Il-g06" secondAttribute="bottom" id="0ML-Gg-lQs"/>
                 <constraint firstAttribute="bottom" secondItem="yGx-Lo-d0h" secondAttribute="bottom" id="7bC-Or-opz"/>
                 <constraint firstAttribute="trailing" secondItem="yGx-Lo-d0h" secondAttribute="trailing" id="7cE-vu-sqv"/>
+                <constraint firstAttribute="trailing" secondItem="yuV-Il-g06" secondAttribute="trailing" id="8j4-sl-0v2"/>
+                <constraint firstItem="yuV-Il-g06" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="DKU-fV-WGr"/>
                 <constraint firstItem="X1u-w5-Tw5" firstAttribute="width" secondItem="ymA-bd-mVh" secondAttribute="width" id="F2W-fU-Acb"/>
                 <constraint firstItem="X1u-w5-Tw5" firstAttribute="height" secondItem="ymA-bd-mVh" secondAttribute="height" id="FzO-fP-30K"/>
                 <constraint firstAttribute="bottom" secondItem="X1u-w5-Tw5" secondAttribute="bottom" id="JHg-0z-nVh"/>
@@ -123,6 +131,7 @@
                 <constraint firstAttribute="bottom" secondItem="ymA-bd-mVh" secondAttribute="bottom" id="Nfm-21-gZa"/>
                 <constraint firstItem="ymA-bd-mVh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UoN-dM-7GU"/>
                 <constraint firstAttribute="trailing" secondItem="X1u-w5-Tw5" secondAttribute="trailing" id="bbl-ah-E4D"/>
+                <constraint firstItem="yuV-Il-g06" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hDo-Pl-Oa3"/>
                 <constraint firstItem="X1u-w5-Tw5" firstAttribute="leading" secondItem="ymA-bd-mVh" secondAttribute="trailing" constant="2" id="q89-so-7Ic"/>
             </constraints>
             <point key="canvasLocation" x="35.5" y="53.5"/>

@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *resultMsg;
 
 @property (nonatomic, strong) SearchNoData *data;
+
 @end
 @interface SearchNoData : ResponseObject
 

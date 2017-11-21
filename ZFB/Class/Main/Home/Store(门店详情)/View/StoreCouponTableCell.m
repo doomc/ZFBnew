@@ -8,6 +8,7 @@
 
 #import "StoreCouponTableCell.h"
 #import "CouponCollectionCell.h"
+#import "CouponModel.h"
 @interface StoreCouponTableCell ()<UICollectionViewDataSource,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 
@@ -41,7 +42,10 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CouponCollectionCell  *cell = (CouponCollectionCell *)[self.couponCollectionView dequeueReusableCellWithReuseIdentifier:@"CouponCollectionCell" forIndexPath:indexPath];
-    
+    if (_couponArray.count > 0) {
+        Couponlist * couponlist =  _couponArray[indexPath.item];
+        cell.couponList = couponlist;
+    }
     return cell;
 }
 
@@ -49,13 +53,13 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
  
-    return CGSizeMake( KScreenW *0.5-30, 55);
+    return CGSizeMake( KScreenW *0.5-20, 55);
 }
 
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(10,  10 , 10, 10);
+    return UIEdgeInsetsMake(5,  5 , 5, 5);
     
 }
 
@@ -63,9 +67,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@" item === %ld ",indexPath.item);
-
+    Couponlist * couponlist =  _couponArray[indexPath.item];
     if ( [self.delegate respondsToSelector:@selector(didClickCouponlistIndex:andCouponId:)]) {
-        [self.delegate  didClickCouponlistIndex:indexPath.row andCouponId:@""];
+        [self.delegate  didClickCouponlistIndex:indexPath.item andCouponId:[NSString stringWithFormat:@"%ld",couponlist.couponId]];
     }
     
 }

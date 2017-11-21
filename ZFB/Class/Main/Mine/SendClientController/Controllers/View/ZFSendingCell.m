@@ -39,7 +39,7 @@
     [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:businesGoods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     
     if ([self isEmptyArray:businesGoods.goods_properties]) {
-        NSLog(@"这是个空数组");
+        NSLog(@"商户端没有规格");
         self.lb_progrop.text = @"";
     }else{
         NSMutableArray * mutNameArray = [NSMutableArray array];
@@ -64,7 +64,7 @@
  
     
     if ([self isEmptyArray:goods.goods_properties]) {
-        NSLog(@"这是个空数组");
+        NSLog(@"全部订单的没有规格");
         self.lb_progrop.text = @"";
     }else{
         NSMutableArray * mutNameArray = [NSMutableArray array];
@@ -88,7 +88,7 @@
     [self.img_SenlistView sd_setImageWithURL:[NSURL URLWithString:sendGoods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     
     if ([self isEmptyArray:sendGoods.goodsProperties]) {
-        NSLog(@"这是个空数组");
+        NSLog(@"配送端没有规格");
         self.lb_progrop.text = @"";
     }else{
         NSMutableArray * mutNameArray = [NSMutableArray array];

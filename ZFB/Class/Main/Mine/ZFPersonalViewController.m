@@ -68,7 +68,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 @property (nonatomic,copy) NSString * collectNum ;//收藏数量
 
 @property (nonatomic,copy) NSString * shopFlag   ;//判断是否是商家 1/0
-@property (nonatomic,copy) NSString * courierFlag   ;//判断是否是快递员 1/0
+@property (nonatomic,copy) NSString * deliveryFlag   ;//判断是否是快递员 审核状态 1.审核通过 2.待审核 3.审核失败 0 没有注册信息
 @property (nonatomic,copy) NSString * storeId   ;
 @property (nonatomic,copy) NSString * balance   ;//余额
 @property (nonatomic,copy) NSString * userImgAttachUrl  ;//头像URL
@@ -361,17 +361,17 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     }
 
     QuickOperationCell * quickCell = [self.myTableView dequeueReusableCellWithIdentifier:@"QuickOperationCell" forIndexPath:indexPath];
-    if ([_shopFlag isEqualToString:@"1"] || [_courierFlag isEqualToString:@"1"] ) {
+    if ([_shopFlag isEqualToString:@"1"] || [_deliveryFlag isEqualToString:@"1"] ) {
         quickCell.unCheckView.hidden = YES; //没有审核过的视图隐藏
     }
-    if ([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) {
+    if ([_deliveryFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) {
          quickCell.unCheckView.hidden = NO;//显示
     }
     if ([_shopFlag isEqualToString:@"1"]){
         quickCell.lb_changeName.text = @"切换到商户端";
         quickCell.checkedView.hidden = NO;
     }
-    if ([_courierFlag isEqualToString:@"1"]) {
+    if ([_deliveryFlag isEqualToString:@"1"]) {
         quickCell.lb_changeName.text = @"切换到配送端";
         quickCell.checkedView.hidden = NO;
     }
@@ -422,30 +422,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
                 
             }
                 break;
-//            case 4:             //切换到配送端
-//            {
-//                if (BBUserDefault.isLogin == 1) {
-//                    if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
-//                        //商户端
-//                        BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
-//                        businessVC.storeId = _storeId;
-//                        [self.navigationController pushViewController:businessVC animated:NO];
-//
-//                    }
-//                    if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
-//                        // 配送端
-//                        ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
-//                        [self.navigationController pushViewController:sendVC animated:NO];
-//                    }
-//
-//                }
-//                else{
-//                    [self isloginSuccess];
-//
-//                }
-//
-//            }
-//                break;
+
             case 4://我的共享
                 
             {
@@ -683,11 +660,11 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             _foolnum    = [NSString stringWithFormat:@"%@",response[@"foolNum"] ];
             _collectNum = [NSString stringWithFormat:@"%@",response[@"collectNum"]];
             _shopFlag   = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"shopFlag"]];// 1.是商家 0. 普通用户 -1待审核
-            _courierFlag= [NSString stringWithFormat:@"%@",response[@"userInfo"][@"courierFlag"]];//是否是快递员
+            _deliveryFlag= [NSString stringWithFormat:@"%@",response[@"userInfo"][@"deliveryFlag"]];//是否是快递员 1.审核通过 2.待审核 3.审核失败
             _storeId    = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"storeId"]];
  
             BBUserDefault.shopFlag = _shopFlag;
-            BBUserDefault.courierFlag = _courierFlag;
+            BBUserDefault.deliveryFlag = _deliveryFlag;
             BBUserDefault.isSetPassword = response[@"userInfo"][@"isSetPassword"];
             //是否实名认证 1 是 2 否
             BBUserDefault.realNameFlag = [NSString stringWithFormat:@"%@",response[@"userInfo"][@"realNameFlag"]];
@@ -769,7 +746,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         self.headview.lb_historyCount.text = @"0";
         [self.myTableView reloadData];
     }
-    NSLog(@"%@ ---- %@",_shopFlag,_courierFlag);
+    NSLog(@"_shopFlag = %@ ---- _deliveryFlag = %@",_shopFlag,_deliveryFlag);
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -786,12 +763,12 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     
     }else{
         _shopFlag = nil;
-        _courierFlag = nil;
+        _deliveryFlag = nil;
         _headview.loginView.hidden   = YES;
         _headview.unloginView.hidden = NO;
         
     }
-    NSLog(@"%@ ---- %@",_shopFlag,_courierFlag);
+ 
     [self.myTableView reloadData];
 }
 
@@ -806,7 +783,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)didClickOpenStore
 {
     if (BBUserDefault.isLogin == 1) {
-        if ([_courierFlag isEqualToString:@"0"] &&[_shopFlag isEqualToString:@"0"] )
+        if ([_deliveryFlag isEqualToString:@"0"] &&[_shopFlag isEqualToString:@"0"] )
         {
             iOpenStoreViewController * openVC  = [iOpenStoreViewController new];
             [self.navigationController pushViewController:openVC animated:NO];
@@ -829,7 +806,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 -(void)didClickSendGoods
 {
     if (BBUserDefault.isLogin == 1) {
-        if ([_courierFlag isEqualToString:@"0"] &&[_shopFlag isEqualToString:@"0"] ) {//普通用户
+        if ([_deliveryFlag isEqualToString:@"0"] &&[_shopFlag isEqualToString:@"0"] ) {//普通用户
             
             iwantSendedViewController * sendVC  = [iwantSendedViewController new];
             [self.navigationController pushViewController:sendVC animated:NO];
@@ -868,7 +845,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             [self.navigationController pushViewController:businessVC animated:NO];
             
         }
-        if ([_courierFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
+        if ([_deliveryFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
             // 配送端
             ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
             [self.navigationController pushViewController:sendVC animated:NO];

@@ -250,7 +250,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     cell.editTf_result.text = [NSString stringWithFormat:@"%.ld",goodslist.goodsCount];
     
     if ([self isEmptyArray:goodslist.goodsProp]) {
-        NSLog(@"这是个空数组");
+        NSLog(@"没有规格 ---购物车");
         cell.lb_prod.text = @"";
         cell.lb_editprod.text = @"";
         

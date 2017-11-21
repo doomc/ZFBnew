@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "CouponModel.h"
+
 @interface CouponCollectionCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_maxMoney;
 @property (weak, nonatomic) IBOutlet UILabel *lb_useRange;
+@property (weak, nonatomic)  Couponlist *couponList;
 
 @end

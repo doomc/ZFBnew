@@ -61,7 +61,10 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+  
+    if (BBUserDefault.cmUserId == nil) {
+        BBUserDefault.cmUserId = @"";
+    }
     
     NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:100  * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];

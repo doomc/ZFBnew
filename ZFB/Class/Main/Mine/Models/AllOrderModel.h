@@ -82,6 +82,8 @@
 
 @property (nonatomic, copy) NSString *partRefund;
 
+@property (nonatomic, assign) NSInteger skuId;
+
 
 @end
 

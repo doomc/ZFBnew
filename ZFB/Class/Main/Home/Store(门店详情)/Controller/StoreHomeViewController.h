@@ -7,9 +7,21 @@
 //
 
 #import "BaseViewController.h"
+@protocol JohnScrollViewDelegate<NSObject>
+
+@optional
+- (void)johnScrollViewDidScroll:(CGFloat)scrollY;
+
+@end
 
 @interface StoreHomeViewController : BaseViewController
 
-@property(nonatomic,copy)NSString *storeId;
+@property (nonatomic,copy) void(^DidScrollBlock)(CGFloat scrollY);
+
+@property ( nonatomic , copy ) NSString *storeId;
+
+@property ( nonatomic , strong ) UITableView  * tableView;
+
+@property (nonatomic,weak) id<JohnScrollViewDelegate>delegate;
 
 @end

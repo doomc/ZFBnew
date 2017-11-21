@@ -13,6 +13,10 @@
 #import "ZFFooterCell.h"//尾部
 //model
 #import "BusinessOrderModel.h"
+#define  k_cellHeight 130
+#define  k_sectionHeight 90
+#define  k_footHeight 60
+
 @interface OrderStatisticsViewController ()<UITableViewDelegate,UITableViewDataSource,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
 
 @property (nonatomic ,strong) UITableView * orderdTableView ;
@@ -136,15 +140,15 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 118;
+    return k_sectionHeight;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 60;
+    return k_footHeight;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 82;
+    return k_cellHeight;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -266,7 +270,7 @@
 //既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    CGFloat sectionHeaderHeight = 80;
+    CGFloat sectionHeaderHeight = 50;
     CGFloat sectionFooterHeight = 60;
     CGFloat offsetY = scrollView.contentOffset.y;
     if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
@@ -298,7 +302,6 @@
     
     [self storeHomePagePostRequst];
 }
-
 
 
 - (void)didReceiveMemoryWarning {

@@ -41,14 +41,14 @@
                                 <color key="textColor" red="0.72156862749999995" green="0.047058823530000002" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hXZ-8A-whU">
-                                <rect key="frame" x="119" y="254" width="31" height="14.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hXZ-8A-whU">
+                                <rect key="frame" x="142" y="254" width="8" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eu7-hu-Bx2">
-                                <rect key="frame" x="102" y="251.5" width="12" height="17"/>
+                                <rect key="frame" x="125" y="251.5" width="12" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" image="collection3.png"/>
                                 <state key="selected" image="score.png"/>
@@ -89,7 +89,7 @@
                 <outlet property="lb_price" destination="eZl-WH-FA3" id="3TB-we-n4y"/>
                 <outlet property="lb_title" destination="VBD-yF-DmN" id="Jym-Jb-qlr"/>
             </connections>
-            <point key="canvasLocation" x="-314" y="-391"/>
+            <point key="canvasLocation" x="-508" y="-462"/>
         </collectionViewCell>
     </objects>
     <resources>

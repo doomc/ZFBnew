@@ -11,8 +11,6 @@
 #import "AllGoodsCollectionReusableView.h"
 @interface StoreAllgoodsViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic , strong)UICollectionView * collectionView;
-
 
 @end
 
@@ -22,58 +20,97 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self.collectionView registerNib:[UINib nibWithNibName:@"DuplicationStoreCell" bundle:nil] forCellWithReuseIdentifier:@"DuplicationStoreCell"];
-    [self.collectionView  registerClass:[AllGoodsCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"AllGoodsCollectionReusableView"];
+
+//
+//    UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
+//    layout.headerReferenceSize =CGSizeMake(KScreenW, 50);
+//    layout.minimumInteritemSpacing = 10;   //列距
+//    layout.minimumLineSpacing = 20;    //行距
+//    layout.itemSize = CGSizeMake( KScreenW *0.5-20, 280);
+//    layout.scrollDirection              = UICollectionViewScrollDirectionVertical;
     
-    UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.scrollDirection              = UICollectionViewScrollDirectionVertical;
-    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, self.view.bounds.size.height) collectionViewLayout:layout];
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
-    [self.view addSubview:self.collectionView];
+//    self.AcollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH - 130 - 49 - 44) collectionViewLayout:layout];
+    
+    self.AcollectionView.backgroundColor = self.view.backgroundColor;
+    self.AcollectionView.delegate = self;
+    self.AcollectionView.dataSource = self;
+    self.AcollectionView.collectionViewLayout = [self customLayout];
+    [self.AcollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellId"];
+    
+    [self.view addSubview:self.AcollectionView];
+    
+    
+    [self.AcollectionView registerNib:[UINib nibWithNibName:@"DuplicationStoreCell" bundle:nil] forCellWithReuseIdentifier:@"DuplicationStoreCell"];
+    [self.AcollectionView  registerClass:[AllGoodsCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"head"];
 
 }
+- (UICollectionViewLayout *)customLayout{
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.itemSize = CGSizeMake(self.view.frame.size.width / 2, self.view.frame.size.width / 2);
+    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 0;
+    return layout;
+}
 
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return 20;
 }
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return 5;
-}
--(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+   
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellId" forIndexPath:indexPath];
     
-    UICollectionReusableView * headView = nil;
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        if (indexPath.section == 0) {
-            AllGoodsCollectionReusableView * view  = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"AllGoodsCollectionReusableView" forIndexPath:indexPath];
-//            view.delegate = self;
-            headView  = view;
-            return headView;
-        }
+    cell.backgroundColor = [UIColor colorWithRed:arc4random()%255 / 255.0 green:arc4random()%255 / 255.0 blue:arc4random()%255 / 255.0 alpha:1];
+    return cell;
+}
+
+//-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+//{
+//    return 2;
+//}
+//-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+//{
+//    return 5;
+//}
+//-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+//
+//    UICollectionReusableView *view = nil;
+//    if (indexPath.section == 0) {
+//        if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+//
+//            AllGoodsCollectionReusableView * headview  = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"head" forIndexPath:indexPath];
+////            view.delegate = self;
+//          return  headview;
+//        }
+//    }
+//    return view;
+//}
+//-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+//{
+//    CGSize size = CGSizeZero;
+//    if (section ==  0) {
+//        size = CGSizeMake(KScreenW, 50);
+//    }
+//    return size;
+//}
+//-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    DuplicationStoreCell * itemCell = [self.AcollectionView dequeueReusableCellWithReuseIdentifier:@"DuplicationStoreCell" forIndexPath:indexPath];
+//    return itemCell;
+//
+//}
+//
+//-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//
+//}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (self.DidScrollBlock) {
+        self.DidScrollBlock(scrollView.contentOffset.y);
     }
-    return headView;
 }
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-    if (section ==  0) {
-        return CGSizeMake(KScreenW, 50);;
-    }
-    return CGSizeZero;
-}
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    DuplicationStoreCell * itemCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"DuplicationStoreCell" forIndexPath:indexPath];
-    return itemCell;
-}
-
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

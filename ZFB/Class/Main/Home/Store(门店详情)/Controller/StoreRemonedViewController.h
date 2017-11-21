@@ -10,4 +10,8 @@
 
 @interface StoreRemonedViewController : BaseViewController
 
+@property ( nonatomic,copy) void(^DidScrollBlock)(CGFloat scrollY);
+
+@property ( nonatomic , strong ) UICollectionView  * ScollectionView;
+
 @end

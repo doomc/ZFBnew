@@ -10,4 +10,8 @@
 
 @interface StoreAllgoodsViewController : BaseViewController
 
+@property (nonatomic,copy) void(^DidScrollBlock)(CGFloat scrollY);
+
+@property ( nonatomic , strong ) UICollectionView  * AcollectionView;
+
 @end

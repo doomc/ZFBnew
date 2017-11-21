@@ -88,7 +88,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 }
 @property (nonatomic,strong) CLLocationManager * locationManager;
 
-@property (nonatomic , strong) UITableView * homeTableView;
+@property (weak, nonatomic) IBOutlet UITableView *homeTableView;
+
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_sendHome;
 @property (weak, nonatomic) IBOutlet UIImageView *img_sendOrder;
@@ -130,13 +131,10 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     
     self.navigationItem.title = @"商户端";
     
-    _titles = @[@"待派单",@"配送中",@"待付款",@"交易完成",@"待确认退回",@"已配送",@"取消订单",@"待接单",@"待发货",@"待收货"];
+    _titles = @[@"待派单",@"配送中",@"待付款",@"交易完成",@"待确认退回",@"已配送",@"取消订单",@"待发货",@"待收货"];
     
     //待派单 。配送中。待付款、交易完成。待确认退回；
-    [self.view addSubview:self.homeTableView];
-    
-    self.zfb_tableView = self.homeTableView;
-    
+    [self tableViewSetting];    
     [self segmentSetting];
     
     //register  nib
@@ -146,7 +144,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
              forCellReuseIdentifier:@"ZFSendHomeListCell"];//首页section =  2
     [self.homeTableView registerNib:[UINib nibWithNibName:@"SendServiceTitleCell" bundle:nil]
              forCellReuseIdentifier:@"SendServiceTitleCell"];//商户首页头2
-    
     //订单 nib
     [self.homeTableView registerNib:[UINib nibWithNibName:@"ZFSendingCell" bundle:nil]
              forCellReuseIdentifier:@"ZFSendingCell"];
@@ -157,8 +154,20 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [self.homeTableView registerNib:[UINib nibWithNibName:@"BusinessSendAccountCell" bundle:nil]
              forCellReuseIdentifier:@"BusinessSendAccountCell"];
     
+
+}
+
+-(void)tableViewSetting
+{
+    _homeTableView.delegate       = self;
+    _homeTableView.dataSource     = self;
+    _homeTableView.backgroundColor = HEXCOLOR(0xf7f7f7);
+    _homeTableView.estimatedSectionFooterHeight = 0;
+    _homeTableView.estimatedSectionHeaderHeight = 0;
+    _homeTableView.estimatedRowHeight = 0;
+    _homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.zfb_tableView = _homeTableView;
     [self setupRefresh];
-    
 }
  
 #pragma mark -数据请求
@@ -214,11 +223,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
                     
                     break;
-                case BusinessServicTypeWiatOrder://待接单
-                    
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8" storeId:_storeId];
 
-                    break;
                 case BusinessServicTypeWaitSending://待发货
                     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"9" storeId:_storeId];
 
@@ -288,11 +293,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     
                     break;
-                case BusinessServicTypeWiatOrder://待接单
-                    
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8" storeId:_storeId];
-                    
-                    break;
+//                case BusinessServicTypeWiatOrder://待接单
+//                    
+//                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8" storeId:_storeId];
+//                    
+//                    break;
                 case BusinessServicTypeWaitSending://待发货
                     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"9" storeId:_storeId];
                     
@@ -344,23 +349,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         [_navbar_btn addTarget:self action:@selector(navigationBarSelectedOther:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _navbar_btn;
-}
--(UITableView *)homeTableView
-{
-    if (!_homeTableView ) {
-        _homeTableView                = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49-64) style:UITableViewStylePlain];
-        _homeTableView.delegate       = self;
-        _homeTableView.dataSource     = self;
-        _homeTableView.backgroundColor = HEXCOLOR(0xf7f7f7);
-        _homeTableView.estimatedSectionFooterHeight = 0;
-        _homeTableView.estimatedSectionHeaderHeight = 0;
-        _homeTableView.estimatedRowHeight = 0;
-        _homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _homeTableView.estimatedRowHeight = 0;
-
-        
-    }
-    return _homeTableView;
 }
 
 /**
@@ -556,11 +544,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     return self.orderListArray.count;
                     break;
-                case BusinessServicTypeWiatOrder://待接单
-                    
-                    return self.orderListArray.count;
 
-                    break;
                 case BusinessServicTypeWaitSending://待发货
                     return self.orderListArray.count;
 
@@ -657,14 +641,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     sectionRow = goodsArr.count;
                 }
                     break;
-                case BusinessServicTypeWiatOrder://待接单
-                {
-                    BusinessOrderlist * orderlist = self.orderListArray[section];
-                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
-                        [goodsArr addObject:goods];
-                    }
-                    sectionRow = goodsArr.count;
-                }
+
  
                     break;
                 case BusinessServicTypeWaitSending://待发货
@@ -745,11 +722,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     height = k_cellHeight;
                     break;
-                case BusinessServicTypeWiatOrder://待接单
-                    
-                    height = k_cellHeight;
 
-                    break;
                 case BusinessServicTypeWaitSending://待发货
                     height = k_cellHeight;
 
@@ -858,16 +831,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     return titleCell;
                 }
                     break;
-                case BusinessServicTypeWiatOrder://待接单
-                {
-                    BusinessOrderlist  * orderlist = self.orderListArray[section];
-                    [titleCell.statusButton setTitle:orderlist.orderStatusName forState:UIControlStateNormal];
-                    
-                    titleCell.businessOrder = orderlist;
-                    return titleCell;
-                }
-                    
-                    break;
+
                 case BusinessServicTypeWaitSending://待发货
                 {
                     BusinessOrderlist  * orderlist = self.orderListArray[section];
@@ -943,10 +907,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     height = k_sectionHeight;
 
                     break;
-                case BusinessServicTypeWiatOrder://待配送
-                    height = k_sectionHeight;
-                    
-                    break;
+
                 case BusinessServicTypeWaitSending://待发货
                     height = k_sectionHeight;
 
@@ -1088,20 +1049,20 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 }
                     
                     break;
-                case BusinessServicTypeWiatOrder://待配送
-                {
-                    ZFFooterCell * cell = [self.homeTableView
-                                           dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
-                    cell.footDelegate              = self;
-                    BusinessOrderlist  * orderlist = self.orderListArray[section];
-                    cell.businessOrder             = orderlist;
-                    //没获取 当前的 indexPath
-                    cell.section = section;
-                    [cell.payfor_button setHidden:YES];
-                    [cell.cancel_button setHidden:YES];
-                    footerView = cell;
-                }
-                    break;
+//                case BusinessServicTypeWiatOrder://待配送
+//                {
+//                    ZFFooterCell * cell = [self.homeTableView
+//                                           dequeueReusableCellWithIdentifier:@"ZFFooterCell"];
+//                    cell.footDelegate              = self;
+//                    BusinessOrderlist  * orderlist = self.orderListArray[section];
+//                    cell.businessOrder             = orderlist;
+//                    //没获取 当前的 indexPath
+//                    cell.section = section;
+//                    [cell.payfor_button setHidden:YES];
+//                    [cell.cancel_button setHidden:YES];
+//                    footerView = cell;
+//                }
+//                    break;
                 case BusinessServicTypeWaitSending://待发货
                 {
                     ZFFooterCell * cell = [self.homeTableView
@@ -1182,10 +1143,10 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     height = k_footHeight;
                     
                     break;
-                case BusinessServicTypeWiatOrder://待配送
-                    height = k_footHeight;
-                    
-                    break;
+//                case BusinessServicTypeWiatOrder://待配送
+//                    height = k_footHeight;
+//
+//                    break;
                 case BusinessServicTypeWaitSending://待发货
                     height = k_footHeight;
 
@@ -1417,23 +1378,23 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 }
                     break;
  
-                    
-                case BusinessServicTypeWiatOrder://待配送
-                {
-                    ZFSendingCell * contentCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
-                    
-                    BusinessOrderlist  * orderlist = self.orderListArray[indexPath.section];
-                    NSMutableArray * goodArray     = [NSMutableArray array];
-                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
-                        [goodArray  addObject:goods];
-                    }
-                    
-                    BusinessOrdergoods * goods = goodArray[indexPath.row];
-                    contentCell.businesGoods   = goods;
-                    return contentCell;
-                    
-                }
-                    break;
+//
+//                case BusinessServicTypeWiatOrder://待配送
+//                {
+//                    ZFSendingCell * contentCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
+//
+//                    BusinessOrderlist  * orderlist = self.orderListArray[indexPath.section];
+//                    NSMutableArray * goodArray     = [NSMutableArray array];
+//                    for (BusinessOrdergoods * goods in orderlist.orderGoods) {
+//                        [goodArray  addObject:goods];
+//                    }
+//
+//                    BusinessOrdergoods * goods = goodArray[indexPath.row];
+//                    contentCell.businesGoods   = goods;
+//                    return contentCell;
+//
+//                }
+//                    break;
                 case BusinessServicTypeWaitSending://待发货
                 {
                     ZFSendingCell * contentCell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
@@ -1544,11 +1505,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     [self.navigationController pushViewController:detailVC animated:NO];
                     break;
                     
-                case BusinessServicTypeWiatOrder://待配送
-
- 
-                    [self.navigationController pushViewController:detailVC animated:NO];
-                    break;
+//                case BusinessServicTypeWiatOrder://待配送
+//
+//
+//                    [self.navigationController pushViewController:detailVC animated:NO];
+//                    break;
                 case BusinessServicTypeWaitSending://待发货
                     [self.navigationController pushViewController:detailVC animated:NO];
 
@@ -1632,10 +1593,10 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
                     break;
                     
-                case  BusinessServicTypeWiatOrder://待接单
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8"   storeId:_storeId];
-                    [self.homeTableView reloadData];
-                    break;
+//                case  BusinessServicTypeWiatOrder://待接单
+//                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8"   storeId:_storeId];
+//                    [self.homeTableView reloadData];
+//                    break;
                 case BusinessServicTypeWaitSending://待发货
                     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"9"   storeId:_storeId];
                     [self.homeTableView reloadData];
@@ -1704,9 +1665,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 case BusinessServicTypeCancelOrder://
                     
                     break;
-                case BusinessServicTypeWiatOrder://待配送
- 
-                    break;
+//                case BusinessServicTypeWiatOrder://待配送
+//
+//                    break;
                 case BusinessServicTypeWaitSending://待发货
                     
                     break;
@@ -1828,9 +1789,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 case BusinessServicTypeCancelOrder://
                     
                     break;
-                case BusinessServicTypeWiatOrder:
-                    
-                    break;
+//                case BusinessServicTypeWiatOrder:
+//
+//                    break;
                 case BusinessServicTypeWaitSending://待发货
                     
                     break;

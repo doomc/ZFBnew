@@ -46,7 +46,7 @@
 @dynamic longitude;
 
 @dynamic shopFlag;
-@dynamic courierFlag;
+@dynamic deliveryFlag;
 
 @dynamic searchHistoryArray;
 @end

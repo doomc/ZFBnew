@@ -25,4 +25,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_collect;
 @property (weak, nonatomic) IBOutlet UIView *starView;
 
+
+
 @end

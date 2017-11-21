@@ -36,7 +36,7 @@
 
 //个人中心
 @property (nonatomic,copy) NSString *shopFlag;///是否是商户  1是 0 不是
-@property (nonatomic,copy) NSString *courierFlag;///是否是配送员 1是 0不是
+@property (nonatomic,copy) NSString *deliveryFlag;///是否是配送员 1是 0不是
 @property (nonatomic,copy) NSString *isSetPassword;///密码是否重置 1 修改过了，0没有修改
 @property (nonatomic,copy) NSString *realNameFlag;///是否实名认证 1是 2否
 

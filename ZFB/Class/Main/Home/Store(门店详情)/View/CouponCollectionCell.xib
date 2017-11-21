@@ -12,14 +12,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CouponCollectionCell">
-            <rect key="frame" x="0.0" y="0.0" width="174" height="73"/>
+            <rect key="frame" x="0.0" y="0.0" width="154" height="73"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="174" height="73"/>
+                <rect key="frame" x="0.0" y="0.0" width="154" height="73"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m3G-LQ-VbD">
-                        <rect key="frame" x="5" y="5" width="164" height="55"/>
+                        <rect key="frame" x="5" y="5" width="144" height="55"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ET-Cq-fld">
                                 <rect key="frame" x="10" y="10" width="11" height="21.5"/>
@@ -31,30 +31,28 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QcO-NU-Wq5">
-                                <rect key="frame" x="31" y="10" width="60" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="c5J-rL-L5u"/>
-                                </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="199">
-                                        <attributes>
-                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <font key="NSFont" size="30" name=".SFNSDisplay"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QcO-NU-Wq5">
+                                <rect key="frame" x="26" y="10" width="48" height="30"/>
+                                <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RMB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cw1-mK-23L">
-                                <rect key="frame" x="96" y="10" width="26.5" height="14.5"/>
+                                <rect key="frame" x="79" y="10" width="26.5" height="14.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14.5" id="HIU-0D-ONa"/>
+                                    <constraint firstAttribute="width" constant="26.5" id="i0G-Ug-NZZ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="满169使用" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tn7-gy-EN1">
-                                <rect key="frame" x="96.5" y="29.5" width="62.5" height="15"/>
+                                <rect key="frame" x="79" y="30" width="60" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="6P5-DL-W7i"/>
+                                    <constraint firstAttribute="height" constant="15" id="VmP-w5-fqT"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -67,7 +65,7 @@
                             <constraint firstItem="Tn7-gy-EN1" firstAttribute="top" secondItem="cw1-mK-23L" secondAttribute="bottom" constant="5" id="Jau-2K-O4D"/>
                             <constraint firstItem="2ET-Cq-fld" firstAttribute="top" secondItem="m3G-LQ-VbD" secondAttribute="top" constant="10" id="Sfr-71-8Jy"/>
                             <constraint firstItem="QcO-NU-Wq5" firstAttribute="top" secondItem="2ET-Cq-fld" secondAttribute="top" id="WHe-SM-d9a"/>
-                            <constraint firstItem="QcO-NU-Wq5" firstAttribute="leading" secondItem="2ET-Cq-fld" secondAttribute="trailing" constant="10" id="Zko-tU-mSm"/>
+                            <constraint firstItem="QcO-NU-Wq5" firstAttribute="leading" secondItem="2ET-Cq-fld" secondAttribute="trailing" constant="5" id="Zko-tU-mSm"/>
                             <constraint firstItem="2ET-Cq-fld" firstAttribute="leading" secondItem="m3G-LQ-VbD" secondAttribute="leading" constant="10" id="bZW-fl-sOy"/>
                             <constraint firstAttribute="trailing" secondItem="Tn7-gy-EN1" secondAttribute="trailing" constant="5" id="cqh-Tc-bOY"/>
                             <constraint firstItem="cw1-mK-23L" firstAttribute="top" secondItem="QcO-NU-Wq5" secondAttribute="top" id="doP-94-SvD"/>
@@ -81,12 +79,12 @@
                 <constraint firstAttribute="trailing" secondItem="m3G-LQ-VbD" secondAttribute="trailing" constant="5" id="PlX-KF-S4a"/>
                 <constraint firstItem="m3G-LQ-VbD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="njB-OK-Pkr"/>
             </constraints>
-            <size key="customSize" width="174" height="73"/>
+            <size key="customSize" width="154" height="73"/>
             <connections>
                 <outlet property="lb_maxMoney" destination="QcO-NU-Wq5" id="bP8-bY-FZn"/>
                 <outlet property="lb_useRange" destination="Tn7-gy-EN1" id="f12-2g-G1z"/>
             </connections>
-            <point key="canvasLocation" x="-338" y="49.5"/>
+            <point key="canvasLocation" x="-348" y="49.5"/>
         </collectionViewCell>
     </objects>
 </document>

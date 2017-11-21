@@ -22,7 +22,7 @@
 @property (nonatomic ,strong) UITableView * orderdTableView ;
 @property (nonatomic ,strong) UIView *  headView ;
 @property (nonatomic ,strong) NSMutableArray *  orderListArray ;
-@property (nonatomic ,strong) NSMutableArray *  orderGoodsArry ;
+
 
 @end
 
@@ -43,6 +43,7 @@
     [self.orderdTableView registerNib:[UINib nibWithNibName:@"ZFFooterCell" bundle:nil]
                forCellReuseIdentifier:@"ZFFooterCell"];
     
+    [self getOrderPostRequst];
     
 }
 -(UIView *)headView
@@ -110,17 +111,12 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSMutableArray *  goodsArr  = [NSMutableArray array];
     SendServiceStoreinfomap * store = self.orderListArray[section];
-    
-    if (self.orderGoodsArry.count > 0) {
-        
-        [self.orderGoodsArry removeAllObjects];
-    }
     for (SendServiceOrdergoodslist  * goods in store.orderGoodsList) {
-       
-        [self.orderGoodsArry addObject:goods];
+        [goodsArr addObject:goods];
     }
-    return self.orderGoodsArry.count;
+    return goodsArr.count;
 
  
 }
@@ -165,12 +161,17 @@
 #pragma mark - UITableViewDataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     ZFSendingCell * cell = [self.orderdTableView dequeueReusableCellWithIdentifier:@"ZFSendingCell" forIndexPath:indexPath];
-    
-    SendServiceOrdergoodslist * goodslist = self.orderGoodsArry[indexPath.row];
-    cell.sendGoods = goodslist;
-    
+    if (self.orderListArray.count > 0) {
+        NSMutableArray *  goodsArr  = [NSMutableArray array];
+        SendServiceStoreinfomap * store = self.orderListArray[indexPath.section];
+        for (SendServiceOrdergoodslist  * goods in store.orderGoodsList) {
+            [goodsArr addObject:goods];
+        }
+        
+        SendServiceOrdergoodslist * goodslist = goodsArr[indexPath.row];
+        cell.sendGoods = goodslist;
+    }
     return cell;
 }
 
@@ -231,7 +232,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {   //网络请求
-    [self getOrderPostRequst];
+
     [self settingNavBarBgName:@"nav64_gray"];
 
 }
@@ -263,14 +264,24 @@
     }
     return _orderListArray;
 }
--(NSMutableArray *)orderGoodsArry
-{
-    if (!_orderGoodsArry) {
-        _orderGoodsArry = [NSMutableArray array];
-    }
-    return _orderGoodsArry;
+//既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
+    CGFloat sectionHeaderHeight = 50 ;
+    CGFloat sectionFooterHeight = 60;
+    CGFloat offsetY = scrollView.contentOffset.y;
+    if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
+    {
+        scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
+    }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
+    {
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
+    }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
+    {
+        scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+    }
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

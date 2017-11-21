@@ -32,7 +32,7 @@
     [self.img_orderDetailView sd_setImageWithURL:[NSURL URLWithString:_goodlist.coverImgUrl] placeholderImage:nil];
     
     if ([self isEmptyArray:goodlist.goodsProperties]) {
-        NSLog(@"这是个空数组");
+        NSLog(@"订单详情无规格");
         self.lb_suk.text = @"";
     }else{
         NSMutableArray * mutNameArray = [NSMutableArray array];
