@@ -90,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/QuickOperation(&#x5feb;&#x6377;&#x64cd;&#x4f5c;)/C/iOpenStoreViewController.m"
-            timestampString = "531323546.204352"
+            timestampString = "532974870.131731"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "444"
             endingLineNumber = "444"
-            landmarkName = "-secondClassListWithGoodTypePostRequsetTypeid:"
+            landmarkName = "-selectedAreaAddress:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,12 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/QuickOperation(&#x5feb;&#x6377;&#x64cd;&#x4f5c;)/C/iOpenStoreViewController.m"
-            timestampString = "531323546.204817"
+            timestampString = "532974870.132114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "411"
             endingLineNumber = "411"
-            landmarkName = "-classListTableVieWithGoodTypePostRequset"
+            landmarkName = "-selectedAfter"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/QuickOperation(&#x5feb;&#x6377;&#x64cd;&#x4f5c;)/C/iOpenStoreViewController.m"
-            timestampString = "531323546.206145"
+            timestampString = "532974870.132216"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "438"
             endingLineNumber = "438"
-            landmarkName = "-secondClassListWithGoodTypePostRequsetTypeid:"
+            landmarkName = "-selectedAreaAddress:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

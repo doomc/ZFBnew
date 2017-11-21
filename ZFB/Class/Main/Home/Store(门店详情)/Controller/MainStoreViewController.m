@@ -47,10 +47,10 @@
     self.view.backgroundColor =  HEXCOLOR(0xf7f7f7);
     
     self.headerView = [[NSBundle mainBundle]loadNibNamed:@"MainStoreHeadView" owner:nil options:nil].lastObject;
-    self.footerView = [[NSBundle mainBundle]loadNibNamed:@"MainStoreFooterView" owner:nil options:nil].lastObject;
+//    self.footerView = [[NSBundle mainBundle]loadNibNamed:@"MainStoreFooterView" owner:nil options:nil].lastObject;
 
     [self.view addSubview:self.headerView];
-    [self.view addSubview:self.footerView];
+//    [self.view addSubview:self.footerView];
     [self.view addSubview:self.topTitleView];
     
     _wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 120, 24) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO];

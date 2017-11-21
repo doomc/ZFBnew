@@ -812,7 +812,6 @@
 		497186A11FA80A510049D939 /* collection@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4971869F1FA80A500049D939 /* collection@3x.png */; };
 		497186A41FA856180049D939 /* saoyisao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497186A21FA856160049D939 /* saoyisao@2x.png */; };
 		497186A51FA856180049D939 /* saoyisao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497186A31FA856170049D939 /* saoyisao@3x.png */; };
-		497186A81FA880F00049D939 /* NTESBundleSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 497186A71FA880F00049D939 /* NTESBundleSetting.m */; };
 		4971FB841F3864A20012DF84 /* ShopCarSectionHeadViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4971FB831F3864A20012DF84 /* ShopCarSectionHeadViewCell.m */; };
 		49738A371F3D89530004657B /* ZFApplyBackgoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49738A351F3D89530004657B /* ZFApplyBackgoodsViewController.m */; };
 		49738A381F3D89530004657B /* ZFApplyBackgoodsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49738A361F3D89530004657B /* ZFApplyBackgoodsViewController.xib */; };
@@ -1376,6 +1375,7 @@
 		5091A0EF1F6D29AE00C6D632 /* DetailStoreTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5091A0ED1F6D29AE00C6D632 /* DetailStoreTitleCell.xib */; };
 		5091A0F31F6D2EB300C6D632 /* StoreListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5091A0F11F6D2EB300C6D632 /* StoreListTableViewCell.m */; };
 		5091A0F41F6D2EB300C6D632 /* StoreListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5091A0F21F6D2EB300C6D632 /* StoreListTableViewCell.xib */; };
+		50A6DB901FC48C8200337F62 /* NTESBundleSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A6DB8F1FC48C8200337F62 /* NTESBundleSetting.m */; };
 		50B380EC1F3EF0BF001ED3BA /* UIView+SGFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B380E01F3EF0BF001ED3BA /* UIView+SGFrame.m */; };
 		50B380ED1F3EF0BF001ED3BA /* SGPageContentScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B380E31F3EF0BF001ED3BA /* SGPageContentScrollView.m */; };
 		50B380EE1F3EF0BF001ED3BA /* SGPageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B380E51F3EF0BF001ED3BA /* SGPageContentView.m */; };
@@ -2666,8 +2666,6 @@
 		4971869F1FA80A500049D939 /* collection@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collection@3x.png"; sourceTree = "<group>"; };
 		497186A21FA856160049D939 /* saoyisao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saoyisao@2x.png"; sourceTree = "<group>"; };
 		497186A31FA856170049D939 /* saoyisao@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saoyisao@3x.png"; sourceTree = "<group>"; };
-		497186A61FA880F00049D939 /* NTESBundleSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTESBundleSetting.h; path = ../../../../../../../../Downloads/NIM_iOS_Demo_v4.3.0/NIMDemo/NIMDemo/Classes/Util/NTESBundleSetting.h; sourceTree = "<group>"; };
-		497186A71FA880F00049D939 /* NTESBundleSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTESBundleSetting.m; path = ../../../../../../../../Downloads/NIM_iOS_Demo_v4.3.0/NIMDemo/NIMDemo/Classes/Util/NTESBundleSetting.m; sourceTree = "<group>"; };
 		4971FB821F3864A20012DF84 /* ShopCarSectionHeadViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarSectionHeadViewCell.h; sourceTree = "<group>"; };
 		4971FB831F3864A20012DF84 /* ShopCarSectionHeadViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarSectionHeadViewCell.m; sourceTree = "<group>"; };
 		49738A341F3D89530004657B /* ZFApplyBackgoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFApplyBackgoodsViewController.h; sourceTree = "<group>"; };
@@ -3587,6 +3585,8 @@
 		5091A0F01F6D2EB300C6D632 /* StoreListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreListTableViewCell.h; sourceTree = "<group>"; };
 		5091A0F11F6D2EB300C6D632 /* StoreListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreListTableViewCell.m; sourceTree = "<group>"; };
 		5091A0F21F6D2EB300C6D632 /* StoreListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreListTableViewCell.xib; sourceTree = "<group>"; };
+		50A6DB8E1FC48C8100337F62 /* NTESBundleSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESBundleSetting.h; sourceTree = "<group>"; };
+		50A6DB8F1FC48C8200337F62 /* NTESBundleSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESBundleSetting.m; sourceTree = "<group>"; };
 		50B380DF1F3EF0BF001ED3BA /* UIView+SGFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SGFrame.h"; sourceTree = "<group>"; };
 		50B380E01F3EF0BF001ED3BA /* UIView+SGFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SGFrame.m"; sourceTree = "<group>"; };
 		50B380E21F3EF0BF001ED3BA /* SGPageContentScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPageContentScrollView.h; sourceTree = "<group>"; };
@@ -6802,8 +6802,8 @@
 		4968A3D41F4DB5290061A87E /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				497186A61FA880F00049D939 /* NTESBundleSetting.h */,
-				497186A71FA880F00049D939 /* NTESBundleSetting.m */,
+				50A6DB8E1FC48C8100337F62 /* NTESBundleSetting.h */,
+				50A6DB8F1FC48C8200337F62 /* NTESBundleSetting.m */,
 				497EF7081F4EA84200BFF1AF /* NTESDevice.h */,
 				497EF7091F4EA84200BFF1AF /* NTESDevice.m */,
 				497EF7141F4EB5C900BFF1AF /* NTESAVNotifier.h */,
@@ -9903,6 +9903,7 @@
 				49B0E7671F417FAB0032E72E /* DetailPayRecordViewController.m in Sources */,
 				503D4ECB1FBDC03300A7707C /* JGProgressHUDRingIndicatorView.m in Sources */,
 				5091A0F31F6D2EB300C6D632 /* StoreListTableViewCell.m in Sources */,
+				50A6DB901FC48C8200337F62 /* NTESBundleSetting.m in Sources */,
 				49B0E7701F419CE60032E72E /* QRCollectHistoryViewController.m in Sources */,
 				49C1B5F81F8DE1E800B2001B /* CYPasswordView.m in Sources */,
 				4968A42B1F4DB5290061A87E /* NTESSessionChartletContentView.m in Sources */,
@@ -10104,7 +10105,6 @@
 				495EA73E1F14B64D001FCB7E /* MPFileManager.m in Sources */,
 				495123301FAC546A0038D1F9 /* AreaCell.m in Sources */,
 				50B380EC1F3EF0BF001ED3BA /* UIView+SGFrame.m in Sources */,
-				497186A81FA880F00049D939 /* NTESBundleSetting.m in Sources */,
 				493BDE591F6A88C100CF31D0 /* MineShareGoodsViewController.m in Sources */,
 				495EA8101F14B64D001FCB7E /* ZFPregressCheckCell2.m in Sources */,
 				4926DF081F1F4AA400E9060B /* JsonModel.m in Sources */,
