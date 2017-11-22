@@ -12,7 +12,7 @@
 #import "ZFSureOrderViewController.h"
 #import "ZFEvaluateViewController.h"
 #import "ZFShoppingCarViewController.h"//购物车
-#import "ZFDetailsStoreViewController.h" //店铺
+#import "StoreHomeViewController.h" //店铺
 
 //网易云信
 #import "NTESSessionViewController.h"
@@ -984,7 +984,7 @@
 -(void)didClickStoreiew
 {
     NSLog(@"进入店铺");
-    ZFDetailsStoreViewController * storeVC = [[ZFDetailsStoreViewController alloc]init];
+    StoreHomeViewController * storeVC = [[StoreHomeViewController alloc]init];
     storeVC.storeId                     = _storeId;
     [self.navigationController pushViewController:storeVC animated:NO];
 }

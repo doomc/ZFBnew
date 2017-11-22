@@ -95,7 +95,7 @@
                              @"userId":BBUserDefault.cmUserId,
                              @"userName":self.tf_contactName.text ,
                              @"userPhone":self.tf_contactPhone.text ,
-                             @"goodsProperties":_goodsProperties,
+                             @"skuId":_skuId,
                              @"orderGoodsId":_orderGoodsId,
                              };
     

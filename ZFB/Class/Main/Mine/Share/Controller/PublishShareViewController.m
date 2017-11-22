@@ -205,10 +205,11 @@
 
             [self.view makeToast:@"发布成功" duration:2 position:@"center"];
             [SVProgressHUD dismiss];
+        }else{
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
         }
-        
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);

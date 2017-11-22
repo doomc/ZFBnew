@@ -10,12 +10,42 @@
 
 @implementation MainStoreFooterView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+-(instancetype)initWithFooterViewFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        
+        self = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil][0];
+        self.frame = frame;
+    }
+    return self;
 }
-*/
+
+//到店逛 -- 地图
+- (IBAction)NavMap:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(didClickMapNavgation)]) {
+        [self.delegate didClickMapNavgation];
+    }
+}
+//店铺信息
+- (IBAction)storeMessage:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(didClickStoreInfo)]) {
+        [self.delegate didClickStoreInfo];
+    }
+}
+
+//联系卖家
+- (IBAction)contactStore:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(didClickContactStore)]) {
+        [self.delegate didClickContactStore];
+    }
+}
+//分类
+- (IBAction)goodsClassily:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(didClickClassly)]) {
+        [self.delegate didClickClassly];
+    }
+}
 
 @end
+

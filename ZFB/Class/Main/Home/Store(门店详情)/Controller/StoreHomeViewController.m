@@ -5,8 +5,11 @@
 //  Created by  展富宝  on 2017/11/20.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //  门店首页
+
 #define  cellHeight  270
 #import "StoreHomeViewController.h"
+#import "GoodsDeltailViewController.h"
+
 //cell
 #import "StoreHomeCell.h"
 #import "StoreHomeHeaderCell.h"
@@ -76,6 +79,7 @@
 {
     [super headerRefresh];
     [self storeListPostRequest];
+    [self recommentPostRequst:@"0"];
 
 }
 -(void)footerRefresh
@@ -154,10 +158,30 @@
         return storeCell;
     }
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GoodsDeltailViewController * goodVC = [ GoodsDeltailViewController new];
+    if ( self.dataArray.count > 0) {
+        GoodsExtendList * goodslist = self.dataArray[indexPath.row];
+        goodVC.goodsId = [NSString stringWithFormat:@"%ld",goodslist.goodsId];
+        goodVC.headerImage = goodslist.coverImgUrl;
+    }
+    [self.navigationController pushViewController:goodVC animated: NO];
+    
+}
 #pragma mark - StoreHomeCellDelegate 立即购买
 -(void)didClickwitchOneBuyIndexPath:(NSIndexPath*)indexPath AndGoodId:(NSString * )goodId{
   
     NSLog(@"%@ == goodId",goodId);
+    GoodsDeltailViewController * goodVC = [ GoodsDeltailViewController new];
+    if ( self.dataArray.count > 0) {
+        GoodsExtendList * goodslist = self.dataArray[indexPath.row];
+        goodVC.goodsId = goodId;
+        goodVC.headerImage = goodslist.coverImgUrl;
+    }
+    [self.navigationController pushViewController:goodVC animated: NO];
+    
     
 }
 #pragma mark - StoreCouponTableCellDelegate 获取优惠券
@@ -259,13 +283,9 @@
 #pragma mark - 门店详情
 -(void)storeListPostRequest
 {
-//    if (BBUserDefault.cmUserId == nil) {
-//        BBUserDefault.cmUserId = @"";
-//    }
+
     NSDictionary * parma = @{
-                             @"userId":BBUserDefault.cmUserId,
                              @"storeId":_storeId,
-                             @"isNewRecomment":@"",
                              @"orderSort":@"",
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"size":[NSNumber numberWithInteger:kPageCount],

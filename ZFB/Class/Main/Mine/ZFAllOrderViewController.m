@@ -32,6 +32,7 @@
 #import "ZFEvaluateGoodsViewController.h"//评价
 #import "ZFApplyBackgoodsViewController.h"//申请售后
 #import "PublishShareViewController.h"//发布共享
+#import "LogisticsViewController.h"//查看物流
 //model
 #import "AllOrderModel.h"
 #import "AllOrderProgress.h"
@@ -814,7 +815,15 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             else if ([orderlist.orderStatus isEqualToString:@"-1"]) {
                 [cell.cancel_button  setHidden:YES];
                 [cell.payfor_button  setHidden:YES];
-            }else
+            }else if ([orderlist.orderStatus isEqualToString:@"10"])
+            {
+                [cell.cancel_button setTitle:@"查看物流" forState:UIControlStateNormal];
+                [cell.payfor_button setTitle:@"确认收货" forState:UIControlStateNormal];
+                [cell.cancel_button  setHidden:NO];
+                [cell.payfor_button  setHidden:NO];
+                view = cell;
+            }
+            else
             {
                 [cell.cancel_button  setHidden:YES];
                 [cell.payfor_button  setHidden:YES];
@@ -839,7 +848,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 [cell.cancel_button  setTitle:@"取消" forState:UIControlStateNormal];
                 [cell.payfor_button  setTitle:@"去付款" forState:UIControlStateNormal];
             }
-            
             view = cell;
             
         }
@@ -964,9 +972,9 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             Orderlist  * footList = self.orderListArray[section];
             cell.orderlist        = footList;
             cell.section          = section;
-            
-            [cell.cancel_button setHidden:YES];
-            [cell.payfor_button setHidden:YES];
+            [cell.cancel_button setTitle:@"查看物流" forState:UIControlStateNormal];
+            [cell.payfor_button setTitle:@"确认收货" forState:UIControlStateNormal];
+
             view = cell;
         }
             
@@ -1156,6 +1164,14 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             successCell.orderGoods = goods;
             successCell.delegate = self;
             
+            if ([list.partRefund isEqualToString:@"部分退货"]) {
+                successCell.btn_shareOrder.hidden = YES;
+                successCell.btn_shareComment.hidden = YES;
+
+            }else{
+                successCell.btn_shareOrder.hidden = NO;
+                successCell.btn_shareComment.hidden = NO;
+            }
             return successCell;
         }
             break;
@@ -1523,7 +1539,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     saleAfterVC.storeName = orderlist.storeName;
     saleAfterVC.postPhone = orderlist.post_phone;
     saleAfterVC.postName = orderlist.post_name;
-    saleAfterVC.goodsProperties = [NSString stringWithFormat:@"%ld",orderlist.skuId];
+    saleAfterVC.skuId = [NSString stringWithFormat:@"%ld",orderlist.skuId];
 
     //规格转成json
 //    NSString * jsonGoodsPro =[ NSString arrayToJSONString:goods.goods_properties];
@@ -1556,12 +1572,9 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
         if([code isEqualToString:@"0"]){
             if (self.refreshType == RefreshTypeHeader) {
-                
                 if (self.orderListArray.count > 0 ) {
-                    
                     [self.orderListArray removeAllObjects];
                 }
-                
             }
             AllOrderModel * allorder = [AllOrderModel mj_objectWithKeyValues:response];
             
@@ -1896,11 +1909,28 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 }
             }
                    //    orderStatus  -1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成 8 待接单 9.代发货 10.已发货
-            else if ([orderlist.orderStatusName isEqualToString:@"3"]) {
+            else if ([orderlist.orderStatus isEqualToString:@"3"]) {
                 
                 //去晒单
                 ZFEvaluateGoodsViewController * vc = [ZFEvaluateGoodsViewController new];
                 [self.navigationController pushViewController:vc animated:NO];
+            }
+            else if ([orderlist.orderStatus isEqualToString:@"10"])
+            {
+                JXTAlertController * alertavc =[JXTAlertController alertControllerWithTitle:@"提示" message:@"亲,确认要收货吗" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }];
+                UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    //确认收货 - 成功后跳转交易完成
+                    [self receiveUserConfirmReceiptPostDeliveryId:orderlist.deliveryId storeId:orderlist.storeId deliveryFee:[NSString stringWithFormat:@"%.2f",orderlist.orderDeliveryFee] orderNum:orderlist.orderCode userId:@"" orderAmount:orderlist.orderAmount storeName:orderlist.storeName orderDetail:orderlist.orderDetail];
+                    
+                }];
+                [alertavc addAction:cancelAction];
+                [alertavc addAction:sureAction];
+                
+                [self presentViewController:alertavc animated:YES completion:nil];
             }
             
             break;
@@ -1953,17 +1983,29 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 }
                 
             }else  if (self.tagNum == 1) {
-                
-                
             }
             
             break;
         case OrderTypeWaitSending://待发货
             
-            
             break;
         case OrderTypeWaitRecive://待收货
+        {
+            JXTAlertController * alertavc =[JXTAlertController alertControllerWithTitle:@"提示" message:@"亲,确认要收货吗" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                
+                //确认收货 - 成功后跳转交易完成
+                [self receiveUserConfirmReceiptPostDeliveryId:orderlist.deliveryId storeId:orderlist.storeId deliveryFee:[NSString stringWithFormat:@"%.2f",orderlist.orderDeliveryFee] orderNum:orderlist.orderCode userId:@"" orderAmount:orderlist.orderAmount storeName:orderlist.storeName orderDetail:orderlist.orderDetail];
+                
+            }];
+            [alertavc addAction:cancelAction];
+            [alertavc addAction:sureAction];
             
+            [self presentViewController:alertavc animated:YES completion:nil];
+        }
             
             break;
     }
@@ -1979,7 +2021,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         {
             Orderlist * orderlist = self.orderListArray [indexPath];
             NSLog(@"---------%ld",indexPath);
-        if ([orderlist.orderStatus isEqualToString:@"4"]) {
+            if ([orderlist.orderStatus isEqualToString:@"4"]) {
                 
                 JXTAlertController * alertavc =[JXTAlertController alertControllerWithTitle:@"提示" message:@"亲,是否取消该交易！" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -1997,7 +2039,18 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 [self presentViewController:alertavc animated:YES completion:nil];
                 
             }
-
+            if ([orderlist.orderStatus isEqualToString:@"10"]) {//已发货
+                
+                {
+                    LogisticsViewController * VC = [LogisticsViewController new];
+                    Orderlist * orderlist = self.orderListArray [indexPath];
+                    VC.orderNum = orderlist.expressNumber;
+                    [self.navigationController pushViewController:VC animated:NO];
+                    
+                }
+                
+            }
+            
         }
             break;
             
@@ -2053,11 +2106,19 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             }else  if (self.tagNum == 1) {
                 
             }
-            
             break;
         case OrderTypeWaitSending://待发货
+
             break;
+            
         case OrderTypeWaitRecive://待收货
+    
+        {
+            LogisticsViewController * VC = [LogisticsViewController new];
+            Orderlist * orderlist = self.orderListArray [indexPath];
+            VC.orderNum = orderlist.expressNumber;
+            [self.navigationController pushViewController:VC animated:NO];
+        }
             break;
     }
 }
@@ -2129,7 +2190,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 {
     BBUserDefault.keyWord = @"";
 }
-//17749920847  Ss12345678
 
 
 @end

@@ -229,7 +229,7 @@
                             bcVC.reason          = _reason;
                             bcVC.problemDescr    = _problemDescr;
                             bcVC.imgArr          = [names componentsJoinedByString:@","];//图片字符串
-                            bcVC.goodsProperties = _goodsProperties;
+                            bcVC.skuId = _skuId;
                             [self.navigationController pushViewController: bcVC animated:YES];
                             [SVProgressHUD dismiss];
 
@@ -262,7 +262,7 @@
                 bcVC.reason          = _reason;
                 bcVC.problemDescr    = _problemDescr;
                 bcVC.imgArr          = @"";
-                bcVC.goodsProperties = _goodsProperties;
+                bcVC.skuId = _skuId;
                 _isCommited = NO;
                 [SVProgressHUD dismiss];
                 [self.navigationController pushViewController: bcVC animated:YES];

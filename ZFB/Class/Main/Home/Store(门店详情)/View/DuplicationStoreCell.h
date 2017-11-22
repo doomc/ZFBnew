@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StoreDetailHomeModel.h"
+#import "StoreNewRecommentModel.h"
 
 @interface DuplicationStoreCell : UICollectionViewCell
 
@@ -15,5 +17,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_price;
 @property (weak, nonatomic) IBOutlet UILabel *lb_colltionNum;
 @property (weak, nonatomic) IBOutlet UIButton *collect_btn;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
+
+@property (strong, nonatomic) GoodsExtendList * goodslist;
+@property (strong, nonatomic) StoreRecommentGoodsList * anewGoods;
 
 @end

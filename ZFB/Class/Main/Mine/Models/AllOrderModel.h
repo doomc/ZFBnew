@@ -30,6 +30,8 @@
 
 @property (nonatomic, strong) NSArray<Ordergoods *> *orderGoods;
 
+@property (nonatomic, copy) NSString *expressNumber;//物流运单号
+
 @property (nonatomic, copy) NSString *orderStatusName;
 
 @property (nonatomic, copy) NSString *post_name;

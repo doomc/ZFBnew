@@ -42,7 +42,8 @@
 #import "NTESPersonalCardViewController.h"
 #import "NIMInputAtCache.h"
 #import "NTESAudioChatViewController.h"
-#import "ZFDetailsStoreViewController.h"//门店详情
+//#import "ZFDetailsStoreViewController.h"//门店详情
+#import "MainStoreViewController.h"
 
 @interface NTESSessionViewController ()
 <UIImagePickerControllerDelegate,
@@ -654,7 +655,7 @@ NIMContactSelectDelegate>
 }
 #pragma mark - 进店
 - (void)enterStoreItem:(id)sender{
-    ZFDetailsStoreViewController * storeVC = [[ZFDetailsStoreViewController alloc] init];
+    MainStoreViewController * storeVC = [[MainStoreViewController alloc] init];
     storeVC.storeId = _storeId;
     [self.navigationController pushViewController:storeVC animated:YES];
 }

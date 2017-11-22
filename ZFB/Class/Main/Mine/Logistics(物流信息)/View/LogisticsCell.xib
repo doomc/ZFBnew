@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="75" id="KGk-i7-Jjw" customClass="LogisticsCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="74.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logistics.png" translatesAutoresizingMaskIntoConstraints="NO" id="hqi-Nu-uYl">
+                        <rect key="frame" x="15" y="17.5" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="6FX-Ou-3MM"/>
+                            <constraint firstAttribute="width" constant="40" id="Lk9-V3-DcA"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="顺丰快递" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EsJ-Wn-e26">
+                        <rect key="frame" x="145" y="12" width="165" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="物流单号:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0X-lf-guq">
+                        <rect key="frame" x="65" y="40" width="70" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="E2V-ic-GRr"/>
+                            <constraint firstAttribute="width" constant="70" id="tag-oS-7Wc"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="物流公司:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQU-xx-4AT">
+                        <rect key="frame" x="65" y="10" width="70" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="hRG-7M-OCf"/>
+                            <constraint firstAttribute="height" constant="20" id="zNa-2E-yGc"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7283791723123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzn-Wd-hMW">
+                        <rect key="frame" x="145" y="42" width="165" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hqi-Nu-uYl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="0ag-ga-5lu"/>
+                    <constraint firstItem="hqi-Nu-uYl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="65f-OQ-ZJD"/>
+                    <constraint firstItem="Z0X-lf-guq" firstAttribute="top" secondItem="wQU-xx-4AT" secondAttribute="bottom" constant="10" id="92C-kN-oDU"/>
+                    <constraint firstItem="EsJ-Wn-e26" firstAttribute="leading" secondItem="wQU-xx-4AT" secondAttribute="trailing" constant="10" id="CSi-Ju-JV4"/>
+                    <constraint firstItem="qzn-Wd-hMW" firstAttribute="leading" secondItem="Z0X-lf-guq" secondAttribute="trailing" constant="10" id="GQE-F8-ij0"/>
+                    <constraint firstItem="EsJ-Wn-e26" firstAttribute="bottom" secondItem="wQU-xx-4AT" secondAttribute="bottom" id="KuW-x1-jWb"/>
+                    <constraint firstItem="qzn-Wd-hMW" firstAttribute="bottom" secondItem="Z0X-lf-guq" secondAttribute="bottom" id="NSG-Cd-H8t"/>
+                    <constraint firstAttribute="trailing" secondItem="qzn-Wd-hMW" secondAttribute="trailing" constant="10" id="be3-iw-Qv5"/>
+                    <constraint firstAttribute="trailing" secondItem="EsJ-Wn-e26" secondAttribute="trailing" constant="10" id="oX4-QC-r0a"/>
+                    <constraint firstItem="wQU-xx-4AT" firstAttribute="leading" secondItem="hqi-Nu-uYl" secondAttribute="trailing" constant="10" id="sSH-05-sSm"/>
+                    <constraint firstItem="Z0X-lf-guq" firstAttribute="leading" secondItem="wQU-xx-4AT" secondAttribute="leading" id="vYS-Ie-eNT"/>
+                    <constraint firstItem="wQU-xx-4AT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="wPs-fP-joA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="lb_company" destination="EsJ-Wn-e26" id="DmZ-S8-hBz"/>
+                <outlet property="lb_orderNum" destination="qzn-Wd-hMW" id="whG-j0-ALX"/>
+            </connections>
+            <point key="canvasLocation" x="6" y="109.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="logistics.png" width="35" height="35"/>
+    </resources>
+</document>

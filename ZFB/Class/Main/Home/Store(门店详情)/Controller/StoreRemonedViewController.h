@@ -14,4 +14,7 @@
 
 @property ( nonatomic , strong ) UICollectionView  * ScollectionView;
 
+@property ( nonatomic , copy ) NSString *storeId;
+
+
 @end

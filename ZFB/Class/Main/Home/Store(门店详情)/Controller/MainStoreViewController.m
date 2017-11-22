@@ -5,27 +5,39 @@
 //  Created by  展富宝  on 2017/11/21.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
-#define  headerH 130
+#define headerH 130
 
 #import "MainStoreViewController.h"
 #import "StoreHomeViewController.h"//门店首页
 #import "StoreAllgoodsViewController.h"//全部商品
 #import "StoreRemonedViewController.h"//新品推荐
+#import "StoreInfoViewController.h"//门店信息
 
+//view
 #import "MainStoreHeadView.h"
 #import "MainStoreFooterView.h"
-
 #import "JohnTopTitleView.h"
 #import "XHStarRateView.h"
+//tool
+#import "TJMapNavigationService.h"//导航
 
-@interface MainStoreViewController ()<JohnTopTitleViewDelegate>
+//网易云信
+#import "NTESSessionViewController.h"
+
+@interface MainStoreViewController ()<JohnTopTitleViewDelegate,MainStoreFooterViewDelegate,NIMSystemNotificationManagerDelegate,NIMUserManagerDelegate>
 {
     NSString * _isCollect;//0没收藏 1,收藏
     NSString * _starLevel;//评价星星
     NSString * _storeName;
     NSString * _saleCount;//销售数量
     NSString * _coverUrl;//背景图
-    NSString * _collectNumber;//背景图
+    NSString * _collectNumber;
+    NSString * _userAccId;//网易云信
+    NSString * _creatTime;
+
+    NSString * _longitude;
+    NSString * _latitude;
+    NSString * _address;
 }
 @property (nonatomic,strong) StoreHomeViewController * vc1;
 @property (nonatomic,strong) StoreAllgoodsViewController * vc2;
@@ -43,14 +55,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"门店详情";
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor =  HEXCOLOR(0xf7f7f7);
+    self.view.backgroundColor =   HEXCOLOR(0xf7f7f7);
     
     self.headerView = [[NSBundle mainBundle]loadNibNamed:@"MainStoreHeadView" owner:nil options:nil].lastObject;
-//    self.footerView = [[NSBundle mainBundle]loadNibNamed:@"MainStoreFooterView" owner:nil options:nil].lastObject;
-
+    self.footerView = [[ MainStoreFooterView alloc]initWithFooterViewFrame:CGRectMake(0, KScreenH -headerH +20, KScreenW,  49)];
+    self.footerView.delegate = self;
     [self.view addSubview:self.headerView];
-//    [self.view addSubview:self.footerView];
+    [self.topTitleView addSubview:self.footerView];
     [self.view addSubview:self.topTitleView];
     
     _wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 120, 24) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO];
@@ -58,15 +71,24 @@
     
     [self storePostRequest];
     [self collectionButton];
+    
+    [[NIMSDK sharedSDK].userManager addDelegate:self];
+    [[NIMSDK sharedSDK].systemNotificationManager addDelegate:self];
+    
 }
 
+- (void)dealloc
+{
+    [[[NIMSDK sharedSDK] systemNotificationManager] removeDelegate:self];
+    [[NIMSDK sharedSDK].userManager removeDelegate:self];
+}
 -(void)collectionButton
 {
     //收藏按钮
     _collectButton  =[ UIButton buttonWithType:UIButtonTypeCustom];
     _collectButton.frame = CGRectMake(0, 0, 20, 20);
-    [_collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
-    [_collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateSelected];
+    [_collectButton setBackgroundImage:[UIImage imageNamed:@"collection3"] forState:UIControlStateNormal];
+    [_collectButton setBackgroundImage:[UIImage imageNamed:@"collection3_on"] forState:UIControlStateSelected];
     [_collectButton addTarget:self action:@selector(didclickLove:) forControlEvents:UIControlEventTouchUpInside];
     
     //自定义button必须执行
@@ -87,14 +109,14 @@
         headerViewY = 0;
     }
     self.headerView.frame = CGRectMake(0,headerViewY, KScreenW, headerH);
-    self.topTitleView.frame = CGRectMake(0, CGRectGetMaxY(self.headerView.frame), KScreenW, KScreenH - CGRectGetMaxY(self.headerView.frame));
+    self.topTitleView.frame = CGRectMake(0, CGRectGetMaxY(self.headerView.frame), KScreenW, KScreenH  - 49);
 }
 
 
 #pragma mark - JohnTopTitleViewDelegate
 - (void)didSelectedPage:(NSInteger)page{
     self.headerView.frame = CGRectMake(0, 0, KScreenW, headerH);
-    self.topTitleView.frame = CGRectMake(0, CGRectGetMaxY(self.headerView.frame), KScreenW, KScreenH - CGRectGetMaxY(self.headerView.frame));
+    self.topTitleView.frame = CGRectMake(0, CGRectGetMaxY(self.headerView.frame), KScreenW, KScreenH  - 49);
     switch (page) {
         case 0:
         {
@@ -122,7 +144,7 @@
 #pragma mark - Getter
 - (JohnTopTitleView *)topTitleView{
     if (!_topTitleView) {
-        _topTitleView = [[JohnTopTitleView alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(self.headerView.frame), KScreenW, KScreenH)];
+        _topTitleView = [[JohnTopTitleView alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(self.headerView.frame), KScreenW, KScreenH  - 49)];
         _topTitleView.titles = @[@"门店首页",@"全部商品",@"新品推荐"];
         [_topTitleView setupViewControllerWithFatherVC:self childVC:@[self.vc1,self.vc2,self.vc3]];
         _topTitleView.delegete = self;
@@ -146,6 +168,7 @@
     if (!_vc2) {
         _vc2 = [[StoreAllgoodsViewController alloc]init];
         __weak typeof(self) weakSelf = self;
+        _vc2.storeId = _storeId;
         _vc2.DidScrollBlock = ^(CGFloat scrollY) {
             [weakSelf johnScrollViewDidScroll:scrollY];
         };
@@ -156,6 +179,7 @@
 - (StoreRemonedViewController *)vc3{
     if (!_vc3) {
         _vc3 = [[StoreRemonedViewController alloc]init];
+        _vc3.storeId = _storeId;
         __weak typeof(self) weakSelf = self;
         _vc3.DidScrollBlock = ^(CGFloat scrollY) {
             [weakSelf johnScrollViewDidScroll:scrollY];
@@ -191,10 +215,10 @@
 -(void)iscollect
 {
     if ([_isCollect isEqualToString:@"1"] ) {///是否收藏    1.收藏 0.不
-        [_collectButton setBackgroundImage:[UIImage imageNamed:@"Collected"] forState:UIControlStateNormal];
+        [_collectButton setBackgroundImage:[UIImage imageNamed:@"collection3_on"] forState:UIControlStateNormal];
     }else
     {
-        [_collectButton setBackgroundImage:[UIImage imageNamed:@"unCollected"] forState:UIControlStateNormal];
+        [_collectButton setBackgroundImage:[UIImage imageNamed:@"collection3"] forState:UIControlStateNormal];
     }
 }
 #pragma mark - 添加收藏 getKeepGoodInfo
@@ -251,9 +275,6 @@
 #pragma mark - 门店详情
 -(void)storePostRequest
 {
-    if (BBUserDefault.cmUserId == nil) {
-        BBUserDefault.cmUserId = @"";
-    }
     NSDictionary * parma = @{
                              @"userId":BBUserDefault.cmUserId,
                              @"storeId":_storeId,
@@ -267,19 +288,77 @@
             _saleCount  = response[@"data"][@"saleCount"];
             _isCollect = [NSString stringWithFormat:@"%@",response[@"data"][@"isCollect"]];
             _starLevel = [NSString stringWithFormat:@"%@",response[@"data"][@"starLevel"]];
+            _creatTime = response[@"data"][@"createTime"];
+            NSString *userImgAttachUrl = response[@"data"][@"userImgAttachUrl"];
+            
+            CGFloat longf  = [[NSString stringWithFormat:@"%@",response[@"data"][@"longitude"]] doubleValue];
+            CGFloat latf  = [[NSString stringWithFormat:@"%@",response[@"data"][@"latitude"]] doubleValue];
+            
+            _latitude = [NSString stringWithFormat:@"%.6f",latf];
+            _longitude = [NSString stringWithFormat:@"%.6f",longf];
+            _address = response[@"data"][@"address"];
             
             self.headerView.lb_sale.text = _saleCount;
             self.headerView.lb_collect.text = _collectNumber;
             self.headerView.lb_storeName.text = _storeName;
+            
             _wdStarView.currentScore = [_starLevel integerValue];
             [self.headerView.storeBackground sd_setImageWithURL:[NSURL URLWithString:_coverUrl] placeholderImage:nil];
-            
+            [self.headerView.storeLogo sd_setImageWithURL:[NSURL URLWithString:userImgAttachUrl] placeholderImage:nil];
+
         }
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
+    
+}
+
+#pragma mark -MainStoreFooterViewDelegate footer代理
+//商品分类
+-(void)didClickClassly
+{
+    [self settingAlertView];
+}
+
+//联系卖家
+-(void)didClickContactStore
+{
+    NSLog(@"联系卖家");
+    NIMSession *session = [NIMSession session:_userAccId type:NIMSessionTypeP2P];
+    NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
+    vc.isVipStore = YES;
+    vc.storeId = _storeId;
+    vc.storeName = _storeName;
+    [self.navigationController pushViewController:vc animated:NO];
+}
+//店铺信息
+-(void)didClickStoreInfo
+{
+    StoreInfoViewController * infoVC = [StoreInfoViewController  new];
+    infoVC.starNum = [_starLevel integerValue];
+    infoVC.collectNum = _collectNumber;
+    infoVC.info = [NSString stringWithFormat:@"创建时间:%@ | %@ |",_creatTime,_address];
+    infoVC.storeName = _storeName;
+    infoVC.imageUrl = _coverUrl;
+
+    [self.navigationController pushViewController:infoVC animated:NO];
+
+}
+#pragma mark - 到这去 唤醒地图
+//到店铺导航
+-(void)didClickMapNavgation
+{    //当前位置导航到指定地
+    CGFloat endLat       = [_latitude doubleValue];
+    CGFloat endLot       = [_longitude doubleValue] ;
+    NSString *endAddress = _address;
+    
+    CGFloat startLat = [BBUserDefault.latitude doubleValue];
+    CGFloat startLot = [BBUserDefault.longitude doubleValue] ;
+    
+    TJMapNavigationService *mapNavigationService = [[TJMapNavigationService alloc] initWithStartLatitude:startLat startLongitude:startLot endLatitude:endLat endLongitude:endLot endAddress:endAddress locationType:LocationType_Mars];
+    [mapNavigationService showAlert];
     
 }
 

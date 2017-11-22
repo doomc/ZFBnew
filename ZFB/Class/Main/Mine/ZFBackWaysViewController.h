@@ -31,7 +31,8 @@
 @property (nonatomic, copy) NSString * storeName;///商店名称
 @property (nonatomic, copy) NSString * userId;///关联账号id
 
-@property (nonatomic, copy) NSString * goodsProperties;///商品规格
+//@property (nonatomic, copy) NSString * goodsProperties;///商品规格
+@property (nonatomic, copy) NSString * skuId;///商品规格
 @property (nonatomic, copy) NSString * orderGoodsId;///商品唯一编号
 
 @property (nonatomic, copy) NSString * problemDescr;///问题描述
