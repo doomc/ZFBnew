@@ -1398,9 +1398,12 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     [self.navigationController pushViewController:payVC animated:YES];
 }
 
-#pragma mark - ZFpopViewDelegate 选择一个type
+#pragma mark - ZFpopViewDelegate 选择切换type
 -(void)sendTitle:(NSString *)title orderType:(OrderType)type
 {
+    self.currentPage = 1;
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     self.titles =@[@"全部订单",@"待付款",@"待配送",@"配送中",@"已配送",@"交易完成",@"交易取消",@"售后申请",];
     
     [UIView animateWithDuration:0.3 animations:^{
@@ -1413,66 +1416,67 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     
     //0待配送 1配送中 2配送完成,3.交易完成，4.待付款，6,待上门取件，-1.关闭
     
-    switch (_orderType) {//-1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成
-            
-        case OrderTypeAllOrder://全部订单
-            
-            [self allOrderPostRequsetWithOrderStatus:@"" orderNum:@""];
-            break;
-        case OrderTypeWaitPay://待付款
-            
-            [self allOrderPostRequsetWithOrderStatus:@"4" orderNum:@""];
-            
-            break;
-        case OrderTypeWaitSend://待配送
-            
-            [self allOrderPostRequsetWithOrderStatus:@"0"  orderNum:@""];
-            
-            break;
-        case OrderTypeSending://配送中
-            [self allOrderPostRequsetWithOrderStatus:@"1"  orderNum:@""];
-            
-            break;
-        case OrderTypeSended://已配送
-            
-            [self allOrderPostRequsetWithOrderStatus:@"2"  orderNum:@""];
-            
-            break;
-        case OrderTypeDealSuccess://交易成功
-            
-            [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
-            break;
-        case OrderTypeCancelSuccess://取消交易
-            
-            [self allOrderPostRequsetWithOrderStatus:@"-1" orderNum:@""];
-            
-            break;
-        case OrderTypeAfterSale://售后
-            if (_tagNum == 0) {
-                
-                BBUserDefault.keyWord = @"";
-                self.searchBar.text = @"";
-                [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
-                //这个接口是搜索后才有的
-                //                [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:BBUserDefault.keyWord ];
-                
-            }else{
-                [self salesAfterPostRequste];
-                
-            }
-            break;
-        case OrderTypeWaitSending://待发货
-            
-            [self allOrderPostRequsetWithOrderStatus:@"9"  orderNum:@""];
-            
-            break;
-        case OrderTypeWaitRecive://待收货
-            
-            [self allOrderPostRequsetWithOrderStatus:@"10"  orderNum:@""];
-            
-            break;
-    }
+    [self headerRefresh];
     
+//    switch (_orderType) {//-1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成
+//
+//        case OrderTypeAllOrder://全部订单
+//            [self allOrderPostRequsetWithOrderStatus:@"" orderNum:@""];
+//            break;
+//        case OrderTypeWaitPay://待付款
+//
+//            [self allOrderPostRequsetWithOrderStatus:@"4" orderNum:@""];
+//
+//            break;
+//        case OrderTypeWaitSend://待配送
+//
+//            [self allOrderPostRequsetWithOrderStatus:@"0"  orderNum:@""];
+//
+//            break;
+//        case OrderTypeSending://配送中
+//            [self allOrderPostRequsetWithOrderStatus:@"1"  orderNum:@""];
+//
+//            break;
+//        case OrderTypeSended://已配送
+//
+//            [self allOrderPostRequsetWithOrderStatus:@"2"  orderNum:@""];
+//
+//            break;
+//        case OrderTypeDealSuccess://交易成功
+//
+//            [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
+//            break;
+//        case OrderTypeCancelSuccess://取消交易
+//
+//            [self allOrderPostRequsetWithOrderStatus:@"-1" orderNum:@""];
+//
+//            break;
+//        case OrderTypeAfterSale://售后
+//            if (_tagNum == 0) {
+//
+//                BBUserDefault.keyWord = @"";
+//                self.searchBar.text = @"";
+//                [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
+//                //这个接口是搜索后才有的
+//                //                [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:BBUserDefault.keyWord ];
+//
+//            }else{
+//                [self salesAfterPostRequste];
+//
+//            }
+//            break;
+//        case OrderTypeWaitSending://待发货
+//
+//            [self allOrderPostRequsetWithOrderStatus:@"9"  orderNum:@""];
+//
+//            break;
+//        case OrderTypeWaitRecive://待收货
+//
+//            [self allOrderPostRequsetWithOrderStatus:@"10"  orderNum:@""];
+//
+//            break;
+//    }
+//
     [self.tableView reloadData];
 
 }

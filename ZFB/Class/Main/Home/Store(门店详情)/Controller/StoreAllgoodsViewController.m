@@ -183,27 +183,32 @@ typedef NS_ENUM(NSUInteger, SelectTypeSortBy) {
 #pragma mark - SelectTypeCollectionCellDelegate 排序的代理
 -(void)selectStoreType:(StoreScreenType)type flag :(NSInteger)flag
 {
+    self.currentPage = 1;
     _flag = flag;
+    
     switch (type) {
         case SelectTypeSortByComprehensive://综合
-            
+
             _selectType = SelectTypeSortByComprehensive;
             [self goodsListPostRequestAtOrderSort:@""];
+
             NSLog(@"综合排序");
 
             break;
         case SelectTypeSortBySaleNum://销量
-            
+
             _selectType = SelectTypeSortBySaleNum;
             [self goodsListPostRequestAtOrderSort:@"1"];
+            [self headerRefresh];
 
             NSLog(@"销量排序--降序");
 
             break;
         case SelectTypeSortByLatest://最新
-            
+
             _selectType = SelectTypeSortByLatest;
             [self goodsListPostRequestAtOrderSort:@"3"];
+
             NSLog(@"最新排序--降序");
 
             break;
@@ -218,7 +223,7 @@ typedef NS_ENUM(NSUInteger, SelectTypeSortBy) {
                 [self goodsListPostRequestAtOrderSort:@"5"];
 
             }
-            
+
             break;
     }
 }

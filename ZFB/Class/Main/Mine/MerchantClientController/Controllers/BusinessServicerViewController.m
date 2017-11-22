@@ -1531,9 +1531,13 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 }
 
 
-#pragma mark - BusinessServicPopViewDelegate 选择一个type
+#pragma mark - BusinessServicPopViewDelegate 选择切换type
 -(void)sendTitle:(NSString *)title businessServicType:(BusinessServicType)type
 {
+    self.currentPage = 1;
+    NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.homeTableView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
     
     [UIView animateWithDuration:0.3 animations:^{
         if (self.bgview.superview) {
@@ -1543,76 +1547,77 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     //    _servicType = type;//赋值type ，根据type请求
     [self.navbar_btn setTitle:title forState:UIControlStateNormal];
     
-    switch (_selectPageType) {
-        case SelectTypeHomePage:
-            
-            break;
-        case SelectTypeOrderPage:
-            _servicType = type;//把类型赋值一下
-            switch (_servicType) {
-                case BusinessServicTypeWaitSendlist://待派单
-                    
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0"  storeId:_storeId];
-                    
-                    [self.homeTableView reloadData];
-                    
-                    break;
-                case BusinessServicTypeSending://配送中
-                    
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1"  storeId:_storeId] ;
-                    [self.homeTableView reloadData];
-                    
-                    break;
-                case BusinessServicTypeWaitPay://待付款
-                    
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4"  storeId:_storeId];
-                    [self.homeTableView reloadData];
-                    
-                    break;
-                case BusinessServicTypeDealComplete://交易完成
-                    
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3"  storeId:_storeId];
-                    [self.homeTableView reloadData];
-                    
-                    break;
-                case BusinessServicTypeSureReturn://待确认退回
-                    
-                    [self salesAfterPostRequsteAtStoreId:_storeId];
-                    
-                    [self.homeTableView reloadData];
-                    
-                    break;
-                case BusinessServicTypeSended://已配送
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2"  storeId:_storeId];
-                    [self.homeTableView reloadData];
-                    
-                    break;
-                case BusinessServicTypeCancelOrder://取消订单
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"-1"  storeId:_storeId];
-                    [self.homeTableView reloadData];
-
-                    break;
-                    
-//                case  BusinessServicTypeWiatOrder://待接单
-//                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8"   storeId:_storeId];
+    [self headerRefresh];
+//    switch (_selectPageType) {
+//        case SelectTypeHomePage:
+//
+//            break;
+//        case SelectTypeOrderPage:
+//            _servicType = type;//把类型赋值一下
+//            switch (_servicType) {
+//                case BusinessServicTypeWaitSendlist://待派单
+//
+//                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0"  storeId:_storeId];
+//
+//                    [self.homeTableView reloadData];
+//
+//                    break;
+//                case BusinessServicTypeSending://配送中
+//
+//                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1"  storeId:_storeId] ;
+//                    [self.homeTableView reloadData];
+//
+//                    break;
+//                case BusinessServicTypeWaitPay://待付款
+//
+//                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4"  storeId:_storeId];
+//                    [self.homeTableView reloadData];
+//
+//                    break;
+//                case BusinessServicTypeDealComplete://交易完成
+//
+//                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3"  storeId:_storeId];
+//                    [self.homeTableView reloadData];
+//
+//                    break;
+//                case BusinessServicTypeSureReturn://待确认退回
+//
+//                    [self salesAfterPostRequsteAtStoreId:_storeId];
+//
+//                    [self.homeTableView reloadData];
+//
+//                    break;
+//                case BusinessServicTypeSended://已配送
+//                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2"  storeId:_storeId];
+//                    [self.homeTableView reloadData];
+//
+//                    break;
+//                case BusinessServicTypeCancelOrder://取消订单
+//                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"-1"  storeId:_storeId];
+//                    [self.homeTableView reloadData];
+//
+//                    break;
+//
+////                case  BusinessServicTypeWiatOrder://待接单
+////                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"8"   storeId:_storeId];
+////                    [self.homeTableView reloadData];
+////                    break;
+//                case BusinessServicTypeWaitSending://待发货
+//                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"9"   storeId:_storeId];
 //                    [self.homeTableView reloadData];
 //                    break;
-                case BusinessServicTypeWaitSending://待发货
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"9"   storeId:_storeId];
-                    [self.homeTableView reloadData];
-                    break;
-                case BusinessServicTypeWaitReceived://待收货
-                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"10"   storeId:_storeId];
-                    [self.homeTableView reloadData];
-                    break;
-                    
-            }
-            
-            break;
-        case SelectTypeCaculater:
-            
-            break;
-    }
+//                case BusinessServicTypeWaitReceived://待收货
+//                    [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"10"   storeId:_storeId];
+//                    [self.homeTableView reloadData];
+//                    break;
+//
+//            }
+//
+//            break;
+//        case SelectTypeCaculater:
+//
+//            break;
+//    }
 }
 
 #pragma mark - ZFFooterCellDelegate   footerview的所有代理方法

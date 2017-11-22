@@ -100,8 +100,7 @@
 -(void)headerRefresh {
     [super headerRefresh];
  
- 
-    if ([self.searchType isEqualToString:@"商品"]) {
+     if ([self.searchType isEqualToString:@"商品"]) {
         //商品搜索
         [self SearchgoodsPOSTRequestAndsearchText:_resultsText brandId:@"" orderByPrice:@"" orderBySales:@"" labelId:@"" isFeatured:@"" goodsType:_goodsType];
         

@@ -129,7 +129,16 @@
 {
     LogisticsList * list  = self.progressArray[indexPath.row];
     cell.list = list;
-    
+    if (indexPath.row == 0) {
+        cell.line_up.hidden = YES;
+    }else if (indexPath.row == self.progressArray.count - 1) {
+        cell.line_down.hidden = YES;
+    }else {
+        cell.line_down.hidden = NO;
+        cell.line_up.hidden = NO;
+    }
+
+   
 }
 #pragma mark -  查看物流
 -(void)postRequest

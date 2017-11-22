@@ -190,15 +190,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     [self orderlistDeliveryID:_deliveryId OrderStatus:@"3"  ];
                     
                     break;
-                    
-//                case SendServicTypeWaitSending://待发货
-//                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"9"  ];
-//
-//                    break;
-//                case SendServicTypeWaitReceived://待收货
-//                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"10"  ];
-//
-//                    break;
+                
             }
             
             break;
@@ -768,8 +760,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    
     switch (_selectPageType) {
         case SelectTypeHomePage:
             if (indexPath.section == 0) {
@@ -929,49 +919,56 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 #pragma mark - ZFSendPopViewDelegate 选择类型 根据类型请求
 -(void)sendTitle:(NSString *)title SendServiceType:(SendServicType)type
 {
-     [UIView animateWithDuration:0.5 animations:^{
+    _servicType = type;
+    self.currentPage = 1;
+    NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.send_tableView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
+    [UIView animateWithDuration:0.5 animations:^{
         if (self.bgview.superview) {
             [self.bgview removeFromSuperview];
         }
     }];
-    _servicType = type;
     [self.navbar_btn setTitle:title forState:UIControlStateNormal];
-    switch (_selectPageType) {
-        case SelectTypeHomePage:
-
-            break;
-        case SelectTypeOrderPage:
-            //status  1.待接单 2.已接单 3.已配送
-            switch (_servicType) {
-                    
-                case SendServicTypeWaitSend:
-                    
-                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"1"  ];
-                    [self.send_tableView reloadData];
-                    
-                    break;
-                case SendServicTypeSending:
-                    
-                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"2"  ];
-                    [self.send_tableView reloadData];
-                    
-                    break;
-                case SendServicTypeSended:
-                    
-                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"3"  ];
-                    [self.send_tableView reloadData];
-                    
-                    break;
- 
-            }
-            
-            break;
-            
-        case SelectTypeCaculater:
-            
-            break;
-    }
     
+    [self headerRefresh];
+    
+//    switch (_selectPageType) {
+//        case SelectTypeHomePage:
+//
+//            break;
+//        case SelectTypeOrderPage:
+//            //status  1.待接单 2.已接单 3.已配送
+//            switch (_servicType) {
+//
+//                case SendServicTypeWaitSend:
+//
+//                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"1"  ];
+//                    [self.send_tableView reloadData];
+//
+//                    break;
+//                case SendServicTypeSending:
+//
+//                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"2"  ];
+//                    [self.send_tableView reloadData];
+//
+//                    break;
+//                case SendServicTypeSended:
+//
+//                    [self orderlistDeliveryID:_deliveryId OrderStatus:@"3"  ];
+//                    [self.send_tableView reloadData];
+//
+//                    break;
+//
+//            }
+//
+//            break;
+//
+//        case SelectTypeCaculater:
+//
+//            break;
+//    }
+//
 }
 #pragma mark - ZFSendHomeListCellDelegate 订单详情页事件
 ///今日订单统计
