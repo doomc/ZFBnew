@@ -120,6 +120,14 @@
     }
     else{
         LogisticsProgressCell * cell = [self.tableView dequeueReusableCellWithIdentifier:@"LogisticsProgressCell" forIndexPath:indexPath];
+        if (indexPath.row == 0) {
+            cell.line_up.hidden = YES;
+        }else if (indexPath.row == self.progressArray.count - 1) {
+            cell.line_down.hidden = YES;
+        }else {
+            cell.line_down.hidden = NO;
+            cell.line_up.hidden = NO;
+        }
         [self setUpCell:cell AtIndexPath:indexPath];
         return cell;
     }
@@ -129,14 +137,6 @@
 {
     LogisticsList * list  = self.progressArray[indexPath.row];
     cell.list = list;
-    if (indexPath.row == 0) {
-        cell.line_up.hidden = YES;
-    }else if (indexPath.row == self.progressArray.count - 1) {
-        cell.line_down.hidden = YES;
-    }else {
-        cell.line_down.hidden = NO;
-        cell.line_up.hidden = NO;
-    }
 
    
 }

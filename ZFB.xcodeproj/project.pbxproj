@@ -134,6 +134,8 @@
 		491C8E5F1F94880D0072B2E3 /* ZFAllOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 491C8E5E1F94880D0072B2E3 /* ZFAllOrderViewController.m */; };
 		491C8E651F9497460072B2E3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 491C8E641F9497460072B2E3 /* CFNetwork.framework */; };
 		491C8E821F95E2DF0072B2E3 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 491C8E811F95E2DF0072B2E3 /* RechargeViewController.m */; };
+		491CFE591FC6DE330082E383 /* ScreenTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491CFE581FC6DE330082E383 /* ScreenTypeView.m */; };
+		491CFE5B1FC6F3030082E383 /* screen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 491CFE5A1FC6F3020082E383 /* screen@2x.png */; };
 		491EC5991F98BD4D00873412 /* BankCardListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 491EC5981F98BD4D00873412 /* BankCardListModel.m */; };
 		491EC5A41F99AA8D00873412 /* AboutUsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491EC5A31F99AA8D00873412 /* AboutUsView.m */; };
 		491EC5A61F99AB2B00873412 /* AboutUsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491EC5A51F99AB2B00873412 /* AboutUsView.xib */; };
@@ -1646,6 +1648,9 @@
 		491C8E801F95E2DF0072B2E3 /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
 		491C8E811F95E2DF0072B2E3 /* RechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
 		491C8E871F9609110072B2E3 /* ZFB.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ZFB.entitlements; sourceTree = "<group>"; };
+		491CFE571FC6DE330082E383 /* ScreenTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScreenTypeView.h; sourceTree = "<group>"; };
+		491CFE581FC6DE330082E383 /* ScreenTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScreenTypeView.m; sourceTree = "<group>"; };
+		491CFE5A1FC6F3020082E383 /* screen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screen@2x.png"; sourceTree = "<group>"; };
 		491EC5971F98BD4D00873412 /* BankCardListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankCardListModel.h; sourceTree = "<group>"; };
 		491EC5981F98BD4D00873412 /* BankCardListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankCardListModel.m; sourceTree = "<group>"; };
 		491EC5A21F99AA8D00873412 /* AboutUsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsView.h; sourceTree = "<group>"; };
@@ -5920,6 +5925,7 @@
 		495EA5AA1F14B64C001FCB7E /* 我的 */ = {
 			isa = PBXGroup;
 			children = (
+				491CFE5A1FC6F3020082E383 /* screen@2x.png */,
 				49B299501FC272B500DF86E4 /* agree_off@2x.png */,
 				49B2994E1FC272B400DF86E4 /* agree_off@3x.png */,
 				49B2994F1FC272B500DF86E4 /* agree@2x.png */,
@@ -7346,6 +7352,8 @@
 				49C1B5711F8B622C00B2001B /* DetailAcountTitleCell.h */,
 				49C1B5721F8B622C00B2001B /* DetailAcountTitleCell.m */,
 				49C1B5731F8B622C00B2001B /* DetailAcountTitleCell.xib */,
+				491CFE571FC6DE330082E383 /* ScreenTypeView.h */,
+				491CFE581FC6DE330082E383 /* ScreenTypeView.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -9360,6 +9368,7 @@
 				49CFF3051FB2E1670087F74D /* coupon1_get2.png in Resources */,
 				497EF6E11F4E9F6C00BFF1AF /* NTESAudioChatViewController.xib in Resources */,
 				495EA91D1F14B64E001FCB7E /* zan@3x.png in Resources */,
+				491CFE5B1FC6F3030082E383 /* screen@2x.png in Resources */,
 				4919D8D91FBAEEB20098AD6A /* score@3x.png in Resources */,
 				49AE17B01FB0426A001A804E /* Purchase_off@2x.png in Resources */,
 				49AD34451F2883BA00DC8A8F /* storeimg@2x.png in Resources */,
@@ -10055,6 +10064,7 @@
 				4968A42B1F4DB5290061A87E /* NTESSessionChartletContentView.m in Sources */,
 				49AD34551F28BBA100DC8A8F /* SearchResultModel.m in Sources */,
 				495EA81B1F14B64D001FCB7E /* ZFSettingViewController.m in Sources */,
+				491CFE591FC6DE330082E383 /* ScreenTypeView.m in Sources */,
 				49B299751FC2AC4D00DF86E4 /* StoreHomeHeaderCell.m in Sources */,
 				497EF7231F50465700BFF1AF /* IMSearchCell.m in Sources */,
 				495EA9781F14B64E001FCB7E /* YYMemoryCache.m in Sources */,

@@ -377,7 +377,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 {
     if (!_popView) {
         
-        _popView          = [[ZFSendPopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 50 ) titleArray:_titles];
+        _popView          = [[ZFSendPopView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 50 +10 ) titleArray:_titles];
         _popView.delegate = self;
     }
     return _popView;
@@ -921,18 +921,20 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 {
     _servicType = type;
     self.currentPage = 1;
-    NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.send_tableView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    
+    [self.navbar_btn setTitle:title forState:UIControlStateNormal];
+
+//    NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
+//    [self.send_tableView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+ 
     [UIView animateWithDuration:0.5 animations:^{
         if (self.bgview.superview) {
             [self.bgview removeFromSuperview];
         }
     }];
-    [self.navbar_btn setTitle:title forState:UIControlStateNormal];
     
     [self headerRefresh];
-    
+    [self.send_tableView reloadData];
+
 //    switch (_selectPageType) {
 //        case SelectTypeHomePage:
 //

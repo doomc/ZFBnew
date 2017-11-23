@@ -736,7 +736,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserNotUseCouponList"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
             if (self.couponList.count > 0) {
-               
                 [self.couponList removeAllObjects];
             }
             CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
@@ -844,6 +843,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 -(void)getGoodsCostPayResulrUrlL
 {
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    NSMutableDictionary * payDealParam = [NSMutableDictionary dictionary];
     NSString * listJsonString  = [NSString arrayToJSONString:_orderArr];
     
     [params setValue:_paySign forKey:@"sign"];//回传参数：商户可自定义该参数，在支付回调后带回
@@ -854,11 +854,16 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [params setValue:listJsonString forKey:@"order_list"];//Json格式的订单字符集
     [params setValue:@"" forKey:@"passback_params"];//回传参数：商户可自定义该参数，在支付回调后带回
     NSDictionary * dic  = [NSDictionary dictionaryWithDictionary:params];
-    
+ 
+    //用于支付成功失败的参数
+    [payDealParam setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
+    [payDealParam setValue:listJsonString forKey:@"orderList"];//Json格式的订单字符集
+  
     CheckstandViewController * payVC = [CheckstandViewController new];
     payVC.amount = _totalPirce;
     payVC.notifyUrl = _notify_url;
     payVC.signDic = dic;
+    payVC.payParam = payDealParam;
     [self.navigationController pushViewController:payVC animated:NO];
     
 }

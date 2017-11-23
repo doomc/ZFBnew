@@ -37,6 +37,7 @@
 //model
 #import "DetailGoodsModel.h"
 #import "CouponModel.h"
+#import "AppraiseModel.h"
 
 //vender
 #import "YJSegmentedControl.h"
@@ -112,6 +113,7 @@
 @property (nonatomic , strong) NSMutableArray <SkuValulist *> *skuValueListArray;//记录规格数组的模型
 @property (nonatomic , strong) NSMutableArray * skuMatch;//规格匹配数组
 @property (nonatomic , strong) NSMutableArray * noReluArray;//没有规格的立即购买数据
+@property (nonatomic , strong) NSMutableArray * appraiseListArray;//评论的数据
 
 @end
 
@@ -213,7 +215,12 @@
     }
     return _noReluArray;
 }
-
+-(NSMutableArray *)appraiseListArray{
+    if (!_appraiseListArray) {
+        _appraiseListArray = [NSMutableArray array];
+    }
+    return _appraiseListArray;
+}
 #pragma mark - 优惠券列表懒加载
 -(CouponTableView *)couponTableView
 {
@@ -338,7 +345,11 @@
 
             break;
         case 6://评价2
-            height = 125;
+            if (self.appraiseListArray.count >0) {
+                height = 125;
+            }else{
+                height = 0;
+            }
 
             break;
         case 7://宝贝详情
@@ -424,9 +435,16 @@
         }
             
             break;
+            
         case 6://评价2
         {
             GoodsEvaluateCell  *  evacell = [self.tableView dequeueReusableCellWithIdentifier:@"GoodsEvaluateCell" forIndexPath:indexPath];
+            if (self.appraiseListArray.count > 0) {
+                Findlistreviews * infoList  = self.appraiseListArray[0];
+                evacell.infoList = infoList;
+            }else{
+                [evacell setHidden:YES];
+            }
             return evacell;
         }
             break;
@@ -1000,48 +1018,60 @@
 //加入购物车
 -(void)didClickAddShoppingCarView
 {
-    //  直接加入购物车
-    if (self.productSkuArray.count > 0){
-        [self popActionView];
-    }else{//如果无规格的
-        
-        if ([_skuAmount intValue] > 0 || [_inventory intValue] > 0 ) {
-            //添加有规格的数据进入购物车  传入有规格的json数据
-            [self addToshoppingCarPostproductId:_productSkuId];
-        }else{
-            JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"这个商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            }];
-            [alertVC addAction:sure];
-            [self presentViewController:alertVC animated:YES completion:nil];
+    if (BBUserDefault.isLogin == 1) {
+        //  直接加入购物车
+        if (self.productSkuArray.count > 0){
+            [self popActionView];
+        }else{//如果无规格的
+            
+            if ([_skuAmount intValue] > 0 || [_inventory intValue] > 0 ) {
+                //添加有规格的数据进入购物车  传入有规格的json数据
+                [self addToshoppingCarPostproductId:_productSkuId];
+            }else{
+                JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"这个商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                }];
+                [alertVC addAction:sure];
+                [self presentViewController:alertVC animated:YES completion:nil];
+            }
         }
+    }else{
+        [self isIfNotSignIn];
+        
     }
+  
 }
 #pragma mark -  立即购买外部的
 -(void)didClickBuyNowView
 {
-    if (self.productSkuArray.count > 0) {//有规格
-        
-        [self popActionView];
-        
-    }else{
-        //没有规格 - 直接传值
-        if ([_skuAmount intValue] > 0 || [_inventory intValue] > 0 ) {
+    if (BBUserDefault.isLogin == 1) {
+        if (self.productSkuArray.count > 0) {//有规格
             
-            ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
-            vc.userGoodsInfoJSON = self.noReluArray;//没有规格的数组
-            [self.navigationController pushViewController:vc animated:YES];
+            [self popActionView];
             
         }else{
-            JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"该商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //没有规格 - 直接传值
+            if ([_skuAmount intValue] > 0 || [_inventory intValue] > 0 ) {
                 
-            }];
-            [alertVC addAction:sure];
-            [self presentViewController:alertVC animated:YES completion:nil];
-            
+                ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
+                vc.userGoodsInfoJSON = self.noReluArray;//没有规格的数组
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }else{
+                JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"该商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }];
+                [alertVC addAction:sure];
+                [self presentViewController:alertVC animated:YES completion:nil];
+                
+            }
         }
+    }else
+    {
+        [self isIfNotSignIn];
     }
+    
 }
 
 #pragma mark - <CouponTableViewDelegate> 领取优惠券代理
@@ -1429,6 +1459,8 @@
             [self cycleScrollViewInitImges:imagesArray];
             [self recommentPostRequstCouponList];//获取优惠券
             [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
+            [self appriaseToPostRequest];//评论列表
+
         }
         [SVProgressHUD dismiss];
         [self.tableView reloadData];
@@ -1439,6 +1471,41 @@
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
 }
+
+#pragma mark - 评论的网络请求 getGoodsCommentInfo
+-(void)appriaseToPostRequest
+{
+    NSDictionary * parma = @{
+                             @"goodsId":_goodsId,
+                             @"goodsComment":@"",
+                             @"imgComment":@"",
+                             @"pageSize":@"2",
+                             @"pageIndex":@"1",
+                             
+                             };
+    
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsCommentInfo",zfb_baseUrl] params:parma success:^(id response) {
+        if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            if (self.appraiseListArray.count >0) {
+                [self.appraiseListArray  removeAllObjects];
+            }
+            AppraiseModel * appraise = [AppraiseModel mj_objectWithKeyValues:response];
+            for (Findlistreviews * infoList in appraise.data.goodsCommentList.findListReviews) {
+                [self.appraiseListArray addObject:infoList];
+                
+            }
+            [self.tableView reloadData];
+        }
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        [self endRefresh];
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
+
 
 -(void)mas_MutableStringWithHTMLString:(NSString *)HTMLString
 {

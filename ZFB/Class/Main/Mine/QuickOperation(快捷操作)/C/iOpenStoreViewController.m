@@ -55,6 +55,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     
     NSString * _areaId;
     NSString * _address;//详细地址
+    
     BOOL _isSureFirst;//是否点击了确定   yes 点击了 NO，没点击
     BOOL _isSureSecond;//是否点击了确定   yes 点击了 NO，没点击
     BOOL _isSelectedBtn;//是否点击了确定   yes 点击了 NO，没点击

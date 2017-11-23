@@ -25,7 +25,7 @@
  */
 @property (nonatomic, assign) BOOL isChoosedCoupon;
 
-@property (nonatomic, assign) CGFloat eachOneAmount;
+@property (nonatomic, copy) NSString * eachOneAmount;
 
 @property (nonatomic, assign) NSInteger putUserId;
 

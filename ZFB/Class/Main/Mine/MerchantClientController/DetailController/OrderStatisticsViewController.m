@@ -35,6 +35,7 @@
     
     
     [self.view addSubview:self.orderdTableView];
+    self.zfb_tableView = self.orderdTableView;
     
     [self.orderdTableView registerNib:[UINib nibWithNibName:@"ZFSendingCell" bundle:nil]
                   forCellReuseIdentifier:@"ZFSendingCell"];
@@ -44,7 +45,6 @@
                   forCellReuseIdentifier:@"ZFFooterCell"];
     
     [self storeHomePagePostRequst];
-    
     [self setupRefresh];
 }
 #pragma mark -数据请求
@@ -214,19 +214,13 @@
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
             BusinessOrderModel * orderModel = [BusinessOrderModel mj_objectWithKeyValues:response];
-            
             if (self.refreshType == RefreshTypeHeader) {
-                
                 if (self.orderListArray.count > 0) {
-                    
                     [self.orderListArray removeAllObjects];
                 }
-                
             }
             for (BusinessOrderlist * orderlist in orderModel.orderList) {
-                
                 [self.orderListArray addObject:orderlist];
-                
             }
             [SVProgressHUD dismiss];
             [self.orderdTableView reloadData];
@@ -235,9 +229,6 @@
                 [self.orderdTableView cyl_reloadData];
             }
         }
-      
-        
-    
         [self endRefresh];
 
     } progress:^(NSProgress *progeress) {

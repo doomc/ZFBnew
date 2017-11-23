@@ -525,9 +525,11 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
             
             [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
-            
+            [self recommentPostRequst:@"1"];
+
             [self.popCouponView reloadData];
             [self didClickCloseCouponView];
+
             //成功后请求下未使用列表
             [SVProgressHUD dismiss];
         }

@@ -16,5 +16,6 @@
 @property (nonatomic , copy) NSString * zavfpay_num;//微信商户订单
 @property (nonatomic , copy) NSString * notifyUrl;//微信回调地址
 @property (nonatomic , copy) NSDictionary * signDic;//发起签名请求
+@property (nonatomic , copy) NSDictionary * payParam;//支付成功或者失败参数
 
 @end

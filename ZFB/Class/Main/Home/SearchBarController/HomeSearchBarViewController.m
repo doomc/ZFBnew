@@ -378,7 +378,7 @@ static NSString * identyhy = @"SearchHistoryCell";
 #pragma mark -  选择搜索类型
 -(void)selectTypeAction :(UIButton *)sender
 {
-    [YBPopupMenu showRelyOnView:sender titles:TITLES  icons:nil menuWidth:60 otherSettings:^(YBPopupMenu *popupMenu) {
+    [YBPopupMenu showRelyOnView:sender titles:TITLES  icons:nil menuWidth:70 otherSettings:^(YBPopupMenu *popupMenu) {
         popupMenu.priorityDirection = YBPopupMenuPriorityDirectionBottom;
         popupMenu.borderWidth = 0.5;
         popupMenu.arrowHeight = 5;

@@ -788,8 +788,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 [cell.payfor_button  setHidden:YES];
                 [cell.cancel_button  setHidden:YES];
             }
-            
-            if ([orderlist.orderStatus isEqualToString:@"2"]) {
+            else if ([orderlist.orderStatus isEqualToString:@"2"]) {
                 [cell.payfor_button  setTitle:@"确认收货" forState:UIControlStateNormal];
                 [cell.cancel_button  setHidden:YES];
             }
@@ -815,13 +814,21 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             else if ([orderlist.orderStatus isEqualToString:@"-1"]) {
                 [cell.cancel_button  setHidden:YES];
                 [cell.payfor_button  setHidden:YES];
-            }else if ([orderlist.orderStatus isEqualToString:@"10"])
+            }
+            else if ([orderlist.orderStatus isEqualToString:@"10"])
             {
                 [cell.cancel_button setTitle:@"查看物流" forState:UIControlStateNormal];
                 [cell.payfor_button setTitle:@"确认收货" forState:UIControlStateNormal];
                 [cell.cancel_button  setHidden:NO];
                 [cell.payfor_button  setHidden:NO];
                 view = cell;
+            }
+            else if ([orderlist.orderStatus isEqualToString:@"12"])//支付失败
+            {
+                [cell.cancel_button  setHidden:NO];
+                [cell.payfor_button  setHidden:NO];
+                [cell.cancel_button  setTitle:@"取消" forState:UIControlStateNormal];
+                [cell.payfor_button  setTitle:@"付款" forState:UIControlStateNormal];
             }
             else
             {
@@ -1402,8 +1409,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 -(void)sendTitle:(NSString *)title orderType:(OrderType)type
 {
     self.currentPage = 1;
-    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+//----------------有hug
+    
+//    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     self.titles =@[@"全部订单",@"待付款",@"待配送",@"配送中",@"已配送",@"交易完成",@"交易取消",@"售后申请",];
     
     [UIView animateWithDuration:0.3 animations:^{
@@ -1698,11 +1707,9 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                     
                     break;
                 case OrderTypeWaitPay://待付款
-                    
                     break;
+                    
                 case OrderTypeWaitSend://待配送
-                    
-                    
                     break;
                 case OrderTypeSending://配送中
        
@@ -1724,8 +1731,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 case OrderTypeWaitSending://待发货
                     break;
                 case OrderTypeWaitRecive://待收货
-                    
-
                     
                     break;
             }
@@ -2116,7 +2121,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             break;
             
         case OrderTypeWaitRecive://待收货
-    
         {
             LogisticsViewController * VC = [LogisticsViewController new];
             Orderlist * orderlist = self.orderListArray [indexPath];

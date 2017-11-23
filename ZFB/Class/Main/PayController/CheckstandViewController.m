@@ -227,6 +227,7 @@
     BOOL flag = [WXApi sendReq:req];
     if (flag) {
         NSLog(@"发起微信支付成功");
+        [self SuccessOrFaillurePost];
         [MBProgressHUD hideHUD];
     }else{
         
@@ -367,6 +368,8 @@
         }else
         {
             [self.view makeToast:response[@"result_msg"] duration:2 position:@"center"];
+            [self.passwordView stopLoading];
+            
 
         }
     } progress:^(NSProgress *progeress) {
@@ -389,32 +392,31 @@
         NSString* code = [NSString stringWithFormat:@"%@",response[@"result_code"]];
         if ([code isEqualToString:@"0000"]) {//支付成功
             [MBProgressHUD showSuccess:response[@"result_msg"]];
-            DetailPaySuccessViewController * successVC =[ DetailPaySuccessViewController new];
-            [self.navigationController pushViewController:successVC  animated:NO];
-            
+            [self SuccessOrFaillurePost];
   
         }
-        if ([code isEqualToString:@"0001"]) {//支付密码不正确
+        else if ([code isEqualToString:@"0001"]) {//支付密码不正确
             [self.view makeToast:response[@"result_msg"] duration:2 position:@"center"];
 
         }
-        if ([code isEqualToString:@"0002"]) {//未设置支付密码
+        else if ([code isEqualToString:@"0002"]) {//未设置支付密码
             [self.view makeToast:response[@"result_msg"] duration:2 position:@"center"];
 
         }
         else
         {
             [self.view makeToast:response[@"result_msg"] duration:2 position:@"center"];
-            
+            [self SuccessOrFaillurePost];
+
         }
         [self.passwordView stopLoading];
         [self.passwordView hide];
         
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
-        
+        [self.view makeToast:@"网络出差了" duration:2 position:@"center"];
+
     }];
     
 }
@@ -439,8 +441,37 @@
      } progress:^(NSProgress *progeress) {
      } failure:^(NSError *error) {
          NSLog(@"%@",error);
+         [self.view makeToast:@"网络出差了" duration:2 position:@"center"];
+
      }];
 
+}
+//判断支付是否成功 新增接口
+-(void)SuccessOrFaillurePost
+{
+    //非加密的请求 获取预订单
+    [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/paySuccessDeal",zfb_baseUrl] params:_payParam success:^(id response) {
+        NSLog(@"-------获取支付状态 %@-----",response[@"resultMsg"]);
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"]) {
+
+            DetailPaySuccessViewController * successVC =[ DetailPaySuccessViewController new];
+            [self.navigationController pushViewController:successVC  animated:NO];
+        }
+        else{
+            DetailPayCashViewController * faile =[ DetailPayCashViewController new];
+            [self.navigationController pushViewController:faile  animated:NO];
+
+        }
+    } progress:^(NSProgress *progeress) {
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.view makeToast:@"网络出差了" duration:2 position:@"center"];
+    }];
+    
 }
 
 //唤醒密码键盘
@@ -455,7 +486,7 @@
         
         [weakSelf.passwordView hideKeyboard];
         [weakSelf.passwordView startLoading];
-        
+  
         NSLog(@"cy ========= 发送网络请求  pwd=%@", password);
         //获取到余额签名
         [weakSelf balanceSignPostRequstWithPayPass:password];

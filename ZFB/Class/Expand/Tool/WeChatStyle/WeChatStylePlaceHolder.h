@@ -11,6 +11,7 @@
 @protocol WeChatStylePlaceHolderDelegate <NSObject>
 
 @required
+
 - (void)emptyOverlayClicked:(id)sender;
 
 @end

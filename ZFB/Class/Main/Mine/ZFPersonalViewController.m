@@ -60,20 +60,22 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     ZFMyCashBagCellDelegate,
     QuickOperationCellDelegate
 >
+{
+    NSString * _foolnum;//足记数量
+    NSString * _collectNum ;//收藏数量
+    NSString * _shopFlag   ;//判断是否是商家 1/0
+    NSString * _deliveryFlag   ;//判断是否是快递员 审核状态 1.审核通过 2.待审核 3.审核失败 0 没有注册信息
+    NSString * _storeId   ;
+    NSString * _balance   ;//余额
+    NSString * _unsettBalance  ;//不可用余额
+    NSString * _deliveryStatus  ;//申请配送员的审核状态
+    NSString * _couponNum  ;//优惠券数量
+    NSString * _userImgAttachUrl  ;//头像URL
+    NSString * _bankNum  ;//银行卡数量
 
+}
 @property (nonatomic,strong) UITableView          * myTableView;
 @property (nonatomic,strong) ZFPersonalHeaderView * headview;
-
-@property (nonatomic,copy) NSString * foolnum    ;//足记数量
-@property (nonatomic,copy) NSString * collectNum ;//收藏数量
-
-@property (nonatomic,copy) NSString * shopFlag   ;//判断是否是商家 1/0
-@property (nonatomic,copy) NSString * deliveryFlag   ;//判断是否是快递员 审核状态 1.审核通过 2.待审核 3.审核失败 0 没有注册信息
-@property (nonatomic,copy) NSString * storeId   ;
-@property (nonatomic,copy) NSString * balance   ;//余额
-@property (nonatomic,copy) NSString * userImgAttachUrl  ;//头像URL
-@property (nonatomic,copy) NSString * couponNum  ;//优惠券数量
-@property (nonatomic,copy) NSString * deliveryStatus  ;//申请配送员的审核状态
 
 @end
 
@@ -269,11 +271,14 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
                     
                     cashCell.lb_balance.text = _balance;
                     cashCell.lb_discountCoupon.text = _couponNum;
+                    cashCell.lb_fuBean.text = _bankNum;
+                    cashCell.lb_unit.text = _unsettBalance;
+                    
                 }else{
-                    
-                    cashCell.lb_balance.text = @"0.00";
-                    cashCell.lb_discountCoupon.text = @"0.00";
-                    
+                    cashCell.lb_balance.text = @"0";
+                    cashCell.lb_discountCoupon.text = @"0";
+                    cashCell.lb_fuBean.text = @"0";
+                    cashCell.lb_unit.text = @"0";
                 }
                 return cashCell;
             }
@@ -702,6 +707,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/QRCode/getThirdBalance"] params:parma success:^(id response) {
         if ([response [@"resultCode"] intValue] == 0) {
             _balance = response[@"balance"];
+            _bankNum = response[@"bankNum"];
+            _unsettBalance = response[@"unsettBalance"];
+
         }
         [self.myTableView reloadData];
         

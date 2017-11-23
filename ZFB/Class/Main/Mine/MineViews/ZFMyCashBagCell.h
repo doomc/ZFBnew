@@ -32,7 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_balance;
 @property (weak, nonatomic) IBOutlet UIView *balanceView;
 
-///提成金额
+///不可用余额
 @property (weak, nonatomic) IBOutlet UILabel *lb_unit;
 @property (weak, nonatomic) IBOutlet UIView *unitView;
 
@@ -40,7 +40,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_discountCoupon;
 @property (weak, nonatomic) IBOutlet UIView * discountCouponView;
 
-///富豆
+///银行卡
 @property (weak, nonatomic) IBOutlet UILabel *lb_fuBean;
 @property (weak, nonatomic) IBOutlet UIView * fuBeanView;
 

@@ -17,16 +17,16 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.headImg.layer.masksToBounds = YES;
-    self.headImg.layer.cornerRadius = 25;
+    self.headImg.layer.cornerRadius = 20;
     
-    
+    self.lb_title.preferredMaxLayoutWidth = KScreenW - 40 -100 -20;
 }
 
 -(void)setCashlist:(Cashflowlist *)cashlist
 {
     _cashlist = cashlist;
     
-    _lb_title.text  = cashlist.object_name;
+    _lb_title.text  = cashlist.transfer_description;
     _lb_time.text  = cashlist.create_time ;
     if (cashlist.flow_pay_type == 0) {//流水支付类型 0支出 1 收入
         _lb_price.text = [NSString stringWithFormat:@" -%.2f",cashlist.transaction_amount];

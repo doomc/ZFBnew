@@ -10,10 +10,17 @@
 #import "AccountListCell.h"
 #import "AccountModel.h"
 #import "DetailAccountViewController.h"
+#import "ScreenTypeView.h"
 
-@interface AccountViewController ()<UITableViewDelegate,UITableViewDataSource>
-
+@interface AccountViewController ()<UITableViewDelegate,UITableViewDataSource,ScreenTypeViewDelegete,UIGestureRecognizerDelegate,CYLTableViewPlaceHolderDelegate,WeChatStylePlaceHolderDelegate>
+{
+    BOOL _isCreat;//yes 已经创建了
+    NSInteger _selectType;
+}
 @property (nonatomic , strong) NSMutableArray * accountList;
+@property (nonatomic , strong) UIButton * screenbtn;
+@property (nonatomic , strong) UIView * coverView;
+@property (nonatomic , strong) ScreenTypeView * typeView;
 
 @end
 
@@ -24,33 +31,102 @@
         _accountList = [NSMutableArray array];
     }return _accountList;
 }
+-(UIButton *)set_rightButton
+{
+    _screenbtn          = [UIButton buttonWithType:UIButtonTypeCustom];
+    _screenbtn.frame = CGRectMake(0, 10, 24, 24);
+    [_screenbtn setImage :[UIImage imageNamed:@"screen"]  forState:UIControlStateNormal];
+    [_screenbtn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+    return  _screenbtn;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"查看明细";
-    
+    _isCreat = NO;
+    _selectType = 0;
+
     [self initWithInterface];
+    
     [self setupRefresh];
+
+    NSString * type = [NSString stringWithFormat:@"%ld",_selectType];
+    [self accountListPostRequstAtPayType:type];
 }
+-(void)coverViewSetting
+{
+    _coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenW, KScreenH)];
+    _coverView.backgroundColor = RGBA(0, 0, 0, 0.2);
+    _coverView.userInteractionEnabled = YES;
+    UITapGestureRecognizer * tapCoverView =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapCoverView:)];
+    tapCoverView.delegate = self;
+    tapCoverView.numberOfTapsRequired = 1;
+    [_coverView addGestureRecognizer:tapCoverView];
+    [self.view addSubview:_coverView];
+    [self.coverView bringSubviewToFront:self.zfb_tableView];
+    
+    
+    _typeView = [[ScreenTypeView alloc ]initWithFrame:CGRectMake(0, 0, KScreenW, 150)];
+    _typeView.delegate = self;
+    [_coverView addSubview:_typeView];
+    [self.view addSubview:_typeView];
+    _isCreat = YES;
+
+}
+
+#pragma mark -  筛选事件
+-(void)clickAction:(UIButton *)sender
+{
+    if (_isCreat  == YES) {
+        return;
+    }
+    [self coverViewSetting];
+}
+#pragma mark - 关闭弹框视图
+-(void)tapCoverView:(UITapGestureRecognizer* )tapView
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        [_typeView removeFromSuperview];
+        [_coverView removeFromSuperview];
+        _isCreat = NO;
+        
+    }];
+}
+#pragma mark -  ScreenTypeView 选择代理
+-(void)didClickIndex:(NSInteger)index
+{
+    _selectType = index;
+    // 0 全部 1 转账 2 退款 3 充值 4 订单 5 提现 6佣金
+    NSString * type = [NSString stringWithFormat:@"%ld",_selectType];
+    [self accountListPostRequstAtPayType:type];
+
+    [UIView animateWithDuration:0.5 animations:^{
+        [_typeView removeFromSuperview];
+        [_coverView removeFromSuperview];
+        _isCreat = NO;
+        
+    }];
+   
+
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [self settingNavBarBgName:@"nav64_gray"];
-
-    //暂时写着
-    [self accountListPostRequstAtPayType:@"0"];
 }
 -(void)footerRefresh
 {
     [super footerRefresh];
-    [self accountListPostRequstAtPayType:@"0"];
+    NSString * type = [NSString stringWithFormat:@"%ld",_selectType];
+    [self accountListPostRequstAtPayType:type];
 
 }
 -(void)headerRefresh
 {
     [super headerRefresh];
-    [self accountListPostRequstAtPayType:@"0"];
-
+    NSString * type = [NSString stringWithFormat:@"%ld",_selectType];
+    [self accountListPostRequstAtPayType:type];
 }
 
 -(void)initWithInterface
@@ -59,7 +135,6 @@
     self.zfb_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.zfb_tableView.delegate = self;
     self.zfb_tableView.dataSource = self;
-    self.zfb_tableView.estimatedRowHeight = 0;
 
     [self.view addSubview:self.zfb_tableView];
     [self.zfb_tableView registerNib:[UINib nibWithNibName:@"AccountListCell" bundle:nil] forCellReuseIdentifier:@"AccountListCell"];
@@ -122,8 +197,12 @@
                 [self.accountList addObject:list];
             }
             [SVProgressHUD dismiss];
+            [[self makePlaceHolderView] removeFromSuperview];
             [self.zfb_tableView reloadData];
-
+            
+            if ([self isEmptyArray:self.accountList]) {
+                [self.zfb_tableView cyl_reloadData];
+            }
         }
         [self endRefresh];
     } progress:^(NSProgress *progeress) {
@@ -134,6 +213,22 @@
         [self endRefresh];
     }];
 }
+
+
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+    
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.zfb_tableView.frame];
+    weChatStylePlaceHolder.delegate = self;
+    return weChatStylePlaceHolder;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

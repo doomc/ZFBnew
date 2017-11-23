@@ -26,6 +26,8 @@
 @end
 @interface BusinessOrderlist : ResponseObject
 
+@property (nonatomic, copy) NSString *deliveryType;
+
 @property (nonatomic, copy) NSString *netPurchasePrice;
 
 @property (nonatomic, copy) NSString *orderAmount;

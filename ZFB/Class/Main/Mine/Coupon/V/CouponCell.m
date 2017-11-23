@@ -29,7 +29,7 @@
     _couponlist = couponlist;
  
     //每张优惠券的金额
-    _lb_ticketMaxPrice.text  = [NSString stringWithFormat:@"%.f",couponlist.eachOneAmount];
+    _lb_ticketMaxPrice.text  = [NSString stringWithFormat:@"%@",couponlist.eachOneAmount];
     _lb_conditionOfprice.text  = [NSString stringWithFormat:@"满%@元可用",couponlist.amountLimit];
     _couponId = [NSString stringWithFormat:@"%ld",couponlist.couponId];
     
@@ -55,7 +55,7 @@
         _img_isUsed.hidden = YES;
         _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
         //券名
-        _lb_CouponType.text = [NSString stringWithFormat:@"¥%.f",couponlist.eachOneAmount];
+        _lb_CouponType.text = [NSString stringWithFormat:@"¥%@",couponlist.eachOneAmount];
         _lb_CouponType.font = SYSTEMFONT(20);
         
     }else if (couponlist.status == 1)
