@@ -96,7 +96,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Couponlist  * list  = self.couponList [indexPath.row];
-    self.couponBlock([NSString stringWithFormat:@"%ld",list.couponId], [NSString stringWithFormat:@"%ld",list.useRange], [NSString stringWithFormat:@"%.2f",list.eachOneAmount],list.storeId ,list.goodsIds);
+    self.couponBlock([NSString stringWithFormat:@"%ld",list.couponId], [NSString stringWithFormat:@"%ld",list.useRange], [NSString stringWithFormat:@"%@",list.eachOneAmount],list.storeId ,list.goodsIds);
     [self backAction];
 }
 
@@ -120,7 +120,6 @@
             
             if (self.refreshType == RefreshTypeHeader) {
                 if (self.couponList.count > 0) {
-                    
                     [self.couponList removeAllObjects];
                 }
             }

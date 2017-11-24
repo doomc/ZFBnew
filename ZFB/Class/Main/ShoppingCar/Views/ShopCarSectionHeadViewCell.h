@@ -13,14 +13,13 @@
 @optional
 /** 全选或者删除按钮点击事件 */
 - (void)selectOrEditGoods:(UIButton *)sender;
-/** 进入商店 */
-- (void)enterShopStore;
+
 /** 点击门店全选 按钮回调 */
 - (void)shopStoreSelected:(NSInteger)sectionIndex;
 /** 点击 编辑回调按钮 */
 - (void)shopCarEditingSelected:(NSInteger)sectionIdx;
 /** 进入店铺详情*/
-- (void)enterStoreDetailwithStoreId:(NSInteger )storeId;
+- (void)enterStoreIndex:(NSInteger )index;
 
 
 @end

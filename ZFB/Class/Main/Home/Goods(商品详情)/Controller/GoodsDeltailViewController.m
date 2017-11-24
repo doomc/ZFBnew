@@ -225,7 +225,7 @@
 -(CouponTableView *)couponTableView
 {
     if (!_couponTableView ) {
-        _couponTableView = [[CouponTableView alloc]initWithFrame:CGRectMake(0, 200, KScreenW, KScreenH - 200)style:UITableViewStylePlain];
+        _couponTableView = [[CouponTableView alloc]initWithFrame:CGRectMake(0, 200, KScreenW, KScreenH - 200-64)style:UITableViewStylePlain];
         _couponTableView.popDelegate = self;
         _couponTableView.couponesList = self.couponList;
     }
@@ -1182,6 +1182,7 @@
 //匹配规格
 -(void)skuMatchPostRequsetWithParam :(NSDictionary *) parma
 {
+    [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/skuMatch",zfb_baseUrl] params:parma success:^(id response) {
         _currentSkuMatchModel = [SkuMatchModel mj_objectWithKeyValues:response];
         
@@ -1189,7 +1190,6 @@
         [self.skuValueListArray removeAllObjects];
         for (Skumatch *skumatch in _currentSkuMatchModel.data.skuMatch) {
             for (SkuValulist *skuValue in skumatch.valuList) {
-                
                 [self.skuValueListArray addObject:skuValue];
             }
         }
@@ -1198,9 +1198,11 @@
         //再匹配规格
         [self matchSku];
         [self.SkuColletionView reloadData];
-        
+        [SVProgressHUD dismiss];
+
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
+        [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         
@@ -1337,6 +1339,10 @@
             [self recommentPostRequstCouponList];
             [SVProgressHUD dismiss];
             [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
+        }else
+        {
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
         }
         
     } progress:^(NSProgress *progeress) {

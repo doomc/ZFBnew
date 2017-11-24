@@ -9,8 +9,8 @@
 
 #import "ZFShoppingCarViewController.h"
 #import "ZFSureOrderViewController.h"
-//#import "DetailFindGoodsViewController.h"
 #import "GoodsDeltailViewController.h"
+#import "MainStoreViewController.h"//门店详情
 #import "ZFShopCarCell.h"
 #import "ShoppingCarModel.h"
 
@@ -87,6 +87,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     if (!_shopCar_tableview) {
         
         _shopCar_tableview =[[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-49-64) style:UITableViewStyleGrouped];
+        _shopCar_tableview.backgroundColor = HEXCOLOR(0xf7f7f7);
         _shopCar_tableview.delegate       = self;
         _shopCar_tableview.dataSource     = self;
         _shopCar_tableview.estimatedRowHeight = 0;
@@ -188,12 +189,13 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat actualHeight = [tableView fd_heightForCellWithIdentifier:shopCarContenCellID cacheByIndexPath:indexPath configuration:^(ZFShopCarCell *cell) {
-        
-        [self configCell:cell indexPath:indexPath];
-        
-    }];
-    return actualHeight >= 140 ? actualHeight : 130;
+//    CGFloat actualHeight = [tableView fd_heightForCellWithIdentifier:shopCarContenCellID cacheByIndexPath:indexPath configuration:^(ZFShopCarCell *cell) {
+//
+//        [self configCell:cell indexPath:indexPath];
+//
+//    }];
+//    return actualHeight >= 140 ? actualHeight : 130;
+    return 130;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -225,7 +227,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 {
     
     ZFShopCarCell * shopCell = [self.shopCar_tableview dequeueReusableCellWithIdentifier:shopCarContenCellID forIndexPath:indexPath];
-    shopCell.selectionStyle  = UITableViewCellSelectionStyleNone;
     shopCell.selectDelegate  = self;
     
     [self configCell:shopCell indexPath:indexPath];
@@ -286,19 +287,25 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 #pragma mark - tableView datasource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//        GoodsDeltailViewController *deatilGoods =[[GoodsDeltailViewController alloc]init];
-//        NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
-//        if (self.carListArray.count > 0 ) {
-//            Goodslist * goodlist = self.carListArray[indexPath.row];
-//            deatilGoods.goodsId  = goodlist.goodsId;
-//        }
-//        [self.navigationController pushViewController:deatilGoods animated:YES];
+        GoodsDeltailViewController *deatilGoods =[[GoodsDeltailViewController alloc]init];
+        if (self.carListArray.count > 0 ) {
+            
+            Shoppcartlist * list = self.carListArray[indexPath.section];
+            ShopGoodslist * goodslist = list.goodsList[indexPath.row];
+            deatilGoods.goodsId  = [NSString stringWithFormat:@"%ld",goodslist.goodsId];
+        }
+        [self.navigationController pushViewController:deatilGoods animated:YES];
     
 }
 
-
-
-#pragma mark - ShoppingSelectedDelegate  自定义代理
+#pragma mark -   进入店铺代理
+- (void)enterStoreIndex:(NSInteger )index
+{
+    MainStoreViewController * storeVC = [ MainStoreViewController new];
+    Shoppcartlist * list = self.carListArray[index];
+    storeVC.storeId = [NSString stringWithFormat:@"%ld",list.storeId];
+    [self.navigationController pushViewController:storeVC animated:NO];
+}
 #pragma mark - 商品编辑状态回调 shopCarEditingSelected
 - (void)shopCarEditingSelected:(NSInteger)sectionIdx
 {
@@ -371,13 +378,9 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     
     NSLog(@"所有全选");
     sender.selected = !sender.selected;
-    
     for (Shoppcartlist *list in self.carListArray) {
-        
         list.leftShoppcartlistIsChoosed = sender.selected;
-        
         for (ShopGoodslist * goods in list.goodsList) {
-            
             goods.goodslistIsChoosed = list.leftShoppcartlistIsChoosed;
         }
     }
@@ -545,12 +548,9 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/getShoppCartList"] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] intValue] == 0 ) {
-            
             if (self.carListArray.count > 0) {
-                
                 [self.carListArray  removeAllObjects];
             }
-            
             ShoppingCarModel * shopModel = [ShoppingCarModel mj_objectWithKeyValues:response];
             for (Shoppcartlist * list in shopModel.shoppCartList) {
                 
@@ -656,19 +656,15 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
 #pragma mark - didClickClearingShoppingCar 购物车结算
 -(void)didClickClearingShoppingCar:(UIButton *)sender
 {
-    
     NSMutableArray * allJsonArray = [NSMutableArray array];
     [allJsonArray removeAllObjects];
     
     for (Shoppcartlist *list in self.carListArray) {
-        
         NSMutableArray * mutGoodsArr = [NSMutableArray array];
-        
         [mutGoodsArr removeAllObjects];
         for (ShopGoodslist * goods in list.goodsList) {
             
             if (goods.goodslistIsChoosed) {
-                
                 NSMutableDictionary * goodDic = [NSMutableDictionary dictionary];
                 NSMutableArray  * goodsPropArr = [NSMutableArray array] ;
                 NSArray *dictArray = [ShopGoodslist mj_keyValuesArrayWithObjectArray:goods.goodsProp];
@@ -706,10 +702,12 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
             }
         }
         NSMutableDictionary * storeDic = [NSMutableDictionary dictionary];
-        [storeDic setValue:mutGoodsArr forKey:@"goodsList"];
-        [storeDic setValue:list.storeName forKey:@"storeName"];
-        [storeDic setValue:[NSString stringWithFormat:@"%ld",list.storeId ]forKey:@"storeId"];
-        [allJsonArray addObject:storeDic];
+        if (mutGoodsArr.count > 0) {
+            [storeDic setValue:mutGoodsArr forKey:@"goodsList"];
+            [storeDic setValue:list.storeName forKey:@"storeName"];
+            [storeDic setValue:[NSString stringWithFormat:@"%ld",list.storeId ]forKey:@"storeId"];
+            [allJsonArray addObject:storeDic];
+        }
     }
     
     NSLog(@"我最后选中的数组222 %@",allJsonArray );
@@ -720,7 +718,6 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
     NSMutableArray * cartArray = [NSMutableArray array];
     for (NSDictionary * storedict in allJsonArray) {
         for (NSDictionary * gooddic in storedict[@"goodsList"]) {
-            
             [cartArray addObject:gooddic[@"cartItemId"]];
         }
     }

@@ -18,6 +18,7 @@
     [super awakeFromNib];
     // Initialization code
     
+    self.selectionStyle  = UITableViewCellSelectionStyleNone;
 
     self.tf_result.userInteractionEnabled = NO;
     

@@ -19,10 +19,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xga-MB-Inn">
-                        <rect key="frame" x="0.0" y="0.0" width="345" height="250"/>
+                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="250"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品评价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QcD-jI-HkG">
-                                <rect key="frame" x="15" y="10" width="61.5" height="30"/>
+                                <rect key="frame" x="0.0" y="10" width="61.5" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="5vg-i4-S14"/>
                                 </constraints>
@@ -31,7 +31,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ws5-PR-mcD">
-                                <rect key="frame" x="0.0" y="50" width="345" height="0.5"/>
+                                <rect key="frame" x="0.0" y="50" width="0.0" height="0.5"/>
                                 <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="rTX-B0-bf0"/>
@@ -41,7 +41,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评分：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xca-7q-ZXL">
-                                <rect key="frame" x="110" y="60.5" width="37" height="20"/>
+                                <rect key="frame" x="0.0" y="60.5" width="37" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="HCe-Q2-e7t"/>
                                 </constraints>
@@ -50,14 +50,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="230x235.png" translatesAutoresizingMaskIntoConstraints="NO" id="RCg-cu-aOU">
-                                <rect key="frame" x="15" y="60.5" width="80" height="80"/>
+                                <rect key="frame" x="0.0" y="60.5" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="gPS-kD-25i"/>
                                     <constraint firstAttribute="height" constant="80" id="yfZ-4l-sfg"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KGX-Qo-Jmh">
-                                <rect key="frame" x="110" y="90.5" width="125" height="30"/>
+                                <rect key="frame" x="0.0" y="90.5" width="125" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="LTo-8M-WKJ"/>
@@ -65,7 +65,7 @@
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Nwu-Fo-Uc0" customClass="FSTextView">
-                                <rect key="frame" x="0.0" y="150.5" width="345" height="94.5"/>
+                                <rect key="frame" x="0.0" y="150.5" width="0.0" height="94.5"/>
                                 <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -84,7 +84,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ba-O0-gcj">
-                                <rect key="frame" x="152" y="62" width="25" height="18"/>
+                                <rect key="frame" x="0.0" y="62" width="25" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.72156862749999995" green="0.047058823530000002" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -112,21 +112,21 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cIq-gk-jD4">
-                        <rect key="frame" x="15" y="280" width="315" height="107"/>
+                        <rect key="frame" x="0.0" y="280" width="0.0" height="107"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="107" id="mEY-B1-Q0B"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8hj-9D-5N2">
-                        <rect key="frame" x="0.0" y="397" width="345" height="10"/>
+                        <rect key="frame" x="0.0" y="397" width="0.0" height="10"/>
                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="5Wo-Zu-PvC"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="上传图片(最多5张图片)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHe-HQ-Bzb">
-                        <rect key="frame" x="15" y="255" width="158" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="上传图片(最多4张图片)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHe-HQ-Bzb">
+                        <rect key="frame" x="0.0" y="255" width="159" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="6jk-ek-oZY"/>
                         </constraints>

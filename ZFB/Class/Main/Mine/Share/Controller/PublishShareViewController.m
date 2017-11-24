@@ -14,7 +14,6 @@
 
 @interface PublishShareViewController ()<HXPhotoViewDelegate,UITextFieldDelegate,UITextViewDelegate>
 {
-    NSString * _title;
     NSString * _describe;
 }
 
@@ -68,6 +67,7 @@
 }
 -(void)settingBtnBoarder
 {
+    self.tf_title.text = _goodsName;
     self.tf_title.delegate = self;
     self.tf_title.clipsToBounds = YES;
     self.tf_title.layer.cornerRadius = 2;
@@ -110,7 +110,7 @@
 
 -(void)textfieldChangetext:(UITextField *)tf{
     NSLog(@"%@",tf.text);
-    _title = tf.text;
+    _goodsName = tf.text;
 }
 
 #pragma mark - UITextViewDelegate 文本编辑器
@@ -132,6 +132,12 @@
 {
     _describe = textView.text;
     NSLog(@"结束编辑 ------%@",textView.text);
+}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+
+    [self.tf_title resignFirstResponder];
 }
 #pragma mark - HXPhotoViewDelegate 相册选择器
 - (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {
@@ -160,7 +166,7 @@
 #pragma  mark  - 发布共享 
 - (IBAction)commitAction:(id)sender {
     
-    if (_title == nil || [_title isEqualToString:@""] || _describe == nil) {
+    if (_goodsName == nil || [_goodsName isEqualToString:@""] || _describe == nil) {
         NSLog(@"数据没有完");
         [self.view makeToast:@"请填写完标题和评语后再提交" duration:2 position:@"center"];
     
@@ -190,7 +196,7 @@
     
     NSDictionary * parma = @{
                              @"goodsPrice":_goodsPrice,
-                             @"title":_title,
+                             @"title":_goodsName,
                              @"describe":_describe,
                              @"userId":BBUserDefault.cmUserId,
                              @"imgUrls":nameURL,
@@ -205,6 +211,10 @@
 
             [self.view makeToast:@"发布成功" duration:2 position:@"center"];
             [SVProgressHUD dismiss];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self backAction];
+            });
+            
         }else{
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
 

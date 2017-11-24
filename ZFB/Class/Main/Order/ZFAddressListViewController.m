@@ -127,6 +127,7 @@
     
     addCell.indexPath = indexPath;
     addCell.delegate = self;
+    
     [self configCell:addCell indexPath:indexPath];
 
     
@@ -138,6 +139,16 @@
 {
     Useraddresslist * info = self.listArray[indexPath.section];
     cell.list = info;
+    
+    if ( cell.defaultFlag == 1) {
+        //设置默认
+        cell.selectedButton.selected = YES;
+    }else{
+        //隐藏默认按钮
+        cell.selectedButton.selected = NO;
+    }
+    
+
 }
 //当前选中的状态 暂时没有用到
 -(void)selecteStatus :(BOOL)isSelected

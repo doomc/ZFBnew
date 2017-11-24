@@ -38,6 +38,18 @@
     self.lb_goodcount.text = [NSString stringWithFormat:@"数量x%ld",goods.goodsCount];
     self.lb_title.text =  goods.goods_name;
     [self.img_saleAfter sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
+    
+    if ([self isEmptyArray:goods.goods_properties]) {
+        NSLog(@"配送端没有规格");
+        self.lb_progrop.text = @"";
+    }else{
+        NSMutableArray * mutNameArray = [NSMutableArray array];
+        for (OrderProper * pro in goods.goods_properties) {
+            NSString * value =  pro.value;
+            [mutNameArray addObject:value];
+        }
+        self.lb_progrop.text = [NSString stringWithFormat:@"规格:%@",[mutNameArray componentsJoinedByString:@" "]];
+    }
     ///status 0 未操作 1 退货中 2 服务完成
     if (goods.status == 0) {
         
@@ -65,6 +77,11 @@
     
 }
 
+#pragma mark - 判断是不是空数组
+- (BOOL)isEmptyArray:(NSArray *)array
+{
+    return (array.count == 0 || array == nil || [array isKindOfClass:[NSNull class]]);
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

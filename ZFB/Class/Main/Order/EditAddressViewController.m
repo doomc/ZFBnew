@@ -11,7 +11,9 @@
 #import "AddressLocationMapViewController.h"
 
 @interface EditAddressViewController ()<UITextFieldDelegate>
-
+{
+    NSString * _contactPhone;
+}
 ///城市
 @property (copy, nonatomic) NSString * cityStr;//城市地址
 @property (copy, nonatomic) NSString * longitudeSTR;//接收回传的经纬度
@@ -118,20 +120,19 @@
     }
     else if (textfiled == _tf_cellphone  )
     {
-        NSLog(@"_tf_cellphone ==== %@",_tf_name.text);
+        _contactPhone = textfiled.text;
     }
     else
     {
-        NSLog(@"_tf_detailAddress = = ===== %@",_tf_detailAddress.text);
+        
     }
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField == _tf_cellphone) {
  
-        if ([_tf_cellphone.text isMobileNumber]) {
+        if ([_contactPhone isMobileNumber]) {
             NSLog(@"手机号 ===== %@",_tf_cellphone.text);
-            
         }else{
             [self.view makeToast:@"手机格式不对哦~😯" duration:2 position:@"center"];
             
@@ -160,12 +161,12 @@
 - (IBAction)saveActionAndBack:(id)sender {
     
     NSLog(@"saved！@@！！@！！！");
-    if (_tf_name.text.length > 0 && ![_tf_cellphone.text isEqualToString:@""] && ![_tf_detailAddress.text isEqualToString:@""] && ![_locationButton.titleLabel.text isEqualToString:@""]) {
+    if (_tf_name.text.length > 0 && _contactPhone.length == 11 && _tf_detailAddress.text.length>0 &&  _locationButton.titleLabel.text.length > 0) {
         
         [self savedInfoMessagePostRequst];
     }
     else{
-        [self.view makeToast:@"请填写完地址信息后再保存~" duration:2 position:@"center"];
+        [self.view makeToast:@"确认信息无误后再提交~" duration:2 position:@"center"];
         
     }
     

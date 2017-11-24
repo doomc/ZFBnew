@@ -18,6 +18,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="48.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QTc-pV-xAp">
+                        <rect key="frame" x="50" y="0.0" width="255" height="48"/>
+                        <connections>
+                            <action selector="enterStoreAction:" destination="yNT-SW-guT" eventType="touchUpInside" id="df4-Zr-PnG"/>
+                        </connections>
+                    </button>
                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eff-KK-CjB">
                         <rect key="frame" x="10" y="9.5" width="30" height="30"/>
                         <constraints>
@@ -32,7 +38,11 @@
                         </connections>
                     </button>
                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lwi-L6-Pex">
-                        <rect key="frame" x="330" y="10" width="30" height="29"/>
+                        <rect key="frame" x="325" y="4.5" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="C4M-DQ-YxY"/>
+                            <constraint firstAttribute="height" constant="40" id="kxq-6Q-RbJ"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="编辑">
                             <color key="titleColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -67,14 +77,18 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="exn-TJ-NYN" firstAttribute="top" secondItem="QTc-pV-xAp" secondAttribute="bottom" id="6Ai-fk-PcH"/>
                     <constraint firstAttribute="bottom" secondItem="exn-TJ-NYN" secondAttribute="bottom" id="9Xo-RJ-wyN"/>
                     <constraint firstItem="exn-TJ-NYN" firstAttribute="leading" secondItem="HgI-yL-W4m" secondAttribute="leading" id="C63-5V-2ht"/>
-                    <constraint firstAttribute="trailing" secondItem="Lwi-L6-Pex" secondAttribute="trailing" constant="15" id="Cka-su-Afu"/>
+                    <constraint firstAttribute="trailing" secondItem="Lwi-L6-Pex" secondAttribute="trailing" constant="10" id="Cka-su-Afu"/>
                     <constraint firstItem="uvc-3f-jYe" firstAttribute="leading" secondItem="lIv-fz-9iO" secondAttribute="trailing" constant="5" id="J73-Vs-sf7"/>
                     <constraint firstItem="eff-KK-CjB" firstAttribute="leading" secondItem="HgI-yL-W4m" secondAttribute="leading" constant="10" id="NXS-Yw-OQ3"/>
+                    <constraint firstItem="Lwi-L6-Pex" firstAttribute="leading" secondItem="QTc-pV-xAp" secondAttribute="trailing" constant="20" id="OHJ-26-85G"/>
                     <constraint firstItem="Lwi-L6-Pex" firstAttribute="centerY" secondItem="eff-KK-CjB" secondAttribute="centerY" id="bdN-tF-eDE"/>
                     <constraint firstItem="eff-KK-CjB" firstAttribute="centerY" secondItem="HgI-yL-W4m" secondAttribute="centerY" id="gV1-lS-8IT"/>
+                    <constraint firstItem="QTc-pV-xAp" firstAttribute="top" secondItem="HgI-yL-W4m" secondAttribute="top" id="jYC-bQ-8ot"/>
                     <constraint firstItem="lIv-fz-9iO" firstAttribute="leading" secondItem="eff-KK-CjB" secondAttribute="trailing" constant="10" id="meG-1b-yin"/>
+                    <constraint firstItem="QTc-pV-xAp" firstAttribute="leading" secondItem="eff-KK-CjB" secondAttribute="trailing" constant="10" id="nYM-1b-RKA"/>
                     <constraint firstItem="uvc-3f-jYe" firstAttribute="centerY" secondItem="lIv-fz-9iO" secondAttribute="centerY" id="ssa-NJ-G6j"/>
                     <constraint firstItem="lIv-fz-9iO" firstAttribute="centerY" secondItem="eff-KK-CjB" secondAttribute="centerY" id="swW-eX-ym2"/>
                     <constraint firstAttribute="trailing" secondItem="exn-TJ-NYN" secondAttribute="trailing" id="t3Q-QK-5HV"/>
@@ -90,7 +104,7 @@
                 <outlet property="selectBtn" destination="eff-KK-CjB" id="M2e-6q-ZL8"/>
                 <outlet property="storeName" destination="lIv-fz-9iO" id="HcC-gm-03y"/>
             </connections>
-            <point key="canvasLocation" x="-474" y="-318"/>
+            <point key="canvasLocation" x="-474.5" y="-318.5"/>
         </tableViewCell>
     </objects>
     <resources>

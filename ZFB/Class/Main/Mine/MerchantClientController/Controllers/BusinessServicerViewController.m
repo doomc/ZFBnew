@@ -1688,7 +1688,22 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 //
 //                    break;
                 case BusinessServicTypeWaitSending://待发货
+                {
+                    JXTAlertController * alertavc =[JXTAlertController alertControllerWithTitle:@"提示" message:@"是否取消该订单！" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                        
+                        //确认后调用该接口 取消订单
+                        [self cancleOrderPostWithOrderNum:orderNum orderStatus:@"-1" payStatus:payStatus deliveryId:deliveryId];
+                        
+                    }];
+                    [alertavc addAction:cancelAction];
+                    [alertavc addAction:sureAction];
                     
+                    [self presentViewController:alertavc animated:YES completion:nil];
+                }
                     break;
                 case BusinessServicTypeWaitReceived://待收货
                     
@@ -1750,15 +1765,28 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 //                    [self selectDeliveryListPostRequst];//请求配送员接口
                     ////warn ------- 选择派单
                     if ( [orderlist.deliveryType isEqualToString:@"1"]){//派单
-                        [self autoSendOrderId:_order_id];
+                        JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"确认要立刻派单吗?" message:nil preferredStyle:UIAlertControllerStyleAlert];
                         
+                        UIAlertAction * cancle =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                            
+                        }];
+                        UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                            [self autoSendOrderId:_order_id];
+                            
+                        }];
+                        
+                        [alertvc addAction:sure];
+                        [alertvc addAction:cancle];
+                        [self presentViewController:alertvc animated:NO completion:^{
+                            
+                        }];
+
                     }
                     if ([orderlist.deliveryType isEqualToString:@"3"]) {//配送完成
                         
                         [self businessOrderbyOrderId:_order_id];
                     }
-
-
+   
                 }
                     break;
                 case BusinessServicTypeSending:

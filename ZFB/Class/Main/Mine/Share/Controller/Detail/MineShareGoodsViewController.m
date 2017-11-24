@@ -8,7 +8,7 @@
 
 #import "MineShareGoodsViewController.h"
 #import "MineShareContentCell.h"
-
+#define cellHeight 92
 @interface MineShareGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,CYLTableViewPlaceHolderDelegate,WeChatStylePlaceHolderDelegate>
 
 @property (strong, nonatomic)  UITableView * tableView;
@@ -74,7 +74,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 84;
+    return cellHeight;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

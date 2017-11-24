@@ -1610,7 +1610,10 @@
             [self recommentPostRequstCouponList];
             [SVProgressHUD dismiss];
             [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
-    }
+        }else
+        {
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        }
         
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {

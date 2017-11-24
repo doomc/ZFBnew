@@ -35,6 +35,7 @@ typedef NS_ENUM(NSUInteger, CollectType) {
 //控制2中收藏
 @property (strong, nonatomic) MTSegmentedControl *segumentView;
 @property (assign, nonatomic) CollectType collectType;//收藏类型
+@property (strong, nonatomic) WeChatStylePlaceHolder *weChatStylePlaceHolder;
 
 @end
 
@@ -511,8 +512,12 @@ typedef NS_ENUM(NSUInteger, CollectType) {
                 [self.listArray addObject:list];
             }
             [self.tableView reloadData];
+            [_weChatStylePlaceHolder removeFromSuperview];
             NSLog(@" -  - - -- - - -- - -%@ - --- -- - - -- - -",_listArray);
-
+            if([self isEmptyArray:self.listArray])
+            {
+                [self.tableView cyl_reloadData];
+            }
         }
         [SVProgressHUD dismiss];
         [self endRefresh];
@@ -587,9 +592,9 @@ typedef NS_ENUM(NSUInteger, CollectType) {
 //暂无数据
 - (UIView *)weChatStylePlaceHolder {
     
-    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.tableView.frame];
-    weChatStylePlaceHolder.delegate = self;
-    return weChatStylePlaceHolder;
+    _weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.tableView.frame];
+    _weChatStylePlaceHolder.delegate = self;
+    return _weChatStylePlaceHolder;
 }
 #pragma mark - WeChatStylePlaceHolderDelegate Method
 - (void)emptyOverlayClicked:(id)sender { 

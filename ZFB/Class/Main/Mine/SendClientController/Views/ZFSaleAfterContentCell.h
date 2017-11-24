@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *img_saleAfter;
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 @property (weak, nonatomic) IBOutlet UILabel *lb_goodcount;
+@property (weak, nonatomic) IBOutlet UILabel *lb_progrop;
 
 @property (nonatomic,assign) id <ZFSaleAfterContentCellDelegate> delegate;
 

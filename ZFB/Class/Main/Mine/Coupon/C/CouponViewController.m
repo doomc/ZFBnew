@@ -522,7 +522,8 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/receiveCoupon"] params:parma success:^(id response) {
-        if ([response[@"resultCode"] isEqualToString:@"0"] ) {
+        NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
+        if ([code isEqualToString:@"0"] ) {
             
             [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
             [self recommentPostRequst:@"1"];
@@ -532,6 +533,10 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 
             //成功后请求下未使用列表
             [SVProgressHUD dismiss];
+        }
+        else
+        {
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         }
         
     } progress:^(NSProgress *progeress) {

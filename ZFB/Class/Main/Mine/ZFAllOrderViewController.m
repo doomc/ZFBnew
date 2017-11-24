@@ -52,7 +52,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 
 
-@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate,DealSucessCellDelegate,ZFSendingCellDelegate>
+@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate,DealSucessCellDelegate,ZFSendingCellDelegate,WeChatStylePlaceHolderDelegate>
 
 @property (nonatomic ,strong) UIView *  titleView ;
 @property (nonatomic ,strong) UITableView *  tableView ;
@@ -62,8 +62,8 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 
 @property (nonatomic ,strong) NSArray   * saleTitles;//售后选择
 @property (nonatomic ,assign) NSInteger tagNum;//售后选择
-
 @property (nonatomic ,strong) ZFpopView   * popView;
+@property (nonatomic ,strong)  WeChatStylePlaceHolder *weChatStylePlaceHolder;
 
 //售后搜索
 @property (nonatomic ,strong) UISearchBar        * searchBar;
@@ -787,6 +787,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             if ([orderlist.orderStatus isEqualToString:@"3"]) {
                 [cell.payfor_button  setHidden:YES];
                 [cell.cancel_button  setHidden:YES];
+                cell.lb_hjkey.hidden = NO;
             }
             else if ([orderlist.orderStatus isEqualToString:@"2"]) {
                 [cell.payfor_button  setTitle:@"确认收货" forState:UIControlStateNormal];
@@ -929,7 +930,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             cell.lb_hjkey.hidden = NO;
             [cell.cancel_button setHidden:YES];
             [cell.payfor_button setHidden: YES];
-            //            [cell.payfor_button setTitle:@"晒单" forState:UIControlStateNormal];
             view = cell;
             
         }
@@ -1064,7 +1064,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 sendCell.share_btn.hidden = YES;
                 sendCell.sunnyOrder_btn.hidden = YES;
             }
-            if ([list.orderStatus isEqualToString:@"3"]) {
+            else if ([list.orderStatus isEqualToString:@"3"]) {
                 sendCell.share_btn.hidden = NO;
                 sendCell.sunnyOrder_btn.hidden = NO;
                 sendCell.delegate = self;
@@ -1074,6 +1074,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 sendCell.share_btn.hidden = YES;
                 sendCell.sunnyOrder_btn.hidden = YES;
             }
+     
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {
                 [goodArray addObject:ordergoods];
@@ -1389,6 +1390,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     }
     Ordergoods * goods = goodArray[indexPath.row];
     PublishShareViewController *  publishvc = [PublishShareViewController new];
+    publishvc.title = goods.goods_name;
     publishvc.goodId = goods.goodsId;
     publishvc.goodsPrice = [NSString stringWithFormat:@"%.2f",[goods.purchase_price floatValue]];
     [self.navigationController pushViewController:publishvc animated:NO];
@@ -1778,7 +1780,11 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             }
             [SVProgressHUD dismiss];
             [self.tableView reloadData];
+            [_weChatStylePlaceHolder removeFromSuperview];
             
+            if ([self isEmptyArray:self.orderListArray]) {
+                [self.tableView cyl_reloadData];
+            }
         }
         NSLog(@"orderListArray ====%@",self.orderListArray);
         [self endRefresh];
@@ -1817,12 +1823,9 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 }
             }
             AllOrderProgress * progressModel = [AllOrderProgress mj_objectWithKeyValues:response];
-            
             for (List * cheakList in progressModel.data.list) {
-                
                 [self.progressArray addObject:cheakList];
             }
-            
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
         }
@@ -2193,6 +2196,19 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     }
 }
 
+#pragma mark - CYLTableViewPlaceHolderDelegate Method
+- (UIView *)makePlaceHolderView {
+    
+    UIView *weChatStyle = [self weChatStylePlaceHolder];
+    return weChatStyle;
+}
+
+//暂无数据
+- (UIView *)weChatStylePlaceHolder {
+    _weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.zfb_tableView.frame];
+    _weChatStylePlaceHolder.delegate = self;
+    return _weChatStylePlaceHolder;
+}
 
 -(void)dealloc
 {

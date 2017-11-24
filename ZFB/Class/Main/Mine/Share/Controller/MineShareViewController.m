@@ -21,6 +21,8 @@
 //model
 #import "ReviewingModel.h"
 
+#define cellHeight 92
+
 typedef NS_ENUM(NSUInteger, SelectType) {
     SelectTypeDefault,//未使用
     SelectTypeAlready,//已使用
@@ -191,14 +193,14 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     CGFloat height = 0;
     switch (_selectType) {
         case SelectTypeDefault://未审核
-            height = 84;
+            height = cellHeight;
             break;
         case SelectTypeAlready://已审核
             if (indexPath.section == 0) {
                 
                 return 128;
             }
-            height = 84;
+            height = cellHeight;
             break;
     }
     return height;

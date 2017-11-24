@@ -32,10 +32,8 @@
     
     [self initPickerView];
     [self initTextView];
-  
     self.selectionStyle = UITableViewCellSelectionStyleNone;
  
-    
     //创建评价
     XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:self.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:YES];
     wdStarView.delegate = self;

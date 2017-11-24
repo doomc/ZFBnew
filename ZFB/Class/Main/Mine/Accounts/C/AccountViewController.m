@@ -12,7 +12,7 @@
 #import "DetailAccountViewController.h"
 #import "ScreenTypeView.h"
 
-@interface AccountViewController ()<UITableViewDelegate,UITableViewDataSource,ScreenTypeViewDelegete,UIGestureRecognizerDelegate,CYLTableViewPlaceHolderDelegate,WeChatStylePlaceHolderDelegate>
+@interface AccountViewController ()<UITableViewDelegate,UITableViewDataSource,ScreenTypeViewDelegete,UIGestureRecognizerDelegate,CYLTableViewPlaceHolderDelegate>
 {
     BOOL _isCreat;//yes 已经创建了
     NSInteger _selectType;
@@ -21,6 +21,7 @@
 @property (nonatomic , strong) UIButton * screenbtn;
 @property (nonatomic , strong) UIView * coverView;
 @property (nonatomic , strong) ScreenTypeView * typeView;
+@property (nonatomic , strong)  WeChatStylePlaceHolder *weChatStylePlaceHolder;
 
 @end
 
@@ -197,9 +198,10 @@
                 [self.accountList addObject:list];
             }
             [SVProgressHUD dismiss];
-            [[self makePlaceHolderView] removeFromSuperview];
             [self.zfb_tableView reloadData];
             
+            [_weChatStylePlaceHolder removeFromSuperview];
+
             if ([self isEmptyArray:self.accountList]) {
                 [self.zfb_tableView cyl_reloadData];
             }
@@ -224,9 +226,9 @@
 
 //暂无数据
 - (UIView *)weChatStylePlaceHolder {
-    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.zfb_tableView.frame];
-    weChatStylePlaceHolder.delegate = self;
-    return weChatStylePlaceHolder;
+    _weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.zfb_tableView.frame];
+    _weChatStylePlaceHolder.delegate = self;
+    return _weChatStylePlaceHolder;
 }
 
 

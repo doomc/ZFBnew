@@ -590,10 +590,18 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     [params setValue:@"" forKey:@"passback_params"];//回传参数：商户可自定义该参数，在支付回调后带回
     NSDictionary * dic  = [NSDictionary dictionaryWithDictionary:params];
   
+    //用于支付成功失败的参数
+    NSMutableDictionary * payDealParam = [NSMutableDictionary dictionary];
+    [payDealParam setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
+    [payDealParam setValue:listJsonString forKey:@"orderList"];//Json格式的订单字符集
+
+    
     CheckstandViewController * payVC = [CheckstandViewController new];
     payVC.amount = [NSString stringWithFormat:@"%.2f",[payRelPrice floatValue]];
     payVC.notifyUrl = _thirdUrlDic[@"notify_url"];
     payVC.signDic = dic;
+    payVC.signDic = dic;
+    payVC.payParam = payDealParam;
     [self.navigationController pushViewController:payVC animated:NO];
     
 }

@@ -72,7 +72,7 @@
     {
         _img_isUsed.hidden = NO;
         _img_isUsed.image = [UIImage imageNamed:@"used"];
-        _img_couponType.image = [UIImage imageNamed:@"coupon_get"];
+        _img_couponType.image = [UIImage imageNamed:@"coupon_overdu"];
         _didClickget_btn.hidden = YES;
         
         //券名

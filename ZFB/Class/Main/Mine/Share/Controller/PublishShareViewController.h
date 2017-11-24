@@ -17,6 +17,7 @@
 
 @property (copy, nonatomic) NSString * goodId;
 @property (copy, nonatomic) NSString * goodsPrice;
+@property (copy, nonatomic) NSString * goodsName;
 
 @property (weak, nonatomic) IBOutlet UIButton *commitBtn;
 

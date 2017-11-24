@@ -34,7 +34,7 @@
 {
     _storeslist = storeslist;
     self.lb_title.text = [NSString stringWithFormat:@"%@", storeslist.goodName];
-    [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:storeslist.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
+    [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:storeslist.storeUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     //starLevel  星星等级
     //初始化五星好评控件
  

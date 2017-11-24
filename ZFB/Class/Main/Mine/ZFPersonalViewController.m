@@ -526,7 +526,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         
         ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
         orderVC.orderType   = 7 ;
-        orderVC.orderStatus = @"2";
+        orderVC.orderStatus = @"3";//原来是2  hj改成了3
         orderVC.buttonTitle = @"售后申请";
         [self.navigationController pushViewController:orderVC animated:YES];
         

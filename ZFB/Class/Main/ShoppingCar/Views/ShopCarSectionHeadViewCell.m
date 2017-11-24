@@ -83,9 +83,9 @@
 }
 // 进入店铺
 - (IBAction)enterStoreAction:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(enterStoreDetailwithStoreId:)]) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(enterStoreIndex:)]) {
         
-        [self.delegate shopStoreSelected:self.sectionIndex];
+        [self.delegate enterStoreIndex:self.sectionIndex];
     }
 }
 
