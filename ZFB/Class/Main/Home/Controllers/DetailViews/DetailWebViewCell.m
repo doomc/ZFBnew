@@ -20,6 +20,8 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     _labelhtml = [[UILabel alloc]init];
     [self.contentView addSubview:_labelhtml];
+    
+    _htmlImg.hidden = YES;
 }
 
  

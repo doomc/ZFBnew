@@ -211,7 +211,7 @@
 {
     if (!_resultTableView) {
         _resultTableView = [[UITableView alloc] initWithFrame:
-                      CGRectMake(0,  44  , KScreenW, KScreenH-44 ) style:UITableViewStylePlain];
+                      CGRectMake(0,  44  , KScreenW, KScreenH-44-64 ) style:UITableViewStylePlain];
         _resultTableView.estimatedRowHeight = 0;
 
         //加载xib

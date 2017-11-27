@@ -1820,7 +1820,27 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     break;
                 case BusinessServicTypeSureReturn:
+                {
                     
+                    JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"用户是否确认取货了？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction * cancle =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                        ////////// 确认取货
+                        NSLog(@"点击了确认取货");
+                        ZFDetailOrderViewController * detailVC = [ZFDetailOrderViewController new];
+                        detailVC.cmOrderid                     = orderlist.order_id;
+                        [self.navigationController pushViewController:detailVC animated:NO];
+                    }];
+                    
+                    [alertvc addAction:sure];
+                    [alertvc addAction:cancle];
+                    [self presentViewController:alertvc animated:NO completion:^{
+                        
+                    }];
+                }
                     break;
                 case BusinessServicTypeSended:
                     
@@ -2308,10 +2328,13 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         NSString *code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         
         if ([code isEqualToString:@"0"]) {
-            
             [SVProgressHUD dismiss];
-            
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+        }else
+        {
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+            [SVProgressHUD dismiss];
+
         }
         
     } progress:^(NSProgress *progeress) {

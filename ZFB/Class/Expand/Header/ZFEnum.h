@@ -97,11 +97,7 @@ typedef NS_ENUM(NSUInteger, DDAFNetworkReachabilityStatus ) {
 
 /**
  门店详情的筛选
- 
- - DDAFNetworkReachabilityStatusUnknown: -1
- - DDAFNetworkReachabilityStatusNotReachable: 0
- - DDAFNetworkReachabilityStatusReachableViaWWAN: 1
- - DDAFNetworkReachabilityStatusReachableViaWiFi: 2
+
  */
 typedef NS_ENUM(NSUInteger, StoreScreenType ) {
     StoreScreenTypeAll = 0, //综合类型
@@ -109,6 +105,16 @@ typedef NS_ENUM(NSUInteger, StoreScreenType ) {
     StoreScreenTypelastGoods,//最新
     StoreScreenTypePrice ,//价格
  
+};
+/**
+ 商品详情的参数筛选
+ 
+ */
+typedef NS_ENUM(NSUInteger, GoodsParamType ) {
+    GoodsParamTypeDetailContent = 0, //图文详情
+    GoodsParamTypeSkuParam ,//规格参数
+    GoodsParamTypePromiss,//商家承诺
+    
 };
 
 

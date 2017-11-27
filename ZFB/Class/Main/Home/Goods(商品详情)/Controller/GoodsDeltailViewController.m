@@ -26,6 +26,7 @@
 #import "ZFbabyEvaluateCell.h"//商品评论和详情
 #import "GoodsDetailEvaCell.h"//评论1
 #import "GoodsEvaluateCell.h"//评论2
+#import "GoodsParamCell.h"//商品详情
 
 //view
 #import "SkuFooterReusableView.h"
@@ -57,11 +58,14 @@
     ZFGoodsFooterViewDelegate,
     CouponTableViewDelegate,
     NIMSystemNotificationManagerDelegate,
-    NIMUserManagerDelegate
+    NIMUserManagerDelegate,
+    GoodsParamCellDelegate
 >
 {
     SkuMatchModel *_currentSkuMatchModel;  //当前匹配的规格model
     CGFloat  _webViewHeight;//详情的高度
+    CGFloat  _skuParamHeight;//规格参数高度
+    CGFloat  _bussninessPromissHeight;//商家承诺
     NSString * _commentNum;//评价数
     NSString * _goodsName;
     NSString * _storeName;
@@ -77,7 +81,9 @@
     NSString * _goodsUnit;//单位
     NSString * _contactPhone;// 联系号码
     NSString * _juli;
-    NSString * _htmlDivString;
+    NSString * _htmlDivString;//商品详情
+    NSString * _htmlSkuParam;//规格参数
+    NSString * _htmlPromiss;//商家承诺
     NSString * _store_latitude;
     NSString * _store_longitude;
     
@@ -85,14 +91,15 @@
     NSInteger  _isCollect;
     NSString * _accId;//云信id
     NSInteger   _selectSegmentTag;//选择类型
-
-
 }
 
+//商品参数规格
+@property (nonatomic , assign) GoodsParamType goodParamType;
 //外层UI
 @property (nonatomic , strong) UITableView * tableView;
 @property (nonatomic , strong) UIButton  * collectButton ;//collectButton收藏按钮
 @property (nonatomic , strong) DetailWebViewCell * webCell;
+@property (nonatomic , strong) GoodsParamCell  *  paramCell;
 @property (nonatomic , strong) YJSegmentedControl *segmentController;
 
 //sku UI控件
@@ -122,9 +129,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSArray * titles = @[@"商品",@"评论",@"详情"];
+    NSArray * titles = @[@"商品",@"详情",@"评论"];
     _goodsCount = 1;//默认商品数量
     _selectSegmentTag = 0;
+    _goodParamType = GoodsParamTypeDetailContent;
     
     [self goodsDetailListPostRequset];//详情网络请求
     
@@ -175,6 +183,9 @@
          forCellReuseIdentifier:@"GoodsEvaluateCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"DetailWebViewCell" bundle:nil]
          forCellReuseIdentifier:@"DetailWebViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"GoodsParamCell" bundle:nil]
+         forCellReuseIdentifier:@"GoodsParamCell"];
+    
     _webCell = [self.tableView dequeueReusableCellWithIdentifier:@"DetailWebViewCell" ];
     
     [self.view addSubview:self.tableView];
@@ -305,213 +316,297 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 9;
+//    return 9;
+    if (section == 0) {
+        return 7;
+    }
+    return 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height = 0;
-    switch (indexPath.row) {
-        case 0://描述
-            height = 92;
-            break;
-        case 1://购买数量
-            height = kcellHeight;
-            break;
-        case 2://优惠券
-            if (![self isEmptyArray:self.couponList]) {
+    if (indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0://描述
+                height = 92;
+                break;
+            case 1://购买数量
                 height = kcellHeight;
-            }else{
-                height = 0;
-            }
-            break;
-        case 3://规格
-            if (self.productSkuArray != nil && ![self.productSkuArray isKindOfClass:[NSNull class]] && self.productSkuArray.count != 0){
+                break;
+            case 2://优惠券
+                if (![self isEmptyArray:self.couponList]) {
+                    height = kcellHeight;
+                }else{
+                    height = 0;
+                }
+                break;
+            case 3://规格
+                if (self.productSkuArray != nil && ![self.productSkuArray isKindOfClass:[NSNull class]] && self.productSkuArray.count != 0){
+                    height = kcellHeight;
+                    
+                }else{
+                    height = 0;
+                    
+                }
+                break;
+            case 4://宝贝评价
+                height = 44;
+                break;
+            case 5://评价1
                 height = kcellHeight;
-
-            }else{
-                height = 0;
                 
-            }
-            break;
-        case 4://宝贝评价
-            height = 44;
-            break;
-        case 5://评价1
-            height = kcellHeight;
+                break;
+            case 6://评价2
+                if (self.appraiseListArray.count >0) {
+                    height = 125;
+                }else{
+                    height = 0;
+                }
+                break;
+        }
+    }else{
+        switch (_goodParamType) {
+            case GoodsParamTypeDetailContent:
+                //商品详情
+                height = _webViewHeight;
+                
+                break;
+            case GoodsParamTypeSkuParam:
+                height = _skuParamHeight;
 
-            break;
-        case 6://评价2
-            if (self.appraiseListArray.count >0) {
-                height = 125;
-            }else{
-                height = 0;
-            }
+                break;
+            case GoodsParamTypePromiss:
+                height = _bussninessPromissHeight;
+                break;
+        }
 
-            break;
-        case 7://宝贝详情
-            height = 44;
-
-            break;
-        case 8://商品详情
-            height = _webViewHeight;
-            break;
-
+      
+        
     }
- 
     return height;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 1) {
+        return 45;
+    }
+    return 0.001;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView * headerview = nil;
+    if (section == 0) {
+        return headerview;
+    }else{
+        if (!headerview) {
+            headerview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 45)];
+            _paramCell = [self.tableView dequeueReusableCellWithIdentifier:@"GoodsParamCell"];
+            _paramCell.frame =  headerview.frame;
+            _paramCell.delegate = self;
+            [headerview addSubview: _paramCell];
+        }
+    }
+    return headerview;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-        case 0://描述
-        {
-            ZFTitleAndChooseListCell  * listCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFTitleAndChooseListCell" forIndexPath:indexPath];
-            listCell.lb_title.text               = _goodsName;
-            listCell.lb_price.text               = [NSString stringWithFormat:@"¥%@",_priceRange];
-            listCell.lb_sales.text               = [NSString stringWithFormat:@"已售%ld件",_goodsSales];
-            return listCell;
-            
-        }
-            break;
-        case 1://购买数量
-        {
-            BuyCountCell  * countCell = [self.tableView dequeueReusableCellWithIdentifier:@"BuyCountCell" forIndexPath:indexPath];
-            countCell.delegate = self;
-            return countCell;
-        }
-            break;
-        case 2://优惠券
-        {
-            SectionCouponCell * couponCell =  [self.tableView dequeueReusableCellWithIdentifier:@"SectionCouponCell" forIndexPath:indexPath];
-            if (![self isEmptyArray:self.couponList]) {
-                //关键字
-                NSInteger count = self.couponList.count;
-                couponCell.lb_title.text = [NSString stringWithFormat:@"您有 %ld 张可使用的的优惠券",count];
-                couponCell.lb_title.keywords      = [NSString stringWithFormat:@"%ld",count];
-                couponCell.lb_title.keywordsColor = HEXCOLOR(0xf95a70);
-                couponCell.lb_title.keywordsFont  = [UIFont systemFontOfSize:18];
-                ///必须设置计算宽高
-                CGRect dealNumh              = [couponCell.lb_title getLableHeightWithMaxWidth:300];
-                couponCell.lb_title.frame = CGRectMake(15, 10, dealNumh.size.width, dealNumh.size.height);
-            }else{
-                couponCell.hidden = YES;
+    
+    if ( indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0://描述
+            {
+                ZFTitleAndChooseListCell  * listCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFTitleAndChooseListCell" forIndexPath:indexPath];
+                listCell.lb_title.text               = _goodsName;
+                listCell.lb_price.text               = [NSString stringWithFormat:@"¥%@",_priceRange];
+                listCell.lb_sales.text               = [NSString stringWithFormat:@"已售%ld件",_goodsSales];
+                return listCell;
+                
             }
-            return couponCell;
+                break;
+            case 1://购买数量
+            {
+                BuyCountCell  * countCell = [self.tableView dequeueReusableCellWithIdentifier:@"BuyCountCell" forIndexPath:indexPath];
+                countCell.delegate = self;
+                return countCell;
+            }
+                break;
+            case 2://优惠券
+            {
+                SectionCouponCell * couponCell =  [self.tableView dequeueReusableCellWithIdentifier:@"SectionCouponCell" forIndexPath:indexPath];
+                if (![self isEmptyArray:self.couponList]) {
+                    //关键字
+                    NSInteger count = self.couponList.count;
+                    couponCell.lb_title.text = [NSString stringWithFormat:@"您有 %ld 张可使用的的优惠券",count];
+                    couponCell.lb_title.keywords      = [NSString stringWithFormat:@"%ld",count];
+                    couponCell.lb_title.keywordsColor = HEXCOLOR(0xf95a70);
+                    couponCell.lb_title.keywordsFont  = [UIFont systemFontOfSize:18];
+                    ///必须设置计算宽高
+                    CGRect dealNumh              = [couponCell.lb_title getLableHeightWithMaxWidth:300];
+                    couponCell.lb_title.frame = CGRectMake(15, 10, dealNumh.size.width, dealNumh.size.height);
+                }else{
+                    couponCell.hidden = YES;
+                }
+                return couponCell;
+                
+            }
+                break;
+            case 3://规格
+            {
+                DetailgoodsSelectCell  *  selectCell = [self.tableView dequeueReusableCellWithIdentifier:@"DetailgoodsSelectCell" forIndexPath:indexPath];
+                if (![self isEmptyArray:self.productSkuArray]){
+                    
+                    selectCell.lb_selectSUK.text = [NSString stringWithFormat:@"选择颜色,尺寸"];
+                    selectCell.selectionStyle    = UITableViewCellSelectionStyleNone;
+                    selectCell.hidden            = NO;
+                }else{
+                    selectCell.hidden = YES;
+                }
+                return selectCell;
+            }
+                
+                break;
+            case 4://宝贝评价
+            {
+                ZFbabyEvaluateCell  *  babyCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
+                babyCell.lb_title.text          = @"宝贝评价";
+                return babyCell;
+            }
+                break;
+            case 5://评价1
+            {
+                
+                GoodsDetailEvaCell  *  evacell = [self.tableView dequeueReusableCellWithIdentifier:@"GoodsDetailEvaCell" forIndexPath:indexPath];
+                evacell.lb_eva.text    = [NSString stringWithFormat:@"评价(%@)",_commentNum];
+                return evacell;
+            }
+                
+                break;
+                
+            case 6://评价2
+            {
+                GoodsEvaluateCell  *  evacell = [self.tableView dequeueReusableCellWithIdentifier:@"GoodsEvaluateCell" forIndexPath:indexPath];
+                if (self.appraiseListArray.count > 0) {
+                    Findlistreviews * infoList  = self.appraiseListArray[0];
+                    evacell.infoList = infoList;
+                }else{
+                    [evacell setHidden:YES];
+                }
+                return evacell;
+            }
+                break;
 
         }
-            break;
-        case 3://规格
-          {
-              DetailgoodsSelectCell  *  selectCell = [self.tableView dequeueReusableCellWithIdentifier:@"DetailgoodsSelectCell" forIndexPath:indexPath];
-              if (![self isEmptyArray:self.productSkuArray]){
-                  
-                  selectCell.lb_selectSUK.text = [NSString stringWithFormat:@"选择颜色,尺寸"];
-                  selectCell.selectionStyle    = UITableViewCellSelectionStyleNone;
-                  selectCell.hidden            = NO;
-              }else{
-                  selectCell.hidden = YES;
-              }
-              return selectCell;
-          }
-            
-            break;
-        case 4://宝贝评价
-        {
-            ZFbabyEvaluateCell  *  babyCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
-            babyCell.lb_title.text          = @"宝贝评价";
-            return babyCell;
-        }
-            break;
-        case 5://评价1
-        {
-    
-            GoodsDetailEvaCell  *  evacell = [self.tableView dequeueReusableCellWithIdentifier:@"GoodsDetailEvaCell" forIndexPath:indexPath];
-            evacell.lb_eva.text    = [NSString stringWithFormat:@"评价(%@)",_commentNum];
-            return evacell;
-        }
-            
-            break;
-            
-        case 6://评价2
-        {
-            GoodsEvaluateCell  *  evacell = [self.tableView dequeueReusableCellWithIdentifier:@"GoodsEvaluateCell" forIndexPath:indexPath];
-            if (self.appraiseListArray.count > 0) {
-                Findlistreviews * infoList  = self.appraiseListArray[0];
-                evacell.infoList = infoList;
-            }else{
-                [evacell setHidden:YES];
-            }
-            return evacell;
-        }
-            break;
-        case 7://宝贝详情
-        {
-            ZFbabyEvaluateCell  *  babyCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFbabyEvaluateCell" forIndexPath:indexPath];
-            babyCell.lb_title.text          = @"宝贝详情";
-            return babyCell;
-        }
-            break;
-        case 8://商品详情
-            
-            return _webCell;
-            break;
+    }else{
+        //web
+        return _webCell;
+        
     }
     return nil;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-        case 0://描述
-            
-            break;
-        case 1://购买数量
-            
-            break;
-        case 2://优惠券
-            if (![self isEmptyArray:self.couponList]) {
+    if (indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0://描述
                 
-                [self.view addSubview:self.couponBgView];
-                [self.tableView bringSubviewToFront:self.couponBgView];
+                break;
+            case 1://购买数量
+                
+                break;
+            case 2://优惠券
+                if (![self isEmptyArray:self.couponList]) {
+                    
+                    [self.view addSubview:self.couponBgView];
+                    [self.tableView bringSubviewToFront:self.couponBgView];
+                }
+                
+                break;
+            case 3://规格
+                if (self.productSkuArray.count > 0) {
+                    
+                    [self popActionView];
+                    
+                }
+                break;
+            case 4://宝贝评价
+                break;
+            case 5://评价1
+            {
+                ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
+                evc.goodsId                    = _goodsId;
+                [self.navigationController pushViewController:evc animated:YES];
             }
+                break;
+            case 6://评价2
+            {
+                ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
+                evc.goodsId                    = _goodsId;
+                [self.navigationController pushViewController:evc animated:YES];
+            }
+                break;
 
-            break;
-        case 3://规格
-            if (self.productSkuArray.count > 0) {
                 
-                [self popActionView];
-                
-            }
-            break;
-        case 4://宝贝评价
-            break;
-        case 5://评价1
-        {
-            ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
-            evc.goodsId                    = _goodsId;
-            [self.navigationController pushViewController:evc animated:YES];
         }
-            break;
-        case 6://评价2
-        {
-            ZFEvaluateViewController * evc = [[ZFEvaluateViewController alloc]init];
-            evc.goodsId                    = _goodsId;
-            [self.navigationController pushViewController:evc animated:YES];
-        }
-            break;
-        case 7://宝贝详情
-            
-            break;
-        case 8://商品详情
-            break;
-            
-    }
+    } 
+   
 }
+#pragma mark - 商品详情的参数规格
+-(void)didClickGoodsType:(GoodsParamType)type
+{
+    NSLog(@"type === %ld",type);
+    _goodParamType = type;
 
+    switch (_goodParamType) {
+        case GoodsParamTypeDetailContent:
+        {
+            //获取到H5的标签
+            _webCell.labelhtml.hidden = NO;
+            _webCell.htmlImg.hidden = YES;
+            [self mas_MutableStringWithHTMLString:_htmlDivString];
+
+        }
+            break;
+        case GoodsParamTypeSkuParam:
+            //规格详情
+        {
+            _webCell.htmlImg.hidden = NO;
+            _webCell.labelhtml.hidden = YES;
+//            [_webCell.htmlImg sd_setImageWithURL:[NSURL URLWithString:_htmlSkuParam] placeholderImage:nil];
+            [_webCell.htmlImg sd_setImageWithURL:[NSURL URLWithString:_htmlSkuParam] placeholderImage:nil options:SDWebImageRetryFailed completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                CGSize size = image.size;
+                CGFloat w = size.width;
+                CGFloat H = size.height;
+                _skuParamHeight = H;
+                NSLog(@"w = %f, h =%f",w,H);
+            }];
+        }
+            break;
+        case GoodsParamTypePromiss:
+            //商家承诺
+        {
+            _webCell.htmlImg.hidden = NO;
+            _webCell.labelhtml.hidden = YES;
+            [_webCell.htmlImg sd_setImageWithURL:[NSURL URLWithString:_htmlPromiss] placeholderImage:nil options:SDWebImageRetryFailed completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                CGSize size = image.size;
+                CGFloat w = size.width;
+                CGFloat H = size.height;
+                _bussninessPromissHeight = H;
+                NSLog(@"w = %f, h =%f",w,H);
+            }];
+
+        }
+            break;
+ 
+    }
+    NSIndexPath *indexPath= [NSIndexPath indexPathForRow:0 inSection:1];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+ 
+}
 
 #pragma mark -  弹框选择规格 popActionView ----------
 -(void)popActionView
@@ -1399,11 +1494,15 @@
             _store_longitude       = [NSString stringWithFormat:@"%.6f",[goodsmodel.data.storeInfo.longitude doubleValue]];//经度
             
             //图片详情网址
-            _htmlDivString = goodsmodel.data.goodsInfo.goodsDetail;//网址
+            _htmlDivString = goodsmodel.data.goodsInfo.goodsDetail;//商品详情
+            _htmlSkuParam = goodsmodel.data.goodsInfo.specificationsUrl;//规格web
+            _htmlPromiss = goodsmodel.data.goodsInfo.goodsPeomise;//商家承诺
             _priceRange  = goodsmodel.data.goodsInfo.priceRange;//范围价格
             
             //获取到H5的标签
             [self mas_MutableStringWithHTMLString:_htmlDivString];
+            
+            
             //是否收藏    1.收藏 2.不是
             [self iscollect];
 
@@ -1463,7 +1562,9 @@
             NSArray * imagesArray = [[NSArray alloc]init];
             imagesArray = [_attachImgUrl componentsSeparatedByString:@","];
             [self cycleScrollViewInitImges:imagesArray];
-            [self recommentPostRequstCouponList];//获取优惠券
+            if (BBUserDefault.isLogin == 1) {
+                [self recommentPostRequstCouponList];//获取优惠券
+            }
             [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
             [self appriaseToPostRequest];//评论列表
 
@@ -1498,7 +1599,6 @@
             AppraiseModel * appraise = [AppraiseModel mj_objectWithKeyValues:response];
             for (Findlistreviews * infoList in appraise.data.goodsCommentList.findListReviews) {
                 [self.appraiseListArray addObject:infoList];
-                
             }
             [self.tableView reloadData];
         }
@@ -1524,7 +1624,6 @@
             CGFloat width = attachment.bounds.size.width;
             
             CGFloat newheiht = height*(KScreenW-30)/width;
-            
             attachment.bounds = CGRectMake(0, 0, KScreenW-30, newheiht);
         }
     }];
@@ -1554,8 +1653,8 @@
 //隐藏导航栏
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat offsetY = scrollView.contentOffset.y;
-    NSLog(@"---- %f---",offsetY);
+//    CGFloat offsetY = scrollView.contentOffset.y;
+//    NSLog(@"---- %f---",offsetY);
 
 }
 //判断选择的版快
@@ -1571,11 +1670,12 @@
     }
     else if (selection == 1)
     {
-        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+
     }
     else{
-        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:7 inSection:0];
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
 

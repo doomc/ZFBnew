@@ -199,6 +199,8 @@
 		492785FF1FC59CC7000449DC /* LogisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 492785FE1FC59CC7000449DC /* LogisticsModel.m */; };
 		492786021FC5AE52000449DC /* logistics@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 492786001FC5AE50000449DC /* logistics@2x.png */; };
 		492786031FC5AE52000449DC /* logistics@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 492786011FC5AE51000449DC /* logistics@3x.png */; };
+		492915241FCBBBBF0074539B /* GoodsParamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 492915221FCBBBBF0074539B /* GoodsParamCell.m */; };
+		492915251FCBBBBF0074539B /* GoodsParamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492915231FCBBBBF0074539B /* GoodsParamCell.xib */; };
 		493675DB1F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493675D91F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.m */; };
 		493675DC1F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493675DA1F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.xib */; };
 		493675E01F57D8FE001EDEC2 /* ZFServiceEvaluteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493675DE1F57D8FE001EDEC2 /* ZFServiceEvaluteCell.m */; };
@@ -1747,6 +1749,9 @@
 		492785FE1FC59CC7000449DC /* LogisticsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsModel.m; sourceTree = "<group>"; };
 		492786001FC5AE50000449DC /* logistics@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logistics@2x.png"; sourceTree = "<group>"; };
 		492786011FC5AE51000449DC /* logistics@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logistics@3x.png"; sourceTree = "<group>"; };
+		492915211FCBBBBF0074539B /* GoodsParamCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodsParamCell.h; sourceTree = "<group>"; };
+		492915221FCBBBBF0074539B /* GoodsParamCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodsParamCell.m; sourceTree = "<group>"; };
+		492915231FCBBBBF0074539B /* GoodsParamCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoodsParamCell.xib; sourceTree = "<group>"; };
 		493675D81F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFEvaluateGoodsCell.h; sourceTree = "<group>"; };
 		493675D91F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFEvaluateGoodsCell.m; sourceTree = "<group>"; };
 		493675DA1F57D8B5001EDEC2 /* ZFEvaluateGoodsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFEvaluateGoodsCell.xib; sourceTree = "<group>"; };
@@ -7552,6 +7557,9 @@
 				49103D181FBD7CB90059F6C9 /* GoodsEvaluateCell.h */,
 				49103D191FBD7CB90059F6C9 /* GoodsEvaluateCell.m */,
 				49103D1A1FBD7CB90059F6C9 /* GoodsEvaluateCell.xib */,
+				492915211FCBBBBF0074539B /* GoodsParamCell.h */,
+				492915221FCBBBBF0074539B /* GoodsParamCell.m */,
+				492915231FCBBBBF0074539B /* GoodsParamCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -8992,6 +9000,7 @@
 				4906D1531F74D7BE00B327ED /* 680x680.png in Resources */,
 				49DA74B01F25CFBB009F5577 /* SearchTypeFootReusableView.xib in Resources */,
 				495EA8C31F14B64E001FCB7E /* icon_location@3x.png in Resources */,
+				492915251FCBBBBF0074539B /* GoodsParamCell.xib in Resources */,
 				50E2A3E11F51605600AF17F4 /* DetailWebViewCell.xib in Resources */,
 				495EA9371F14B64E001FCB7E /* LOGO.png in Resources */,
 				495EA80F1F14B64D001FCB7E /* ZFPregressCheckCell.xib in Resources */,
@@ -9651,6 +9660,7 @@
 				495EA8161F14B64D001FCB7E /* ZFSaleAfterSearchCell.m in Sources */,
 				495EA75B1F14B64D001FCB7E /* TDView.m in Sources */,
 				495EA7361F14B64D001FCB7E /* WJYAlertView.m in Sources */,
+				492915241FCBBBBF0074539B /* GoodsParamCell.m in Sources */,
 				504A76131F6ADD9D00B61CE3 /* YYTextInput.m in Sources */,
 				49AC8FD21F276404005559A8 /* DetailOrderModel.m in Sources */,
 				495EA8141F14B64D001FCB7E /* ZFSaleAfterHeadCell.m in Sources */,
@@ -10522,7 +10532,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;
@@ -10601,8 +10611,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "958a787d-2271-404a-b740-05d1239fc953";
-				PROVISIONING_PROFILE_SPECIFIER = IOS1.0.1diStribution;
+				PROVISIONING_PROFILE = "1dddf543-ea1d-402f-be52-adc08f6e8632";
+				PROVISIONING_PROFILE_SPECIFIER = iOSD1.0.1Develpment;
 			};
 			name = Debug;
 		};
@@ -10614,7 +10624,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZFB/ZFB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing exhibition FuWei network technology co., LTD (297J2E2F8W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 297J2E2F8W;
 				ENABLE_BITCODE = NO;
@@ -10693,8 +10703,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zavfwei.zfb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "958a787d-2271-404a-b740-05d1239fc953";
-				PROVISIONING_PROFILE_SPECIFIER = IOS1.0.1diStribution;
+				PROVISIONING_PROFILE = "1dddf543-ea1d-402f-be52-adc08f6e8632";
+				PROVISIONING_PROFILE_SPECIFIER = iOSD1.0.1Develpment;
 			};
 			name = Release;
 		};

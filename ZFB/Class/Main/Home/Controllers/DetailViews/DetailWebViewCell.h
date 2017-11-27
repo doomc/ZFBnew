@@ -13,5 +13,6 @@
 
 @property (nonatomic, strong) UILabel * labelhtml;
 
+@property (weak, nonatomic) IBOutlet UIImageView *htmlImg;
 
 @end

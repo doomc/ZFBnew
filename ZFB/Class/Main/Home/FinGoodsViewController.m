@@ -283,35 +283,34 @@ typedef NS_ENUM(NSUInteger, CellType) {
 #pragma mark - HotTableViewCellDelegate  根据ID跳转
 -(void)pushToDetailVCWithGoodsID :(NSString *) goodsId
 {
-    if (BBUserDefault.isLogin == 1) {
+//    if (BBUserDefault.isLogin == 1) {
         GoodsDeltailViewController *detailVCgoods = [[GoodsDeltailViewController alloc]init];
         detailVCgoods.goodsId                        = goodsId;
         [self.navigationController pushViewController:detailVCgoods animated:NO];
         
-    }else{
+//    }else{
         
-        [self isIfNotSignIn];
-    }
+//        [self isIfNotSignIn];
+//    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section=%ld  ,row =%ld",indexPath.section , indexPath.row);
     
-    if (BBUserDefault.isLogin == 1) {
+//    if (BBUserDefault.isLogin == 1) {
         GoodsDeltailViewController * findVCgoods =[[GoodsDeltailViewController alloc]init];
         if (self.likeListArray.count > 0) {
             Guessgoodslist *goodlist = self.likeListArray[indexPath.row];
             findVCgoods.headerImage = goodlist.coverImgUrl ;
- 
             findVCgoods.goodsId      = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
         }
         [self.navigationController pushViewController:findVCgoods animated:YES];
         
-    }else{
+//    }else{
         
-        [self isIfNotSignIn];
-    }
+//        [self isIfNotSignIn];
+//    }
     
 
     

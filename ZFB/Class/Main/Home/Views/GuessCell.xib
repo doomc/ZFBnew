@@ -29,13 +29,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="戴拿服装" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKm-bh-kSm">
-                        <rect key="frame" x="135" y="105.5" width="49.5" height="14.5"/>
+                        <rect key="frame" x="135" y="105" width="120" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="120" id="VBl-hy-OKh"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.55294117647058827" green="0.55294117647058827" blue="0.55294117647058827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="促销价:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7b-t1-wbW">
-                        <rect key="frame" x="135" y="81" width="40.5" height="14.5"/>
+                        <rect key="frame" x="135" y="80.5" width="40.5" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -59,7 +62,7 @@
                         <rect key="frame" x="264.5" y="108.5" width="10" height="10"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥156" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phn-X2-hWH">
-                        <rect key="frame" x="180.5" y="77" width="46.5" height="24"/>
+                        <rect key="frame" x="180.5" y="76.5" width="46.5" height="24"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <color key="textColor" red="0.72156862749999995" green="0.047058823530000002" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -105,7 +108,7 @@
                 <outlet property="loca_img" destination="Mud-vr-b5S" id="uyb-b9-VVm"/>
                 <outlet property="zan_Image" destination="1Fd-CN-a2U" id="o8a-xN-d9R"/>
             </connections>
-            <point key="canvasLocation" x="-1104" y="89"/>
+            <point key="canvasLocation" x="-1104.5" y="89"/>
         </tableViewCell>
     </objects>
     <resources>

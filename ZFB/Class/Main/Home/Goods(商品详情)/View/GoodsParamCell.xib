@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="48" id="KGk-i7-Jjw" customClass="GoodsParamCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" tag="300" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddo-2n-gv2">
+                        <rect key="frame" x="0.0" y="0.0" width="106.5" height="46.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="图文详情">
+                            <color key="titleColor" red="0.97647058819999999" green="0.35294117650000001" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="detaiContent:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gtH-ZX-0Q3"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="301" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2D4-zO-xCz">
+                        <rect key="frame" x="106.5" y="0.0" width="107" height="46.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="规格参数">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="skuParamContent:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wNx-Gc-jeh"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="302" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ng0-Ki-i14">
+                        <rect key="frame" x="213.5" y="0.0" width="106.5" height="46.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="商家承诺">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="promissContent:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="2Li-Nn-vkx"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gry-d1-LLy">
+                        <rect key="frame" x="0.0" y="46.5" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="9Oq-QS-HOP"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="ng0-Ki-i14" secondAttribute="trailing" id="3Mv-hm-WfY"/>
+                    <constraint firstItem="ddo-2n-gv2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7as-tB-TSe"/>
+                    <constraint firstItem="ng0-Ki-i14" firstAttribute="width" secondItem="ddo-2n-gv2" secondAttribute="width" id="BoT-e8-uA3"/>
+                    <constraint firstItem="Gry-d1-LLy" firstAttribute="top" secondItem="ddo-2n-gv2" secondAttribute="bottom" id="FEY-pP-Mkk"/>
+                    <constraint firstItem="ng0-Ki-i14" firstAttribute="leading" secondItem="2D4-zO-xCz" secondAttribute="trailing" id="NbM-OE-HG6"/>
+                    <constraint firstItem="ng0-Ki-i14" firstAttribute="height" secondItem="ddo-2n-gv2" secondAttribute="height" id="Qhr-ah-sDQ"/>
+                    <constraint firstItem="Gry-d1-LLy" firstAttribute="top" secondItem="2D4-zO-xCz" secondAttribute="bottom" id="XDi-nl-xXD"/>
+                    <constraint firstItem="2D4-zO-xCz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="cmP-Yd-WlZ"/>
+                    <constraint firstItem="2D4-zO-xCz" firstAttribute="leading" secondItem="ddo-2n-gv2" secondAttribute="trailing" id="dT3-PR-srn"/>
+                    <constraint firstItem="2D4-zO-xCz" firstAttribute="height" secondItem="ddo-2n-gv2" secondAttribute="height" id="dja-ru-m09"/>
+                    <constraint firstItem="Gry-d1-LLy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ejo-zJ-4AT"/>
+                    <constraint firstItem="Gry-d1-LLy" firstAttribute="top" secondItem="ng0-Ki-i14" secondAttribute="bottom" id="fEy-yZ-qOJ"/>
+                    <constraint firstAttribute="trailing" secondItem="Gry-d1-LLy" secondAttribute="trailing" id="kJy-TJ-n13"/>
+                    <constraint firstAttribute="bottom" secondItem="Gry-d1-LLy" secondAttribute="bottom" id="lHn-5r-6iH"/>
+                    <constraint firstItem="2D4-zO-xCz" firstAttribute="width" secondItem="ddo-2n-gv2" secondAttribute="width" id="rwG-ir-pRO"/>
+                    <constraint firstItem="ng0-Ki-i14" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="u52-Qu-cVO"/>
+                    <constraint firstItem="ddo-2n-gv2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zEz-u1-ycZ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="btn_detail" destination="ddo-2n-gv2" id="b4q-zT-bd2"/>
+                <outlet property="btn_param" destination="2D4-zO-xCz" id="h5B-FN-1dP"/>
+                <outlet property="btn_promiss" destination="ng0-Ki-i14" id="rEp-PH-lKJ"/>
+            </connections>
+            <point key="canvasLocation" x="-325" y="10"/>
+        </tableViewCell>
+    </objects>
+</document>

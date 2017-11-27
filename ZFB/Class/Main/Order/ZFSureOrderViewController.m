@@ -224,6 +224,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         for (NSDictionary * goodsListDic in storeListDic[@"goodsList"]) {
             [self.cmGoodsListArray addObject:goodsListDic];
         }
+        [self.storelistArry addObject:storeListDic];
+        
     }
     
     //组装storeAttachList===================storeAttachList字段===================//
@@ -233,6 +235,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         NSString * storeId = [storeListDic objectForKey:@"storeId"];
         NSString * storeName = [storeListDic objectForKey:@"storeName"];
         NSString * comment = @"备注";
+        
         [storeAttachListDic setValue:storeId forKey:@"storeId"];
         [storeAttachListDic setValue:storeName forKey:@"storeName"];
         [storeAttachListDic setValue:comment forKey:@"comment"];
