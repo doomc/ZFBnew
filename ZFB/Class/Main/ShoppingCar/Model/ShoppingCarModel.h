@@ -63,6 +63,10 @@
 
 @property (nonatomic, copy) NSString *productId;
 
+@property (nonatomic, copy) NSString *isReturned;
+
+
+
 @end
 
 @interface ShopGoodsprop : ResponseObject

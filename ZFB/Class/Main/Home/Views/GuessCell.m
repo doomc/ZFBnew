@@ -59,7 +59,11 @@
     self.lb_goodsName.text = _goodlist.goodsName;
     self.lb_price.text = [NSString stringWithFormat:@"¥%@",_goodlist.priceTostr];
     self.lb_storeName.text = _goodlist.storeName;
-    self.lb_collectNum.text = [NSString stringWithFormat:@"%ld",_goodlist.goodsPv];
+    NSString * lookNum = [NSString stringWithFormat:@"%ld",_goodlist.goodsPv];
+    if ([lookNum integerValue]> 1000) {
+        lookNum = [NSString stringWithFormat:@"%.fk",[lookNum floatValue]/1000];
+    }
+    self.lb_collectNum.text = lookNum;
     self.lb_distence.text = [NSString stringWithFormat:@"%@公里",_goodlist.storeDist ];
     
 }

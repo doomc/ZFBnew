@@ -194,7 +194,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     _storeIdAppding = [storeIdArr componentsJoinedByString:@","];
     NSLog(@" _storeIdAppding === %@ --%@",_storeIdAppding,_goodsIdAppding);
 
-    ////////////////////////////////// 发起请求/////////////////////////////////////////////
+//////////////////////////////////////////// 发起请求/////////////////////////////////////////////
     //获取配送配送费网络求情
     [self getGoodsCostInfoListPostRequstWithJsonString:[NSDictionary dictionaryWithDictionary:param]];
     
@@ -206,19 +206,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     }
     
     ////////////////////////////////// 组装当前列表的数据/////////////////////////////////////////////
-   /* storeAttachList =     (
-                           {
-                               comment = "\U6682\U65e0\U5907\U6ce8";
-                               storeId = 189;
-                               storeName = "\U5df7\U5b50";
-                           },
-                           {
-                               comment = "\U6682\U65e0\U5907\U6ce8";
-                               storeId = 189;
-                               storeName = "\U5df7\U5b50";
-                           }
-                           );
-*/
     //组装cmGoodsListArray
     for (NSDictionary * storeListDic  in _userGoodsInfoJSON) {
         for (NSDictionary * goodsListDic in storeListDic[@"goodsList"]) {
@@ -524,6 +511,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             couponVC.goodsAmount= _goodsCount; //订单总额
             couponVC.goodsIdJson = _goodsIdAppding;//商品id，
             couponVC.storeIdjosn = _storeIdAppding;//门店id，
+            NSString * storeArr = [NSString arrayToJSONString:_userGoodsInfoJSON];
+            couponVC.storeArray = storeArr;
             couponVC.couponBlock = ^(NSString *couponId, NSString *userRange, NSString *couponAmount, NSString *storeId, NSString *goodsIds) {
                 _couponId = couponId;
                 _useRange = userRange;
@@ -608,8 +597,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             _lb_price.text           = _totalPirce = [NSString stringWithFormat:@"¥%@",_userCostNum];//支付总金额
            
             //获取优惠券列表
-            [self getUserNotUseCouponListPostRequset];
-            
+            NSString * storeArr = [NSString arrayToJSONString:_userGoodsInfoJSON];
+            [self getUserNotUseCouponListPostRequsetWithStoreArray:storeArr];
+
         }
 
         [self.mytableView reloadData];
@@ -704,12 +694,13 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 }
 
 #pragma mark - 获取用户未使用优惠券列表   recomment/getUserNotUseCouponList
--(void)getUserNotUseCouponListPostRequset{
+-(void)getUserNotUseCouponListPostRequsetWithStoreArray:(NSString *)storeArray{
     NSDictionary * parma = @{
                              
                              @"status":@"1",
                              @"idType":@"3",
                              @"resultId":@"",
+                             @"storeArray":storeArray,
                              @"goodsAmount":_goodsCount,//商品金额
                              @"goodsId":_goodsIdAppding,
                              @"storeId":_storeIdAppding,

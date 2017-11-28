@@ -49,6 +49,8 @@ typedef NS_ENUM(NSUInteger, ValueSelectType) {
 
 @property (nonatomic, copy) NSString *goodsName;
 
+@property (nonatomic, copy) NSString *isReturned;//是否支持退货
+
 @property (nonatomic, copy) NSString *priceRange;//范围价格
 
 

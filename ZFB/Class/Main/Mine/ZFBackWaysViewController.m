@@ -102,20 +102,24 @@
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/afterSale/afterSaleApply"] params:param success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
+            
+            [SVProgressHUD showSuccessWithStatus:response[@"resultMsg"]];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                ZFAllOrderViewController * vc = [ZFAllOrderViewController new];
+                vc.orderType = OrderTypeAfterSale;
+                [self poptoUIViewControllerNibName:@"ZFAllOrderViewController" AndObjectIndex:1];
 
-            ZFAllOrderViewController * vc = [ZFAllOrderViewController new];
-            vc.orderType = OrderTypeAfterSale;
-            [self poptoUIViewControllerNibName:@"ZFAllOrderViewController" AndObjectIndex:1];
-            [SVProgressHUD dismiss];
+            });
+        }else{
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+            [SVProgressHUD dismiss];
+
         }
         
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
-        [self endRefresh];
-        
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];

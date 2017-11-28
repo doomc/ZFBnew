@@ -272,6 +272,13 @@ typedef NS_ENUM(NSUInteger, CellType) {
         
         GuessCell *guessCell = [self.findGoods_TableView  dequeueReusableCellWithIdentifier:cell_guessID forIndexPath:indexPath];
         if (self.likeListArray.count > 0 ) {
+            if (KScreenW >= 375) {
+                guessCell.kStoreNameWidth.constant = 120;
+            }
+            else{
+                guessCell.kStoreNameWidth.constant = 50;
+
+            }
             Guessgoodslist *goodlist = self.likeListArray[indexPath.row];
             guessCell.goodlist       = goodlist;
         }

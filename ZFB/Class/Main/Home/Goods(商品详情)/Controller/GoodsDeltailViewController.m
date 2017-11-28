@@ -86,6 +86,7 @@
     NSString * _htmlPromiss;//商家承诺
     NSString * _store_latitude;
     NSString * _store_longitude;
+    NSString * _isReturned;//是否支持退货1支持 2x
     
     NSInteger  _goodsCount;//商品数量
     NSInteger  _isCollect;
@@ -438,15 +439,16 @@
             {
                 SectionCouponCell * couponCell =  [self.tableView dequeueReusableCellWithIdentifier:@"SectionCouponCell" forIndexPath:indexPath];
                 if (![self isEmptyArray:self.couponList]) {
-                    //关键字
-                    NSInteger count = self.couponList.count;
-                    couponCell.lb_title.text = [NSString stringWithFormat:@"您有 %ld 张可使用的的优惠券",count];
-                    couponCell.lb_title.keywords      = [NSString stringWithFormat:@"%ld",count];
-                    couponCell.lb_title.keywordsColor = HEXCOLOR(0xf95a70);
-                    couponCell.lb_title.keywordsFont  = [UIFont systemFontOfSize:18];
-                    ///必须设置计算宽高
-                    CGRect dealNumh              = [couponCell.lb_title getLableHeightWithMaxWidth:300];
-                    couponCell.lb_title.frame = CGRectMake(15, 10, dealNumh.size.width, dealNumh.size.height);
+                    couponCell.hidden = NO;
+//                    //关键字
+//                    NSInteger count = self.couponList.count;
+//                    couponCell.lb_title.text = [NSString stringWithFormat:@"您有 %ld 张可使用的的优惠券",count];
+//                    couponCell.lb_title.keywords      = [NSString stringWithFormat:@"%ld",count];
+//                    couponCell.lb_title.keywordsColor = HEXCOLOR(0xf95a70);
+//                    couponCell.lb_title.keywordsFont  = [UIFont systemFontOfSize:18];
+//                    ///必须设置计算宽高
+//                    CGRect dealNumh              = [couponCell.lb_title getLableHeightWithMaxWidth:300];
+//                    couponCell.lb_title.frame = CGRectMake(15, 10, dealNumh.size.width, dealNumh.size.height);
                 }else{
                     couponCell.hidden = YES;
                 }
@@ -935,6 +937,8 @@
             [goodsdic setObject:_storeName forKey:@"storeName"];
             [goodsdic setValue:_goodsUnit forKey:@"goodsUnit"];
             [goodsdic setValue:_netPurchasePrice forKey:@"originalPrice"];
+            [goodsdic setObject:_isReturned forKey:@"isReturned"];
+
             [goodslistArray addObject:goodsdic];
             
             [storedic setObject:_storeId forKey:@"storeId"];
@@ -955,7 +959,7 @@
         }
     }else{
         
-        JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"请选择好规格再加入购物车" preferredStyle:UIAlertControllerStyleAlert];
+        JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"请选择好规格" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
         }];
@@ -1120,6 +1124,7 @@
         }else{//如果无规格的
             
             if ([_skuAmount intValue] > 0 || [_inventory intValue] > 0 ) {
+                
                 //添加有规格的数据进入购物车  传入有规格的json数据
                 [self addToshoppingCarPostproductId:_productSkuId];
             }else{
@@ -1148,9 +1153,53 @@
             //没有规格 - 直接传值
             if ([_skuAmount intValue] > 0 || [_inventory intValue] > 0 ) {
                 
-                ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
-                vc.userGoodsInfoJSON = self.noReluArray;//没有规格的数组
-                [self.navigationController pushViewController:vc animated:YES];
+                //当规格为空的时候才组装下列数据
+                if ([self isEmptyArray:self.productSkuArray]) {
+                    
+                    //---------------没有规格的数据------------------
+                    NSMutableArray * goodsListArray    = [NSMutableArray array];
+                    NSMutableDictionary * goodsListDic = [NSMutableDictionary dictionary];
+                    NSMutableDictionary * storeListDic = [NSMutableDictionary dictionary];
+                    
+                    [goodsListDic setValue:_storeName forKey:@"storeName"];
+                    [goodsListDic setValue:_netPurchasePrice forKey:@"originalPrice"];
+                    [goodsListDic setValue:@"0" forKey:@"concessionalPrice"];//优惠价
+                    [goodsListDic setValue:_coverImgUrl forKey:@"coverImgUrl"];//图片地址
+                    [goodsListDic setValue:_netPurchasePrice forKey:@"purchasePrice"];//网购价
+                    [goodsListDic setValue:_goodsId forKey:@"goodsId"];
+                    [goodsListDic setValue:_storeId forKey:@"storeId"];
+                    [goodsListDic setValue:_storeName forKey:@"storeName"];
+                    [goodsListDic setObject:@"[]" forKey:@"goodsProp"];
+                    [goodsListDic setValue:_productSkuId forKey:@"productId"];//无规格
+                    
+                    //只有共享进来的才有
+                    if (_shareId == nil ) {
+                        _shareId = @"";
+                    }
+                    if (_shareNum == nil) {
+                        _shareNum = @"";
+                    }
+                    [goodsListDic setValue:_shareId forKey:@"shareId"];
+                    [goodsListDic setValue:_shareNum forKey:@"shareNum"];
+                    [goodsListDic setValue:_isReturned  forKey:@"isReturned"];//1支持退货 2不支持
+                    
+                    [goodsListDic setValue:_goodsUnit forKey:@"goodsUnit"];
+                    [goodsListDic setValue:_goodsName forKey:@"goodsName"];
+                    [goodsListDic setValue:[NSString stringWithFormat:@"%ld",_goodsCount] forKey:@"goodsCount"];
+                    [goodsListArray addObject:goodsListDic];
+                    
+                    [storeListDic setValue:goodsListArray forKey:@"goodsList"];
+                    [storeListDic setValue:_storeName forKey:@"storeName"];
+                    [storeListDic setValue:_storeId forKey:@"storeId"];
+                    [self.noReluArray addObject:storeListDic];
+                    NSLog(@"noReluArray ==  %@",self.noReluArray);
+                    //---------------没有规格的数据------------------
+                    ZFSureOrderViewController * vc =[[ZFSureOrderViewController alloc]init];
+                    vc.userGoodsInfoJSON = self.noReluArray;//没有规格的数组
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                
+
                 
             }else{
                 JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"该商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
@@ -1475,6 +1524,7 @@
             _accId    = goodsmodel.data.accId;//云信ID
             
             //goods信息 ----goodsInfo
+            _isReturned = goodsmodel.data.goodsInfo.isReturned;;//是否支持退货 1 支持 2不支持
             _goodsName    = goodsmodel.data.goodsInfo.goodsName;//商品名
             _coverImgUrl  = goodsmodel.data.goodsInfo.coverImgUrl;//商品封面
             _attachImgUrl = goodsmodel.data.goodsInfo.attachImgUrl;//图片链接
@@ -1498,67 +1548,19 @@
             _htmlSkuParam = goodsmodel.data.goodsInfo.specificationsUrl;//规格web
             _htmlPromiss = goodsmodel.data.goodsInfo.goodsPeomise;//商家承诺
             _priceRange  = goodsmodel.data.goodsInfo.priceRange;//范围价格
-            
-            //获取到H5的标签
-            [self mas_MutableStringWithHTMLString:_htmlDivString];
-            
-            
-            //是否收藏    1.收藏 2.不是
-            [self iscollect];
+            _netPurchasePrice = goodsmodel.data.goodsInfo.netPurchasePrice;//价格
+            _goodsUnit = goodsmodel.data.goodsInfo.goodsUnit ;
 
             //添加有规格的数组
             for (Productattribute * product in goodsmodel.data.productAttribute) {
                 [self.productSkuArray addObject:product];
             }
-            //当规格为空的时候才组装下列数据
-            if (self.productSkuArray != nil && ![self.productSkuArray isKindOfClass:[NSNull class]] && self.productSkuArray.count != 0){
-                
-                _netPurchasePrice = goodsmodel.data.goodsInfo.netPurchasePrice;//价格
-                
-            }else{
-                //没有规格的价格
-                _netPurchasePrice = goodsmodel.data.goodsInfo.netPurchasePrice;//网店价格
-                
-                //---------------没有规格的数据------------------
-                NSMutableArray * goodsListArray    = [NSMutableArray array];
-                NSMutableDictionary * goodsListDic = [NSMutableDictionary dictionary];
-                NSMutableDictionary * storeListDic = [NSMutableDictionary dictionary];
-                
-                [goodsListDic setValue:goodsmodel.data.storeInfo.storeName forKey:@"storeName"];
-                [goodsListDic setValue:_netPurchasePrice forKey:@"originalPrice"];
-                [goodsListDic setValue:@"0" forKey:@"concessionalPrice"];//优惠价
-                [goodsListDic setValue:goodsmodel.data.goodsInfo.coverImgUrl forKey:@"coverImgUrl"];//图片地址
-                [goodsListDic setValue:goodsmodel.data.goodsInfo.netPurchasePrice forKey:@"purchasePrice"];//网购价
-                [goodsListDic setValue:_goodsId forKey:@"goodsId"];
-                [goodsListDic setValue:_storeId forKey:@"storeId"];
-                [goodsListDic setValue:_storeName forKey:@"storeName"];
-                [goodsListDic setObject:@"[]" forKey:@"goodsProp"];
-                [goodsListDic setValue:_productSkuId forKey:@"productId"];//无规格
-                _goodsUnit = goodsmodel.data.goodsInfo.goodsUnit ;
-                
-                //只有共享进来的才有
-                if (_shareId == nil ) {
-                    _shareId = @"";
-                }
-                if (_shareNum == nil) {
-                    _shareNum = @"";
-                }
-                [goodsListDic setValue:_shareId forKey:@"shareId"];
-                [goodsListDic setValue:_shareNum forKey:@"shareNum"];
-                
-                [goodsListDic setValue:_goodsUnit forKey:@"goodsUnit"];
-                [goodsListDic setValue:goodsmodel.data.goodsInfo.goodsName forKey:@"goodsName"];
-                [goodsListDic setValue:[NSString stringWithFormat:@"%ld",_goodsCount] forKey:@"goodsCount"];
-                [goodsListArray addObject:goodsListDic];
-                
-                [storeListDic setValue:goodsListArray forKey:@"goodsList"];
-                [storeListDic setValue:_storeName forKey:@"storeName"];
-                [storeListDic setValue:_storeId forKey:@"storeId"];
-                [self.noReluArray addObject:storeListDic];
-                NSLog(@"noReluArray ==  %@",self.noReluArray);
-                //---------------没有规格的数据------------------
-                
-            }
+            //获取到H5的标签
+            [self mas_MutableStringWithHTMLString:_htmlDivString];
+            
+            //是否收藏    1.收藏 2.不是
+            [self iscollect];
+
             NSArray * imagesArray = [[NSArray alloc]init];
             imagesArray = [_attachImgUrl componentsSeparatedByString:@","];
             [self cycleScrollViewInitImges:imagesArray];

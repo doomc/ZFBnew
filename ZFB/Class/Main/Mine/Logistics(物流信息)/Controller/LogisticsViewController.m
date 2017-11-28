@@ -124,6 +124,9 @@
             cell.line_up.hidden = YES;
         }else if (indexPath.row == self.progressArray.count - 1) {
             cell.line_down.hidden = YES;
+            cell.status_btn.selected = YES;
+            cell.lb_date.textColor = HEXCOLOR(0xf95a70);
+            cell.lb_infoMessage.textColor = HEXCOLOR(0xf95a70);
         }else {
             cell.line_down.hidden = NO;
             cell.line_up.hidden = NO;

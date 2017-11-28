@@ -645,11 +645,8 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
                               @"buyNum":buyCount,
                               };
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getShoppCartUpdate",zfb_baseUrl] params:param success:^(id response) {
-        
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
-        
     }];
     
 }
@@ -690,6 +687,8 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
                 [goodDic setValue:@"0" forKey:@"originalPrice"];
                 [goodDic setValue:goods.goodsUnit forKey:@"goodsUnit"];
                 [goodDic setValue:goodsPropArr forKey:@"goodsProp"];
+                [goodDic setValue:goods.isReturned forKey:@"isReturned"];//是否支持退货
+                
                 if ( _shardId == nil) {
                     _shardId = @"";
                 }

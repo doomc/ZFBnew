@@ -101,15 +101,12 @@
 //图片管理器
 - (HXPhotoManager *)manager {
     if (!_manager) {
-        _manager                    = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhotoAndVideo];
+        _manager                    = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhoto];
         _manager.openCamera         = YES;
         _manager.cacheAlbum         = YES;
-        _manager.lookLivePhoto      = YES;
-        _manager.open3DTouchPreview = YES;
         _manager.cameraType         = HXPhotoManagerCameraTypeSystem;
-        _manager.photoMaxNum        = 5;
-        _manager.videoMaxNum        = 5;
-        _manager.maxNum             = 8;
+        _manager.photoMaxNum        = 4;
+        _manager.maxNum             = 4;
         _manager.saveSystemAblum    = NO;
     }
     return _manager;
@@ -182,8 +179,9 @@
  @param sender 提交申请
  */
 - (IBAction)didClickNextPage:(id)sender {
-    
-    if (_isCommited) {
+    [SVProgressHUD show];
+
+    if (_isCommited == YES) {
         [self.view makeToast:@"您的手速太快了,营养跟不上啊..." duration:2 position:@"center"];
         return;
     }else{
@@ -200,7 +198,6 @@
         }else
         {
             if (_imgUrl_mutArray.count > 0) {
-                [SVProgressHUD show];
                 [OSSImageUploader asyncUploadImages:_imgUrl_mutArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
                     NSLog(@"%@",names);
                     if (state == 1) {
@@ -269,9 +266,7 @@
       
 
             }
-        
         }
-  
     }
 }
 

@@ -11,6 +11,7 @@
 @interface GoodsDeltailViewController : BaseViewController
 
 @property (nonatomic , copy) NSString *goodsId;
+
 @property (nonatomic , copy) NSString *headerImage;
 
 @property (nonatomic , copy) NSString *shareNum;//分享购买才传入的参数

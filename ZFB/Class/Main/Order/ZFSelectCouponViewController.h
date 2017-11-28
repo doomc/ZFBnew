@@ -23,6 +23,8 @@ typedef void(^couponDealBlock)(NSString * couponId,NSString *userRange,NSString 
 @property (nonatomic , copy) NSString * goodsIdJson;
 @property (nonatomic , copy) NSString * storeIdjosn;
 @property (nonatomic , copy) NSString * goodsAmount;
+@property (nonatomic , copy) NSString * storeArray;//json在字符串
+
 
 @property (nonatomic , copy) couponDealBlock couponBlock;
 

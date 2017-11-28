@@ -73,7 +73,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
         NSLog(@"使用异步函数执行主队列中的任务1--%@",[NSThread currentThread]);
     });
     dispatch_async(queue, ^{
-        [self PostRequst];
+//        [self PostRequst];
         
         NSLog(@"使用异步函数执行主队列中的任务2--%@",[NSThread currentThread]);
     });
@@ -340,12 +340,12 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 #pragma mark - 首页网络请求 getCmStoreInfo
 -(void)PostRequst
 {
-
     NSDictionary * parma = @{
 
-                             @"longitude":longitudestr,//经度
-                             @"latitude":latitudestr ,//纬度
-                             
+//                             @"longitude":longitudestr,//经度
+//                             @"latitude":latitudestr ,//纬度
+                             @"longitude":BBUserDefault.longitude,//经度
+                             @"latitude":BBUserDefault.latitude ,//纬度
                              @"size":[NSNumber numberWithInteger:kPageCount],
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"businessType":@"",

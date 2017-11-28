@@ -10,7 +10,10 @@
 #import "HomeGuessModel.h"
 #import "SearchNoResultModel.h"
 #import "SearchResultModel.h"
+
 @interface GuessCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *kStoreNameWidth;
 
 @property (weak, nonatomic) IBOutlet UIImageView *zan_Image;
 

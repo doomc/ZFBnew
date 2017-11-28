@@ -1138,6 +1138,8 @@
 		49D115B21F7E851900467CF1 /* findsingle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D115AE1F7E851900467CF1 /* findsingle@3x.png */; };
 		49D115B91F7F64C600467CF1 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D115B81F7F64C600467CF1 /* LoginModel.m */; };
 		49D6952C1F318087000868A7 /* SendOrderStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D6952B1F318087000868A7 /* SendOrderStatisticsViewController.m */; };
+		49D84C351FCD36710089547C /* coupon4@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D84C331FCD366F0089547C /* coupon4@3x.png */; };
+		49D84C361FCD36710089547C /* coupon4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D84C341FCD36710089547C /* coupon4@2x.png */; };
 		49D8BA041FBC423C0097D85E /* placeholder2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D8BA031FBC423B0097D85E /* placeholder2@2x.png */; };
 		49D8BA151FBC42B90097D85E /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D8BA081FBC42B80097D85E /* TAAbstractDotView.m */; };
 		49D8BA161FBC42B90097D85E /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D8BA0A1FBC42B80097D85E /* TAAnimatedDotView.m */; };
@@ -3161,6 +3163,8 @@
 		49D115B81F7F64C600467CF1 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		49D6952A1F318087000868A7 /* SendOrderStatisticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendOrderStatisticsViewController.h; sourceTree = "<group>"; };
 		49D6952B1F318087000868A7 /* SendOrderStatisticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendOrderStatisticsViewController.m; sourceTree = "<group>"; };
+		49D84C331FCD366F0089547C /* coupon4@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coupon4@3x.png"; sourceTree = "<group>"; };
+		49D84C341FCD36710089547C /* coupon4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coupon4@2x.png"; sourceTree = "<group>"; };
 		49D8BA031FBC423B0097D85E /* placeholder2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder2@2x.png"; sourceTree = "<group>"; };
 		49D8BA071FBC42B80097D85E /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		49D8BA081FBC42B80097D85E /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
@@ -4634,6 +4638,8 @@
 		4958D4FA1F691958007426A9 /* 优惠券 */ = {
 			isa = PBXGroup;
 			children = (
+				49D84C341FCD36710089547C /* coupon4@2x.png */,
+				49D84C331FCD366F0089547C /* coupon4@3x.png */,
 				49D8BA1C1FBC43F40097D85E /* used.png */,
 				49CFF3071FB2E1E70087F74D /* expired.png */,
 				49CFF3081FB2E1E80087F74D /* received.png */,
@@ -8899,6 +8905,7 @@
 				49AE178C1FB00D15001A804E /* time@2x.png in Resources */,
 				495EA8521F14B64D001FCB7E /* ZFShopCarCell.xib in Resources */,
 				495EA7D01F14B64D001FCB7E /* ZFMyProgressCell.xib in Resources */,
+				49D84C361FCD36710089547C /* coupon4@2x.png in Resources */,
 				492785F91FC5905F000449DC /* speed.png in Resources */,
 				49E917721FA9C00F00867857 /* distribution2@3x.png in Resources */,
 				495EA8C01F14B64E001FCB7E /* gpssearchbutton@2x.png in Resources */,
@@ -9501,6 +9508,7 @@
 				49AE17971FB035B2001A804E /* phone@2x.png in Resources */,
 				50252E471F9CF7140013AA7C /* WithDrawResultViewController.xib in Resources */,
 				495EA72C1F14B64D001FCB7E /* addressData.plist in Resources */,
+				49D84C351FCD36710089547C /* coupon4@3x.png in Resources */,
 				499380DF1FA2149900ABC3E6 /* enter@3x.png in Resources */,
 				49C7447B1FB19DDA003F3891 /* wechat@3x.png in Resources */,
 				495EA88C1F14B64D001FCB7E /* diamond@2x.png in Resources */,

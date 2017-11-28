@@ -105,6 +105,7 @@
 -(void)getUserNotUseCouponListPostRequset{
     NSDictionary * parma = @{
                              @"status":@"1",
+                             @"storeArray":_storeArray,
                              @"idType":@"3",
                              @"resultId":@"",
                              @"goodsAmount":_goodsAmount,//商品金额

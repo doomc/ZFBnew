@@ -51,6 +51,9 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coupon4.png" translatesAutoresizingMaskIntoConstraints="NO" id="gBh-Em-lYh">
+                        <rect key="frame" x="97" y="11" width="60" height="20"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="gbT-ok-zzS" secondAttribute="trailing" constant="15" id="3S6-ki-bdB"/>
@@ -61,8 +64,10 @@
                     <constraint firstItem="YlB-AN-6i5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="JvU-GF-Vvm"/>
                     <constraint firstItem="zku-De-zoD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="MaH-LA-8ic"/>
                     <constraint firstAttribute="trailing" secondItem="YlB-AN-6i5" secondAttribute="trailing" id="cC0-BP-sqW"/>
+                    <constraint firstItem="gBh-Em-lYh" firstAttribute="centerY" secondItem="zku-De-zoD" secondAttribute="centerY" id="eV5-OG-5UA"/>
                     <constraint firstItem="oQy-4l-3T0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ibc-On-0a4"/>
                     <constraint firstItem="oQy-4l-3T0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qoQ-E7-0WU"/>
+                    <constraint firstItem="gBh-Em-lYh" firstAttribute="leading" secondItem="zku-De-zoD" secondAttribute="trailing" constant="20" id="x79-1C-JdC"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -73,5 +78,6 @@
     </objects>
     <resources>
         <image name="arrows_Right_black.png" width="12" height="12"/>
+        <image name="coupon4.png" width="60" height="20"/>
     </resources>
 </document>

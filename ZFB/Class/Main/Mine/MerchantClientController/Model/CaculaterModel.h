@@ -29,13 +29,13 @@
 
 @property (nonatomic, assign) NSInteger delivery_id;
 
-@property (nonatomic, assign) CGFloat settlement_delivery_amount;
+@property (nonatomic, copy) NSString * settlement_delivery_amount;
 
-@property (nonatomic, assign) CGFloat order_amount;
+@property (nonatomic, copy) NSString * order_amount;
 
 @property (nonatomic, copy) NSString *settlement_num;
 
-@property (nonatomic, assign) CGFloat settlement_store_amount;
+@property (nonatomic, copy) NSString * settlement_store_amount;
 
 @property (nonatomic, copy) NSString *settlement_time;
 
