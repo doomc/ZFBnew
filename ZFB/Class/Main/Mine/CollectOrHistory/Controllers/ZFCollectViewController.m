@@ -209,8 +209,10 @@ typedef NS_ENUM(NSUInteger, CollectType) {
                 normalCell.storeslist = list;
                 
                 //初始化五星好评控件info.goodsComment
-                XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:normalCell.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO];
+                XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:normalCell.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
                 wdStarView.currentScore = [list.starLevel integerValue];
+     
+
                 //初始化五星好评控件
                 [normalCell addSubview:wdStarView];
 
@@ -225,8 +227,10 @@ typedef NS_ENUM(NSUInteger, CollectType) {
                 editCell.delegate = self;
                 
                 //初始化五星好评控件info.goodsComment
-                XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:editCell.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO];
+                XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:editCell.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
                 wdStarView.currentScore = [list.starLevel integerValue];
+      
+
                 //初始化五星好评控件
                 [editCell addSubview:wdStarView];
                 

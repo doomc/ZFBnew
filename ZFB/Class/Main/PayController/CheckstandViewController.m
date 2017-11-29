@@ -267,7 +267,7 @@
 {
     //关闭toolbar
     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
-
+    [self settingNavBarBgName:@"nav64_gray"];
     [self WXparnerIdPost];
 }
 #pragma mark  - 网络请求 查询展易付余额

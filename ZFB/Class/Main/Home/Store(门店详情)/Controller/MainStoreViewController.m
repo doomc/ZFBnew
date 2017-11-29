@@ -58,15 +58,16 @@
     self.title = @"门店详情";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor =   HEXCOLOR(0xf7f7f7);
+ 
+    self.headerView = [[MainStoreHeadView alloc]initWithHeaderViewFrame:CGRectMake(0, 0, KScreenW, 135)] ;
     
-    self.headerView = [[NSBundle mainBundle]loadNibNamed:@"MainStoreHeadView" owner:nil options:nil].lastObject;
     self.footerView = [[ MainStoreFooterView alloc]initWithFooterViewFrame:CGRectMake(0, KScreenH -headerH +20, KScreenW,  49)];
     self.footerView.delegate = self;
     [self.view addSubview:self.headerView];
     [self.topTitleView addSubview:self.footerView];
     [self.view addSubview:self.topTitleView];
-    
-    _wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 120, 24) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO];
+
+    _wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 100, 18) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO littleStar:@"1"];//小星星
     [ self.headerView.starView addSubview:_wdStarView];
     
     [self storePostRequest];

@@ -34,8 +34,10 @@
     self.lb_collect.text = _collectNum;
     self.lb_goodsNum.text = _goodsNum;
     self.lb_storeName.text = _storeName;
-    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 120, 24) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO];
+    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 120, 24) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
     wdStarView.currentScore = _starNum;
+ 
+
     [self.starView addSubview:wdStarView];
     [self.storeImage sd_setImageWithURL:[NSURL URLWithString:_imageUrl] placeholderImage:nil];
 

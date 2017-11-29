@@ -116,9 +116,9 @@
     Findlistreviews * info = self.appraiseListArray[indexPath.row];
     cell.infoList = info;    
     //初始化五星好评控件info.goodsComment
-    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(KScreenW -  125-10, 10, 125, 25) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO];
+    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(KScreenW -  125-10, 10, 125, 25) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
     wdStarView.currentScore = info.goodsComment;
-    
+ 
     [cell addSubview:wdStarView];
 
 }

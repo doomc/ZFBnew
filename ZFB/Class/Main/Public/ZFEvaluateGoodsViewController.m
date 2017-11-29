@@ -106,7 +106,8 @@
         }
         //服务态度
         if (_serviceView == nil) {
-            _serviceView = [[XHStarRateView alloc]initWithFrame:serviceCell.serviceAppraiseView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:YES];
+            _serviceView = [[XHStarRateView alloc]initWithFrame:serviceCell.serviceAppraiseView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:YES littleStar:@"0"];//da星星
+
             [serviceCell addSubview:_serviceView];
             _serviceView.delegate = self;
         }

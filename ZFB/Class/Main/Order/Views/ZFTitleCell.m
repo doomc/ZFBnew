@@ -36,7 +36,7 @@
         self.lb_payMethod.text = @"";
     }
     self.lb_nameOrTime.text = orderlist.createTime;
-    self.lb_storeName.text =orderlist.storeName;
+    self.lb_storeName.text = orderlist.storeName;
     [self.statusButton setTitle:orderlist.orderStatusName forState:UIControlStateNormal];
 
     

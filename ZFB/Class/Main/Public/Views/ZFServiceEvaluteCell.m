@@ -21,7 +21,7 @@
    
     
     //服务态度
-    XHStarRateView * sendView = [[XHStarRateView alloc]initWithFrame:self.sendSpeedAppraiseView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:YES];
+    XHStarRateView * sendView = [[XHStarRateView alloc]initWithFrame:self.sendSpeedAppraiseView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:YES littleStar:@"0"];//da星星
     [self addSubview:sendView];
     sendView.delegate = self;
 }

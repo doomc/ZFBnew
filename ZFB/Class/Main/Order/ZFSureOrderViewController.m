@@ -633,7 +633,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         if([code isEqualToString:@"0"])//库存充足
         {
             _creatOrder = YES;// 已经生成了订单了
-            [SVProgressHUD show];
             [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/generateOrderNumber",zfb_baseUrl] params:jsondic success:^(id response) {
                 if ([response[@"resultCode"] intValue] == 0) {
                     //paytype 支付类型 0 线下 1 线上
@@ -736,62 +735,72 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 #pragma mark - 提交订单 didCleckClearing
 -(void)didCleckClearing:(UIButton *)sender
 {
-    NSLog(@" 提交订单 ");
-    if (_creatOrder == YES) {//如果生成了订单了
-        [self.view makeToast:@"请勿重复操作！" duration:2 position:@"center"];
-        return;
-    }else{
-        
-        //还原成字典数组
-        NSArray * cmgoodsList          = [NSArray arrayWithArray:self.cmGoodsListArray];
-        NSArray * storeDeliveryfeeList = [NSArray arrayWithArray:self.storeDeliveryfeeListArr];
-        NSArray * storeAttachList      = [NSArray arrayWithArray:self.storeAttachListArr];
-        
-        /////////////////////////// 一个大集合 /////////////////////////////////////////////
-        NSMutableDictionary * jsondic = [NSMutableDictionary dictionary] ;
-        
-        [jsondic setValue:BBUserDefault.cmUserId forKey:@"cmUserId"];
-        [jsondic setValue:_postAddressId forKey:@"postAddressId"];
-        [jsondic setValue:_contactUserName forKey:@"contactUserName" ];
-        [jsondic setValue:_contactMobilePhone forKey:@"contactMobilePhone"];
-        [jsondic setValue:_contactMobilePhone forKey:@"mobilePhone"];
-        [jsondic setValue:_postAddress forKey:@"postAddress"];
-        [jsondic setValue:_payType forKey:@"payType" ];//支付类型 0 线下 1 线上
-        [jsondic setValue:_cartItemId forKey:@"cartItemId"];//立即购买不传，购物车加入的订单需要传
-        
-        [jsondic setValue: cmgoodsList forKey:@"cmGoodsList"];
-        [jsondic setValue: storeDeliveryfeeList forKey:@"storeDeliveryfeeList"];
-        [jsondic setValue: storeAttachList forKey:@"storeAttachList"];
-        ////////优惠券新加字段
-        [jsondic setValue: _useRange forKey:@"useRange"];
-        [jsondic setValue: _couponId forKey:@"couponId"];
-        [jsondic setValue: _couponStoreId forKey:@"storeId"];
-        [jsondic setValue: _couponAmount forKey:@"couponAmount"];
-        [jsondic setValue: _couponGoodsIds forKey:@"goodsIds"];
-        
-        NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
-        //    NSLog(@"提交订单 -----------%@",successDic);
-        if (_postAddress == nil  || _contactUserName == nil || _contactMobilePhone == nil) {
-            JXTAlertController * alertavc = [JXTAlertController alertControllerWithTitle:@"提示" message:@"您现在还没有默认地址，马上添加默认地址" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                
-            }];
-            UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                ZFAddressListViewController * listVC =[[ZFAddressListViewController alloc]init];
-                [self.navigationController pushViewController:listVC animated:YES];
-            }];
-            [alertavc addAction:cancelAction];
-            [alertavc addAction:sureAction];
-            [self presentViewController:alertavc animated:YES completion:nil];
-            
-        }else{
-            //进入请求
-            [self commitOrder:successDic];
-        }
-    }
+    NSLog(@" 提交订单  ------------------");
+    [SVProgressHUD showWithStatus:@"正在提交订单..."];
+    //先将未到时间执行前的任务取消。
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(starButtonClicked:) object:sender];
+    
+    [self performSelector:@selector(starButtonClicked:) withObject:sender afterDelay:1];
+
     
 }
-
+-(void)starButtonClicked:(UIButton*)sender
+{
+    [SVProgressHUD dismiss];
+    NSLog(@"进入到 不可编辑状态  -----------------");
+        if (_creatOrder == YES) {//如果生成了订单了
+            [self.view makeToast:@"请勿重复下单！" duration:2 position:@"center"];
+            return;
+        }else{
+            
+            //还原成字典数组
+            NSArray * cmgoodsList          = [NSArray arrayWithArray:self.cmGoodsListArray];
+            NSArray * storeDeliveryfeeList = [NSArray arrayWithArray:self.storeDeliveryfeeListArr];
+            NSArray * storeAttachList      = [NSArray arrayWithArray:self.storeAttachListArr];
+            
+            /////////////////////////// 一个大集合 /////////////////////////////////////////////
+            NSMutableDictionary * jsondic = [NSMutableDictionary dictionary] ;
+            
+            [jsondic setValue:BBUserDefault.cmUserId forKey:@"cmUserId"];
+            [jsondic setValue:_postAddressId forKey:@"postAddressId"];
+            [jsondic setValue:_contactUserName forKey:@"contactUserName" ];
+            [jsondic setValue:_contactMobilePhone forKey:@"contactMobilePhone"];
+            [jsondic setValue:_contactMobilePhone forKey:@"mobilePhone"];
+            [jsondic setValue:_postAddress forKey:@"postAddress"];
+            [jsondic setValue:_payType forKey:@"payType" ];//支付类型 0 线下 1 线上
+            [jsondic setValue:_cartItemId forKey:@"cartItemId"];//立即购买不传，购物车加入的订单需要传
+            
+            [jsondic setValue: cmgoodsList forKey:@"cmGoodsList"];
+            [jsondic setValue: storeDeliveryfeeList forKey:@"storeDeliveryfeeList"];
+            [jsondic setValue: storeAttachList forKey:@"storeAttachList"];
+            ////////优惠券新加字段
+            [jsondic setValue: _useRange forKey:@"useRange"];
+            [jsondic setValue: _couponId forKey:@"couponId"];
+            [jsondic setValue: _couponStoreId forKey:@"storeId"];
+            [jsondic setValue: _couponAmount forKey:@"couponAmount"];
+            [jsondic setValue: _couponGoodsIds forKey:@"goodsIds"];
+            
+            NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
+            //    NSLog(@"提交订单 -----------%@",successDic);
+            if (_postAddress == nil  || _contactUserName == nil || _contactMobilePhone == nil) {
+                JXTAlertController * alertavc = [JXTAlertController alertControllerWithTitle:@"提示" message:@"您现在还没有默认地址，马上添加默认地址" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }];
+                UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    ZFAddressListViewController * listVC =[[ZFAddressListViewController alloc]init];
+                    [self.navigationController pushViewController:listVC animated:YES];
+                }];
+                [alertavc addAction:cancelAction];
+                [alertavc addAction:sureAction];
+                [self presentViewController:alertavc animated:YES completion:nil];
+                
+            }else{
+                //进入请求
+                [self commitOrder:successDic];
+            }
+        }
+}
 #pragma mark - 获取支付paySign值
 -(void)getPaypaySignAccessTokenUrl
 {

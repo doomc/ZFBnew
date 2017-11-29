@@ -19,6 +19,8 @@
 @interface ZFApplyBackgoodsViewController ()<SalesAfterPopViewDelegate,UIScrollViewDelegate,HXPhotoViewDelegate>
 {
     BOOL  _isCommited;
+    NSString * _imgUrlAppending;//拼接的图片地址
+
 }
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView  *img_view;//商品图片
@@ -44,7 +46,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contraintHight;
 
 @property (nonatomic, strong) NSArray * imgUrl_mutArray;//存放选取的图片数组
-
 
 @end
 
@@ -77,10 +78,16 @@
 - (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray <HXPhotoModel *> *)videos original:(BOOL)isOriginal {
     
     [HXPhotoTools getImageForSelectedPhoto:photos type:HXPhotoToolsFetchHDImageType completion:^(NSArray<UIImage *> *images) {
-        NSSLog(@"%@",images);
-        _imgUrl_mutArray = images;
+        
+        [OSSImageUploader asyncUploadImages:images complete:^(NSArray<NSString *> *names, UploadImageState state) {
+            if (state == 1) {
+                _imgUrlAppending =  [names componentsJoinedByString:@","];
+                NSSLog(@"names = %@",_imgUrlAppending);
+            }
+        }];
+        
     }];
-    NSLog(@"imgUrl_mutArray === %@",self.imgUrl_mutArray);
+ 
     
 }
 - (void)photoView:(HXPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {
@@ -105,8 +112,8 @@
         _manager.openCamera         = YES;
         _manager.cacheAlbum         = YES;
         _manager.cameraType         = HXPhotoManagerCameraTypeSystem;
-        _manager.photoMaxNum        = 4;
-        _manager.maxNum             = 4;
+        _manager.photoMaxNum        = 5;
+        _manager.maxNum             = 5;
         _manager.saveSystemAblum    = NO;
     }
     return _manager;
@@ -135,10 +142,10 @@
 -(void)InitPlaceholderTextView
 {
     _textView                       = [[PlaceholderTextView alloc]init];
-    _textView.frame                 = self.textBgView.bounds;
+    _textView.frame                 = self.textBgView.frame;
     _textView.placeholderLabel.font = [UIFont systemFontOfSize:14];
     _textView.placeholder           = @"请输入文字...";
-    _textView.maxLength             = 200;
+    _textView.maxLength             = 100;
     _textView.font                  = [UIFont systemFontOfSize:14];
     [self.textBgView  addSubview:_textView];
     
@@ -179,14 +186,28 @@
  @param sender 提交申请
  */
 - (IBAction)didClickNextPage:(id)sender {
-    [SVProgressHUD show];
 
+    [SVProgressHUD showWithStatus:@"正在提交..."];
+
+    [[self class]cancelPreviousPerformRequestsWithTarget:self selector:@selector(didChangeStatus:) object:sender];
+    
+    [self performSelector:@selector(didChangeStatus:) withObject:sender afterDelay:2];
+    
+}
+-(void)didChangeStatus:(UIButton *)sender
+{
+    NSLog(@"不叨叨 ------------");
     if (_isCommited == YES) {
-        [self.view makeToast:@"您的手速太快了,营养跟不上啊..." duration:2 position:@"center"];
+        [self.view makeToast:@"请勿重复提交" duration:2 position:@"center"];
         return;
     }else{
         /////***************提交之前暂时没有做处理
-        if ([_reason isEqualToString:@""] || _reason == nil ||_problemDescr == nil || [_problemDescr isEqualToString:@""]) {
+        if (_reason.length > 0 && _problemDescr.length > 0 ) {
+            
+            [self uploadSuccessPushVC];
+            _isCommited = YES;
+            
+        }else{
             JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"提示" message:@"申请原因或问题描述没填写" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * sure       = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
@@ -195,81 +216,50 @@
             [self.navigationController presentViewController:alert animated:NO completion:^{
                 
             }];
-        }else
-        {
-            if (_imgUrl_mutArray.count > 0) {
-                [OSSImageUploader asyncUploadImages:_imgUrl_mutArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
-                    NSLog(@"%@",names);
-                    if (state == 1) {
-                        NSLog(@"上传成功了");
-                        if (_isCommited == NO) {
-                            ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
-                            
-                            bcVC.goodsName  = _goodsName;
-                            bcVC.price      = _price ;
-                            bcVC.goodCount  = _goodCount;
-                            bcVC.coverImgUrl = _coverImgUrl;
-                            
-                            ///需要发送到售后申请的数据
-                            bcVC.orderId     = _orderId;
-                            bcVC.orderNum    = _orderNum;
-                            bcVC.goodsId     = _goodsId;
-                            bcVC.serviceType = @"0";///服务类型    否     0 退货 1 换货
-                            bcVC.storeId     = _storeId;
-                            bcVC.orderTime   = _orderTime;
-                            bcVC.storeName   = _storeName;
-                            bcVC.postName    = _postName;
-                            bcVC.postPhone   = _postPhone;
-                            bcVC.orderGoodsId= _orderGoodsId;
-                            
-                            //原因
-                            bcVC.reason          = _reason;
-                            bcVC.problemDescr    = _problemDescr;
-                            bcVC.imgArr          = [names componentsJoinedByString:@","];//图片字符串
-                            bcVC.skuId = _skuId;
-                            [self.navigationController pushViewController: bcVC animated:YES];
-                            [SVProgressHUD dismiss];
-
-                            _isCommited = NO;
-                            
-                        }
-                    }
-                }];
-                
-            }else{//图片为空的状态
-                ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
-                bcVC.goodsName  = _goodsName;
-                bcVC.price      = _price ;
-                bcVC.goodCount  = _goodCount;
-                bcVC.coverImgUrl = _coverImgUrl;
-                
-                ///需要发送到售后申请的数据
-                bcVC.orderId     = _orderId;
-                bcVC.orderNum    = _orderNum;
-                bcVC.goodsId     = _goodsId;
-                bcVC.serviceType = @"0";///服务类型    否     0 退货 1 换货
-                bcVC.storeId     = _storeId;
-                bcVC.orderTime   = _orderTime;
-                bcVC.storeName   = _storeName;
-                bcVC.postName    = _postName;
-                bcVC.postPhone   = _postPhone;
-                bcVC.orderGoodsId= _orderGoodsId;
-                
-                //原因
-                bcVC.reason          = _reason;
-                bcVC.problemDescr    = _problemDescr;
-                bcVC.imgArr          = @"";
-                bcVC.skuId = _skuId;
-                _isCommited = NO;
-                [SVProgressHUD dismiss];
-                [self.navigationController pushViewController: bcVC animated:YES];
-      
-
-            }
+            [SVProgressHUD dismiss];
+            _isCommited = NO;
         }
+ 
     }
 }
+-(void)uploadSuccessPushVC
+{
+    //图片为空的状态
+    ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
+    bcVC.goodsName  = _goodsName;
+    bcVC.price      = _price ;
+    bcVC.goodCount  = _goodCount;
+    bcVC.coverImgUrl = _coverImgUrl;
+    
+    ///需要发送到售后申请的数据
+    bcVC.orderId     = _orderId;
+    bcVC.orderNum    = _orderNum;
+    bcVC.goodsId     = _goodsId;
+    bcVC.serviceType = @"0";///服务类型    否     0 退货 1 换货
+    bcVC.storeId     = _storeId;
+    bcVC.orderTime   = _orderTime;
+    bcVC.storeName   = _storeName;
+    bcVC.postName    = _postName;
+    bcVC.postPhone   = _postPhone;
+    bcVC.orderGoodsId= _orderGoodsId;
+    bcVC.skuId = _skuId;
 
+    //原因
+    bcVC.reason          = _reason;
+    bcVC.problemDescr    = _problemDescr;
+    
+    if (_imgUrlAppending.length > 0) {
+        bcVC.imgArr          = _imgUrlAppending ;//图片字符串
+        [self.navigationController pushViewController: bcVC animated:YES];
+
+    }else{
+        bcVC.imgArr          = @"";
+        [self.navigationController pushViewController: bcVC animated:YES];
+
+    }
+    [SVProgressHUD dismiss];
+
+}
 /**
  申请原因
  @param sender 选择列表

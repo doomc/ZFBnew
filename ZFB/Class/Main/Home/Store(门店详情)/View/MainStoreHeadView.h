@@ -21,5 +21,6 @@
 @property (weak, nonatomic) IBOutlet UILabel * lb_collect;
 @property (weak, nonatomic) IBOutlet UIView  * starView;
 
+-(instancetype)initWithHeaderViewFrame:(CGRect)frame;
 
 @end

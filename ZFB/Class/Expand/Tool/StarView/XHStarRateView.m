@@ -8,9 +8,6 @@
 
 #import "XHStarRateView.h"
 
-#define ForegroundStarImage @"evaluate_on"
-#define BackgroundStarImage @"evaluate_off"
-
 typedef void(^completeBlock)(CGFloat currentScore);
 
 @interface XHStarRateView()
@@ -36,13 +33,14 @@ typedef void(^completeBlock)(CGFloat currentScore);
     return self;
 }
 
--(instancetype)initWithFrame:(CGRect)frame numberOfStars:(NSInteger)numberOfStars rateStyle:(RateStyle)rateStyle isAnination:(BOOL)isAnimation delegate:(id)delegate WithtouchEnable:(BOOL)touchEnable{
+-(instancetype)initWithFrame:(CGRect)frame numberOfStars:(NSInteger)numberOfStars rateStyle:(RateStyle)rateStyle isAnination:(BOOL)isAnimation delegate:(id)delegate WithtouchEnable:(BOOL)touchEnable littleStar:(NSString *)littleStar{
     if (self = [super initWithFrame:frame]) {
         _numberOfStars = numberOfStars;
         _rateStyle = rateStyle;
         _isAnimation = isAnimation;
         _delegate = delegate;
         _touchEnable = touchEnable;
+        _islittleStar = littleStar;
         [self createStarView];
     }
     return self;
@@ -77,8 +75,15 @@ typedef void(^completeBlock)(CGFloat currentScore);
 #pragma mark - private Method
 -(void)createStarView{
     
-    self.foregroundStarView = [self createStarViewWithImage:ForegroundStarImage];
-    self.backgroundStarView = [self createStarViewWithImage:BackgroundStarImage];
+    if ([_islittleStar isEqualToString:@"1"]) {
+        //小星星
+        self.foregroundStarView = [self createStarViewWithImage:@"score1_on"];
+        self.backgroundStarView = [self createStarViewWithImage:@"score1_off"];
+    }else{
+        //大星星
+        self.foregroundStarView = [self createStarViewWithImage:@"evaluate_on"];
+        self.backgroundStarView = [self createStarViewWithImage:@"evaluate_off"];
+    }
     self.foregroundStarView.frame = CGRectMake(0, 0, self.bounds.size.width*_currentScore/self.numberOfStars, self.bounds.size.height);
     
     [self addSubview:self.backgroundStarView];

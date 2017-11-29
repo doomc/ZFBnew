@@ -600,7 +600,6 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     payVC.amount = [NSString stringWithFormat:@"%.2f",[payRelPrice floatValue]];
     payVC.notifyUrl = _thirdUrlDic[@"notify_url"];
     payVC.signDic = dic;
-    payVC.signDic = dic;
     payVC.payParam = payDealParam;
     [self.navigationController pushViewController:payVC animated:NO];
     

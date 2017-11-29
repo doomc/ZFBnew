@@ -35,8 +35,10 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
  
     //创建评价
-    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:self.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:YES];
+    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:self.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:YES littleStar:@"0"];//da星星
     wdStarView.delegate = self;
+ 
+
     [self addSubview:wdStarView];
     
 }

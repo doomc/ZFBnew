@@ -10,7 +10,15 @@
 
 @implementation MainStoreHeadView
 
- 
+-(instancetype)initWithHeaderViewFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self = [[NSBundle mainBundle]loadNibNamed:@"MainStoreHeadView" owner:self options:nil].lastObject;
+        self.frame = frame;
+    }
+    return self;
+}
 
 
 @end

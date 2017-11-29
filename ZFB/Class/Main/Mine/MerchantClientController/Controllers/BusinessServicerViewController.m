@@ -1838,7 +1838,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     [alertvc addAction:sure];
                     [alertvc addAction:cancle];
                     [self presentViewController:alertvc animated:NO completion:^{
-                        
                     }];
                 }
                     break;
@@ -1878,9 +1877,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                                 [self sendGoodsPostOrderId:_order_id expressName:expressName expressNumber:expressNumber expressCoding:@"110"];
                             }else{
                                 [self.view makeToast:@"请填写完整信息" duration:2 position:@"center"];
-
                             }
-                
                         }];
                         
                         [alertvc addAction:sure];
@@ -1888,10 +1885,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                         [self presentViewController:alertvc animated:NO completion:^{
                             
                         }];
-                        
-                       
                     }
-
                 }
                     
                     

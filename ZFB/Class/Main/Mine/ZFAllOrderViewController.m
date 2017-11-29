@@ -2174,7 +2174,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             
         case OrderTypeWaitPay:
         {
-            
             //    orderStatus  -1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成 8 待接单 9.代发货 10.已发货
             Orderlist * orderlist = self.orderListArray [indexPath];
             if ([orderlist.orderStatus isEqualToString:@"4"]) {

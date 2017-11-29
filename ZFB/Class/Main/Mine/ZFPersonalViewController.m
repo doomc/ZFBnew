@@ -774,7 +774,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
         _deliveryFlag = nil;
         _headview.loginView.hidden   = YES;
         _headview.unloginView.hidden = NO;
-        
+        _deliveryFlag = @"0";
+        _shopFlag = @"0";
     }
  
     [self.myTableView reloadData];
