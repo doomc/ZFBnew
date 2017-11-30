@@ -21,7 +21,8 @@
 #import "ZFFooterCell.h"//尾部
 #import "ZFCheckTheProgressCell.h"//申请售后的
 #import "BusinessSendAccountCell.h"//结算
-
+#import "SendStatisticsContentCell.h"//订单首页的内容cell
+#import "SendStatisticsHeaderCell.h"//订单首页头部修改
 //controller
 #import "OrderStatisticsViewController.h"
 #import "ZFDetailOrderViewController.h"
@@ -155,21 +156,23 @@ typedef NS_ENUM(NSUInteger, SelectType) {
              forCellReuseIdentifier:@"ZFCheckTheProgressCell"];
     [self.homeTableView registerNib:[UINib nibWithNibName:@"BusinessSendAccountCell" bundle:nil]
              forCellReuseIdentifier:@"BusinessSendAccountCell"];
+    [self.homeTableView registerNib:[UINib nibWithNibName:@"SendStatisticsHeaderCell" bundle:nil]
+             forCellReuseIdentifier:@"SendStatisticsHeaderCell"];
+    [self.homeTableView registerNib:[UINib nibWithNibName:@"SendStatisticsContentCell" bundle:nil]
+             forCellReuseIdentifier:@"SendStatisticsContentCell"];
     
-
 }
 
 -(void)tableViewSetting
 {
     self.homeTableView.delegate       = self;
     self.homeTableView.dataSource     = self;
-    self.homeTableView.backgroundColor = HEXCOLOR(0xf7f7f7);
     self.homeTableView.estimatedSectionFooterHeight = 0;
     self.homeTableView.estimatedSectionHeaderHeight = 0;
     self.homeTableView.estimatedRowHeight = 0;
-    self.homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.zfb_tableView = self.homeTableView;
     [self setupRefresh];
+
 }
  
 #pragma mark -数据请求
@@ -178,7 +181,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [super headerRefresh];
     switch (_selectPageType ) {
         case SelectTypeHomePage:
-
+            [self storeHomePagePostRequst];
             break;
             
         case SelectTypeOrderPage:
@@ -192,7 +195,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 case BusinessServicTypeSending://配送中
                     
                     [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" storeId:_storeId];
-
                     
                     break;
                 case BusinessServicTypeWaitPay://待付款
@@ -240,14 +242,13 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
             
     }
-    
 }
 -(void)footerRefresh {
     [super footerRefresh];
     
     switch (_selectPageType ) {
         case SelectTypeHomePage:
-            [self endRefresh];
+            [self storeHomePagePostRequst];
 
             break;
             
@@ -442,9 +443,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 {
     self.segementPage.selectedSegmentIndex = 0;
     [self.segementPage addTarget:self action:@selector(segmentchangePage:) forControlEvents:UIControlEventValueChanged];
-    self.segementPage.layer.masksToBounds = YES;
-    self.segementPage.layer.borderWidth   = 1.0;
-    self.segementPage.layer.borderColor   = HEXCOLOR(0xffcccc).CGColor;
     UIFont *font                          = [UIFont boldSystemFontOfSize:14.0f];
     NSDictionary *attributes              = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
     [self.segementPage setTitleTextAttributes:attributes forState:UIControlStateNormal];
@@ -573,7 +571,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     
     switch (_selectPageType) {//选择了哪个版块
         case SelectTypeHomePage:
-            sectionRow = 1;
+            if (section == 0) {
+                sectionRow = 1;
+            }else{
+                sectionRow = 3;
+            }
             
             break;
         case SelectTypeOrderPage:
@@ -683,11 +685,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeHomePage:
             if (indexPath.section == 0) {
                 
-                height = 100;
+                height = 210;
             }
             else{
                 
-                height = 220;
+                height = 130;
             }
             
             break;
@@ -735,7 +737,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
         case SelectTypeCaculater:
             
-            height = 172;
+            height = 185;
             break;
             
     }
@@ -750,13 +752,18 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             if (section == 0) {
                 return view;
             }
-            SendServiceTitleCell  *titleCell = [self.homeTableView
-                                                dequeueReusableCellWithIdentifier:@"SendServiceTitleCell"];
-            titleCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            titleCell.lb_title.text  = @"订单统计信息";
-            [titleCell.statusButton setTitle:@"" forState:UIControlStateNormal];
             
-            view = titleCell;
+            if (view == nil ) {
+                view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 44)];
+                view.backgroundColor = HEXCOLOR( 0xf7f7f7);
+                UILabel * info = [[UILabel alloc]initWithFrame:view.frame];
+                info.text  = @"统计信息";
+                info.font = SYSTEMFONT(14);
+                info.textAlignment = NSTextAlignmentCenter;
+                info.textColor = HEXCOLOR(0x8d8d8d);
+                [view addSubview:info];
+            }
+            return view;
         }
             break;
         case SelectTypeOrderPage:
@@ -947,6 +954,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     BusinessOrderlist  * orderlist = self.orderListArray[section];
                     cell.businessOrder             = orderlist;
                     cell.section                   = section;
+
                     //默认值
                     if ([orderlist.deliveryType isEqualToString:@"1"]) {
                         [cell.cancel_button setTitle:@"取消订单" forState:UIControlStateNormal];
@@ -985,16 +993,17 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     cell.footDelegate              = self;
                     BusinessOrderlist  * orderlist = self.orderListArray[section];
                     cell.businessOrder             = orderlist;
-                    //没获取 当前的 indexPath
                     cell.section = section;
-                    if ([orderlist.payModeName isEqualToString:@"线下支付"]) {
-                        
-                        [cell.cancel_button setHidden: YES];
-                        [cell.payfor_button setTitle:@"确认取货" forState:UIControlStateNormal];
+                    //没获取 当前的 indexPath
+                    //payStatus 0.未支付的初始状态 1.支付成功 -1.支付失败 3.付款发起 4.付款取消 (待付款) 5.退款成功（支付成功的）6.退款发起(支付成功)
+                    if (orderlist.payType == 1) {// 0线上支付 1线下支付
+                        [cell.cancel_button setTitle:@"取消订单" forState:UIControlStateNormal];
+                        [cell.payfor_button setTitle:@"待确认取货" forState:UIControlStateNormal];
                     }else{
                         [cell.cancel_button setHidden: YES];
-                        [cell.payfor_button setHidden: YES];
+                        [cell.payfor_button setTitle:@"取消订单" forState:UIControlStateNormal];
                     }
+       
                     
                     footerView = cell;
                     
@@ -1082,9 +1091,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     //默认值
                     if ([orderlist.deliveryType isEqualToString:@"2"]) {
                         [cell.payfor_button  setTitle:@"发货" forState:UIControlStateNormal];
-                        [cell.cancel_button  setTitle:@"取消" forState:UIControlStateNormal];
-                        [cell.payfor_button setHidden:NO];
-                        [cell.cancel_button setHidden:NO];
+                        [cell.cancel_button  setHidden:YES];
+
                     }
                     footerView = cell;
                 }
@@ -1123,7 +1131,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     switch (_selectPageType) {
         case SelectTypeHomePage:
             
-            height = 10;
             break;
         case SelectTypeOrderPage:
             
@@ -1233,44 +1240,41 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         {
             if (indexPath.section == 0) {
                 
-                ZFTitleCell *titleCell = [self.homeTableView
-                                          dequeueReusableCellWithIdentifier:@"ZFTitleCell"];
-                titleCell.selectionStyle = UITableViewCellSelectionStyleNone;
-                
-                titleCell.lb_nameOrTime.text = @"待配送信息";
-                titleCell.lb_storeName.text  = [NSString stringWithFormat:@"待派送订单 %@ 笔 >",_order_count];
-                [titleCell.statusButton setTitle:@"" forState:UIControlStateNormal];
-                
-                //关键字
-                titleCell.lb_storeName.keywords      = _order_count;
-                titleCell.lb_storeName.keywordsColor = HEXCOLOR(0xf95a70);
-                titleCell.lb_storeName.keywordsFont  = [UIFont systemFontOfSize:18];
-                ///必须设置计算宽高
-                CGRect dealNumh              = [titleCell.lb_storeName getLableHeightWithMaxWidth:300];
-                titleCell.lb_storeName.frame = CGRectMake(15, 10, dealNumh.size.width, dealNumh.size.height);
-                
+                SendStatisticsHeaderCell *titleCell = [self.homeTableView
+                                                       dequeueReusableCellWithIdentifier:@"SendStatisticsHeaderCell"];
+                titleCell.lb_orderNum.text = _order_count;
                 return titleCell;
                 
-            }
-            ZFSendHomeListCell * cell = [self.homeTableView dequeueReusableCellWithIdentifier:@"ZFSendHomeListCell" forIndexPath:indexPath];
-            cell.selectionStyle       = UITableViewCellSelectionStyleNone;
-            cell.delegate             = self;
-            //日
-            cell.lb_todayCreatTime.text = _daydate_time;
-            cell.lb_todayOrderNum.text  = _dayorder_count;
-            cell.lb_todayPriceFree.text = [NSString stringWithFormat:@"%.2f",[_dayorder_amount floatValue]];
-    
-
-            //周
-            cell.lb_weekCreatTime.text = _weekodate_time;
-            cell.lb_weekOrderNum.text  = _weekorder_count;
-            cell.lb_weekPriceFree.text = _weekorder_amount;
-            //月
-            cell.lb_monthOrderNum.text  = _monthorder_count;
-            cell.lb_monthPriceFree.text = _monthorder_amount;
-            cell.lb_monthCreatTime.text = _monthodate_time;
-            
-            return cell;
+            }else{
+                SendStatisticsContentCell * cell = [self.homeTableView dequeueReusableCellWithIdentifier:@"SendStatisticsContentCell" forIndexPath:indexPath];
+                if (indexPath.row == 0) {
+                    cell.lb_stautus.text = @"今日配送";
+                    //日
+                    cell.lb_sendTime.text = _daydate_time;
+                    cell.lb_sendCount.text  = _dayorder_count;
+                    cell.lb_sendFee.text =  [NSString stringWithFormat:@"%.2f",[_dayorder_amount floatValue]];
+                    
+                }else if (indexPath.row == 1)
+                {
+                    cell.lb_stautus.text = @"7日配送";
+                    
+                    //周
+                    cell.lb_sendTime.text = _weekodate_time;
+                    cell.lb_sendCount.text  = _weekorder_count;
+                    cell.lb_sendFee.text = _weekorder_amount;
+                    
+                }
+                else{
+                    cell.lb_stautus.text = @"30日配送";
+                    //月
+                    cell.lb_sendTime.text = _monthodate_time;
+                    cell.lb_sendCount.text  = _monthorder_count;
+                    cell.lb_sendFee.text = _monthorder_amount ;
+                    
+                }
+           
+                return cell;
+               }
         }
             break;
         case SelectTypeOrderPage:
@@ -1464,6 +1468,19 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 
                 self.segementPage.selectedSegmentIndex = 1;
                 [self segmentchangePage:self.segementPage];
+            }else{
+                if (indexPath.row == 0) {
+                    [self todayOrderDetial];
+                    
+                }else if (indexPath.row == 1)
+                {
+                    [self weekOrderDetial];
+                }
+                else{
+                    
+                    [self monthOrderDetial];
+                    
+                }
             }
             
             break;
@@ -1546,7 +1563,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 #pragma mark - BusinessServicPopViewDelegate 选择切换type
 -(void)sendTitle:(NSString *)title businessServicType:(BusinessServicType)type
 {
-    self.currentPage = 1;
+//    self.currentPage = 1;
     _servicType = type;//赋值type ，根据type请求
     [self.navbar_btn setTitle:title forState:UIControlStateNormal];
     
@@ -1560,7 +1577,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         }
     }];
     [self headerRefresh];
-    [self.homeTableView reloadData];
 
 //    switch (_selectPageType) {
 //        case SelectTypeHomePage:
@@ -1670,7 +1686,22 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     break;
                 case BusinessServicTypeWaitPay:
+                {
+                    JXTAlertController * alertavc =[JXTAlertController alertControllerWithTitle:@"提示" message:@"是否取消该订单！" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                        
+                        //确认后调用该接口 取消订单
+                        [self cancleOrderPostWithOrderNum:orderNum orderStatus:@"-1" payStatus:payStatus deliveryId:deliveryId];
+                        
+                    }];
+                    [alertavc addAction:cancelAction];
+                    [alertavc addAction:sureAction];
                     
+                    [self presentViewController:alertavc animated:YES completion:nil];
+                }
                     break;
                 case BusinessServicTypeDealComplete:
                     
@@ -1688,22 +1719,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 //
 //                    break;
                 case BusinessServicTypeWaitSending://待发货
-                {
-                    JXTAlertController * alertavc =[JXTAlertController alertControllerWithTitle:@"提示" message:@"是否取消该订单！" preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                        
-                    }];
-                    UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                        
-                        //确认后调用该接口 取消订单
-                        [self cancleOrderPostWithOrderNum:orderNum orderStatus:@"-1" payStatus:payStatus deliveryId:deliveryId];
-                        
-                    }];
-                    [alertavc addAction:cancelAction];
-                    [alertavc addAction:sureAction];
-                    
-                    [self presentViewController:alertavc animated:YES completion:nil];
-                }
+              
                     break;
                 case BusinessServicTypeWaitReceived://待收货
                     
@@ -1727,7 +1743,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         
     }];
     UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        ////////// 确认取货
         NSLog(@"点击了确认退货");
         [self returnBackStoreConfirmReceiptPostRequstAtOrderNum:progress.orderNum afterServiceId:progress.saleId goodsId:progress.goodsId orderGoodsId:progress.orderGoodsId goodsCount:[NSString stringWithFormat:@"%ld",progress.goodsCount] refund:progress.refund userId:progress.userId];
         
@@ -1754,8 +1769,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     BusinessOrderlist * orderlist = self.orderListArray[indexPath];
     switch (_selectPageType) {
         case SelectTypeHomePage:
-            
             break;
+            
         case SelectTypeOrderPage:
             switch (_servicType) {
                 case BusinessServicTypeWaitSendlist:
@@ -1793,8 +1808,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     
                     break;
                 case BusinessServicTypeWaitPay:
-                    
-                    if ([orderlist.payModeName isEqualToString:@"线下支付"]) {
+                    if (orderlist.payType == 1) {// 0线上支付 1线下支付
                         JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"用户是否确认取货了？" message:nil preferredStyle:UIAlertControllerStyleAlert];
                         
                         UIAlertAction * cancle =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -1803,9 +1817,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                         UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                             ////////// 确认取货
                             NSLog(@"点击了确认取货");
-                            ZFDetailOrderViewController * detailVC = [ZFDetailOrderViewController new];
-                            detailVC.cmOrderid                     = orderlist.order_id;
-                            [self.navigationController pushViewController:detailVC animated:NO];
+                            [self cancleOrderPostWithOrderNum:orderlist.orderNum orderStatus:@"3" payStatus:orderlist.payStatus deliveryId:orderlist.deliveryId];
+
                         }];
                         
                         [alertvc addAction:sure];
@@ -1813,33 +1826,31 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                         [self presentViewController:alertvc animated:NO completion:^{
                             
                         }];
+                    }else{
+                        JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"确认取消订单 ？" message:nil preferredStyle:UIAlertControllerStyleAlert];
                         
+                        UIAlertAction * cancle =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                            
+                        }];
+                        UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                            NSLog(@"点击了确认取消订单");
+                            //确认后调用该接口 取消订单
+                            [self cancleOrderPostWithOrderNum:orderlist.orderNum orderStatus:@"-1" payStatus:orderlist.payStatus deliveryId:orderlist.deliveryId];
+                        }];
+                        
+                        [alertvc addAction:sure];
+                        [alertvc addAction:cancle];
+                        [self presentViewController:alertvc animated:NO completion:^{
+                            
+                        }];
                     }
+ 
                     break;
                 case BusinessServicTypeDealComplete:
                     
                     break;
                 case BusinessServicTypeSureReturn:
-                {
-                    
-                    JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"用户是否确认取货了？" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    UIAlertAction * cancle =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                        
-                    }];
-                    UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                        ////////// 确认取货
-                        NSLog(@"点击了确认取货");
-                        ZFDetailOrderViewController * detailVC = [ZFDetailOrderViewController new];
-                        detailVC.cmOrderid                     = orderlist.order_id;
-                        [self.navigationController pushViewController:detailVC animated:NO];
-                    }];
-                    
-                    [alertvc addAction:sure];
-                    [alertvc addAction:cancle];
-                    [self presentViewController:alertvc animated:NO completion:^{
-                    }];
-                }
+
                     break;
                 case BusinessServicTypeSended:
                     
@@ -1847,9 +1858,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 case BusinessServicTypeCancelOrder://
                     
                     break;
-//                case BusinessServicTypeWiatOrder:
-//
-//                    break;
+
                 case BusinessServicTypeWaitSending://待发货
                 {
 
@@ -1978,15 +1987,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             _monthend_time     = homeModel.monthOrderInfo.end_time;
             
             [self.homeTableView reloadData];
-            
+        
         }
-        
+        [self endRefresh];
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
-        
+        [self endRefresh];
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
@@ -2015,10 +2021,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                              @"page": [NSNumber numberWithInteger:self.currentPage],
                              @"size": [NSNumber numberWithInteger:kPageCount],
                              @"orderStatus": orderStatus,
-//                             @"payStatus": payStatus,
-//                             @"searchWord":searchWord,
-//                             @"startTime": startTime,
-//                             @"endTime": endTime,
                              @"storeId": storeId,
                              
                              };
@@ -2098,7 +2100,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     }];
     
 }
-#pragma mark -  取消订单接口    order/updateOrderInfo
+#pragma mark -  取消订单接口  确认取货    order/updateOrderInfo
 -(void)cancleOrderPostWithOrderNum:(NSString *)orderNum orderStatus:(NSString *)orderStatus payStatus:(NSString *)payStatus deliveryId :(NSString *)deliveryId
 {
     NSDictionary * param = @{
@@ -2114,12 +2116,56 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         //成功后需要刷新列表
-        [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" storeId:_storeId];
-        
+        switch (_servicType) {
+                
+            case BusinessServicTypeWaitSendlist://待派单
+                
+                [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"0" storeId:_storeId];//待配送
+
+                break;
+            case BusinessServicTypeSending://配送中
+                
+                [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"1" storeId:_storeId];
+                
+                break;
+            case BusinessServicTypeWaitPay://待付款
+                
+                [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"4" storeId:_storeId];
+                
+                break;
+            case BusinessServicTypeDealComplete://交易完成
+                
+                [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"3" storeId:_storeId];
+                
+                break;
+            case BusinessServicTypeSureReturn://待确认退回
+                
+                [self salesAfterPostRequsteAtStoreId:_storeId];
+                
+                
+                break;
+            case BusinessServicTypeSended://已配送
+                
+                [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"2" storeId:_storeId];
+                
+                break;
+            case BusinessServicTypeCancelOrder://取消订单
+                
+                [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"-1" storeId:_storeId];
+                
+                
+                break;
+                
+            case BusinessServicTypeWaitSending://待发货
+                [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"9" storeId:_storeId];
+                
+                break;
+            case BusinessServicTypeWaitReceived://待收货
+                [self businessOrderListPostRequstpayStatus:@"" orderStatus:@"10" storeId:_storeId];
+                
+                break;
+        }
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);
@@ -2458,20 +2504,33 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
 //既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    CGFloat sectionHeaderHeight = k_sectionHeight ;
-    CGFloat sectionFooterHeight = 60;
-    CGFloat offsetY = scrollView.contentOffset.y;
-    if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
-    {
-        scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
-    }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
-    {
-        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
-    }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
-    {
-        scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+    switch (_selectPageType ) {
+        case SelectTypeHomePage:
+             break;
+            
+        case SelectTypeOrderPage:
+        {
+            CGFloat sectionHeaderHeight = k_sectionHeight ;
+            CGFloat sectionFooterHeight = 60;
+            CGFloat offsetY = scrollView.contentOffset.y;
+            if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
+            {
+                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
+            }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
+            {
+                scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
+            }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
+            {
+                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+            }
+        }
+            break;
+        case SelectTypeCaculater:
+ 
+            break;
+            
     }
+   
 }
 
 

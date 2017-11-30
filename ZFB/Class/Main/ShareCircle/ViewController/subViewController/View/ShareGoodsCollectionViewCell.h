@@ -27,6 +27,13 @@
  */
 -(void)didClickgGoodsImageViewAtIndexItem:(NSInteger)indexItem;
 
+/**
+点击查看评论数
+ 
+ @param indexItem  当前下标
+ */
+-(void)didClickCheckCommentAtIndexItem:(NSInteger)indexItem;
+
 
 @end
 @interface ShareGoodsCollectionViewCell : UICollectionViewCell
@@ -41,6 +48,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_nickname;
 
 @property (weak, nonatomic) IBOutlet UIImageView *headImg;//用户头像
+//评论按钮
+@property (weak, nonatomic) IBOutlet UIButton *evalution_btn;
+///评论数
+@property (weak, nonatomic) IBOutlet UILabel *lb_evaNum;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb_zanNum;
 

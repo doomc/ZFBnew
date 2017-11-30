@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,10 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ShareGoodsCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="160" height="286"/>
+            <rect key="frame" x="0.0" y="0.0" width="160" height="308"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="160" height="286"/>
+                <rect key="frame" x="0.0" y="0.0" width="160" height="308"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P2Q-JS-ZA8">
@@ -41,26 +41,14 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="head.png" translatesAutoresizingMaskIntoConstraints="NO" id="AhP-CX-r4T">
-                        <rect key="frame" x="5" y="237.5" width="30" height="30"/>
+                        <rect key="frame" x="5" y="263" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="SGF-vq-iHL"/>
                             <constraint firstAttribute="height" constant="30" id="bDO-2l-IsW"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfz-Je-lNU">
-                        <rect key="frame" x="120.5" y="242.5" width="20" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="20" id="FRk-yK-De5"/>
-                            <constraint firstAttribute="height" constant="20" id="XSK-bI-q3T"/>
-                        </constraints>
-                        <state key="normal" image="praise_off.png"/>
-                        <state key="selected" image="sharezan_selected.png"/>
-                        <connections>
-                            <action selector="didClickZanAcion:" destination="gTV-IL-0wX" eventType="touchUpInside" id="cj2-Ng-2aw"/>
-                        </connections>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEe-OB-KOe">
-                        <rect key="frame" x="40" y="242.5" width="70" height="20"/>
+                        <rect key="frame" x="40" y="268" width="70" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="DRA-87-dne"/>
                             <constraint firstAttribute="width" constant="70" id="jEm-QU-mg3"/>
@@ -69,8 +57,38 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Exr-Qe-Cbn">
-                        <rect key="frame" x="140.5" y="245.5" width="14.5" height="14.5"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lNs-Zn-oNb">
+                        <rect key="frame" x="61" y="233" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="AVF-ey-tg2"/>
+                            <constraint firstAttribute="width" constant="20" id="HtH-8f-LKQ"/>
+                        </constraints>
+                        <state key="normal" image="praise_off.png"/>
+                        <state key="selected" image="sharezan_selected.png"/>
+                        <connections>
+                            <action selector="didClickZanAcion:" destination="gTV-IL-0wX" eventType="touchUpInside" id="i3C-oR-kH7"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uV-LD-za6">
+                        <rect key="frame" x="81" y="236" width="8" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Moq-ON-72l">
+                        <rect key="frame" x="8" y="233" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="QWq-DU-loF"/>
+                            <constraint firstAttribute="height" constant="20" id="b0n-f9-H2G"/>
+                        </constraints>
+                        <state key="normal" image="comment.png"/>
+                        <state key="selected" image="sharezan_selected.png"/>
+                        <connections>
+                            <action selector="didCommentAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="vCQ-Fl-aCc"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZQ-jK-03I">
+                        <rect key="frame" x="33" y="235.5" width="8" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -80,37 +98,44 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="hMA-6U-Aga" firstAttribute="trailing" secondItem="Ccz-Ld-jCQ" secondAttribute="trailing" id="3tE-ZZ-vg9"/>
+                <constraint firstItem="AhP-CX-r4T" firstAttribute="top" secondItem="Moq-ON-72l" secondAttribute="bottom" constant="10" id="4hz-HF-mJ7"/>
+                <constraint firstItem="Moq-ON-72l" firstAttribute="top" secondItem="hMA-6U-Aga" secondAttribute="bottom" constant="5" id="BTf-oY-3mI"/>
                 <constraint firstItem="P2Q-JS-ZA8" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="DQ3-RM-kSf"/>
+                <constraint firstItem="9uV-LD-za6" firstAttribute="leading" secondItem="lNs-Zn-oNb" secondAttribute="trailing" id="FcY-Za-gtM"/>
+                <constraint firstItem="BZQ-jK-03I" firstAttribute="centerY" secondItem="Moq-ON-72l" secondAttribute="centerY" id="HqO-Wv-zjH"/>
                 <constraint firstItem="Ccz-Ld-jCQ" firstAttribute="top" secondItem="P2Q-JS-ZA8" secondAttribute="bottom" constant="5" id="IdP-sJ-5wo"/>
+                <constraint firstItem="lNs-Zn-oNb" firstAttribute="leading" secondItem="BZQ-jK-03I" secondAttribute="trailing" constant="20" id="Jik-Pe-WIm"/>
                 <constraint firstItem="hMA-6U-Aga" firstAttribute="leading" secondItem="Ccz-Ld-jCQ" secondAttribute="leading" id="TtQ-4W-ahL"/>
-                <constraint firstItem="Exr-Qe-Cbn" firstAttribute="centerY" secondItem="yfz-Je-lNU" secondAttribute="centerY" id="ZYI-I4-c5i"/>
+                <constraint firstItem="Moq-ON-72l" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="YIG-DN-j3n"/>
                 <constraint firstItem="hMA-6U-Aga" firstAttribute="top" secondItem="Ccz-Ld-jCQ" secondAttribute="bottom" constant="5" id="Zd5-T1-Myy"/>
                 <constraint firstItem="Ccz-Ld-jCQ" firstAttribute="leading" secondItem="P2Q-JS-ZA8" secondAttribute="leading" id="Zgk-zw-aw4"/>
+                <constraint firstItem="lNs-Zn-oNb" firstAttribute="centerY" secondItem="Moq-ON-72l" secondAttribute="centerY" id="aIM-KT-NFV"/>
                 <constraint firstItem="P2Q-JS-ZA8" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="b9Y-OE-kui"/>
                 <constraint firstItem="yEe-OB-KOe" firstAttribute="leading" secondItem="AhP-CX-r4T" secondAttribute="trailing" constant="5" id="dVp-AP-wiW"/>
-                <constraint firstItem="AhP-CX-r4T" firstAttribute="top" secondItem="hMA-6U-Aga" secondAttribute="bottom" constant="10" id="eO1-X2-YBQ"/>
                 <constraint firstAttribute="trailing" secondItem="P2Q-JS-ZA8" secondAttribute="trailing" constant="5" id="jDc-ts-7Vc"/>
-                <constraint firstItem="yfz-Je-lNU" firstAttribute="centerY" secondItem="yEe-OB-KOe" secondAttribute="centerY" id="lR5-GY-TOV"/>
-                <constraint firstItem="Exr-Qe-Cbn" firstAttribute="leading" secondItem="yfz-Je-lNU" secondAttribute="trailing" id="lWE-qo-FB6"/>
                 <constraint firstItem="yEe-OB-KOe" firstAttribute="centerY" secondItem="AhP-CX-r4T" secondAttribute="centerY" id="ooq-BT-DzJ"/>
-                <constraint firstItem="Exr-Qe-Cbn" firstAttribute="trailing" secondItem="hMA-6U-Aga" secondAttribute="trailing" id="pyn-9r-odJ"/>
+                <constraint firstItem="9uV-LD-za6" firstAttribute="centerY" secondItem="lNs-Zn-oNb" secondAttribute="centerY" id="osq-vg-FfS"/>
                 <constraint firstItem="Ccz-Ld-jCQ" firstAttribute="trailing" secondItem="P2Q-JS-ZA8" secondAttribute="trailing" id="sT2-Aa-Ypl"/>
                 <constraint firstItem="AhP-CX-r4T" firstAttribute="leading" secondItem="hMA-6U-Aga" secondAttribute="leading" id="wJy-Az-7j1"/>
+                <constraint firstItem="BZQ-jK-03I" firstAttribute="leading" secondItem="Moq-ON-72l" secondAttribute="trailing" constant="5" id="zka-ly-bia"/>
             </constraints>
-            <size key="customSize" width="158" height="286"/>
+            <size key="customSize" width="158" height="308"/>
             <connections>
+                <outlet property="evalution_btn" destination="Moq-ON-72l" id="5oB-4L-aJu"/>
                 <outlet property="headImg" destination="AhP-CX-r4T" id="doo-FQ-ueL"/>
                 <outlet property="lb_description" destination="hMA-6U-Aga" id="4Eh-p6-wAX"/>
+                <outlet property="lb_evaNum" destination="BZQ-jK-03I" id="Hlj-6p-ScG"/>
                 <outlet property="lb_nickname" destination="yEe-OB-KOe" id="ThC-Iq-sfS"/>
                 <outlet property="lb_title" destination="Ccz-Ld-jCQ" id="VXQ-Qa-KbH"/>
-                <outlet property="lb_zanNum" destination="Exr-Qe-Cbn" id="pf3-w9-0VV"/>
+                <outlet property="lb_zanNum" destination="9uV-LD-za6" id="1rx-gg-ljV"/>
                 <outlet property="waterPullImageView" destination="P2Q-JS-ZA8" id="LZj-QU-r7s"/>
-                <outlet property="zan_btn" destination="yfz-Je-lNU" id="gS4-Rh-u2F"/>
+                <outlet property="zan_btn" destination="lNs-Zn-oNb" id="aDU-l4-Hjn"/>
             </connections>
-            <point key="canvasLocation" x="-571" y="137"/>
+            <point key="canvasLocation" x="-571" y="148"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="comment.png" width="15" height="15"/>
         <image name="head.png" width="70" height="70"/>
         <image name="praise_off.png" width="15" height="15"/>
         <image name="sharezan_selected.png" width="24" height="24"/>

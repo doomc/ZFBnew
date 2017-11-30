@@ -126,7 +126,7 @@
     }
     CGFloat padding = 5;
     CGFloat imgH  = ((KScreenW -30 - 10) * 0.5 - 10) * 6/5 ;
-    return imgH + 10 + 50 + 4 * padding + shareGoods.titleHeight + shareGoods.describeHeight;
+    return imgH + 10 + 50 +30 + 4 * padding + shareGoods.titleHeight + shareGoods.describeHeight;
 }
 
 
@@ -138,16 +138,13 @@
 -(void)didClickZanAtIndexItem:(NSInteger)indexItem AndisThumbsStatus:(NSString *)isThumbsStatus
 {
     ShareGoodsData * shareGoods = self.shareArray[indexItem];
- 
     NSLog(@"当前点赞 ---%ld ,我点赞了吗 ---%@",indexItem,shareGoods.thumbsStatus);
     // 1 未点赞   0已点赞
     if ([shareGoods.thumbsStatus isEqualToString:@"0"]) {
-        
         //您已经点过赞了
         [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
 
     }else{
-        
         [self didclickZanPostRequsetAtthumsId:shareGoods.shareId];
     }
 
@@ -166,8 +163,14 @@
     detailVC.shareId = shareGoods.shareId;
     [self.navigationController pushViewController:detailVC animated:NO];
 }
-
-
+/**
+ 查看评论
+ @param indexItem 当前下标
+ */
+-(void)didClickCheckCommentAtIndexItem:(NSInteger)indexItem
+{
+    
+}
 #pragma mark - 好货共享列表    toShareGoods/shareGoodsList
 -(void)shareGoodsPost
 {

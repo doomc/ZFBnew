@@ -451,7 +451,7 @@
 {
     //非加密的请求 获取预订单
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/order/paySuccessDeal",zfb_baseUrl] params:_payParam success:^(id response) {
-        NSLog(@"-------获取支付状态 %@-----",response[@"resultMsg"]);
+        NSLog(@"----paySuccessDeal---获取支付状态 %@-----",response[@"resultMsg"]);
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];

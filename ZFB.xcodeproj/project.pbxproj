@@ -841,6 +841,33 @@
 		4971110A1FCEB7FE006585BA /* score1_off@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111061FCEB7FC006585BA /* score1_off@3x.png */; };
 		4971110B1FCEB7FE006585BA /* score1_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111071FCEB7FD006585BA /* score1_on@2x.png */; };
 		4971110C1FCEB7FE006585BA /* score1_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111081FCEB7FE006585BA /* score1_on@3x.png */; };
+		497111101FCFAFEF006585BA /* SendStatisticsContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4971110E1FCFAFEF006585BA /* SendStatisticsContentCell.m */; };
+		497111111FCFAFEF006585BA /* SendStatisticsContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4971110F1FCFAFEF006585BA /* SendStatisticsContentCell.xib */; };
+		497111151FCFB01A006585BA /* SendStatisticsHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 497111131FCFB01A006585BA /* SendStatisticsHeaderCell.m */; };
+		497111161FCFB01A006585BA /* SendStatisticsHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497111141FCFB01A006585BA /* SendStatisticsHeaderCell.xib */; };
+		4971111A1FCFB042006585BA /* SendStatisticsTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 497111181FCFB042006585BA /* SendStatisticsTitleView.m */; };
+		4971111B1FCFB042006585BA /* SendStatisticsTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497111191FCFB042006585BA /* SendStatisticsTitleView.xib */; };
+		497111291FCFB3CD006585BA /* settlement_off@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4971111C1FCFB3C3006585BA /* settlement_off@3x.png */; };
+		4971112A1FCFB3CD006585BA /* settlement_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4971111D1FCFB3C3006585BA /* settlement_on@3x.png */; };
+		4971112B1FCFB3CD006585BA /* distribution_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4971111E1FCFB3C3006585BA /* distribution_bg.png */; };
+		4971112C1FCFB3CD006585BA /* settlement_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4971111F1FCFB3C4006585BA /* settlement_on@2x.png */; };
+		4971112D1FCFB3CD006585BA /* decorate2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111201FCFB3C4006585BA /* decorate2@2x.png */; };
+		4971112E1FCFB3CD006585BA /* order_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111211FCFB3C5006585BA /* order_off@2x.png */; };
+		4971112F1FCFB3CD006585BA /* order_off@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111221FCFB3C5006585BA /* order_off@3x.png */; };
+		497111301FCFB3CD006585BA /* order_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111231FCFB3C6006585BA /* order_on@3x.png */; };
+		497111311FCFB3CD006585BA /* distribution.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111241FCFB3C7006585BA /* distribution.png */; };
+		497111321FCFB3CD006585BA /* settlement_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111251FCFB3C8006585BA /* settlement_off@2x.png */; };
+		497111331FCFB3CD006585BA /* decorate2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111261FCFB3C9006585BA /* decorate2@3x.png */; };
+		497111341FCFB3CD006585BA /* statistics_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111271FCFB3CA006585BA /* statistics_bg.png */; };
+		497111351FCFB3CD006585BA /* order_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111281FCFB3CC006585BA /* order_on@2x.png */; };
+		497111381FCFF924006585BA /* comment@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111361FCFF922006585BA /* comment@3x.png */; };
+		497111391FCFF924006585BA /* comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497111371FCFF923006585BA /* comment@2x.png */; };
+		4971113C1FCFFCFC006585BA /* EditCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4971113B1FCFFCFC006585BA /* EditCommentViewController.m */; };
+		497111401FD0048F006585BA /* EditCommetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4971113E1FD0048F006585BA /* EditCommetCell.m */; };
+		497111411FD0048F006585BA /* EditCommetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4971113F1FD0048F006585BA /* EditCommetCell.xib */; };
+		497111441FD008F1006585BA /* EditCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 497111431FD008F1006585BA /* EditCommentModel.m */; };
+		497111471FD00AE8006585BA /* EditCommentFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 497111461FD00AE8006585BA /* EditCommentFootView.m */; };
+		497111491FD00B09006585BA /* EditCommentFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497111481FD00B09006585BA /* EditCommentFootView.xib */; };
 		497186981FA7178E0049D939 /* add_redFriend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497186961FA7178D0049D939 /* add_redFriend@2x.png */; };
 		497186991FA7178F0049D939 /* add_redFriend@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 497186971FA7178E0049D939 /* add_redFriend@3x.png */; };
 		4971869C1FA808450049D939 /* notice2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4971869A1FA808420049D939 /* notice2@2x.png */; };
@@ -2740,6 +2767,40 @@
 		497111061FCEB7FC006585BA /* score1_off@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score1_off@3x.png"; sourceTree = "<group>"; };
 		497111071FCEB7FD006585BA /* score1_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score1_on@2x.png"; sourceTree = "<group>"; };
 		497111081FCEB7FE006585BA /* score1_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score1_on@3x.png"; sourceTree = "<group>"; };
+		4971110D1FCFAFEF006585BA /* SendStatisticsContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendStatisticsContentCell.h; sourceTree = "<group>"; };
+		4971110E1FCFAFEF006585BA /* SendStatisticsContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendStatisticsContentCell.m; sourceTree = "<group>"; };
+		4971110F1FCFAFEF006585BA /* SendStatisticsContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendStatisticsContentCell.xib; sourceTree = "<group>"; };
+		497111121FCFB01A006585BA /* SendStatisticsHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendStatisticsHeaderCell.h; sourceTree = "<group>"; };
+		497111131FCFB01A006585BA /* SendStatisticsHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendStatisticsHeaderCell.m; sourceTree = "<group>"; };
+		497111141FCFB01A006585BA /* SendStatisticsHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendStatisticsHeaderCell.xib; sourceTree = "<group>"; };
+		497111171FCFB042006585BA /* SendStatisticsTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendStatisticsTitleView.h; sourceTree = "<group>"; };
+		497111181FCFB042006585BA /* SendStatisticsTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendStatisticsTitleView.m; sourceTree = "<group>"; };
+		497111191FCFB042006585BA /* SendStatisticsTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendStatisticsTitleView.xib; sourceTree = "<group>"; };
+		4971111C1FCFB3C3006585BA /* settlement_off@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settlement_off@3x.png"; sourceTree = "<group>"; };
+		4971111D1FCFB3C3006585BA /* settlement_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settlement_on@3x.png"; sourceTree = "<group>"; };
+		4971111E1FCFB3C3006585BA /* distribution_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distribution_bg.png; sourceTree = "<group>"; };
+		4971111F1FCFB3C4006585BA /* settlement_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settlement_on@2x.png"; sourceTree = "<group>"; };
+		497111201FCFB3C4006585BA /* decorate2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decorate2@2x.png"; sourceTree = "<group>"; };
+		497111211FCFB3C5006585BA /* order_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "order_off@2x.png"; sourceTree = "<group>"; };
+		497111221FCFB3C5006585BA /* order_off@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "order_off@3x.png"; sourceTree = "<group>"; };
+		497111231FCFB3C6006585BA /* order_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "order_on@3x.png"; sourceTree = "<group>"; };
+		497111241FCFB3C7006585BA /* distribution.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distribution.png; sourceTree = "<group>"; };
+		497111251FCFB3C8006585BA /* settlement_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settlement_off@2x.png"; sourceTree = "<group>"; };
+		497111261FCFB3C9006585BA /* decorate2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decorate2@3x.png"; sourceTree = "<group>"; };
+		497111271FCFB3CA006585BA /* statistics_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statistics_bg.png; sourceTree = "<group>"; };
+		497111281FCFB3CC006585BA /* order_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "order_on@2x.png"; sourceTree = "<group>"; };
+		497111361FCFF922006585BA /* comment@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment@3x.png"; sourceTree = "<group>"; };
+		497111371FCFF923006585BA /* comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment@2x.png"; sourceTree = "<group>"; };
+		4971113A1FCFFCFC006585BA /* EditCommentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditCommentViewController.h; sourceTree = "<group>"; };
+		4971113B1FCFFCFC006585BA /* EditCommentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditCommentViewController.m; sourceTree = "<group>"; };
+		4971113D1FD0048F006585BA /* EditCommetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditCommetCell.h; sourceTree = "<group>"; };
+		4971113E1FD0048F006585BA /* EditCommetCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditCommetCell.m; sourceTree = "<group>"; };
+		4971113F1FD0048F006585BA /* EditCommetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCommetCell.xib; sourceTree = "<group>"; };
+		497111421FD008F1006585BA /* EditCommentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditCommentModel.h; sourceTree = "<group>"; };
+		497111431FD008F1006585BA /* EditCommentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditCommentModel.m; sourceTree = "<group>"; };
+		497111451FD00AE8006585BA /* EditCommentFootView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditCommentFootView.h; sourceTree = "<group>"; };
+		497111461FD00AE8006585BA /* EditCommentFootView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditCommentFootView.m; sourceTree = "<group>"; };
+		497111481FD00B09006585BA /* EditCommentFootView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCommentFootView.xib; sourceTree = "<group>"; };
 		497186961FA7178D0049D939 /* add_redFriend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_redFriend@2x.png"; sourceTree = "<group>"; };
 		497186971FA7178E0049D939 /* add_redFriend@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_redFriend@3x.png"; sourceTree = "<group>"; };
 		4971869A1FA808420049D939 /* notice2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notice2@2x.png"; sourceTree = "<group>"; };
@@ -4437,6 +4498,8 @@
 				49BA48881F67E0C2006B5F60 /* ShareWaterFullModel.m */,
 				49BA48911F68FEA0006B5F60 /* ShareCommendModel.h */,
 				49BA48921F68FEA0006B5F60 /* ShareCommendModel.m */,
+				497111421FD008F1006585BA /* EditCommentModel.h */,
+				497111431FD008F1006585BA /* EditCommentModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4451,6 +4514,12 @@
 				49411E361F67CCEA00344731 /* ShareGoodsCollectionViewCell.h */,
 				49411E371F67CCEA00344731 /* ShareGoodsCollectionViewCell.m */,
 				49411E381F67CCEA00344731 /* ShareGoodsCollectionViewCell.xib */,
+				4971113D1FD0048F006585BA /* EditCommetCell.h */,
+				4971113E1FD0048F006585BA /* EditCommetCell.m */,
+				4971113F1FD0048F006585BA /* EditCommetCell.xib */,
+				497111451FD00AE8006585BA /* EditCommentFootView.h */,
+				497111461FD00AE8006585BA /* EditCommentFootView.m */,
+				497111481FD00B09006585BA /* EditCommentFootView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5609,6 +5678,15 @@
 				495EA50F1F14B64C001FCB7E /* ZFSaleAfterSearchCell.xib */,
 				495EA5101F14B64C001FCB7E /* ZFSaleAfterTopView.h */,
 				495EA5111F14B64C001FCB7E /* ZFSaleAfterTopView.m */,
+				4971110D1FCFAFEF006585BA /* SendStatisticsContentCell.h */,
+				4971110E1FCFAFEF006585BA /* SendStatisticsContentCell.m */,
+				4971110F1FCFAFEF006585BA /* SendStatisticsContentCell.xib */,
+				497111121FCFB01A006585BA /* SendStatisticsHeaderCell.h */,
+				497111131FCFB01A006585BA /* SendStatisticsHeaderCell.m */,
+				497111141FCFB01A006585BA /* SendStatisticsHeaderCell.xib */,
+				497111171FCFB042006585BA /* SendStatisticsTitleView.h */,
+				497111181FCFB042006585BA /* SendStatisticsTitleView.m */,
+				497111191FCFB042006585BA /* SendStatisticsTitleView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5879,6 +5957,8 @@
 		495EA5891F14B64C001FCB7E /* 分享 */ = {
 			isa = PBXGroup;
 			children = (
+				497111371FCFF923006585BA /* comment@2x.png */,
+				497111361FCFF922006585BA /* comment@3x.png */,
 				495EA58A1F14B64C001FCB7E /* qq@2x.png */,
 				495EA58B1F14B64C001FCB7E /* qq@3x.png */,
 				495EA58C1F14B64C001FCB7E /* weibo@2x.png */,
@@ -6168,6 +6248,19 @@
 		495EA6261F14B64C001FCB7E /* 配送 */ = {
 			isa = PBXGroup;
 			children = (
+				497111201FCFB3C4006585BA /* decorate2@2x.png */,
+				497111261FCFB3C9006585BA /* decorate2@3x.png */,
+				4971111E1FCFB3C3006585BA /* distribution_bg.png */,
+				497111241FCFB3C7006585BA /* distribution.png */,
+				497111211FCFB3C5006585BA /* order_off@2x.png */,
+				497111221FCFB3C5006585BA /* order_off@3x.png */,
+				497111281FCFB3CC006585BA /* order_on@2x.png */,
+				497111231FCFB3C6006585BA /* order_on@3x.png */,
+				497111251FCFB3C8006585BA /* settlement_off@2x.png */,
+				4971111C1FCFB3C3006585BA /* settlement_off@3x.png */,
+				4971111F1FCFB3C4006585BA /* settlement_on@2x.png */,
+				4971111D1FCFB3C3006585BA /* settlement_on@3x.png */,
+				497111271FCFB3CA006585BA /* statistics_bg.png */,
 				495EA6271F14B64C001FCB7E /* home_normal@2x.png */,
 				495EA6281F14B64C001FCB7E /* home_normal@3x.png */,
 				495EA6291F14B64C001FCB7E /* home_red@2x.png */,
@@ -7469,6 +7562,8 @@
 				49411E151F67AA7300344731 /* subViewController(子控制器) */,
 				49C33E6D1F55A6B400BC2254 /* ShareCircleViewController.h */,
 				49C33E6E1F55A6B400BC2254 /* ShareCircleViewController.m */,
+				4971113A1FCFFCFC006585BA /* EditCommentViewController.h */,
+				4971113B1FCFFCFC006585BA /* EditCommentViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -8902,6 +8997,7 @@
 				49DA749C1F259D20009F5577 /* arrowdown_red@2x.png in Resources */,
 				49C7448A1FB1A38E003F3891 /* PayRealCell.xib in Resources */,
 				499380E91FA3139F00ABC3E6 /* unCollected@3x.png in Resources */,
+				497111161FCFB01A006585BA /* SendStatisticsHeaderCell.xib in Resources */,
 				491871C51F9DB64800536CD2 /* location2@2x.png in Resources */,
 				49411E3A1F67CCEA00344731 /* ShareGoodsCollectionViewCell.xib in Resources */,
 				49411E261F67AD1E00344731 /* ShareNewGoodsCell.xib in Resources */,
@@ -8913,6 +9009,7 @@
 				495EA82F1F14B64D001FCB7E /* ZFMyOpinionCell.xib in Resources */,
 				49555EAF1F1E0092002E5688 /* ZFOrderListCell.xib in Resources */,
 				495EA9081F14B64E001FCB7E /* more_icon@2x.png in Resources */,
+				497111381FCFF924006585BA /* comment@3x.png in Resources */,
 				49B2995C1FC2742C00DF86E4 /* 引导页3.png in Resources */,
 				49AE178C1FB00D15001A804E /* time@2x.png in Resources */,
 				495EA8521F14B64D001FCB7E /* ZFShopCarCell.xib in Resources */,
@@ -8963,6 +9060,7 @@
 				49B0E7581F4177200032E72E /* QRCollectMoneyViewController.xib in Resources */,
 				49555EA81F1E0092002E5688 /* ShopOrderStoreNameCell.xib in Resources */,
 				49AE179D1FB035E5001A804E /* coupon@2x.png in Resources */,
+				497111301FCFB3CD006585BA /* order_on@3x.png in Resources */,
 				495EA8231F14B64D001FCB7E /* FeedCollectionViewCell.xib in Resources */,
 				4968A4201F4DB5290061A87E /* NTESSystemNotificationViewController.xib in Resources */,
 				49AE179E1FB035E5001A804E /* coupon@3x.png in Resources */,
@@ -8977,6 +9075,7 @@
 				497A8AAE1F2AECAA0003D7CB /* 今日@2x.png in Resources */,
 				491871F51F9DD71800536CD2 /* write@2x.png in Resources */,
 				495EA8F71F14B64E001FCB7E /* send_red@3x.png in Resources */,
+				4971112A1FCFB3CD006585BA /* settlement_on@3x.png in Resources */,
 				495EA85A1F14B64D001FCB7E /* 搜索@2x.png in Resources */,
 				495EA89D1F14B64D001FCB7E /* s_Selected@3x.png in Resources */,
 				4919D8DF1FBAF09C0098AD6A /* classification2@2x.png in Resources */,
@@ -9013,6 +9112,7 @@
 				493BDE001F6A202400CF31D0 /* SureOrderChooseTypeCell.xib in Resources */,
 				495EA8E51F14B64E001FCB7E /* success_order@3x.png in Resources */,
 				497111091FCEB7FE006585BA /* score1_off@2x.png in Resources */,
+				497111321FCFB3CD006585BA /* settlement_off@2x.png in Resources */,
 				49C33E661F55A52E00BC2254 /* select_normal@3x.png in Resources */,
 				491BEE3C1F9D97D700418765 /* home-on@3x.png in Resources */,
 				491BEE4C1F9D986000418765 /* share-on@3x.png in Resources */,
@@ -9049,6 +9149,7 @@
 				49AE8C0B1FB3F80600B198DB /* evaluate_off@3x.png in Resources */,
 				49AE178F1FB00DE8001A804E /* praise_black@2x.png in Resources */,
 				495EA89B1F14B64D001FCB7E /* s_normal@3x.png in Resources */,
+				497111311FCFB3CD006585BA /* distribution.png in Resources */,
 				495EA8F91F14B64E001FCB7E /* sendcar_normal@3x.png in Resources */,
 				4906D1521F74D7BE00B327ED /* 330x330.png in Resources */,
 				49BB297F1F8E007E00147829 /* PlaceholderBackground@3x.png in Resources */,
@@ -9060,6 +9161,7 @@
 				49AE8C001FB3F66C00B198DB /* dustbin@3x.png in Resources */,
 				49D8BA1D1FBC43F40097D85E /* used.png in Resources */,
 				49E9177F1FA9CF4B00867857 /* iWantOpenStoreViewController.xib in Resources */,
+				497111291FCFB3CD006585BA /* settlement_off@3x.png in Resources */,
 				491BEE441F9D984500418765 /* mine@3x.png in Resources */,
 				4958D5211F69240D007426A9 /* 优惠券@2x.png in Resources */,
 				49E917611FA9A3BD00867857 /* backTop.png in Resources */,
@@ -9080,6 +9182,7 @@
 				492785F41FC58AA1000449DC /* LogisticsCell.xib in Resources */,
 				5091A0F41F6D2EB300C6D632 /* StoreListTableViewCell.xib in Resources */,
 				494419CF1F9EE4D1006BAE39 /* success_green@3x.png in Resources */,
+				497111491FD00B09006585BA /* EditCommentFootView.xib in Resources */,
 				497186A41FA856180049D939 /* saoyisao@2x.png in Resources */,
 				49E9174C1FA97BDB00867857 /* NIMKitEmoticon.bundle in Resources */,
 				49E9175E1FA97D5300867857 /* video_chat_tip_sender.aac in Resources */,
@@ -9160,6 +9263,7 @@
 				497A8AAC1F2AECAA0003D7CB /* 30@2x.png in Resources */,
 				495EA9221F14B64E001FCB7E /* cases@2x.png in Resources */,
 				495EA8951F14B64D001FCB7E /* ipone@3x.png in Resources */,
+				497111341FCFB3CD006585BA /* statistics_bg.png in Resources */,
 				49E917841FA9D47B00867857 /* iwantSendedViewController.xib in Resources */,
 				493BDE3A1F6A792900CF31D0 /* MineShareContentCell.xib in Resources */,
 				491BEE4A1F9D986000418765 /* share-off@2x.png in Resources */,
@@ -9266,6 +9370,7 @@
 				49B2995F1FC2767400DF86E4 /* experience.png in Resources */,
 				494419BB1F9EE30B006BAE39 /* nav88_gray.png in Resources */,
 				495EA85E1F14B64D001FCB7E /* weibo@2x.png in Resources */,
+				4971112C1FCFB3CD006585BA /* settlement_on@2x.png in Resources */,
 				495EA8721F14B64D001FCB7E /* shoppingCar_normal@2x.png in Resources */,
 				495EA82B1F14B64D001FCB7E /* FeedTextViewCell.xib in Resources */,
 				4971110C1FCEB7FE006585BA /* score1_on@3x.png in Resources */,
@@ -9275,6 +9380,8 @@
 				49C33E4C1F558D3700BC2254 /* store_black@3x.png in Resources */,
 				50D61E8F1F1E5BAD00DBDA4D /* ico_check_nomal@3x.png in Resources */,
 				495EA8B91F14B64D001FCB7E /* collectshopCar@3x.png in Resources */,
+				4971112D1FCFB3CD006585BA /* decorate2@2x.png in Resources */,
+				4971111B1FCFB042006585BA /* SendStatisticsTitleView.xib in Resources */,
 				49C33E481F558C5900BC2254 /* addShopCar_white@3x.png in Resources */,
 				495EA8451F14B64D001FCB7E /* ZFOrderDetailGoosContentCell.xib in Resources */,
 				49AA1B6A1F7A56DD00625FBA /* CalculateCell.xib in Resources */,
@@ -9294,9 +9401,11 @@
 				4919D8E51FBAF0B30098AD6A /* storeinf@3x.png in Resources */,
 				494419E41FA01E54006BAE39 /* share_black@2x.png in Resources */,
 				491871D41F9DBAC700536CD2 /* more@2x.png in Resources */,
+				497111391FCFF924006585BA /* comment@2x.png in Resources */,
 				49411E3E1F67CEC400344731 /* sharezan_normal@2x.png in Resources */,
 				495EA8EB1F14B64E001FCB7E /* 省略@3x.png in Resources */,
 				495EA86A1F14B64D001FCB7E /* cellphone_normal@2x.png in Resources */,
+				4971112F1FCFB3CD006585BA /* order_off@3x.png in Resources */,
 				492785DC1FC578FD000449DC /* collection3_on@2x.png in Resources */,
 				495EA8131F14B64D001FCB7E /* ZFSaleAfterContentCell.xib in Resources */,
 				495EA8751F14B64D001FCB7E /* location_icon@3x.png in Resources */,
@@ -9307,6 +9416,7 @@
 				495EA8471F14B64D001FCB7E /* ZFOrderDetailPaycashCell.xib in Resources */,
 				49C33E671F55A52E00BC2254 /* select_red@2x.png in Resources */,
 				494419E61FA021A5006BAE39 /* searchBar.png in Resources */,
+				4971112B1FCFB3CD006585BA /* distribution_bg.png in Resources */,
 				49E917751FA9C09800867857 /* assess@2x.png in Resources */,
 				4906D14A1F74D7BE00B327ED /* 130x140.png in Resources */,
 				4919D8E01FBAF09C0098AD6A /* classification2@3x.png in Resources */,
@@ -9334,6 +9444,7 @@
 				495EA8BF1F14B64E001FCB7E /* gpsnormal@3x.png in Resources */,
 				495EA7D31F14B64D001FCB7E /* ZFPersonalHeaderView.xib in Resources */,
 				4939E6701F2AC3EE00ECD0B7 /* MKJTagViewTableViewCell.xib in Resources */,
+				497111331FCFB3CD006585BA /* decorate2@3x.png in Resources */,
 				495EA89A1F14B64D001FCB7E /* s_normal@2x.png in Resources */,
 				4921418B1F2A031A00C44D10 /* home_whiteSecond@3x.png in Resources */,
 				495EA7891F14B64D001FCB7E /* ZFDetailStoreCell.xib in Resources */,
@@ -9351,6 +9462,7 @@
 				491871C01F9DB58E00536CD2 /* arroundStore@3x.png in Resources */,
 				49D115B21F7E851900467CF1 /* findsingle@3x.png in Resources */,
 				495EA8621F14B64D001FCB7E /* wx_share@2x.png in Resources */,
+				497111351FCFB3CD006585BA /* order_on@2x.png in Resources */,
 				491871C81F9DB64F00536CD2 /* location@3x.png in Resources */,
 				49555EAD1F1E0092002E5688 /* ZFFooterCell.xib in Resources */,
 				49AE8C121FB4040900B198DB /* selected2@2x.png in Resources */,
@@ -9407,6 +9519,7 @@
 				492785E11FC579A0000449DC /* StoreInfoViewController.xib in Resources */,
 				495D02BF1FC818FC00C02182 /* reduce@2x.png in Resources */,
 				495EA77A1F14B64D001FCB7E /* ApprariseCollectionViewCell.xib in Resources */,
+				4971112E1FCFB3CD006585BA /* order_off@2x.png in Resources */,
 				4919D8E11FBAF09C0098AD6A /* contact@3x.png in Resources */,
 				495EA8E41F14B64E001FCB7E /* success_order@2x.png in Resources */,
 				49CFF30A1FB2E1E80087F74D /* expired.png in Resources */,
@@ -9456,6 +9569,7 @@
 				50D61E951F1E5BAD00DBDA4D /* plus@3x.png in Resources */,
 				49AE8C181FB4041200B198DB /* unchecked@2x.png in Resources */,
 				491BEE531F9D98A000418765 /* news-off@2x.png in Resources */,
+				497111411FD0048F006585BA /* EditCommetCell.xib in Resources */,
 				495EA8E71F14B64E001FCB7E /* warning_order@3x.png in Resources */,
 				495EA7FE1F14B64D001FCB7E /* ZFSendingCell.xib in Resources */,
 				491871F81F9DD72400536CD2 /* sending_icon@3x.png in Resources */,
@@ -9501,6 +9615,7 @@
 				499380E21FA3116F00ABC3E6 /* addFriend@3x.png in Resources */,
 				495EA8671F14B64D001FCB7E /* bag_normal@3x.png in Resources */,
 				49CFF30E1FB2EB880087F74D /* down3@2x.png in Resources */,
+				497111111FCFAFEF006585BA /* SendStatisticsContentCell.xib in Resources */,
 				49E917891FAAAA7E00867857 /* iOpenStoreViewController.xib in Resources */,
 				495EA73B1F14B64D001FCB7E /* blankpage_image_Sleep@3x.png in Resources */,
 				494419CB1F9EE4B2006BAE39 /* rmb2@3x.png in Resources */,
@@ -9780,6 +9895,7 @@
 				49DA74A71F25CB9C009F5577 /* SearchTypeCollectionCell.m in Sources */,
 				495EA9391F14B64E001FCB7E /* GVUserDefaults+BBProperties.m in Sources */,
 				49DFC47D1F972BA40080B6F7 /* AddBankCell.m in Sources */,
+				497111101FCFAFEF006585BA /* SendStatisticsContentCell.m in Sources */,
 				495EA7C31F14B64D001FCB7E /* CollectModel.m in Sources */,
 				49E916D61FA976A100867857 /* NIMKitMediaFetcher.m in Sources */,
 				49411E251F67AD1E00344731 /* ShareNewGoodsCell.m in Sources */,
@@ -9853,6 +9969,7 @@
 				49E917341FA976A100867857 /* NIMKitRobotDefaultTemplateParser.m in Sources */,
 				4906D1811F7906A700B327ED /* ShareRecommedDetailViewController.m in Sources */,
 				50CA6C351F72C8620077231B /* RightNavPopViewController.m in Sources */,
+				4971113C1FCFFCFC006585BA /* EditCommentViewController.m in Sources */,
 				495EA7A81F14B64D001FCB7E /* FuncListCollectionViewCell.m in Sources */,
 				49B299651FC2872C00DF86E4 /* StoreAllgoodsViewController.m in Sources */,
 				49E9171F1FA976A100867857 /* NIMTeamCardRowItem.m in Sources */,
@@ -9996,6 +10113,7 @@
 				49690CBF1F14EB3A004C501B /* MENetWorkManager.m in Sources */,
 				49DFC49D1F9874A90080B6F7 /* UITabBarItem+PPBadgeView.m in Sources */,
 				49E917001FA976A100867857 /* NIMCellLayoutConfig.m in Sources */,
+				497111151FCFB01A006585BA /* SendStatisticsHeaderCell.m in Sources */,
 				4968A40B1F4DB5290061A87E /* NTESPageView.m in Sources */,
 				495EA7B91F14B64D001FCB7E /* LoginViewController.m in Sources */,
 				495123261FAC53040038D1F9 /* ProvinceVC.m in Sources */,
@@ -10024,13 +10142,16 @@
 				495EA7F91F14B64D001FCB7E /* ZFSendHomeCell.m in Sources */,
 				495EA84D1F14B64D001FCB7E /* ShoppingCarModel.m in Sources */,
 				495EA7571F14B64D001FCB7E /* UIImage+RoundedCorner.m in Sources */,
+				4971111A1FCFB042006585BA /* SendStatisticsTitleView.m in Sources */,
 				495EA7B21F14B64D001FCB7E /* HPLocationCell.m in Sources */,
 				4927189C1F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.m in Sources */,
 				49E917691FA9BAE900867857 /* QuickOperationCell.m in Sources */,
+				497111441FD008F1006585BA /* EditCommentModel.m in Sources */,
 				49E916DF1FA976A100867857 /* NIMContactPickedView.m in Sources */,
 				492785F31FC58AA1000449DC /* LogisticsCell.m in Sources */,
 				495EA71E1F14B64D001FCB7E /* UIImage+ADCircleImage.m in Sources */,
 				495EA81A1F14B64D001FCB7E /* ZFSettingHeadViewController.m in Sources */,
+				497111401FD0048F006585BA /* EditCommetCell.m in Sources */,
 				495EA76B1F14B64D001FCB7E /* ZFCInterpersonalCircleViewController.m in Sources */,
 				4968A4121F4DB5290061A87E /* NTESContactUtilItem.m in Sources */,
 				5091A0E91F6D259300C6D632 /* ZFDetailsStoreViewController.m in Sources */,
@@ -10387,6 +10508,7 @@
 				4968A3F41F4DB5290061A87E /* NTESJionTeamViewController.m in Sources */,
 				493BDE681F6BC26B00CF31D0 /* WaterFlowLayout.m in Sources */,
 				49690CBB1F14C442004C501B /* Reachability.m in Sources */,
+				497111471FD00AE8006585BA /* EditCommentFootView.m in Sources */,
 				49555E9F1F1E0092002E5688 /* GoodsitemCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

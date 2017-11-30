@@ -26,6 +26,8 @@
 @end
 @interface BusinessOrderlist : ResponseObject
 
+@property (nonatomic, copy) NSString *orderNum;
+
 @property (nonatomic, copy) NSString *deliveryType;
 
 @property (nonatomic, copy) NSString *netPurchasePrice;
@@ -74,6 +76,7 @@
 
 @property (nonatomic, copy) NSString *post_name;
 
+@property (nonatomic, assign) NSInteger payType;
 
 @end
 
@@ -84,8 +87,6 @@
 @property (nonatomic, copy) NSString *goodsUnit;
 
 @property (nonatomic, copy) NSString *goods_name;
-
-//@property (nonatomic, copy) NSString *goods_properties;
 
 @property (nonatomic, copy) NSString *priceUnit;
 

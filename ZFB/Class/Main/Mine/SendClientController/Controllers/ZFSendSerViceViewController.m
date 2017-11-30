@@ -24,6 +24,9 @@
 #import "ZFTitleCell.h"//首页头部
 #import "SendServiceFootCell.h"//订单尾部已配送
 
+#import "SendStatisticsContentCell.h"//订单首页的内容cell
+#import "SendStatisticsHeaderCell.h"//订单首页头部修改
+
 //model
 #import "SendServiceModel.h"
 #import "SendServiceOrderModel.h"//订单模型
@@ -148,7 +151,10 @@ typedef NS_ENUM(NSUInteger, SelectType) {
               forCellReuseIdentifier:@"SendServiceFootCellid"];
     [self.send_tableView registerNib:[UINib nibWithNibName:@"BusinessSendAccountCell" bundle:nil]
               forCellReuseIdentifier:@"BusinessSendAccountCell"];
-    
+    [self.send_tableView registerNib:[UINib nibWithNibName:@"SendStatisticsHeaderCell" bundle:nil]
+              forCellReuseIdentifier:@"SendStatisticsHeaderCell"];
+    [self.send_tableView registerNib:[UINib nibWithNibName:@"SendStatisticsContentCell" bundle:nil]
+              forCellReuseIdentifier:@"SendStatisticsContentCell"];
     [self setupRefresh];
     
 }
@@ -158,9 +164,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 {
     self.segmentControl.selectedSegmentIndex = 0;
     [self.segmentControl addTarget:self action:@selector(SegmentchangePage:) forControlEvents:UIControlEventValueChanged];
-    self.segmentControl.layer.masksToBounds = YES;
-    self.segmentControl.layer.borderWidth = 1.0;
-    self.segmentControl.layer.borderColor = HEXCOLOR(0xffcccc).CGColor;
     UIFont *font = [UIFont boldSystemFontOfSize:15.0f];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
     [self.segmentControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
@@ -172,7 +175,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [super headerRefresh];
     switch (_selectPageType) {
         case SelectTypeHomePage:
-            [self endRefresh];
+            [self selectDeliveryListPostRequst];
             break;
         case SelectTypeOrderPage:
             switch (_servicType) {
@@ -190,7 +193,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     [self orderlistDeliveryID:_deliveryId OrderStatus:@"3"  ];
                     
                     break;
-                
             }
             
             break;
@@ -209,7 +211,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     
     switch (_selectPageType) {
         case SelectTypeHomePage:
-            [self endRefresh];
+            [self selectDeliveryListPostRequst];
 
             break;
         case SelectTypeOrderPage:
@@ -329,7 +331,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         
         _navTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 30)];
         _navTitle.font =[UIFont systemFontOfSize:14];
-        _navTitle.textColor              = HEXCOLOR(0xf95a70);
+        _navTitle.textColor              = HEXCOLOR(0x333333);
         _navTitle.textAlignment          = NSTextAlignmentCenter;
     }
     return _navTitle;
@@ -459,8 +461,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     NSInteger sectionRow = 0;
     switch (_selectPageType) {
         case SelectTypeHomePage:
-            sectionRow = 1;
-            
+            if (section == 0) {
+                sectionRow = 1;
+            }else{
+                sectionRow = 3;
+            }
+     
             break;
         case SelectTypeOrderPage:
             switch (_servicType) {
@@ -515,11 +521,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeHomePage:
             if (indexPath.section == 0) {
                 
-                height = 100;
+                height = 210;
             }
             else{
                 
-                height = 220;
+                height = 130;
             }
             
             break;
@@ -541,7 +547,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             }
             break;
         case SelectTypeCaculater:
-            height = 174;
+            height = 185;
             break;
     }
     
@@ -558,10 +564,18 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             if (section == 0) {
                 return view;
             }
-            titleCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            titleCell.lb_title.text  = @"订单统计信息";
-            [titleCell.statusButton setTitle:@"" forState:UIControlStateNormal];
-            view = titleCell;
+   
+            if (view == nil ) {
+                view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 44)];
+                view.backgroundColor = HEXCOLOR( 0xf7f7f7);
+                UILabel * info = [[UILabel alloc]initWithFrame:view.frame];
+                info.text  = @"统计信息";
+                info.font = SYSTEMFONT(14);
+                info.textAlignment = NSTextAlignmentCenter;
+                info.textColor = HEXCOLOR(0x8d8d8d);
+                [view addSubview:info];
+            }
+            return view;
         }
             break;
         case SelectTypeOrderPage:
@@ -727,7 +741,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     CGFloat height = 0;
     switch (_selectPageType) {
         case SelectTypeHomePage:
-            height = 10;
+            height = 0.001;
             
             break;
         case SelectTypeOrderPage:
@@ -764,46 +778,38 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeHomePage:
             if (indexPath.section == 0) {
                 
-                ZFTitleCell *titleCell = [self.send_tableView
-                                          dequeueReusableCellWithIdentifier:@"ZFTitleCellid"];
-                titleCell.selectionStyle = UITableViewCellSelectionStyleNone;
-                
-                titleCell.lb_nameOrTime.text = @"待配送信息";
-                titleCell.lb_storeName.text  = [NSString stringWithFormat:@"待派送订单 %@ 笔   >",_order_count];
-                [titleCell.statusButton setTitle:@"" forState:UIControlStateNormal];
-                
-                //关键字
-                titleCell.lb_storeName.keywords      = _order_count;
-                titleCell.lb_storeName.keywordsColor = HEXCOLOR(0xf95a70);
-                titleCell.lb_storeName.keywordsFont  = [UIFont systemFontOfSize:18];
-                ///必须设置计算宽高
-                CGRect dealNumh              = [titleCell.lb_storeName getLableHeightWithMaxWidth:300];
-                titleCell.lb_storeName.frame = CGRectMake(15, 10, dealNumh.size.width, dealNumh.size.height);
-                
+                SendStatisticsHeaderCell *titleCell = [self.send_tableView
+                                          dequeueReusableCellWithIdentifier:@"SendStatisticsHeaderCell"];
+                titleCell.lb_orderNum.text = _order_count;
                 return titleCell;
                 
             }else{
-                
-                ZFSendHomeListCell * cell = [self.send_tableView dequeueReusableCellWithIdentifier:@"ZFSendHomeListCellid" forIndexPath:indexPath];
-                cell.delegate             = self;
+                SendStatisticsContentCell * cell = [self.send_tableView dequeueReusableCellWithIdentifier:@"SendStatisticsContentCell" forIndexPath:indexPath];
+                if (indexPath.row == 0) {
+                    cell.lb_stautus.text = @"今日配送";
+                    //日
+                    cell.lb_sendTime.text = _daydate_time;
+                    cell.lb_sendCount.text  = _daydistriCount;
+                    cell.lb_sendFee.text = [NSString stringWithFormat:@"%.2f",[_dayOrderDeliveryFee floatValue]];
+                    
+                }else if (indexPath.row == 1)
+                {
+                    cell.lb_stautus.text = @"7日配送";
+                    
+                    //周
+                    cell.lb_sendTime.text = _weekodate_time;
+                    cell.lb_sendCount.text  = _weekdistriCount;
+                    cell.lb_sendFee.text = [NSString stringWithFormat:@"%.2f",[_weekOrderDeliveryFee floatValue]];
+                    
+                }
+                else{
+                    cell.lb_stautus.text = @"30日配送";
+                    //月
+                    cell.lb_sendTime.text = _monthodate_time;
+                    cell.lb_sendCount.text  = _monthdistriCount;
+                    cell.lb_sendFee.text = [NSString stringWithFormat:@"%.2f",[_monthOrderDeliveryFee floatValue]] ;
 
-                //日
-                cell.lb_todayCreatTime.text = _daydate_time;
-                cell.lb_todayOrderNum.text  = _daydistriCount;
-                cell.lb_todayPriceFree.text = [NSString stringWithFormat:@"%.2f",[_dayOrderDeliveryFee floatValue]];
-
-                //周
-                cell.lb_weekCreatTime.text = _weekodate_time;
-                cell.lb_weekOrderNum.text  = _weekdistriCount;
-                cell.lb_weekPriceFree.text = [NSString stringWithFormat:@"%.2f",[_weekOrderDeliveryFee floatValue]];
-
-
-
-                //月
-                cell.lb_monthCreatTime.text = _monthodate_time;
-                cell.lb_monthOrderNum.text  = _monthdistriCount;
-                cell.lb_monthPriceFree.text = [NSString stringWithFormat:@"%.2f",[_monthOrderDeliveryFee floatValue]] ;
-
+                }
                 return cell;
     
             }
@@ -902,6 +908,18 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             if (indexPath.section ==0 ) {
                 self.segmentControl.selectedSegmentIndex = 1;
                 [self SegmentchangePage:self.segmentControl];
+            }else{
+                if (indexPath.row == 0) {
+                    [self todayOrderDetial];
+                }else if (indexPath.row == 1)
+                {
+                    [self weekOrderDetial];
+                }
+                else{
+                    
+                    [self monthOrderDetial];
+
+                }
             }
             break;
             
@@ -922,9 +940,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     _servicType = type;
     self.currentPage = 1;
     [self.navbar_btn setTitle:title forState:UIControlStateNormal];
-
-//    NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
-//    [self.send_tableView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
  
     [UIView animateWithDuration:0.5 animations:^{
         if (self.bgview.superview) {
@@ -1182,13 +1197,11 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             [SVProgressHUD dismiss];
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         }
-        
+        [self endRefresh];
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
+        [self endRefresh];
         NSLog(@"error=====%@",error);
     }];
     
@@ -1436,20 +1449,31 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
 //既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    CGFloat sectionHeaderHeight = 50 ;
-    CGFloat sectionFooterHeight = 80;
-    CGFloat offsetY = scrollView.contentOffset.y;
-    if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
-    {
-        scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
-    }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
-    {
-        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
-    }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
-    {
-        scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+    switch (_selectPageType) {
+        case SelectTypeHomePage:
+ 
+            break;
+        case SelectTypeOrderPage:
+        {
+            CGFloat sectionHeaderHeight = 50 ;
+            CGFloat sectionFooterHeight = 80;
+            CGFloat offsetY = scrollView.contentOffset.y;
+            if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
+            {
+                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
+            }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
+            {
+                scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
+            }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
+            {
+                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+            }
+        }
+            break;
+        case SelectTypeCaculater:
+            break;
     }
+   
 }
 
 

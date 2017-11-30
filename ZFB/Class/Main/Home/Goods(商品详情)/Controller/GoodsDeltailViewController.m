@@ -1106,7 +1106,7 @@
     [self.navigationController pushViewController:storeVC animated:NO];
 }
 #pragma mark - 购物车
--(void)didClickShoppingCarieww
+-(void)didClickShoppingCariew
 {
     ZFShoppingCarViewController * shopVC = [[ZFShoppingCarViewController alloc]init];
     shopVC.shardId = _shareId;

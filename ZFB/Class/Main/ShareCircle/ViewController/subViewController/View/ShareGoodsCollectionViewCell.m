@@ -46,6 +46,7 @@
     self.lb_title.text = fullList.title;
     self.lb_zanNum.text = fullList.thumbs;
     self.lb_description.text = fullList.describe;
+    self.lb_evaNum.text = @"没哟评论数";
     _isThumbsStatus = fullList.thumbsStatus;
   
     if ([_isThumbsStatus  isEqualToString:@"0"]) {
@@ -71,6 +72,13 @@
 
     if ([self.shareDelegate respondsToSelector:@selector(didClickZanAtIndexItem:AndisThumbsStatus:)]) {
         [self.shareDelegate didClickZanAtIndexItem:_indexItem AndisThumbsStatus:_isThumbsStatus];
+    }
+}
+//评级查看评论
+- (IBAction)didCommentAction:(id)sender {
+    
+    if ([self.shareDelegate respondsToSelector:@selector(didClickCheckCommentAtIndexItem:)]) {
+        [self.shareDelegate didClickCheckCommentAtIndexItem:_indexItem ];
     }
 }
 

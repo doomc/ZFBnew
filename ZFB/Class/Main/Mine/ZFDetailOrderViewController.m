@@ -60,7 +60,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     
 }
 @property (nonatomic,strong) UITableView *  tableView;
-@property (nonatomic,strong) UIView      *  footerView;
+
 @property (nonatomic,strong) UIButton    *  sure_payfor;//确认支付
 
 @property (nonatomic,assign) OrderDetailType orderDetailType;
@@ -115,30 +115,17 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 
 -(UIButton *)sure_payfor
 {
-    if (!_sure_payfor) {
-        _sure_payfor = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_sure_payfor setTitle:@"去付款" forState:UIControlStateNormal];
-        [_sure_payfor setBackgroundColor:HEXCOLOR(0xf95a70)];
-        UIFont *font  =[UIFont systemFontOfSize:15];
-        _sure_payfor.titleLabel.font    = font;
-        CGSize size                     = [_sure_payfor.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
-        CGFloat width                   = size.width;
-        _sure_payfor.frame              = CGRectMake(KScreenW - width - 80, 10, width +50, 30);
-        _sure_payfor.layer.cornerRadius = 2;
-        [_sure_payfor addTarget:self action:@selector(didClickPayFor:) forControlEvents:UIControlEventTouchUpInside];
-    }
+    _sure_payfor = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_sure_payfor setTitle:@"去付款" forState:UIControlStateNormal];
+    [_sure_payfor setBackgroundColor:HEXCOLOR(0xf95a70)];
+    UIFont *font  =[UIFont systemFontOfSize:15];
+    _sure_payfor.titleLabel.font    = font;
+    CGSize size                     = [_sure_payfor.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
+    CGFloat width                   = size.width;
+    _sure_payfor.frame              = CGRectMake(KScreenW - width - 80, 10, width +50, 30);
+    _sure_payfor.layer.cornerRadius = 2;
+    [_sure_payfor addTarget:self action:@selector(didClickPayFor:) forControlEvents:UIControlEventTouchUpInside];
     return _sure_payfor;
-}
-
--(UIView *)footerView
-{
-    if (!_footerView) {
-        
-        _footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 50)];
-        _footerView.backgroundColor = [UIColor whiteColor];
-        [_footerView addSubview:self.sure_payfor];
-    }
-    return  _footerView;
 }
 
 
@@ -152,9 +139,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         return 2;
     }
     if (section == 1) {
-        
         return self.shoppCartList.count;
- 
     }
     return 5;
 }
@@ -191,7 +176,15 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    return self.footerView;
+    UIView * footerView = nil;
+    if (section == 2) {
+        if (footerView == nil) {
+            footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 50)];
+            footerView.backgroundColor = [UIColor whiteColor];
+            [footerView addSubview:self.sure_payfor];
+        }
+    }
+    return footerView;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -405,7 +398,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             _payStatus = orderModel.orderDetails.payStatus;//支付状态
             
             //1.支付宝  2.微信支付 3.线下,4.展易付
-            NSInteger payMethod = orderModel.orderDetails.payMethod;
+//            NSInteger payMethod = orderModel.orderDetails.payMethod;
             
             //配送信息
             deliveryName  = orderModel.deliveryInfo.deliveryName;
@@ -421,28 +414,18 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             //优惠价格
             _couponAmount = orderModel.orderDetails.couponAmount; 
 
-            NSLog(@"我当前是 属于商户端还是配送端 %@",BBUserDefault.shopFlag);
-            if ([BBUserDefault.shopFlag isEqualToString:@"1"] && [orderStatusName isEqualToString:@"待付款"] &&  payMethod == 3  ) {
+            NSLog(@"我当前是 商户端  %@",BBUserDefault.shopFlag);
+            if ([BBUserDefault.shopFlag isEqualToString:@"1"] && [_payStatus isEqualToString:@"4"]) {//待付款
                 
                 [self.sure_payfor setTitle:@"确认取货" forState:UIControlStateNormal];
                 [self.sure_payfor setHidden:NO];
                 
-            }else{
+            }else if ([_payStatus isEqualToString:@"1"] ||[_payStatus isEqualToString:@"5"]||[_payStatus isEqualToString:@"6"]||[_payStatus isEqualToString:@"7"] ) {//已支付
                 [self.sure_payfor setHidden:YES];
-                self.sure_payfor.enabled = NO;
                 
-                if ([orderStatusName isEqualToString:@"待付款"]) {
-                    
-                    [self.sure_payfor setTitle:@"去付款" forState:UIControlStateNormal];
-                    self.sure_payfor.enabled = YES;
-                    self.sure_payfor.hidden = NO;
-                    
-                }
-                else{
-                    [self.sure_payfor setHidden:YES];
-                    self.sure_payfor.enabled = NO;
-                    
-                }
+            }else{
+                self.sure_payfor.hidden = NO;
+                [self.sure_payfor setTitle:@"去付款" forState:UIControlStateNormal];
             }
             [SVProgressHUD dismiss];
             [self.tableView reloadData];
@@ -518,7 +501,6 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     NSLog(@" --------去付款了 ---------");
     
     if ([BBUserDefault.shopFlag isEqualToString:@"1"] && [self.sure_payfor.titleLabel.text isEqualToString:@"确认取货"]) {
-        
         JXTAlertController * alertavc =[JXTAlertController alertControllerWithTitle:@"提示" message:@"确认用户已经收货了吗" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             

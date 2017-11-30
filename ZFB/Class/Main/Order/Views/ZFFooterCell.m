@@ -71,6 +71,9 @@
     //通过传值把这个id传出去
     _orderId    = businessOrder.order_id;
     _totalPrice = businessOrder.orderAmount;//总价
+    
+
+    
 }
 
 //配送端订单

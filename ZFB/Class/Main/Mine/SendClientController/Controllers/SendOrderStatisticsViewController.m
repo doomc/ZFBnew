@@ -13,6 +13,7 @@
 #import "ZFSendingCell.h"//内容
 #import "SendServiceTitleCell.h"//头
 #import "ZFFooterCell.h"//尾部
+#import "SendStatisticsTitleView.h"
 //model
 #import "SendServiceOrderModel.h"
 
@@ -42,51 +43,21 @@
                forCellReuseIdentifier:@"SendServiceTitleCell"];
     [self.orderdTableView registerNib:[UINib nibWithNibName:@"ZFFooterCell" bundle:nil]
                forCellReuseIdentifier:@"ZFFooterCell"];
+    [self.orderdTableView registerNib:[UINib nibWithNibName:@"SendStatisticsTitleCell" bundle:nil]
+               forCellReuseIdentifier:@"SendStatisticsTitleCell"];
     
     [self getOrderPostRequst];
     
 }
 -(UIView *)headView
 {
-    _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 80)];
-    
-    UILabel * dealNum = [[UILabel alloc]init ];
-    UILabel * dealPrice = [[UILabel alloc]init ];
-    dealPrice.textColor = HEXCOLOR(0x363636);
-    dealNum.textColor = HEXCOLOR(0x363636);
-    UIFont  * font = [UIFont systemFontOfSize: 14];
-    dealNum.font = font;
-    dealPrice.font = font;
-    
-    dealNum.text = [NSString stringWithFormat:@"交易笔数: %@ 笔",_orderNum];
-    dealPrice.text = [NSString stringWithFormat:@"交易金额:%@ 元",_dealPrice];
-    
-    //富文本设置
-    //关键字
-    dealNum.keywords = _orderNum;
-    dealNum.keywordsColor = HEXCOLOR(0xf95a70);
-    dealNum.keywordsFont = [UIFont systemFontOfSize:20];
-    //关键字
-    dealPrice.keywords = _dealPrice;
-    dealPrice.keywordsColor = HEXCOLOR(0xf95a70);
-    dealPrice.keywordsFont = [UIFont systemFontOfSize:20];
-    
-    ///必须设置计算宽高
-    CGRect dealNumh =  [dealNum getLableHeightWithMaxWidth:300];
-    dealNum.frame=CGRectMake(15, 10, dealNumh.size.width, dealNumh.size.height);
-    
-    CGRect dealPriceh =  [dealPrice getLableHeightWithMaxWidth:300];
-    dealPrice.frame=CGRectMake(15, 40, dealPriceh.size.width, dealPriceh.size.height);
-    
-    
-    //line
-    UILabel * line = [[UILabel alloc]initWithFrame:CGRectMake(0, 70, KScreenW, 10)];
-    line.backgroundColor = HEXCOLOR(0xf3f3f3);
-    
-    [_headView addSubview:line] ;
-    [_headView addSubview:dealNum];
-    [_headView addSubview:dealPrice];
-    
+    _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 100)];
+
+    SendStatisticsTitleView * head = [[SendStatisticsTitleView alloc]initWithHeadViewFrame:_headView.frame];
+    head.lb_orderCount.text = _orderNum;
+    head.lb_orderPrice.text = _dealPrice;
+    [_headView addSubview:head];
+ 
     return _headView;
 }
 -(UITableView *)orderdTableView
@@ -98,7 +69,7 @@
         _orderdTableView.estimatedRowHeight = 0;
         _orderdTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _orderdTableView.tableHeaderView = self.headView;
-        _orderdTableView.tableHeaderView.height = 80;
+        _orderdTableView.tableHeaderView.height = 100;
     }
     return _orderdTableView;
 }
@@ -117,7 +88,6 @@
         [goodsArr addObject:goods];
     }
     return goodsArr.count;
-
  
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

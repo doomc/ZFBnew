@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Jfo-tg-8rb" customClass="EditCommentFootView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZB2-cM-JA0">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                    <subviews>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mmc-hD-3Hb">
+                            <rect key="frame" x="15" y="5" width="290" height="45"/>
+                            <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="dHw-AX-iW9"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Bk-UR-Q3C">
+                            <rect key="frame" x="315" y="0.0" width="60" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="LVM-Fr-vdP"/>
+                                <constraint firstAttribute="width" constant="60" id="X39-Ct-v1P"/>
+                            </constraints>
+                            <state key="normal" title="发布">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="8Bk-UR-Q3C" secondAttribute="bottom" constant="5" id="O4B-mS-VGg"/>
+                        <constraint firstItem="Mmc-hD-3Hb" firstAttribute="top" secondItem="ZB2-cM-JA0" secondAttribute="top" constant="5" id="SEX-OX-NuE"/>
+                        <constraint firstAttribute="bottom" secondItem="Mmc-hD-3Hb" secondAttribute="bottom" constant="5" id="WGW-hP-RUp"/>
+                        <constraint firstItem="Mmc-hD-3Hb" firstAttribute="leading" secondItem="ZB2-cM-JA0" secondAttribute="leading" constant="15" id="rWX-ZC-Pjf"/>
+                        <constraint firstItem="8Bk-UR-Q3C" firstAttribute="leading" secondItem="Mmc-hD-3Hb" secondAttribute="trailing" constant="10" id="sQE-jR-XJr"/>
+                        <constraint firstAttribute="trailing" secondItem="8Bk-UR-Q3C" secondAttribute="trailing" id="tzu-n1-IuL"/>
+                        <constraint firstAttribute="height" constant="55" id="x6a-3R-0ys"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="ZB2-cM-JA0" firstAttribute="leading" secondItem="Jfo-tg-8rb" secondAttribute="leading" id="JwJ-68-bSN"/>
+                <constraint firstItem="ZB2-cM-JA0" firstAttribute="top" secondItem="Jfo-tg-8rb" secondAttribute="top" id="KGX-3o-ZqM"/>
+                <constraint firstAttribute="bottom" secondItem="ZB2-cM-JA0" secondAttribute="bottom" id="jq3-hu-Edc"/>
+                <constraint firstAttribute="trailing" secondItem="ZB2-cM-JA0" secondAttribute="trailing" id="pqk-tl-2Us"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="comment" destination="Mmc-hD-3Hb" id="vvH-j9-K20"/>
+                <outlet property="publish_btn" destination="8Bk-UR-Q3C" id="TXj-UT-cdG"/>
+            </connections>
+            <point key="canvasLocation" x="10.5" y="205.5"/>
+        </view>
+    </objects>
+</document>

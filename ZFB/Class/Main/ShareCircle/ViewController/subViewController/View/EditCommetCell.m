@@ -1,27 +1,23 @@
 //
-//  SendServiceTitleCell.m
+//  EditCommetCell.m
 //  ZFB
 //
-//  Created by 熊维东 on 2017/6/29.
+//  Created by  展富宝  on 2017/11/30.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
-#import "SendServiceTitleCell.h"
+#import "EditCommetCell.h"
 
-@implementation SendServiceTitleCell
+@implementation EditCommetCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.lb_content.preferredMaxLayoutWidth = KScreenW - 15- 60;
+    
 }
 
-
--(void)setStorlist:(SendServiceStoreinfomap *)storlist
-{
-    _storlist = storlist;
-    self.lb_title.text = storlist.createTime;
-
-}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
