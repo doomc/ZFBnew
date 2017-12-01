@@ -954,14 +954,13 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     BusinessOrderlist  * orderlist = self.orderListArray[section];
                     cell.businessOrder             = orderlist;
                     cell.section                   = section;
+                    cell.cancel_button.hidden = YES;
+                    // deliveryType 配送类型：1 配送员配送 ----派单   2 快递-----发货  3 商家配送--按钮配送完成
 
-                    //默认值
                     if ([orderlist.deliveryType isEqualToString:@"1"]) {
-                        [cell.cancel_button setTitle:@"取消订单" forState:UIControlStateNormal];
                         [cell.payfor_button setTitle:@"派单" forState:UIControlStateNormal];
                     }
                     else {
-                        [cell.cancel_button setTitle:@"取消订单" forState:UIControlStateNormal];
                         [cell.payfor_button setTitle:@"配送完成" forState:UIControlStateNormal];
                     }
  
@@ -1798,7 +1797,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
                     }
                     if ([orderlist.deliveryType isEqualToString:@"3"]) {//配送完成
-                        
+                        // deliveryType 配送类型：1 配送员配送 ----派单   2 快递-----发货  3 商家配送--按钮配送完成
+
                         [self businessOrderbyOrderId:_order_id];
                     }
    
@@ -1864,7 +1864,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
                     if ([orderlist.deliveryType isEqualToString:@"2"])
                     {
-                        
+                        // deliveryType 配送类型：1 配送员配送 ----派单   2 快递-----发货  3 商家配送--按钮配送完成
+
                         JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"发货"  message:nil preferredStyle:UIAlertControllerStyleAlert];
                         [alertvc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                             textField.placeholder = @"请输入快递公司";

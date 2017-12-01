@@ -91,7 +91,10 @@
     NSLog(@"didFinishLoad");
     self.title = webView.navigationItemTitle;
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self settingNavBarBgName:@"nav64_gray"];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -10,4 +10,7 @@
 
 @interface EditCommentViewController : BaseViewController
 
+
+@property(nonatomic , copy) NSString * shareId;
+
 @end

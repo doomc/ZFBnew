@@ -12,7 +12,7 @@
 #import "ShareWaterFullModel.h"
 #import "ShareGoodsSubDetailViewController.h"
 #import "NSString+YYAdd.h"
-
+#import "EditCommentViewController.h"
 #import "PPBadgeView.h"
 #define itemWidth ((KScreenW-30)/2)
 
@@ -169,7 +169,11 @@
  */
 -(void)didClickCheckCommentAtIndexItem:(NSInteger)indexItem
 {
-    
+    NSLog(@"点击评论了");
+    EditCommentViewController * editVC= [EditCommentViewController new];
+    ShareGoodsData * shareGoods = self.shareArray[indexItem];
+    editVC.shareId = shareGoods.shareId;
+    [self.navigationController pushViewController:editVC animated:NO];
 }
 #pragma mark - 好货共享列表    toShareGoods/shareGoodsList
 -(void)shareGoodsPost
@@ -187,7 +191,6 @@
                     [ self.shareArray removeAllObjects];
                 }
             }
-
             ShareWaterFullModel * waterfull = [ShareWaterFullModel mj_objectWithKeyValues:response];
             for (ShareGoodsData * goodslist in waterfull.data) {
                 [self.shareArray addObject:goodslist];

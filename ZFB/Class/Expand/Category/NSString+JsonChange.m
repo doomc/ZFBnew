@@ -64,8 +64,8 @@
 //数组转json
 + (NSString *)arrayToJSONString:(NSArray *)array
 {
+    NSError *error = nil;
     if (array.count > 0) {
-        NSError *error = nil;
         
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments error:&error];
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];

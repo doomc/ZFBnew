@@ -42,6 +42,7 @@
 #import "DetailMsgNoticeViewController.h"//通知消息
 #import "iOpenStoreViewController.h"//我要开店
 #import "iwantSendedViewController.h"//我要成为配送员
+#import "EditCommentViewController.h"//评论
 //base
 #import "ZFBaseNavigationViewController.h"
 
@@ -730,7 +731,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/deliveryAuditStatus"] params:parma success:^(id response) {
         // 审核状态   1.审核通过 2.待审核 3.审核失败
 
-        _deliveryStatus = [NSString stringWithFormat:@"%@",response[@"data"]];
         [self.myTableView reloadData];
       
     } progress:^(NSProgress *progeress) {
@@ -763,8 +763,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     if (BBUserDefault.isLogin == 1) {
         [self getThirdBalancePOSTRequste];//余额查询
         [self minePagePOSTRequste];//页面网络请求
-        [self checkStatusPost];//配送员状态
-        
+ 
         //移除登录视图
         _headview.loginView.hidden   = NO;
         _headview.unloginView.hidden = YES;
@@ -870,7 +869,10 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 //我的评价
 -(void)didClickMyevalution{
     NSLog(@"我的评价");
-    [self settingAlertView];
+//    [self settingAlertView];
+    EditCommentViewController * editVC = [EditCommentViewController new];
+    [self.navigationController pushViewController:editVC animated:NO];
+    
 
 }
 //我的动态

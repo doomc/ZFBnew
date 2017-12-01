@@ -194,7 +194,7 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
         [YBPopupMenu showRelyOnView:sender titles:_titlesArr icons:_iconArr menuWidth:140 otherSettings:^(YBPopupMenu *popupMenu) {
             popupMenu.isShowShadow = YES;
             popupMenu.delegate = self;
-            popupMenu.tintColor = HEXCOLOR(0xfffffff);
+            popupMenu.tintColor = HEXCOLOR(0xffffff);
             popupMenu.offset = 10;
             popupMenu.type = YBPopupMenuTypeDark;
             
@@ -220,8 +220,14 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
        
         case TypeVCSaoyiSao:
             NSLog(@"第一个扫一扫VC");
-            [self scanningQRCode];
    
+            if (BBUserDefault.isLogin == 1) {
+                
+                [self scanningQRCode];
+
+            }else{
+                [self isIfNotSignIn];
+            }
             break;
 
         case TypeVCAcceptMoney://收款

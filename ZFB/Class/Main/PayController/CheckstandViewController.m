@@ -406,8 +406,6 @@
         else
         {
             [self.view makeToast:response[@"result_msg"] duration:2 position:@"center"];
-            [self SuccessOrFaillurePost];
-
         }
         [self.passwordView stopLoading];
         [self.passwordView hide];
@@ -428,7 +426,6 @@
      (id response) {
          
          NSLog(@"预下单订单 order.do : %@",response[@"result_msg"]);
-         
          NSString * code = [NSString stringWithFormat:@"%@",response[@"result_code"]];
          if ([code isEqualToString:@"0000"]) {
              

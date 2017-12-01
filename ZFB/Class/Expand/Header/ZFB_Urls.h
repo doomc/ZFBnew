@@ -43,15 +43,15 @@
 #define paySign_baseUrl @"http://192.168.1.115:8080"
 
 #pragma mark ------------- xd测试服务器数--------------------
-//////基类
-////#define  zfb_baseUrl @"http://192.168.1.102:8087/zfb/InterfaceServlet"
-//////单聊
-////#define  IMsingle_baseUrl @"http://192.168.1.102:8087/im/user"
-//////群聊
-////#define  IMGroup_baseUrl @"http://192.168.1.102:8087/group"
-//////测试支付地址
-////#define paySign_baseUrl @"http://192.168.1.115:8080"
-//
+////基类
+//#define  zfb_baseUrl @"http://192.168.1.102:8087/zfb/InterfaceServlet"
+////单聊
+//#define  IMsingle_baseUrl @"http://192.168.1.102:8087/im/user"
+////群聊
+//#define  IMGroup_baseUrl @"http://192.168.1.102:8087/group"
+////测试支付地址
+//#define paySign_baseUrl @"http://192.168.1.115:8080"
+
 #pragma mark ------------- tfy测试服务器数--------------------
 ////baseURL
 //#define  zfb_baseUrl @"http://192.168.1.222:8087/zfb/InterfaceServlet"
@@ -73,6 +73,17 @@
 ////测试支付地址
 //#define paySign_baseUrl @"http://192.168.1.115:8080"
 
+
+
+#pragma mark ------------- --------------------
+////baseURL
+//#define  zfb_baseUrl @"http://192.168.1.103:8087/zfb/InterfaceServlet"
+////单聊
+//#define  IMsingle_baseUrl @"http://192.168.1.103:8087/im/user"
+////群聊
+//#define  IMGroup_baseUrl @"http://192.168.1.103:8087/group"
+////测试支付地址
+//#define paySign_baseUrl @"http://192.168.1.115:8080"
 
 
 

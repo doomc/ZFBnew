@@ -35,6 +35,8 @@
 
 @property (nonatomic, copy) NSString *userNickname;
 
+@property (nonatomic, copy) NSString *commentNum;//评论数
+
 @property (nonatomic, copy) NSString *title;
 
 @property (nonatomic, assign) CGFloat  titleHeight;//文字高度

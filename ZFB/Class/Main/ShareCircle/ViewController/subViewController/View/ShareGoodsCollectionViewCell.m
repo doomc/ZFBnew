@@ -46,7 +46,7 @@
     self.lb_title.text = fullList.title;
     self.lb_zanNum.text = fullList.thumbs;
     self.lb_description.text = fullList.describe;
-    self.lb_evaNum.text = @"没哟评论数";
+    self.lb_evaNum.text = fullList.commentNum;
     _isThumbsStatus = fullList.thumbsStatus;
   
     if ([_isThumbsStatus  isEqualToString:@"0"]) {

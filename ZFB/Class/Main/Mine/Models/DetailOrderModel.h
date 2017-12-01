@@ -21,6 +21,8 @@
 
 @property (nonatomic, copy) NSString *responseText;
 
+@property (nonatomic, copy) NSString *payType;
+
 @property (nonatomic, strong) Orderdetails *orderDetails;
 
 @property (nonatomic, assign) NSInteger resultCode;

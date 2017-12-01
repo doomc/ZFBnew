@@ -7,6 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EditCommentModel.h"
+
+@protocol EditCommetCellDelegate <NSObject>
+
+//点赞
+-(void)didClickZanWithIndex:(NSInteger)index;
+
+@end
 
 @interface EditCommetCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImg;
@@ -15,5 +23,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_creatTime;
 @property (weak, nonatomic) IBOutlet UIButton *zan_btn;
 @property (weak, nonatomic) IBOutlet UILabel *lb_zanNum;
+@property (assign , nonatomic) id <EditCommetCellDelegate> delegate;
+@property (assign , nonatomic) NSInteger index;
+@property (strong , nonatomic) EditCommentList * commentlist;
 
 @end

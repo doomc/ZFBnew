@@ -412,20 +412,23 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             //店铺名称
             storeName = orderModel.shoppCartList.storeName;
             //优惠价格
-            _couponAmount = orderModel.orderDetails.couponAmount; 
-
+            _couponAmount = orderModel.orderDetails.couponAmount;
+            
+            // payType 0线上支付 1线下支付
+            NSString * payType = orderModel.payType;
+  
+            //0.未支付的初始状态  1.支付成功 -1.支付失败  3.付款发起   4.付款取消 (待付款) 5.退款成功（支付成功的）6.退款发起(支付成功) 7.退款失败(支付成功)
             NSLog(@"我当前是 商户端  %@",BBUserDefault.shopFlag);
-            if ([BBUserDefault.shopFlag isEqualToString:@"1"] && [_payStatus isEqualToString:@"4"]) {//待付款
+            if ([BBUserDefault.shopFlag isEqualToString:@"1"] && [payType isEqualToString:@"1"]) {//线下订单
                 
                 [self.sure_payfor setTitle:@"确认取货" forState:UIControlStateNormal];
                 [self.sure_payfor setHidden:NO];
                 
-            }else if ([_payStatus isEqualToString:@"1"] ||[_payStatus isEqualToString:@"5"]||[_payStatus isEqualToString:@"6"]||[_payStatus isEqualToString:@"7"] ) {//已支付
-                [self.sure_payfor setHidden:YES];
-                
-            }else{
+            }else if([_payStatus isEqualToString:@"0"] ||[_payStatus isEqualToString:@"-1"] ||[_payStatus isEqualToString:@"3"] ||[_payStatus isEqualToString:@"4"]  ){
                 self.sure_payfor.hidden = NO;
                 [self.sure_payfor setTitle:@"去付款" forState:UIControlStateNormal];
+            }else{
+                [self.sure_payfor setHidden:YES];
             }
             [SVProgressHUD dismiss];
             [self.tableView reloadData];

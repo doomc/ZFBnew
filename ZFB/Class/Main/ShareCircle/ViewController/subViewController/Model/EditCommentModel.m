@@ -12,3 +12,16 @@
 @implementation EditCommentModel
 
 @end
+
+@implementation EditCommentData
++(NSDictionary *)objectClassInArray
+{
+    return @{
+             @"commentList":[EditCommentList class]
+             };
+}
+
+@end
+@implementation EditCommentList
+
+@end

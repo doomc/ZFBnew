@@ -79,16 +79,12 @@
     
     SGQRCodeAlbumManager *manager = [SGQRCodeAlbumManager sharedManager];
     [manager SG_readQRCodeFromAlbumWithCurrentController:self];
-    
     manager.delegate = self;
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-    // 栅栏函数
-    dispatch_barrier_async(queue, ^{
-        BOOL isPHAuthorization = manager.isPHAuthorization;
-        if (isPHAuthorization == YES) {
-            [self removeScanningView];
-        }
-    });
+    
+    BOOL isPHAuthorization = manager.isPHAuthorization;
+    if (isPHAuthorization == YES) {
+        [self removeScanningView];
+    }
 }
 //初始化扫描
 - (void)setupQRCodeScanning {
@@ -188,14 +184,20 @@
 
             _orderAmount = [NSString stringWithFormat:@"%@",response[@"pay_money"]];
             _orderListArray = response[@"result"];
-
             [self getPaypaySignWithNotify_url:response[@"thirdURI"][@"notify_url"] return_url:response[@"thirdURI"][@"return_url"] datetime:_datetime];
+        }else{
+            
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self backAction];
+            });
+            
         }
         
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
-        
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+
     }];
 }
 
@@ -205,9 +207,11 @@
 -(void)getPaypaySignWithNotify_url:(NSString *)notify_url return_url:(NSString *)return_url datetime :(NSString *)datetime
 {
     NSLog(@"orderListArray === %@",_orderListArray);
-    
+    NSString * listJsonString;
     [SVProgressHUD show];
-    NSString * listJsonString  =  [NSString arrayToJSONString:_orderListArray];
+    
+    listJsonString   =  [NSString arrayToJSONString:_orderListArray];
+
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     
     [params setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
@@ -249,14 +253,24 @@
     [params setValue:@"" forKey:@"passback_params"];//回传参数：商户可自定义该参数，在支付回调后带回
     NSDictionary * dic  = [NSDictionary dictionaryWithDictionary:params];
     
+    //用于支付成功失败的参数
+    NSMutableDictionary * payDealParam = [NSMutableDictionary dictionary];
+    [payDealParam setValue:BBUserDefault.userPhoneNumber forKey:@"account"];
+    [payDealParam setValue:listJsonString forKey:@"orderList"];//Json格式的订单字符集
+    
     CheckstandViewController * payVC = [CheckstandViewController new];
     payVC.amount = _orderAmount;
     payVC.notifyUrl = notify_url;
     payVC.signDic = dic;
+    payVC.payParam = payDealParam;
     [self.navigationController pushViewController:payVC animated:NO];
     
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self settingNavBarBgName:@"nav64_gray"];
+    
+}
 
 
 - (void)didReceiveMemoryWarning {
