@@ -15,4 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_sendCount;
 @property (weak, nonatomic) IBOutlet UILabel *lb_stautus;
 
+@property (weak, nonatomic) IBOutlet UILabel *orderaNo;
+@property (weak, nonatomic) IBOutlet UILabel *dealFee;
+
 @end

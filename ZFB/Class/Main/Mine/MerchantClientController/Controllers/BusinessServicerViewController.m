@@ -712,7 +712,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
                     break;
                 case BusinessServicTypeSureReturn://待确认退回
-                    height = 180;
+                    height = 184;
                     
                     break;
                 case BusinessServicTypeSended://已配送
@@ -1246,6 +1246,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 
             }else{
                 SendStatisticsContentCell * cell = [self.homeTableView dequeueReusableCellWithIdentifier:@"SendStatisticsContentCell" forIndexPath:indexPath];
+                cell.orderaNo.text = @"订单数";
+                cell.dealFee.text = @"交易金额";
+                
                 if (indexPath.row == 0) {
                     cell.lb_stautus.text = @"今日配送";
                     //日
@@ -1460,7 +1463,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section  =%ld , row = %ld",indexPath.section ,indexPath.row);
-    
+    ZFDetailOrderViewController * detailVC = [ZFDetailOrderViewController new];
+
     switch (_selectPageType) {
         case SelectTypeHomePage:
             if (indexPath.section == 0) {
@@ -1485,66 +1489,148 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
         case SelectTypeOrderPage:
         {
-            BusinessOrderlist * storelist          = self.orderListArray[indexPath.section];
-            ZFDetailOrderViewController * detailVC = [ZFDetailOrderViewController new];
-            NSMutableArray * goodArray             = [NSMutableArray array];
-            for (BusinessOrdergoods * goods in storelist.orderGoods) {
-                [goodArray  addObject:goods];
-            }
-            BusinessOrdergoods * goods = goodArray[indexPath.row];
-            detailVC.cmOrderid = goods.order_id;
-            detailVC.goodsId   = goods.goodsId;
-            detailVC.storeId   = storelist.storeId;
-            detailVC.imageUrl  = goods.coverImgUrl;
-            
             switch (_servicType) {
                 case BusinessServicTypeWaitSendlist://待派单
+                {
+                    BusinessOrderlist * storelist          = self.orderListArray[indexPath.section];
+                    NSMutableArray * goodArray             = [NSMutableArray array];
+                    for (BusinessOrdergoods * goods in storelist.orderGoods) {
+                        [goodArray  addObject:goods];
+                    }
+                    BusinessOrdergoods * goods = goodArray[indexPath.row];
+                    detailVC.cmOrderid = goods.order_id;
+                    detailVC.goodsId   = goods.goodsId;
+                    detailVC.storeId   = storelist.storeId;
+                    detailVC.imageUrl  = goods.coverImgUrl;
+                    detailVC.isUserType = 1;
                     
                     [self.navigationController pushViewController:detailVC animated:NO];
-             
+                }
                     break;
                 case BusinessServicTypeSending://配送中
- 
-                    [self.navigationController pushViewController:detailVC animated:NO];
+                {
+                    BusinessOrderlist * storelist          = self.orderListArray[indexPath.section];
+                    NSMutableArray * goodArray             = [NSMutableArray array];
+                    for (BusinessOrdergoods * goods in storelist.orderGoods) {
+                        [goodArray  addObject:goods];
+                    }
+                    BusinessOrdergoods * goods = goodArray[indexPath.row];
+                    detailVC.cmOrderid = goods.order_id;
+                    detailVC.goodsId   = goods.goodsId;
+                    detailVC.storeId   = storelist.storeId;
+                    detailVC.imageUrl  = goods.coverImgUrl;
+                    detailVC.isUserType = 1;
                     
+                    [self.navigationController pushViewController:detailVC animated:NO];
+                }
                     break;
                 case BusinessServicTypeWaitPay://待付款
- 
+                {
+                    BusinessOrderlist * storelist          = self.orderListArray[indexPath.section];
+                    NSMutableArray * goodArray             = [NSMutableArray array];
+                    for (BusinessOrdergoods * goods in storelist.orderGoods) {
+                        [goodArray  addObject:goods];
+                    }
+                    BusinessOrdergoods * goods = goodArray[indexPath.row];
+                    detailVC.cmOrderid = goods.order_id;
+                    detailVC.goodsId   = goods.goodsId;
+                    detailVC.storeId   = storelist.storeId;
+                    detailVC.imageUrl  = goods.coverImgUrl;
+                    detailVC.isUserType = 1;
+                    
                     [self.navigationController pushViewController:detailVC animated:NO];
             
-                    
+                }
                     break;
                 case BusinessServicTypeDealComplete://交易完成
- 
-                    [self.navigationController pushViewController:detailVC animated:NO];
+                {
+                    BusinessOrderlist * storelist          = self.orderListArray[indexPath.section];
+                    NSMutableArray * goodArray             = [NSMutableArray array];
+                    for (BusinessOrdergoods * goods in storelist.orderGoods) {
+                        [goodArray  addObject:goods];
+                    }
+                    BusinessOrdergoods * goods = goodArray[indexPath.row];
+                    detailVC.cmOrderid = goods.order_id;
+                    detailVC.goodsId   = goods.goodsId;
+                    detailVC.storeId   = storelist.storeId;
+                    detailVC.imageUrl  = goods.coverImgUrl;
+                    detailVC.isUserType = 1;
                     
+                    [self.navigationController pushViewController:detailVC animated:NO];
+                }
                     break;
                 case BusinessServicTypeSureReturn://待确认退回
                     
                     
                     break;
                 case BusinessServicTypeSended://已配送
-     
-                    [self.navigationController pushViewController:detailVC animated:NO];
+                {
+                    BusinessOrderlist * storelist          = self.orderListArray[indexPath.section];
+                    NSMutableArray * goodArray             = [NSMutableArray array];
+                    for (BusinessOrdergoods * goods in storelist.orderGoods) {
+                        [goodArray  addObject:goods];
+                    }
+                    BusinessOrdergoods * goods = goodArray[indexPath.row];
+                    detailVC.cmOrderid = goods.order_id;
+                    detailVC.goodsId   = goods.goodsId;
+                    detailVC.storeId   = storelist.storeId;
+                    detailVC.imageUrl  = goods.coverImgUrl;
+                    detailVC.isUserType = 1;
                     
+                    [self.navigationController pushViewController:detailVC animated:NO];
+                }
                     break;
                 case BusinessServicTypeCancelOrder://待配送
- 
-                    [self.navigationController pushViewController:detailVC animated:NO];
-                    break;
+                {
+                    BusinessOrderlist * storelist          = self.orderListArray[indexPath.section];
+                    NSMutableArray * goodArray             = [NSMutableArray array];
+                    for (BusinessOrdergoods * goods in storelist.orderGoods) {
+                        [goodArray  addObject:goods];
+                    }
+                    BusinessOrdergoods * goods = goodArray[indexPath.row];
+                    detailVC.cmOrderid = goods.order_id;
+                    detailVC.goodsId   = goods.goodsId;
+                    detailVC.storeId   = storelist.storeId;
+                    detailVC.imageUrl  = goods.coverImgUrl;
+                    detailVC.isUserType = 1;
                     
-//                case BusinessServicTypeWiatOrder://待配送
-//
-//
-//                    [self.navigationController pushViewController:detailVC animated:NO];
-//                    break;
-                case BusinessServicTypeWaitSending://待发货
                     [self.navigationController pushViewController:detailVC animated:NO];
-
+                }
+                    break;
+ 
+                case BusinessServicTypeWaitSending://待发货
+                {
+                    BusinessOrderlist * storelist          = self.orderListArray[indexPath.section];
+                    NSMutableArray * goodArray             = [NSMutableArray array];
+                    for (BusinessOrdergoods * goods in storelist.orderGoods) {
+                        [goodArray  addObject:goods];
+                    }
+                    BusinessOrdergoods * goods = goodArray[indexPath.row];
+                    detailVC.cmOrderid = goods.order_id;
+                    detailVC.goodsId   = goods.goodsId;
+                    detailVC.storeId   = storelist.storeId;
+                    detailVC.imageUrl  = goods.coverImgUrl;
+                    detailVC.isUserType = 1;
+                    
+                    [self.navigationController pushViewController:detailVC animated:NO];
+                }
                     break;
                 case BusinessServicTypeWaitReceived://待收货
+                {
+                    BusinessOrderlist * storelist          = self.orderListArray[indexPath.section];
+                    NSMutableArray * goodArray             = [NSMutableArray array];
+                    for (BusinessOrdergoods * goods in storelist.orderGoods) {
+                        [goodArray  addObject:goods];
+                    }
+                    BusinessOrdergoods * goods = goodArray[indexPath.row];
+                    detailVC.cmOrderid = goods.order_id;
+                    detailVC.goodsId   = goods.goodsId;
+                    detailVC.storeId   = storelist.storeId;
+                    detailVC.imageUrl  = goods.coverImgUrl;
+                    detailVC.isUserType = 1;
+                    
                     [self.navigationController pushViewController:detailVC animated:NO];
-
+                }
                     break;
             }
             
@@ -1562,7 +1648,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 #pragma mark - BusinessServicPopViewDelegate 选择切换type
 -(void)sendTitle:(NSString *)title businessServicType:(BusinessServicType)type
 {
-//    self.currentPage = 1;
+    self.currentPage = 1;
+    [self.orderListArray removeAllObjects];
     _servicType = type;//赋值type ，根据type请求
     [self.navbar_btn setTitle:title forState:UIControlStateNormal];
     
@@ -2057,16 +2144,12 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 {
     NSDictionary * param = @{
                              
-                             @"settlementCount":@"",
+
                              @"startSize":[NSNumber numberWithInteger:self.currentPage],
                              @"endSize":[NSNumber numberWithInteger:kPageCount],
-                             @"userId":BBUserDefault.cmUserId,
-                             @"deliveryId":@"",
                              @"storeId":_storeId,
-                             @"orderStartTime":@"",
-                             @"orderEndTime":@"",
+
                              };
-    
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/order/getSettlementListById"] params:param success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];

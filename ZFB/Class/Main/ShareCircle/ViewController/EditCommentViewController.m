@@ -10,15 +10,13 @@
 #import "EditCommentFootView.h"
 #import "EditCommetCell.h"
 #import "EditCommentModel.h"
+#import "CQPlaceholderView.h"
+@interface EditCommentViewController ()<UITableViewDataSource,UITableViewDelegate,EditCommetCellDelegate,EditCommentFootViewDelegate,CQPlaceholderViewDelegate>
 
-@interface EditCommentViewController ()<UITableViewDataSource,UITableViewDelegate,EditCommetCellDelegate,EditCommentFootViewDelegate>
-{
-    NSString * _commentNum;
-}
 @property (nonatomic , strong) UITableView * tableView;
 @property (nonatomic , strong) EditCommentFootView * footerView;
 @property (nonatomic , strong) NSMutableArray * commentList;//评论列表
-
+@property (nonatomic , strong) CQPlaceholderView *placeholderView;
 @end
 
 @implementation EditCommentViewController
@@ -46,10 +44,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"评论";
-    [self initFooterView];
-
+    
     [self.view addSubview:self.tableView];
     self.zfb_tableView = self.tableView;
+    [self initFooterView];
+
     [self.tableView registerNib:[UINib nibWithNibName:@"EditCommetCell" bundle:nil] forCellReuseIdentifier:@"EditCommetCell"];
    
     [self commentPostList];
@@ -60,6 +59,7 @@
 {
     self.footerView = [[EditCommentFootView alloc]initWithFootViewFrame:CGRectMake(0, KScreenH -55 - 64, KScreenW, 55)];
     self.footerView .footDelegate = self;
+    [self.view bringSubviewToFront:self.footerView];
     self.footerView.textViewPlacehold = @"请输入评论";
     [self.view addSubview:self.footerView ];
 }
@@ -142,6 +142,11 @@
         [self.view makeToast:@"评论太短了" duration:2 position:@"center"];
     }
 }
+-(void)textHeight:(CGFloat)height
+{
+    self.footerView.frame = CGRectMake(0, KScreenH -height - 64, KScreenW, height);
+    
+}
 
 
 //发布评论
@@ -161,7 +166,7 @@
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-
+            [self commentPostList];
         }else
         {
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
@@ -192,11 +197,14 @@
                 }
             }
             EditCommentModel * commentModel = [EditCommentModel mj_objectWithKeyValues:response];
-            _commentNum = [NSString stringWithFormat:@"%ld",commentModel.data.num];
             for (EditCommentList * list in commentModel.data.commentList) {
                 [self.commentList addObject:list];
             }
-            
+            [_placeholderView removeFromSuperview];
+            if ([self isEmptyArray:self.commentList]) {
+                _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.tableView.bounds type:CQPlaceholderViewTypeNoComments delegate:self];
+                [self.tableView addSubview:_placeholderView];
+            }
             [self.tableView reloadData];
         }else{
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
@@ -228,13 +236,15 @@
          [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
 }
--(void)loadNodataView
+#pragma mark - Delegate - 占位图
+/** 占位图的重新加载按钮点击时回调 */
+- (void)placeholderView:(CQPlaceholderView *)placeholderView reloadButtonDidClick:(UIButton *)sender{
+ 
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    UIImageView * noDataImageView = [[UIImageView alloc]init];
-    noDataImageView.image = [UIImage imageNamed:@""];
-    noDataImageView.center = self.view.center;
-    [self.view addSubview:noDataImageView];
-    
+    [self.footerView.commentTextView resignFirstResponder];
 }
 -(void)viewWillAppear:(BOOL)animated
 {

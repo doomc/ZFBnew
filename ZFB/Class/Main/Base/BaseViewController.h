@@ -62,7 +62,7 @@ typedef NS_ENUM(NSInteger, RefreshType) {
  */
 -(void)endCollectionViewRefresh;
 
-
+//重写返回
 -(void)backAction;
 
 -(UIButton*)set_rightButton;
@@ -80,20 +80,17 @@ typedef NS_ENUM(NSInteger, RefreshType) {
  */
 -(void)didclickEdit:(UIButton *)edit;
 
-
 /** 取消searchBar背景色 */
 - (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
-
 
 /** pop到指定页面 */
 -(void)poptoUIViewControllerNibName:(NSString *)controllerName AndObjectIndex:(NSInteger)objectIndex;
 
-///判断是不是空数组
 /**
  判断是不是空数组
  
  @param array 传入数组
- @return 1是空 0不是
+ @return YES是空 NO
  */
 - (BOOL)isEmptyArray:(NSMutableArray *)array;
 
@@ -106,10 +103,10 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 //用户提示没开放的任务
 - (void)settingAlertView;
 
-
 //设置导航栏背景
 -(void)settingNavBarBgName:(NSString *)bgName;
 
-
+//无数据背景图
+-(void)nodataBackgroundImg;
 
 @end

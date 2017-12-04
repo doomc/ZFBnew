@@ -72,7 +72,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="comment" destination="Mmc-hD-3Hb" id="vvH-j9-K20"/>
+                <outlet property="commentTextView" destination="Mmc-hD-3Hb" id="IqY-FB-GU5"/>
                 <outlet property="layoutConstarainHeight" destination="Ww0-Ou-Gvf" id="3dq-Pi-zj6"/>
                 <outlet property="publish_btn" destination="8Bk-UR-Q3C" id="TXj-UT-cdG"/>
             </connections>

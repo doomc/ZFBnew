@@ -126,10 +126,12 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="dealFee" destination="VnW-A3-Ggb" id="pRB-Ul-4Bh"/>
                 <outlet property="lb_sendCount" destination="QLE-4W-oBB" id="VxG-FN-qFY"/>
                 <outlet property="lb_sendFee" destination="9lL-Ut-OJd" id="k7f-l4-nFL"/>
                 <outlet property="lb_sendTime" destination="JvQ-cv-2hu" id="EOe-e3-iAc"/>
                 <outlet property="lb_stautus" destination="Knt-vo-tCg" id="Yjd-Nz-lun"/>
+                <outlet property="orderaNo" destination="Rk1-k5-GZ7" id="kQ8-hh-uZE"/>
             </connections>
             <point key="canvasLocation" x="34" y="94"/>
         </tableViewCell>

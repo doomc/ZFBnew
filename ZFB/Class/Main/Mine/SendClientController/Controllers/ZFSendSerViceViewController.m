@@ -939,6 +939,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 {
     _servicType = type;
     self.currentPage = 1;
+    [self.orderListArray removeAllObjects];
     [self.navbar_btn setTitle:title forState:UIControlStateNormal];
  
     [UIView animateWithDuration:0.5 animations:^{
@@ -948,8 +949,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     }];
     
     [self headerRefresh];
-    [self.send_tableView reloadData];
-
+ 
 //    switch (_selectPageType) {
 //        case SelectTypeHomePage:
 //
@@ -1366,9 +1366,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
         }
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);
@@ -1381,14 +1378,10 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 {
     NSDictionary * param = @{
                              
-                             @"settlementCount":@"",
                              @"startSize":[NSNumber numberWithInteger:self.currentPage],
                              @"endSize":[NSNumber numberWithInteger:kPageCount],
-                             @"userId":BBUserDefault.cmUserId,
                              @"deliveryId":_deliveryId,
-                             @"storeId":@"",
-                             @"orderStartTime":@"",
-                             @"orderEndTime":@"",
+
                              };
     
     [SVProgressHUD show];

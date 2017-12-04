@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @protocol EditCommentFootViewDelegate <NSObject>
-
--(void)textViewHeight:(CGFloat )textViewHeight;
+@required
+-(void)textHeight:(CGFloat)height;
 
 //发布评论
 -(void)pushlishCommentWithContent:(NSString *)content;
@@ -20,7 +20,7 @@
 
 -(instancetype)initWithFootViewFrame:(CGRect)frame;
 @property (nonatomic,copy) NSString *textViewPlacehold;
-@property (weak, nonatomic) IBOutlet UITextView *comment;
+@property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 @property (weak, nonatomic) IBOutlet UIButton *publish_btn;
 @property (assign, nonatomic)  id <EditCommentFootViewDelegate> footDelegate;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstarainHeight;

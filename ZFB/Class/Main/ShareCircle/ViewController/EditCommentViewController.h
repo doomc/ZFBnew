@@ -12,5 +12,6 @@
 
 
 @property(nonatomic , copy) NSString * shareId;
+@property(nonatomic , copy) NSString * commentNum;
 
 @end

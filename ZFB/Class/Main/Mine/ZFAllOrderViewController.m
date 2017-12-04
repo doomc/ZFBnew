@@ -85,7 +85,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     
     self.tagNum = 0;//默认为售后申请
     self.saleTitles = @[@"申请售后",@"进度查询"];
-        self.titles =@[@"全部订单",@"待付款",@"待配送",@"配送中",@"已配送",@"交易完成",@"交易取消",@"售后申请",@"待发货",@"待收货"];
+    self.titles =@[@"全部订单",@"待付款",@"待配送",@"配送中",@"已配送",@"交易完成",@"交易取消",@"售后申请",@"待发货",@"待收货"];
     [self.navbar_btn setTitle:_buttonTitle forState:UIControlStateNormal];
     [self initZfb_tableView];
     [self allOrderPostRequsetWithOrderStatus:_orderStatus orderNum:@""];
@@ -1282,131 +1282,131 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 {
     NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
 
-
+    ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+    
+    Orderlist * orderlist    = self.orderListArray [indexPath.section];
+    NSMutableArray * goodarr = [NSMutableArray array];
+    for (Ordergoods * goods in orderlist.orderGoods) {
+        [goodarr addObject:goods];
+    }
+    Ordergoods * goods = goodarr[indexPath.row];
+    detailVc.cmOrderid = goods.order_id;
+    detailVc.storeId = orderlist.storeId;
+    detailVc.goodsId = goods.goodsId;
+    detailVc.imageUrl = goods.coverImgUrl;
+    detailVc.isUserType = 3;
     
     switch (_orderType) {
         case OrderTypeAllOrder:
         {
-            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-
-            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-            NSMutableArray * goodarr = [NSMutableArray array];
-            for (Ordergoods * goods in orderlist.orderGoods) {
-                [goodarr addObject:goods];
-            }
-            Ordergoods * goods = goodarr[indexPath.row];
-            detailVc.cmOrderid = goods.order_id;
-            detailVc.storeId = orderlist.storeId;
-            detailVc.goodsId = goods.goodsId;
-            detailVc.imageUrl = goods.coverImgUrl;
             [self.navigationController pushViewController:detailVc animated:YES];
         }
             break;
         case OrderTypeWaitPay:
             
         {
-            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-            
-            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-            NSMutableArray * goodarr = [NSMutableArray array];
-            for (Ordergoods * goods in orderlist.orderGoods) {
-                [goodarr addObject:goods];
-            }
-            Ordergoods * goods = goodarr[indexPath.row];
-            detailVc.cmOrderid = goods.order_id;
-            detailVc.storeId = orderlist.storeId;
-            detailVc.goodsId = goods.goodsId;
-            detailVc.imageUrl = goods.coverImgUrl;
+//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+//
+//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
+//            NSMutableArray * goodarr = [NSMutableArray array];
+//            for (Ordergoods * goods in orderlist.orderGoods) {
+//                [goodarr addObject:goods];
+//            }
+//            Ordergoods * goods = goodarr[indexPath.row];
+//            detailVc.cmOrderid = goods.order_id;
+//            detailVc.storeId = orderlist.storeId;
+//            detailVc.goodsId = goods.goodsId;
+//            detailVc.imageUrl = goods.coverImgUrl;
             [self.navigationController pushViewController:detailVc animated:YES];
         }
             break;
         case OrderTypeWaitSend:
             
         {
-            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-            
-            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-            NSMutableArray * goodarr = [NSMutableArray array];
-            for (Ordergoods * goods in orderlist.orderGoods) {
-                [goodarr addObject:goods];
-            }
-            Ordergoods * goods = goodarr[indexPath.row];
-            detailVc.cmOrderid = goods.order_id;
-            detailVc.storeId = orderlist.storeId;
-            detailVc.goodsId = goods.goodsId;
-            detailVc.imageUrl = goods.coverImgUrl;
+//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+//
+//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
+//            NSMutableArray * goodarr = [NSMutableArray array];
+//            for (Ordergoods * goods in orderlist.orderGoods) {
+//                [goodarr addObject:goods];
+//            }
+//            Ordergoods * goods = goodarr[indexPath.row];
+//            detailVc.cmOrderid = goods.order_id;
+//            detailVc.storeId = orderlist.storeId;
+//            detailVc.goodsId = goods.goodsId;
+//            detailVc.imageUrl = goods.coverImgUrl;
             [self.navigationController pushViewController:detailVc animated:YES];
         }
             break;
         case OrderTypeSending:
-            
+
         {
-            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-            
-            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-            NSMutableArray * goodarr = [NSMutableArray array];
-            for (Ordergoods * goods in orderlist.orderGoods) {
-                [goodarr addObject:goods];
-            }
-            Ordergoods * goods = goodarr[indexPath.row];
-            detailVc.cmOrderid = goods.order_id;
-            detailVc.storeId = orderlist.storeId;
-            detailVc.goodsId = goods.goodsId;
-            detailVc.imageUrl = goods.coverImgUrl;
+//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+//
+//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
+//            NSMutableArray * goodarr = [NSMutableArray array];
+//            for (Ordergoods * goods in orderlist.orderGoods) {
+//                [goodarr addObject:goods];
+//            }
+//            Ordergoods * goods = goodarr[indexPath.row];
+//            detailVc.cmOrderid = goods.order_id;
+//            detailVc.storeId = orderlist.storeId;
+//            detailVc.goodsId = goods.goodsId;
+//            detailVc.imageUrl = goods.coverImgUrl;
             [self.navigationController pushViewController:detailVc animated:YES];
         }
             break;
         case OrderTypeSended:
             
         {
-            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-            
-            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-            NSMutableArray * goodarr = [NSMutableArray array];
-            for (Ordergoods * goods in orderlist.orderGoods) {
-                [goodarr addObject:goods];
-            }
-            Ordergoods * goods = goodarr[indexPath.row];
-            detailVc.cmOrderid = goods.order_id;
-            detailVc.storeId = orderlist.storeId;
-            detailVc.goodsId = goods.goodsId;
-            detailVc.imageUrl = goods.coverImgUrl;
+//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+//
+//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
+//            NSMutableArray * goodarr = [NSMutableArray array];
+//            for (Ordergoods * goods in orderlist.orderGoods) {
+//                [goodarr addObject:goods];
+//            }
+//            Ordergoods * goods = goodarr[indexPath.row];
+//            detailVc.cmOrderid = goods.order_id;
+//            detailVc.storeId = orderlist.storeId;
+//            detailVc.goodsId = goods.goodsId;
+//            detailVc.imageUrl = goods.coverImgUrl;
             [self.navigationController pushViewController:detailVc animated:YES];
         }
             break;
         case OrderTypeDealSuccess:
             
         {
-            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-            
-            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-            NSMutableArray * goodarr = [NSMutableArray array];
-            for (Ordergoods * goods in orderlist.orderGoods) {
-                [goodarr addObject:goods];
-            }
-            Ordergoods * goods = goodarr[indexPath.row];
-            detailVc.cmOrderid = goods.order_id;
-            detailVc.storeId = orderlist.storeId;
-            detailVc.goodsId = goods.goodsId;
-            detailVc.imageUrl = goods.coverImgUrl;
+//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+//
+//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
+//            NSMutableArray * goodarr = [NSMutableArray array];
+//            for (Ordergoods * goods in orderlist.orderGoods) {
+//                [goodarr addObject:goods];
+//            }
+//            Ordergoods * goods = goodarr[indexPath.row];
+//            detailVc.cmOrderid = goods.order_id;
+//            detailVc.storeId = orderlist.storeId;
+//            detailVc.goodsId = goods.goodsId;
+//            detailVc.imageUrl = goods.coverImgUrl;
             [self.navigationController pushViewController:detailVc animated:YES];
         }
             break;
         case OrderTypeCancelSuccess:
             
         {
-            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-            
-            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-            NSMutableArray * goodarr = [NSMutableArray array];
-            for (Ordergoods * goods in orderlist.orderGoods) {
-                [goodarr addObject:goods];
-            }
-            Ordergoods * goods = goodarr[indexPath.row];
-            detailVc.cmOrderid = goods.order_id;
-            detailVc.storeId = orderlist.storeId;
-            detailVc.goodsId = goods.goodsId;
-            detailVc.imageUrl = goods.coverImgUrl;
+//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+//
+//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
+//            NSMutableArray * goodarr = [NSMutableArray array];
+//            for (Ordergoods * goods in orderlist.orderGoods) {
+//                [goodarr addObject:goods];
+//            }
+//            Ordergoods * goods = goodarr[indexPath.row];
+//            detailVc.cmOrderid = goods.order_id;
+//            detailVc.storeId = orderlist.storeId;
+//            detailVc.goodsId = goods.goodsId;
+//            detailVc.imageUrl = goods.coverImgUrl;
             [self.navigationController pushViewController:detailVc animated:YES];
         }
             break;
@@ -1426,35 +1426,35 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             break;
         case OrderTypeWaitSending://待发货
         {
-            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-            
-            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-            NSMutableArray * goodarr = [NSMutableArray array];
-            for (Ordergoods * goods in orderlist.orderGoods) {
-                [goodarr addObject:goods];
-            }
-            Ordergoods * goods = goodarr[indexPath.row];
-            detailVc.cmOrderid = goods.order_id;
-            detailVc.storeId = orderlist.storeId;
-            detailVc.goodsId = goods.goodsId;
-            detailVc.imageUrl = goods.coverImgUrl;
+//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+//
+//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
+//            NSMutableArray * goodarr = [NSMutableArray array];
+//            for (Ordergoods * goods in orderlist.orderGoods) {
+//                [goodarr addObject:goods];
+//            }
+//            Ordergoods * goods = goodarr[indexPath.row];
+//            detailVc.cmOrderid = goods.order_id;
+//            detailVc.storeId = orderlist.storeId;
+//            detailVc.goodsId = goods.goodsId;
+//            detailVc.imageUrl = goods.coverImgUrl;
             [self.navigationController pushViewController:detailVc animated:YES];
         }
             break;
         case OrderTypeWaitRecive://待收货
         {
-            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-            
-            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-            NSMutableArray * goodarr = [NSMutableArray array];
-            for (Ordergoods * goods in orderlist.orderGoods) {
-                [goodarr addObject:goods];
-            }
-            Ordergoods * goods = goodarr[indexPath.row];
-            detailVc.cmOrderid = goods.order_id;
-            detailVc.storeId = orderlist.storeId;
-            detailVc.goodsId = goods.goodsId;
-            detailVc.imageUrl = goods.coverImgUrl;
+//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+//
+//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
+//            NSMutableArray * goodarr = [NSMutableArray array];
+//            for (Ordergoods * goods in orderlist.orderGoods) {
+//                [goodarr addObject:goods];
+//            }
+//            Ordergoods * goods = goodarr[indexPath.row];
+//            detailVc.cmOrderid = goods.order_id;
+//            detailVc.storeId = orderlist.storeId;
+//            detailVc.goodsId = goods.goodsId;
+//            detailVc.imageUrl = goods.coverImgUrl;
             [self.navigationController pushViewController:detailVc animated:YES];
         }
             break;
@@ -1466,6 +1466,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 /**
  晒单代理
  @param indexPath 当前下标
+ 
  @param orderId 订单id
  */
 -(void)shareOrderWithIndexPath:(NSIndexPath*)indexPath AndOrderId:(NSString *)orderId
@@ -1517,19 +1518,15 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 -(void)sendTitle:(NSString *)title orderType:(OrderType)type
 {
     self.currentPage = 1;
-//----------------有hug
-    
-//    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    self.titles =@[@"全部订单",@"待付款",@"待配送",@"配送中",@"已配送",@"交易完成",@"交易取消",@"售后申请",];
-    
+    [self.orderListArray removeAllObjects];
+    _orderType = type;//赋值type ，根据type请求
+     [self.navbar_btn setTitle:title forState:UIControlStateNormal];
+
     [UIView animateWithDuration:0.3 animations:^{
         if (self.bgview.superview) {
             [self.bgview removeFromSuperview];
         }
     }];
-    _orderType = type;//赋值type ，根据type请求
-    [self.navbar_btn setTitle:title forState:UIControlStateNormal];
     
     //0待配送 1配送中 2配送完成,3.交易完成，4.待付款，6,待上门取件，-1.关闭
     

@@ -95,6 +95,8 @@
 
 @property (nonatomic, copy) NSString *orderStatusName;
 
+@property (nonatomic, assign) NSInteger  orderStatus;
+
 @property (nonatomic, assign) NSInteger payMethod;
 
 @property (nonatomic, copy) NSString * deliveryFee;
@@ -102,8 +104,6 @@
 @property (nonatomic, copy) NSString *payStatusName;
 
 @property (nonatomic, copy) NSString *payMethodName;
-
-@property (nonatomic, assign) NSInteger orderStatus;
 
 @property (nonatomic, copy) NSString  * goodsAmount;
 

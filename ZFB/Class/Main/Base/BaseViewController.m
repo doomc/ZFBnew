@@ -322,5 +322,10 @@
     }
 }
 
+#pragma mark - 无数据显示
+-(void)nodataBackgroundImg
+{
+ 
+}
 @end
 

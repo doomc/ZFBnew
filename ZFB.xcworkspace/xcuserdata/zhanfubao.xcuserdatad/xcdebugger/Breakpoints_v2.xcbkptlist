@@ -26,7 +26,7 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/PayController/CheckstandViewController.m"
-                  timestampString = "533815286.532869"
+                  timestampString = "534074429.140582"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "450"
@@ -41,7 +41,7 @@
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/PayController/CheckstandViewController.m"
-                  timestampString = "533815286.536153"
+                  timestampString = "534074429.144103"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "450"
@@ -74,57 +74,57 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-            timestampString = "533815280.323331"
+            timestampString = "534074428.72836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1839"
-            endingLineNumber = "1839"
-            landmarkName = "-sendOrdersActionOrderId:totalPrice:indexPath:"
+            startingLineNumber = "1841"
+            endingLineNumber = "1841"
+            landmarkName = "-progressWithCheckoutIndexPath:"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__79-[BusinessServicerViewController sendOrdersActionOrderId:totalPrice:indexPath:]_block_invoke_3.492"
+                  symbolName = "__79-[BusinessServicerViewController sendOrdersActionOrderId:totalPrice:indexPath:]_block_invoke_3.490"
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-                  timestampString = "533815286.54957"
+                  timestampString = "534074429.156249"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1839"
-                  endingLineNumber = "1839"
+                  startingLineNumber = "1841"
+                  endingLineNumber = "1841"
                   offsetFromSymbolStart = "377">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_.495"
+                  symbolName = "__copy_helper_block_.493"
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-                  timestampString = "533815286.552274"
+                  timestampString = "534074429.158586"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1839"
-                  endingLineNumber = "1839"
+                  startingLineNumber = "1841"
+                  endingLineNumber = "1841"
                   offsetFromSymbolStart = "108">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.496"
+                  symbolName = "__destroy_helper_block_.494"
                   moduleName = "ZFB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/Mine/MerchantClientController/Controllers/BusinessServicerViewController.m"
-                  timestampString = "533815286.554675"
+                  timestampString = "534074429.160943"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1839"
-                  endingLineNumber = "1839"
+                  startingLineNumber = "1841"
+                  endingLineNumber = "1841"
                   offsetFromSymbolStart = "59">
                </Location>
             </Locations>
@@ -176,54 +176,6 @@
             endingLineNumber = "211"
             landmarkName = "-getPaypaySignWithNotify_url:return_url:datetime:"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/ShareCircle/ViewController/EditCommentViewController.m"
-            timestampString = "533815280.32361"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "-commitPublishPostAndContent:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[EditCommentViewController commitPublishPostAndContent:]"
-                  moduleName = "ZFB"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/ShareCircle/ViewController/EditCommentViewController.m"
-                  timestampString = "533815286.576171"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "160"
-                  endingLineNumber = "160"
-                  offsetFromSymbolStart = "617">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__57-[EditCommentViewController commitPublishPostAndContent:]_block_invoke"
-                  moduleName = "ZFB"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhanfubao/Desktop/ZFB/ZFB/Class/Main/ShareCircle/ViewController/EditCommentViewController.m"
-                  timestampString = "533815286.578536"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "161"
-                  endingLineNumber = "161"
-                  offsetFromSymbolStart = "51">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

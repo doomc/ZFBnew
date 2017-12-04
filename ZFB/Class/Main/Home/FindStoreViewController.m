@@ -62,21 +62,17 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     [self initInTerfaceView];
  
     [self setupRefresh];
-    
-    //1.获取主队列
-    dispatch_queue_t queue=dispatch_get_main_queue();
-    
-    //2.把任务添加到主队列中执行
-    dispatch_async(queue, ^{
-        
-        [self LocationMapManagerInit];
-        NSLog(@"使用异步函数执行主队列中的任务1--%@",[NSThread currentThread]);
+
+    [SVProgressHUD show];
+   
+    [self LocationMapManagerInit];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+     
+        [SVProgressHUD dismiss];
+        [self PostRequst];
     });
-    dispatch_async(queue, ^{
-//        [self PostRequst];
-        
-        NSLog(@"使用异步函数执行主队列中的任务2--%@",[NSThread currentThread]);
-    });
+ 
+ 
     
 }
 

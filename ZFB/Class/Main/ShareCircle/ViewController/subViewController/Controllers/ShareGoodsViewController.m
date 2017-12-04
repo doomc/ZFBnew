@@ -173,6 +173,7 @@
     EditCommentViewController * editVC= [EditCommentViewController new];
     ShareGoodsData * shareGoods = self.shareArray[indexItem];
     editVC.shareId = shareGoods.shareId;
+    editVC.commentNum = shareGoods.commentNum;
     [self.navigationController pushViewController:editVC animated:NO];
 }
 #pragma mark - 好货共享列表    toShareGoods/shareGoodsList

@@ -7,6 +7,7 @@
 //
 
 #import "EditCommetCell.h"
+#import "NSString+EnCode.h"
 
 @implementation EditCommetCell
 
@@ -22,7 +23,8 @@
 -(void)setCommentlist:(EditCommentList *)commentlist
 {
     _commentlist = commentlist;
-    self.lb_content.text = commentlist.content;
+    
+    self.lb_content.text = [NSString stringWithFormat:@"%@",[commentlist.content decodedString]];
     self.lb_creatTime.text = commentlist.comment_date;
     self.lb_name.text = commentlist.nickname;
     self.lb_zanNum.text = [NSString stringWithFormat:@"%ld",commentlist.like_num];
@@ -42,9 +44,7 @@
     
         [self.delegate didClickZanWithIndex:_index];
         
-    };
- 
-    
+    };  
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

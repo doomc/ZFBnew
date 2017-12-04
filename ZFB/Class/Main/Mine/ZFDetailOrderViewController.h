@@ -10,10 +10,11 @@
 
 @interface ZFDetailOrderViewController : BaseViewController
 
-@property (nonatomic,strong) NSString * cmOrderid;
-@property (nonatomic,strong) NSString * storeId;
-@property (nonatomic,strong) NSString * goodsId;
-@property (nonatomic,strong) NSString * imageUrl;
+@property (nonatomic,copy) NSString * cmOrderid;
+@property (nonatomic,copy) NSString * storeId;
+@property (nonatomic,copy) NSString * goodsId;
+@property (nonatomic,copy) NSString * imageUrl;
 
- 
+@property (nonatomic,assign) NSInteger  isUserType; // 3 是用户 1 是商户 2 是配送
+
 @end

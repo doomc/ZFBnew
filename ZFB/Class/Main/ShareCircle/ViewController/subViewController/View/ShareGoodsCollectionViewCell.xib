@@ -48,10 +48,9 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEe-OB-KOe">
-                        <rect key="frame" x="40" y="268" width="70" height="20"/>
+                        <rect key="frame" x="40" y="268" width="100" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="DRA-87-dne"/>
-                            <constraint firstAttribute="width" constant="70" id="jEm-QU-mg3"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
@@ -103,6 +102,7 @@
                 <constraint firstItem="P2Q-JS-ZA8" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="DQ3-RM-kSf"/>
                 <constraint firstItem="9uV-LD-za6" firstAttribute="leading" secondItem="lNs-Zn-oNb" secondAttribute="trailing" id="FcY-Za-gtM"/>
                 <constraint firstItem="BZQ-jK-03I" firstAttribute="centerY" secondItem="Moq-ON-72l" secondAttribute="centerY" id="HqO-Wv-zjH"/>
+                <constraint firstAttribute="trailing" secondItem="yEe-OB-KOe" secondAttribute="trailing" constant="20" id="IQY-hj-bpT"/>
                 <constraint firstItem="Ccz-Ld-jCQ" firstAttribute="top" secondItem="P2Q-JS-ZA8" secondAttribute="bottom" constant="5" id="IdP-sJ-5wo"/>
                 <constraint firstItem="lNs-Zn-oNb" firstAttribute="leading" secondItem="BZQ-jK-03I" secondAttribute="trailing" constant="20" id="Jik-Pe-WIm"/>
                 <constraint firstItem="hMA-6U-Aga" firstAttribute="leading" secondItem="Ccz-Ld-jCQ" secondAttribute="leading" id="TtQ-4W-ahL"/>
