@@ -112,6 +112,7 @@
 @property (nonatomic, assign) NSInteger cmOrderId;
 
 @property (nonatomic, copy) NSString *couponAmount;
+@property (nonatomic, copy) NSString *orderComment;
 
 @end
 

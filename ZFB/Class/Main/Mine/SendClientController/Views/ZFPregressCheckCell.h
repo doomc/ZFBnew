@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_status;
 @property (weak, nonatomic) IBOutlet UILabel *lb_applyTime;
 @property (weak, nonatomic) IBOutlet UILabel *lb_serviceNum;
+@property (weak, nonatomic) IBOutlet UILabel *lb_reason;
 
 @end

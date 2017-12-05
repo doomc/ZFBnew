@@ -97,6 +97,8 @@
                              @"userPhone":self.tf_contactPhone.text ,
                              @"skuId":_skuId,
                              @"orderGoodsId":_orderGoodsId,
+                             @"refundType":@"0",//退款方式暂时默认0 可能会改东
+                             
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/afterSale/afterSaleApply"] params:param success:^(id response) {

@@ -10,21 +10,34 @@
 
 #import "ZFSendingCell.h"
 #import "ShopOrderStoreNameCell.h"
-#import "BSListFooterCell.h"
-
+#import "ShopListFooterView.h"
 #import "BussnissListModel.h"
+
+
 @interface ZFShopListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) UITableView  * mytableView;
+@property (nonatomic,strong) NSMutableArray  * storeAttachListArr;
 @property (nonatomic,strong) NSMutableArray  * storeArray;
 @property (nonatomic,strong) NSMutableDictionary  * parmas;
-
 
 
 @end
 
 @implementation ZFShopListViewController
-
+-(NSMutableArray *) storeArray{
+    if (!_storeArray) {
+        _storeArray =[NSMutableArray array];
+    }
+    return _storeArray;
+}
+-(NSMutableArray *)storeAttachListArr
+{
+    if (!_storeAttachListArr) {
+        _storeAttachListArr = [NSMutableArray array];
+    }
+    return _storeAttachListArr;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -39,18 +52,12 @@
    
     [self  listPost];
 
-//    NSLog(@"_userGoodsArray= %@",_userGoodsInfoJSON);
-    
-//    for (NSDictionary * dic in _userGoodsArray) {
-//
-//        [self.goodsArray addObject:dic];
-//    }
 }
 
 -(void)tableViewInterFaceView
 {
     
-    self.mytableView            = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-64) style:UITableViewStylePlain];
+    self.mytableView            = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, KScreenH-64) style:UITableViewStyleGrouped];
     self.mytableView.delegate   = self;
     self.mytableView.dataSource = self;
     self.mytableView.backgroundColor = HEXCOLOR(0xffffff);
@@ -62,9 +69,7 @@
            forCellReuseIdentifier:@"ZFSendingCell"];
     [self.mytableView registerNib:[UINib nibWithNibName:@"ShopOrderStoreNameCell" bundle:nil]
            forCellReuseIdentifier:@"ShopOrderStoreNameCell"];
-    [self.mytableView registerNib:[UINib nibWithNibName:@"BSListFooterCell" bundle:nil]
-           forCellReuseIdentifier:@"BSListFooterCell"];
-    
+    [self.mytableView registerClass:[ShopListFooterView class] forHeaderFooterViewReuseIdentifier:@"ShopListFooterView"];
     
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -91,18 +96,27 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
- 
-    BSListFooterCell * footCell = [self.mytableView
-                                   dequeueReusableCellWithIdentifier:@"BSListFooterCell"];
-    return footCell;
+    static NSString * identif = @"ShopListFooterView";
+    
+    ShopListFooterView * footerView  = [tableView dequeueReusableHeaderFooterViewWithIdentifier:identif];
+    BussnissUserStoreList * storelist = self.storeArray[section];
+    if (self.storeAttachListArr.count > 0) {
+        footerView.tf_message.text = storelist.comment;
+    }
+    footerView.footerBlock = ^(NSString *tf_text) {
+        storelist.comment = tf_text;
+        NSLog(@"  comment == %@  , section === %ld",storelist.comment,section);
+    };
+    return footerView;
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 50;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    return 44+20+10;
+    return 74;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -127,25 +141,30 @@
 }
 
 
--(void)viewWillAppear:(BOOL)animated
+-(void)backAction
 {
-}
--(void)viewWillDisappear:(BOOL)animated
-{
-//    _storeArray = nil;
-}
--(NSMutableArray *) storeArray{
-    if (!_storeArray) {
-        _storeArray =[NSMutableArray array];
-    }
-    return _storeArray;
-}
-#pragma mark -   获取用户商品列表接口 getProductList
+    //回调block 备注
+    [self.navigationController popViewControllerAnimated:YES];
 
+    for (BussnissUserStoreList * storelist in self.storeArray) {
+        
+        NSMutableDictionary * storeAttachListDic = [NSMutableDictionary dictionary];
+        [storeAttachListDic setValue:storelist.storeId forKey:@"storeId"];
+        [storeAttachListDic setValue:storelist.storeName forKey:@"storeName"];
+        [storeAttachListDic setValue:storelist.comment forKey:@"comment"];
+        [self.storeAttachListArr addObject:storeAttachListDic];
+    }
+    NSLog(@"storeAttachListArr = %@",self.storeAttachListArr );
+    
+    if (self.attchBlock) {
+        self.attchBlock(self.storeAttachListArr);
+    }
+}
+
+#pragma mark -   获取用户商品列表接口 getProductList
 //商品清单列表
 -(void)listPost
 {
- 
     [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsInfoList",zfb_baseUrl] params:_parmas success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
@@ -156,7 +175,6 @@
                 [self.storeArray addObject:storelist];
             }
             [self.mytableView reloadData];
-            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
             [SVProgressHUD dismiss];
 
         }else{

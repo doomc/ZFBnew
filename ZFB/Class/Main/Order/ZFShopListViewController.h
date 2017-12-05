@@ -7,14 +7,16 @@
 //
 
 #import "BaseViewController.h"
+typedef void (^StoreAttchArrBlock)(NSMutableArray *attchArray);
+
 
 @interface ZFShopListViewController : BaseViewController
 
- 
 @property (nonatomic,strong) NSMutableArray * userGoodsArray;///商品列表
 @property (nonatomic,strong) NSMutableArray * userGoodsInfoJSON;
 
 @property (nonatomic,copy) NSString * postAddressId;
+@property (nonatomic,copy) StoreAttchArrBlock   attchBlock;
 
 
 

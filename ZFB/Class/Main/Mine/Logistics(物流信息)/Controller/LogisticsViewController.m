@@ -122,11 +122,12 @@
         LogisticsProgressCell * cell = [self.tableView dequeueReusableCellWithIdentifier:@"LogisticsProgressCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
             cell.line_up.hidden = YES;
-        }else if (indexPath.row == self.progressArray.count - 1) {
-            cell.line_down.hidden = YES;
-            cell.status_btn.selected = YES;
+            [cell.status_btn setImage:[UIImage imageNamed:@"speed2"] forState:UIControlStateNormal];
             cell.lb_date.textColor = HEXCOLOR(0xf95a70);
             cell.lb_infoMessage.textColor = HEXCOLOR(0xf95a70);
+            
+        }else if (indexPath.row == self.progressArray.count - 1) {
+            cell.line_down.hidden = YES;
         }else {
             cell.line_down.hidden = NO;
             cell.line_up.hidden = NO;

@@ -25,6 +25,13 @@
     self.lb_date.text = list.time;
 
 }
+-(void)setChecklist:(CheckList *)checklist
+{
+    _checklist = checklist;
+    self.lb_infoMessage.text = checklist.message;
+    self.lb_date.text = checklist.time;
+
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

@@ -83,10 +83,7 @@
             _selctedType = BusinessServicTypeCancelOrder;//取消交易
             
             break;
-//        case 3007:
-//            _selctedType = BusinessServicTypeWiatOrder;//待结单
-//
-//            break;
+
         case 3007:
             _selctedType = BusinessServicTypeWaitSending;
             
@@ -94,6 +91,11 @@
         case 3008:
             _selctedType = BusinessServicTypeWaitReceived;
             
+            break;
+            
+        case 3009:
+        
+            _selctedType = BusinessServicTypeWiatCheck;//待审批
             break;
     }
     if ([_delegate respondsToSelector:@selector(sendTitle:businessServicType:)]) {

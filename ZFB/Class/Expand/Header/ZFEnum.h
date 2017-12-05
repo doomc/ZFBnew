@@ -73,9 +73,10 @@ typedef NS_ENUM(NSUInteger, BusinessServicType) {
     BusinessServicTypeSureReturn,//待确认退回
     BusinessServicTypeSended,//配送完成
     BusinessServicTypeCancelOrder,//取消订单
-//    BusinessServicTypeWiatOrder,//待接单 (需求原因暂时删除了)
     BusinessServicTypeWaitSending,//待发货
     BusinessServicTypeWaitReceived,//待收货
+    BusinessServicTypeWiatCheck,//待审批 
+
 };
 
 

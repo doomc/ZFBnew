@@ -8,22 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "LogisticsModel.h"
+#import "CheckModel.h"
 
 @interface LogisticsProgressCell : UITableViewCell
 
 //日期
 @property (weak, nonatomic) IBOutlet UILabel *lb_date;
-//时间
-@property (weak, nonatomic) IBOutlet UILabel *lb_time;
+ 
 //按钮状态
 @property (weak, nonatomic) IBOutlet UIButton *status_btn;
-//取件状态
-@property (weak, nonatomic) IBOutlet UILabel *lb_orderStatus;
+
 //描述
 @property (weak, nonatomic) IBOutlet UILabel *lb_infoMessage;
 @property (weak, nonatomic) IBOutlet UILabel *line_up;
 @property (weak, nonatomic) IBOutlet UILabel *line_down;
 
-@property (strong, nonatomic) LogisticsList * list;
+@property (strong, nonatomic) LogisticsList * list;//物流
+@property (strong, nonatomic) CheckList * checklist;//进度查询
 
 @end

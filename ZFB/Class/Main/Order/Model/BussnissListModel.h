@@ -20,6 +20,8 @@
 
 @property (nonatomic, copy) NSString *storeName;
 
+@property (nonatomic, copy) NSString *comment;//备注
+
 @property (nonatomic, copy) NSString *storeId;
 
 @property (nonatomic, strong) NSArray<BussnissGoodsInfoList *> *goodsInfoList;

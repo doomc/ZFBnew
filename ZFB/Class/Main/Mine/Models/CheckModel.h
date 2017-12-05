@@ -34,6 +34,8 @@
 
 @property (nonatomic, copy) NSString *createTime;
 
+@property (nonatomic, copy) NSString *reason;
+
 @end
 
 @interface CheckList : ResponseObject

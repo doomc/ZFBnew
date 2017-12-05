@@ -60,6 +60,9 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     
     NSString * _paySign;//签名
     NSString * _payType;
+    NSString * _orderComment;//备注
+    CGFloat _commentTextHeight ;//备注 -文字高度
+
 }
 @property (nonatomic,strong) UITableView *  tableView;
 
@@ -115,23 +118,6 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     
 }
 
-//-(UIButton *)sure_payfor
-//{
-//    _sure_payfor = [UIButton buttonWithType:UIButtonTypeCustom];
-////    [_sure_payfor setTitle:@"去付款" forState:UIControlStateNormal];
-//    [_sure_payfor setBackgroundColor:HEXCOLOR(0xf95a70)];
-//    UIFont *font  =[UIFont systemFontOfSize:15];
-//    _sure_payfor.titleLabel.font    = font;
-//    CGSize size                     = [_sure_payfor.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
-//    CGFloat width                   = size.width;
-//    _sure_payfor.frame              = CGRectMake(KScreenW - width - 80, 10, width +50, 30);
-//    _sure_payfor.layer.cornerRadius = 4;
-//    _sure_payfor.layer.masksToBounds = YES;
-//    [_sure_payfor addTarget:self action:@selector(didClickPayFor:) forControlEvents:UIControlEventTouchUpInside];
-//    return _sure_payfor;
-//}
-
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 3;
@@ -144,7 +130,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     if (section == 1) {
         return self.shoppCartList.count;
     }
-    return 5;
+    return 6;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -214,9 +200,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
                     [self.sure_payfor setHidden:YES];
                     
                 }
-            }
-
-            if (_sure_payfor.titleLabel.text.length > 0) {
+            }if (_sure_payfor.titleLabel.text.length > 0) {
                 CGSize size                     = [_sure_payfor.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,nil]];
                 CGFloat width                   = size.width;
                 _sure_payfor.frame              = CGRectMake(KScreenW - width - 80, 10, width +50, 30);
@@ -276,6 +260,10 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
         }
         else if (indexPath.row  == 3) {
             height = 70;
+        }
+        else if (indexPath.row  == 4) {
+            
+            height = _commentTextHeight;
         }
         else {
             height = 78;
@@ -365,7 +353,15 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             countCell.lb_goodsAllPrice .text = [NSString stringWithFormat:@"¥%.2f",[goodsAmount floatValue]];
             return countCell;
             
-        }else{
+        }else if (indexPath.row == 4) {//备注
+            ZFOrderDetailCell* detailCell = [self.tableView dequeueReusableCellWithIdentifier:commonDetailCellid forIndexPath:indexPath];
+            detailCell.lb_detailtitle.text = @"备注";
+            detailCell.lb_detaileFootTitle.text = _orderComment;
+            
+            return detailCell;
+            
+        }
+        else{
             
             ZFOrderDetailPaycashCell* payCell = [self.tableView dequeueReusableCellWithIdentifier:payCashDetailCellid forIndexPath:indexPath];
             payCell.lb_realPay.text = [NSString stringWithFormat:@"¥%.2f",[payRelPrice floatValue]] ;
@@ -455,6 +451,16 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             //优惠价格
             _couponAmount = orderModel.orderDetails.couponAmount;
 
+            //备注
+            _orderComment = orderModel.orderDetails.orderComment;
+
+            _commentTextHeight = [self heightForString:_orderComment andWidth:KScreenW - 30-60];
+            if (_commentTextHeight < 50) {
+                _commentTextHeight = 50;
+            } else{
+                _commentTextHeight = _commentTextHeight +20;
+            }
+            
             //配送员id
             _deliveryId = [NSString stringWithFormat:@"%ld",orderModel.deliveryInfo.deliveryId];
             
@@ -474,6 +480,27 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     }];
     
 }
+/**
+ @method 获取指定宽度width,字体大小fontSize,字符串value的高度
+ @param value 待计算的字符串
+ @result float 返回的高度
+ */
+- (float)heightForString:(NSString *)value andWidth:(float)width{
+    //获取当前文本的属性
+    UILabel * label = [[UILabel alloc]init];
+    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:value];
+    label.attributedText = attrStr;
+    NSRange range = NSMakeRange(0, attrStr.length);
+    // 获取该段attributedString的属性字典
+    NSDictionary *dic = [attrStr attributesAtIndex:0 effectiveRange:&range];
+    // 计算文本的大小
+    CGSize sizeToFit = [value boundingRectWithSize:CGSizeMake(width - 16.0, MAXFLOAT) // 用于计算文本绘制时占据的矩形块
+                                           options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading // 文本绘制时的附加选项
+                                        attributes:dic        // 文字的属性
+                                           context:nil].size; // context上下文。包括一些信息，例如如何调整字间距以及缩放。该对象包含的信息将用于文本绘制。该参数可为nil
+    return sizeToFit.height + 16.0;
+}
+
 #pragma mark - 商户端确认收货   userConfirmReceipt 用户确认取货
 -(void)bussniessAcceptgoodsPost
 {
@@ -596,14 +623,6 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     [super viewWillAppear:animated];
     NSDate * date = [NSDate date];
     _datetime     = [dateTimeHelper timehelpFormatter: date];//2017-07-20 17:08:54
-
-    NSLog(@"_cmOrderid  == ==== == == %@",_cmOrderid);
-//    if (_isBussiness == YES) {
-//        [self getOrderDetailsInfoPostResquestcmOrderid:@""];
-//
-//    }else{
-//
-//    }
     [self getOrderDetailsInfoPostResquestcmOrderid:_cmOrderid];
 
 }

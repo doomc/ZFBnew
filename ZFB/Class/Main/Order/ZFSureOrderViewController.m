@@ -221,7 +221,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 
         NSString * storeId = [storeListDic objectForKey:@"storeId"];
         NSString * storeName = [storeListDic objectForKey:@"storeName"];
-        NSString * comment = @"备注";
+        NSString * comment = @"暂无备注";
         
         [storeAttachListDic setValue:storeId forKey:@"storeId"];
         [storeAttachListDic setValue:storeName forKey:@"storeName"];
@@ -489,6 +489,10 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         case SureOrderCellTypeGoodsListCell://商品清单
         {
             ZFShopListViewController * shoplistVc =[[ZFShopListViewController alloc]init];
+            shoplistVc.attchBlock = ^(NSMutableArray *attchArray) {
+                [self.storeAttachListArr  removeAllObjects];
+                self.storeAttachListArr = attchArray;
+            };
             shoplistVc.userGoodsArray = self.cmGoodsListArray;
             shoplistVc.userGoodsInfoJSON = _userGoodsInfoJSON;
             shoplistVc.postAddressId  = _postAddressId;

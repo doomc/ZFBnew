@@ -15,6 +15,7 @@
     // Initialization code
     
     self.selectionStyle       = UITableViewCellSelectionStyleNone;
+    self.lb_detaileFootTitle.preferredMaxLayoutWidth = KScreenW - 15 - 20 -80;
 
 }
 
