@@ -129,23 +129,33 @@
 #pragma mark - EditCommetCellDelegate  点赞 代理
 -(void)didClickZanWithIndex:(NSInteger)index
 {
-    EditCommentList * list  = self.commentList[index];
-    [self didZanCommentId:[NSString stringWithFormat:@"%ld",list.comment_id]];
+    if (BBUserDefault.isLogin == 1) {
+        EditCommentList * list  = self.commentList[index];
+        [self didZanCommentId:[NSString stringWithFormat:@"%ld",list.comment_id]];
+    }else{
+        [self isIfNotSignIn];
+    }
+
 }
 #pragma mark - EditCommentFootViewDelegate  发布评论 代理
 -(void)pushlishCommentWithContent:(NSString *)content
 {
-    if (content.length > 0) {
-        [self commitPublishPostAndContent:content];
-    }else
-    {
-        [self.view makeToast:@"评论太短了" duration:2 position:@"center"];
+    if (BBUserDefault.isLogin == 1) {
+        if (content.length > 0) {
+            [self commitPublishPostAndContent:content];
+        }else
+        {
+            [self.view makeToast:@"评论太短了" duration:2 position:@"center"];
+        }
+        
+    }else{
+        [self isIfNotSignIn];
     }
+
 }
 -(void)textHeight:(CGFloat)height
 {
     self.footerView.frame = CGRectMake(0, KScreenH -height - 64, KScreenW, height);
-    
 }
 
 

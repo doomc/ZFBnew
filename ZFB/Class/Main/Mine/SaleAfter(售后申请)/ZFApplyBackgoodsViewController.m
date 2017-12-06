@@ -79,16 +79,10 @@
     
     [HXPhotoTools getImageForSelectedPhoto:photos type:HXPhotoToolsFetchHDImageType completion:^(NSArray<UIImage *> *images) {
         
-        [OSSImageUploader asyncUploadImages:images complete:^(NSArray<NSString *> *names, UploadImageState state) {
-            if (state == 1) {
-                _imgUrlAppending =  [names componentsJoinedByString:@","];
-                NSSLog(@"names = %@",_imgUrlAppending);
-            }
-        }];
-        
+        NSSLog(@"%@",images);
+        _imgUrl_mutArray = images;
     }];
  
-    
 }
 - (void)photoView:(HXPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {
     
@@ -186,12 +180,13 @@
  @param sender 提交申请
  */
 - (IBAction)didClickNextPage:(id)sender {
-
-    [SVProgressHUD showWithStatus:@"正在提交..."];
-
-    [[self class]cancelPreviousPerformRequestsWithTarget:self selector:@selector(didChangeStatus:) object:sender];
-    
-    [self performSelector:@selector(didChangeStatus:) withObject:sender afterDelay:2];
+    ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
+    [self.navigationController pushViewController: bcVC animated:YES];
+//    [SVProgressHUD showWithStatus:@"正在提交..."];
+//
+//    [[self class]cancelPreviousPerformRequestsWithTarget:self selector:@selector(didChangeStatus:) object:sender];
+//
+//    [self performSelector:@selector(didChangeStatus:) withObject:sender afterDelay:2];
     
 }
 -(void)didChangeStatus:(UIButton *)sender
@@ -203,9 +198,13 @@
     }else{
         /////***************提交之前暂时没有做处理
         if (_reason.length > 0 && _problemDescr.length > 0 ) {
-            
-            [self uploadSuccessPushVC];
-            _isCommited = YES;
+            [OSSImageUploader asyncUploadImages:_imgUrl_mutArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
+                if (state == 1) {
+                    _imgUrlAppending =  [names componentsJoinedByString:@","];
+                    NSSLog(@"names = %@",_imgUrlAppending);
+                    [self uploadSuccessPushVC];
+                }
+            }];
             
         }else{
             JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"提示" message:@"申请原因或问题描述没填写" preferredStyle:UIAlertControllerStyleAlert];
@@ -224,8 +223,15 @@
 }
 -(void)uploadSuccessPushVC
 {
+    _isCommited = YES;
+
     //图片为空的状态
     ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
+    if (_imgUrlAppending.length > 0) {
+        bcVC.imgArr          = _imgUrlAppending ;//图片字符串
+    }else{
+        bcVC.imgArr          = @"";
+    }
     bcVC.goodsName  = _goodsName;
     bcVC.price      = _price ;
     bcVC.goodCount  = _goodCount;
@@ -248,15 +254,9 @@
     bcVC.reason          = _reason;
     bcVC.problemDescr    = _problemDescr;
     
-    if (_imgUrlAppending.length > 0) {
-        bcVC.imgArr          = _imgUrlAppending ;//图片字符串
-        [self.navigationController pushViewController: bcVC animated:YES];
 
-    }else{
-        bcVC.imgArr          = @"";
-        [self.navigationController pushViewController: bcVC animated:YES];
+    [self.navigationController pushViewController: bcVC animated:YES];
 
-    }
     [SVProgressHUD dismiss];
 
 }

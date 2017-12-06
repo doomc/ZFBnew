@@ -10,4 +10,6 @@
 
 @interface CheckSaleafterViewController : BaseViewController
 
+@property (nonatomic ,copy) NSString * afterId;
+
 @end

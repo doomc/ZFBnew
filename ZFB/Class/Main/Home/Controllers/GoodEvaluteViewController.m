@@ -11,6 +11,8 @@
 #import "AppraiseModel.h"
 #import "XHStarRateView.h"
 #import "JZLPhotoBrowser.h"
+#import "CQPlaceholderView.h"
+
 
 @interface GoodEvaluteViewController ()<UITableViewDelegate,UITableViewDataSource,ZFAppraiseCellDelegate>
 {
@@ -25,6 +27,7 @@
 @property (nonatomic ,strong) UITableView* evaluate_tableView;
 @property (nonatomic ,strong) NSMutableArray * appraiseListArray;
 @property (nonatomic ,strong) NSMutableArray * imgArray;
+@property (nonatomic , strong) CQPlaceholderView *placeholderView;
 
 @end
 
@@ -156,11 +159,8 @@
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsCommentInfo",zfb_baseUrl] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
-            
             if (self.refreshType == RefreshTypeHeader) {
-                
                 if (self.appraiseListArray.count >0) {
-                    
                     [self.appraiseListArray  removeAllObjects];
                 }
             }
@@ -183,7 +183,11 @@
                 _totalCount  = appraise.data.goodsCommentList.totalCount;
                 
             }
-            
+            [_placeholderView removeFromSuperview];
+            if ([self isEmptyArray:self.appraiseListArray]) {
+                _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.evaluate_tableView.bounds type:CQPlaceholderViewTypeNoComments delegate:self];
+                [self.evaluate_tableView addSubview:_placeholderView];
+            }
             [SVProgressHUD dismiss];
             [self.evaluate_tableView reloadData];
         }

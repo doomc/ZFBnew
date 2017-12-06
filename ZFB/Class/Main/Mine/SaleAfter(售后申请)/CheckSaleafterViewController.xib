@@ -1,13 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CheckSaleafterViewController">
             <connections>
+                <outlet property="checkPass_btn" destination="XLx-KZ-L4V" id="juy-n1-znl"/>
+                <outlet property="checkRefuse_btn" destination="J3W-j1-OJc" id="r8A-nK-TMM"/>
+                <outlet property="tableView" destination="9RZ-uh-Nsw" id="j7a-EJ-NRc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,8 +21,51 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9RZ-uh-Nsw">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="487"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XLx-KZ-L4V">
+                    <rect key="frame" x="30" y="517" width="132.5" height="45"/>
+                    <color key="backgroundColor" red="0.97647058823529409" green="0.3529411764705882" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="TE4-8u-Ptr"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="审核通过"/>
+                    <connections>
+                        <action selector="passCheck:" destination="-1" eventType="touchUpInside" id="z4q-Oz-hfE"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3W-j1-OJc">
+                    <rect key="frame" x="212.5" y="517" width="132.5" height="45"/>
+                    <color key="backgroundColor" red="0.97647058819999999" green="0.35294117650000001" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="qyP-i2-1Oh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="审核拒绝"/>
+                    <connections>
+                        <action selector="refuseCheck:" destination="-1" eventType="touchUpInside" id="CiY-oF-RsM"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="XLx-KZ-L4V" firstAttribute="top" secondItem="9RZ-uh-Nsw" secondAttribute="bottom" constant="30" id="06h-yW-j7Q"/>
+                <constraint firstItem="J3W-j1-OJc" firstAttribute="leading" secondItem="XLx-KZ-L4V" secondAttribute="trailing" constant="50" id="A8K-cj-y3X"/>
+                <constraint firstItem="9RZ-uh-Nsw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="BRa-rY-8DQ"/>
+                <constraint firstItem="J3W-j1-OJc" firstAttribute="height" secondItem="XLx-KZ-L4V" secondAttribute="height" id="C1R-BC-KuP"/>
+                <constraint firstItem="XLx-KZ-L4V" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="CjV-mB-7MG"/>
+                <constraint firstAttribute="trailing" secondItem="J3W-j1-OJc" secondAttribute="trailing" constant="30" id="H8n-3J-Qfi"/>
+                <constraint firstItem="J3W-j1-OJc" firstAttribute="top" secondItem="9RZ-uh-Nsw" secondAttribute="bottom" constant="30" id="fD5-21-7i7"/>
+                <constraint firstAttribute="bottom" secondItem="9RZ-uh-Nsw" secondAttribute="bottom" constant="180" id="idR-RF-1Xa"/>
+                <constraint firstAttribute="trailing" secondItem="9RZ-uh-Nsw" secondAttribute="trailing" id="psO-U1-HZ6"/>
+                <constraint firstItem="9RZ-uh-Nsw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="uWX-HW-tgA"/>
+                <constraint firstItem="J3W-j1-OJc" firstAttribute="width" secondItem="XLx-KZ-L4V" secondAttribute="width" id="xmB-fF-OR0"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
 </document>

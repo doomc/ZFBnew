@@ -26,7 +26,7 @@
 //controller
 #import "OrderStatisticsViewController.h"
 #import "ZFDetailOrderViewController.h"
-
+#import "CheckSaleafterViewController.h"//审批
 //model
 #import "BusinessHomeModel.h"
 #import "DeliveryModel.h"//配送员列表
@@ -552,7 +552,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
                     break;
                 case BusinessServicTypeWiatCheck://待审批
- 
+                    return 1;
                     break;
             }
             
@@ -671,6 +671,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     break;
                 case BusinessServicTypeWiatCheck://待审批
                     
+                    sectionRow = self.progressArray.count;
+
                     break;
             }
         }
@@ -740,6 +742,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
                     break;
                 case BusinessServicTypeWiatCheck://待审批
+                    
+                    height = 184;
                     
                     break;
             }
@@ -867,7 +871,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 }
                     break;
                 case BusinessServicTypeWiatCheck://待审批
-                    
+                    return view;
+
                     break;
             }
         }
@@ -936,7 +941,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
                     break;
                 case BusinessServicTypeWiatCheck://待审批
-                    
+                    height = 0;
+
                     break;
             }
             break;
@@ -1114,7 +1120,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 }
                     break;
                 case BusinessServicTypeWiatCheck://待审批
-                    
+                    return footerView;
                     break;
             }
             
@@ -1177,7 +1183,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 
                     break;
                 case BusinessServicTypeWiatCheck://待审批
-                    
+                    height = 0;
                     break;
             }
             
@@ -1433,7 +1439,15 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 }
                     break;
                 case BusinessServicTypeWiatCheck://待审批
-                    
+                {
+                    ZFCheckTheProgressCell *checkCell = [self.zfb_tableView dequeueReusableCellWithIdentifier:@"ZFCheckTheProgressCell" forIndexPath:indexPath];
+                    List * progress                   = self.progressArray[indexPath.row];
+                    checkCell.deldegate               = self;
+                    [checkCell.checkProgress_btn  setTitle:@"审批" forState:UIControlStateNormal];
+                    checkCell.progressList = progress;
+                    checkCell.indexpath    = indexPath.row;
+                    return  checkCell;
+                }
                     break;
             }
             break;
@@ -1748,22 +1762,62 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(void)progressWithCheckoutIndexPath:(NSInteger)indexpath
 {
     List * progress              = self.progressArray[indexpath];
-    JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"是否确认退货？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    switch (_servicType) {
+        case BusinessServicTypeWaitSendlist://待派单
+            
+            break;
+        case BusinessServicTypeSending://配送中
+
+            break;
+        case BusinessServicTypeWaitPay://待付款
+            
+
+            break;
+        case BusinessServicTypeDealComplete://交易完成
+
+            break;
+        case BusinessServicTypeSureReturn://待确认退回
+        {
+            JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"是否确认退货？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction * cancle =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                NSLog(@"点击了确认退货");
+                [self returnBackStoreConfirmReceiptPostRequstAtOrderNum:progress.orderNum afterServiceId:progress.saleId goodsId:progress.goodsId orderGoodsId:progress.orderGoodsId goodsCount:[NSString stringWithFormat:@"%ld",progress.goodsCount] refund:progress.refund userId:progress.userId];
+            }];
+            
+            [alertvc addAction:sure];
+            [alertvc addAction:cancle];
+            [self presentViewController:alertvc animated:NO completion:^{
+                
+            }];
+        }
+            break;
+        case BusinessServicTypeSended://已配送
+            
+            break;
+        case BusinessServicTypeCancelOrder://取消订单
+            
+            break;
+            
+        case BusinessServicTypeWaitSending://待发货
+            
+            break;
+        case BusinessServicTypeWaitReceived://待收货
+            
+            break;
+        case BusinessServicTypeWiatCheck://待审批
+        {
+            NSLog(@"点击了待审批");
+            CheckSaleafterViewController * checkVC  = [CheckSaleafterViewController new];
+            checkVC.afterId = progress.saleId;
+            [self.navigationController pushViewController:checkVC animated:NO];
+        }
+            break;
+    }
     
-    UIAlertAction * cancle =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    UIAlertAction * sure =[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"点击了确认退货");
-        [self returnBackStoreConfirmReceiptPostRequstAtOrderNum:progress.orderNum afterServiceId:progress.saleId goodsId:progress.goodsId orderGoodsId:progress.orderGoodsId goodsCount:[NSString stringWithFormat:@"%ld",progress.goodsCount] refund:progress.refund userId:progress.userId];
-        
-    }];
-    
-    [alertvc addAction:sure];
-    [alertvc addAction:cancle];
-    [self presentViewController:alertvc animated:NO completion:^{
-        
-    }];
     
     
     
@@ -2179,7 +2233,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                 
                 break;
             case BusinessServicTypeWiatCheck://待审批
-                
+                [self salesAfterPostRequsteAtstatus:@"0"];
+
                 break;
         }
     } progress:^(NSProgress *progeress) {
@@ -2430,7 +2485,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             }
             [SVProgressHUD dismiss];
             [self.homeTableView reloadData];
-
+ 
         }
         [self endRefresh];
         

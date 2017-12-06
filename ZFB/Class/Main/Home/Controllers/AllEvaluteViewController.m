@@ -11,8 +11,9 @@
 #import "AppraiseModel.h"
 #import "XHStarRateView.h"
 #import "JZLPhotoBrowser.h"
+#import "CQPlaceholderView.h"
 
-@interface AllEvaluteViewController ()<UITableViewDelegate,UITableViewDataSource,ZFAppraiseCellDelegate>
+@interface AllEvaluteViewController ()<UITableViewDelegate,UITableViewDataSource,ZFAppraiseCellDelegate,CQPlaceholderViewDelegate>
 {
     NSString * _imgUrl_str;
     NSInteger  _starNum;
@@ -25,6 +26,7 @@
 @property (nonatomic ,strong) UITableView * evaluate_tableView;
 @property (nonatomic ,strong) NSMutableArray * appraiseListArray;
 @property (nonatomic ,strong) NSMutableArray * imgArray;
+@property (nonatomic , strong) CQPlaceholderView *placeholderView;
 
 @end
 
@@ -152,11 +154,8 @@
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsCommentInfo",zfb_baseUrl] params:parma success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
-            
             if (self.refreshType == RefreshTypeHeader) {
-                
                 if (self.appraiseListArray.count >0) {
-                    
                     [self.appraiseListArray  removeAllObjects];
                 }
             }
@@ -176,9 +175,13 @@
                 }
                 NSLog(@" ===============appraiseListArray ========== %@",  self.appraiseListArray);
                 _totalCount  = appraise.data.goodsCommentList.totalCount;
-                
+
             }
-            
+            [_placeholderView removeFromSuperview];
+            if ([self isEmptyArray:self.appraiseListArray]) {
+                _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.evaluate_tableView.bounds type:CQPlaceholderViewTypeNoComments delegate:self];
+                [self.evaluate_tableView addSubview:_placeholderView];
+            }
             [SVProgressHUD dismiss];
             [self.evaluate_tableView reloadData];
         }
@@ -193,12 +196,17 @@
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-    
+   
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [SVProgressHUD dismiss];
+}
+#pragma mark - Delegate - 占位图
+/** 占位图的重新加载按钮点击时回调 */
+- (void)placeholderView:(CQPlaceholderView *)placeholderView reloadButtonDidClick:(UIButton *)sender{
+    
 }
 
 

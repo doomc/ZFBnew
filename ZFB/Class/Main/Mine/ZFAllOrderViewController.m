@@ -88,7 +88,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     self.titles =@[@"全部订单",@"待付款",@"待配送",@"配送中",@"已配送",@"交易完成",@"交易取消",@"售后申请",@"待发货",@"待收货"];
     [self.navbar_btn setTitle:_buttonTitle forState:UIControlStateNormal];
     [self initZfb_tableView];
-    [self allOrderPostRequsetWithOrderStatus:_orderStatus orderNum:@""];
+    [self allOrderPostRequsetWithOrderStatus:_orderStatus  ];
     
 }
 
@@ -98,46 +98,47 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 }
 #pragma mark -数据请求
 -(void)headerRefresh {
-    
     [super headerRefresh];
     switch (_orderType) {//-1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成
         case OrderTypeAllOrder://全部订单
-            [self allOrderPostRequsetWithOrderStatus:@"" orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@""  ];
             break;
         case OrderTypeWaitPay://待付款
             
-            [self allOrderPostRequsetWithOrderStatus:@"4"  orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"4"  ];
             
             break;
         case OrderTypeWaitSend://待配送
             
-            [self allOrderPostRequsetWithOrderStatus:@"0" orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"0"];
             
             break;
         case OrderTypeSending://配送中
-            [self allOrderPostRequsetWithOrderStatus:@"1" orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"1" ];
             
             break;
         case OrderTypeSended://已配送
             
-            [self allOrderPostRequsetWithOrderStatus:@"2" orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"2"  ];
             
             break;
         case OrderTypeDealSuccess://交易成功
             
-            [self allOrderPostRequsetWithOrderStatus:@"3"  orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"3"  ];
             
             break;
         case OrderTypeCancelSuccess://取消交易
             
-            [self allOrderPostRequsetWithOrderStatus:@"-1"  orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"-1"  ];
             
             break;
         case OrderTypeAfterSale://售后
             
             if (_tagNum == 0) {
                 
-                [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
+                [self allOrderPostRequsetWithOrderStatus:@"3" ];
+                BBUserDefault.keyWord = @"";
+//                                self.searchBar.text = @"";
                 
             }else{
                 [self salesAfterPostRequste];
@@ -147,12 +148,12 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             break;
         case OrderTypeWaitSending://待发货
             
-            [self allOrderPostRequsetWithOrderStatus:@"9"  orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"9"];
             
             break;
         case OrderTypeWaitRecive://待收货
             
-            [self allOrderPostRequsetWithOrderStatus:@"10"  orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"10"];
             
             break;
     }
@@ -163,39 +164,39 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     switch (_orderType) {//-1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成
             
         case OrderTypeAllOrder://全部订单
-            [self allOrderPostRequsetWithOrderStatus:@""  orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@""];
             break;
         case OrderTypeWaitPay://待付款
             
-            [self allOrderPostRequsetWithOrderStatus:@"4"  orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"4"];
             break;
         case OrderTypeWaitSend://待配送
             
-            [self allOrderPostRequsetWithOrderStatus:@"0"  orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"0"];
             break;
         case OrderTypeSending://配送中
             
-            [self allOrderPostRequsetWithOrderStatus:@"1"   orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"1"];
             break;
         case OrderTypeSended://已配送
             
-            [self allOrderPostRequsetWithOrderStatus:@"2" orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"2" ];
             break;
             
         case OrderTypeDealSuccess://交易成功
             
-            [self allOrderPostRequsetWithOrderStatus:@"3"  orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"3"];
             break;
             
         case OrderTypeCancelSuccess://取消交易
             
-            [self allOrderPostRequsetWithOrderStatus:@"-1"  orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"-1"];
             break;
             
         case OrderTypeAfterSale://售后
             if (_tagNum == 0) {
 //                [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:@"" ];
-                [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
+                [self allOrderPostRequsetWithOrderStatus:@"3"];
 
             }else{
                 [self salesAfterPostRequste];
@@ -203,11 +204,11 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             break;
         case OrderTypeWaitSending://待发货
             
-            [self allOrderPostRequsetWithOrderStatus:@"9"  orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"9"];
             break;
         case OrderTypeWaitRecive://待收货
             
-            [self allOrderPostRequsetWithOrderStatus:@"10"  orderNum:@""];
+            [self allOrderPostRequsetWithOrderStatus:@"10"];
             break;
     }
 }
@@ -665,7 +666,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         case OrderTypeAfterSale:
             
             if (self.tagNum == 0) {
-                
                 if (section == 0) {
                     
                     return self.topView;
@@ -753,7 +753,11 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             break;
         case OrderTypeAfterSale:
             
-            height = 10;
+            if (_tagNum == 0) {
+                height = 10;
+            }else{
+                return 0;
+            }
             break;
         case OrderTypeWaitSending://待发货
             height = k_footHeight;
@@ -954,6 +958,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         case OrderTypeAfterSale:
             
             return view;
+            
             break;
         case OrderTypeWaitSending://待发货
         {
@@ -1283,132 +1288,122 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     NSLog(@" section = %ld ， row = %ld",indexPath.section,indexPath.row);
 
     ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-    
-    Orderlist * orderlist    = self.orderListArray [indexPath.section];
-    NSMutableArray * goodarr = [NSMutableArray array];
-    for (Ordergoods * goods in orderlist.orderGoods) {
-        [goodarr addObject:goods];
-    }
-    Ordergoods * goods = goodarr[indexPath.row];
-    detailVc.cmOrderid = goods.order_id;
-    detailVc.storeId = orderlist.storeId;
-    detailVc.goodsId = goods.goodsId;
-    detailVc.imageUrl = goods.coverImgUrl;
-    detailVc.isUserType = 3;
-    
+
     switch (_orderType) {
         case OrderTypeAllOrder:
-        {
+            if (self.orderListArray.count > 0) {
+                Orderlist * orderlist    = self.orderListArray [indexPath.section];
+                NSMutableArray * goodarr = [NSMutableArray array];
+                for (Ordergoods * goods in orderlist.orderGoods) {
+                    [goodarr addObject:goods];
+                }
+                Ordergoods * goods = goodarr[indexPath.row];
+                detailVc.cmOrderid = goods.order_id;
+                detailVc.storeId = orderlist.storeId;
+                detailVc.goodsId = goods.goodsId;
+                detailVc.imageUrl = goods.coverImgUrl;
+                detailVc.isUserType = 3;
+            }
             [self.navigationController pushViewController:detailVc animated:YES];
-        }
             break;
         case OrderTypeWaitPay:
-            
-        {
-//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-//
-//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-//            NSMutableArray * goodarr = [NSMutableArray array];
-//            for (Ordergoods * goods in orderlist.orderGoods) {
-//                [goodarr addObject:goods];
-//            }
-//            Ordergoods * goods = goodarr[indexPath.row];
-//            detailVc.cmOrderid = goods.order_id;
-//            detailVc.storeId = orderlist.storeId;
-//            detailVc.goodsId = goods.goodsId;
-//            detailVc.imageUrl = goods.coverImgUrl;
+            if (self.orderListArray.count > 0) {
+                Orderlist * orderlist    = self.orderListArray [indexPath.section];
+                NSMutableArray * goodarr = [NSMutableArray array];
+                for (Ordergoods * goods in orderlist.orderGoods) {
+                    [goodarr addObject:goods];
+                }
+                Ordergoods * goods = goodarr[indexPath.row];
+                detailVc.cmOrderid = goods.order_id;
+                detailVc.storeId = orderlist.storeId;
+                detailVc.goodsId = goods.goodsId;
+                detailVc.imageUrl = goods.coverImgUrl;
+                detailVc.isUserType = 3;
+            }
             [self.navigationController pushViewController:detailVc animated:YES];
-        }
             break;
         case OrderTypeWaitSend:
-            
-        {
-//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-//
-//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-//            NSMutableArray * goodarr = [NSMutableArray array];
-//            for (Ordergoods * goods in orderlist.orderGoods) {
-//                [goodarr addObject:goods];
-//            }
-//            Ordergoods * goods = goodarr[indexPath.row];
-//            detailVc.cmOrderid = goods.order_id;
-//            detailVc.storeId = orderlist.storeId;
-//            detailVc.goodsId = goods.goodsId;
-//            detailVc.imageUrl = goods.coverImgUrl;
+            if (self.orderListArray.count > 0) {
+                Orderlist * orderlist    = self.orderListArray [indexPath.section];
+                NSMutableArray * goodarr = [NSMutableArray array];
+                for (Ordergoods * goods in orderlist.orderGoods) {
+                    [goodarr addObject:goods];
+                }
+                Ordergoods * goods = goodarr[indexPath.row];
+                detailVc.cmOrderid = goods.order_id;
+                detailVc.storeId = orderlist.storeId;
+                detailVc.goodsId = goods.goodsId;
+                detailVc.imageUrl = goods.coverImgUrl;
+                detailVc.isUserType = 3;
+            }
             [self.navigationController pushViewController:detailVc animated:YES];
-        }
             break;
         case OrderTypeSending:
-
-        {
-//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-//
-//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-//            NSMutableArray * goodarr = [NSMutableArray array];
-//            for (Ordergoods * goods in orderlist.orderGoods) {
-//                [goodarr addObject:goods];
-//            }
-//            Ordergoods * goods = goodarr[indexPath.row];
-//            detailVc.cmOrderid = goods.order_id;
-//            detailVc.storeId = orderlist.storeId;
-//            detailVc.goodsId = goods.goodsId;
-//            detailVc.imageUrl = goods.coverImgUrl;
+            if (self.orderListArray.count > 0) {
+                Orderlist * orderlist    = self.orderListArray [indexPath.section];
+                NSMutableArray * goodarr = [NSMutableArray array];
+                for (Ordergoods * goods in orderlist.orderGoods) {
+                    [goodarr addObject:goods];
+                }
+                Ordergoods * goods = goodarr[indexPath.row];
+                detailVc.cmOrderid = goods.order_id;
+                detailVc.storeId = orderlist.storeId;
+                detailVc.goodsId = goods.goodsId;
+                detailVc.imageUrl = goods.coverImgUrl;
+                detailVc.isUserType = 3;
+            }
             [self.navigationController pushViewController:detailVc animated:YES];
-        }
+
             break;
         case OrderTypeSended:
-            
-        {
-//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-//
-//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-//            NSMutableArray * goodarr = [NSMutableArray array];
-//            for (Ordergoods * goods in orderlist.orderGoods) {
-//                [goodarr addObject:goods];
-//            }
-//            Ordergoods * goods = goodarr[indexPath.row];
-//            detailVc.cmOrderid = goods.order_id;
-//            detailVc.storeId = orderlist.storeId;
-//            detailVc.goodsId = goods.goodsId;
-//            detailVc.imageUrl = goods.coverImgUrl;
+            if (self.orderListArray.count > 0) {
+                Orderlist * orderlist    = self.orderListArray [indexPath.section];
+                NSMutableArray * goodarr = [NSMutableArray array];
+                for (Ordergoods * goods in orderlist.orderGoods) {
+                    [goodarr addObject:goods];
+                }
+                Ordergoods * goods = goodarr[indexPath.row];
+                detailVc.cmOrderid = goods.order_id;
+                detailVc.storeId = orderlist.storeId;
+                detailVc.goodsId = goods.goodsId;
+                detailVc.imageUrl = goods.coverImgUrl;
+                detailVc.isUserType = 3;
+            }
             [self.navigationController pushViewController:detailVc animated:YES];
-        }
             break;
         case OrderTypeDealSuccess:
-            
-        {
-//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-//
-//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-//            NSMutableArray * goodarr = [NSMutableArray array];
-//            for (Ordergoods * goods in orderlist.orderGoods) {
-//                [goodarr addObject:goods];
-//            }
-//            Ordergoods * goods = goodarr[indexPath.row];
-//            detailVc.cmOrderid = goods.order_id;
-//            detailVc.storeId = orderlist.storeId;
-//            detailVc.goodsId = goods.goodsId;
-//            detailVc.imageUrl = goods.coverImgUrl;
+            if (self.orderListArray.count > 0) {
+                Orderlist * orderlist    = self.orderListArray [indexPath.section];
+                NSMutableArray * goodarr = [NSMutableArray array];
+                for (Ordergoods * goods in orderlist.orderGoods) {
+                    [goodarr addObject:goods];
+                }
+                Ordergoods * goods = goodarr[indexPath.row];
+                detailVc.cmOrderid = goods.order_id;
+                detailVc.storeId = orderlist.storeId;
+                detailVc.goodsId = goods.goodsId;
+                detailVc.imageUrl = goods.coverImgUrl;
+                detailVc.isUserType = 3;
+            }
             [self.navigationController pushViewController:detailVc animated:YES];
-        }
+ 
             break;
         case OrderTypeCancelSuccess:
-            
-        {
-//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-//
-//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-//            NSMutableArray * goodarr = [NSMutableArray array];
-//            for (Ordergoods * goods in orderlist.orderGoods) {
-//                [goodarr addObject:goods];
-//            }
-//            Ordergoods * goods = goodarr[indexPath.row];
-//            detailVc.cmOrderid = goods.order_id;
-//            detailVc.storeId = orderlist.storeId;
-//            detailVc.goodsId = goods.goodsId;
-//            detailVc.imageUrl = goods.coverImgUrl;
+            if (self.orderListArray.count > 0) {
+                Orderlist * orderlist    = self.orderListArray [indexPath.section];
+                NSMutableArray * goodarr = [NSMutableArray array];
+                for (Ordergoods * goods in orderlist.orderGoods) {
+                    [goodarr addObject:goods];
+                }
+                Ordergoods * goods = goodarr[indexPath.row];
+                detailVc.cmOrderid = goods.order_id;
+                detailVc.storeId = orderlist.storeId;
+                detailVc.goodsId = goods.goodsId;
+                detailVc.imageUrl = goods.coverImgUrl;
+                detailVc.isUserType = 3;
+            }
             [self.navigationController pushViewController:detailVc animated:YES];
-        }
+
             break;
         case OrderTypeAfterSale:
             
@@ -1425,38 +1420,38 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             }
             break;
         case OrderTypeWaitSending://待发货
-        {
-//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-//
-//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-//            NSMutableArray * goodarr = [NSMutableArray array];
-//            for (Ordergoods * goods in orderlist.orderGoods) {
-//                [goodarr addObject:goods];
-//            }
-//            Ordergoods * goods = goodarr[indexPath.row];
-//            detailVc.cmOrderid = goods.order_id;
-//            detailVc.storeId = orderlist.storeId;
-//            detailVc.goodsId = goods.goodsId;
-//            detailVc.imageUrl = goods.coverImgUrl;
+            if (self.orderListArray.count > 0) {
+                Orderlist * orderlist    = self.orderListArray [indexPath.section];
+                NSMutableArray * goodarr = [NSMutableArray array];
+                for (Ordergoods * goods in orderlist.orderGoods) {
+                    [goodarr addObject:goods];
+                }
+                Ordergoods * goods = goodarr[indexPath.row];
+                detailVc.cmOrderid = goods.order_id;
+                detailVc.storeId = orderlist.storeId;
+                detailVc.goodsId = goods.goodsId;
+                detailVc.imageUrl = goods.coverImgUrl;
+                detailVc.isUserType = 3;
+            }
             [self.navigationController pushViewController:detailVc animated:YES];
-        }
+
             break;
         case OrderTypeWaitRecive://待收货
-        {
-//            ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
-//
-//            Orderlist * orderlist    = self.orderListArray [indexPath.section];
-//            NSMutableArray * goodarr = [NSMutableArray array];
-//            for (Ordergoods * goods in orderlist.orderGoods) {
-//                [goodarr addObject:goods];
-//            }
-//            Ordergoods * goods = goodarr[indexPath.row];
-//            detailVc.cmOrderid = goods.order_id;
-//            detailVc.storeId = orderlist.storeId;
-//            detailVc.goodsId = goods.goodsId;
-//            detailVc.imageUrl = goods.coverImgUrl;
+            if (self.orderListArray.count > 0) {
+                Orderlist * orderlist    = self.orderListArray [indexPath.section];
+                NSMutableArray * goodarr = [NSMutableArray array];
+                for (Ordergoods * goods in orderlist.orderGoods) {
+                    [goodarr addObject:goods];
+                }
+                Ordergoods * goods = goodarr[indexPath.row];
+                detailVc.cmOrderid = goods.order_id;
+                detailVc.storeId = orderlist.storeId;
+                detailVc.goodsId = goods.goodsId;
+                detailVc.imageUrl = goods.coverImgUrl;
+                detailVc.isUserType = 3;
+            }
             [self.navigationController pushViewController:detailVc animated:YES];
-        }
+
             break;
     }
 }
@@ -1519,6 +1514,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 {
     self.currentPage = 1;
     [self.orderListArray removeAllObjects];
+    [self.progressArray removeAllObjects];
     _orderType = type;//赋值type ，根据type请求
      [self.navbar_btn setTitle:title forState:UIControlStateNormal];
 
@@ -1531,68 +1527,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     //0待配送 1配送中 2配送完成,3.交易完成，4.待付款，6,待上门取件，-1.关闭
     
     [self headerRefresh];
-    
-//    switch (_orderType) {//-1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成
-//
-//        case OrderTypeAllOrder://全部订单
-//            [self allOrderPostRequsetWithOrderStatus:@"" orderNum:@""];
-//            break;
-//        case OrderTypeWaitPay://待付款
-//
-//            [self allOrderPostRequsetWithOrderStatus:@"4" orderNum:@""];
-//
-//            break;
-//        case OrderTypeWaitSend://待配送
-//
-//            [self allOrderPostRequsetWithOrderStatus:@"0"  orderNum:@""];
-//
-//            break;
-//        case OrderTypeSending://配送中
-//            [self allOrderPostRequsetWithOrderStatus:@"1"  orderNum:@""];
-//
-//            break;
-//        case OrderTypeSended://已配送
-//
-//            [self allOrderPostRequsetWithOrderStatus:@"2"  orderNum:@""];
-//
-//            break;
-//        case OrderTypeDealSuccess://交易成功
-//
-//            [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
-//            break;
-//        case OrderTypeCancelSuccess://取消交易
-//
-//            [self allOrderPostRequsetWithOrderStatus:@"-1" orderNum:@""];
-//
-//            break;
-//        case OrderTypeAfterSale://售后
-//            if (_tagNum == 0) {
-//
-//                BBUserDefault.keyWord = @"";
-//                self.searchBar.text = @"";
-//                [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
-//                //这个接口是搜索后才有的
-//                //                [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:BBUserDefault.keyWord ];
-//
-//            }else{
-//                [self salesAfterPostRequste];
-//
-//            }
-//            break;
-//        case OrderTypeWaitSending://待发货
-//
-//            [self allOrderPostRequsetWithOrderStatus:@"9"  orderNum:@""];
-//
-//            break;
-//        case OrderTypeWaitRecive://待收货
-//
-//            [self allOrderPostRequsetWithOrderStatus:@"10"  orderNum:@""];
-//
-//            break;
-//    }
-//
-    [self.tableView reloadData];
-
+ 
 }
 
 #pragma mark - ZFSaleAfterTopViewDelegate   售后申请的2种状态
@@ -1603,7 +1538,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     if (tagNum == 0) {
         
         NSLog(@"申请售后,刷新列表tagnum                 = %ld",tagNum);
-        [self allOrderPostRequsetWithOrderStatus:@"3" orderNum:@""];
+        [self allOrderPostRequsetWithOrderStatus:@"3"];
         [self.tableView reloadData];
         
     }else{
@@ -1672,7 +1607,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 
 #pragma mark - 全部订单 网络请求 getOrderListBystatus
 -(void)allOrderPostRequsetWithOrderStatus :(NSString *)orderStatus
-                                 orderNum :(NSString *)orderNum
 {
     NSDictionary * param = @{
                              
@@ -1680,7 +1614,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"orderStatus":orderStatus,
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"orderNum":orderNum,
+                             @"orderNum":@"",
                              
                              };
     
@@ -1736,11 +1670,11 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 
             case OrderTypeAllOrder://全部订单
                 
-                [self allOrderPostRequsetWithOrderStatus:@"" orderNum:@""];
+                [self allOrderPostRequsetWithOrderStatus:@"" ];
                 break;
             case OrderTypeWaitPay://待付款
                 
-                [self allOrderPostRequsetWithOrderStatus:@"4"  orderNum:@""];
+                [self allOrderPostRequsetWithOrderStatus:@"4" ];
                 
                 break;
             case OrderTypeWaitSend://待配送
@@ -1808,7 +1742,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         if([code isEqualToString:@"0"]){
             switch (_orderType) {//-1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成
                 case OrderTypeAllOrder://全部订单
-                    [self allOrderPostRequsetWithOrderStatus:@"" orderNum:@""];
+                    [self allOrderPostRequsetWithOrderStatus:@"" ];
                     
                     break;
                 case OrderTypeWaitPay://待付款
@@ -1821,7 +1755,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                     break;
                 case OrderTypeSended://已配送
                     
-                    [self allOrderPostRequsetWithOrderStatus:@"2" orderNum:@""];
+                    [self allOrderPostRequsetWithOrderStatus:@"2" ];
                     
                     break;
                 case OrderTypeDealSuccess://交易成功
@@ -1919,9 +1853,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
             
             if (self.refreshType == RefreshTypeHeader) {
-                
                 if (self.progressArray.count > 0) {
-                    
                     [self.progressArray removeAllObjects];
                 }
             }
@@ -1939,7 +1871,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
         [self endRefresh];
-        
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
@@ -2282,20 +2213,58 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 
 //既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    CGFloat sectionHeaderHeight = 80 ;
-    CGFloat sectionFooterHeight = 60;
-    CGFloat offsetY = scrollView.contentOffset.y;
-    if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
-    {
-        scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
-    }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
-    {
-        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
-    }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
-    {
-        scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+ 
+    if (_orderType == OrderTypeAfterSale ) {
+        if (_tagNum == 0) {
+            CGFloat sectionHeaderHeight = 64 ;
+            CGFloat sectionFooterHeight = 10;
+            CGFloat offsetY = scrollView.contentOffset.y;
+            
+            if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
+            {
+                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
+            }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
+            {
+                scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
+            }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
+            {
+                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+            }
+        }else {
+            CGFloat sectionHeaderHeight = 50 ;
+            CGFloat sectionFooterHeight = 0;
+            CGFloat offsetY = scrollView.contentOffset.y;
+
+            if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
+            {
+                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
+            }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
+            {
+                scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
+            }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
+            {
+                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+            }
+        }
+    }else{
+        CGFloat sectionHeaderHeight = k_sectionHeight ;
+        CGFloat sectionFooterHeight = k_footHeight;
+        
+        CGFloat offsetY = scrollView.contentOffset.y;
+        if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
+        {
+            scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
+        }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
+        {
+            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
+        }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
+        {
+            scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+        }
     }
+   
+    
+
 }
 
 #pragma mark - CYLTableViewPlaceHolderDelegate Method

@@ -40,7 +40,7 @@
     [self.img_saleAfter sd_setImageWithURL:[NSURL URLWithString:goods.coverImgUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     
     if ([self isEmptyArray:goods.goods_properties]) {
-        NSLog(@"配送端没有规格");
+        
         self.lb_progrop.text = @"";
     }else{
         NSMutableArray * mutNameArray = [NSMutableArray array];
@@ -73,7 +73,6 @@
         [self.saleAfter_btn setTitle:@"服务完成" forState:UIControlStateNormal];
 
     }
-    NSLog(@"图片地址 ====== %@",goods.coverImgUrl);
     
 }
 

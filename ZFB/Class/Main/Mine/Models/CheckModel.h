@@ -24,17 +24,23 @@
 
 @property (nonatomic, strong) NSArray<CheckList *> *list;
 
+@property (nonatomic, strong) NSArray  *imgList;
+
 @end
 
 @interface CheckInfo : ResponseObject
 
 @property (nonatomic, copy) NSString *status;
-
 @property (nonatomic, copy) NSString *serviceNum;
-
 @property (nonatomic, copy) NSString *createTime;
-
 @property (nonatomic, copy) NSString *reason;
+@property (nonatomic, copy) NSString *refundTypeName;
+@property (nonatomic, copy) NSString *problemDescr;
+@property (nonatomic, copy) NSString *typeName;
+@property (nonatomic, copy) NSString *goodsPicture;
+@property (nonatomic, copy) NSString *goodsName;
+@property (nonatomic, copy) NSString *price;
+@property (nonatomic, assign) NSInteger  goodsCount;
 
 @end
 

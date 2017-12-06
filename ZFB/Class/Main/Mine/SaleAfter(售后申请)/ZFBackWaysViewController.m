@@ -22,7 +22,8 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
-    
+    self.automaticallyAdjustsScrollViewInsets= YES;
+    self.edgesForExtendedLayout = UIRectEdgeAll;
     [self setupUI];
     
 }
@@ -44,6 +45,7 @@
     [self.tf_contactName addTarget:self action:@selector(textFieldChangeValue:) forControlEvents:UIControlEventEditingChanged];
     [self.tf_contactPhone addTarget:self action:@selector(textFieldChangeValue:) forControlEvents:UIControlEventEditingChanged];
     
+ 
     
 }
 #pragma mark - UITextFieldDelegate
@@ -107,11 +109,11 @@
             
             [SVProgressHUD showSuccessWithStatus:response[@"resultMsg"]];
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+ 
+                [self poptoUIViewControllerNibName:@"ZFAllOrderViewController" AndObjectIndex:1];
                 ZFAllOrderViewController * vc = [ZFAllOrderViewController new];
                 vc.orderType = OrderTypeAfterSale;
-                [self poptoUIViewControllerNibName:@"ZFAllOrderViewController" AndObjectIndex:1];
-
             });
         }else{
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];

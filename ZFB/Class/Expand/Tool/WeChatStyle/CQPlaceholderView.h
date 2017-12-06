@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, CQPlaceholderViewType) {
 @class CQPlaceholderView;
 
 @protocol CQPlaceholderViewDelegate <NSObject>
-
+@optional
 /** 占位图的重新加载按钮点击时回调 */
 - (void)placeholderView:(CQPlaceholderView *)placeholderView
    reloadButtonDidClick:(UIButton *)sender;

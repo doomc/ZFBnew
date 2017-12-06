@@ -593,13 +593,9 @@
         {
             _webCell.htmlImg.hidden = NO;
             _webCell.labelhtml.hidden = YES;
-            [_webCell.htmlImg sd_setImageWithURL:[NSURL URLWithString:_htmlPromiss] placeholderImage:nil options:SDWebImageRetryFailed completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                CGSize size = image.size;
-                CGFloat w = size.width;
-                CGFloat H = size.height;
-                _bussninessPromissHeight = H;
-                NSLog(@"w = %f, h =%f",w,H);
-            }];
+            _webCell.htmlImg.image = [UIImage imageNamed:@"商品承诺375"];
+            CGSize size = [UIImage imageNamed:@"商品承诺375"].size;
+            _bussninessPromissHeight = size.height;
 
         }
             break;
@@ -1546,7 +1542,7 @@
             //图片详情网址
             _htmlDivString = goodsmodel.data.goodsInfo.goodsDetail;//商品详情
             _htmlSkuParam = goodsmodel.data.goodsInfo.specificationsUrl;//规格web
-            _htmlPromiss = goodsmodel.data.goodsInfo.goodsPeomise;//商家承诺
+//            _htmlPromiss = goodsmodel.data.goodsInfo.goodsPeomise;//商家承诺
             _priceRange  = goodsmodel.data.goodsInfo.priceRange;//范围价格
             _netPurchasePrice = goodsmodel.data.goodsInfo.netPurchasePrice;//价格
             _goodsUnit = goodsmodel.data.goodsInfo.goodsUnit ;
