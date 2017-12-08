@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aLf-9e-Gyg">
@@ -26,13 +26,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="爱美家服装店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rf1-dy-Atr">
-                        <rect key="frame" x="93" y="20" width="92" height="18"/>
+                        <rect key="frame" x="93" y="15" width="92" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="277-03-jau">
-                        <rect key="frame" x="93" y="47" width="125" height="28"/>
+                        <rect key="frame" x="93" y="42" width="125" height="28"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="SUP-pq-MOC"/>
@@ -53,7 +53,7 @@
                     <constraint firstItem="aLf-9e-Gyg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="TYH-zl-cuE"/>
                     <constraint firstItem="Rf1-dy-Atr" firstAttribute="leading" secondItem="aLf-9e-Gyg" secondAttribute="trailing" constant="10" id="ayL-Ad-OxE"/>
                     <constraint firstItem="aLf-9e-Gyg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cLm-t3-6rz"/>
-                    <constraint firstItem="Rf1-dy-Atr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="cQH-XQ-94t"/>
+                    <constraint firstItem="Rf1-dy-Atr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="cQH-XQ-94t"/>
                     <constraint firstAttribute="trailing" secondItem="kGh-wj-doD" secondAttribute="trailing" constant="20" id="jAD-ie-hmo"/>
                 </constraints>
             </tableViewCellContentView>

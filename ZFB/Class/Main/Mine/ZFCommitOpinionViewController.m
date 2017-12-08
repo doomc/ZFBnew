@@ -199,12 +199,9 @@
 
     }else{
         [SVProgressHUD showErrorWithStatus:@"请填写完您的宝贵意见"];
-
-       
     }
  
 }
-
 
 #pragma mark  - FeedPickerTableViewCellDelegate 图片上传代理
 //上传图后局部刷新图片行 根据布局相应调整

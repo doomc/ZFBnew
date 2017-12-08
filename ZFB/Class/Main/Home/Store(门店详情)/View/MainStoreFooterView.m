@@ -39,13 +39,6 @@
         [self.delegate didClickContactStore];
     }
 }
-//分类
-- (IBAction)goodsClassily:(id)sender {
-    
-    if ([self.delegate respondsToSelector:@selector(didClickClassly)]) {
-        [self.delegate didClickClassly];
-    }
-}
-
+ 
 @end
 

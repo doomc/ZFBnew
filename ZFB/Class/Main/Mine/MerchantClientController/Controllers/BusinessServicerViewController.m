@@ -1818,9 +1818,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
     }
     
-    
-    
-    
 }
 #pragma mark - ZFFooterCellDelegate  payfor_button 派单代理
 ///派单列表添加   自定义tableview
@@ -2568,10 +2565,10 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     [self settingNavBarBgName:@"nav64_gray"];
 
     //获取商户端数据列表
-    [self storeHomePagePostRequst];
-    
-    //获取定位
-    [self LocationMapManagerInit];
+//    [self storeHomePagePostRequst];
+    [self headerRefresh];
+    //获取定位 (获取配送员列表时候用)
+//    [self LocationMapManagerInit];
     
 }
 

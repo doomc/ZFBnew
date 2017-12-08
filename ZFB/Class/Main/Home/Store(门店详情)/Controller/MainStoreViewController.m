@@ -5,30 +5,35 @@
 //  Created by  展富宝  on 2017/11/21.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
-#define headerH 130
+#define headerH 135
 
 #import "MainStoreViewController.h"
 #import "StoreHomeViewController.h"//门店首页
 #import "StoreAllgoodsViewController.h"//全部商品
 #import "StoreRemonedViewController.h"//新品推荐
 #import "StoreInfoViewController.h"//门店信息
+#import "StoreSearchViewController.h"//搜索页面
+#import "ZFBaseNavigationViewController.h"
 
 //view
 #import "MainStoreHeadView.h"
 #import "MainStoreFooterView.h"
 #import "JohnTopTitleView.h"
 #import "XHStarRateView.h"
+
+
 //tool
 #import "TJMapNavigationService.h"//导航
 
 //网易云信
 #import "NTESSessionViewController.h"
 
-@interface MainStoreViewController ()<JohnTopTitleViewDelegate,MainStoreFooterViewDelegate,NIMSystemNotificationManagerDelegate,NIMUserManagerDelegate>
+@interface MainStoreViewController ()<JohnTopTitleViewDelegate,MainStoreFooterViewDelegate,NIMSystemNotificationManagerDelegate,NIMUserManagerDelegate,UISearchBarDelegate,UITextFieldDelegate>
 {
     NSString * _isCollect;//0没收藏 1,收藏
     NSString * _starLevel;//评价星星
     NSString * _storeName;
+    NSString * _goodsCount;
     NSString * _saleCount;//销售数量
     NSString * _coverUrl;//背景图
     NSString * _collectNumber;
@@ -47,21 +52,47 @@
 @property (nonatomic,strong) MainStoreFooterView * footerView;
 @property (nonatomic, strong) XHStarRateView * wdStarView;
 @property (nonatomic, strong) UIButton *collectButton;
+@property (nonatomic, strong) UIView *titleView;
 
 @end
 
 @implementation MainStoreViewController
+-(UIView *)titleView
+{
+    _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW -120, 36)];
+    _titleView.backgroundColor = RGB(238, 238, 238);
+    _titleView.layer.cornerRadius = 6;
+    _titleView.layer.masksToBounds = YES;
+
+    UIImageView * imageView =[ UIImageView new];
+    imageView.image = [UIImage imageNamed:@"search2"];
+    imageView.frame = CGRectMake(10, 9, 18, 18);
+    [_titleView addSubview:imageView];
+    
+    UITextField * searchtext = [[UITextField alloc]initWithFrame:CGRectMake(40, 0, _titleView.size.width -50 -50, 36)];
+    searchtext.font = SYSTEMFONT(14);
+    searchtext.backgroundColor = RGB(238, 238, 238);
+    searchtext.placeholder = @"搜索店铺内商品";
+    searchtext.delegate = self;
+    [_titleView addSubview:searchtext];
+    return _titleView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"门店详情";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor =   HEXCOLOR(0xf7f7f7);
+    self.navigationItem.titleView = self.titleView;
+
  
-    self.headerView = [[MainStoreHeadView alloc]initWithHeaderViewFrame:CGRectMake(0, 0, KScreenW, 135)] ;
+    self.headerView = [[MainStoreHeadView alloc]initWithHeaderViewFrame:CGRectMake(0, 0, KScreenW, headerH)] ;
     
-    self.footerView = [[ MainStoreFooterView alloc]initWithFooterViewFrame:CGRectMake(0, KScreenH -headerH +20, KScreenW,  49)];
+    if (kDevice_Is_iPhoneX) {
+        self.footerView = [[ MainStoreFooterView alloc]initWithFooterViewFrame:CGRectMake(0, KScreenH -headerH, KScreenW,  49)];
+    }else{
+        self.footerView = [[ MainStoreFooterView alloc]initWithFooterViewFrame:CGRectMake(0, KScreenH -headerH +20, KScreenW,  49)];
+    }
     self.footerView.delegate = self;
     [self.view addSubview:self.headerView];
     [self.topTitleView addSubview:self.footerView];
@@ -88,8 +119,8 @@
     //收藏按钮
     _collectButton  =[ UIButton buttonWithType:UIButtonTypeCustom];
     _collectButton.frame = CGRectMake(0, 0, 20, 20);
-    [_collectButton setBackgroundImage:[UIImage imageNamed:@"collection3"] forState:UIControlStateNormal];
-    [_collectButton setBackgroundImage:[UIImage imageNamed:@"collection3_on"] forState:UIControlStateSelected];
+    [_collectButton setBackgroundImage:[UIImage imageNamed:@"like"] forState:UIControlStateNormal];
+    [_collectButton setBackgroundImage:[UIImage imageNamed:@"like2"] forState:UIControlStateSelected];
     [_collectButton addTarget:self action:@selector(didclickLove:) forControlEvents:UIControlEventTouchUpInside];
     
     //自定义button必须执行
@@ -216,10 +247,10 @@
 -(void)iscollect
 {
     if ([_isCollect isEqualToString:@"1"] ) {///是否收藏    1.收藏 0.不
-        [_collectButton setBackgroundImage:[UIImage imageNamed:@"collection3_on"] forState:UIControlStateNormal];
+        [_collectButton setBackgroundImage:[UIImage imageNamed:@"like2"] forState:UIControlStateNormal];
     }else
     {
-        [_collectButton setBackgroundImage:[UIImage imageNamed:@"collection3"] forState:UIControlStateNormal];
+        [_collectButton setBackgroundImage:[UIImage imageNamed:@"like"] forState:UIControlStateNormal];
     }
 }
 #pragma mark - 添加收藏 getKeepGoodInfo
@@ -290,6 +321,7 @@
             _isCollect = [NSString stringWithFormat:@"%@",response[@"data"][@"isCollect"]];
             _starLevel = [NSString stringWithFormat:@"%@",response[@"data"][@"starLevel"]];
             _creatTime = response[@"data"][@"createTime"];
+            _goodsCount = response[@"data"][@"goodsCount"];
             NSString *userImgAttachUrl = response[@"data"][@"userImgAttachUrl"];
             
             CGFloat longf  = [[NSString stringWithFormat:@"%@",response[@"data"][@"longitude"]] doubleValue];
@@ -317,12 +349,6 @@
 }
 
 #pragma mark -MainStoreFooterViewDelegate footer代理
-//商品分类
--(void)didClickClassly
-{
-    [self settingAlertView];
-}
-
 //联系卖家
 -(void)didClickContactStore
 {
@@ -343,7 +369,8 @@
     infoVC.info = [NSString stringWithFormat:@"创建时间:%@ | %@ |",_creatTime,_address];
     infoVC.storeName = _storeName;
     infoVC.imageUrl = _coverUrl;
-
+    infoVC.salesNum = _saleCount;
+    infoVC.goodsNum = _goodsCount;
     [self.navigationController pushViewController:infoVC animated:NO];
 
 }
@@ -363,7 +390,18 @@
     
 }
 
-
+#pragma mark - 搜索跳转
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    StoreSearchViewController  * searchVC = [StoreSearchViewController new];
+    searchVC.storeId = _storeId;
+    [self.navigationController pushViewController:searchVC animated:NO];
+//    ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:searchVC];
+//    [self.navigationController presentViewController:nav animated:NO completion:^{
+//
+//    }];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

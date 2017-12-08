@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-typedef void (^LayoutBlock)(CGFloat height);
+ typedef void(^PicBlock)(NSInteger index);
 
 @interface LoadPictureCell : UITableViewCell
 
@@ -15,6 +15,7 @@ typedef void (^LayoutBlock)(CGFloat height);
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstarintsHeight;
 
 @property (nonatomic ,strong) NSArray * imagesUrl;
-@property (nonatomic ,copy) LayoutBlock layoutBlock;
+@property (nonatomic ,copy) PicBlock  picBlock;
+-(void)reloadData;
 
 @end

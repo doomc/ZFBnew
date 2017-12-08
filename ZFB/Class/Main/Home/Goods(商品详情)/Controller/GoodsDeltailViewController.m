@@ -102,7 +102,7 @@
 @property (nonatomic , strong) DetailWebViewCell * webCell;
 @property (nonatomic , strong) GoodsParamCell  *  paramCell;
 @property (nonatomic , strong) YJSegmentedControl *segmentController;
-
+@property (nonatomic , strong) ZFGoodsFooterView * tbFootView;//底部
 //sku UI控件
 @property (nonatomic , strong) UIView * skuBgView;//规格背景view
 @property (nonatomic , strong) UIView * popView;
@@ -283,9 +283,15 @@
  */
 -(void)settingHeaderViewAndFooterView
 {
-    ZFGoodsFooterView * tbFootView  = [[ZFGoodsFooterView alloc]initWithFootViewFrame:CGRectMake(0, KScreenH - 50 - 64, KScreenW, 50)];
-    tbFootView.delegate = self;
-    [self.view addSubview:tbFootView];
+    if (kDevice_Is_iPhoneX) {
+        _tbFootView = [[ZFGoodsFooterView alloc]initWithFootViewFrame:CGRectMake(0, KScreenH - 50 -64 -40, KScreenW, 50)];
+        
+     }else{
+         _tbFootView = [[ZFGoodsFooterView alloc]initWithFootViewFrame:CGRectMake(0, KScreenH - 50 - 64, KScreenW, 50)];
+     }
+
+    _tbFootView.delegate = self;
+    [self.view addSubview:_tbFootView];
     
     //收藏按钮
     _collectButton  =[ UIButton buttonWithType:UIButtonTypeCustom];
@@ -593,8 +599,8 @@
         {
             _webCell.htmlImg.hidden = NO;
             _webCell.labelhtml.hidden = YES;
-            _webCell.htmlImg.image = [UIImage imageNamed:@"商品承诺375"];
-            CGSize size = [UIImage imageNamed:@"商品承诺375"].size;
+            _webCell.htmlImg.image = [UIImage imageNamed:@"商品承诺750"];
+            CGSize size = [UIImage imageNamed:@"商品承诺750"].size;
             _bussninessPromissHeight = size.height;
 
         }

@@ -488,7 +488,7 @@
                 }else {
                     CGSize size;
                     if (type == HXPhotoToolsFetchHDImageType) {
-                        size = CGSizeMake(model.asset.pixelWidth * 0.6, model.asset.pixelHeight * 0.6);
+                        size = CGSizeMake(model.asset.pixelWidth * 0.5, model.asset.pixelHeight * 0.5);
                     }else {
                         size = PHImageManagerMaximumSize;
                     }
@@ -710,7 +710,7 @@
                         suffix = @"png";
                     }else {
                         //返回为JPEG图像。
-                        imageData = UIImageJPEGRepresentation(photoModel.previewPhoto, 1.0);
+                        imageData = UIImageJPEGRepresentation(photoModel.previewPhoto, 0.5);
                         suffix = @"jpeg";
                     }
                     NSString *fileName = [[self uploadFileName] stringByAppendingString:[NSString stringWithFormat:@".%@",suffix]];

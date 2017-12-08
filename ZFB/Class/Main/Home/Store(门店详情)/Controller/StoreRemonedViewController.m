@@ -14,9 +14,11 @@
 #import "StoreNewRecommentModel.h"
 
 #import "GoodsDeltailViewController.h"
+#import "CQPlaceholderView.h"
 @interface StoreRemonedViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic , strong) NSMutableArray * dataArray;
+@property (nonatomic , strong) CQPlaceholderView * placeholderView;
 
 @end
 
@@ -129,6 +131,11 @@
                 }
             for (StoreRecommentList * storeList in store.data.recommentList) {
                 [self.dataArray addObject:storeList];
+            }
+            [_placeholderView removeFromSuperview];
+            if ([self isEmptyArray:self.dataArray]) {
+                _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.ScollectionView.bounds type:CQPlaceholderViewTypeNoGoods delegate:self];
+                [self.ScollectionView addSubview:_placeholderView];
             }
             [self.ScollectionView reloadData];
         }

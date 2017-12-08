@@ -37,7 +37,7 @@
 
 -(void)initUI{
  
-    _reasonArray = @[@"三天无理由退货",@"质量问题",@"商品与描述不符",@"买家发错货",@"发票问题",@"其他"];
+    _reasonArray = @[@"三天无理由退货",@"质量问题",@"商品与描述不符",@"卖家发错货",@"发票问题",@"其他"];
     [self addSubview:self.alertTableView];//创建tableview
 
     self.alertTableView.tableHeaderView = self.headerView;

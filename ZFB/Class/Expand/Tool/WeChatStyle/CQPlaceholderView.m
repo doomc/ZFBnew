@@ -48,20 +48,20 @@
     descLabel.textAlignment = NSTextAlignmentCenter;
     
     //------- 按钮在说明label下方 -------//
-    UIButton *reloadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width / 2 - 60, CGRectGetMaxY(descLabel.frame) + 5, 120, 25)];
-    [self addSubview:reloadButton];
-    reloadButton.titleLabel.font = font;
-    [reloadButton setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
-    [reloadButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [reloadButton addTarget:self action:@selector(reloadButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
+//    UIButton *reloadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width / 2 - 60, CGRectGetMaxY(descLabel.frame) + 5, 120, 25)];
+//    [self addSubview:reloadButton];
+//    reloadButton.titleLabel.font = font;
+//    [reloadButton setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
+//    [reloadButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [reloadButton addTarget:self action:@selector(reloadButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//
     //------- 根据type创建不同样式的UI -------//
     switch (_type) {
         case CQPlaceholderViewTypeNoNetwork: // 没网
         {
             imageView.image = [UIImage imageNamed:@"no_data"];
             descLabel.text = @"没网，不约";
-            [reloadButton setTitle:@"点击重试" forState:UIControlStateNormal];
+//            [reloadButton setTitle:@"点击重试" forState:UIControlStateNormal];
         }
             break;
             
@@ -69,7 +69,6 @@
         {
             imageView.image = [UIImage imageNamed:@"no_order"];
             descLabel.text = @"暂无订单";
-            [reloadButton setTitle:@"到别处看看" forState:UIControlStateNormal];
         }
             break;
             
@@ -77,14 +76,18 @@
         {
             imageView.image = [UIImage imageNamed:@"placeholder"];
             descLabel.text = @"没有商品";
-            [reloadButton setTitle:@"到别处看看" forState:UIControlStateNormal];
         }
             break;
         case CQPlaceholderViewTypeNoComments: // 评论
         {
             imageView.image = [UIImage imageNamed:@"nomessage"];
             descLabel.text = @"没有评论";
-            [reloadButton removeFromSuperview];
+        }
+            break;
+        case CQPlaceholderViewTypeNoCoupon: // 优惠券
+        {
+            imageView.image = [UIImage imageNamed:@"no_coupon"];
+            descLabel.text = @"没有优惠券";
         }
             break;
 

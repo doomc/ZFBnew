@@ -100,7 +100,6 @@
                              @"skuId":_skuId,
                              @"orderGoodsId":_orderGoodsId,
                              @"refundType":@"0",//退款方式暂时默认0 可能会改东
-                             
                              };
     
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/afterSale/afterSaleApply"] params:param success:^(id response) {
@@ -108,7 +107,6 @@
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
             
             [SVProgressHUD showSuccessWithStatus:response[@"resultMsg"]];
-            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
  
                 [self poptoUIViewControllerNibName:@"ZFAllOrderViewController" AndObjectIndex:1];

@@ -126,17 +126,17 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
  
     UISearchBar * searchbar  = [[UISearchBar alloc]init];   //WithFrame: CGRectMake(0, 0, KScreenW - 80, 30)];
     searchbar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:searchbar.bounds.size];
-
     searchbar.placeholder = @"请输入关键字";
     searchbar.delegate = self;
     [searchbar sizeToFit];
-
+    UITextField *searchField = [searchbar valueForKey:@"_searchField"];//
+    searchField.font = SYSTEMFONT(14);
     if (@available(iOS 11, *))
     {
         UIView*searchbg=[[UIView alloc]init];
         searchbg.backgroundColor=[UIColor clearColor];
         self.navigationItem.titleView = searchbg;
-        [searchbg.heightAnchor constraintEqualToConstant: 44].active = YES;
+        [searchbg.heightAnchor constraintEqualToConstant: 36].active = YES;
         [searchbg.widthAnchor constraintEqualToConstant:KScreenW-150].active=YES;
         [searchbg addSubview:searchbar];
         [searchbar mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -149,7 +149,7 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
     }
     else
     {
-        [searchbar.heightAnchor constraintEqualToConstant: 44].active = YES;
+        [searchbar.heightAnchor constraintEqualToConstant: 36].active = YES;
         [searchbar.widthAnchor constraintEqualToConstant:KScreenW-150].active=YES;
         self.navigationItem.titleView = searchbar;
     }

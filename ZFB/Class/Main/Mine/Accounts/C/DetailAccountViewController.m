@@ -149,7 +149,9 @@
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/flow/getFlowDetails",zfb_baseUrl] params:param success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {
-   
+            if (self.subTitles.count > 0) {
+                [self.subTitles removeAllObjects];
+            }
             _object_name = [NSString stringWithFormat:@"%@",response[@"data"][@"object_name"]];
             _logo_url = [NSString stringWithFormat:@"%@",response[@"data"][@"logo_url"]];
             //交易状态 0 交易成功，1等待付款, -1 交易关闭

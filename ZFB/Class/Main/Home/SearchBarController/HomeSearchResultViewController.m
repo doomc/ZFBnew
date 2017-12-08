@@ -135,6 +135,7 @@
     
     [placeholderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.headView);
+        make.size.mas_equalTo(CGSizeMake(100, 100));
     }];
     
     UILabel * lb_center = [[UILabel alloc]initWithFrame:CGRectMake((KScreenW-100)/2, 150, 100, 30)];
@@ -199,10 +200,13 @@
 -(UISearchBar *)searchBar
 {
     if (!_searchBar) {
-        _searchBar                 = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 50, 44)];
+        _searchBar                 = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 50, 40)];
         _searchBar.delegate        = self;
         _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
         _searchBar.placeholder     = @"搜索";
+        _searchBar.searchBarStyle = UISearchBarStyleMinimal;
+        UITextField *searchField = [_searchBar valueForKey:@"_searchField"];
+        searchField.font = SYSTEMFONT(14);
     }
     return _searchBar;
 }
@@ -349,10 +353,10 @@
         if (section== 1) {
             
             headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
-            [headView setBackgroundColor:HEXCOLOR(0xffcccc)];
+            [headView setBackgroundColor:HEXCOLOR(0xf7f7f7)];
             
             UILabel * title     = [[UILabel alloc] initWithFrame:CGRectMake(35.0f, 5.0f, 200.0f, 30.0f)];
-            title.textColor     = HEXCOLOR(0x363636);
+            title.textColor     = HEXCOLOR(0x333333);
             title.textAlignment = NSTextAlignmentLeft;
             title.text          = @"为你精选";
             title.font          = font;

@@ -41,9 +41,9 @@
     [self.starView addSubview:wdStarView];
     [self.storeImage sd_setImageWithURL:[NSURL URLWithString:_imageUrl] placeholderImage:nil];
 
-    self.BgView.layer.masksToBounds = YES;
+    self.BgView.clipsToBounds = YES;
     self.BgView.layer.cornerRadius = 6;
-    
+
     self.storeImage.layer.masksToBounds = YES;
     self.storeImage.layer.cornerRadius = 6;
  

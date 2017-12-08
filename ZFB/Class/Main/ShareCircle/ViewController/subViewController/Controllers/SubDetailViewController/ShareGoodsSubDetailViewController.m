@@ -77,7 +77,7 @@
  */
 - (IBAction)didClickZan:(id)sender {
     
-    if ([_isThumbsStatus isEqualToString: @"1"]) {
+    if ([_isThumbsStatus isEqualToString: @"0"]) {
       
         [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
 
@@ -129,7 +129,7 @@
             NSString * count  = [NSString stringWithFormat:@"%@",response[@"data"][@"thumbs"]];
             _zan_number.text = count;
             
-            //是否点赞
+            //是否点赞   0 点赞 1未点赞
             _isThumbsStatus = [NSString stringWithFormat:@"%@",response[@"data"][@"thumbsStatus"]];
             if ([_isThumbsStatus isEqualToString: @"0"]) {
                 self.zan_imageView.image =[UIImage imageNamed:@"praise_on"];
@@ -168,10 +168,11 @@
           
             self.zan_imageView.image = [UIImage imageNamed:@"praise_on"];
             _zan_number.text = [NSString stringWithFormat:@"%ld", [_zan_number.text integerValue]+1];
-            
+        }else{
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
         }
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         
         [SVProgressHUD dismiss];

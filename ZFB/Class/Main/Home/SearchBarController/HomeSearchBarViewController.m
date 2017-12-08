@@ -123,11 +123,13 @@ static NSString * identyhy = @"SearchHistoryCell";
 -(UISearchBar *)searchBar
 {
     if (!_searchBar) {
-        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(50, 0, KScreenW - 2*50, 44)];
+        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(50, 0, KScreenW - 2*50, 40)];
         _searchBar.delegate = self;
         _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
         _searchBar.placeholder = @"搜索";
- 
+        _searchBar.searchBarStyle = UISearchBarStyleMinimal;
+        UITextField *searchField = [_searchBar valueForKey:@"_searchField"];
+        searchField.font = SYSTEMFONT(14);
     }
     return _searchBar;
 }

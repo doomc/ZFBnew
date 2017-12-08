@@ -11,6 +11,7 @@
 #import "ZFOrderDetailCell.h"
 #import "LoadPictureCell.h"
 #import "ZFOrderDetailGoosContentCell.h"
+#import "JZLPhotoBrowser.h"
 
 @interface CheckSaleafterViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -19,8 +20,6 @@
     NSString * _goodsCount;
     NSString * _goodsName;
     NSString * _goodsImg;
- 
-
 }
 @property (nonatomic , strong) NSMutableArray * listArray;
 @property (nonatomic , strong) NSArray * titles;
@@ -44,7 +43,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"售后审核";
-    _titles = @[@"服务类型",@"申请原因",@"退货方式"];
+    _titles = @[@"服务类型",@"退货原因",@"退货问题描述",@"退货方式"];
     [self initInerfaceView];
 
     [self salesAfterPostRequste];
@@ -78,7 +77,7 @@
         return 1;
     }else if (section == 1)
     {
-        return 3;
+        return 4;
     }
     else{
         return 1;
@@ -86,25 +85,27 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    CGFloat height =  0;
     if (indexPath.section == 0) {
-        return 130;
+        height =  130;
     }else if (indexPath.section == 1)
     {
-        return 50;
+        height= 50;
     }
     else{
-        if (_images.count>0 ) {
+        if (_images.count > 0 ) {
             if (_images.count > 3) {
-                return 40 + 2*(KScreenW/3 -20);
+                height = 60 + (KScreenW - 30)/3*2;
 
             }else{
-                return 40 + (KScreenW/3 -20);
+                height= 60 + (KScreenW - 30)/3;
             }
             
         }else{
-            return 0;
+            height = 0;
         }
     }
+    return height;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -139,7 +140,11 @@
         LoadPictureCell * picCell  = [self.tableView dequeueReusableCellWithIdentifier:@"LoadPictureCell" forIndexPath:indexPath];
         if (_images.count > 0) {
             picCell.imagesUrl = _images;
-
+            picCell.picBlock = ^(NSInteger index) {
+                
+                [self didCheckBigPic:index];
+            };
+            [picCell reloadData];
         }else{
             picCell.hidden = YES;
 
@@ -167,7 +172,8 @@
                 [self.listArray removeAllObjects];
             }
             CheckModel * check  = [CheckModel mj_objectWithKeyValues:response];
- 
+            _images = [NSArray array];
+            
             _price = [NSString stringWithFormat:@"¥%@",check.data.info.price];
             _goodsCount = [NSString stringWithFormat:@"x%ld",check.data.info.goodsCount];
             _goodsName = check.data.info.goodsName;
@@ -175,11 +181,13 @@
             _images = check.data.imgList;
             
             NSString* type = check.data.info.refundTypeName;//退款方式
-            NSString* applyReson =check.data.info.reason;//申请原因
+            NSString* backReson =check.data.info.reason;//申请原因
             NSString* typeName = check.data.info.typeName;//服务类型
-            
+            NSString* description = check.data.info.problemDescr;//问题描述
+
             [self.listArray addObject:typeName];
-            [self.listArray addObject:applyReson];
+            [self.listArray addObject:backReson];
+            [self.listArray addObject:description];
             [self.listArray addObject:type];
 
            [self.tableView reloadData];
@@ -207,9 +215,7 @@
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/afterSale/verifySaleAfter"] params:param success:^(id response) {
         
         if ([response[@"resultCode"] isEqualToString:@"0"]) {
-          
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-        
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 [self backAction];
@@ -238,6 +244,11 @@
     
     [self salesAfterCheckPostRequste:@"2"];
 
+}
+#pragma mark -点击查看大图
+-(void)didCheckBigPic:(NSInteger)index
+{
+    [JZLPhotoBrowser showPhotoBrowserWithUrlArr:_images currentIndex:index originalImageViewArr:nil];
 }
 
 - (void)didReceiveMemoryWarning {

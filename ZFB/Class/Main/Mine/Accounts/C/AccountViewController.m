@@ -11,17 +11,28 @@
 #import "AccountModel.h"
 #import "DetailAccountViewController.h"
 #import "ScreenTypeView.h"
+#import "CQPlaceholderView.h"
 
-@interface AccountViewController ()<UITableViewDelegate,UITableViewDataSource,ScreenTypeViewDelegete,UIGestureRecognizerDelegate,CYLTableViewPlaceHolderDelegate>
+typedef NS_ENUM(NSUInteger, CheckType) {
+    CheckTypeAll = 0 ,//全部
+    CheckTypeTurnCash  ,//转账
+    CheckTypeBackCash  ,//退款
+    CheckTypeRecharge  ,//充值
+    CheckTypeOrder  ,//订单
+    CheckTypeWithDraw  ,//提现
+    CheckTypeCommission ,//佣金
+ 
+};
+@interface AccountViewController ()<UITableViewDelegate,UITableViewDataSource,ScreenTypeViewDelegete,UIGestureRecognizerDelegate,CQPlaceholderViewDelegate>
 {
     BOOL _isCreat;//yes 已经创建了
-    NSInteger _selectType;
 }
 @property (nonatomic , strong) NSMutableArray * accountList;
 @property (nonatomic , strong) UIButton * screenbtn;
 @property (nonatomic , strong) UIView * coverView;
 @property (nonatomic , strong) ScreenTypeView * typeView;
-@property (nonatomic , strong)  WeChatStylePlaceHolder *weChatStylePlaceHolder;
+@property (nonatomic , strong) CQPlaceholderView *placeholderView;
+@property (nonatomic , assign) CheckType  checkType;
 
 @end
 
@@ -46,14 +57,65 @@
     // Do any additional setup after loading the view.
     self.title = @"查看明细";
     _isCreat = NO;
-    _selectType = 0;
+    _checkType = CheckTypeAll;//默认全部
 
     [self initWithInterface];
-    
-    [self setupRefresh];
-
-    NSString * type = [NSString stringWithFormat:@"%ld",_selectType];
-    [self accountListPostRequstAtPayType:type];
+}
+-(void)headerRefresh
+{
+    [super headerRefresh];
+    switch (_checkType) {
+        case CheckTypeAll:
+            [self accountListPostRequstAtPayType:@"0"];
+            break;
+        case CheckTypeTurnCash: //转账
+            [self accountListPostRequstAtPayType:@"1"];
+            break;
+        case CheckTypeBackCash: //退款
+            [self accountListPostRequstAtPayType:@"2"];
+            break;
+        case CheckTypeRecharge://充值
+            [self accountListPostRequstAtPayType:@"3"];
+            break;
+        case CheckTypeOrder://订单
+            [self accountListPostRequstAtPayType:@"4"];
+            break;
+        case CheckTypeWithDraw://提现
+            [self accountListPostRequstAtPayType:@"5"];
+            break;
+        case CheckTypeCommission://佣金
+            [self accountListPostRequstAtPayType:@"6"];
+            break;
+ 
+    }
+}
+-(void)footerRefresh
+{
+    [super footerRefresh];
+    switch (_checkType) {
+        case CheckTypeAll:
+            [self accountListPostRequstAtPayType:@"0"];
+            break;
+        case CheckTypeTurnCash: //转账
+            [self accountListPostRequstAtPayType:@"1"];
+            break;
+        case CheckTypeBackCash: //退款
+            [self accountListPostRequstAtPayType:@"2"];
+            break;
+        case CheckTypeRecharge://充值
+            [self accountListPostRequstAtPayType:@"3"];
+            break;
+        case CheckTypeOrder://订单
+            [self accountListPostRequstAtPayType:@"4"];
+            break;
+        case CheckTypeWithDraw://提现
+            [self accountListPostRequstAtPayType:@"5"];
+            break;
+        case CheckTypeCommission://佣金
+            [self accountListPostRequstAtPayType:@"6"];
+            break;
+            
+    }
 }
 -(void)coverViewSetting
 {
@@ -97,37 +159,26 @@
 #pragma mark -  ScreenTypeView 选择代理
 -(void)didClickIndex:(NSInteger)index
 {
-    _selectType = index;
-    // 0 全部 1 转账 2 退款 3 充值 4 订单 5 提现 6佣金
-    NSString * type = [NSString stringWithFormat:@"%ld",_selectType];
-    [self accountListPostRequstAtPayType:type];
-
+    _checkType = index;
+    [self.accountList removeAllObjects];
+    self.currentPage = 1;
+ 
     [UIView animateWithDuration:0.5 animations:^{
         [_typeView removeFromSuperview];
         [_coverView removeFromSuperview];
         _isCreat = NO;
         
     }];
-   
+    // 0 全部 1 转账 2 退款 3 充值 4 订单 5 提现 6佣金
+    [self headerRefresh];
 
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [self settingNavBarBgName:@"nav64_gray"];
-}
--(void)footerRefresh
-{
-    [super footerRefresh];
-    NSString * type = [NSString stringWithFormat:@"%ld",_selectType];
-    [self accountListPostRequstAtPayType:type];
-
-}
--(void)headerRefresh
-{
-    [super headerRefresh];
-    NSString * type = [NSString stringWithFormat:@"%ld",_selectType];
-    [self accountListPostRequstAtPayType:type];
+ 
+    [self headerRefresh];
 }
 
 -(void)initWithInterface
@@ -136,9 +187,10 @@
     self.zfb_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.zfb_tableView.delegate = self;
     self.zfb_tableView.dataSource = self;
-
     [self.view addSubview:self.zfb_tableView];
     [self.zfb_tableView registerNib:[UINib nibWithNibName:@"AccountListCell" bundle:nil] forCellReuseIdentifier:@"AccountListCell"];
+
+    [self setupRefresh];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -198,13 +250,14 @@
                 [self.accountList addObject:list];
             }
             [SVProgressHUD dismiss];
-            [self.zfb_tableView reloadData];
             
-            [_weChatStylePlaceHolder removeFromSuperview];
-
+            [_placeholderView removeFromSuperview];
             if ([self isEmptyArray:self.accountList]) {
-                [self.zfb_tableView cyl_reloadData];
+                _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.zfb_tableView.bounds type:CQPlaceholderViewTypeNoGoods delegate:self];
+                [self.zfb_tableView addSubview:_placeholderView];
             }
+            [self.zfb_tableView reloadData];
+
         }
         [self endRefresh];
     } progress:^(NSProgress *progeress) {
@@ -217,19 +270,6 @@
 }
 
 
-#pragma mark - CYLTableViewPlaceHolderDelegate Method
-- (UIView *)makePlaceHolderView {
-    
-    UIView *weChatStyle = [self weChatStylePlaceHolder];
-    return weChatStyle;
-}
-
-//暂无数据
-- (UIView *)weChatStylePlaceHolder {
-    _weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.zfb_tableView.frame];
-    _weChatStylePlaceHolder.delegate = self;
-    return _weChatStylePlaceHolder;
-}
 
 
 - (void)didReceiveMemoryWarning {

@@ -25,20 +25,20 @@
                             <constraint firstAttribute="height" constant="120" id="mYG-0O-91p"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务单号：123010230123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IU6-Ev-qcf">
-                        <rect key="frame" x="15" y="20" width="286" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务单号：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IU6-Ev-qcf">
+                        <rect key="frame" x="15" y="20" width="286" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="申请时间：2014-2-2 12：12：12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdo-Ac-nFy">
-                        <rect key="frame" x="15" y="54" width="286" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="申请时间：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdo-Ac-nFy">
+                        <rect key="frame" x="15" y="55" width="286" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退货理由" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5e5-k5-SXc">
-                        <rect key="frame" x="15" y="88.5" width="286" height="15"/>
+                        <rect key="frame" x="15" y="89.5" width="286" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -82,10 +82,10 @@
             <connections>
                 <outlet property="lb_applyTime" destination="sdo-Ac-nFy" id="8we-nH-SGY"/>
                 <outlet property="lb_reason" destination="5e5-k5-SXc" id="Qrw-4q-8Ih"/>
-                <outlet property="lb_serviceNum" destination="GG8-Ka-wCp" id="Ls3-Fs-UxD"/>
+                <outlet property="lb_serviceNum" destination="IU6-Ev-qcf" id="ngY-Sz-pMq"/>
                 <outlet property="lb_status" destination="GG8-Ka-wCp" id="pOd-Qs-pGY"/>
             </connections>
-            <point key="canvasLocation" x="-590" y="84.5"/>
+            <point key="canvasLocation" x="-850" y="19"/>
         </tableViewCell>
     </objects>
 </document>

@@ -126,7 +126,7 @@
 
     [cell addSubview:wdStarView];
 }
-#pragma mark - delegate
+#pragma mark -  查看大图delegate
 -(void)didclickPhotoPicker:(NSInteger )index images:(NSArray *)images{
 
     [JZLPhotoBrowser showPhotoBrowserWithUrlArr:images currentIndex:index originalImageViewArr:nil];

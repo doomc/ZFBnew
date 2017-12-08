@@ -15,7 +15,7 @@
 #import "StoreHomeHeaderCell.h"
 #import "StoreCouponTableCell.h"
 //view
-
+#import "CQPlaceholderView.h"
 //model
 #import "CouponModel.h"
 #import "StoreDetailHomeModel.h"
@@ -24,6 +24,7 @@
 
 @property (nonatomic , strong) NSMutableArray * dataArray;
 @property (nonatomic , strong) NSMutableArray * couponList;
+@property (nonatomic , strong) CQPlaceholderView * placeholderView;
 
 
 @end
@@ -265,7 +266,11 @@
             for (Couponlist * list in coupon.couponList) {
                 [self.couponList addObject:list];
             }
-            
+            [_placeholderView removeFromSuperview];
+            if ([self isEmptyArray:self.dataArray]) {
+                _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.tableView.bounds type:CQPlaceholderViewTypeNoGoods delegate:self];
+                [self.tableView addSubview:_placeholderView];
+            }
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
         }else{

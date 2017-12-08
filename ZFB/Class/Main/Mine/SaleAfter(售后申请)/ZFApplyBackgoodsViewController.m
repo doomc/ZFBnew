@@ -78,7 +78,6 @@
 - (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray <HXPhotoModel *> *)videos original:(BOOL)isOriginal {
     
     [HXPhotoTools getImageForSelectedPhoto:photos type:HXPhotoToolsFetchHDImageType completion:^(NSArray<UIImage *> *images) {
-        
         NSSLog(@"%@",images);
         _imgUrl_mutArray = images;
     }];
@@ -180,13 +179,11 @@
  @param sender 提交申请
  */
 - (IBAction)didClickNextPage:(id)sender {
-    ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
-    [self.navigationController pushViewController: bcVC animated:YES];
-//    [SVProgressHUD showWithStatus:@"正在提交..."];
-//
-//    [[self class]cancelPreviousPerformRequestsWithTarget:self selector:@selector(didChangeStatus:) object:sender];
-//
-//    [self performSelector:@selector(didChangeStatus:) withObject:sender afterDelay:2];
+//    ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
+//    [self.navigationController pushViewController: bcVC animated:YES];
+    [SVProgressHUD showWithStatus:@"正在提交..."];
+    [[self class]cancelPreviousPerformRequestsWithTarget:self selector:@selector(didChangeStatus:) object:sender];
+    [self performSelector:@selector(didChangeStatus:) withObject:sender afterDelay:2];
     
 }
 -(void)didChangeStatus:(UIButton *)sender
@@ -194,18 +191,31 @@
     NSLog(@"不叨叨 ------------");
     if (_isCommited == YES) {
         [self.view makeToast:@"请勿重复提交" duration:2 position:@"center"];
+        [SVProgressHUD dismiss];
+
         return;
     }else{
-        /////***************提交之前暂时没有做处理
         if (_reason.length > 0 && _problemDescr.length > 0 ) {
-            [OSSImageUploader asyncUploadImages:_imgUrl_mutArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
-                if (state == 1) {
-                    _imgUrlAppending =  [names componentsJoinedByString:@","];
-                    NSSLog(@"names = %@",_imgUrlAppending);
+            if (_imgUrl_mutArray.count > 0) {
+                [OSSImageUploader asyncUploadImages:_imgUrl_mutArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
+                    if (state == 1) {
+                        _imgUrlAppending =  [names componentsJoinedByString:@","];
+                        NSSLog(@"names = %@",_imgUrlAppending);
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self uploadSuccessPushVC];
+                        });
+                    }else{
+                        NSSLog(@"上传失败");
+                    }
+                }];
+            }else{
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
                     [self uploadSuccessPushVC];
-                }
-            }];
-            
+                });
+            }
+          
         }else{
             JXTAlertController * alert = [JXTAlertController alertControllerWithTitle:@"提示" message:@"申请原因或问题描述没填写" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * sure       = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -221,13 +231,14 @@
  
     }
 }
+
 -(void)uploadSuccessPushVC
 {
     _isCommited = YES;
 
     //图片为空的状态
     ZFBackWaysViewController *bcVC =[[ ZFBackWaysViewController alloc]init];
-    if (_imgUrlAppending.length > 0) {
+    if (_imgUrl_mutArray.count > 0) {
         bcVC.imgArr          = _imgUrlAppending ;//图片字符串
     }else{
         bcVC.imgArr          = @"";
@@ -254,9 +265,7 @@
     bcVC.reason          = _reason;
     bcVC.problemDescr    = _problemDescr;
     
-
     [self.navigationController pushViewController: bcVC animated:YES];
-
     [SVProgressHUD dismiss];
 
 }
@@ -291,7 +300,7 @@
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [SVProgressHUD   dismiss];
+    [SVProgressHUD  dismiss];
 }
 
 - (void)didReceiveMemoryWarning {

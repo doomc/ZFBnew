@@ -10,9 +10,7 @@
 @protocol MainStoreFooterViewDelegate <NSObject>
 
 @optional
-
-//商品分类
--(void)didClickClassly;
+ 
 
 //联系卖家
 -(void)didClickContactStore;

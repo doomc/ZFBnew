@@ -18,6 +18,7 @@
 //view
 #import "CouponTableView.h"
 #import "CouponFooterView.h"
+#import "CQPlaceholderView.h"
 
 //model
 #import "CouponModel.h"
@@ -46,6 +47,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 @property (strong, nonatomic) CouponFooterView   * couponFootView;
 @property (assign, nonatomic) BOOL  isEditing;//编辑状态
 @property (strong, nonatomic) NSString    * couponIdAppdding;
+@property (nonatomic , strong) CQPlaceholderView *placeholderView;
 
 
 @end
@@ -204,34 +206,30 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
 }
 
 
-#pragma mark - <MTSegmentedControlDelegate>
+#pragma mark - <MTSegmentedControlDelegate> 切换
 - (void)segumentSelectionChange:(NSInteger)selection
 {
     _couponType = selection ;
+    self.currentPage = 1;
+    [self.couponList removeAllObjects];
     
     switch (_couponType) {
         case SelectCouponTypeDefault://未使用
             
             //获取用户优惠券列表
             [self recommentPostRequst:@"1"];
-            [self.tableView reloadData];
-            
             break;
         case SelectCouponTypeUsed://已使用
             
             //获取用户优惠券列表
             [self recommentPostRequst:@"2"];
-            [self.tableView reloadData];
             
             break;
         case SelectCouponTypeOverDate://已过期
             
             [self recommentPostRequst:@"3"];
-            [self.tableView reloadData];
-            
             break;
-        default:
-            break;
+
     }
     
 }
@@ -480,9 +478,15 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 for (Couponlist * list in coupon.couponList) {
                     [self.couponList addObject:list];
                 }
-
                 [self.view addSubview:self.popCouponBackgroundView];
                 [self.tableView bringSubviewToFront:self.popCouponBackgroundView];
+                
+                [_placeholderView removeFromSuperview];
+                if ([self isEmptyArray:self.couponList]) {
+                    _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.tableView.bounds type:CQPlaceholderViewTypeNoCoupon delegate:self];
+                    [self.tableView addSubview:_placeholderView];
+                }
+
                 [SVProgressHUD dismiss];
                 [self.popCouponView reloadData];
 
@@ -495,6 +499,11 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 CouponModel * coupon = [CouponModel mj_objectWithKeyValues:response];
                 for (Couponlist * list in coupon.couponList) {
                     [self.outSideCouponList addObject:list];
+                }
+                [_placeholderView removeFromSuperview];
+                if ([self isEmptyArray:self.couponList]) {
+                    _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.tableView.bounds type:CQPlaceholderViewTypeNoCoupon delegate:self];
+                    [self.tableView addSubview:_placeholderView];
                 }
                 [self.tableView reloadData];
                 [SVProgressHUD dismiss];
