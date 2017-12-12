@@ -483,7 +483,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 
                 [_placeholderView removeFromSuperview];
                 if ([self isEmptyArray:self.couponList]) {
-                    _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.tableView.bounds type:CQPlaceholderViewTypeNoCoupon delegate:self];
+                    _placeholderView = [[CQPlaceholderView alloc]initWithFrame:CGRectMake(0, 50+64, KScreenH, KScreenH - 50+64) type:CQPlaceholderViewTypeNoCoupon delegate:self];
                     [self.tableView addSubview:_placeholderView];
                 }
 
@@ -502,7 +502,7 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 }
                 [_placeholderView removeFromSuperview];
                 if ([self isEmptyArray:self.couponList]) {
-                    _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.tableView.bounds type:CQPlaceholderViewTypeNoCoupon delegate:self];
+                    _placeholderView = [[CQPlaceholderView alloc]initWithFrame:CGRectMake(0, 50+64, KScreenH, KScreenH - 50+64) type:CQPlaceholderViewTypeNoCoupon delegate:self];
                     [self.tableView addSubview:_placeholderView];
                 }
                 [self.tableView reloadData];

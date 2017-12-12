@@ -28,16 +28,13 @@
                     <rect key="frame" x="0.0" y="10" width="375" height="200"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XF3-qg-xrQ">
-                            <rect key="frame" x="15" y="15" width="40" height="18"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="40" id="4Cy-n3-ekA"/>
-                            </constraints>
+                            <rect key="frame" x="15" y="15" width="70" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="20字内~" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Erv-kX-rmL">
-                            <rect key="frame" x="96" y="4" width="259" height="40"/>
+                            <rect key="frame" x="100" y="4" width="255" height="40"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="oGE-eh-wGz"/>
@@ -47,13 +44,16 @@
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品评语:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LlF-C4-HNT">
-                            <rect key="frame" x="15" y="63" width="66" height="18"/>
+                            <rect key="frame" x="15" y="63" width="70" height="18"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="70" id="e9k-wf-qhU"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sMt-ms-C4c" customClass="FSTextView">
-                            <rect key="frame" x="96" y="63" width="259" height="120"/>
+                            <rect key="frame" x="100" y="63" width="255" height="120"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="120" id="7FZ-fw-TaZ"/>
@@ -67,6 +67,7 @@
                     <constraints>
                         <constraint firstItem="sMt-ms-C4c" firstAttribute="top" secondItem="LlF-C4-HNT" secondAttribute="top" id="1gi-h1-Ndu"/>
                         <constraint firstItem="XF3-qg-xrQ" firstAttribute="leading" secondItem="kDh-1q-AC9" secondAttribute="leading" constant="15" id="2fg-cP-KGu"/>
+                        <constraint firstItem="XF3-qg-xrQ" firstAttribute="width" secondItem="LlF-C4-HNT" secondAttribute="width" id="AuN-du-6EU"/>
                         <constraint firstItem="Erv-kX-rmL" firstAttribute="centerY" secondItem="XF3-qg-xrQ" secondAttribute="centerY" id="Ece-Fc-HQ1"/>
                         <constraint firstAttribute="trailing" secondItem="sMt-ms-C4c" secondAttribute="trailing" constant="20" id="IqY-RD-UhH"/>
                         <constraint firstItem="sMt-ms-C4c" firstAttribute="leading" secondItem="LlF-C4-HNT" secondAttribute="trailing" constant="15" id="J6y-uh-k0f"/>
@@ -74,8 +75,8 @@
                         <constraint firstAttribute="height" constant="200" id="OvX-kg-ll5"/>
                         <constraint firstItem="LlF-C4-HNT" firstAttribute="top" secondItem="XF3-qg-xrQ" secondAttribute="bottom" constant="30" id="VEz-Pj-iUN"/>
                         <constraint firstItem="XF3-qg-xrQ" firstAttribute="top" secondItem="kDh-1q-AC9" secondAttribute="top" constant="15" id="eni-nB-vS3"/>
-                        <constraint firstItem="Erv-kX-rmL" firstAttribute="leading" secondItem="sMt-ms-C4c" secondAttribute="leading" id="hHO-Hd-v2V"/>
                         <constraint firstAttribute="trailing" secondItem="Erv-kX-rmL" secondAttribute="trailing" constant="20" id="vSW-RX-XMs"/>
+                        <constraint firstItem="Erv-kX-rmL" firstAttribute="leading" secondItem="XF3-qg-xrQ" secondAttribute="trailing" constant="15" id="xKV-Jh-2Zb"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nco-lR-lx5">

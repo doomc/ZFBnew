@@ -74,7 +74,7 @@ static NSString * identifier = @"MKJTagViewTableViewCell";
             view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
             view.backgroundColor = [UIColor whiteColor];
             UILabel * hotLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW, 40)];
-            hotLabel.text = @"下单时间";
+            hotLabel.text = @"按分类选择";
             hotLabel.font = SYSTEMFONT(14);
             hotLabel.textColor = HEXCOLOR(0x333333);
             [view addSubview:hotLabel];
