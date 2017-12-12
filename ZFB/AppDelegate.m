@@ -721,7 +721,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 {
     //启动微信支付的response
     NSString *payResoult = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
-    if([resp isKindOfClass:[PayResp class]]){
+        if([resp isKindOfClass:[PayResp class]]){
         //支付返回结果，实际支付结果需要去微信服务器端查询
         switch (resp.errCode) {
             case 0:

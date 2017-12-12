@@ -480,12 +480,6 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 }
                 [self.view addSubview:self.popCouponBackgroundView];
                 [self.tableView bringSubviewToFront:self.popCouponBackgroundView];
-                
-                [_placeholderView removeFromSuperview];
-                if ([self isEmptyArray:self.couponList]) {
-                    _placeholderView = [[CQPlaceholderView alloc]initWithFrame:CGRectMake(0, 50+64, KScreenH, KScreenH - 50+64) type:CQPlaceholderViewTypeNoCoupon delegate:self];
-                    [self.tableView addSubview:_placeholderView];
-                }
 
                 [SVProgressHUD dismiss];
                 [self.popCouponView reloadData];
@@ -500,11 +494,11 @@ typedef NS_ENUM(NSUInteger, SelectCouponType) {
                 for (Couponlist * list in coupon.couponList) {
                     [self.outSideCouponList addObject:list];
                 }
-                [_placeholderView removeFromSuperview];
-                if ([self isEmptyArray:self.couponList]) {
-                    _placeholderView = [[CQPlaceholderView alloc]initWithFrame:CGRectMake(0, 50+64, KScreenH, KScreenH - 50+64) type:CQPlaceholderViewTypeNoCoupon delegate:self];
-                    [self.tableView addSubview:_placeholderView];
-                }
+//                [_placeholderView removeFromSuperview];
+//                if ([self isEmptyArray:self.couponList]) {
+//                    _placeholderView = [[CQPlaceholderView alloc]initWithFrame:CGRectMake(0, 50+64, KScreenW, KScreenH - 50+64) type:CQPlaceholderViewTypeNoCoupon delegate:self];
+//                    [self.tableView addSubview:_placeholderView];
+//                }
                 [self.tableView reloadData];
                 [SVProgressHUD dismiss];
             }

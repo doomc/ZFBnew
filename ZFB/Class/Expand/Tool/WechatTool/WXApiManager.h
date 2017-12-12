@@ -8,8 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^PaySuccessBlock)(NSInteger paycode);
+
 @interface WXApiManager : NSObject<WXApiDelegate>
 
+
 + (instancetype)sharedManager;
- 
+
+@property (nonatomic ,copy) PaySuccessBlock payBlock;
+
 @end

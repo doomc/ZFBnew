@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/AppDelegate.m"
-            timestampString = "530370160.74755"
+            timestampString = "534774217.886851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "291"
             endingLineNumber = "291"
-            landmarkName = "-applicationDidEnterBackground:"
+            landmarkName = "-showAutoLoginErrorAlert:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -144,6 +144,22 @@
             startingLineNumber = "1593"
             endingLineNumber = "1593"
             landmarkName = "-allOrderPostRequsetWithOrderStatus:orderNum:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZFB/AppDelegate.m"
+            timestampString = "534774217.887055"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "723"
+            endingLineNumber = "723"
+            landmarkName = "-onResp:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

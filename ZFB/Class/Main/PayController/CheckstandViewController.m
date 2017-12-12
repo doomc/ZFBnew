@@ -232,13 +232,15 @@
     if (flag) {
         NSLog(@"req发起微信支付成功");
    
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [self SuccessOrFaillurePost];
-//        });
- 
+        [[WXApiManager sharedManager]setPayBlock:^(NSInteger paycode) {
+            if (paycode == 0) {
+                NSLog(@" paycode = 0  支付成功了！！！");
+                [self SuccessOrFaillurePost];
+            }
+        }];
         [MBProgressHUD hideHUD];
+    
     }else{
-        
         NSLog(@"req发起微信支付失败");
         [MBProgressHUD hideHUD];
 

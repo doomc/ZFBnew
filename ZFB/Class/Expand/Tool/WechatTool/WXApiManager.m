@@ -4,8 +4,7 @@
 //  Created by  展富宝  on 2017/10/10.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
-// @简书地址:    http://www.jianshu.com/users/0714484ea84f/latest_articles
-//@Github地址: https://github.com/lyoniOS收银台
+
 #import "WXApiManager.h"
 
 @implementation WXApiManager
@@ -23,10 +22,12 @@
 - (void)onResp:(BaseResp *)resp
 {
     if([resp isKindOfClass:[PayResp class]]){
-        
         //支付返回结果，实际支付结果需要去微信服务器端查询
         NSString *strMsg;
  
+        if (self.payBlock) {
+            self.payBlock(resp.errCode);
+        }
         switch (resp.errCode) {
             case WXSuccess:
                 strMsg = @"支付结果：成功！";

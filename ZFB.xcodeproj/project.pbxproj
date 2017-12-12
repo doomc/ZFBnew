@@ -354,7 +354,6 @@
 		495D02B31FC7CC3600C02182 /* SearchTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495D02B21FC7CC3600C02182 /* SearchTitleView.m */; };
 		495D02B91FC818EE00C02182 /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495D02B61FC818EC00C02182 /* add@2x.png */; };
 		495D02BB1FC818EE00C02182 /* add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495D02B81FC818EE00C02182 /* add@3x.png */; };
-		495D02BE1FC818FC00C02182 /* reduce@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495D02BC1FC818F900C02182 /* reduce@3x.png */; };
 		495D02BF1FC818FC00C02182 /* reduce@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495D02BD1FC818FA00C02182 /* reduce@2x.png */; };
 		495D02C41FC823FE00C02182 /* delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495D02C21FC823FC00C02182 /* delete@3x.png */; };
 		495D02C51FC823FE00C02182 /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495D02C31FC823FD00C02182 /* delete@2x.png */; };
@@ -2026,7 +2025,6 @@
 		495D02B21FC7CC3600C02182 /* SearchTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchTitleView.m; sourceTree = "<group>"; };
 		495D02B61FC818EC00C02182 /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		495D02B81FC818EE00C02182 /* add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@3x.png"; sourceTree = "<group>"; };
-		495D02BC1FC818F900C02182 /* reduce@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reduce@3x.png"; path = "../../../../../../svn/展富宝APP1.3/切图/主页/商品/reduce@3x.png"; sourceTree = "<group>"; };
 		495D02BD1FC818FA00C02182 /* reduce@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce@2x.png"; sourceTree = "<group>"; };
 		495D02C21FC823FC00C02182 /* delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@3x.png"; sourceTree = "<group>"; };
 		495D02C31FC823FD00C02182 /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
@@ -6319,7 +6317,6 @@
 				495D02C31FC823FD00C02182 /* delete@2x.png */,
 				495D02C21FC823FC00C02182 /* delete@3x.png */,
 				495D02BD1FC818FA00C02182 /* reduce@2x.png */,
-				495D02BC1FC818F900C02182 /* reduce@3x.png */,
 				495D02B61FC818EC00C02182 /* add@2x.png */,
 				495D02B81FC818EE00C02182 /* add@3x.png */,
 				49C33E611F55A52E00BC2254 /* select_normal@2x.png */,
@@ -9682,7 +9679,6 @@
 				495EA7FE1F14B64D001FCB7E /* ZFSendingCell.xib in Resources */,
 				491871F81F9DD72400536CD2 /* sending_icon@3x.png in Resources */,
 				491871C11F9DB58E00536CD2 /* arroundStore@2x.png in Resources */,
-				495D02BE1FC818FC00C02182 /* reduce@3x.png in Resources */,
 				4968A4371F4DB5290061A87E /* NTESGalleryViewController.xib in Resources */,
 				50D61E8C1F1E5BAD00DBDA4D /* closeRed@3x.png in Resources */,
 				50D61E911F1E5BAD00DBDA4D /* ico_check_select@2x.png in Resources */,
