@@ -30,7 +30,7 @@
 
 - (HXPhotoManager *)manager {
     if (!_manager) {
-        _manager = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhotoAndVideo];
+        _manager = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhoto];
         _manager.openCamera = YES;
         _manager.cacheAlbum = YES;
         _manager.lookLivePhoto = YES;
@@ -38,9 +38,8 @@
         _manager.open3DTouchPreview = YES;
         _manager.cameraType = HXPhotoManagerCameraTypeSystem;
         _manager.photoMaxNum = 5;
-        _manager.videoMaxNum = 5;
         _manager.maxNum = 5;
-        _manager.rowCount = 3;
+        _manager.rowCount = 4;
         _manager.saveSystemAblum = NO;
     }
     return _manager;
@@ -50,7 +49,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title = @"共享资源 共享梦想";
+    self.title = @"我的共享";
     [self settingBtnBoarder];
 
     [self settingPhotoView];
@@ -70,7 +69,7 @@
     self.tf_title.text = _goodsName;
     self.tf_title.delegate = self;
     self.tf_title.clipsToBounds = YES;
-    self.tf_title.layer.cornerRadius = 2;
+    self.tf_title.layer.cornerRadius = 4;
     self.tf_title.layer.borderWidth = 1;
     self.tf_title.layer.borderColor = HEXCOLOR(0xe0e0e0).CGColor;
     [self.tf_title addTarget:self action:@selector(textfieldChangetext:) forControlEvents:UIControlEventEditingChanged];
@@ -82,7 +81,7 @@
 {
     self.textView.zw_limitCount = 150;//个数显示
     self.textView.zw_labHeight = 20;//高度
-    self.textView.layer.cornerRadius = 2;
+    self.textView.layer.cornerRadius = 4;
     self.textView.clipsToBounds = YES;
     self.textView.layer.borderWidth = 1;
     self.textView.layer.borderColor = HEXCOLOR(0xe0e0e0).CGColor;

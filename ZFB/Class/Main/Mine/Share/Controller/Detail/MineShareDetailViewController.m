@@ -4,23 +4,30 @@
 //
 //  Created by  展富宝  on 2017/9/14.
 //  Copyright © 2017年 com.zfb. All rights reserved.
-//
+//  审核详情
 
 #import "MineShareDetailViewController.h"
 #import "SDCycleScrollView.h"
+#import "PublishShareViewController.h"
 
 @interface MineShareDetailViewController () <SDCycleScrollViewDelegate>
 {
     NSString * _title;
     NSString * _describe;
     NSString * _status;
-
+    NSString * _auditStatus;//状态 0：通过 1未通过 2 审批中
+    NSString * _refuseReson;//拒绝原因
+    NSString * _goodId;
 }
 @property (strong, nonatomic)  UIButton * edit_btn;
 @property (strong, nonatomic)  NSArray * imgUrls;
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *cycleView;
 @property (weak, nonatomic) IBOutlet UILabel *lb_descirbe;
+@property (weak, nonatomic) IBOutlet UILabel *lb_status;//审核状态
+@property (weak, nonatomic) IBOutlet UILabel *lb_refuseReason;//拒绝原因
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutHeight;
+@property (weak, nonatomic) IBOutlet UIView *statusView;
 
 @end
 
@@ -62,17 +69,27 @@
 -(UIButton*)set_rightButton
 {
     if (!_edit_btn ) {
-        _edit_btn = [[UIButton alloc]init];
+        _edit_btn = [UIButton buttonWithType:UIButtonTypeCustom];
         _edit_btn.titleLabel.font=SYSTEMFONT(14);
-        [_edit_btn setTitleColor:HEXCOLOR(0xf95a70)  forState:UIControlStateNormal];
+        [_edit_btn setTitleColor:HEXCOLOR(0x8d8d8d)  forState:UIControlStateNormal];
         _edit_btn.titleLabel.textAlignment = NSTextAlignmentRight;
-        CGSize size = [@"审核状态" sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
+        CGSize size = [@"审核中" sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
         CGFloat width = size.width ;
+        //修改事件
+        [_edit_btn addTarget:self action:@selector(didRevisetAction:) forControlEvents:UIControlEventTouchUpInside];
         _edit_btn.frame =CGRectMake(0, 0, width+10, 22);
     }
     return _edit_btn;
 }
-
+#pragma mark -  didRevisetAction 修改
+-(void)didRevisetAction:(UIButton*)sender
+{
+    PublishShareViewController * pvc = [PublishShareViewController new];
+    pvc.goodId = _goodId;
+    pvc.textView.text = _describe;
+    pvc.tf_title.text = _title;
+    [self.navigationController pushViewController:pvc animated:NO];
+}
 #pragma mark  - 审核详情   myShare/unCheckedDetail
 -(void)detailShareListGoodsPost
 {
@@ -88,16 +105,32 @@
             _status = response[@"data"][@"status"];
             _title = response[@"data"][@"title"];
             _describe =  response[@"data"][@"describe"];
-
+            _refuseReson =response[@"data"][@"statusDescr"];
+            _auditStatus =response[@"data"][@"auditStatus"];
+            _goodId =response[@"data"][@"id"];
+            
+            //赋值
             _lb_title.text = _title;
             _lb_descirbe.text = _describe;
-            [self.edit_btn setTitle:_status forState:UIControlStateNormal];
+            _lb_refuseReason.text = _refuseReson;
+            _lb_status.text = _status;
+
+            if ([_auditStatus isEqualToString:@"1"]) {//如果是未通过
+                [self.edit_btn setTitle:@"修改" forState:UIControlStateNormal];
+                self.edit_btn.enabled = YES;
+                _layoutHeight.constant = 50;
+            }else
+            {
+                [self.edit_btn setTitle:_status forState:UIControlStateNormal];
+                self.edit_btn.enabled = NO;
+                _layoutHeight.constant = 0;
+                [_statusView removeFromSuperview];
+            }
             [self sd_HeadScrollViewInitWithArray:_imgUrls];
             [SVProgressHUD dismiss];
         }
         
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
         NSLog(@"error=====%@",error);

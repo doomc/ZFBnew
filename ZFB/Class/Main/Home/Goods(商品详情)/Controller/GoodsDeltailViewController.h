@@ -15,6 +15,7 @@
 @property (nonatomic , copy) NSString *headerImage;
 
 @property (nonatomic , copy) NSString *shareNum;//分享购买才传入的参数
+
 @property (nonatomic , copy) NSString *shareId;//分享购买才传入的参数
 
 @property (nonatomic , copy) NSString * store_address;//商户地址

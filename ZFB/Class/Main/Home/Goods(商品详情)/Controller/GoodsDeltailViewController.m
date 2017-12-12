@@ -255,8 +255,8 @@
 //添加悬浮按钮
 -(void)flyButtonView
 {
-    WMDragView * flyView = [[WMDragView alloc] initWithFrame:CGRectMake(KScreenW - 50 -15 , self.tableView.height - 20 -64, 50, 50)];
-    flyView.layer.cornerRadius = 25;
+    WMDragView * flyView = [[WMDragView alloc] initWithFrame:CGRectMake(KScreenW - 50 -15 , self.tableView.height - 40 -64, 40, 40)];
+    flyView.layer.cornerRadius = 20;
     flyView.backgroundColor = [UIColor whiteColor];
     [flyView.button setImage:[UIImage imageNamed:@"backTop"] forState:UIControlStateNormal];
     flyView.isKeepBounds = YES;
@@ -601,7 +601,7 @@
             _webCell.labelhtml.hidden = YES;
             _webCell.htmlImg.image = [UIImage imageNamed:@"商品承诺750"];
             CGSize size = [UIImage imageNamed:@"商品承诺750"].size;
-            _bussninessPromissHeight = size.height;
+            _bussninessPromissHeight = size.height/2;
 
         }
             break;
@@ -886,30 +886,37 @@
 #pragma mark -SecondAddShopCar 有规格的 加入购物车
 -(void)SecondAddShopCar:(UIButton *)button
 {
-    //没有规格商品的库存
-    if ([self isSKuAllSelect]) {
-        //判断库存
-        if ([_skuAmount intValue] > 0) {
-            //添加有规格的数据进入购物车  传入有规格的json数据
-            [self addToshoppingCarPostproductId:_productSkuId];
-            
+    if (_shareId.length > 0) {
+        JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"共享商品不能加入购物车" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        [alertVC addAction:sure];
+        [self presentViewController:alertVC animated:YES completion:nil];
+    }else{
+        //没有规格商品的库存
+        if ([self isSKuAllSelect]) {
+            //判断库存
+            if ([_skuAmount intValue] > 0) {
+                //添加有规格的数据进入购物车  传入有规格的json数据
+                [self addToshoppingCarPostproductId:_productSkuId];
+                
+            }else{
+                JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"这个商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }];
+                [alertVC addAction:sure];
+                [self presentViewController:alertVC animated:YES completion:nil];
+            }
         }else{
-            JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"这个商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
+            JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"请选择好规格再加入购物车" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
             }];
             [alertVC addAction:sure];
-            [self presentViewController:alertVC animated:YES completion:nil];
+            [self presentViewController:alertVC animated:NO completion:nil];
         }
-    }else{
-        JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"请选择好规格再加入购物车" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        [alertVC addAction:sure];
-        [self presentViewController:alertVC animated:NO completion:nil];
     }
-    
 }
 //立即购买 有规格的
 -(void)SecondBuyNowAction:(UIButton *)button
@@ -1120,23 +1127,32 @@
 -(void)didClickAddShoppingCarView
 {
     if (BBUserDefault.isLogin == 1) {
-        //  直接加入购物车
-        if (self.productSkuArray.count > 0){
-            [self popActionView];
-        }else{//如果无规格的
-            
-            if ([_skuAmount intValue] > 0 || [_inventory intValue] > 0 ) {
+        if (_shareId.length > 0) {
+            JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"共享商品不能加入购物车" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            [alertVC addAction:sure];
+            [self presentViewController:alertVC animated:YES completion:nil];
+        }else{
+            //  直接加入购物车
+            if (self.productSkuArray.count > 0){
+                [self popActionView];
+            }else{//如果无规格的
                 
-                //添加有规格的数据进入购物车  传入有规格的json数据
-                [self addToshoppingCarPostproductId:_productSkuId];
-            }else{
-                JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"这个商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                }];
-                [alertVC addAction:sure];
-                [self presentViewController:alertVC animated:YES completion:nil];
+                if ([_skuAmount intValue] > 0 || [_inventory intValue] > 0 ) {
+                    
+                    //添加有规格的数据进入购物车  传入有规格的json数据
+                    [self addToshoppingCarPostproductId:_productSkuId];
+                }else{
+                    JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"这个商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    }];
+                    [alertVC addAction:sure];
+                    [self presentViewController:alertVC animated:YES completion:nil];
+                }
             }
         }
+       
     }else{
         [self isIfNotSignIn];
         

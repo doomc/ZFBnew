@@ -695,21 +695,29 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 }
 
 #pragma mark - 微信支付的方法
--(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
-{
+//-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+//{
+//    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+//}
+//-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url  sourceApplication:(nullable NSString *)sourceApplication annotation:(nonnull id)annotation
+//{
+//    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+//}
+//// NOTE: 9.0以后使用新API接口
+//- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
+//{
+//    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+//}
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 }
--(BOOL)application:(UIApplication *)app openURL:(NSURL *)url  sourceApplication:(nullable NSString *)sourceApplication annotation:(nonnull id)annotation
-{
-    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-}
-// NOTE: 9.0以后使用新API接口
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
-{
-    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-}
+
 //微信SDK自带的方法，处理从微信客户端完成操作后返回程序之后的回调方法,显示支付结果的
--(void) onResp:(BaseResp*)resp
+-(void)onResp:(BaseResp*)resp
 {
     //启动微信支付的response
     NSString *payResoult = [NSString stringWithFormat:@"errcode:%d", resp.errCode];

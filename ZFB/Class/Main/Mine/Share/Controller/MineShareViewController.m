@@ -21,7 +21,7 @@
 //model
 #import "ReviewingModel.h"
 
-#define cellHeight 92
+#define cellHeight 110
 
 typedef NS_ENUM(NSUInteger, SelectType) {
     SelectTypeDefault,//未使用
@@ -70,8 +70,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         case SelectTypeDefault://未审核
             
             [self mineShareListGoodsPost];
-            
-            
             break;
         case SelectTypeAlready://已审核
             [self alreadlymineCheckedListPost];
@@ -102,7 +100,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                       ];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.estimatedRowHeight = 0;
+        _tableView.backgroundColor = HEXCOLOR(0xf7f7f7);
         _tableView.separatorStyle =  UITableViewCellSelectionStyleNone;
     }
     return _tableView;
@@ -236,17 +234,13 @@ typedef NS_ENUM(NSUInteger, SelectType) {
         {
             if (section == 1) {
                     headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
-                    headerView.backgroundColor = [UIColor whiteColor];
+                    headerView.backgroundColor = [UIColor clearColor];
                     
                     UILabel * title = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 200, 39)];
                     title.text = @"最新交易";
                     title.font = [UIFont systemFontOfSize:15];
-                    title.textColor = HEXCOLOR(0x363636);
+                    title.textColor = HEXCOLOR(0x333333);
                     [headerView addSubview:title];
-                    
-                    UILabel * line = [[UILabel alloc]initWithFrame:CGRectMake(0, 39.5, KScreenW, 0.5)];
-                    line.backgroundColor = RGBA(244, 244, 244, 1);
-                    [headerView addSubview:line];
             }
         }
             break;

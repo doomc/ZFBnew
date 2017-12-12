@@ -23,24 +23,24 @@
 #define aliOSS_baseUrl @"http://zavfb.oss-cn-shenzhen.aliyuncs.com/"
 
 #pragma mark ------------- 线上测试服务器--------------------
-////基类
-//#define  zfb_baseUrl @"https://app.api.zavfb.com/zfb/InterfaceServlet"
-////单聊
-//#define  IMsingle_baseUrl @"https://app.api.zavfb.com/im/user"
-////群聊
-//#define  IMGroup_baseUrl @"https://app.api.zavfb.com/group"
-////正式支付地址
-//#define paySign_baseUrl  @"https://pay.zavfb.com"
+//基类
+#define  zfb_baseUrl @"https://app.api.zavfb.com/zfb/InterfaceServlet"
+//单聊
+#define  IMsingle_baseUrl @"https://app.api.zavfb.com/im/user"
+//群聊
+#define  IMGroup_baseUrl @"https://app.api.zavfb.com/group"
+//正式支付地址
+#define paySign_baseUrl  @"https://pay.zavfb.com"
 
 #pragma mark ------------- 测试服务器数--------------------
-//baseURL
-#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
-//单聊
-#define  IMsingle_baseUrl @"http://192.168.1.113:8087/im/user"
-//群聊
-#define  IMGroup_baseUrl @"http://192.168.1.113:8087/group"
-//测试支付地址
-#define paySign_baseUrl @"http://192.168.1.115:8080"
+////baseURL
+//#define  zfb_baseUrl @"http://192.168.1.113:8087/zfb/InterfaceServlet"
+////单聊
+//#define  IMsingle_baseUrl @"http://192.168.1.113:8087/im/user"
+////群聊
+//#define  IMGroup_baseUrl @"http://192.168.1.113:8087/group"
+////测试支付地址
+//#define paySign_baseUrl @"http://192.168.1.115:8080"
 
 #pragma mark ------------- xd测试服务器数--------------------
 ////基类

@@ -244,8 +244,9 @@ static float kLeftTableViewWidth = 80.f;
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake((KScreenW - kLeftTableViewWidth - 4 * kCollectionViewMargin) / 3,
-                      (KScreenW - kLeftTableViewWidth - 4 * kCollectionViewMargin) / 3 + 30);
+//    return CGSizeMake((KScreenW - kLeftTableViewWidth -20 - 4 * kCollectionViewMargin) / 3,
+//                      (KScreenW - kLeftTableViewWidth -20 - 4 * kCollectionViewMargin) / 3 + 30);
+    return CGSizeMake(84,84);
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView

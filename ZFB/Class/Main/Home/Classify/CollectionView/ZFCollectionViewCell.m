@@ -26,7 +26,7 @@
         [self.contentView addSubview:self.imageV];
 
         self.name = [[UILabel alloc] initWithFrame:CGRectMake(2, self.frame.size.width + 2, self.frame.size.width - 4, 20)];
-        self.name.font = [UIFont systemFontOfSize:13];
+        self.name.font = [UIFont systemFontOfSize:12];
         self.name.textAlignment = NSTextAlignmentCenter;
         self.backgroundColor = HEXCOLOR(0xfefefe);
         [self.contentView addSubview:self.name];

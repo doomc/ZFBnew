@@ -10,6 +10,7 @@
 #import "PayforCell.h"
 #import "PayRealCell.h"
 #import "WXApi.h"
+#import "WXApiManager.h"
 //支付密码
 #import "CYPasswordView.h"
 #import "MBProgressHUD+MJ.h"
@@ -84,6 +85,8 @@
 
     //注册微信支付
     [WXApi registerApp:WX_AppId enableMTA:YES];
+    
+
     [self getThirdBalancePOSTRequste];
     
 }
@@ -225,19 +228,23 @@
     req.package = package;
     req.sign = sign;
     BOOL flag = [WXApi sendReq:req];
+
     if (flag) {
-        NSLog(@"发起微信支付成功");
-        [self SuccessOrFaillurePost];
+        NSLog(@"req发起微信支付成功");
+   
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [self SuccessOrFaillurePost];
+//        });
+ 
         [MBProgressHUD hideHUD];
     }else{
         
-        NSLog(@"发起微信支付失败");
+        NSLog(@"req发起微信支付失败");
         [MBProgressHUD hideHUD];
 
     }
-    
-
 }
+
 #pragma mark - 选择支付方式--确定支付
 -(void)didClickSurePay
 {
@@ -302,7 +309,6 @@
                              @"account":BBUserDefault.userPhoneNumber,
                              @"zavfpay_num":_zavfpay_num,//支付订单号
                              @"sign":_WXPaySign,
-                             
                              };
     
     [NoEncryptionManager noEncryptionPost:[NSString stringWithFormat:@"%@/cashier/wxPay.do",paySign_baseUrl] params:param success:^(id response) {
@@ -319,7 +325,7 @@
             
             [self bizPayParterId:partnerId prepayId:prepayId package:package nonceStr:nonceStr timeStamp:timeStamp sign:sign] ;
         }
-        NSLog(@"%@",response[@"result_msg"]);
+        NSLog(@"接口:wxPay.do === %@",response[@"result_msg"]);
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
