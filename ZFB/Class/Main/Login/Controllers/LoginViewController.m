@@ -110,16 +110,23 @@ typedef NS_ENUM(NSUInteger, indexType) {
 
 //设置返回的时候
 -(void)left_button_event{
-    ZFbaseTabbarViewController *tabController = (ZFbaseTabbarViewController *)self.presentingViewController;
-    NSInteger selectIndex = tabController.selectedIndex;
-    if (selectIndex == 1) {  //如果是消息跳转到登录就返回首页
-        [tabController setSelectedIndex:0];
+    if (_isHiddenTabbar == YES) {
+        [self dismissViewControllerAnimated:NO completion:^{
+            // 登录成功
+            
+        }];
+    }else{
+        ZFbaseTabbarViewController *tabController = (ZFbaseTabbarViewController *)self.presentingViewController;
+        NSInteger selectIndex = tabController.selectedIndex;
+        NSLog(@"当前tabbar selectIndex = %ld",selectIndex);
+        if (selectIndex == 1) {  //如果是消息跳转到登录就返回首页
+            [tabController setSelectedIndex:0];
+        }
+        [self dismissViewControllerAnimated:NO completion:^{
+            // 登录成功
+            
+        }];
     }
-    [self dismissViewControllerAnimated:NO completion:^{
-        // 登录成功
-
-    }];
- 
 }
 
 #pragma mark - getVerificationCodeAction获取验证码

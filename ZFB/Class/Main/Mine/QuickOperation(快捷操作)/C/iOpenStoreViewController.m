@@ -132,7 +132,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 
     self.tf_storeName.delegate = self;
     [self.tf_storeName addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
-    
+
     //联系人
 //    self.tf_contactName.layer.masksToBounds = YES;
 //    self.tf_contactName.layer.cornerRadius = 4;

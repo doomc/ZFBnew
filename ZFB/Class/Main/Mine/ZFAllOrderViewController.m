@@ -798,7 +798,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 [cell.cancel_button  setHidden:YES];
             }
             else if ([orderlist.orderStatus isEqualToString:@"4"]) {
-                if (orderlist.payType == 0) {
+                if (orderlist.payType == 0) {//线上
                     
                     [cell.cancel_button  setHidden:YES];
                     [cell.payfor_button  setTitle:@"取消" forState:UIControlStateNormal];
@@ -875,7 +875,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             cell.orderlist         = orderlist;
             cell.section           = section;
             
-            if ([orderlist.payModeName isEqualToString:@"线下支付"]) {
+            if ( orderlist.payType == 1) {// payType  1 是线下 0 是线上
                 
                 [cell.payfor_button setTitle:@"确认取货" forState:UIControlStateNormal];
             }else{
@@ -932,6 +932,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             cell.orderlist        = footList;
             cell.section          = section;
             cell.lb_hjkey.hidden = NO;
+
             [cell.cancel_button setHidden:YES];
             [cell.payfor_button setHidden: YES];
             view = cell;
@@ -1068,13 +1069,23 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             if ([list.orderStatus isEqualToString:@"10"]) {
                 sendCell.share_btn.hidden = YES;
                 sendCell.sunnyOrder_btn.hidden = YES;
-            }
+            }//交易完成 无退货
             else if ([list.orderStatus isEqualToString:@"3"] && [list.partRefund isEqualToString:@""]) {
-                sendCell.share_btn.hidden = NO;
-                sendCell.sunnyOrder_btn.hidden = NO;
+
+                if ([list.is_comment  isEqualToString:@"1"]) {//1已经评论过了
+                    sendCell.share_btn.hidden = NO;
+                    sendCell.sunnyOrder_btn.hidden = YES;//晒单
+                    sendCell.leadingLayoutWidth.constant = 20;
+                }else{//未评论
+                    sendCell.share_btn.hidden = NO;
+                    sendCell.sunnyOrder_btn.hidden = NO;
+                    sendCell.leadingLayoutWidth.constant = 90;
+
+                }
+
                 sendCell.delegate = self;
                 sendCell.indexpath = indexPath;
-                
+         
             }else{
                 sendCell.share_btn.hidden = YES;
                 sendCell.sunnyOrder_btn.hidden = YES;
@@ -1181,8 +1192,15 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 successCell.btn_shareComment.hidden = YES;
 
             }else{
-                successCell.btn_shareOrder.hidden = NO;
-                successCell.btn_shareComment.hidden = NO;
+                if ([list.is_comment  isEqualToString:@"1"]) {//1已经评论过了
+                    successCell.btn_shareOrder.hidden = YES;
+                    successCell.btn_shareComment.hidden = NO;
+                    successCell.leadingLayoutWidth.constant = 20;
+                }
+                else{
+                    successCell.btn_shareOrder.hidden = NO;
+                    successCell.btn_shareComment.hidden = NO;
+                }
             }
             return successCell;
         }
@@ -1190,14 +1208,12 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             
         case OrderTypeCancelSuccess:
         {
-            
             ZFSendingCell * sendCell = [self.tableView
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
             sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
             Orderlist * list           = self.orderListArray[indexPath.section];
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {
-                
                 [goodArray addObject:ordergoods];
             }
             Ordergoods * goods = goodArray[indexPath.row];

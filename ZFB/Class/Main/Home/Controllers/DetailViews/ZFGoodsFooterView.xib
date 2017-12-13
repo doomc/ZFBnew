@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -107,51 +107,33 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YbY-fw-Qsx">
                             <rect key="frame" x="0.0" y="0.0" width="93.666666666666671" height="51"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addShopCar_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="igh-Qo-lkc">
-                                    <rect key="frame" x="33" y="5" width="28" height="28"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="28" id="Ibr-sy-iKS"/>
-                                        <constraint firstAttribute="height" constant="28" id="k7H-T9-Y9H"/>
-                                    </constraints>
-                                </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="加入购物车" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B9l-1N-6f7">
-                                    <rect key="frame" x="16.333333333333339" y="35" width="61.666666666666657" height="15"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <rect key="frame" x="11" y="17" width="71.666666666666671" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" red="0.99883085490000001" green="0.71001201869999997" blue="0.015884760769999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstItem="B9l-1N-6f7" firstAttribute="top" secondItem="igh-Qo-lkc" secondAttribute="bottom" constant="2" id="FUn-0I-tNe"/>
-                                <constraint firstItem="igh-Qo-lkc" firstAttribute="centerX" secondItem="YbY-fw-Qsx" secondAttribute="centerX" id="IZM-qM-E53"/>
-                                <constraint firstItem="igh-Qo-lkc" firstAttribute="top" secondItem="YbY-fw-Qsx" secondAttribute="top" constant="5" id="c7J-Uz-l91"/>
-                                <constraint firstItem="B9l-1N-6f7" firstAttribute="centerX" secondItem="igh-Qo-lkc" secondAttribute="centerX" id="nuF-KK-XVa"/>
+                                <constraint firstItem="B9l-1N-6f7" firstAttribute="centerY" secondItem="YbY-fw-Qsx" secondAttribute="centerY" id="9J7-Co-sJa"/>
+                                <constraint firstItem="B9l-1N-6f7" firstAttribute="centerX" secondItem="YbY-fw-Qsx" secondAttribute="centerX" id="D4Z-ya-LNc"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z6h-Nz-iXx">
                             <rect key="frame" x="93.666666666666657" y="0.0" width="93.666666666666657" height="51"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bag_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="lcO-ja-YRg">
-                                    <rect key="frame" x="33.333333333333371" y="5" width="28" height="28"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="28" id="Som-vF-oOJ"/>
-                                        <constraint firstAttribute="height" constant="28" id="zf8-Ik-Lc6"/>
-                                    </constraints>
-                                </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="立即购买" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rAk-Zo-uur">
-                                    <rect key="frame" x="22.333333333333368" y="35" width="49.666666666666657" height="15"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <rect key="frame" x="18.333333333333375" y="17" width="57.333333333333343" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" red="0.97401887180000002" green="0.41948157549999998" blue="0.4069254994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstItem="lcO-ja-YRg" firstAttribute="centerX" secondItem="Z6h-Nz-iXx" secondAttribute="centerX" id="Atl-kI-XdZ"/>
-                                <constraint firstItem="lcO-ja-YRg" firstAttribute="top" secondItem="Z6h-Nz-iXx" secondAttribute="top" constant="5" id="QaH-Ls-AV1"/>
-                                <constraint firstItem="rAk-Zo-uur" firstAttribute="top" secondItem="lcO-ja-YRg" secondAttribute="bottom" constant="2" id="j3r-JK-gy7"/>
-                                <constraint firstItem="rAk-Zo-uur" firstAttribute="centerX" secondItem="lcO-ja-YRg" secondAttribute="centerX" id="w8U-Wd-okE"/>
+                                <constraint firstItem="rAk-Zo-uur" firstAttribute="centerX" secondItem="Z6h-Nz-iXx" secondAttribute="centerX" id="1D8-YY-MW5"/>
+                                <constraint firstItem="rAk-Zo-uur" firstAttribute="centerY" secondItem="Z6h-Nz-iXx" secondAttribute="centerY" id="MNR-ZW-Z06"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -194,8 +176,6 @@
         </view>
     </objects>
     <resources>
-        <image name="addShopCar_white.png" width="42" height="42"/>
-        <image name="bag_white.png" width="42" height="42"/>
         <image name="kefu_black.png" width="21" height="21"/>
         <image name="shoppingcar_black.png" width="21" height="21"/>
         <image name="store_black.png" width="21" height="21"/>

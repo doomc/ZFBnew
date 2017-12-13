@@ -28,13 +28,32 @@
 
 - (UIViewController*)topMostWindowController
 {
+//    UIViewController *topController = [self rootViewController];
+//
+//    //  Getting topMost ViewController
+//    while ([topController presentedViewController])    topController = [topController presentedViewController];
+//
+//    //  Returning topMost ViewController
+//    return topController;
     UIViewController *topController = [self rootViewController];
-    
+    if ([topController isKindOfClass:[UITabBarController class]])
+    {
+        UITabBarController *tabbarController = (UITabBarController *)topController;
+        topController = tabbarController.selectedViewController;
+        if ([topController isKindOfClass:[UINavigationController class]])
+        {
+            UINavigationController *navController = (UINavigationController *)topController;
+            topController = navController.visibleViewController;
+        }
+    }
     //  Getting topMost ViewController
-    while ([topController presentedViewController])	topController = [topController presentedViewController];
-	
+    while ([topController presentedViewController])
+    {
+        topController = [topController presentedViewController];
+    }
+    
     //  Returning topMost ViewController
-    return topController;
+    return topController; 
 }
 
 - (UIViewController*)currentViewController;

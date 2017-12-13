@@ -100,7 +100,7 @@
                     <constraint firstItem="UfP-SR-90s" firstAttribute="top" secondItem="uNY-db-xBx" secondAttribute="bottom" constant="10" id="63e-Uo-sCY"/>
                     <constraint firstAttribute="trailing" secondItem="o3W-2P-y1m" secondAttribute="trailing" constant="10" id="7Ei-Ff-BXU"/>
                     <constraint firstItem="Mgc-Bs-NmG" firstAttribute="top" secondItem="EwH-Cd-ICI" secondAttribute="bottom" constant="10" id="Bzf-xh-lV0"/>
-                    <constraint firstItem="o3W-2P-y1m" firstAttribute="leading" secondItem="Y4u-pa-6ci" secondAttribute="trailing" constant="20" id="EJE-BL-6Uy"/>
+                    <constraint firstAttribute="trailing" secondItem="Y4u-pa-6ci" secondAttribute="trailing" constant="90" id="HVe-dP-e3Y"/>
                     <constraint firstItem="Y4u-pa-6ci" firstAttribute="width" secondItem="o3W-2P-y1m" secondAttribute="width" id="Nmq-8h-c1q"/>
                     <constraint firstItem="zGw-f5-6HS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ReY-DP-v7Q"/>
                     <constraint firstItem="zGw-f5-6HS" firstAttribute="top" secondItem="o3W-2P-y1m" secondAttribute="bottom" constant="10" id="Vws-Ax-ld7"/>
@@ -123,6 +123,7 @@
                 <outlet property="lb_num" destination="Mgc-Bs-NmG" id="JAP-F3-fsi"/>
                 <outlet property="lb_progrop" destination="uNY-db-xBx" id="rI9-2a-Iu7"/>
                 <outlet property="lb_sendListTitle" destination="EwH-Cd-ICI" id="81T-gO-idl"/>
+                <outlet property="leadingLayoutWidth" destination="HVe-dP-e3Y" id="bRY-88-Ilp"/>
                 <outlet property="share_btn" destination="Y4u-pa-6ci" id="wya-yB-s7a"/>
                 <outlet property="sunnyOrder_btn" destination="o3W-2P-y1m" id="pym-fi-TIj"/>
             </connections>

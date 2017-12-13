@@ -40,6 +40,7 @@
 		4906D17D1F7894B300B327ED /* XHStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4906D17C1F7894B300B327ED /* XHStarRateView.m */; };
 		4906D1811F7906A700B327ED /* ShareRecommedDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4906D17F1F7906A700B327ED /* ShareRecommedDetailViewController.m */; };
 		4906D1821F7906A700B327ED /* ShareRecommedDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4906D1801F7906A700B327ED /* ShareRecommedDetailViewController.xib */; };
+		490A0C871FE0B21F00773B4B /* reduce@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 490A0C861FE0B21E00773B4B /* reduce@3x.png */; };
 		490E65081FD6A2CB00B4BA64 /* ZFApplyBackgoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 490E65011FD6A2CB00B4BA64 /* ZFApplyBackgoodsViewController.m */; };
 		490E65091FD6A2CB00B4BA64 /* ZFApplyBackgoodsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 490E65021FD6A2CB00B4BA64 /* ZFApplyBackgoodsViewController.xib */; };
 		490E650A1FD6A2CC00B4BA64 /* ZFBackWaysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 490E65041FD6A2CB00B4BA64 /* ZFBackWaysViewController.m */; };
@@ -172,6 +173,7 @@
 		492141891F2A031A00C44D10 /* home_redSecond@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 492141851F2A031A00C44D10 /* home_redSecond@3x.png */; };
 		4921418A1F2A031A00C44D10 /* home_whiteSecond@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 492141861F2A031A00C44D10 /* home_whiteSecond@2x.png */; };
 		4921418B1F2A031A00C44D10 /* home_whiteSecond@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 492141871F2A031A00C44D10 /* home_whiteSecond@3x.png */; };
+		49253CDF1FE1152E0063DF95 /* UIButton+HETouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 49253CDD1FE1152D0063DF95 /* UIButton+HETouch.m */; };
 		4926DF081F1F4AA400E9060B /* JsonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4926DF071F1F4AA400E9060B /* JsonModel.m */; };
 		4927189B1F1F5C6C002A7A54 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 492718941F1F5C6C002A7A54 /* WebViewJavascriptBridge.m */; };
 		4927189C1F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 492718961F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.m */; };
@@ -1586,6 +1588,7 @@
 		4906D17E1F7906A700B327ED /* ShareRecommedDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareRecommedDetailViewController.h; sourceTree = "<group>"; };
 		4906D17F1F7906A700B327ED /* ShareRecommedDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareRecommedDetailViewController.m; sourceTree = "<group>"; };
 		4906D1801F7906A700B327ED /* ShareRecommedDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareRecommedDetailViewController.xib; sourceTree = "<group>"; };
+		490A0C861FE0B21E00773B4B /* reduce@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce@3x.png"; sourceTree = "<group>"; };
 		490E65001FD6A2CB00B4BA64 /* ZFApplyBackgoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFApplyBackgoodsViewController.h; sourceTree = "<group>"; };
 		490E65011FD6A2CB00B4BA64 /* ZFApplyBackgoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFApplyBackgoodsViewController.m; sourceTree = "<group>"; };
 		490E65021FD6A2CB00B4BA64 /* ZFApplyBackgoodsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFApplyBackgoodsViewController.xib; sourceTree = "<group>"; };
@@ -1759,6 +1762,8 @@
 		492141851F2A031A00C44D10 /* home_redSecond@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_redSecond@3x.png"; sourceTree = "<group>"; };
 		492141861F2A031A00C44D10 /* home_whiteSecond@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_whiteSecond@2x.png"; sourceTree = "<group>"; };
 		492141871F2A031A00C44D10 /* home_whiteSecond@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_whiteSecond@3x.png"; sourceTree = "<group>"; };
+		49253CDD1FE1152D0063DF95 /* UIButton+HETouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+HETouch.m"; sourceTree = "<group>"; };
+		49253CDE1FE1152E0063DF95 /* UIButton+HETouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+HETouch.h"; sourceTree = "<group>"; };
 		4926DF061F1F4AA400E9060B /* JsonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonModel.h; sourceTree = "<group>"; };
 		4926DF071F1F4AA400E9060B /* JsonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonModel.m; sourceTree = "<group>"; };
 		492718931F1F5C6C002A7A54 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
@@ -4861,6 +4866,8 @@
 		495EA2FD1F14B64B001FCB7E /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				49253CDE1FE1152E0063DF95 /* UIButton+HETouch.h */,
+				49253CDD1FE1152D0063DF95 /* UIButton+HETouch.m */,
 				49B3BCD21F204F70002A0FDC /* SySafeCategory */,
 				50D4D7AD1F1BC5680073DBC1 /* UIViewController+Unitil.h */,
 				50D4D7AE1F1BC5680073DBC1 /* UIViewController+Unitil.m */,
@@ -6317,6 +6324,7 @@
 				495D02C31FC823FD00C02182 /* delete@2x.png */,
 				495D02C21FC823FC00C02182 /* delete@3x.png */,
 				495D02BD1FC818FA00C02182 /* reduce@2x.png */,
+				490A0C861FE0B21E00773B4B /* reduce@3x.png */,
 				495D02B61FC818EC00C02182 /* add@2x.png */,
 				495D02B81FC818EE00C02182 /* add@3x.png */,
 				49C33E611F55A52E00BC2254 /* select_normal@2x.png */,
@@ -9713,6 +9721,7 @@
 				495EA7B11F14B64D001FCB7E /* HotTableViewCell.xib in Resources */,
 				50B381281F3F729B001ED3BA /* compose_delete@2x.png in Resources */,
 				495EA8B31F14B64D001FCB7E /* addphone@3x.png in Resources */,
+				490A0C871FE0B21F00773B4B /* reduce@3x.png in Resources */,
 				495EA8EA1F14B64E001FCB7E /* 省略@2x.png in Resources */,
 				493675E11F57D8FE001EDEC2 /* ZFServiceEvaluteCell.xib in Resources */,
 				499380E21FA3116F00ABC3E6 /* addFriend@3x.png in Resources */,
@@ -10537,6 +10546,7 @@
 				49E916F51FA976A100867857 /* NIMAudioContentConfig.m in Sources */,
 				49E916FC1FA976A100867857 /* NIMTextContentConfig.m in Sources */,
 				495EA7211F14B64D001FCB7E /* UIView+Extension.m in Sources */,
+				49253CDF1FE1152E0063DF95 /* UIButton+HETouch.m in Sources */,
 				493BDE0B1F6A2E2B00CF31D0 /* SelectPayTypeView.m in Sources */,
 				495EA7C51F14B64D001FCB7E /* ZFCollectBarView.m in Sources */,
 				498A33C71F398AC30057E2AE /* NSString+helper.m in Sources */,

@@ -11,6 +11,9 @@
 #import "ZFbaseTabbarViewController.h"
 #import "XLSlideMenu.h"
 #import "RightNavPopViewController.h"//查询订单时间
+#import "LoginViewController.h"
+#import "ZFBaseNavigationViewController.h"
+
 //wx支付
 #import "WXApi.h"
 #import "WXApiManager.h"
@@ -244,6 +247,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
             reason = clientName.length ? [NSString stringWithFormat:@"你的帐号被%@端踢出下线，请注意帐号信息安全",clientName] : @"你的帐号被踢出下线，请注意帐号信息安全";
             BBUserDefault.cmUserId = @"";
             BBUserDefault.isLogin = 0;
+//            [self isNotLoginWithTabbar:YES];
             break;
         }
         case NIMKickReasonByServer:
@@ -256,12 +260,12 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
         [[NSNotificationCenter defaultCenter] postNotificationName:NTESNotificationLogout object:nil];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"下线通知" message:reason delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         
-        
         [self doLogout];
-
         [alert show];
     }];
 }
+
+
 - (void)onAutoLoginFailed:(NSError *)error
 {
     //只有连接发生严重错误才会走这个回调，在这个回调里应该登出，返回界面等待用户手动重新登录。
@@ -324,7 +328,23 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 }
 
-
+//如果没有登录
+-(void)isNotLoginWithTabbar:(BOOL)tabbarHidden
+{
+    LoginViewController * logvc    = [ LoginViewController new];
+    logvc.isHiddenTabbar = tabbarHidden;
+    ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
+    [self.window.rootViewController presentViewController:nav animated:NO completion:^{
+        // 设置导航栏颜色
+        UIImage *image = [UIImage imageNamed:@"nav64_gray"];
+        [nav.navigationBar  setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+        [nav.navigationBar  setBarTintColor:[UIColor clearColor]];
+        [nav.navigationBar  setShadowImage:[UIImage new]];
+        [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0x333333),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+    }];
+    
+    
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -565,14 +585,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     ZFbaseTabbarViewController *tabbarVC = [[ZFbaseTabbarViewController alloc] init];
-    
-    //会崩溃
-    //    XLSlideMenu *slideMenu = [[XLSlideMenu alloc] initWithRootViewController:tabbarVC];
-    //    RightNavPopViewController * menuVC = [RightNavPopViewController new];
-    //    //设置左右菜单
-    //    slideMenu.rightViewController = menuVC;
-    //    self.window.rootViewController = slideMenu;
-    
     [self.window makeKeyAndVisible];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

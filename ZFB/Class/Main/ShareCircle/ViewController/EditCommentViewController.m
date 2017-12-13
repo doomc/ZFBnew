@@ -11,6 +11,9 @@
 #import "EditCommetCell.h"
 #import "EditCommentModel.h"
 #import "CQPlaceholderView.h"
+#import "IQKeyboardManager.h"
+#import "UIButton+HETouch.h"
+
 @interface EditCommentViewController ()<UITableViewDataSource,UITableViewDelegate,EditCommetCellDelegate,EditCommentFootViewDelegate,CQPlaceholderViewDelegate>
 
 @property (nonatomic , strong) UITableView * tableView;
@@ -133,27 +136,27 @@
         EditCommentList * list  = self.commentList[index];
         [self didZanCommentId:[NSString stringWithFormat:@"%ld",list.comment_id]];
     }else{
-        [self isIfNotSignIn];
+        [self isNotLoginWithTabbar:NO];
     }
 
 }
 #pragma mark - EditCommentFootViewDelegate  发布评论 代理
--(void)pushlishCommentWithContent:(NSString *)content
+-(void)pushlishComment:(UIButton *)sender WithContent:(NSString *)content
 {
     if (BBUserDefault.isLogin == 1) {
-        if (content.length > 0) {
+        if (content.length > 0){
+            sender.he_timeInterval = 1;
             [self commitPublishPostAndContent:content];
-        }else
-        {
+  
+        }else{
             [self.view makeToast:@"评论太短了" duration:2 position:@"center"];
         }
-        
     }else{
-        [self isIfNotSignIn];
+        [self isNotLoginWithTabbar:NO];
     }
 
 }
--(void)textHeight:(CGFloat)height
+-(void)textView:(UITextView *)textView textHeight:(CGFloat)height
 {
     self.footerView.frame = CGRectMake(0, KScreenH -height - 64, KScreenW, height);
 }
@@ -256,9 +259,11 @@
 {
     [self.footerView.commentTextView resignFirstResponder];
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [self settingNavBarBgName:@"nav64_gray"];
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

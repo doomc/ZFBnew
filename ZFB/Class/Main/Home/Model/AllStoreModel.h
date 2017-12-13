@@ -42,7 +42,7 @@
 
 @property (nonatomic, copy) NSString *storeDist;
 
-@property (nonatomic, assign) NSInteger payType;
+@property (nonatomic, assign) NSInteger payType;//1线下支付 0 线上
 
 @property (nonatomic, copy) NSString *storeName;
 

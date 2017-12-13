@@ -177,7 +177,8 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             UIFont *font  =[UIFont systemFontOfSize:15];
             _sure_payfor.titleLabel.font    = font;
             [_sure_payfor addTarget:self action:@selector(didClickPayFor:) forControlEvents:UIControlEventTouchUpInside];
-            //0.未支付的初始状态  1.支付成功 -1.支付失败  3.付款发起   4.付款取消 (待付款) 5.退款成功（支付成功的）6.退款发起(支付成功) 7.退款失败(支付成功)
+            
+            //orderStatus -1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货）,4.待付款,5.待审批,6.待退回，7.服务完成 8 待接单 9.代发货 10.已发货 11.处理付款中 12.付款失败
             NSLog(@"我当前是 _isUserType  %ld",_isUserType);
             if (_isUserType == 1) { //商户
                 if ([_payType isEqualToString:@"1"] && [orderStatus isEqualToString:@"4"]) {
@@ -188,12 +189,8 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
                    
                     [self.sure_payfor setHidden:YES];
                 }
-            }else if (_isUserType == 2){//配送
-               
-                [self.sure_payfor setHidden:YES];
-                
             }else{//普通用户
-                if([_payStatus isEqualToString:@"0"] || [_payStatus isEqualToString:@"3"] ||[_payStatus isEqualToString:@"4"]  ){
+                if([orderStatus isEqualToString:@"4"]){
                     self.sure_payfor.hidden = NO;
                     [self.sure_payfor setTitle:@"去付款" forState:UIControlStateNormal];
                 }else{
@@ -427,12 +424,13 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
             
             //订单信息
             orderStatusName = orderModel.orderDetails.orderStatusName ;//配送状态
+            //-1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成 8 待接单 9.代发货 10.已发货 11.处理付款中 12.付款失败
             orderStatus = [NSString stringWithFormat:@"%ld",orderModel.orderDetails.orderStatus];
             payMethodName   = orderModel.orderDetails.payMethodName;
             createTime      = [NSString stringWithFormat:@"下单时间:%@",orderModel.orderDetails.createTime] ;//订单时间
             
             //0.未支付的初始状态  1.支付成功 -1.支付失败  3.付款发起   4.付款取消 (待付款) 5.退款成功（支付成功的）6.退款发起(支付成功) 7.退款失败(支付成功)
-            _payStatus = orderModel.orderDetails.payStatus;//支付状态
+//            _payStatus = orderModel.orderDetails.payStatus;//支付状态
             
             //1.支付宝  2.微信支付 3.线下,4.展易付
 //            NSInteger payMethod = orderModel.orderDetails.payMethod;

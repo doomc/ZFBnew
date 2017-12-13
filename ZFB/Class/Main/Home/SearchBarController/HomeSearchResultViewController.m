@@ -720,14 +720,10 @@
         for (BrandFindbrandlist * brandlist  in brand.data.findBrandList) {
             
             [self.brandListArray addObject:brandlist];
-            
         }
         [self.searchCollectionView reloadData];
         
     } progress:^(NSProgress *progeress) {
-        
-        NSLog(@"progeress=====%@",progeress);
-        
     } failure:^(NSError *error) {
         
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
@@ -739,7 +735,6 @@
 }
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [self.searchBar resignFirstResponder];
-
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {

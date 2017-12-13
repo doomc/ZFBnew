@@ -10,4 +10,6 @@
 
 @interface LoginViewController : UIViewController
 
+@property (nonatomic ,assign )BOOL isHiddenTabbar;//yes 已经隐藏了 no没隐藏
+
 @end

@@ -78,13 +78,13 @@
                 <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="MFv-M9-aQp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="03q-71-uma"/>
+                    <constraint firstAttribute="trailing" secondItem="rZP-DT-jjW" secondAttribute="trailing" constant="105" id="0RE-LP-xf6"/>
                     <constraint firstItem="idI-Tk-QdZ" firstAttribute="bottom" secondItem="5xW-0D-Lyi" secondAttribute="bottom" id="5wc-73-Ekh"/>
                     <constraint firstItem="pTF-if-pLq" firstAttribute="leading" secondItem="MFv-M9-aQp" secondAttribute="trailing" constant="10" id="K6T-Fk-WZ4"/>
                     <constraint firstItem="rZP-DT-jjW" firstAttribute="bottom" secondItem="MFv-M9-aQp" secondAttribute="bottom" id="RJO-XF-dyb"/>
                     <constraint firstItem="pTF-if-pLq" firstAttribute="top" secondItem="MFv-M9-aQp" secondAttribute="top" id="ZF2-eK-E0r"/>
                     <constraint firstItem="MFv-M9-aQp" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ajX-53-kNx"/>
                     <constraint firstAttribute="trailing" secondItem="xDx-Pc-wnr" secondAttribute="trailing" constant="15" id="fA9-sq-hI0"/>
-                    <constraint firstItem="xDx-Pc-wnr" firstAttribute="leading" secondItem="rZP-DT-jjW" secondAttribute="trailing" constant="20" id="fe7-zz-cAW"/>
                     <constraint firstItem="5xW-0D-Lyi" firstAttribute="leading" secondItem="pTF-if-pLq" secondAttribute="leading" id="g94-yN-5Vu"/>
                     <constraint firstItem="5xW-0D-Lyi" firstAttribute="top" secondItem="pTF-if-pLq" secondAttribute="bottom" constant="10" id="j1y-n6-IrS"/>
                     <constraint firstAttribute="trailing" secondItem="idI-Tk-QdZ" secondAttribute="trailing" constant="15" id="kKV-u7-3L4"/>
@@ -99,6 +99,7 @@
                 <outlet property="lb_goodsCount" destination="idI-Tk-QdZ" id="qH9-de-LeW"/>
                 <outlet property="lb_price" destination="5xW-0D-Lyi" id="WUl-xB-uYx"/>
                 <outlet property="lb_title" destination="pTF-if-pLq" id="G8G-Sl-ZEQ"/>
+                <outlet property="leadingLayoutWidth" destination="0RE-LP-xf6" id="QKo-zp-tNV"/>
             </connections>
             <point key="canvasLocation" x="-313" y="82.5"/>
         </tableViewCell>

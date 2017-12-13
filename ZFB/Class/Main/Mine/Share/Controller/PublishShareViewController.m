@@ -11,6 +11,10 @@
 //图片选择器
 #import "HXPhotoViewController.h"
 #import "HXPhotoView.h"
+//表情处理
+#import "EmojiTextAttachment.h"
+#import "NSAttributedString+EmojiExtension.h"
+#import "NSString+EnCode.h"
 
 @interface PublishShareViewController ()<HXPhotoViewDelegate,UITextFieldDelegate,UITextViewDelegate>
 {
@@ -55,6 +59,9 @@
     [self settingPhotoView];
     
     [self settingTextView];
+    //处理表情
+    [self resetTextStyle];
+
 }
 -(void)settingPhotoView
 {
@@ -90,7 +97,7 @@
     // 添加输入改变Block回调.
     [self.textView addTextDidChangeHandler:^(FSTextView *textView) {
         // 文本改变后的相应操作.
-        _describe = textView.text;
+        _describe = [textView.text encodedString];
         NSLog(@"----%@-----",textView.text);
     }];
     // 添加到达最大限制Block回调.
@@ -106,7 +113,10 @@
 {
     return YES;
 }
-
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [self insertEmoji];
+}
 -(void)textfieldChangetext:(UITextField *)tf{
     NSLog(@"%@",tf.text);
     _goodsName = tf.text;
@@ -177,15 +187,15 @@
                 if (state == 1) {
                     NSString * nameURL  = [names componentsJoinedByString:@","];
                     //网络请求
-                    [self publicMessagePostRequset:nameURL];
-                }
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self publicMessagePostRequset:nameURL];
+                    });
+                };
             }];
 
         }else{
-
             [self.view makeToast:@"请晒出您要共享的图片哦" duration:2 position:@"center"];
         }
-       
     }
 }
 
@@ -226,7 +236,33 @@
     }];
 }
 
-
+- (void)resetTextStyle {
+    //After changing text selection, should reset style.
+    NSRange wholeRange = NSMakeRange(0, _textView.textStorage.length);
+    [_textView.textStorage removeAttribute:NSFontAttributeName range:wholeRange];
+    [_textView.textStorage addAttribute:NSFontAttributeName value:_textView.font range:wholeRange];
+}
+-(void)insertEmoji
+{
+    //Create emoji attachment
+    EmojiTextAttachment *emojiTextAttachment = [EmojiTextAttachment new];
+    
+    NSAttributedString *str = [NSAttributedString attributedStringWithAttachment:emojiTextAttachment];
+    NSRange selectedRange = _textView.selectedRange;
+    if (selectedRange.length > 0) {
+        [_textView.textStorage deleteCharactersInRange:selectedRange];
+    }
+    //Insert emoji image
+    [_textView.textStorage insertAttributedString:str atIndex:_textView.selectedRange.location];
+    
+    _textView.selectedRange = NSMakeRange(_textView.selectedRange.location+1, 0); // self.textView.selectedRange.length
+    
+    //Move selection location
+    //_textView.selectedRange = NSMakeRange(_textView.selectedRange.location + 1, _textView.selectedRange.length);
+    
+    //Reset text style
+    [self resetTextStyle];
+}
 
 -(void)viewWillDisappear:(BOOL)animated{
     

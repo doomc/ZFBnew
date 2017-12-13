@@ -748,7 +748,7 @@ static NSString  * shoppingHeaderID    = @"ShopCarSectionHeadViewCell";
         
     }else{
         
-        [self isIfNotSignIn];
+        [self isNotLoginWithTabbar:NO];
     }
     
 }

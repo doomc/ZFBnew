@@ -85,7 +85,6 @@
 
     //注册微信支付
     [WXApi registerApp:WX_AppId enableMTA:YES];
-    
 
     [self getThirdBalancePOSTRequste];
     

@@ -39,11 +39,11 @@
     
     if ([orderGoods.is_comment isEqualToString:@"0"]) {
         self.btn_shareOrder.hidden = NO;
-        self.shareOrderBtnWidth.constant = 70;
-    }else{
+        self.leadingLayoutWidth.constant = 105;
 
+    }else{
+        self.leadingLayoutWidth.constant = 20;
         self.btn_shareOrder.hidden = YES;
-        self.shareOrderBtnWidth.constant = 0;
     }
     
     

@@ -290,15 +290,11 @@ typedef NS_ENUM(NSUInteger, CellType) {
 #pragma mark - HotTableViewCellDelegate  根据ID跳转
 -(void)pushToDetailVCWithGoodsID :(NSString *) goodsId
 {
-//    if (BBUserDefault.isLogin == 1) {
+ 
         GoodsDeltailViewController *detailVCgoods = [[GoodsDeltailViewController alloc]init];
         detailVCgoods.goodsId                        = goodsId;
         [self.navigationController pushViewController:detailVCgoods animated:NO];
-        
-//    }else{
-        
-//        [self isIfNotSignIn];
-//    }
+ 
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -313,14 +309,7 @@ typedef NS_ENUM(NSUInteger, CellType) {
             findVCgoods.goodsId      = [NSString stringWithFormat:@"%ld",goodlist.goodsId];
         }
         [self.navigationController pushViewController:findVCgoods animated:YES];
-        
-//    }else{
-        
-//        [self isIfNotSignIn];
-//    }
-    
-
-    
+ 
 }
 
 #pragma mark - 广告轮播-getAdImageInfo网络请求

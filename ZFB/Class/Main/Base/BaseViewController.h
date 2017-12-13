@@ -98,7 +98,7 @@ typedef NS_ENUM(NSInteger, RefreshType) {
 - (BOOL)checkPassWordIsNotEasy:(NSMutableString *)oldPassword;
 
 //如果没有登录
--(void)isIfNotSignIn;
+-(void)isNotLoginWithTabbar:(BOOL)tabbarHidden;
 
 //用户提示没开放的任务
 - (void)settingAlertView;

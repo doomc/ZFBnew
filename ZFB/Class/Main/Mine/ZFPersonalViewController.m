@@ -783,7 +783,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 //判断是否登录了
 -(void)isloginSuccess
 {
-    [self isIfNotSignIn];
+    [self isNotLoginWithTabbar:NO];
 }
 
 #pragma mark - 快捷操作 代理 QuickOperationCellDelegate

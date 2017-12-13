@@ -34,6 +34,8 @@
 
 @property (nonatomic, copy) NSString *orderStatusName;
 
+@property (nonatomic, copy) NSString *is_comment;//0 未晒单 1已晒单 
+
 @property (nonatomic, copy) NSString *post_name;
 
 @property (nonatomic, copy) NSString *orderStatus;

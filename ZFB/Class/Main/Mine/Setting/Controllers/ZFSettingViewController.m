@@ -288,7 +288,7 @@ static NSString * settingCellid = @"ZFSettingCellid";
         
     }
     if ([sender.titleLabel.text isEqualToString:@"登录"]) {
-        [self isIfNotSignIn];
+        [self isNotLoginWithTabbar:NO];
     }
 }
 

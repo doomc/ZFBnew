@@ -130,7 +130,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSArray * titles = @[@"商品",@"详情",@"评论"];
+    NSArray * titles = @[@"商品",@"详情",@"评价"];
     _goodsCount = 1;//默认商品数量
     _selectSegmentTag = 0;
     _goodParamType = GoodsParamTypeDetailContent;
@@ -274,7 +274,6 @@
 -(void)backTopScrollerView
 {
     [UIView animateWithDuration:0.5 animations:^{
-        
         self.tableView.contentOffset =  CGPointMake(0, 0);
     }];
 }
@@ -327,7 +326,6 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return 9;
     if (section == 0) {
         return 7;
     }
@@ -390,9 +388,6 @@
                 height = _bussninessPromissHeight;
                 break;
         }
-
-      
-        
     }
     return height;
 }
@@ -446,7 +441,7 @@
                 SectionCouponCell * couponCell =  [self.tableView dequeueReusableCellWithIdentifier:@"SectionCouponCell" forIndexPath:indexPath];
                 if (![self isEmptyArray:self.couponList]) {
                     couponCell.hidden = NO;
-//                    //关键字
+                    //关键字
 //                    NSInteger count = self.couponList.count;
 //                    couponCell.lb_title.text = [NSString stringWithFormat:@"您有 %ld 张可使用的的优惠券",count];
 //                    couponCell.lb_title.keywords      = [NSString stringWithFormat:@"%ld",count];
@@ -468,7 +463,6 @@
                 if (![self isEmptyArray:self.productSkuArray]){
                     
                     selectCell.lb_selectSUK.text = [NSString stringWithFormat:@"选择颜色,尺寸"];
-                    selectCell.selectionStyle    = UITableViewCellSelectionStyleNone;
                     selectCell.hidden            = NO;
                 }else{
                     selectCell.hidden = YES;
@@ -536,7 +530,6 @@
                 break;
             case 3://规格
                 if (self.productSkuArray.count > 0) {
-                    
                     [self popActionView];
                     
                 }
@@ -843,7 +836,6 @@
         Productattribute *product = self.productSkuArray[indexPath.section];
         Valuelist *value          = product.valueList[indexPath.item];
         cell.valueObj = value;
-        
         return cell;
         
     }
@@ -870,7 +862,6 @@
         }
     }
     if (!(value.selectType == ValueSelectType_enable)) {
-        
         [self getSkuMatchParamts];
     }
 }
@@ -1154,7 +1145,7 @@
         }
        
     }else{
-        [self isIfNotSignIn];
+        [self isNotLoginWithTabbar:YES];
         
     }
   
@@ -1231,7 +1222,7 @@
         }
     }else
     {
-        [self isIfNotSignIn];
+        [self isNotLoginWithTabbar:YES];
     }
     
 }
@@ -1346,8 +1337,8 @@
 {
     [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/skuMatch",zfb_baseUrl] params:parma success:^(id response) {
+       
         _currentSkuMatchModel = [SkuMatchModel mj_objectWithKeyValues:response];
-        
         //匹配前清空清空之前保存的
         [self.skuValueListArray removeAllObjects];
         for (Skumatch *skumatch in _currentSkuMatchModel.data.skuMatch) {
@@ -1357,6 +1348,7 @@
         }
         //先取消上次匹配
         [self resetSkuMatch];
+ 
         //再匹配规格
         [self matchSku];
         [self.SkuColletionView reloadData];
@@ -1394,7 +1386,7 @@
                
                 _lb_price.text   = @"价格:0";
                 _lb_price.text = @"库存:0";
-                
+                _lb_Sku.text     = @"选择规格";
             }else{
                 _lb_Sku.text     = [NSString stringWithFormat:@"已选择:%@",chooseString];
                 _lb_price.text   = [NSString stringWithFormat:@"价格:¥%@",originalPriceStr];
@@ -1582,12 +1574,13 @@
             NSArray * imagesArray = [[NSArray alloc]init];
             imagesArray = [_attachImgUrl componentsSeparatedByString:@","];
             [self cycleScrollViewInitImges:imagesArray];
+            
             if (BBUserDefault.isLogin == 1) {
                 [self recommentPostRequstCouponList];//获取优惠券
-            }
-            [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
-            [self appriaseToPostRequest];//评论列表
+                [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
 
+            }
+            [self appriaseToPostRequest];//评论列表
         }
         [SVProgressHUD dismiss];
         [self.tableView reloadData];
@@ -1606,7 +1599,7 @@
                              @"goodsId":_goodsId,
                              @"goodsComment":@"",
                              @"imgComment":@"",
-                             @"pageSize":@"2",
+                             @"pageSize":@"1",
                              @"pageIndex":@"1",
                              
                              };
@@ -1670,13 +1663,7 @@
     
 }
 
-//隐藏导航栏
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-//    CGFloat offsetY = scrollView.contentOffset.y;
-//    NSLog(@"---- %f---",offsetY);
 
-}
 //判断选择的版快
 -(void)segumentSelectionChange:(NSInteger)selection
 {

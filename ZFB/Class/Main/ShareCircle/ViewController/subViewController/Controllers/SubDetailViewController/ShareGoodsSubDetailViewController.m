@@ -92,7 +92,8 @@
 - (IBAction)didClickBuyNow:(id)sender {
     if (BBUserDefault.isLogin == 0 || [BBUserDefault.cmUserId isEqualToString:@"0"] ||  BBUserDefault.cmUserId ==nil ) {
         
-        [self isIfNotSignIn];
+        [self isNotLoginWithTabbar:YES];
+
     }else{
         
         GoodsDeltailViewController * detailVC = [GoodsDeltailViewController new];

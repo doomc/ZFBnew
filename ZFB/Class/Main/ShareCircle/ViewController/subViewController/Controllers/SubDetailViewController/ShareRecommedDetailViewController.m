@@ -69,7 +69,8 @@
     
     if ([_isThumbsStatus isEqualToString: @"0"]) {
         if ([BBUserDefault.cmUserId isEqualToString:@""]||[BBUserDefault.cmUserId isEqualToString:@"0"] ||BBUserDefault.cmUserId ==nil) {
-            [self isIfNotSignIn];
+            [self isNotLoginWithTabbar:YES];
+
             
         }else{
             [self didclickZanPostRequsetAtthumsId:_recommentId];

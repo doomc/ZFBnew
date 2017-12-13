@@ -53,8 +53,8 @@
 - (IBAction)publishBtn:(id)sender {
 
     [_commentTextView resignFirstResponder];
-    if ([self.footDelegate respondsToSelector:@selector(pushlishCommentWithContent:)]) {
-        [self.footDelegate pushlishCommentWithContent:_ecodeStr];
+    if ([self.footDelegate respondsToSelector:@selector(pushlishComment:WithContent::)]) {
+        [self.footDelegate pushlishComment:sender WithContent:_ecodeStr];
     }
 }
 
@@ -77,8 +77,8 @@
         CGFloat height2 = CGRectGetHeight(myframe);
         
         if ( height2 > 67 ) {
-            if ([self.footDelegate respondsToSelector:@selector(textHeight:)]) {
-                [self.footDelegate textHeight:height2];
+            if ([self.footDelegate respondsToSelector:@selector(textView:textHeight:)]) {
+                [self.footDelegate textView:textView textHeight:height2];
             }
         }
         _ecodeStr= [textView.text encodedString];

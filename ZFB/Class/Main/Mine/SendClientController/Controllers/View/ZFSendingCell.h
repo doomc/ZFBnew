@@ -30,8 +30,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb_num;
 @property (weak, nonatomic) IBOutlet UILabel *lb_progrop;
 
+
 //共享
 @property (weak, nonatomic) IBOutlet UIButton *share_btn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leadingLayoutWidth;
+
 //晒单
 @property (weak, nonatomic) IBOutlet UIButton *sunnyOrder_btn;
 @property (strong,nonatomic) NSIndexPath * indexpath ;

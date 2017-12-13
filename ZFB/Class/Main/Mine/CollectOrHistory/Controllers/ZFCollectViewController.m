@@ -118,7 +118,8 @@ typedef NS_ENUM(NSUInteger, CollectType) {
 - (void)segumentSelectionChange:(NSInteger)selection
 {
     _collectType = selection ;
-    
+    [self.listArray removeAllObjects];
+    self.currentPage = 1;
     switch (_collectType) {
         case CollectTypeGoods: //1商品 2门店
             [self showCollectListPOSTRequestCollectType:@"1"];
@@ -129,9 +130,7 @@ typedef NS_ENUM(NSUInteger, CollectType) {
             [self showCollectListPOSTRequestCollectType:@"2"];
    
             break;
-            
-        default:
-            break;
+ 
     }
     
 }

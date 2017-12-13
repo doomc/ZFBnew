@@ -113,8 +113,8 @@
     NSString *thumsId =  [NSString stringWithFormat:@"%ld", list.recommentId];
     if (list.isThumbed == 0) {
         if ([BBUserDefault.cmUserId isEqualToString:@""]||[BBUserDefault.cmUserId isEqualToString:@"0"] ||BBUserDefault.cmUserId ==nil) {
-            [self isIfNotSignIn];
-            
+            [self isNotLoginWithTabbar:YES];
+
         }else{
             [self didclickZanPostRequsetAtthumsId:thumsId];
  

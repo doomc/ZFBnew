@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 @protocol EditCommentFootViewDelegate <NSObject>
 @required
--(void)textHeight:(CGFloat)height;
+-(void)textView:(UITextView *)textView textHeight:(CGFloat)height;
 
 //发布评论
--(void)pushlishCommentWithContent:(NSString *)content;
+-(void)pushlishComment:(UIButton *)sender WithContent:(NSString *)content;
 
 @end
 

@@ -226,7 +226,7 @@ typedef NS_ENUM(NSUInteger, TypeVC) {
                 [self scanningQRCode];
 
             }else{
-                [self isIfNotSignIn];
+                [self isNotLoginWithTabbar:NO];
             }
             break;
 

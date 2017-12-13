@@ -251,10 +251,10 @@
 }
 
 //如果没有登录
--(void)isIfNotSignIn
+-(void)isNotLoginWithTabbar:(BOOL)tabbarHidden
 {
-
     LoginViewController * logvc    = [ LoginViewController new];
+    logvc.isHiddenTabbar = tabbarHidden;
     ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:logvc];
     
     [self presentViewController:nav animated:NO completion:^{
