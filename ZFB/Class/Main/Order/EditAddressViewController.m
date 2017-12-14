@@ -12,10 +12,12 @@
 
 @interface EditAddressViewController ()<UITextFieldDelegate>
 {
-    NSString * _contactPhone;
+    NSString * _contactPhone;//联系电话号码
+    NSString * _contactName;//联系人
+    NSString * _detialText;//详情
+    NSString * _cityStr;//城市地址
 }
-///城市
-@property (copy, nonatomic) NSString * cityStr;//城市地址
+
 @property (copy, nonatomic) NSString * longitudeSTR;//接收回传的经纬度
 @property (copy, nonatomic) NSString * latitudeSTR;
 @property (copy, nonatomic) NSString * postAddress;//收货地址（拼接补全的）
@@ -36,7 +38,7 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
-    
+    _defaultFlag = @"1";//默认 1
     self.title =@"新增收货地址";
     self.SaveAndbackAction.clipsToBounds      = YES;
     self.SaveAndbackAction.layer.cornerRadius = 4;
@@ -51,8 +53,6 @@
     
     [self initSwitchView];
     
-
-    
     self.locationButton.clipsToBounds      = YES;
     self.locationButton.layer.cornerRadius = 4;
     
@@ -66,12 +66,11 @@
     self.isDefaultSwitch.on = [[NSUserDefaults standardUserDefaults]boolForKey:@"switchType"];
     
     if (self.isDefaultSwitch.isOn) {
-        NSLog(@"打开状态");
         _defaultFlag = @"1";
-        
+        NSLog(@"打开状态");
+
     }else{
         _defaultFlag = @"2";
-        
         NSLog(@"关闭状态");
     }
     [self.isDefaultSwitch addTarget:self action:@selector(didClickSwitch:) forControlEvents:UIControlEventValueChanged];
@@ -100,8 +99,6 @@
     locaVC.searchReturnBlock = ^(NSString *name, CGFloat longitude, CGFloat latitude, NSString *postCode) {
       
         NSLog(@"name=%@, longitude=%f, latitude=%f, postCode=%@", name, longitude, latitude, postCode);
-    
-        
         [_locationButton setTitle:name forState:UIControlStateNormal];
         _longitudeSTR =[NSString stringWithFormat:@"%.6f",longitude];
         _latitudeSTR = [NSString stringWithFormat:@"%.6f",latitude];
@@ -117,6 +114,7 @@
     if (textfiled == _tf_name ) {
         
         NSLog(@"tf_name ==== %@",_tf_name.text);
+        _contactName = _tf_name.text;
     }
     else if (textfiled == _tf_cellphone  )
     {
@@ -124,7 +122,7 @@
     }
     else
     {
-        
+        _detialText = textfiled.text;
     }
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField
@@ -161,7 +159,7 @@
 - (IBAction)saveActionAndBack:(id)sender {
     
     NSLog(@"saved！@@！！@！！！");
-    if (_tf_name.text.length > 0 && _contactPhone.length == 11 && _tf_detailAddress.text.length>0 &&  _locationButton.titleLabel.text.length > 0) {
+    if (_contactName > 0 && _contactPhone.length == 11 && _detialText.length >0 &&  _cityStr.length > 0) {
         
         [self savedInfoMessagePostRequst];
     }
@@ -177,12 +175,12 @@
     
     NSLog(@"_saveBool  ---------- %@",_defaultFlag);
     NSDictionary * param = @{
-                             @"postAddressId":@"",
+                             @"postAddressId":_postAddressId,
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"contactUserName":_tf_name.text,
-                             @"contactMobilePhone":_tf_cellphone.text,
-                             @"postAddress":_locationButton.titleLabel.text,// 用户全收货地址	否
-                             @"replenish":_tf_detailAddress.text,
+                             @"contactUserName":_contactName,
+                             @"contactMobilePhone":_contactPhone,
+                             @"postAddress":_cityStr,// 用户全收货地址	否
+                             @"replenish":_detialText,
                              @"mobilePhone":@"",
                              @"zipCode":@"400000",// 邮政编号
                              @"longitude":_longitudeSTR,// 经度	否	6位小数
@@ -195,17 +193,11 @@
         
         NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
         if  ([code isEqualToString:@"0"]) {
-            
             [self.navigationController popViewControllerAnimated:NO];
-            
         }
-        
         [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-        
-        
-        
+
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);
@@ -218,7 +210,6 @@
 #pragma mark - 编辑用户信息editUserReward
 -(void)editUserRewardInfoMessagePostRequst
 {
-    
     NSLog(@"_postAddressId  ---------- %@",_postAddressId);
     NSDictionary * param = @{
                              
@@ -231,20 +222,30 @@
         NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
         if  ([code isEqualToString:@"0"]) {
             {
-                _tf_name.text          = response[@"cmUserRewardInfo"][@"userName"];
-                _tf_cellphone.text     = response[@"cmUserRewardInfo"][@"contactMobilePhone"];
+                _contactName         = response[@"cmUserRewardInfo"][@"userName"];
+                _contactPhone     = response[@"cmUserRewardInfo"][@"contactMobilePhone"];
                 _cityStr               = response[@"cmUserRewardInfo"][@"postAddress"];
-                _tf_detailAddress.text = response[@"cmUserRewardInfo"][@"replenish"];
+                _detialText  = response[@"cmUserRewardInfo"][@"replenish"];
                 _latitudeSTR           = response[@"cmUserRewardInfo"][@"latitude"];
                 _longitudeSTR          = response[@"cmUserRewardInfo"][@"longitude"];
                 _defaultFlag           = response[@"cmUserRewardInfo"][@"defaultFlag"];
-                [_locationButton setTitle:_cityStr forState:UIControlStateNormal];
                 
+                [_locationButton setTitle:_cityStr forState:UIControlStateNormal];
+                _tf_name.text  = _contactName;
+                _tf_cellphone.text = _contactPhone;
+                _tf_detailAddress.text = _detialText;
+                
+                if ([_defaultFlag isEqualToString:@"1"]) {
+                    [self.isDefaultSwitch setOn:YES];
+                    NSLog(@"打开状态");
+                    
+                }else{
+                    [self.isDefaultSwitch setOn:NO];
+                    NSLog(@"关闭状态");
+                }
             }
         }
-        
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         
         NSLog(@"error=====%@",error);

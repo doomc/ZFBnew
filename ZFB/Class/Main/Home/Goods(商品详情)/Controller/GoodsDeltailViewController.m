@@ -441,15 +441,7 @@
                 SectionCouponCell * couponCell =  [self.tableView dequeueReusableCellWithIdentifier:@"SectionCouponCell" forIndexPath:indexPath];
                 if (![self isEmptyArray:self.couponList]) {
                     couponCell.hidden = NO;
-                    //关键字
-//                    NSInteger count = self.couponList.count;
-//                    couponCell.lb_title.text = [NSString stringWithFormat:@"您有 %ld 张可使用的的优惠券",count];
-//                    couponCell.lb_title.keywords      = [NSString stringWithFormat:@"%ld",count];
-//                    couponCell.lb_title.keywordsColor = HEXCOLOR(0xf95a70);
-//                    couponCell.lb_title.keywordsFont  = [UIFont systemFontOfSize:18];
-//                    ///必须设置计算宽高
-//                    CGRect dealNumh              = [couponCell.lb_title getLableHeightWithMaxWidth:300];
-//                    couponCell.lb_title.frame = CGRectMake(15, 10, dealNumh.size.width, dealNumh.size.height);
+
                 }else{
                     couponCell.hidden = YES;
                 }
@@ -1089,13 +1081,18 @@
 -(void)didClickContactRobotView
 {
     NSLog(@"点击了客服");
-    NIMSession *session = [NIMSession session:_accId type:NIMSessionTypeP2P];
-    NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
-    vc.isVipStore = YES;
-    vc.storeId = _storeId;
-    vc.storeName = _storeName;
-    
-    [self.navigationController pushViewController:vc animated:YES];
+    if (BBUserDefault.isLogin == 1) {
+        NIMSession *session = [NIMSession session:_accId type:NIMSessionTypeP2P];
+        NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
+        vc.isVipStore = YES;
+        vc.storeId = _storeId;
+        vc.storeName = _storeName;
+        
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else{
+        [self isNotLoginWithTabbar:YES];
+    }
 }
 #pragma mark - 店铺
 -(void)didClickStoreiew

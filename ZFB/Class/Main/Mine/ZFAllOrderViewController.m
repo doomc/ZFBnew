@@ -52,7 +52,7 @@ static  NSString * saleAfterProgressCellid =@"ZFCheckTheProgressCellid";//进度
 static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 
 
-@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate,DealSucessCellDelegate,ZFSendingCellDelegate,WeChatStylePlaceHolderDelegate>
+@interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate,DealSucessCellDelegate,ZFSendingCellDelegate>
 
 @property (nonatomic ,strong) UIView *  titleView ;
 @property (nonatomic ,strong) UITableView *  tableView ;
@@ -63,7 +63,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 @property (nonatomic ,strong) NSArray   * saleTitles;//售后选择
 @property (nonatomic ,assign) NSInteger tagNum;//售后选择
 @property (nonatomic ,strong) ZFpopView   * popView;
-@property (nonatomic ,strong)  WeChatStylePlaceHolder *weChatStylePlaceHolder;
+ 
 
 //售后搜索
 @property (nonatomic ,strong) UISearchBar        * searchBar;
@@ -195,7 +195,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             
         case OrderTypeAfterSale://售后
             if (_tagNum == 0) {
-//                [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:@"" ];
+//                [self saleAfterCheckOrderlistPostwithOrderStatus:@"3" SearchWord:@"" ];
                 [self allOrderPostRequsetWithOrderStatus:@"3"];
 
             }else{
@@ -1508,7 +1508,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     }
     Ordergoods * goods = goodArray[indexPath.row];
     PublishShareViewController *  publishvc = [PublishShareViewController new];
-    publishvc.title = goods.goods_name;
+    publishvc.goodsName = goods.goods_name;
     publishvc.goodId = goods.goodsId;
     publishvc.goodsPrice = [NSString stringWithFormat:@"%.2f",[goods.purchase_price floatValue]];
     [self.navigationController pushViewController:publishvc animated:NO];
@@ -1825,19 +1825,12 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 }
             }
             AllOrderModel * allorder = [AllOrderModel mj_objectWithKeyValues:response];
-            
             for (Orderlist * list in allorder.orderList) {
-                
                 [self.orderListArray addObject:list];
-                
             }
             [SVProgressHUD dismiss];
             [self.tableView reloadData];
-            [_weChatStylePlaceHolder removeFromSuperview];
-            
-            if ([self isEmptyArray:self.orderListArray]) {
-                [self.tableView cyl_reloadData];
-            }
+
         }
         NSLog(@"orderListArray ====%@",self.orderListArray);
         [self endRefresh];
@@ -2061,17 +2054,13 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 
                 //确认收货 - 成功后跳转交易完成
                 [self receiveUserConfirmReceiptPostDeliveryId:orderlist.deliveryId storeId:orderlist.storeId deliveryFee:[NSString stringWithFormat:@"%.2f",orderlist.orderDeliveryFee] orderNum:orderlist.orderCode userId:@"" orderAmount:orderlist.orderAmount storeName:orderlist.storeName orderDetail:orderlist.orderDetail];
-                
             }];
             [alertavc addAction:cancelAction];
             [alertavc addAction:sureAction];
-            
             [self presentViewController:alertavc animated:YES completion:nil];
         }
-            
             break;
     }
-    
 }
 
 //取消订单的代理方法
@@ -2102,17 +2091,13 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                 
             }
             if ([orderlist.orderStatus isEqualToString:@"10"]) {//已发货
-                
                 {
                     LogisticsViewController * VC = [LogisticsViewController new];
                     Orderlist * orderlist = self.orderListArray [indexPath];
                     VC.orderNum = orderlist.expressNumber;
                     [self.navigationController pushViewController:VC animated:NO];
-                    
                 }
-                
             }
-            
         }
             break;
             
@@ -2157,16 +2142,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             
             break;
         case OrderTypeAfterSale:
-            
-            if (self.tagNum == 0) {
-                
-                if (indexPath == 0) {
-                    
-                }
-                
-            }else  if (self.tagNum == 1) {
-                
-            }
+
             break;
         case OrderTypeWaitSending://待发货
 
@@ -2185,47 +2161,10 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 #pragma mark - SaleAfterSearchCellDelegate 搜索代理
 -(void)didClickSearchButtonSearchText:(NSString *)searchText
 {
-    if ([searchText isEqualToString:@""]) {
-        
-        NSLog(@"搜索条件不能为空");
-        JXTAlertController * alertavc = [JXTAlertController alertControllerWithTitle:@"提示" message:@"搜索条件不能为空" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        [alertavc addAction:sureAction];
-        
-        [self presentViewController:alertavc animated:YES completion:nil];
-        
-    }else{
-        //开始搜索
-        [self saleAfterCheckOrderlistPostwithOrderStatus:@"2" SearchWord:searchText];
-        BBUserDefault.keyWord = searchText;
-        
-    }
+    [self saleAfterCheckOrderlistPostwithOrderStatus:@"3" SearchWord:searchText];
+    BBUserDefault.keyWord = searchText;
 }
 
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self.view endEditing:YES];
-    
-    [self.bgview removeFromSuperview];
-    
-    
-}
--(void)viewWillDisappear:(BOOL)animated{
-    
-    [SVProgressHUD dismiss];
-    
-}
-
-
-//重写返回方法
--(void)backAction{
-    
-    [self poptoUIViewControllerNibName:@"ZFPersonalViewController" AndObjectIndex:0];
-    
-}
 
 //既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -2278,28 +2217,28 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
         }
     }
-   
-    
-
 }
 
 #pragma mark - CYLTableViewPlaceHolderDelegate Method
-- (UIView *)makePlaceHolderView {
-    
-    UIView *weChatStyle = [self weChatStylePlaceHolder];
-    return weChatStyle;
-}
-
-//暂无数据
-- (UIView *)weChatStylePlaceHolder {
-    _weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.zfb_tableView.frame];
-    _weChatStylePlaceHolder.delegate = self;
-    return _weChatStylePlaceHolder;
-}
 
 -(void)dealloc
 {
     BBUserDefault.keyWord = @"";
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+    [self.bgview removeFromSuperview];
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [SVProgressHUD dismiss];
+}
+
+//重写返回方法
+-(void)backAction{
+    
+    [self poptoUIViewControllerNibName:@"ZFPersonalViewController" AndObjectIndex:0];
 }
 
 

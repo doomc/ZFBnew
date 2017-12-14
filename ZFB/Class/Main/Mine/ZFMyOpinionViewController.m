@@ -39,10 +39,7 @@
 {
     [super headerRefresh];
     [self feedOpinionPostRequst];
-
 }
-
-
 
 -(UITableView *)tableView
 {
@@ -64,7 +61,6 @@
     
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     return 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -131,9 +127,6 @@
             }
             
             [self.tableView reloadData];
-//            if ([self isEmptyArray:self.listArray]) {
-//                [self.tableView cyl_reloadData];
-//            }
             [SVProgressHUD dismiss];
 
         }

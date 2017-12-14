@@ -861,6 +861,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     payVC.notifyUrl = _notify_url;
     payVC.signDic = dic;
     payVC.payParam = payDealParam;
+    payVC.isOrderDeal = YES;
+    
     [self.navigationController pushViewController:payVC animated:NO];
     
 }

@@ -4,7 +4,7 @@
 //
 //  Created by  展富宝  on 2017/8/10.
 //  Copyright © 2017年 com.zfb. All rights reserved.
-//  新评价晒单（单个商品）
+//  新晒单（单个商品）
 
 
 #import "ZFEvaluateGoodsViewController.h"
@@ -125,9 +125,7 @@
     if (_upImgArray.count > 0) {
         _imgComment = @"1";
     }
-    [self.tableview reloadData];
-    
- 
+    [self.tableview reloadData]; 
 }
 //刷新高度
 -(void)reloadCellHeight:(CGFloat)cellHeight

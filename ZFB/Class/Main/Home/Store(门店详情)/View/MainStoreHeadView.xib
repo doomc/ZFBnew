@@ -18,11 +18,17 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qsk-01-IBZ">
                     <rect key="frame" x="0.0" y="0.0" width="415" height="130"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b8E-YB-cEb">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b8E-YB-cEb">
                             <rect key="frame" x="0.0" y="0.0" width="415" height="130"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="130" id="djP-X1-8u6"/>
+                            </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="storebanner_mask.png" translatesAutoresizingMaskIntoConstraints="NO" id="09n-Bk-hh7">
                             <rect key="frame" x="0.0" y="0.0" width="415" height="130"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="130" id="RRi-2I-d1Z"/>
+                            </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0WI-Qd-UBi">
                             <rect key="frame" x="20" y="65" width="50" height="50"/>

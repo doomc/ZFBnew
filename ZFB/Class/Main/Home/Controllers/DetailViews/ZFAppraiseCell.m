@@ -8,6 +8,8 @@
 
 #import "ZFAppraiseCell.h"
 #import "ApprariseCollectionViewCell.h"
+#import "NSString+EnCode.h"
+
 @interface ZFAppraiseCell ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionLayoutHeight;
@@ -39,7 +41,7 @@
     _infoList = infoList;
     self.mutImgArray = _infoList.evaluteImages;
     self.lb_nickName.text = _infoList.userName;
-    self.lb_message.text = _infoList.reviewsText;
+    self.lb_message.text = [_infoList.reviewsText decodedString];
     self.lb_detailtext.text = [NSString stringWithFormat:@"%@之前,来自%@",_infoList.createDate,_infoList.equip];
     [self.img_appraiseView sd_setImageWithURL:[NSURL URLWithString:_infoList.userAvatarImg] placeholderImage:nil];
     

@@ -7,6 +7,7 @@
 //
 
 #import "GoodsEvaluateCell.h"
+#import "NSString+EnCode.h"
 
 @implementation GoodsEvaluateCell
 
@@ -25,9 +26,13 @@
 {
     _infoList  = infoList;
     _lb_name.text  = infoList.userName;
-    _lb_content.text = infoList.reviewsText;
+    _lb_content.text = [infoList.reviewsText decodedString];
     _lb_time.text = infoList.createDate;
     [_headImg sd_setImageWithURL:[NSURL URLWithString:infoList.userAvatarImg] placeholderImage:[UIImage imageNamed:@"head"]];
+
+    
+    
+    
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

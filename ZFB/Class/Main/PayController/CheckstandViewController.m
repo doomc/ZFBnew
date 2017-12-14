@@ -19,8 +19,8 @@
 //支付跳转
 #import "DetailPayCashViewController.h"//支付失败
 #import "DetailPaySuccessViewController.h"//支付成功
-
-
+#import "ZFAllOrderViewController.h"
+#import "ZFBaseNavigationViewController.h"
 @interface CheckstandViewController () <UITableViewDelegate,UITableViewDataSource>
 {
     NSString * _balance;
@@ -92,7 +92,29 @@
 #pragma mark - 返回跳转到我的订单
 -(void)backAction
 {
-    [self poptoUIViewControllerNibName:@"GoodsDeltailViewController" AndObjectIndex:2];
+    //已经下单了  返回全部订单
+//    if (_isOrderDeal == YES) {
+//        ZFAllOrderViewController * allVC = [ZFAllOrderViewController new];
+//        allVC.orderType = OrderTypeAllOrder;
+//        allVC.buttonTitle = @"全部订单";
+//        allVC.orderStatus = @"";//默认状态
+//
+//        ZFBaseNavigationViewController * nav = [[ZFBaseNavigationViewController alloc]initWithRootViewController:allVC];
+//        [self.navigationController presentViewController:nav animated:NO completion:^{
+//
+//            UIImage *image = [UIImage imageNamed:@"nav64_gray"];
+//            [nav.navigationBar  setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+//            [nav.navigationBar  setBarTintColor:[UIColor clearColor]];
+//            [nav.navigationBar  setShadowImage:[UIImage new]];
+//            [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HEXCOLOR(0x333333),NSFontAttributeName:[UIFont systemFontOfSize:15.0]}];
+//        }];
+//
+//    }else//否则返回上一级
+//    {
+//        [self poptoUIViewControllerNibName:@"GoodsDeltailViewController" AndObjectIndex:2];
+//    }
+    [self poptoUIViewControllerNibName:@"ZFAllOrderViewController" AndObjectIndex:2];
+
 }
 
 - (void)cancel {

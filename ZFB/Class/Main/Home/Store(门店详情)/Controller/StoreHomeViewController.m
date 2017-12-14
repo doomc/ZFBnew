@@ -194,9 +194,12 @@
  */
 -(void)didClickCouponlistIndex:(NSInteger)index andCouponId:(NSString *)couponId
 {
-    NSLog(@"index == =%ld",index);
-    //领取优惠券  接口
-   [self getCouponesPostRequst:couponId];
+    if (BBUserDefault.isLogin == 1) {
+        //领取优惠券  接口
+        [self getCouponesPostRequst:couponId];
+    }else{
+        [self isNotLoginWithTabbar:YES];
+    }
 }
 
 #pragma mark - 点击领取优惠券    recomment/receiveCoupon
@@ -323,11 +326,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    if (BBUserDefault.isLogin == 1) {
-        //登录后才有优惠券
-        [self recommentPostRequst:@"0"];
-    }
-    
+    //有优惠券列表
+    [self recommentPostRequst:@"0"];
 }
 //既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

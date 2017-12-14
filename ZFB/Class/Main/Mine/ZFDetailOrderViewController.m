@@ -611,6 +611,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
     payVC.notifyUrl = _thirdUrlDic[@"notify_url"];
     payVC.signDic = dic;
     payVC.payParam = payDealParam;
+    payVC.isOrderDeal = NO;
     [self.navigationController pushViewController:payVC animated:NO];
     
 }

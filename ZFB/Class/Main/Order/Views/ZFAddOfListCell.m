@@ -42,40 +42,24 @@
     _defaultFlag = list.defaultFlag;
     if ( _defaultFlag == 1) {
         //设置默认
-        self.selectedButton.selected = YES;
+        [self.selectedButton setImage:[UIImage imageNamed:@"selected3"] forState:UIControlStateNormal];
     }else{
         //隐藏默认按钮
-        self.selectedButton.selected = NO;
+        [self.selectedButton setImage:[UIImage imageNamed:@"unchecked"] forState:UIControlStateNormal];
     }
  
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    
     // Configure the view for the selected state
-    if (selected) {
-        self.selectedButton.selected = YES;
-    }else{
-        self.selectedButton.selected = NO;
-    }
 }
 
 - (IBAction)selectAction:(UIButton*)sender {
-    sender.selected = !sender.selected;
-//    NSLog(@"======%ld======",sender.selected);
-    if (sender.selected) {
-        if (_defaultFlag == 1 ) {
-            self.selectedButton.selected = YES;
-        }else{
-            self.selectedButton.selected = NO;
-        }
+
+    //    NSLog(@"======%ld======",sender.selected);
+    if ([self.delegate respondsToSelector:@selector(selecteStatus:AndIndexPath:)]) {
+        [self.delegate selecteStatus:@"1" AndIndexPath:_indexPath];
     }
-    else{
-        self.selectedButton.selected = NO;
-    }
-//    if ([self.delegate respondsToSelector:@selector(selecteStatus:)]) {
-//        [self.delegate selecteStatus:sender.selected ];
-//    }
 }
 
 @end

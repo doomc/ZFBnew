@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "FSTextView.h"
 #import "UITextView+ZWLimitCounter.h"
+//表情处理
+#import "EmojiTextAttachment.h"
+#import "NSAttributedString+EmojiExtension.h"
+#import "NSString+EnCode.h"
 
 @protocol FeedTextViewCellDelegate <NSObject>
 

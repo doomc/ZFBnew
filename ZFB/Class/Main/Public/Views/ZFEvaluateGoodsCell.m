@@ -12,7 +12,13 @@
 #import "HXPhotoViewController.h"
 #import "HXPhotoView.h"
 
+//星星
 #import "XHStarRateView.h"
+
+//表情处理
+#import "EmojiTextAttachment.h"
+#import "NSAttributedString+EmojiExtension.h"
+#import "NSString+EnCode.h"
 
 @interface ZFEvaluateGoodsCell ()<UITextViewDelegate,HXPhotoViewDelegate,XHStarRateViewDelegate>
 
@@ -29,10 +35,11 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
     [self initPickerView];
     [self initTextView];
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    [self resetTextStyle];
  
     //创建评价
     XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(110, 90.5, _starView.width, 30) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:YES littleStar:@"0"];//da星星
@@ -66,7 +73,7 @@
 //        NSLog(@"----%@-----",textView.text);
     
         if ([self.delegate respondsToSelector:@selector(getTextViewValues:)]) {
-            [self.delegate getTextViewValues:textView.text];
+            [self.delegate getTextViewValues:[textView.text encodedString]];
         }
     }];
     
@@ -86,15 +93,6 @@
 {
     return YES;
     NSLog(@"结束编辑");
-}
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    return YES;
-}
-- (void)textViewDidChange:(UITextView *)textView
-{
-    NSLog(@"结束编辑 ------%@",textView.text);
-    
 }
 
 #pragma mark - initPickerView
@@ -157,12 +155,44 @@
         _manager.open3DTouchPreview = YES;
         _manager.cameraType         = HXPhotoManagerCameraTypeSystem;
         _manager.photoMaxNum        = 5;
-        _manager.maxNum             = 6;
+        _manager.maxNum             = 5;
         _manager.saveSystemAblum    = NO;
     }
     return _manager;
 }
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [self insertEmoji];
+}
 
+- (void)resetTextStyle {
+    //After changing text selection, should reset style.
+    NSRange wholeRange = NSMakeRange(0, _textView.textStorage.length);
+    [_textView.textStorage removeAttribute:NSFontAttributeName range:wholeRange];
+    [_textView.textStorage addAttribute:NSFontAttributeName value:_textView.font range:wholeRange];
+}
+
+-(void)insertEmoji
+{
+    //Create emoji attachment
+    EmojiTextAttachment *emojiTextAttachment = [EmojiTextAttachment new];
+    
+    NSAttributedString *str = [NSAttributedString attributedStringWithAttachment:emojiTextAttachment];
+    NSRange selectedRange = _textView.selectedRange;
+    if (selectedRange.length > 0) {
+        [_textView.textStorage deleteCharactersInRange:selectedRange];
+    }
+    //Insert emoji image
+    [_textView.textStorage insertAttributedString:str atIndex:_textView.selectedRange.location];
+    
+    _textView.selectedRange = NSMakeRange(_textView.selectedRange.location+1, 0); // self.textView.selectedRange.length
+    
+    //Move selection location
+    //_textView.selectedRange = NSMakeRange(_textView.selectedRange.location + 1, _textView.selectedRange.length);
+    
+    //Reset text style
+    [self resetTextStyle];
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

@@ -28,11 +28,12 @@
     
     _lb_title.text  = cashlist.transfer_description;
     _lb_time.text  = cashlist.create_time ;
-    if (cashlist.flow_pay_type == 0) {//流水支付类型 0支出 1 收入
-        _lb_price.text = [NSString stringWithFormat:@" -%.2f",cashlist.transaction_amount];
+    if (cashlist.flow_pay_type == 1) {//流水支付类型 0支出 1 收入
+        _lb_price.text = [NSString stringWithFormat:@" +%.2f",cashlist.transaction_amount];
 
     }else{
-        _lb_price.text = [NSString stringWithFormat:@" +%.2f",cashlist.transaction_amount];
+        _lb_price.text = [NSString stringWithFormat:@" -%.2f",cashlist.transaction_amount];
+
     }
     [_headImg sd_setImageWithURL:[NSURL URLWithString:cashlist.logo_url] placeholderImage:[UIImage imageNamed:@"head"]];
     

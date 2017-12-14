@@ -11,7 +11,9 @@
 #import "ZFAddOfListCell.h"
 #import "AddressListModel.h"
 @interface ZFAddressListViewController ()<UITableViewDataSource,UITableViewDelegate,AddressCellDelegate>
-
+{
+    NSString * _defaultFlag;//1默认地址  其他不是
+}
 @property (nonatomic,strong) UITableView * mytableView;
 @property (nonatomic,strong) NSMutableArray * listArray;
 @property (nonatomic,strong) NSMutableArray * tempCellArray;
@@ -111,16 +113,8 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    CGFloat actualHeight = [tableView fd_heightForCellWithIdentifier:@"ZFAddOfListCellid" cacheByIndexPath:indexPath configuration:^(ZFAddOfListCell *cell) {
-//
-//        [self configCell:cell indexPath:indexPath];
-//
-//    }];
-//    return actualHeight >= 114 ? actualHeight : 92;
-
     return 114;
 }
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZFAddOfListCell * addCell = [self.mytableView dequeueReusableCellWithIdentifier:@"ZFAddOfListCellid" forIndexPath:indexPath];
@@ -139,32 +133,19 @@
 {
     Useraddresslist * info = self.listArray[indexPath.section];
     cell.list = info;
-    
-    if ( cell.defaultFlag == 1) {
-        //设置默认
-        cell.selectedButton.selected = YES;
-    }else{
-        //隐藏默认按钮
-        cell.selectedButton.selected = NO;
-    }
-    
-
 }
 //当前选中的状态 暂时没有用到
--(void)selecteStatus :(BOOL)isSelected
+-(void)selecteStatus :(NSString *)isDefault AndIndexPath:(NSIndexPath *)indexPath
 {
-    //更改了状态的回调数据
-    [self.mytableView reloadData];
-    
+    _defaultFlag =  isDefault;
+    NSLog(@"选中 ===== %@",_defaultFlag);
+    Useraddresslist * info = self.listArray[indexPath.section];
+    [self savedInfoMessagePostRequstContactUserName:info.contactUserName contactMobilePhone:info.contactMobilePhone postAddress:info.postAddress replenish:info.replenish latitude:info.latitude longitude:info.longitude postAddressId:[NSString stringWithFormat:@"%ld",info.postAddressId]];
 }
 #pragma mark - AddressCellDelegate
 ///删除操作
 -(void)deleteAddress:(NSIndexPath *)indexPath
-//-(void)deleteAction :(ZFAddOfListCell *)cell
 {
-    
-//    [self.tempCellArray removeAllObjects];
-//    [self.tempCellArray addObject:cell];
     
     JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"确认删除？" message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -181,15 +162,13 @@
 
 }
 
-
 ///编辑操作
 -(void)editAction:(NSIndexPath * )indexPath
 {
     EditAddressViewController  * VC= [[EditAddressViewController alloc]init];
     if (self.listArray.count > 0 ) {
         
-        Useraddresslist * info = self.listArray[indexPath.row];
-        
+        Useraddresslist * info = self.listArray[indexPath.section];
         NSLog(@"info=====postAddressId %ld",info.postAddressId);
         VC.defaultFlag =  [NSString stringWithFormat:@"%ld",info.defaultFlag];  //是否默认
         VC.postAddressId =  [NSString stringWithFormat:@"%ld",info.postAddressId];//收货地址ID
@@ -234,9 +213,7 @@
                 [self.listArray removeAllObjects];
             }
             AddressListModel * list = [AddressListModel mj_objectWithKeyValues:response];
-            
             for (Useraddresslist * addresslist in list.addressList.userAddressList) {
-                
                 [self.listArray addObject:addresslist];
             }
             [self.mytableView reloadData];
@@ -265,11 +242,10 @@
                              };
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getDelUserAddressInfo",zfb_baseUrl] params:parma success:^(id response) {
         
-        if ([response[@"resultCode"] intValue ]== 0) {
+        if ([response[@"resultCode"] intValue ] == 0) {
           
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
             [self getuserInfoMessagePostRequst];
-            
         }
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
@@ -279,11 +255,47 @@
     }];
 }
 
- 
+#pragma mark -   保存用户信息saveUserAddressInfo
+-(void)savedInfoMessagePostRequstContactUserName:(NSString *)contactUserName
+                              contactMobilePhone:(NSString *)contactMobilePhone
+                                     postAddress:(NSString *)postAddress
+                                       replenish:(NSString *)replenish
+                                       latitude:(NSString *)latitude
+                                       longitude:(NSString *)longitude
+                                       postAddressId:(NSString *)postAddressId
+{
+    NSLog(@"_defaultFlag  ---------- %@",_defaultFlag);
+    NSDictionary * param = @{
+                             @"postAddressId":postAddressId,
+                             @"cmUserId":BBUserDefault.cmUserId,
+                             @"contactUserName":contactUserName,
+                             @"contactMobilePhone":contactMobilePhone,
+                             @"postAddress":postAddress,// 用户全收货地址    否
+                             @"replenish":replenish,
+                             @"mobilePhone":@"",
+                             @"zipCode":@"400000",// 邮政编号
+                             @"longitude":longitude,// 经度    否    6位小数
+                             @"latitude":latitude,// 纬度    否    6位小数
+                             @"defaultFlag":_defaultFlag,//是否为默认    否    1.是 2.否
+                             
+                             };
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/saveUserAddressInfo"] params:param success:^(id response) {
+        NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
+        if  ([code isEqualToString:@"0"]) {
+            
+            [self.mytableView reloadData];
+         }
+        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+
+    } progress:^(NSProgress *progeress) {
+    } failure:^(NSError *error) {
+        NSLog(@"error=====%@",error);
+        [self.view makeToast:@"网络错误" duration:2 position:@"center"];
+    }];
+    
+}
 -(void)viewWillAppear:(BOOL)animated{
-
     [self getuserInfoMessagePostRequst];
-
 }
 -(NSMutableArray *)listArray
 {

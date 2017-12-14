@@ -18,6 +18,7 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    [self resetTextStyle];
 
     self.textView.zw_limitCount = 150;//个数显示
     self.textView.zw_labHeight = 20;//高度
@@ -27,8 +28,7 @@
     [self.textView addTextDidChangeHandler:^(FSTextView *textView) {
         
         // 文本改变后的相应操作.
-        _textViewValues = textView.text;
-        
+        _textViewValues = [textView.text encodedString];
         [self.delegate textView:_textViewValues];
     }];
     // 添加到达最大限制Block回调.
@@ -37,26 +37,40 @@
     }];
  
 }
- 
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
-    NSLog(@"开始编辑");
-    return YES;
-}
-- (BOOL)textViewShouldEndEditing:(UITextView *)textView;
-{
-    return YES;
-    NSLog(@"结束编辑");
-}
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    return YES;
-}
-- (void)textViewDidChange:(UITextView *)textView
-{
-    NSLog(@"结束编辑 ------%@",textView.text);
 
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [self insertEmoji];
 }
+
+- (void)resetTextStyle {
+    //After changing text selection, should reset style.
+    NSRange wholeRange = NSMakeRange(0, _textView.textStorage.length);
+    [_textView.textStorage removeAttribute:NSFontAttributeName range:wholeRange];
+    [_textView.textStorage addAttribute:NSFontAttributeName value:_textView.font range:wholeRange];
+}
+-(void)insertEmoji
+{
+    //Create emoji attachment
+    EmojiTextAttachment *emojiTextAttachment = [EmojiTextAttachment new];
+    
+    NSAttributedString *str = [NSAttributedString attributedStringWithAttachment:emojiTextAttachment];
+    NSRange selectedRange = _textView.selectedRange;
+    if (selectedRange.length > 0) {
+        [_textView.textStorage deleteCharactersInRange:selectedRange];
+    }
+    //Insert emoji image
+    [_textView.textStorage insertAttributedString:str atIndex:_textView.selectedRange.location];
+    
+    _textView.selectedRange = NSMakeRange(_textView.selectedRange.location+1, 0); // self.textView.selectedRange.length
+    
+    //Move selection location
+    //_textView.selectedRange = NSMakeRange(_textView.selectedRange.location + 1, _textView.selectedRange.length);
+    
+    //Reset text style
+    [self resetTextStyle];
+}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

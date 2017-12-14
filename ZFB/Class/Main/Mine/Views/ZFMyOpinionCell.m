@@ -8,7 +8,7 @@
 
 #import "ZFMyOpinionCell.h"
 #import "FeedCollectionViewCell.h"
-
+#import "NSString+EnCode.h"
 @interface ZFMyOpinionCell ()< UICollectionViewDelegate,UICollectionViewDataSource >
  
 @end
@@ -52,7 +52,7 @@
     NSString*  timeSt = [dateTimeHelper TimeToLocationStr:detaildate];
     self.lb_time.text = timeSt;
     //描述
-    self.lb_title.text = feedList.feedbackContent;
+    self.lb_title.text = [feedList.feedbackContent decodedString];
     
     //图片
     _imagerray =  feedList.images;

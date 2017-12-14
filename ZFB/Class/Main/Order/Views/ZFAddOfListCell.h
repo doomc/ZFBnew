@@ -20,7 +20,7 @@
 -(void)editAction :(NSIndexPath *)indexPath ;
 
 //选择状态
--(void)selecteStatus :(BOOL)isSelected;
+-(void)selecteStatus :(NSString *)isDefault AndIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

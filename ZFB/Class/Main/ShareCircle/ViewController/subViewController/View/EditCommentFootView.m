@@ -53,7 +53,7 @@
 - (IBAction)publishBtn:(id)sender {
 
     [_commentTextView resignFirstResponder];
-    if ([self.footDelegate respondsToSelector:@selector(pushlishComment:WithContent::)]) {
+    if ([self.footDelegate respondsToSelector:@selector(pushlishComment:WithContent:)]) {
         [self.footDelegate pushlishComment:sender WithContent:_ecodeStr];
     }
 }

@@ -207,8 +207,8 @@ typedef NS_ENUM(NSUInteger, CheckType) {
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Cashflowlist * cashlist = self.accountList[indexPath.row];
     AccountListCell * cell = [self.zfb_tableView dequeueReusableCellWithIdentifier:@"AccountListCell" forIndexPath:indexPath];
+    Cashflowlist * cashlist = self.accountList[indexPath.row];
     cell.cashlist = cashlist;
     return cell;
     

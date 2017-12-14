@@ -18,4 +18,8 @@
 @property (nonatomic , copy) NSDictionary * signDic;//发起签名请求
 @property (nonatomic , copy) NSDictionary * payParam;//支付成功或者失败参数
 
+
+//判断是否已下单  策略返回
+@property (nonatomic , assign) BOOL  isOrderDeal;//判断是否已下单 yes 已下单 
+
 @end
