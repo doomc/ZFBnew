@@ -971,6 +971,12 @@
 		499659DA1F4AF45E00B297C4 /* FeedCommitPhoneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499659D81F4AF45E00B297C4 /* FeedCommitPhoneCell.xib */; };
 		499745111EE6959B00DA273B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 498DE0C81EE63C8700F64A61 /* libsqlite3.0.tbd */; };
 		499D150F1F67754300EB705B /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 499D150E1F67754300EB705B /* ChangePasswordViewController.m */; };
+		49A3065B1FE7A914008AA17A /* SearchStoreTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A3065A1FE7A914008AA17A /* SearchStoreTypeView.m */; };
+		49A3065D1FE7A976008AA17A /* SearchStoreTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49A3065C1FE7A976008AA17A /* SearchStoreTypeView.xib */; };
+		49A306601FE7B6D5008AA17A /* BandSelecteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A3065F1FE7B6D5008AA17A /* BandSelecteView.m */; };
+		49A306631FE7CAB8008AA17A /* SearchTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A306621FE7CAB8008AA17A /* SearchTabView.m */; };
+		49A306671FE7CE2C008AA17A /* ScreenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A306651FE7CE2C008AA17A /* ScreenCell.m */; };
+		49A306681FE7CE2C008AA17A /* ScreenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49A306661FE7CE2C008AA17A /* ScreenCell.xib */; };
 		49AA1B691F7A56DD00625FBA /* CalculateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AA1B671F7A56DD00625FBA /* CalculateCell.m */; };
 		49AA1B6A1F7A56DD00625FBA /* CalculateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AA1B681F7A56DD00625FBA /* CalculateCell.xib */; };
 		49AA1B6D1F7A582C00625FBA /* add_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 49AA1B6B1F7A582C00625FBA /* add_black.png */; };
@@ -1392,6 +1398,9 @@
 		49E917891FAAAA7E00867857 /* iOpenStoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E917871FAAAA7E00867857 /* iOpenStoreViewController.xib */; };
 		49E9178C1FAAC74400867857 /* CommonClassTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E9178B1FAAC74400867857 /* CommonClassTypeView.m */; };
 		49E917921FABFE7100867857 /* add_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 49E917911FABFE7000867857 /* add_photo.png */; };
+		49FC65891FE3A57900157103 /* SearchResultCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FC65881FE3A57900157103 /* SearchResultCollectionViewController.m */; };
+		49FC658D1FE3AD4500157103 /* SearchHasDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FC658B1FE3AD4500157103 /* SearchHasDataCell.m */; };
+		49FC658E1FE3AD4500157103 /* SearchHasDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49FC658C1FE3AD4500157103 /* SearchHasDataCell.xib */; };
 		49FCF8F41F70B6FF0001802D /* app.api.zavfb.com.cer in Resources */ = {isa = PBXBuildFile; fileRef = 49FCF8F31F70B6FF0001802D /* app.api.zavfb.com.cer */; };
 		50099B8D1F66C74800B348FD /* PayPassWordSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B8C1F66C74800B348FD /* PayPassWordSettingViewController.m */; };
 		50099B901F66CB5800B348FD /* SettingPayPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50099B8F1F66CB5800B348FD /* SettingPayPasswordViewController.m */; };
@@ -2975,6 +2984,16 @@
 		499659D81F4AF45E00B297C4 /* FeedCommitPhoneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCommitPhoneCell.xib; sourceTree = "<group>"; };
 		499D150D1F67754300EB705B /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		499D150E1F67754300EB705B /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		49A306591FE7A914008AA17A /* SearchStoreTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchStoreTypeView.h; sourceTree = "<group>"; };
+		49A3065A1FE7A914008AA17A /* SearchStoreTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchStoreTypeView.m; sourceTree = "<group>"; };
+		49A3065C1FE7A976008AA17A /* SearchStoreTypeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchStoreTypeView.xib; sourceTree = "<group>"; };
+		49A3065E1FE7B6D5008AA17A /* BandSelecteView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BandSelecteView.h; sourceTree = "<group>"; };
+		49A3065F1FE7B6D5008AA17A /* BandSelecteView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BandSelecteView.m; sourceTree = "<group>"; };
+		49A306611FE7CAB8008AA17A /* SearchTabView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchTabView.h; sourceTree = "<group>"; };
+		49A306621FE7CAB8008AA17A /* SearchTabView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchTabView.m; sourceTree = "<group>"; };
+		49A306641FE7CE2C008AA17A /* ScreenCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScreenCell.h; sourceTree = "<group>"; };
+		49A306651FE7CE2C008AA17A /* ScreenCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScreenCell.m; sourceTree = "<group>"; };
+		49A306661FE7CE2C008AA17A /* ScreenCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScreenCell.xib; sourceTree = "<group>"; };
 		49AA1B661F7A56DD00625FBA /* CalculateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculateCell.h; sourceTree = "<group>"; };
 		49AA1B671F7A56DD00625FBA /* CalculateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculateCell.m; sourceTree = "<group>"; };
 		49AA1B681F7A56DD00625FBA /* CalculateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalculateCell.xib; sourceTree = "<group>"; };
@@ -3649,6 +3668,11 @@
 		49E9178A1FAAC74400867857 /* CommonClassTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonClassTypeView.h; sourceTree = "<group>"; };
 		49E9178B1FAAC74400867857 /* CommonClassTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonClassTypeView.m; sourceTree = "<group>"; };
 		49E917911FABFE7000867857 /* add_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_photo.png; sourceTree = "<group>"; };
+		49FC65871FE3A57900157103 /* SearchResultCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResultCollectionViewController.h; sourceTree = "<group>"; };
+		49FC65881FE3A57900157103 /* SearchResultCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchResultCollectionViewController.m; sourceTree = "<group>"; };
+		49FC658A1FE3AD4500157103 /* SearchHasDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHasDataCell.h; sourceTree = "<group>"; };
+		49FC658B1FE3AD4500157103 /* SearchHasDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHasDataCell.m; sourceTree = "<group>"; };
+		49FC658C1FE3AD4500157103 /* SearchHasDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchHasDataCell.xib; sourceTree = "<group>"; };
 		49FCF8F31F70B6FF0001802D /* app.api.zavfb.com.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = app.api.zavfb.com.cer; sourceTree = "<group>"; };
 		50099B8B1F66C74800B348FD /* PayPassWordSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPassWordSettingViewController.h; sourceTree = "<group>"; };
 		50099B8C1F66C74800B348FD /* PayPassWordSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayPassWordSettingViewController.m; sourceTree = "<group>"; };
@@ -4798,9 +4822,6 @@
 				4956CEA51F16042A00DAD466 /* HotSearchCollectionViewCell.h */,
 				4956CEA61F16042A00DAD466 /* HotSearchCollectionViewCell.m */,
 				4956CEA71F16042A00DAD466 /* HotSearchCollectionViewCell.xib */,
-				49DA748F1F259BD8009F5577 /* SearchTypeView.h */,
-				49DA74901F259BD8009F5577 /* SearchTypeView.m */,
-				49DA74921F259BED009F5577 /* SearchTypeView.xib */,
 				49DA74A41F25CB9C009F5577 /* SearchTypeCollectionCell.h */,
 				49DA74A51F25CB9C009F5577 /* SearchTypeCollectionCell.m */,
 				49DA74A61F25CB9C009F5577 /* SearchTypeCollectionCell.xib */,
@@ -4812,6 +4833,22 @@
 				50B3811F1F3F70F2001ED3BA /* SearchHistoryCell.h */,
 				50B381201F3F70F2001ED3BA /* SearchHistoryCell.m */,
 				50B381211F3F70F2001ED3BA /* SearchHistoryCell.xib */,
+				49FC658A1FE3AD4500157103 /* SearchHasDataCell.h */,
+				49FC658B1FE3AD4500157103 /* SearchHasDataCell.m */,
+				49FC658C1FE3AD4500157103 /* SearchHasDataCell.xib */,
+				49DA748F1F259BD8009F5577 /* SearchTypeView.h */,
+				49DA74901F259BD8009F5577 /* SearchTypeView.m */,
+				49DA74921F259BED009F5577 /* SearchTypeView.xib */,
+				49A306591FE7A914008AA17A /* SearchStoreTypeView.h */,
+				49A3065A1FE7A914008AA17A /* SearchStoreTypeView.m */,
+				49A3065C1FE7A976008AA17A /* SearchStoreTypeView.xib */,
+				49A3065E1FE7B6D5008AA17A /* BandSelecteView.h */,
+				49A3065F1FE7B6D5008AA17A /* BandSelecteView.m */,
+				49A306611FE7CAB8008AA17A /* SearchTabView.h */,
+				49A306621FE7CAB8008AA17A /* SearchTabView.m */,
+				49A306641FE7CE2C008AA17A /* ScreenCell.h */,
+				49A306651FE7CE2C008AA17A /* ScreenCell.m */,
+				49A306661FE7CE2C008AA17A /* ScreenCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5477,6 +5514,8 @@
 				495EA43C1F14B64B001FCB7E /* HomeSearchBarViewController.m */,
 				495EA43D1F14B64B001FCB7E /* HomeSearchResultViewController.h */,
 				495EA43E1F14B64B001FCB7E /* HomeSearchResultViewController.m */,
+				49FC65871FE3A57900157103 /* SearchResultCollectionViewController.h */,
+				49FC65881FE3A57900157103 /* SearchResultCollectionViewController.m */,
 			);
 			name = "SearchBarController(搜索框)";
 			path = SearchBarController;
@@ -9095,6 +9134,7 @@
 				491871ED1F9DD6EA00536CD2 /* evaluate_waitting@3x.png in Resources */,
 				495EA73A1F14B64D001FCB7E /* blankpage_image_Sleep@2x.png in Resources */,
 				50B381151F3F5F92001ED3BA /* delete_black@2x.png in Resources */,
+				49FC658E1FE3AD4500157103 /* SearchHasDataCell.xib in Resources */,
 				4971869C1FA808450049D939 /* notice2@2x.png in Resources */,
 				49CFF3031FB2E1550087F74D /* coupon_get.png in Resources */,
 				495EA78B1F14B64D001FCB7E /* ZFGoodsFooterView.xib in Resources */,
@@ -9509,6 +9549,7 @@
 				495EA90A1F14B64E001FCB7E /* share_icon@2x.png in Resources */,
 				49CFF30B1FB2E1E80087F74D /* received.png in Resources */,
 				492C44841FD9247C00B778A0 /* like2@2x.png in Resources */,
+				49A3065D1FE7A976008AA17A /* SearchStoreTypeView.xib in Resources */,
 				491BDA091FD4F7D9006475E2 /* no_data.png in Resources */,
 				4919D8E51FBAF0B30098AD6A /* storeinf@3x.png in Resources */,
 				494419E41FA01E54006BAE39 /* share_black@2x.png in Resources */,
@@ -9608,6 +9649,7 @@
 				4919D8D31FBAEDDC0098AD6A /* collection2@3x.png in Resources */,
 				495EA8011F14B64D001FCB7E /* ZFSendSerViceViewController.xib in Resources */,
 				49AE8BFB1FB3F66C00B198DB /* edit@2x.png in Resources */,
+				49A306681FE7CE2C008AA17A /* ScreenCell.xib in Resources */,
 				495EA8991F14B64D001FCB7E /* passWord@3x.png in Resources */,
 				49AE17A41FB03698001A804E /* rmb@2x.png in Resources */,
 				49B299531FC272B600DF86E4 /* agree@2x.png in Resources */,
@@ -10084,6 +10126,7 @@
 				50CA6C351F72C8620077231B /* RightNavPopViewController.m in Sources */,
 				4971113C1FCFFCFC006585BA /* EditCommentViewController.m in Sources */,
 				495EA7A81F14B64D001FCB7E /* FuncListCollectionViewCell.m in Sources */,
+				49FC658D1FE3AD4500157103 /* SearchHasDataCell.m in Sources */,
 				49B299651FC2872C00DF86E4 /* StoreAllgoodsViewController.m in Sources */,
 				49E9171F1FA976A100867857 /* NIMTeamCardRowItem.m in Sources */,
 				4968A4021F4DB5290061A87E /* UIImage+NTESColor.m in Sources */,
@@ -10252,6 +10295,7 @@
 				50099B941F66CB7600B348FD /* TPPasswordTextView.m in Sources */,
 				49E917831FA9D47B00867857 /* iwantSendedViewController.m in Sources */,
 				49E916EA1FA976A100867857 /* NIMInputEmoticonParser.m in Sources */,
+				49FC65891FE3A57900157103 /* SearchResultCollectionViewController.m in Sources */,
 				495EA7741F14B64D001FCB7E /* ZFCollectionViewFlowLayout.m in Sources */,
 				495EA7F91F14B64D001FCB7E /* ZFSendHomeCell.m in Sources */,
 				495EA84D1F14B64D001FCB7E /* ShoppingCarModel.m in Sources */,
@@ -10259,6 +10303,7 @@
 				4971111A1FCFB042006585BA /* SendStatisticsTitleView.m in Sources */,
 				495EA7B21F14B64D001FCB7E /* HPLocationCell.m in Sources */,
 				4927189C1F1F5C6C002A7A54 /* WebViewJavascriptBridge_JS.m in Sources */,
+				49A306601FE7B6D5008AA17A /* BandSelecteView.m in Sources */,
 				49E917691FA9BAE900867857 /* QuickOperationCell.m in Sources */,
 				490E650C1FD6A2CC00B4BA64 /* ZFPregressCheckViewController.m in Sources */,
 				497111441FD008F1006585BA /* EditCommentModel.m in Sources */,
@@ -10370,6 +10415,7 @@
 				50252E461F9CF7140013AA7C /* WithDrawResultViewController.m in Sources */,
 				4968A43B1F4DB5290061A87E /* NTESSessionViewController.m in Sources */,
 				497EF7281F50468700BFF1AF /* IMSearchResultCell.m in Sources */,
+				49A306671FE7CE2C008AA17A /* ScreenCell.m in Sources */,
 				49E917191FA976A100867857 /* NIMLocationViewController.m in Sources */,
 				50D4D65A1F1BB6F70073DBC1 /* MPUploadImageHelper.m in Sources */,
 				493BDE241F6A75ED00CF31D0 /* MineShareViewController.m in Sources */,
@@ -10435,6 +10481,7 @@
 				49E9172E1FA976A100867857 /* NIMTimePickerView.m in Sources */,
 				495EA79D1F14B64D001FCB7E /* HomeADModel.m in Sources */,
 				495EA7751F14B64D001FCB7E /* DetailFindGoodsViewController.m in Sources */,
+				49A306631FE7CAB8008AA17A /* SearchTabView.m in Sources */,
 				4968A44C1F4DB5290061A87E /* NTESCADisplayLinkHolder.m in Sources */,
 				49E916E81FA976A100867857 /* NIMInputEmoticonContainerView.m in Sources */,
 				4968A3F21F4DB5290061A87E /* NTESCardPortraitCell.m in Sources */,
@@ -10509,6 +10556,7 @@
 				50B381041F3EFF25001ED3BA /* SGQRCodeScanningView.m in Sources */,
 				49E916DC1FA976A100867857 /* NIMGroupedData.m in Sources */,
 				49DFC49B1F9874A90080B6F7 /* PPBadgeLabel.m in Sources */,
+				49A3065B1FE7A914008AA17A /* SearchStoreTypeView.m in Sources */,
 				49E917121FA976A100867857 /* NIMSessionMessageContentView.m in Sources */,
 				495EA7451F14B64D001FCB7E /* NSString+Base64.m in Sources */,
 				4968A3FD1F4DB5290061A87E /* NSDictionary+NTESJson.m in Sources */,

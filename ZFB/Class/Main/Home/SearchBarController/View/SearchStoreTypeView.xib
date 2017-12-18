@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="u6I-5C-Ie0" customClass="SearchStoreTypeView">
+            <rect key="frame" x="0.0" y="0.0" width="337" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3ff-we-6ep">
+                    <rect key="frame" x="0.0" y="0.0" width="168.5" height="44"/>
+                    <subviews>
+                        <button opaque="NO" tag="2000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gc1-fD-Xeh">
+                            <rect key="frame" x="0.0" y="13" width="168.5" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="品牌" image="arrowdown_red.png">
+                                <color key="titleColor" red="0.97647058819999999" green="0.35294117650000001" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="selectedBand:" destination="u6I-5C-Ie0" eventType="touchUpInside" id="mQ2-BF-hyc"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Gc1-fD-Xeh" firstAttribute="centerY" secondItem="3ff-we-6ep" secondAttribute="centerY" id="C8J-uC-FEp"/>
+                        <constraint firstItem="Gc1-fD-Xeh" firstAttribute="leading" secondItem="3ff-we-6ep" secondAttribute="leading" id="ObJ-Ii-MGQ"/>
+                        <constraint firstAttribute="trailing" secondItem="Gc1-fD-Xeh" secondAttribute="trailing" id="rnV-jD-ESz"/>
+                        <constraint firstItem="Gc1-fD-Xeh" firstAttribute="centerX" secondItem="3ff-we-6ep" secondAttribute="centerX" id="zyb-sd-tEh"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mil-69-T3I">
+                    <rect key="frame" x="168.5" y="0.0" width="168.5" height="44"/>
+                    <subviews>
+                        <button opaque="NO" tag="2001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxH-RF-jHW">
+                            <rect key="frame" x="0.0" y="13" width="168.5" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="距离" image="arrowdown_black.png">
+                                <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="selectDistence:" destination="u6I-5C-Ie0" eventType="touchUpInside" id="vdJ-DH-187"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="mxH-RF-jHW" firstAttribute="leading" secondItem="mil-69-T3I" secondAttribute="leading" id="ta9-Kc-1sI"/>
+                        <constraint firstItem="mxH-RF-jHW" firstAttribute="centerX" secondItem="mil-69-T3I" secondAttribute="centerX" id="xfa-hv-pnO"/>
+                        <constraint firstAttribute="trailing" secondItem="mxH-RF-jHW" secondAttribute="trailing" id="ydE-Cj-veW"/>
+                        <constraint firstItem="mxH-RF-jHW" firstAttribute="centerY" secondItem="mil-69-T3I" secondAttribute="centerY" id="zVM-K8-hWf"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="3ff-we-6ep" secondAttribute="bottom" id="3z4-hC-Tg6"/>
+                <constraint firstItem="3ff-we-6ep" firstAttribute="leading" secondItem="u6I-5C-Ie0" secondAttribute="leading" id="7pl-Gh-DBD"/>
+                <constraint firstAttribute="trailing" secondItem="mil-69-T3I" secondAttribute="trailing" id="DnR-eL-x7W"/>
+                <constraint firstItem="3ff-we-6ep" firstAttribute="leading" secondItem="u6I-5C-Ie0" secondAttribute="leading" id="Iq4-Xt-7rn"/>
+                <constraint firstItem="mil-69-T3I" firstAttribute="height" secondItem="3ff-we-6ep" secondAttribute="height" id="KDe-c7-Lr9"/>
+                <constraint firstItem="mil-69-T3I" firstAttribute="leading" secondItem="3ff-we-6ep" secondAttribute="trailing" id="Npc-Db-Oui"/>
+                <constraint firstItem="3ff-we-6ep" firstAttribute="top" secondItem="u6I-5C-Ie0" secondAttribute="top" id="OUH-Td-fE8"/>
+                <constraint firstItem="mil-69-T3I" firstAttribute="width" secondItem="3ff-we-6ep" secondAttribute="width" id="P14-nX-Ta7"/>
+                <constraint firstItem="mil-69-T3I" firstAttribute="leading" secondItem="3ff-we-6ep" secondAttribute="trailing" id="WK1-KP-Eck"/>
+                <constraint firstAttribute="bottom" secondItem="mil-69-T3I" secondAttribute="bottom" id="hJq-ED-oDB"/>
+                <constraint firstItem="mil-69-T3I" firstAttribute="top" secondItem="u6I-5C-Ie0" secondAttribute="top" id="rKj-R6-FGK"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="brandBtn" destination="Gc1-fD-Xeh" id="xPx-a3-mFt"/>
+                <outlet property="distenceBtn" destination="mxH-RF-jHW" id="kXb-2W-ceb"/>
+            </connections>
+            <point key="canvasLocation" x="-189.5" y="-496"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrowdown_black.png" width="10" height="10"/>
+        <image name="arrowdown_red.png" width="6" height="4"/>
+    </resources>
+</document>

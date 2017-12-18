@@ -14,6 +14,7 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.img.clipsToBounds = YES;
 
 }
 

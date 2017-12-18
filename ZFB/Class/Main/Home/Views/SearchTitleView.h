@@ -16,11 +16,15 @@
 //搜索
 -(void)didSearch:(UIButton *)sender;
 
+//文字编辑
+-(void)didChangeText:(NSString *)text;
+
 @end
 @interface SearchTitleView : UIView
 
 @property (nonatomic , strong)  UITextField * tf_search ;
 @property (nonatomic , strong)  UIButton * selectTypeBtn ;
+@property (nonatomic , assign)  CGFloat leadingWidth ;
 @property (nonatomic , assign)  id <SearchTitleViewDelegate> delegate ;
 
 -(instancetype)initWithTitleViewFrame:(CGRect)frame;

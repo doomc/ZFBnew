@@ -34,7 +34,7 @@
     _boardView.layer.masksToBounds = YES;
     _boardView.layer.cornerRadius = 4;
     _boardView.layer.borderWidth = 1;
-    _boardView.layer.borderColor = HEXCOLOR(0x999999).CGColor;
+    _boardView.layer.borderColor = HEXCOLOR(0xcccccc).CGColor;
     [self addSubview:_boardView];
     
     _selectTypeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -48,10 +48,11 @@
     [_selectTypeBtn addTarget:self action:@selector(didselectedTypeBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.boardView addSubview:_selectTypeBtn];
     
-    _tf_search = [[UITextField alloc]initWithFrame:CGRectMake(50+10, 0, self.frame.size.width -40 -60, 36)];
+    _tf_search = [[UITextField alloc]initWithFrame:CGRectMake(_leadingWidth, 0, self.frame.size.width -40 -_leadingWidth, 36)];
     _tf_search.placeholder = @"搜索商品";
     _tf_search.delegate  = self;
     _tf_search.font = font;
+    [_tf_search addTarget:self action:@selector(textfFieldTextChange:) forControlEvents:UIControlEventEditingChanged];
     _tf_search.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.boardView addSubview:_tf_search];
     
@@ -62,9 +63,16 @@
     [self.boardView addSubview:searchBtn];
 }
 
--(void)textFieldDidBeginEditing:(UITextField *)textField
+-(void)textfFieldTextChange:(UITextField *)textField
 {
     //跳转
+    if ([self.delegate respondsToSelector:@selector(didChangeText:)]) {
+        [self.delegate didChangeText:textField.text];
+    }
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self.tf_search resignFirstResponder];
 }
 
 -(void)didSearchbtn:(UIButton*)sender

@@ -7,7 +7,9 @@
 //
 
 #import "HomeSearchBarViewController.h"
-#import "HomeSearchResultViewController.h"
+//#import "HomeSearchResultViewController.h"
+#import "SearchResultCollectionViewController.h"
+
 //view
 #import "YBPopupMenu.h"
 
@@ -16,41 +18,30 @@
 #import "SearchHistoryCell.h"
 //model
 #import "SearchLanelModel.h"
+#import "SearchTitleView.h"
 
 static NSString * identyfy = @"MKJTagViewTableViewCell";
 static NSString * identyhy = @"SearchHistoryCell";
 
-@interface HomeSearchBarViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate,SearchHistoryCellDelegate>
+@interface HomeSearchBarViewController ()<UITableViewDelegate,UITableViewDataSource,SearchTitleViewDelegate,YBPopupMenuDelegate,SearchHistoryCellDelegate>
 {
     NSString * _searchText;//搜索关键字
     NSString * _tagId;//搜索关键字
-    
+    NSInteger _selectedType;//选择类型 0 为商品,1为店铺
     
 }
-@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) SearchTitleView *titleView;
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) NSMutableArray  *tagList;//标签
 @property (nonatomic, strong) NSMutableArray  *tagIdArr;//标签id
-
-@property (nonatomic ,strong) UIButton * selectbutton;//选择方式
-@property (nonatomic ,strong) UIView   * titleView;
+@property (nonatomic ,strong) UIButton * searchButton;//搜索
+//@property (nonatomic ,strong) UIView   * titleView;
 
 @property (nonatomic ,strong) NSMutableArray *historyArray;
 @end
 
 @implementation HomeSearchBarViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    [self getGoodsLanelPOSTRequest];
-    
-    [self InitInterface];
-    
-    
-}
 #pragma mark - tableView
 -(UITableView *)tableView
 {
@@ -64,32 +55,6 @@ static NSString * identyhy = @"SearchHistoryCell";
     }
     return _tableView;
 }
-- (void)InitInterface{
-    
-    //nib
-    [self.tableView registerNib:[UINib nibWithNibName:identyhy bundle:nil] forCellReuseIdentifier:identyhy];
-    [self.tableView registerNib:[UINib nibWithNibName:identyfy bundle:nil] forCellReuseIdentifier:identyfy];
-    [self.view addSubview:_tableView];
-    
-    //创建titleView
-    _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
-    [_titleView addSubview:self.selectbutton];
-    [_titleView addSubview:self.searchBar];
-    self.navigationItem.titleView = _titleView;
-    
-    
-    
-    //返回
-    UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
-    left_button.frame =CGRectMake(0, 0,22,22);
-    [left_button setBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
-    [left_button addTarget:self action:@selector(dismissCurrentPage) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftItem1 = [[UIBarButtonItem alloc]initWithCustomView: left_button];
-    self.navigationItem.leftBarButtonItems = @[leftItem1];
-    
-    
-}
-
 -(NSMutableArray *)tagList
 {
     if (!_tagList) {
@@ -105,34 +70,107 @@ static NSString * identyhy = @"SearchHistoryCell";
     return _tagIdArr;
 }
 
--(UIButton *)selectbutton
-{
-    if (!_selectbutton) {
-        _selectbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _selectbutton.backgroundColor = HEXCOLOR(0xf95a70);
-        [_selectbutton setTitle:@"商品" forState:UIControlStateNormal];
-        _selectbutton.frame = CGRectMake(5, 7, 40, 30);
-        _selectbutton.titleLabel.font = [UIFont systemFontOfSize:14];
-        _selectbutton.layer.cornerRadius = 4;
-        _selectbutton.clipsToBounds = YES;
-        [_selectbutton addTarget:self action:@selector(selectTypeAction:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _selectbutton;
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    [self getGoodsLanelPOSTRequest];
+    
+    [self InitInterface];
+    
+    
 }
 
--(UISearchBar *)searchBar
-{
-    if (!_searchBar) {
-        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(50, 0, KScreenW - 2*50, 40)];
-        _searchBar.delegate = self;
-        _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
-        _searchBar.placeholder = @"搜索";
-        _searchBar.searchBarStyle = UISearchBarStyleMinimal;
-        UITextField *searchField = [_searchBar valueForKey:@"_searchField"];
-        searchField.font = SYSTEMFONT(14);
-    }
-    return _searchBar;
+- (void)InitInterface{
+    
+    //nib
+    [self.tableView registerNib:[UINib nibWithNibName:identyhy bundle:nil] forCellReuseIdentifier:identyhy];
+    [self.tableView registerNib:[UINib nibWithNibName:identyfy bundle:nil] forCellReuseIdentifier:identyfy];
+    [self.view addSubview:_tableView];
+    
+    //创建titleView
+    _titleView = [[SearchTitleView alloc]initWithTitleViewFrame:CGRectMake(0, 0, KScreenW - 100, 36)];
+    _titleView.delegate = self;
+    _titleView.leadingWidth = 60;
+     self.navigationItem.titleView = _titleView;
+    
+    _selectedType = 0;//默认为商品
 }
+-(UIButton *)set_leftButton
+{
+    //返回
+    UIButton *left_button = [UIButton buttonWithType:UIButtonTypeCustom];
+    left_button.frame =CGRectMake(0, 0,22,22);
+    [left_button setBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [left_button addTarget:self action:@selector(dismissCurrentPage) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem1 = [[UIBarButtonItem alloc]initWithCustomView: left_button];
+    self.navigationItem.leftBarButtonItems = @[leftItem1];
+    return left_button;
+}
+-(UIButton *)set_rightButton
+{
+    //搜索
+    _searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_searchButton setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
+    [_searchButton setTitle:@"搜索" forState:UIControlStateNormal];
+    _searchButton.frame = CGRectMake(5, 7, 40, 30);
+    _searchButton.titleLabel.font = SYSTEMFONT(14);
+    [_searchButton addTarget:self action:@selector(didSearch:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView: _searchButton];
+    self.navigationItem.rightBarButtonItems = @[rightItem];
+    return _searchButton;
+}
+//选择类型
+-(void)didSearchType:(UIButton *)sender
+{
+    [self selectTypeAction:sender];
+}
+
+//搜索
+-(void)didSearch:(UIButton *)sender
+{
+    if ([_searchText isEqualToString:@""] || _searchText == nil) {
+        JXTAlertController * alertavc =[JXTAlertController alertControllerWithTitle:@"提示" message:@"还没有搜索内容" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alertavc addAction:sureAction];
+        
+        [self presentViewController:alertavc animated:YES completion:nil];
+        
+    }else{
+        
+        //push操作
+        SearchResultCollectionViewController * reslutVC = [[SearchResultCollectionViewController alloc] init];
+        if (_selectedType == 0) {
+            reslutVC.searchType  = 0;//商品搜索
+        }
+        else {
+            reslutVC.searchType  = 1;//门店搜索
+        }
+//        reslutVC.resultsText =_searchText;
+        [self.navigationController pushViewController:reslutVC animated:NO];
+        
+        //关键字 save 到本地
+        NSMutableArray * tempArr = [NSMutableArray array];
+        if (self.historyArray) {
+            
+            tempArr = [self.historyArray mutableCopy];
+        }
+        [tempArr addObject:_searchText];
+        
+        BBUserDefault.searchHistoryArray = tempArr;//存到本地
+    }
+}
+//编辑
+-(void)didChangeText:(NSString *)text
+{
+    _searchText = text;
+    NSLog(@"text = %@",text);
+}
+
+
 
 
 #pragma mark -  UITableViewDelegate
@@ -142,29 +180,30 @@ static NSString * identyhy = @"SearchHistoryCell";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        
-        return [tableView fd_heightForCellWithIdentifier:identyfy configuration:^(id cell) {
-            
-            [self configCell:cell indexpath:indexPath];
-        }];
-        
+        if (_selectedType == 0) {//商品
+            return [tableView fd_heightForCellWithIdentifier:identyfy configuration:^(id cell) {
+                [self configCell:cell indexpath:indexPath];
+            }];
+        }else{
+            return 0;
+        }
+
     }
     return 50;
 }
 //设置区域的行数
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        
         return 1;
     }
-    
     return self.historyArray.count;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView * view = nil;
-    if (self.historyArray.count > 0) {
-        if (section == 0) {
+    if (_selectedType == 0) {//商品
+        if (section ==  0) {
+           
             view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
             view.backgroundColor = [UIColor whiteColor];
             UILabel * hotLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW, 40)];
@@ -173,28 +212,64 @@ static NSString * identyhy = @"SearchHistoryCell";
             hotLabel.textColor = HEXCOLOR(0x333333);
             [view addSubview:hotLabel];
             return  view;
+            
+        }else{
+            if (self.historyArray.count > 0) {
+                UIView * headView =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
+                UILabel* lb_title = [[ UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW, 40)];
+                lb_title.text = @"搜索历史";
+                lb_title.font = [UIFont systemFontOfSize:14];
+                lb_title.textColor = HEXCOLOR(0x363636);
+                [headView addSubview:lb_title];
+                view = headView;
+            }
         }
-        else{
-            UIView * headView =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
-            UILabel* lb_title = [[ UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW, 40)];
-            lb_title.text = @"搜索历史";
-            lb_title.font = [UIFont systemFontOfSize:14];
-            lb_title.textColor = HEXCOLOR(0x363636);
-            [headView addSubview:lb_title];
-            view = headView;
+    }else{//选择门店 隐藏热门搜索
+        if (section ==  0) {
+            return  view;
+        }else{
+            if (self.historyArray.count > 0) {
+                UIView * headView =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
+                UILabel* lb_title = [[ UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW, 40)];
+                lb_title.text = @"搜索历史";
+                lb_title.font = [UIFont systemFontOfSize:14];
+                lb_title.textColor = HEXCOLOR(0x363636);
+                [headView addSubview:lb_title];
+                view = headView;
+            }
         }
-        
     }
+
     return view;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     CGFloat height = 0.0001 ;
-    if (self.historyArray.count > 0) {
+    if (_selectedType == 0) {//商品
         if (section == 0 ) {
-             height = 40;
+            if (self.tagList.count > 0) {
+                height = 40;
+            }else{
+                height = 0;
+            }
+        }else{
+            if (self.historyArray.count > 0) {
+                height = 40;
+            }else{
+                height = 0;
+            }
         }
-        height = 40;
+    }else{//门店
+        if (section == 0 ) {
+            height = 0;
+           
+        }else{
+            if (self.historyArray.count > 0) {
+                height = 40;
+            }else{
+                height = 0;
+            }
+        }
     }
     return height;
   
@@ -205,14 +280,13 @@ static NSString * identyhy = @"SearchHistoryCell";
     
     if (section == 0) {
         return view;
- 
     }
     else{
         UIButton * footBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         footBtn.frame = CGRectMake(0, 0, KScreenW, 40);
         [footBtn setTitle:@"清空历史记录~" forState:UIControlStateNormal];
         footBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [footBtn setTitleColor:HEXCOLOR(0xf95a70) forState:UIControlStateNormal];
+        [footBtn setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
         [footBtn addTarget:self action:@selector(clearingAllhistoryData) forControlEvents:UIControlEventTouchUpInside];
         view = footBtn;
         
@@ -222,13 +296,10 @@ static NSString * identyhy = @"SearchHistoryCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     if (self.historyArray.count > 0) {
-        
         if (section == 0) {
-        
             return 0.001;
         }
         return 44;
-
     }
     return 0;
 }
@@ -238,11 +309,12 @@ static NSString * identyhy = @"SearchHistoryCell";
     
     if (indexPath.section == 0) {
         MKJTagViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identyfy forIndexPath:indexPath];
-        
-        [self configCell:cell indexpath:indexPath];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        if (_selectedType == 0) {
+            cell.hidden = NO;
+            [self configCell:cell indexpath:indexPath];
+        }else{
+            cell.hidden = YES;
+        }
         return cell;
         
     }else{
@@ -286,16 +358,27 @@ static NSString * identyhy = @"SearchHistoryCell";
         _searchText =  self.tagList[index];
         _tagId  =  self.tagIdArr[index];
         
-        HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
-        reslutVC.searchType = self.selectbutton.titleLabel.text;
-        reslutVC.resultsText = _searchBar.text = _searchText;
+//        HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
+//        if (_selectedType == 0) {
+//            reslutVC.searchType  = @"商品";
+//        }  else {
+//            reslutVC.searchType  = @"店铺";
+//        }
+//        reslutVC.resultsText = _searchText;
+//        reslutVC.labelId = _tagId;
+        SearchResultCollectionViewController * reslutVC = [[SearchResultCollectionViewController alloc] init];
+        if (_selectedType == 0) {
+            reslutVC.searchType  = 0;//商品搜索
+        }
+        else {
+            reslutVC.searchType  = 1;//门店搜索
+        }
         reslutVC.labelId = _tagId;
-       
+        
         [self.navigationController pushViewController:reslutVC animated:NO];
         NSLog(@"点击了%ld  === %@ =====%@id ",index,_searchText,_tagId);
  
         [self.historyArray addObject:_searchText];
-        
         BBUserDefault.searchHistoryArray = self.historyArray;//存到本地
     };
     
@@ -307,74 +390,29 @@ static NSString * identyhy = @"SearchHistoryCell";
     NSString * searchText = self.historyArray[indexPath.row];
     if (indexPath.section == 1) {
         //标签视图
-        HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
-        reslutVC.searchType = self.selectbutton.titleLabel.text;
-        reslutVC.resultsText = searchText;
-        [self.navigationController pushViewController:reslutVC animated:NO];
-        
-    }
-    
-}
-
-
-#pragma mark  - getProSearch 关键字搜索
-//以下的两个方法必须设置.searchBar.delegate 才可以
--(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    NSLog(@"开始编辑");
-    return YES;
-}
-
--(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
-    NSLog(@"结束编辑");
-    return YES;
-}
-
--(BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    
-    NSLog(@"正在编辑--- %@",text);
-    
-    return YES;
-}
-
-//当搜索框中的内容发生改变时会自动进行搜索,这个是经常用的
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
-    _searchText = searchText;
-}
-//在键盘中的搜索按钮的点击事件
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    NSLog(@"点击了搜索");
-    
-    if ([searchBar.text isEqualToString:@""]) {
-        JXTAlertController * alertavc =[JXTAlertController alertControllerWithTitle:@"提示" message:@"还有没有搜索内容" preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        [alertavc addAction:sureAction];
-        
-        [self presentViewController:alertavc animated:YES completion:nil];
-        
-    }else{
-        
-        //push操作
-        HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
-        reslutVC.searchType = self.selectbutton.titleLabel.text;
-        reslutVC.resultsText = searchBar.text;
-        [self.navigationController pushViewController:reslutVC animated:NO];
-        
-        //关键字 save 到本地
-        NSMutableArray * tempArr = [NSMutableArray array];
-        if (self.historyArray) {
-            
-            tempArr = [self.historyArray mutableCopy];
+//        HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
+//        if (_selectedType == 0) {
+//            reslutVC.searchType  = @"商品";
+//        }  else {
+//            reslutVC.searchType  = @"店铺";
+//        }
+//        reslutVC.resultsText = searchText;
+        SearchResultCollectionViewController * reslutVC = [[SearchResultCollectionViewController alloc] init];
+        if (_selectedType == 0) {
+            reslutVC.searchType  = 0;//商品搜索
         }
-        [tempArr addObject:searchBar.text];
+        else {
+            reslutVC.searchType  = 1;//门店搜索
+        }
+        reslutVC.labelId = _tagId;
+        [self.navigationController pushViewController:reslutVC animated:NO];
         
-        BBUserDefault.searchHistoryArray = tempArr;//存到本地
     }
+    
 }
+
+
+
 
 
 #pragma mark -  选择搜索类型
@@ -382,28 +420,25 @@ static NSString * identyhy = @"SearchHistoryCell";
 {
     [YBPopupMenu showRelyOnView:sender titles:TITLES  icons:nil menuWidth:70 otherSettings:^(YBPopupMenu *popupMenu) {
         popupMenu.priorityDirection = YBPopupMenuPriorityDirectionBottom;
-        popupMenu.borderWidth = 0.5;
-        popupMenu.arrowHeight = 5;
-        popupMenu.arrowWidth  = 10;
-        popupMenu.fontSize = 14;
+        popupMenu.isShowShadow = YES;
         popupMenu.delegate = self;
-        popupMenu.borderColor = HEXCOLOR(0xf95a70);
+        popupMenu.offset = 10;
+        popupMenu.type = YBPopupMenuTypeDark;
     }];
 }
 #pragma mark - YBPopupMenuDelegate
 - (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu
 {
     NSLog(@"点击了 %@ 选项",TITLES[index]);
-    
-    [_selectbutton setTitle:TITLES[index] forState:UIControlStateNormal];
-    
+    _selectedType = index;
+    [_titleView.selectTypeBtn setTitle:TITLES[index] forState:UIControlStateNormal];
+    [self.tableView reloadData];
 }
 
 
 #pragma mark  - getGoodsLanel用于查找商品-商品标签
 -(void)getGoodsLanelPOSTRequest
 {
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsLanel",zfb_baseUrl] params:nil success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {

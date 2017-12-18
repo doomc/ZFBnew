@@ -19,7 +19,6 @@
 #import "SearchNoResultModel.h"//搜索无数据的模型
 #import "BrandListModel.h"//品牌模型
 //vc
-//#import "DetailFindGoodsViewController.h"
 #import "GoodsDeltailViewController.h"
 
 @interface HomeSearchResultViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,SearchTypeCollectionViewDelegate,SearchTypeViewDelegate >
@@ -287,9 +286,7 @@
 {
     
     button.selected = !button.selected;
-    
     button.selected  = _salesSort > 0 ?  1 : 0;
-    
     [self SearchgoodsPOSTRequestAndsearchText:_searchBar.text brandId:_brandId orderByPrice:[NSString stringWithFormat:@"%ld",_priceSort] orderBySales:[NSString stringWithFormat:@"%ld",_salesSort] labelId:_labelId isFeatured:@"" goodsType:_goodsType ];
 
 }
@@ -334,7 +331,7 @@
 {
     if (self.tableView == tableView) {
         if (section == 1) {
-            return 40;
+            return 50;
         }
         return 0.001;
 
@@ -344,28 +341,17 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    
     UIView *headView = nil;
-    UIFont *font     = [UIFont systemFontOfSize:14];
-    
     if (self.tableView == tableView) {
-      
         if (section== 1) {
-            
-            headView = [[UIView alloc] initWithFrame:CGRectMake(30, 0, KScreenW, 35)];
-            [headView setBackgroundColor:HEXCOLOR(0xf7f7f7)];
-            
-            UILabel * title     = [[UILabel alloc] initWithFrame:CGRectMake(35.0f, 5.0f, 200.0f, 30.0f)];
+            headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenW, 50)];
+            [headView setBackgroundColor:HEXCOLOR(0xffffff)];
+            UILabel * title     = [[UILabel alloc] initWithFrame:headView.frame];
             title.textColor     = HEXCOLOR(0x333333);
-            title.textAlignment = NSTextAlignmentLeft;
+            title.textAlignment = NSTextAlignmentCenter;
             title.text          = @"为你精选";
-            title.font          = font;
+            title.font          = [UIFont systemFontOfSize:14];
             [headView addSubview:title];
-            
-            UIImageView * logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"diamond"] ];//logo
-            logo.frame = CGRectMake(5, 5, 30, 30);
-            [headView addSubview:logo];
-
             return headView;
         }
   
@@ -413,7 +399,6 @@
     [self.searchBar resignFirstResponder];
     
     NSLog(@" sction1 == %ld  ---  row1 == %ld",indexPath.section ,indexPath.row);
-
     
     GoodsDeltailViewController * detailVC = [GoodsDeltailViewController new];
 
@@ -667,27 +652,17 @@
     
         if ([response[@"resultCode"]  isEqualToString: @"0"]) {
             if (self.refreshType  == RefreshTypeHeader) {
-                
                 if ( self.noResultArray.count > 0) {
-                    
                     [self.noResultArray removeAllObjects];
-                    
                 }
-                
             }
             SearchNoResultModel  * nodata = [SearchNoResultModel mj_objectWithKeyValues:response];
-            
             NSInteger totalcount = nodata.data.totalCount ;
-            
             NSLog(@"totala = = = %ld",totalcount);
-            
             for (SearchFindgoodslist * goodlist in nodata.data.findGoodsList) {
-                
                 [self.noResultArray addObject:goodlist];
-                
             }
             [self.tableView reloadData];
-            
             [SVProgressHUD dismiss];
             [self endRefresh];
             
@@ -733,9 +708,12 @@
     
 
 }
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+
     [self.searchBar resignFirstResponder];
 }
+
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];

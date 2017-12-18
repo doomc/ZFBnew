@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,14 +18,13 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0D-8l-KVd">
                     <rect key="frame" x="0.0" y="0.0" width="112.5" height="44"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowdown_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="d0S-D0-1JZ">
-                            <rect key="frame" x="72" y="16.5" width="10" height="10"/>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdN-bh-Okc">
-                            <rect key="frame" x="41" y="7" width="31" height="30"/>
+                        <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdN-bh-Okc">
+                            <rect key="frame" x="0.0" y="13" width="112.5" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="品牌">
-                                <color key="titleColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="品牌" image="arrowdown_red.png">
+                                <color key="titleColor" red="0.97647058823529409" green="0.3529411764705882" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="brandListAction:" destination="I3F-j1-qd3" eventType="touchUpInside" id="6Rk-UV-Xgq"/>
@@ -36,46 +35,44 @@
                     <constraints>
                         <constraint firstItem="fdN-bh-Okc" firstAttribute="centerY" secondItem="f0D-8l-KVd" secondAttribute="centerY" id="DPL-C8-4I4"/>
                         <constraint firstItem="fdN-bh-Okc" firstAttribute="centerX" secondItem="f0D-8l-KVd" secondAttribute="centerX" id="JhF-qs-yc0"/>
-                        <constraint firstItem="d0S-D0-1JZ" firstAttribute="leading" secondItem="fdN-bh-Okc" secondAttribute="trailing" id="bC0-M9-Kbo"/>
-                        <constraint firstItem="d0S-D0-1JZ" firstAttribute="centerY" secondItem="fdN-bh-Okc" secondAttribute="centerY" id="hTA-9U-Uqc"/>
+                        <constraint firstItem="fdN-bh-Okc" firstAttribute="leading" secondItem="f0D-8l-KVd" secondAttribute="leading" id="KI1-k1-HNU"/>
+                        <constraint firstAttribute="trailing" secondItem="fdN-bh-Okc" secondAttribute="trailing" id="xok-cD-uIS"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCU-00-NzF">
                     <rect key="frame" x="112.5" y="0.0" width="112" height="44"/>
                     <subviews>
-                        <button opaque="NO" tag="201" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYO-6k-cRp">
-                            <rect key="frame" x="40.5" y="7" width="31" height="30"/>
+                        <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYO-6k-cRp">
+                            <rect key="frame" x="0.0" y="13" width="112" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="价格">
-                                <color key="titleColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="价格" image="arrowdown_black.png">
+                                <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="priceSortAction:" destination="I3F-j1-qd3" eventType="touchUpInside" id="GNJ-vW-XZg"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowdown_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="tC0-Eh-gpf">
-                            <rect key="frame" x="71.5" y="17" width="10" height="10"/>
-                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="GYO-6k-cRp" firstAttribute="leading" secondItem="XCU-00-NzF" secondAttribute="leading" id="52Q-pg-eYP"/>
                         <constraint firstItem="GYO-6k-cRp" firstAttribute="centerX" secondItem="XCU-00-NzF" secondAttribute="centerX" id="Ajl-31-cEy"/>
-                        <constraint firstItem="tC0-Eh-gpf" firstAttribute="centerY" secondItem="GYO-6k-cRp" secondAttribute="centerY" id="Guw-Lp-CPI"/>
-                        <constraint firstItem="tC0-Eh-gpf" firstAttribute="leading" secondItem="GYO-6k-cRp" secondAttribute="trailing" id="QUy-yO-g6Q"/>
                         <constraint firstItem="GYO-6k-cRp" firstAttribute="centerY" secondItem="XCU-00-NzF" secondAttribute="centerY" id="eF5-aD-2Wd"/>
+                        <constraint firstAttribute="trailing" secondItem="GYO-6k-cRp" secondAttribute="trailing" id="ecL-oL-t9c"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DpN-Ey-ZrE">
                     <rect key="frame" x="224.5" y="0.0" width="112.5" height="44"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowdown_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="Eh3-P4-c4W">
-                            <rect key="frame" x="72" y="17" width="10" height="10"/>
-                        </imageView>
-                        <button opaque="NO" tag="202" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3g-PA-JUZ">
-                            <rect key="frame" x="41" y="7" width="31" height="30"/>
+                        <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3g-PA-JUZ">
+                            <rect key="frame" x="0.0" y="13" width="112.5" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="销量">
-                                <color key="titleColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="销量" image="arrowdown_black.png">
+                                <color key="titleColor" red="0.55294117647058827" green="0.55294117647058827" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="salesSortAction:" destination="I3F-j1-qd3" eventType="touchUpInside" id="SI2-DK-FLd"/>
@@ -84,10 +81,10 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="Eh3-P4-c4W" firstAttribute="leading" secondItem="G3g-PA-JUZ" secondAttribute="trailing" id="CI0-fP-ui5"/>
                         <constraint firstItem="G3g-PA-JUZ" firstAttribute="centerY" secondItem="DpN-Ey-ZrE" secondAttribute="centerY" id="FKq-r9-Kyf"/>
-                        <constraint firstItem="Eh3-P4-c4W" firstAttribute="centerY" secondItem="G3g-PA-JUZ" secondAttribute="centerY" id="X7b-1q-KN7"/>
+                        <constraint firstItem="G3g-PA-JUZ" firstAttribute="leading" secondItem="DpN-Ey-ZrE" secondAttribute="leading" id="XAI-2i-2uB"/>
                         <constraint firstItem="G3g-PA-JUZ" firstAttribute="centerX" secondItem="DpN-Ey-ZrE" secondAttribute="centerX" id="YiU-uw-Eb0"/>
+                        <constraint firstAttribute="trailing" secondItem="G3g-PA-JUZ" secondAttribute="trailing" id="gGw-3b-1VD"/>
                     </constraints>
                 </view>
             </subviews>
@@ -122,5 +119,6 @@
     </objects>
     <resources>
         <image name="arrowdown_black.png" width="10" height="10"/>
+        <image name="arrowdown_red.png" width="6" height="4"/>
     </resources>
 </document>

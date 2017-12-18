@@ -119,6 +119,27 @@ typedef NS_ENUM(NSUInteger, GoodsParamType ) {
 };
 
 
+/**
+ 商品搜索类型
+ 
+ */
+typedef NS_ENUM(NSUInteger, GoodsSearchType ) {
+    GoodsSearchTypeBand = 0, //品牌
+    GoodsSearchTypePrice,//价格  从高到底 从低到高
+    GoodsSearchTypeSales,//销量   从高到底 从低到高
+    
+};
+/**
+ 门店搜索类型
+ 
+ */
+typedef NS_ENUM(NSUInteger, StoreSearchType ) {
+    StoreSearchTypeBand = 0, //品牌
+    StoreSearchTypeDistence ,//距离  三千米以内 5 10
+ 
+};
+
+
 @interface ZFEnum : NSObject
 
 @end

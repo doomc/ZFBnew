@@ -133,13 +133,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
     self.tf_storeName.delegate = self;
     [self.tf_storeName addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
 
-    //联系人
-//    self.tf_contactName.layer.masksToBounds = YES;
-//    self.tf_contactName.layer.cornerRadius = 4;
-//    self.tf_contactName.layer.borderWidth = 1;
-//    self.tf_contactName.layer.borderColor = HEXCOLOR(0xbbbbbb).CGColor;
-//    self.tf_contactName.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 0)];
-//    self.tf_contactName.leftViewMode = UITextFieldViewModeAlways;
+
     self.tf_contactName.delegate = self;
     [self.tf_contactName addTarget:self action:@selector(textfieldChange:) forControlEvents:UIControlEventEditingChanged];
     
@@ -276,10 +270,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                 [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
                     NSLog(@"%@",names);
                     if (state == 1) {
-//                        _liceseImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
-
                         _liceseImgUrl =[NSString stringWithFormat:@"%@", names[0]];
-//                        _faceSuccess = YES;
                     }
                 }];
             }
@@ -290,8 +281,6 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                 [OSSImageUploader asyncUploadImage:images[0] complete:^(NSArray<NSString *> *names, UploadImageState state) {
                     NSLog(@"%@",names);
                     if (state == 1) {
-//                        _idCardImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
-
                         _idCardImgUrl =[NSString stringWithFormat:@"%@", names[0]];
                     }
                 }];
@@ -304,7 +293,6 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                     NSLog(@"%@",names);
                     if (state == 1) {
                         _openLiceseImgUrl =[NSString stringWithFormat:@"%@", names[0]];
-//                        _openLiceseImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
                     }
                 }];
             }
@@ -317,9 +305,6 @@ typedef NS_ENUM(NSUInteger, PickerType) {
                     NSLog(@"%@",names);
                     if (state == 1) {
                         _commitmentImgUrl = [NSString stringWithFormat:@"%@", names[0]];
-//                        _commitmentImgUrl =[NSString stringWithFormat:@"%@%@",aliOSS_baseUrl, names[0]];
-
-                        //                        _backSuccess = YES;
                     }
                 }];
             }
@@ -333,11 +318,11 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 #pragma mark - 主题类型 1级2级列表
 //1级列表
 - (IBAction)themeTypeOneClass:(UIButton *)sender {
- 
+
     if (_isSelectedBtn == YES) {
         return;
     }else{
-
+        
         [self removeFromtoSuperView];
         [self.themeType_btn setBackgroundColor:HEXCOLOR(0xf7f7f7)] ;//1级
         [self.themeMan_btn setBackgroundColor:HEXCOLOR(0xffffff)] ;
@@ -352,7 +337,7 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 - (IBAction)themeTypeTwoClass:(id)sender {
   
     if (_isSelectedBtn == YES ) {
-        if ( _isSureFirst == YES  && _onceTypeID.length > 0) {
+        if ( _isSureFirst == YES  && _onceTypeID.length > 0) {//第一个类型确定后
             [self.themeMan_btn setBackgroundColor:HEXCOLOR(0xf7f7f7)] ;
             [self.themeType_btn setBackgroundColor:HEXCOLOR(0xffffff)] ;
             [self secondClassListWithGoodTypePostRequsetTypeid:_onceTypeID];
@@ -363,10 +348,17 @@ typedef NS_ENUM(NSUInteger, PickerType) {
             [self.view makeToast:@"请先选择主题分类" duration:2 position:@"center"];
         }
     } else{
-        [self.view makeToast:@"请先选择主题分类" duration:2 position:@"center"];
+        if (_themeTitle2.length>0) {
+            [self.themeMan_btn setBackgroundColor:HEXCOLOR(0xf7f7f7)] ;
+            [self.themeType_btn setBackgroundColor:HEXCOLOR(0xffffff)] ;
+            [self secondClassListWithGoodTypePostRequsetTypeid:_onceTypeID];
+        }
+        else{
+            [self.view makeToast:@"请先选择主题分类" duration:2 position:@"center"];
+
+        }
         _isSelectedBtn = NO;
         _isSureFirst = NO  ;//重新赋值第一级
-
         return;
     }
    
@@ -393,17 +385,24 @@ typedef NS_ENUM(NSUInteger, PickerType) {
 -(void)removeFromtoSuperView
 {
     [self.coverView removeFromSuperview];
+    _isSureFirst = NO;
+    _isSelectedBtn = NO;
 }
 //确定之后的操作
 -(void)selectedAfter
 {
     
-    if (_isThemeType == YES) {
+    if (_isThemeType == YES) {//一级类别
         
-        [self.themeType_btn setTitle:_themeTitle forState:UIControlStateNormal];
-        [self removeFromtoSuperView];
-        _isSureFirst = YES;
-        _isSelectedBtn = YES;
+        if (_themeTitle.length > 0) {
+            [self.themeType_btn setTitle:_themeTitle forState:UIControlStateNormal];
+            [self removeFromtoSuperView];
+            _isSureFirst = YES;
+            _isSelectedBtn = YES;
+        }else{
+            _isSureFirst = NO;
+            _isSelectedBtn = NO;
+        }
 
     }else{
         [self.themeMan_btn setTitle:_themeTitle2 forState:UIControlStateNormal];

@@ -25,6 +25,7 @@
     UITapGestureRecognizer * tap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didPicture:)];
     tap.delegate = self;
     _contentImgView.userInteractionEnabled = YES;
+    _contentImgView.clipsToBounds = YES;
     [_contentImgView addGestureRecognizer:tap];
 }
 

@@ -247,7 +247,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
             reason = clientName.length ? [NSString stringWithFormat:@"你的帐号被%@端踢出下线，请注意帐号信息安全",clientName] : @"你的帐号被踢出下线，请注意帐号信息安全";
             BBUserDefault.cmUserId = @"";
             BBUserDefault.isLogin = 0;
-//            [self isNotLoginWithTabbar:YES];
             break;
         }
         case NIMKickReasonByServer:
@@ -259,7 +258,8 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     [[[NIMSDK sharedSDK] loginManager] logout:^(NSError *error) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NTESNotificationLogout object:nil];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"下线通知" message:reason delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        
+        [self isNotLoginWithTabbar:YES];
+
         [self doLogout];
         [alert show];
     }];

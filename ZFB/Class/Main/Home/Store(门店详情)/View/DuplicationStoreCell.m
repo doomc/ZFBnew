@@ -41,4 +41,16 @@
     _lb_colltionNum.text = [NSString stringWithFormat:@"%@",anewGoods.collcetNumber];
     [_contentIMG sd_setImageWithURL:[NSURL URLWithString:anewGoods.coverImgUrl] placeholderImage: [UIImage imageNamed:@"300x300"]];
 }
+//搜索无结果，精选列表模型
+-(void)setSgoodlist:(SearchFindgoodslist *)sgoodlist
+{
+    _sgoodlist = sgoodlist;
+    _lb_price.text = [NSString stringWithFormat:@"¥%@",sgoodlist.priceTostr];
+    _lb_title.text =  sgoodlist.goodsName;
+    [_collect_btn setHidden: YES];
+    _lb_colltionNum.text = [NSString stringWithFormat:@"已售%ld件 ",sgoodlist.goodsSales];
+    [_contentIMG sd_setImageWithURL:[NSURL URLWithString:sgoodlist.coverImgUrl] placeholderImage: [UIImage imageNamed:@"300x300"]];
+ 
+    
+}
 @end

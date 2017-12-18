@@ -141,6 +141,8 @@
     NSLog(@"选中 ===== %@",_defaultFlag);
     Useraddresslist * info = self.listArray[indexPath.section];
     [self savedInfoMessagePostRequstContactUserName:info.contactUserName contactMobilePhone:info.contactMobilePhone postAddress:info.postAddress replenish:info.replenish latitude:info.latitude longitude:info.longitude postAddressId:[NSString stringWithFormat:@"%ld",info.postAddressId]];
+    [self.mytableView reloadData];
+    
 }
 #pragma mark - AddressCellDelegate
 ///删除操作
@@ -281,12 +283,10 @@
                              };
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/saveUserAddressInfo"] params:param success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
-        if  ([code isEqualToString:@"0"]) {
-            
+        if ([code isEqualToString:@"0"]) {
+            [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
             [self.mytableView reloadData];
-         }
-        [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
-
+        }
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
         NSLog(@"error=====%@",error);

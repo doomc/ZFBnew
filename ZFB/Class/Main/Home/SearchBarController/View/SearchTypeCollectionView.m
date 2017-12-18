@@ -27,7 +27,8 @@ static NSString * footIdentifier = @"SearchTypeFootReusableView";
         self.backgroundColor = [UIColor whiteColor];
         self.delegate = self;
         self.dataSource = self;
- 
+        self.showsVerticalScrollIndicator = NO;
+
         [self registerNib:[UINib nibWithNibName:@"SearchTypeCollectionCell" bundle:nil] forCellWithReuseIdentifier:identifier];
         //如果collectionView有头的话，那么写上它，注册collectionview的尾部视图，
         
@@ -77,7 +78,6 @@ static NSString * footIdentifier = @"SearchTypeFootReusableView";
 {
     NSLog(@"selcted item  ==== %ld",indexPath.item);
     BrandFindbrandlist * list = self.brandListArray[indexPath.item];
-   
     NSString * brandName =list.brandName;
     NSString * brandid = list.brandId;
     
@@ -86,8 +86,7 @@ static NSString * footIdentifier = @"SearchTypeFootReusableView";
     if ([self.typeDelegate respondsToSelector:@selector(didSelectedIndex:brandId:brandName:)]) {
         
         [self.typeDelegate didSelectedIndex:indexPath.item brandId:brandid brandName:brandName];
-        
-    }
+     }
    
     
 }
