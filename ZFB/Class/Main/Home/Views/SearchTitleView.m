@@ -17,11 +17,11 @@
 
 @implementation SearchTitleView
 
--(instancetype)initWithTitleViewFrame:(CGRect)frame
+-(instancetype)initWithTitleViewFrame:(CGRect)frame andLeadingWidth:(CGFloat)leadingWidth
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        self.leadingWidth = leadingWidth;
         [self titleViewUI];
     }
     return self;

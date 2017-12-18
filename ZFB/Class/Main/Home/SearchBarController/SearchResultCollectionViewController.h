@@ -16,5 +16,8 @@
 ///商品类别
 @property (nonatomic , copy) NSString * goodsType;
 
+@property (nonatomic , copy) NSString * searchText ;//搜索内容
+
+
 
 @end

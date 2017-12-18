@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+//选择的升序还是降序 0 升序  1 降序
  typedef void(^SelectedIndexBlock)(NSInteger index);
 @interface SearchTabView : UIView
 

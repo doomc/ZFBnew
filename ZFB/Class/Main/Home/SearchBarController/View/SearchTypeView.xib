@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,97 +15,59 @@
             <rect key="frame" x="0.0" y="0.0" width="337" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0D-8l-KVd">
+                <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdN-bh-Okc">
                     <rect key="frame" x="0.0" y="0.0" width="112.5" height="44"/>
-                    <subviews>
-                        <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdN-bh-Okc">
-                            <rect key="frame" x="0.0" y="13" width="112.5" height="18"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="品牌" image="arrowdown_red.png">
-                                <color key="titleColor" red="0.97647058823529409" green="0.3529411764705882" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="brandListAction:" destination="I3F-j1-qd3" eventType="touchUpInside" id="6Rk-UV-Xgq"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="fdN-bh-Okc" firstAttribute="centerY" secondItem="f0D-8l-KVd" secondAttribute="centerY" id="DPL-C8-4I4"/>
-                        <constraint firstItem="fdN-bh-Okc" firstAttribute="centerX" secondItem="f0D-8l-KVd" secondAttribute="centerX" id="JhF-qs-yc0"/>
-                        <constraint firstItem="fdN-bh-Okc" firstAttribute="leading" secondItem="f0D-8l-KVd" secondAttribute="leading" id="KI1-k1-HNU"/>
-                        <constraint firstAttribute="trailing" secondItem="fdN-bh-Okc" secondAttribute="trailing" id="xok-cD-uIS"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCU-00-NzF">
-                    <rect key="frame" x="112.5" y="0.0" width="112" height="44"/>
-                    <subviews>
-                        <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYO-6k-cRp">
-                            <rect key="frame" x="0.0" y="13" width="112" height="18"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="价格" image="arrowdown_black.png">
-                                <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="priceSortAction:" destination="I3F-j1-qd3" eventType="touchUpInside" id="GNJ-vW-XZg"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="GYO-6k-cRp" firstAttribute="leading" secondItem="XCU-00-NzF" secondAttribute="leading" id="52Q-pg-eYP"/>
-                        <constraint firstItem="GYO-6k-cRp" firstAttribute="centerX" secondItem="XCU-00-NzF" secondAttribute="centerX" id="Ajl-31-cEy"/>
-                        <constraint firstItem="GYO-6k-cRp" firstAttribute="centerY" secondItem="XCU-00-NzF" secondAttribute="centerY" id="eF5-aD-2Wd"/>
-                        <constraint firstAttribute="trailing" secondItem="GYO-6k-cRp" secondAttribute="trailing" id="ecL-oL-t9c"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DpN-Ey-ZrE">
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="品牌" image="arrowdown_red.png">
+                        <color key="titleColor" red="0.97647058823529409" green="0.3529411764705882" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="brandListAction:" destination="I3F-j1-qd3" eventType="touchUpInside" id="6Rk-UV-Xgq"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3g-PA-JUZ">
                     <rect key="frame" x="224.5" y="0.0" width="112.5" height="44"/>
-                    <subviews>
-                        <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3g-PA-JUZ">
-                            <rect key="frame" x="0.0" y="13" width="112.5" height="18"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="销量" image="arrowdown_black.png">
-                                <color key="titleColor" red="0.55294117647058827" green="0.55294117647058827" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="salesSortAction:" destination="I3F-j1-qd3" eventType="touchUpInside" id="SI2-DK-FLd"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="G3g-PA-JUZ" firstAttribute="centerY" secondItem="DpN-Ey-ZrE" secondAttribute="centerY" id="FKq-r9-Kyf"/>
-                        <constraint firstItem="G3g-PA-JUZ" firstAttribute="leading" secondItem="DpN-Ey-ZrE" secondAttribute="leading" id="XAI-2i-2uB"/>
-                        <constraint firstItem="G3g-PA-JUZ" firstAttribute="centerX" secondItem="DpN-Ey-ZrE" secondAttribute="centerX" id="YiU-uw-Eb0"/>
-                        <constraint firstAttribute="trailing" secondItem="G3g-PA-JUZ" secondAttribute="trailing" id="gGw-3b-1VD"/>
-                    </constraints>
-                </view>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="销量" image="arrowdown_black.png">
+                        <color key="titleColor" red="0.55294117647058827" green="0.55294117647058827" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="salesSortAction:" destination="I3F-j1-qd3" eventType="touchUpInside" id="SI2-DK-FLd"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYO-6k-cRp">
+                    <rect key="frame" x="112.5" y="0.0" width="112" height="44"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="价格" image="arrowdown_black.png">
+                        <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="priceSortAction:" destination="I3F-j1-qd3" eventType="touchUpInside" id="GNJ-vW-XZg"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="XCU-00-NzF" secondAttribute="bottom" id="6P0-n3-Xa6"/>
-                <constraint firstItem="f0D-8l-KVd" firstAttribute="leading" secondItem="I3F-j1-qd3" secondAttribute="leading" id="6QG-1O-0W1"/>
-                <constraint firstItem="XCU-00-NzF" firstAttribute="leading" secondItem="f0D-8l-KVd" secondAttribute="trailing" id="6aE-6d-AQ9"/>
-                <constraint firstAttribute="bottom" secondItem="DpN-Ey-ZrE" secondAttribute="bottom" id="86t-VC-A29"/>
-                <constraint firstItem="f0D-8l-KVd" firstAttribute="top" secondItem="I3F-j1-qd3" secondAttribute="top" id="FrM-FQ-wV6"/>
-                <constraint firstAttribute="bottom" secondItem="f0D-8l-KVd" secondAttribute="bottom" id="FtG-KG-B29"/>
-                <constraint firstItem="DpN-Ey-ZrE" firstAttribute="leading" secondItem="XCU-00-NzF" secondAttribute="trailing" id="Kbv-tQ-jWj"/>
-                <constraint firstAttribute="trailing" secondItem="DpN-Ey-ZrE" secondAttribute="trailing" id="Ve6-ul-zEN"/>
-                <constraint firstItem="XCU-00-NzF" firstAttribute="width" secondItem="f0D-8l-KVd" secondAttribute="width" id="ZFZ-Jt-nPF"/>
-                <constraint firstItem="DpN-Ey-ZrE" firstAttribute="width" secondItem="f0D-8l-KVd" secondAttribute="width" id="bUK-hF-1pb"/>
-                <constraint firstItem="DpN-Ey-ZrE" firstAttribute="leading" secondItem="XCU-00-NzF" secondAttribute="trailing" id="ehh-Jw-OhS"/>
-                <constraint firstItem="DpN-Ey-ZrE" firstAttribute="height" secondItem="f0D-8l-KVd" secondAttribute="height" id="hLv-yg-T5i"/>
-                <constraint firstItem="XCU-00-NzF" firstAttribute="leading" secondItem="f0D-8l-KVd" secondAttribute="trailing" id="lfP-qK-u38"/>
-                <constraint firstItem="XCU-00-NzF" firstAttribute="top" secondItem="I3F-j1-qd3" secondAttribute="top" id="lqx-I7-rbI"/>
-                <constraint firstItem="DpN-Ey-ZrE" firstAttribute="top" secondItem="I3F-j1-qd3" secondAttribute="top" id="tfV-oU-Xcx"/>
-                <constraint firstItem="XCU-00-NzF" firstAttribute="height" secondItem="f0D-8l-KVd" secondAttribute="height" id="vau-by-Xbc"/>
+                <constraint firstAttribute="bottom" secondItem="GYO-6k-cRp" secondAttribute="bottom" id="69x-YO-xyk"/>
+                <constraint firstItem="G3g-PA-JUZ" firstAttribute="width" secondItem="fdN-bh-Okc" secondAttribute="width" id="7xv-7h-aIz"/>
+                <constraint firstItem="fdN-bh-Okc" firstAttribute="top" secondItem="I3F-j1-qd3" secondAttribute="top" id="DQH-Cp-f3H"/>
+                <constraint firstItem="GYO-6k-cRp" firstAttribute="top" secondItem="I3F-j1-qd3" secondAttribute="top" id="KkC-df-NGU"/>
+                <constraint firstItem="fdN-bh-Okc" firstAttribute="leading" secondItem="I3F-j1-qd3" secondAttribute="leading" id="RgJ-h1-oBb"/>
+                <constraint firstAttribute="bottom" secondItem="G3g-PA-JUZ" secondAttribute="bottom" id="apE-Hy-hNn"/>
+                <constraint firstAttribute="trailing" secondItem="G3g-PA-JUZ" secondAttribute="trailing" id="aqv-66-vRp"/>
+                <constraint firstItem="G3g-PA-JUZ" firstAttribute="top" secondItem="I3F-j1-qd3" secondAttribute="top" id="coh-8D-M63"/>
+                <constraint firstItem="GYO-6k-cRp" firstAttribute="leading" secondItem="fdN-bh-Okc" secondAttribute="trailing" id="g5C-Tz-JjA"/>
+                <constraint firstItem="G3g-PA-JUZ" firstAttribute="leading" secondItem="GYO-6k-cRp" secondAttribute="trailing" id="qVs-Kc-UH7"/>
+                <constraint firstItem="GYO-6k-cRp" firstAttribute="width" secondItem="fdN-bh-Okc" secondAttribute="width" id="rCf-NP-jMD"/>
+                <constraint firstItem="GYO-6k-cRp" firstAttribute="height" secondItem="fdN-bh-Okc" secondAttribute="height" id="xjX-hd-9l0"/>
+                <constraint firstAttribute="bottom" secondItem="fdN-bh-Okc" secondAttribute="bottom" id="yd4-gq-UNK"/>
+                <constraint firstItem="G3g-PA-JUZ" firstAttribute="height" secondItem="fdN-bh-Okc" secondAttribute="height" id="zS1-ae-KNf"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

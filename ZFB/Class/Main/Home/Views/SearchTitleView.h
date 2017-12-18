@@ -27,6 +27,6 @@
 @property (nonatomic , assign)  CGFloat leadingWidth ;
 @property (nonatomic , assign)  id <SearchTitleViewDelegate> delegate ;
 
--(instancetype)initWithTitleViewFrame:(CGRect)frame;
+-(instancetype)initWithTitleViewFrame:(CGRect)frame andLeadingWidth:(CGFloat)leadingWidth;
 
 @end

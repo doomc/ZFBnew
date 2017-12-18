@@ -89,9 +89,8 @@ static NSString * identyhy = @"SearchHistoryCell";
     [self.view addSubview:_tableView];
     
     //创建titleView
-    _titleView = [[SearchTitleView alloc]initWithTitleViewFrame:CGRectMake(0, 0, KScreenW - 100, 36)];
+    _titleView = [[SearchTitleView alloc]initWithTitleViewFrame:CGRectMake(0, 0, KScreenW - 100, 36) andLeadingWidth:60];
     _titleView.delegate = self;
-    _titleView.leadingWidth = 60;
      self.navigationItem.titleView = _titleView;
     
     _selectedType = 0;//默认为商品
@@ -149,7 +148,7 @@ static NSString * identyhy = @"SearchHistoryCell";
         else {
             reslutVC.searchType  = 1;//门店搜索
         }
-//        reslutVC.resultsText =_searchText;
+        reslutVC.searchText =_searchText;
         [self.navigationController pushViewController:reslutVC animated:NO];
         
         //关键字 save 到本地
@@ -364,7 +363,6 @@ static NSString * identyhy = @"SearchHistoryCell";
 //        }  else {
 //            reslutVC.searchType  = @"店铺";
 //        }
-//        reslutVC.resultsText = _searchText;
 //        reslutVC.labelId = _tagId;
         SearchResultCollectionViewController * reslutVC = [[SearchResultCollectionViewController alloc] init];
         if (_selectedType == 0) {
@@ -374,7 +372,8 @@ static NSString * identyhy = @"SearchHistoryCell";
             reslutVC.searchType  = 1;//门店搜索
         }
         reslutVC.labelId = _tagId;
-        
+        reslutVC.searchText = _searchText;
+
         [self.navigationController pushViewController:reslutVC animated:NO];
         NSLog(@"点击了%ld  === %@ =====%@id ",index,_searchText,_tagId);
  
@@ -404,6 +403,7 @@ static NSString * identyhy = @"SearchHistoryCell";
         else {
             reslutVC.searchType  = 1;//门店搜索
         }
+        reslutVC.searchText = _searchText;
         reslutVC.labelId = _tagId;
         [self.navigationController pushViewController:reslutVC animated:NO];
         

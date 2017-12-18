@@ -34,7 +34,7 @@
     
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    layout.itemSize                                    = CGSizeMake( (KScreenW - 80) / 2.0,  40);
+    layout.itemSize = CGSizeMake( (KScreenW - 80) / 2.0,  40);
     
     
     self.collctionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, KScreenW ,210) collectionViewLayout:layout];
@@ -47,9 +47,10 @@
     [self addSubview:self.collctionView];
     
     UIView  * footView  =[[ UIView alloc ]initWithFrame:CGRectMake(0, 210 , KScreenW, 50)];
-    footView.backgroundColor = [ UIColor redColor];
+    footView.backgroundColor = [ UIColor whiteColor];
     [self addSubview:footView];
     
+    UIFont *font = SYSTEMFONT(14);
     //取消
     UIButton * cancel = [UIButton buttonWithType: UIButtonTypeCustom];
     cancel.frame = CGRectMake(0, 0, KScreenW/2, 50);
@@ -57,6 +58,7 @@
     [cancel setTitleColor:HEXCOLOR(0x333333) forState:UIControlStateNormal];
     [cancel setTitle:@"取消" forState:UIControlStateNormal];
     [cancel addTarget:self  action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
+    cancel.titleLabel.font = font;
     [footView addSubview:cancel];
     
     //确定
@@ -66,6 +68,7 @@
     [sure setTitleColor:HEXCOLOR(0xffffff) forState:UIControlStateNormal];
     [sure setTitle:@"确定" forState:UIControlStateNormal];
     [sure addTarget:self  action:@selector(sureAction:) forControlEvents:UIControlEventTouchUpInside];
+    sure.titleLabel.font = font;
     [footView addSubview:sure];
     
 }
@@ -81,10 +84,19 @@
 }
 -(void)sureAction:(UIButton *)sender
 {
-    NSLog(@"确认");
-    if ([self.delegate respondsToSelector:@selector(didClickConfirm)]) {
-        
-        [self.delegate didClickConfirm];
+    NSLog(@"点击了确认");
+    if (_currentIndex.item >= 0) {
+        BrandFindbrandlist * list = self.brandListArray[_currentIndex.item];
+        NSString * brandName = list.brandName;
+        NSString * brandid =  list.brandId;
+        if ([self.delegate respondsToSelector:@selector(didSelectedIndex:brandId:brandName:)]) {
+            [self.delegate didSelectedIndex:_currentIndex.item brandId:brandid brandName:brandName];
+        }
+    }else{
+        NSLog(@"没有选择品牌");
+        if ([self.delegate respondsToSelector:@selector(didClickConfirm)]) {
+            [self.delegate didClickConfirm];
+        }
     }
 }
 #pragma mark - UICollectionViewDataSource 代理
@@ -125,12 +137,10 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     _currentIndex = indexPath;
-    BrandFindbrandlist * list = self.brandListArray[indexPath.item];
-    NSString * brandName = list.brandName;
-    NSString * brandid =  list.brandId;
-    if ([self.delegate respondsToSelector:@selector(didSelectedIndex:brandId:brandName:)]) {
-        [self.delegate didSelectedIndex:_currentIndex.item brandId:brandid brandName:brandName];
-    }
+
+    SearchTypeCollectionCell *cell = (SearchTypeCollectionCell *)[self.collctionView cellForItemAtIndexPath:_currentIndex];
+    cell.bgview.backgroundColor = HEXCOLOR(0xf95a70);
+    cell.lb_title.textColor =  HEXCOLOR(0xffffff);
  
 }
 //取消选定

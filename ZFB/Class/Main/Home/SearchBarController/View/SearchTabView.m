@@ -8,8 +8,10 @@
 
 #import "SearchTabView.h"
 #import "ScreenCell.h"
-@interface SearchTabView ()<UITableViewDelegate,UITableViewDataSource>
-
+@interface SearchTabView ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
+{
+    NSIndexPath * _currentIndexPath;
+}
 @property (nonatomic ,strong) UIView *coverView;//背景覆盖视图
 @property (nonatomic ,strong) UITableView * tableView;
 
@@ -32,6 +34,10 @@
     //生成一个蒙版
     _coverView = [[UIView alloc]initWithFrame:self.bounds];
     _coverView.backgroundColor = RGBA(0, 0, 0, 0.3);
+    _coverView.userInteractionEnabled = YES;
+    UITapGestureRecognizer * tap =[[ UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didCoverView)];
+    tap.delegate = self;
+    [_coverView addGestureRecognizer:tap];
     [self addSubview:_coverView];
     
     //蒙版上添加一个Tabview
@@ -55,22 +61,35 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ScreenCell * cell  = [self.tableView dequeueReusableCellWithIdentifier:@"ScreenCell" forIndexPath:indexPath];
-    [cell.selectImg removeFromSuperview];
+    [cell.selectImg setHidden:YES];
     cell.lb_name.text = _dataArray[indexPath.row];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    _currentIndexPath = indexPath;
     
     ScreenCell * cell = (ScreenCell *)[tableView cellForRowAtIndexPath:indexPath];
     cell.lb_name.textColor = HEXCOLOR(0xf95a70);
+    [cell.selectImg setHidden:NO];
 
+ 
     //0 降序 1升序
     if (self.indexBlock) {
         self.indexBlock(indexPath.row);
     }
 }
 
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ScreenCell * cell = (ScreenCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.lb_name.textColor = HEXCOLOR(0x333333);
+    [cell.selectImg setHidden:YES];
+}
 
+-(void)didCoverView
+{
+    [self removeFromSuperview];
+}
 
 @end
