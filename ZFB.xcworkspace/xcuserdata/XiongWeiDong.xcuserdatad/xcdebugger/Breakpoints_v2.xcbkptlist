@@ -20,12 +20,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Home/SearchBarController/SearchResultCollectionViewController.m"
-            timestampString = "535306940.286861"
+            timestampString = "535377755.821963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "297"
             endingLineNumber = "297"
-            landmarkName = "-collectionView:viewForSupplementaryElementOfKind:atIndexPath:"
+            landmarkName = "-creatsListViewWithArray:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -36,12 +36,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZFB/Class/Main/Home/SearchBarController/SearchResultCollectionViewController.m"
-            timestampString = "535306940.287229"
+            timestampString = "535377755.822828"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "301"
             endingLineNumber = "301"
-            landmarkName = "-collectionView:viewForSupplementaryElementOfKind:atIndexPath:"
+            landmarkName = "-creatsListViewWithArray:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

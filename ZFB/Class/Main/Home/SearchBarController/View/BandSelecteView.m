@@ -143,7 +143,8 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     _currentIndex = indexPath;
-
+    BrandFindbrandlist * list = _brandListArray[_currentIndex.item];
+    list.isChoosed = YES;
     SearchTypeCollectionCell *cell = (SearchTypeCollectionCell *)[collectionView cellForItemAtIndexPath:_currentIndex];
     cell.bgview.backgroundColor = HEXCOLOR(0xf95a70);
     cell.lb_title.textColor =  HEXCOLOR(0xffffff);
@@ -153,7 +154,9 @@
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@" --取消选中了---%ld-----",_currentIndex.item);
-    
+    BrandFindbrandlist * list = _brandListArray[_currentIndex.item];
+    list.isChoosed = NO;
+
     SearchTypeCollectionCell *cell = (SearchTypeCollectionCell *)[collectionView cellForItemAtIndexPath:_currentIndex];
     cell.bgview.backgroundColor = HEXCOLOR(0xe0e0e0);
     cell.lb_title.textColor =  HEXCOLOR(0x333333);
