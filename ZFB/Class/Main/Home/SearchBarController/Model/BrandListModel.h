@@ -28,6 +28,8 @@
 
 @interface BrandFindbrandlist : ResponseObject
 
+@property (nonatomic ,assign) BOOL isChoosed;
+
 @property (nonatomic, assign) NSInteger orderNum;
 
 @property (nonatomic, assign) NSInteger isRecommend;

@@ -13,6 +13,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.imageView.clipsToBounds = YES;
+    
 }
 
 -(void)setGoodList:(ResultFindgoodslist *)goodList

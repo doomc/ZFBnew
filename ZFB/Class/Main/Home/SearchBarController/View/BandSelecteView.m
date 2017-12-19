@@ -121,7 +121,13 @@
     if (_brandListArray.count > 0) {
         BrandFindbrandlist * list = _brandListArray[indexPath.item];
         cell.lb_title.text = list.brandName;
-        
+        if (list.isChoosed) {
+            cell.bgview.backgroundColor = HEXCOLOR(0xf95a70);
+            cell.lb_title.textColor =  HEXCOLOR(0xffffff);
+        }else{
+            cell.bgview.backgroundColor = HEXCOLOR(0xe0e0e0);
+            cell.lb_title.textColor =  HEXCOLOR(0x333333);
+        }
     }
     return cell;
     
@@ -138,17 +144,17 @@
 {
     _currentIndex = indexPath;
 
-    SearchTypeCollectionCell *cell = (SearchTypeCollectionCell *)[self.collctionView cellForItemAtIndexPath:_currentIndex];
+    SearchTypeCollectionCell *cell = (SearchTypeCollectionCell *)[collectionView cellForItemAtIndexPath:_currentIndex];
     cell.bgview.backgroundColor = HEXCOLOR(0xf95a70);
     cell.lb_title.textColor =  HEXCOLOR(0xffffff);
- 
+    NSLog(@" -- 选中了---%ld-----",_currentIndex.item);
 }
 //取消选定
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@" --取消选中了---%@-----",_currentIndex);
+    NSLog(@" --取消选中了---%ld-----",_currentIndex.item);
     
-    SearchTypeCollectionCell *cell = (SearchTypeCollectionCell *)[self.collctionView cellForItemAtIndexPath:_currentIndex];
+    SearchTypeCollectionCell *cell = (SearchTypeCollectionCell *)[collectionView cellForItemAtIndexPath:_currentIndex];
     cell.bgview.backgroundColor = HEXCOLOR(0xe0e0e0);
     cell.lb_title.textColor =  HEXCOLOR(0x333333);
 }

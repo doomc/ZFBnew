@@ -61,8 +61,7 @@
         {
             imageView.image = [UIImage imageNamed:@"no_data"];
             descLabel.text = @"没网，不约";
-//            [reloadButton setTitle:@"点击重试" forState:UIControlStateNormal];
-        }
+         }
             break;
             
         case CQPlaceholderViewTypeNoOrder: // 没订单
@@ -88,6 +87,12 @@
         {
             imageView.image = [UIImage imageNamed:@"no_coupon"];
             descLabel.text = @"没有优惠券";
+        }
+            break;
+        case CQPlaceholderViewTypeNoSearchData: // 没有搜索到
+        {
+            imageView.image = [UIImage imageNamed:@"no_data2"];
+            descLabel.text = @"没有搜索内容";
         }
             break;
 

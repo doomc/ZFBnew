@@ -13,9 +13,10 @@
 
 //传入一个数组 所有的排序由高到低
 @property (nonatomic , strong) NSArray * dataArray;
+@property (nonatomic , assign) NSInteger count;
 @property (nonatomic , copy) SelectedIndexBlock indexBlock;
 
--(instancetype)initWithFrame:(CGRect)frame;
+-(instancetype)initWithFrame:(CGRect)frame AndDataCount:(NSInteger)count;
 
 
 @end

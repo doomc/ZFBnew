@@ -15,7 +15,6 @@
 #import "BankCardListModel.h"//可用银行卡model
 
 #import "BankCarListViewController.h"//银行卡列表
-#import "WithDrawViewController.h"//提现
 #import "CertificationViewController.h"//实名认证
 #import "WithDrawResultViewController.h"//提交提现
 
@@ -301,6 +300,8 @@
                              @"objectName":objectName,//银行卡持有人姓名
                              
                              };
+    
+    //withdraw/withdrawApply 新的提现
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/QRCode/withdrawCash",zfb_baseUrl] params:param success:^(id response) {
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
         if ([code isEqualToString:@"0"]) {

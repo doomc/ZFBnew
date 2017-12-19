@@ -10,6 +10,7 @@
 #import "StoreDetailHomeModel.h"
 #import "StoreNewRecommentModel.h"
 #import "SearchNoResultModel.h"
+
 @interface DuplicationStoreCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *contentIMG;
@@ -21,6 +22,6 @@
 
 @property (strong, nonatomic) GoodsExtendList * goodslist;
 @property (strong, nonatomic) StoreRecommentGoodsList * anewGoods;
-@property (strong, nonatomic) SearchFindgoodslist * sgoodlist;//搜索无结果哟的推荐模型
+@property (strong, nonatomic) SearchFindgoodslist * goodsList;//搜索无结果哟的推荐模型
 
 @end

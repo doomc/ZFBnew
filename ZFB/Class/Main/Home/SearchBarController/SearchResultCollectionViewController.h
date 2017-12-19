@@ -13,8 +13,7 @@
 @property (nonatomic,assign) NSInteger searchType;//0 商品 1 门店
 ///标签id
 @property (nonatomic , copy) NSString * labelId;
-///商品类别
-@property (nonatomic , copy) NSString * goodsType;
+ 
 
 @property (nonatomic , copy) NSString * searchText ;//搜索内容
 

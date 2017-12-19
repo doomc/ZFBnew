@@ -128,18 +128,15 @@ static NSString * identyhy = @"SearchHistoryCell";
 //搜索
 -(void)didSearch:(UIButton *)sender
 {
-    if ([_searchText isEqualToString:@""] || _searchText == nil) {
-        JXTAlertController * alertavc =[JXTAlertController alertControllerWithTitle:@"提示" message:@"还没有搜索内容" preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    if (_searchText.length > 0 ) {
+        //关键字 save 到本地
+        NSMutableArray * tempArr = [NSMutableArray array];
+        if (self.historyArray) {
             
-        }];
-        [alertavc addAction:sureAction];
-        
-        [self presentViewController:alertavc animated:YES completion:nil];
-        
-    }else{
-        
+            tempArr = [self.historyArray mutableCopy];
+        }
+        [tempArr addObject:_searchText];
+        BBUserDefault.searchHistoryArray = tempArr;//存到本地
         //push操作
         SearchResultCollectionViewController * reslutVC = [[SearchResultCollectionViewController alloc] init];
         if (_selectedType == 0) {
@@ -148,18 +145,22 @@ static NSString * identyhy = @"SearchHistoryCell";
         else {
             reslutVC.searchType  = 1;//门店搜索
         }
-        reslutVC.searchText =_searchText;
+        reslutVC.searchText = @"";
+        reslutVC.labelId = @"";
+        [self.navigationController pushViewController:reslutVC animated:NO];
+    }else{
+        //push操作
+        SearchResultCollectionViewController * reslutVC = [[SearchResultCollectionViewController alloc] init];
+        if (_selectedType == 0) {
+            reslutVC.searchType  = 0;//商品搜索
+        }
+        else {
+            reslutVC.searchType  = 1;//门店搜索
+        }
+        reslutVC.searchText = @"";
+        reslutVC.labelId = @"";
         [self.navigationController pushViewController:reslutVC animated:NO];
         
-        //关键字 save 到本地
-        NSMutableArray * tempArr = [NSMutableArray array];
-        if (self.historyArray) {
-            
-            tempArr = [self.historyArray mutableCopy];
-        }
-        [tempArr addObject:_searchText];
-        
-        BBUserDefault.searchHistoryArray = tempArr;//存到本地
     }
 }
 //编辑
@@ -356,14 +357,7 @@ static NSString * identyhy = @"SearchHistoryCell";
     {
         _searchText =  self.tagList[index];
         _tagId  =  self.tagIdArr[index];
-        
-//        HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
-//        if (_selectedType == 0) {
-//            reslutVC.searchType  = @"商品";
-//        }  else {
-//            reslutVC.searchType  = @"店铺";
-//        }
-//        reslutVC.labelId = _tagId;
+
         SearchResultCollectionViewController * reslutVC = [[SearchResultCollectionViewController alloc] init];
         if (_selectedType == 0) {
             reslutVC.searchType  = 0;//商品搜索
@@ -388,22 +382,14 @@ static NSString * identyhy = @"SearchHistoryCell";
     
     NSString * searchText = self.historyArray[indexPath.row];
     if (indexPath.section == 1) {
-        //标签视图
-//        HomeSearchResultViewController * reslutVC = [[HomeSearchResultViewController alloc] init];
-//        if (_selectedType == 0) {
-//            reslutVC.searchType  = @"商品";
-//        }  else {
-//            reslutVC.searchType  = @"店铺";
-//        }
-//        reslutVC.resultsText = searchText;
+ 
         SearchResultCollectionViewController * reslutVC = [[SearchResultCollectionViewController alloc] init];
         if (_selectedType == 0) {
             reslutVC.searchType  = 0;//商品搜索
-        }
-        else {
+        }else {
             reslutVC.searchType  = 1;//门店搜索
         }
-        reslutVC.searchText = _searchText;
+        reslutVC.searchText = searchText;
         reslutVC.labelId = _tagId;
         [self.navigationController pushViewController:reslutVC animated:NO];
         

@@ -20,6 +20,8 @@ typedef NS_ENUM(NSInteger, CQPlaceholderViewType) {
     CQPlaceholderViewTypeNoComments,
     /** 没优惠券 */
     CQPlaceholderViewTypeNoCoupon,
+    /** 没优搜索内容 */
+    CQPlaceholderViewTypeNoSearchData,
 };
 
 #pragma mark - @protocol

@@ -20,9 +20,10 @@
 @implementation SearchTabView
 
 
--(instancetype)initWithFrame:(CGRect)frame
+-(instancetype)initWithFrame:(CGRect)frame AndDataCount:(NSInteger)count
 {
     if (self = [super initWithFrame:frame]) {
+        self.count = count;
         [self creatUI];
     }
     return self;
@@ -34,14 +35,14 @@
     //生成一个蒙版
     _coverView = [[UIView alloc]initWithFrame:self.bounds];
     _coverView.backgroundColor = RGBA(0, 0, 0, 0.3);
-    _coverView.userInteractionEnabled = YES;
-    UITapGestureRecognizer * tap =[[ UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didCoverView)];
-    tap.delegate = self;
-    [_coverView addGestureRecognizer:tap];
+//    _coverView.userInteractionEnabled = YES;
+//    UITapGestureRecognizer * tap =[[ UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didCoverView)];
+//    tap.delegate = self;
+//    [_coverView addGestureRecognizer:tap];
     [self addSubview:_coverView];
     
     //蒙版上添加一个Tabview
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 90) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 45*self.count) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.backgroundColor = HEXCOLOR(0xf7f7f7);
@@ -64,19 +65,19 @@
     [cell.selectImg setHidden:YES];
     cell.lb_name.text = _dataArray[indexPath.row];
     return cell;
+ 
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _currentIndexPath = indexPath;
-    
-    ScreenCell * cell = (ScreenCell *)[tableView cellForRowAtIndexPath:indexPath];
+    NSInteger count = _currentIndexPath.row;
+    ScreenCell * cell = (ScreenCell *)[tableView cellForRowAtIndexPath:_currentIndexPath];
     cell.lb_name.textColor = HEXCOLOR(0xf95a70);
     [cell.selectImg setHidden:NO];
-
- 
     //0 降序 1升序
     if (self.indexBlock) {
-        self.indexBlock(indexPath.row);
+        self.indexBlock(count);
+        [self didCoverView];
     }
 }
 

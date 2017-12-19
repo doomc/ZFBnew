@@ -28,8 +28,8 @@
 
 @interface ResultFindgoodslist : ResponseObject
 
-@property (nonatomic, copy) NSString *priceTostr;
 
+@property (nonatomic, copy) NSString *priceTostr;
 
 @property (nonatomic, copy) NSString *goodsTypeName;
 
