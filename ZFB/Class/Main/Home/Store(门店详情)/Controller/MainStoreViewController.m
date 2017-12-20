@@ -5,7 +5,7 @@
 //  Created by  展富宝  on 2017/11/21.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
-#define headerH 135
+#define headerH 130
 
 #import "MainStoreViewController.h"
 #import "StoreHomeViewController.h"//门店首页
@@ -20,7 +20,6 @@
 #import "MainStoreFooterView.h"
 #import "JohnTopTitleView.h"
 #import "XHStarRateView.h"
-
 
 //tool
 #import "TJMapNavigationService.h"//导航

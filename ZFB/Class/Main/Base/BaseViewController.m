@@ -93,6 +93,7 @@
     self.zfb_tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
     self.zfb_tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
 }
+//通用 刷新
 -(void)headerRefresh {
 
     self.refreshType = RefreshTypeHeader;
@@ -110,9 +111,7 @@
         if (self.refreshType == RefreshTypeHeader) {
             
             [self.zfb_tableView.mj_header endRefreshing];
-            
         }else {
-            
             [self.zfb_tableView.mj_footer endRefreshing];
         }
     });
@@ -143,6 +142,12 @@
         }
     });
 }
+//移除刷新
+-(void)removeRefresh
+{
+    self.zfb_collectionView.mj_footer = nil;
+    self.zfb_collectionView.mj_header = nil;
+}
 
 
 - (void)backSweepGesture:(UISwipeGestureRecognizer*)gesture{
@@ -167,7 +172,6 @@
     self.navigationItem.titleView = titleLabel;
     
 }
-
 
 
 /**

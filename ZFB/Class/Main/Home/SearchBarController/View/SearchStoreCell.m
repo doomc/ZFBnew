@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.img_allStoreView.clipsToBounds = YES;
 }
 
 -(void)setStorelist:(Findgoodslist *)storelist

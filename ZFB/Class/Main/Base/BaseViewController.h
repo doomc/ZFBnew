@@ -51,6 +51,10 @@ typedef NS_ENUM(NSInteger, RefreshType) {
  tableview结束刷新
  */
 -(void)endRefresh;
+/**
+  移除所有刷新
+ */
+-(void)removeRefresh;
 
 /**
  collction集成刷新
