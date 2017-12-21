@@ -20,6 +20,7 @@
 //view
 #import "ZspMenu.h"
 #import "XHStarRateView.h"
+#import "CQPlaceholderView.h"
 
 @interface ZFAllStoreViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,CLLocationManagerDelegate,ZspMenuDataSource, ZspMenuDelegate>
 {
@@ -38,6 +39,7 @@
 @property (nonatomic,strong) NSMutableArray * listArray;//弹框数据源
 @property (nonatomic,strong) NSMutableArray * imgArray;//轮播图
 @property (nonatomic,strong) NSMutableArray * titlelistArray;//门店列表选项
+@property (nonatomic,strong) CQPlaceholderView * placeholderView;
 
 @property (nonatomic,strong) UITableView * all_tableview;
 @property (nonatomic,strong) UITableView * select_tableview;
@@ -64,8 +66,6 @@
     self.title =@"全部门店";
 
     _sort = @[@"距离最近", @"人气最高"];
-    
-//    [titles  addObject:type.name];
     
     _isChanged = YES;//默认切换全部 （No?yes : 距离最近 /全部）
     
@@ -99,9 +99,7 @@
 -(UITableView *)all_tableview
 {
     if (!_all_tableview) {
-        _all_tableview                = [[UITableView alloc]initWithFrame:CGRectMake(0, 160.0/375*KScreenW+44, KScreenW, KScreenH -44-160.0/375*KScreenW-64) style:UITableViewStylePlain];
-        _all_tableview.estimatedRowHeight = 0;
-        _all_tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _all_tableview                = [[UITableView alloc]initWithFrame:CGRectMake(0, 175.0/375*KScreenW+44, KScreenW, KScreenH -44-175.0/375*KScreenW-64) style:UITableViewStylePlain];
         _all_tableview.delegate       = self;
         _all_tableview.dataSource     = self;
     }
@@ -133,7 +131,7 @@
 -(void)CDsyceleSettingRunningPaintWithArray:(NSArray *)imgArray
 {
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
-    SDCycleScrollView *  _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 160.0/375*KScreenW) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    SDCycleScrollView *  _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, KScreenW, 175.0/375*KScreenW) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     _cycleScrollView.imageURLStringsGroup = imgArray;
     _cycleScrollView.pageControlAliment   = SDCycleScrollViewPageContolAlimentCenter;
     _cycleScrollView.delegate             = self;
@@ -144,7 +142,7 @@
     _cycleScrollView.currentPageDotColor = [UIColor whiteColor];// 自定义分页控件小圆标颜色
     [self.view addSubview:_cycleScrollView];
     
-    _menu            = [[ZspMenu alloc] initWithOrigin:CGPointMake(0, 150) andHeight:44];
+    _menu            = [[ZspMenu alloc] initWithOrigin:CGPointMake(0, 175) andHeight:44];
     _menu.delegate   = self;
     _menu.dataSource = self;
     [_menu selectDeafultIndexPath];
@@ -174,8 +172,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height = 88;
-    return height;
+    return 110;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -187,10 +184,11 @@
     Findgoodslists * goodlist = self.allStoreArray[indexPath.row];
     all_cell.storelist        = goodlist;
     
-    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:all_cell.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
+    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 100, 20) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
     wdStarView.currentScore = goodlist.starLevel;
     //初始化五星好评控件
-    [all_cell addSubview:wdStarView];
+    all_cell.starView  = wdStarView;
+//    [all_cell.starView addSubview:wdStarView];
     
     return all_cell;
     
@@ -251,8 +249,14 @@
                 [self.allStoreArray addObject:goodlist];
             }
             NSLog(@"门店列表         = %@",   self.allStoreArray);
+           
+            [_placeholderView removeFromSuperview];
+            if ([self isEmptyArray:self.allStoreArray]) {
+                _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.all_tableview.bounds type:CQPlaceholderViewTypeNoGoods delegate:self];
+                [self.all_tableview addSubview:_placeholderView];
+            }
+             [self.all_tableview reloadData];
         }
-        [self.all_tableview reloadData];
         [self endRefresh];
         
     } progress:^(NSProgress *progeress) {
@@ -286,7 +290,6 @@
     if (column == 0) {
         
         return _sort.count;
-        
     }
     else {
         
@@ -307,8 +310,8 @@
 }
 
 - (void)menu:(ZspMenu *)menu didSelectRowAtIndexPath:(ZspIndexPath *)indexPath {
+    
     CmgoodsClasstypelist * type  = _titlelistArray[indexPath.row];
-
     if (indexPath.item >= 0) {
         NSLog(@"点击了 %ld - %ld - %ld",indexPath.column,indexPath.row,indexPath.item);
     }else {

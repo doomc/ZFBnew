@@ -6,7 +6,7 @@
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //  门店首页
 
-#define  cellHeight  270
+#define  cellHeight  66 + KScreenW -20
 #import "StoreHomeViewController.h"
 #import "GoodsDeltailViewController.h"
 
@@ -121,8 +121,7 @@
 {
     if (section == 0) {
         return 0.001;
-    }
-    else{
+    }else{
         return 98;
     }
 }
@@ -220,9 +219,7 @@
             [self.view makeToast:@"领取优惠券成功" duration:2 position:@"center"];
             //领取成功后移除
             [SVProgressHUD dismiss];
-            
         }else{
-            
             //领取失败后移除
             [SVProgressHUD dismiss];
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
@@ -230,7 +227,6 @@
         }
         
     } progress:^(NSProgress *progeress) {
-        
     } failure:^(NSError *error) {
         
         [SVProgressHUD dismiss];
@@ -254,7 +250,7 @@
                              @"userId":BBUserDefault.cmUserId,
                              @"status":status,
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
-                             @"pageSize":@"100",
+                             @"pageSize":@"20",
                              @"storeId":_storeId,
                              @"goodsId":@"",
                              };
@@ -269,11 +265,7 @@
             for (Couponlist * list in coupon.couponList) {
                 [self.couponList addObject:list];
             }
-            [_placeholderView removeFromSuperview];
-            if ([self isEmptyArray:self.dataArray]) {
-                _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.tableView.bounds type:CQPlaceholderViewTypeNoGoods delegate:self];
-                [self.tableView addSubview:_placeholderView];
-            }
+          
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
         }else{
@@ -311,7 +303,11 @@
             for (GoodsExtendList * storelist in store.data.goodsExtendList) {
                 [self.dataArray addObject:storelist];
             }
-
+            [_placeholderView removeFromSuperview];
+            if ([self isEmptyArray:self.dataArray]) {
+                _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.tableView.bounds type:CQPlaceholderViewTypeNoGoods delegate:self];
+                [self.tableView addSubview:_placeholderView];
+            }
             [self.tableView reloadData];
         }
         [self endRefresh];

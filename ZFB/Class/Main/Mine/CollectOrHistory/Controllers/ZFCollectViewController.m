@@ -14,6 +14,9 @@
 #import "CollectModel.h"
 #import "MTSegmentedControl.h"
 #import "XHStarRateView.h"
+
+#import "GoodsDeltailViewController.h"
+#import "MainStoreViewController.h"
 typedef NS_ENUM(NSUInteger, CollectType) {
     
     CollectTypeGoods,
@@ -36,7 +39,7 @@ typedef NS_ENUM(NSUInteger, CollectType) {
 @property (strong, nonatomic) MTSegmentedControl *segumentView;
 @property (assign, nonatomic) CollectType collectType;//收藏类型
 @property (strong, nonatomic) WeChatStylePlaceHolder *weChatStylePlaceHolder;
-
+@property (strong, nonatomic) XHStarRateView * wdStarView;
 @end
 
 @implementation ZFCollectViewController
@@ -121,12 +124,12 @@ typedef NS_ENUM(NSUInteger, CollectType) {
     [self.listArray removeAllObjects];
     self.currentPage = 1;
     switch (_collectType) {
-        case CollectTypeGoods: //1商品 2门店
+        case CollectTypeGoods: //1商品
             [self showCollectListPOSTRequestCollectType:@"1"];
   
             break;
             
-        case CollectTypeStores:
+        case CollectTypeStores://门店2
             [self showCollectListPOSTRequestCollectType:@"2"];
    
             break;
@@ -180,7 +183,6 @@ typedef NS_ENUM(NSUInteger, CollectType) {
         case CollectTypeGoods:              //商品收藏列表
             if (_isEdit == NO)
             {
-
                 ZFHistoryCell * normalCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFHistoryCellid" forIndexPath:indexPath];
                 normalCell.goodslist = list;
                 normalCell.lb_price.hidden = NO;
@@ -200,56 +202,55 @@ typedef NS_ENUM(NSUInteger, CollectType) {
             }
             break;
         case CollectTypeStores://  门店收藏列表
-            
             if (_isEdit == NO)
             {
                 ZFHistoryCell * normalCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFHistoryCellid" forIndexPath:indexPath];
+                
                 normalCell.lb_price.hidden = YES;
                 normalCell.storeslist = list;
-                
-                //初始化五星好评控件info.goodsComment
-                XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:normalCell.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
-                wdStarView.currentScore = [list.starLevel integerValue];
-     
-
-                //初始化五星好评控件
-                [normalCell addSubview:wdStarView];
-
                 return normalCell;
+
             }else{
                 
                 ZFCollectEditCell *editCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFCollectEditCellid" forIndexPath:indexPath];
-
+ 
                 editCell.lb_price.hidden = YES;
                 editCell.collectID = list.cartItemId;//收藏id
                 editCell.storeList = list;
                 editCell.delegate = self;
-                
-                //初始化五星好评控件info.goodsComment
-                XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:editCell.starView.frame numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
-                wdStarView.currentScore = [list.starLevel integerValue];
-      
-
-                //初始化五星好评控件
-                [editCell addSubview:wdStarView];
-                
                 return editCell;
             }
 
             break;
-            
-        default:
-            break;
-
     }
-    
-    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"sectin = %ld,row = %ld",indexPath.section ,indexPath.row);
-    
+    Cmkeepgoodslist * list = self.listArray[indexPath.section];
+    switch (_collectType) {
+        case CollectTypeGoods: //1商品
+        {
+            GoodsDeltailViewController * goodVC = [GoodsDeltailViewController new];
+            goodVC.shareId = @"";
+            goodVC.shareNum = @"";
+            goodVC.headerImage = list.coverImgUrl;
+            goodVC.goodsId = [NSString stringWithFormat:@"%ld", list.goodId];
+            [self.navigationController pushViewController:goodVC animated:NO];
+        }
+            break;
+            
+        case CollectTypeStores://门店2
+        {
+            MainStoreViewController * storeVC = [MainStoreViewController new];
+            storeVC.storeId = [NSString stringWithFormat:@"%ld", list.goodId];
+            [self.navigationController pushViewController:storeVC animated:NO];
+        }
+            
+            break;
+            
+    }
 }
 
 
@@ -271,7 +272,6 @@ typedef NS_ENUM(NSUInteger, CollectType) {
     }
 //    NSLog(@"============_collectID %@========\n%d",_collectID, list.isCollectSelected);
     [self.tableView reloadData];
-    
     // 每次点击都要统计底部的按钮是否全选
     self.footView.allChoose_btn.selected = [self isAllProcductChoosed];
     
@@ -414,20 +414,18 @@ typedef NS_ENUM(NSUInteger, CollectType) {
         _isEdit = YES;
         
         [self.view addSubview:self.footView];
-        [self.tableView reloadData];
         NSLog(@"点击编辑");
     }else{
         sender.selected =NO;
         _isEdit = NO;
         [_edit_btn setTitle:@"编辑" forState:UIControlStateNormal];
-        
         if (self.footView.superview) {
             [self.footView removeFromSuperview];
         }
-        [self.tableView reloadData];
-        NSLog(@"点击完成");
-        
+          NSLog(@"点击完成");
     }
+    [self.tableView reloadData];
+  
 }
 -(NSMutableArray *)listArray
 {
@@ -502,14 +500,11 @@ typedef NS_ENUM(NSUInteger, CollectType) {
         
         if ([response[@"resultCode"]isEqualToString:@"0"]) {
             if (self.refreshType == RefreshTypeHeader) {
-              
                 if (self.listArray.count > 0) {
-                    
                     [self.listArray  removeAllObjects];
                 }
             }
             CollectModel * collect = [CollectModel mj_objectWithKeyValues:response];
-            
             for (Cmkeepgoodslist * list in collect.data.cmKeepGoodsList) {
                 
                 [self.listArray addObject:list];

@@ -83,9 +83,7 @@
 - (void)segmentedControl:(NSArray *)titleDataSource Delegate:(id)delegate {
     
     self.delegate = delegate;
-    
     self.titleSource = titleDataSource;
-    
     [self AddSegumentArray:titleDataSource];
 }
 
@@ -99,10 +97,7 @@
     //    self.titleFont=[UIFont fontWithName:@".Helvetica Neue Interface" size:14.0f];
     self.selectColor = selectColor;
     self.delegate = delegate;
-    
     self.titleSource = titleDataSource;
-    
-    
     [self AddSegumentArray:titleDataSource];
     
 }

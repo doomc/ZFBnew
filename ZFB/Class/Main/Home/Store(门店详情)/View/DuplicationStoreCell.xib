@@ -6,47 +6,48 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="DuplicationStoreCell">
-            <rect key="frame" x="0.0" y="0.0" width="160" height="282"/>
+            <rect key="frame" x="0.0" y="0.0" width="160" height="239"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="160" height="282"/>
+                <rect key="frame" x="0.0" y="0.0" width="160" height="239"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T2V-Qs-0l7">
-                        <rect key="frame" x="0.0" y="0.0" width="160" height="282"/>
+                        <rect key="frame" x="0.0" y="0.0" width="160" height="239"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hhs-lz-Fhk">
-                                <rect key="frame" x="0.0" y="0.0" width="160" height="210"/>
+                                <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="210" id="NCn-7M-qxq"/>
+                                    <constraint firstAttribute="width" secondItem="hhs-lz-Fhk" secondAttribute="height" multiplier="1:1" id="FfX-uM-qW4"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VBD-yF-DmN">
-                                <rect key="frame" x="10" y="220" width="140" height="17"/>
+                                <rect key="frame" x="10" y="170" width="140" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="289" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZl-WH-FA3">
-                                <rect key="frame" x="10" y="247" width="33" height="21.5"/>
+                                <rect key="frame" x="10" y="197" width="33" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.72156862749999995" green="0.047058823530000002" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hXZ-8A-whU">
-                                <rect key="frame" x="142" y="254" width="8" height="15"/>
+                                <rect key="frame" x="142" y="204" width="8" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eu7-hu-Bx2">
-                                <rect key="frame" x="125" y="251.5" width="12" height="17"/>
+                                <rect key="frame" x="125" y="201.5" width="12" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" image="collection3.png"/>
                                 <state key="selected" image="score.png"/>
@@ -76,7 +77,7 @@
                 <constraint firstAttribute="bottom" secondItem="T2V-Qs-0l7" secondAttribute="bottom" id="Q31-Zy-PXh"/>
                 <constraint firstItem="T2V-Qs-0l7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cyd-tH-pmY"/>
             </constraints>
-            <size key="customSize" width="160" height="282"/>
+            <size key="customSize" width="160" height="239"/>
             <connections>
                 <outlet property="bgView" destination="T2V-Qs-0l7" id="Zs2-zL-uMe"/>
                 <outlet property="collect_btn" destination="eu7-hu-Bx2" id="0f2-Zw-Qmn"/>
@@ -85,7 +86,7 @@
                 <outlet property="lb_price" destination="eZl-WH-FA3" id="3TB-we-n4y"/>
                 <outlet property="lb_title" destination="VBD-yF-DmN" id="Jym-Jb-qlr"/>
             </connections>
-            <point key="canvasLocation" x="-508" y="-462"/>
+            <point key="canvasLocation" x="-508" y="-483.5"/>
         </collectionViewCell>
     </objects>
     <resources>

@@ -13,9 +13,17 @@
 #import "CQPlaceholderView.h"
 #import "IQKeyboardManager.h"
 #import "UIButton+HETouch.h"
+#import "NSString+EnCode.h"
+#import "EmojiTextAttachment.h"
+#import "NSAttributedString+EmojiExtension.h"
+#import "NSString+EnCode.h"
 
-@interface EditCommentViewController ()<UITableViewDataSource,UITableViewDelegate,EditCommetCellDelegate,EditCommentFootViewDelegate,CQPlaceholderViewDelegate>
 
+@interface EditCommentViewController ()<UITableViewDataSource,UITableViewDelegate,EditCommetCellDelegate,EditCommentFootViewDelegate,CQPlaceholderViewDelegate,UITextViewDelegate>
+{
+    CGFloat _textHeight;
+    NSString * _content;
+}
 @property (nonatomic , strong) UITableView * tableView;
 @property (nonatomic , strong) EditCommentFootView * footerView;
 @property (nonatomic , strong) NSMutableArray * commentList;//评论列表
@@ -47,7 +55,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"评论";
-    
     [self.view addSubview:self.tableView];
     self.zfb_tableView = self.tableView;
     [self initFooterView];
@@ -60,11 +67,13 @@
 }
 -(void)initFooterView
 {
-    self.footerView = [[EditCommentFootView alloc]initWithFootViewFrame:CGRectMake(0, KScreenH -55 - 64, KScreenW, 55)];
-    self.footerView .footDelegate = self;
-    [self.view bringSubviewToFront:self.footerView];
-    self.footerView.textViewPlacehold = @"请输入评论";
+    _textHeight  = 55; //默认一个footer高度
+    self.footerView = [[EditCommentFootView alloc]initWithFootViewFrame:CGRectMake(0, KScreenH -55 - 64, KScreenW, 55) AndPlacehold:@"请输入评论"];
+    self.footerView.footDelegate = self;
+    self.footerView.commentTextView.delegate = self;
     [self.view addSubview:self.footerView ];
+    [self.view bringSubviewToFront:self.footerView];
+
 }
 -(void)headerRefresh
 {
@@ -141,12 +150,12 @@
 
 }
 #pragma mark - EditCommentFootViewDelegate  发布评论 代理
--(void)pushlishComment:(UIButton *)sender WithContent:(NSString *)content
+-(void)pushlishComment:(UIButton *)sender
 {
     if (BBUserDefault.isLogin == 1) {
-        if (content.length > 0){
+        if (_content.length > 0){
             sender.he_timeInterval = 1;
-            [self commitPublishPostAndContent:content];
+            [self commitPublishPostAndContent:_content];
   
         }else{
             [self.view makeToast:@"评论太短了" duration:2 position:@"center"];
@@ -156,11 +165,93 @@
     }
 
 }
--(void)textView:(UITextView *)textView textHeight:(CGFloat)height
-{
-    self.footerView.frame = CGRectMake(0, KScreenH -height - 64, KScreenW, height);
+
+-(void)textViewDidChange:(UITextView *)textView {
+    
+    //获得textView的初始尺寸
+    if (self.footerView.commentTextView == textView ) {
+        [textView scrollRangeToVisible:NSMakeRange(0, 0)];
+        CGFloat width = CGRectGetWidth(textView.frame);
+        CGFloat height = CGRectGetHeight(textView.frame);
+        CGSize newSize = [textView sizeThatFits:CGSizeMake(width,MAXFLOAT)];
+        CGRect newFrame = textView.frame;
+        newFrame.size = CGSizeMake(fmax(width, newSize.width), fmax(height, newSize.height));
+        textView.frame= newFrame;
+        if (textView.text.length == 0) {
+            self.footerView.holdLabel.text = @"请输入评论";
+        }else{
+            self.footerView.holdLabel.text = @"";
+            CGRect  myframe = CGRectMake(0, 0, KScreenW, newFrame.size.height +20);
+            CGFloat height2 = CGRectGetHeight(myframe);
+            if ( height2 > 67 ) {
+                float offset = 164+ 120;
+                self.footerView.frame = CGRectMake(0, KScreenH -height2 - 64 - offset, KScreenW, height2);
+                self.footerView.layoutConstarainHeight.constant = _textHeight = height2 ;
+
+            }
+            _content = [textView.text encodedString];
+            
+        }
+    }
+  
+}
+-(void)textViewDidBeginEditing:(UITextView *)textView{
+    
+    [self insertEmoji];
+    //这里的offset的大小是控制着呼出键盘的时候view上移多少。比如上移20，就给offset赋值-20，以此类推。也可以根据屏幕高度的不同做一个if判断。
+    
+    float offset = 0.0f;
+    if(self.footerView.commentTextView == textView){
+        offset = -164 -120;
+    }
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyBoard"context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    self.footerView.frame = CGRectMake(0, KScreenH -_textHeight - 64 + offset, KScreenW, _textHeight);;
+    [UIView commitAnimations];
 }
 
+//完成编辑的时候下移回来（只要把offset重新设为0就行了）
+-(void)textViewDidEndEditing:(UITextView *)textView{
+    
+    float offset = 0.0f;
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyBoard"context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    self.footerView.frame = CGRectMake(0, KScreenH -_textHeight - 64 - offset, KScreenW, _textHeight);;
+    [UIView commitAnimations];
+    [self.footerView.commentTextView resignFirstResponder];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ( self.tableView == scrollView) {
+        [self.footerView.commentTextView resignFirstResponder];
+    }
+}
+
+-(void)insertEmoji
+{
+    //Create emoji attachment
+    EmojiTextAttachment *emojiTextAttachment = [EmojiTextAttachment new];
+    
+    NSAttributedString *str = [NSAttributedString attributedStringWithAttachment:emojiTextAttachment];
+    NSRange selectedRange = self.footerView.commentTextView.selectedRange;
+    if (selectedRange.length > 0) {
+        [self.footerView.commentTextView.textStorage deleteCharactersInRange:selectedRange];
+    }
+    //Insert emoji image
+    [self.footerView.commentTextView.textStorage insertAttributedString:str atIndex:self.footerView.commentTextView.selectedRange.location];
+    self.footerView.commentTextView.selectedRange = NSMakeRange(self.footerView.commentTextView.selectedRange.location+1, 0); //
+    
+    [self resetTextStyle];
+}
+- (void)resetTextStyle {
+    //After changing text selection, should reset style.
+    NSRange wholeRange = NSMakeRange(0, self.footerView.commentTextView.textStorage.length);
+    [self.footerView.commentTextView.textStorage removeAttribute:NSFontAttributeName range:wholeRange];
+    [self.footerView.commentTextView.textStorage addAttribute:NSFontAttributeName value:self.footerView.commentTextView.font range:wholeRange];
+}
 
 //发布评论
 -(void)commitPublishPostAndContent:(NSString *)content
@@ -255,16 +346,26 @@
  
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [self.footerView.commentTextView resignFirstResponder];
-}
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    [self.footerView.commentTextView resignFirstResponder];
+//}
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self settingNavBarBgName:@"nav64_gray"];
+    [IQKeyboardManager sharedManager].enable = NO;
     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [IQKeyboardManager sharedManager].enable = YES;
+    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

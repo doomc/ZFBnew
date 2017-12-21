@@ -9,6 +9,7 @@
 #import "ShareGoodsSubDetailViewController.h"
 //#import "DetailFindGoodsViewController.h"
 #import "GoodsDeltailViewController.h"
+#import "NSString+EnCode.h"
 @interface ShareGoodsSubDetailViewController ()<SDCycleScrollViewDelegate>
 {
     NSString * _goodsId;
@@ -117,7 +118,8 @@
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
             
             _lb_titles.text = response[@"data"][@"title"];
-            _lb_content.text = response[@"data"][@"describe"];
+            NSString * context  = [NSString stringWithFormat:@"%@",response[@"data"][@"describe"]];
+            _lb_content.text = [context decodedString];
             _lb_endTime .text = response[@"data"][@"createTime"];
             _userNickName.text =response[@"data"][@"nickname"];
             _shareId = [NSString stringWithFormat:@"%@",response[@"data"][@"id"]];

@@ -10,7 +10,7 @@
 #import "ShareGoodsCollectionViewCell.h"
 #import "UIImageView+ZFCornerRadius.h"
 #import "UIView+YYAdd.h"
-
+#import "NSString+EnCode.h"
 @interface ShareGoodsCollectionViewCell ()<UIGestureRecognizerDelegate>
 
 @end
@@ -45,7 +45,7 @@
     self.lb_nickname.text  = fullList.userNickname;
     self.lb_title.text = fullList.title;
     self.lb_zanNum.text = fullList.thumbs;
-    self.lb_description.text = fullList.describe;
+    self.lb_description.text = [fullList.describe decodedString];
     self.lb_evaNum.text = fullList.commentNum;
     _isThumbsStatus = fullList.thumbsStatus;
   

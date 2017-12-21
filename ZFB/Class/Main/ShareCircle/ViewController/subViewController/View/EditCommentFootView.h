@@ -9,20 +9,26 @@
 #import <UIKit/UIKit.h>
 @protocol EditCommentFootViewDelegate <NSObject>
 @required
--(void)textView:(UITextView *)textView textHeight:(CGFloat)height;
+ 
 
 //发布评论
--(void)pushlishComment:(UIButton *)sender WithContent:(NSString *)content;
+-(void)pushlishComment:(UIButton *)sender ;
 
 @end
 
 @interface EditCommentFootView : UIView
 
--(instancetype)initWithFootViewFrame:(CGRect)frame;
+-(instancetype)initWithFootViewFrame:(CGRect)frame AndPlacehold:(NSString *)placehold;
+
 @property (nonatomic,copy) NSString *textViewPlacehold;
+@property (nonatomic, strong) UILabel * holdLabel;
+@property (nonatomic, copy  ) NSString * ecodeStr;
+
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 @property (weak, nonatomic) IBOutlet UIButton *publish_btn;
+
 @property (assign, nonatomic)  id <EditCommentFootViewDelegate> footDelegate;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstarainHeight;
+
 
 @end

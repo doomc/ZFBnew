@@ -5,7 +5,7 @@
 //  Created by  展富宝  on 2017/11/21.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
-#define headerH 130
+#define headerH 210
 
 #import "MainStoreViewController.h"
 #import "StoreHomeViewController.h"//门店首页
@@ -88,9 +88,9 @@
     self.headerView = [[MainStoreHeadView alloc]initWithHeaderViewFrame:CGRectMake(0, 0, KScreenW, headerH)] ;
     
     if (kDevice_Is_iPhoneX) {
-        self.footerView = [[ MainStoreFooterView alloc]initWithFooterViewFrame:CGRectMake(0, KScreenH -headerH, KScreenW,  49)];
+        self.footerView = [[ MainStoreFooterView alloc]initWithFooterViewFrame:CGRectMake(0, KScreenH -130, KScreenW,  49)];
     }else{
-        self.footerView = [[ MainStoreFooterView alloc]initWithFooterViewFrame:CGRectMake(0, KScreenH -headerH +20, KScreenW,  49)];
+        self.footerView = [[ MainStoreFooterView alloc]initWithFooterViewFrame:CGRectMake(0, KScreenH -130 +20, KScreenW,  49)];
     }
     self.footerView.delegate = self;
     [self.view addSubview:self.headerView];
@@ -352,12 +352,17 @@
 -(void)didClickContactStore
 {
     NSLog(@"联系卖家");
-    NIMSession *session = [NIMSession session:_userAccId type:NIMSessionTypeP2P];
-    NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
-    vc.isVipStore = YES;
-    vc.storeId = _storeId;
-    vc.storeName = _storeName;
-    [self.navigationController pushViewController:vc animated:NO];
+    if (BBUserDefault.isLogin == 1) {
+        NIMSession *session = [NIMSession session:_userAccId type:NIMSessionTypeP2P];
+        NTESSessionViewController *vc = [[NTESSessionViewController alloc] initWithSession:session];
+        vc.isVipStore = YES;
+        vc.storeId = _storeId;
+        vc.storeName = _storeName;
+        [self.navigationController pushViewController:vc animated:NO];
+    }else{
+        [self  isNotLoginWithTabbar:YES];
+    }
+
 }
 //店铺信息
 -(void)didClickStoreInfo

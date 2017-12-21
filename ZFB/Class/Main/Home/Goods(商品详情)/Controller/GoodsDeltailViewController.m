@@ -5,7 +5,7 @@
 //  Created by  展富宝  on 2017/11/16.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
-#define kheadViewHeight  210
+#define kheadViewHeight  KScreenW
 #define kcellHeight  50
 
 #import "GoodsDeltailViewController.h"
@@ -569,13 +569,12 @@
         {
             _webCell.htmlImg.hidden = NO;
             _webCell.labelhtml.hidden = YES;
-//            [_webCell.htmlImg sd_setImageWithURL:[NSURL URLWithString:_htmlSkuParam] placeholderImage:nil];
             [_webCell.htmlImg sd_setImageWithURL:[NSURL URLWithString:_htmlSkuParam] placeholderImage:nil options:SDWebImageRetryFailed completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                 CGSize size = image.size;
                 CGFloat w = size.width;
-                CGFloat H = size.height;
-                _skuParamHeight = H;
-                NSLog(@"w = %f, h =%f",w,H);
+                CGFloat h = size.height;
+                _skuParamHeight = h * KScreenW /w;
+                NSLog(@"w = %f, h =%f",w,h);
             }];
         }
             break;
@@ -586,7 +585,9 @@
             _webCell.labelhtml.hidden = YES;
             _webCell.htmlImg.image = [UIImage imageNamed:@"商品承诺750"];
             CGSize size = [UIImage imageNamed:@"商品承诺750"].size;
-            _bussninessPromissHeight = size.height/2;
+            CGFloat w = size.width;
+            CGFloat h = size.height;
+            _bussninessPromissHeight = h * KScreenW /w;
 
         }
             break;

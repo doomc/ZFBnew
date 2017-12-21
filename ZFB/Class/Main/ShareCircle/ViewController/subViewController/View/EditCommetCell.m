@@ -32,7 +32,7 @@
     
     //commentlist.ifLike 是否点赞 1没有点赞 2 已点赞
     if (commentlist.ifLike == 2) {
-        [self.zan_btn setImage:[UIImage imageNamed:@"sharezan_selected"] forState:UIControlStateNormal];
+        [self.zan_btn setImage:[UIImage imageNamed:@"praise_on"] forState:UIControlStateNormal];
     }else{
         [self.zan_btn setImage:[UIImage imageNamed:@"praise_off"] forState:UIControlStateNormal];
     }

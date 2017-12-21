@@ -112,17 +112,15 @@
     _currentList = list;
     NSString *thumsId =  [NSString stringWithFormat:@"%ld", list.recommentId];
     if (list.isThumbed == 0) {
-        if ([BBUserDefault.cmUserId isEqualToString:@""]||[BBUserDefault.cmUserId isEqualToString:@"0"] ||BBUserDefault.cmUserId ==nil) {
-            [self isNotLoginWithTabbar:YES];
+        if (BBUserDefault.isLogin == 1) {
+            [self didclickZanPostRequsetAtthumsId:thumsId];
 
         }else{
-            [self didclickZanPostRequsetAtthumsId:thumsId];
- 
+            [self isNotLoginWithTabbar:YES];
         }
         
     }else{
         [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
-        
     }
 }
 -(void)didClickPictureDetailAtIndex:(NSInteger)index

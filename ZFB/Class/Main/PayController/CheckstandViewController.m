@@ -136,7 +136,17 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    if (indexPath.section == 0) {
+        
+        if (indexPath.row == 0) {
+            return 0;
+        }else{
+            return 50;
+        }
+    }else{
+        
+        return 50;
+    }
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -198,14 +208,15 @@
         cell.icons.image = [UIImage imageNamed:iconName];
         
         if (indexPath.row == 0) {//余额
-            cell.lb_balance.hidden = NO;
-            cell.btn_selected.hidden = NO;
-            if ([_balance isEqualToString:@""] || _balance == nil) {
-                cell.lb_balance.text = @"0.0元";
-
-            }else{
-                cell.lb_balance.text = [NSString stringWithFormat:@"%@元",_balance];
-            }
+            cell.hidden = YES;
+//            cell.lb_balance.hidden = NO;
+//            cell.btn_selected.hidden = NO;
+//            if ([_balance isEqualToString:@""] || _balance == nil) {
+//                cell.lb_balance.text = @"0.0元";
+//
+//            }else{
+//                cell.lb_balance.text = [NSString stringWithFormat:@"%@元",_balance];
+//            }
         }
         else if (indexPath.row == 1) {//微信
 

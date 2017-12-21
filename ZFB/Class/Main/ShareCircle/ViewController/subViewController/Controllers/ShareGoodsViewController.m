@@ -14,7 +14,7 @@
 #import "NSString+YYAdd.h"
 #import "EditCommentViewController.h"
 #import "PPBadgeView.h"
-#define itemWidth ((KScreenW-30)/2)
+#define itemWidth (KScreenW-30)*0.5
 
 @interface ShareGoodsViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,WaterFlowLayoutDelegate,ShareGoodsCollectionViewCellDelegate>
 
@@ -82,11 +82,7 @@
     return _shareArray;
 }
 
-/// 刷新加载数据
-- (void)setupRefresh{
-    [self.collectionView.mj_footer endRefreshing];
-    [self.collectionView.mj_header endRefreshing];
-}
+
 
 #pragma mark  - <UICollectionViewDataSource>
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -116,8 +112,8 @@
     ShareGoodsData * shareGoods = self.shareArray[indexPath.row];
     if (shareGoods.describe && shareGoods.describeHeight == 0) {
         //计算hobby的高度 并缓存
-        CGFloat titleH = [shareGoods.title heightForFont:[UIFont systemFontOfSize:12] width:(KScreenW-30)/2-20];
-        CGFloat descibeH = [shareGoods.describe heightForFont:[UIFont systemFontOfSize:12] width:(KScreenW-30)/2-20];
+        CGFloat titleH = [shareGoods.title heightForFont:[UIFont systemFontOfSize:12] width:(itemWidth-20)];
+        CGFloat descibeH = [shareGoods.describe heightForFont:[UIFont systemFontOfSize:12] width:(itemWidth-20)];
         if (descibeH > 43) {
             descibeH = 43;
         }
@@ -125,8 +121,8 @@
         shareGoods.describeHeight = descibeH;
     }
     CGFloat padding = 5;
-    CGFloat imgH  = ((KScreenW -30 - 10) * 0.5 - 10) * 6/5 ;
-    return imgH + 10 + 50 +30 + 4 * padding + shareGoods.titleHeight + shareGoods.describeHeight;
+    CGFloat imgH  = ((KScreenW -30 - 10) * 0.5 - 10) ;
+    return imgH  + 50 +30 + 4 * padding + shareGoods.titleHeight + shareGoods.describeHeight;
 }
 
 

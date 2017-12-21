@@ -17,7 +17,7 @@
     // Initialization code
     
     self.bgView.layer.masksToBounds = YES;
-    self.bgView.layer.cornerRadius = 3;
+//    self.bgView.layer.cornerRadius = 3;
     
 }
 - (IBAction)selectedCollection:(UIButton*)sender {

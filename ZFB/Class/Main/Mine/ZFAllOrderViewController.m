@@ -1280,7 +1280,9 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             ZFSendingCell * sendCell = [self.tableView
                                         dequeueReusableCellWithIdentifier:contentCellid forIndexPath:indexPath];
             sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
+            sendCell.share_btn.hidden = YES;
+            sendCell.sunnyOrder_btn.hidden = YES;
+
             Orderlist * list           = self.orderListArray[indexPath.section];
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {

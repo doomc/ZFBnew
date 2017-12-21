@@ -11,11 +11,11 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define kTableViewCellHeight 44
-#define kTextColor [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1]
+#define kTextColor  [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1]
 #define kDetailTextColor [UIColor colorWithRed:136/255.0 green:136/255.0 blue:136/255.0 alpha:1]
 #define kSeparatorColor [UIColor colorWithRed:219/255.0 green:219/255.0 blue:219/255.0 alpha:1]
 #define kCellBgColor [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1]
-#define kTextSelectColor [UIColor colorWithRed:246/255.0 green:79/255.0 blue:0/255.0 alpha:1]
+#define kTextSelectColor HEXCOLOR(0xf95a70) // [UIColor colorWithRed:246/255.0 green:79/255.0 blue:0/255.0 alpha:1]
 #define kTableViewHeight 300
 
 typedef void(^complete)();
@@ -36,6 +36,7 @@ typedef void(^complete)();
     self = [self initWithColumn:column row:row];
     if (self) {
         _item = item;
+        
     }
     return self;
 }
@@ -98,7 +99,7 @@ typedef void(^complete)();
         _isClickHaveItemValid = YES;
         _textColor = kTextColor;
         _selectedTextColor = kTextSelectColor;
-        _detailTextFont = [UIFont systemFontOfSize:11];
+        _detailTextFont = [UIFont systemFontOfSize:12];
         _separatorColor = kSeparatorColor;
         _detailTextColor = kDetailTextColor;
         _indicatorColor = kTextColor;

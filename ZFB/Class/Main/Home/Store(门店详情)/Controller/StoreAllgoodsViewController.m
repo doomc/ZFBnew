@@ -12,7 +12,8 @@
 #import "StoreDetailHomeModel.h"
 #import "GoodsDeltailViewController.h"//商品详情
 #import "CQPlaceholderView.h"
-#define rowHeight 292
+
+#define rowHeight  240+ 20
 
 typedef NS_ENUM(NSUInteger, SelectTypeSortBy) {
     SelectTypeSortByComprehensive = 0,//综合排序

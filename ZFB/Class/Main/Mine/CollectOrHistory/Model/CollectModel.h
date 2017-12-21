@@ -52,9 +52,7 @@
 @property (nonatomic, copy) NSString *coverImgUrl;
 
 @property (nonatomic, copy) NSString *isDel;//0 未删除，1删除
-
-
-
+ 
 
 @end
 

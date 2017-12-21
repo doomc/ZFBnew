@@ -23,7 +23,7 @@
 -(void)setStorelist:(Findgoodslists *)storelist
 {
 
-    self.lb_distance.text = [NSString stringWithFormat:@"%.2f公里",[storelist.storeDist floatValue]/1000.0];
+    self.lb_distance.text = [NSString stringWithFormat:@"%@公里", storelist.storeDist ];
     self.lb_title.text = storelist.storeName;
     [self.img_allStoreView sd_setImageWithURL:[NSURL URLWithString:storelist.coverUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
 

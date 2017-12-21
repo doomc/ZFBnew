@@ -7,7 +7,7 @@
 //
 
 #import "ZFCollectEditCell.h"
-
+#import "XHStarRateView.h"
 @implementation ZFCollectEditCell
 
 - (void)awakeFromNib {
@@ -40,11 +40,12 @@
     _collectID = storeList.cartItemId;
     _storeID = [NSString stringWithFormat:@"%ld",storeList.goodId];
     self.lb_title.text = [NSString stringWithFormat:@"%@", storeList.storeName];
-    [self.img_editView sd_setImageWithURL:[NSURL URLWithString:storeList.coverImgUrl] placeholderImage:[UIImage imageNamed:@""]];
+    [self.img_editView sd_setImageWithURL:[NSURL URLWithString:storeList.storeUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
     self.selecet_btn.selected = storeList.isCollectSelected;
-    
  
-    
+    XHStarRateView *_wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 110, 24) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
+    _wdStarView.currentScore = [storeList.starLevel integerValue];
+    [self.starView addSubview:_wdStarView];
     
 }
 

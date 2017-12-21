@@ -200,7 +200,7 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 180/375.0 *KScreenW +10;
+    return 210/375.0 *KScreenW +10;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

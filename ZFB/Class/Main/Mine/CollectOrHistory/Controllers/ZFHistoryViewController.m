@@ -9,6 +9,7 @@
 #import "ZFHistoryViewController.h"
 #import "ZFHistoryCell.h"
 #import "HistoryFootModel.h"
+#import "GoodsDeltailViewController.h"
 
 @interface ZFHistoryViewController ()<UITableViewDelegate,UITableViewDataSource,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
 @property (nonatomic , strong) UITableView * tableView;
@@ -107,8 +108,6 @@
     historyCell.starView.hidden = YES;
     Cmscanfoolprintslist * info =self.listArray[indexPath.section];
     historyCell.scanfool = info;
-
-    
     return historyCell;
     
 }
@@ -116,7 +115,13 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"sectin = %ld,row = %ld",indexPath.section ,indexPath.row);
-    
+    Cmscanfoolprintslist * info =self.listArray[indexPath.section];
+    GoodsDeltailViewController * goodVC = [GoodsDeltailViewController new];
+    goodVC.shareId = @"";
+    goodVC.shareNum = @"";
+    goodVC.headerImage = info.coverImgUrl;
+    goodVC.goodsId = [NSString stringWithFormat:@"%ld", info.goodId];
+    [self.navigationController pushViewController:goodVC animated:NO];
 }
 
 -(void)addANewAddressTarget:(UIButton *)sender

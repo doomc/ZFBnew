@@ -216,10 +216,11 @@ static NSString * identyhy = @"SearchHistoryCell";
         }else{
             if (self.historyArray.count > 0) {
                 UIView * headView =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
+                headView.backgroundColor= [UIColor whiteColor];
                 UILabel* lb_title = [[ UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW, 40)];
                 lb_title.text = @"搜索历史";
                 lb_title.font = [UIFont systemFontOfSize:14];
-                lb_title.textColor = HEXCOLOR(0x363636);
+                lb_title.textColor = HEXCOLOR(0x333333);
                 [headView addSubview:lb_title];
                 view = headView;
             }
@@ -230,10 +231,11 @@ static NSString * identyhy = @"SearchHistoryCell";
         }else{
             if (self.historyArray.count > 0) {
                 UIView * headView =[[ UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
+                headView.backgroundColor= [UIColor whiteColor];
                 UILabel* lb_title = [[ UILabel alloc]initWithFrame:CGRectMake(15, 0, KScreenW, 40)];
                 lb_title.text = @"搜索历史";
                 lb_title.font = [UIFont systemFontOfSize:14];
-                lb_title.textColor = HEXCOLOR(0x363636);
+                lb_title.textColor = HEXCOLOR(0x333333);
                 [headView addSubview:lb_title];
                 view = headView;
             }
@@ -282,6 +284,8 @@ static NSString * identyhy = @"SearchHistoryCell";
         return view;
     }
     else{
+        view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 40)];
+        view.backgroundColor = [UIColor whiteColor];
         UIButton * footBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         footBtn.frame = CGRectMake(0, 0, KScreenW, 40);
         [footBtn setTitle:@"清空历史记录~" forState:UIControlStateNormal];
@@ -345,7 +349,7 @@ static NSString * identyhy = @"SearchHistoryCell";
         SKTag *tag = [[SKTag alloc] initWithText:arr[idx]];
         
         tag.font = [UIFont systemFontOfSize:14];
-        tag.textColor = HEXCOLOR(0x333333);
+        tag.textColor = HEXCOLOR(0x8d8d8d);
         tag.bgColor = HEXCOLOR(0xf7f7f7);
         tag.cornerRadius = 4;
         tag.enable = YES;

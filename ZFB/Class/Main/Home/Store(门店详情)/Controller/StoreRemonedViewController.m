@@ -6,7 +6,7 @@
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //  门店详情的新品推荐
 
-#define rowHeight 292
+#define rowHeight 240+ 20
 
 #import "StoreRemonedViewController.h"
 #import "DuplicationStoreCell.h"
