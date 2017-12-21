@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AllStoreModel.h"
-
+#import "XHStarRateView.h"
 @interface AllStoreCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_allStoreView;
@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIView *starView;
 
 @property (strong, nonatomic) Findgoodslists *  storelist;
+
+@property (nonatomic,strong ) XHStarRateView *  Xh_starView;
 
 
 @end

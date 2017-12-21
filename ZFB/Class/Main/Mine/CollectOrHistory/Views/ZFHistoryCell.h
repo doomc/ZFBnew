@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CollectModel.h"
 #import "HistoryFootModel.h"
+#import "XHStarRateView.h"
 
 @interface ZFHistoryCell : UITableViewCell
 
@@ -24,6 +25,5 @@
 
 @property (strong, nonatomic) Cmscanfoolprintslist * scanfool;
 
-
-
+@property (strong, nonatomic) XHStarRateView * xh_starView;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "ZFHistoryCell.h"
-#import "XHStarRateView.h"
+
 @implementation ZFHistoryCell
 
 - (void)awakeFromNib {
@@ -31,12 +31,6 @@
     _storeslist = storeslist;
     self.lb_title.text = [NSString stringWithFormat:@"%@", storeslist.goodName];
     [self.img_collctView sd_setImageWithURL:[NSURL URLWithString:storeslist.storeUrl] placeholderImage:[UIImage imageNamed:@"230x235"]];
- 
-    //初始化五星好评控件
-    XHStarRateView* _wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 110, 24) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
-    _wdStarView.currentScore = [storeslist.starLevel integerValue];
-     [self.starView addSubview:_wdStarView];
-    
     
 }
 //足记列表

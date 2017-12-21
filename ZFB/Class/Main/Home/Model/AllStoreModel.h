@@ -26,6 +26,8 @@
 
 @property (nonatomic, strong) NSArray<Findgoodslists *> *findGoodsList;
 
+@property (nonatomic, assign) BOOL isCreatStarView;
+
 @end
 
 @interface Findgoodslists : ResponseObject

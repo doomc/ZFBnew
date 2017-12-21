@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CollectModel.h"
+#import "XHStarRateView.h"
 
 @class ZFCollectEditCell;
 @protocol ZFCollectEditCellDelegate <NSObject>
@@ -41,6 +42,7 @@
 @property (strong, nonatomic) Cmkeepgoodslist *storeList;
 @property (copy, nonatomic) NSString * storeID;
 
+@property (strong, nonatomic) XHStarRateView * xh_starView;
 
 
 

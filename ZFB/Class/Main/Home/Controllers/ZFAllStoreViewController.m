@@ -10,7 +10,7 @@
 #import "AllStoreCell.h"
 #import "SDCycleScrollView.h"
 
-#import "ZFDetailsStoreViewController.h"
+#import "MainStoreViewController.h"
 #import "AllStoreModel.h"
 #import "HomeADModel.h"
 #import "ClassLeftListModel.h"
@@ -53,6 +53,7 @@
 
 @property (nonatomic, strong) ZspMenu *menu;
 @property (nonatomic, strong) NSArray *sort;
+@property (nonatomic, strong) NSArray *sortAll;
 @property (nonatomic, strong) NSArray *choose;
 
 
@@ -66,7 +67,8 @@
     self.title =@"全部门店";
 
     _sort = @[@"距离最近", @"人气最高"];
-    
+    _sortAll = @[@"全部门店"];
+
     _isChanged = YES;//默认切换全部 （No?yes : 距离最近 /全部）
     
     self.zfb_tableView = self.all_tableview;
@@ -183,13 +185,17 @@
     
     Findgoodslists * goodlist = self.allStoreArray[indexPath.row];
     all_cell.storelist        = goodlist;
-    
-    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 100, 20) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
-    wdStarView.currentScore = goodlist.starLevel;
-    //初始化五星好评控件
-    all_cell.starView  = wdStarView;
-//    [all_cell.starView addSubview:wdStarView];
-    
+    XHStarRateView *  wdStarView;
+    if (!all_cell.Xh_starView ) {
+      wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 100, 20) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
+        wdStarView.currentScore = goodlist.starLevel;
+        [all_cell.starView addSubview:wdStarView];
+         all_cell.Xh_starView = wdStarView;
+    }else{
+        
+        wdStarView = all_cell.Xh_starView;
+        all_cell.Xh_starView.currentScore = goodlist.starLevel;
+    }
     return all_cell;
     
     
@@ -199,12 +205,10 @@
 {
     
     NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
-    
-    ZFDetailsStoreViewController * detailStroeVC =[[ ZFDetailsStoreViewController alloc]init];
-    Findgoodslists * goodlist = self.allStoreArray[indexPath.row];
-    
-    detailStroeVC.storeId = [NSString stringWithFormat:@"%ld",goodlist.storeId];
-    [self.navigationController pushViewController:detailStroeVC animated:YES];
+    MainStoreViewController *  stroeVC =[[ MainStoreViewController alloc]init];
+    Findgoodslists * storelist = self.allStoreArray[indexPath.row];
+    stroeVC.storeId = [NSString stringWithFormat:@"%ld",storelist.storeId];
+    [self.navigationController pushViewController:stroeVC animated:YES];
     [self.all_tableview reloadData];
 }
 
@@ -299,52 +303,54 @@
 
 - (NSString *)menu:(ZspMenu *)menu titleForRowAtIndexPath:(ZspIndexPath *)indexPath {
     if (indexPath.column == 0) {
-        
+
         return _sort[indexPath.row];
         
     }else{
-        CmgoodsClasstypelist * type  = _titlelistArray[indexPath.row];
-        return type.name;
-
+        if (self.titlelistArray.count > 0) {
+            CmgoodsClasstypelist * type  = _titlelistArray[indexPath.row];
+            return type.name;
+        }
+        else{
+            return _sortAll[indexPath.row];
+        }
     }
 }
 
 - (void)menu:(ZspMenu *)menu didSelectRowAtIndexPath:(ZspIndexPath *)indexPath {
-    
-    CmgoodsClasstypelist * type  = _titlelistArray[indexPath.row];
-    if (indexPath.item >= 0) {
-        NSLog(@"点击了 %ld - %ld - %ld",indexPath.column,indexPath.row,indexPath.item);
-    }else {
-        NSLog(@"点击了 %ld - %ld",indexPath.column,indexPath.row);
-        if (indexPath.column  == 0) {
-            _currentName = _sort[indexPath.row];
-            
-            if (indexPath.row == 0) {
-                //距离最近
-                [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@"" serviceType:@""];
-                [self.all_tableview reloadData];
-            }else{
-                //人气最高
-                [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"" orderbylikeNum:@"0" nearBydisc:@"" serviceType:@""];
-                [self.all_tableview reloadData];
+    if (self.titlelistArray.count > 0) {
+        CmgoodsClasstypelist * type  = _titlelistArray[indexPath.row];
+        if (indexPath.item >= 0) {
+            NSLog(@"点击了 %ld - %ld - %ld",indexPath.column,indexPath.row,indexPath.item);
+        }else {
+            NSLog(@"点击了 %ld - %ld",indexPath.column,indexPath.row);
+            if (indexPath.column  == 0) {
+                _currentName = _sort[indexPath.row];
                 
-            }
-            
-        }else{
-            _currentName = type.name;
-            if (indexPath.row == 0) { //全部
-                [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@"" serviceType:[NSString stringWithFormat:@"%ld",type.typeId]];
-                [self.all_tableview reloadData];
+                if (indexPath.row == 0) {
+                    //距离最近
+                    [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@"" serviceType:@""];
+                }else{
+                    //人气最高
+                    [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"" orderbylikeNum:@"0" nearBydisc:@"" serviceType:@""];
+                    
+                }
                 
             }else{
-                [self allStorePostRequstAndbusinessType:_currentName orderBydisc:@"" orderbylikeNum:@"0" nearBydisc:@"" serviceType:[NSString stringWithFormat:@"%ld",type.typeId]];
-                [self.all_tableview reloadData];
-                
-                
+                _currentName = type.name;
+                if (indexPath.row == 0) { //全部
+                    [self allStorePostRequstAndbusinessType:@"" orderBydisc:@"1" orderbylikeNum:@"" nearBydisc:@"" serviceType:[NSString stringWithFormat:@"%ld",type.typeId]];
+                    
+                }else{
+                    [self allStorePostRequstAndbusinessType:_currentName orderBydisc:@"" orderbylikeNum:@"0" nearBydisc:@"" serviceType:[NSString stringWithFormat:@"%ld",type.typeId]];
+                    
+                }
             }
         }
-        
     }
+    
+    [self.all_tableview reloadData];
+
 }
 
 #pragma mark  - 第一级分类网络请求
