@@ -245,12 +245,12 @@
     // status    number    0 未领取 1 未使用 2 已使用 3 已失效    否
     
     NSDictionary * parma = @{
-                             @"idType":@"3",
+                             @"idType":@"2",
                              @"resultId":@"",
                              @"userId":BBUserDefault.cmUserId,
                              @"status":status,
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
-                             @"pageSize":@"20",
+                             @"pageSize":@"10",
                              @"storeId":_storeId,
                              @"goodsId":@"",
                              };

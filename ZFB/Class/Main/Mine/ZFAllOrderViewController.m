@@ -53,7 +53,9 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 
 
 @interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate,DealSucessCellDelegate,ZFSendingCellDelegate>
-
+{
+    NSString  * _searchText;
+}
 @property (nonatomic ,strong) UIView *  titleView ;
 @property (nonatomic ,strong) UITableView *  tableView ;
 @property (nonatomic ,strong) UIButton  *navbar_btn;//导航按钮
@@ -137,9 +139,8 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             if (_tagNum == 0) {
                 
                 [self allOrderPostRequsetWithOrderStatus:@"3" ];
-                BBUserDefault.keyWord = @"";
-//                                self.searchBar.text = @"";
-                
+                _searchText =  @"";
+ 
             }else{
                 [self salesAfterPostRequste];
                 
@@ -1186,18 +1187,15 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             Ordergoods * goods = goodArray[indexPath.row];
             successCell.orderGoods = goods;
             successCell.delegate = self;
-            
-            if ([list.partRefund isEqualToString:@"部分退货"]) {
+            if ([list.partRefund isEqualToString:@"部分退货"]  ) {
                 successCell.btn_shareOrder.hidden = YES;
                 successCell.btn_shareComment.hidden = YES;
-
             }else{
-                if ([list.is_comment  isEqualToString:@"1"]) {//1已经评论过了
+                //status  申请售后的状态 0未操作 1退货中（不能评价晒单） 2服务完成 3未通过
+                if (goods.status == 1) {
                     successCell.btn_shareOrder.hidden = YES;
-                    successCell.btn_shareComment.hidden = NO;
-                    successCell.leadingLayoutWidth.constant = 20;
-                }
-                else{
+                    successCell.btn_shareComment.hidden = YES;
+                }else{
                     successCell.btn_shareOrder.hidden = NO;
                     successCell.btn_shareComment.hidden = NO;
                 }
@@ -1632,8 +1630,8 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"orderStatus":orderStatus,
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"orderNum":@"",
-                             
+                             @"searchWord":@"",
+
                              };
     
     [SVProgressHUD show];
@@ -1807,7 +1805,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                                        SearchWord :(NSString *)searchWord
 {
     NSDictionary * param = @{
-                             
                              @"size":[NSNumber numberWithInteger:kPageCount] ,
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"orderStatus":orderStatus,
@@ -1822,7 +1819,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         {
             if (self.refreshType == RefreshTypeHeader) {
                 if (self.orderListArray.count > 0 ) {
-                    
                     [self.orderListArray removeAllObjects];
                 }
             }
@@ -1832,7 +1828,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             }
             [SVProgressHUD dismiss];
             [self.tableView reloadData];
-
         }
         NSLog(@"orderListArray ====%@",self.orderListArray);
         [self endRefresh];
@@ -2161,10 +2156,11 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     }
 }
 #pragma mark - SaleAfterSearchCellDelegate 搜索代理
--(void)didClickSearchButtonSearchText:(NSString *)searchText
+-(void)didClickSearchButton:(UIButton*)sender SearchText:(NSString *)searchText
 {
+    _searchText = searchText;
     [self saleAfterCheckOrderlistPostwithOrderStatus:@"3" SearchWord:searchText];
-    BBUserDefault.keyWord = searchText;
+    [self.orderListArray removeAllObjects];
 }
 
 
@@ -2225,7 +2221,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 
 -(void)dealloc
 {
-    BBUserDefault.keyWord = @"";
+    _searchText = @"";
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

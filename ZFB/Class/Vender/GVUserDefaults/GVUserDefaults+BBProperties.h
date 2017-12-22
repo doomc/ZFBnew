@@ -44,9 +44,7 @@
 @property (nonatomic,copy) NSString * uploadImgName;///个人资料头像路径
 @property (nonatomic,copy) NSString * birthDay;///个人生日日期
 @property (nonatomic,assign) NSInteger sexType;///性别类型 //1. 男 2.女 3保密
-
-//售后申请记录下当前输入的关键字
-@property (nonatomic,copy) NSString * keyWord;
+ 
 
 //推送的总个数   网易云信+JPush
 @property (nonatomic,assign) NSInteger yunBadge;

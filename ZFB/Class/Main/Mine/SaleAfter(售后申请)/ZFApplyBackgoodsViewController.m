@@ -210,7 +210,6 @@
                     }
                 }];
             }else{
-                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self uploadSuccessPushVC];
                 });
@@ -267,6 +266,7 @@
     
     [self.navigationController pushViewController: bcVC animated:YES];
     [SVProgressHUD dismiss];
+    _isCommited = NO;
 
 }
 /**

@@ -61,10 +61,20 @@
 -(void)right_button_event:(UIButton*)sender{
     
     NSLog(@"清空");
-    [self.listArray removeAllObjects];
-    [self deletFootRemovePOSTRequest];
-    [self.tableView reloadData];
-    
+    JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"是否清空全部浏览足迹？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction  * cancel        = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+   }];
+    UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self.listArray removeAllObjects];
+        [self deletFootRemovePOSTRequest];
+        [self.tableView reloadData];
+    }];
+    [alertVC addAction:cancel];
+    [alertVC addAction:sure];
+    [self presentViewController:alertVC animated:YES completion:nil];
+
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

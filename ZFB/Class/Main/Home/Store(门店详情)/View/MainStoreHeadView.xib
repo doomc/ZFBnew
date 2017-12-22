@@ -18,21 +18,21 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qsk-01-IBZ">
                     <rect key="frame" x="0.0" y="0.0" width="415" height="210"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b8E-YB-cEb">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b8E-YB-cEb">
                             <rect key="frame" x="0.0" y="0.0" width="415" height="210"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="storebanner_mask.png" translatesAutoresizingMaskIntoConstraints="NO" id="09n-Bk-hh7">
                             <rect key="frame" x="0.0" y="0.0" width="415" height="210"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0WI-Qd-UBi">
-                            <rect key="frame" x="20" y="145" width="50" height="50"/>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0WI-Qd-UBi">
+                            <rect key="frame" x="10" y="145" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="K87-33-zNs"/>
                                 <constraint firstAttribute="height" constant="50" id="Txl-1I-eIX"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="门店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7J-Z9-OvV">
-                            <rect key="frame" x="80" y="154" width="29" height="17"/>
+                            <rect key="frame" x="70" y="154" width="29" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -79,11 +79,11 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KMG-7X-B7H">
-                            <rect key="frame" x="80" y="176" width="120" height="24"/>
+                            <rect key="frame" x="70" y="176" width="110" height="24"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="24" id="CP3-2i-i80"/>
-                                <constraint firstAttribute="width" constant="120" id="tBv-gb-wou"/>
+                                <constraint firstAttribute="width" constant="110" id="tBv-gb-wou"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -115,7 +115,7 @@
                         <constraint firstItem="v7J-Z9-OvV" firstAttribute="leading" secondItem="KMG-7X-B7H" secondAttribute="leading" id="mua-Fl-Lvx"/>
                         <constraint firstAttribute="trailing" secondItem="it7-10-bCt" secondAttribute="trailing" constant="20" id="pMp-Na-APs"/>
                         <constraint firstAttribute="bottom" secondItem="0WI-Qd-UBi" secondAttribute="bottom" constant="15" id="tSe-hI-oaD"/>
-                        <constraint firstItem="0WI-Qd-UBi" firstAttribute="leading" secondItem="qsk-01-IBZ" secondAttribute="leading" constant="20" id="wJw-ja-8Nq"/>
+                        <constraint firstItem="0WI-Qd-UBi" firstAttribute="leading" secondItem="qsk-01-IBZ" secondAttribute="leading" constant="10" id="wJw-ja-8Nq"/>
                         <constraint firstAttribute="trailing" secondItem="09n-Bk-hh7" secondAttribute="trailing" id="wdA-KC-R0C"/>
                         <constraint firstAttribute="trailing" secondItem="b8E-YB-cEb" secondAttribute="trailing" id="zev-kp-KKl"/>
                     </constraints>

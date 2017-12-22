@@ -96,7 +96,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 @property (nonatomic,strong) NSMutableArray * goodsListArray;//用来接收的商品数组
 @property (nonatomic,strong) NSMutableArray * cmGoodsListArray;//cmgoodslist
 @property (nonatomic,strong) NSMutableArray * storelistArry;//门店数组
-@property (nonatomic ,strong) NSMutableArray * couponList;//优惠券数组
+@property (nonatomic,strong) NSMutableArray * couponList;//优惠券数组
+@property (nonatomic,strong) NSMutableArray * nameArray;//存放备注
 
 @property (nonatomic,strong) NSMutableArray    * storeAttachListArr;//有备注的数组
 @property (nonatomic,strong) NSMutableArray    * allDeliveryFeeListArray;//配送费数组
@@ -221,7 +222,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 
         NSString * storeId = [storeListDic objectForKey:@"storeId"];
         NSString * storeName = [storeListDic objectForKey:@"storeName"];
-        NSString * comment = @"暂无备注";
+        NSString * comment = @"";
         
         [storeAttachListDic setValue:storeId forKey:@"storeId"];
         [storeAttachListDic setValue:storeName forKey:@"storeName"];
@@ -489,10 +490,13 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         case SureOrderCellTypeGoodsListCell://商品清单
         {
             ZFShopListViewController * shoplistVc =[[ZFShopListViewController alloc]init];
+            weakSelf(weakSelf);
             shoplistVc.attchBlock = ^(NSMutableArray *attchArray) {
-                [self.storeAttachListArr  removeAllObjects];
-                self.storeAttachListArr = attchArray;
+                [weakSelf.storeAttachListArr  removeAllObjects];
+                weakSelf.storeAttachListArr = attchArray;
+                weakSelf.nameArray = attchArray;
             };
+            shoplistVc.nameAarry =  _nameArray;
             shoplistVc.userGoodsArray = self.cmGoodsListArray;
             shoplistVc.userGoodsInfoJSON = _userGoodsInfoJSON;
             shoplistVc.postAddressId  = _postAddressId;
@@ -890,7 +894,13 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     }
     return _storeAttachListArr;
 }
-
+-(NSMutableArray *)nameArray
+{
+    if (!_nameArray) {
+        _nameArray =[NSMutableArray array];
+    }
+    return _nameArray;
+}
 -(NSMutableArray *)goodsListArray
 {
     if (!_goodsListArray) {

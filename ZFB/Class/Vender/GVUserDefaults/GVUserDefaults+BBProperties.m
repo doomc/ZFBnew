@@ -35,8 +35,7 @@
 @dynamic birthDay;
 @dynamic userHeaderImg;
 
-//关键字
-@dynamic keyWord;
+ 
 
 //支付密码
 @dynamic isSetPassword;

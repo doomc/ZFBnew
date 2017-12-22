@@ -16,6 +16,7 @@
 #import "SendStatisticsTitleView.h"
 //model
 #import "SendServiceOrderModel.h"
+#import "ZFDetailOrderViewController.h"
 
 
 @interface SendOrderStatisticsViewController ()<UITableViewDelegate,UITableViewDataSource,CYLTableViewPlaceHolderDelegate, WeChatStylePlaceHolderDelegate>
@@ -144,7 +145,24 @@
     }
     return cell;
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+    if (self.orderListArray.count > 0) {
+        SendServiceStoreinfomap * store = self.orderListArray[indexPath.section];
+        NSMutableArray *  goodsArr  = [NSMutableArray array];
+        for (SendServiceOrdergoodslist  * goods in store.orderGoodsList) {
+            [goodsArr addObject:goods];
+        }
+        SendServiceOrdergoodslist * goodslist = goodsArr[indexPath.row];
+        detailVc.cmOrderid = [NSString stringWithFormat:@"%ld",goodslist.orderId];
+        detailVc.storeId = [NSString stringWithFormat:@"%ld",goodslist.storeId];
+        detailVc.goodsId = [NSString stringWithFormat:@"%ld",goodslist.goodsId];
+        detailVc.imageUrl = goodslist.coverImgUrl;
+        detailVc.isUserType = 2;// 3 是用户 1 是商户 2 是配送
+    }
+    [self.navigationController pushViewController:detailVc animated:YES];
+}
 
 #pragma mark -  获取统计列表  getOrderDeliveryByDeliveryId
 -(void)getOrderPostRequst

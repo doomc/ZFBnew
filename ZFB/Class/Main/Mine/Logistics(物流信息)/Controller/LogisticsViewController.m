@@ -120,18 +120,6 @@
     }
     else{
         LogisticsProgressCell * cell = [self.tableView dequeueReusableCellWithIdentifier:@"LogisticsProgressCell" forIndexPath:indexPath];
-        if (indexPath.row == 0) {
-            cell.line_up.hidden = YES;
-            [cell.status_btn setImage:[UIImage imageNamed:@"speed2"] forState:UIControlStateNormal];
-            cell.lb_date.textColor = HEXCOLOR(0xf95a70);
-            cell.lb_infoMessage.textColor = HEXCOLOR(0xf95a70);
-            
-        }else if (indexPath.row == self.progressArray.count - 1) {
-            cell.line_down.hidden = YES;
-        }else {
-            cell.line_down.hidden = NO;
-            cell.line_up.hidden = NO;
-        }
         [self setUpCell:cell AtIndexPath:indexPath];
         return cell;
     }
@@ -141,6 +129,25 @@
 {
     LogisticsList * list  = self.progressArray[indexPath.row];
     cell.list = list;
+    if (indexPath.row == 0) {
+        cell.line_up.hidden = YES;
+        [cell.status_btn setImage:[UIImage imageNamed:@"speed2"] forState:UIControlStateNormal];
+        cell.lb_date.textColor = HEXCOLOR(0x8d8d8d);
+        cell.lb_infoMessage.textColor = HEXCOLOR(0x333333);
+        
+    }else if (indexPath.row == self.progressArray.count - 1) {
+        cell.line_down.hidden = YES;
+        [cell.status_btn setImage:[UIImage imageNamed:@"speed"] forState:UIControlStateNormal];
+        cell.lb_date.textColor = HEXCOLOR(0x8d8d8d);
+        cell.lb_infoMessage.textColor = HEXCOLOR(0x333333);
+    }else {
+        cell.line_down.hidden = NO;
+        cell.line_up.hidden = NO;
+        [cell.status_btn setImage:[UIImage imageNamed:@"speed"] forState:UIControlStateNormal];
+        cell.lb_date.textColor = HEXCOLOR(0x8d8d8d);
+        cell.lb_infoMessage.textColor = HEXCOLOR(0x333333);
+ 
+    }
 
    
 }
@@ -164,7 +171,6 @@
                 [self.progressArray addObject:list];
             }
             [self.tableView reloadData];
-
         }
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {

@@ -11,7 +11,7 @@
 @class Orderlist,Ordergoods,OrderProper;
 @interface AllOrderModel : ResponseObject
 
-@property (nonatomic, assign) NSInteger status;
+//@property (nonatomic, assign) NSInteger status;
 
 @property (nonatomic, strong) NSArray<Orderlist *> *orderList;
 
@@ -97,7 +97,7 @@
 
 @property (nonatomic, copy) NSString *goodsUnit;
 
-@property (nonatomic, assign) NSInteger status;
+@property (nonatomic, assign) NSInteger status;  //status  申请售后的状态 0未操作 1退货中 2服务完成 3未通过
 
 @property (nonatomic, copy) NSString *statusName;
 

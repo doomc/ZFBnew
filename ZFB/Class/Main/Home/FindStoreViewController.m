@@ -66,9 +66,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     [self PostRequst];
    
     [self LocationMapManagerInit];
- 
- 
- 
     
 }
 

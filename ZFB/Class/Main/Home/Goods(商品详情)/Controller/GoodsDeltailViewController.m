@@ -255,7 +255,7 @@
 //添加悬浮按钮
 -(void)flyButtonView
 {
-    WMDragView * flyView = [[WMDragView alloc] initWithFrame:CGRectMake(KScreenW - 50 -15 , self.tableView.height - 40 -64, 40, 40)];
+    WMDragView * flyView = [[WMDragView alloc] initWithFrame:CGRectMake(KScreenW - 50 -15 , self.tableView.height -64, 40, 40)];
     flyView.layer.cornerRadius = 20;
     flyView.backgroundColor = [UIColor whiteColor];
     [flyView.button setImage:[UIImage imageNamed:@"backTop"] forState:UIControlStateNormal];
@@ -569,13 +569,27 @@
         {
             _webCell.htmlImg.hidden = NO;
             _webCell.labelhtml.hidden = YES;
-            [_webCell.htmlImg sd_setImageWithURL:[NSURL URLWithString:_htmlSkuParam] placeholderImage:nil options:SDWebImageRetryFailed completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (_htmlSkuParam.length > 0) {
+                //获取图片的宽高
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_htmlSkuParam]];
+                UIImage *image = [UIImage imageWithData:data];
                 CGSize size = image.size;
                 CGFloat w = size.width;
                 CGFloat h = size.height;
-                _skuParamHeight = h * KScreenW /w;
                 NSLog(@"w = %f, h =%f",w,h);
-            }];
+                
+                [_webCell.htmlImg sd_setImageWithURL:[NSURL URLWithString:_htmlSkuParam] placeholderImage:nil];
+                _skuParamHeight = h * KScreenW /w;
+                
+                //            [_webCell.htmlImg sd_setImageWithURL:[NSURL URLWithString:_htmlSkuParam] placeholderImage:nil options:SDWebImageRetryFailed completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                //                CGSize size = image.size;
+                //                CGFloat w = size.width;
+                //                CGFloat h = size.height;
+                //                _skuParamHeight = h * KScreenW /w;
+                //                NSLog(@"w = %f, h =%f",w,h);
+                //            }];
+            }
+
         }
             break;
         case GoodsParamTypePromiss:

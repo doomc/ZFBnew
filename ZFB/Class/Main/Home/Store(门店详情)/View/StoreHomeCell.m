@@ -29,7 +29,7 @@
     NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:goodslist.storePrice attributes:attribtDic];
     _lb_storePrice.attributedText = attribtStr;
     
-    [_img  sd_setImageWithURL:[NSURL URLWithString:goodslist.coverImgUrl] placeholderImage:nil];
+    [_img  sd_setImageWithURL:[NSURL URLWithString:goodslist.coverImgUrl] placeholderImage:[UIImage imageNamed:@"720x680"]];
     _currentGoodId = [NSString stringWithFormat:@"%ld",goodslist.goodsId];
 }
 //立即购买

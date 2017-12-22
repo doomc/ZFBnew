@@ -12,12 +12,11 @@
 #import "ShopOrderStoreNameCell.h"
 #import "ShopListFooterView.h"
 #import "BussnissListModel.h"
-
+//#import "NSString+EnCode.h"
 
 @interface ZFShopListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) UITableView  * mytableView;
-@property (nonatomic,strong) NSMutableArray  * storeAttachListArr;
 @property (nonatomic,strong) NSMutableArray  * storeArray;
 @property (nonatomic,strong) NSMutableDictionary  * parmas;
 
@@ -100,12 +99,14 @@
     
     ShopListFooterView * footerView  = [tableView dequeueReusableHeaderFooterViewWithIdentifier:identif];
     BussnissUserStoreList * storelist = self.storeArray[section];
-    if (self.storeAttachListArr.count > 0) {
-        footerView.tf_message.text = storelist.comment;
+    if (_nameAarry.count > 0) {
+        NSDictionary * dic = self.nameAarry[section];
+        NSString *commont  = [dic objectForKey:@"comment"];
+        footerView.tf_message.text =commont;
     }
     footerView.footerBlock = ^(NSString *tf_text) {
         storelist.comment = tf_text;
-        NSLog(@"  comment == %@  , section === %ld",storelist.comment,section);
+//        NSLog(@"  comment == %@  , section === %ld",storelist.comment,section);
     };
     return footerView;
 }

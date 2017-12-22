@@ -17,7 +17,8 @@ typedef void (^StoreAttchArrBlock)(NSMutableArray *attchArray);
 
 @property (nonatomic,copy) NSString * postAddressId;
 @property (nonatomic,copy) StoreAttchArrBlock   attchBlock;
-
+@property (nonatomic,strong) NSMutableArray  * storeAttachListArr;//存放备注的数组
+@property (nonatomic,strong) NSMutableArray  * nameAarry;//存放备注的数组
 
 
  

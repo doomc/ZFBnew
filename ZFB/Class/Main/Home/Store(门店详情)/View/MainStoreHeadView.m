@@ -16,6 +16,8 @@
     if (self) {
         self = [[NSBundle mainBundle]loadNibNamed:@"MainStoreHeadView" owner:self options:nil].lastObject;
         self.frame = frame;
+        self.storeLogo.clipsToBounds = YES;
+        self.storeLogo.layer.cornerRadius = 4;
     }
     return self;
 }
