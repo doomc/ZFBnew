@@ -63,7 +63,7 @@
         _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, KScreenW , 50)];
         _searchBar.delegate = self;
         _searchBar.backgroundImage = [self imageWithColor:HEXCOLOR(0xf2f2f2) size:_searchBar.bounds.size];
-        _searchBar.placeholder = @"搜索商品或门店";
+        _searchBar.placeholder = @"搜索地址";
     }
     return _searchBar;
 }

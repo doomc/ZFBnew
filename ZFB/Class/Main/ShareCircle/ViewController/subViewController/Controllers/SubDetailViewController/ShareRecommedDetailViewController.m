@@ -141,9 +141,6 @@
 -(void)didclickZanPostRequsetAtthumsId:(NSString *)thumsId
 {
     NSString * userId =  [NSString stringWithFormat:@"%@",BBUserDefault.cmUserId];
-    if ([userId isEqualToString:@""] || userId == nil) {
-        userId = @"0";
-    }
     NSDictionary * parma = @{
                              @"userId":userId,
                              @"thumsId":thumsId,//分享编号，新品推荐编号

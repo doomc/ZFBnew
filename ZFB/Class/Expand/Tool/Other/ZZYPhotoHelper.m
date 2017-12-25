@@ -7,7 +7,7 @@
 //
 
 #import "ZZYPhotoHelper.h"
-
+#import "ZFBaseNavigationViewController.h"
 @interface ZZYPhotoDelegateHelper: NSObject<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 
@@ -50,10 +50,25 @@ static ZZYPhotoHelper *picker = nil;
     [alertController addAction:canleAction];
     [alertController addAction:library];
     [alertController addAction:carmare];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:^{
+        [self settingNavBarBgName:@"nav64_gray"];
+    }];
 }
 
-
+-(void)settingNavBarBgName:(NSString *)bgName
+{
+    ZFBaseNavigationViewController *nvc =  (ZFBaseNavigationViewController *)self.navigationController;
+    
+    UINavigationBar *navBar = nvc.navigationBar;
+    // 设置导航栏title属性
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :HEXCOLOR(0x333333)}];
+    // 设置导航栏颜色
+    [navBar setBarTintColor:[UIColor clearColor]];
+    UIImage *image = [UIImage imageNamed:bgName];
+    [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [navBar setShadowImage:[UIImage new]];
+    
+}
 
 - (void)creatWithSourceType:(UIImagePickerControllerSourceType)sourceType block:selectImageBlock
 {
@@ -133,5 +148,6 @@ static ZZYPhotoHelper *picker = nil;
     // Return the new image.
     return newImage;
 }
+
 
 @end

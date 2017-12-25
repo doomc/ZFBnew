@@ -182,7 +182,8 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
     if (indexPath.section == 0) {
         ZFSettingHeaderCell *cell = (ZFSettingHeaderCell *)[tableView cellForRowAtIndexPath:indexPath];
         [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data, NSString *imgPath) {
-           
+            [self settingNavBarBgName:@"nav64_gray"];
+
             dispatch_async(dispatch_get_main_queue(), ^{
               
                 cell.img_headView.image = (UIImage *)data;

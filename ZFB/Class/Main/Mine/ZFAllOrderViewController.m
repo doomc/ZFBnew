@@ -1241,6 +1241,11 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                     Ordergoods * goods = goodArray[indexPath.row];
                     contentell.goods   = goods;
                     contentell.indexPath = indexPath;
+                    if (goods.status == 0) {
+                        contentell.saleAfter_btn.hidden = NO;
+                    }else{
+                        contentell.saleAfter_btn.hidden = YES;
+                    }
                     return   contentell;
                 }
                 

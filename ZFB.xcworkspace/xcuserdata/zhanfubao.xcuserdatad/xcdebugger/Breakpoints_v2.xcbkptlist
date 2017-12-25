@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Home/Goods(&#x5546;&#x54c1;&#x8be6;&#x60c5;)/Controller/GoodsDeltailViewController.m"
-            timestampString = "535626403.629159"
+            filePath = "ZFB/Class/Main/ShareCircle/ViewController/subViewController/Controllers/SubDetailViewController/ShareRecommedDetailViewController.m"
+            timestampString = "535884328.06875"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1570"
-            endingLineNumber = "1570"
-            landmarkName = "-goodsDetailListPostRequset"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "-didclickZanPostRequsetAtthumsId:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZFB/Class/Main/Home/Goods(&#x5546;&#x54c1;&#x8be6;&#x60c5;)/Controller/GoodsDeltailViewController.m"
-            timestampString = "535626403.629934"
+            filePath = "ZFB/Class/Main/Mine/ZFPersonalViewController.m"
+            timestampString = "535886461.518738"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "581"
-            endingLineNumber = "581"
-            landmarkName = "-didClickGoodsType:"
+            startingLineNumber = "750"
+            endingLineNumber = "750"
+            landmarkName = "-didClickOpenStore"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

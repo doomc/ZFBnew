@@ -88,8 +88,7 @@
         _manager.open3DTouchPreview = YES;
         _manager.cameraType         = HXPhotoManagerCameraTypeSystem;
         _manager.photoMaxNum        = 5;
-        _manager.videoMaxNum        = 5;
-        _manager.maxNum             = 8;
+        _manager.maxNum             = 5;
         _manager.saveSystemAblum    = NO;
     }
     return _manager;
