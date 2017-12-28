@@ -1451,10 +1451,14 @@
     //resultId    number    平台编号/商店编号/商品编号    是
     // userId    number    领优惠券用户编号    否
     // status    number    0 未领取 1 未使用 2 已使用 3 已失效    否
+    NSString * userId = BBUserDefault.cmUserId;
+    if ([userId isEqualToString:@""]) {
+        userId = @"0";
+    }
     NSDictionary * parma = @{
                              @"idType":@"3",
-                             @"resultId":@"",
-                             @"userId":BBUserDefault.cmUserId,
+                             @"resultId":_goodsId,
+                             @"userId":userId,
                              @"status":@"0",
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"pageSize":[NSNumber numberWithInteger:kPageCount],

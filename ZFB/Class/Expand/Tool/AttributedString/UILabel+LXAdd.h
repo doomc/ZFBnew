@@ -40,4 +40,5 @@
  *  @return label的rect
  */
 - (CGRect)getLableHeightWithMaxWidth:(CGFloat)maxWidth;
+
 @end

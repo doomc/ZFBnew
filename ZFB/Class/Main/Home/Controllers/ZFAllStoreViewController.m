@@ -187,7 +187,7 @@
     all_cell.storelist        = goodlist;
     XHStarRateView *  wdStarView;
     if (!all_cell.Xh_starView ) {
-      wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 100, 20) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
+      wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 70, 20) numberOfStars:5 rateStyle:WholeStar isAnination:NO delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
         wdStarView.currentScore = goodlist.starLevel;
         [all_cell.starView addSubview:wdStarView];
          all_cell.Xh_starView = wdStarView;
@@ -238,7 +238,7 @@
                              @"serviceType" : serviceType,//商品1级类别id
 
                              };
-    
+    [SVProgressHUD show];
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getCmStoreInfo",zfb_baseUrl] params:parma success:^(id response) {
         
         NSString * code = [NSString stringWithFormat:@"%@",response[@"resultCode"]];
@@ -259,13 +259,15 @@
                 _placeholderView = [[CQPlaceholderView alloc]initWithFrame:self.all_tableview.bounds type:CQPlaceholderViewTypeNoGoods delegate:self];
                 [self.all_tableview addSubview:_placeholderView];
             }
-             [self.all_tableview reloadData];
+            [self.all_tableview reloadData];
+            [SVProgressHUD dismiss];
+
         }
         [self endRefresh];
         
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
-        
+        [SVProgressHUD dismiss];
         [self endRefresh];
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
         NSLog(@"error=====%@",error);
@@ -282,7 +284,9 @@
     [self settingNavBarBgName:@"nav64_gray"];
 
 }
-
+-(void)viewWillDisappear:(BOOL)animated{
+    [SVProgressHUD dismiss];
+}
 #pragma mark - ZspMenuDataSource, ZspMenuDelegate
 - (NSInteger)numberOfColumnsInMenu:(ZspMenu *)menu {
     

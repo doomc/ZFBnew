@@ -93,11 +93,9 @@
     _mapView.showsCompass = NO;
     // 不显示比例尺
     _mapView.showsScale = NO;
-    
     ///如果您需要进入地图就显示定位小蓝点，则需要下面两行代码
     _mapView.showsUserLocation = YES;
     _mapView.userTrackingMode  = MAUserTrackingModeFollow;
-    
     [AMapServices sharedServices].enableHTTPS = YES;
     [self.view addSubview:_mapView];
     
@@ -116,7 +114,7 @@
 //初始化atableview
 - (void)initTableView
 {
-    self.zfb_tableView          = [[UITableView alloc] initWithFrame:CGRectMake(0, 300, KScreenW, 6 * 55 -50) style:UITableViewStylePlain];
+    self.zfb_tableView          = [[UITableView alloc] initWithFrame:CGRectMake(0, _mapView.bounds.size.height-64, KScreenW,KScreenH -300 ) style:UITableViewStylePlain];
     self.zfb_tableView.delegate = self;
     self.zfb_tableView.dataSource = self;
     [self.view addSubview:self.zfb_tableView];

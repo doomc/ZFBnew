@@ -169,15 +169,11 @@
 {
     EditAddressViewController  * VC= [[EditAddressViewController alloc]init];
     if (self.listArray.count > 0 ) {
-        
         Useraddresslist * info = self.listArray[indexPath.section];
         NSLog(@"info=====postAddressId %ld",info.postAddressId);
         VC.defaultFlag =  [NSString stringWithFormat:@"%ld",info.defaultFlag];  //是否默认
         VC.postAddressId =  [NSString stringWithFormat:@"%ld",info.postAddressId];//收货地址ID
-       
-        [self.mytableView reloadData];
     }
-    
     [self.navigationController pushViewController:VC animated:NO];
 
 }

@@ -38,7 +38,12 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
-    _defaultFlag = @"1";//默认 1
+ 
+    if (_defaultFlag.length > 0) {
+        NSLog(@" 已经有默认值 了 == %@",_defaultFlag);
+    }else{
+        _defaultFlag = @"1";//默认 1
+    }
     self.title =@"新增收货地址";
     self.SaveAndbackAction.clipsToBounds      = YES;
     self.SaveAndbackAction.layer.cornerRadius = 4;
@@ -228,7 +233,7 @@
                 _detialText  = response[@"cmUserRewardInfo"][@"replenish"];
                 _latitudeSTR           = response[@"cmUserRewardInfo"][@"latitude"];
                 _longitudeSTR          = response[@"cmUserRewardInfo"][@"longitude"];
-                _defaultFlag           = response[@"cmUserRewardInfo"][@"defaultFlag"];
+                _defaultFlag           =  [NSString stringWithFormat:@"%@",response[@"cmUserRewardInfo"][@"defaultFlag"]];
                 
                 [_locationButton setTitle:_cityStr forState:UIControlStateNormal];
                 _tf_name.text  = _contactName;
