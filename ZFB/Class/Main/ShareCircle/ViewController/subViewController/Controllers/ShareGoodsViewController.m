@@ -166,11 +166,18 @@
 -(void)didClickCheckCommentAtIndexItem:(NSInteger)indexItem
 {
     NSLog(@"点击评论了");
-    EditCommentViewController * editVC= [EditCommentViewController new];
-    ShareGoodsData * shareGoods = self.shareArray[indexItem];
-    editVC.shareId = shareGoods.shareId;
-    editVC.commentNum = shareGoods.commentNum;
-    [self.navigationController pushViewController:editVC animated:NO];
+ 
+    if (BBUserDefault.isLogin == 1) {
+    
+        EditCommentViewController * editVC= [EditCommentViewController new];
+        ShareGoodsData * shareGoods = self.shareArray[indexItem];
+        editVC.shareId = shareGoods.shareId;
+        editVC.commentNum = shareGoods.commentNum;
+        [self.navigationController pushViewController:editVC animated:NO];
+    }else{
+        [self isNotLoginWithTabbar:YES];
+    }
+ 
 }
 #pragma mark - 好货共享列表    toShareGoods/shareGoodsList
 -(void)shareGoodsPost

@@ -16,12 +16,13 @@
     NSString * _contactName;//联系人
     NSString * _detialText;//详情
     NSString * _cityStr;//城市地址
+    NSString * _zipCode;//邮政编码
+    NSString * _longitudeSTR;//接收回传的经纬度
+    NSString * _latitudeSTR;
+    NSString * _postAddress;//收货地址（拼接补全的）
 }
 
-@property (copy, nonatomic) NSString * longitudeSTR;//接收回传的经纬度
-@property (copy, nonatomic) NSString * latitudeSTR;
-@property (copy, nonatomic) NSString * postAddress;//收货地址（拼接补全的）
-@property (copy, nonatomic) NSString * possid;//邮编
+
 
 @property (weak, nonatomic ) IBOutlet UIButton    * locationButton;
 @property (weak, nonatomic ) IBOutlet UITextField * tf_name;
@@ -107,7 +108,9 @@
         [_locationButton setTitle:name forState:UIControlStateNormal];
         _longitudeSTR =[NSString stringWithFormat:@"%.6f",longitude];
         _latitudeSTR = [NSString stringWithFormat:@"%.6f",latitude];
-        _possid = postCode;
+        _zipCode = postCode;
+        _cityStr = name;
+        
     };
     [self.navigationController pushViewController:locaVC animated:NO];
     
@@ -117,17 +120,15 @@
 - (void)textChange :(UITextField *)textfiled
 {
     if (textfiled == _tf_name ) {
-        
         NSLog(@"tf_name ==== %@",_tf_name.text);
         _contactName = _tf_name.text;
     }
     else if (textfiled == _tf_cellphone  )
     {
-        _contactPhone = textfiled.text;
-    }
-    else
-    {
-        _detialText = textfiled.text;
+        _contactPhone = _tf_cellphone.text;
+    }else{
+        
+        _detialText = _tf_detailAddress.text;
     }
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField
@@ -164,8 +165,8 @@
 - (IBAction)saveActionAndBack:(id)sender {
     
     NSLog(@"saved！@@！！@！！！");
-    if (_contactName > 0 && _contactPhone.length == 11 && _detialText.length >0 &&  _cityStr.length > 0) {
-        
+    if (_contactName > 0 && _contactPhone.length == 11 && _detialText.length > 0 &&  _cityStr.length > 0) {
+
         [self savedInfoMessagePostRequst];
     }
     else{
@@ -187,7 +188,7 @@
                              @"postAddress":_cityStr,// 用户全收货地址	否
                              @"replenish":_detialText,
                              @"mobilePhone":@"",
-                             @"zipCode":@"400000",// 邮政编号
+                             @"zipCode":_zipCode,// 邮政编号
                              @"longitude":_longitudeSTR,// 经度	否	6位小数
                              @"latitude":_latitudeSTR,// 纬度	否	6位小数
                              @"defaultFlag":_defaultFlag,//是否为默认	否	1.是 2.否

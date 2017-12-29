@@ -9,6 +9,8 @@
 #import "AboutUSViewController.h"
 #import "ZFSettingCell.h"
 #import "AboutUsView.h"
+#import "FunctionUpdateViewController.h"
+
 @interface AboutUSViewController ()<UITableViewDataSource ,UITableViewDelegate>
 
 @property (nonatomic ,strong) UITableView * tableView;
@@ -34,7 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"关于我们";
-    NSString * version =     [NSString stringWithFormat:@"版本号:%@",appMPVersion];
+    NSString * version =     [NSString stringWithFormat:@"版本号:V%@",appMPVersion];
     
     self.view.backgroundColor = HEXCOLOR(0xF7F7F7);
     [self.view addSubview:self.tableView];
@@ -45,13 +47,11 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFSettingCell" bundle:nil] forCellReuseIdentifier:@"ZFSettingCell"];
     self.tableView.tableHeaderView = headView;
     self.tableView.tableHeaderView.height = 170;
-    
     [self initFooterView];
-
     
 }
 -(void)initFooterView{
-    
+
     NSString * text = @"重庆展付卫网络技术有限公司 版权所有 \n Chongqing Zavfwei Network Technology Co.,LTD";
     UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, KScreenH - 50-64, KScreenW, 40)];
     label.textAlignment = NSTextAlignmentCenter;
@@ -79,15 +79,16 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZFSettingCell * settingCell = [ self.tableView dequeueReusableCellWithIdentifier:@"ZFSettingCell" forIndexPath:indexPath];
-    
-//    settingCell.lb_title.text = @"功能介绍";
-    [settingCell setHidden:YES];
+    settingCell.img_iconView.image = [UIImage imageNamed:@"function"];
+    settingCell.lb_title.text = @"功能介绍";
     return settingCell;
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
- 
+    FunctionUpdateViewController * funcVC= [ FunctionUpdateViewController new];
+    [self.navigationController pushViewController:funcVC animated:NO];
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

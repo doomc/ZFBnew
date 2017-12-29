@@ -21,7 +21,8 @@
     
     self.order_collectionCell.delegate = self;
     self.order_collectionCell.dataSource = self;
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
     [self.order_collectionCell registerNib:[UINib nibWithNibName:@"GoodsitemCell" bundle:nil] forCellWithReuseIdentifier:@"GoodsitemCellid"];
     
    

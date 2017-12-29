@@ -29,6 +29,8 @@
 #import "GoodsDeltailViewController.h"
 #import "MainStoreViewController.h"
 
+#define rowHeight  240+ 20
+
 @interface SearchResultCollectionViewController ()
 <
     UICollectionViewDelegate,
@@ -470,7 +472,7 @@
         if (_isFeatured == 0) {
             return CGSizeMake(KScreenW, 132);
         }else{
-            return CGSizeMake( (KScreenW - 30)*0.5 , 292);
+            return CGSizeMake( (KScreenW - 30)*0.5 , rowHeight);
         }
     }else{
         return CGSizeMake(KScreenW, 92);

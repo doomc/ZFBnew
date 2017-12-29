@@ -92,6 +92,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 @property (nonatomic,strong) UITableView * mytableView;
 @property (nonatomic,strong) UIView      * footerView;
 @property (nonatomic,strong) UILabel     * lb_price;
+@property (nonatomic,strong) UIButton * complete_Btn;//结算
 
 @property (nonatomic,strong) NSMutableArray * goodsListArray;//用来接收的商品数组
 @property (nonatomic,strong) NSMutableArray * cmGoodsListArray;//cmgoodslist
@@ -135,9 +136,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
            forCellReuseIdentifier:@"SureOrderChooseTypeCellid"];
     
     [self creatCustomfooterView];
-
-    ///网络请求
-    [self addresslistPostRequst];//收货地址
     
     //获取当前时间
     NSDate * date = [NSDate date];
@@ -146,7 +144,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 }
 
 //拿到商品详情无规格的_userGoodsInfoJSON数组
--(void)userGoodsInfoJSONanalysis
+-(void) userGoodsInfoJSONanalysis
 {
     [self.productIDArray removeAllObjects];
     ///////////////////////获取所有请求配送费用的参数/////////////////////////////////////////////
@@ -197,8 +195,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 
 //////////////////////////////////////////// 发起请求/////////////////////////////////////////////
     //获取配送配送费网络求情
-    [self getGoodsCostInfoListPostRequstWithJsonString:[NSDictionary dictionaryWithDictionary:param]];
-    
+    if (_postAddressId.length > 0) { //有收获地址才调用
+        [self getGoodsCostInfoListPostRequstWithJsonString:[NSDictionary dictionaryWithDictionary:param]];
+    }
     if (self.storelistArry.count > 0 ) {
         [self.storelistArry removeAllObjects];
     }
@@ -216,6 +215,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         
     }
     
+    [self.storeAttachListArr removeAllObjects];
     //组装storeAttachList===================storeAttachList字段===================//
     for (NSDictionary * storeListDic  in self.storelistArry) {
         NSMutableDictionary * storeAttachListDic = [NSMutableDictionary dictionary];
@@ -247,13 +247,14 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [self.view addSubview:_footerView];
     
     //结算按钮
-    UIButton * complete_Btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [complete_Btn setTitle:buttonTitle forState:UIControlStateNormal];
-    complete_Btn.titleLabel.font = font;
-    complete_Btn.backgroundColor = HEXCOLOR(0xf95a70);
-    complete_Btn.frame = CGRectMake(KScreenW - 120 , 0, 120 , 49);
-    [complete_Btn addTarget:self action:@selector(didCleckClearing:) forControlEvents:UIControlEventTouchUpInside];
-    [_footerView addSubview:complete_Btn];
+    _complete_Btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _complete_Btn.userInteractionEnabled = NO;//默认不可点
+    [_complete_Btn setTitle:buttonTitle forState:UIControlStateNormal];
+    _complete_Btn.titleLabel.font = font;
+    _complete_Btn.backgroundColor = HEXCOLOR(0xf95a70);
+    _complete_Btn.frame = CGRectMake(KScreenW - 120 , 0, 120 , 49);
+    [_complete_Btn addTarget:self action:@selector(didCleckClearing:) forControlEvents:UIControlEventTouchUpInside];
+    [_footerView addSubview:_complete_Btn];
     
     //固定金额位置
     UILabel * lb_order  = [[UILabel alloc]init];
@@ -361,7 +362,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         {
             ZFOrderListCell * listCell = [self.mytableView
                                           dequeueReusableCellWithIdentifier:@"ZFOrderListCellid" forIndexPath:indexPath];
-            listCell.selectionStyle = UITableViewCellSelectionStyleNone;
             listCell.delegate = self;
             if (self.cmGoodsListArray.count > 0) {
                 listCell.listArray        = self.cmGoodsListArray;
@@ -415,7 +415,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                     couponCell.lb_detailTitle.text      =  [NSString stringWithFormat:@"- ¥%@",_couponAmount];
                     couponCell.lb_detailTitle.textColor = HEXCOLOR(0xf95a70);
                 }
-
             }else{
                 [couponCell setHidden:YES];
             }
@@ -479,9 +478,10 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                 _contactMobilePhone                             = PossPhone;
                 _postAddress                                    = PossAddress;
                 _postAddressId                                  = PossAddressId;
-                
+
                 NSLog(@"编辑地址  PossName =%@  PossAddress         = %@ PossPhone = %@ -- possid",PossName,PossAddress,PossPhone);
-                [self userGoodsInfoJSONanalysis];
+//                [self userGoodsInfoJSONanalysis];
+                [self addresslistPostRequst];
                 [self.mytableView reloadData];
             };
             [self.navigationController pushViewController:listVC animated:YES];
@@ -543,14 +543,11 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 }
 
 
-
 #pragma mark -  getOrderFix 用户地址接口
 -(void)addresslistPostRequst
 {
     NSDictionary * parma = @{
-                             
                              @"cmUserId":BBUserDefault.cmUserId,
-                             
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getOrderFix",zfb_baseUrl] params:parma success:^(id response) {
@@ -559,16 +556,21 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         if ([code isEqualToString:@"0"]) {
             
             AddressListModel * addressModel = [AddressListModel mj_objectWithKeyValues:response ];
-            
             _contactUserName    = addressModel.userAddressMap.userName;
             _postAddress        = addressModel.userAddressMap.postAddress;
             _contactMobilePhone = addressModel.userAddressMap.mobilePhone;
             _postAddressId      = addressModel.userAddressMap.postAddressId;
-            
             //解析json在重新组装新的json
             [self userGoodsInfoJSONanalysis];
+            _complete_Btn.userInteractionEnabled = YES;
+
+        }else{
+            _postAddressId = @"";
+            //解析json在重新组装新的json
+            [self userGoodsInfoJSONanalysis];
+            _complete_Btn.userInteractionEnabled = YES;
+            NSLog(@"接口 getOrderFix : resultMsg=====%@",response[@"resultMsg"]);
         }
-        
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
         NSLog(@"error=====%@",error);
@@ -581,7 +583,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
 -(void)getGoodsCostInfoListPostRequstWithJsonString:(NSDictionary *) jsondic
 {
     _storeDeliveryfeeListArr = [NSMutableArray array];
-    
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/getGoodsCostInfo",zfb_baseUrl] params:jsondic success:^(id response) {
      
         NSString * code = [NSString stringWithFormat:@"%@", response[@"resultCode"]];
@@ -603,13 +604,15 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             _costNum                 = [NSString stringWithFormat:@"%.2f",suremodel.costNum];//配送费
             _userCostNum             = [NSString stringWithFormat:@"%.2f",suremodel.userCostNum]  ;//支付总金额
             _lb_price.text           = _totalPirce = [NSString stringWithFormat:@"¥%@",_userCostNum];//支付总金额
-           
+            _complete_Btn.enabled = YES;//可点
+
             //获取优惠券列表
             NSString * storeArr = [NSString arrayToJSONString:_userGoodsInfoJSON];
             [self getUserNotUseCouponListPostRequsetWithStoreArray:storeArr];
 
+        }else{
+            NSLog(@"接口 getGoodsCostInfo : resultMsg=====%@",response[@"resultMsg"]);
         }
-
         [self.mytableView reloadData];
         
     } progress:^(NSProgress *progeress) {
@@ -618,7 +621,6 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
         NSLog(@"error=====%@",error);
         [self.view makeToast:@"网络错误" duration:2 position:@"center"];
     }];
-    
     [SVProgressHUD dismiss];
     
 }
@@ -653,13 +655,11 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                         
                     }else{ //跳转到收银台
                         _orderArr = response[@"orderList"];
-                        
                         //支付的回调地址
                         _notify_url = response[@"thirdURI"][@"notify_url"];
                         _return_url  = response[@"thirdURI"][@"return_url"];
                         _gateWay_url  = response[@"thirdURI"][@"gateWay_url"];
                         _goback_url   = response[@"thirdURI"][@"goback_url"];
-                        
                         [self getPaypaySignAccessTokenUrl];
                         
                     }
@@ -672,12 +672,9 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
                 [self.view makeToast:@"网络错误" duration:2 position:@"center"];
                 
             }];
- 
         }
         if ([code isEqualToString:@"100501"]) {
-           
             JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"提示" message:response[@"resultMsg"] preferredStyle:UIAlertControllerStyleAlert];
-            
             UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
             }];
@@ -747,15 +744,14 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     [SVProgressHUD showWithStatus:@"正在提交订单..."];
     //先将未到时间执行前的任务取消。
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(starButtonClicked:) object:sender];
-    
     [self performSelector:@selector(starButtonClicked:) withObject:sender afterDelay:1];
-
     
 }
 -(void)starButtonClicked:(UIButton*)sender
 {
     [SVProgressHUD dismiss];
     NSLog(@"进入到 不可编辑状态  -----------------");
+    if (_postAddressId.length >0 ) {
         if (_creatOrder == YES) {//如果生成了订单了
             [self.view makeToast:@"请勿重复下单！" duration:2 position:@"center"];
             return;
@@ -789,25 +785,23 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
             [jsondic setValue: _couponGoodsIds forKey:@"goodsIds"];
             
             NSDictionary * successDic = [NSDictionary dictionaryWithDictionary:jsondic];
-            //    NSLog(@"提交订单 -----------%@",successDic);
-            if (_postAddress == nil  || _contactUserName == nil || _contactMobilePhone == nil) {
-                JXTAlertController * alertavc = [JXTAlertController alertControllerWithTitle:@"提示" message:@"您现在还没有默认地址，马上添加默认地址" preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                }];
-                UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                    ZFAddressListViewController * listVC =[[ZFAddressListViewController alloc]init];
-                    [self.navigationController pushViewController:listVC animated:YES];
-                }];
-                [alertavc addAction:cancelAction];
-                [alertavc addAction:sureAction];
-                [self presentViewController:alertavc animated:YES completion:nil];
-                
-            }else{
-                //进入请求
-                [self commitOrder:successDic];
-            }
+            //进入请求
+            [self commitOrder:successDic];
         }
+    }else{
+        
+        JXTAlertController * alertavc = [JXTAlertController alertControllerWithTitle:@"提示" message:@"您现在还没有默认地址，马上添加默认地址" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            ZFAddressListViewController * listVC =[[ZFAddressListViewController alloc]init];
+            [self.navigationController pushViewController:listVC animated:YES];
+        }];
+        [alertavc addAction:cancelAction];
+        [alertavc addAction:sureAction];
+        [self presentViewController:alertavc animated:YES completion:nil];
+    }
 }
 #pragma mark - 获取支付paySign值
 -(void)getPaypaySignAccessTokenUrl
@@ -932,8 +926,7 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     return _allDeliveryFeeListArray;
 }
 
--(SelectPayTypeView *)selectPayView
-{
+-(SelectPayTypeView *)selectPayView{
     if (!_selectPayView) {
         _selectPayView                 = [[SelectPayTypeView alloc]initWithFrame:CGRectMake(0, 0, KScreenW, 184) style:UITableViewStylePlain];
         _selectPayView.center = self.popCouponBackgroundView.center;
@@ -942,8 +935,8 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     return _selectPayView;
 }
 
--(UIView *)popCouponBackgroundView
-{
+-(UIView *)popCouponBackgroundView{
+
     if (!_popCouponBackgroundView) {
         _popCouponBackgroundView                 = [[UIView alloc]initWithFrame:self.view.bounds];
         _popCouponBackgroundView.backgroundColor = RGBA(0, 0, 0, 0.2);
@@ -952,16 +945,19 @@ typedef NS_ENUM(NSUInteger, SureOrderCellType) {
     return _popCouponBackgroundView;
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
     [self.view endEditing:YES];
     [self.popCouponBackgroundView removeFromSuperview];
 }
 
--(void)viewWillDisappear:(BOOL)animated
-{
-    [SVProgressHUD dismiss];
+-(void)viewWillAppear:(BOOL)animated{
+    ///网络请求
+    [self addresslistPostRequst];//收货地址
+}
+-(void)viewWillDisappear:(BOOL)animated{
     
+    [SVProgressHUD dismiss];
 }
 
 

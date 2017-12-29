@@ -1,24 +1,26 @@
 //
-//  SureOrderCommonCell.m
+//  UpdateCell.m
 //  ZFB
 //
-//  Created by  展富宝  on 2017/9/14.
+//  Created by  展富宝  on 2017/12/28.
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //
 
-#import "SureOrderCommonCell.h"
+#import "UpdateCell.h"
 
-@implementation SureOrderCommonCell
+@implementation UpdateCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
 
-    self.canUsedCouponNum.layer.masksToBounds = YES;
-    self.canUsedCouponNum.layer.cornerRadius = 2;
-    self.canUsedCouponNum.layer.borderWidth = 0.5;
-    self.canUsedCouponNum.layer.borderColor = HEXCOLOR(0xB80C2F).CGColor;
+-(void)setDataList:(UpdateData *)dataList
+{
+    _dataList = dataList;
+    self.lb_date.text = dataList.createTime;
+    self.lb_title.text = [NSString stringWithFormat:@"展富宝 V%@",dataList.versionCode];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

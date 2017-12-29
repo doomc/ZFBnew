@@ -123,7 +123,6 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             rowCell.tf_contentTextfiled.enabled = NO;
             if (_nickName.length > 0) { //如果当前输入有值
                 rowCell.tf_contentTextfiled.text = _nickName;
-
             }else{
                 rowCell.tf_contentTextfiled.text = BBUserDefault.nickName;
             }
@@ -133,11 +132,9 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             rowCell.tf_contentTextfiled.hidden = YES;
             if (BBUserDefault.sexType == 1) {
                 rowCell.lb_detailTitle.text= @"男";
-
             }
             if (BBUserDefault.sexType == 2) {
                 rowCell.lb_detailTitle.text= @"女";
-  
             }
             if (BBUserDefault.sexType == 3) {
                 rowCell.lb_detailTitle.text= @"保密";
@@ -148,7 +145,6 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             
             if (_isSavedBirthDay == NO) {
                 if ([BBUserDefault.birthDay isEqualToString:@""] || BBUserDefault.birthDay == nil) {
-                  
                     rowCell.lb_detailTitle.text  = nil;
                 
                 }else{
@@ -206,16 +202,13 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
             UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             }];
             UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self.tableView reloadData];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
             }];
             [alertVC addAction: cancel];
             [alertVC addAction: sure];
-
             [self presentViewController:alertVC animated:YES completion:nil];
-
             
-        }
-        else if (indexPath.row == 1) {
+        }else if (indexPath.row == 1) {
             
             JXTAlertController * alertSheet  =[[ JXTAlertController alloc]init];
             UIAlertAction  * alertSeet1 = [UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -247,35 +240,27 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
                     NSString * dataStr =[dateFormatter stringFromDate:date];
                     rowCell.lb_detailTitle.text = BBUserDefault.birthDay = dataStr;
                     NSLog(@"current Date:%@",dataStr);
-    
                 } cancelBlock:^{
-                    
                 }];
 
             }else{
                 
                 JXTAlertController *alertVC = [JXTAlertController alertControllerWithTitle:nil message:@"你已经修改过生日信息，不能二次修改了" preferredStyle:UIAlertControllerStyleAlert];
-                
                 UIAlertAction * sure = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     
                 }];
                 [alertVC addAction: sure];
                 [self presentViewController:alertVC animated:NO completion:^{
                 }];
-
                 NSLog(@"不做操作");
             }
-         
         }
         else if (indexPath.row == 3)
         {
             //收货地址
             ZFAddressListViewController  * addVC = [[ZFAddressListViewController alloc]init];
-
             [self.navigationController pushViewController:addVC animated:YES];
-            
         }
- 
     }
 }
 
@@ -304,7 +289,6 @@ static NSString * settingRowid = @"ZFSettingRowCellid";
 -(void)changeNickName:(UITextField  *)textField
 {
     _nickName = textField.text;
-    
 }
 #pragma mark -  保存用户信息getUserInfoUpdate  //1. 男 2.女 3保密
 -(void)getUserInfoUpdate

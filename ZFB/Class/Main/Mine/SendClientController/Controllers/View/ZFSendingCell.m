@@ -71,11 +71,10 @@
         for (OrderProper * pro in goods.goods_properties) {
             NSString * name =  pro.value;
             [mutNameArray addObject:name];
-  
         }
         self.lb_progrop.text = [NSString stringWithFormat:@"规格:%@",[mutNameArray componentsJoinedByString:@" "]];
     }
-   
+
 }
 //配送端数据
 -(void)setSendGoods:(SendServiceOrdergoodslist *)sendGoods

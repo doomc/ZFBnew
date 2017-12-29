@@ -695,9 +695,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     NSLog(@"已经加载了");
     if (BBUserDefault.isLogin == 1) {
-
-    }
-    else{
+ 
+    }else{
         //赋值
         self.headview.lb_collectCount.text = @"0";
         self.headview.lb_historyCount.text = @"0";
@@ -777,54 +776,46 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
                 [self.view makeToast:@"审核中..." duration:2 position:@"center"];
             }else{
                 [self.view makeToast:@"配送和商户,只能选其一" duration:2 position:@"center"];
-                
             }
         }
     }else{
-       
         [self isloginSuccess];
     }
-
 }
 //切换商户
 -(void)didClickChangeID
 {
     NSLog(@"切换商户");
-    
     if (BBUserDefault.isLogin == 1) {
         if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
             //商户端
             BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
             businessVC.storeId = _storeId;
             [self.navigationController pushViewController:businessVC animated:NO];
-            
-        }
-        if ([_deliveryFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
+        
+        }if ([_deliveryFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
             // 配送端
             ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
             [self.navigationController pushViewController:sendVC animated:NO];
-        }
-        if ([_shopFlag isEqualToString:@"-1"]) {
-            [self.view makeToast:@"审核中..." duration:2 position:@"center"];
-        }
         
-        if ([_deliveryStatus isEqualToString:@"2"]  ) {
+        }if ([_shopFlag isEqualToString:@"-1"]) {
+            [self.view makeToast:@"审核中..." duration:2 position:@"center"];
+        
+        }if ([_deliveryStatus isEqualToString:@"2"]  ) {
             [self.view makeToast:@"审核中..." duration:2 position:@"center"];
          }
     }
     else{
         [self isloginSuccess];
-        
     }
-
 }
 //我的评价
 -(void)didClickMyevalution{
     NSLog(@"我的评价");
-//    [self settingAlertView];
-    EditCommentViewController * editVC = [EditCommentViewController new];
-    [self.navigationController pushViewController:editVC animated:NO];
-    
+    [self settingAlertView];
+//    EditCommentViewController * editVC = [EditCommentViewController new];
+//    [self.navigationController pushViewController:editVC animated:NO];
+
 
 }
 //我的动态

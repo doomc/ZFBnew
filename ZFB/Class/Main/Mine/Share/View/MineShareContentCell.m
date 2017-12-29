@@ -7,7 +7,7 @@
 //
 
 #import "MineShareContentCell.h"
-
+#import "NSString+EnCode.h"
 @implementation MineShareContentCell
 
 - (void)awakeFromNib {
@@ -24,7 +24,7 @@
     
     _lb_title.text = reviewingList.title;
     _lb_reviewStatus.text = reviewingList.status;
-    _lb_descirbe.text = reviewingList.describe;
+    _lb_descirbe.text = [reviewingList.describe decodedString];
     _lb_detail.text = @"";
     [_headimg sd_setImageWithURL:[NSURL URLWithString:reviewingList.imgUrls] placeholderImage:[UIImage imageNamed:@"230x235"]];
 
@@ -47,10 +47,10 @@
 -(void)setGoodsReviewData:(ReViewData *)goodsReviewData
 {
     _goodsReviewData = goodsReviewData;
-    _lb_title.text = goodsReviewData.title;
+    _lb_title.text =goodsReviewData.title ;
     _lb_reviewStatus.hidden = YES;
     _lb_detail.text = @"";
-    _lb_descirbe.text = goodsReviewData.describe;//描述
+    _lb_descirbe.text = [goodsReviewData.describe decodedString];//描述
     [_headimg sd_setImageWithURL:[NSURL URLWithString:goodsReviewData.imgUrls] placeholderImage:[UIImage imageNamed:@"230x235"]];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -21,7 +21,7 @@
 {
     _goodList= goodList;
     self.lb_Price.text = [NSString stringWithFormat:@"¥%@",goodList.priceTostr];
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:goodList.coverImgUrl ] placeholderImage:nil];
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:goodList.coverImgUrl ] placeholderImage:[UIImage imageNamed:@"240x260"]];
     self.lb_storeName.text = goodList.storeName;
     self.lb_title.text = goodList.goodsName;
 }

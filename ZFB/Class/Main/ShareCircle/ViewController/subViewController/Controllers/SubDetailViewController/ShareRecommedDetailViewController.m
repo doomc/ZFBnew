@@ -67,26 +67,29 @@
 //立即点赞
 - (IBAction)didClickZan:(id)sender {
     
-    if ([_isThumbsStatus isEqualToString: @"0"]) {
-        if ([BBUserDefault.cmUserId isEqualToString:@""]||[BBUserDefault.cmUserId isEqualToString:@"0"] ||BBUserDefault.cmUserId ==nil) {
-            [self isNotLoginWithTabbar:YES];
-
+    if (BBUserDefault.isLogin == 1) {
+        if ([_isThumbsStatus isEqualToString: @"0"]) {
+            if ([BBUserDefault.cmUserId isEqualToString:@""]||[BBUserDefault.cmUserId isEqualToString:@"0"] ||BBUserDefault.cmUserId ==nil) {
+                [self isNotLoginWithTabbar:YES];
+                
+                
+            }else{
+                [self didclickZanPostRequsetAtthumsId:_recommentId];
+            }
             
         }else{
-            [self didclickZanPostRequsetAtthumsId:_recommentId];
+            [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
         }
-        
     }else{
-        [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
+        [self isNotLoginWithTabbar:YES];
     }
+
 }
 
 
 #pragma mark -  获取新品推荐详情信息 recomment/recommentDetailInfo
 -(void)recommentDetailPostRequst
 {
- 
-    
     NSString * userId =  [NSString stringWithFormat:@"%@",BBUserDefault.cmUserId];
     if ([userId isEqualToString:@""] || userId == nil) {
         userId = @"0";
@@ -167,11 +170,8 @@
 -(void)addRecommentBrowsePostRequst
 {
     NSDictionary * parma = @{
-                             
                              @"recommentId":_shareGoodsId,//新品推荐id或共享id
                              @"type":@"2",//1 是新品推荐  2共享
-                             
-                             
                              };
     
     [MENetWorkManager post:[NSString stringWithFormat:@"%@/recomment/addRecommentBrowse",zfb_baseUrl] params:parma success:^(id response) {

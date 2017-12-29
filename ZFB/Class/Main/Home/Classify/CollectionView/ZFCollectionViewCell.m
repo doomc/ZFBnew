@@ -21,15 +21,18 @@
 {
     if (self = [super initWithFrame:frame])
     {
-        self.imageV = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, self.frame.size.width - 4, self.frame.size.width - 4)];
+        
+        self.imageV = [[UIImageView alloc] initWithFrame:CGRectMake(((KScreenW - 80) /3.0 )/2.0 - 30
+                                                                    , 5, 50,50)];
         self.imageV.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:self.imageV];
-
-        self.name = [[UILabel alloc] initWithFrame:CGRectMake(2, self.frame.size.width + 2, self.frame.size.width - 4, 20)];
+        
+        self.name = [[UILabel alloc] initWithFrame:CGRectMake(2,10+50, self.frame.size.width - 4, 20)];
         self.name.font = [UIFont systemFontOfSize:12];
         self.name.textAlignment = NSTextAlignmentCenter;
         self.backgroundColor = HEXCOLOR(0xfefefe);
         [self.contentView addSubview:self.name];
+
     }
     return self;
 }

@@ -17,13 +17,11 @@
 #import "NSString+EnCode.h"
 
 @interface PublishShareViewController ()<HXPhotoViewDelegate,UITextFieldDelegate,UITextViewDelegate>
-{
-    NSString * _describe;
-}
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintHeight;
 @property (strong, nonatomic) HXPhotoManager *manager;
 @property (strong, nonatomic) NSArray *imgUrlArray;
+@property (copy, nonatomic) NSString *imgUrl;
 @property (weak, nonatomic) IBOutlet UIView *photoView;
 
 
@@ -38,8 +36,6 @@
         _manager.openCamera = YES;
         _manager.cacheAlbum = YES;
         _manager.lookLivePhoto = YES;
-        //        _manager.outerCamera = YES;
-        _manager.open3DTouchPreview = YES;
         _manager.cameraType = HXPhotoManagerCameraTypeSystem;
         _manager.photoMaxNum = 5;
         _manager.maxNum = 5;
@@ -61,7 +57,7 @@
     [self settingTextView];
     //处理表情
     [self resetTextStyle];
-
+ 
 }
 -(void)settingPhotoView
 {
@@ -76,6 +72,7 @@
     self.tf_title.text = _goodsName;
     self.tf_title.delegate = self;
     self.tf_title.clipsToBounds = YES;
+    self.tf_title.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 10, 0, 0)];
     self.tf_title.layer.cornerRadius = 4;
     self.tf_title.layer.borderWidth = 1;
     self.tf_title.layer.borderColor = HEXCOLOR(0xe0e0e0).CGColor;
@@ -153,7 +150,6 @@
 
     [HXPhotoTools getImageForSelectedPhoto:photos type:HXPhotoToolsFetchHDImageType completion:^(NSArray<UIImage *> *images) {
         NSSLog(@"%@",images);
-   
         _imgUrlArray = images;
     }];
  
@@ -174,60 +170,68 @@
 
 #pragma  mark  - 发布共享 
 - (IBAction)commitAction:(id)sender {
-    
-    if (_goodsName == nil || [_goodsName isEqualToString:@""] || _describe == nil) {
-        NSLog(@"数据没有完");
-        [self.view makeToast:@"请填写完标题和评语后再提交" duration:2 position:@"center"];
-    
-    }else{
+    if (_describe.length > 0  && _goodsName.length > 0 ) {
         if (_imgUrlArray.count>0) {
-            
-            [SVProgressHUD show];
-            [OSSImageUploader asyncUploadImages:_imgUrlArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
-                if (state == 1) {
-                    NSString * nameURL  = [names componentsJoinedByString:@","];
-                    //网络请求
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self publicMessagePostRequset:nameURL];
-                    });
-                };
-            }];
-
+            if (_imgUrl.length > 0) {
+                [self publicMessagePostRequset];
+            }else{
+                [SVProgressHUD show];
+                _commitBtn.userInteractionEnabled = NO;
+                _photoView.userInteractionEnabled = NO;
+                [OSSImageUploader asyncUploadImages:_imgUrlArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
+                    _imgUrl  = [names componentsJoinedByString:@","];
+                    
+                    NSLog(@"  UploadImageState =  %ld   ,_imgUrl = %@",state,_imgUrl);
+                    if (state == 1) {
+                        //网络请求
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if (_imgUrl.length > 0) {
+                                [self publicMessagePostRequset];
+                            }
+                        });
+                    };
+                }];
+            }
         }else{
             [self.view makeToast:@"请晒出您要共享的图片哦" duration:2 position:@"center"];
         }
+    }else{
+        [self.view makeToast:@"请填写完标题和评语后再提交" duration:2 position:@"center"];
     }
 }
 
 
 #pragma  mark  - 发布共享内容请求
--(void)publicMessagePostRequset:(NSString*)nameURL{
+-(void)publicMessagePostRequset {
     
     NSDictionary * parma = @{
                              @"goodsPrice":_goodsPrice,
                              @"title":_goodsName,
                              @"describe":_describe,
                              @"userId":BBUserDefault.cmUserId,
-                             @"imgUrls":nameURL,
+                             @"imgUrls":_imgUrl,
                              @"goodsId":_goodId,
                              @"userAccount":BBUserDefault.userPhoneNumber,
                              @"userLogo":BBUserDefault.userHeaderImg,
                              @"userNickname":BBUserDefault.nickName,
                              };
-    
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/toShareGoods/goodsShareIssue"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
 
             [self.view makeToast:@"发布成功" duration:2 position:@"center"];
-            [SVProgressHUD dismiss];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self backAction];
             });
-            
+            [SVProgressHUD dismiss];
+
         }else{
             [self.view makeToast:response[@"resultMsg"] duration:2 position:@"center"];
+            [SVProgressHUD dismiss];
 
         }
+        _commitBtn.userInteractionEnabled = YES;
+        _photoView.userInteractionEnabled = YES;
+
     } progress:^(NSProgress *progeress) {
     } failure:^(NSError *error) {
         [SVProgressHUD dismiss];
@@ -254,12 +258,8 @@
     }
     //Insert emoji image
     [_textView.textStorage insertAttributedString:str atIndex:_textView.selectedRange.location];
-    
     _textView.selectedRange = NSMakeRange(_textView.selectedRange.location+1, 0); // self.textView.selectedRange.length
-    
-    //Move selection location
-    //_textView.selectedRange = NSMakeRange(_textView.selectedRange.location + 1, _textView.selectedRange.length);
-    
+
     //Reset text style
     [self resetTextStyle];
 }

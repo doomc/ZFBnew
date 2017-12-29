@@ -38,7 +38,7 @@
 
 @property (nonatomic, copy) NSString *post_name;
 
-@property (nonatomic, copy) NSString *orderStatus;
+@property (nonatomic, copy) NSString *orderStatus;    //    orderStatus  -1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成 8 待接单 9.代发货 10.已发货
 
 @property (nonatomic, copy) NSString *storeName;
 
