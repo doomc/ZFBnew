@@ -75,6 +75,16 @@
         self.lb_progrop.text = [NSString stringWithFormat:@"规格:%@",[mutNameArray componentsJoinedByString:@" "]];
     }
 
+    if ([goods.is_comment  isEqualToString:@"1"]) {//1已经评论过了
+        self.share_btn.hidden = NO;
+        self.sunnyOrder_btn.hidden = YES;//晒单
+        self.leadingLayoutWidth.constant = 20;
+    }else{//未评论
+        self.share_btn.hidden = NO;
+        self.sunnyOrder_btn.hidden = NO;
+        self.leadingLayoutWidth.constant = 90;
+    }
+    
 }
 //配送端数据
 -(void)setSendGoods:(SendServiceOrdergoodslist *)sendGoods

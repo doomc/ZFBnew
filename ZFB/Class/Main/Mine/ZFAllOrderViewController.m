@@ -29,7 +29,7 @@
 #import "ZFDetailOrderViewController.h"
 #import "ZFMainPayforViewController.h"
 #import "ZFPersonalViewController.h"
-#import "ZFEvaluateGoodsViewController.h"//评价
+#import "ZFEvaluateGoodsViewController.h"//晒单
 #import "ZFApplyBackgoodsViewController.h"//申请售后
 #import "PublishShareViewController.h"//发布共享
 #import "LogisticsViewController.h"//查看物流
@@ -103,7 +103,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     [super headerRefresh];
     switch (_orderType) {//-1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成
         case OrderTypeAllOrder://全部订单
-            [self allOrderPostRequsetWithOrderStatus:@""  ];
+            [self allOrderPostRequsetWithOrderStatus:@""];
             break;
         case OrderTypeWaitPay://待付款
             
@@ -1085,16 +1085,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                     sendCell.sunnyOrder_btn.hidden = YES;
                 }//交易完成 无退货
                 else if ([list.orderStatus isEqualToString:@"3"] && [list.partRefund isEqualToString:@""]) {
-                    
-                    if ([list.is_comment  isEqualToString:@"1"]) {//1已经评论过了
-                        sendCell.share_btn.hidden = NO;
-                        sendCell.sunnyOrder_btn.hidden = YES;//晒单
-                        sendCell.leadingLayoutWidth.constant = 20;
-                    }else{//未评论
-                        sendCell.share_btn.hidden = NO;
-                        sendCell.sunnyOrder_btn.hidden = NO;
-                        sendCell.leadingLayoutWidth.constant = 90;
-                    }
+            
                     sendCell.delegate = self;
                     sendCell.indexpath = indexPath;
                     
@@ -1203,8 +1194,18 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                     successCell.btn_shareOrder.hidden = YES;
                     successCell.btn_shareComment.hidden = YES;
                 }else{
-                    successCell.btn_shareOrder.hidden = NO;
-                    successCell.btn_shareComment.hidden = NO;
+                    if ([goods.is_comment  isEqualToString:@"1"]) {//1已经评论过了
+                        successCell.btn_shareComment.hidden = NO;//共享
+                        successCell.btn_shareOrder.hidden = YES;//晒单
+                        successCell.leadingLayoutWidth.constant = 20;
+                    }else{//未评论
+                        successCell.btn_shareComment.hidden = NO;
+                        successCell.btn_shareOrder.hidden = NO;
+                        successCell.leadingLayoutWidth.constant = 90;
+                    }
+//                    successCell.btn_shareOrder.hidden = NO;
+//                    successCell.btn_shareComment.hidden = NO;
+                    
                 }
             }
             return successCell;
@@ -1642,8 +1643,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"orderStatus":orderStatus,
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"searchWord":@"",
-
                              };
     
     [SVProgressHUD show];

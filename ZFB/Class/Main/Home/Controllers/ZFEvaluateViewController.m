@@ -58,7 +58,7 @@
     NSArray *childArr = @[allVC, goodVC, badVC, picVC];
     
     /// pageContentView
-    CGFloat contentViewHeight = self.view.frame.size.height - 44-64;
+    CGFloat contentViewHeight = self.view.frame.size.height - 44;
     self.pageContentView = [[SGPageContentView alloc] initWithFrame:CGRectMake(0, 44, KScreenW, contentViewHeight) parentVC:self childVCs:childArr];
     _pageContentView.delegatePageContentView = self;
     [self.view addSubview:_pageContentView];

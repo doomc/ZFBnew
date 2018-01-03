@@ -586,9 +586,11 @@
                 //                _skuParamHeight = h * KScreenW /w;
                 //                NSLog(@"w = %f, h =%f",w,h);
                 //            }];
+            }else{
+                _skuParamHeight  =  320;
+                _webCell.htmlImg.image = [UIImage imageNamed:@"720x680"];
             }
-            _skuParamHeight  =  320;
-            _webCell.htmlImg.image = [UIImage imageNamed:@"720x680"];
+
         }
             break;
         case GoodsParamTypePromiss:
