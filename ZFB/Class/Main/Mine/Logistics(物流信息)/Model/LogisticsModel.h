@@ -24,6 +24,7 @@
 @end
 
 @interface LogisticsList : ResponseObject
+@property (nonatomic, assign) BOOL isfirstData;
 
 @property (nonatomic, copy) NSString * time;
 

@@ -11,7 +11,7 @@
 
 
 ///点击搜索
--(void)didClickSearchButtonSearchText:(NSString *)searchText;
+-(void)didClickSearchButton:(UIButton*)sender SearchText:(NSString *)searchText;
 
 
 @end

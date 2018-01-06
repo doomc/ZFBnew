@@ -11,8 +11,10 @@
 @interface NSString (EnCode)
 
 
+//编码
 -(NSString *)encodedString;
 
+//解码
 -(NSString *)decodedString;
 
 @end

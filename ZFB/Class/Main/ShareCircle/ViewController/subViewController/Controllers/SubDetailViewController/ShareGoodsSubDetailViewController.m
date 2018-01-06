@@ -77,15 +77,16 @@
  点赞了
  */
 - (IBAction)didClickZan:(id)sender {
-    
-    if ([_isThumbsStatus isEqualToString: @"0"]) {
-      
-        [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
-
+    if (BBUserDefault.isLogin == 1) {
+        if ([_isThumbsStatus isEqualToString: @"0"]) {
+            [self.view makeToast:@"您已经点过赞了" duration:2 position:@"center"];
+        }else{
+            [self didclickZanPostRequsetAtthumsId:_shareId];
+        }
     }else{
-        
-        [self didclickZanPostRequsetAtthumsId:_shareId];
+        [self isNotLoginWithTabbar:YES];
     }
+
 }
 /**
  点击购买 ---- 跳转到商品详情

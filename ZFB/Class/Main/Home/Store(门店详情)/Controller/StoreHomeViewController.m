@@ -243,16 +243,18 @@
     //resultId    number    平台编号/商店编号/商品编号    是
     // userId    number    领优惠券用户编号    否
     // status    number    0 未领取 1 未使用 2 已使用 3 已失效    否
-    
+    NSString * userId = BBUserDefault.cmUserId;
+    if ([userId isEqualToString:@""]) {
+        userId = @"0";
+    }
     NSDictionary * parma = @{
-                             @"idType":@"3",
-                             @"resultId":@"",
-                             @"userId":BBUserDefault.cmUserId,
+                             @"idType":@"2",
+                             @"resultId":_storeId,
+                             @"userId":userId,
                              @"status":status,
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
-                             @"pageSize":@"20",
+                             @"pageSize":@"10",
                              @"storeId":_storeId,
-                             @"goodsId":@"",
                              };
     [SVProgressHUD show];
     [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/recomment/getUserCouponList"] params:parma success:^(id response) {
@@ -265,7 +267,6 @@
             for (Couponlist * list in coupon.couponList) {
                 [self.couponList addObject:list];
             }
-          
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
         }else{

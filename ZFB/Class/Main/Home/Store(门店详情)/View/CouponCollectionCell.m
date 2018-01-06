@@ -18,8 +18,12 @@
 -(void)setCouponList:(Couponlist *)couponList
 {
     _couponList =couponList;
+
+    NSString * RMB = @"¥";
     self.lb_maxMoney.text = [NSString stringWithFormat:@"%@",couponList.eachOneAmount];
     self.lb_useRange.text = [NSString stringWithFormat:@"满%@元可用",couponList.amountLimit];
+    
+ 
 }
 
 

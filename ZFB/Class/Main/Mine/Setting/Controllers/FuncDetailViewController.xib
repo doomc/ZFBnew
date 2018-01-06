@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FuncDetailViewController">
+            <connections>
+                <outlet property="lb_content" destination="hup-GF-P7m" id="m9e-b5-lLT"/>
+                <outlet property="lb_date" destination="OVd-je-GxX" id="GcO-36-MpW"/>
+                <outlet property="lb_title" destination="99w-d0-Mdi" id="8Bp-NP-81c"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99w-d0-Mdi">
+                    <rect key="frame" x="20" y="30" width="335" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hup-GF-P7m">
+                    <rect key="frame" x="15" y="84" width="345" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVd-je-GxX">
+                    <rect key="frame" x="15" y="132" width="345" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="99w-d0-Mdi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="4zx-cY-ygk"/>
+                <constraint firstItem="99w-d0-Mdi" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="6vV-TE-GuW"/>
+                <constraint firstItem="99w-d0-Mdi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Cw3-8c-l69"/>
+                <constraint firstAttribute="trailing" secondItem="99w-d0-Mdi" secondAttribute="trailing" constant="20" id="Ev1-3s-B4o"/>
+                <constraint firstItem="hup-GF-P7m" firstAttribute="top" secondItem="99w-d0-Mdi" secondAttribute="bottom" constant="30" id="LIR-rg-c9n"/>
+                <constraint firstAttribute="trailing" secondItem="hup-GF-P7m" secondAttribute="trailing" constant="15" id="bKf-vr-tfv"/>
+                <constraint firstItem="hup-GF-P7m" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="gLN-Pb-mcn"/>
+                <constraint firstItem="OVd-je-GxX" firstAttribute="top" secondItem="hup-GF-P7m" secondAttribute="bottom" constant="30" id="j1t-Xm-Ppf"/>
+                <constraint firstItem="OVd-je-GxX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="jjy-Dw-Ea7"/>
+                <constraint firstAttribute="trailing" secondItem="OVd-je-GxX" secondAttribute="trailing" constant="15" id="otf-Zu-tPa"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

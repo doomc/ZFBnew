@@ -24,7 +24,7 @@
     self.bgViewCorner.clipsToBounds = YES;
     self.bgViewCorner.layer.cornerRadius = 8;
     self.bgViewCorner.layer.borderWidth =1;
-    self.bgViewCorner.layer.borderColor = HEXCOLOR(0xf95a70).CGColor;
+    self.bgViewCorner.layer.borderColor = HEXCOLOR(0xdedede).CGColor;
     
     self.tf_search.delegate = self;
     self.tf_search.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -33,8 +33,9 @@
 ///点击搜索按钮
 - (IBAction)searchBtnAction:(id)sender {
     
-    if ([self.delegate respondsToSelector:@selector(didClickSearchButtonSearchText:)]) {
-        [self.delegate didClickSearchButtonSearchText:searchText];
+    [self.tf_search resignFirstResponder];
+    if ([self.delegate respondsToSelector:@selector(didClickSearchButton:SearchText:)]) {
+        [self.delegate didClickSearchButton:sender SearchText:searchText];
     }
     
 }
@@ -45,11 +46,6 @@
     NSLog(@"searchText ==  %@",searchText);
 }
 
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    return  YES;
-}
-
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     NSLog(@"开始编辑");
@@ -58,7 +54,6 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     searchText = textField.text;
-
     NSLog(@"编辑结束 ---- %@",textField.text);
 }
 

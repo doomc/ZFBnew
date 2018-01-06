@@ -28,7 +28,7 @@
     _resultgGoodslist = resultgGoodslist;
     
     NSURL * img_url = [NSURL URLWithString:resultgGoodslist.coverImgUrl ];
-    [self.guess_listView sd_setImageWithURL:img_url placeholderImage:nil];
+    [self.guess_listView sd_setImageWithURL:img_url placeholderImage:[UIImage imageNamed:@"240x260"]];
     
     self.lb_goodsName.text = resultgGoodslist.goodsName;
     self.lb_price.text = [NSString stringWithFormat:@"¥%@",resultgGoodslist.priceTostr];
@@ -41,7 +41,7 @@
     _sgoodlist = sgoodlist;
     
     NSURL * img_url = [NSURL URLWithString:sgoodlist.coverImgUrl ];
-    [self.guess_listView sd_setImageWithURL:img_url placeholderImage:nil];
+    [self.guess_listView sd_setImageWithURL:img_url placeholderImage:[UIImage imageNamed:@"240x260"]];
     
     self.lb_goodsName.text = sgoodlist.goodsName;
     self.lb_price.text = [NSString stringWithFormat:@"¥%@",sgoodlist.priceTostr];
@@ -54,7 +54,7 @@
     _goodlist = goodlist;
     
     NSURL * img_url = [NSURL URLWithString:_goodlist.coverImgUrl ];
-    [self.guess_listView sd_setImageWithURL:img_url placeholderImage:nil];
+    [self.guess_listView sd_setImageWithURL:img_url placeholderImage:[UIImage imageNamed:@"240x260"]];
     
     self.lb_goodsName.text = _goodlist.goodsName;
     self.lb_price.text = [NSString stringWithFormat:@"¥%@",_goodlist.priceTostr];

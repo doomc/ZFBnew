@@ -53,7 +53,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
  
-    return CGSizeMake( (KScreenW - 15)*0.5, 55);
+    return CGSizeMake( (KScreenW - 15)*0.5, 60);
 }
 
 //设置每个item的UIEdgeInsets

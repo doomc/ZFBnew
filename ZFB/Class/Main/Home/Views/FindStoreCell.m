@@ -16,7 +16,7 @@
  
     self.store_listView.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-//    self.store_listView.contentMode = UIViewContentModeScaleToFill;
+ 
 }
  
 

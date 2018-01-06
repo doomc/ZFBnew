@@ -232,18 +232,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
                 height = 50;
                 
                 break;
-                
-//            case 4:
-//#warning -------------------------总觉得这句话有问题-=------------=-
-//                if (([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) || _courierFlag == nil ||  _shopFlag == nil || [_courierFlag isEqualToString:@"-1"] || [_shopFlag isEqualToString:@"-1"])
-//                {
-//                    height = 0;
-//
-//                }else{
-//                    height = 50;
-//                }
-//                break;
-                
             case 4:
                 height = 50;
                 
@@ -314,35 +302,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
                 
             }
                 break;
-                
-//            case 4:
-//            {
-//                ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
-//
-//                orderCell.order_imgicon.image =[UIImage imageNamed:@"switchover_icon"];
-//                orderCell.order_hiddenTitle.hidden = YES;
-//
-//                if (([_courierFlag isEqualToString:@"0"] && [_shopFlag isEqualToString:@"0"]) || _courierFlag == nil ||  _shopFlag == nil || [_courierFlag isEqualToString:@"-1"] || [_shopFlag isEqualToString:@"-1"]) {
-//
-//                    NSLog(@"我是普通用户");
-//                    [orderCell setHidden:YES];
-//
-//                }else{
-//
-//                    [orderCell setHidden:NO];
-//                    if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
-//                        orderCell.order_title.text         = @"切换到商户端";
-//
-//                    }
-//                    if ([_courierFlag isEqualToString:@"1"]) {//配送端
-//                        orderCell.order_title.text         = @"切换到配送端";
-//
-//                    }
-//                }
-//                return orderCell;
-//
-//            }
-//                break;
             case 4://我的共享
             {
                 ZFMyOderCell * orderCell = [self.myTableView dequeueReusableCellWithIdentifier:@"ZFMyOderCell" forIndexPath:indexPath];
@@ -406,8 +365,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
                     orderVC.buttonTitle =@"全部订单";
                     orderVC.orderStatus = @"";//默认状态
                     [self.navigationController pushViewController:orderVC animated:NO];
-                }
-                else{
+                }else{
                     [self isloginSuccess];
                 }
                 
@@ -419,9 +377,7 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
                 if (BBUserDefault.isLogin == 1) {
                     ZFShoppingCarViewController * shopcarVC =[[ZFShoppingCarViewController alloc]init];
                     [self.navigationController pushViewController:shopcarVC animated:NO];
-                    
-                }
-                else{
+                }else{
                     [self isloginSuccess];
                     
                 }
@@ -430,7 +386,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
                 break;
 
             case 4://我的共享
-                
             {
                 if (BBUserDefault.isLogin == 1) {
                     
@@ -439,14 +394,12 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
                 }else{
                     
                     [self isloginSuccess];
-                    
                 }
                 
             }
                 break;
             case 5: {//意见反馈
                 if (BBUserDefault.isLogin == 1) {
-                    
                     ZFFeedbackViewController * feedVC = [[ZFFeedbackViewController alloc]init];
                     [self.navigationController pushViewController:feedVC animated:NO];
                     
@@ -455,13 +408,9 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
                     [self isloginSuccess];
                 }
             }
-                
                 break;
         }
     }
-   
-    
-    
 }
 #pragma mark - 待付款didClickWaitForPayAction
 ///待付款
@@ -470,10 +419,10 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
     if (BBUserDefault.isLogin == 1) {
         
         ZFAllOrderViewController *orderVC =[[ZFAllOrderViewController alloc]init];
-        [orderVC sendTitle:@"待付款" orderType:OrderTypeWaitPay];
         orderVC.orderType   = 1;
         orderVC.orderStatus =@"4";
         orderVC.buttonTitle = @"待付款";
+        //        [orderVC sendTitle:@"待付款" orderType:OrderTypeWaitPay];0
         [self.navigationController pushViewController:orderVC animated:YES];
         
     }else{
@@ -746,9 +695,8 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     NSLog(@"已经加载了");
     if (BBUserDefault.isLogin == 1) {
-
-    }
-    else{
+ 
+    }else{
         //赋值
         self.headview.lb_collectCount.text = @"0";
         self.headview.lb_historyCount.text = @"0";
@@ -815,7 +763,6 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
 {
     if (BBUserDefault.isLogin == 1) {
         if ([_deliveryFlag isEqualToString:@"0"] &&[_shopFlag isEqualToString:@"0"] ) {//普通用户
-            
             iwantSendedViewController * sendVC  = [iwantSendedViewController new];
             [self.navigationController pushViewController:sendVC animated:NO];
             
@@ -827,52 +774,48 @@ typedef NS_ENUM(NSUInteger, TypeCell) {
             else if ([_deliveryStatus isEqualToString:@"2"])//审核中
             {
                 [self.view makeToast:@"审核中..." duration:2 position:@"center"];
-            }
-            else{
+            }else{
                 [self.view makeToast:@"配送和商户,只能选其一" duration:2 position:@"center"];
-                
             }
-            
         }
     }else{
-       
         [self isloginSuccess];
     }
-
 }
 //切换商户
 -(void)didClickChangeID
 {
     NSLog(@"切换商户");
-    
     if (BBUserDefault.isLogin == 1) {
         if ([_shopFlag isEqualToString:@"1"]) {//shopFlag = 1 商户端 0隐藏
             //商户端
             BusinessServicerViewController * businessVC = [[BusinessServicerViewController alloc]init];
             businessVC.storeId = _storeId;
             [self.navigationController pushViewController:businessVC animated:NO];
-            
-        }
-        if ([_deliveryFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
+        
+        }if ([_deliveryFlag isEqualToString:@"1"]) {//配送员 = 1  0隐藏
             // 配送端
             ZFSendSerViceViewController * sendVC = [[ZFSendSerViceViewController alloc]init];
             [self.navigationController pushViewController:sendVC animated:NO];
-        }
         
+        }if ([_shopFlag isEqualToString:@"-1"]) {
+            [self.view makeToast:@"审核中..." duration:2 position:@"center"];
+        
+        }if ([_deliveryStatus isEqualToString:@"2"]  ) {
+            [self.view makeToast:@"审核中..." duration:2 position:@"center"];
+         }
     }
     else{
         [self isloginSuccess];
-        
     }
-
 }
 //我的评价
 -(void)didClickMyevalution{
     NSLog(@"我的评价");
-//    [self settingAlertView];
-    EditCommentViewController * editVC = [EditCommentViewController new];
-    [self.navigationController pushViewController:editVC animated:NO];
-    
+    [self settingAlertView];
+//    EditCommentViewController * editVC = [EditCommentViewController new];
+//    [self.navigationController pushViewController:editVC animated:NO];
+
 
 }
 //我的动态

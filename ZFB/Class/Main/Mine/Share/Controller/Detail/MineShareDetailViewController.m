@@ -86,8 +86,8 @@
 {
     PublishShareViewController * pvc = [PublishShareViewController new];
     pvc.goodId = _goodId;
-    pvc.textView.text = _describe;
-    pvc.tf_title.text = _title;
+    pvc.describe = _describe;
+    pvc.goodsName = _title;
     [self.navigationController pushViewController:pvc animated:NO];
 }
 #pragma mark  - 审核详情   myShare/unCheckedDetail

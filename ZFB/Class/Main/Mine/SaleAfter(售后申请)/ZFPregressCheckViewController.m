@@ -96,19 +96,25 @@
         return CheckCell;
 
     }else{
-       
+ 
         LogisticsProgressCell * logCell = [self.tableView dequeueReusableCellWithIdentifier:@"LogisticsProgressCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
             logCell.line_up.hidden = YES;
             [logCell.status_btn setImage:[UIImage imageNamed:@"speed2"] forState:UIControlStateNormal];
             logCell.lb_date.textColor = HEXCOLOR(0xf95a70);
             logCell.lb_infoMessage.textColor = HEXCOLOR(0xf95a70);
-            
+      
         }else if (indexPath.row == self.listArray.count - 1) {
             logCell.line_down.hidden = YES;
+            [logCell.status_btn setImage:[UIImage imageNamed:@"speed"] forState:UIControlStateNormal];
+            logCell.lb_date.textColor = HEXCOLOR(0x8d8d8d);
+            logCell.lb_infoMessage.textColor = HEXCOLOR(0x333333);
         }else {
             logCell.line_down.hidden = NO;
             logCell.line_up.hidden = NO;
+            [logCell.status_btn setImage:[UIImage imageNamed:@"speed"] forState:UIControlStateNormal];
+            logCell.lb_date.textColor = HEXCOLOR(0x8d8d8d);
+            logCell.lb_infoMessage.textColor = HEXCOLOR(0x333333);
         }
         [self configCell:logCell withIndexPath:indexPath];
         return logCell;

@@ -20,15 +20,16 @@
 
 //model
 #import "ReviewingModel.h"
+#import "CQPlaceholderView.h"
 
-#define cellHeight 110
+#define cellHeight 100
 
 typedef NS_ENUM(NSUInteger, SelectType) {
     SelectTypeDefault,//未使用
     SelectTypeAlready,//已使用
     
 };
-@interface MineShareViewController () <UITableViewDelegate,UITableViewDataSource,MineShareStatisticsCellDelegate,WeChatStylePlaceHolderDelegate,CYLTableViewPlaceHolderDelegate>
+@interface MineShareViewController () <UITableViewDelegate,UITableViewDataSource,MineShareStatisticsCellDelegate>
 {
     NSString * _generalIncome;//总收入
     NSString * _goodsCount;
@@ -40,7 +41,9 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 @property (assign, nonatomic)  SelectType selectType;
 @property (strong, nonatomic)  NSMutableArray * reviewingList;//审核中表数组
 @property (strong, nonatomic)  NSMutableArray * reviewedList;//已审核表数组
-;
+@property (strong, nonatomic)  CQPlaceholderView * _placeHolderView;
+
+
 
 @end
 
@@ -96,7 +99,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, KScreenW, KScreenH  - 44 - 50 -64) style:UITableViewStylePlain
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, KScreenW, KScreenH  - 44  -64) style:UITableViewStylePlain
                       ];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -178,7 +181,6 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             break;
         case SelectTypeAlready://已审核
             if (section == 0) {
-                
                 return 1;
             }
             numRow = self.reviewedList.count;
@@ -282,24 +284,17 @@ typedef NS_ENUM(NSUInteger, SelectType) {
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld -  %ld",indexPath.section,indexPath.row);
-
-    ReViewData * data = self.reviewingList[indexPath.row];
-    MineShareDetailViewController * detailVC = [MineShareDetailViewController new];
-
     switch (_selectType) {
         case SelectTypeDefault://未审核
         {
+            MineShareDetailViewController * detailVC = [MineShareDetailViewController new];
+            ReViewData * data = self.reviewingList[indexPath.row];
             detailVC.goodsId = data.goodsId;
             [self.navigationController pushViewController:detailVC animated:NO];
         }
             break;
         case SelectTypeAlready://已审核
-            if (indexPath.section == 1) {
-                
-                detailVC.goodsId = data.goodsId;
-                [self.navigationController pushViewController:detailVC animated:NO];
-
-            }
+ 
             break;
     }
 }
@@ -398,12 +393,7 @@ typedef NS_ENUM(NSUInteger, SelectType) {
             _goodsCount = review.goodsCount;
             _todayIncome = review.todayIncome;
             [self.tableView reloadData];
-
-//            if ([self isEmptyArray:self.reviewedList]) {
-//                [self.tableView cyl_reloadData];
-//                [SVProgressHUD dismiss];
-//                
-//            }
+ 
         }
         [self endRefresh];
 
@@ -417,34 +407,8 @@ typedef NS_ENUM(NSUInteger, SelectType) {
     }];
 }
 
-#pragma mark - CYLTableViewPlaceHolderDelegate Method
-- (UIView *)makePlaceHolderView {
-    
-    UIView *weChatStyle = [self weChatStylePlaceHolder];
-    return weChatStyle;
-}
 
-//暂无数据
-- (UIView *)weChatStylePlaceHolder {
-    WeChatStylePlaceHolder *weChatStylePlaceHolder = [[WeChatStylePlaceHolder alloc] initWithFrame:self.tableView.frame];
-    weChatStylePlaceHolder.delegate = self;
-    return weChatStylePlaceHolder;
-}
-#pragma mark - WeChatStylePlaceHolderDelegate Method
-- (void)emptyOverlayClicked:(id)sender {
-    
-    switch (_selectType) {
-        case SelectTypeDefault://未审核
-            [self mineShareListGoodsPost];
-            
-            break;
-        case SelectTypeAlready://已审核
-            [self alreadlymineCheckedListPost];
-            
-            break;
-    }
 
-}
 
 -(void)viewWillDisappear:(BOOL)animated{
     

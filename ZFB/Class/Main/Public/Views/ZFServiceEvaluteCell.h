@@ -12,7 +12,7 @@
 @protocol ZFServiceEvaluteCellDelegate <NSObject>
 
 //提交
--(void)didClickCommit;
+-(void)didClickCommit:(UIButton *)sender;
 
 //送货速度
 -(void)getSendSpeedScore:(NSString *)speedScore;

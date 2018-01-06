@@ -336,7 +336,7 @@
             
             _wdStarView.currentScore = [_starLevel integerValue];
             [self.headerView.storeBackground sd_setImageWithURL:[NSURL URLWithString:_coverUrl] placeholderImage:nil];
-            [self.headerView.storeLogo sd_setImageWithURL:[NSURL URLWithString:userImgAttachUrl] placeholderImage:[UIImage imageNamed:@"head"]];
+            [self.headerView.storeLogo sd_setImageWithURL:[NSURL URLWithString:userImgAttachUrl] placeholderImage:[UIImage imageNamed:@""]];
 
         }
     } progress:^(NSProgress *progeress) {

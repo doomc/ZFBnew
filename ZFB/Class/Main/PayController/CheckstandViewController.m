@@ -139,7 +139,7 @@
     if (indexPath.section == 0) {
         
         if (indexPath.row == 0) {
-            return 0;
+            return 50;//余额 0 隐藏  默认
         }else{
             return 50;
         }
@@ -208,15 +208,15 @@
         cell.icons.image = [UIImage imageNamed:iconName];
         
         if (indexPath.row == 0) {//余额
-            cell.hidden = YES;
-//            cell.lb_balance.hidden = NO;
-//            cell.btn_selected.hidden = NO;
-//            if ([_balance isEqualToString:@""] || _balance == nil) {
-//                cell.lb_balance.text = @"0.0元";
-//
-//            }else{
-//                cell.lb_balance.text = [NSString stringWithFormat:@"%@元",_balance];
-//            }
+//            cell.hidden = YES;
+            cell.lb_balance.hidden = NO;
+            cell.btn_selected.hidden = NO;
+            if ([_balance isEqualToString:@""] || _balance == nil) {
+                cell.lb_balance.text = @"0.0元";
+
+            }else{
+                cell.lb_balance.text = [NSString stringWithFormat:@"%@元",_balance];
+            }
         }
         else if (indexPath.row == 1) {//微信
 

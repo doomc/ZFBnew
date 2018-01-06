@@ -86,6 +86,7 @@ typedef NS_ENUM(NSUInteger, SelectTypeSortBy) {
     _searchtext.font = SYSTEMFONT(14);
     _searchtext.backgroundColor = RGB(238, 238, 238);
     _searchtext.placeholder = @"搜索店铺内商品";
+    _searchtext.clearButtonMode = UITextFieldViewModeWhileEditing;
     _searchtext.delegate = self;
     [_searchtext addTarget:self action:@selector(textFieldChangeValue:) forControlEvents:UIControlEventEditingChanged];
     [_titleView addSubview:_searchtext];

@@ -211,7 +211,7 @@ typedef NS_ENUM(NSUInteger, CollectType) {
 
                 //初始化五星好评控件
                 if (!normalCell.xh_starView) {
-                    _wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 110, 24) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
+                    _wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 80, 20) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
                     _wdStarView.currentScore = [list.starLevel integerValue];
                     [normalCell.starView  addSubview:_wdStarView];
                     normalCell.xh_starView = _wdStarView;
@@ -224,15 +224,14 @@ typedef NS_ENUM(NSUInteger, CollectType) {
             }else{
                 
                 ZFCollectEditCell *editCell = [self.tableView dequeueReusableCellWithIdentifier:@"ZFCollectEditCellid" forIndexPath:indexPath];
-                [editCell.starView setHidden:YES];
+                [editCell.starView setHidden:NO];
                 editCell.lb_price.hidden = YES;
                 editCell.collectID = list.cartItemId;//收藏id
                 editCell.storeList = list;
                 editCell.delegate = self;
                 XHStarRateView * _wdStarView;
-
                 if (!editCell.xh_starView) {
-                    _wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 110, 24) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
+                    _wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 80, 20) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
                     _wdStarView.currentScore = [list.starLevel integerValue];
                     [editCell.starView  addSubview:_wdStarView];
                     editCell.xh_starView = _wdStarView;

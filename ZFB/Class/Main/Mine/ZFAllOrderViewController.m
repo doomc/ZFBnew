@@ -29,7 +29,7 @@
 #import "ZFDetailOrderViewController.h"
 #import "ZFMainPayforViewController.h"
 #import "ZFPersonalViewController.h"
-#import "ZFEvaluateGoodsViewController.h"//评价
+#import "ZFEvaluateGoodsViewController.h"//晒单
 #import "ZFApplyBackgoodsViewController.h"//申请售后
 #import "PublishShareViewController.h"//发布共享
 #import "LogisticsViewController.h"//查看物流
@@ -53,7 +53,9 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
 
 
 @interface ZFAllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,ZFpopViewDelegate,ZFSaleAfterTopViewDelegate,ZFCheckTheProgressCellDelegate,ZFSaleAfterContentCellDelegate,ZFFooterCellDelegate,SaleAfterSearchCellDelegate,DealSucessCellDelegate,ZFSendingCellDelegate>
-
+{
+    NSString  * _searchText;
+}
 @property (nonatomic ,strong) UIView *  titleView ;
 @property (nonatomic ,strong) UITableView *  tableView ;
 @property (nonatomic ,strong) UIButton  *navbar_btn;//导航按钮
@@ -101,7 +103,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     [super headerRefresh];
     switch (_orderType) {//-1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成
         case OrderTypeAllOrder://全部订单
-            [self allOrderPostRequsetWithOrderStatus:@""  ];
+            [self allOrderPostRequsetWithOrderStatus:@""];
             break;
         case OrderTypeWaitPay://待付款
             
@@ -137,9 +139,8 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             if (_tagNum == 0) {
                 
                 [self allOrderPostRequsetWithOrderStatus:@"3" ];
-                BBUserDefault.keyWord = @"";
-//                                self.searchBar.text = @"";
-                
+                _searchText =  @"";
+ 
             }else{
                 [self salesAfterPostRequste];
                 
@@ -1036,7 +1037,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                     height = 56;
                     
                 }else{
-                    
                     height = 100;
                 }
             }
@@ -1066,30 +1066,7 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             
             Orderlist * list = self.orderListArray[indexPath.section];
             //    orderStatus  -1：关闭,0待配送 1配送中 2.配送完成，3交易完成（用户确认收货），4.待付款,5.待审批,6.待退回，7.服务完成 8 待接单 9.代发货 10.已发货
-            if ([list.orderStatus isEqualToString:@"10"]) {
-                sendCell.share_btn.hidden = YES;
-                sendCell.sunnyOrder_btn.hidden = YES;
-            }//交易完成 无退货
-            else if ([list.orderStatus isEqualToString:@"3"] && [list.partRefund isEqualToString:@""]) {
-
-                if ([list.is_comment  isEqualToString:@"1"]) {//1已经评论过了
-                    sendCell.share_btn.hidden = NO;
-                    sendCell.sunnyOrder_btn.hidden = YES;//晒单
-                    sendCell.leadingLayoutWidth.constant = 20;
-                }else{//未评论
-                    sendCell.share_btn.hidden = NO;
-                    sendCell.sunnyOrder_btn.hidden = NO;
-                    sendCell.leadingLayoutWidth.constant = 90;
-
-                }
-
-                sendCell.delegate = self;
-                sendCell.indexpath = indexPath;
          
-            }else{
-                sendCell.share_btn.hidden = YES;
-                sendCell.sunnyOrder_btn.hidden = YES;
-            }
      
             NSMutableArray * goodArray = [NSMutableArray array];
             for (Ordergoods * ordergoods in list.orderGoods) {
@@ -1097,6 +1074,28 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             }
             Ordergoods * goods = goodArray[indexPath.row];
             sendCell.goods = goods;
+            //status  申请售后的状态 0未操作 1退货中（不能评价晒单） 2服务完成 3未通过
+            if (goods.status == 1 || goods.status == 2) {
+                sendCell.share_btn.hidden = YES;
+                sendCell.sunnyOrder_btn.hidden = YES;
+            }else{
+                
+                if ([list.orderStatus isEqualToString:@"10"]) {
+                    sendCell.share_btn.hidden = YES;
+                    sendCell.sunnyOrder_btn.hidden = YES;
+                }//交易完成 无退货
+                else if ([list.orderStatus isEqualToString:@"3"] && [list.partRefund isEqualToString:@""]) {
+            
+                    sendCell.delegate = self;
+                    sendCell.indexpath = indexPath;
+                    
+                }else{
+                    sendCell.share_btn.hidden = YES;
+                    sendCell.sunnyOrder_btn.hidden = YES;
+                }
+//                sendCell.share_btn.hidden = NO;
+//                sendCell.sunnyOrder_btn.hidden = NO;
+            }
             return sendCell;
         }
             break;
@@ -1186,20 +1185,27 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             Ordergoods * goods = goodArray[indexPath.row];
             successCell.orderGoods = goods;
             successCell.delegate = self;
-            
-            if ([list.partRefund isEqualToString:@"部分退货"]) {
+            if ([list.partRefund isEqualToString:@"部分退货"]  ) {
                 successCell.btn_shareOrder.hidden = YES;
                 successCell.btn_shareComment.hidden = YES;
-
             }else{
-                if ([list.is_comment  isEqualToString:@"1"]) {//1已经评论过了
+                //status  申请售后的状态 0未操作 1退货中（不能评价晒单） 2服务完成 3未通过
+                if (goods.status == 1 || goods.status == 2) {
                     successCell.btn_shareOrder.hidden = YES;
-                    successCell.btn_shareComment.hidden = NO;
-                    successCell.leadingLayoutWidth.constant = 20;
-                }
-                else{
-                    successCell.btn_shareOrder.hidden = NO;
-                    successCell.btn_shareComment.hidden = NO;
+                    successCell.btn_shareComment.hidden = YES;
+                }else{
+                    if ([goods.is_comment  isEqualToString:@"1"]) {//1已经评论过了
+                        successCell.btn_shareComment.hidden = NO;//共享
+                        successCell.btn_shareOrder.hidden = YES;//晒单
+                        successCell.leadingLayoutWidth.constant = 20;
+                    }else{//未评论
+                        successCell.btn_shareComment.hidden = NO;
+                        successCell.btn_shareOrder.hidden = NO;
+                        successCell.leadingLayoutWidth.constant = 90;
+                    }
+//                    successCell.btn_shareOrder.hidden = NO;
+//                    successCell.btn_shareComment.hidden = NO;
+                    
                 }
             }
             return successCell;
@@ -1243,6 +1249,11 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                     Ordergoods * goods = goodArray[indexPath.row];
                     contentell.goods   = goods;
                     contentell.indexPath = indexPath;
+                    if (goods.status == 0) {
+                        contentell.saleAfter_btn.hidden = NO;
+                    }else{
+                        contentell.saleAfter_btn.hidden = YES;
+                    }
                     return   contentell;
                 }
                 
@@ -1632,8 +1643,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"orderStatus":orderStatus,
                              @"cmUserId":BBUserDefault.cmUserId,
-                             @"orderNum":@"",
-                             
                              };
     
     [SVProgressHUD show];
@@ -1807,7 +1816,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
                                        SearchWord :(NSString *)searchWord
 {
     NSDictionary * param = @{
-                             
                              @"size":[NSNumber numberWithInteger:kPageCount] ,
                              @"page":[NSNumber numberWithInteger:self.currentPage],
                              @"orderStatus":orderStatus,
@@ -1822,7 +1830,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
         {
             if (self.refreshType == RefreshTypeHeader) {
                 if (self.orderListArray.count > 0 ) {
-                    
                     [self.orderListArray removeAllObjects];
                 }
             }
@@ -1832,7 +1839,6 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
             }
             [SVProgressHUD dismiss];
             [self.tableView reloadData];
-
         }
         NSLog(@"orderListArray ====%@",self.orderListArray);
         [self endRefresh];
@@ -2161,71 +2167,71 @@ static  NSString * dealSucessCellid =@"dealSucessCellid";//晒单
     }
 }
 #pragma mark - SaleAfterSearchCellDelegate 搜索代理
--(void)didClickSearchButtonSearchText:(NSString *)searchText
+-(void)didClickSearchButton:(UIButton*)sender SearchText:(NSString *)searchText
 {
+    _searchText = searchText;
     [self saleAfterCheckOrderlistPostwithOrderStatus:@"3" SearchWord:searchText];
-    BBUserDefault.keyWord = searchText;
+    [self.orderListArray removeAllObjects];
 }
 
 
 //既可以让headerView不悬浮在顶部，也可以让footerView不停留在底部。
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
- 
-    if (_orderType == OrderTypeAfterSale ) {
-        if (_tagNum == 0) {
-            CGFloat sectionHeaderHeight = 64 ;
-            CGFloat sectionFooterHeight = 10;
-            CGFloat offsetY = scrollView.contentOffset.y;
-            
-            if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
-            {
-                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
-            }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
-            {
-                scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
-            }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
-            {
-                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
-            }
-        }else {
-            CGFloat sectionHeaderHeight = 50 ;
-            CGFloat sectionFooterHeight = 0;
-            CGFloat offsetY = scrollView.contentOffset.y;
-
-            if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
-            {
-                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
-            }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
-            {
-                scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
-            }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
-            {
-                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
-            }
-        }
-    }else{
-        CGFloat sectionHeaderHeight = k_sectionHeight ;
-        CGFloat sectionFooterHeight = k_footHeight;
-        
-        CGFloat offsetY = scrollView.contentOffset.y;
-        if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
-        {
-            scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
-        }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
-        {
-            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
-        }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
-        {
-            scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
-        }
-    }
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//
+//    if (_orderType == OrderTypeAfterSale ) {
+//        if (_tagNum == 0) {
+//            CGFloat sectionHeaderHeight = 64 ;
+//            CGFloat sectionFooterHeight = 10;
+//            CGFloat offsetY = scrollView.contentOffset.y;
+//
+//            if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
+//            {
+//                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
+//            }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
+//            {
+//                scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
+//            }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
+//            {
+//                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+//            }
+//        }else {
+//            CGFloat sectionHeaderHeight = 50 ;
+//            CGFloat sectionFooterHeight = 0;
+//            CGFloat offsetY = scrollView.contentOffset.y;
+//
+//            if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
+//            {
+//                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
+//            }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
+//            {
+//                scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
+//            }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
+//            {
+//                scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+//            }
+//        }
+//    }else{
+//        CGFloat sectionHeaderHeight = k_sectionHeight ;
+//        CGFloat sectionFooterHeight = k_footHeight;
+//
+//        CGFloat offsetY = scrollView.contentOffset.y;
+//        if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
+//        {
+//            scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
+//        }else if (offsetY >= sectionHeaderHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight)
+//        {
+//            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
+//        }else if (offsetY >= scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight && offsetY <= scrollView.contentSize.height - scrollView.frame.size.height)
+//        {
+//            scrollView.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(scrollView.contentSize.height - scrollView.frame.size.height - sectionFooterHeight), 0);
+//        }
+//    }
+//}
 
 #pragma mark - CYLTableViewPlaceHolderDelegate Method
-
 -(void)dealloc
 {
-    BBUserDefault.keyWord = @"";
+    _searchText = @"";
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

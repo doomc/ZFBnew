@@ -34,6 +34,7 @@
 
 //vc
 #import "SendOrderStatisticsViewController.h"
+#import "ZFDetailOrderViewController.h"
 
 #define  k_cellHeight 130
 #define  k_sectionHeight 50
@@ -916,21 +917,83 @@ typedef NS_ENUM(NSUInteger, SelectType) {
                     [self weekOrderDetial];
                 }
                 else{
-                    
                     [self monthOrderDetial];
-
                 }
             }
             break;
             
         case SelectTypeOrderPage:
-            
+        {
+            switch (_servicType) {
+#pragma mark - SendServicTypeWaitSend 待配送
+                case SendServicTypeWaitSend:
+                {
+                    ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+                    if (self.orderListArray.count > 0) {
+                        SendServiceStoreinfomap * store = self.orderListArray[indexPath.section];
+                        NSMutableArray * goodsArr = [NSMutableArray array];
+                        for (SendServiceOrdergoodslist * goods in store.orderGoodsList) {
+                            [goodsArr addObject:goods ];
+                        }
+                        SendServiceOrdergoodslist * goods = goodsArr [indexPath.row];
+                        detailVc.cmOrderid = [NSString stringWithFormat:@"%ld",goods.orderId];
+                        detailVc.storeId = [NSString stringWithFormat:@"%ld",goods.storeId];
+                        detailVc.goodsId = [NSString stringWithFormat:@"%ld",goods.goodsId];
+                        detailVc.imageUrl = goods.coverImgUrl;
+                        detailVc.isUserType = 2;// 3 是用户 1 是商户 2 是配送
+                    }
+                    [self.navigationController pushViewController:detailVc animated:YES];
+                }
+                    break;
+#pragma mark - SendServicTypeSending 配送中
+                case SendServicTypeSending:
+                {
+                    ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+                    if (self.orderListArray.count > 0) {
+                        SendServiceStoreinfomap * store = self.orderListArray[indexPath.section];
+                        NSMutableArray * goodsArr = [NSMutableArray array];
+                        for (SendServiceOrdergoodslist * goods in store.orderGoodsList) {
+                            [goodsArr addObject:goods ];
+                        }
+                        SendServiceOrdergoodslist * goods = goodsArr [indexPath.row];
+                        detailVc.cmOrderid = [NSString stringWithFormat:@"%ld",goods.orderId];
+                        detailVc.storeId = [NSString stringWithFormat:@"%ld",goods.storeId];
+                        detailVc.goodsId = [NSString stringWithFormat:@"%ld",goods.goodsId];
+                        detailVc.imageUrl = goods.coverImgUrl;
+                        detailVc.isUserType = 2;// 3 是用户 1 是商户 2 是配送
+                    }
+                    [self.navigationController pushViewController:detailVc animated:YES];
+                }
+                    break;
+                    
+#pragma mark - SendServicTypeSended 已配送
+                case SendServicTypeSended:
+                {
+                    ZFDetailOrderViewController * detailVc =[[ ZFDetailOrderViewController alloc]init];
+                    if (self.orderListArray.count > 0) {
+                        SendServiceStoreinfomap * store = self.orderListArray[indexPath.section];
+                        NSMutableArray * goodsArr = [NSMutableArray array];
+                        for (SendServiceOrdergoodslist * goods in store.orderGoodsList) {
+                            [goodsArr addObject:goods ];
+                        }
+                        SendServiceOrdergoodslist * goods = goodsArr [indexPath.row];
+                        detailVc.cmOrderid = [NSString stringWithFormat:@"%ld",goods.orderId];
+                        detailVc.storeId = [NSString stringWithFormat:@"%ld",goods.storeId];
+                        detailVc.goodsId = [NSString stringWithFormat:@"%ld",goods.goodsId];
+                        detailVc.imageUrl = goods.coverImgUrl;
+                        detailVc.isUserType = 2;// 3 是用户 1 是商户 2 是配送
+                    }
+                    [self.navigationController pushViewController:detailVc animated:YES];
+                    break;
+
+                }
+            }
             break;
         case SelectTypeCaculater:
             
             break;
  
-            
+        }
     }
 }
 

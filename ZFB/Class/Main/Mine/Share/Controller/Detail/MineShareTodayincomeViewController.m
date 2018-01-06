@@ -6,6 +6,7 @@
 //  Copyright © 2017年 com.zfb. All rights reserved.
 //  今日收入
 
+#define  k_cellHeight 210
 #import "MineShareTodayincomeViewController.h"
 #import "MineShareIncomeCell.h"
 
@@ -59,6 +60,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.estimatedRowHeight = 0;
+        _tableView.backgroundColor = HEXCOLOR(0xf7f7f7);
         _tableView.separatorStyle =  UITableViewCellSelectionStyleNone;
     }
     return _tableView;
@@ -76,7 +78,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 180;
+    return k_cellHeight;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,17 +95,16 @@
 }
 
 
-#pragma mark  - 我的共享列表    myShare/allShareOrderList
+#pragma mark  - 今日收入    myShare/allShareOrderList
 -(void)todayListGoodsPost
 {
     NSDictionary * parma = @{
                              @"userId":BBUserDefault.cmUserId,
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"pageSize":[NSNumber numberWithInteger:kPageCount],
-                             @"history":@"0",//0.全部 1.一个月前2.一月前到三个月前 3.三个月前到六个月前 4.六个月前到一年前5一年以前
                              };
     [SVProgressHUD show];
-    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/myShare/allShareOrderList"] params:parma success:^(id response) {
+    [MENetWorkManager post:[zfb_baseUrl stringByAppendingString:@"/myShare/todayShareOrderList"] params:parma success:^(id response) {
         if ([response[@"resultCode"] isEqualToString:@"0"] ) {
             
             if (self.refreshType == RefreshTypeHeader) {

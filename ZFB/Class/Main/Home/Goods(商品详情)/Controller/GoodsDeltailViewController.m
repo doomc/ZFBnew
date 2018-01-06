@@ -255,7 +255,7 @@
 //添加悬浮按钮
 -(void)flyButtonView
 {
-    WMDragView * flyView = [[WMDragView alloc] initWithFrame:CGRectMake(KScreenW - 50 -15 , self.tableView.height - 40 -64, 40, 40)];
+    WMDragView * flyView = [[WMDragView alloc] initWithFrame:CGRectMake(KScreenW - 50 -15 , self.tableView.height -64, 40, 40)];
     flyView.layer.cornerRadius = 20;
     flyView.backgroundColor = [UIColor whiteColor];
     [flyView.button setImage:[UIImage imageNamed:@"backTop"] forState:UIControlStateNormal];
@@ -290,6 +290,7 @@
      }
 
     _tbFootView.delegate = self;
+    _tbFootView.buynowView.userInteractionEnabled = NO;
     [self.view addSubview:_tbFootView];
     
     //收藏按钮
@@ -556,8 +557,7 @@
 
     switch (_goodParamType) {
         case GoodsParamTypeDetailContent:
-        {
-            //获取到H5的标签
+        {   //获取到H5的标签
             _webCell.labelhtml.hidden = NO;
             _webCell.htmlImg.hidden = YES;
             [self mas_MutableStringWithHTMLString:_htmlDivString];
@@ -565,22 +565,36 @@
         }
             break;
         case GoodsParamTypeSkuParam:
-            //规格详情
-        {
+        {//规格详情
             _webCell.htmlImg.hidden = NO;
             _webCell.labelhtml.hidden = YES;
-            [_webCell.htmlImg sd_setImageWithURL:[NSURL URLWithString:_htmlSkuParam] placeholderImage:nil options:SDWebImageRetryFailed completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (_htmlSkuParam.length > 0) {
+                //获取图片的宽高
+                [_webCell.htmlImg sd_setImageWithURL:[NSURL URLWithString:_htmlSkuParam] placeholderImage:[UIImage imageNamed:@"720x680"]];
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_htmlSkuParam]];
+                UIImage *image = [UIImage imageWithData:data];
                 CGSize size = image.size;
                 CGFloat w = size.width;
                 CGFloat h = size.height;
-                _skuParamHeight = h * KScreenW /w;
                 NSLog(@"w = %f, h =%f",w,h);
-            }];
+                _skuParamHeight = h * KScreenW /w;
+
+                //            [_webCell.htmlImg sd_setImageWithURL:[NSURL URLWithString:_htmlSkuParam] placeholderImage:nil options:SDWebImageRetryFailed completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                //                CGSize size = image.size;
+                //                CGFloat w = size.width;
+                //                CGFloat h = size.height;
+                //                _skuParamHeight = h * KScreenW /w;
+                //                NSLog(@"w = %f, h =%f",w,h);
+                //            }];
+            }else{
+                _skuParamHeight  =  320;
+                _webCell.htmlImg.image = [UIImage imageNamed:@"720x680"];
+            }
+
         }
             break;
         case GoodsParamTypePromiss:
-            //商家承诺
-        {
+        { //商家承诺
             _webCell.htmlImg.hidden = NO;
             _webCell.labelhtml.hidden = YES;
             _webCell.htmlImg.image = [UIImage imageNamed:@"商品承诺750"];
@@ -915,7 +929,6 @@
             NSMutableArray * goodslistArray  =[ NSMutableArray array];
             NSMutableDictionary * storedic = [NSMutableDictionary dictionary];
             NSMutableDictionary * goodsdic = [NSMutableDictionary dictionary];
-            
             [userGoodsInfoJSON removeAllObjects];
             
             [goodsdic setObject:self.selectedSkuArray forKey:@"goodsProp"];
@@ -1153,16 +1166,15 @@
 {
     if (BBUserDefault.isLogin == 1) {
         if (self.productSkuArray.count > 0) {//有规格
-            
+
             [self popActionView];
             
         }else{
             //没有规格 - 直接传值
             if ([_skuAmount intValue] > 0 || [_inventory intValue] > 0 ) {
-                
+                [self.noReluArray removeAllObjects];
                 //当规格为空的时候才组装下列数据
                 if ([self isEmptyArray:self.productSkuArray]) {
-                    
                     //---------------没有规格的数据------------------
                     NSMutableArray * goodsListArray    = [NSMutableArray array];
                     NSMutableDictionary * goodsListDic = [NSMutableDictionary dictionary];
@@ -1205,9 +1217,6 @@
                     vc.userGoodsInfoJSON = self.noReluArray;//没有规格的数组
                     [self.navigationController pushViewController:vc animated:YES];
                 }
-                
-
-                
             }else{
                 JXTAlertController * alertVC = [JXTAlertController alertControllerWithTitle:@"提示 " message:@"该商品已经没有库存了！" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction  * sure        = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -1437,10 +1446,14 @@
     //resultId    number    平台编号/商店编号/商品编号    是
     // userId    number    领优惠券用户编号    否
     // status    number    0 未领取 1 未使用 2 已使用 3 已失效    否
+    NSString * userId = BBUserDefault.cmUserId;
+    if ([userId isEqualToString:@""]) {
+        userId = @"0";
+    }
     NSDictionary * parma = @{
                              @"idType":@"3",
-                             @"resultId":@"",
-                             @"userId":BBUserDefault.cmUserId,
+                             @"resultId":_goodsId,
+                             @"userId":userId,
                              @"status":@"0",
                              @"pageIndex":[NSNumber numberWithInteger:self.currentPage],
                              @"pageSize":[NSNumber numberWithInteger:kPageCount],
@@ -1578,6 +1591,8 @@
                 [self getSkimFootprintsSavePostRequst];//获取到商品name后再加入足记
 
             }
+            //设置可购买
+            _tbFootView.buynowView.userInteractionEnabled = YES;
             [self appriaseToPostRequest];//评论列表
         }
         [SVProgressHUD dismiss];

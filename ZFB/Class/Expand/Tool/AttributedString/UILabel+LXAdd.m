@@ -123,10 +123,7 @@
         }
     }
     
-    
-    
     self.attributedText = attributedString;
-    
     CGRect rect = [attributedString boundingRectWithSize:CGSizeMake(maxWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
     
     return rect;

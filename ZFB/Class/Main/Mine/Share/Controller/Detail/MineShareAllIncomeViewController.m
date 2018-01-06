@@ -9,7 +9,8 @@
 #import "MineShareAllIncomeViewController.h"
 #import "MineShareIncomeCell.h"
 #import "ReviewingModel.h"
-#import "XLSlideMenu.h"
+#import "BandSelecteView.h"
+#define  k_cellHeight 210
 
 @interface MineShareAllIncomeViewController () <UITableViewDelegate,UITableViewDataSource,CYLTableViewPlaceHolderDelegate,WeChatStylePlaceHolderDelegate>
 
@@ -17,6 +18,7 @@
 @property (strong, nonatomic)  UITableView * tableView;
 @property (strong, nonatomic)  UIButton * edit_btn;
 @property (strong, nonatomic)  NSMutableArray * orderList;
+@property (strong, nonatomic)  NSArray * titles;
 
 @end
 
@@ -26,8 +28,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"我的共享";
-
+    self.title = @"分享佣金";
+    //0.全部 1.一个月前 2.一月前到三个月前 3.三个月前到六个月前 4.六个月前到一年前 5一年以前
+    _titles = @[@"全部",@"一个月前",@"一月前到三个月",@"三个月前",@"六个月前",@"一年以前"];
     [self.view addSubview:self.tableView];
     self.zfb_tableView = self.tableView;
     [self.tableView registerNib:[UINib nibWithNibName:@"MineShareIncomeCell" bundle:nil] forCellReuseIdentifier:@"MineShareIncomeCellid"];
@@ -57,15 +60,10 @@
 ////设置右边按键（如果没有右边 可以不重写）
 //-(UIButton*)set_rightButton
 //{
-//    NSString * saveStr = @"选择时间";
-//    _edit_btn = [[UIButton alloc]init];
-//    [_edit_btn setTitle:saveStr forState:UIControlStateNormal];
-//    _edit_btn.titleLabel.font=SYSTEMFONT(14);
-//    [_edit_btn setTitleColor:HEXCOLOR(0xfe6d6a)  forState:UIControlStateNormal];
-//    _edit_btn.titleLabel.textAlignment = NSTextAlignmentRight;
-//    CGSize size = [saveStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SYSTEMFONT(14),NSFontAttributeName, nil]];
-//    CGFloat width = size.width ;
-//    _edit_btn.frame =CGRectMake(0, 0, width+10, 22);
+//     _edit_btn = [[UIButton alloc]init];
+//    [_edit_btn setImage:[UIImage imageNamed:@"time"]  forState:UIControlStateNormal];
+//     _edit_btn.titleLabel.textAlignment = NSTextAlignmentRight;
+//    _edit_btn.frame =CGRectMake(0, 0, 22, 22);
 //    [_edit_btn addTarget:self action:@selector(didClickEditing:) forControlEvents:UIControlEventTouchUpInside];
 //    return _edit_btn;
 //}
@@ -79,6 +77,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.estimatedRowHeight = 0;
+        _tableView.backgroundColor = HEXCOLOR(0xf7f7f7);
         _tableView.separatorStyle =  UITableViewCellSelectionStyleNone;
     }
     return _tableView;
@@ -94,7 +93,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 104;
+    return k_cellHeight;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -114,9 +113,10 @@
 -(void)didClickEditing:(UIButton *) editing
 {
     NSLog(@"%@",editing);
-    
-    [self.xl_sldeMenu showRightViewControllerAnimated:true];
-
+//    BandSelecteView * popView = [[BandSelecteView alloc]initWithBandSelecteViewFrame:CGRectMake(0, 50, KScreenW, 210+50)];
+//    popView.delegate = self;
+//    popView.brandListArray = _titles;
+//    [self.view addSubview:popView];
 }
 
 #pragma mark  - 我的共享列表    myShare/allShareOrderList

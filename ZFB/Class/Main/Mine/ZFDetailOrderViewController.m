@@ -14,7 +14,7 @@
 #import "ZFOrderDetailPaycashCell.h"//付款
 #import "ZFOrderDetailSectionCell.h" //店铺名称
 #import "ZFOrderDetailGoosContentCell.h"//商品简要
-#import "ZFDetailsStoreViewController.h"//门店详情
+#import "MainStoreViewController.h"//门店详情
 //#import "DetailFindGoodsViewController.h"//商品详情
 #import "GoodsDeltailViewController.h"
 
@@ -151,7 +151,7 @@ static  NSString * kcontentDetailCellid = @"ZFOrderDetailGoosContentCellid";
 ///点击门店信息
 -(void)didClickStoreMessage
 {
-    ZFDetailsStoreViewController * storeVC= [ZFDetailsStoreViewController new];
+    MainStoreViewController * storeVC= [MainStoreViewController new];
     storeVC.storeId = _storeId;
     [self.navigationController pushViewController:storeVC animated:NO];
 }

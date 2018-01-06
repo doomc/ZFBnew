@@ -16,13 +16,15 @@
 #import "MainStoreViewController.h"
 
 //cell
-#import "FindStoreCell.h"
+//#import "FindStoreCell.h" (原来的)
+#import "HomePageStoreCell.h"
+#import "XHStarRateView.h"
 //model
 #import "HomeStoreListModel.h"
 //map
 #import "CLLocation+MPLocation.h"//火星坐标
 
-static NSString *CellIdentifier = @"FindStoreCellid";
+static NSString * cellIdentifier = @"HomePageStoreCell";
 
 @interface FindStoreViewController ()<UITableViewDataSource,UITableViewDelegate ,CLLocationManagerDelegate>
 {
@@ -66,9 +68,6 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     [self PostRequst];
    
     [self LocationMapManagerInit];
- 
- 
- 
     
 }
 
@@ -146,8 +145,8 @@ static NSString *CellIdentifier = @"FindStoreCellid";
     self.home_tableView.estimatedRowHeight = 0;
 
     [self.view addSubview:_home_tableView];
-    self.home_tableView.separatorStyle =UITableViewCellSeparatorStyleNone;
-    [self.home_tableView registerNib:[UINib nibWithNibName:@"FindStoreCell" bundle:nil] forCellReuseIdentifier:CellIdentifier];
+
+    [self.home_tableView registerNib:[UINib nibWithNibName:@"HomePageStoreCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
     self.zfb_tableView = self.home_tableView;
 }
 
@@ -200,14 +199,26 @@ static NSString *CellIdentifier = @"FindStoreCellid";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 210/375.0 *KScreenW +10;
+    return 120/375.0 *KScreenW ;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FindStoreCell *storeCell = [self.home_tableView  dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    HomePageStoreCell * storeCell = [self.home_tableView  dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     if (self.storeListArr.count > 0) {
         Findgoodslist * listModel =  self.storeListArr[indexPath.row];
         storeCell.findgoodslist = listModel;
+        
+        XHStarRateView * _wdStarView;
+        //初始化五星好评控件
+        if (!storeCell.xh_starView) {
+            _wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(0, 0, 70, 20) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
+            _wdStarView.currentScore =  listModel.starLevel;
+            [storeCell.starView  addSubview:_wdStarView];
+            storeCell.xh_starView = _wdStarView;
+ 
+        }
+        return storeCell;
+
     }
     return storeCell;
 }

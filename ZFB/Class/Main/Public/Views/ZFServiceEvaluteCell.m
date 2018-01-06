@@ -43,8 +43,8 @@
 ///提交
 - (IBAction)didClickCommitAction:(id)sender {
     
-    if ([self.delegate respondsToSelector:@selector(didClickCommit)]) {
-        [self.delegate didClickCommit];
+    if ([self.delegate respondsToSelector:@selector(didClickCommit:)]) {
+        [self.delegate didClickCommit:sender];
     }
 }
 

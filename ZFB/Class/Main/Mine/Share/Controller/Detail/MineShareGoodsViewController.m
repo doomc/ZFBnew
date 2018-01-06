@@ -8,7 +8,7 @@
 
 #import "MineShareGoodsViewController.h"
 #import "MineShareContentCell.h"
-#define cellHeight 92
+#define cellHeight 100
 @interface MineShareGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,CYLTableViewPlaceHolderDelegate,WeChatStylePlaceHolderDelegate>
 
 @property (strong, nonatomic)  UITableView * tableView;
@@ -21,10 +21,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"我的共享";
+    self.title = @"共享商品";
 
     [self.view addSubview:self.tableView];
-
     self.zfb_tableView = self.tableView;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"MineShareContentCell" bundle:nil] forCellReuseIdentifier:@"MineShareContentCellid"];
@@ -42,6 +41,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.estimatedRowHeight = 0;
+        _tableView.backgroundColor = HEXCOLOR(0xf7f7f7);
         _tableView.separatorStyle =  UITableViewCellSelectionStyleNone;
     }
     return _tableView;

@@ -71,7 +71,7 @@
 -(void)initWithEvaluate_tableView
 {
     
-    self.evaluate_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, KScreenW, KScreenH - 44) style:UITableViewStylePlain];
+    self.evaluate_tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, KScreenW, KScreenH - 64 - 44) style:UITableViewStylePlain];
     self.evaluate_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.evaluate_tableView.estimatedRowHeight = 0;
 
@@ -122,7 +122,7 @@
     cell.delegate = self;
     cell.infoList = info;
     //初始化五星好评控件info.goodsComment
-    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(KScreenW -  125-10, 10, 125, 25) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
+    XHStarRateView * wdStarView = [[XHStarRateView alloc]initWithFrame:CGRectMake(KScreenW -  80-10, 10, 80, 20) numberOfStars:5 rateStyle:WholeStar isAnination:YES delegate:self WithtouchEnable:NO littleStar:@"0"];//da星星
     wdStarView.currentScore = info.goodsComment;
  
     [cell addSubview:wdStarView];

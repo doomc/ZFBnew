@@ -20,7 +20,7 @@
 #import "ZFBaseNavigationViewController.h"
 #import "HomeSearchResultViewController.h"
 
-static float kCollectionViewMargin = 3.f;
+static float kCollectionViewMargin = 5.f;
 static float kLeftTableViewWidth = 80.f;
 
 @interface ZFClassifyCollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UISearchBarDelegate,YBPopupMenuDelegate>
@@ -70,7 +70,7 @@ static float kLeftTableViewWidth = 80.f;
     // Do any additional setup after loading the view.
     
     //创建titleView
-    _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 40, 44)];
+    _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 50, 44)];
     self.navigationItem.titleView = _titleView;
 //    [_titleView addSubview:self.selectbutton];
     [_titleView addSubview:self.searchBar];
@@ -105,7 +105,7 @@ static float kLeftTableViewWidth = 80.f;
 -(UISearchBar *)searchBar
 {
     if (!_searchBar) {
-        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(50, 0, KScreenW - 2*50, 44)];
+        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, KScreenW - 50, 40)];
         _searchBar.delegate = self;
         _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
         _searchBar.placeholder =@"搜索";
@@ -149,8 +149,8 @@ static float kLeftTableViewWidth = 80.f;
     {
         _flowLayout = [[ZFCollectionViewFlowLayout alloc] init];
         _flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        _flowLayout.minimumInteritemSpacing = 2;
-        _flowLayout.minimumLineSpacing = 2;
+        _flowLayout.minimumInteritemSpacing = 5;
+        _flowLayout.minimumLineSpacing = 5;
     }
     return _flowLayout;
 }
@@ -246,7 +246,8 @@ static float kLeftTableViewWidth = 80.f;
 {
 //    return CGSizeMake((KScreenW - kLeftTableViewWidth -20 - 4 * kCollectionViewMargin) / 3,
 //                      (KScreenW - kLeftTableViewWidth -20 - 4 * kCollectionViewMargin) / 3 + 30);
-    return CGSizeMake(84,84);
+//    return CGSizeMake(84,84);
+    return CGSizeMake( (KScreenW - kLeftTableViewWidth - 20) / 3.0 - 1,  50 + 10 + 20);
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView

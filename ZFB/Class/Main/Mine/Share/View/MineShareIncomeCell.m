@@ -22,24 +22,27 @@
 -(void)setAllReviewData:(ReViewData *)allReviewData
 {
     _allReviewData = allReviewData;
-    _lb_orderNum.text = [NSString stringWithFormat:@"订单号：%@",allReviewData.goodsNum];
+    _lb_orderNum.text = [NSString stringWithFormat:@"商品编号：%@",allReviewData.goodsNum];
     _lb_time.text = allReviewData.createTime;
     _lb_title.text = allReviewData.goodsName;//错误字段
+    _lb_price.text = [NSString stringWithFormat:@"商品金额:%@元",allReviewData.price];
     _lb_reword.text = [NSString stringWithFormat:@"奖励:%@元",allReviewData.reward];
     [_headImg sd_setImageWithURL:[NSURL URLWithString:allReviewData.imgUrls] placeholderImage:[UIImage imageNamed:@""]];
-    
+    _lb_goodsNum.text = [NSString stringWithFormat:@"x%ld",allReviewData.goodsCount];
 }
  
 //今日收入的
 -(void)setTodayReviewData:(ReViewData *)todayReviewData
 {
     _todayReviewData = todayReviewData;
-    _lb_orderNum.text = [NSString stringWithFormat:@"订单号：%@",todayReviewData.goodsNum];
+    _lb_orderNum.text = [NSString stringWithFormat:@"商品编号：%@",todayReviewData.goodsNum];
     _lb_time.text = todayReviewData.createTime;
     _lb_title.text = todayReviewData.goodsName;
-    _lb_reword.text = [NSString stringWithFormat:@"商品金额:%@元  奖励:%@元",todayReviewData.price,todayReviewData.reward];
+    _lb_price.text = [NSString stringWithFormat:@"商品金额:%@元",todayReviewData.price];
+    _lb_reword.text = [NSString stringWithFormat:@"奖励金额:%@元",todayReviewData.reward];
     [_headImg sd_setImageWithURL:[NSURL URLWithString:todayReviewData.imgUrls] placeholderImage:[UIImage imageNamed:@""]];
-    
+    _lb_goodsNum.text = [NSString stringWithFormat:@"x%ld",todayReviewData.goodsCount];
+
     
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -18,7 +18,7 @@
     self.canUsedCouponNum.layer.masksToBounds = YES;
     self.canUsedCouponNum.layer.cornerRadius = 2;
     self.canUsedCouponNum.layer.borderWidth = 0.5;
-    self.canUsedCouponNum.layer.borderColor = HEXCOLOR(0xf95a70).CGColor;
+    self.canUsedCouponNum.layer.borderColor = HEXCOLOR(0xB80C2F).CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -93,11 +93,9 @@
     _mapView.showsCompass = NO;
     // 不显示比例尺
     _mapView.showsScale = NO;
-    
     ///如果您需要进入地图就显示定位小蓝点，则需要下面两行代码
     _mapView.showsUserLocation = YES;
     _mapView.userTrackingMode  = MAUserTrackingModeFollow;
-    
     [AMapServices sharedServices].enableHTTPS = YES;
     [self.view addSubview:_mapView];
     
@@ -116,7 +114,7 @@
 //初始化atableview
 - (void)initTableView
 {
-    self.zfb_tableView          = [[UITableView alloc] initWithFrame:CGRectMake(0, 300, KScreenW, 6 * 55 -50) style:UITableViewStylePlain];
+    self.zfb_tableView          = [[UITableView alloc] initWithFrame:CGRectMake(0, _mapView.bounds.size.height-64, KScreenW,KScreenH -300 ) style:UITableViewStylePlain];
     self.zfb_tableView.delegate = self;
     self.zfb_tableView.dataSource = self;
     [self.view addSubview:self.zfb_tableView];
@@ -266,7 +264,7 @@
 //     医疗保健服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|
 //     交通设施服务|金融保险服务|公司企业|道路附属设施|地名地址信息|公共设施
     request.types = @"汽车服务|汽车销售|汽车维修|摩托车服务|餐饮服务|购物服务|生活服务|体育休闲服务|医疗保健服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|交通设施服务|金融保险服务|公司企业|道路附属设施|地名地址信息|公共设施";
-    request.radius =  500;//<! 查询半径，范围：0-50000，单位：米 [default = 3000]
+    request.radius =  500;// 查询半径，范围：0-50000，单位：米 [default = 3000]
     request.sortrule = 0;
     request.requireExtension = YES;
     

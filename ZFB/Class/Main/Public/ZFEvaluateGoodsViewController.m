@@ -10,7 +10,7 @@
 #import "ZFEvaluateGoodsViewController.h"
 #import "ZFServiceEvaluteCell.h"
 #import "ZFEvaluateGoodsCell.h"
-
+#import "UIButton+HETouch.h"
 
 @interface ZFEvaluateGoodsViewController () <UITableViewDelegate,UITableViewDataSource ,ZFEvaluateGoodsCellDelegate,ZFServiceEvaluteCellDelegate,XHStarRateViewDelegate>
 {
@@ -23,6 +23,7 @@
     NSString * _score;//评分
     NSString * _speedScore;//送货速度
     NSString * _serviceScore;//服务态度
+    NSString * _imgUrlString;//图片地址
 
 }
 @property (nonatomic,strong) UITableView * tableview;
@@ -161,68 +162,63 @@
 
 #pragma mark - ZFServiceEvaluteCellDelegate
 //提交
--(void)didClickCommit
+-(void)didClickCommit:(UIButton*)sender
 {
-    if (_isCommited == YES) {//如果还没有提交
+    [sender he_timeInterval];
+    if (_isCommited == YES) {
         return;
     }
     _isCommited = YES;
-
-    [SVProgressHUD showWithStatus:@"正在提交"];
+    [SVProgressHUD show];
     if (_upImgArray.count > 0) {
         [OSSImageUploader asyncUploadImages:_upImgArray complete:^(NSArray<NSString *> *names, UploadImageState state) {
             if (state == 1) {
                 NSLog(@"点击提交了 _images = %@",names);
-                NSMutableArray * reviewsJsonArr = [NSMutableArray array];
-                NSMutableDictionary * jsondic =[NSMutableDictionary dictionary];
-                NSString * imgUrlString = [names componentsJoinedByString:@","];
-                
-                [jsondic setValue:_score forKey:@"goodsComment"];//评分评级得分 1到5分
-                [jsondic setValue:_textViewValues forKey:@"reviewsText"];
-                [jsondic setValue:imgUrlString forKey:@"reviewsImgUrl"];
-                [jsondic setValue:_imgComment forKey:@"imgComment"];
-                [jsondic setValue:_goodId forKey:@"goodsId"];
-                [reviewsJsonArr addObject:jsondic];
-                
-                if ([_textViewValues isEqualToString:@""] || _textViewValues == nil) {
-                    
-                    [self.view makeToast:@"请填写完评价信息后再提交" duration:2 position:@"center"];
-                    
+                [SVProgressHUD dismiss];
+                _imgUrlString = [names componentsJoinedByString:@","];                
+                if (_textViewValues.length > 0 && _speedScore.length > 0  && _score.length > 0 && _serviceScore.length > 0) {
+                    [self commitedPost];
                 }else{
-                    [self insertGoodsCommentPost:[NSArray arrayWithArray:reviewsJsonArr]];
+                    [self.view makeToast:@"您还没有评分或评价信息" duration:2 position:@"center"];
                 }
             }
         }];
  
     }else{
-        
-        NSMutableArray * reviewsJsonArr = [NSMutableArray array];
-        NSMutableDictionary * jsondic =[NSMutableDictionary dictionary];
-        
-        [jsondic setValue:_score forKey:@"goodsComment"];//评分评级得分 1到5分
-        [jsondic setValue:_textViewValues forKey:@"reviewsText"];
-        [jsondic setValue:@"" forKey:@"reviewsImgUrl"];
-        [jsondic setValue:_imgComment forKey:@"imgComment"];
-        [jsondic setValue:_goodId forKey:@"goodsId"];
-        [reviewsJsonArr addObject:jsondic];
-        
-        if ([_textViewValues isEqualToString:@""] || _textViewValues == nil) {
-            
-            [self.view makeToast:@"请填写完评价信息后再提交" duration:2 position:@"center"];
-            
+        if (_textViewValues.length > 0 && _speedScore.length > 0  && _score.length > 0  && _serviceScore.length > 0) {
+            [SVProgressHUD dismiss];
+            [self commitedPost];
         }else{
-            [self insertGoodsCommentPost:[NSArray arrayWithArray:reviewsJsonArr]];
+            [self.view makeToast:@"您还没有评分或评价信息" duration:2 position:@"center"];
         }
-
+       
     }
-   
-    
 }
 
+-(void)commitedPost
+{
+    NSMutableArray * reviewsJsonArr = [NSMutableArray array];
+    NSMutableDictionary * jsondic =[NSMutableDictionary dictionary];
+    
+    [jsondic setValue:_score forKey:@"goodsComment"];//评分评级得分 1到5分
+    [jsondic setValue:_textViewValues forKey:@"reviewsText"];
+    [jsondic setValue:_imgComment forKey:@"imgComment"];
+    [jsondic setValue:_goodId forKey:@"goodsId"];
+    if (_imgUrlString.length > 0) {
+        [jsondic setValue:_imgUrlString forKey:@"reviewsImgUrl"];
+    }else{
+        [jsondic setValue:@"" forKey:@"reviewsImgUrl"];
+    }
+    [reviewsJsonArr addObject:jsondic];
+    [self insertGoodsCommentPost:[NSArray arrayWithArray:reviewsJsonArr]];
+
+
+}
 #pragma mark  - insertGoodsComment 晒单的接口
 -(void)insertGoodsCommentPost:(NSArray*)reviewsJson
 {
- 
+    
+    [SVProgressHUD showWithStatus:@"正在提交"];
     NSDictionary * parma = @{
                              @"cmUserId":BBUserDefault.cmUserId,
                              @"equip":_deviceName,//获取手机
@@ -242,19 +238,9 @@
             [SVProgressHUD showSuccessWithStatus:@"晒单成功!"];
             _isCommited = NO;//提交成功后返回默认
 
-            JXTAlertController * alertvc = [JXTAlertController alertControllerWithTitle:@"评价成功,马上返回？" message:nil preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction * sure = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self backAction];
-            }];
-            UIAlertAction * cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                
-            }];
-            [alertvc addAction:sure];
-            [alertvc addAction:cancle];
-            [self presentViewController:alertvc animated:YES completion:^{
-                
-            }];
+            });
         }
         
     } progress:^(NSProgress *progeress) {
