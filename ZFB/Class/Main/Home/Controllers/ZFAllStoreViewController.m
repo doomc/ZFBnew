@@ -205,6 +205,15 @@
 {
     
     NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
+    NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
+    NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
+    NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
+    NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
+    NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
+    NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
+    NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
+    NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
+    NSLog(@" section1==== %ld ,row1 ====  %ld",indexPath.section ,indexPath.row);
     MainStoreViewController *  stroeVC =[[ MainStoreViewController alloc]init];
     Findgoodslists * storelist = self.allStoreArray[indexPath.row];
     stroeVC.storeId = [NSString stringWithFormat:@"%ld",storelist.storeId];
